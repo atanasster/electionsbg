@@ -23,6 +23,10 @@ digitalization, and the procurement money behind e-government.
 > hook all already exist (less work than §4 implied). Eight gaps found — one design decision (G7,
 > generic screen is procurement-led but administration is institution-led) must be settled before
 > the first edit. See §1.5.
+>
+> **Rev 3.1 (2026-07-14) — G7 LOCKED: bespoke institution-first screen.** Administration leaves the
+> generic `SECTOR_DASHBOARDS` and gets its own screen at `/sector/administration` (like
+> water/defense/culture) — institution first, procurement folded lower. §4 rewritten accordingly.
 
 ---
 
@@ -47,11 +51,10 @@ quality, the EU digital gap, and the money.
 - **The institution data is already ingested** — `data/budget/personnel.json` (the annual *Доклад
   за състоянието на администрацията*, 2017–2025) + `data/cofog.json` GF01. See §3.
 
-**What is missing (this plan's work):** (a) expand the single МЕУ member into the real
-**e-government EIK group** so the money rollup is meaningful; (b) ship bespoke
-**`AdministrationThematicTiles`** — the institution/quality/digital signature tiles the generic
-KPI row can't express; (c) the quality + digital data ingests (§3 Tiers 1–3); (d) scene/OG/prerender
-copy. No new screen, no new route.
+**What is missing (this plan's work):** (a) a **bespoke institution-first screen** at
+`/sector/administration` (G7 locked, §4) replacing the generic procurement-led one; (b) expand the
+single МЕУ member into the real **e-government EIK group** so the folded money section is meaningful;
+(c) the quality + digital data ingests (§3 Tiers 1–3). Scene/prerender/i18n base already exist (§1.5).
 
 ## 1.5 Pre-build readiness audit (rev 3.0 — settle G7 before the first edit)
 
@@ -76,7 +79,7 @@ copy. No new screen, no new route.
 
 | # | Sev | Gap | Fix | Phase |
 |---|---|---|---|---|
-| **G7** | **design** | `SectorDashboardScreen` order is ScopeControl → **procurement KPI row** → ThematicTiles → Awarders. МЕУ's procurement is tiny, so the €-KPIs **lead and bury** the institution story (145 623 headcount). The generic screen is procurement-led; administration is institution-led. | **Decide before building:** (a) accept generic order, carry the story in ThematicTiles; (b) add a `heroTiles` slot above the KPI row to the framework; or (c) make administration a **bespoke screen** (like water/defense/culture) that leads with the institution. Recommend (b) or (c). | **pre-P1** |
+| **G7** | **RESOLVED** | Generic `SectorDashboardScreen` leads with МЕУ's tiny procurement KPIs and buries the institution story. | **LOCKED → option (c): bespoke institution-first screen** (see §4). Removes administration from `SECTOR_DASHBOARDS`; own `<ScopeControl>` + band order; procurement folds in lower via the group model. | done |
 | G1 | med | Decade-divergence (Tile 1): headcount is **2017–2025 only** (`DOKLAD_FILE_IDS` starts 2017); can't chart the IPI "since 2015" axis. | Chart 2017–2025; relabel honestly; cite the IPI 2015–2025 "+10%" as a **text callout**, not the axis. | P1 |
 | G2 | med | Tiles 1–2 population: **no first-class annual population series** (macro.json lacks one). | Derive `pop = nominalGdp / gdpPerCapita` (both annual in macro.json) or sum `regional.json` oblast pop; **label as derived**. | P1 |
 | G3 | med (honesty) | Tile 2 "cost of administration" uses **GF01 = general public services, which includes public-debt interest + foreign affairs** — not pure administration; `cofog.json` is top-level only (no sub-function to net out debt). | Relabel "Общи държавни служби (вкл. обслужване на дълга)" + caveat chip; optionally add the personnel **wage bill** (from budget) as a truer admin-cost proxy. | P1 |
@@ -112,7 +115,7 @@ the e-government spend (counts = buyerName occurrences in `data/procurement`):
 - **The institution is horizontal.** "Административно обслужване" is performed by all ~590
   structures, not one buyer. So the *money* view is the e-gov trio (procurement); the
   *institution* view (headcount/cost/quality/digital) comes from `personnel.json` + Eurostat +
-  the Доклад — rendered as `AdministrationThematicTiles`, independent of the EIK rollup.
+  the Доклад — rendered as the bespoke screen's lead sections (§4), independent of the EIK rollup.
 
 ## 3. Data sources, tiered by ingest cost
 
@@ -141,34 +144,41 @@ the e-government spend (counts = buyerName occurrences in `data/procurement`):
   - **eGov usage** — `analytics.egov.bg` / Единен модел statistics: live e-service counts +
     e-application volumes by provider/type/channel (monthly).
 
-## 4. Architecture — reuse the shipped grammar (two-phase)
+## 4. Architecture — bespoke institution-first screen (G7 LOCKED)
 
-### Phase 1 — config + thematic tiles from data in hand (no ingest, no screen)
+**Decision (G7):** administration gets its **own bespoke screen** — institution-first — like
+water/defense/culture/judiciary/pensions/education, NOT the generic procurement-led
+`SectorDashboardScreen`. МЕУ's procurement is a footnote; the 145 623-headcount / EU-last-on-e-gov
+institution is the lede, so we own the band order. Procurement folds in as a lower section via the
+e-gov group model. This also resolves the scope-label nuance (per-section scope context is ours).
+
+### Phase 1 — bespoke screen from data in hand (no ingest)
 
 Files to touch (tourism §9 checklist format):
 
 | Concern | File | Change |
 |---|---|---|
-| Buyer allowlist | `src/lib/administrationReferenceData.ts` **(new)** | `ADMIN_SECTOR_EIKS` (МЕУ+ИА ИЕУ+ДАЕУ), lead const, member names |
-| Sector config | `src/screens/sector/sectorDashboards.ts` | expand `administration.members` to the trio; set `ThematicTiles: AdministrationThematicTiles` (lazy) |
+| Buyer allowlist + names | `src/lib/administrationReferenceData.ts` **(new)** | `ADMIN_SECTOR_EIKS` (МЕУ 180680495 + ИА ИЕУ 180742160 + ДАЕУ 177098809), lead const, member names, + the ~7 `byMinistry` slug→`{bg,en}` map (G4) |
+| **Bespoke screen** | `src/screens/administration/AdministrationScreen.tsx` **(new)** + tiles under it | institution-first band order (§5: institution → quality → digital → **then** money → context); owns its `<ScopeControl>`; reuses `PackSection`/`StatCard`/`SectorCharts` |
+| Route | `src/routes.tsx` | add static `<Route path="sector/administration" element={<AdministrationScreen/>}>` **before** the `sector/:id` catch (static wins), preserving the `/sector/administration` URL + OG + prerender |
+| Drop from generic | `src/screens/sector/sectorDashboards.ts` | **remove** the `administration` entry from `SECTOR_DASHBOARDS` (bespoke screens aren't listed there — mirrors water/defense/culture); keep `ADMIN_EIK` export |
+| Registry link | `src/screens/governance/sectorRegistry.ts` | `to:"/sector/administration"` unchanged (now points at the bespoke screen) |
+| Personnel hook | — | **REUSE existing `usePersonnel()`** (`useBudget.tsx:156`); do not add a hook (G-audit) |
+| Procurement money | — | `useAwarderGroupModel(ADMIN_SECTOR_EIKS, buildAwarderModelFromAggregates, undefined, true)` in the money section (shares the fetch) |
+| Scope helper | `src/data/administration/scopeOverview.ts` **(new)** | pure `scopeAdminYear(personnel, year)` (§6); population derived `nominalGdp/gdpPerCapita` (G2) |
 | Browse filter | `src/screens/components/procurement/sectorPacks.tsx` | point `SECTOR_BROWSE_PACKS.administration` at `ADMIN_SECTOR_EIKS` |
 | Hub tile € | `scripts/db/gen_procurement/sector_stats.ts` | `administration: [...ADMIN_SECTOR_EIKS]`; rerun `npm run db:gen-sector-stats` |
-| Thematic tiles | `src/screens/sector/administration/AdministrationThematicTiles.tsx` **(new)** + sub-tiles | signature tiles (§5) off `personnel.json` + `cofog.json` |
-| Data hook | — | **REUSE existing `usePersonnel()`** (`useBudget.tsx:156`); do not add a hook (G-audit) |
-| Scope helper | `src/data/administration/scopeOverview.ts` **(new)** | pure `scopeAdminYear(personnel, year)` (§6); population derived `nominalGdp/gdpPerCapita` (G2) |
-| Ministry names | `src/lib/administrationReferenceData.ts` | hand-map the ~7 `byMinistry` slug `adminId`s → `{bg,en}` for Tile 5 (G4) |
-| Hub scene | — | already exists (`sectorScenes.tsx:714`) — no work (G-audit) |
-| i18n | `src/locales/{bg,en}/translation.json` (+ `public/locales/*`) | only NEW tile strings (`sector_admin_*` already exist) |
-| OG card | `public/og/sector-administration.png` | re-run `scripts/og/screenshot_sectors.ts` after tiles land |
-| Prerender copy | — | already exists (`routes.ts:635`) — no work (G-audit) |
+| Hub scene / prerender / i18n base | — | already exist (`sectorScenes.tsx:714`, `routes.ts:635`, `sector_admin_*`) — no base work (G-audit) |
+| i18n (new) | `src/locales/{bg,en}/translation.json` (+ `public/locales/*`) | NEW per-tile strings only |
+| OG card | `public/og/sector-administration.png` | re-run `scripts/og/screenshot_sectors.ts` after the screen lands |
 | Data map | `scripts/data_map/model.ts` | ADD feature node `route:/sector/administration` + personnel DATASET + edges (G6) |
 | recent_updates | via `ingest_changelog.ts` path | changelog row for the personnel/administration dataset |
 
-Sitemap needs no edit (auto from `SECTOR_DASHBOARD_IDS`); route/server need no edit.
+Sitemap needs no edit (`/sector/administration` already in `SECTOR_DASHBOARD_IDS`); server needs no edit.
 
-Phase 1 realizes the top-ranked wins (§8 #1, #3, #6): the config expansion + tiles 1–5 with the
-decade-divergence OG hero, laid out on the OECD input→process→output→outcome spine. Ships with no
-ingest and no screen code.
+Phase 1 realizes the top-ranked wins (§8 #1, #3, #6): the bespoke institution-first screen with the
+decade-divergence OG hero (tiles 1–5), laid out on the OECD input→process→output→outcome spine.
+No ingest.
 
 ### Phase 2+ — the sequenced roadmap (each slice self-contained; ordered by §8 impact/cost)
 
@@ -231,10 +241,10 @@ band with a stable deep-link id. Provenance tagged ● real / ◐ needs-ingest.
 
 ## 6. Date scoping — how `?pscope` flows here (the requirement)
 
-The framework already renders the filter and resolves the window — nothing bespoke:
+The bespoke screen reuses the framework's scope primitives — nothing new to invent:
 
-- `SectorDashboardScreen` renders `<ScopeControl mode="toggle" />` (URL-backed `?pscope`,
-  vocabulary `ns | all | y:YYYY`) and derives `scopeWindow = useScopeWindow()`.
+- `AdministrationScreen` renders its own `<ScopeControl mode="toggle" />` (URL-backed `?pscope`,
+  vocabulary `ns | all | y:YYYY`) and derives `scopeWindow = useScopeWindow()` + `year = scopeYear(scope)`.
 - **Money tiles (14–15):** the generic KPI row + any procurement-derived thematic tile call
   `useAwarderGroupModel(ADMIN_SECTOR_EIKS, …, windowOverride=undefined)`, which falls back to the
   URL scope → they **re-window on `?pscope`** automatically. No work.
@@ -291,6 +301,8 @@ it — not a floating recommendation.
 ## 9. Decisions
 
 **Locked (settled by the priorities above):**
+- **Bespoke institution-first screen** (G7) — administration leaves `SECTOR_DASHBOARDS` and gets its
+  own screen at `/sector/administration`; procurement folds in as a lower section (§4).
 - **Fold the e-gov trio** (МЕУ + ИА ИЕУ + ДАЕУ 177098809), history included — energy folds its
   subsidiaries and defense folds 25 units; precedent says fold, and the legacy spend is the point.
 - **OECD input→process→output→outcome** is the band order (§5).
