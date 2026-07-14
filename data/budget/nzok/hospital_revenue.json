@@ -1,0 +1,3839 @@
+{
+ "generatedAt": "2026-07-14T09:57:46.860Z",
+ "source": {
+  "documents": "Годишни финансови отчети (ГФО), Търговски регистър — portal.registryagency.bg/CR/api/Documents/{ActID} (лиценз CC-BY)",
+  "discovery": "ActID на всеки ГФО акт е взет от отворените данни на Търговския регистър (data.egov.bg daily feed)",
+  "extraction": "Отчетът за приходите и разходите (ОПР) е разчетен с Gemini Vision OCR — ред 18000 „Общо приходи“ (приход) и 15100 „Нетни приходи от продажби“. Стойностите са в евро (от хил. лв. при 1 EUR = 1.95583 BGN).",
+  "note": "Само частни лечебни заведения (държавните/общинските подават ЕЕОФ към МЗ). nzokShare = НЗОК плащания / приход за същата година (само 2023-2025, където има данни). Клетки с НЗОК > 1.15× приход (вероятно OCR грешка или ГФО на свързано лице, напр. ДКЦ вместо МБАЛ) са изключени."
+ },
+ "currency": "EUR",
+ "coverage": {
+  "2019": 118,
+  "2020": 124,
+  "2021": 118,
+  "2022": 120,
+  "2023": 86,
+  "2024": 43,
+  "2025": 2
+ },
+ "hospitalCount": 127,
+ "hospitalYears": 611,
+ "hospitals": {
+  "101522447": {
+   "name": "МБАЛ Югозападна болница ООД",
+   "years": {
+    "2020": {
+     "revenueEur": 9597460,
+     "netSalesEur": 6379900,
+     "actId": "280814235a0742c6a79d0a1e7df2f0d6"
+    },
+    "2021": {
+     "revenueEur": 11668703,
+     "netSalesEur": 6853868,
+     "actId": "52dc82ac8c894789a443f23d218223f4"
+    },
+    "2022": {
+     "revenueEur": 11022942,
+     "netSalesEur": 7411687,
+     "actId": "b35b465259104b0daa7b53a3f6c3da66"
+    }
+   }
+  },
+  "101533900": {
+   "name": "СБАЛО Свети мина ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 4006483,
+     "netSalesEur": 2828467,
+     "actId": "70a236ece85943bba844ed9205075bd8"
+    },
+    "2020": {
+     "revenueEur": 4248836,
+     "netSalesEur": 4219692,
+     "actId": "7944985044cd43dc94866501143f6c76"
+    },
+    "2021": {
+     "revenueEur": 5523997,
+     "netSalesEur": 1852922,
+     "actId": "f917de39e7634c31af11f26806c4411c"
+    },
+    "2022": {
+     "revenueEur": 5834863,
+     "netSalesEur": 2399493,
+     "actId": "fb520b1f98474354b4cbc2e4efd3ed7e"
+    },
+    "2023": {
+     "revenueEur": 7697499,
+     "netSalesEur": 3079511,
+     "actId": "9d113b960a014dd993d07b05afe98378",
+     "nzokShare": 0.9
+    }
+   }
+  },
+  "101615428": {
+   "name": "МЦ Надежда ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 81295,
+     "netSalesEur": 81295,
+     "actId": "a55c12c758e148b486558a3fadb48f3c"
+    },
+    "2020": {
+     "revenueEur": 100725,
+     "netSalesEur": 100725,
+     "actId": "9e350a6213b54942acccfc2912bf8eac"
+    },
+    "2021": {
+     "revenueEur": 83852,
+     "netSalesEur": 83852,
+     "actId": "580d81e28aa049e3a85abebb463131dd"
+    },
+    "2022": {
+     "revenueEur": 106860,
+     "netSalesEur": 105837,
+     "actId": "120b31cc9f9e43aca47d6d250c3a7828"
+    },
+    "2023": {
+     "revenueEur": 120154,
+     "netSalesEur": 120154,
+     "actId": "e59e4707108a4c989c69bd507410c173",
+     "nzokShare": 0.81
+    },
+    "2024": {
+     "revenueEur": 150320,
+     "netSalesEur": 150320,
+     "actId": "57017f700a454fd48a3ed4f6a3033b62",
+     "nzokShare": 0.87
+    }
+   }
+  },
+  "102627700": {
+   "name": "МЦ ОКСИКОМ ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 681552,
+     "netSalesEur": 674905,
+     "actId": "853e6566f6274d89b072bc5ea597fc7f"
+    },
+    "2020": {
+     "revenueEur": 548616,
+     "netSalesEur": 521518,
+     "actId": "4f59c8b546814fb792aa600bd40d43ed"
+    },
+    "2021": {
+     "revenueEur": 627866,
+     "netSalesEur": 627866,
+     "actId": "9a96594461c144e5ba06163ef30ed977"
+    },
+    "2022": {
+     "revenueEur": 916235,
+     "netSalesEur": 885046,
+     "actId": "6a93518cf1d4450f9f247544ea8b39fa"
+    }
+   }
+  },
+  "102835135": {
+   "name": "СБР-Несебър АД",
+   "years": {
+    "2019": {
+     "revenueEur": 1447467,
+     "netSalesEur": 1447467,
+     "actId": "141bf887c818462caa5306af6c656fd6"
+    },
+    "2020": {
+     "revenueEur": 1515980,
+     "netSalesEur": 1287433,
+     "actId": "80998ac178d741c4b69da816265646b0"
+    },
+    "2021": {
+     "revenueEur": 2448066,
+     "netSalesEur": 2145892,
+     "actId": "c7546d92192047bd8cb5068521a14748"
+    },
+    "2022": {
+     "revenueEur": 2794210,
+     "netSalesEur": 2641845,
+     "actId": "d27af418712a46828c4396882b055c87"
+    },
+    "2023": {
+     "revenueEur": 3180236,
+     "netSalesEur": 3171544,
+     "actId": "a1ec73455a1a49748f57c06f906628a2",
+     "nzokShare": 0.98
+    },
+    "2024": {
+     "revenueEur": 3774357,
+     "netSalesEur": 3767199,
+     "actId": "cd47b92b0fd8474e9729aac126121e7f",
+     "nzokShare": 0.9
+    }
+   }
+  },
+  "102891276": {
+   "name": "МЦСП Д-р Иванови-Младост ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 311377,
+     "netSalesEur": 311377,
+     "actId": "5dd242ef98414ee8b028c44f10487cb0"
+    },
+    "2020": {
+     "revenueEur": 315467,
+     "netSalesEur": 290414,
+     "actId": "0e7c1e317afd44df838daa7ad2b61a74"
+    },
+    "2021": {
+     "revenueEur": 423861,
+     "netSalesEur": 397274,
+     "actId": "2cd966d8c4dc40fbbfa76b6c7487aca8"
+    },
+    "2022": {
+     "revenueEur": 493908,
+     "netSalesEur": 482148,
+     "actId": "67698f697ca6428692cbb16eb436bcb8"
+    }
+   }
+  },
+  "103263000": {
+   "name": "СОБАЛ - доц. Георгиев ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 421305,
+     "netSalesEur": 370175,
+     "actId": "7b05279316354b73a2d3befeec93e6a3"
+    },
+    "2020": {
+     "revenueEur": 410567,
+     "netSalesEur": 359438,
+     "actId": "9a50eb079e3445e295b07a215ddd872a"
+    },
+    "2021": {
+     "revenueEur": 556286,
+     "netSalesEur": 355859,
+     "actId": "6f5d1c6a189143b7981f8dc2d0f4e0ad"
+    },
+    "2022": {
+     "revenueEur": 311888,
+     "netSalesEur": 250533,
+     "actId": "4133850a4ce14000b3cea800bd43d03a"
+    },
+    "2023": {
+     "revenueEur": 236728,
+     "netSalesEur": 234683,
+     "actId": "9c31e1a72d9949d8b9ee4b3d6cfa077b",
+     "nzokShare": 0.41
+    }
+   }
+  },
+  "103552026": {
+   "name": "\"СБР - ВАРНА\" АД",
+   "years": {
+    "2019": {
+     "revenueEur": 1153474,
+     "netSalesEur": 1116661,
+     "actId": "931a3ea6d2c64a42ab5fe23113b1d922"
+    },
+    "2020": {
+     "revenueEur": 1142737,
+     "netSalesEur": 1119729,
+     "actId": "eead4e2a94d54765b9b5fb0438bcfa82"
+    },
+    "2021": {
+     "revenueEur": 1506777,
+     "netSalesEur": 1471498,
+     "actId": "0c912d986e244c8e895c35e8791c98f0"
+    },
+    "2022": {
+     "revenueEur": 1507800,
+     "netSalesEur": 1454114,
+     "actId": "2ec8eda5966d4af8bd1a289cd8ddc7a4"
+    },
+    "2023": {
+     "revenueEur": 1762934,
+     "netSalesEur": 1749641,
+     "actId": "f1747ec973144e01b08670375a76b3a8",
+     "nzokShare": 0.61
+    },
+    "2024": {
+     "revenueEur": 1956203,
+     "netSalesEur": 1877975,
+     "actId": "30cb5b57416c4aceb5717d7222833c8e",
+     "nzokShare": 0.59
+    }
+   }
+  },
+  "103929677": {
+   "name": "МБАЛ Еврохоспитал ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 2278317,
+     "netSalesEur": 2233323,
+     "actId": "931970be5e1a4822b110bebfa4fd8b57"
+    },
+    "2020": {
+     "revenueEur": 1988414,
+     "netSalesEur": 1911720,
+     "actId": "5d7a2cb214f445f48d291478730770b2"
+    },
+    "2021": {
+     "revenueEur": 2472608,
+     "netSalesEur": 2149982,
+     "actId": "480cff8cd77f496585a3bc7765f0eeae"
+    },
+    "2022": {
+     "revenueEur": 3808613,
+     "netSalesEur": 3629661,
+     "actId": "07c42ce558134fb381101f52f8da22e8"
+    },
+    "2023": {
+     "revenueEur": 4408870,
+     "netSalesEur": 4373591,
+     "actId": "513279c146904693aa7bf505cb350c2e",
+     "nzokShare": 0.49
+    },
+    "2024": {
+     "revenueEur": 5556209,
+     "netSalesEur": 5504057,
+     "actId": "4ec72c1c1eea456c86a3b2bd291a4f25",
+     "nzokShare": 0.53
+    }
+   }
+  },
+  "104655851": {
+   "name": "МЦСМП Визус ЕООД - Горна Оряховица",
+   "years": {
+    "2020": {
+     "revenueEur": 372220,
+     "netSalesEur": 351258,
+     "actId": "7c5b9b451ecb494489cce7ef29929ba3"
+    },
+    "2021": {
+     "revenueEur": 542992,
+     "netSalesEur": 516916,
+     "actId": "2e16d2d5c35a458594371cc0301e4ddd"
+    },
+    "2022": {
+     "revenueEur": 761314,
+     "netSalesEur": 757735,
+     "actId": "b53011e491cd4753bf01687ddeb5f3c3"
+    }
+   }
+  },
+  "106629912": {
+   "name": "СОБАЛ Ралчовски Враца ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 534300,
+     "netSalesEur": 413124,
+     "actId": "8ba1e8f758e0454493fc231f694547f4"
+    },
+    "2020": {
+     "revenueEur": 505668,
+     "netSalesEur": 418237,
+     "actId": "6b879b9407f54e2c8701f870326502b7"
+    },
+    "2021": {
+     "revenueEur": 697913,
+     "netSalesEur": 513848,
+     "actId": "dc4d3cbf24684f37a7817fc5bf29d80a"
+    },
+    "2022": {
+     "revenueEur": 768983,
+     "netSalesEur": 623776,
+     "actId": "4591f4994dc042d59f74824e4359e7dd"
+    },
+    "2023": {
+     "revenueEur": 843120,
+     "netSalesEur": 715297,
+     "actId": "c70dd17971134bbba0ced36e594121bf",
+     "nzokShare": 0.42
+    },
+    "2024": {
+     "revenueEur": 892716,
+     "netSalesEur": 773073,
+     "actId": "ef24ca4e72f44a40b22823e0e4be52ed",
+     "nzokShare": 0.45
+    }
+   }
+  },
+  "109080582": {
+   "name": "МБАЛ Д-р Никола Василиев АД",
+   "years": {
+    "2019": {
+     "revenueEur": 4874146,
+     "netSalesEur": 3974272,
+     "actId": "582c7edb63e04838bcc6ad3900431e9c"
+    },
+    "2020": {
+     "revenueEur": 6391149,
+     "netSalesEur": 4339845,
+     "actId": "c815082eaaeb4dcf9a840d6838acc744"
+    },
+    "2021": {
+     "revenueEur": 8928690,
+     "netSalesEur": 6938742,
+     "actId": "b95bd76498cc44bdaf850c0eb8ed2687"
+    },
+    "2022": {
+     "revenueEur": 6812453,
+     "netSalesEur": 5469289,
+     "actId": "e9f27915de904c8f88aefabd705c2610"
+    },
+    "2023": {
+     "revenueEur": 7004187,
+     "netSalesEur": 5581773,
+     "actId": "a063bb0ece5245d8afb1e011270790b1",
+     "nzokShare": 0.8
+    },
+    "2024": {
+     "revenueEur": 8280883,
+     "netSalesEur": 6244919,
+     "actId": "166f5e78d9a54dacb9e670d2e2506c47",
+     "nzokShare": 0.78
+    }
+   }
+  },
+  "109501412": {
+   "name": "МБАЛ Св. Иван Рилски ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 2717516,
+     "netSalesEur": 2068687,
+     "actId": "e730d4255a3a4d78a0e1d36733a65a22"
+    },
+    "2020": {
+     "revenueEur": 3203244,
+     "netSalesEur": 1815086,
+     "actId": "47b73f61d5364b4cbfaedd6d6b9891b8"
+    },
+    "2021": {
+     "revenueEur": 4515730,
+     "netSalesEur": 2416365,
+     "actId": "4b131b8624cc4b15bed35d80630b77f3"
+    },
+    "2022": {
+     "revenueEur": 4131238,
+     "netSalesEur": 2554414,
+     "actId": "bdc8906b226b485c9975ed935e7b4780"
+    }
+   }
+  },
+  "109530392": {
+   "name": "МЦ Д-р Никола Василиев ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 153388,
+     "netSalesEur": 150831,
+     "actId": "3408bb3e92a844178757f77933e8fbe5"
+    },
+    "2020": {
+     "revenueEur": 162591,
+     "netSalesEur": 161568,
+     "actId": "cc7e66167feb4da38ded4fce8e8d4fa0"
+    },
+    "2021": {
+     "revenueEur": 271496,
+     "netSalesEur": 173839,
+     "actId": "a9184050e788499f8e6ac2f8019613ce"
+    },
+    "2022": {
+     "revenueEur": 227014,
+     "netSalesEur": 226502,
+     "actId": "7e822b72cb694206b99c70e0699c53a8"
+    },
+    "2023": {
+     "revenueEur": 210652,
+     "netSalesEur": 208607,
+     "actId": "551e08c100494911a453ab061bc225f7",
+     "nzokShare": 0.08
+    }
+   }
+  },
+  "109563191": {
+   "name": "СБР-Сапарева баня АД",
+   "years": {
+    "2019": {
+     "revenueEur": 1422414,
+     "netSalesEur": 1388669,
+     "actId": "8ac93c28e60e4675bf77b9af3f796dab"
+    },
+    "2020": {
+     "revenueEur": 1547169,
+     "netSalesEur": 1054795,
+     "actId": "5936afdf30684c7e977b08aeb6f0eaae"
+    },
+    "2021": {
+     "revenueEur": 1463829,
+     "netSalesEur": 1187220,
+     "actId": "4610b405b0754f418bf07d333033a800"
+    },
+    "2022": {
+     "revenueEur": 1639713,
+     "netSalesEur": 1513935,
+     "actId": "e2ac32f7ae324ad0b6560a44a20706c7"
+    },
+    "2023": {
+     "revenueEur": 2147426,
+     "netSalesEur": 2114703,
+     "actId": "8e5f3aaf5b0744f29ef1d97455c94e07",
+     "nzokShare": 0.68
+    },
+    "2024": {
+     "revenueEur": 2554926,
+     "netSalesEur": 2493571,
+     "actId": "b0bb905729e942688d26db770650ee77",
+     "nzokShare": 0.63
+    }
+   }
+  },
+  "109568877": {
+   "name": "МБАЛ Св. Иван Рилски-2003 ООД",
+   "years": {
+    "2020": {
+     "revenueEur": 4091358,
+     "netSalesEur": 3859742,
+     "actId": "78976fea1ef3400ea930cf7bfafe5afa"
+    },
+    "2021": {
+     "revenueEur": 5622677,
+     "netSalesEur": 5450883,
+     "actId": "2b19a5d528274969bf1d9308f80c1772"
+    },
+    "2022": {
+     "revenueEur": 5039293,
+     "netSalesEur": 4982539,
+     "actId": "6b48d44cca724247924dee25d9f929f6"
+    },
+    "2023": {
+     "revenueEur": 5229493,
+     "netSalesEur": 5227959,
+     "actId": "fabb27e08ad6412792a5de2657e32bc9",
+     "nzokShare": 0.94
+    }
+   }
+  },
+  "110530756": {
+   "name": "МЦ Ловеч ЕООД",
+   "years": {
+    "2020": {
+     "revenueEur": 231615,
+     "netSalesEur": 222923,
+     "actId": "f44610772ced48ef96b7b11d747f26d8"
+    },
+    "2021": {
+     "revenueEur": 452493,
+     "netSalesEur": 280188,
+     "actId": "4c775e6f672146dea80ac0d87b622ce1"
+    },
+    "2022": {
+     "revenueEur": 375800,
+     "netSalesEur": 374777,
+     "actId": "64d0f7ca4eee4db59a21208ced3e58e3"
+    },
+    "2023": {
+     "revenueEur": 383980,
+     "netSalesEur": 380401,
+     "actId": "dfd546ccd0e44916abc0dd5606e0a2d6",
+     "nzokShare": 0
+    },
+    "2024": {
+     "revenueEur": 461185,
+     "netSalesEur": 459140,
+     "actId": "6be73c9439ba4d2ba57bdea3157d8543",
+     "nzokShare": 0.04
+    }
+   }
+  },
+  "111511773": {
+   "name": "МБАЛ ЕООД гр. Берковица",
+   "years": {
+    "2019": {
+     "revenueEur": 832383,
+     "netSalesEur": 662123,
+     "actId": "025d7fbf520e4dbdaeefa7a7605baa6d"
+    },
+    "2020": {
+     "revenueEur": 1013892,
+     "netSalesEur": 761825,
+     "actId": "ff23e29fe2524e569bb6fd8d35f81b92"
+    },
+    "2021": {
+     "revenueEur": 1482746,
+     "netSalesEur": 818578,
+     "actId": "65e13abee26e46e698f203bb4e018726"
+    },
+    "2022": {
+     "revenueEur": 1469964,
+     "netSalesEur": 1119218,
+     "actId": "76d2ec6b56574b4180f0598c37e30ed6"
+    },
+    "2023": {
+     "revenueEur": 1454625,
+     "netSalesEur": 1118707,
+     "actId": "c2f876535b4546e4b6612e1c7c9f2211",
+     "nzokShare": 0.73
+    },
+    "2024": {
+     "revenueEur": 1657097,
+     "netSalesEur": 1225055,
+     "actId": "4bb54e89e855469081c4944614341b6b",
+     "nzokShare": 0.77
+    }
+   }
+  },
+  "111587016": {
+   "name": "МБАЛ Сити клиник - Св.Георги ЕООД гр.Монтана",
+   "years": {
+    "2019": {
+     "revenueEur": 4978449,
+     "netSalesEur": 4757060,
+     "actId": "2c09dd035e524094b4ad0a7422049eb8"
+    },
+    "2020": {
+     "revenueEur": 5970355,
+     "netSalesEur": 5556209,
+     "actId": "6299b45bb14c4def9443a4e1b85785bc"
+    },
+    "2021": {
+     "revenueEur": 5987228,
+     "netSalesEur": 5739251,
+     "actId": "c5899e0e43164989b67e71b74cc7febc"
+    },
+    "2022": {
+     "revenueEur": 5898774,
+     "netSalesEur": 5450883,
+     "actId": "ca49b3fe18844c3d9f9e41dcc715e1d7"
+    },
+    "2023": {
+     "revenueEur": 7309429,
+     "netSalesEur": 7117183,
+     "actId": "c613524d3ff647b0b0f275909aa61fad",
+     "nzokShare": 0.84
+    },
+    "2024": {
+     "revenueEur": 7064520,
+     "netSalesEur": 6970442,
+     "actId": "1d7c287c97a24d6d926914aad93cedb9",
+     "nzokShare": 0.93
+    }
+   }
+  },
+  "112052721": {
+   "name": "МБАЛ-Хигия АД гр.Пазарджик",
+   "years": {
+    "2019": {
+     "revenueEur": 3911383,
+     "netSalesEur": 3746236,
+     "actId": "15b4f8ccfa824c0590ac16389e4b6d8d"
+    },
+    "2020": {
+     "revenueEur": 4187481,
+     "netSalesEur": 4061703,
+     "actId": "8d0f150e62954677baa8384346cfa376"
+    },
+    "2021": {
+     "revenueEur": 5585353,
+     "netSalesEur": 5064857,
+     "actId": "e5212bca271c410eabe65f2471cbc977"
+    },
+    "2022": {
+     "revenueEur": 5194726,
+     "netSalesEur": 4630771,
+     "actId": "11ef72f8f5564b14bdd4ba568c3dd3ca"
+    },
+    "2023": {
+     "revenueEur": 5217222,
+     "netSalesEur": 4724848,
+     "actId": "3a7fb934b09f43df92adf65d7674121f",
+     "nzokShare": 0.73
+    },
+    "2024": {
+     "revenueEur": 5668182,
+     "netSalesEur": 5000435,
+     "actId": "d0bced94f1a94997ad47b9fa09585f45",
+     "nzokShare": 0.75
+    }
+   }
+  },
+  "112511199": {
+   "name": "МБАЛ Хигия-Север ООД гр.Пазарджик",
+   "years": {
+    "2019": {
+     "revenueEur": 784833,
+     "netSalesEur": 784833,
+     "actId": "ae1d0869c88048db81b66bb3858e8246"
+    },
+    "2020": {
+     "revenueEur": 872775,
+     "netSalesEur": 872775,
+     "actId": "4501424bdabb4be494d2e0038326fe84"
+    },
+    "2021": {
+     "revenueEur": 1299193,
+     "netSalesEur": 1231191,
+     "actId": "090f80ba9ec341ea97ac5ee48e90a69e"
+    },
+    "2022": {
+     "revenueEur": 1216875,
+     "netSalesEur": 1181084,
+     "actId": "9b741d5cd27f4639bbe406e919065752"
+    },
+    "2023": {
+     "revenueEur": 1303283,
+     "netSalesEur": 1298681,
+     "actId": "18200c8e829b415291777bffa4fee121",
+     "nzokShare": 0.91
+    }
+   }
+  },
+  "112519153": {
+   "name": "МБАЛ Проф. Димитър Ранев ООД гр.Пещера",
+   "years": {
+    "2019": {
+     "revenueEur": 2040566,
+     "netSalesEur": 2040566,
+     "actId": "e46ab0cba4d4480eb9d3bcfd80b75444"
+    },
+    "2020": {
+     "revenueEur": 2425057,
+     "netSalesEur": 1948022,
+     "actId": "9f6e0bddc35f42358efbf39572ba3a36"
+    },
+    "2021": {
+     "revenueEur": 3300389,
+     "netSalesEur": 2228210,
+     "actId": "fd77e5fa17dc41c2b2734454cb6c5189"
+    },
+    "2022": {
+     "revenueEur": 2789097,
+     "netSalesEur": 2512488,
+     "actId": "7eae1a44ffb34ea88dd31774e63aeb97"
+    }
+   }
+  },
+  "112520604": {
+   "name": "МБАЛ-Уни Хоспитал ООД гр.Панагюрище",
+   "years": {
+    "2019": {
+     "revenueEur": 22610350,
+     "netSalesEur": 22341410,
+     "actId": "87024037b69c4126ac85f21327678b02"
+    },
+    "2020": {
+     "revenueEur": 33098480,
+     "netSalesEur": 31951141,
+     "actId": "171cc55527064939aa296e1002719563"
+    },
+    "2021": {
+     "revenueEur": 47681547,
+     "netSalesEur": 46847119,
+     "actId": "916ec0b9bdfa49e9a378eef763640b7b"
+    },
+    "2022": {
+     "revenueEur": 57539766,
+     "netSalesEur": 56394472,
+     "actId": "0c32e33add354ae28dbfe76c108eb7c1"
+    },
+    "2023": {
+     "revenueEur": 78664301,
+     "netSalesEur": 75659439,
+     "actId": "a22334e0773749c9bc9a64946289f4fc",
+     "nzokShare": 0.89
+    }
+   }
+  },
+  "112531538": {
+   "name": "СБР Вита ЕООД гр.Велинград",
+   "years": {
+    "2019": {
+     "revenueEur": 2077379,
+     "netSalesEur": 1487859,
+     "actId": "03a128e059fe4cb597b8c3aa47e97be3"
+    },
+    "2020": {
+     "revenueEur": 2253775,
+     "netSalesEur": 1647894,
+     "actId": "3290cfed9a3b42b6ae5d3b275624c14c"
+    },
+    "2021": {
+     "revenueEur": 3217560,
+     "netSalesEur": 2404606,
+     "actId": "c3d6f336dd494e81ad23c181bb9d8fb9"
+    },
+    "2022": {
+     "revenueEur": 4132772,
+     "netSalesEur": 3260508,
+     "actId": "d32c9a2465f34e4e9527483411bfb655"
+    },
+    "2023": {
+     "revenueEur": 5044406,
+     "netSalesEur": 4060169,
+     "actId": "1a5142fcd0984fb889e7c6be2386e831",
+     "nzokShare": 0.16
+    },
+    "2024": {
+     "revenueEur": 5578194,
+     "netSalesEur": 4620545,
+     "actId": "b1fa231f78bb453599d2ef579afa0ffb",
+     "nzokShare": 0.13
+    }
+   }
+  },
+  "112596309": {
+   "name": "УМБАЛ Пълмед ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 35933593,
+     "netSalesEur": 35757198,
+     "actId": "ab138d1553924de485817e31805c930e"
+    },
+    "2020": {
+     "revenueEur": 42659127,
+     "netSalesEur": 40008078,
+     "actId": "99fcd4911c5749fa9a77ab5a41c12f88"
+    }
+   }
+  },
+  "113513064": {
+   "name": "СБАЛББ-Перник-ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 672349,
+     "netSalesEur": 625821,
+     "actId": "064df492f5df4908a47b4b141a77ad90"
+    },
+    "2020": {
+     "revenueEur": 1111037,
+     "netSalesEur": 715297,
+     "actId": "5af5b7826f7f4eefbdc79681595d3bc7"
+    },
+    "2021": {
+     "revenueEur": 1650961,
+     "netSalesEur": 816022,
+     "actId": "05f4a23169cc408499630c0b37c533ec"
+    },
+    "2022": {
+     "revenueEur": 999064,
+     "netSalesEur": 661612,
+     "actId": "b3be6ee5f47a45dcbb4166130a7a9718"
+    },
+    "2023": {
+     "revenueEur": 991906,
+     "netSalesEur": 885558,
+     "actId": "3c6602bc5e9948f1857cadb161a0106a",
+     "nzokShare": 0.8
+    }
+   }
+  },
+  "114521594": {
+   "name": "„УМБАЛ Св. Марина – Плевен” ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 9586211,
+     "netSalesEur": 9421575,
+     "actId": "b1c31f82ad4d436188eb4b493e7b7c87"
+    },
+    "2020": {
+     "revenueEur": 8268612,
+     "netSalesEur": 7988936,
+     "actId": "d8f107bead6a4985b231e6250a2f5977"
+    },
+    "2021": {
+     "revenueEur": 12299126,
+     "netSalesEur": 11453961,
+     "actId": "45234ab5c4424e879c3dafd5499ff96c"
+    }
+   }
+  },
+  "114671238": {
+   "name": "„МБАЛ Авис Медика” ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 6929539,
+     "netSalesEur": 6860003,
+     "actId": "0469d4fb801a4b6ab83233baeb2e9c6b"
+    },
+    "2020": {
+     "revenueEur": 7097754,
+     "netSalesEur": 6866139,
+     "actId": "3222d18a89e44e3095f1483f984dd839"
+    },
+    "2021": {
+     "revenueEur": 9053957,
+     "netSalesEur": 9008452,
+     "actId": "123f58f079b142dabf79e13018767f80"
+    },
+    "2022": {
+     "revenueEur": 10103128,
+     "netSalesEur": 9974793,
+     "actId": "a5603ad7722d485282f04e44b2c7ee39"
+    },
+    "2023": {
+     "revenueEur": 10909946,
+     "netSalesEur": 10876712,
+     "actId": "f28cb6b3f84341b9af64eefbca745425",
+     "nzokShare": 0.73
+    },
+    "2024": {
+     "revenueEur": 11670237,
+     "netSalesEur": 11630868,
+     "actId": "1968ad6a0b1d40e8b9d8e9ec22a471d1",
+     "nzokShare": 0.72
+    }
+   }
+  },
+  "114686820": {
+   "name": "„МБАЛ Св. Панталеймон – Плевен” ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 4160382,
+     "netSalesEur": 4082666,
+     "actId": "43f7ff689d1247218e33cc1694ab8e18"
+    },
+    "2020": {
+     "revenueEur": 4136351,
+     "netSalesEur": 3182281,
+     "actId": "04a285f863444b43af11e3fab5fed5c6"
+    },
+    "2021": {
+     "revenueEur": 4990720,
+     "netSalesEur": 3575975,
+     "actId": "39fbb4a4101a43dd8a0a741d3bf68ff7"
+    },
+    "2022": {
+     "revenueEur": 4835287,
+     "netSalesEur": 4524933,
+     "actId": "d10eda775c8e4b68bcc71df36b5cbb31"
+    }
+   }
+  },
+  "115343340": {
+   "name": "МЦ 1- Стамболийски ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 201960,
+     "netSalesEur": 185599,
+     "actId": "d4ac67df47d54404a057c114ef93b589"
+    },
+    "2020": {
+     "revenueEur": 224968,
+     "netSalesEur": 210141,
+     "actId": "9300f948fa614b14bb6aabc97914563e"
+    },
+    "2021": {
+     "revenueEur": 296549,
+     "netSalesEur": 281722,
+     "actId": "a762a26faadd4019b7f47547ca773f16"
+    },
+    "2022": {
+     "revenueEur": 355348,
+     "netSalesEur": 326716,
+     "actId": "c22a21c4b11f4469b4233f032ad171d3"
+    },
+    "2023": {
+     "revenueEur": 408522,
+     "netSalesEur": 367108,
+     "actId": "639325e75b2b43bbb3527fd8afef83d8"
+    }
+   }
+  },
+  "115519436": {
+   "name": "СБАЛАГ Торакс Д-р Сава Бояджиев ЕООД Пловдив",
+   "years": {
+    "2019": {
+     "revenueEur": 1092119,
+     "netSalesEur": 1086495,
+     "actId": "931ec49c4b0e4a5f855907028438950b"
+    },
+    "2020": {
+     "revenueEur": 1145294,
+     "netSalesEur": 1141715,
+     "actId": "8dd98681da2642bd823683b290b96a39"
+    },
+    "2021": {
+     "revenueEur": 1435708,
+     "netSalesEur": 1255222,
+     "actId": "6a0badaaaaff487a8521dabba5c7dd33"
+    },
+    "2022": {
+     "revenueEur": 1590629,
+     "netSalesEur": 1481724,
+     "actId": "20e5c4a3ea52440286b07d34bcb3f4ef"
+    },
+    "2023": {
+     "revenueEur": 1865704,
+     "netSalesEur": 1860080,
+     "actId": "df7503b427ee41feab5a1d31811cc4bd",
+     "nzokShare": 0.69
+    },
+    "2024": {
+     "revenueEur": 1989437,
+     "netSalesEur": 1980745,
+     "actId": "e8163ccc65fa47f992ed16c61b85a725",
+     "nzokShare": 0.71
+    }
+   }
+  },
+  "115524159": {
+   "name": "МЦ Света Елисавета Раковски ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 702004,
+     "netSalesEur": 695868,
+     "actId": "948b700b7fa0458cbf29d511c881878b"
+    },
+    "2020": {
+     "revenueEur": 858459,
+     "netSalesEur": 848233,
+     "actId": "9047d19d190c4557838e6a42057b749e"
+    },
+    "2021": {
+     "revenueEur": 1335494,
+     "netSalesEur": 1295102,
+     "actId": "317c7a78945e409c89d0259e2536b850"
+    },
+    "2022": {
+     "revenueEur": 1361570,
+     "netSalesEur": 1333449,
+     "actId": "dcb727ada16840bdac903906a0760010"
+    },
+    "2023": {
+     "revenueEur": 1408609,
+     "netSalesEur": 1393270,
+     "actId": "03f18c0f07d9486ba88df168b3447339",
+     "nzokShare": 0.01
+    }
+   }
+  },
+  "115757028": {
+   "name": "УМБАЛ Каспела ЕООД Пловдив",
+   "years": {
+    "2019": {
+     "revenueEur": 16982049,
+     "netSalesEur": 16728448,
+     "actId": "8b2a4edb3e28444789e2388183ed83f3"
+    },
+    "2020": {
+     "revenueEur": 19798244,
+     "netSalesEur": 18889679,
+     "actId": "49ba9f80e51c4a4dae8851ff159a666d"
+    },
+    "2021": {
+     "revenueEur": 24357945,
+     "netSalesEur": 24100254,
+     "actId": "c72f09c3881046e788befd836cfdc724"
+    },
+    "2022": {
+     "revenueEur": 28214109,
+     "netSalesEur": 27758036,
+     "actId": "782f053a5e9740b0be26c2377398753c"
+    },
+    "2023": {
+     "revenueEur": 32952250,
+     "netSalesEur": 32859707,
+     "actId": "9ccc98ccf839463db78a8971f4ef1af7",
+     "nzokShare": 0.88
+    },
+    "2024": {
+     "revenueEur": 37262952,
+     "netSalesEur": 37232275,
+     "actId": "13208fac2f1f45f981192b571a875349",
+     "nzokShare": 0.92
+    }
+   }
+  },
+  "115811006": {
+   "name": "МЦ ВИТАМЕД ЕООД Карлово",
+   "years": {
+    "2019": {
+     "revenueEur": 488795,
+     "netSalesEur": 487261,
+     "actId": "9411220ea29e430aa8d9aa06da6e8367"
+    },
+    "2020": {
+     "revenueEur": 529187,
+     "netSalesEur": 486239,
+     "actId": "5545003453fb4149926dfda133006375"
+    },
+    "2021": {
+     "revenueEur": 583384,
+     "netSalesEur": 539413,
+     "actId": "87640cf04c10482bab6e5d73891521f3"
+    },
+    "2022": {
+     "revenueEur": 695868,
+     "netSalesEur": 687176,
+     "actId": "b02e5264410e4d1fa30ffec1768b853c"
+    },
+    "2023": {
+     "revenueEur": 742396,
+     "netSalesEur": 740862,
+     "actId": "e4cd1235a5474e5ca7501f223773bd5d",
+     "nzokShare": 0.06
+    },
+    "2024": {
+     "revenueEur": 1010824,
+     "netSalesEur": 1008779,
+     "actId": "6231096b44a14bc5b9d8d22d9aa99cc1",
+     "nzokShare": 0.06
+    },
+    "2025": {
+     "revenueEur": 1191310,
+     "netSalesEur": 1188242,
+     "actId": "0eb2f7b15cd44262a423681cea15ed20",
+     "nzokShare": 0.05
+    }
+   }
+  },
+  "116504387": {
+   "name": "МБАЛ - Исперих ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 2042611,
+     "netSalesEur": 1630510,
+     "actId": "e180b7fad1a44d669717bad5ec775457"
+    },
+    "2020": {
+     "revenueEur": 2596851,
+     "netSalesEur": 1632044,
+     "actId": "a946940df5dd48df9deb6cd303a4e8f5"
+    },
+    "2021": {
+     "revenueEur": 3628127,
+     "netSalesEur": 1449001,
+     "actId": "a56604d8612842fa966f7a16a950d56d"
+    },
+    "2022": {
+     "revenueEur": 2796767,
+     "netSalesEur": 1839117,
+     "actId": "c01020e54c504f168491d33db12e7410"
+    }
+   }
+  },
+  "117044162": {
+   "name": "УМБАЛ МЕДИКА РУСЕ ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 13614680,
+     "netSalesEur": 13378975,
+     "actId": "5948d45ef8824f1b8b2488825edc992b"
+    },
+    "2020": {
+     "revenueEur": 15613831,
+     "netSalesEur": 14479275,
+     "actId": "87b3943713484b0fa8555ee216d5d10a"
+    },
+    "2021": {
+     "revenueEur": 23964250,
+     "netSalesEur": 18068032,
+     "actId": "56e3da8cb8a84ef0b67b2ae5e7c4b221"
+    },
+    "2022": {
+     "revenueEur": 24396803,
+     "netSalesEur": 21576006,
+     "actId": "42851ff323df4533a24fb43645aea77b"
+    },
+    "2023": {
+     "revenueEur": 29202947,
+     "netSalesEur": 27970734,
+     "actId": "840e4239947a4b0daf79c23d5591f1cb",
+     "nzokShare": 0.77
+    },
+    "2024": {
+     "revenueEur": 40372630,
+     "netSalesEur": 39483493,
+     "actId": "1176eafc38534afa82056e7b30318b14",
+     "nzokShare": 0.74
+    }
+   }
+  },
+  "117684874": {
+   "name": "СБАЛК МЕДИКА-КОР ЕАД",
+   "years": {
+    "2019": {
+     "revenueEur": 5474913,
+     "netSalesEur": 5429920,
+     "actId": "d92215407a3d4c43957fbd2dd5ef532c"
+    },
+    "2020": {
+     "revenueEur": 5583819,
+     "netSalesEur": 5342489,
+     "actId": "c5ca59151df549cb8ce60a51a60fb16a"
+    },
+    "2021": {
+     "revenueEur": 6871763,
+     "netSalesEur": 6517949,
+     "actId": "3eb0d79333034f58b55592ba7d6dfe64"
+    },
+    "2022": {
+     "revenueEur": 7463328,
+     "netSalesEur": 7099288,
+     "actId": "e986414733084f18ae6f7ec99580de29"
+    },
+    "2023": {
+     "revenueEur": 8565673,
+     "netSalesEur": 8046200,
+     "actId": "19fa02fbc83842f9b6c51c198d5e6bc8",
+     "nzokShare": 0.92
+    },
+    "2024": {
+     "revenueEur": 10550508,
+     "netSalesEur": 10060690,
+     "actId": "67d07763196c4056a5bf6831963aab7d",
+     "nzokShare": 0.82
+    }
+   }
+  },
+  "119544675": {
+   "name": "СХБАЛ \"Амброаз Паре\" ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 500555,
+     "netSalesEur": 500555,
+     "actId": "e9e86a8ca115468c90c15df603f163b1"
+    },
+    "2020": {
+     "revenueEur": 536856,
+     "netSalesEur": 536856,
+     "actId": "edb97c74e3bf4a77b7b5e00637fa303d"
+    },
+    "2021": {
+     "revenueEur": 607926,
+     "netSalesEur": 607926,
+     "actId": "1996653f07064166a5788b79b37fcf03"
+    },
+    "2022": {
+     "revenueEur": 617641,
+     "netSalesEur": 617641,
+     "actId": "dd1be40f39214b169b253ba4bc2e54df"
+    },
+    "2023": {
+     "revenueEur": 644228,
+     "netSalesEur": 644228,
+     "actId": "fd60fa4e5e5243f5b4fc2523358c157a",
+     "nzokShare": 0.96
+    },
+    "2024": {
+     "revenueEur": 691267,
+     "netSalesEur": 691267,
+     "actId": "c65bc71aeac84d04b608031308ce65f6",
+     "nzokShare": 0.99
+    }
+   }
+  },
+  "119624388": {
+   "name": "МБАЛ Хаджи Димитър ООД - Сливен",
+   "years": {
+    "2019": {
+     "revenueEur": 5941212,
+     "netSalesEur": 5896218,
+     "actId": "16738887ae7041369656b8fc13746d20"
+    },
+    "2020": {
+     "revenueEur": 5896218,
+     "netSalesEur": 5384926,
+     "actId": "36588a1f75cc4584a1cdbd8f0ee34e5c"
+    },
+    "2021": {
+     "revenueEur": 8679180,
+     "netSalesEur": 5438612,
+     "actId": "694e62a3dfb74bf0af45d44a296d9e36"
+    },
+    "2022": {
+     "revenueEur": 7625918,
+     "netSalesEur": 6800182,
+     "actId": "6ffd5dff4d42419298b9cc97dbe66956"
+    },
+    "2023": {
+     "revenueEur": 9118891,
+     "netSalesEur": 7658641,
+     "actId": "f89957f1e04542159adb509fac3eb146",
+     "nzokShare": 0.76
+    }
+   }
+  },
+  "119625586": {
+   "name": "СБР Стайков и фамилия ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 2616281,
+     "netSalesEur": 2601964,
+     "actId": "bcd09ee5708e4d5fb0d9fba2d37928a7"
+    },
+    "2020": {
+     "revenueEur": 2691440,
+     "netSalesEur": 2576400,
+     "actId": "7f81c0028a8a43e893eea7db118aa9f9"
+    },
+    "2021": {
+     "revenueEur": 2940440,
+     "netSalesEur": 2920499,
+     "actId": "85d4cb585c91415e809455e0d1ca4304"
+    },
+    "2022": {
+     "revenueEur": 5248922,
+     "netSalesEur": 5181432,
+     "actId": "df4d7e6d51a044aca734f4272ff9a7c5"
+    },
+    "2023": {
+     "revenueEur": 6718375,
+     "netSalesEur": 6704059,
+     "actId": "97afadf636b0488daf9b1c6b628ec217",
+     "nzokShare": 0.37
+    }
+   }
+  },
+  "120504642": {
+   "name": "МБАЛ Проф. д-р Асен Шопов ЕООД-гр.Златоград",
+   "years": {
+    "2019": {
+     "revenueEur": 1026674,
+     "netSalesEur": 850278,
+     "actId": "102b48569b2c41a5b442b9d3e7d4b8f0"
+    },
+    "2020": {
+     "revenueEur": 1266470,
+     "netSalesEur": 845165,
+     "actId": "56d21e81e5cb46318bfdaa948a4f701f"
+    },
+    "2021": {
+     "revenueEur": 1715896,
+     "netSalesEur": 1005200,
+     "actId": "4a8b476d3e81402d9b452ae62bf43cfb"
+    },
+    "2022": {
+     "revenueEur": 1518537,
+     "netSalesEur": 1175460,
+     "actId": "ed7e93069301475c99396863694bcada"
+    }
+   }
+  },
+  "120505630": {
+   "name": "МБАЛ Проф. д-р Константин Чилов ЕООД-гр.Мадан",
+   "years": {
+    "2019": {
+     "revenueEur": 1621818,
+     "netSalesEur": 1359525,
+     "actId": "5924ff24b881453f9ceb8d5132e9c67b"
+    },
+    "2020": {
+     "revenueEur": 2090161,
+     "netSalesEur": 1287433,
+     "actId": "b6868684931d48f991c320a69ec2fcdc"
+    },
+    "2021": {
+     "revenueEur": 2682237,
+     "netSalesEur": 2056927,
+     "actId": "502af19f2b254859b7956213234451f6"
+    },
+    "2022": {
+     "revenueEur": 2533451,
+     "netSalesEur": 1946999,
+     "actId": "dfafa3b3d23842b5b4709c30051c79a8"
+    }
+   }
+  },
+  "123672022": {
+   "name": "МБАЛ НИАМЕД ООД гр. Стара Загора",
+   "years": {
+    "2019": {
+     "revenueEur": 1104390,
+     "netSalesEur": 1104390,
+     "actId": "6ec71560b4d3464d8e0dea10b9418827"
+    },
+    "2020": {
+     "revenueEur": 1166768,
+     "netSalesEur": 1166768,
+     "actId": "01a86f825efe4390a403d58574025ab8"
+    },
+    "2021": {
+     "revenueEur": 1385090,
+     "netSalesEur": 1385090,
+     "actId": "196a031a94bd40de975c04928d9c6d85"
+    },
+    "2022": {
+     "revenueEur": 1342652,
+     "netSalesEur": 1342652,
+     "actId": "1409569da2d142548b40f806dee9a901"
+    },
+    "2023": {
+     "revenueEur": 1438775,
+     "netSalesEur": 1438775,
+     "actId": "06af48a4a4ed45bcaa2814dc18053bc0",
+     "nzokShare": 0.78
+    },
+    "2024": {
+     "revenueEur": 1510356,
+     "netSalesEur": 1510356,
+     "actId": "5c8f7e363abc481b8aa9f2c80ab55e03",
+     "nzokShare": 0.82
+    }
+   }
+  },
+  "124140855": {
+   "name": "ДКЦ 1 Добрич",
+   "years": {
+    "2019": {
+     "revenueEur": 1430083,
+     "netSalesEur": 1412188,
+     "actId": "4c6daa7fbb3440d2832816aeacce3929"
+    },
+    "2020": {
+     "revenueEur": 1478145,
+     "netSalesEur": 1459738,
+     "actId": "759c1f657879453ebd04e45f96b2f11f"
+    },
+    "2021": {
+     "revenueEur": 1946999,
+     "netSalesEur": 1918878,
+     "actId": "98b97ee4256946278a5ff9165546aa58"
+    },
+    "2022": {
+     "revenueEur": 2216962,
+     "netSalesEur": 2165321,
+     "actId": "58100e834dc54693b4828dc231467a61"
+    },
+    "2023": {
+     "revenueEur": 2312062,
+     "netSalesEur": 2236902,
+     "actId": "f5faeac147eb409c82b82f980fc845ba",
+     "nzokShare": 0.02
+    }
+   }
+  },
+  "124618376": {
+   "name": "СБР Медика - Албена",
+   "years": {
+    "2019": {
+     "revenueEur": 103792,
+     "netSalesEur": 103792,
+     "actId": "003a769e7507483a8330e01833b415ad"
+    },
+    "2020": {
+     "revenueEur": 258202,
+     "netSalesEur": 224968,
+     "actId": "55dc0836a06b44b9967d19c77bceb5f7"
+    },
+    "2021": {
+     "revenueEur": 388582,
+     "netSalesEur": 345633,
+     "actId": "91e73de115bf44e9944b623d313f91a9"
+    },
+    "2022": {
+     "revenueEur": 545037,
+     "netSalesEur": 469877,
+     "actId": "95b336f8e42d49968a0f69e6a993e6d0"
+    }
+   }
+  },
+  "125535944": {
+   "name": "СОБАЛ Луксор ЕООД Пловдив",
+   "years": {
+    "2019": {
+     "revenueEur": 2086071,
+     "netSalesEur": 1793101,
+     "actId": "17cf463488fc47edae68e7a585eb34b7"
+    },
+    "2020": {
+     "revenueEur": 2001708,
+     "netSalesEur": 1917856,
+     "actId": "5246f91289c34c6f824942087fd5cdf8"
+    },
+    "2021": {
+     "revenueEur": 2387222,
+     "netSalesEur": 2364214,
+     "actId": "f4ea003f582048598265602ef31fbdab"
+    },
+    "2022": {
+     "revenueEur": 4283603,
+     "netSalesEur": 4086756,
+     "actId": "c33fb2b91dad4ebf9593a81afd633b88"
+    }
+   }
+  },
+  "126531685": {
+   "name": "МБАЛ Света Екатерина ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 1980745,
+     "netSalesEur": 1573756,
+     "actId": "5a18c7363b8c4f7e9fc891ea4015e682"
+    },
+    "2020": {
+     "revenueEur": 2069198,
+     "netSalesEur": 1492461,
+     "actId": "4d34abac8f5b477681cb7ae9f9f88d46"
+    },
+    "2021": {
+     "revenueEur": 3033495,
+     "netSalesEur": 1730212,
+     "actId": "41dd6461f54341d2829c52144caead08"
+    },
+    "2022": {
+     "revenueEur": 2615258,
+     "netSalesEur": 1764980,
+     "actId": "cf1d5e13d8714eea9b4c299490fb5894"
+    },
+    "2023": {
+     "revenueEur": 2621393,
+     "netSalesEur": 1977166,
+     "actId": "5f252ae7f721406491ee703c05b725fe",
+     "nzokShare": 0.64
+    },
+    "2024": {
+     "revenueEur": 2876528,
+     "netSalesEur": 2256842,
+     "actId": "ff51c28ed54246659bdf752a1a7c5b75",
+     "nzokShare": 0.69
+    }
+   }
+  },
+  "126618510": {
+   "name": "СБДПЛР Любимец ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 387559,
+     "netSalesEur": 290925,
+     "actId": "1afb0110904f45bead64427a7fe88c9c"
+    },
+    "2020": {
+     "revenueEur": 462719,
+     "netSalesEur": 317512,
+     "actId": "d8f2a710f5c5403ab40089a16f4c8873"
+    },
+    "2021": {
+     "revenueEur": 563444,
+     "netSalesEur": 401364,
+     "actId": "347178e76b0440e4b79119a31a01ba22"
+    },
+    "2022": {
+     "revenueEur": 636047,
+     "netSalesEur": 429996,
+     "actId": "e64bbe29e2e147a6967efe57cc802089"
+    },
+    "2023": {
+     "revenueEur": 704049,
+     "netSalesEur": 514360,
+     "actId": "ba4711ab2d824346a1180965397ccf54",
+     "nzokShare": 0.51
+    }
+   }
+  },
+  "128057410": {
+   "name": "ДКЦ 1 - Ямбол ЕООД гр. Ямбол",
+   "years": {
+    "2019": {
+     "revenueEur": 1078826,
+     "netSalesEur": 1067577,
+     "actId": "09dc2f1dfd1f41669ebefaab30c7a204"
+    },
+    "2020": {
+     "revenueEur": 1158587,
+     "netSalesEur": 1143760,
+     "actId": "e0668ac4d9a8468fbc6cce4607512396"
+    },
+    "2021": {
+     "revenueEur": 1362082,
+     "netSalesEur": 1339585,
+     "actId": "89c0e8ed98594333a770f39a4ed58b4f"
+    },
+    "2022": {
+     "revenueEur": 1577847,
+     "netSalesEur": 1543590,
+     "actId": "9440f6bf678a42a1ad581dc1fd8331d9"
+    },
+    "2023": {
+     "revenueEur": 1892291,
+     "netSalesEur": 1871328,
+     "actId": "7399d160dca3458ca16d92172d146c82",
+     "nzokShare": 0
+    }
+   }
+  },
+  "128501598": {
+   "name": "МБАЛ Св.Пантелеймон АД гр.Ямбол",
+   "years": {
+    "2019": {
+     "revenueEur": 7010323,
+     "netSalesEur": 6313432,
+     "actId": "eddf0ec154ac472aadae9c7d42abc94d"
+    },
+    "2020": {
+     "revenueEur": 8765588,
+     "netSalesEur": 6308319,
+     "actId": "c3fc845b9f9445d2af1c37bcc8f3e115"
+    },
+    "2021": {
+     "revenueEur": 11892138,
+     "netSalesEur": 10630270,
+     "actId": "a47661ff807c43a191e35bc50c753b8c"
+    },
+    "2022": {
+     "revenueEur": 9445606,
+     "netSalesEur": 8113691,
+     "actId": "97ad5d133ba343289223551de2e2682c"
+    },
+    "2023": {
+     "revenueEur": 9613310,
+     "netSalesEur": 8224641,
+     "actId": "8535491febda4e329df43cd05d30fbb7",
+     "nzokShare": 0.65
+    },
+    "2024": {
+     "revenueEur": 11384425,
+     "netSalesEur": 9577008,
+     "actId": "7d90e6baa4954964a2e5b3a8e836c26b",
+     "nzokShare": 0.63
+    },
+    "2025": {
+     "revenueEur": 11996441,
+     "netSalesEur": 10043818,
+     "actId": "cda7f279f73a4ea2b658ec3873cf0f84",
+     "nzokShare": 0.62
+    }
+   }
+  },
+  "130287411": {
+   "name": "СБР-Банкя АД",
+   "years": {
+    "2019": {
+     "revenueEur": 2035453,
+     "netSalesEur": 1971541,
+     "actId": "4b4c037b07a74966af309f38387f038b"
+    },
+    "2020": {
+     "revenueEur": 2195999,
+     "netSalesEur": 1760378,
+     "actId": "18cb3c7e33c2403cab43d513661fd2cc"
+    },
+    "2021": {
+     "revenueEur": 2114192,
+     "netSalesEur": 1739926,
+     "actId": "e7a41c37570a4e5fa25db632b4c468bc"
+    },
+    "2022": {
+     "revenueEur": 2560038,
+     "netSalesEur": 2346830,
+     "actId": "0d19753c65204242ae561842e2aa63e7"
+    },
+    "2023": {
+     "revenueEur": 3061616,
+     "netSalesEur": 2998727,
+     "actId": "e3fcb35ab9354281835901167ea69246",
+     "nzokShare": 0.8
+    }
+   }
+  },
+  "130466880": {
+   "name": "МБАЛ Света София ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 6760301,
+     "netSalesEur": 6724511,
+     "actId": "ee9424d1fff54d5f9cea0e8f60fb5f74"
+    },
+    "2020": {
+     "revenueEur": 7988424,
+     "netSalesEur": 7564563,
+     "actId": "a38334fd65424e458680f9a969e162de"
+    },
+    "2021": {
+     "revenueEur": 14793208,
+     "netSalesEur": 13430104,
+     "actId": "ce73fc1e30f745e3a6fae2d07f5f49ae"
+    },
+    "2022": {
+     "revenueEur": 24137578,
+     "netSalesEur": 23562886,
+     "actId": "9d18949598424ed1834088af50fd105b"
+    },
+    "2023": {
+     "revenueEur": 31904613,
+     "netSalesEur": 31456722,
+     "actId": "afd3b786d32645869531f49f740bf281",
+     "nzokShare": 0.81
+    }
+   }
+  },
+  "130467417": {
+   "name": "СБАЛОТ ВИТОША ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 765915,
+     "netSalesEur": 765915,
+     "actId": "97e1b55a9aa24659b8c7cc7b1f02761b"
+    }
+   }
+  },
+  "130484427": {
+   "name": "ОЧЕН ЛАЗЕРЕН ЦЕНТЪР ВИЖЪН ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 1290501,
+     "netSalesEur": 1289478,
+     "actId": "28736f0125dc435c8d6eaa3ca7c6ab3d"
+    },
+    "2020": {
+     "revenueEur": 1457693,
+     "netSalesEur": 1456671,
+     "actId": "f19b4eacd47e4bea9c4c1ec667d44741"
+    },
+    "2021": {
+     "revenueEur": 1761401,
+     "netSalesEur": 1759867,
+     "actId": "4796472c354d4d40a8ecdd8a81a74e34"
+    },
+    "2022": {
+     "revenueEur": 1975121,
+     "netSalesEur": 1964895,
+     "actId": "304f21a3279a40b19bcae6e03a6a33ad"
+    },
+    "2023": {
+     "revenueEur": 2214405,
+     "netSalesEur": 2212871,
+     "actId": "12ce0f667eca43f3b388b746d151554c",
+     "nzokShare": 0.01
+    }
+   }
+  },
+  "130963149": {
+   "name": "СБР-Орфей ЕООД гр. Девин",
+   "years": {
+    "2019": {
+     "revenueEur": 822157,
+     "netSalesEur": 822157,
+     "actId": "a695358ba0b14c309361815d1f3b6c8e"
+    },
+    "2020": {
+     "revenueEur": 851812,
+     "netSalesEur": 819601,
+     "actId": "db137eefba0b4a1f895b8418861fa1b1"
+    },
+    "2021": {
+     "revenueEur": 1361059,
+     "netSalesEur": 1301749,
+     "actId": "e6705f355b594ecda84390ffcabc8b77"
+    },
+    "2022": {
+     "revenueEur": 1558929,
+     "netSalesEur": 1558418,
+     "actId": "42e8307dd9f94cef9bbe81b640d1e761"
+    }
+   }
+  },
+  "131187321": {
+   "name": "СБАЛГАР- Д-Р МАЛИНОВ ООД",
+   "years": {
+    "2020": {
+     "revenueEur": 1311975,
+     "netSalesEur": 1306351,
+     "actId": "29c2e19a56524e00a67d12084b513409"
+    }
+   }
+  },
+  "131259767": {
+   "name": "МБАЛ Вита ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 4512151,
+     "netSalesEur": 4502948,
+     "actId": "f21effc4c09f4e4c8e169abe21d69e7c"
+    },
+    "2020": {
+     "revenueEur": 5208530,
+     "netSalesEur": 4948283,
+     "actId": "f6119564f51a4d2bb1ad17927be2db59"
+    },
+    "2021": {
+     "revenueEur": 8213904,
+     "netSalesEur": 7206659,
+     "actId": "110449c95de44059b3784de7fa6b5861"
+    },
+    "2022": {
+     "revenueEur": 8882163,
+     "netSalesEur": 8613223,
+     "actId": "e26db79300f446239eb9a52e556f5587"
+    }
+   }
+  },
+  "131372487": {
+   "name": "МБАЛ Доверие АД",
+   "years": {
+    "2019": {
+     "revenueEur": 6359448,
+     "netSalesEur": 6359448,
+     "actId": "44c21a0656884cfa9ae7b921fea8c0ca"
+    },
+    "2020": {
+     "revenueEur": 6236738,
+     "netSalesEur": 6020462,
+     "actId": "133dce66fdc646799684c9a0b6f85591"
+    },
+    "2021": {
+     "revenueEur": 7377942,
+     "netSalesEur": 7349821,
+     "actId": "4f29674ad50c4c75adb8987a54d37c09"
+    },
+    "2022": {
+     "revenueEur": 8757919,
+     "netSalesEur": 8710880,
+     "actId": "918e3f1805d34d06928b5e301155353c"
+    },
+    "2023": {
+     "revenueEur": 10302020,
+     "netSalesEur": 10034103,
+     "actId": "70817b855d104d189c56f0984f9106d1",
+     "nzokShare": 0.58
+    }
+   }
+  },
+  "131487151": {
+   "name": "СБАЛ Йоан Павел ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 561398,
+     "netSalesEur": 561398,
+     "actId": "1bc4f78f278a43c5a3869d152f016647"
+    },
+    "2020": {
+     "revenueEur": 437155,
+     "netSalesEur": 434087,
+     "actId": "1bc0aae34f454764939cd1773ac81014"
+    },
+    "2021": {
+     "revenueEur": 456584,
+     "netSalesEur": 456584,
+     "actId": "dc348be171764ec1a0d3485ee1447d9a"
+    },
+    "2022": {
+     "revenueEur": 556797,
+     "netSalesEur": 556797,
+     "actId": "b2c12fcdd9754c5789a3b42b941d77c6"
+    },
+    "2023": {
+     "revenueEur": 554240,
+     "netSalesEur": 554240,
+     "actId": "15b0c87b03594820985c0e0f49da0d2c",
+     "nzokShare": 1.09
+    }
+   }
+  },
+  "147098760": {
+   "name": "СОБАЛ-Бургас ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 1181596,
+     "netSalesEur": 1179550,
+     "actId": "159ce393834c48899df4d10539f3a3f8"
+    },
+    "2020": {
+     "revenueEur": 1100811,
+     "netSalesEur": 1011847,
+     "actId": "e7f2fd2334ea4fa194400e01c97914fe"
+    },
+    "2021": {
+     "revenueEur": 1343675,
+     "netSalesEur": 1259312,
+     "actId": "276cc5cf56594f69bea2f4de6cec93e9"
+    },
+    "2022": {
+     "revenueEur": 1824801,
+     "netSalesEur": 1687774,
+     "actId": "83378bdc62954f07a8f9f508057a647d"
+    }
+   }
+  },
+  "148018742": {
+   "name": "\"Аджибадем Сити Клиник Медицински център Варна\"ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 2650026,
+     "netSalesEur": 2628040,
+     "actId": "544049daf0cd431ba866bcc6b9b9862c"
+    },
+    "2020": {
+     "revenueEur": 2702689,
+     "netSalesEur": 2544188,
+     "actId": "856da2f69c7b498481d2bdd7dadbe63f"
+    },
+    "2021": {
+     "revenueEur": 3075421,
+     "netSalesEur": 2932259,
+     "actId": "1f28a15096014f369fd6e933d5776bb6"
+    },
+    "2022": {
+     "revenueEur": 3597961,
+     "netSalesEur": 3333623,
+     "actId": "fabf4ebc9d884fa389aa184e4ff7ac26"
+    },
+    "2023": {
+     "revenueEur": 3979385,
+     "netSalesEur": 3971715,
+     "actId": "b20f23759aed4518ba005629b141f7e4",
+     "nzokShare": 0.04
+    },
+    "2024": {
+     "revenueEur": 4736097,
+     "netSalesEur": 4717690,
+     "actId": "a77907b267b84b65a9624d0ede39fd16",
+     "nzokShare": 0.03
+    }
+   }
+  },
+  "160044550": {
+   "name": "УСБАЛАГ СЕЛЕНА ООД ПЛОВДИВ",
+   "years": {
+    "2019": {
+     "revenueEur": 8164309,
+     "netSalesEur": 8141812,
+     "actId": "fb266ff58e5c4ba0b2d6f88ac9af44d3"
+    },
+    "2020": {
+     "revenueEur": 8975218,
+     "netSalesEur": 8897501,
+     "actId": "77f9840cf1df442aa290225d01af62cc"
+    },
+    "2021": {
+     "revenueEur": 10649699,
+     "netSalesEur": 10598569,
+     "actId": "afa3baa09c7741bab7685ae3d7e25c14"
+    },
+    "2022": {
+     "revenueEur": 12233681,
+     "netSalesEur": 12110971,
+     "actId": "f6d4cfff98cc4023bf6268effbb6cd6c"
+    },
+    "2023": {
+     "revenueEur": 13042545,
+     "netSalesEur": 13004198,
+     "actId": "56106193853f4fca90447a30f5c01ace",
+     "nzokShare": 0.46
+    },
+    "2024": {
+     "revenueEur": 14980852,
+     "netSalesEur": 14890865,
+     "actId": "79d89cef26d446489d24b5f320618c0e",
+     "nzokShare": 0.47
+    }
+   }
+  },
+  "160058895": {
+   "name": "СГЕБАЛ Еврохоспитал ООД Пловдив",
+   "years": {
+    "2019": {
+     "revenueEur": 1316065,
+     "netSalesEur": 1315554,
+     "actId": "fc202b6e038c458bbe1e561fcfb943bd"
+    },
+    "2020": {
+     "revenueEur": 1486325,
+     "netSalesEur": 1485814,
+     "actId": "b3da8b46d4c74eaba4d45a6852d09606"
+    },
+    "2021": {
+     "revenueEur": 1833493,
+     "netSalesEur": 1784920,
+     "actId": "77986495b0c0426b82d719de214a3354"
+    },
+    "2022": {
+     "revenueEur": 1946488,
+     "netSalesEur": 1916322,
+     "actId": "87a2dd0585e741c0abdffb4e17491d6d"
+    },
+    "2023": {
+     "revenueEur": 2185773,
+     "netSalesEur": 2179126,
+     "actId": "9d4e24d004c841a6bf6110a001f48b46",
+     "nzokShare": 0.97
+    }
+   }
+  },
+  "160087562": {
+   "name": "Медикус Алфа СХБАЛ ЕООД Пловдив",
+   "years": {
+    "2019": {
+     "revenueEur": 1594208,
+     "netSalesEur": 1580403,
+     "actId": "e6226649208f4ea18952eb18b4e21d18"
+    },
+    "2020": {
+     "revenueEur": 1768559,
+     "netSalesEur": 1757310,
+     "actId": "63461c54a2b74386bafb5c1e2f063921"
+    },
+    "2021": {
+     "revenueEur": 2214916,
+     "netSalesEur": 2126974,
+     "actId": "1a596e67ac88408fb8bf71530b90d0b5"
+    },
+    "2022": {
+     "revenueEur": 2356033,
+     "netSalesEur": 2350409,
+     "actId": "7e33661dbf59404683de6db465782e90"
+    }
+   }
+  },
+  "160105708": {
+   "name": "МБАЛ Св.Св.Козма и Дамян ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 900385,
+     "netSalesEur": 899874,
+     "actId": "f9e59701643046df81c86a7b98dddb61"
+    },
+    "2020": {
+     "revenueEur": 1195912,
+     "netSalesEur": 1193867,
+     "actId": "0d43ffcd5b7546c088c29144a4498761"
+    },
+    "2021": {
+     "revenueEur": 1516492,
+     "netSalesEur": 1432640,
+     "actId": "733a59f7de754e39ac60614e8a32778f"
+    },
+    "2022": {
+     "revenueEur": 1578358,
+     "netSalesEur": 1542568,
+     "actId": "3119fe73e9b44c71bf167f74464319e2"
+    },
+    "2023": {
+     "revenueEur": 1888201,
+     "netSalesEur": 1885133,
+     "actId": "596a9cca604f4502b36f161ee1b39d0c",
+     "nzokShare": 0.94
+    },
+    "2024": {
+     "revenueEur": 2907206,
+     "netSalesEur": 2899536,
+     "actId": "fda4419dd40d47bc974769727f93b34d",
+     "nzokShare": 0.92
+    }
+   }
+  },
+  "160138163": {
+   "name": "УМБАЛ Софиямед ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 38747744,
+     "netSalesEur": 38622477,
+     "actId": "6844c80c20a74e0ab4ab4803d1d43232"
+    },
+    "2020": {
+     "revenueEur": 49425052,
+     "netSalesEur": 47311372,
+     "actId": "5e6c024491644741bde8524cdd147212"
+    },
+    "2022": {
+     "revenueEur": 65068539,
+     "netSalesEur": 63655328,
+     "actId": "932b280c355644d9890325097accd285"
+    }
+   }
+  },
+  "175075078": {
+   "name": "„СБАЛ по кардиология” ЕАД",
+   "years": {
+    "2019": {
+     "revenueEur": 3530470,
+     "netSalesEur": 3527403,
+     "actId": "5953706f453c418b8029eee5d672d87a"
+    },
+    "2020": {
+     "revenueEur": 3144956,
+     "netSalesEur": 3098429,
+     "actId": "208a6edeb72c441a83c0d65eff066c6b"
+    },
+    "2021": {
+     "revenueEur": 3188416,
+     "netSalesEur": 2390801,
+     "actId": "75b4879db4a5455ea31da3a72458c1bb"
+    },
+    "2022": {
+     "revenueEur": 2949132,
+     "netSalesEur": 2791142,
+     "actId": "3efc1dc7a8d446b68dea717aab320d4c"
+    },
+    "2023": {
+     "revenueEur": 3116835,
+     "netSalesEur": 3111722,
+     "actId": "02a84f7a2466435992123dff397b6726",
+     "nzokShare": 0.97
+    },
+    "2024": {
+     "revenueEur": 3306525,
+     "netSalesEur": 3299878,
+     "actId": "e9e83f5c0aa44d57b02c2424d4ee6a0d",
+     "nzokShare": 0.94
+    }
+   }
+  },
+  "175077093": {
+   "name": "АДЖИБАДЕМ СИТИ КЛИНИК УМБАЛ ТОКУДА EАД",
+   "years": {
+    "2019": {
+     "revenueEur": 58862989,
+     "netSalesEur": 58481565,
+     "actId": "20b42db12e3e47cfae5ce4db508c1558"
+    },
+    "2020": {
+     "revenueEur": 62927760,
+     "netSalesEur": 59672364,
+     "actId": "6bfaa45d7db548a3a0aeb9c4c7dea698"
+    },
+    "2021": {
+     "revenueEur": 77287392,
+     "netSalesEur": 73894459,
+     "actId": "e7b83f43f5644b2d8c6b6289ee5cc022"
+    },
+    "2022": {
+     "revenueEur": 91880174,
+     "netSalesEur": 90364704,
+     "actId": "8fa1bf22750e4b3c84dbc69d308e7711"
+    }
+   }
+  },
+  "175172463": {
+   "name": "СБАЛОБ ПРОСПЕРИТАС ООД",
+   "years": {
+    "2020": {
+     "revenueEur": 216788,
+     "netSalesEur": 216788,
+     "actId": "92838be73a014172a20c51a234d6f1af"
+    }
+   }
+  },
+  "175279629": {
+   "name": "СОБАЛ ВИЗУС ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 247465,
+     "netSalesEur": 247465,
+     "actId": "5147b78a661c4f4da284acf93e68a804"
+    },
+    "2020": {
+     "revenueEur": 233149,
+     "netSalesEur": 233149,
+     "actId": "8706c404c0eb49baa74e0209901c12f1"
+    },
+    "2022": {
+     "revenueEur": 328761,
+     "netSalesEur": 328761,
+     "actId": "ba98325425114b748c192058f365de44"
+    }
+   }
+  },
+  "175317154": {
+   "name": "СОБАЛ Вижън ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 2173502,
+     "netSalesEur": 2167366,
+     "actId": "53d2a9cc113041c586d39ed96d14d1dd"
+    },
+    "2020": {
+     "revenueEur": 2238947,
+     "netSalesEur": 2236391,
+     "actId": "58a85121f597440d8ae7c52849b9ecba"
+    },
+    "2021": {
+     "revenueEur": 2660763,
+     "netSalesEur": 2589693,
+     "actId": "917928a4c98748e0946a75191043ad51"
+    },
+    "2022": {
+     "revenueEur": 3323909,
+     "netSalesEur": 3322886,
+     "actId": "ac85888668654eb39c23b8bc93d66072"
+    },
+    "2023": {
+     "revenueEur": 3907293,
+     "netSalesEur": 3907293,
+     "actId": "b15aba1f320a4a5bbdce215bd8df8e59",
+     "nzokShare": 0.28
+    }
+   }
+  },
+  "175339962": {
+   "name": "МЦ РВД ЗДРАВЕ ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 79250,
+     "netSalesEur": 79250,
+     "actId": "b64d6bb34f1943a69a21692cbc6ed53b"
+    },
+    "2020": {
+     "revenueEur": 84363,
+     "netSalesEur": 84363,
+     "actId": "26ed66a9ec76453b902bbc2e0866fba6"
+    },
+    "2021": {
+     "revenueEur": 91521,
+     "netSalesEur": 91521,
+     "actId": "196b04c32b1a4b7aa20b468972a12e38"
+    },
+    "2022": {
+     "revenueEur": 114018,
+     "netSalesEur": 114018,
+     "actId": "34dbb2b8392448a6be6446de0b52d056"
+    },
+    "2023": {
+     "revenueEur": 132425,
+     "netSalesEur": 132425,
+     "actId": "54364908ecfc422d93fd0bdd4985e73d",
+     "nzokShare": 0.96
+    },
+    "2024": {
+     "revenueEur": 179463,
+     "netSalesEur": 138560,
+     "actId": "d5363326c83e4c5c87f984e4a6909079",
+     "nzokShare": 0.74
+    }
+   }
+  },
+  "175403781": {
+   "name": "СБАЛОБ ЗРЕНИЕ ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 202983,
+     "netSalesEur": 202983,
+     "actId": "38dd46dbde7a471e868696fd57df638d"
+    },
+    "2020": {
+     "revenueEur": 200426,
+     "netSalesEur": 200426,
+     "actId": "d03b51746f3c49b99e3c34728161f1b9"
+    },
+    "2021": {
+     "revenueEur": 290925,
+     "netSalesEur": 290925,
+     "actId": "a8da97b8ffe24da4b3c22185fce6c3ec"
+    },
+    "2022": {
+     "revenueEur": 237239,
+     "netSalesEur": 237239,
+     "actId": "f855e226f23a4afebbf1717bcaaf6aba"
+    },
+    "2023": {
+     "revenueEur": 136515,
+     "netSalesEur": 136515,
+     "actId": "a3602943678a47d2853b4039cd7b6f8c",
+     "nzokShare": 0.47
+    }
+   }
+  },
+  "175463110": {
+   "name": "СБАЛ ПО КАРДИОЛОГИЯ ВАРНА ЕАД",
+   "years": {
+    "2019": {
+     "revenueEur": 3137287,
+     "netSalesEur": 3135753,
+     "actId": "7a60bed325904cb68e0dfa6c3da1906a"
+    },
+    "2020": {
+     "revenueEur": 2932770,
+     "netSalesEur": 2931748,
+     "actId": "70fd2ba1b42148ab91e4095bd234e49a"
+    },
+    "2021": {
+     "revenueEur": 3433836,
+     "netSalesEur": 3286584,
+     "actId": "b72b22054dd54b69ae1cd811780f0684"
+    },
+    "2022": {
+     "revenueEur": 4496301,
+     "netSalesEur": 4387396,
+     "actId": "70e15ce03ed84c489ecb45f9730fe5f1"
+    }
+   }
+  },
+  "200110954": {
+   "name": "МБАЛ - ПУЛС АД",
+   "years": {
+    "2019": {
+     "revenueEur": 7327324,
+     "netSalesEur": 7249096,
+     "actId": "25429343d6e149a4a1e5907c1836289e"
+    },
+    "2020": {
+     "revenueEur": 7593707,
+     "netSalesEur": 6817566,
+     "actId": "d15eb7f393664841a4c53171b4c2d260"
+    },
+    "2021": {
+     "revenueEur": 10833764,
+     "netSalesEur": 8089149,
+     "actId": "87a2498b9e6545228c7236ba46f26823"
+    },
+    "2022": {
+     "revenueEur": 10169084,
+     "netSalesEur": 9066739,
+     "actId": "ba24455e295a4b62a2a21fc914eb5ca8"
+    },
+    "2023": {
+     "revenueEur": 10706452,
+     "netSalesEur": 10535169,
+     "actId": "b64249b1c0294a1cb9ab232b6acebdb0",
+     "nzokShare": 0.87
+    },
+    "2024": {
+     "revenueEur": 13220474,
+     "netSalesEur": 13049703,
+     "actId": "261d5e1807014476a27d017f28abedce",
+     "nzokShare": 0.77
+    }
+   }
+  },
+  "200111173": {
+   "name": "СБАЛК - Ямбол ЕАД гр. Ямбол",
+   "years": {
+    "2019": {
+     "revenueEur": 3188927,
+     "netSalesEur": 3184326,
+     "actId": "25eb3558347449f297c5bb90f2fabd89"
+    },
+    "2020": {
+     "revenueEur": 2746660,
+     "netSalesEur": 2678147,
+     "actId": "a33afedb37b647ffaff84f731817f676"
+    },
+    "2021": {
+     "revenueEur": 3645511,
+     "netSalesEur": 3359188,
+     "actId": "73a25c666d09438fa27dfc4298bf09e0"
+    },
+    "2022": {
+     "revenueEur": 3697152,
+     "netSalesEur": 3606653,
+     "actId": "6523097e65ab4a89a604b407d89982ca"
+    },
+    "2023": {
+     "revenueEur": 3931835,
+     "netSalesEur": 3918541,
+     "actId": "0aebec1b768e49f2bcf94179a84f7982",
+     "nzokShare": 0.96
+    },
+    "2024": {
+     "revenueEur": 4119990,
+     "netSalesEur": 4104651,
+     "actId": "b927319e9e6d48d8ac63ed96112c2590",
+     "nzokShare": 0.97
+    }
+   }
+  },
+  "200111255": {
+   "name": "СБАЛ по кардиология - Велико Търново ЕАД",
+   "years": {
+    "2019": {
+     "revenueEur": 2125952,
+     "netSalesEur": 2119816,
+     "actId": "4c44acd277784f379d636e58cd78daaa"
+    },
+    "2020": {
+     "revenueEur": 1806394,
+     "netSalesEur": 1743505,
+     "actId": "857906cb2ade45c6b75b6d30130be37c"
+    },
+    "2021": {
+     "revenueEur": 2457780,
+     "netSalesEur": 2023182,
+     "actId": "4f0c39e1bba440afbc2a98f55e68bc8e"
+    },
+    "2022": {
+     "revenueEur": 2946575,
+     "netSalesEur": 2796255,
+     "actId": "247cae1df4214aa5a5e7173f80b3dff0"
+    },
+    "2023": {
+     "revenueEur": 3603585,
+     "netSalesEur": 3590803,
+     "actId": "84b950abc51b48f0816d478b7f2aa66b",
+     "nzokShare": 0.97
+    },
+    "2024": {
+     "revenueEur": 4168051,
+     "netSalesEur": 4139419,
+     "actId": "485682101a854be28670f77ac7576538",
+     "nzokShare": 0.91
+    }
+   }
+  },
+  "200143491": {
+   "name": "\"МБАЛ ВЕЛИМЕД\" ЕООД гр.Велинград",
+   "years": {
+    "2019": {
+     "revenueEur": 1960804,
+     "netSalesEur": 1906607,
+     "actId": "050e5154b89f4f9ebda4949aebcddeed"
+    },
+    "2020": {
+     "revenueEur": 2238436,
+     "netSalesEur": 2067664,
+     "actId": "b84e391565fd4ef0a72337c6d480e472"
+    },
+    "2021": {
+     "revenueEur": 3069796,
+     "netSalesEur": 2239458,
+     "actId": "c588640d15de46e6a5d7523876f9686e"
+    },
+    "2022": {
+     "revenueEur": 2814662,
+     "netSalesEur": 2547256,
+     "actId": "c8f97ad186734e339a052429cbc919c6"
+    },
+    "2023": {
+     "revenueEur": 3543253,
+     "netSalesEur": 3499793,
+     "actId": "2965c07269344058815a26cdf4a51088",
+     "nzokShare": 0.96
+    }
+   }
+  },
+  "200213096": {
+   "name": "МБАЛ Тримонциум ООД Пловдив",
+   "years": {
+    "2019": {
+     "revenueEur": 1767536,
+     "netSalesEur": 1758844,
+     "actId": "97d244a26fe14bcc9a8fc06c0a58e941"
+    },
+    "2020": {
+     "revenueEur": 1550748,
+     "netSalesEur": 1480701,
+     "actId": "c24a1b2df8ab48e0b78f3fa39d7a5c04"
+    },
+    "2021": {
+     "revenueEur": 2151516,
+     "netSalesEur": 1906096,
+     "actId": "376cccc4e8f1460a8fec4aa4d1d46e38"
+    },
+    "2022": {
+     "revenueEur": 1971030,
+     "netSalesEur": 1896893,
+     "actId": "1e03e6e4443b49ae88d569bf27feab24"
+    }
+   }
+  },
+  "200261536": {
+   "name": "МБАЛ \"Полимед\" ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 2721607,
+     "netSalesEur": 2721607,
+     "actId": "feaa7c910b4e48d09666a9fbb1e62ffe"
+    },
+    "2020": {
+     "revenueEur": 2526804,
+     "netSalesEur": 2526804,
+     "actId": "106694fbc5ca4a1e8b984ca04e1f962f"
+    },
+    "2021": {
+     "revenueEur": 2618837,
+     "netSalesEur": 2615769,
+     "actId": "a3c6e5cac95746c8a7cb261e82e29bc5"
+    },
+    "2022": {
+     "revenueEur": 2992591,
+     "netSalesEur": 2988501,
+     "actId": "911b89109766435d971b90cd70060f96"
+    },
+    "2023": {
+     "revenueEur": 3295787,
+     "netSalesEur": 3293742,
+     "actId": "8b0a5f766ecf42bc8cbd81619c5d13e3",
+     "nzokShare": 0.37
+    },
+    "2024": {
+     "revenueEur": 3452754,
+     "netSalesEur": 3452754,
+     "actId": "01f2d3bc139942308efb6ac0e8951e90",
+     "nzokShare": 0.32
+    }
+   }
+  },
+  "200366302": {
+   "name": "СОБАЛ - Д-р Тасков ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 834940,
+     "netSalesEur": 834940,
+     "actId": "22479ed20af249018ad84f748b6a8203"
+    },
+    "2020": {
+     "revenueEur": 814999,
+     "netSalesEur": 814999,
+     "actId": "16de6260df934c54a1fffa463cebaf75"
+    },
+    "2021": {
+     "revenueEur": 1039968,
+     "netSalesEur": 1038945,
+     "actId": "477634d2b2cd4fa294408ba0fa669d64"
+    },
+    "2022": {
+     "revenueEur": 1204092,
+     "netSalesEur": 1189776,
+     "actId": "586f627909384a269883b63b2c2220e1"
+    },
+    "2023": {
+     "revenueEur": 1505243,
+     "netSalesEur": 1504221,
+     "actId": "0c2c681c8ce341afb56171a847dba395",
+     "nzokShare": 0.59
+    }
+   }
+  },
+  "200415548": {
+   "name": "ОМЦ Трошев ООД гр. Стара Загора",
+   "years": {
+    "2019": {
+     "revenueEur": 550150,
+     "netSalesEur": 550150,
+     "actId": "bd028412900f42668bade0ba013f420f"
+    },
+    "2020": {
+     "revenueEur": 542481,
+     "netSalesEur": 539924,
+     "actId": "fb208b416a7a4f4ba76e8a5c7adf3af3"
+    },
+    "2021": {
+     "revenueEur": 658544,
+     "netSalesEur": 639115,
+     "actId": "602d8f455168482e8c34f04d60431b0e"
+    },
+    "2022": {
+     "revenueEur": 820112,
+     "netSalesEur": 813977,
+     "actId": "9c2ced50f49044e282d1d929bdfd145b"
+    },
+    "2023": {
+     "revenueEur": 993440,
+     "netSalesEur": 993440,
+     "actId": "0485670967b14591995a8c6ddad73b4c",
+     "nzokShare": 0.35
+    },
+    "2024": {
+     "revenueEur": 1187731,
+     "netSalesEur": 1185175,
+     "actId": "a2fca1f324be4f0c8098734a4862ef88",
+     "nzokShare": 0.34
+    }
+   }
+  },
+  "200429329": {
+   "name": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ВАРНА9 758 ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 425906,
+     "netSalesEur": 417725,
+     "actId": "d0e1d614ef414d32be73a737e0172fca"
+    },
+    "2020": {
+     "revenueEur": 354837,
+     "netSalesEur": 343077,
+     "actId": "db6ef63a70ab45049ec6a8fcf5f204eb"
+    },
+    "2021": {
+     "revenueEur": 326204,
+     "netSalesEur": 304730,
+     "actId": "782427a90bf645cf8e70179d1be155ce"
+    },
+    "2022": {
+     "revenueEur": 116063,
+     "netSalesEur": 110439,
+     "actId": "58ba148212604471a6c44febd12446dd"
+    },
+    "2023": {
+     "revenueEur": 161568,
+     "netSalesEur": 113507,
+     "actId": "368c929625154a9ba73097641e803064"
+    },
+    "2024": {
+     "revenueEur": 561910,
+     "netSalesEur": 553218,
+     "actId": "4cf110de174f470caec363cddeccbb7c"
+    }
+   }
+  },
+  "200603178": {
+   "name": "МБАЛ - Скин Системс EООД - с. Доганово",
+   "years": {
+    "2019": {
+     "revenueEur": 2473630,
+     "netSalesEur": 2473630,
+     "actId": "2330a07c3f68434cb6ed59efca6f6be9"
+    },
+    "2020": {
+     "revenueEur": 3372481,
+     "netSalesEur": 2665876,
+     "actId": "2b013b2bb922422d991d0d48a39abe5f"
+    },
+    "2021": {
+     "revenueEur": 3766176,
+     "netSalesEur": 3693573,
+     "actId": "29a6836fdfd942abb72f13b4fca8c52d"
+    },
+    "2022": {
+     "revenueEur": 4345981,
+     "netSalesEur": 4251903,
+     "actId": "6f56db58bd0e4cb1af6aeed96928f906"
+    },
+    "2023": {
+     "revenueEur": 4499369,
+     "netSalesEur": 4406313,
+     "actId": "c31fe811900c4c558459abd7052f9a09",
+     "nzokShare": 0.79
+    },
+    "2024": {
+     "revenueEur": 5012194,
+     "netSalesEur": 4909425,
+     "actId": "c6b9ce8b59ad44f3860c948d8955b2c3",
+     "nzokShare": 0.78
+    }
+   }
+  },
+  "200800019": {
+   "name": "МБАЛ Дева Мария ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 12332360,
+     "netSalesEur": 12153919,
+     "actId": "1be8205303c04ebb844db52998f21d3f"
+    },
+    "2020": {
+     "revenueEur": 14275269,
+     "netSalesEur": 12370196,
+     "actId": "75342b409c9f44f1b8fba7ce782546be"
+    },
+    "2021": {
+     "revenueEur": 15343869,
+     "netSalesEur": 12580337,
+     "actId": "9d3759a481d5485ab6d87a82dee1e18c"
+    },
+    "2022": {
+     "revenueEur": 14836157,
+     "netSalesEur": 13933726,
+     "actId": "c252140a91944cd0b0cb0cd49fe08259"
+    }
+   }
+  },
+  "201204876": {
+   "name": "МБАЛ Света Каридад ЕАД Пловдив",
+   "years": {
+    "2019": {
+     "revenueEur": 6660088,
+     "netSalesEur": 6638102,
+     "actId": "4490552955184d07ac0a0f5de51a69ef"
+    },
+    "2020": {
+     "revenueEur": 6255656,
+     "netSalesEur": 5798561,
+     "actId": "5f3cc88fab57454594ece7c3ffc50750"
+    },
+    "2021": {
+     "revenueEur": 8432226,
+     "netSalesEur": 8329967,
+     "actId": "21ce32f3834b45f7bcbc6680e8869f8a"
+    },
+    "2022": {
+     "revenueEur": 9599505,
+     "netSalesEur": 9584166,
+     "actId": "dfad38782df44494b283b6914715bf67"
+    },
+    "2023": {
+     "revenueEur": 11771984,
+     "netSalesEur": 11762270,
+     "actId": "913fc81623fe4aee92d45127463dcec4",
+     "nzokShare": 0.89
+    },
+    "2024": {
+     "revenueEur": 14146935,
+     "netSalesEur": 14137732,
+     "actId": "8b81af0181bc44a186edd5aac7ba5fee",
+     "nzokShare": 0.86
+    }
+   }
+  },
+  "201215716": {
+   "name": "СБАЛ -ГРЪБНАЧЕН ЦЕНТЪР АД",
+   "years": {
+    "2019": {
+     "revenueEur": 1204604,
+     "netSalesEur": 1187731,
+     "actId": "3516c02935524808b930a5ebd0335c7a"
+    },
+    "2020": {
+     "revenueEur": 1164212,
+     "netSalesEur": 1116661,
+     "actId": "e72e430b0628482e8be1d58990c7ed60"
+    },
+    "2021": {
+     "revenueEur": 1301749,
+     "netSalesEur": 1268515,
+     "actId": "2d5cc5032fef4cac9d74ee5129ec765e"
+    },
+    "2022": {
+     "revenueEur": 1393270,
+     "netSalesEur": 1374864,
+     "actId": "471e7d9a62524770ad173d56f62c0b3d"
+    }
+   }
+  },
+  "201242663": {
+   "name": "МБАЛ СЕРДИКА ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 22355726,
+     "netSalesEur": 22265228,
+     "actId": "57bb56a3c0934886aa4a7bfbc54cf64e"
+    },
+    "2020": {
+     "revenueEur": 25583512,
+     "netSalesEur": 25474607,
+     "actId": "d6af84cc5b794e9aa96592ae7e9581ab"
+    },
+    "2021": {
+     "revenueEur": 25638731,
+     "netSalesEur": 25477674,
+     "actId": "940dec5c8af146cdb5506445e8bddb55"
+    },
+    "2022": {
+     "revenueEur": 28527531,
+     "netSalesEur": 28381301,
+     "actId": "06ff2270bd4c45b7bd6e1b2081bba164"
+    },
+    "2023": {
+     "revenueEur": 34012670,
+     "netSalesEur": 33849056,
+     "actId": "b603a42606aa43878ef63ac317fd8df5",
+     "nzokShare": 0.9
+    }
+   }
+  },
+  "201299963": {
+   "name": "\"СБАЛК Кардиолайф\"ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 1570689,
+     "netSalesEur": 1527229,
+     "actId": "225e1a307b8942b5bce2831dafcc2d24"
+    },
+    "2020": {
+     "revenueEur": 1555861,
+     "netSalesEur": 1537455,
+     "actId": "a21ad94260794f0a8f6ead6075331b60"
+    },
+    "2021": {
+     "revenueEur": 1611592,
+     "netSalesEur": 1608524,
+     "actId": "46eecde8f78f4e488c5bfc495571ada8"
+    },
+    "2022": {
+     "revenueEur": 1699023,
+     "netSalesEur": 1682662,
+     "actId": "9addc332a2c74aa88466d4d6684352b4"
+    }
+   }
+  },
+  "201397400": {
+   "name": "МБАЛ МК Свети Иван Рилски ЕООД Пловдив",
+   "years": {
+    "2021": {
+     "revenueEur": 13985367,
+     "netSalesEur": 9764141,
+     "actId": "e78f5a98ef414b55b90dccf150e0a8cc"
+    },
+    "2022": {
+     "revenueEur": 12812463,
+     "netSalesEur": 11031634,
+     "actId": "7b2ebf17e57c4fdebd6e186ea11f3e4a"
+    }
+   }
+  },
+  "201409742": {
+   "name": "МЦ Визио ЛМ ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 289902,
+     "netSalesEur": 288880,
+     "actId": "65c9b94f06f84065bbf62b758abe9f8b"
+    },
+    "2020": {
+     "revenueEur": 269962,
+     "netSalesEur": 269451,
+     "actId": "088ba84ceab54021bf3773098686fe84"
+    },
+    "2021": {
+     "revenueEur": 312911,
+     "netSalesEur": 311888,
+     "actId": "f1a641a586b840a8b26380ae76d3c945"
+    },
+    "2022": {
+     "revenueEur": 309332,
+     "netSalesEur": 304730,
+     "actId": "e250403001e54cb19b4e299247bfdfd1"
+    },
+    "2023": {
+     "revenueEur": 376822,
+     "netSalesEur": 375800,
+     "actId": "a3837924b23f4e789f3e38d0c6bcb127",
+     "nzokShare": 0.23
+    },
+    "2024": {
+     "revenueEur": 446869,
+     "netSalesEur": 446358,
+     "actId": "67abff5d979f4706aeed2391b3e05a4e",
+     "nzokShare": 0.22
+    }
+   }
+  },
+  "201537560": {
+   "name": "УМБАЛ Еврохоспитал Пловдив ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 7779817,
+     "netSalesEur": 7772148,
+     "actId": "d4377d2108ca4f71ac3e74d202978b84"
+    },
+    "2020": {
+     "revenueEur": 8394390,
+     "netSalesEur": 7795156,
+     "actId": "e0e6e7b63ad14e18b537ae55750931cb"
+    },
+    "2021": {
+     "revenueEur": 11249955,
+     "netSalesEur": 8926645,
+     "actId": "8cfa81d525b448ee9ed3229f7d3be4b9"
+    },
+    "2022": {
+     "revenueEur": 11624221,
+     "netSalesEur": 10456430,
+     "actId": "ca781a291f0c4b65abed3af7cba52c2e"
+    },
+    "2023": {
+     "revenueEur": 11916680,
+     "netSalesEur": 11551106,
+     "actId": "327211c85deb4c34bb4017fe20f74412",
+     "nzokShare": 0.84
+    }
+   }
+  },
+  "201612434": {
+   "name": "СБАЛК МАДАРА ЕАД Шумен",
+   "years": {
+    "2019": {
+     "revenueEur": 2138223,
+     "netSalesEur": 2134132,
+     "actId": "00d14a9c30794b1d8fe1bec8fae7455e"
+    },
+    "2020": {
+     "revenueEur": 1999663,
+     "netSalesEur": 1912232,
+     "actId": "cb77751cb2214981bb6e110daea7a33c"
+    },
+    "2021": {
+     "revenueEur": 2668944,
+     "netSalesEur": 2392335,
+     "actId": "9b3277f277c44e539e32792216bbe70c"
+    },
+    "2022": {
+     "revenueEur": 3292208,
+     "netSalesEur": 3186371,
+     "actId": "1d039443b2594cb7a9b4d202cb328dc0"
+    }
+   }
+  },
+  "201675287": {
+   "name": "МЦ Литомед ООД Пловдив",
+   "years": {
+    "2019": {
+     "revenueEur": 376822,
+     "netSalesEur": 366596,
+     "actId": "067f4b2c639a43ec835605d58b9324c7"
+    },
+    "2020": {
+     "revenueEur": 422327,
+     "netSalesEur": 414658,
+     "actId": "77f4ce8cddb14bbb8efe4226aa6bd9a2"
+    },
+    "2021": {
+     "revenueEur": 376311,
+     "netSalesEur": 368130,
+     "actId": "99b246cb58444db48d7759b02bebd905"
+    },
+    "2022": {
+     "revenueEur": 455561,
+     "netSalesEur": 447892,
+     "actId": "a1c68230a10b4afd9dd91287fad6fc13"
+    },
+    "2023": {
+     "revenueEur": 555263,
+     "netSalesEur": 547082,
+     "actId": "95c35ba5ed5940c78bfb38b5b66bcc0f",
+     "nzokShare": 0.93
+    }
+   }
+  },
+  "201739317": {
+   "name": "МБАЛ Централ онко хоспитал ООД Пловдив",
+   "years": {
+    "2019": {
+     "revenueEur": 11235639,
+     "netSalesEur": 11228992,
+     "actId": "67cd24bbefb240d79e1b3c86e6806c57"
+    },
+    "2020": {
+     "revenueEur": 12237260,
+     "netSalesEur": 12149318,
+     "actId": "ade6f3044a8b4418b03d29f511fe4fb1"
+    },
+    "2021": {
+     "revenueEur": 13236836,
+     "netSalesEur": 12600277,
+     "actId": "3d07396b3cb74f0a9ae91358d5b55fe0"
+    },
+    "2022": {
+     "revenueEur": 14717026,
+     "netSalesEur": 14351963,
+     "actId": "e9f003299c494ca5abb3aa3338846db2"
+    },
+    "2023": {
+     "revenueEur": 17983669,
+     "netSalesEur": 17619118,
+     "actId": "f5f5d8a451ed47ed83284ad2e270cdbb",
+     "nzokShare": 0.95
+    }
+   }
+  },
+  "201827812": {
+   "name": "МЦ Пентаграм 2012 ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 1193355,
+     "netSalesEur": 1193355,
+     "actId": "4de9c3928f0b40b09643b98c64bfb5e3"
+    },
+    "2020": {
+     "revenueEur": 1467408,
+     "netSalesEur": 1443888,
+     "actId": "2d27cb42e2f54058ba79cba0aae1e6af"
+    },
+    "2021": {
+     "revenueEur": 1820199,
+     "netSalesEur": 1819177,
+     "actId": "a59667e8747a4b1b99d08b2a37eeaeb8"
+    },
+    "2022": {
+     "revenueEur": 2061018,
+     "netSalesEur": 2056416,
+     "actId": "43f4bd9b984a41e5979b937691c54a6d"
+    },
+    "2023": {
+     "revenueEur": 2413809,
+     "netSalesEur": 2333536,
+     "actId": "9a7d140aa056481da9d4a847035c2038",
+     "nzokShare": 0.13
+    }
+   }
+  },
+  "201834348": {
+   "name": "МБАЛ-Д-р Маджуров ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 2000685,
+     "netSalesEur": 1996084,
+     "actId": "97e892c556264c8fbe7a64f07d0bd346"
+    },
+    "2020": {
+     "revenueEur": 2096808,
+     "netSalesEur": 1992504,
+     "actId": "d775d413949c47d1979263f98aa47091"
+    },
+    "2021": {
+     "revenueEur": 2653605,
+     "netSalesEur": 2575888,
+     "actId": "62554ab584c34967a61dc435bb1d1042"
+    },
+    "2022": {
+     "revenueEur": 2396936,
+     "netSalesEur": 2300302,
+     "actId": "3c6ebef783ee4d7a85340f8421218393"
+    }
+   }
+  },
+  "201889501": {
+   "name": "МБАЛ-БУРГАСМЕД EООД",
+   "years": {
+    "2019": {
+     "revenueEur": 9136786,
+     "netSalesEur": 9071852,
+     "actId": "4745c68603da4e56a0c24204a6f7adcc"
+    },
+    "2020": {
+     "revenueEur": 10249868,
+     "netSalesEur": 9807601,
+     "actId": "ceeda9200f324a668315f6d42133c72b"
+    },
+    "2021": {
+     "revenueEur": 13626440,
+     "netSalesEur": 11129290,
+     "actId": "54094d643f5b429d81a30039a5e8b9ee"
+    },
+    "2022": {
+     "revenueEur": 13347786,
+     "netSalesEur": 12467853,
+     "actId": "4bd7deb9d93248848b4bd8d5f04c7f78"
+    },
+    "2023": {
+     "revenueEur": 17381879,
+     "netSalesEur": 17260703,
+     "actId": "13845f82f9004dba88639042e5a4aa74",
+     "nzokShare": 0.82
+    }
+   }
+  },
+  "201964523": {
+   "name": "МБАЛ Мед Лайн Клиник АД Пловдив",
+   "years": {
+    "2019": {
+     "revenueEur": 4077041,
+     "netSalesEur": 4060169,
+     "actId": "963e460110ca4a23a5d6fc924c3a2080"
+    },
+    "2020": {
+     "revenueEur": 5004525,
+     "netSalesEur": 4911470,
+     "actId": "e69cec1669694b5e841179aa6bf19072"
+    },
+    "2021": {
+     "revenueEur": 5800095,
+     "netSalesEur": 5777087,
+     "actId": "222540ef27a045bc911fd5e60732b4fc"
+    },
+    "2022": {
+     "revenueEur": 6313432,
+     "netSalesEur": 6063410,
+     "actId": "4f5ab873839e407ca7ab34d20d6ed659"
+    },
+    "2023": {
+     "revenueEur": 6739338,
+     "netSalesEur": 6270995,
+     "actId": "6e8293afeb3c46daa55f453026b7a7d1",
+     "nzokShare": 0.88
+    }
+   }
+  },
+  "202108197": {
+   "name": "МБАЛ Болница Европа ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 183042,
+     "netSalesEur": 183042,
+     "actId": "394e60b8386f4dbc80de851b33670f27"
+    },
+    "2020": {
+     "revenueEur": 24542,
+     "netSalesEur": 24542,
+     "actId": "687421ddb407428f8bbc5f068076e947"
+    },
+    "2022": {
+     "revenueEur": 945890,
+     "netSalesEur": 670815,
+     "actId": "332f6cf7f9ec4cca8c9f35a0ddd762ae"
+    }
+   }
+  },
+  "202139132": {
+   "name": "Аджибадем Сити клиник УМБАЛ ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 39913489,
+     "netSalesEur": 39816344,
+     "actId": "f421d12d134c4f6a914fae70c9ec0584"
+    },
+    "2020": {
+     "revenueEur": 42687248,
+     "netSalesEur": 42295087,
+     "actId": "9bf914d5bea6452cb9f9f97021667e2d"
+    },
+    "2021": {
+     "revenueEur": 46399227,
+     "netSalesEur": 44790703,
+     "actId": "05888117345a43b8a96c02c208a4e785"
+    },
+    "2022": {
+     "revenueEur": 52465705,
+     "netSalesEur": 51181340,
+     "actId": "7838f06348244e0d8a6eaa8416786764"
+    },
+    "2023": {
+     "revenueEur": 59753148,
+     "netSalesEur": 59402402,
+     "actId": "933db611aaa44fe59782cb5d10f5d73e",
+     "nzokShare": 0.89
+    },
+    "2024": {
+     "revenueEur": 66862662,
+     "netSalesEur": 66404544,
+     "actId": "bd6c891087c84ff8a3d39bad8db51763",
+     "nzokShare": 0.84
+    }
+   }
+  },
+  "202192245": {
+   "name": "\"МЦ-Медицински комплекс Берое\" ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 403409,
+     "netSalesEur": 367619,
+     "actId": "f8ed687b7e4540c88ec1551a4ae68d54"
+    },
+    "2020": {
+     "revenueEur": 597700,
+     "netSalesEur": 584407,
+     "actId": "99f0ec05bdd144bd96f617f823851f8a"
+    },
+    "2021": {
+     "revenueEur": 840053,
+     "netSalesEur": 782788,
+     "actId": "63a7e86912ab45b6a766fa16d00f6948"
+    },
+    "2022": {
+     "revenueEur": 847722,
+     "netSalesEur": 796593,
+     "actId": "2aec0f4d1e29402b86f16a4b7ef8b1e6"
+    }
+   }
+  },
+  "202195960": {
+   "name": "МБАЛ за женско здраве - Надежда ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 21629692,
+     "netSalesEur": 21431310,
+     "actId": "03b7a1906dfd4eef86a2c78bf817a4f9"
+    },
+    "2020": {
+     "revenueEur": 25866768,
+     "netSalesEur": 25509886,
+     "actId": "f015851da3a4439cb03c577003159b4a"
+    },
+    "2021": {
+     "revenueEur": 29676915,
+     "netSalesEur": 29373207,
+     "actId": "784c3024351040feb15ef212f1a91020"
+    },
+    "2022": {
+     "revenueEur": 32056467,
+     "netSalesEur": 31701631,
+     "actId": "b244e0e2d98e4ea6a958d3d910c1dd5d"
+    }
+   }
+  },
+  "202284487": {
+   "name": "МЦ Света Марина - Диагностика и Терапия ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 1960804,
+     "netSalesEur": 1950067,
+     "actId": "4ce2ccc4cab34095a57bd3da50a2fc6f"
+    },
+    "2020": {
+     "revenueEur": 2111635,
+     "netSalesEur": 2097319,
+     "actId": "f3d9c3676b5843b493ad814a9a0ac826"
+    },
+    "2023": {
+     "revenueEur": 2972140,
+     "netSalesEur": 2932770,
+     "actId": "9614c4d62adf4219bd0f4b73791c780d",
+     "nzokShare": 0.48
+    },
+    "2024": {
+     "revenueEur": 3865878,
+     "netSalesEur": 3841336,
+     "actId": "6a4a7af0c42b45a9b3b51547eac538a7",
+     "nzokShare": 0.48
+    }
+   }
+  },
+  "202285258": {
+   "name": "МБАЛ Здравето 2012 ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 1739415,
+     "netSalesEur": 1731234,
+     "actId": "f63139b52cc9471aa708d37f5be562cc"
+    },
+    "2020": {
+     "revenueEur": 1684707,
+     "netSalesEur": 1679083,
+     "actId": "3a0c1406f59b4311afac507f961464e7"
+    },
+    "2021": {
+     "revenueEur": 2890844,
+     "netSalesEur": 2873460,
+     "actId": "bdc8668e5f834e62ad5203929c1709f1"
+    },
+    "2022": {
+     "revenueEur": 2870393,
+     "netSalesEur": 2865280,
+     "actId": "ae74bb728d63466aa744aac90c2f8837"
+    }
+   }
+  },
+  "202302622": {
+   "name": "СОБАЛ ПЕНТАГРАМ ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 2290588,
+     "netSalesEur": 2180149,
+     "actId": "2530c7035b4a4faab2421d3509f78a97"
+    },
+    "2020": {
+     "revenueEur": 1738392,
+     "netSalesEur": 1397872,
+     "actId": "71302a69e0f04d46bcbc5f8b54fb71af"
+    },
+    "2021": {
+     "revenueEur": 2084537,
+     "netSalesEur": 1797702,
+     "actId": "5baaf30435404f11bd0345fa244ba2a3"
+    },
+    "2022": {
+     "revenueEur": 2454201,
+     "netSalesEur": 2239458,
+     "actId": "7f795d72a6644e2db3097a161d0d445e"
+    },
+    "2023": {
+     "revenueEur": 2935327,
+     "netSalesEur": 2764044,
+     "actId": "e520bf465c3f41d896a4a7e0d2fa04f1",
+     "nzokShare": 0.3
+    }
+   }
+  },
+  "202812027": {
+   "name": "СБР-Родопи ЕООД гр. Рудозем",
+   "years": {
+    "2019": {
+     "revenueEur": 935664,
+     "netSalesEur": 787389,
+     "actId": "21869ff9e4d54683a3d72f3d9281f83e"
+    },
+    "2020": {
+     "revenueEur": 876354,
+     "netSalesEur": 824203,
+     "actId": "09564de12dee4b7ea801831122c76721"
+    },
+    "2021": {
+     "revenueEur": 936175,
+     "netSalesEur": 840053,
+     "actId": "ca3cb59609f04ff8b594cef5b1a25fc7"
+    },
+    "2022": {
+     "revenueEur": 1251131,
+     "netSalesEur": 1018493,
+     "actId": "8f05f8222f7f436fa3188f023eb89858"
+    },
+    "2023": {
+     "revenueEur": 1320667,
+     "netSalesEur": 1298681,
+     "actId": "0324b6d311d04b00b671eb3fec28f0f3",
+     "nzokShare": 0.96
+    }
+   }
+  },
+  "202876236": {
+   "name": "МБАЛ \"Св.Георги\"-Перник-ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 1257267,
+     "netSalesEur": 1256755,
+     "actId": "39038d0e378c492ea55f2750ee219198"
+    },
+    "2020": {
+     "revenueEur": 1112571,
+     "netSalesEur": 995997,
+     "actId": "8386983a4405472ea7d9f963c3eda606"
+    },
+    "2021": {
+     "revenueEur": 1724076,
+     "netSalesEur": 1364638,
+     "actId": "bd6606a96a4646ccbdf151eb35a89a52"
+    },
+    "2022": {
+     "revenueEur": 1443888,
+     "netSalesEur": 1330381,
+     "actId": "e8238babca394ec1b97a7b617e715b6c"
+    },
+    "2023": {
+     "revenueEur": 1946488,
+     "netSalesEur": 1945466,
+     "actId": "0316704dcea4449c8d419b413c3db0f3",
+     "nzokShare": 0.74
+    },
+    "2024": {
+     "revenueEur": 2334047,
+     "netSalesEur": 2334047,
+     "actId": "df89e5888f914cd7b160ff685088520b",
+     "nzokShare": 0.64
+    }
+   }
+  },
+  "202896872": {
+   "name": "МЦ \"Мария Магдалена\" ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 162591,
+     "netSalesEur": 162591,
+     "actId": "1b285e7e450c44b7ba9a5db2fb1d59fa"
+    },
+    "2020": {
+     "revenueEur": 172817,
+     "netSalesEur": 170771,
+     "actId": "c13862b26aeb49d4a2a921e0ce057cf2"
+    },
+    "2021": {
+     "revenueEur": 183042,
+     "netSalesEur": 172305,
+     "actId": "8a6bf1fbcecc4fd1a736a74d139d3bbc"
+    },
+    "2022": {
+     "revenueEur": 220878,
+     "netSalesEur": 154410,
+     "actId": "729658805d954d3ca662f4071d04b46c"
+    }
+   }
+  },
+  "202999819": {
+   "name": "МЦ за очно здраве Фокус ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 381935,
+     "netSalesEur": 381935,
+     "actId": "4f053e830fb8478aafd5cb9ecb174fb4"
+    },
+    "2020": {
+     "revenueEur": 396251,
+     "netSalesEur": 375288,
+     "actId": "9e93ce5a8bc64d9ea3d841f35794324c"
+    },
+    "2021": {
+     "revenueEur": 408011,
+     "netSalesEur": 389093,
+     "actId": "747a09a8205b47c4b85963bd669643e4"
+    },
+    "2022": {
+     "revenueEur": 593099,
+     "netSalesEur": 563955,
+     "actId": "92d74a6c29534c949a001e30b6a72710"
+    },
+    "2023": {
+     "revenueEur": 669281,
+     "netSalesEur": 669281,
+     "actId": "d51d7be0868548cb898d67b7c5063618",
+     "nzokShare": 0.16
+    }
+   }
+  },
+  "203218275": {
+   "name": "МЦ Ре Спиро ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 63911,
+     "netSalesEur": 63911,
+     "actId": "671b430be1b944b08d186c06cd10873e"
+    },
+    "2020": {
+     "revenueEur": 78739,
+     "netSalesEur": 78739,
+     "actId": "9a07010ef1344530a495e69005a382f5"
+    },
+    "2021": {
+     "revenueEur": 125267,
+     "netSalesEur": 125267,
+     "actId": "58558cc65c4747d7bda7e8cfac19b2e9"
+    },
+    "2022": {
+     "revenueEur": 175373,
+     "netSalesEur": 175373,
+     "actId": "efb6975b91e54e89b0789ea0f26999f1"
+    },
+    "2023": {
+     "revenueEur": 166681,
+     "netSalesEur": 152365,
+     "actId": "1b78994227d54878a89f3652b640fca1"
+    }
+   }
+  },
+  "203346454": {
+   "name": "Очен медицински център Хасково ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 564466,
+     "netSalesEur": 564466,
+     "actId": "cec23cdb74a549dfaeaaf4eb56e632fa"
+    },
+    "2020": {
+     "revenueEur": 590031,
+     "netSalesEur": 590031,
+     "actId": "ccb08cd5e8564abaa03dd463ecf9be66"
+    },
+    "2021": {
+     "revenueEur": 628378,
+     "netSalesEur": 628378,
+     "actId": "4ad3152ea0434db4ad51a28d6cc19e6b"
+    },
+    "2022": {
+     "revenueEur": 765915,
+     "netSalesEur": 765915,
+     "actId": "74c51e5892844e8b9e77e870bf89a792"
+    },
+    "2023": {
+     "revenueEur": 841075,
+     "netSalesEur": 841075,
+     "actId": "fcc20507025340a780bbb32e54f4cc0f",
+     "nzokShare": 0.31
+    }
+   }
+  },
+  "203578986": {
+   "name": "ДКЦ НЕОКЛИНИК ЕАД",
+   "years": {
+    "2019": {
+     "revenueEur": 971966,
+     "netSalesEur": 971966,
+     "actId": "62c3f83910c342109f6519d17c9d91ca"
+    },
+    "2020": {
+     "revenueEur": 1157054,
+     "netSalesEur": 1146828,
+     "actId": "8500c9e7b5b64a3393fe797a58901156"
+    },
+    "2021": {
+     "revenueEur": 2394380,
+     "netSalesEur": 2353988,
+     "actId": "30d0d1ea959240c8af7e9d324b0a9a6d"
+    },
+    "2022": {
+     "revenueEur": 2917431,
+     "netSalesEur": 2884709,
+     "actId": "1fcfedd1b9bb4589b09f3573278e6572"
+    }
+   }
+  },
+  "203720884": {
+   "name": "МБАЛ\"Кардиолайф\"ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 1662721,
+     "netSalesEur": 1628465,
+     "actId": "5194f20bbcf04568b8bfa1f90aa9f7c3"
+    },
+    "2020": {
+     "revenueEur": 1345720,
+     "netSalesEur": 1316577,
+     "actId": "d10f7a0bbdc04029ac00f243034c6eee"
+    },
+    "2022": {
+     "revenueEur": 1799236,
+     "netSalesEur": 1758844,
+     "actId": "d1b7092db4d2418785d8d6932346ad84"
+    },
+    "2023": {
+     "revenueEur": 1681128,
+     "netSalesEur": 1665789,
+     "actId": "faa5453a8eab4cb1a71d60e818ae72b2",
+     "nzokShare": 0.97
+    }
+   }
+  },
+  "203738793": {
+   "name": "МЦ Верея ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 1129444,
+     "netSalesEur": 1127399,
+     "actId": "53f3a59aa5684784bf555b4275e65ed6"
+    },
+    "2020": {
+     "revenueEur": 1033832,
+     "netSalesEur": 1033832,
+     "actId": "ac842943cad0435ca0431cf93c822806"
+    },
+    "2021": {
+     "revenueEur": 1543079,
+     "netSalesEur": 1517514,
+     "actId": "977e3a1854f445239660c36bb9f4c99a"
+    },
+    "2022": {
+     "revenueEur": 1816620,
+     "netSalesEur": 1812530,
+     "actId": "011dc66f104643338de9c5d78f4f86fa"
+    },
+    "2023": {
+     "revenueEur": 2160719,
+     "netSalesEur": 2160208,
+     "actId": "8f124814d0c7460790802e78557dcd35",
+     "nzokShare": 0.31
+    }
+   }
+  },
+  "203788650": {
+   "name": "СБР- Витус ООД Хисаря",
+   "years": {
+    "2019": {
+     "revenueEur": 364551,
+     "netSalesEur": 352791,
+     "actId": "2ec0a558bf3e4a45bcb1be29918e1d9a"
+    },
+    "2020": {
+     "revenueEur": 385514,
+     "netSalesEur": 329272,
+     "actId": "e41f11082d514aa1ba71d1f621551d1f"
+    },
+    "2021": {
+     "revenueEur": 566000,
+     "netSalesEur": 495953,
+     "actId": "6ffd647bb5e940dd9abd6a8628feae48"
+    },
+    "2022": {
+     "revenueEur": 843632,
+     "netSalesEur": 812954,
+     "actId": "64dafc0800434c688b301a0228522689"
+    },
+    "2023": {
+     "revenueEur": 1093653,
+     "netSalesEur": 1091608,
+     "actId": "11c532ccdc924a5da952e20c17e16c50",
+     "nzokShare": 0.68
+    },
+    "2024": {
+     "revenueEur": 1204092,
+     "netSalesEur": 1202047,
+     "actId": "1b3119dde9f04f31bc69c48d1598dcbc",
+     "nzokShare": 0.63
+    }
+   }
+  },
+  "203831564": {
+   "name": "МБАЛ Сърце и Мозък ЕАД",
+   "years": {
+    "2019": {
+     "revenueEur": 13852942,
+     "netSalesEur": 13834024,
+     "actId": "486da52a234849728de8dbdd6fdc26a8"
+    },
+    "2020": {
+     "revenueEur": 18509789,
+     "netSalesEur": 17615539,
+     "actId": "b102f57e02774653951c511818637580"
+    },
+    "2021": {
+     "revenueEur": 38522264,
+     "netSalesEur": 34362393,
+     "actId": "511038552c5b4e829692b258e89b36bc"
+    },
+    "2022": {
+     "revenueEur": 75759652,
+     "netSalesEur": 72305875,
+     "actId": "b60bb05684f24977bce92e5d6a4e0d59"
+    },
+    "2023": {
+     "revenueEur": 103298344,
+     "netSalesEur": 101377420,
+     "actId": "d8cb370aff19428f9dcb67adf499d103",
+     "nzokShare": 0.45
+    },
+    "2024": {
+     "revenueEur": 132298308,
+     "netSalesEur": 131677600,
+     "actId": "70c43b62cd0744659630cf889156a4c9",
+     "nzokShare": 0.43
+    }
+   }
+  },
+  "205436270": {
+   "name": "МЦ БЕТА КЛИНИК ООД",
+   "years": {
+    "2020": {
+     "revenueEur": 17384,
+     "netSalesEur": 17384,
+     "actId": "f2e880ebfc7546d88d850120fb07cecd"
+    },
+    "2021": {
+     "revenueEur": 26076,
+     "netSalesEur": 26076,
+     "actId": "2118092387f84c3dbaa3b2ecfae6dcf9"
+    },
+    "2022": {
+     "revenueEur": 156967,
+     "netSalesEur": 156967,
+     "actId": "9fc92726f0f54636b0ea4f5926d372b8"
+    }
+   }
+  },
+  "205475063": {
+   "name": "МЦОБ д-р Маринови ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 9715,
+     "netSalesEur": 9715,
+     "actId": "ebecf3fc76e1449a80672226bc0d2631"
+    },
+    "2020": {
+     "revenueEur": 8692,
+     "netSalesEur": 8692,
+     "actId": "f129ed61a3784bafa8d6f586c69a9b9c"
+    },
+    "2021": {
+     "revenueEur": 12782,
+     "netSalesEur": 12782,
+     "actId": "ed095edc925244a2bd60e6ab4fd83386"
+    },
+    "2022": {
+     "revenueEur": 21986,
+     "netSalesEur": 20963,
+     "actId": "e153dde9f03c4a9687879db0d91416d0"
+    },
+    "2023": {
+     "revenueEur": 37324,
+     "netSalesEur": 37324,
+     "actId": "4f0317d4bc3c47769eecb06bf85c12b6"
+    }
+   }
+  },
+  "205660674": {
+   "name": "МЦ СВЕТЛИНА ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 56242,
+     "netSalesEur": 56242,
+     "actId": "023a4b62d4a34f4486066aec693d66e8"
+    },
+    "2020": {
+     "revenueEur": 307798,
+     "netSalesEur": 307798,
+     "actId": "cb5f14b4958e4c6fb9193ff276ce7aed"
+    },
+    "2021": {
+     "revenueEur": 405966,
+     "netSalesEur": 405966,
+     "actId": "c65f5f27ba594c4b83f02fa4a0963fa1"
+    },
+    "2022": {
+     "revenueEur": 454027,
+     "netSalesEur": 454027,
+     "actId": "5a4016e5293c40e1a6b767c9bcb93e25"
+    },
+    "2023": {
+     "revenueEur": 583895,
+     "netSalesEur": 583895,
+     "actId": "21f7c58d2ba6487cbcdbabc72790633a",
+     "nzokShare": 0.01
+    }
+   }
+  },
+  "206330409": {
+   "name": "МЦ АВАНГАРД I ООД",
+   "years": {
+    "2021": {
+     "revenueEur": 114529,
+     "netSalesEur": 114529,
+     "actId": "9e7fed4124fd4718a0a5daa9fdfff7c5"
+    },
+    "2022": {
+     "revenueEur": 201449,
+     "netSalesEur": 201449,
+     "actId": "634e372e14a94ae98387034d87a1161b"
+    }
+   }
+  },
+  "831142169": {
+   "name": "СБАЛТОСМ - ПРОФ. Д-Р ДИМИТЪР ШОЙЛЕВ ЕАД",
+   "years": {
+    "2019": {
+     "revenueEur": 524074,
+     "netSalesEur": 428463,
+     "actId": "0b116981a2a348ea92ab8c29a6ac01bb"
+    },
+    "2020": {
+     "revenueEur": 540947,
+     "netSalesEur": 436132,
+     "actId": "208a0037532944b4a7987a1f59ddefbb"
+    },
+    "2021": {
+     "revenueEur": 645762,
+     "netSalesEur": 549127,
+     "actId": "a07cdb1302aa459ebf56e43a517714a6"
+    },
+    "2022": {
+     "revenueEur": 672349,
+     "netSalesEur": 576226,
+     "actId": "89aeb3cd40204387ad5a20380c882a57"
+    },
+    "2023": {
+     "revenueEur": 758757,
+     "netSalesEur": 666725,
+     "actId": "9938965669844177a4b7a6a8c80420f3",
+     "nzokShare": 0.71
+    }
+   }
+  },
+  "831717011": {
+   "name": "СБАЛ - Св. Лазар ООД",
+   "years": {
+    "2019": {
+     "revenueEur": 1814064,
+     "netSalesEur": 1814064,
+     "actId": "114fbffb570a4a969977ad071a57174c"
+    },
+    "2020": {
+     "revenueEur": 1805883,
+     "netSalesEur": 1805883,
+     "actId": "33421f2e54a543b4910845b49a753e09"
+    },
+    "2021": {
+     "revenueEur": 2162765,
+     "netSalesEur": 2162765,
+     "actId": "89ef67c80fbd4e4091cefcaf306eb4d9"
+    }
+   }
+  },
+  "000090154": {
+   "name": "СБАЛОЗ д-р Марко Антонов Марков-Варна ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 15332110,
+     "netSalesEur": 14976250,
+     "actId": "5cc2680af89649ae90d4847d703fed05"
+    },
+    "2020": {
+     "revenueEur": 20476729,
+     "netSalesEur": 19724618,
+     "actId": "3820c9b62b1a48bc9ab5074ac2a03e52"
+    },
+    "2021": {
+     "revenueEur": 23494373,
+     "netSalesEur": 22161435,
+     "actId": "d6165e29215c4f02a6e5ee01d015479f"
+    },
+    "2022": {
+     "revenueEur": 24580357,
+     "netSalesEur": 23762290,
+     "actId": "e0d1a90644a24e2eba940477c40523f3"
+    },
+    "2023": {
+     "revenueEur": 27269241,
+     "netSalesEur": 27269241,
+     "actId": "3464068275124ef69dc7b521e457c2e7",
+     "nzokShare": 0.96
+    }
+   }
+  },
+  "000504032": {
+   "name": "МБАЛ - Кубрат ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 1723054,
+     "netSalesEur": 1387646,
+     "actId": "44a1cc9ae9ac454a8ae06896a7380fcf"
+    },
+    "2020": {
+     "revenueEur": 1971541,
+     "netSalesEur": 1399917,
+     "actId": "a59e229608b44027925bf7d6282227a6"
+    },
+    "2021": {
+     "revenueEur": 2469540,
+     "netSalesEur": 1805372,
+     "actId": "01f66747d7104e9997e9d3b93b837acb"
+    },
+    "2022": {
+     "revenueEur": 2383643,
+     "netSalesEur": 1556884,
+     "actId": "6bb8f742ac5941d4992f41503e4497bb"
+    },
+    "2023": {
+     "revenueEur": 2456246,
+     "netSalesEur": 1935240,
+     "actId": "5c2a80ea330f4ea883dce7b2592c2fdd",
+     "nzokShare": 0.71
+    },
+    "2024": {
+     "revenueEur": 2658206,
+     "netSalesEur": 2109079,
+     "actId": "71d3447719674ddc97a3557c00298805",
+     "nzokShare": 0.72
+    }
+   }
+  },
+  "000812172": {
+   "name": "СБАЛПФЗ - Стара Загора ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 429485,
+     "netSalesEur": 312399,
+     "actId": "96b488cbf20c49ffa1d506879cf3ade0"
+    },
+    "2020": {
+     "revenueEur": 486239,
+     "netSalesEur": 333362,
+     "actId": "052be783ad4a450698067bfdc63c157e"
+    },
+    "2021": {
+     "revenueEur": 1027185,
+     "netSalesEur": 550661,
+     "actId": "c6a47fce08d04fd9b97bb25c9e4985df"
+    },
+    "2022": {
+     "revenueEur": 955605,
+     "netSalesEur": 654965,
+     "actId": "b877d209896e437590111e573ffb1842"
+    },
+    "2023": {
+     "revenueEur": 1134557,
+     "netSalesEur": 791991,
+     "actId": "e05b004901154dd6882fe448aaf78dae",
+     "nzokShare": 0.63
+    },
+    "2024": {
+     "revenueEur": 1155008,
+     "netSalesEur": 891693,
+     "actId": "e0bf03613e8541cba4eb3f2b32cf375f",
+     "nzokShare": 0.72
+    }
+   }
+  },
+  "000192383": {
+   "name": "СБПЛРВБ МЕЗДРА ЕООД",
+   "years": {
+    "2019": {
+     "revenueEur": 363529,
+     "netSalesEur": 340009,
+     "actId": "032c732b836e4719b60535d4ea50cc94"
+    },
+    "2020": {
+     "revenueEur": 360972,
+     "netSalesEur": 330806,
+     "actId": "e0f97574bac24936b05691851b343b16"
+    },
+    "2021": {
+     "revenueEur": 398296,
+     "netSalesEur": 376822,
+     "actId": "2e89a95a3e4a441399acfb00586bde9e"
+    },
+    "2022": {
+     "revenueEur": 464764,
+     "netSalesEur": 437155,
+     "actId": "dc3d4d89b92d40909d74edde6a9b6001"
+    },
+    "2023": {
+     "revenueEur": 506179,
+     "netSalesEur": 490840,
+     "actId": "27d2ea17f3b54ca4a9bdeb644ffa395b",
+     "nzokShare": 0.83
+    }
+   }
+  }
+ }
+}

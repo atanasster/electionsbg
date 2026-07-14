@@ -109,6 +109,16 @@ const OPT_IN: { flag: string; scripts: string[]; label: string }[] = [
     scripts: ["write_pathway_tariffs.ts"],
     label: "clinical-pathway tariffs (НРД)",
   },
+  // Private-hospital annual revenue from filed ГФО (Търговски регистър). Opt-in:
+  // needs GEMINI_API_KEY (Vision OCR of each ОПР) + the local Postgres (the
+  // same-year НЗОК sanity gate) + curl (the registry WAF blocks node fetch).
+  // Resumable — a re-run only fills cells still empty (FY2023/24 keep landing as
+  // hospitals file late). Direct invocation supports --limit N / --refresh.
+  {
+    flag: "--revenue",
+    scripts: ["write_hospital_revenue.ts"],
+    label: "private-hospital ГФО revenue",
+  },
 ];
 
 const args = process.argv.slice(2);
