@@ -379,12 +379,10 @@ const main = async (args: {
   // 6. Rebuild rollups.
   console.log(`→ rebuilding contractor/awarder rollups`);
   const rollups = buildRollups(CONTRACTS_DIR);
-  const { contractorFiles, awarderFiles } = writeRollups(
-    PROCUREMENT_DIR,
-    rollups,
-  );
+  const { contractorFiles, awarderFiles, contractorPruned, awarderPruned } =
+    writeRollups(PROCUREMENT_DIR, rollups);
   console.log(
-    `  ${contractorFiles} contractor file(s), ${awarderFiles} awarder file(s)`,
+    `  ${contractorFiles} contractor file(s) (${contractorPruned} stale pruned), ${awarderFiles} awarder file(s) (${awarderPruned} stale pruned)`,
   );
 
   // 6b. Per-contractor full contract list — drives the SPA's company detail
