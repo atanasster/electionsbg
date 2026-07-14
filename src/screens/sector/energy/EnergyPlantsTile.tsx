@@ -97,7 +97,7 @@ const PlantRow: FC<{ plant: PowerPlant; max: number; bg: boolean }> = ({
           {bg ? `изход ${plant.retire}` : `exit ${plant.retire}`}
         </span>
       )}
-      <div className="w-16 shrink-0 text-right tabular-nums text-muted-foreground">
+      <div className="w-20 shrink-0 whitespace-nowrap text-right tabular-nums text-muted-foreground">
         {mw != null ? `${mw.toLocaleString()} MW` : "—"}
       </div>
     </div>
