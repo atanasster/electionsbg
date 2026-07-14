@@ -63,9 +63,11 @@ export const SectorSpendByYearTile: FC<{ model: AwarderModel<"all"> }> = ({
   );
 };
 
-export const SectorTopContractorsTile: FC<{ model: AwarderModel<"all"> }> = ({
-  model,
-}) => {
+export const SectorTopContractorsTile: FC<{
+  model: AwarderModel<"all">;
+  /** Optional "see all →" link in the header (opt-in; omit to hide). */
+  seeAllTo?: string;
+}> = ({ model, seeAllTo }) => {
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
   const locale = bg ? "bg-BG" : "en-US";
@@ -75,10 +77,18 @@ export const SectorTopContractorsTile: FC<{ model: AwarderModel<"all"> }> = ({
 
   return (
     <Card>
-      <CardHeader className="pb-2">
+      <CardHeader className="flex-row items-center justify-between pb-2">
         <CardTitle className="text-base">
           {bg ? "Топ изпълнители" : "Top contractors"}
         </CardTitle>
+        {seeAllTo && (
+          <Link
+            to={seeAllTo}
+            className="shrink-0 text-xs font-medium text-primary hover:underline"
+          >
+            {bg ? "виж всички →" : "see all →"}
+          </Link>
+        )}
       </CardHeader>
       <CardContent className="space-y-1.5 p-3 md:p-4">
         {rows.map((s) => (

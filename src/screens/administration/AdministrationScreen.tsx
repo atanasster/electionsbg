@@ -294,7 +294,7 @@ const StructuresTile: FC<{
         {rows.map((r) => (
           <div key={r.label} className="flex items-center gap-2 text-xs">
             <span
-              className="w-40 shrink-0 truncate text-muted-foreground"
+              className="w-52 shrink-0 leading-tight text-muted-foreground"
               title={r.label}
             >
               {r.label}
@@ -340,7 +340,7 @@ const CostPerFteTile: FC<{
       <CardContent className="space-y-1.5">
         {clean.map((r) => (
           <div key={r.adminId} className="flex items-center gap-2 text-xs">
-            <span className="w-40 shrink-0 truncate text-muted-foreground">
+            <span className="w-52 shrink-0 leading-tight text-muted-foreground">
               {ministryName(r.adminId, bg)}
             </span>
             <div className="h-4 flex-1 overflow-hidden rounded bg-muted/40">
@@ -610,7 +610,7 @@ const ServicesRegisterTile: FC<{
       <CardContent className="space-y-1.5">
         {rows.map((r) => (
           <div key={r.key} className="flex items-center gap-2 text-xs">
-            <span className="w-40 shrink-0 truncate text-muted-foreground">
+            <span className="w-52 shrink-0 leading-tight text-muted-foreground">
               {bg ? r.bg : r.en}
             </span>
             <div className="h-4 flex-1 overflow-hidden rounded bg-muted/40">
@@ -760,6 +760,10 @@ export const AdministrationScreen: FC = () => {
   );
   const moneyModel = model as AwarderModel<"all"> | null;
   const awarderN = byUnit.filter((u) => (u.totalEur ?? 0) > 0).length;
+  // Drill-down to the sector contracts browser (all-time, so the count matches
+  // the folded-group KPIs rather than the browser's default parliament window).
+  const sectorContractsHref =
+    "/procurement/contracts?sector=administration&pscope=all";
 
   const filled = nat?.positions.filled ?? null;
   const vacant = nat?.positions.vacant ?? null;
@@ -832,7 +836,11 @@ export const AdministrationScreen: FC = () => {
           )}
         </StatCard>
         <StatCard
-          label={bg ? "Общи държавни служби" : "General public services"}
+          label={
+            bg
+              ? "Разход за общи държавни служби"
+              : "General public services spending"
+          }
           hint={
             bg
               ? `COFOG GF01 (вкл. обслужване на дълга и външни работи), ${cost?.year ?? "—"}.`
@@ -871,37 +879,25 @@ export const AdministrationScreen: FC = () => {
         </div>
       </PackSection>
 
-      {/* Service quality — signals + satisfaction-measurement compliance */}
-      {serviceQuality && (
+      {/* Service quality + digital — two compact tiles, one row (side by side on
+          desktop, stacked on mobile). */}
+      {(serviceQuality || egov) && (
         <PackSection
           icon={MessagesSquare}
-          title={bg ? "Качество на обслужването" : "Service quality"}
+          title={
+            bg
+              ? "Качество на обслужването и дигитално управление"
+              : "Service quality & digital government"
+          }
           sub={
             bg
-              ? "Обратна връзка от гражданите — по годишния Доклад за състоянието на администрацията."
-              : "Feedback from citizens — from the annual Report on the State of the Administration."
+              ? "Обратна връзка от гражданите (Доклад за състоянието на администрацията) и мястото на България в ЕС по използване на е-услуги."
+              : "Citizen feedback (Report on the State of the Administration) and where Bulgaria stands in the EU on e-service use."
           }
           id="admin-quality"
         >
-          <div className="grid gap-3 md:grid-cols-2">
+          <div className="grid items-start gap-3 md:grid-cols-2">
             <ServiceQualityTile sq={serviceQuality} bg={bg} />
-          </div>
-        </PackSection>
-      )}
-
-      {/* Digital — e-government adoption vs the EU */}
-      {egov && (
-        <PackSection
-          icon={MonitorSmartphone}
-          title={bg ? "Дигитално управление" : "Digital government"}
-          sub={
-            bg
-              ? "Къде е България в ЕС по използване на електронни услуги."
-              : "Where Bulgaria stands in the EU on e-service use."
-          }
-          id="admin-digital"
-        >
-          <div className="grid gap-3 md:grid-cols-2">
             <EgovAdoptionTile egov={egov} bg={bg} />
           </div>
         </PackSection>
@@ -926,17 +922,26 @@ export const AdministrationScreen: FC = () => {
                   {formatEurCompact(moneyModel.totalEur, bg ? "bg" : "en")}
                 </span>
               </StatCard>
-              <StatCard label={bg ? "Договори" : "Contracts"}>
+              <StatCard
+                label={bg ? "Договори" : "Contracts"}
+                to={sectorContractsHref}
+              >
                 <span className="text-xl font-bold tabular-nums">
                   {formatInt(moneyModel.contractCount, bg ? "bg" : "en")}
                 </span>
               </StatCard>
-              <StatCard label={bg ? "Изпълнители" : "Contractors"}>
+              <StatCard
+                label={bg ? "Изпълнители" : "Contractors"}
+                to={sectorContractsHref}
+              >
                 <span className="text-xl font-bold tabular-nums">
                   {formatInt(moneyModel.suppliers.length, bg ? "bg" : "en")}
                 </span>
               </StatCard>
-              <StatCard label={bg ? "Институции" : "Buyers"}>
+              <StatCard
+                label={bg ? "Институции" : "Buyers"}
+                to={sectorContractsHref}
+              >
                 <span className="text-xl font-bold tabular-nums">
                   {awarderN}
                 </span>
@@ -944,7 +949,10 @@ export const AdministrationScreen: FC = () => {
             </div>
             <div className="mt-3 grid gap-3 md:grid-cols-2">
               <SectorSpendByYearTile model={moneyModel} />
-              <SectorTopContractorsTile model={moneyModel} />
+              <SectorTopContractorsTile
+                model={moneyModel}
+                seeAllTo={sectorContractsHref}
+              />
             </div>
           </>
         ) : (
