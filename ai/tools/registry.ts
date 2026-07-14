@@ -59,6 +59,8 @@ import {
   nzokHospitalScorecard,
   nzokPathwayHospitals,
   nzokDrugMolecule,
+  nzokPublicPrivate,
+  nzokPrivateHospitals,
 } from "./nzok";
 import {
   judiciaryBudget,
@@ -113,6 +115,7 @@ import {
   noiPensionDistribution,
   noiPensionSeries,
 } from "./pensions";
+import { administrationOverview } from "./administration";
 import {
   chmiEvents,
   localCouncil,
@@ -2386,6 +2389,60 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: nzokPathwayHospitals,
+  },
+  {
+    name: "nzokPublicPrivate",
+    domain: "fiscal",
+    description: {
+      bg: "Публични срещу частни болници: как се разпределят парите на НЗОК по собственост (държавни/общински/частни), какъв дял от частните са над 50% публично финансиране и колко от тях не обявяват обществени поръчки — казусът, по който ЕК съди България.",
+      en: "Public vs private hospitals: how НЗОК money splits by ownership (state/municipal/private), what share of private hospitals are >50% publicly funded, and how many run no public tenders — the EC lawsuit against Bulgaria.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Публични срещу частни болници",
+        en: "Public vs private hospitals",
+      },
+      {
+        bg: "Колко от парите на НЗОК отиват към частни болници?",
+        en: "How much of НЗОК money goes to private hospitals?",
+      },
+    ],
+    run: nzokPublicPrivate,
+  },
+  {
+    name: "nzokPrivateHospitals",
+    domain: "fiscal",
+    description: {
+      bg: "Частни болници по годишен приход (ГФО от Търговския регистър) или списък на частните болници с над 50% публично финансиране, които не обявяват нито една обществена поръчка. Използвай filter=notenders за втория списък.",
+      en: "Private hospitals ranked by annual revenue (ГФО from the Commerce Register), or the list of >50%-publicly-funded private hospitals that run zero public tenders. Use filter=notenders for the latter.",
+    },
+    params: [
+      {
+        name: "filter",
+        type: "text",
+        description: {
+          bg: "notenders — само болниците без поръчки; иначе по приход",
+          en: "notenders — only hospitals with no tenders; otherwise by revenue",
+        },
+      },
+      {
+        name: "count",
+        type: "count",
+        description: { bg: "Брой болници", en: "Number of hospitals" },
+      },
+    ],
+    examples: [
+      {
+        bg: "Какъв е приходът на частните болници?",
+        en: "What is the revenue of private hospitals?",
+      },
+      {
+        bg: "Кои болници не правят обществени поръчки?",
+        en: "Which hospitals run no public tenders?",
+      },
+    ],
+    run: nzokPrivateHospitals,
   },
   {
     name: "nzokDrugMolecule",
@@ -4754,6 +4811,30 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: schoolScores,
+  },
+  {
+    name: "administrationOverview",
+    domain: "fiscal",
+    description: {
+      bg: "Държавната администрация като институция: щатна численост, брой структури, незаети щатове, разход (COFOG), брой административни услуги, сигнали за обслужването и използване на електронно управление спрямо ЕС.",
+      en: "The state administration as an institution: positions, structures, vacancies, cost (COFOG), number of administrative services, service signals and e-government use vs the EU.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Колко голяма е държавната администрация?",
+        en: "How big is the state administration?",
+      },
+      {
+        bg: "Колко служители има администрацията и колко струва?",
+        en: "How many civil servants are there and what does it cost?",
+      },
+      {
+        bg: "Как е България по електронно управление спрямо ЕС?",
+        en: "How does Bulgaria compare on e-government vs the EU?",
+      },
+    ],
+    run: administrationOverview,
   },
 ];
 

@@ -990,6 +990,63 @@ export const route = (question: string, ctx: ToolContext): Route => {
     };
   }
 
+  // Public-vs-private hospitals, private-hospital ГФО revenue, and the
+  // "which hospitals run no tenders" leaderboard (the ЕК-съди-България band).
+  // These carry no explicit НЗОК token and often use compare/procurement words
+  // ("частни срещу публични", "не правят поръчки"), so gate them on hospital +
+  // ownership/revenue/tender cues BEFORE the compare and procurement blocks.
+  {
+    const hospCue = has(
+      q,
+      "болниц",
+      "лечебни заведения",
+      "мбал",
+      "умбал",
+      "hospital",
+    );
+    const privateCue = has(q, "частн", "private");
+    if (hospCue) {
+      const noTenderCue =
+        (has(q, "не правят", "не обявяв", "не провежд", "без", "no ", "zero") &&
+          has(q, "поръчк", "търг", "tender")) ||
+        has(q, "run no tender", "not run tender", "without tender");
+      if (noTenderCue)
+        return { tool: "nzokPrivateHospitals", args: { filter: "notenders" } };
+      if (
+        privateCue &&
+        has(
+          q,
+          "приход",
+          "оборот",
+          "revenue",
+          "turnover",
+          "гфо",
+          "печалба",
+          "финансов отчет",
+        )
+      )
+        return { tool: "nzokPrivateHospitals", args: {} };
+      if (
+        (has(q, "публичн", "държавни", "public") && privateCue) ||
+        (privateCue &&
+          has(
+            q,
+            "дял",
+            "колко от",
+            "процент",
+            "срещу",
+            "спрямо",
+            " vs",
+            "versus",
+            "сравн",
+            "compare",
+            "split",
+          ))
+      )
+        return { tool: "nzokPublicPrivate", args: {} };
+    }
+  }
+
   // 1. comparison of two elections
   // A pensions "X спрямо Y" question (пенсия vs заплата/доход) is not an election
   // comparison — "спрямо" is a compare trigger, but here it belongs to the

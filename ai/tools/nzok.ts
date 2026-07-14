@@ -1173,3 +1173,203 @@ export const nzokPathwayHospitals = async (
     ],
   };
 };
+
+// ---- public vs private hospitals (the ЕК-съди-България comparison) ----------
+
+type PublicPrivateFile = {
+  asOf: string;
+  ownership: Record<
+    "state" | "municipal" | "private",
+    { count: number; nzokEur: number; sharePct: number }
+  >;
+  privateStats: {
+    total: number;
+    withShare: number;
+    over50: number;
+    over50Pct: number;
+    medianSharePct: number;
+    zeroTender: number;
+    over50NoTender: number;
+    over50NoTenderAnnualEur: number;
+    belowThreshold: number;
+    over50WithTender: number;
+  };
+  hospitals: {
+    eik: string;
+    name: string;
+    nzokEur: number;
+    nzokAnnualEur: number;
+    revenueEur: number | null;
+    revenueYear: number | null;
+    nzokShare: number | null;
+    tenders3y: number;
+  }[];
+};
+
+// "Публични срещу частни болници" — the ownership split of НЗОК hospital money
+// plus the 50%-threshold / no-tenders headline the EC lawsuit is about.
+export const nzokPublicPrivate = async (
+  _args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const f = await fetchData<PublicPrivateFile>(
+    "/budget/nzok/public_private.json",
+  );
+  const order = ["state", "municipal", "private"] as const;
+  const label: Record<(typeof order)[number], string> = {
+    state: bg ? "Държавни" : "State",
+    municipal: bg ? "Общински" : "Municipal",
+    private: bg ? "Частни" : "Private",
+  };
+  const rows: Row[] = order.map((o) => ({
+    ownership: label[o],
+    hospitals: fmtInt(f.ownership[o].count, ctx.lang),
+    nzok: fmtEurCompact(f.ownership[o].nzokEur, ctx.lang),
+    share: `${f.ownership[o].sharePct}%`,
+  }));
+  const columns: Column[] = [
+    { key: "ownership", label: bg ? "Собственост" : "Ownership" },
+    { key: "hospitals", label: bg ? "Болници" : "Hospitals", numeric: true },
+    { key: "nzok", label: bg ? "НЗОК плащания" : "НЗОК paid", numeric: true },
+    { key: "share", label: bg ? "Дял" : "Share", numeric: true },
+  ];
+  const s = f.privateStats;
+  return {
+    tool: "nzokPublicPrivate",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? "Публични срещу частни болници (НЗОК)"
+      : "Public vs private hospitals (НЗОК)",
+    subtitle: bg
+      ? "Частните болници с над 50% публично финансиране не обявяват обществени поръчки — казусът, по който ЕК съди България (Директива 2014/24/ЕС)."
+      : "Private hospitals with >50% public funding run no public tenders — the EC lawsuit (Directive 2014/24/ЕС).",
+    columns,
+    rows,
+    categories: order.map((o) => label[o]),
+    series: [
+      {
+        key: "nzok",
+        label: bg ? "НЗОК плащания (€)" : "НЗОК paid (€)",
+        points: order.map((o) => ({
+          x: label[o],
+          y: Math.round(f.ownership[o].nzokEur),
+        })),
+      },
+    ],
+    viz: "bar",
+    facts: {
+      as_of: f.asOf,
+      private_share: `${f.ownership.private.sharePct}%`,
+      private_nzok: fmtEurCompact(f.ownership.private.nzokEur, ctx.lang),
+      private_hospitals: fmtInt(f.ownership.private.count, ctx.lang),
+      over_50pct_publicly_funded: `${s.over50Pct}%`,
+      median_public_funding: `${s.medianSharePct}%`,
+      private_running_no_tenders: `${s.zeroTender}/${s.total}`,
+      over_50pct_and_no_tenders: fmtInt(s.over50NoTender, ctx.lang),
+      money_outside_tender_annual: fmtEurCompact(
+        s.over50NoTenderAnnualEur,
+        ctx.lang,
+      ),
+    },
+    provenance: ["budget/nzok/public_private.json"],
+  };
+};
+
+// Private-hospital ranking — either by ГФО revenue ("приход на частните
+// болници") or the majority-public-but-no-tenders leaderboard
+// ("кои болници не правят поръчки"). arg `filter`: "notenders" | "revenue".
+export const nzokPrivateHospitals = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const f = await fetchData<PublicPrivateFile>(
+    "/budget/nzok/public_private.json",
+  );
+  const n = Math.min(Math.max(Number(args.count) || 12, 1), 25);
+  const noTenders =
+    String(args.filter ?? "") === "notenders" ||
+    String(args.mode ?? "") === "notenders";
+
+  const pool = noTenders
+    ? f.hospitals
+        .filter(
+          (h) => h.nzokShare != null && h.nzokShare > 0.5 && h.tenders3y === 0,
+        )
+        .sort((a, b) => b.nzokEur - a.nzokEur)
+    : f.hospitals
+        .filter((h) => h.revenueEur != null)
+        .sort((a, b) => (b.revenueEur ?? 0) - (a.revenueEur ?? 0));
+  const top = pool.slice(0, n);
+
+  const rows: Row[] = top.map((h) => ({
+    hospital: h.name,
+    revenue: h.revenueEur != null ? fmtEurCompact(h.revenueEur, ctx.lang) : "—",
+    nzok: fmtEurCompact(h.nzokEur, ctx.lang),
+    share: h.nzokShare != null ? `${Math.round(h.nzokShare * 100)}%` : "—",
+    tenders:
+      h.tenders3y > 0 ? fmtInt(h.tenders3y, ctx.lang) : bg ? "няма" : "none",
+  }));
+  const columns: Column[] = [
+    { key: "hospital", label: bg ? "Болница" : "Hospital" },
+    {
+      key: "revenue",
+      label: bg ? "Приход (ГФО)" : "Revenue (ГФО)",
+      numeric: true,
+    },
+    { key: "nzok", label: bg ? "НЗОК" : "НЗОК", numeric: true },
+    { key: "share", label: bg ? "Публично" : "Public", numeric: true },
+    { key: "tenders", label: bg ? "Поръчки 3г." : "Tenders 3y", numeric: true },
+  ];
+  const biggest = top[0];
+  return {
+    tool: "nzokPrivateHospitals",
+    domain: "fiscal",
+    kind: "table",
+    title: noTenders
+      ? bg
+        ? "Частни болници над 50% публични — без нито една поръчка"
+        : "Private hospitals >50% public — with zero tenders"
+      : bg
+        ? "Частни болници по приход (ГФО)"
+        : "Private hospitals by revenue (ГФО)",
+    subtitle: bg
+      ? "Приходите са от годишните финансови отчети (ГФО) в Търговския регистър; „Публично“ = НЗОК ÷ приход."
+      : "Revenue from annual ГФО in the Commerce Register; “Public” = НЗОК ÷ revenue.",
+    columns,
+    rows,
+    categories: top.map((h) => h.name),
+    series: [
+      {
+        key: noTenders ? "nzok" : "revenue",
+        label: noTenders
+          ? bg
+            ? "НЗОК (€)"
+            : "НЗОК (€)"
+          : bg
+            ? "Приход (€)"
+            : "Revenue (€)",
+        points: top.map((h) => ({
+          x: h.name,
+          y: Math.round((noTenders ? h.nzokEur : (h.revenueEur ?? 0)) || 0),
+        })),
+      },
+    ],
+    viz: "bar",
+    facts: {
+      as_of: f.asOf,
+      count: fmtInt(pool.length, ctx.lang),
+      top_hospital: biggest?.name ?? "—",
+      ...(biggest?.revenueEur != null
+        ? { top_revenue: fmtEurCompact(biggest.revenueEur, ctx.lang) }
+        : {}),
+      ...(biggest?.nzokShare != null
+        ? { top_public_share: `${Math.round(biggest.nzokShare * 100)}%` }
+        : {}),
+      ...(biggest?.eik ? { eik_id: biggest.eik } : {}),
+    },
+    provenance: ["budget/nzok/public_private.json"],
+  };
+};

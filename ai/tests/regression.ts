@@ -1356,6 +1356,42 @@ const CASES: Case[] = [
     q: "договорите на здравната каса",
     tool: "awarderProcurement",
   },
+  // Public-vs-private hospitals + private-hospital ГФО revenue + the
+  // no-tenders leaderboard (the ЕК-съди-България band). These often carry no
+  // explicit НЗОК token, so they exercise the dedicated router gate.
+  {
+    q: "Публични срещу частни болници",
+    tool: "nzokPublicPrivate",
+    kind: "table",
+    minRows: 3,
+    facts: { private_share: /%/, over_50pct_publicly_funded: /%/ },
+  },
+  {
+    q: "public vs private hospitals",
+    lang: "en",
+    tool: "nzokPublicPrivate",
+    kind: "table",
+    minRows: 3,
+  },
+  {
+    q: "Колко от парите на НЗОК отиват към частни болници?",
+    tool: "nzokPublicPrivate",
+    facts: { private_nzok: /€/ },
+  },
+  {
+    q: "Какъв е приходът на частните болници?",
+    tool: "nzokPrivateHospitals",
+    kind: "table",
+    minRows: 5,
+    facts: { top_hospital: /\S/ },
+  },
+  {
+    q: "Кои болници не правят обществени поръчки?",
+    tool: "nzokPrivateHospitals",
+    kind: "table",
+    minRows: 5,
+    facts: { top_hospital: /\S/ },
+  },
   {
     q: "Какви са последните емисии на държавен дълг?",
     tool: "govDebt",

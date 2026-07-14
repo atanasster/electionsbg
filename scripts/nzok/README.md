@@ -28,8 +28,31 @@ served from the GCS bucket, not the deploy.
 | `execution.json` | `write_execution.ts` | `/bg/nzok/financial_report/quarter` B1_5600 XLS | Latest monthly cash execution (revenue + expenditure YTD). EBK `Sheet1`, EUR-native from 2026. |
 | `hospital_eik.json` | `write_hospital_eik.ts` (`--crosswalk`) | НЗОК договорни партньори + Търговски регистър (PG) | The **Рег.№ ЛЗ → EIK crosswalk**. One entry per facility with `eik` (null when unmatched) + match `method`. 265/381 matched = **93% of YTD €** (verified: 0 false positives). Needs local PG. |
 | `hospital_reimbursement_by_eik.json` | `write_hospital_payments.ts` | (derived) | Reverse index keyed by EIK (~256 companies) summing each company's ЛЗ facilities. Feeds the reimbursement tile on `/company/:eik`. |
+| `hospital_revenue.json` | `write_hospital_revenue.ts` (`--revenue`) | Търговски регистър ГФО (`portal.registryagency.bg`) via the TR daily open-data feed + Gemini OCR | Private-hospital **annual revenue** (2019–2024), recovered from each hospital's filed ГФО (state/municipal file ЕЕОФ instead). 127 hospitals, ~611 hospital-years. Resumable (only fills empty cells). Needs `GEMINI_API_KEY` + local PG. See below. |
+| `public_private.json` | `write_public_private.ts` (`--revenue`) | (derived) | The **public-vs-private band** blob: ownership split of НЗОК money + the 50%-threshold stats + who runs ЗОП tenders. Joins ownership + reimbursement-by-EIK + revenue + the PG contracts corpus. |
 
 `parse_hospital_payments.ts` is the shared, reconciliation-asserted PDF parser.
+
+### Private-hospital ГФО revenue (`--revenue`)
+
+Public/state hospitals report quarterly financials to МЗ (ЕЕОФ →
+`hospital_financials.json`); private hospitals do **not** — but as commercial
+companies they file an annual ГФО with the Търговски регистър. `--revenue`
+recovers each private hospital's annual revenue so the whole hospital universe
+has a comparable multi-year financial picture (and the EC-lawsuit "% publicly
+funded" number gets a real denominator).
+
+Pipeline (`write_hospital_revenue.ts`): the ГФО `ActID`s are already in the TR
+daily open-data feed on disk (`raw_data/tr/daily/*.json`) → `curl` the CC-BY PDF
+from `portal.registryagency.bg/CR/api/Documents/{ActID}` (node fetch is
+WAF-blocked; curl passes) → Gemini Vision OCR of the ОПР (код 18000 „Общо
+приходи“ / 15100 „Нетни приходи“) → sanity gate dropping a read where same-year
+НЗОК > 1.15× revenue (a wrong-entity act / OCR misread). **Resumable** — a re-run
+only fills cells still empty, so refreshing FY2023/24 as hospitals file late is
+cheap. `write_public_private.ts` then joins the result into `public_private.json`
+for the "Частни болници и обществените поръчки" band. Both need
+`GEMINI_API_KEY` (.env.local) + the local Postgres. Opt-in; heavy (OCR) — run
+periodically, not daily.
 
 ### The Рег.№→EIK crosswalk (`--crosswalk`)
 
