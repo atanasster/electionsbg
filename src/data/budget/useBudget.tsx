@@ -51,6 +51,7 @@ import type {
   NzokDrugMoleculeFile,
   NzokDrugPackFile,
   NzokDrugReimbursementFile,
+  NzokPublicPrivateFile,
   NzokProcedureNamesFile,
   JudiciaryBudgetFile,
   PersonnelFile,
@@ -639,6 +640,17 @@ export const useNzokDrugPack = (
         )}&nzokCode=${encodeURIComponent(nzokCode ?? "")}`,
       ),
     enabled: !!(nationalNo || nzokCode),
+    staleTime: Infinity,
+  });
+
+// Public-vs-private hospital comparison (~31 KB precomputed blob). Powers the
+// "ЕК съди България" band: the ownership split of НЗОК money, the 50%-threshold
+// distribution, and the majority-public-but-no-tenders leaderboard.
+export const useNzokPublicPrivate = () =>
+  useQuery({
+    queryKey: ["budget", "nzok", "public-private"] as const,
+    queryFn: () =>
+      fetchJson<NzokPublicPrivateFile>("/budget/nzok/public_private.json"),
     staleTime: Infinity,
   });
 

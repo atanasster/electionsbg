@@ -116,8 +116,8 @@ const OPT_IN: { flag: string; scripts: string[]; label: string }[] = [
   // hospitals file late). Direct invocation supports --limit N / --refresh.
   {
     flag: "--revenue",
-    scripts: ["write_hospital_revenue.ts"],
-    label: "private-hospital ГФО revenue",
+    scripts: ["write_hospital_revenue.ts", "write_public_private.ts"],
+    label: "private-hospital ГФО revenue + public/private band",
   },
 ];
 

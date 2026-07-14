@@ -228,6 +228,46 @@ export interface NzokHospitalPaymentsFile {
   hospitals: NzokHospitalRow[]; // sorted by cumulativeEur desc
 }
 
+// Public-vs-private hospital comparison — the "ЕК съди България" band. НЗОК pays
+// private hospitals like public ones, but private ones with >50% public funding
+// are exempt from ЗОП (Directive 2014/24/ЕС — the EC lawsuit). This precomputed
+// blob joins ownership + НЗОК payments + ГФО revenue (private-only) + each
+// hospital's procurement-as-awarder activity so the tiles need one fetch.
+// Written by scripts/nzok/write_public_private.ts.
+export interface NzokPublicPrivateHospital {
+  eik: string;
+  name: string;
+  nzokEur: number; // YTD cumulative (matches the pack's payment tiles)
+  nzokAnnualEur: number; // annualised from YTD
+  revenueEur: number | null; // latest ГФО total revenue
+  revenueYear: number | null;
+  nzokShare: number | null; // НЗОК ÷ revenue, same year (2023+ only)
+  tenders3y: number; // contracts run as a ЗОП awarder, last 3 years
+}
+export interface NzokPublicPrivateFile {
+  generatedAt: string;
+  asOf: string;
+  ytdMonths: number;
+  source: { note: string };
+  ownership: Record<
+    NzokOwnership,
+    { count: number; nzokEur: number; sharePct: number }
+  >;
+  privateStats: {
+    total: number;
+    withShare: number;
+    over50: number;
+    over50Pct: number;
+    medianSharePct: number;
+    zeroTender: number;
+    over50NoTender: number;
+    over50NoTenderAnnualEur: number;
+    belowThreshold: number;
+    over50WithTender: number;
+  };
+  hospitals: NzokPublicPrivateHospital[]; // private only, sorted by nzokEur desc
+}
+
 // Annual gross drug-reimbursement rollup — НЗОК's second-largest budget line
 // (~€1.33bn/yr), paid outside ЗОП. Written by
 // scripts/nzok/write_drug_reimbursement.ts from the nhif.bg "Брутни разходи" XLS.

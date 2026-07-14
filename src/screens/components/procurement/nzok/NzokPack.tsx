@@ -49,6 +49,7 @@ import { NzokDrugRiskTile } from "./NzokDrugRiskTile";
 import { NzokSavingsLeaderboardTile } from "./NzokSavingsLeaderboardTile";
 import { NzokHospitalRiskTile } from "./NzokHospitalRiskTile";
 import { NzokProcurementLensTile } from "./NzokProcurementLensTile";
+import { NzokPublicPrivateBand } from "./NzokPublicPrivateBand";
 
 // Sections stay in money-first order: the €5.5bn fund and the flows that
 // actually spend it come first; ЗОП (~1.5%) closes the page. The banded layout
@@ -256,6 +257,10 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
           </div>
         </PackSection>
       )}
+
+      {/* ── Band 2b · Публични срещу частни болници (ЕК съди България) ──
+          Self-fetches public_private.json; self-hides until it exists. */}
+      <NzokPublicPrivateBand />
 
       {/* ── Band 3 · Лекарства / Medicines ─────────────────────────────
           All molecule + unit-price intelligence in one band: what is

@@ -1,0 +1,1359 @@
+{
+ "generatedAt": "2026-07-14T11:27:52.862Z",
+ "asOf": "2026-05-31",
+ "ytdMonths": 5,
+ "source": {
+  "note": "Съпоставка държавни/общински/частни болници: НЗОК плащания (hospital_reimbursement_by_eik) + собственост (hospital_ownership) + приход по ГФО (hospital_revenue) + брой процедури като възложител (корпус на поръчките, посл. 3 г.). nzokShare = НЗОК ÷ приход за същата година (2023+)."
+ },
+ "ownership": {
+  "state": {
+   "count": 54,
+   "nzokEur": 406768913,
+   "sharePct": 46.2
+  },
+  "municipal": {
+   "count": 72,
+   "nzokEur": 90287131,
+   "sharePct": 10.3
+  },
+  "private": {
+   "count": 132,
+   "nzokEur": 383528563,
+   "sharePct": 43.6
+  }
+ },
+ "privateStats": {
+  "total": 132,
+  "withShare": 82,
+  "over50": 56,
+  "over50Pct": 68,
+  "medianSharePct": 74,
+  "zeroTender": 113,
+  "over50NoTender": 45,
+  "over50NoTenderAnnualEur": 369330918,
+  "belowThreshold": 26,
+  "over50WithTender": 11
+ },
+ "hospitals": [
+  {
+   "eik": "203831564",
+   "name": "МБАЛ Сърце и мозък Бургас",
+   "nzokEur": 46530537,
+   "nzokAnnualEur": 111673289,
+   "revenueEur": 132298308,
+   "revenueYear": 2024,
+   "nzokShare": 0.43,
+   "tenders3y": 0
+  },
+  {
+   "eik": "160138163",
+   "name": "УМБАЛ Софиямед ООД",
+   "nzokEur": 36657663,
+   "nzokAnnualEur": 87978391,
+   "revenueEur": 65068539,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "112596309",
+   "name": "УМБАЛ Пълмед ООД",
+   "nzokEur": 28117105,
+   "nzokAnnualEur": 67481052,
+   "revenueEur": 42659127,
+   "revenueYear": 2020,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "175077093",
+   "name": "АДЖИБАДЕМ СИТИ КЛИНИК УМБАЛ ТОКУДА EАД",
+   "nzokEur": 26241737,
+   "nzokAnnualEur": 62980169,
+   "revenueEur": 91880174,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "202139132",
+   "name": "Аджибадем Сити клиник УМБАЛ ЕООД",
+   "nzokEur": 17830762,
+   "nzokAnnualEur": 42793829,
+   "revenueEur": 66862662,
+   "revenueYear": 2024,
+   "nzokShare": 0.84,
+   "tenders3y": 0
+  },
+  {
+   "eik": "200800019",
+   "name": "МБАЛ Дева Мария ЕООД",
+   "nzokEur": 16831936,
+   "nzokAnnualEur": 40396646,
+   "revenueEur": 14836157,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "117044162",
+   "name": "УМБАЛ МЕДИКА РУСЕ ООД",
+   "nzokEur": 15641504,
+   "nzokAnnualEur": 37539610,
+   "revenueEur": 40372630,
+   "revenueYear": 2024,
+   "nzokShare": 0.74,
+   "tenders3y": 0
+  },
+  {
+   "eik": "115757028",
+   "name": "УМБАЛ Каспела ЕООД Пловдив",
+   "nzokEur": 15242402,
+   "nzokAnnualEur": 36581765,
+   "revenueEur": 37262952,
+   "revenueYear": 2024,
+   "nzokShare": 0.92,
+   "tenders3y": 0
+  },
+  {
+   "eik": "112520604",
+   "name": "МБАЛ-Уни Хоспитал ООД гр.Панагюрище",
+   "nzokEur": 13280652,
+   "nzokAnnualEur": 31873565,
+   "revenueEur": 78664301,
+   "revenueYear": 2023,
+   "nzokShare": 0.89,
+   "tenders3y": 0
+  },
+  {
+   "eik": "201889501",
+   "name": "МБАЛ-БУРГАСМЕД EООД",
+   "nzokEur": 12363881,
+   "nzokAnnualEur": 29673314,
+   "revenueEur": 17381879,
+   "revenueYear": 2023,
+   "nzokShare": 0.82,
+   "tenders3y": 0
+  },
+  {
+   "eik": "130466880",
+   "name": "МБАЛ Света София ЕООД",
+   "nzokEur": 10590508,
+   "nzokAnnualEur": 25417219,
+   "revenueEur": 31904613,
+   "revenueYear": 2023,
+   "nzokShare": 0.81,
+   "tenders3y": 0
+  },
+  {
+   "eik": "114521594",
+   "name": "„УМБАЛ Св. Марина – Плевен” ООД",
+   "nzokEur": 7869031,
+   "nzokAnnualEur": 18885674,
+   "revenueEur": 12299126,
+   "revenueYear": 2021,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "201204876",
+   "name": "МБАЛ Света Каридад ЕАД Пловдив",
+   "nzokEur": 6844054,
+   "nzokAnnualEur": 16425730,
+   "revenueEur": 14146935,
+   "revenueYear": 2024,
+   "nzokShare": 0.86,
+   "tenders3y": 0
+  },
+  {
+   "eik": "160135466",
+   "name": "МБАЛ ТРАКИЯ ЕООД гр. Стара Загора",
+   "nzokEur": 6750255,
+   "nzokAnnualEur": 16200612,
+   "revenueEur": null,
+   "revenueYear": null,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "200110954",
+   "name": "МБАЛ - ПУЛС АД",
+   "nzokEur": 6223021,
+   "nzokAnnualEur": 14935250,
+   "revenueEur": 13220474,
+   "revenueYear": 2024,
+   "nzokShare": 0.77,
+   "tenders3y": 0
+  },
+  {
+   "eik": "201397400",
+   "name": "МБАЛ МК Свети Иван Рилски ЕООД Пловдив",
+   "nzokEur": 5124888,
+   "nzokAnnualEur": 12299731,
+   "revenueEur": 12812463,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "201537560",
+   "name": "УМБАЛ Еврохоспитал Пловдив ООД",
+   "nzokEur": 4908497,
+   "nzokAnnualEur": 11780393,
+   "revenueEur": 11916680,
+   "revenueYear": 2023,
+   "nzokShare": 0.84,
+   "tenders3y": 0
+  },
+  {
+   "eik": "101522447",
+   "name": "МБАЛ Югозападна болница ООД",
+   "nzokEur": 4176661,
+   "nzokAnnualEur": 10023986,
+   "revenueEur": 11022942,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 68
+  },
+  {
+   "eik": "117684874",
+   "name": "СБАЛК МЕДИКА-КОР ЕАД",
+   "nzokEur": 4126486,
+   "nzokAnnualEur": 9903566,
+   "revenueEur": 10550508,
+   "revenueYear": 2024,
+   "nzokShare": 0.82,
+   "tenders3y": 0
+  },
+  {
+   "eik": "202195960",
+   "name": "МБАЛ за женско здраве - Надежда ООД",
+   "nzokEur": 3992307,
+   "nzokAnnualEur": 9581537,
+   "revenueEur": 32056467,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "201739317",
+   "name": "МБАЛ Централ онко хоспитал ООД Пловдив",
+   "nzokEur": 3918642,
+   "nzokAnnualEur": 9404741,
+   "revenueEur": 17983669,
+   "revenueYear": 2023,
+   "nzokShare": 0.95,
+   "tenders3y": 0
+  },
+  {
+   "eik": "200143491",
+   "name": "\"МБАЛ ВЕЛИМЕД\" ЕООД гр.Велинград",
+   "nzokEur": 3517407,
+   "nzokAnnualEur": 8441777,
+   "revenueEur": 3543253,
+   "revenueYear": 2023,
+   "nzokShare": 0.96,
+   "tenders3y": 0
+  },
+  {
+   "eik": "119624388",
+   "name": "МБАЛ Хаджи Димитър ООД - Сливен",
+   "nzokEur": 3503617,
+   "nzokAnnualEur": 8408681,
+   "revenueEur": 9118891,
+   "revenueYear": 2023,
+   "nzokShare": 0.76,
+   "tenders3y": 0
+  },
+  {
+   "eik": "000090154",
+   "name": "СБАЛОЗ д-р Марко Антонов Марков-Варна ЕООД",
+   "nzokEur": 3185427,
+   "nzokAnnualEur": 7645025,
+   "revenueEur": 27269241,
+   "revenueYear": 2023,
+   "nzokShare": 0.96,
+   "tenders3y": 181
+  },
+  {
+   "eik": "109080582",
+   "name": "МБАЛ Д-р Никола Василиев АД",
+   "nzokEur": 3174350,
+   "nzokAnnualEur": 7618440,
+   "revenueEur": 8280883,
+   "revenueYear": 2024,
+   "nzokShare": 0.78,
+   "tenders3y": 73
+  },
+  {
+   "eik": "111587016",
+   "name": "МБАЛ Сити клиник - Св.Георги ЕООД гр.Монтана",
+   "nzokEur": 3118082,
+   "nzokAnnualEur": 7483397,
+   "revenueEur": 7064520,
+   "revenueYear": 2024,
+   "nzokShare": 0.93,
+   "tenders3y": 0
+  },
+  {
+   "eik": "128501598",
+   "name": "МБАЛ Св.Пантелеймон АД гр.Ямбол",
+   "nzokEur": 3038073,
+   "nzokAnnualEur": 7291375,
+   "revenueEur": 11384425,
+   "revenueYear": 2024,
+   "nzokShare": 0.63,
+   "tenders3y": 224
+  },
+  {
+   "eik": "131259767",
+   "name": "МБАЛ Вита ЕООД",
+   "nzokEur": 2713688,
+   "nzokAnnualEur": 6512851,
+   "revenueEur": 8882163,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "114671238",
+   "name": "„МБАЛ Авис Медика” ООД",
+   "nzokEur": 2711104,
+   "nzokAnnualEur": 6506650,
+   "revenueEur": 11670237,
+   "revenueYear": 2024,
+   "nzokShare": 0.72,
+   "tenders3y": 0
+  },
+  {
+   "eik": "131372487",
+   "name": "МБАЛ Доверие АД",
+   "nzokEur": 2656199,
+   "nzokAnnualEur": 6374878,
+   "revenueEur": 10302020,
+   "revenueYear": 2023,
+   "nzokShare": 0.58,
+   "tenders3y": 0
+  },
+  {
+   "eik": "201964523",
+   "name": "МБАЛ Мед Лайн Клиник АД Пловдив",
+   "nzokEur": 2526452,
+   "nzokAnnualEur": 6063485,
+   "revenueEur": 6739338,
+   "revenueYear": 2023,
+   "nzokShare": 0.88,
+   "tenders3y": 0
+  },
+  {
+   "eik": "160044550",
+   "name": "УСБАЛАГ СЕЛЕНА ООД ПЛОВДИВ",
+   "nzokEur": 2440565,
+   "nzokAnnualEur": 5857356,
+   "revenueEur": 14980852,
+   "revenueYear": 2024,
+   "nzokShare": 0.47,
+   "tenders3y": 0
+  },
+  {
+   "eik": "175463110",
+   "name": "СБАЛ ПО КАРДИОЛОГИЯ ВАРНА ЕАД",
+   "nzokEur": 2430858,
+   "nzokAnnualEur": 5834059,
+   "revenueEur": 4496301,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "109568877",
+   "name": "МБАЛ Св. Иван Рилски-2003 ООД",
+   "nzokEur": 2277280,
+   "nzokAnnualEur": 5465472,
+   "revenueEur": 5229493,
+   "revenueYear": 2023,
+   "nzokShare": 0.94,
+   "tenders3y": 0
+  },
+  {
+   "eik": "201242663",
+   "name": "МБАЛ СЕРДИКА ЕООД",
+   "nzokEur": 2082681,
+   "nzokAnnualEur": 4998434,
+   "revenueEur": 34012670,
+   "revenueYear": 2023,
+   "nzokShare": 0.9,
+   "tenders3y": 0
+  },
+  {
+   "eik": "114686820",
+   "name": "„МБАЛ Св. Панталеймон – Плевен” ООД",
+   "nzokEur": 1837199,
+   "nzokAnnualEur": 4409278,
+   "revenueEur": 4835287,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "201612434",
+   "name": "СБАЛК МАДАРА ЕАД Шумен",
+   "nzokEur": 1803361,
+   "nzokAnnualEur": 4328066,
+   "revenueEur": 3292208,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "200111173",
+   "name": "СБАЛК - Ямбол ЕАД гр. Ямбол",
+   "nzokEur": 1664166,
+   "nzokAnnualEur": 3993998,
+   "revenueEur": 4119990,
+   "revenueYear": 2024,
+   "nzokShare": 0.97,
+   "tenders3y": 0
+  },
+  {
+   "eik": "102835135",
+   "name": "СБР-Несебър АД",
+   "nzokEur": 1644210,
+   "nzokAnnualEur": 3946104,
+   "revenueEur": 3774357,
+   "revenueYear": 2024,
+   "nzokShare": 0.9,
+   "tenders3y": 0
+  },
+  {
+   "eik": "200603178",
+   "name": "МБАЛ - Скин Системс EООД - с. Доганово",
+   "nzokEur": 1621868,
+   "nzokAnnualEur": 3892483,
+   "revenueEur": 5012194,
+   "revenueYear": 2024,
+   "nzokShare": 0.78,
+   "tenders3y": 0
+  },
+  {
+   "eik": "101533900",
+   "name": "СБАЛО Свети мина ЕООД",
+   "nzokEur": 1608929,
+   "nzokAnnualEur": 3861430,
+   "revenueEur": 7697499,
+   "revenueYear": 2023,
+   "nzokShare": 0.9,
+   "tenders3y": 374
+  },
+  {
+   "eik": "112052721",
+   "name": "МБАЛ-Хигия АД гр.Пазарджик",
+   "nzokEur": 1585866,
+   "nzokAnnualEur": 3806078,
+   "revenueEur": 5668182,
+   "revenueYear": 2024,
+   "nzokShare": 0.75,
+   "tenders3y": 0
+  },
+  {
+   "eik": "112519153",
+   "name": "МБАЛ Проф. Димитър Ранев ООД гр.Пещера",
+   "nzokEur": 1563406,
+   "nzokAnnualEur": 3752174,
+   "revenueEur": 2789097,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "200111255",
+   "name": "СБАЛ по кардиология - Велико Търново ЕАД",
+   "nzokEur": 1502824,
+   "nzokAnnualEur": 3606778,
+   "revenueEur": 4168051,
+   "revenueYear": 2024,
+   "nzokShare": 0.91,
+   "tenders3y": 0
+  },
+  {
+   "eik": "160105708",
+   "name": "МБАЛ Св.Св.Козма и Дамян ООД",
+   "nzokEur": 1443336,
+   "nzokAnnualEur": 3464006,
+   "revenueEur": 2907206,
+   "revenueYear": 2024,
+   "nzokShare": 0.92,
+   "tenders3y": 0
+  },
+  {
+   "eik": "175075078",
+   "name": "„СБАЛ по кардиология” ЕАД",
+   "nzokEur": 1347737,
+   "nzokAnnualEur": 3234569,
+   "revenueEur": 3306525,
+   "revenueYear": 2024,
+   "nzokShare": 0.94,
+   "tenders3y": 0
+  },
+  {
+   "eik": "202285258",
+   "name": "МБАЛ Здравето 2012 ООД",
+   "nzokEur": 1329429,
+   "nzokAnnualEur": 3190630,
+   "revenueEur": 2870393,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "119625586",
+   "name": "СБР Стайков и фамилия ЕООД",
+   "nzokEur": 1189164,
+   "nzokAnnualEur": 2853994,
+   "revenueEur": 6718375,
+   "revenueYear": 2023,
+   "nzokShare": 0.37,
+   "tenders3y": 0
+  },
+  {
+   "eik": "109501412",
+   "name": "МБАЛ Св. Иван Рилски ЕООД",
+   "nzokEur": 1176570,
+   "nzokAnnualEur": 2823768,
+   "revenueEur": 4131238,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 140
+  },
+  {
+   "eik": "208515399",
+   "name": "СБАЛОБ ЗОРА ООД",
+   "nzokEur": 1151032,
+   "nzokAnnualEur": 2762477,
+   "revenueEur": null,
+   "revenueYear": null,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "103929677",
+   "name": "МБАЛ Еврохоспитал ООД",
+   "nzokEur": 1138876,
+   "nzokAnnualEur": 2733302,
+   "revenueEur": 5556209,
+   "revenueYear": 2024,
+   "nzokShare": 0.53,
+   "tenders3y": 0
+  },
+  {
+   "eik": "160058895",
+   "name": "СГЕБАЛ Еврохоспитал ООД Пловдив",
+   "nzokEur": 1121902,
+   "nzokAnnualEur": 2692565,
+   "revenueEur": 2185773,
+   "revenueYear": 2023,
+   "nzokShare": 0.97,
+   "tenders3y": 0
+  },
+  {
+   "eik": "202192245",
+   "name": "\"МЦ-Медицински комплекс Берое\" ЕООД",
+   "nzokEur": 1087751,
+   "nzokAnnualEur": 2610602,
+   "revenueEur": 847722,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "120505630",
+   "name": "МБАЛ Проф. д-р Константин Чилов ЕООД-гр.Мадан",
+   "nzokEur": 1069781,
+   "nzokAnnualEur": 2567474,
+   "revenueEur": 2533451,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 15
+  },
+  {
+   "eik": "116504387",
+   "name": "МБАЛ - Исперих ЕООД",
+   "nzokEur": 1012903,
+   "nzokAnnualEur": 2430967,
+   "revenueEur": 2796767,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 16
+  },
+  {
+   "eik": "130287411",
+   "name": "СБР-Банкя АД",
+   "nzokEur": 950557,
+   "nzokAnnualEur": 2281337,
+   "revenueEur": 3061616,
+   "revenueYear": 2023,
+   "nzokShare": 0.8,
+   "tenders3y": 0
+  },
+  {
+   "eik": "202284487",
+   "name": "МЦ Света Марина - Диагностика и Терапия ООД",
+   "nzokEur": 917261,
+   "nzokAnnualEur": 2201426,
+   "revenueEur": 3865878,
+   "revenueYear": 2024,
+   "nzokShare": 0.48,
+   "tenders3y": 0
+  },
+  {
+   "eik": "126531685",
+   "name": "МБАЛ Света Екатерина ЕООД",
+   "nzokEur": 834998,
+   "nzokAnnualEur": 2003995,
+   "revenueEur": 2876528,
+   "revenueYear": 2024,
+   "nzokShare": 0.69,
+   "tenders3y": 8
+  },
+  {
+   "eik": "125535944",
+   "name": "СОБАЛ Луксор ЕООД Пловдив",
+   "nzokEur": 812245,
+   "nzokAnnualEur": 1949388,
+   "revenueEur": 4283603,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "160087562",
+   "name": "Медикус Алфа СХБАЛ ЕООД Пловдив",
+   "nzokEur": 804427,
+   "nzokAnnualEur": 1930625,
+   "revenueEur": 2356033,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "000504032",
+   "name": "МБАЛ - Кубрат ЕООД",
+   "nzokEur": 777141,
+   "nzokAnnualEur": 1865138,
+   "revenueEur": 2658206,
+   "revenueYear": 2024,
+   "nzokShare": 0.72,
+   "tenders3y": 6
+  },
+  {
+   "eik": "200213096",
+   "name": "МБАЛ Тримонциум ООД Пловдив",
+   "nzokEur": 760019,
+   "nzokAnnualEur": 1824046,
+   "revenueEur": 1971030,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "112511199",
+   "name": "МБАЛ Хигия-Север ООД гр.Пазарджик",
+   "nzokEur": 660782,
+   "nzokAnnualEur": 1585877,
+   "revenueEur": 1303283,
+   "revenueYear": 2023,
+   "nzokShare": 0.91,
+   "tenders3y": 0
+  },
+  {
+   "eik": "203720884",
+   "name": "МБАЛ\"Кардиолайф\"ООД",
+   "nzokEur": 658373,
+   "nzokAnnualEur": 1580095,
+   "revenueEur": 1681128,
+   "revenueYear": 2023,
+   "nzokShare": 0.97,
+   "tenders3y": 0
+  },
+  {
+   "eik": "109563191",
+   "name": "СБР-Сапарева баня АД",
+   "nzokEur": 655385,
+   "nzokAnnualEur": 1572924,
+   "revenueEur": 2554926,
+   "revenueYear": 2024,
+   "nzokShare": 0.63,
+   "tenders3y": 0
+  },
+  {
+   "eik": "201215716",
+   "name": "СБАЛ -ГРЪБНАЧЕН ЦЕНТЪР АД",
+   "nzokEur": 650205,
+   "nzokAnnualEur": 1560492,
+   "revenueEur": 1393270,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "202812027",
+   "name": "СБР-Родопи ЕООД гр. Рудозем",
+   "nzokEur": 638559,
+   "nzokAnnualEur": 1532542,
+   "revenueEur": 1320667,
+   "revenueYear": 2023,
+   "nzokShare": 0.96,
+   "tenders3y": 0
+  },
+  {
+   "eik": "120504642",
+   "name": "МБАЛ Проф. д-р Асен Шопов ЕООД-гр.Златоград",
+   "nzokEur": 628517,
+   "nzokAnnualEur": 1508441,
+   "revenueEur": 1518537,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 24
+  },
+  {
+   "eik": "202876236",
+   "name": "МБАЛ \"Св.Георги\"-Перник-ООД",
+   "nzokEur": 604248,
+   "nzokAnnualEur": 1450195,
+   "revenueEur": 2334047,
+   "revenueYear": 2024,
+   "nzokShare": 0.64,
+   "tenders3y": 0
+  },
+  {
+   "eik": "201834348",
+   "name": "МБАЛ-Д-р Маджуров ООД",
+   "nzokEur": 595387,
+   "nzokAnnualEur": 1428929,
+   "revenueEur": 2396936,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "201299963",
+   "name": "\"СБАЛК Кардиолайф\"ООД",
+   "nzokEur": 587675,
+   "nzokAnnualEur": 1410420,
+   "revenueEur": 1699023,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "111511773",
+   "name": "МБАЛ ЕООД гр. Берковица",
+   "nzokEur": 564958,
+   "nzokAnnualEur": 1355899,
+   "revenueEur": 1657097,
+   "revenueYear": 2024,
+   "nzokShare": 0.77,
+   "tenders3y": 6
+  },
+  {
+   "eik": "200366302",
+   "name": "СОБАЛ - Д-р Тасков ООД",
+   "nzokEur": 528448,
+   "nzokAnnualEur": 1268275,
+   "revenueEur": 1505243,
+   "revenueYear": 2023,
+   "nzokShare": 0.59,
+   "tenders3y": 0
+  },
+  {
+   "eik": "202302622",
+   "name": "СОБАЛ ПЕНТАГРАМ ЕООД",
+   "nzokEur": 520855,
+   "nzokAnnualEur": 1250052,
+   "revenueEur": 2935327,
+   "revenueYear": 2023,
+   "nzokShare": 0.3,
+   "tenders3y": 0
+  },
+  {
+   "eik": "202108197",
+   "name": "МБАЛ Болница Европа ООД",
+   "nzokEur": 520393,
+   "nzokAnnualEur": 1248943,
+   "revenueEur": 945890,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "103552026",
+   "name": "\"СБР - ВАРНА\" АД",
+   "nzokEur": 494403,
+   "nzokAnnualEur": 1186567,
+   "revenueEur": 1956203,
+   "revenueYear": 2024,
+   "nzokShare": 0.59,
+   "tenders3y": 0
+  },
+  {
+   "eik": "123672022",
+   "name": "МБАЛ НИАМЕД ООД гр. Стара Загора",
+   "nzokEur": 487303,
+   "nzokAnnualEur": 1169527,
+   "revenueEur": 1510356,
+   "revenueYear": 2024,
+   "nzokShare": 0.82,
+   "tenders3y": 0
+  },
+  {
+   "eik": "130963149",
+   "name": "СБР-Орфей ЕООД гр. Девин",
+   "nzokEur": 451183,
+   "nzokAnnualEur": 1082839,
+   "revenueEur": 1558929,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "200429329",
+   "name": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ВАРНА9 758 ЕООД",
+   "nzokEur": 434962,
+   "nzokAnnualEur": 1043909,
+   "revenueEur": 561910,
+   "revenueYear": 2024,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "147098760",
+   "name": "СОБАЛ-Бургас ООД",
+   "nzokEur": 418698,
+   "nzokAnnualEur": 1004875,
+   "revenueEur": 1824801,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "115519436",
+   "name": "СБАЛАГ Торакс Д-р Сава Бояджиев ЕООД Пловдив",
+   "nzokEur": 400425,
+   "nzokAnnualEur": 961020,
+   "revenueEur": 1989437,
+   "revenueYear": 2024,
+   "nzokShare": 0.71,
+   "tenders3y": 0
+  },
+  {
+   "eik": "203738793",
+   "name": "МЦ Верея ЕООД",
+   "nzokEur": 393184,
+   "nzokAnnualEur": 943642,
+   "revenueEur": 2160719,
+   "revenueYear": 2023,
+   "nzokShare": 0.31,
+   "tenders3y": 0
+  },
+  {
+   "eik": "200261536",
+   "name": "МБАЛ \"Полимед\" ООД",
+   "nzokEur": 383143,
+   "nzokAnnualEur": 919543,
+   "revenueEur": 3452754,
+   "revenueYear": 2024,
+   "nzokShare": 0.32,
+   "tenders3y": 0
+  },
+  {
+   "eik": "113513064",
+   "name": "СБАЛББ-Перник-ЕООД",
+   "nzokEur": 375238,
+   "nzokAnnualEur": 900571,
+   "revenueEur": 991906,
+   "revenueYear": 2023,
+   "nzokShare": 0.8,
+   "tenders3y": 29
+  },
+  {
+   "eik": "131487151",
+   "name": "СБАЛ Йоан Павел ООД",
+   "nzokEur": 343613,
+   "nzokAnnualEur": 824671,
+   "revenueEur": 554240,
+   "revenueYear": 2023,
+   "nzokShare": 1.09,
+   "tenders3y": 0
+  },
+  {
+   "eik": "000812172",
+   "name": "СБАЛПФЗ - Стара Загора ЕООД",
+   "nzokEur": 331216,
+   "nzokAnnualEur": 794918,
+   "revenueEur": 1155008,
+   "revenueYear": 2024,
+   "nzokShare": 0.72,
+   "tenders3y": 16
+  },
+  {
+   "eik": "112531538",
+   "name": "СБР Вита ЕООД гр.Велинград",
+   "nzokEur": 327986,
+   "nzokAnnualEur": 787166,
+   "revenueEur": 5578194,
+   "revenueYear": 2024,
+   "nzokShare": 0.13,
+   "tenders3y": 36
+  },
+  {
+   "eik": "175317154",
+   "name": "СОБАЛ Вижън ООД",
+   "nzokEur": 319293,
+   "nzokAnnualEur": 766303,
+   "revenueEur": 3907293,
+   "revenueYear": 2023,
+   "nzokShare": 0.28,
+   "tenders3y": 0
+  },
+  {
+   "eik": "203788650",
+   "name": "СБР- Витус ООД Хисаря",
+   "nzokEur": 304035,
+   "nzokAnnualEur": 729684,
+   "revenueEur": 1204092,
+   "revenueYear": 2024,
+   "nzokShare": 0.63,
+   "tenders3y": 0
+  },
+  {
+   "eik": "103253312",
+   "name": "СХБАЛ Професор Темелков ООД",
+   "nzokEur": 285793,
+   "nzokAnnualEur": 685903,
+   "revenueEur": null,
+   "revenueYear": null,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "831717011",
+   "name": "СБАЛ - Св. Лазар ООД",
+   "nzokEur": 284808,
+   "nzokAnnualEur": 683539,
+   "revenueEur": 2162765,
+   "revenueYear": 2021,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "119544675",
+   "name": "СХБАЛ \"Амброаз Паре\" ООД",
+   "nzokEur": 260646,
+   "nzokAnnualEur": 625550,
+   "revenueEur": 691267,
+   "revenueYear": 2024,
+   "nzokShare": 0.99,
+   "tenders3y": 0
+  },
+  {
+   "eik": "201675287",
+   "name": "МЦ Литомед ООД Пловдив",
+   "nzokEur": 235371,
+   "nzokAnnualEur": 564890,
+   "revenueEur": 555263,
+   "revenueYear": 2023,
+   "nzokShare": 0.93,
+   "tenders3y": 0
+  },
+  {
+   "eik": "130467417",
+   "name": "СБАЛОТ ВИТОША ЕООД",
+   "nzokEur": 203218,
+   "nzokAnnualEur": 487723,
+   "revenueEur": 765915,
+   "revenueYear": 2019,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "106629912",
+   "name": "СОБАЛ Ралчовски Враца ЕООД",
+   "nzokEur": 202310,
+   "nzokAnnualEur": 485544,
+   "revenueEur": 892716,
+   "revenueYear": 2024,
+   "nzokShare": 0.45,
+   "tenders3y": 0
+  },
+  {
+   "eik": "200415548",
+   "name": "ОМЦ Трошев ООД гр. Стара Загора",
+   "nzokEur": 195893,
+   "nzokAnnualEur": 470143,
+   "revenueEur": 1187731,
+   "revenueYear": 2024,
+   "nzokShare": 0.34,
+   "tenders3y": 0
+  },
+  {
+   "eik": "201827812",
+   "name": "МЦ Пентаграм 2012 ООД",
+   "nzokEur": 168749,
+   "nzokAnnualEur": 404998,
+   "revenueEur": 2413809,
+   "revenueYear": 2023,
+   "nzokShare": 0.13,
+   "tenders3y": 0
+  },
+  {
+   "eik": "000192383",
+   "name": "СБПЛРВБ МЕЗДРА ЕООД",
+   "nzokEur": 167744,
+   "nzokAnnualEur": 402586,
+   "revenueEur": 506179,
+   "revenueYear": 2023,
+   "nzokShare": 0.83,
+   "tenders3y": 3
+  },
+  {
+   "eik": "104655851",
+   "name": "МЦСМП Визус ЕООД - Горна Оряховица",
+   "nzokEur": 157032,
+   "nzokAnnualEur": 376877,
+   "revenueEur": 761314,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "831142169",
+   "name": "СБАЛТОСМ - ПРОФ. Д-Р ДИМИТЪР ШОЙЛЕВ ЕАД",
+   "nzokEur": 155488,
+   "nzokAnnualEur": 373171,
+   "revenueEur": 758757,
+   "revenueYear": 2023,
+   "nzokShare": 0.71,
+   "tenders3y": 0
+  },
+  {
+   "eik": "102627700",
+   "name": "МЦ ОКСИКОМ ООД",
+   "nzokEur": 154293,
+   "nzokAnnualEur": 370303,
+   "revenueEur": 916235,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "126618510",
+   "name": "СБДПЛР Любимец ЕООД",
+   "nzokEur": 139307,
+   "nzokAnnualEur": 334337,
+   "revenueEur": 704049,
+   "revenueYear": 2023,
+   "nzokShare": 0.51,
+   "tenders3y": 1
+  },
+  {
+   "eik": "203346454",
+   "name": "Очен медицински център Хасково ООД",
+   "nzokEur": 120015,
+   "nzokAnnualEur": 288036,
+   "revenueEur": 841075,
+   "revenueYear": 2023,
+   "nzokShare": 0.31,
+   "tenders3y": 0
+  },
+  {
+   "eik": "124618376",
+   "name": "СБР Медика - Албена",
+   "nzokEur": 118388,
+   "nzokAnnualEur": 284131,
+   "revenueEur": 545037,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "131187321",
+   "name": "СБАЛГАР- Д-Р МАЛИНОВ ООД",
+   "nzokEur": 113789,
+   "nzokAnnualEur": 273094,
+   "revenueEur": 1311975,
+   "revenueYear": 2020,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "205475063",
+   "name": "МЦОБ д-р Маринови ООД",
+   "nzokEur": 99283,
+   "nzokAnnualEur": 238279,
+   "revenueEur": 37324,
+   "revenueYear": 2023,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "175279629",
+   "name": "СОБАЛ ВИЗУС ООД",
+   "nzokEur": 92384,
+   "nzokAnnualEur": 221722,
+   "revenueEur": 328761,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "175172463",
+   "name": "СБАЛОБ ПРОСПЕРИТАС ООД",
+   "nzokEur": 78002,
+   "nzokAnnualEur": 187205,
+   "revenueEur": 216788,
+   "revenueYear": 2020,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "101615428",
+   "name": "МЦ Надежда ООД",
+   "nzokEur": 58591,
+   "nzokAnnualEur": 140618,
+   "revenueEur": 150320,
+   "revenueYear": 2024,
+   "nzokShare": 0.87,
+   "tenders3y": 0
+  },
+  {
+   "eik": "202999819",
+   "name": "МЦ за очно здраве Фокус ЕООД",
+   "nzokEur": 57950,
+   "nzokAnnualEur": 139080,
+   "revenueEur": 669281,
+   "revenueYear": 2023,
+   "nzokShare": 0.16,
+   "tenders3y": 0
+  },
+  {
+   "eik": "207860969",
+   "name": "МЦ Уролоджия ЕООД",
+   "nzokEur": 47631,
+   "nzokAnnualEur": 114314,
+   "revenueEur": null,
+   "revenueYear": null,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "103263000",
+   "name": "СОБАЛ - доц. Георгиев ЕООД",
+   "nzokEur": 47402,
+   "nzokAnnualEur": 113765,
+   "revenueEur": 236728,
+   "revenueYear": 2023,
+   "nzokShare": 0.41,
+   "tenders3y": 0
+  },
+  {
+   "eik": "148018742",
+   "name": "\"Аджибадем Сити Клиник Медицински център Варна\"ЕООД",
+   "nzokEur": 47040,
+   "nzokAnnualEur": 112896,
+   "revenueEur": 4736097,
+   "revenueYear": 2024,
+   "nzokShare": 0.03,
+   "tenders3y": 0
+  },
+  {
+   "eik": "201409742",
+   "name": "МЦ Визио ЛМ ООД",
+   "nzokEur": 45644,
+   "nzokAnnualEur": 109546,
+   "revenueEur": 446869,
+   "revenueYear": 2024,
+   "nzokShare": 0.22,
+   "tenders3y": 0
+  },
+  {
+   "eik": "202896872",
+   "name": "МЦ \"Мария Магдалена\" ЕООД",
+   "nzokEur": 38225,
+   "nzokAnnualEur": 91740,
+   "revenueEur": 220878,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "203578986",
+   "name": "ДКЦ НЕОКЛИНИК ЕАД",
+   "nzokEur": 36559,
+   "nzokAnnualEur": 87742,
+   "revenueEur": 2917431,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "175403781",
+   "name": "СБАЛОБ ЗРЕНИЕ ООД",
+   "nzokEur": 35847,
+   "nzokAnnualEur": 86033,
+   "revenueEur": 136515,
+   "revenueYear": 2023,
+   "nzokShare": 0.47,
+   "tenders3y": 0
+  },
+  {
+   "eik": "201371373",
+   "name": "МЦ Хипократ ООД гр. Дупница",
+   "nzokEur": 32834,
+   "nzokAnnualEur": 78802,
+   "revenueEur": null,
+   "revenueYear": null,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "206330409",
+   "name": "МЦ АВАНГАРД I ООД",
+   "nzokEur": 31787,
+   "nzokAnnualEur": 76289,
+   "revenueEur": 201449,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "102891276",
+   "name": "МЦСП Д-р Иванови-Младост ООД",
+   "nzokEur": 20510,
+   "nzokAnnualEur": 49224,
+   "revenueEur": 493908,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "124140855",
+   "name": "ДКЦ 1 Добрич",
+   "nzokEur": 18143,
+   "nzokAnnualEur": 43543,
+   "revenueEur": 2312062,
+   "revenueYear": 2023,
+   "nzokShare": 0.02,
+   "tenders3y": 82
+  },
+  {
+   "eik": "115811006",
+   "name": "МЦ ВИТАМЕД ЕООД Карлово",
+   "nzokEur": 17648,
+   "nzokAnnualEur": 42355,
+   "revenueEur": 1010824,
+   "revenueYear": 2024,
+   "nzokShare": 0.06,
+   "tenders3y": 0
+  },
+  {
+   "eik": "175339962",
+   "name": "МЦ РВД ЗДРАВЕ ООД",
+   "nzokEur": 17640,
+   "nzokAnnualEur": 42336,
+   "revenueEur": 179463,
+   "revenueYear": 2024,
+   "nzokShare": 0.74,
+   "tenders3y": 0
+  },
+  {
+   "eik": "128057410",
+   "name": "ДКЦ 1 - Ямбол ЕООД гр. Ямбол",
+   "nzokEur": 12498,
+   "nzokAnnualEur": 29995,
+   "revenueEur": 1892291,
+   "revenueYear": 2023,
+   "nzokShare": 0,
+   "tenders3y": 2
+  },
+  {
+   "eik": "203218275",
+   "name": "МЦ Ре Спиро ООД",
+   "nzokEur": 12157,
+   "nzokAnnualEur": 29177,
+   "revenueEur": 166681,
+   "revenueYear": 2023,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "109530392",
+   "name": "МЦ Д-р Никола Василиев ЕООД",
+   "nzokEur": 9756,
+   "nzokAnnualEur": 23414,
+   "revenueEur": 210652,
+   "revenueYear": 2023,
+   "nzokShare": 0.08,
+   "tenders3y": 0
+  },
+  {
+   "eik": "130484427",
+   "name": "ОЧЕН ЛАЗЕРЕН ЦЕНТЪР ВИЖЪН ООД",
+   "nzokEur": 7621,
+   "nzokAnnualEur": 18290,
+   "revenueEur": 2214405,
+   "revenueYear": 2023,
+   "nzokShare": 0.01,
+   "tenders3y": 0
+  },
+  {
+   "eik": "110530756",
+   "name": "МЦ Ловеч ЕООД",
+   "nzokEur": 7179,
+   "nzokAnnualEur": 17230,
+   "revenueEur": 461185,
+   "revenueYear": 2024,
+   "nzokShare": 0.04,
+   "tenders3y": 0
+  },
+  {
+   "eik": "115524159",
+   "name": "МЦ Света Елисавета Раковски ЕООД",
+   "nzokEur": 7124,
+   "nzokAnnualEur": 17098,
+   "revenueEur": 1408609,
+   "revenueYear": 2023,
+   "nzokShare": 0.01,
+   "tenders3y": 0
+  },
+  {
+   "eik": "205436270",
+   "name": "МЦ БЕТА КЛИНИК ООД",
+   "nzokEur": 6584,
+   "nzokAnnualEur": 15802,
+   "revenueEur": 156967,
+   "revenueYear": 2022,
+   "nzokShare": null,
+   "tenders3y": 0
+  },
+  {
+   "eik": "205660674",
+   "name": "МЦ СВЕТЛИНА ЕООД",
+   "nzokEur": 3789,
+   "nzokAnnualEur": 9094,
+   "revenueEur": 583895,
+   "revenueYear": 2023,
+   "nzokShare": 0.01,
+   "tenders3y": 0
+  },
+  {
+   "eik": "115343340",
+   "name": "МЦ 1- Стамболийски ЕООД",
+   "nzokEur": 2154,
+   "nzokAnnualEur": 5170,
+   "revenueEur": 408522,
+   "revenueYear": 2023,
+   "nzokShare": null,
+   "tenders3y": 0
+  }
+ ]
+}
