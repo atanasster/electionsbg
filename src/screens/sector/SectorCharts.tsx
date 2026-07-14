@@ -21,18 +21,26 @@ export const SectorSpendByYearTile: FC<{ model: AwarderModel<"all"> }> = ({
   const max = Math.max(...years.map((y) => y.totalEur));
 
   return (
-    <Card>
+    // min-w-0 so this card can shrink below its bar-row's min-content width when
+    // it's a grid/flex child (grid items default to min-width:auto) — otherwise
+    // the track grows to the full bar row and the CardContent scroller never
+    // engages on a narrow screen.
+    <Card className="min-w-0">
       <CardHeader className="pb-2">
         <CardTitle className="text-base">
           {bg ? "Възложени по година" : "Awarded by year"}
         </CardTitle>
       </CardHeader>
-      <CardContent className="p-3 md:p-4">
+      {/* overflow-x-auto so a long year run (e.g. 2017–2026) scrolls on a narrow
+          screen instead of clipping the most recent, tallest bars (house rule:
+          wide content scrolls in its own container). On desktop it fits and the
+          bars flex to fill, so nothing changes there. */}
+      <CardContent className="overflow-x-auto p-3 md:p-4">
         <div className="flex h-[220px] items-end gap-2">
           {years.map((y) => (
             <div
               key={y.year}
-              className="flex min-w-0 flex-1 flex-col items-center justify-end gap-1"
+              className="flex min-w-[40px] flex-1 flex-col items-center justify-end gap-1"
             >
               <div className="text-[10px] font-medium tabular-nums text-muted-foreground">
                 {formatEurCompact(y.totalEur, locale)}

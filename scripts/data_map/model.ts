@@ -97,6 +97,7 @@ export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
   { pattern: /^\/judiciary\//, dataset: "judiciary" },
   { pattern: /^\/defense\//, dataset: "defense" },
   { pattern: /^\/energy\//, dataset: "energy" },
+  { pattern: /^\/administration\//, dataset: "administration" },
   { pattern: /^\/water\//, dataset: "water" },
   { pattern: /^\/culture\//, dataset: "culture" },
   { pattern: /^\/budget\//, dataset: "budget" },
@@ -720,6 +721,23 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     tags: ["indicators", "prices"],
   },
   {
+    id: "administration",
+    label: { bg: "ИИСДА · Eurostat · администрация", en: "IISDA · Eurostat · administration" }, // prettier-ignore
+    detail: {
+      bg: "щат, услуги, е-управление",
+      en: "workforce, services, e-gov",
+    },
+    desc: {
+      bg: "Държавната администрация като институция: административните услуги от Административния регистър (ИИСДА, ~2 668 услуги), използването на електронно управление спрямо ЕС от Eurostat (isoc_ciegi_ac), и показателите за административно обслужване от годишния Доклад за състоянието на администрацията. Численост, структури и разход идват от Доклада (personnel.json) и COFOG.",
+      en: "The state administration as an institution: the administrative-services register (IISDA, ~2,668 services), e-government use vs the EU from Eurostat (isoc_ciegi_ac), and the service-quality metrics from the annual Report on the State of the Administration. Headcount, structures and cost come from the Report (personnel.json) and COFOG.",
+    },
+    url: "https://iisda.government.bg/",
+    origin: "state",
+    members: ["iisda_services", "eurostat_egov"],
+    skills: ["update-administration"],
+    tags: ["fiscal", "indicators"],
+  },
+  {
     id: "culture",
     label: { bg: "НФЦ · филмови субсидии", en: "НФЦ · film subsidies" },
     detail: {
@@ -1000,6 +1018,20 @@ export const DATASETS: DatasetDef[] = [
     },
     path: "data/energy/",
     tags: ["indicators", "prices"],
+  },
+  {
+    id: "administration",
+    label: { bg: "Държавна администрация", en: "State administration" },
+    detail: {
+      bg: "щат, разход, услуги, е-управление",
+      en: "workforce, cost, services, e-gov",
+    },
+    desc: {
+      bg: "Административните услуги (ИИСДА, ~2 668), използването на е-управление спрямо ЕС (Eurostat), качеството на административното обслужване (сигнали, измерване на удовлетвореността — от годишния Доклад), плюс сгънатия page-context (щат, структури, разход, население). Поръчките за е-управление (МЕУ + ИА ИЕУ + ДАЕУ) идват от корпуса на договорите.",
+      en: "The administrative-services register (IISDA, ~2,668), e-government use vs the EU (Eurostat), service quality (signals, satisfaction-measurement — from the annual Report), plus the folded page-context (workforce, structures, cost, population). e-government procurement (МЕУ + ИА ИЕУ + ДАЕУ) comes from the contracts corpus.",
+    },
+    path: "data/administration/",
+    tags: ["fiscal", "indicators"],
   },
   {
     id: "culture",
@@ -1400,6 +1432,20 @@ export const FEATURES: FeatureDef[] = [
     tags: ["fiscal", "indicators"],
   },
   {
+    id: "administration",
+    label: { bg: "Държавна администрация", en: "State administration" },
+    detail: {
+      bg: "колко голяма, колко струва, колко цифрова",
+      en: "how big, what it costs, how digital",
+    },
+    desc: {
+      bg: "Държавната администрация като институция — щатна численост и структури по тип (годишният Доклад за състоянието на администрацията), разходът за персонал на щат, разминаването администрация–население, и парите за електронно управление (обществените поръчки на групата МЕУ + ИА ИЕУ + ДАЕУ).",
+      en: "The state administration as an institution — positions and structures by type (the annual Report on the State of the Administration), personnel cost per FTE, the administration-vs-population divergence, and the e-government money (procurement by the МЕУ + ИА ИЕУ + ДАЕУ group).",
+    },
+    route: "/sector/administration",
+    tags: ["fiscal", "indicators"],
+  },
+  {
     id: "culture",
     label: { bg: "Култура", en: "Culture" },
     detail: {
@@ -1523,6 +1569,15 @@ export const EDGES: [string, string][] = [
   // /sector/energy leads with the БЕХ procurement pack (the €8.96bn group), which
   // renders off the contracts corpus — a cross-dataset edge like defense↔budget.
   ["ds:procurement", "f:energy"],
+  // /sector/administration leads with the institution (headcount/structures/cost
+  // from the budget-personnel dataset + macro for the population/GDP context) and
+  // folds the e-gov procurement group below — three cross-dataset edges. Its own
+  // dataset (services register + e-gov + service quality) rides src→ds→f.
+  ["src:administration", "ds:administration"],
+  ["ds:administration", "f:administration"],
+  ["ds:budget", "f:administration"],
+  ["ds:macro", "f:administration"],
+  ["ds:procurement", "f:administration"],
   ["src:water", "ds:water"],
   ["src:egov", "ds:water"],
   ["ds:water", "f:water"],

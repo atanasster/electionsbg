@@ -1,0 +1,125 @@
+{
+  "indicator": {
+    "dataset": "isoc_ciegi_ac",
+    "code": "I_IUGOV1",
+    "titleBg": "Взаимодействие с публичната администрация онлайн (последните 12 м.)",
+    "titleEn": "Interaction with public authorities online (last 12 months)",
+    "unit": "% of individuals"
+  },
+  "source": {
+    "name": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/databrowser/view/isoc_ciegi_ac/default/table"
+  },
+  "fetchedAt": "2026-07-14T13:20:28.291Z",
+  "latestYear": 2025,
+  "byGeo": {
+    "BG": [
+      {
+        "year": 2022,
+        "value": 19.43
+      },
+      {
+        "year": 2023,
+        "value": 22.11
+      },
+      {
+        "year": 2024,
+        "value": 24.54
+      },
+      {
+        "year": 2025,
+        "value": 26.56
+      }
+    ],
+    "EU27_2020": [
+      {
+        "year": 2022,
+        "value": 50.62
+      },
+      {
+        "year": 2023,
+        "value": 54.3
+      },
+      {
+        "year": 2024,
+        "value": 56.19
+      },
+      {
+        "year": 2025,
+        "value": 57.65
+      }
+    ],
+    "RO": [
+      {
+        "year": 2022,
+        "value": 14
+      },
+      {
+        "year": 2023,
+        "value": 14.02
+      },
+      {
+        "year": 2024,
+        "value": 18.2
+      },
+      {
+        "year": 2025,
+        "value": 16.53
+      }
+    ],
+    "EL": [
+      {
+        "year": 2022,
+        "value": 59.26
+      },
+      {
+        "year": 2023,
+        "value": 60.49
+      },
+      {
+        "year": 2024,
+        "value": 52.21
+      },
+      {
+        "year": 2025,
+        "value": 61.09
+      }
+    ],
+    "HU": [
+      {
+        "year": 2022,
+        "value": 70.34
+      },
+      {
+        "year": 2023,
+        "value": 73.19
+      },
+      {
+        "year": 2024,
+        "value": 77.17
+      },
+      {
+        "year": 2025,
+        "value": 74.82
+      }
+    ],
+    "HR": [
+      {
+        "year": 2022,
+        "value": 51.97
+      },
+      {
+        "year": 2023,
+        "value": 46.16
+      },
+      {
+        "year": 2024,
+        "value": 44.53
+      },
+      {
+        "year": 2025,
+        "value": 55.37
+      }
+    ]
+  }
+}

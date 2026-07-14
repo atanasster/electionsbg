@@ -2191,6 +2191,29 @@ export const route = (question: string, ctx: ToolContext): Route => {
     if (hasPriceCue(q)) return { tool: "electricityPrices", args: {} };
     return { tool: "generationMix", args: {} };
   }
+  // state administration (the /sector/administration view) — size, cost, service
+  // quality and the EU e-government gap. Distinctive multi-word cues only, so a
+  // generic "администрация" (e.g. общинска администрация on a place page) or a
+  // procurement question doesn't get stolen here.
+  if (
+    has(
+      q,
+      "държавна администрация",
+      "държавната администрация",
+      "административно обслужване",
+      "щатна численост",
+      "чиновници",
+      "административни услуги",
+      "електронно управление",
+      "е-управление",
+      "е-услуги",
+      "e-government",
+      "e-services",
+      "state administration",
+      "civil servant",
+    )
+  )
+    return { tool: "administrationOverview", args: {} };
   // pension statistics (the /pensions view) — the size distribution, the regional
   // spread, the wage-vs-pension series and the private (funded) pillars. These
   // must precede the generic pensions→noiFunds fund-execution rule below, which

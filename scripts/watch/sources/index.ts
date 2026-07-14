@@ -18,6 +18,8 @@ import { egovBudgetExecution } from "./egov_budget_execution";
 import { egovMunicipalExecution } from "./egov_municipal_execution";
 import { ministryExecutionReports } from "./ministry_execution_reports";
 import { iisdaDoklad } from "./iisda_doklad";
+import { iisdaServices } from "./iisda_services";
+import { eurostatEgov } from "./eurostat_egov";
 import { eurostat } from "./eurostat";
 import { eurostatPolicy } from "./eurostat_policy";
 import { policyBaselineLocal } from "./policy_baseline_local";
@@ -125,6 +127,8 @@ export const SOURCES: WatchSource[] = [
   egovMunicipalExecution,
   ministryExecutionReports,
   iisdaDoklad,
+  iisdaServices,
+  eurostatEgov,
   customsRevenue,
   customsExciseRegister,
   napAnnual,

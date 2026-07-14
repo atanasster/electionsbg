@@ -169,6 +169,17 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
       },
     ],
   },
+  // ⚠ This config is INERT for administration: routes.tsx statically intercepts
+  // /sector/administration with the bespoke AdministrationScreen, so the generic
+  // SectorDashboardScreen never renders it and `members`/`leadEik` here are not
+  // consumed for the folded KPI row. The real e-gov procurement group (МЕУ + ИА
+  // ИЕУ + ДАЕУ) lives in ADMIN_SECTOR_EIKS (administrationReferenceData.ts) and
+  // is what the bespoke screen + SECTOR_BROWSE_PACKS.administration fold. The
+  // single МЕУ member below is kept only so SECTOR_DASHBOARD_IDS (sitemap / OG /
+  // prerender / sectorRegistry) still lists the slug. Suppression is lead-only by
+  // design (like every group sector): the non-lead members' own /awarder pages
+  // show their generic contracts AND those contracts fold into this view — the
+  // same double-surface energy's subsidiaries have.
   administration: {
     id: "administration",
     titleKey: "sector_admin_title",

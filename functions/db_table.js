@@ -335,6 +335,27 @@ const REGISTRY = {
     maxPageSize: 100,
   },
 
+  // Административен регистър (ИИСДА) services catalogue (/sector/administration/
+  // services). One row per (service_id × provider tier); `name` is the free-text
+  // search target (idx_admin_services_name_trgm), `tier` a facet filter. `id` is
+  // the stable paging tiebreak (buildOrder appends select[0]).
+  admin_services: {
+    base: "admin_services",
+    scopeCols: [],
+    columns: {
+      id: { type: "int" },
+      // Opaque register ids (text) — no sort affordance: lexicographic order
+      // ("1000" before "7") is meaningless and only confuses. Still filterable.
+      service_id: { type: "text", filter: "text" },
+      name: { type: "text", sort: true, filter: "text", search: true },
+      tier: { type: "text", sort: true, filter: "in" },
+    },
+    select: ["id", "service_id", "name", "tier"],
+    defaultSort: [["name", "asc"]],
+    aggregates: [{ fn: "count" }],
+    maxPageSize: 100,
+  },
+
   // ДФ „Земеделие" subsidy payments browse (/subsidies/browse). Per (year ×
   // beneficiary × scheme) row; scoped by eik for the per-recipient page. year /
   // oblast / scheme are facet filters; name is the free-text search target.

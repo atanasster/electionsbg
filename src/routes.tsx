@@ -150,6 +150,20 @@ const SectorDashboardScreen = lazy(() =>
     default: m.SectorDashboardScreen,
   })),
 );
+// Administration is a BESPOKE, institution-first sector (docs/plans/
+// administration-view-v1.md §4). It keeps its /sector/administration slug (so
+// sitemap/OG/prerender stay intact) but the static route below intercepts the
+// generic SectorDashboardScreen.
+const AdministrationScreen = lazy(() =>
+  import("./screens/administration/AdministrationScreen").then((m) => ({
+    default: m.AdministrationScreen,
+  })),
+);
+const AdminServicesBrowseScreen = lazy(() =>
+  import("./screens/administration/AdminServicesBrowseScreen").then((m) => ({
+    default: m.AdminServicesBrowseScreen,
+  })),
+);
 const WaterScreen = lazy(() =>
   import("./screens/water/WaterScreen").then((m) => ({
     default: m.WaterScreen,
@@ -1431,6 +1445,22 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <DefenseScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sector/administration"
+            element={
+              <LayoutScreen>
+                <AdministrationScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="sector/administration/services"
+            element={
+              <LayoutScreen>
+                <AdminServicesBrowseScreen />
               </LayoutScreen>
             }
           />

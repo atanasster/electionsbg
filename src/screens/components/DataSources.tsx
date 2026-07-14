@@ -308,6 +308,10 @@ export const DataSources = () => {
                 label={t("my_area_iisda_mayors_source")}
               />
               <SourceItem
+                href="https://iisda.government.bg/adm_services/services"
+                label={t("admin_services_source")}
+              />
+              <SourceItem
                 href="https://lisi.transparency.bg/"
                 label={t("my_area_lisi_source")}
               />
@@ -432,6 +436,10 @@ export const DataSources = () => {
               <SourceItem
                 href="https://ec.europa.eu/eurostat/databrowser/view/gov_10a_exp/default/table"
                 label={t("eurostat_cofog_source")}
+              />
+              <SourceItem
+                href="https://ec.europa.eu/eurostat/databrowser/view/isoc_ciegi_ac/default/table"
+                label={t("admin_egov_source")}
               />
               <SourceItem
                 href="https://ec.europa.eu/eurostat/web/income-and-living-conditions/database"

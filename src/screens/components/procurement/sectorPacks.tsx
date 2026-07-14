@@ -28,7 +28,8 @@ import { NAP_EIK, NAP_AWARDER_PATH } from "@/lib/napReferenceData";
 import { CUSTOMS_EIK, CUSTOMS_AWARDER_PATH } from "@/lib/customsReferenceData";
 import { AGRI_PAYER_EIK } from "@/data/agri/constants";
 import { ENERGY_SECTOR_EIKS } from "@/lib/energyReferenceData";
-import { TRANSPORT_EIK, ADMIN_EIK } from "@/screens/sector/sectorDashboards";
+import { TRANSPORT_EIK } from "@/screens/sector/sectorDashboards";
+import { ADMIN_SECTOR_EIKS } from "@/lib/administrationReferenceData";
 import type { ScopeWindow } from "@/data/procurement/useAwarderContracts";
 
 export interface SectorPackProps {
@@ -217,8 +218,8 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
   },
   administration: {
     id: "administration",
-    label: { bg: "Администрация (МЕУ)", en: "Administration (МЕУ)" },
-    eiks: [ADMIN_EIK],
+    label: { bg: "Администрация (е-управление)", en: "Administration (e-gov)" },
+    eiks: [...ADMIN_SECTOR_EIKS],
   },
   energy: {
     id: "energy",

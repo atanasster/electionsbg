@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-07-14T13:23:27.867Z",
+  "source": {
+    "name": "Административен регистър (ИИСДА)",
+    "url": "https://iisda.government.bg/adm_services/services"
+  },
+  "total": 2668,
+  "byTier": [
+    {
+      "key": "central",
+      "bg": "Централни администрации",
+      "en": "Central administrations",
+      "count": 2310
+    },
+    {
+      "key": "special_territorial",
+      "bg": "Специализирани териториални",
+      "en": "Specialised territorial",
+      "count": 170
+    },
+    {
+      "key": "regional",
+      "bg": "Областни администрации",
+      "en": "Regional administrations",
+      "count": 21
+    },
+    {
+      "key": "municipal",
+      "bg": "Общински администрации",
+      "en": "Municipal administrations",
+      "count": 167
+    }
+  ]
+}
