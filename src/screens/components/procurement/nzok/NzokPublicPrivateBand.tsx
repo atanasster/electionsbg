@@ -441,8 +441,18 @@ const LeaderRow: FC<{
         >
           {h.name}
         </Link>
+        {/* metrics move under the name on mobile, where the fixed columns below
+            would otherwise crush the name to zero width */}
+        <div className="mt-0.5 flex items-center gap-2.5 text-[11px] text-muted-foreground sm:hidden">
+          <span>
+            {share}% {publicWord}
+          </span>
+          <span className="font-semibold text-foreground tabular-nums">
+            {formatEurCompact(h.nzokEur, locale)}
+          </span>
+        </div>
       </div>
-      <div className="w-28 flex-none">
+      <div className="hidden w-28 flex-none sm:block">
         <div className="h-1.5 overflow-hidden rounded-full bg-muted-foreground/20">
           <div
             className="h-full rounded-full"
@@ -456,7 +466,7 @@ const LeaderRow: FC<{
           {share}% {publicWord}
         </div>
       </div>
-      <div className="w-20 flex-none text-right text-sm font-semibold tabular-nums">
+      <div className="hidden w-20 flex-none text-right text-sm font-semibold tabular-nums sm:block">
         {formatEurCompact(h.nzokEur, locale)}
       </div>
       <span

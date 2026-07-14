@@ -107,6 +107,18 @@ const main = async (): Promise<void> => {
         }
       }
     }
+    // Compact multi-year series folded in so the revenue-vs-НЗОК trend tile
+    // reads from this one blob (no separate hospital_revenue.json fetch).
+    const series: Record<string, { rev: number; nzokShare?: number }> = {};
+    if (h) {
+      for (const [y, c] of Object.entries(h.years)) {
+        if (c.revenueEur == null) continue;
+        series[y] = {
+          rev: c.revenueEur,
+          ...(c.nzokShare != null ? { nzokShare: c.nzokShare } : {}),
+        };
+      }
+    }
     rows.push({
       eik,
       name: o.name,
@@ -116,6 +128,7 @@ const main = async (): Promise<void> => {
       revenueYear,
       nzokShare,
       tenders3y: tenders.get(eik) ?? 0,
+      ...(Object.keys(series).length ? { series } : {}),
     });
   }
   rows.sort((a, b) => b.nzokEur - a.nzokEur);

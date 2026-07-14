@@ -52,7 +52,6 @@ import type {
   NzokDrugPackFile,
   NzokDrugReimbursementFile,
   NzokPublicPrivateFile,
-  NzokHospitalRevenueFile,
   NzokProcedureNamesFile,
   JudiciaryBudgetFile,
   PersonnelFile,
@@ -652,16 +651,6 @@ export const useNzokPublicPrivate = () =>
     queryKey: ["budget", "nzok", "public-private"] as const,
     queryFn: () =>
       fetchJson<NzokPublicPrivateFile>("/budget/nzok/public_private.json"),
-    staleTime: Infinity,
-  });
-
-// Per-hospital multi-year ГФО revenue series (~120 KB). Powers the
-// revenue-vs-НЗОК trend tile in the public/private band.
-export const useNzokHospitalRevenue = () =>
-  useQuery({
-    queryKey: ["budget", "nzok", "hospital-revenue"] as const,
-    queryFn: () =>
-      fetchJson<NzokHospitalRevenueFile>("/budget/nzok/hospital_revenue.json"),
     staleTime: Infinity,
   });
 

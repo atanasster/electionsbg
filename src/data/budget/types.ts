@@ -243,6 +243,9 @@ export interface NzokPublicPrivateHospital {
   revenueYear: number | null;
   nzokShare: number | null; // НЗОК ÷ revenue, same year (2023+ only)
   tenders3y: number; // contracts run as a ЗОП awarder, last 3 years
+  // Compact multi-year ГФО series (folded in so the trend tile needs no second
+  // fetch). Keyed by year → total revenue EUR + same-year НЗОК share (2023+).
+  series?: Record<string, { rev: number; nzokShare?: number }>;
 }
 export interface NzokPublicPrivateFile {
   generatedAt: string;
@@ -268,25 +271,9 @@ export interface NzokPublicPrivateFile {
   hospitals: NzokPublicPrivateHospital[]; // private only, sorted by nzokEur desc
 }
 
-// Per-hospital multi-year ГФО revenue series (private hospitals). Powers the
-// revenue-vs-НЗОК trend tile. Written by scripts/nzok/write_hospital_revenue.ts.
-export interface NzokHospitalRevenueYear {
-  revenueEur: number;
-  netSalesEur: number | null;
-  actId: string;
-  nzokShare?: number; // НЗОК ÷ revenue, same year (2023+ only)
-}
-export interface NzokHospitalRevenueFile {
-  generatedAt: string;
-  currency: "EUR";
-  coverage: Record<string, number>; // filled hospitals per year
-  hospitalCount: number;
-  hospitalYears: number;
-  hospitals: Record<
-    string, // eik
-    { name: string; years: Record<string, NzokHospitalRevenueYear> }
-  >;
-}
+// (hospital_revenue.json is the committed canonical dataset + the writer's input;
+// the UI reads the compact per-hospital series folded into public_private.json,
+// so no separate client type/hook is needed here.)
 
 // Annual gross drug-reimbursement rollup — НЗОК's second-largest budget line
 // (~€1.33bn/yr), paid outside ЗОП. Written by

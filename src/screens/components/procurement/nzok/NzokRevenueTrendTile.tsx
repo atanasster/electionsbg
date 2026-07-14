@@ -6,8 +6,9 @@
 // gap between the two lines is the private hospital's non-НЗОК (paid) business;
 // the closer they run, the more the hospital is really a public contractor.
 //
-// Pure UI over two static blobs: useNzokHospitalRevenue (the year series) +
-// useNzokPublicPrivate (the picker list + € ordering). Self-hides until both load.
+// Pure UI over one static blob: useNzokPublicPrivate — the per-hospital revenue
+// series is folded into public_private.json, so no second fetch. Self-hides
+// until it loads.
 
 import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -28,10 +29,7 @@ import {
 import { formatEurCompact } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { ownershipColor } from "@/lib/nzokOwnership";
-import {
-  useNzokHospitalRevenue,
-  useNzokPublicPrivate,
-} from "@/data/budget/useBudget";
+import { useNzokPublicPrivate } from "@/data/budget/useBudget";
 
 const YEARS = [2019, 2020, 2021, 2022, 2023, 2024];
 const NAVY = "hsl(var(--primary))";
@@ -44,38 +42,35 @@ export const NzokRevenueTrendTile: FC = () => {
   const { i18n, t } = useTranslation();
   const bg = i18n.language === "bg";
   const locale = bg ? "bg-BG" : "en-US";
-  const { data: rev } = useNzokHospitalRevenue();
   const { data: pp } = useNzokPublicPrivate();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [picked, setPicked] = useState<string | null>(null);
 
-  // private hospitals that have a usable revenue series (≥3 years), ordered by НЗОК
+  // private hospitals that have a usable revenue series (≥3 years), ordered by НЗОК.
+  // The series is folded into public_private.json, so no separate fetch.
   const options = useMemo(() => {
-    if (!rev || !pp) return [];
+    if (!pp) return [];
     return pp.hospitals
-      .filter((h) => {
-        const yrs = rev.hospitals[h.eik]?.years;
-        return yrs && Object.keys(yrs).length >= 3;
-      })
+      .filter((h) => h.series && Object.keys(h.series).length >= 3)
       .map((h) => ({ eik: h.eik, name: h.name }));
-  }, [rev, pp]);
+  }, [pp]);
 
   const eik = picked ?? options[0]?.eik ?? null;
   const eur = (v: number | null | undefined) => formatEurCompact(v, locale);
 
-  if (!rev || !pp || !eik) return null;
+  if (!pp || !eik) return null;
 
-  const hosp = rev.hospitals[eik];
   const ppRow = pp.hospitals.find((h) => h.eik === eik);
+  const years = ppRow?.series ?? {};
   const series = YEARS.map((y) => {
-    const c = hosp?.years[String(y)];
+    const c = years[String(y)];
     return {
       y,
-      rev: c?.revenueEur ?? null,
+      rev: c?.rev ?? null,
       nzok:
-        c?.revenueEur != null && c.nzokShare != null
-          ? Math.round(c.revenueEur * c.nzokShare)
+        c?.rev != null && c.nzokShare != null
+          ? Math.round(c.rev * c.nzokShare)
           : null,
     };
   });
@@ -104,7 +99,7 @@ export const NzokRevenueTrendTile: FC = () => {
   const latest = [...present].reverse()[0];
   const latestShareCell = [...YEARS]
     .reverse()
-    .map((y) => hosp?.years[String(y)])
+    .map((y) => years[String(y)])
     .find((c) => c?.nzokShare != null);
   const sharePct = latestShareCell
     ? Math.round(latestShareCell.nzokShare! * 100)
