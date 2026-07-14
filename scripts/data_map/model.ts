@@ -695,14 +695,14 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
   },
   {
     id: "energy",
-    label: { bg: "Ember · Eurostat · енергетика", en: "Ember · Eurostat · energy" }, // prettier-ignore
+    label: { bg: "Ember · Eurostat · GEM · енергетика", en: "Ember · Eurostat · GEM · energy" }, // prettier-ignore
     detail: {
-      bg: "производство на ток, цени",
-      en: "generation mix, prices",
+      bg: "производство, цени, централи",
+      en: "generation, prices, plants",
     },
     desc: {
-      bg: "Физическата картина на енергетиката до парите: производственият микс на тока (ядрена, въглища, ВЕИ), нетният износ и въглеродният интензитет от Ember (Yearly Electricity Data, CC BY 4.0), и цената на тока за домакинствата спрямо ЕС от Eurostat (nrg_pc_204). Поддържат се като .json в data/energy/. Обществените поръчки на групата на БЕХ идват от корпуса на договорите, не оттук.",
-      en: "The physical picture of energy beside the money: the electricity generation mix (nuclear, coal, renewables), net exports and carbon intensity from Ember (Yearly Electricity Data, CC BY 4.0), and the household electricity price vs the EU from Eurostat (nrg_pc_204). Maintained as .json under data/energy/. The БЕХ group's procurement comes from the contracts corpus, not here.",
+      bg: "Физическата картина на енергетиката до парите: производственият микс на тока (ядрена, въглища, ВЕИ), нетният износ и въглеродният интензитет от Ember (Yearly Electricity Data, CC BY 4.0), цената на тока за домакинствата спрямо ЕС от Eurostat (nrg_pc_204), и регистър на електроцентралите (мощност и собственост) — куриран от Global Energy Monitor. Поддържат се като .json в data/energy/. Обществените поръчки на групата на БЕХ идват от корпуса на договорите, не оттук.",
+      en: "The physical picture of energy beside the money: the electricity generation mix (nuclear, coal, renewables), net exports and carbon intensity from Ember (Yearly Electricity Data, CC BY 4.0), the household electricity price vs the EU from Eurostat (nrg_pc_204), and a power-plant registry (capacity and ownership) curated from Global Energy Monitor. Maintained as .json under data/energy/. The БЕХ group's procurement comes from the contracts corpus, not here.",
     },
     url: "https://ember-energy.org/data/",
     origin: "intl",
@@ -982,12 +982,12 @@ export const DATASETS: DatasetDef[] = [
     id: "energy",
     label: { bg: "Енергетика", en: "Energy" },
     detail: {
-      bg: "производство на ток, цени",
-      en: "generation mix, prices",
+      bg: "производство, цени, централи",
+      en: "generation, prices, plants",
     },
     desc: {
-      bg: "Производственият микс на тока (ядрена, въглища, ВЕИ), нетният износ и въглеродният интензитет от Ember, плюс цената на тока за домакинствата спрямо ЕС от Eurostat. Поръчките на държавната енергийна група (БЕХ) идват от корпуса на договорите.",
-      en: "The electricity generation mix (nuclear, coal, renewables), net exports and carbon intensity from Ember, plus the household electricity price vs the EU from Eurostat. The state energy group's (БЕХ) procurement comes from the contracts corpus.",
+      bg: "Производственият микс на тока (ядрена, въглища, ВЕИ), нетният износ и въглеродният интензитет от Ember, цената на тока за домакинствата спрямо ЕС от Eurostat, и регистър на електроцентралите (мощност и собственост) от Global Energy Monitor. Поръчките на държавната енергийна група (БЕХ) идват от корпуса на договорите.",
+      en: "The electricity generation mix (nuclear, coal, renewables), net exports and carbon intensity from Ember, the household electricity price vs the EU from Eurostat, and a power-plant registry (capacity and ownership) from Global Energy Monitor. The state energy group's (БЕХ) procurement comes from the contracts corpus.",
     },
     path: "data/energy/",
     tags: ["indicators", "prices"],
@@ -1384,8 +1384,8 @@ export const FEATURES: FeatureDef[] = [
       en: "the money and the physical system",
     },
     desc: {
-      bg: "Обществените поръчки на държавната енергийна група (БЕХ, ~9 млрд. €), невидимата инвестиция в Козлодуй 7/8 (~14 млрд.), единственият участник, производственият микс на тока и цената за домакинствата спрямо ЕС.",
-      en: "The procurement of the state energy group (БЕХ, ~€9bn), the invisible Kozloduy 7/8 investment (~€14bn), single-bid share, the electricity generation mix and the household electricity price vs the EU.",
+      bg: "Обществените поръчки на държавната енергийна група (БЕХ, ~9 млрд. €), невидимата инвестиция в Козлодуй 7/8 (~14 млрд.), единственият участник, производственият микс на тока, регистърът на електроцентралите (мощност и собственост) и цената за домакинствата спрямо ЕС.",
+      en: "The procurement of the state energy group (БЕХ, ~€9bn), the invisible Kozloduy 7/8 investment (~€14bn), single-bid share, the electricity generation mix, the power-plant fleet (capacity and ownership) and the household electricity price vs the EU.",
     },
     route: "/sector/energy",
     tags: ["fiscal", "indicators"],
