@@ -32,7 +32,7 @@ import { formatEurCompact } from "@/lib/currency";
 import { InsightChips } from "@/components/ui/InsightChips";
 import { useNzok, type ScopeWindow } from "@/data/procurement/useNzok";
 import { useHashScroll } from "@/ux/useHashScroll";
-import { categoryLabel } from "@/lib/nzokBenchmarks";
+import { categoryLabel, cleanSupplierName } from "@/lib/nzokBenchmarks";
 import { NzokBudgetBridgeTile } from "./NzokBudgetBridgeTile";
 import { NzokCategoryTile } from "./NzokCategoryTile";
 import { NzokHospitalPaymentsTile } from "./NzokHospitalPaymentsTile";
@@ -160,6 +160,34 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
   const hasModel = !!model && model.totalEur > 0;
   if (!hasModel && !budget && !hospitalPayments && !drugReimbursement)
     return null;
+
+  // ЗОП band subtitle — name the categories the current scope actually buys
+  // (they shift by scope/year), rather than asserting a fixed "IT & systems".
+  const procSub = (() => {
+    const lead = model?.suppliers?.[0];
+    const topCats = (model?.categories ?? [])
+      .filter((c) => c.id !== "other" && c.totalEur > 0)
+      .slice(0, 2)
+      .map((c) => {
+        const l = categoryLabel(c.id, lang);
+        return l.charAt(0).toLowerCase() + l.slice(1);
+      });
+    const cats = topCats.join(", ");
+    if (bg) {
+      const tail = lead
+        ? `, с водещ изпълнител ${cleanSupplierName(lead.name)}`
+        : "";
+      return cats
+        ? `~1,5% от бюджета минава през ЗОП — предимно за ${cats}${tail}. Ето какво купува фондът.`
+        : "~1,5% от бюджета минава през ЗОП. Ето какво купува фондът.";
+    }
+    const tail = lead
+      ? `, with ${cleanSupplierName(lead.name)} as the lead supplier`
+      : "";
+    return cats
+      ? `~1.5% of the budget runs through procurement — mostly ${cats}${tail}. Here is what the fund buys.`
+      : "~1.5% of the budget runs through procurement. Here is what the fund buys.";
+  })();
 
   return (
     <section className="space-y-4">
@@ -345,11 +373,7 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
           id="nzok-procurement"
           icon={ScrollText}
           title={bg ? "Обществени поръчки (ЗОП)" : "Public procurement (ЗОП)"}
-          sub={
-            bg
-              ? "~1,5% от бюджета минава през ЗОП — предимно ИТ и системи, с един водещ вътрешен интегратор. Ето какво купува фондът."
-              : "~1.5% of the budget runs through procurement — mostly IT and systems, with one dominant in-house integrator. Here is what the fund buys."
-          }
+          sub={procSub}
         >
           {/* Both compact — the "up close" summary and the CPV breakdown sit
               side by side on desktop. */}

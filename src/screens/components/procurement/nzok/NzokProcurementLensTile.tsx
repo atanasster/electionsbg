@@ -1,9 +1,10 @@
 // "Поръчките на НЗОК отблизо" — the ЗОП lens. НЗОК's public procurement is not a
-// health budget: it is an IT-and-security operating budget dominated by a few
-// suppliers. This tile names that honestly — the IT share of ЗОП spend and the
-// top suppliers, each with its statutory-integrator context where it applies
-// (so an integrator's no-competition awards read as a legal mandate, not a red
-// flag). Pure from the NzokModel.
+// health budget: it is an operating budget (energy, IT, services/security)
+// dominated by a few suppliers. This tile names that honestly — the intro cites
+// the categories the current scope actually spends on, then the top suppliers,
+// each with its statutory-integrator context where it applies (so an
+// integrator's no-competition awards read as a legal mandate, not a red flag).
+// Pure from the NzokModel.
 
 import { FC } from "react";
 import { Link } from "react-router-dom";
@@ -11,7 +12,11 @@ import { useTranslation } from "react-i18next";
 import { ScanSearch } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
-import { NZOK_SUPPLIER_CONTEXT, cleanSupplierName } from "@/lib/nzokBenchmarks";
+import {
+  NZOK_SUPPLIER_CONTEXT,
+  categoryLabel,
+  cleanSupplierName,
+} from "@/lib/nzokBenchmarks";
 import type { NzokModel } from "@/lib/nzokAttributes";
 
 export const NzokProcurementLensTile: FC<{ model: NzokModel }> = ({
@@ -31,6 +36,23 @@ export const NzokProcurementLensTile: FC<{ model: NzokModel }> = ({
   const pctInt = (v: number) =>
     (v * 100).toLocaleString(lang, { maximumFractionDigits: 0 });
 
+  // Name the categories НЗОК's procurement actually goes to in the current
+  // scope, rather than asserting a fixed composition (it shifts by scope/year).
+  const lower = (s: string) => s.charAt(0).toLowerCase() + s.slice(1);
+  const topCats = model.categories
+    .filter((c) => c.id !== "other" && c.totalEur > 0)
+    .sort((a, b) => b.totalEur - a.totalEur)
+    .slice(0, 2)
+    .map((c) => lower(categoryLabel(c.id, lang)));
+  const catList = topCats.join(", ");
+  const intro = bg
+    ? catList
+      ? `Извън плащанията към болници, аптеки и лекари, обществените поръчки на НЗОК са предимно за ${catList} — а не за здравеопазване.`
+      : "Извън плащанията към болници, аптеки и лекари, обществените поръчки на НЗОК са за оперативни разходи, а не за здравеопазване."
+    : catList
+      ? `Beyond payments to hospitals, pharmacies and doctors, НЗОК's public procurement is mostly ${catList} — not healthcare.`
+      : "Beyond payments to hospitals, pharmacies and doctors, НЗОК's public procurement covers operating costs, not healthcare.";
+
   return (
     <Card>
       <CardHeader className="pb-2">
@@ -40,11 +62,7 @@ export const NzokProcurementLensTile: FC<{ model: NzokModel }> = ({
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 md:p-4 space-y-3 text-sm">
-        <p className="text-muted-foreground">
-          {bg
-            ? "Извън плащанията към болници, аптеки и лекари, обществените поръчки на НЗОК са предимно за информационни системи и охрана — а не за здравеопазване."
-            : "Beyond payments to hospitals, pharmacies and doctors, НЗОК's public procurement is mostly information systems and security — not healthcare."}
-        </p>
+        <p className="text-muted-foreground">{intro}</p>
 
         {itCat && itShare > 0 && (
           <div className="rounded-md border bg-muted/30 p-3">
