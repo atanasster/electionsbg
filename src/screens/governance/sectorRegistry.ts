@@ -174,6 +174,14 @@ export const SECTOR_CLUSTERS: { labelKey: string; sectors: Sector[] }[] = [
         to: "/culture",
         accent: TILE_ACCENTS.terracotta,
       },
+      {
+        id: "tourism",
+        titleKey: "sector_tourism_title",
+        descKey: "sector_tourism_desc",
+        agency: "МТ",
+        to: "/sector/tourism",
+        accent: TILE_ACCENTS.aqua,
+      },
     ],
   },
 ];

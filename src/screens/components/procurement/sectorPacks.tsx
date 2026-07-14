@@ -30,6 +30,7 @@ import { AGRI_PAYER_EIK } from "@/data/agri/constants";
 import { ENERGY_SECTOR_EIKS } from "@/lib/energyReferenceData";
 import { TRANSPORT_EIK } from "@/screens/sector/sectorDashboards";
 import { ADMIN_SECTOR_EIKS } from "@/lib/administrationReferenceData";
+import { TOURISM_SECTOR_EIKS } from "@/lib/tourismReferenceData";
 import type { ScopeWindow } from "@/data/procurement/useAwarderContracts";
 
 export interface SectorPackProps {
@@ -225,6 +226,11 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
     id: "energy",
     label: { bg: "Енергетика (БЕХ)", en: "Energy (БЕХ)" },
     eiks: ENERGY_SECTOR_EIKS,
+  },
+  tourism: {
+    id: "tourism",
+    label: { bg: "Туризъм (МТ)", en: "Tourism (МТ)" },
+    eiks: TOURISM_SECTOR_EIKS,
   },
 };
 

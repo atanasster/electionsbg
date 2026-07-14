@@ -699,6 +699,44 @@ const Culture: FC = () => (
   </SceneFrame>
 );
 
+// Tourism — a sun over sea waves with a sailboat: destination/coast, the МТ
+// promotion mission (summer Black Sea + the marketing that sells it).
+const Tourism: FC = () => (
+  <SceneFrame>
+    <path
+      d="M0 78 q30 -11 60 0 t60 0 t60 0 t60 0 t60 0 V116 H0 Z"
+      fill="var(--sector)"
+      opacity=".18"
+    />
+    <path
+      d="M0 90 q30 -11 60 0 t60 0 t60 0 t60 0 t60 0"
+      fill="none"
+      stroke="var(--sector)"
+      strokeWidth="2"
+    />
+    <circle cx="232" cy="40" r="15" fill="var(--sector)" opacity=".9" />
+    <g
+      stroke="currentColor"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      opacity=".8"
+    >
+      <path d="M232 15 v-7 M232 65 v7 M207 40 h-7 M257 40 h7 M214 22 l-5 -5 M250 22 l5 -5 M214 58 l-5 5 M250 58 l5 5" />
+    </g>
+    <g>
+      <path d="M96 64 L96 28 L126 60 Z" fill="var(--sector)" opacity=".9" />
+      <path d="M96 28 L96 72" stroke="currentColor" strokeWidth="1.4" />
+      <path
+        d="M72 72 L120 72 L110 84 L82 84 Z"
+        fill={PAPER}
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinejoin="round"
+      />
+    </g>
+  </SceneFrame>
+);
+
 export const SECTOR_SCENES: Record<string, FC> = {
   roads: Roads,
   water: Water,
@@ -716,4 +754,5 @@ export const SECTOR_SCENES: Record<string, FC> = {
   justice: Justice,
   agri: Agri,
   culture: Culture,
+  tourism: Tourism,
 };

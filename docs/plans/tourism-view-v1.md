@@ -38,8 +38,11 @@ Verified every load-bearing claim against current code before implementation. Ga
    no € until a DB-connected `db:gen-sector-stats` runs). → **Non-blocking; deferred.** §4 step 6 and
    §9's "rerun `db:gen-sector-stats`" must be read as "requires PG; hub badge only".
 
-4. **Accent DECIDED: `TILE_ACCENTS.copper`** (#b85c26) — the single UNUSED token, warm/sun, no clash
-   (water=teal, customs=azure). Supersedes §10 decision 3.
+4. **Accent DECIDED: `TILE_ACCENTS.aqua`** (#1f9e94, NEW token). Re-checked at build time: all 16
+   existing tokens are now used (energy took `copper`), so a fresh token was added to
+   `tileAccents.ts` — a sea-aqua that stands out among the earthy "land & culture" cluster
+   (agri=gold, culture=terracotta) and evokes the Black Sea. Supersedes §10 decision 3 (and the
+   earlier "copper" note — copper is taken).
 
 5. **EIK uniqueness CONFIRMED** — exactly one awarder file matches "Министерство на туризма"
    (`176789478.json`). No dedup/alias work (contrast transport's MTITC concern). Ship single-member.
@@ -52,6 +55,26 @@ Verified every load-bearing claim against current code before implementation. Ga
    + `<ScopeControl mode="toggle">` (date scoping) + `SectorAwardersTile`. Pure config, no new screen.
 
 **Net Phase-1 surface: 6 edits (1 new file) + 1 deferred PG pipeline line.** No route/server/SQL change.
+
+### Phase 1 SHIPPED (2026-07-14)
+
+Generic `/sector/tourism` is wired and live. Files landed:
+`src/lib/tourismReferenceData.ts` (new) · `src/ux/infographic/tileAccents.ts` (+`aqua`) ·
+`src/screens/sector/sectorDashboards.ts` (`SECTOR_DASHBOARDS.tourism`) ·
+`src/screens/components/procurement/sectorPacks.tsx` (`SECTOR_BROWSE_PACKS.tourism`) ·
+`src/screens/governance/sectorRegistry.ts` (land cluster, aqua) ·
+`src/screens/governance/sectorScenes.tsx` (sun/sea/sailboat scene) ·
+`src/locales/{bg,en}/translation.json` (`sector_tourism_title`/`_desc`) ·
+`scripts/db/gen_procurement/sector_stats.ts` (`tourism` in `SECTOR_EIKS`).
+
+Verified: `tsc -b` clean, `eslint` clean, full `vite build` clean (4837 modules), locales valid
+JSON, dev server serves `/governance/sectors` + `/sector/tourism` → 200.
+
+Deferred (needs live Postgres): `npm run db:gen-sector-stats` to populate the hub-tile € badge for
+tourism in `sector_stats.json`. The dashboard itself needs no regen (KPIs come from the runtime
+`/api/db/awarder-group-model` call).
+
+Next: Phase 2 (bespoke `/tourism` screen + NSI/ЕСТИ visitor context) and Tier-B EIK verification (§3).
 
 ---
 

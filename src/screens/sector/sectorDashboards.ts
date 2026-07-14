@@ -24,6 +24,7 @@ import { NAP_EIK } from "@/lib/napReferenceData";
 import { CUSTOMS_EIK } from "@/lib/customsReferenceData";
 import { AGRI_PAYER_EIK } from "@/data/agri/constants";
 import { BEH_EIK } from "@/lib/energyReferenceData";
+import { TOURISM_MINISTRY_EIK } from "@/lib/tourismReferenceData";
 
 export interface SectorMember {
   eik: string;
@@ -70,6 +71,23 @@ const EnergyThematicTiles = lazy(() =>
 );
 
 export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
+  tourism: {
+    id: "tourism",
+    titleKey: "sector_tourism_title",
+    descKey: "sector_tourism_desc",
+    agency: "МТ",
+    leadEik: TOURISM_MINISTRY_EIK,
+    browsePackId: "tourism",
+    members: [
+      {
+        eik: TOURISM_MINISTRY_EIK,
+        name: {
+          bg: "Министерство на туризма",
+          en: "Ministry of Tourism",
+        },
+      },
+    ],
+  },
   health: {
     id: "health",
     titleKey: "sector_health_title",
