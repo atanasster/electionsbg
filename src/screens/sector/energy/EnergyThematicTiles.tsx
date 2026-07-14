@@ -14,6 +14,7 @@
 // render instantly for the OG screenshot.
 
 import { FC, useCallback } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Zap } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -154,7 +155,7 @@ const PerUnitSpendTile: FC<{ byUnit: GroupUnitAgg[] }> = ({ byUnit }) => {
   const max = rows[0].totalEur || 1;
 
   return (
-    <Card>
+    <Card className="md:col-span-2">
       <CardHeader className="pb-2">
         <CardTitle className="text-base">
           {bg ? "Разходи по дружество" : "Spend by company"}
@@ -168,9 +169,13 @@ const PerUnitSpendTile: FC<{ byUnit: GroupUnitAgg[] }> = ({ byUnit }) => {
           const name = ent?.name ?? u.eik;
           return (
             <div key={u.eik} className="flex items-center gap-2 text-sm">
-              <div className="w-[42%] min-w-0 truncate" title={name}>
+              <Link
+                to={`/awarder/${u.eik}`}
+                className="w-[42%] min-w-0 truncate text-primary hover:underline"
+                title={name}
+              >
                 {name}
-              </div>
+              </Link>
               <div className="relative h-4 flex-1 overflow-hidden rounded bg-muted/40">
                 <div
                   className="absolute inset-y-0 left-0 rounded"
@@ -208,10 +213,11 @@ export const EnergyThematicTiles: FC = () => {
   return (
     <div className="grid gap-4 md:grid-cols-2">
       <EnergyGenerationTile />
-      <EnergyPriceTile />
-      <InvisibleCapexTile />
-      {model && <SingleBidTile model={model} />}
       <PerUnitSpendTile byUnit={byUnit} />
+      <InvisibleCapexTile />
+      {/* the two thin tiles pair on one row */}
+      <EnergyPriceTile />
+      {model && <SingleBidTile model={model} />}
     </div>
   );
 };

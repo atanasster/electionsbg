@@ -91,6 +91,12 @@ const Dashboard: FC<{ config: SectorDashboardConfig }> = ({ config }) => {
   const awarderN = byUnit.filter((u) => (u.totalEur ?? 0) > 0).length;
   const ThematicTiles = config.ThematicTiles;
   const browsePackId = config.browsePackId ?? config.id;
+  // Mirror each chart tile's own render condition so a lone survivor (e.g.
+  // spend-by-year needs ≥2 years, absent on a narrow scope) spans full width
+  // instead of leaving an empty grid half.
+  const showSpendChart =
+    (model?.years.filter((y) => y.totalEur > 0).length ?? 0) >= 2;
+  const showTopChart = (model?.suppliers.length ?? 0) >= 2;
 
   // "All sector contracts" must carry the active time scope (?pscope) forward —
   // same convention as the procurement nav — so a narrowed scope survives the
@@ -161,10 +167,17 @@ const Dashboard: FC<{ config: SectorDashboardConfig }> = ({ config }) => {
               sub={top?.name}
             />
           </div>
-          <div className="grid gap-4 md:grid-cols-2">
-            <SectorSpendByYearTile model={model} />
-            <SectorTopContractorsTile model={model} />
-          </div>
+          {showSpendChart && showTopChart ? (
+            <div className="grid gap-4 md:grid-cols-2">
+              <SectorSpendByYearTile model={model} />
+              <SectorTopContractorsTile model={model} />
+            </div>
+          ) : (
+            <>
+              {showSpendChart && <SectorSpendByYearTile model={model} />}
+              {showTopChart && <SectorTopContractorsTile model={model} />}
+            </>
+          )}
         </>
       ) : (
         <p className="text-sm text-muted-foreground">

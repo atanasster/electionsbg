@@ -4,6 +4,7 @@
 // they render instantly for the OG screenshot and stay cheap on the page.
 
 import { FC } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
@@ -74,9 +75,13 @@ export const SectorTopContractorsTile: FC<{ model: AwarderModel<"all"> }> = ({
       <CardContent className="space-y-1.5 p-3 md:p-4">
         {rows.map((s) => (
           <div key={s.eik} className="flex items-center gap-2 text-sm">
-            <div className="w-[42%] min-w-0 truncate" title={s.name}>
+            <Link
+              to={`/company/${s.eik}`}
+              className="w-[42%] min-w-0 truncate text-primary hover:underline"
+              title={s.name}
+            >
               {s.name}
-            </div>
+            </Link>
             <div className="relative h-4 flex-1 overflow-hidden rounded bg-muted/40">
               <div
                 className="absolute inset-y-0 left-0 rounded bg-primary/70"
