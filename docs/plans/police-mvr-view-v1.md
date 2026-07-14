@@ -47,6 +47,39 @@ Every load-bearing claim below was checked against the live repo before commit. 
 TODO closed (budget node exists). Phase-1 surface unchanged: ~8 edits + 1 new allowlist file, no
 server/SQL/route change.**
 
+### Audit rev 1.2 (2026-07-15) — §10.6 open item RESOLVED (budget headline)
+
+Inspected the actual `years` series in the МВР budget node. **The "total budget vs salary line"
+conflation is a non-issue for us** — the node carries the authoritative **State Budget Law total
+expenditure** (планирани разходи по ЗДБ, `years[].expenditure.amountEur`), broken down by **policy
+area**, not by economic type. So we never touch a press number:
+
+| Fiscal year | МВР total budget (разходи, ЗДБ) | Fiscal year | МВР total budget |
+|---|---:|---|---:|
+| 2018 | €662.8M | 2022 | €1,053.4M |
+| 2019 | €774.5M | 2023 | €1,230.8M |
+| 2020 | €853.6M | 2024 | €1,414.9M |
+| 2021 | €997.2M | **2025** | **€2,114.5M** |
+
+The 4 policy programs per year (share of the 2025 total): противодействие на престъпността и обществен
+ред €1,273M (60%) · пожарна безопасност и защита €347M (16%) · защита на границите и миграция €330M
+(16%) · управление и развитие на системата €164M (8%). The 2025 jump (€1.41bn→€2.11bn) is the
+security-sector wage indexation — real and in our data.
+
+**RESOLUTION (implements the user's steer "display the larger amount"):**
+- The iceberg tile's "whole budget" bar = **`years[].expenditure.amountEur`** — the **total** МВР budget
+  (the larger figure), authoritative from the State Budget Law, **already ingested**. No Budget-Law-annex
+  lookup needed; no salary-line dependency.
+- The **~92% personnel / ~1% capital** decomposition is NOT in this node (it's by policy, not by §01
+  заплати / §52 капитал). Render it as a **sourced context annotation** on the tile (`◇ context —
+  програмен отчет / Сметна палата`, 2025 салдо ≈ 3.82bn лв заплати of 4.14bn лв, ~92%; capital ≈ 55M лв
+  / €28M), NOT as a competing headline. If a clean economic-type split is wanted as data later, it comes
+  from the МВР program-budget **execution report** (`mvr.bg/budjet`), a separate small ingest — deferred.
+- The iceberg's "visible tip" = the group's annual procurement (~€1.84bn ÷ ~15yr ≈ **€123M/yr**), i.e.
+  ~**6% of one year's МВР budget** — the headline gap number, computed from data we already have.
+
+§10.6 is now **CLOSED**. §7 tile 2 and §8 are updated below to match.
+
 ---
 
 > All corpus figures below are **MEASURED** from `data/procurement/awarders/<eik>.json` (rebuilt through
@@ -332,10 +365,13 @@ external tile carries a **provenance chip**: `● real` (green — OCDS/data.ego
 1. **KPI scorecard** (`StatCard` row, scope + universe aware, REAL): Договорено ЗОП · Договори ·
    Изпълнители · Структури с договори (units-with-contracts, like defense) · От което Мед. институт %
    (the health-confound caveat, mirrors "Of which ВМА").
-2. **Айсбергът — видимо срещу общо** (the budget bridge / iceberg — the signature tile): a stacked bar
-   of one year of МВР — **заплати ~85% · капитал ~1% · оперативни · класифицирано (gap)** — with the
-   visible open-procurement slice highlighted as the thin tip. This is the defense `BudgetBridgeTile`
-   generalized to the payroll story. `◆ budget`.
+2. **Айсбергът — видимо срещу общо** (the budget bridge / iceberg — the signature tile): the whole bar =
+   one year of МВР **total budget** (`years[].expenditure.amountEur`, ЗДБ — 2025 = €2.11bn, the
+   authoritative larger figure, already ingested), with the group's annual open procurement (~€123M/yr,
+   ~6%) highlighted as the thin visible tip. A sourced context annotation states the ~92% personnel /
+   ~1% capital split (execution report, not this node — see Audit rev 1.2). This is the defense
+   `BudgetBridgeTile` generalized to the payroll story. `◆ budget` for the total, `◇ context` for the
+   personnel split.
 3. **Разход по години** (spend-by-year columns, REAL, hand-rolled CSS bars): active `?pscope` window
    highlighted; the free `SectorSpendByYearTile` already ships this.
 4. **Разход по функция** (what МВР buys — vehicles/fuel/uniforms/IT/border-tech/medical/construction;
@@ -366,10 +402,12 @@ choropleth for per-oblast €/capita and crime (Phase 3); Recharts only if an ax
 ## 8. Data honesty & provenance (non-negotiable)
 
 - Procurement tiles: `● OCDS · data.egov.bg`, measured from the group rollup over `POLICE_SECTOR_EIKS`.
-- Budget / personnel-share / iceberg: `◆ Закон за държавния бюджет`, from `data/budget/ministries/*` +
-  the МВР execution report. Pin the headline "total budget" against the **Budget Law annex**, not press
-  (press conflates total with the salary line). The classified-share is an **inferred gap**
-  (budget − visible), never presented as a measured number — say so on the tile.
+- Budget / iceberg: `◆ Закон за държавния бюджет`, from `years[].expenditure.amountEur` in
+  `data/budget/ministries/admin-ministerstvo-na-vatreshnite-raboti.json` — the authoritative **total**
+  budget (2025 = €2.11bn), already ingested; no press number, no annex lookup (see Audit rev 1.2). The
+  ~92% personnel / ~1% capital split is a **sourced context annotation** (`◇` — execution report), not a
+  headline. The classified/exempt share is an **inferred gap** (budget − visible), never presented as a
+  measured number — say so on the tile.
 - Per-capita / crime / fire tiles: `◇ context — НСИ/Eurostat/ГРАО`, kept visually separate from ЗОП money.
 - The header awarder card shows МВР-**proper** € (`000695235`, €665M); the group total (~€1.84bn) is a
   footnoted consolidation — the same МО-proper-vs-group precedent the defense pack footnotes.
@@ -416,5 +454,7 @@ choropleth for per-oblast €/capita and crime (Phase 3); Recharts only if an ax
    spend-by-year + per-unit awarders + `?pscope`). But МВР is the sector where the **bespoke pack pays
    for itself** the most (health confound needs the universe `Select`; the iceberg/transparency tiles are
    the whole thesis). Recommend Phase 1 → Phase 2 back-to-back, Phase 3 (crime layer) deferred.
-6. **Budget-bridge headline** — resolve the "total budget vs salary line" conflation against the Budget
-   Law annex before the iceberg tile ships a headline € (§8).
+6. **Budget-bridge headline** — ✅ RESOLVED (Audit rev 1.2). Display the **total** budget from the
+   already-ingested budget node (`years[].expenditure.amountEur`, ЗДБ — 2025 = €2.11bn, the larger
+   authoritative figure); the ~92% personnel split is sourced context, not a competing headline. No press
+   number, no annex dependency.
