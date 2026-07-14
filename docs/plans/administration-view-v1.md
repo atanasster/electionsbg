@@ -1,434 +1,259 @@
-# Административно обслужване / Държавна администрация — pack + view (v1 plan)
+# Административно обслужване / Държавна администрация — /sector/administration (v1 plan)
 
-Competitive research + dashboard brainstorm for a new government-entity pack around
-**административно обслужване** (administrative services to citizens & business) and the
-**държавна администрация** as an institution — its size, cost, service quality, and
-digitalization.
-
-Status: planned (audited against code 2026-07-11). Not started.
+A government-entity view around **административно обслужване** (administrative services) and the
+**държавна администрация** as an institution — its size, cost, workforce, service quality,
+digitalization, and the procurement money behind e-government.
 
 ---
 
-## 0. Audit — what was verified against the code
-
-Every load-bearing assumption below was checked against the repo; corrections folded in.
-
-- **Pack dispatch** — `src/screens/components/procurement/sectorPacks.tsx` works exactly as
-  described: a `PACKS: Record<eik, Component>` map + `getSectorPack(eik)`. Adding a pack =
-  import an EIK const, `lazy()` the pack, add one map row, export a `*_AWARDER_PATH`. ✅
-- **Personnel data is richer than assumed** — `data/budget/personnel.json` is a committed
-  **annual time series**: `national` = **2017–2025**, `byMinistry` = 2022–2024. Each
-  `national[year]` has `positions` (total 145 623, central, territorial, municipal, filled,
-  vacant, vacantOverSixMonths), `nsiHeadcount` (by structure type, central/territorial), and
-  `structureCounts` (count of structures by type). `byMinistry[year]` carries
-  **`avgAnnualCostPerFte`** (BGN+EUR) per ministry and per programme — so a "cost per
-  civil servant" tile is free. **P1 needs no DB and no new ingest.** ✅ (Corrects §1's
-  "marginal cost is low" — it's near-zero for P1.)
-- **COFOG** — `data/cofog.json` uses codes, not BG labels: **`GF01` = General public
-  services** = Общи държавни служби. EU compare via GF01 is feasible with the existing
-  `/indicators/compare` machinery. ✅
-- **Date/scope machinery** — `src/data/procurement/useProcurementScope.ts` (`?pscope` =
-  `ns | all | y:<year>`, `scopeYear()`), `ProcurementScopeControl.tsx` (year picker with
-  `years` / `nsLabelOverride` / `allowAll` props, plus a **controlled** mode for pack pages).
-  `/culture` is the exact template for an annual standalone view. ✅ (See §II date-scope.)
-- **Anchor EIK** — МЕУ **180680495** is a real buyer present in the procurement corpus
-  (`data/procurement/tenders/*`). Confirm the display name at build time via `/awarder/180680495`.
-  ✅ (Corrects §1/§8 "unverified".)
-- **Nav** — `ProcurementThematicNav.tsx` already lists standalone dashboards (`/judiciary`,
-  `/culture`, `/subsidies`) and flags `unscoped` ones. `/administration` IS `?pscope`-scoped
-  (year), so it is added WITHOUT the `unscoped` flag. ✅
-- **recent_updates** — wired via `scripts/db/lib/ingest_changelog.ts` from the PG loaders
-  (mandatory per repo convention). P1 (committed JSON) needs a changelog row added the same
-  way the other JSON-committed datasets do. ✅
+> **Rev 2.0 (2026-07-14) — SUPERSEDES the original Part I/II.** The original plan was written
+> on the old `/culture`-standalone pattern. The repo has since shipped a **config-driven
+> `/sector/<slug>` grammar** (energy is the reference, tourism is the next planned), and
+> **`/sector/administration` already exists** as a single-member (МЕУ) procurement sector.
+> The task is therefore **expand an existing config**, not build a new screen. This rev rewrites
+> the whole plan to the sector grammar and adds the full civic-administration competitive scan.
+> Rev 1.0 research on the data landscape (§3) and tile ideas survives, re-slotted.
+>
+> **Rev 2.1 (2026-07-14)** — the improvement suggestions are integrated as committed, phase-mapped
+> build priorities (§8 table) and the decisions they settle are moved to Locked (§9); the phasing
+> (§4) is sequenced to match.
 
 ---
 
-## 1. What the topic is, and why it's a strong pack
+## 0. Thesis (one line)
 
-"Административно обслужване" is not one agency — it is a **horizontal function** performed
-by all ~590 administrative structures (114 central + 467 territorial). So this is closer to
-the standalone-dashboard model (`/judiciary`, `/culture`, `/pensions`) than a single-EIK
-procurement seat. The winning shape is a **hybrid**:
+The Bulgarian state grew +10% while the population shrank −10%, it costs €X/citizen, it is
+**last in the EU on e-government use (35.3%)** — and the ministry that is supposed to fix that
+(МЕУ) is a rounding error in the procurement corpus. One view fuses the institution, its service
+quality, the EU digital gap, and the money.
 
-- a standalone **/administration** dashboard (the институция: how big, how much it costs,
-  how well it serves, how digital it is), and
-- a **procurement pack** on the digitalization anchor's `/awarder/:eik` seat — the money
-  behind e-government — that cross-links into the standalone view.
+## 1. Status — what already exists (do NOT rebuild)
 
-Why it differentiates (per the competitor scan below): **nobody owns this narrative in one
-place.** The raw data is scattered across an OCR'd annual PDF, a clunky register, and a
-portal statistics page. Наясно already ingests the hardest piece (the annual Доклад), so the
-marginal cost to be best-in-class is low.
+- **`/sector/administration` is live.** `src/screens/sector/sectorDashboards.ts:172` registers
+  `SECTOR_DASHBOARDS.administration` — a single-member sector: `agency:"МЕУ"`,
+  `leadEik: ADMIN_EIK = "180680495"`, `browsePackId:"administration"`, one member chip. It renders
+  today via the generic `SectorDashboardScreen`: `<Title>` → breadcrumb → `<ScopeControl>` →
+  4-KPI group rollup + spend-by-year + top-contractors → `<SectorAwardersTile>`.
+- **Registry + hub** already list it: `sectorRegistry.ts` (`id:"administration"`, `to:"/sector/administration"`),
+  and `SECTOR_BROWSE_PACKS.administration` in `sectorPacks.tsx` powers `?sector=administration`.
+- **Route/server/sitemap need no work** — `sector/:id` covers the slug; `awarder_group_model`
+  and the `awarder_eik IN` browse filter are already generic.
+- **The institution data is already ingested** — `data/budget/personnel.json` (the annual *Доклад
+  за състоянието на администрацията*, 2017–2025) + `data/cofog.json` GF01. See §3.
 
-**The anchor entity (procurement seat):** Министерство на електронното управление (МЕУ) —
-EIK reported as **180680495** (VERIFY against our own Търговски регистър / Булстат mirror
-before wiring; do not hard-code an unverified EIK). Its executive arm ИА „Инфраструктура на
-електронното управление" is a secondary candidate. МЕУ's procurement corpus = the capital
-behind eGov.bg, е-идентификация, е-връчване, the Единен модел, base registers.
+**What is missing (this plan's work):** (a) expand the single МЕУ member into the real
+**e-government EIK group** so the money rollup is meaningful; (b) ship bespoke
+**`AdministrationThematicTiles`** — the institution/quality/digital signature tiles the generic
+KPI row can't express; (c) the quality + digital data ingests (§3 Tiers 1–3); (d) scene/OG/prerender
+copy. No new screen, no new route.
 
----
+## 2. Entities — the e-government EIK group (measured from the corpus)
 
-## 2. Data landscape
+The generic KPI row folds every EIK in `members` via `awarder_group_model`. Today it folds only
+МЕУ (which barely procures). Expand to the digitalization trio — the entities that actually hold
+the e-government spend (counts = buyerName occurrences in `data/procurement`):
 
-### 2.1 Already ingested in this repo (big head start)
+| Role | Entity | EIK | Note |
+|---|---|---|---|
+| Lead (policy+budget) | Министерство на електронното управление (МЕУ) | **180680495** | current ministry; thin own procurement |
+| Infrastructure (main buyer) | ИА „Инфраструктура на електронното управление" (ИА ИЕУ) | **180742160** | largest e-gov procurement volume |
+| Legacy predecessor | Държавна агенция „Електронно управление" (ДАЕУ) | **177098809** | pre-МЕУ/ИА ИЕУ spend; folds the history |
 
-- **`scripts/budget/doklad.ts`** parses the annual *Доклад за състоянието на администрацията*
-  (Council of Ministers, indexed at `iisda.government.bg/annual_reports`). `DOKLAD_FILE_IDS`
-  already maps **2017–2025**. Extracts: total щатна численост, central vs territorial vs
-  municipal, filled/vacant positions, vacant >6 months, count of structures by type (Table 1),
-  NSI list-headcount by type (Table II-1).
-- **`scripts/budget/personnel_facts.ts`** → **`data/budget/personnel.json`** — combines the
-  Доклад national aggregates with per-ministry programme headcount. Frontend types already in
-  `src/data/budget/types.ts`.
-- **`scripts/watch/sources/iisda_doklad.ts`** — weekly watcher that fires when a new annual
-  Доклад id appears. Wired into `/update-budget`.
-- **`scripts/officials/municipal_contacts/scrape_iisda.ts`** — proven ИИСДА scraping path
-  (mayors registry). Reusable for the services/structures register.
-- **`data/cofog.json`** — COFOG function **"Общи държавни служби" (General public services)**
-  = the money the administration costs, already available and EU-comparable
-  (`/indicators/compare`).
+- **Lead stays МЕУ** (180680495) — the policy seat + the `/sector/administration` slug. Its
+  `/awarder/180680495` page suppresses its pack and links to the sector dashboard (the
+  `sectorDashboardForLeadEik` convention — same as БЕХ→/sector/energy).
+- Freeze the set in a new `src/lib/administrationReferenceData.ts` as `ADMIN_SECTOR_EIKS`
+  (mirrors `energyReferenceData.ts`), reused by `SECTOR_BROWSE_PACKS` + `sector_stats` + the
+  thematic tiles' `useAwarderGroupModel` key.
+- **The institution is horizontal.** "Административно обслужване" is performed by all ~590
+  structures, not one buyer. So the *money* view is the e-gov trio (procurement); the
+  *institution* view (headcount/cost/quality/digital) comes from `personnel.json` + Eurostat +
+  the Доклад — rendered as `AdministrationThematicTiles`, independent of the EIK rollup.
 
-### 2.2 To ingest (new)
+## 3. Data sources, tiered by ingest cost
 
-- **Административен регистър (ИИСДА, `iisda.government.bg`)** — the register of ~590 structures
-  (name, type, functions, contacts) and the catalogue of administrative *services* per
-  structure (fee, statutory deadline, e-service availability). Also mirrored as открити данни
-  on data.egov.bg — check for a clean CSV/JSON before scraping HTML.
-- **Доклад "административно обслужване" section (Раздел за адм. обслужване)** — the report has a
-  dedicated section we don't yet extract: satisfaction surveys, "таен клиент" (mystery-shopper)
-  observations, complaints/signals volumes, one-stop-shop (КАО) coverage, phone/online channel
-  mix, average service times. This is the quality layer — high value, currently unextracted.
-- **eGov statistics** — `egov.government.bg/.../statistika`, the Единен модел statistics
-  (`unifiedmodel.egov.bg/.../statistics`) and real-time `analytics.egov.bg`: number of
-  e-services, volume of e-applications, by provider / service type / channel. Monthly cadence.
-- **Procurement** — МЕУ (+ ИА ИЕУ) contract corpus is already in the procurement DB; the pack
-  reads it via `/api/db/awarder-contracts` like every other pack.
+- **Tier 0 — in hand (Phase 1 ships on this alone):**
+  - `data/budget/personnel.json` — annual 2017–2025: `positions` (total 145 623, central,
+    territorial, municipal, filled, vacant, vacantOverSixMonths), `nsiHeadcount` (by structure
+    type), `structureCounts` (structure counts by type); plus `byMinistry` 2022–2024 with
+    **`avgAnnualCostPerFte`** (BGN+EUR). Watcher `iisda_doklad`; refreshed by `/update-budget`.
+  - `data/cofog.json` — **GF01 = General public services** (Общи държавни служби); EU-comparable.
+  - Procurement corpus — the e-gov trio's contracts (already in PG; `awarder_group_model`).
+- **Tier 1 — Eurostat, cheap (rides `update-macro`/`update-regional`):**
+  - **EU e-government indicators** — Eurostat `isoc_ciegi_*` / DESI Digital Public Services:
+    share of individuals using e-gov (BG **35.3%, lowest in EU** vs EU27 avg; DK 98.6%), basic
+    digital skills (BG 35.5%). The single most differentiating, shareable, BG-damning tile.
+  - **EU eGovernment Benchmark** (Capgemini for EC, biennial): user-centricity, transparency,
+    key enablers, cross-border — country score (EU27 avg 76/100). Peer bars vs RO/GR/HU/HR.
+- **Tier 2 — parser extension (moderate):** extend `scripts/budget/doklad.ts` to capture the
+  Доклад's **административно обслужване** section — citizen-satisfaction score, "таен клиент"
+  (mystery-shopper) pass/fail, complaints/signals volume, one-stop-shop (КАО) coverage,
+  channel mix, statutory-vs-actual service time. Emit a `national[year].service` block.
+- **Tier 3 — new ingest (heavier):**
+  - **Административен регистър (ИИСДА)** — the ~590-structure register + the services catalogue
+    (fee, statutory deadline, e-available). **Check data.egov.bg for clean open data first**;
+    else reuse `scripts/officials/municipal_contacts/scrape_iisda.ts`. Land in PG →
+    `DbDataTable` catalogue explorer.
+  - **eGov usage** — `analytics.egov.bg` / Единен модел statistics: live e-service counts +
+    e-application volumes by provider/type/channel (monthly).
 
-### 2.3 Grounded reference numbers (2025 Доклад)
+## 4. Architecture — reuse the shipped grammar (two-phase)
 
-- **145,623** щатна численост; **590** structures (581 reporting: 114 central, 467 territorial).
-- Over the last decade: **administration +10%, population −10%** (IPI/ИПИ framing) — a ready
-  headline the dashboard should own.
+### Phase 1 — config + thematic tiles from data in hand (no ingest, no screen)
 
----
+Files to touch (tourism §9 checklist format):
 
-## 3. Competitive landscape (who shows this today, and the gaps)
-
-| Source | What it does | Gap we exploit |
+| Concern | File | Change |
 |---|---|---|
-| **Доклад за състоянието на администрацията** (gov.bg / iisda) | The authoritative data, but a 100+ page OCR'd **PDF once a year** | No interactivity, no time series, no per-structure drill, unreadable |
-| **Административен регистър (ИИСДА)** | Register of structures + services | 2000s-era UI, no analytics, no trends, no cost/quality overlay |
-| **opendata.yurukov.net/pubadminreg** (civic) | Downloaded 16,555 structures — **explicitly WIP, "still only raw HTML", no visualizations shipped** | Abandoned/unfinished — the space is open |
-| **eGov statistika / analytics.egov.bg** | Live e-service usage stats | Portal-only, no institutional context (cost, headcount, quality), no comparison |
-| **ИПИ Регионални профили / 265obshtini.bg** | 68 regional + 32 municipal indicators; strong on economy | Thin on *administration-as-institution* & service quality; municipal, not the central-state picture |
-| **Диагноза-style single-issue sites** | — | None covers administrative services |
+| Buyer allowlist | `src/lib/administrationReferenceData.ts` **(new)** | `ADMIN_SECTOR_EIKS` (МЕУ+ИА ИЕУ+ДАЕУ), lead const, member names |
+| Sector config | `src/screens/sector/sectorDashboards.ts` | expand `administration.members` to the trio; set `ThematicTiles: AdministrationThematicTiles` (lazy) |
+| Browse filter | `src/screens/components/procurement/sectorPacks.tsx` | point `SECTOR_BROWSE_PACKS.administration` at `ADMIN_SECTOR_EIKS` |
+| Hub tile € | `scripts/db/gen_procurement/sector_stats.ts` | `administration: [...ADMIN_SECTOR_EIKS]`; rerun `npm run db:gen-sector-stats` |
+| Thematic tiles | `src/screens/sector/administration/AdministrationThematicTiles.tsx` **(new)** + sub-tiles | signature tiles (§5) off `personnel.json` + `cofog.json` |
+| Data hook | `src/data/administration/useAdministration.tsx` **(new)** | `useAdministrationPersonnel()` → `/budget/personnel.json` |
+| Scope helper | `src/data/administration/scopeOverview.ts` **(new)** | pure `scopeAdminYear(personnel, year)` (§6) |
+| Hub scene | `src/screens/governance/sectorScenes.tsx` | SVG scene keyed `administration` (currently may fall back) |
+| i18n | `src/locales/{bg,en}/translation.json` (+ `public/locales/*`) | tile strings (config keys `sector_admin_*` already exist) |
+| OG card | `public/og/sector-administration.png` | run `scripts/og/screenshot_sectors.ts` (auto-loops `SECTOR_DASHBOARD_IDS`) |
+| Prerender copy | `scripts/prerender/routes.ts` | add/verify `SECTOR_PAGES.administration` (**build fails without it**) |
+| Data map | `scripts/data_map/model.ts` | DATASET (personnel) + feature node `route:/sector/administration` + edges |
+| recent_updates | via `ingest_changelog.ts` path | changelog row for the personnel/administration dataset |
 
-**Verdict:** the authoritative data exists but is trapped in a PDF; the one civic attempt
-stalled; the portals show usage without institutional context. A single view that fuses
-**size + cost + service quality + digitalization + procurement**, with trends and per-structure
-drill, would be genuinely first-of-its-kind.
+Sitemap needs no edit (auto from `SECTOR_DASHBOARD_IDS`); route/server need no edit.
 
----
+Phase 1 realizes the top-ranked wins (§8 #1, #3, #6): the config expansion + tiles 1–5 with the
+decade-divergence OG hero, laid out on the OECD input→process→output→outcome spine. Ships with no
+ingest and no screen code.
 
-## 4. Reusable skeleton from existing packs (the house UI vocabulary)
+### Phase 2+ — the sequenced roadmap (each slice self-contained; ordered by §8 impact/cost)
 
-Grab these — every mature pack (NZOK v2 is the reference) is built from them:
+- **P2 — EU e-gov gap (§8 #2, High/Low).** Tier-1 Eurostat `isoc_ciegi_*` via `update-macro` →
+  tile 10 ("BG last in Europe, 35.3%") + peer bars (tile 17). Cheapest high-impact win after P1;
+  the launch card's second punch. New thematic tile only.
+- **P3 — service quality (§8 #4, High/Med).** Extend `scripts/budget/doklad.ts` to parse the
+  административно обслужване section → tiles 6–9 (satisfaction / таен клиент / complaints / КАО),
+  each with a mandatory self-reported caveat chip. Parse defensively (OCR-fragile); render a tile
+  only for years that yield data.
+- **P4 — services register (§8 #5, Med/High).** Tier-3 ИИСДА ingest → catalogue explorer (tile 12,
+  `DbDataTable`), GOV.UK-style per-service scorecard, and the once-only/RegiX tracker (tile 13) tied
+  to the Feb-2026 burden-reduction reform. First backend; reuse `CpvFilterCombobox`/`RiskBadges` on
+  any contract lists.
+- **P5 — adoption + AI + launch.** Tier-3 eGov usage stats (analytics.egov.bg) → tile 11;
+  AI tools (`ai/tools/administration.ts`, registered in `registry.ts`, `SECTION.administration` in
+  `ai/render/links.ts`); naiasno FEATURE post after P1, DATASET posts as P2–P4 land (§8 #7).
 
-**Dispatch & shell**
-- `src/screens/components/procurement/sectorPacks.tsx` — register `AdminPack` under the
-  anchor EIK; add `ADMIN_AWARDER_PATH`. `getSectorPack(eik)` dispatches in
-  `src/screens/dev/CompanyDbScreen.tsx`.
-- Standalone `/administration` route → `LayoutScreen` + `src/screens/dashboard/DashboardSection.tsx`
-  / `DashboardCards.tsx` (same shell as `/judiciary`, `/culture`).
-- `PackSection.tsx` — banded sections (icon+title+note+anchor id). **Stacked bands, never tabs**
-  (house rule).
-- `ProcurementThematicNav.tsx` — sibling-dashboard hop strip.
+## 5. The dashboard — tile-by-tile (OECD input→process→output→outcome spine)
 
-**Tile / KPI primitives**
-- `src/screens/dashboard/StatCard.tsx` — the KPI tile (label + big tabular number + drill `to`).
-- `src/ux/Card.tsx`, `src/components/ui/InsightChips.tsx` (auto-headline chips),
-  `src/ux/Sparkline.tsx`, `PercentChange.tsx`, `ThousandsChange.tsx`, `Hint.tsx`.
+Signature tiles marked ★. CSS/flex bars where possible (house rule: instant OG render). Each a
+band with a stable deep-link id. Provenance tagged ● real / ◐ needs-ingest.
 
-**Charts / tables / maps**
-- `src/components/ui/chart.tsx` (Recharts wrapper) + palettes `chartColors.ts`,
-  `procurementPalette.ts`, `treemapPalette.ts`.
-- `src/ux/data_table/DbDataTable.tsx` (server-paged) / `DataTable.tsx` (client).
-- Treemap: `ProcurementTreemapTile.tsx`, `treemapCell.tsx`. Choropleth:
-  `ProcurementChoroplethTile.tsx`, `OblastChoropleth.tsx`. Leaderboard:
-  `RiskGradeLeaderboardTile.tsx`.
+**Institution (input) — from `personnel.json` (●):**
+1. ★ **Decade divergence** — dual line: administration headcount (+10%) vs population (−10%)
+   since 2015. The OG hero. *Full-history (ignores year scope).*
+2. **State KPI strip** — щатна численост (145 623), structures (590), filled/vacant %, cost of
+   administration (GF01) % GDP + €/citizen. *Year-scoped.*
+3. **Headcount by structure type** — central/territorial/municipal stacked area 2017–2025;
+   filled-vs-vacant overlay. *Full-history.*
+4. **Structures treemap** — `structureCounts` sized by type; drill to register (P4). *Year-scoped.*
+5. **Cost per civil servant** — `avgAnnualCostPerFte` ranked by ministry (2022–2024 only; hide
+   years without data — no silent caps). *Year-scoped within window.*
 
-**Scope & deep-linking**
-- `src/data/procurement/useProcurementScope.ts` (`?pscope` = `ns|all|y:<year>`),
-  `ProcurementScopeControl.tsx`, `useHashScroll.ts` (async band deep-link scroll).
+**Service quality (process/output) — Tier-2 доклад section (◐):**
+6. ★ **Citizen-satisfaction gauge** + trend — caveat chip: self-reported by each administration.
+7. **"Таен клиент" results** — pass/fail on mandatory service standards.
+8. **Complaints & signals** — жалби/сигнали vs похвали; channel mix (гише/телефон/online/е-връчване).
+9. **One-stop-shop (КАО) coverage** — share offering комплексно обслужване; statutory-vs-actual time.
 
-**Data serving**
-- Contract corpus: `useAwarderContracts` → `/api/db/awarder-contracts`, client-windowed by
-  `scopeWindow`, fed to a pure `buildAdminModel` engine (mirror `src/lib/nzokAttributes.ts`).
-- Facts: static committed JSON in `data/budget/` via `useBudget.tsx` hooks (personnel already
-  there) and/or new `/api/db/admin-*` endpoints. For payload-style blobs mirror
-  `agri_payloads` (`src/data/agri/fetchAgriPayload.ts`).
+**Digital (output/outcome) — Tier-1 Eurostat + Tier-3 eGov (◐):**
+10. ★ **EU e-gov gap** — BG e-gov use **35.3% (last in EU)** vs peer bars (EU27 76 pts; DK 98.6%).
+    The killer comparison; from Eurostat (cheap). *Latest year.*
+11. **e-service adoption** — live e-service count + e-application volume trend (analytics.egov.bg).
+12. ◐ **Service-catalogue explorer** (`DbDataTable`) — searchable services (fee, deadline,
+    e-available); GOV.UK-style. Repeat-visit + SEO long-tail. (P4)
+13. ◐ **Once-only / RegiX tracker** — share of services pulling from base registers vs asking
+    the citizen; the административна-тежест reform in one number. (P4)
 
-**AI + changelog**
-- `ai/tools/administration.ts` (mirror `ai/tools/nzok.ts`), register in `ai/tools/registry.ts`,
-  add `SECTION.administration` + tool→section map + deep-link chips in `ai/render/links.ts`.
-- Wire the new datasets into `recent_updates` (mandatory per repo convention).
+**Money (the sector's procurement rollup) — generic KPI row + (●):**
+14. **e-gov spend group KPIs** — total awarded / contracts / contractors / top integrator, folded
+    over the trio (the generic `SectorDashboardScreen` row). *Scope-windowed.*
+15. **Digitalization CPV/per-unit spend** — where the e-gov money goes, by subsidiary + category
+    (mirror energy `PerUnitSpendTile`); single-bid gauge. *Scope-windowed.*
+16. **EU-fund cross-link** — most e-gov capital is ОПДУ/ЕС-funded; link to the funds view.
 
----
+**Context (outcome):**
+17. **EU peer comparison** — GF01 cost + eGov-benchmark score vs RO/GR/HU/HR (reuse
+    `/indicators/compare` COFOG + `macro_peers`).
 
-## 5. The dashboard — tile-by-tile brainstorm ("world's best")
+## 6. Date scoping — how `?pscope` flows here (the requirement)
 
-Money-first, then quality, then digital, then procurement — the NZOK v2 band order applied.
-Every tile has a one-line "so what", a trend, and a drill.
+The framework already renders the filter and resolves the window — nothing bespoke:
 
-**A. Hero — "Колко ни струва държавата, и колко сме"**
-1. **State-of-the-administration KPI strip** (`StatCard` row): щатна численост, брой структури,
-   заети/незаети %, cost of administration (COFOG "Общи държавни служби") as % of GDP and €/citizen.
-2. **The decade divergence** — a single dual-line: administration headcount (+10%) vs population
-   (−10%) since 2015. Instantly shareable; owns the IPI framing with our own chart.
+- `SectorDashboardScreen` renders `<ScopeControl mode="toggle" />` (URL-backed `?pscope`,
+  vocabulary `ns | all | y:YYYY`) and derives `scopeWindow = useScopeWindow()`.
+- **Money tiles (14–15):** the generic KPI row + any procurement-derived thematic tile call
+  `useAwarderGroupModel(ADMIN_SECTOR_EIKS, …, windowOverride=undefined)`, which falls back to the
+  URL scope → they **re-window on `?pscope`** automatically. No work.
+- **Institution/quality/digital tiles (2, 4–9, 11):** these read committed JSON, not the corpus.
+  They opt into the year via `useScope()` + a pure `scopeAdminYear(personnel, year)`:
+  `y:YYYY` → that Доклад year; `ns`/`all` → latest year (2025). Documented per tile.
+- **Trend tiles (1, 3, 10, 17):** **full-history** regardless of scope (comment
+  `// full-history: ignores year scope`), same rule as energy's generation/price tiles.
+- **Half-open caveat:** any P4 tile that drives a *DB* fetch must normalize `y:YYYY` to
+  `to=(Y+1)-01-01` (not `YYYY-12-31`) or Dec-31 rows drop — the tourism/energy §5 gotcha.
 
-**B. Structure & headcount**
-3. **Headcount by administration type** — central / territorial / municipal split, stacked
-   time series 2017–2025 (from `personnel.json`). Filled vs vacant overlay.
-4. **Structures inventory treemap** — 590 structures sized by headcount, colored by type
-   (министерства, агенции, областни, общински). Drill → the register list.
-5. **Vacancy stress** — % vacant and vacant >6 months by type; flags chronically understaffed
-   bodies.
+## 7. Competitive research — civic administration platforms
 
-**C. Service quality (the differentiator — from the Доклад's adm-обслужване section)**
-6. **Citizen satisfaction gauge** — national satisfaction score + trend; note the caveat that
-   it's self-reported by administrations.
-7. **"Таен клиент" (mystery shopper) results** — pass/fail on mandatory service standards.
-8. **Complaints & signals** — volume of жалби/сигнали vs похвали, trend; channel mix
-   (гише / телефон / online / е-връчване).
-9. **One-stop-shop (КАО) coverage** — share of structures offering комплексно адм. обслужване
-   and average statutory-vs-actual service time.
+No platform, in Bulgaria or abroad, fuses **institution + service quality + digital gap +
+procurement money** in one citizen-facing view. The layers exist separately; we integrate them.
 
-**D. Digitalization / e-government**
-10. **e-service adoption** — number of live e-services and volume of e-applications
-    (eGov statistics), trend; online share of all administrative transactions.
-11. **Base-register & е-идентификация usage** — е-връчване volumes, е-идентичност issuance —
-    the plumbing of digital government.
-12. **Service catalogue explorer** (`DbDataTable`) — searchable table of administrative services
-    (name, provider, fee, statutory deadline, e-available yes/no). The "what can I actually do
-    online?" utility that drives repeat visits and SEO long-tail.
+| Platform | Layer | Best-in-class feature | Gap / our wedge |
+|---|---|---|---|
+| **OECD Government at a Glance 2025** | Comparative institution | The gold standard: input→process→output→outcome spine; Digital-Government Index, Open-Gov-Data Index, trust, satisfaction, workforce management; interactive country dashboard | BG is **not** an OECD member → design template, not a BG feed; no procurement/money layer; no per-structure BG granularity |
+| **GOV.UK Performance Platform / Service Std SS10** | Service delivery | Per-service 4 KPIs — cost per transaction, digital take-up, completion rate, user satisfaction — **mandatory** publication | UK-only; central platform retired 2021 (now per-dept). Model for our per-service scorecard (12) |
+| **EU eGovernment Benchmark 2024 (Capgemini/EC) + DESI** | Digital delivery | BG-**inclusive** scores (EU27 avg 76/100; BG e-gov use 35.3% lowest, digital skills 35.5%); user-centricity / transparency / enablers / cross-border | Biennial, country-level only, no institutional or money layer → we localize + add the money + per-structure drill |
+| **e-Estonia / Ukraine Diia** | Service UX exemplar | Once-only principle, X-Road interoperability, single app | Not a transparency dashboard; aspirational benchmark. BG analog = RegiX → tile 13 |
+| **USASpending / Partnership for Public Service** | Workforce+budget transparency | Federal workforce dashboards, agency-level spend viz | US-only; workforce-viz patterns to borrow (tiles 3, 5) |
+| **Look at Cook / Kenya Open Data** | Budget explorer | Deep drill-down budget transparency, open-sourced/replicable | Generic; no administration-quality layer |
+| **BG: Доклад за състоянието на администрацията** | Authoritative source | The real data (headcount, structures, service quality) | **100+ page OCR'd PDF, once a year** — unusable as a product. We already parse it |
+| **BG: Административен регистър (ИИСДА)** | Register | Every structure + service catalogued | 2000s-era UI, no analytics/trends/cost/quality overlay |
+| **BG: eGov statistika / analytics.egov.bg** | Usage stats | Live e-service transaction counts | Portal-only; no institutional context, no comparison |
+| **BG: ИПИ Регионални профили / 265obshtini.bg** | Regional/economic | 68 indicators, strong on economy, per-município | Thin on administration-as-institution & service quality; not the central-state picture |
+| **BG: opendata.yurukov.net/pubadminreg** | Civic attempt | Downloaded all 16 555 structures | **Explicitly abandoned WIP** ("still only raw HTML"), nothing shipped — the space is open |
+| **BG: БСК/strategy.bg административна тежест** | Policy | Reform tracking (burden-reduction plan, Feb 2026) | Prose/PDF policy pages, not a data dashboard |
+| **BG: TI-BG LISI** | Municipal integrity | 27-city transparency index (we already ingest) | Municipal only; complements, doesn't compete |
 
-**E. Money behind digitalization (the procurement pack on МЕУ's seat)**
-13. **МЕУ procurement lens** — total contracted, direct-award share, top integrators
-    (mirror `NzokProcurementLensTile`). The recurring "who builds Bulgaria's e-government" question.
-14. **e-gov project treemap / CPV** — where the digitalization money goes (software, hardware,
-    integration, support).
-15. **Vendor concentration & risk leaderboard** — top suppliers, single-bidder rate, reuse
-    `RiskGradeLeaderboardTile`.
+**Positioning:** Наясно = the only place fusing the institution (size/cost/workforce), service
+quality (satisfaction/таен клиент/complaints), the digital gap (EU-benchmarked, BG-last), and the
+procurement money behind digitalization — in one Bulgarian, EUR-denominated, per-structure-drillable,
+shareable view. The authoritative data is trapped in a yearly PDF; the one civic attempt stalled;
+the portals show usage without context. We own the integration.
 
-**F. Compare & context**
-16. **EU peer comparison** — cost of general public services vs RO/GR/HU/HR
-    (reuse `/indicators/compare` COFOG machinery), plus e-gov maturity if a clean EU index exists.
-17. **Per-structure entity cards** — deep-link each structure to its `/awarder/:eik` procurement
-    seat where one exists, so the institutional view and the money view interlock.
+## 8. Adopted build priorities (integrated into §4/§5)
 
----
+Each improvement is a committed slice, ranked by impact/cost and mapped to the phase that realizes
+it — not a floating recommendation.
 
-## 6. Route & anchoring decision
+| # | Priority | Impact/Cost | Realized in | Tiles |
+|---|---|---|---|---|
+| 1 | Ship Phase 1 from data in hand (config + tiles) | High / Low | **P1** | 1–5 |
+| 2 | EU e-gov gap ("BG last in Europe, 35.3%") via Eurostat | High / Low | **P2** | 10, 17 |
+| 3 | Decade-divergence OG hero (admin +10% / pop −10%) | High / Low | **P1** | 1 |
+| 4 | Service-quality section (satisfaction/таен клиент/complaints/КАО) | High / Med | **P3** | 6–9 |
+| 5 | Services register → per-service scorecard + once-only/RegiX tracker | Med / High | **P4** | 12, 13 |
+| 6 | OECD input→process→output→outcome band order (narrative spine) | Med / Low | **P1** (§5) | all |
+| 7 | AI tools + naiasno launch post | Low / Low | **P5** / post-P1 | — |
 
-- **Standalone view:** `/administration` (BG: „Държавна администрация"), sitting under the
-  Governance view group. Tiles A–D + F.
-- **Procurement pack:** `AdminPack` on МЕУ's `/awarder/<verified-eik>` — tiles E (+ a compact
-  A strip and a link up to `/administration`).
-- Cross-link both directions via `ProcurementThematicNav` and a hero link.
+## 9. Decisions
 
----
+**Locked (settled by the priorities above):**
+- **Fold the e-gov trio** (МЕУ + ИА ИЕУ + ДАЕУ 177098809), history included — energy folds its
+  subsidiaries and defense folds 25 units; precedent says fold, and the legacy spend is the point.
+- **OECD input→process→output→outcome** is the band order (§5).
+- **Self-reported caveat chip is mandatory** on the quality tiles (6–9).
+- **Lead stays МЕУ** (180680495); its `/awarder` page suppresses its pack and links to the sector.
 
-## 7. Phasing
-
-- **P1 (data already in hand):** standalone `/administration` with tiles 1–5 + 16 from
-  `personnel.json` + `cofog.json`. Ships fast; establishes the view.
-- **P2:** extend `doklad.ts` to parse the административно обслужване section → quality tiles 6–9.
-- **P3:** ИИСДА services-register ingest → catalogue explorer (12) + structures treemap (4).
-- **P4:** eGov statistics ingest → digital-adoption tiles 10–11.
-- **P5:** МЕУ procurement pack (13–15) + AI tools + recent_updates + naiasno launch post.
-
----
-
-## 8. Open questions / to verify
-
-- Confirm МЕУ EIK (180680495 is unverified) against our Търговски регистър / Булстат mirror;
-  decide МЕУ vs ИА ИЕУ as the procurement anchor (МЕУ is the policy+budget seat; ИА ИЕУ holds
-  more of the infrastructure contracts — may want both, packed on МЕУ with a link).
-- Is the административно обслужване section machine-parseable across years, or OCR-fragile like
-  the headcount tables? Determines P2 cost.
-- Does data.egov.bg expose the Административен регистър services as clean open data (avoids HTML
-  scraping)? Determines P3 cost.
-- Satisfaction/таен клиент data is self-reported by each administration — surface the caveat
-  prominently (methodology note chip on those tiles).
-
----
-
-# PART II — Full implementation plan (v1)
-
-## II.0 Decisions locked
-
-- **Two surfaces:** standalone **`/administration`** (the institution; annual data) + an
-  **`AdminPack`** on `/awarder/180680495` (МЕУ; the digitalization money). They cross-link.
-- **P1 ships from committed JSON only** (`personnel.json` + `cofog.json`) — no DB, no ingest,
-  no backend route. This is the fastest path to a live view and is the whole of Phase 1.
-- **View group:** Governance. Route sits beside `/judiciary`, `/culture`, `/pensions`.
-- **House UX:** stacked `PackSection`/dashboard bands, homepage width, **no tabs**, BG default
-  language, EUR display, `StatCard` KPIs, Recharts via `components/ui/chart.tsx`. No emojis.
-
-## II.1 Date-filter scope — the design (called out explicitly)
-
-Two scope dimensions, one per surface. Both use the existing `?pscope` contract so the filter
-is shareable and survives navigation — nothing bespoke.
-
-### A. Standalone `/administration` — annual year scope (copy `/culture`)
-
-The data is a point-in-time annual series (2017–2025), so the filter is a **year picker**, not
-a range. Exactly the culture pattern:
-
-```ts
-// src/data/administration/scopeOverview.ts  (new, pure, UI-free — mirrors scopeOverview.ts)
-export const ADMIN_FIRST_YEAR = 2017;
-export const scopeAdminOverview = (p: PersonnelFile, year: number | null) => {
-  const years = Object.keys(p.national).map(Number).sort((a, b) => b - a);
-  const y = year ?? years[0];                 // ns → latest year (2025)
-  return { year: y, national: p.national[String(y)], trend: years /* full history */ };
-};
-```
-
-In `AdministrationScreen.tsx`:
-
-```tsx
-const { scope } = useProcurementScope();      // ?pscope
-const year = scopeYear(scope);                // number | null
-const scoped = useMemo(() => data ? scopeAdminOverview(data, year) : undefined, [data, year]);
-
-<ProcurementScopeControl
-  years={adminYears}                          // [2025..2017]
-  nsLabelOverride={bg ? "Най-нова година" : "Latest year"}
-  allowAll={false}                            // no cross-year headcount aggregate (like judiciary)
-/>
-```
-
-Scope rules:
-- **`ns` (default, param omitted)** → latest year (2025). Pill relabeled "Latest year".
-- **`y:<year>`** → KPI + structure + quality tiles re-aggregate to that Доклад year.
-- **Trend tiles stay full-history** regardless of scope (the decade-divergence line, the
-  headcount-by-type stack) — same rule as culture's time-spine. Each such tile is documented
-  with a `// full-history: ignores year scope` comment so it isn't "fixed" later.
-- `allowAll=false`: there is no meaningful "all years" headcount total (it's a snapshot), so
-  the option is hidden — matches the judiciary-caseload precedent.
-
-### B. `AdminPack` (МЕУ seat) — procurement `[from,to)` window
-
-The pack receives `scopeWindow: ScopeWindow` from `CompanyDbScreen`'s `ProcurementScopeControl`
-(controlled mode) and windows the МЕУ contract corpus client-side via `scopeByWindow` — identical
-to NZOK/NOI. The awarder page already renders the pill; the pack just consumes `scopeWindow`.
-`?pscope=y:2024` on the awarder URL therefore scopes the digitalization-spend tiles too. No new
-scope code.
-
-## II.2 File-by-file — Phase 1 (standalone view from data in hand)
-
-New files:
-- `src/lib/administrationBenchmarks.ts` — `export const MEU_EIK = "180680495";` +
-  `ADMIN_FIRST_YEAR`, `ADMIN_PATH = "/administration"`. (EIK const lives in a dependency-free
-  module so nav surfaces can import it without pulling react-query — same rule as `nzokBenchmarks`.)
-- `src/data/administration/useAdministration.tsx` — `useAdministrationPersonnel()` →
-  `queryKey ["budget","personnel"]`, `fetchJson("/budget/personnel.json")`. (Reuse the existing
-  `useBudget.tsx` fetcher; add the hook there if a personnel hook already exists.)
-- `src/data/administration/scopeOverview.ts` — pure `scopeAdminOverview` + `ADMIN_FIRST_YEAR`
-  (see §II.1A).
-- `src/screens/administration/AdministrationScreen.tsx` — the dashboard shell (`Title` +
-  `ProcurementThematicNav` + `ProcurementScopeControl` + stacked tile bands). Model on
-  `CultureScreen.tsx`.
-- Tile components under `src/screens/administration/`:
-  - `AdminKpiStrip.tsx` — Tile 1 (`StatCard` row: щатна численост, structures, filled/vacant %,
-    cost of admin % GDP + €/citizen from `cofog.json` GF01).
-  - `AdminDivergenceTile.tsx` — Tile 2, dual-line headcount vs population since 2015
-    (population from existing census/GRAO series; **full-history**).
-  - `AdminHeadcountByTypeTile.tsx` — Tile 3, stacked area 2017–2025 (`nsiHeadcount`;
-    **full-history**).
-  - `AdminStructuresTreemapTile.tsx` — Tile 4, `structureCounts` treemap (reuse
-    `ProcurementTreemapTile`/`treemapCell`). (Full 590-structure drill deferred to P3 register.)
-  - `AdminVacancyTile.tsx` — Tile 5, % vacant + vacant>6mo by type (year-scoped).
-  - `AdminCostPerFteTile.tsx` — bonus, `byMinistry.avgAnnualCostPerFte` ranked (year-scoped to
-    2022–2024 window; hide years without byMinistry data).
-  - `AdminEuCompareTile.tsx` — Tile 16, GF01 vs RO/GR/HU/HR (reuse euCompare COFOG helpers).
-
-Wiring:
-- `src/routes.tsx` — `lazy()` import `AdministrationScreen`; add `<Route path="administration">`
-  under the governance group (beside `judiciary`/`culture`), inside `<LayoutScreen>`.
-- `src/screens/components/procurement/ProcurementThematicNav.tsx` — add
-  `{ to: "/administration", icon: Landmark, key: "administration_nav" }` (scoped, no `unscoped`
-  flag). Add i18n keys `administration_nav` (bg/en).
-- i18n — add strings to `src/locales/{bg,en}/translation.json` (+ `public/locales/*`).
-- `recent_updates` — add a changelog row for the personnel/administration dataset via the
-  established path so `/data/updates` lists it.
-
-Phase-1 acceptance: `/administration` renders tiles 1–5 + 16 + cost-per-FTE; `?pscope=y:2020`
-re-scopes the KPI/structure/vacancy tiles to 2020 while the divergence + by-type trend stay
-full-history; the sibling-nav strip links it; `npm run build` + `npm run lint` clean.
-
-## II.3 Phase 2 — quality tiles (extend the Доклад parser)
-
-- `scripts/budget/doklad.ts` — extend the parser to capture the **административно обслужване**
-  section: satisfaction score, "таен клиент" pass/fail, complaints/signals volumes, one-stop-shop
-  (КАО) coverage, channel mix, statutory-vs-actual service time. Emit into a new
-  `national[year].service` block in `personnel.json` (or a sibling `data/budget/administration.json`
-  if the shape is large). Update `src/data/budget/types.ts` (types mirror scripts/ per repo rule).
-- New tiles 6–9 (`AdminSatisfactionTile`, `AdminMysteryShopperTile`, `AdminComplaintsTile`,
-  `AdminOneStopShopTile`) — each carries a **methodology caveat chip** (self-reported by each
-  administration). Year-scoped; add a full-history trend where the series exists.
-- Risk: the section may be OCR-fragile across years (the headcount tables already are). Parse
-  defensively, null-fill per year, and only render a tile for years that yielded data.
-
-## II.4 Phase 3 — Административен регистър (services + structures)
-
-- Ingest the ИИСДА services catalogue + 590-structure register. **First check data.egov.bg for
-  clean open data** (avoids HTML scraping); fall back to the proven
-  `scripts/officials/municipal_contacts/scrape_iisda.ts` path. Land it in a PG table
-  (`admin_services`, `admin_structures`) with a `DbDataTable` registry entry — this is the point
-  a backend appears.
-- Tile 12 `AdminServiceCatalogueTile` — server-paged `DbDataTable` (name, provider, fee,
-  statutory deadline, e-available). Free-text `?q=` search like the contracts browser.
-- Tile 4 upgrade — treemap drills into the real 590-structure list.
-
-## II.5 Phase 4 — e-government adoption
-
-- Ingest eGov statistics (`egov.government.bg/.../statistika`, `unifiedmodel.egov.bg` stats,
-  `analytics.egov.bg`) — number of e-services, e-application volumes, by provider/type/channel,
-  monthly. New watcher source under `scripts/watch/sources/`.
-- Tiles 10–11 (`AdminEServiceAdoptionTile`, `AdminEDeliveryTile`).
-
-## II.6 Phase 5 — МЕУ procurement pack + AI + launch
-
-- `src/lib/administrationBenchmarks.ts` already exports `MEU_EIK`.
-- `src/screens/components/procurement/administration/AdminPack.tsx` — composed of `PackSection`
-  bands + tiles 13–15 (procurement lens, e-gov CPV treemap, vendor concentration/risk via
-  `RiskGradeLeaderboardTile`) + a compact KPI strip + an up-link to `/administration`. Data via
-  a new `src/data/procurement/useAdministration.tsx` (`useAwarderContracts` +
-  `buildAdminModel` engine mirroring `src/lib/nzokAttributes.ts`).
-- Register in `sectorPacks.tsx`: import `MEU_EIK`, `lazy()` the pack, add `[MEU_EIK]: AdminPack`,
-  export `ADMIN_AWARDER_PATH`. Point `ProcurementThematicNav`'s administration entry at the МЕУ
-  seat vs the standalone view — decide by parity with judiciary/culture (standalone is home).
-- AI: `ai/tools/administration.ts` (mirror `ai/tools/nzok.ts`), register in `ai/tools/registry.ts`,
-  add `SECTION.administration` + tool→section map + deep-link chips in `ai/render/links.ts`.
-- Launch: `/naiasno-post` FEATURE post after P1, DATASET posts as P2–P4 data lands.
-
-## II.7 Acceptance criteria (per phase) & test surface
-
-- Each phase: `npm run build` (tsc + vite) and `npm run lint` clean; the new route renders in
-  the dev preview; `?pscope=y:<year>` verified to re-scope point-in-time tiles and leave
-  full-history tiles unchanged (verify via the browser preview + a read_page assertion).
-- Data integrity: KPI headline (145 623 for 2025) matches `personnel.json`; EUR figures use the
-  shared `formatEur*` helpers (1 EUR = 1.95583 BGN at ingest, never display-time).
-- AI (P5): `ai/render/links.harness.ts` + a new `ai/tools/administration.harness.ts` pass.
-
-## II.8 Risks / watch-outs
-
-- Do not hard-code МЕУ's EIK anywhere but `administrationBenchmarks.ts`; confirm its display
-  name from `/awarder/180680495` before writing copy.
-- `byMinistry` only covers 2022–2024 — the cost-per-FTE tile must hide/disable years outside
-  that window (don't imply coverage you don't have — repo convention on silent caps).
-- The self-reported quality data (P2) needs the caveat chip on every quality tile.
-- Keep the standalone view P1 backend-free; resist adding a DB until P3 genuinely needs the
-  services register.
+**Still open (verify at build time; do not block P1):**
+- Confirm МЕУ/ИА ИЕУ/ДАЕУ display names + current EIK validity via `/awarder/:eik` before copy.
+- Does data.egov.bg expose the ИИСДА services register as clean open data (determines P4 cost)?
+- Is the Доклад административно обслужване section machine-parseable across years, or OCR-fragile
+  like the headcount tables (determines P3 cost)?
