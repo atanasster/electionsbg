@@ -2,17 +2,17 @@
   "db": "electionsbg",
   "schemaVersion": "pg/001_procurement.sql",
   "rowCounts": {
-    "contracts": 301216,
-    "trCompanies": 1017624,
-    "trOfficers": 744769
+    "contracts": 345949,
+    "trCompanies": 1017754,
+    "trOfficers": 745295
   },
   "coverage": "2011..2026",
-  "generatedAt": "2026-07-10T17:42:04.569Z",
-  "codeGitSha": "8b9390d565f75f634448f1879029a927fae6012c",
+  "generatedAt": "2026-07-13T10:57:11.139Z",
+  "codeGitSha": "e34056fef8f11b0a05c9d8640f928ef503a75182",
   "snapshot": {
     "gcs": "gs://data-electionsbg-com/db/electionsbg-latest.dump",
-    "sha256": "3d889fbc41041982462bb9cd7373ed2652a4a483c00105709d752a6968acdef0",
-    "bytes": 282364697,
-    "pushedAt": "2026-07-10T17:54:26.201Z"
+    "sha256": "ed4b5375a8b2ab9e4debc37df586e6e8ae1fe22b0317c1da07c76d0b4e0b0a53",
+    "bytes": 480901077,
+    "pushedAt": "2026-07-13T21:32:24.793Z"
   }
 }

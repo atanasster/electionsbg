@@ -9,9 +9,8 @@
 // so a sector graduates by adding config, not a bespoke screen.
 
 import { FC, Suspense, useCallback, useMemo } from "react";
-import { useParams, Navigate, Link, useSearchParams } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowRight } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { Card, CardContent } from "@/ux/Card";
 import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
@@ -90,26 +89,12 @@ const Dashboard: FC<{ config: SectorDashboardConfig }> = ({ config }) => {
   const top = model?.suppliers[0] ?? null;
   const awarderN = byUnit.filter((u) => (u.totalEur ?? 0) > 0).length;
   const ThematicTiles = config.ThematicTiles;
-  const browsePackId = config.browsePackId ?? config.id;
   // Mirror each chart tile's own render condition so a lone survivor (e.g.
   // spend-by-year needs ≥2 years, absent on a narrow scope) spans full width
   // instead of leaving an empty grid half.
   const showSpendChart =
     (model?.years.filter((y) => y.totalEur > 0).length ?? 0) >= 2;
   const showTopChart = (model?.suppliers.length ?? 0) >= 2;
-
-  // "All sector contracts" must carry the active time scope (?pscope) forward —
-  // same convention as the procurement nav — so a narrowed scope survives the
-  // jump to the contracts browser instead of silently resetting.
-  const [searchParams] = useSearchParams();
-  const contractsTo = useMemo(() => {
-    const params = new URLSearchParams(searchParams);
-    params.set("sector", browsePackId);
-    return {
-      pathname: "/procurement/contracts",
-      search: `?${params.toString()}`,
-    };
-  }, [searchParams, browsePackId]);
 
   return (
     <div className="space-y-4" id="sector-dashboard">
@@ -198,23 +183,6 @@ const Dashboard: FC<{ config: SectorDashboardConfig }> = ({ config }) => {
       )}
 
       <SectorAwardersTile config={config} />
-
-      <div className="flex flex-wrap gap-3 pt-1 text-sm">
-        <Link
-          to={contractsTo}
-          className="inline-flex items-center gap-1 text-primary hover:underline"
-        >
-          {bg ? "Всички договори на сектора" : "All sector contracts"}
-          <ArrowRight className="h-3.5 w-3.5" />
-        </Link>
-        <Link
-          to={SECTORS_HUB_PATH}
-          className="inline-flex items-center gap-1 text-primary hover:underline"
-        >
-          {bg ? "Всички сектори" : "All sectors"}
-          <ArrowRight className="h-3.5 w-3.5" />
-        </Link>
-      </div>
     </div>
   );
 };
