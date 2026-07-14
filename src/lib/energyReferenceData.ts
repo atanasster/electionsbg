@@ -2,7 +2,7 @@
 // the energy sector pack, mirroring src/lib/defenseReferenceData.ts and
 // vikReferenceData.ts (a TS constant, not a generated crosswalk): the multi-
 // entity / alias-merge concerns are the same as the defense and water sets.
-// See docs/plans/energy-view-v1.md §2 (to be written).
+// See docs/plans/energy-view-v1.md §1 (Entities — the frozen EIK allowlist).
 //
 // EIKs resolved from the LIVE procurement corpus (contracts.awarder_eik /
 // awarder_name, 2026-07-12) — the state energy operators that actually award ЗОП

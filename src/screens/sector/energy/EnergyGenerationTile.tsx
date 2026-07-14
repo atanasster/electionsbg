@@ -8,20 +8,27 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useEnergyGeneration } from "@/data/energy/useEnergyGeneration";
+import { ENERGY_FUELS } from "@/data/energy/types";
 
-// Fixed colour + label per fuel (mid-lightness, reads on cream + navy). Order is
-// fixed (never repaint by magnitude): the eye learns "nuclear is amber".
-const FUELS: { key: string; bg: string; en: string; color: string }[] = [
-  { key: "nuclear", bg: "Ядрена", en: "Nuclear", color: "#b07d2f" },
-  { key: "coal", bg: "Въглища", en: "Coal", color: "#6b5544" },
-  { key: "gas", bg: "Газ", en: "Gas", color: "#c9702f" },
-  { key: "hydro", bg: "ВЕЦ", en: "Hydro", color: "#3f6a8a" },
-  { key: "solar", bg: "Слънчева", en: "Solar", color: "#d9a441" },
-  { key: "wind", bg: "Вятърна", en: "Wind", color: "#4a9b8f" },
-  { key: "bioenergy", bg: "Биомаса", en: "Bioenergy", color: "#6e845d" },
-  { key: "otherFossil", bg: "Друго изкопаемо", en: "Other fossil", color: "#8a8f98" }, // prettier-ignore
-  { key: "otherRenewables", bg: "Друго ВЕИ", en: "Other renewables", color: "#9c8636" }, // prettier-ignore
-];
+// Fixed colour per fuel (mid-lightness, reads on cream + navy). The key/label
+// list is the shared ENERGY_FUELS (src/data/energy/types) — extended here with a
+// colour. Order is fixed (never repaint by magnitude): the eye learns "nuclear
+// is amber".
+const FUEL_COLOR: Record<string, string> = {
+  nuclear: "#b07d2f",
+  coal: "#6b5544",
+  gas: "#c9702f",
+  hydro: "#3f6a8a",
+  solar: "#d9a441",
+  wind: "#4a9b8f",
+  bioenergy: "#6e845d",
+  otherFossil: "#8a8f98",
+  otherRenewables: "#9c8636",
+};
+const FUELS = ENERGY_FUELS.map((f) => ({
+  ...f,
+  color: FUEL_COLOR[f.key] ?? "#8a8f98",
+}));
 
 const fmt = (v: number | null, digits = 1): string =>
   v == null ? "—" : v.toFixed(digits);
@@ -37,6 +44,10 @@ export const EnergyGenerationTile: FC = () => {
     (s) => s.twh > 0,
   );
   const sum = segs.reduce((a, s) => a + s.twh, 0) || 1;
+  // Shares (and the stacked bar) reconcile against the reported Total Generation
+  // when present — it equals the fuel-breakdown sum while FUEL_KEY is complete;
+  // if a bucket is ever missing the bar simply won't fill 100%, which is honest.
+  const denom = y.totalGen && y.totalGen > 0 ? y.totalGen : sum;
   const net = y.netImports ?? 0;
   const exporter = net < 0;
 
@@ -56,10 +67,10 @@ export const EnergyGenerationTile: FC = () => {
             <div
               key={s.key}
               style={{
-                width: `${(s.twh / sum) * 100}%`,
+                width: `${(s.twh / denom) * 100}%`,
                 backgroundColor: s.color,
               }}
-              title={`${bg ? s.bg : s.en}: ${fmt(s.twh)} TWh (${Math.round((s.twh / sum) * 100)}%)`}
+              title={`${bg ? s.bg : s.en}: ${fmt(s.twh)} TWh (${Math.round((s.twh / denom) * 100)}%)`}
             />
           ))}
         </div>
@@ -73,7 +84,7 @@ export const EnergyGenerationTile: FC = () => {
               />
               <span>{bg ? s.bg : s.en}</span>
               <span className="tabular-nums text-muted-foreground">
-                {Math.round((s.twh / sum) * 100)}%
+                {Math.round((s.twh / denom) * 100)}%
               </span>
             </span>
           ))}

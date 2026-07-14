@@ -96,6 +96,7 @@ export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
   { pattern: /^\/officials\//, dataset: "officials" },
   { pattern: /^\/judiciary\//, dataset: "judiciary" },
   { pattern: /^\/defense\//, dataset: "defense" },
+  { pattern: /^\/energy\//, dataset: "energy" },
   { pattern: /^\/water\//, dataset: "water" },
   { pattern: /^\/culture\//, dataset: "culture" },
   { pattern: /^\/budget\//, dataset: "budget" },

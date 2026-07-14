@@ -2954,6 +2954,48 @@ const CASES: Case[] = [
     kind: "table",
     minRows: 3,
   },
+
+  // ---- energy (/sector/energy physics tools) --------------------------------
+  {
+    q: "Откъде идва токът в България?",
+    tool: "generationMix",
+    facts: { nuclear_pct: /%/, net_trade_dir: /износ|внос|export|import/ },
+  },
+  {
+    q: "Where does Bulgaria's electricity come from?",
+    lang: "en",
+    tool: "generationMix",
+  },
+  {
+    q: "Колко ток произвеждаме от ядрена енергия?",
+    tool: "generationMix",
+  },
+  {
+    // electricity-price-vs-EU must beat the generic euComparison
+    q: "Колко струва токът за домакинствата спрямо ЕС?",
+    tool: "electricityPrices",
+    facts: { pct_of_eu: /%/, bg_price: /€/ },
+  },
+  {
+    q: "Скъп ли е токът за домакинствата?",
+    tool: "electricityPrices",
+  },
+  {
+    q: "How expensive is household electricity vs the EU?",
+    lang: "en",
+    tool: "electricityPrices",
+  },
+  {
+    // collision guard: "стоки" (goods) contains the substring "ток" — must NOT
+    // hijack to the electricity tools (routes to the consumer-price subsystem).
+    q: "какви са цените на стоките в България?",
+    tool: "settlementPrices",
+  },
+  {
+    // collision guard: "изток" (east) contains "ток" — must not route to energy.
+    q: "кои са областите в източна България?",
+    tool: null,
+  },
 ];
 
 // Raw-arg cases: the LLM router emits {tool, args} directly and can't know the

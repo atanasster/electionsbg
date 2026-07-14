@@ -57,6 +57,13 @@ const main = async (): Promise<void> => {
       `energy/prices: thin series (BG ${bg.length}, EU ${eu.length}) — upstream query likely rejected`,
     );
 
+  // `latest` = the newest period present in BOTH series (EU27 aggregates can lag
+  // BG), so consumers that compare BG vs EU never straddle two half-years.
+  const euPeriods = new Set(eu.map((p) => p.period));
+  const commonLatest =
+    [...bg].reverse().find((p) => euPeriods.has(p.period))?.period ??
+    bg[bg.length - 1].period;
+
   const out = {
     updated: process.env.INGEST_DATE ?? new Date().toISOString().slice(0, 10),
     source:
@@ -64,7 +71,7 @@ const main = async (): Promise<void> => {
     sourceUrl:
       "https://ec.europa.eu/eurostat/databrowser/view/nrg_pc_204/default/table",
     unit: "EUR/kWh",
-    latest: bg[bg.length - 1].period,
+    latest: commonLatest,
     series: { BG: bg, EU27: eu },
   };
   fs.mkdirSync(path.dirname(OUT), { recursive: true });

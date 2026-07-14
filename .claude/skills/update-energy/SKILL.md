@@ -69,6 +69,17 @@ shows BG vs the EU average and BG's % of it (~47% — among the lowest in the EU
 `nrg_pc_205` is INDUSTRIAL electricity (not gas); household gas is `nrg_pc_202` —
 add only if the bill-decomposition tile grows.
 
+Both fetchers stamp the JSON `updated` field with today's date via `new Date()`
+unless `INGEST_DATE` is set. For a reproducible re-run (so an unchanged refresh
+doesn't churn the date), export `INGEST_DATE=$(date +%F)` once and reuse it across
+both fetchers in the same run:
+
+```
+export INGEST_DATE=$(date +%F)
+npx tsx scripts/energy/fetch_generation.ts
+npx tsx scripts/energy/fetch_prices.ts
+```
+
 ## Step 3 — Verify, stamp, commit, sync
 
 1. Sanity-check both files load and the latest year/period is present:

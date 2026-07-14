@@ -17,26 +17,11 @@ import type {
   EnergyGeneration,
   EnergyPrices,
 } from "../../src/data/energy/types";
-
-// Fixed fuel order + bilingual labels (mirrors the EnergyGenerationTile).
-const FUELS: { key: string; bg: string; en: string }[] = [
-  { key: "nuclear", bg: "Ядрена", en: "Nuclear" },
-  { key: "coal", bg: "Въглища", en: "Coal" },
-  { key: "gas", bg: "Газ", en: "Gas" },
-  { key: "hydro", bg: "ВЕЦ", en: "Hydro" },
-  { key: "solar", bg: "Слънчева", en: "Solar" },
-  { key: "wind", bg: "Вятърна", en: "Wind" },
-  { key: "bioenergy", bg: "Биомаса", en: "Bioenergy" },
-  { key: "otherFossil", bg: "Друго изкопаемо", en: "Other fossil" },
-  { key: "otherRenewables", bg: "Друго ВЕИ", en: "Other renewables" },
-];
-const RENEWABLE_KEYS = [
-  "hydro",
-  "solar",
-  "wind",
-  "bioenergy",
-  "otherRenewables",
-];
+import {
+  ENERGY_FUELS,
+  RENEWABLE_KEYS,
+  latestCommonPrice,
+} from "../../src/data/energy/types";
 
 // "Откъде идва токът?" — the latest-year generation mix, net export and carbon
 // intensity. BG is a nuclear-heavy NET EXPORTER on a decarbonising path.
@@ -48,14 +33,17 @@ export const generationMix = async (
   const data = await fetchData<EnergyGeneration>("/energy/generation.json");
   const y = data.years[data.years.length - 1];
 
-  const segs = FUELS.map((fLabel) => ({
+  const segs = ENERGY_FUELS.map((fLabel) => ({
     ...fLabel,
     twh: y.byFuel[fLabel.key] ?? 0,
   })).filter((s) => s.twh > 0);
   const sum = segs.reduce((a, s) => a + s.twh, 0) || 1;
-  const pct = (k: string) => Math.round(((y.byFuel[k] ?? 0) / sum) * 100);
+  // Reconcile against the reported Total Generation when present (it equals the
+  // fuel-breakdown sum while FUEL_KEY is complete; fall back to the sum otherwise).
+  const denom = y.totalGen && y.totalGen > 0 ? y.totalGen : sum;
+  const pct = (k: string) => Math.round(((y.byFuel[k] ?? 0) / denom) * 100);
   const renewPct = Math.round(
-    (RENEWABLE_KEYS.reduce((a, k) => a + (y.byFuel[k] ?? 0), 0) / sum) * 100,
+    (RENEWABLE_KEYS.reduce((a, k) => a + (y.byFuel[k] ?? 0), 0) / denom) * 100,
   );
   const net = y.netImports ?? 0;
   const exporter = net < 0;
@@ -110,9 +98,8 @@ export const electricityPrices = async (
   const data = await fetchData<EnergyPrices>("/energy/prices.json");
   const bgS = data.series.BG;
   const euS = data.series.EU27;
-  const lb = bgS[bgS.length - 1];
-  const le = euS[euS.length - 1];
-  const pctOfEu = le.value > 0 ? Math.round((lb.value / le.value) * 100) : 0;
+  // Compare on the latest period present in BOTH series (EU27 can lag BG).
+  const cmp = latestCommonPrice(data);
   const eur = (v: number) => `€${v.toFixed(3)}/kWh`;
 
   return {
@@ -140,10 +127,10 @@ export const electricityPrices = async (
     ],
     viz: "line",
     facts: {
-      period: lb.period,
-      bg_price: eur(lb.value),
-      eu_price: eur(le.value),
-      pct_of_eu: `${pctOfEu}%`,
+      period: cmp?.period ?? "—",
+      bg_price: cmp ? eur(cmp.bg) : "—",
+      eu_price: cmp ? eur(cmp.eu) : "—",
+      pct_of_eu: cmp ? `${cmp.pctOfEu}%` : "—",
     },
     provenance: ["energy/prices.json"],
   };

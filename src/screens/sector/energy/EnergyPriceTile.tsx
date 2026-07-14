@@ -1,5 +1,5 @@
 // "What you pay" tile for /sector/energy — household electricity price, BG vs the
-// EU. The citizen-facing counterpoint to the €9.76bn of state spending: BG has
+// EU. The citizen-facing counterpoint to the €8.96bn of state spending: BG has
 // among the LOWEST household electricity prices in the EU (~half the average).
 // Full-history (scope-independent). Data: Eurostat nrg_pc_204 (CC — © EU).
 
@@ -7,6 +7,7 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useEnergyPrices } from "@/data/energy/useEnergyPrices";
+import { latestCommonPrice } from "@/data/energy/types";
 
 const BG_COLOR = "#c9702f";
 const EU_COLOR = "#7f85a3";
@@ -18,14 +19,10 @@ export const EnergyPriceTile: FC = () => {
   const { data } = useEnergyPrices();
   if (!data) return null;
 
-  const bgS = data.series.BG;
-  const euS = data.series.EU27;
-  if (bgS.length === 0 || euS.length === 0) return null;
-  const lb = bgS[bgS.length - 1];
-  const le = euS[euS.length - 1];
-  const ratio = le.value > 0 ? lb.value / le.value : 0;
-  const pctOfEu = Math.round(ratio * 100);
-  const max = Math.max(lb.value, le.value) || 1;
+  // Anchor BG and EU to the latest period present in BOTH series (EU27 can lag).
+  const cmp = latestCommonPrice(data);
+  if (!cmp) return null;
+  const max = Math.max(cmp.bg, cmp.eu) || 1;
 
   const eur = (v: number) =>
     `€${v.toLocaleString(locale, { minimumFractionDigits: 3, maximumFractionDigits: 3 })}`;
@@ -60,12 +57,12 @@ export const EnergyPriceTile: FC = () => {
         <div className="space-y-1.5">
           <Row
             label={bg ? "България" : "Bulgaria"}
-            value={lb.value}
+            value={cmp.bg}
             color={BG_COLOR}
           />
           <Row
             label={bg ? "ЕС (средно)" : "EU average"}
-            value={le.value}
+            value={cmp.eu}
             color={EU_COLOR}
           />
         </div>
@@ -74,7 +71,7 @@ export const EnergyPriceTile: FC = () => {
             <>
               България:{" "}
               <span className="font-semibold" style={{ color: BG_COLOR }}>
-                {pctOfEu}%
+                {cmp.pctOfEu}%
               </span>{" "}
               от средната цена за ЕС — сред най-ниските в съюза.
             </>
@@ -82,7 +79,7 @@ export const EnergyPriceTile: FC = () => {
             <>
               Bulgaria:{" "}
               <span className="font-semibold" style={{ color: BG_COLOR }}>
-                {pctOfEu}%
+                {cmp.pctOfEu}%
               </span>{" "}
               of the EU average — among the lowest in the union.
             </>
@@ -92,7 +89,7 @@ export const EnergyPriceTile: FC = () => {
           {bg
             ? "С всички данъци, band 2500-4999 kWh · "
             : "All taxes, 2500-4999 kWh band · "}
-          {lb.period} · {bg ? "Източник: Eurostat" : "Source: Eurostat"}
+          {cmp.period} · {bg ? "Източник: Eurostat" : "Source: Eurostat"}
         </div>
       </CardContent>
     </Card>

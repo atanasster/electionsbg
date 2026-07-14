@@ -228,6 +228,43 @@ const seriesArgs = (q: string, count: number | undefined): ToolArgs => {
 
 const has = (q: string, ...words: string[]) => words.some((w) => q.includes(w));
 
+// Electricity-context cue (for the /sector/energy tools). `has` is substring
+// matching, and "ток" (electricity) is a substring of поток/проток (flow),
+// стоки/стока (goods) and изток/восток (east) — so the bare-"ток" branch must
+// exclude those or a goods-price / east-region question mis-routes here.
+const hasElectricityCue = (q: string): boolean =>
+  has(
+    q,
+    "електроенерг",
+    "енергетик",
+    "енергиен микс",
+    "производство на ток",
+    "генерация на ток",
+    "ядрена енерг",
+    "electricity",
+    "generation mix",
+    "energy mix",
+    "power generation",
+  ) ||
+  (has(q, "ток") && !has(q, "поток", "проток", "сток", "изток", "восток"));
+
+// Price/cost cue, shared by the compare block and the energy block so the
+// synonym set has one home (was duplicated with drifting lists).
+const hasPriceCue = (q: string): boolean =>
+  has(
+    q,
+    "цена",
+    "струва",
+    "скъп",
+    "тарифа",
+    "сметка",
+    "price",
+    "cost",
+    "tariff",
+    "bill",
+    "expensive",
+  );
+
 // Strip the tender filler so the residue is the subject keyword to search:
 // "покажи всички търгове за асфалт през 2024" → "асфалт". Token-set filtering,
 // NOT a \b regex — word boundaries are unreliable around Cyrillic, so a
@@ -961,11 +998,8 @@ export const route = (question: string, ctx: ToolContext): Route => {
     // Electricity-price-vs-EU is served by the dedicated electricityPrices tool
     // (it already carries the EU line), not the generic euComparison — let it
     // fall through to the energy block below.
-    const elecPriceHere =
-      has(q, "ток", "електроенерг", "electricity") &&
-      !has(q, "поток", "проток") &&
-      has(q, "цена", "струва", "скъп", "тарифа", "price", "cost", "expensive");
-    if (elecPriceHere) return { tool: "electricityPrices", args: {} };
+    if (hasElectricityCue(q) && hasPriceCue(q))
+      return { tool: "electricityPrices", args: {} };
     // an indicator framed against the EU / peers -> the peer comparison (before
     // the election-vs-election default below swallows "сравни безработицата…").
     if (
@@ -2087,40 +2121,9 @@ export const route = (question: string, ctx: ToolContext): Route => {
   // energy physics (the /sector/energy tiles) — the generation mix / net trade
   // and the household electricity price. Physics-focused cues only, so procurement
   // ("колко харчи БЕХ за поръчки") falls through to the generic procurement tools.
-  {
-    // "ток" (electricity) guarded against "поток" (flow) / "проток".
-    const tokCue = has(q, "ток") && !has(q, "поток", "проток");
-    const energyCtx =
-      has(
-        q,
-        "електроенерг",
-        "енергетик",
-        "енергиен микс",
-        "производство на ток",
-        "генерация на ток",
-        "ядрена енерг",
-        "electricity",
-        "generation mix",
-        "energy mix",
-        "power generation",
-      ) || tokCue;
-    if (energyCtx) {
-      const priceCue = has(
-        q,
-        "цена",
-        "струва",
-        "скъп",
-        "тарифа",
-        "сметка",
-        "price",
-        "cost",
-        "tariff",
-        "bill",
-        "expensive",
-      );
-      if (priceCue) return { tool: "electricityPrices", args: {} };
-      return { tool: "generationMix", args: {} };
-    }
+  if (hasElectricityCue(q)) {
+    if (hasPriceCue(q)) return { tool: "electricityPrices", args: {} };
+    return { tool: "generationMix", args: {} };
   }
   // pension statistics (the /pensions view) — the size distribution, the regional
   // spread, the wage-vs-pension series and the private (funded) pillars. These

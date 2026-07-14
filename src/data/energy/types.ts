@@ -37,3 +37,56 @@ export interface EnergyPrices {
   latest: string;
   series: { BG: PricePoint[]; EU27: PricePoint[] };
 }
+
+// Canonical fuel key + bilingual label, in the fixed display order (the eye
+// learns "nuclear is amber"). The single source of truth shared by the tile
+// (which extends each with a colour) and the AI generationMix tool.
+export const ENERGY_FUELS: { key: string; bg: string; en: string }[] = [
+  { key: "nuclear", bg: "Ядрена", en: "Nuclear" },
+  { key: "coal", bg: "Въглища", en: "Coal" },
+  { key: "gas", bg: "Газ", en: "Gas" },
+  { key: "hydro", bg: "ВЕЦ", en: "Hydro" },
+  { key: "solar", bg: "Слънчева", en: "Solar" },
+  { key: "wind", bg: "Вятърна", en: "Wind" },
+  { key: "bioenergy", bg: "Биомаса", en: "Bioenergy" },
+  { key: "otherFossil", bg: "Друго изкопаемо", en: "Other fossil" },
+  { key: "otherRenewables", bg: "Друго ВЕИ", en: "Other renewables" },
+];
+
+export const RENEWABLE_KEYS = [
+  "hydro",
+  "solar",
+  "wind",
+  "bioenergy",
+  "otherRenewables",
+];
+
+export interface PriceComparison {
+  period: string;
+  bg: number; // EUR/kWh
+  eu: number; // EUR/kWh
+  pctOfEu: number;
+}
+
+/** The BG-vs-EU comparison anchored to the latest period present in BOTH series.
+ *  EU27 aggregates can lag member-state releases, so picking each series' own last
+ *  point would divide two different half-years and mislabel the period. Returns
+ *  null only if the series never overlap (should not happen). */
+export const latestCommonPrice = (
+  data: EnergyPrices,
+): PriceComparison | null => {
+  const euByPeriod = new Map(data.series.EU27.map((p) => [p.period, p.value]));
+  for (let i = data.series.BG.length - 1; i >= 0; i--) {
+    const bgp = data.series.BG[i];
+    const eu = euByPeriod.get(bgp.period);
+    if (eu != null && eu > 0) {
+      return {
+        period: bgp.period,
+        bg: bgp.value,
+        eu,
+        pctOfEu: Math.round((bgp.value / eu) * 100),
+      };
+    }
+  }
+  return null;
+};
