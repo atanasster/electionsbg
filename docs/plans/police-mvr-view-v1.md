@@ -93,6 +93,32 @@ crime layer.
 
 ---
 
+### Audit rev 1.4 (2026-07-15) — re-audit for the UX pass; reusable primitives confirmed
+
+Re-verified the plan against code while adding the UI/UX section (§7b). Findings — every world-class
+recommendation maps onto an **existing reusable house component**, so the UX ambition is cheap:
+
+1. **`OblastChoropleth` is a shared, reusable component** (`src/screens/components/procurement/OblastChoropleth.tsx`),
+   already consumed by `CultureOblastMapTile` and the procurement-by-oblast views with a per-sector color
+   ramp, **a `count ⇄ perCapita` metric toggle**, click-to-filter, and the "pair the map with a ranked
+   bar list" convention. So the §7 tile-7 per-oblast €/capita map is a **config of an existing tile**, not
+   new Leaflet work — `MvrOblastMapTile` just needs a police-slate ramp + the 28-ОДМВР data.
+2. **Per-capita is already wired** — `fetchPopulation` + `provinceToCanon` in `useProcurementByOblast`
+   feed the choropleth's per-capita metric. The per-capita denominator (the research's #1 normalization)
+   needs no new ingest. This makes the per-oblast €/capita tile shippable as early as **Phase 2**, not 3.
+3. **Provenance is an inline `Източник: …` convention**, not a component (`CultureScreen.tsx:233`,
+   `CultureGrantsTile.tsx:99`). §7b's provenance chips follow that convention; the "modeled vs reported"
+   distinction is a new (small) visual treatment, not a new system.
+4. **The hero precedent is `CultureScaleTile`** (magnitude bars as a "scale anchor") — but note it uses
+   INDEPENDENT bars *because its streams don't partition one budget*. МВР's budget DOES partition (salaries
+   + capital + other + procurement sum to the total), so the iceberg is correctly a **stacked/part-to-whole**,
+   not independent bars (§7b hero). Good precedent, opposite chart choice — documented so it isn't miscopied.
+5. `StatCard` (drill-down `to`/`seeMoreTo`, `hint`, `bodyMaxHeight` scroll cap) and `PackSection` (stacked
+   bands, `note` header chip, `id` deep-link anchor) are the confirmed tile/band primitives — the §7b IA
+   maps onto them 1:1. All rev 1.1–1.3 findings still stand.
+
+---
+
 > All corpus figures below are **MEASURED** from `data/procurement/awarders/<eik>.json` (rebuilt through
 > the 2026-07-14 ingest). €m = per-row `amountEur`, the PG basis. Budget / personnel-share / crime /
 > per-capita figures are **EXTERNAL** (State Budget Law, НСИ, Eurostat) and MUST carry a source chip and
@@ -387,7 +413,8 @@ external tile carries a **provenance chip**: `● real` (green — OCDS/data.ego
    ~6%) highlighted as the thin visible tip. A sourced context annotation states the ~92% personnel /
    ~1% capital split (execution report, not this node — see Audit rev 1.2). This is the defense
    `BudgetBridgeTile` generalized to the payroll story. `◆ budget` for the total, `◇ context` for the
-   personnel split.
+   personnel split. **Chart form: exploded stacked bar (overview + 20× magnified sliver), waffle alternate
+   — see §7b.B for the full hero spec.**
 3. **Разход по години** (spend-by-year columns, REAL, hand-rolled CSS bars): active `?pscope` window
    highlighted; the free `SectorSpendByYearTile` already ships this.
 4. **Разход по функция** (what МВР buys — vehicles/fuel/uniforms/IT/border-tech/medical/construction;
@@ -397,8 +424,11 @@ external tile carries a **provenance chip**: `● real` (green — OCDS/data.ego
    defense pack does). `● real`.
 6. **Конкуренция по структура** (single-bid share **by unit** — the 28 ОДМВР + border + fire as a
    small-multiples heatmap; surfaces the 110M-лв-no-bidder pattern). Reuse `DefenseCompetitionTile`.
-7. **€ на глава по области** (per-oblast €/capita choropleth — 28 ОДМВР ÷ ГРАО population; Vera's
-   flagship metric, and we already have `data/grao_population.json`). Phase-2/3 Leaflet. `● real ÷ context`.
+7. **€ на глава по области** (per-oblast €/capita choropleth — 28 ОДМВР ÷ population; Vera's flagship
+   metric). Reuses the shared **`OblastChoropleth`** with its built-in `count⇄perCapita` toggle
+   (`fetchPopulation` already wired) + ranked bar list + click-to-filter — a config, not new Leaflet work,
+   so it can land as early as **Phase 2** (Audit rev 1.4 §1–2). Slate sequential ramp, quantile-classed
+   (§7b.D). `● real ÷ context`.
 8. **Прозрачност — какво НЕ виждаме** (the transparency gap — the differentiator): names the legal
    exemptions (ЗОП Част четвърта / чл. 13 / чл. 149), estimates the invisible share as budget-minus-
    visible, and links the real scandal hooks (patrol-car buys, the no-bidder tender). Clone
@@ -435,6 +465,124 @@ outcome-blind. Ranked by narrative payoff ÷ ingest cost:
 Recommendation: ship Phase 3 first with the **existing thin layer** (theft + homicide, honestly
 labelled), then add **#1 (road-safety)** as the first new ingest — it is the cheapest and the most
 on-thesis. #2–#4 follow if the outcomes view proves out. None of this blocks Phases 1–2.
+
+## 7b. World-class UI/UX — the experience design
+
+The tiles in §7 are *what*; this is *how it should feel*. Competitive UX study (2026-07) of the best
+public-money / accountability dashboards — **Vera Institute "What Policing Costs"**
+([vera.org](https://www.vera.org/publications/what-policing-costs-in-americas-biggest-cities), the single
+closest analogue: policing budgets, per-capita, city-comparison table, re-allocation calculator),
+**Our World in Data** (per-chart Chart/Map/Table toggle + Sources/Download drawer), **USAFacts** (source
+chip on every number), **Open Contracting Partnership** procurement-viz + red-flag guidance
+([open-contracting.org red-flags](https://www.open-contracting.org/wp-content/uploads/2024/12/OCP2024-RedFlagProcurement-1.pdf)),
+**opentender.eu** / **BI ProZorro** (named analytic views, not a blank explorer; integrity indicators as
+traffic-light chips), and **gov.uk** design principles ("do the hard work to make it simple"). The
+takeaways below are filtered to what our stack (React SPA, hand-rolled CSS bars, Recharts, the reusable
+`OblastChoropleth`, light+dark HSL tokens) can ship, and each is mapped to a house primitive.
+
+### A. Information architecture — an explainer spine with explorer pull-outs
+
+The two archetypes are *explainer* (narrative, citizen-first) and *explorer* (filter-heavy, analyst-first).
+The best civic pages are an **explainer spine with explorer pull-outs** — and this matches the house rule
+(single vertical stack, **no tabs**; `PackSection` stacked bands). Order = inverted pyramid → progressive
+disclosure (the answer first, detail one interaction away, never a filter wall):
+
+`thesis + iceberg hero → KPI strip (≤5) → budget composition → the visible slice (universe segment) →
+per-oblast €/capita map → red-flags/concentration → contracts explorer (deep-linkable) → provenance footer`
+
+Ship **4–6 named, opinionated bands** (the ProZorro "Schedules" model — "Къде отиват парите на МВР",
+"Договори с една оферта", "€ на глава по области"), never a blank-canvas BI. Lead each band with the
+**conclusion**, not the dataset ("92% от €2.1 млрд на МВР са заплати — само тънка ивица минава през открита
+поръчка"), and prove it with the chart below.
+
+### B. The hero moment — the iceberg (the signature visual)
+
+The thesis is a part-to-whole where one slice (~92% salaries) dominates and the *interesting* slice
+(~6%/yr procurement) is nearly invisible at true scale. That tension IS the story — design for it:
+
+- **Form: exploded stacked bar** — one full-width 100% stacked bar of one year's budget (salaries · capital ·
+  other · visible procurement), then a **broken-axis blow-up** that pulls the thin procurement sliver out at
+  ~20× ("тази ивица = €123 млн/год, показана тук увеличена"). Honest at true scale, legible in the blow-up,
+  pure CSS/SVG, screenshots cleanly, themes by swapping two tokens. **A 100-cell waffle** (each cell = 1% of
+  budget, 92 muted + the accent cells glowing) is the alternate/secondary.
+- **NOT** a pie/donut (small slices vanish when one is >80%), **NOT** a literal illustrated-iceberg PNG
+  (chartjunk, won't theme or scale on mobile), **NOT** an animation that *hides* the true proportion to build
+  suspense (reads as manipulation on public-money data). If animating, grow bars from 0 **once** on
+  scroll-into-view, gate on `prefers-reduced-motion`, land on the honest static state.
+- **Relatability anchor:** the €/citizen framing (Vera's whole hook) makes €2.1bn graspable — put "≈ €X на
+  гражданин" on the hero.
+- Distinct from `CultureScaleTile` (which uses *independent* magnitude bars because its streams don't
+  partition one budget). МВР's budget partitions, so stacked part-to-whole is correct (Audit rev 1.4 §4).
+
+### C. Interaction patterns
+
+- **Universe segment + scope pill stay on the surface** — both are primary controls, never a menu. The
+  universe `Select` (ministry/police/border/fire/migration/health/logistics) is the defense pattern; the
+  `?pscope` pill is the shared `ScopeControl`. Keep segments ≤5 visible, plain-BG labels.
+- **Every state is URL-encoded** — extend the strong house URL contract (`?elections`/`?cabinet`/`?pscope`)
+  so the universe filter, map-selected oblast and scope all round-trip. This is what makes a shared link (and
+  a screenshot) reproduce the exact view — a genuine differentiator most gov dashboards lack.
+- **Drill-down in place, breadcrumb-preserved** — national → oblast → awarder → contract, never a modal stack
+  or new tab (house rule). Every entity is a link; drilling keeps the upstream scope (reuse `useScopedHref`).
+- **Filters are visible, dismissible chips** — "МВР ▸ Пловдив ▸ 2024 ✕"; never let filters silently stack into
+  an empty result. **Opinionated defaults** (whole group · current parliament · per-capita) so the page
+  answers before it's configured.
+- **Tooltip discipline** — one richly-formatted tooltip (money + €/capita + share-of-total + `Източник`), and
+  a tap/selected-state equivalent so nothing critical dies on touch.
+
+### D. Data-viz craft (per the dataviz skill — form before color)
+
+- **Per-oblast map = the reusable `OblastChoropleth`** with a **per-capita default** (raw⇄per-capita toggle,
+  already wired via `fetchPopulation`), a **sequential single-hue police-slate ramp** (NOT rainbow, NOT
+  red-green), **quantile/natural-breaks classing** into 5–6 buckets (linear flattens everything under the
+  Sofia outlier), no-data oblasts hatched (not shown as zero), paired with an adjacent ranked bar list +
+  click-to-filter (the established convention). Classification method named in the legend.
+- **28 units = small-multiples**, shared y-scale, sorted by value (not alphabetically), the reader's oblast
+  highlighted — not 28 full charts (a scroll of doom). The single-bid-by-unit heatmap (§7 tile 6) is this.
+- **Red-flag chips = risk framing, never accusation** — single-bidder / repeat-winner / short-window as
+  0/50/100 traffic-light chips with plain-BG hover ("само една фирма е кандидатствала — ниска конкуренция"),
+  labelled "сигнал за риск / заслужава проверка". Show single-bid **share of value**, not just count (single-bid
+  contracts run pricier). Concentration as a top-N Pareto/HHI (`VikContractorHhiTile` already exists).
+- **Money formatting:** `tabular-nums` everywhere (columns align, digits don't jitter on hover-update); one
+  abbreviation ladder — €X млрд / €X млн / €X хил. (BG memory: EUR throughout, BG separators); **no false
+  precision** — hero is "€2.1 млрд", full precision only in table/tooltip.
+
+### E. Craft details that separate world-class from average
+
+- **States:** content-shaped **skeletons** (not spinners) matching the tile layout (no layout shift);
+  **empty state** that explains why + offers an exit ("Няма договори за Пловдив + 2019 — [изчисти година]");
+  **error state** with source + retry (static-JSON fetch fails shouldn't blank the tile).
+- **Motion:** purposeful only (~200–400ms), `prefers-reduced-motion` gated, never on every re-render.
+- **Dark/light:** semantic tokens for the iceberg's two colors so they swap per theme without touching chart
+  code; keep a lightened map ramp for dark (light-tuned sequential scales go muddy on navy); desaturate the
+  red-flag red on dark.
+- **Accessibility:** colorblind-safe (never color as the *only* signal — pair with icon/label); a text/table
+  equivalent for each chart (doubles as the screen-reader path); keyboard-navigable filters; WCAG-AA on money.
+- **Provenance = credibility moat:** an inline `Източник: АОП/ЦАИС · към 2026-07` chip on every tile (house
+  convention), and a clear visual distinction (dashed border / „оценка" tag) for anything **modeled/inferred**
+  (the classified-spend gap, the personnel split) vs **reported** (measured ЗОП, ЗДБ budget). A competitor
+  already mislabels EUR-as-лв — being scrupulous here is a differentiator.
+- **Shareability:** because state is URL-encoded, generate an **OG/social card per hero tile** (iceberg,
+  €/capita map, red-flag summary) off the existing prerender pipeline, stamped with the headline number +
+  `Източник` + naiasno.bg watermark so a screenshot is self-attributing.
+
+### F. Anti-patterns to avoid (explicit)
+
+Dead KPI-tile wall (≤5 KPIs, each with a "so what" + comparison) · tab maze (house rule: stacked bands) ·
+unlabeled jargon (ЦАИС/CPV glossed in hover only) · false precision (€-to-the-cent headlines) · chartjunk
+(3D, decorative gradients, 12-slice pies, literal-iceberg PNG) · filter paralysis (no defaults, blank-until-
+configured, silent empties) · rainbow / red-green choropleth · hover-only truth (dies on touch) ·
+"корупция!" framing on statistical risk indicators (say "сигнал за риск").
+
+### G. Fast-start UX priority (highest leverage, all adoptable now)
+
+1. Hero = exploded stacked bar (overview + 20× sliver), CSS/SVG, two theme tokens; waffle as alternate.
+2. KPI strip ≤5, each with €/capita + `Източник` chip.
+3. `OblastChoropleth` per-capita default, quantile-classed, slate sequential, raw⇄per-capita toggle.
+4. Red-flag chip row on contracts, "risk" framing, plain-BG hover.
+5. `Източник` chip + modeled/reported distinction on every tile.
+6. URL-encode hero/segment/map state → OG cards off prerender for share.
+7. Named, opinionated bands (not a blank explorer).
 
 ## 8. Data honesty & provenance (non-negotiable)
 
