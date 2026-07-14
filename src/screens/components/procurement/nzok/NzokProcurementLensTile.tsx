@@ -1,9 +1,9 @@
 // "Поръчките на НЗОК отблизо" — the ЗОП lens. НЗОК's public procurement is not a
-// health budget: it is an IT-and-security operating budget dominated by one
-// in-house integrator. This tile names that honestly — the IT share of ЗОП
-// spend, the dominant supplier with its statutory-integrator context (so its
-// no-competition awards read as a legal mandate, not a red flag), and the
-// security/services tail. Pure from the NzokModel.
+// health budget: it is an IT-and-security operating budget dominated by a few
+// suppliers. This tile names that honestly — the IT share of ЗОП spend and the
+// top suppliers, each with its statutory-integrator context where it applies
+// (so an integrator's no-competition awards read as a legal mandate, not a red
+// flag). Pure from the NzokModel.
 
 import { FC } from "react";
 import { Link } from "react-router-dom";
@@ -26,9 +26,7 @@ export const NzokProcurementLensTile: FC<{ model: NzokModel }> = ({
 
   const itCat = model.categories.find((c) => c.id === "it");
   const itShare = itCat ? itCat.totalEur / total : 0;
-  const topSupplier = model.suppliers[0] ?? null;
-  const topShare = topSupplier ? topSupplier.totalEur / total : 0;
-  const ctx = topSupplier ? NZOK_SUPPLIER_CONTEXT[topSupplier.eik] : undefined;
+  const topSuppliers = model.suppliers.slice(0, 5);
 
   const pctInt = (v: number) =>
     (v * 100).toLocaleString(lang, { maximumFractionDigits: 0 });
@@ -63,32 +61,47 @@ export const NzokProcurementLensTile: FC<{ model: NzokModel }> = ({
           </div>
         )}
 
-        {topSupplier && (
-          <div className="rounded-md border p-3">
-            <div className="flex flex-wrap items-baseline justify-between gap-x-2">
-              <Link
-                to={`/company/${topSupplier.eik}`}
-                className="font-medium hover:text-primary hover:underline"
-              >
-                {cleanSupplierName(topSupplier.name)}
-              </Link>
-              <span className="tabular-nums text-muted-foreground">
-                {eur(topSupplier.totalEur)}
-                <span className="ml-1 text-muted-foreground/70">
-                  {pctInt(topShare)}%
-                </span>
-              </span>
-            </div>
-            <p className="mt-0.5 text-[11px] text-muted-foreground">
-              {bg
-                ? `водещ изпълнител · ${topSupplier.contractCount} договора`
-                : `top supplier · ${topSupplier.contractCount} contracts`}
+        {topSuppliers.length > 0 && (
+          <div className="rounded-md border">
+            <p className="border-b px-3 py-1.5 text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+              {bg ? "Водещи изпълнители" : "Top suppliers"}
             </p>
-            {ctx && (
-              <p className="mt-2 rounded bg-amber-500/10 px-2 py-1.5 text-[11px] text-amber-700 dark:text-amber-300">
-                {bg ? ctx.bg : ctx.en}
-              </p>
-            )}
+            <ul className="divide-y">
+              {topSuppliers.map((s, i) => {
+                const ctx = NZOK_SUPPLIER_CONTEXT[s.eik];
+                return (
+                  <li key={s.eik} className="p-3">
+                    <div className="flex flex-wrap items-baseline justify-between gap-x-2">
+                      <Link
+                        to={`/company/${s.eik}`}
+                        className="font-medium hover:text-primary hover:underline"
+                      >
+                        <span className="mr-1.5 text-muted-foreground/70 tabular-nums">
+                          {i + 1}.
+                        </span>
+                        {cleanSupplierName(s.name)}
+                      </Link>
+                      <span className="tabular-nums text-muted-foreground">
+                        {eur(s.totalEur)}
+                        <span className="ml-1 text-muted-foreground/70">
+                          {pctInt(s.totalEur / total)}%
+                        </span>
+                      </span>
+                    </div>
+                    <p className="mt-0.5 text-[11px] text-muted-foreground">
+                      {bg
+                        ? `${s.contractCount} договора`
+                        : `${s.contractCount} contract${s.contractCount === 1 ? "" : "s"}`}
+                    </p>
+                    {ctx && (
+                      <p className="mt-2 rounded bg-amber-500/10 px-2 py-1.5 text-[11px] text-amber-700 dark:text-amber-300">
+                        {bg ? ctx.bg : ctx.en}
+                      </p>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         )}
 
