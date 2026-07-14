@@ -94,7 +94,7 @@ const PlantRow: FC<{ plant: PowerPlant; max: number; bg: boolean }> = ({
           className="shrink-0 text-[10px] text-[#c14b57]"
           title={bg ? "планиран извод от експлоатация" : "planned retirement"}
         >
-          {bg ? `изход ${plant.retire}` : `exit ${plant.retire}`}
+          {bg ? `закрива ${plant.retire}` : `closes ${plant.retire}`}
         </span>
       )}
       <div className="w-20 shrink-0 whitespace-nowrap text-right tabular-nums text-muted-foreground">
@@ -152,8 +152,8 @@ export const EnergyPlantsTile: FC = () => {
             </div>
             <div className="text-xs text-muted-foreground">
               {bg
-                ? `въглищни ТЕЦ · изход ${data.coalExitYear}`
-                : `coal plants · exit ${data.coalExitYear}`}
+                ? `въглищни ТЕЦ · закриване до ${data.coalExitYear}`
+                : `coal plants · closure by ${data.coalExitYear}`}
             </div>
           </div>
         </div>
