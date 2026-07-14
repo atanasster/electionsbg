@@ -35,6 +35,7 @@ import {
 } from "@/lib/nzokOwnership";
 import { useNzokPublicPrivate } from "@/data/budget/useBudget";
 import type { NzokPublicPrivateHospital } from "@/data/budget/types";
+import { NzokRevenueTrendTile } from "./NzokRevenueTrendTile";
 
 const THRESHOLD_CORAL = "#ef4444"; // red-500 — the "no tenders" attention colour
 const pct = (n: number) => `${n}%`;
@@ -381,6 +382,9 @@ export const NzokPublicPrivateBand: FC = () => {
           )}
         </CardContent>
       </Card>
+
+      {/* 5. revenue (ГФО) vs НЗОК multi-year trend */}
+      <NzokRevenueTrendTile />
 
       <p className="text-[11px] text-muted-foreground/70">{T.foot}</p>
     </PackSection>

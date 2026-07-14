@@ -268,6 +268,26 @@ export interface NzokPublicPrivateFile {
   hospitals: NzokPublicPrivateHospital[]; // private only, sorted by nzokEur desc
 }
 
+// Per-hospital multi-year ГФО revenue series (private hospitals). Powers the
+// revenue-vs-НЗОК trend tile. Written by scripts/nzok/write_hospital_revenue.ts.
+export interface NzokHospitalRevenueYear {
+  revenueEur: number;
+  netSalesEur: number | null;
+  actId: string;
+  nzokShare?: number; // НЗОК ÷ revenue, same year (2023+ only)
+}
+export interface NzokHospitalRevenueFile {
+  generatedAt: string;
+  currency: "EUR";
+  coverage: Record<string, number>; // filled hospitals per year
+  hospitalCount: number;
+  hospitalYears: number;
+  hospitals: Record<
+    string, // eik
+    { name: string; years: Record<string, NzokHospitalRevenueYear> }
+  >;
+}
+
 // Annual gross drug-reimbursement rollup — НЗОК's second-largest budget line
 // (~€1.33bn/yr), paid outside ЗОП. Written by
 // scripts/nzok/write_drug_reimbursement.ts from the nhif.bg "Брутни разходи" XLS.
