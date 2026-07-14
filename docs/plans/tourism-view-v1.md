@@ -17,6 +17,44 @@ Interactive concept mockup (reproduces the house shell + `?pscope` scoping live)
 
 ---
 
+## Audit rev 1.1 (2026-07-14) — corrections that SUPERSEDE the text below
+
+Verified every load-bearing claim against current code before implementation. Gaps found and closed:
+
+1. **No `tourism_nav` breadcrumb key for Phase 1.** The generic dashboard reuses `config.titleKey`
+   for its breadcrumb (`SectorDashboardScreen.tsx:103` → `<SectorBreadcrumb currentKey={config.titleKey}/>`).
+   The `*_nav` keys are only for BESPOKE screens (Culture uses `currentKey="culture_nav"`). Phase 1
+   needs ONLY `sector_tourism_title` + `sector_tourism_desc`. §9's `tourism_nav` is Phase-2-only.
+
+2. **No server allow-list to widen — delete that concern.** `functions/db_table.js:48` already
+   whitelists the `awarder_eik` COLUMN with `filter:"in"` (values are not listed); the
+   `awarder-group-model` endpoint (`db_routes.js:707`) parses `eiks` as `/^\d{9,13}$/`, `.slice(0,300)`,
+   accepting any EIK set. `176789478` (9 digits) passes. The `sectorPacks.tsx` comment "(and the
+   server allow-list)" refers to that existing column whitelist — **no Functions/SQL change.**
+
+3. **`sector_stats.json` regen needs a LIVE Postgres** (`sector_stats.ts` imports `../lib/pg`, runs
+   SQL per scope) — NOT a trivial rerun. But it feeds ONLY the hub-tile € badge; the dashboard KPIs
+   come from the runtime `/api/db/awarder-group-model` call. The hub degrades gracefully (tile shows
+   no € until a DB-connected `db:gen-sector-stats` runs). → **Non-blocking; deferred.** §4 step 6 and
+   §9's "rerun `db:gen-sector-stats`" must be read as "requires PG; hub badge only".
+
+4. **Accent DECIDED: `TILE_ACCENTS.copper`** (#b85c26) — the single UNUSED token, warm/sun, no clash
+   (water=teal, customs=azure). Supersedes §10 decision 3.
+
+5. **EIK uniqueness CONFIRMED** — exactly one awarder file matches "Министерство на туризма"
+   (`176789478.json`). No dedup/alias work (contrast transport's MTITC concern). Ship single-member.
+
+6. **Cluster DECIDED: `sectors_cluster_land`** ("Земя и култура" / "Land & culture"), next to Culture —
+   culture & tourism are sibling ministries; zero new i18n keys. Supersedes §10 decision 2.
+
+7. **Render path CONFIRMED** (`SectorDashboardScreen.tsx:80-180`): `getSectorPack(leadEik)` returns
+   `null` for a non-pack EIK → `useAwarderGroupModel` runs → KPI row + spend-by-year + top-contractors
+   + `<ScopeControl mode="toggle">` (date scoping) + `SectorAwardersTile`. Pure config, no new screen.
+
+**Net Phase-1 surface: 6 edits (1 new file) + 1 deferred PG pipeline line.** No route/server/SQL change.
+
+---
+
 ## 1. Goal & thesis
 
 Give the **Ministry of Tourism (Министерство на туризма, ЕИК 176789478)** a proper sector
