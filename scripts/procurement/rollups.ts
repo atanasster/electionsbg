@@ -193,6 +193,13 @@ export const buildRollupsFromRows = (
   // In-memory per-currency accumulator; collapsed to totalEur / totalOther
   // via splitBag once the full corpus has been walked.
   const totalsBag: Record<string, number> = {};
+  // Distinct contractor/awarder EIKs seen on NON-amendment rows. Drives
+  // totals.contractorCount / awarderCount (blank included, matching the index
+  // convention). Kept separate from the accumulator maps because those now
+  // also register amendment-only entities (see below), which must NOT inflate
+  // the headline party counts.
+  const nonAmendContractors = new Set<string>();
+  const nonAmendAwarders = new Set<string>();
 
   for (const row of rows) {
     if (row.tag === "contract") totals.contracts++;
@@ -204,7 +211,48 @@ export const buildRollupsFromRows = (
     // tally above; exclude amendments from every money + count rollup below.
     // Per-contract detail pages still see amendments via the contract /
     // by-id shards, which are built elsewhere.
-    if (row.tag === "contractAmendment") continue;
+    //
+    // BUT still REGISTER the entity (name/region only, no money/counts) so an
+    // amendment-only contractor/awarder gets its own rollup file. This keeps
+    // the derived contractors/ + awarders/ trees at one file per distinct
+    // all-tags EIK — the same grain contractor_contracts/ uses and what the
+    // file-count invariant checks (invariants.data.test.ts subtest 14). The
+    // per-currency total stays 0, so the totalEur reconciliation still holds.
+    if (row.tag === "contractAmendment") {
+      // Register the entity only on FIRST sight so it gets a rollup file.
+      // Deliberately do NOT overwrite an existing name/region: newest-wins
+      // identity is driven purely by non-amendment rows (as before this
+      // change), so an amendment can seed a name for an amendment-only entity
+      // but never re-label a supplier/buyer that also has real contracts.
+      if (!contractors.has(row.contractorEik)) {
+        contractors.set(row.contractorEik, {
+          eik: row.contractorEik,
+          name: row.contractorName,
+          totalByCurrency: {},
+          contractCount: 0,
+          awardCount: 0,
+          byAwarder: new Map(),
+          byYear: new Map(),
+          topContracts: [],
+        });
+      }
+      if (!awarders.has(row.awarderEik)) {
+        awarders.set(row.awarderEik, {
+          eik: row.awarderEik,
+          name: row.awarderName,
+          region: row.awarderRegion,
+          totalByCurrency: {},
+          contractCount: 0,
+          awardCount: 0,
+          byContractor: new Map(),
+          byYear: new Map(),
+          topContracts: [],
+        });
+      }
+      continue;
+    }
+    nonAmendContractors.add(row.contractorEik);
+    nonAmendAwarders.add(row.awarderEik);
     addRowMoney(totalsBag, row);
 
     // Contractor.
@@ -341,8 +389,10 @@ export const buildRollupsFromRows = (
   const totalsSplit = splitBag(totalsBag);
   totals.totalEur = totalsSplit.totalEur;
   totals.totalOther = totalsSplit.totalOther;
-  totals.contractorCount = contractors.size;
-  totals.awarderCount = awarders.size;
+  // Party counts exclude amendment-only entities (they carry no non-amendment
+  // spend), even though those entities still get a rollup file above.
+  totals.contractorCount = nonAmendContractors.size;
+  totals.awarderCount = nonAmendAwarders.size;
 
   const now = new Date().toISOString();
 
@@ -518,21 +568,48 @@ export const buildRollups = (contractsDir: string): RollupResult => {
 export const writeRollups = (
   outDir: string,
   rollups: RollupResult,
-): { contractorFiles: number; awarderFiles: number } => {
+): {
+  contractorFiles: number;
+  awarderFiles: number;
+  contractorPruned: number;
+  awarderPruned: number;
+} => {
   const contractorDir = path.join(outDir, "contractors");
   const awarderDir = path.join(outDir, "awarders");
   fs.mkdirSync(contractorDir, { recursive: true });
   fs.mkdirSync(awarderDir, { recursive: true });
 
+  const contractorEiks = new Set<string>();
   for (const c of rollups.contractors) {
     fs.writeFileSync(
       path.join(contractorDir, `${c.eik}.json`),
       canonicalJson(c),
     );
+    contractorEiks.add(c.eik);
   }
+  const awarderEiks = new Set<string>();
   for (const a of rollups.awarders) {
     fs.writeFileSync(path.join(awarderDir, `${a.eik}.json`), canonicalJson(a));
+    awarderEiks.add(a.eik);
   }
+
+  // Sweep: remove stale rollup files for EIKs no longer present in the corpus
+  // (contracts removed or re-keyed since the last rebuild). Mirrors the prune
+  // in contractor_contracts.ts / awarder_contracts.ts; without it, orphaned
+  // <EIK>.json linger and the file-count-vs-distinct-EIK invariant drifts.
+  const pruneStale = (dir: string, keep: Set<string>): number => {
+    let pruned = 0;
+    for (const f of fs.readdirSync(dir)) {
+      if (!f.endsWith(".json")) continue;
+      if (!keep.has(f.replace(/\.json$/, ""))) {
+        fs.unlinkSync(path.join(dir, f));
+        pruned++;
+      }
+    }
+    return pruned;
+  };
+  const contractorPruned = pruneStale(contractorDir, contractorEiks);
+  const awarderPruned = pruneStale(awarderDir, awarderEiks);
 
   // Slim awarders index — the full (eik, name, total, count) roster, sorted by
   // spend. Drives the AI assistant's awarderProcurement name→EIK resolution
@@ -563,5 +640,7 @@ export const writeRollups = (
   return {
     contractorFiles: rollups.contractors.length,
     awarderFiles: rollups.awarders.length,
+    contractorPruned,
+    awarderPruned,
   };
 };
