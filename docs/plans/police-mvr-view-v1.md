@@ -80,6 +80,17 @@ security-sector wage indexation — real and in our data.
 
 §10.6 is now **CLOSED**. §7 tile 2 and §8 are updated below to match.
 
+### Audit rev 1.3 (2026-07-15) — outcomes data honestly scoped
+
+Checked the indicator codes actually present. **Correction to an earlier overstatement:** the free
+outcomes layer is thin — `data/regional.json` has **`theftRate`** per oblast (the only per-oblast crime
+indicator) and `data/macro.json` has **`intentionalHomicideRate`** + **`prisonPopulationRate`**
+national-only. Fire/rescue, road-safety/traffic deaths, crime-clearance, crime-by-type and
+border/migration outcomes are **NOT ingested**. Phases 1–2 need none of it (pure money); a genuine
+Phase-3 outcomes pairing needs new ingest — now scoped and ranked in **§7a**. The `crim_off_cat`/
+`crim_pris_age` Eurostat codes named in §2 resolve to those two national series only, NOT a per-oblast
+crime layer.
+
 ---
 
 > All corpus figures below are **MEASURED** from `data/procurement/awarders/<eik>.json` (rebuilt through
@@ -179,9 +190,12 @@ This is a **presentation + config** project first, then an optional bespoke pack
   way. The МВР node id needs confirming (mirror `MO_BUDGET_NODE = "admin-ministerstvo-na-otbranata"`).
 - **Sector-tile € on the hub** — `scripts/db/gen_procurement/sector_stats.ts` (`SECTOR_EIKS` map) →
   `data/procurement/derived/sector_stats.json`, precomputed per scope, bucket-synced.
-- **Crime context is already ingested** — `update-macro` pulls Eurostat `crim_off_cat` (intentional
-  homicide) + `crim_pris_age`; `update-regional` pulls NUTS-3 recorded-theft rate into
-  `data/regional.json`. A spend-vs-crime overlay needs **no new ingest**.
+- **A PARTIAL crime layer is already ingested** (verified 2026-07-15, Audit rev 1.3 — do not overstate):
+  `data/regional.json` carries **`theftRate`** (recorded theft per 100k) **per oblast** — the only
+  per-oblast crime indicator; `data/macro.json` carries **`intentionalHomicideRate`** + **`prisonPopulationRate`**
+  **national only**. That is the whole free outcomes layer. Fire/rescue, road-safety/traffic deaths,
+  crime-clearance (разкриваемост), crime-by-type and border/migration outcomes are **NOT ingested** — a
+  genuine outcomes pairing needs new ingest (see §7a). Phases 1–2 need none of this (pure money).
 
 ### Not built (this plan's work)
 
@@ -276,10 +290,12 @@ No new data ingest — renders off the existing corpus + the already-ingested М
 
 ### Phase 3 (optional) — bespoke `/police` screen with crime + per-oblast layer
 
-Only warranted once the spend-vs-crime overlay proves out. Reuses `data/regional.json` (theft rate) +
-`data/macro.json` (homicide, prisoners) — both already ingested. A Leaflet oblast choropleth of
-€/capita police spend (28 ОДМВР) vs recorded crime is the signature Phase-3 visual. Clone the Culture
-or Water bespoke-screen vertical for the shell.
+Only warranted once the spend-vs-crime overlay proves out. Starts on the **thin existing layer** —
+`data/regional.json` (per-oblast theft rate) + `data/macro.json` (national homicide, prisoners) — then
+grows via the **§7a outcomes ingest** (road-safety deaths, fires, clearance rate, border apprehensions),
+which is mostly NEW ingest, not existing data. A Leaflet oblast choropleth of €/capita police spend
+(28 ОДМВР) vs recorded crime is the signature Phase-3 visual. Clone the Culture or Water bespoke-screen
+vertical for the shell.
 
 ---
 
@@ -387,8 +403,10 @@ external tile carries a **provenance chip**: `● real` (green — OCDS/data.ego
    exemptions (ЗОП Част четвърта / чл. 13 / чл. 149), estimates the invisible share as budget-minus-
    visible, and links the real scandal hooks (patrol-car buys, the no-bidder tender). Clone
    `DefenseTransparencyTile`. `◆ budget + ◇ context`.
-9. **Разход срещу престъпност** (Phase 3 — spend vs recorded crime per oblast, from `data/regional.json`
-   theft rate + `data/macro.json` homicide; the outcomes-pairing that world-class dashboards do). `◇ context`.
+9. **Разход срещу престъпност** (Phase 3 — spend vs recorded crime per oblast). With TODAY's data this can
+   only pair €/capita against **theft rate per oblast** (`data/regional.json`) + **national homicide**
+   (`data/macro.json`) — an honest but thin start. The full outcomes pairing (traffic deaths, fires,
+   clearance rate, border apprehensions) needs the §7a ingest. `◇ context`.
 10. **Институции bridge** — `SectorAwardersTile` listing all ~71 units, each → `/awarder/:eik`, grouped
     by universe (police / border / fire / migration / health / logistics). The awarder pages hold each
     unit's own full ЗОП financials.
@@ -398,6 +416,25 @@ iceberg (dependency-free, OG-screenshottable); the competition heatmap as CSS sm
 choropleth for per-oblast €/capita and crime (Phase 3); Recharts only if an axis-heavy YoY view is added.
 
 ---
+
+## 7a. Outcomes ingest — what a world-class outcomes layer actually needs (Phase 3)
+
+**Do we need to ingest outcomes (crime, fires, road deaths)?** For Phases 1–2 — **no**; they are pure
+procurement + budget. For the Phase-3 "spend → outcome" pairing that makes the dashboard best-in-class —
+**yes, mostly new ingest.** Audited (rev 1.3): the only outcome data we hold today is per-oblast
+**theft rate** and national **homicide** + **prison** rate. Every МВР universe except general police is
+outcome-blind. Ranked by narrative payoff ÷ ingest cost:
+
+| # | Outcome dataset | Pairs with (universe / €) | Source & cost | Why it matters |
+|---|---|---|---|---|
+| 1 | **Road-safety / traffic deaths** (per oblast + national) | Пътна полиция / КАТ within Police; the patrol-car buys | **Eurostat `tran_sf_roadse`** (+ НСИ/КАТ regional) — cheap, fits the `update-macro`/`update-regional` pattern | The patrol-car / Road-Safety-Fund scandals are the loudest МВР procurement story; "€126M on cars → did road deaths fall?" is the killer tile. Highest payoff. |
+| 2 | **Fire & rescue incidents** (fires, fire deaths, interventions; ideally per oblast) | Fire (ГДПБЗН, €151M + 28 РДПБЗН) | **НСИ** annual fire-safety / ГДПБЗН activity report — small ingest | The €151M+ fire universe is otherwise entirely outcome-blind. |
+| 3 | **Recorded crime by oblast + clearance rate (разкриваемост)** | Police (28 ОДМВР, ГДНП) | **НСИ „Престъпления, обвиняеми и осъдени лица"** — moderate | Clearance rate is THE police-effectiveness metric; crime-by-type widens beyond theft-only. |
+| 4 | **Border apprehensions / irregular crossings / asylum** | Border (ГДГП, €330M) + Migration | **Frontex** / **Eurostat `migr_*`** — moderate | The second-largest unit (€330M) is outcome-blind; ties border-surveillance-tech spend to interceptions. |
+
+Recommendation: ship Phase 3 first with the **existing thin layer** (theft + homicide, honestly
+labelled), then add **#1 (road-safety)** as the first new ingest — it is the cheapest and the most
+on-thesis. #2–#4 follow if the outcomes view proves out. None of this blocks Phases 1–2.
 
 ## 8. Data honesty & provenance (non-negotiable)
 
