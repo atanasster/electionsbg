@@ -28,7 +28,6 @@ import type {
 
 const REPO = fileURLToPath(new URL("../..", import.meta.url));
 const nzok = (f: string) => path.join(REPO, "data/budget/nzok", f);
-const YTD_MONTHS = 5; // reimbursement snapshot is Jan–May; annualise for the € framing
 
 const load = <T>(f: string): T =>
   JSON.parse(readFileSync(nzok(f), "utf8")) as T;
@@ -72,7 +71,14 @@ const main = async (): Promise<void> => {
         name: e.name,
       });
 
-  const ann = (v: number) => Math.round((v * 12) / YTD_MONTHS);
+  // Annualise the YTD reimbursement snapshot. The divisor is the snapshot's own
+  // month (from reim.asOf), NOT a hard-coded constant — otherwise the "money
+  // outside tender" headline silently overstates once asOf advances past May.
+  const asOfMonth = (() => {
+    const m = new Date(reim.asOf).getUTCMonth();
+    return Number.isFinite(m) ? m + 1 : 12; // 1..12; fall back to full year
+  })();
+  const ann = (v: number) => Math.round((v * 12) / asOfMonth);
   const agg: Record<NzokOwnership, { count: number; nzokEur: number }> = {
     state: { count: 0, nzokEur: 0 },
     municipal: { count: 0, nzokEur: 0 },
@@ -146,7 +152,7 @@ const main = async (): Promise<void> => {
   const out: NzokPublicPrivateFile = {
     generatedAt: new Date().toISOString(),
     asOf: reim.asOf,
-    ytdMonths: YTD_MONTHS,
+    ytdMonths: asOfMonth,
     source: {
       note: "Съпоставка държавни/общински/частни болници: НЗОК плащания (hospital_reimbursement_by_eik) + собственост (hospital_ownership) + приход по ГФО (hospital_revenue) + брой процедури като възложител (корпус на поръчките, посл. 3 г.). nzokShare = НЗОК ÷ приход за същата година (2023+).",
     },
@@ -159,8 +165,12 @@ const main = async (): Promise<void> => {
       total: rows.length,
       withShare: withShare.length,
       over50: over50.length,
-      over50Pct: Math.round((100 * over50.length) / withShare.length),
-      medianSharePct: Math.round(100 * shares[Math.floor(shares.length / 2)]),
+      over50Pct: withShare.length
+        ? Math.round((100 * over50.length) / withShare.length)
+        : 0,
+      medianSharePct: shares.length
+        ? Math.round(100 * shares[Math.floor(shares.length / 2)])
+        : 0,
       zeroTender: rows.filter((r) => r.tenders3y === 0).length,
       over50NoTender: over50NoTender.length,
       over50NoTenderAnnualEur: over50NoTender.reduce(

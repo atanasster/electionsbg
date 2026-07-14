@@ -106,7 +106,10 @@ const extractGfoActs = (eiks: Set<string>): Map<string, Act[]> => {
   try {
     const out = execFileSync(
       "grep",
-      ["-lE", `"UIC":"(${alt})"`, "-r", DAILY_DIR],
+      // tolerate whitespace after the colon in case the feed is ever
+      // pretty-printed (`"UIC": "…"`) — else grep would silently match a subset
+      // instead of tripping the zero-match full-scan fallback below.
+      ["-lE", `"UIC":[[:space:]]*"(${alt})"`, "-r", DAILY_DIR],
       { maxBuffer: 1 << 28, encoding: "utf8" },
     );
     files = out.trim().split("\n").filter(Boolean);

@@ -27,7 +27,6 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { formatEurCompact } from "@/lib/currency";
-import { decodeEntities } from "@/lib/decodeEntities";
 import { ownershipColor } from "@/lib/nzokOwnership";
 import { useNzokPublicPrivate } from "@/data/budget/useBudget";
 
@@ -75,7 +74,13 @@ export const NzokRevenueTrendTile: FC = () => {
     };
   });
   const present = series.filter((p) => p.rev != null);
-  const max = Math.max(...present.map((p) => p.rev as number), 1);
+  // include НЗОК in the scale — a same-year share up to 1.15 (the ingest gate)
+  // can put the НЗОК point above the revenue max, which would clip it off-plot.
+  const max = Math.max(
+    ...present.map((p) => p.rev as number),
+    ...series.map((p) => p.nzok ?? 0),
+    1,
+  );
   const x = (y: number) => PAD.l + ((y - 2019) / 5) * (W - PAD.l - PAD.r);
   const yScale = (v: number) => PAD.t + (1 - v / max) * (H - PAD.t - PAD.b);
 
@@ -127,9 +132,7 @@ export const NzokRevenueTrendTile: FC = () => {
               aria-label={bg ? "Избери болница" : "Choose hospital"}
               className="h-8 w-full justify-between px-2 text-xs font-normal"
             >
-              <span className="truncate">
-                {decodeEntities(ppRow?.name ?? "—")}
-              </span>
+              <span className="truncate">{ppRow?.name ?? "—"}</span>
               <ChevronDown className="ml-1 h-3.5 w-3.5 shrink-0 opacity-50" />
             </Button>
           </PopoverTrigger>
@@ -149,7 +152,7 @@ export const NzokRevenueTrendTile: FC = () => {
                   .filter(
                     (o) =>
                       !query ||
-                      decodeEntities(o.name)
+                      o.name
                         .toLocaleLowerCase()
                         .includes(query.toLocaleLowerCase()),
                   )
@@ -165,9 +168,7 @@ export const NzokRevenueTrendTile: FC = () => {
                       }}
                       className="cursor-pointer px-2 py-1.5 text-xs aria-selected:bg-accent aria-selected:text-accent-foreground"
                     >
-                      <span className="block min-w-0 truncate">
-                        {decodeEntities(o.name)}
-                      </span>
+                      <span className="block min-w-0 truncate">{o.name}</span>
                     </CommandPrimitive.Item>
                   ))}
               </CommandList>
