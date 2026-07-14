@@ -17,6 +17,12 @@ digitalization, and the procurement money behind e-government.
 > **Rev 2.1 (2026-07-14)** — the improvement suggestions are integrated as committed, phase-mapped
 > build priorities (§8 table) and the decisions they settle are moved to Locked (§9); the phasing
 > (§4) is sequenced to match.
+>
+> **Rev 3.0 (2026-07-14) — pre-build readiness audit (§1.5).** Audited every Phase-1 claim against
+> code + data. Good news: the sector scene, prerender copy, i18n keys, and a live `usePersonnel()`
+> hook all already exist (less work than §4 implied). Eight gaps found — one design decision (G7,
+> generic screen is procurement-led but administration is institution-led) must be settled before
+> the first edit. See §1.5.
 
 ---
 
@@ -46,6 +52,44 @@ quality, the EU digital gap, and the money.
 **`AdministrationThematicTiles`** — the institution/quality/digital signature tiles the generic
 KPI row can't express; (c) the quality + digital data ingests (§3 Tiers 1–3); (d) scene/OG/prerender
 copy. No new screen, no new route.
+
+## 1.5 Pre-build readiness audit (rev 3.0 — settle G7 before the first edit)
+
+### Verified good — already in place (trim from §4 work)
+- **Sector is fully scaffolded:** scene `sectorScenes.tsx:714` (`administration: Administration`),
+  prerender copy `scripts/prerender/routes.ts:635`, i18n `sector_admin_title`="Администрация" /
+  `sector_admin_desc`="Е-управление · щат · услуги" — all exist. No scene/prerender/i18n *base* work.
+- **Data hook already exists and is LIVE:** `usePersonnel()` in `src/data/budget/useBudget.tsx:156`
+  (consumed by `MinistryPersonnelBlock.tsx`). **Reuse it — do NOT add `useAdministrationPersonnel`.**
+  `scopeAdminYear()` just wraps its output.
+- **Serving path works:** `fetchJson` → `dataUrl(path)` → GCS bucket `data-electionsbg-com`;
+  `data/budget/` is not excluded from `bucket:sync`, so `/budget/personnel.json` is served (proven
+  by the live ministry block). Dev fetches the same bucket URL.
+- **Scope API confirmed:** `@/data/scope` exports `useScope()`, `scopeYear(scope)`, `useScopeWindow()`;
+  `SectorDashboardScreen` already renders `<ScopeControl mode="toggle" />` and re-windows the group
+  model. (Correction: use `@/data/scope`, not `useProcurementScope`.)
+- **`useAwarderGroupModel(eiks, buildModel, windowOverride?, enabled=true)`** — reuse
+  `buildAwarderModelFromAggregates` + a one-bucket `GENERIC_CLASSIFIER`, exactly like energy.
+- **`SECTOR_BROWSE_PACKS.administration`** is `eiks:[ADMIN_EIK]` today → one-line expand to `ADMIN_SECTOR_EIKS`.
+
+### Gaps to close (severity · fix · phase)
+
+| # | Sev | Gap | Fix | Phase |
+|---|---|---|---|---|
+| **G7** | **design** | `SectorDashboardScreen` order is ScopeControl → **procurement KPI row** → ThematicTiles → Awarders. МЕУ's procurement is tiny, so the €-KPIs **lead and bury** the institution story (145 623 headcount). The generic screen is procurement-led; administration is institution-led. | **Decide before building:** (a) accept generic order, carry the story in ThematicTiles; (b) add a `heroTiles` slot above the KPI row to the framework; or (c) make administration a **bespoke screen** (like water/defense/culture) that leads with the institution. Recommend (b) or (c). | **pre-P1** |
+| G1 | med | Decade-divergence (Tile 1): headcount is **2017–2025 only** (`DOKLAD_FILE_IDS` starts 2017); can't chart the IPI "since 2015" axis. | Chart 2017–2025; relabel honestly; cite the IPI 2015–2025 "+10%" as a **text callout**, not the axis. | P1 |
+| G2 | med | Tiles 1–2 population: **no first-class annual population series** (macro.json lacks one). | Derive `pop = nominalGdp / gdpPerCapita` (both annual in macro.json) or sum `regional.json` oblast pop; **label as derived**. | P1 |
+| G3 | med (honesty) | Tile 2 "cost of administration" uses **GF01 = general public services, which includes public-debt interest + foreign affairs** — not pure administration; `cofog.json` is top-level only (no sub-function to net out debt). | Relabel "Общи държавни служби (вкл. обслужване на дълга)" + caveat chip; optionally add the personnel **wage bill** (from budget) as a truer admin-cost proxy. | P1 |
+| G4 | med-low | Tile 5 cost-per-FTE: `byMinistry` **names are slugs** (`admin-ministerstvoto-…`), only **7 ministries, 2022–24**. | Hand-map the ~7 `adminId` slugs → `{bg,en}` in `administrationReferenceData.ts`; label partial coverage ("largest ministries with programme budgets"); or **defer Tile 5**. | P1 / defer |
+| G5 | med | `national` sub-fields (central/territorial/filled/vacant) are **best-effort, null in some years** (per `doklad.ts` header) → Tiles 3/5 holes. | Null-safe rendering; plot only populated years; show coverage. | P1 |
+| G6 | low | `data_map/model.ts` has **no `/sector/administration` feature node** + personnel DATASET/edge (only prose). | Add feature node + personnel dataset + edge per convention. | P1 |
+| G8 | low | Verify `dataUrl` resolves `/budget/personnel.json` in the local dev preview (bucket) so tiles render for the acceptance screenshot. | One-line check during P1 verify step. | P1 |
+
+### Scope-label nuance
+The shared `<ScopeControl>` default pill is `ns` ("this parliament"), which the institution tiles
+read as **latest year** (`scopeYear(ns)=null → latest`). One control serves both the procurement
+KPIs (NS-windowed) and the annual institution tiles (year snapshot) — acceptable, but note the pill
+wording is procurement-centric.
 
 ## 2. Entities — the e-government EIK group (measured from the corpus)
 
@@ -110,13 +154,14 @@ Files to touch (tourism §9 checklist format):
 | Browse filter | `src/screens/components/procurement/sectorPacks.tsx` | point `SECTOR_BROWSE_PACKS.administration` at `ADMIN_SECTOR_EIKS` |
 | Hub tile € | `scripts/db/gen_procurement/sector_stats.ts` | `administration: [...ADMIN_SECTOR_EIKS]`; rerun `npm run db:gen-sector-stats` |
 | Thematic tiles | `src/screens/sector/administration/AdministrationThematicTiles.tsx` **(new)** + sub-tiles | signature tiles (§5) off `personnel.json` + `cofog.json` |
-| Data hook | `src/data/administration/useAdministration.tsx` **(new)** | `useAdministrationPersonnel()` → `/budget/personnel.json` |
-| Scope helper | `src/data/administration/scopeOverview.ts` **(new)** | pure `scopeAdminYear(personnel, year)` (§6) |
-| Hub scene | `src/screens/governance/sectorScenes.tsx` | SVG scene keyed `administration` (currently may fall back) |
-| i18n | `src/locales/{bg,en}/translation.json` (+ `public/locales/*`) | tile strings (config keys `sector_admin_*` already exist) |
-| OG card | `public/og/sector-administration.png` | run `scripts/og/screenshot_sectors.ts` (auto-loops `SECTOR_DASHBOARD_IDS`) |
-| Prerender copy | `scripts/prerender/routes.ts` | add/verify `SECTOR_PAGES.administration` (**build fails without it**) |
-| Data map | `scripts/data_map/model.ts` | DATASET (personnel) + feature node `route:/sector/administration` + edges |
+| Data hook | — | **REUSE existing `usePersonnel()`** (`useBudget.tsx:156`); do not add a hook (G-audit) |
+| Scope helper | `src/data/administration/scopeOverview.ts` **(new)** | pure `scopeAdminYear(personnel, year)` (§6); population derived `nominalGdp/gdpPerCapita` (G2) |
+| Ministry names | `src/lib/administrationReferenceData.ts` | hand-map the ~7 `byMinistry` slug `adminId`s → `{bg,en}` for Tile 5 (G4) |
+| Hub scene | — | already exists (`sectorScenes.tsx:714`) — no work (G-audit) |
+| i18n | `src/locales/{bg,en}/translation.json` (+ `public/locales/*`) | only NEW tile strings (`sector_admin_*` already exist) |
+| OG card | `public/og/sector-administration.png` | re-run `scripts/og/screenshot_sectors.ts` after tiles land |
+| Prerender copy | — | already exists (`routes.ts:635`) — no work (G-audit) |
+| Data map | `scripts/data_map/model.ts` | ADD feature node `route:/sector/administration` + personnel DATASET + edges (G6) |
 | recent_updates | via `ingest_changelog.ts` path | changelog row for the personnel/administration dataset |
 
 Sitemap needs no edit (auto from `SECTOR_DASHBOARD_IDS`); route/server need no edit.
