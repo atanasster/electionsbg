@@ -279,6 +279,10 @@ interface PeerBand {
   euAvgPctGdp: number | null;
   rank: number;
   total: number;
+  // The highest-spending member state at `year` (rank 1) — geo code + its
+  // value as % of GDP. Lets a tile show "who is above Bulgaria". null when BG
+  // is itself the top spender (no country ranks higher).
+  top: { geo: string; pctGdp: number } | null;
 }
 
 // Per-peer composition at the latest year where BG and ≥20 EU members both
@@ -362,9 +366,13 @@ const buildPeerBands = (
       const bg = byGeo.get("BG");
       if (bg == null) continue;
       const memberValues: number[] = [];
+      let top: { geo: string; pctGdp: number } | null = null;
       for (const g of EU27_GEOS) {
         const v = byGeo.get(g);
-        if (v != null) memberValues.push(v);
+        if (v != null) {
+          memberValues.push(v);
+          if (!top || v > top.pctGdp) top = { geo: g, pctGdp: v };
+        }
       }
       if (memberValues.length < 20) continue;
       // Rank: 1 = highest spender as % of GDP, total = members with data.
@@ -377,6 +385,9 @@ const buildPeerBands = (
         euAvgPctGdp: euAvg,
         rank,
         total: memberValues.length,
+        // Drop `top` when BG is itself #1 (nobody spends more) — the tile then
+        // has no "above Bulgaria" row to show.
+        top: top && top.pctGdp > bg ? top : null,
       };
       break;
     }

@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-06-25T08:48:56.015Z",
+  "fetchedAt": "2026-07-15T13:46:22.525Z",
   "source": {
     "name": "Eurostat",
     "dataset": "gov_10a_exp",
@@ -753,77 +753,121 @@
       "bgPctGdp": 39.2,
       "euAvgPctGdp": 49.1,
       "rank": 23,
-      "total": 26
+      "total": 26,
+      "top": {
+        "geo": "FI",
+        "pctGdp": 57.7
+      }
     },
     "GF01": {
       "year": 2024,
       "bgPctGdp": 2.9,
       "euAvgPctGdp": 6.1,
       "rank": 25,
-      "total": 26
+      "total": 26,
+      "top": {
+        "geo": "HU",
+        "pctGdp": 10
+      }
     },
     "GF02": {
       "year": 2024,
       "bgPctGdp": 1.3,
       "euAvgPctGdp": 1.5,
       "rank": 17,
-      "total": 26
+      "total": 26,
+      "top": {
+        "geo": "EE",
+        "pctGdp": 3.7
+      }
     },
     "GF03": {
       "year": 2024,
       "bgPctGdp": 2.8,
       "euAvgPctGdp": 1.7,
       "rank": 2,
-      "total": 26
+      "total": 26,
+      "top": {
+        "geo": "LV",
+        "pctGdp": 3.2
+      }
     },
     "GF04": {
       "year": 2024,
       "bgPctGdp": 5.8,
       "euAvgPctGdp": 5.3,
       "rank": 10,
-      "total": 26
+      "total": 26,
+      "top": {
+        "geo": "HU",
+        "pctGdp": 7.7
+      }
     },
     "GF05": {
       "year": 2024,
       "bgPctGdp": 0.6,
       "euAvgPctGdp": 0.8,
       "rank": 17,
-      "total": 26
+      "total": 26,
+      "top": {
+        "geo": "NL",
+        "pctGdp": 1.6
+      }
     },
     "GF06": {
       "year": 2024,
       "bgPctGdp": 1,
       "euAvgPctGdp": 0.7,
       "rank": 5,
-      "total": 26
+      "total": 26,
+      "top": {
+        "geo": "CY",
+        "pctGdp": 2.1
+      }
     },
     "GF07": {
       "year": 2024,
       "bgPctGdp": 5.4,
       "euAvgPctGdp": 7.4,
       "rank": 21,
-      "total": 26
+      "total": 26,
+      "top": {
+        "geo": "AT",
+        "pctGdp": 9.5
+      }
     },
     "GF08": {
       "year": 2024,
       "bgPctGdp": 0.7,
       "euAvgPctGdp": 1.2,
       "rank": 24,
-      "total": 26
+      "total": 26,
+      "top": {
+        "geo": "HU",
+        "pctGdp": 2.5
+      }
     },
     "GF09": {
       "year": 2024,
       "bgPctGdp": 4.3,
       "euAvgPctGdp": 4.8,
       "rank": 21,
-      "total": 26
+      "total": 26,
+      "top": {
+        "geo": "SE",
+        "pctGdp": 7.2
+      }
     },
     "GF10": {
       "year": 2024,
       "bgPctGdp": 14.4,
       "euAvgPctGdp": 19.6,
       "rank": 17,
-      "total": 26
+      "total": 26,
+      "top": {
+        "geo": "FI",
+        "pctGdp": 26.5
+      }
     }
   },
   "peerSeriesByYear": {

@@ -45,6 +45,9 @@ export type CofogPeerBand = {
   euAvgPctGdp: number | null;
   rank: number;
   total: number;
+  // The highest-spending EU member state at `year` (rank 1): geo code + its
+  // % of GDP. null when Bulgaria is itself #1. Emitted by fetch_cofog.ts.
+  top?: { geo: string; pctGdp: number } | null;
 };
 
 // Per-peer COFOG % of GDP composition at a given year. Keyed first by peer

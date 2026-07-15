@@ -15,7 +15,7 @@
 import { FC, useMemo, useState } from "react";
 import { Link, useSearchParams, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Shield, Activity } from "lucide-react";
+import { Shield, Activity, Users } from "lucide-react";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatEurCompact } from "@/lib/currency";
 import {
@@ -43,6 +43,8 @@ import {
 } from "@/lib/securityReferenceData";
 import { VikContractorHhiTile } from "../vik/VikContractorHhiTile";
 import { MvrBudgetBridgeTile } from "./MvrBudgetBridgeTile";
+import { MvrPersonnelTile } from "./MvrPersonnelTile";
+import { MvrEuPeerTile } from "./MvrEuPeerTile";
 import { MvrCategoryTile } from "./MvrCategoryTile";
 import { MvrCompetitionTile } from "./MvrCompetitionTile";
 import { MvrTopContractsTile } from "./MvrTopContractsTile";
@@ -294,6 +296,22 @@ export const MvrPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
           multi-tile "Outcomes" band keeps a group heading. */}
       <PackSection id="mvr-budget">
         <MvrBudgetBridgeTile procEur={procValue} perYear={yearAligned} />
+      </PackSection>
+
+      <PackSection
+        icon={Users}
+        id="mvr-personnel"
+        title={bg ? "Персонал и сравнение с ЕС" : "Personnel & EU comparison"}
+        sub={
+          bg
+            ? "МВР е ~90% заплати — колко струва един служител и как разходът се сравнява с ЕС."
+            : "МВР is ~90% payroll — the cost of one employee and how the spend compares with the EU."
+        }
+      >
+        <div className="grid gap-4 md:grid-cols-2">
+          <MvrPersonnelTile />
+          <MvrEuPeerTile />
+        </div>
       </PackSection>
 
       <PackSection id="mvr-category">
