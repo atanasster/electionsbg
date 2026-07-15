@@ -12,7 +12,17 @@ import { execSync } from "node:child_process";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { PROC_DIR } from "./lib/paths";
-import { getPool, exec, withClient, withTx, end } from "./lib/pg";
+import {
+  getPool,
+  exec,
+  withClient,
+  withTx,
+  end,
+  LOCAL_DATABASE_URL,
+} from "./lib/pg";
+import { Pool } from "pg";
+import { to as copyTo, from as copyFrom } from "pg-copy-streams";
+import { pipeline } from "node:stream/promises";
 import { copyRows } from "./lib/copy";
 import { rebuildRiskGradeScoped } from "./lib/riskGradeScoped";
 import {
@@ -107,9 +117,74 @@ const PROC_NORMALCY_CACHE_FILE = path.join(
   SCHEMA_DIR,
   "064_procurement_normalcy_cache.sql",
 );
+const PROC_NORMALCY_BUILD_FILE = path.join(
+  SCHEMA_DIR,
+  "064b_procurement_normalcy_build.sql",
+);
 const GOVERNMENTS_FILE = path.join(PROC_DIR, "..", "governments.json");
 const DEBARRED_FILE = path.join(PROC_DIR, "debarred.json");
 const monthShardDir = path.join(PROC_DIR, "contracts");
+
+// True when this load targets the Cloud SQL proxy (:5434) rather than local
+// docker (:5433). Only the port distinguishes them — the cloud URL is otherwise
+// password-less (resolved from .pgpass). Used to decide whether the normalcy
+// payloads are COMPUTED here or SHIPPED from local.
+const targetIsCloud = (): boolean =>
+  /:5434\b/.test(process.env.DATABASE_URL ?? "");
+
+// Populate procurement_normalcy_cache (064, a TABLE). LOCAL: run the 064b build
+// query in-place — cheap on dedicated cores. CLOUD: the build would take ~40 min
+// on the shared-core instance, so instead stream the already-computed rows from
+// local Postgres straight into the cloud table (COPY TO STDOUT → COPY FROM STDIN).
+// The cohort payload is a deterministic function of `contracts`, and we've just
+// loaded the identical corpus on both sides, so local rows == what cloud would
+// compute (percentiles are ROUNDed, masking any last-ULP float drift).
+const buildOrShipNormalcy = async (): Promise<void> => {
+  if (!targetIsCloud()) {
+    await exec(readFileSync(PROC_NORMALCY_BUILD_FILE, "utf8"));
+    return;
+  }
+  // CLOUD path: pull precomputed rows from local docker (:5433).
+  const src = new Pool({ connectionString: LOCAL_DATABASE_URL, max: 1 });
+  try {
+    const { rows } = await src.query<{ n: string }>(
+      "SELECT count(*)::text AS n FROM procurement_normalcy_cache",
+    );
+    const localCount = Number(rows[0]?.n ?? "0");
+    if (localCount === 0)
+      throw new Error(
+        "local procurement_normalcy_cache is empty — run `npm run db:refresh` " +
+          "(local) before shipping normalcy to cloud",
+      );
+    const srcClient = await src.connect();
+    try {
+      await withClient(async (dst) => {
+        await dst.query("TRUNCATE procurement_normalcy_cache");
+        const reader = srcClient.query(
+          copyTo("COPY procurement_normalcy_cache TO STDOUT"),
+        );
+        const writer = dst.query(
+          copyFrom("COPY procurement_normalcy_cache FROM STDIN"),
+        );
+        await pipeline(reader, writer);
+      });
+    } finally {
+      srcClient.release();
+    }
+    const dstCount = await getPool()
+      .query<{ n: string }>(
+        "SELECT count(*)::text AS n FROM procurement_normalcy_cache",
+      )
+      .then((r) => Number(r.rows[0]?.n ?? "0"));
+    if (dstCount !== localCount)
+      throw new Error(
+        `normalcy ship mismatch: local ${localCount} → cloud ${dstCount}`,
+      );
+    console.log(`  normalcy: shipped ${dstCount} row(s) from local → cloud`);
+  } finally {
+    await src.end();
+  }
+};
 
 const gitSha = (): string => {
   try {
@@ -428,12 +503,13 @@ export const loadPg = async (): Promise<{
   await exec("REFRESH MATERIALIZED VIEW procurement_overview_cache");
   await exec("REFRESH MATERIALIZED VIEW procurement_rankings_cache");
   await exec("REFRESH MATERIALIZED VIEW procurement_by_settlement_cache");
-  // Per-contract "how normal is this procurement?" payloads (064) — CONCURRENTLY
-  // so a reload never blocks the contract-detail panel on the ~25s rebuild (the
-  // unique index on key makes it eligible).
-  await exec(
-    "REFRESH MATERIALIZED VIEW CONCURRENTLY procurement_normalcy_cache",
-  );
+  // Per-contract "how normal is this procurement?" payloads (064, now a TABLE).
+  // The cohort build is a deterministic function of `contracts` — which we've
+  // just loaded identically on both sides — so we compute it ONCE on the fast
+  // local Postgres and SHIP the rows to Cloud SQL by COPY, instead of the
+  // ~40-min REFRESH the shared-core prod instance used to pay (built twice:
+  // once at CREATE MATERIALIZED VIEW in apply, once at REFRESH here).
+  await buildOrShipNormalcy();
   // The awarder K-Index ranking (built by migration 039 in load_tr_pg) is
   // computed FROM this contract corpus, so it must track a contract reload too —
   // otherwise a procurement-only re-ingest leaves the ranking (and the AI
