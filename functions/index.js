@@ -449,13 +449,15 @@ const dbRateLimited = (ip) => {
 const makeDb = () => {
   const DB_PASSWORD = defineSecret("ELECTIONSBG_DB_READONLY_PASSWORD");
   return onRequest(
-    // minInstances: 1 keeps one container + its pooled DB connection warm, so
-    // "first run" of a /api/db page skips the cold container boot + Cloud SQL
-    // connector handshake (the most-perceptible slice of first-load latency).
+    // minInstances: 1 (PROD ONLY) keeps one container + its pooled DB connection
+    // warm, so "first run" of a /api/db page skips the cold container boot +
+    // Cloud SQL connector handshake (the most-perceptible slice of first-load
+    // latency). Staging / ai stay at 0 — no always-on bill for non-prod.
     {
       secrets: [DB_PASSWORD],
       region: "europe-west3",
-      minInstances: 1,
+      minInstances:
+        (process.env.GCLOUD_PROJECT || "") === "elections-bg" ? 1 : 0,
       maxInstances: 10,
     },
     async (req, res) => {
