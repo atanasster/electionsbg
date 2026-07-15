@@ -449,7 +449,15 @@ const dbRateLimited = (ip) => {
 const makeDb = () => {
   const DB_PASSWORD = defineSecret("ELECTIONSBG_DB_READONLY_PASSWORD");
   return onRequest(
-    { secrets: [DB_PASSWORD], region: "europe-west3", maxInstances: 10 },
+    // minInstances: 1 keeps one container + its pooled DB connection warm, so
+    // "first run" of a /api/db page skips the cold container boot + Cloud SQL
+    // connector handshake (the most-perceptible slice of first-load latency).
+    {
+      secrets: [DB_PASSWORD],
+      region: "europe-west3",
+      minInstances: 1,
+      maxInstances: 10,
+    },
     async (req, res) => {
       const origin = req.headers.origin || "";
       const originOk =
