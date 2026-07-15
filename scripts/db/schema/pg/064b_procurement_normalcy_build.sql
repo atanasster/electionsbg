@@ -1,59 +1,92 @@
 -- 064b — BUILD the procurement_normalcy_cache TABLE (created empty in 064).
--- Run only where we COMPUTE the cohort payloads: the local Postgres. The rows
--- are then COPYed to Cloud SQL by load_pg.ts, so this NEVER runs on the prod
--- (shared-core) instance. Deterministic function of `contracts`.
--- Build with generous memory so the member-rank sorts stay in RAM. Cloud SQL's
--- small default work_mem spilled them to disk (~15 min); in RAM it is ~1-2 min.
--- Session-scoped, so this only affects the apply/load connection.
+-- Runs only where we COMPUTE the payloads: the local Postgres. The rows are then
+-- COPYed to Cloud SQL by load_pg.ts, so this NEVER runs on the prod (shared-core)
+-- instance. Deterministic function of `contracts`.
+--
+-- COHORT = same-CPV adaptive-prefix contracts within the target's MONTH +/-30
+-- months (month-aligned), the SAME definition as the reference fn (063). This is
+-- the set-based, whole-corpus port of that per-key fn: it replaces the earlier
+-- 3-era bucketing (which lumped all of 2020-2026 into one cohort) with a true
+-- +/-30-month window. Key trick for feasibility: targets sharing a (cpv-prefix,
+-- month) share one cohort, so the window is precomputable as a monthly-count
+-- window frame (RANGE +/-30) for the adaptive-prefix pick, plus one
+-- (prefix, target-month)-keyed membership join for the percentiles/ranks. The
+-- target is INCLUDED in its own cohort (matches the fn + the shared-cohort
+-- convention; ~1/n effect at the >=30 floor).
+--
+-- Month arithmetic: mnum = year*12 + (month-1), so year = mnum / 12 exactly and
+-- the +/-30-month window is [mnum-30, mnum+30]. Parity with the fn's
+-- month-aligned date bounds is exact.
+-- Build with generous memory so the big membership sort/aggregate stays mostly in
+-- RAM. Session-scoped, so this only affects the build connection.
 SET maintenance_work_mem = '1GB';
-SET work_mem = '256MB';
+SET work_mem = '512MB';
 TRUNCATE procurement_normalcy_cache;
 INSERT INTO procurement_normalcy_cache (key, payload)
   WITH base_all AS (
     SELECT key, cpv, amount_eur, number_of_tenderers, procurement_method,
-           awarder_eik, contractor_eik, date, procurement_era(date) AS era
+           awarder_eik, contractor_eik, date, left(cpv, 2) AS div,
+           CASE WHEN date ~ '^[0-9]{4}-[0-9]{2}'
+                THEN substr(date, 1, 4)::int * 12 + substr(date, 6, 2)::int - 1 END AS mnum
     FROM contracts WHERE tag = 'contract'
   ),
-  -- Cohort computation runs only on cpv-bearing rows; a cpv-less contract still
-  -- gets a cached row (concentration only), so it never falls to the live path.
-  base AS (SELECT * FROM base_all WHERE cpv IS NOT NULL),
-  -- Expand each contract into its 5 candidate CPV prefixes (× era), so the
-  -- adaptive-prefix pick and the cohort membership are plain equi-joins.
+  -- Cohort computation runs only on cpv-bearing, dated rows; a cpv-less/undated
+  -- contract still gets a cached row (concentration only), never the live path.
+  base AS (SELECT * FROM base_all WHERE cpv IS NOT NULL AND mnum IS NOT NULL),
+  -- Expand each contract into its 5 candidate CPV prefixes so EVERY downstream
+  -- join is a plain equi-join on (len, prefix) — the membership join below is
+  -- otherwise a `left(cpv,len)=prefix` predicate with a per-row length, which the
+  -- planner can only satisfy with a nested loop (catastrophic: 340 GB of temp).
   base_prefixes AS (
     SELECT b.key, b.amount_eur, b.number_of_tenderers, b.procurement_method,
-           b.date, b.era, v.len, left(b.cpv, v.len) AS prefix
+           b.mnum, v.len, left(b.cpv, v.len) AS prefix
     FROM base b CROSS JOIN (VALUES (8), (5), (4), (3), (2)) v(len)
   ),
-  pc AS (
-    SELECT len, prefix, era, count(*)::int AS n
-    FROM base_prefixes GROUP BY len, prefix, era
+  -- Per-(prefix-length, prefix, month) contract counts.
+  mp AS (
+    SELECT len, prefix, mnum, count(*)::int AS n
+    FROM base_prefixes GROUP BY len, prefix, mnum
   ),
-  -- Each contract's chosen prefix length: the finest whose (prefix, era) has >=30.
+  -- Windowed count: for each (len, prefix, month) sum the monthly counts over the
+  -- +/-30-month window. This is the adaptive-prefix denominator, computed once per
+  -- (len, prefix, month) instead of per target.
+  wc AS (
+    SELECT len, prefix, mnum,
+           sum(n) OVER (PARTITION BY len, prefix ORDER BY mnum
+                        RANGE BETWEEN 30 PRECEDING AND 30 FOLLOWING)::int AS wn
+    FROM mp
+  ),
+  -- Each contract's chosen prefix length: the finest whose windowed count at its
+  -- own (prefix, month) clears 30; else the 2-digit division. Mirrors the fn's
+  -- "finest with n>=30, COALESCE(...,2)".
   chosen AS (
-    SELECT bp.key, COALESCE(max(bp.len) FILTER (WHERE pc.n >= 30), 2) AS plen
-    FROM base_prefixes bp JOIN pc USING (len, prefix, era)
-    GROUP BY bp.key
+    SELECT bp.key, bp.mnum,
+           COALESCE(max(bp.len) FILTER (WHERE wc.wn >= 30), 2) AS plen
+    FROM base_prefixes bp
+    JOIN wc USING (len, prefix, mnum)
+    GROUP BY bp.key, bp.mnum
   ),
-  -- Each contract paired with the cohort IT is compared against: its chosen
-  -- (prefix, era). Cohorts OVERLAP — a fine-cpv contract is also a member of the
-  -- coarser cohort a sibling uses — which is why membership below is a prefix
-  -- join, not a single partition. (The earlier group-by-own-prefix build wrongly
-  -- fragmented the cohort: CPV 71311 read 25 instead of 89.)
+  -- Each contract paired with the cohort it is compared against: (chosen prefix,
+  -- own month). Targets sharing (prefix, month) share a cohort.
   tgt AS (
-    SELECT b.key, b.amount_eur, b.number_of_tenderers, b.procurement_method,
-           b.era, c.plen AS len, left(b.cpv, c.plen) AS prefix
-    FROM base b JOIN chosen c USING (key)
+    SELECT ch.key, ch.mnum, ch.plen AS len, left(b.cpv, ch.plen) AS prefix
+    FROM chosen ch JOIN base b USING (key)
   ),
-  used AS (SELECT DISTINCT len, prefix, era FROM tgt),
-  -- Every contract that belongs to each USED cohort (shares its prefix + era) —
-  -- this is the live function's "all sharing the target's prefix".
-  members AS (
-    SELECT bp.key, bp.amount_eur, bp.number_of_tenderers, bp.procurement_method,
-           bp.date, bp.len, bp.prefix, bp.era
-    FROM base_prefixes bp JOIN used u USING (len, prefix, era)
+  used AS (SELECT DISTINCT len, prefix, mnum FROM tgt),
+  -- Cohort membership: every contract sharing the cohort's prefix within the
+  -- cohort target-month's +/-30-month window. Carries mkey so the target's own
+  -- rank falls out of a window function (the target is a member of its cohort).
+  cohort_members AS (
+    SELECT u.len, u.prefix, u.mnum AS tmnum,
+           bp.key AS mkey, bp.amount_eur, bp.number_of_tenderers, bp.procurement_method,
+           bp.mnum AS cmnum
+    FROM used u
+    JOIN base_prefixes bp
+      ON bp.len = u.len AND bp.prefix = u.prefix
+     AND bp.mnum >= u.mnum - 30 AND bp.mnum <= u.mnum + 30
   ),
   cohort_stats AS (
-    SELECT len, prefix, era, left(prefix, 2) AS division,
+    SELECT len, prefix, tmnum, left(prefix, 2) AS division,
            count(*) FILTER (WHERE amount_eur IS NOT NULL)::int AS v_n,
            percentile_cont(0.10) WITHIN GROUP (ORDER BY amount_eur) AS v_p10,
            percentile_cont(0.25) WITHIN GROUP (ORDER BY amount_eur) AS v_p25,
@@ -78,19 +111,19 @@ INSERT INTO procurement_normalcy_cache (key, payload)
            avg((procurement_procedure_bucket(procurement_method) = 'open')::int)
              FILTER (WHERE procurement_method IS NOT NULL
                AND btrim(procurement_method) <> '')::double precision AS proc_open,
-           left(min(date), 4) AS year_from,
-           left(max(date), 4) AS year_to
-    FROM members GROUP BY len, prefix, era
+           (min(cmnum) / 12)::text AS year_from,
+           (max(cmnum) / 12)::text AS year_to
+    FROM cohort_members GROUP BY len, prefix, tmnum
   ),
-  -- rank()-1 = count strictly below within the cohort (nulls sort last, so a
-  -- non-null target's rank counts only the non-null values below it).
+  -- rank()-1 = count strictly below within the cohort. The target is a member, so
+  -- its own rank comes straight from the partitioned window (joined back by mkey).
   member_ranks AS (
-    SELECT key, len, prefix, era,
-           (rank() OVER (PARTITION BY len, prefix, era ORDER BY amount_eur) - 1)::numeric AS v_below,
-           (rank() OVER (PARTITION BY len, prefix, era ORDER BY number_of_tenderers) - 1)::numeric AS b_below
-    FROM members
+    SELECT mkey AS key, len, prefix, tmnum,
+           (rank() OVER (PARTITION BY len, prefix, tmnum ORDER BY amount_eur) - 1)::numeric AS v_below,
+           (rank() OVER (PARTITION BY len, prefix, tmnum ORDER BY number_of_tenderers) - 1)::numeric AS b_below
+    FROM cohort_members
   ),
-  -- concentration: per awarder (all-time), each supplier's share of buyer spend
+  -- concentration: per awarder (all-time), each supplier's share of buyer spend.
   aw AS (
     SELECT awarder_eik, contractor_eik, sum(amount_eur) AS s
     FROM contracts
@@ -117,14 +150,15 @@ INSERT INTO procurement_normalcy_cache (key, payload)
   )
   SELECT ba.key, jsonb_build_object(
     'key', ba.key,
-    'cohort', CASE WHEN ba.cpv IS NULL THEN NULL ELSE jsonb_build_object(
-      'division',   cs.division,
-      'cpvPrefix',  t.prefix,
-      'cpvLen',     t.len,
-      'n',          cs.v_n,
-      'yearFrom',   cs.year_from,
-      'yearTo',     cs.year_to,
-      'sufficient', cs.v_n >= 30
+    'cohort', CASE WHEN ba.cpv IS NULL OR ba.mnum IS NULL THEN NULL ELSE jsonb_build_object(
+      'division',     cs.division,
+      'cpvPrefix',    t.prefix,
+      'cpvLen',       t.len,
+      'n',            cs.v_n,
+      'yearFrom',     cs.year_from,
+      'yearTo',       cs.year_to,
+      'sufficient',   cs.v_n >= 30,
+      'windowMonths', 30
     ) END,
     'value', CASE WHEN cs.v_n IS NULL OR cs.v_n = 0 OR ba.amount_eur IS NULL THEN NULL ELSE jsonb_build_object(
       'dir', 'neutral', 'value', ba.amount_eur, 'n', cs.v_n,
@@ -150,8 +184,7 @@ INSERT INTO procurement_normalcy_cache (key, payload)
   ) AS payload
   FROM base_all ba
   LEFT JOIN tgt t ON t.key = ba.key
-  LEFT JOIN cohort_stats cs ON cs.len = t.len AND cs.prefix = t.prefix AND cs.era = t.era
-  LEFT JOIN member_ranks mr ON mr.key = ba.key AND mr.len = t.len AND mr.prefix = t.prefix AND mr.era = t.era
+  LEFT JOIN cohort_stats cs ON cs.len = t.len AND cs.prefix = t.prefix AND cs.tmnum = t.mnum
+  LEFT JOIN member_ranks mr ON mr.key = ba.key AND mr.len = t.len AND mr.prefix = t.prefix AND mr.tmnum = t.mnum
   LEFT JOIN aw_rank ar ON ar.awarder_eik = ba.awarder_eik AND ar.contractor_eik = ba.contractor_eik
   LEFT JOIN aw_stats ast ON ast.awarder_eik = ba.awarder_eik;
-

@@ -83,18 +83,23 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     FROM contracts
     WHERE key = p_key AND tag = 'contract'
   ),
-  -- Windowed division pool: era-matched (+/-30 months) and division-scoped so the
-  -- scan rides idx_contracts_cpvdiv_date and the heap fetch for the non-indexed
-  -- metric columns is bounded. Empty when the target has no CPV.
+  -- Windowed division pool: MONTH-ALIGNED +/-30 months and division-scoped so the
+  -- scan rides idx_contracts_cpvdiv_date (bounds sargable on the text `date`) and
+  -- the heap fetch for the non-indexed metric columns is bounded. Empty when the
+  -- target has no CPV. The window is month-aligned (whole months of the target's
+  -- month +/-30) so it is EXACTLY reproducible by the set-based precompute in
+  -- 064b, which keys cohorts on the target's month. The target itself is INCLUDED
+  -- (no key<>key) so the shared per-(prefix,month) cohort the precompute builds is
+  -- identical to what this reference computes — the ~1/n self-inclusion is
+  -- negligible at the >=30 floor and matches the cache's shared-cohort convention.
   pool AS (
     SELECT c.cpv, c.amount_eur, c.number_of_tenderers, c.procurement_method, c.date
     FROM contracts c CROSS JOIN tgt
     WHERE tgt.cpv IS NOT NULL
       AND c.tag = 'contract'
       AND left(c.cpv, 2) = tgt.div
-      AND c.date >= to_char(tgt.d - interval '30 months', 'YYYY-MM-DD')
-      AND c.date <= to_char(tgt.d + interval '30 months', 'YYYY-MM-DD')
-      AND c.key <> tgt.key
+      AND c.date >= to_char(date_trunc('month', tgt.d) - interval '30 months', 'YYYY-MM-DD')
+      AND c.date <  to_char(date_trunc('month', tgt.d) + interval '31 months', 'YYYY-MM-DD')
   ),
   -- Adaptive CPV prefix: the finest length whose cohort still clears 30. A wider
   -- prefix never has fewer rows, so "finest with n>=30" is well-defined.
@@ -110,7 +115,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       2) AS plen
   ),
   cohort AS (
-    SELECT pool.amount_eur, pool.number_of_tenderers, pool.procurement_method
+    SELECT pool.amount_eur, pool.number_of_tenderers, pool.procurement_method, pool.date
     FROM pool CROSS JOIN tgt CROSS JOIN chosen
     WHERE left(pool.cpv, chosen.plen) = left(tgt.cpv, chosen.plen)
   ),
@@ -158,21 +163,21 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
   aw_tot AS (SELECT sum(s) AS total, count(*)::int AS peer_n FROM aw),
   aw_share AS (
     SELECT contractor_eik,
-           s / NULLIF((SELECT total FROM aw_tot), 0) AS share
+           ROUND((s / NULLIF((SELECT total FROM aw_tot), 0))::numeric, 10) AS share
     FROM aw
   ),
   conc AS (
     SELECT (SELECT peer_n FROM aw_tot) AS peer_n,
-           percentile_cont(0.50) WITHIN GROUP (ORDER BY share) AS median,
-           percentile_cont(0.75) WITHIN GROUP (ORDER BY share) AS p75,
-           percentile_cont(0.90) WITHIN GROUP (ORDER BY share) AS p90,
+           ROUND(percentile_cont(0.50) WITHIN GROUP (ORDER BY share)::numeric, 10) AS median,
+           ROUND(percentile_cont(0.75) WITHIN GROUP (ORDER BY share)::numeric, 10) AS p75,
+           ROUND(percentile_cont(0.90) WITHIN GROUP (ORDER BY share)::numeric, 10) AS p90,
            (SELECT share FROM aw_share s CROSS JOIN tgt
              WHERE s.contractor_eik = tgt.contractor_eik) AS mine
     FROM aw_share
   ),
   -- Cohort year span (from the WINDOWED division pool, not the prefix cohort, so
   -- the label reflects the comparison horizon even for a fine prefix).
-  span AS (SELECT min(date) AS d0, max(date) AS d1 FROM pool)
+  span AS (SELECT min(date) AS d0, max(date) AS d1 FROM cohort)
   SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM tgt) THEN NULL ELSE jsonb_build_object(
     'key', p_key,
     'cohort', CASE WHEN (SELECT cpv FROM tgt) IS NULL THEN NULL ELSE jsonb_build_object(
