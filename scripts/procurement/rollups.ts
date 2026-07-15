@@ -219,13 +219,9 @@ export const buildRollupsFromRows = (
     // file-count invariant checks (invariants.data.test.ts subtest 14). The
     // per-currency total stays 0, so the totalEur reconciliation still holds.
     if (row.tag === "contractAmendment") {
-      // Register the entity only on FIRST sight so it gets a rollup file.
-      // Deliberately do NOT overwrite an existing name/region: newest-wins
-      // identity is driven purely by non-amendment rows (as before this
-      // change), so an amendment can seed a name for an amendment-only entity
-      // but never re-label a supplier/buyer that also has real contracts.
-      if (!contractors.has(row.contractorEik)) {
-        contractors.set(row.contractorEik, {
+      const ca =
+        contractors.get(row.contractorEik) ??
+        ({
           eik: row.contractorEik,
           name: row.contractorName,
           totalByCurrency: {},
@@ -234,10 +230,13 @@ export const buildRollupsFromRows = (
           byAwarder: new Map(),
           byYear: new Map(),
           topContracts: [],
-        });
-      }
-      if (!awarders.has(row.awarderEik)) {
-        awarders.set(row.awarderEik, {
+        } satisfies ContractorAcc);
+      ca.name = row.contractorName || ca.name;
+      contractors.set(row.contractorEik, ca);
+
+      const aa: AwarderAcc =
+        awarders.get(row.awarderEik) ??
+        ({
           eik: row.awarderEik,
           name: row.awarderName,
           region: row.awarderRegion,
@@ -247,8 +246,10 @@ export const buildRollupsFromRows = (
           byContractor: new Map(),
           byYear: new Map(),
           topContracts: [],
-        });
-      }
+        } satisfies AwarderAcc);
+      aa.name = row.awarderName || aa.name;
+      if (row.awarderRegion) aa.region = row.awarderRegion;
+      awarders.set(row.awarderEik, aa);
       continue;
     }
     nonAmendContractors.add(row.contractorEik);
