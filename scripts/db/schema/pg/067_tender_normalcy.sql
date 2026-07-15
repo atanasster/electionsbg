@@ -1,7 +1,7 @@
 -- "How typical is this tender?" — the ex-ante companion to the contract-stage
 -- normalcy panel (063/064). Positions ONE tender (procedure) on a percentile
--- ruler against a cohort of similar tenders (same adaptive CPV prefix × era),
--- over columns already in `tenders`. DESCRIPTIVE, never a verdict of wrongdoing.
+-- ruler against a cohort of similar tenders, over columns already in `tenders`.
+-- DESCRIPTIVE, never a verdict of wrongdoing.
 --
 -- Dimensions (vs the contract panel):
 --   value     — estimated_value_eur, neutral (informative, never a deviation).
@@ -13,15 +13,22 @@
 -- concentration (no contractor at the tender stage).
 -- Cohort context: cancellation + EU-funded shares (informative, not deviations).
 --
--- Cohort = (adaptive CPV prefix with a floor of n>=30, × era) — reuses
--- procurement_era() and procurement_procedure_bucket() unchanged (tenders carry
--- the same procedure vocabulary as contracts). Keyed by УНП (tenders PK).
+-- COHORT = same-CPV adaptive-prefix tenders within the target's MONTH +/-30
+-- months (month-aligned) — the SAME windowed definition as the contract panel
+-- (063/064b). This replaced an earlier (prefix × 3-era) bucketing that, because
+-- EVERY tender falls in one era (all publication dates are 2020+), compared each
+-- tender against ALL same-CPV tenders ever. The fn and the set-based cache use
+-- the identical window (parity-checked byte-for-byte). Uses procurement_procedure_bucket
+-- (063) for the procedure vocabulary. Keyed by УНП (tenders PK). Depends on
+-- tenders (031). EXECUTE → app_readonly.
 --
 -- Determinism (reference_pg_payload_determinism): percentile_cont is
--- deterministic; window is an integer date-diff (no float); the 'percentile'
--- rank is an integer count/N. The live function and the set-based cache are
--- byte-identical (parity-checked). Depends on tenders (031), procurement_era +
--- procurement_procedure_bucket (063/064). EXECUTE → app_readonly.
+-- deterministic given identical input; the value/window percentile BOUNDS are
+-- ROUNDed (value → 2dp cents, window → 2dp days) so a cloud recompute of the fn
+-- is byte-identical to the local-built matview (unrounded percentile_cont bounds
+-- otherwise drift by last-ULP parallel-summation noise). The 'percentile' rank is
+-- an integer count/N. mnum = year*12 + (month-1), so the +/-30-month window is
+-- [mnum-30, mnum+30] and year = mnum / 12 exactly.
 
 SET check_function_bodies = off;
 
@@ -37,13 +44,8 @@ RETURNS int LANGUAGE sql IMMUTABLE AS $$
   END;
 $$;
 
--- The EU Directive 2014/24/EU Art. 27 reference open-procedure minimum — a
--- window below this is the conventional "rushed deadline" red flag (shared with
--- computeProcurementRisk's SHORT_TENDER_DAYS).
--- (kept as a literal 14 below; no separate constant object in SQL)
-
 -- --------------------------------------------------------------------------
--- Live function — (prefix, era) cohort (fallback + reference implementation).
+-- Live function — month-aligned +/-30-month windowed cohort (reference impl).
 -- --------------------------------------------------------------------------
 CREATE OR REPLACE FUNCTION tender_normalcy(p_unp text)
 RETURNS jsonb LANGUAGE sql STABLE AS $$
@@ -51,13 +53,13 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     SELECT unp, cpv, estimated_value_eur AS val,
            tender_window_days(publication_date, submission_deadline) AS win,
            procedure_type, left(cpv, 2) AS div,
-           procurement_era(publication_date) AS era
+           to_date(NULLIF(btrim(publication_date), ''), 'YYYY-MM-DD') AS pd
     FROM tenders
     WHERE unp = p_unp
   ),
-  -- Same division + same era as the target (self INCLUDED — a tender is a member
-  -- of its own cohort; self never counts in "strictly below", keeping the
-  -- fallback byte-identical to the matview build).
+  -- Same division + month-aligned target-month +/-30 months (self INCLUDED — a
+  -- tender is a member of its own cohort; self never counts in "strictly below",
+  -- keeping the fallback byte-identical to the matview build).
   pool AS (
     SELECT t.cpv, t.estimated_value_eur AS val,
            tender_window_days(t.publication_date, t.submission_deadline) AS win,
@@ -65,7 +67,8 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     FROM tenders t CROSS JOIN tgt
     WHERE tgt.cpv IS NOT NULL
       AND left(t.cpv, 2) = tgt.div
-      AND procurement_era(t.publication_date) IS NOT DISTINCT FROM tgt.era
+      AND t.publication_date >= to_char(date_trunc('month', tgt.pd) - interval '30 months', 'YYYY-MM-DD')
+      AND t.publication_date <  to_char(date_trunc('month', tgt.pd) + interval '31 months', 'YYYY-MM-DD')
   ),
   prefix_counts AS (
     SELECT v.plen, count(*) AS n
@@ -129,6 +132,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       'yearFrom',       (SELECT year_from FROM ctx),
       'yearTo',         (SELECT year_to FROM ctx),
       'sufficient',     (SELECT n FROM val) >= 30,
+      'windowMonths',   30,
       'cancelledShare', (SELECT cancelled_share FROM ctx),
       'euFundedShare',  (SELECT eu_funded_share FROM ctx)
     ) END,
@@ -138,9 +142,9 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       'dir', 'neutral',
       'value',  (SELECT val FROM tgt),
       'n',      (SELECT n FROM val),
-      'p10',    (SELECT p10 FROM val), 'p25', (SELECT p25 FROM val),
-      'median', (SELECT median FROM val),
-      'p75',    (SELECT p75 FROM val), 'p90', (SELECT p90 FROM val),
+      'p10',    ROUND((SELECT p10 FROM val)::numeric, 2), 'p25', ROUND((SELECT p25 FROM val)::numeric, 2),
+      'median', ROUND((SELECT median FROM val)::numeric, 2),
+      'p75',    ROUND((SELECT p75 FROM val)::numeric, 2), 'p90', ROUND((SELECT p90 FROM val)::numeric, 2),
       'percentile', (SELECT ROUND((count(*) FILTER (
                        WHERE val < (SELECT val FROM tgt)))::numeric
                        / NULLIF((SELECT n FROM val), 0), 4) FROM cohort
@@ -151,9 +155,9 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       'dir', 'low',
       'value',  (SELECT win FROM tgt),
       'n',      (SELECT n FROM win),
-      'p10',    (SELECT p10 FROM win), 'p25', (SELECT p25 FROM win),
-      'median', (SELECT median FROM win),
-      'p75',    (SELECT p75 FROM win), 'p90', (SELECT p90 FROM win),
+      'p10',    ROUND((SELECT p10 FROM win)::numeric, 2), 'p25', ROUND((SELECT p25 FROM win)::numeric, 2),
+      'median', ROUND((SELECT median FROM win)::numeric, 2),
+      'p75',    ROUND((SELECT p75 FROM win)::numeric, 2), 'p90', ROUND((SELECT p90 FROM win)::numeric, 2),
       'shortShare', (SELECT short_share FROM win),
       'isShort', (SELECT win FROM tgt) < 14,
       'percentile', (SELECT ROUND((count(*) FILTER (
@@ -173,73 +177,74 @@ $$;
 
 -- --------------------------------------------------------------------------
 -- Precomputed per-tender payload — the SET-BASED build of the same output.
--- rank()-1 over a cohort = the count strictly below (ties share the min rank),
--- exactly the live function's `count(value < x)`. Cohort partition key =
--- (cpv-prefix, era). One row per tender; served by PK on УНП.
+-- Windowed cohort keyed on (chosen CPV prefix, target month). Mirrors 064b:
+-- contracts→tenders, date→publication_date, key→unp, amount→val, bidders→window.
+-- rank()-1 over the cohort = count strictly below; the target is a member of its
+-- own cohort, so its rank comes straight from the partitioned window.
 -- --------------------------------------------------------------------------
 SET maintenance_work_mem = '1GB';
-SET work_mem = '256MB';
+SET work_mem = '512MB';
 DROP MATERIALIZED VIEW IF EXISTS tender_normalcy_cache CASCADE;
 CREATE MATERIALIZED VIEW tender_normalcy_cache AS
   WITH base_all AS (
     SELECT unp, cpv, estimated_value_eur AS val,
            tender_window_days(publication_date, submission_deadline) AS win,
            procedure_type, is_cancelled, is_eu_funded, publication_date,
-           procurement_era(publication_date) AS era
+           CASE WHEN publication_date ~ '^[0-9]{4}-[0-9]{2}'
+                THEN substr(publication_date, 1, 4)::int * 12 + substr(publication_date, 6, 2)::int - 1 END AS mnum
     FROM tenders
   ),
-  -- Cohort computation runs only on cpv-bearing rows; a cpv-less tender still
-  -- gets a cached (null-cohort) row so it never falls to the live path.
-  base AS (SELECT * FROM base_all WHERE cpv IS NOT NULL),
+  base AS (SELECT * FROM base_all WHERE cpv IS NOT NULL AND mnum IS NOT NULL),
+  -- Expand to 5 CPV prefixes so every join is an equi-join on (len, prefix)
+  -- (a per-row `left(cpv,len)=prefix` predicate forces a nested loop → huge spill).
   base_prefixes AS (
     SELECT b.unp, b.val, b.win, b.procedure_type, b.is_cancelled, b.is_eu_funded,
-           b.publication_date, b.era, v.len, left(b.cpv, v.len) AS prefix
+           b.publication_date, b.mnum, v.len, left(b.cpv, v.len) AS prefix
     FROM base b CROSS JOIN (VALUES (8), (5), (4), (3), (2)) v(len)
   ),
-  pc AS (
-    SELECT len, prefix, era, count(*)::int AS n
-    FROM base_prefixes GROUP BY len, prefix, era
+  mp AS (
+    SELECT len, prefix, mnum, count(*)::int AS n FROM base_prefixes GROUP BY len, prefix, mnum
+  ),
+  wc AS (
+    SELECT len, prefix, mnum,
+           sum(n) OVER (PARTITION BY len, prefix ORDER BY mnum
+                        RANGE BETWEEN 30 PRECEDING AND 30 FOLLOWING)::int AS wn
+    FROM mp
   ),
   chosen AS (
-    SELECT bp.unp, COALESCE(max(bp.len) FILTER (WHERE pc.n >= 30), 2) AS plen
-    FROM base_prefixes bp JOIN pc USING (len, prefix, era)
-    GROUP BY bp.unp
+    SELECT bp.unp, bp.mnum,
+           COALESCE(max(bp.len) FILTER (WHERE wc.wn >= 30), 2) AS plen
+    FROM base_prefixes bp JOIN wc USING (len, prefix, mnum)
+    GROUP BY bp.unp, bp.mnum
   ),
   tgt AS (
-    SELECT b.unp, b.val, b.win, b.procedure_type, b.era,
-           c.plen AS len, left(b.cpv, c.plen) AS prefix
-    FROM base b JOIN chosen c USING (unp)
+    SELECT ch.unp, ch.mnum, ch.plen AS len, left(b.cpv, ch.plen) AS prefix
+    FROM chosen ch JOIN base b USING (unp)
   ),
-  used AS (SELECT DISTINCT len, prefix, era FROM tgt),
-  members AS (
-    SELECT bp.unp, bp.val, bp.win, bp.procedure_type, bp.is_cancelled,
-           bp.is_eu_funded, bp.publication_date, bp.len, bp.prefix, bp.era
-    FROM base_prefixes bp JOIN used u USING (len, prefix, era)
+  used AS (SELECT DISTINCT len, prefix, mnum FROM tgt),
+  cohort_members AS (
+    SELECT u.len, u.prefix, u.mnum AS tmnum,
+           bp.unp AS munp, bp.val, bp.win, bp.procedure_type, bp.is_cancelled,
+           bp.is_eu_funded, bp.publication_date
+    FROM used u
+    JOIN base_prefixes bp
+      ON bp.len = u.len AND bp.prefix = u.prefix
+     AND bp.mnum >= u.mnum - 30 AND bp.mnum <= u.mnum + 30
   ),
   cohort_stats AS (
-    SELECT len, prefix, era, left(prefix, 2) AS division,
+    SELECT len, prefix, tmnum, left(prefix, 2) AS division,
            count(*) FILTER (WHERE val IS NOT NULL AND val > 0)::int AS v_n,
-           percentile_cont(0.10) WITHIN GROUP (ORDER BY val)
-             FILTER (WHERE val > 0) AS v_p10,
-           percentile_cont(0.25) WITHIN GROUP (ORDER BY val)
-             FILTER (WHERE val > 0) AS v_p25,
-           percentile_cont(0.50) WITHIN GROUP (ORDER BY val)
-             FILTER (WHERE val > 0) AS v_med,
-           percentile_cont(0.75) WITHIN GROUP (ORDER BY val)
-             FILTER (WHERE val > 0) AS v_p75,
-           percentile_cont(0.90) WITHIN GROUP (ORDER BY val)
-             FILTER (WHERE val > 0) AS v_p90,
+           percentile_cont(0.10) WITHIN GROUP (ORDER BY val) FILTER (WHERE val > 0) AS v_p10,
+           percentile_cont(0.25) WITHIN GROUP (ORDER BY val) FILTER (WHERE val > 0) AS v_p25,
+           percentile_cont(0.50) WITHIN GROUP (ORDER BY val) FILTER (WHERE val > 0) AS v_med,
+           percentile_cont(0.75) WITHIN GROUP (ORDER BY val) FILTER (WHERE val > 0) AS v_p75,
+           percentile_cont(0.90) WITHIN GROUP (ORDER BY val) FILTER (WHERE val > 0) AS v_p90,
            count(*) FILTER (WHERE win IS NOT NULL)::int AS w_n,
-           percentile_cont(0.10) WITHIN GROUP (ORDER BY win)
-             FILTER (WHERE win IS NOT NULL) AS w_p10,
-           percentile_cont(0.25) WITHIN GROUP (ORDER BY win)
-             FILTER (WHERE win IS NOT NULL) AS w_p25,
-           percentile_cont(0.50) WITHIN GROUP (ORDER BY win)
-             FILTER (WHERE win IS NOT NULL) AS w_med,
-           percentile_cont(0.75) WITHIN GROUP (ORDER BY win)
-             FILTER (WHERE win IS NOT NULL) AS w_p75,
-           percentile_cont(0.90) WITHIN GROUP (ORDER BY win)
-             FILTER (WHERE win IS NOT NULL) AS w_p90,
+           percentile_cont(0.10) WITHIN GROUP (ORDER BY win) FILTER (WHERE win IS NOT NULL) AS w_p10,
+           percentile_cont(0.25) WITHIN GROUP (ORDER BY win) FILTER (WHERE win IS NOT NULL) AS w_p25,
+           percentile_cont(0.50) WITHIN GROUP (ORDER BY win) FILTER (WHERE win IS NOT NULL) AS w_med,
+           percentile_cont(0.75) WITHIN GROUP (ORDER BY win) FILTER (WHERE win IS NOT NULL) AS w_p75,
+           percentile_cont(0.90) WITHIN GROUP (ORDER BY win) FILTER (WHERE win IS NOT NULL) AS w_p90,
            avg((win < 14)::int) FILTER (WHERE win IS NOT NULL)::double precision AS w_short,
            count(*) FILTER (WHERE procedure_type IS NOT NULL
              AND btrim(procedure_type) <> '')::int AS proc_n,
@@ -250,17 +255,17 @@ CREATE MATERIALIZED VIEW tender_normalcy_cache AS
            avg(is_eu_funded::int)::double precision AS eu_funded_share,
            left(min(publication_date), 4) AS year_from,
            left(max(publication_date), 4) AS year_to
-    FROM members GROUP BY len, prefix, era
+    FROM cohort_members GROUP BY len, prefix, tmnum
   ),
   member_ranks AS (
-    SELECT unp, len, prefix, era,
-           (rank() OVER (PARTITION BY len, prefix, era ORDER BY val) - 1)::numeric AS v_below,
-           (rank() OVER (PARTITION BY len, prefix, era ORDER BY win) - 1)::numeric AS w_below
-    FROM members
+    SELECT munp AS unp, len, prefix, tmnum,
+           (rank() OVER (PARTITION BY len, prefix, tmnum ORDER BY val) - 1)::numeric AS v_below,
+           (rank() OVER (PARTITION BY len, prefix, tmnum ORDER BY win) - 1)::numeric AS w_below
+    FROM cohort_members
   )
   SELECT ba.unp, jsonb_build_object(
     'unp', ba.unp,
-    'cohort', CASE WHEN ba.cpv IS NULL THEN NULL ELSE jsonb_build_object(
+    'cohort', CASE WHEN ba.cpv IS NULL OR ba.mnum IS NULL THEN NULL ELSE jsonb_build_object(
       'division',       cs.division,
       'cpvPrefix',      t.prefix,
       'cpvLen',         t.len,
@@ -268,18 +273,19 @@ CREATE MATERIALIZED VIEW tender_normalcy_cache AS
       'yearFrom',       cs.year_from,
       'yearTo',         cs.year_to,
       'sufficient',     cs.v_n >= 30,
+      'windowMonths',   30,
       'cancelledShare', cs.cancelled_share,
       'euFundedShare',  cs.eu_funded_share
     ) END,
     'value', CASE WHEN cs.v_n IS NULL OR cs.v_n = 0 OR ba.val IS NULL OR ba.val <= 0
       THEN NULL ELSE jsonb_build_object(
       'dir', 'neutral', 'value', ba.val, 'n', cs.v_n,
-      'p10', cs.v_p10, 'p25', cs.v_p25, 'median', cs.v_med, 'p75', cs.v_p75, 'p90', cs.v_p90,
+      'p10', ROUND(cs.v_p10::numeric, 2), 'p25', ROUND(cs.v_p25::numeric, 2), 'median', ROUND(cs.v_med::numeric, 2), 'p75', ROUND(cs.v_p75::numeric, 2), 'p90', ROUND(cs.v_p90::numeric, 2),
       'percentile', ROUND(mr.v_below / NULLIF(cs.v_n, 0), 4)
     ) END,
     'window', CASE WHEN cs.w_n IS NULL OR cs.w_n = 0 OR ba.win IS NULL THEN NULL ELSE jsonb_build_object(
       'dir', 'low', 'value', ba.win, 'n', cs.w_n,
-      'p10', cs.w_p10, 'p25', cs.w_p25, 'median', cs.w_med, 'p75', cs.w_p75, 'p90', cs.w_p90,
+      'p10', ROUND(cs.w_p10::numeric, 2), 'p25', ROUND(cs.w_p25::numeric, 2), 'median', ROUND(cs.w_med::numeric, 2), 'p75', ROUND(cs.w_p75::numeric, 2), 'p90', ROUND(cs.w_p90::numeric, 2),
       'shortShare', cs.w_short, 'isShort', ba.win < 14,
       'percentile', ROUND(mr.w_below / NULLIF(cs.w_n, 0), 4)
     ) END,
@@ -291,8 +297,8 @@ CREATE MATERIALIZED VIEW tender_normalcy_cache AS
   ) AS payload
   FROM base_all ba
   LEFT JOIN tgt t ON t.unp = ba.unp
-  LEFT JOIN cohort_stats cs ON cs.len = t.len AND cs.prefix = t.prefix AND cs.era = t.era
-  LEFT JOIN member_ranks mr ON mr.unp = ba.unp AND mr.len = t.len AND mr.prefix = t.prefix AND mr.era = t.era;
+  LEFT JOIN cohort_stats cs ON cs.len = t.len AND cs.prefix = t.prefix AND cs.tmnum = t.mnum
+  LEFT JOIN member_ranks mr ON mr.unp = ba.unp AND mr.len = t.len AND mr.prefix = t.prefix AND mr.tmnum = t.mnum;
 
 CREATE UNIQUE INDEX IF NOT EXISTS idx_tender_normalcy_cache_unp
   ON tender_normalcy_cache (unp);
