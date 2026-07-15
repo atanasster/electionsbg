@@ -13,7 +13,17 @@ import { execSync } from "node:child_process";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { PROC_DIR } from "./lib/paths";
-import { getPool, exec, withTx, end } from "./lib/pg";
+import {
+  getPool,
+  exec,
+  withClient,
+  withTx,
+  end,
+  LOCAL_DATABASE_URL,
+} from "./lib/pg";
+import { Pool } from "pg";
+import { to as copyTo, from as copyFrom } from "pg-copy-streams";
+import { pipeline } from "node:stream/promises";
 import { copyRows } from "./lib/copy";
 import { COLUMN_NAMES, tenderToRow } from "./lib/tenders_schema";
 import { recordIngestBatch } from "./lib/ingest_changelog";
@@ -42,6 +52,68 @@ const KZK_FILE = path.join(SCHEMA_DIR, "042_kzk_appeals.sql");
 const AI_FILE = path.join(SCHEMA_DIR, "044_procurement_ai.sql");
 // "How typical is this tender?" cohort payloads (fn + set-based cache matview).
 const TENDER_NORMALCY_FILE = path.join(SCHEMA_DIR, "067_tender_normalcy.sql");
+const TENDER_NORMALCY_BUILD_FILE = path.join(
+  SCHEMA_DIR,
+  "067b_tender_normalcy_build.sql",
+);
+
+// True when this load targets the Cloud SQL proxy (:5434) rather than local
+// docker (:5433). Only the port distinguishes them.
+const targetIsCloud = (): boolean =>
+  /:5434\b/.test(process.env.DATABASE_URL ?? "");
+
+// Populate tender_normalcy_cache (067, a TABLE). LOCAL: run the 067b windowed
+// build in-place. CLOUD: the shared-core instance can't build it (rank() sort
+// exceeds temp_file_limit → 53400), so stream the already-computed rows from
+// local Postgres straight into the cloud table. The payload is a deterministic
+// function of `tenders`, loaded identically on both sides.
+const buildOrShipTenderNormalcy = async (): Promise<void> => {
+  if (!targetIsCloud()) {
+    await exec(readFileSync(TENDER_NORMALCY_BUILD_FILE, "utf8"));
+    return;
+  }
+  const src = new Pool({ connectionString: LOCAL_DATABASE_URL, max: 1 });
+  try {
+    const { rows } = await src.query<{ n: string }>(
+      "SELECT count(*)::text AS n FROM tender_normalcy_cache",
+    );
+    const localCount = Number(rows[0]?.n ?? "0");
+    if (localCount === 0)
+      throw new Error(
+        "local tender_normalcy_cache is empty — run the local tenders load " +
+          "before shipping tender normalcy to cloud",
+      );
+    const srcClient = await src.connect();
+    try {
+      await withClient(async (dst) => {
+        await dst.query("TRUNCATE tender_normalcy_cache");
+        const reader = srcClient.query(
+          copyTo("COPY tender_normalcy_cache TO STDOUT"),
+        );
+        const writer = dst.query(
+          copyFrom("COPY tender_normalcy_cache FROM STDIN"),
+        );
+        await pipeline(reader, writer);
+      });
+    } finally {
+      srcClient.release();
+    }
+    const dstCount = await getPool()
+      .query<{ n: string }>(
+        "SELECT count(*)::text AS n FROM tender_normalcy_cache",
+      )
+      .then((r) => Number(r.rows[0]?.n ?? "0"));
+    if (dstCount !== localCount)
+      throw new Error(
+        `tender normalcy ship mismatch: local ${localCount} → cloud ${dstCount}`,
+      );
+    console.log(
+      `  tender normalcy: shipped ${dstCount} row(s) from local → cloud`,
+    );
+  } finally {
+    await src.end();
+  }
+};
 const tendersDir = path.join(PROC_DIR, "tenders");
 
 const gitSha = (): string => {
@@ -170,11 +242,13 @@ export const loadTendersPg = async (): Promise<{
   // guards against. Present since AI_FILE ran above.
   await exec("REFRESH MATERIALIZED VIEW kzk_appeals_summary_cache");
 
-  // Per-tender "how typical is this tender?" payloads (067) — installs the fn +
-  // (re)builds the cache matview from the freshly loaded + ANALYZEd tenders. The
-  // file DROP+CREATEs the matview, so each reload rebuilds it whole (the tenders
-  // reload cadence is low; cloud definition changes use a staging swap).
+  // Per-tender "how typical is this tender?" payloads (067). 067 installs the fn
+  // + the empty cache TABLE (migrating the old matview if present); then LOCAL
+  // computes the windowed payloads via 067b while CLOUD ships the local-built
+  // rows by COPY — the shared-core prod instance cannot build the windowed
+  // cohort (rank() sort exceeds temp_file_limit → 53400).
   await exec(readFileSync(TENDER_NORMALCY_FILE, "utf8"));
+  await buildOrShipTenderNormalcy();
 
   // Fill contracts.unp for the OCDS-sourced rows, whose releases carry no УНП.
   // Mirrors the call at the end of load_pg.ts: contracts and tenders load in
