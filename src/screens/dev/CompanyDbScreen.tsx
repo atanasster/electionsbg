@@ -7,7 +7,7 @@
 // See docs/plans/postgres-migration-v1.md.
 
 import { FC, Suspense, useEffect, useMemo, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import {
   Building2,
   Landmark,
@@ -51,6 +51,8 @@ import { CompanyPortfolioTreemap } from "../components/procurement/CompanyPortfo
 import { EntityFlowTile } from "../components/procurement/EntityFlowTile";
 import { type EntityFlowMpEdge } from "@/data/procurement/entityFlow";
 import { getSectorPack } from "../components/procurement/sectorPacks";
+import { canonicalAwarderName } from "@/lib/awarderNameOverrides";
+import { AwarderBreadcrumb } from "../components/procurement/AwarderBreadcrumb";
 import { SectorBreadcrumb } from "../components/procurement/SectorBreadcrumb";
 import { sectorDashboardForLeadEik } from "../sector/sectorDashboards";
 import { ProcurementBenchmarksTile } from "../components/procurement/ProcurementBenchmarksTile";
@@ -65,6 +67,7 @@ import {
   type FundProjectRow,
 } from "../components/procurement/CompanyFundsTile";
 import { CompanyConnectionCheck } from "../components/procurement/CompanyConnectionCheck";
+import { CompanyMagistratesTile } from "../components/procurement/CompanyMagistratesTile";
 import { NzokHospitalReimbursementTile } from "../components/procurement/nzok/NzokHospitalReimbursementTile";
 import { NzokActivityByEikTile } from "../components/procurement/nzok/NzokActivityByEikTile";
 import { NzokReportCardTile } from "../components/procurement/nzok/NzokReportCardTile";
@@ -334,6 +337,9 @@ const pct = (s: string | number | null): string =>
 
 export const CompanyDbScreen: FC = () => {
   const { eik = "" } = useParams();
+  // This same screen backs both /company/:eik (contractor view) and
+  // /awarder/:eik (buyer view); the route decides which breadcrumb trail to show.
+  const isAwarderRoute = useLocation().pathname.startsWith("/awarder/");
 
   const [company, setCompany] = useState<Company | null>(null);
   const [summary, setSummary] = useState<Summary | null>(null);
@@ -477,9 +483,15 @@ export const CompanyDbScreen: FC = () => {
   // surfaces). We still have their contracts, so render the procurement body
   // instead of dead-ending on "Няма фирма …".
   const hasProcurement = contracts > 0 || hadAwarder;
-  // Best available display name: TR record → synthesised institution → the
-  // procurement-corpus name → bare EIK as a last resort.
-  const displayName = company?.name ?? institution?.name ?? corpusName ?? eik;
+  // Best available display name: curated override (collided shared-Булстат
+  // EIKs) → TR record → synthesised institution → the procurement-corpus name →
+  // bare EIK as a last resort.
+  const displayName =
+    canonicalAwarderName(eik) ??
+    company?.name ??
+    institution?.name ??
+    corpusName ??
+    eik;
   // Corpus-only entity: has procurement but no TR record and no institution
   // identity — surface it with a procurement kicker, not the TR-register one.
   const corpusOnly = !company && !institution && hasProcurement;
@@ -704,11 +716,16 @@ export const CompanyDbScreen: FC = () => {
               <ScopeControl value={scope} onChange={setScope} />
             </div>
           )}
-          {/* Sector hierarchy breadcrumb — only on the packed sector awarder
-              seats (АПИ / НОИ / НЗОК / МОН / НАП / Митници). Links up to the
-              sectors hub (which lists the siblings) instead of enumerating them
-              here. Generic company/awarder pages skip it. */}
-          {SectorPack && <SectorBreadcrumb current={displayName} />}
+          {/* Hierarchy breadcrumb. On an awarder page (/awarder/:eik) the trail
+              is Управление › Обществени поръчки › Възложители › <name>. On a
+              company page it stays sector-scoped and only shows for the packed
+              sector awarder seats (АПИ / НОИ / НЗОК / МОН / НАП / Митници),
+              linking up to the sectors hub; generic company pages skip it. */}
+          {isAwarderRoute ? (
+            <AwarderBreadcrumb current={displayName} />
+          ) : (
+            SectorPack && <SectorBreadcrumb current={displayName} />
+          )}
           {/* Entity-graph identity — this EIK is a school (schools.eik join).
               Self-hides unless the EIK matched a school; links to its report
               card on /school/:id. */}
@@ -1452,6 +1469,10 @@ export const CompanyDbScreen: FC = () => {
           )}
 
           {company && <CompanyConnectionCheck eik={eik} />}
+
+          {/* Magistrates who declared this company (ИВСС чл. 175а ЗСВ). Renders
+              nothing unless there is a match — sparse by design. */}
+          {company && <CompanyMagistratesTile eik={eik} />}
 
           {company && contracts === 0 && (
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
