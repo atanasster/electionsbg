@@ -718,6 +718,38 @@ const DB_ROUTES = {
     ]);
     return { body: rows[0]?.r ?? null };
   },
+  // Top-N contracts by € across a SET of EIKs — the award-level tile's input
+  // (e.g. the МВР pack's "biggest contracts"). Server-side ORDER BY amount_eur +
+  // LIMIT so the client gets only the rows it renders, instead of fanning out over
+  // awarder-contracts and downloading every full corpus (МВР's 4 big buyers were
+  // ~3.5 MB for 8 rows). Windowed [from, to) with sargable COALESCE bounds; the
+  // awarder_eik + amount_eur indexes carry it.
+  "awarder-group-top-contracts": async (dbRows, q) => {
+    const eiks = s(q, "eiks")
+      .split(",")
+      .map((e) => e.trim())
+      .filter((e) => /^\d{9,13}$/.test(e))
+      .slice(0, 300);
+    if (!eiks.length) return { status: 400, body: { error: "missing eiks" } };
+    const limit = clampInt(q.limit, 8, 1, 50);
+    const from = orNull(q, "from");
+    const to = orNull(q, "to");
+    const contracts = await dbRows(
+      `SELECT key, date,
+              contractor_eik AS "contractorEik", contractor_name AS "contractorName",
+              amount_eur AS "amountEur", title,
+              number_of_tenderers AS "numberOfTenderers",
+              CASE WHEN eu_funded IS NULL THEN NULL ELSE eu_funded = 1 END AS "euFunded"
+       FROM contracts
+       WHERE awarder_eik = ANY($1) AND tag = 'contract' AND amount_eur IS NOT NULL
+         AND date >= COALESCE($2, '')
+         AND date <  COALESCE($3, '99999999')
+       ORDER BY amount_eur DESC NULLS LAST, key
+       LIMIT $4`,
+      [eiks, from, to, limit],
+    );
+    return { body: { contracts } };
+  },
   // EU-funds (ИСУН) rollup over a SET of EIKs — per-beneficiary contracted/paid
   // from the already-rolled fund_beneficiaries table (one row per EIK). Not
   // date-windowed: EU-funds figures are programme-period lifetime totals, not a

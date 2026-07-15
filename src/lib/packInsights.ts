@@ -11,6 +11,12 @@ import type { AwarderModel, AwarderCategoryAgg } from "@/lib/awarderModel";
 export interface PackInsight {
   text: string;
   warn?: boolean;
+  /** Chip type, so a pack can turn the chip into a drill-down link. */
+  kind?: "peak" | "category" | "direct";
+  /** For kind:"peak" — the peak year (→ that year's contracts). */
+  year?: number;
+  /** For kind:"category" — the category id (→ CPV-filtered contracts). */
+  categoryId?: string;
 }
 
 /** Build the peak-year / top-category / direct-award chips for a sector pack.
@@ -27,13 +33,20 @@ export const buildPackInsights = <Cat extends string>(
   const eur = (v: number) => formatEurCompact(v, lang);
   const out: PackInsight[] = [];
 
-  const topYear = [...model.years].sort(
-    (a, b) => b.totalEur - a.totalEur || a.year - b.year,
-  )[0];
-  if (topYear)
+  // Peak year — only meaningful when the scope spans >1 year. For a single-year
+  // (or partial-parliament) scope the "peak" is just the selected period, which
+  // reads as noise, so it's suppressed.
+  const yearsWithSpend = model.years.filter((y) => y.totalEur > 0);
+  if (yearsWithSpend.length > 1) {
+    const topYear = [...yearsWithSpend].sort(
+      (a, b) => b.totalEur - a.totalEur || a.year - b.year,
+    )[0];
     out.push({
+      kind: "peak",
+      year: topYear.year,
       text: `${topYear.year}: ${eur(topYear.totalEur)} — ${bg ? "пик" : "peak year"}`,
     });
+  }
 
   // Largest classified function BY €, not by the classifier's declared order.
   const topCat = model.categories
@@ -44,11 +57,14 @@ export const buildPackInsights = <Cat extends string>(
     );
   if (topCat)
     out.push({
+      kind: "category",
+      categoryId: topCat.id,
       text: `${categoryLabel(topCat.id, lang)}: ${eur(topCat.totalEur)}`,
     });
 
   if (model.directShare > 0.05)
     out.push({
+      kind: "direct",
       warn: model.directShare > 0.1,
       text: `${Math.round(model.directShare * 100)}% ${bg ? "без обявление" : "direct award"}`,
     });

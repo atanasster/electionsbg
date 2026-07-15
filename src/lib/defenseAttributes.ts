@@ -85,6 +85,25 @@ const CATEGORY_LABEL: Record<DefenseCategory, { bg: string; en: string }> = {
 export const categoryLabel = (id: DefenseCategory, lang: string): string =>
   (lang === "bg" ? CATEGORY_LABEL[id]?.bg : CATEGORY_LABEL[id]?.en) ?? id;
 
+/** The CPV divisions each category is built from — for deep-linking a category to
+ *  `/procurement/contracts?cpv=<divs>` (the browse ORs the prefixes), reproducing
+ *  the tile's split EXACTLY. Must mirror `categoryOfCpv` above. `other` (the
+ *  no-CPV sink) has no divisions, so it isn't deep-linkable. */
+const CATEGORY_CPV_DIVS: Record<DefenseCategory, string[]> = {
+  maintenance: ["50"],
+  arms: ["35", "38"],
+  vehicles: ["34"],
+  fuel: ["09"],
+  health: ["33"],
+  construction: ["45"],
+  it_comms: ["72", "48", "32", "30"],
+  supplies: ["18", "55", "15", "39"],
+  other: [],
+};
+
+export const categoryCpvDivs = (id: DefenseCategory): string[] =>
+  CATEGORY_CPV_DIVS[id] ?? [];
+
 const defenseClassifier: SectorClassifier<DefenseCategory> = {
   categoryOf: (c: ProcurementContract) => categoryOfCpv(c.cpv),
   order: [

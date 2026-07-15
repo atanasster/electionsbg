@@ -480,8 +480,19 @@ const buildFilter = (col, def, f, p0) => {
     // type from the column — avoids "could not determine data type" on ANY().
     return { sql: `${col} IN (${arr.map((v) => push(v)).join(", ")})`, params };
   }
-  if (t === "prefix")
-    return { sql: `${col} LIKE ${push(`${String(f.value)}%`)}`, params };
+  if (t === "prefix") {
+    // Array value → OR of prefixes (e.g. a sector category that spans several CPV
+    // divisions: cpv LIKE '72%' OR '48%' OR '32%' OR '30%'). Scalar → one prefix.
+    const arr = Array.isArray(f.value) ? f.value : [f.value];
+    const clauses = arr
+      .filter((v) => v != null && v !== "")
+      .map((v) => `${col} LIKE ${push(`${String(v)}%`)}`);
+    if (clauses.length === 0) return null;
+    return {
+      sql: clauses.length > 1 ? `(${clauses.join(" OR ")})` : clauses[0],
+      params,
+    };
+  }
   if (t === "text")
     return { sql: `${col} ILIKE ${push(`%${String(f.value)}%`)}`, params };
   if (t === "range") {

@@ -8,8 +8,10 @@ import { FC, ReactNode } from "react";
 import type { LucideIcon } from "lucide-react";
 
 export const PackSection: FC<{
-  icon: LucideIcon;
-  title: string;
+  icon?: LucideIcon;
+  /** Band heading. Omit it when the child tile carries its own titled header —
+   *  the band then renders as a bare rule + anchor so the heading isn't doubled. */
+  title?: string;
   sub?: string;
   /** Optional header chip — used to flag bands whose data does NOT follow the
    *  host scope pill (a snapshot corpus with its own reporting cadence). Only
@@ -24,16 +26,20 @@ export const PackSection: FC<{
     id={id}
     className="scroll-mt-24 space-y-4 border-t border-border/60 pt-5"
   >
-    <div>
-      <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-        <Icon className="h-4 w-4 text-muted-foreground" />
-        <h3 className="text-base font-semibold">{title}</h3>
-        {note}
+    {title && (
+      <div>
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+          {Icon && <Icon className="h-4 w-4 text-muted-foreground" />}
+          <h3 className="text-base font-semibold">{title}</h3>
+          {note}
+        </div>
+        {sub && (
+          <p className="mt-1 text-xs leading-snug text-muted-foreground">
+            {sub}
+          </p>
+        )}
       </div>
-      {sub && (
-        <p className="mt-1 text-xs leading-snug text-muted-foreground">{sub}</p>
-      )}
-    </div>
+    )}
     {children}
   </section>
 );

@@ -31,6 +31,7 @@ import { ENERGY_SECTOR_EIKS } from "@/lib/energyReferenceData";
 import { TRANSPORT_EIK } from "@/screens/sector/sectorDashboards";
 import { ADMIN_SECTOR_EIKS } from "@/lib/administrationReferenceData";
 import { TOURISM_SECTOR_EIKS } from "@/lib/tourismReferenceData";
+import { MVR_EIK, SECURITY_SECTOR_EIKS } from "@/lib/securityReferenceData";
 import type { ScopeWindow } from "@/data/procurement/useAwarderContracts";
 
 export interface SectorPackProps {
@@ -94,6 +95,13 @@ const VikPack = lazy(() =>
 const DefensePack = lazy(() =>
   import("./defense/DefensePack").then((m) => ({ default: m.DefensePack })),
 );
+// No MVR_AWARDER_PATH export (deliberately, like ВСС/culture/defense): the МВР
+// view's home is the /sector/security dashboard, which the nav points at; the МВР
+// awarder page is reached from there. The pack registers by EIK below and renders
+// off the existing corpus (74-unit group roll-up) with no new ingest.
+const MvrPack = lazy(() =>
+  import("./security/MvrPack").then((m) => ({ default: m.MvrPack })),
+);
 const NapPack = lazy(() =>
   import("./nap/NapPack").then((m) => ({ default: m.NapPack })),
 );
@@ -110,6 +118,7 @@ const PACKS: Record<string, ComponentType<SectorPackProps>> = {
   [KULTURA_EIK]: KulturaPack,
   [VIK_HOLDING_EIK]: VikPack,
   [MOD_EIK]: DefensePack,
+  [MVR_EIK]: MvrPack,
   [NAP_EIK]: NapPack,
   [CUSTOMS_EIK]: CustomsPack,
 };
@@ -193,6 +202,11 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
     label: { bg: "Отбрана (МО)", en: "Defense (МО)" },
     eiks: DEFENSE_SECTOR_EIKS,
     Section: DefenseBrowseSection,
+  },
+  security: {
+    id: "security",
+    label: { bg: "Сигурност (МВР)", en: "Security (МВР)" },
+    eiks: SECURITY_SECTOR_EIKS,
   },
   // Single-EIK sectors graduated to the generic /sector/:id dashboard — their
   // ?sector= filter narrows the browse table to the one awarder seat. Widen the

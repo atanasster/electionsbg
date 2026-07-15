@@ -76,6 +76,7 @@ import {
   defenseReadiness,
   defensePeerCompare,
 } from "./defense";
+import { securityRoadSafety } from "./security";
 import { generationMix, electricityPrices, powerPlants } from "./energy";
 import { riverbedCleaning } from "./vik";
 import { ngoOverview, ngoTopFunded, ngoConflictAwarders } from "./ngo";
@@ -2138,6 +2139,23 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: defenseReadiness,
+  },
+  {
+    name: "securityRoadSafety",
+    domain: "indicators",
+    description: {
+      bg: "Загинали на пътя в България по години (Eurostat) — изходът, който Пътна полиция (КАТ) и покупката на патрулни автомобили от МВР трябва да подобрят.",
+      en: "Road-traffic deaths in Bulgaria by year (Eurostat) — the outcome МВР's traffic police (КАТ) and patrol-car procurement are meant to improve.",
+    },
+    params: [],
+    examples: [
+      { bg: "Намаляват ли жертвите на пътя?", en: "Are road deaths falling?" },
+      {
+        bg: "Колко загинали на пътя има в България?",
+        en: "How many road deaths does Bulgaria have?",
+      },
+    ],
+    run: securityRoadSafety,
   },
   {
     name: "defensePeerCompare",

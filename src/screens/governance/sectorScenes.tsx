@@ -737,6 +737,35 @@ const Tourism: FC = () => (
   </SceneFrame>
 );
 
+// Security / МВР (sector id "security") — a police badge (rounded shield + star)
+// with a row of regional bars behind it (the 28 областни дирекции). Distinct from
+// Defense's military shield + radar: a civil-order badge, not an armour scene.
+const Security: FC = () => (
+  <SceneFrame>
+    {/* regional-unit bars behind the badge */}
+    <g fill="var(--sector)" opacity=".16">
+      <rect x="188" y="78" width="10" height="22" rx="1.5" />
+      <rect x="204" y="66" width="10" height="34" rx="1.5" />
+      <rect x="220" y="52" width="10" height="48" rx="1.5" />
+      <rect x="236" y="70" width="10" height="30" rx="1.5" />
+      <rect x="252" y="58" width="10" height="42" rx="1.5" />
+    </g>
+    {/* badge shield */}
+    <path
+      d="M84 18 l40 10 v30 c0 28 -22 40 -40 48 c-18 -8 -40 -20 -40 -48 V28 Z"
+      fill="var(--sector)"
+      opacity=".16"
+      stroke="var(--sector)"
+      strokeWidth="2"
+    />
+    {/* six-point star */}
+    <g transform="translate(84 60)" fill="var(--sector)" opacity=".85">
+      <path d="M0 -22 L6 -6 L22 0 L6 6 L0 22 L-6 6 L-22 0 L-6 -6 Z" />
+      <circle r="4" fill={PAPER} />
+    </g>
+  </SceneFrame>
+);
+
 export const SECTOR_SCENES: Record<string, FC> = {
   roads: Roads,
   water: Water,
@@ -751,6 +780,7 @@ export const SECTOR_SCENES: Record<string, FC> = {
   customs: Customs,
   administration: Administration,
   defense: Defense,
+  security: Security,
   justice: Justice,
   agri: Agri,
   culture: Culture,

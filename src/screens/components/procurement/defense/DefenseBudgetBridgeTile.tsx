@@ -13,16 +13,18 @@
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { Landmark } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
+import { Card, CardContent } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { useBudgetMinistryRollup } from "@/data/budget/useBudget";
 import { MO_BUDGET_NODE } from "@/lib/defenseReferenceData";
 
 export const DefenseBudgetBridgeTile: FC<{
-  /** Visible ЗОП procurement per year across the group (from the pack model). */
-  annualProcEur: number | null;
-}> = ({ annualProcEur }) => {
+  /** Visible ЗОП procurement across the group in the active scope. When `perYear`
+   *  it's the annual figure; otherwise the total for a partial period (copy drops
+   *  "на година"). */
+  procEur: number | null;
+  perYear: boolean;
+}> = ({ procEur, perYear }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
@@ -46,7 +48,7 @@ export const DefenseBudgetBridgeTile: FC<{
       : null;
   const maxBudget = Math.max(...years.map((y) => y.expenditure.amountEur), 1);
 
-  const proc = annualProcEur ?? 0;
+  const proc = procEur ?? 0;
   const procShare = budget > 0 ? proc / budget : 0;
   const shareLabel =
     procShare <= 0 || budget <= 0
@@ -59,14 +61,6 @@ export const DefenseBudgetBridgeTile: FC<{
 
   return (
     <Card id="defense-bridge">
-      <CardHeader className="pb-2">
-        <CardTitle className="text-base flex items-center gap-2">
-          <Landmark className="h-4 w-4" />
-          {bg
-            ? "Поръчките в мащаба на бюджета на МО"
-            : "Procurement at the scale of the МО budget"}
-        </CardTitle>
-      </CardHeader>
       <CardContent data-og="defense-hero" className="p-3 md:p-4 space-y-3">
         <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
           <span className="text-2xl font-bold tabular-nums">
@@ -114,21 +108,26 @@ export const DefenseBudgetBridgeTile: FC<{
         <p className="text-sm leading-snug">
           {bg ? (
             <>
-              Видимите обществени поръчки на МО (
-              <span className="font-semibold tabular-nums">
-                {formatEurCompact(proc, lang)}
-              </span>{" "}
-              на година) са <span className="font-semibold">{shareLabel}</span>{" "}
-              от този бюджет. Останалото са заплати, издръжка и инвестиции.
-            </>
-          ) : (
-            <>
-              МО's visible public procurement (
+              Видимите обществени поръчки на МО{perYear ? " " : " за периода "}(
               <span className="font-semibold tabular-nums">
                 {formatEurCompact(proc, lang)}
               </span>
-              /year) is <span className="font-semibold">{shareLabel}</span> of
-              this budget. The rest is salaries, upkeep and investment.
+              {perYear ? " на година) " : ") "}са{" "}
+              <span className="font-semibold">{shareLabel}</span> от{" "}
+              {perYear ? "този" : "годишния"} бюджет. Останалото са заплати,
+              издръжка и инвестиции.
+            </>
+          ) : (
+            <>
+              МО's visible public procurement
+              {perYear ? " (" : " for the period ("}
+              <span className="font-semibold tabular-nums">
+                {formatEurCompact(proc, lang)}
+              </span>
+              {perYear ? "/year) " : ") "}is{" "}
+              <span className="font-semibold">{shareLabel}</span> of{" "}
+              {perYear ? "this" : "the annual"} budget. The rest is salaries,
+              upkeep and investment.
             </>
           )}
         </p>

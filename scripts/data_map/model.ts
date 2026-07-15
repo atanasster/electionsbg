@@ -96,6 +96,7 @@ export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
   { pattern: /^\/officials\//, dataset: "officials" },
   { pattern: /^\/judiciary\//, dataset: "judiciary" },
   { pattern: /^\/defense\//, dataset: "defense" },
+  { pattern: /^\/security\//, dataset: "security" },
   { pattern: /^\/energy\//, dataset: "energy" },
   { pattern: /^\/administration\//, dataset: "administration" },
   { pattern: /^\/water\//, dataset: "water" },
@@ -723,6 +724,23 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     tags: ["indicators", "prices"],
   },
   {
+    id: "security",
+    label: { bg: "Eurostat · МВР · пътна безопасност", en: "Eurostat · МВР · road safety" }, // prettier-ignore
+    detail: {
+      bg: "жертви на пътя (изход)",
+      en: "road deaths (outcome)",
+    },
+    desc: {
+      bg: "Изходният слой до парите на МВР: националните жертви на пътя по години от Eurostat (sdg_11_40) — изходът, който Пътна полиция (КАТ) и покупката на патрулни автомобили трябва да подобрят (708 връх 2015 → 478 през 2024, −32%). Поддържа се като малък .json в data/security/. Обществените поръчки на групата на МВР (~75 структури, ~€1.9 млрд.) идват от корпуса на договорите, не оттук; разсейката разход-срещу-престъпност преизползва data/regional.json.",
+      en: "The outcome layer beside МВР's money: national road-traffic deaths by year from Eurostat (sdg_11_40) — the outcome the traffic police (КАТ) and patrol-car procurement are meant to improve (708 peak 2015 → 478 in 2024, −32%). Maintained as a small .json under data/security/. The МВР group's procurement (~75 units, ~€1.9bn) comes from the contracts corpus, not here; the spend-vs-crime scatter reuses data/regional.json.",
+    },
+    url: "https://ec.europa.eu/eurostat/databrowser/view/sdg_11_40/default/table",
+    origin: "intl",
+    members: ["eurostat_road_safety"],
+    skills: [],
+    tags: ["indicators"],
+  },
+  {
     id: "administration",
     label: { bg: "ИИСДА · Eurostat · администрация", en: "IISDA · Eurostat · administration" }, // prettier-ignore
     detail: {
@@ -1020,6 +1038,20 @@ export const DATASETS: DatasetDef[] = [
     },
     path: "data/energy/",
     tags: ["indicators", "prices"],
+  },
+  {
+    id: "security",
+    label: { bg: "Сигурност / МВР", en: "Security / МВР" },
+    detail: {
+      bg: "жертви на пътя (изход)",
+      en: "road deaths (outcome)",
+    },
+    desc: {
+      bg: "Изходният слой до парите на МВР: националните жертви на пътя по години от Eurostat (708 връх 2015 → 478 през 2024), сдвоени с покупката на патрулни автомобили от МВР. Обществените поръчки на групата на МВР (~75 структури, ~€1.9 млрд.) идват от корпуса на договорите; разсейката разход-срещу-престъпност преизползва data/regional.json.",
+      en: "The outcome layer beside МВР's money: national road-traffic deaths by year from Eurostat (708 peak 2015 → 478 in 2024), paired with МВР patrol-car procurement. The МВР group's procurement (~75 units, ~€1.9bn) comes from the contracts corpus; the spend-vs-crime scatter reuses data/regional.json.",
+    },
+    path: "data/security/",
+    tags: ["indicators"],
   },
   {
     id: "administration",
@@ -1566,6 +1598,7 @@ export const EDGES: [string, string][] = [
   // (peer %GDP/per-capita) datasets — cross-dataset edges, like judiciary↔budget.
   ["ds:budget", "f:defense"],
   ["ds:macro", "f:defense"],
+  ["src:security", "ds:security"],
   ["src:energy", "ds:energy"],
   ["ds:energy", "f:energy"],
   // /sector/energy leads with the БЕХ procurement pack (the €8.96bn group), which

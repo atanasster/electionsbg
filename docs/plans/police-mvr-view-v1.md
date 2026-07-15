@@ -1,11 +1,107 @@
 # Полиция / Вътрешен ред (МВР) sector view — v1 plan, competitive research & brainstorm
 
-Status: **RESEARCH + BRAINSTORM (not yet built)** — drafted 2026-07-15.
+Status: **PHASE 1 + 2 + 3-CORE BUILT & VERIFIED (uncommitted) — 2026-07-15.** Research/brainstorm below
+drove the build; see the "SHIPPED" block for what actually landed (incl. the §7a road-safety ingest and
+the Phase-3 spend-vs-outcome tiles).
 Closest built siblings to copy: **`defense-pack-v1.md`** (the nearest analogue by far — a security-cluster
 multi-EIK group with a health confound, a budget bridge, a competition heatmap and an explicit
 "invisible spend" transparency gap) and the shipped **generic sector dashboard**
 (`SectorDashboardScreen` + `sectorDashboards.ts`) for the cheapest Phase-1 ship. `tourism-view-v1.md`
 is the reference for the two-phase generic-first playbook and the exact files-to-touch checklist.
+
+---
+
+## SHIPPED — Phase 1 + 2 (2026-07-15, uncommitted, verified live)
+
+`/sector/security` is live with the full bespoke `MvrPack` — no new ingest, all real corpus + the
+already-ingested МВР budget/population data.
+
+**New files (13):**
+- `src/lib/securityReferenceData.ts` — the curated **75-EIK allowlist** with 7 universes. The corpus scan
+  caught **€255M+ of Ministry-of-Justice spend** (ГД Изпълнение на наказанията €159M, Фонд затворно дело
+  €97M, ГД „Охрана" €22M) a naive `1290*` sweep would misattribute, and МВР units the name-scan missed
+  (ДКИС €85M, ГДБОП €13.5M, ГД „Охранителна полиция").
+- `src/lib/securityAttributes.ts` — CPV→policing-function classifier.
+- `src/data/procurement/useMvr.tsx` — group-model hook (universe filter, health-confound share).
+- `src/screens/components/procurement/security/` — `MvrPack` + `MvrBudgetBridgeTile` (the iceberg),
+  `MvrCategoryTile`, `MvrTopContractsTile` (award-level, 4 big buyers, risk chips), `MvrCompetitionTile`,
+  `MvrOblastMapTile` (per-capita choropleth), `MvrTransparencyTile`.
+
+**Wired (config, 9 files):** `sectorDashboards.ts` (police config, 75 members), `sectorPacks.tsx`
+(pack under `MVR_EIK` + browse pack), `sectorRegistry.ts` (security cluster, new `slate` accent),
+`sectorScenes.tsx` (police-badge scene), `tileAccents.ts` (`slate #48587a`), i18n bg+en,
+`sector_stats.ts`, `scripts/prerender/routes.ts` (SEO copy — build guard satisfied).
+
+**Verified live** (`/sector/security?pscope=all`): iceberg **€2.1bn budget (×3.2 since 2018)**,
+procurement the ~6% tip; **ИТ и видеонаблюдение €407.5M (21%)** leads what-МВР-buys; **fuel 58% single-bid**;
+biggest contracts name the real hooks — **ID-documents €129.3M**, **license plates €44.7M · 1 bid**,
+**Bulgarian-Turkish border surveillance €35.8M · ЕС**; per-oblast €/capita map (Смолян €30 → Перник €5,
+nat mean €10); 74-unit competition heatmap; HHI 149. Date scoping re-filters (y:2016 → €41.1M/21 units).
+`tsc` + `eslint` clean; **both light & dark themes** verified; no console errors.
+
+**§7a ingest + Phase-3 outcomes — SHIPPED (2026-07-15).** The spend-vs-outcome layer is real, not deferred:
+- **Road-safety ingest** — `scripts/security/fetch_road_safety.ts` fetches Eurostat `sdg_11_40` (Road
+  traffic deaths, unit=NR, TOTAL) → `data/security/road_safety.json` (14 yrs: 2011=656 → **2024=478**,
+  peak 2015=708, **−32% vs peak**). Verified reachable + parsed.
+- **`MvrRoadSafetyTile`** — road-death trend + the −32% headline, paired with the group's vehicle
+  procurement (€316.4M) as the traffic-police instrument, honestly framed (context, not causation).
+- **`MvrCrimeScatterTile`** — the signature §7 tile 9 / §7b.D visual: an inline-SVG per-oblast scatter,
+  x = МВР €/resident, y = recorded theft/100k (from the ALREADY-ingested `data/regional.json` — no new
+  fetch), median quadrant lines + labelled outliers. **27 oblasts** join cleanly (Sofia city dropped —
+  its theft series is МИР-sharded); real values (Бургас €20·466, Варна €15·646, Пловдив €12·207).
+- Both live under a new **"Резултати / Outcomes"** `PackSection`. `tsc`+`eslint` clean; verified live.
+
+**Performance + PG (2026-07-15).** Loading + data-architecture audit:
+- **Biggest contracts moved to PG.** The tile originally fanned out over 4 full awarder corpuses
+  client-side (**3.56 MB** to render 8 rows). Added a `awarder-group-top-contracts` route to
+  `functions/db_routes.js` — one server-side `ORDER BY amount_eur DESC … LIMIT 8` over the whole 75-EIK
+  group. Payload **3.56 MB → 3.8 KB (~910×)**; EXPLAIN ANALYZE: **2.66 ms, Index Scan on
+  `idx_contracts_tag_amount`** (presorted amount_eur → LIMIT short-circuits, no seq scan). No new
+  migration/dataset (queries the existing table+index), so no `recent_updates` changelog entry needed.
+- **What stayed JSON (correctly):** `road_safety.json` (14-row curated series — a static file like
+  `data/defense/*.json`, not worth a table); `regional.json` (shared cross-app artifact); the budget
+  ministry tree. All the heavy/queryable procurement data already goes through PG (group-model + the new
+  top-contracts route). Other payloads are fine: group-model 212 KB, regional 132 KB (shared), road_safety 1 KB.
+- **Responsive** — verified mobile (375) + tablet (768): zero horizontal overflow; KPIs 2-up
+  (mobile/tablet) → 3-up desktop; tile pairs 1-up → 2-up; the choropleth + scatter SVGs scale to the
+  column; fixed the scatter outlier label clipping (right-half labels anchor leftward). Light + dark OK.
+
+**Integration surfaces wired (2026-07-15).**
+- **Watcher:** `scripts/watch/sources/eurostat_road_safety.ts` (fingerprints the `sdg_11_40` publish
+  timestamp; verified live — update 2026-07-10) registered in the SOURCES index; two `process-watch-report`
+  mapping rows (by-label + by-id) → run `npx tsx scripts/security/fetch_road_safety.ts` (small committed
+  file, no bucket/PG/skill).
+- **Docs:** README in 3 places (the "What's in here" Police bullet, the `data/security/` directory row, the
+  Eurostat `sdg_11_40` data-source entry); the **data map** (`scripts/data_map/model.ts` — route pattern,
+  `AI_PATH_RULES` `/security/` rule, `src:security` source group, `ds:security` dataset, `src→ds` edge) rebuilt
+  into `data/data_map.json` (84 nodes; `ds:security → f:ai` edge auto-derived from the AI tool).
+- **AI chat:** `ai/tools/security.ts` → `securityRoadSafety` (reads `road_safety.json`, `series`+`facts`),
+  registered in `ai/tools/registry.ts`.
+- **Sitemap:** `/sector/security` auto-included (derives from `SECTOR_DASHBOARD_IDS`).
+- **OG image:** `public/og/sector-security.png` (1200×630 @2x), auto-referenced by the prerender
+  (`ogImage: /og/sector-${id}.png`) — title + KPIs + iceberg hero, on-brand with sibling sectors.
+
+**RENAMED to "Security" / "Сигурност" (2026-07-15, pre-deploy).** The user-facing sector was renamed from
+"Police / Полиция" — **sector id `police` → `security`**, URL **`/sector/police` → `/sector/security`**,
+titles (`sector_security_title/desc` = Сигурност/Security), browse pack (`?sector=security`), scene key,
+`sector_stats` key, prerender `SECTOR_PAGES` id + copy, the `MvrPack` heading ("Сигурност / МВР"), OG
+image (`sector-security.png`), and the data-map dataset. **The internal `police`→`security` rename was
+then completed too** (files: `securityReferenceData.ts`, `securityAttributes.ts`, `securityOblast.ts`,
+`ai/tools/security.ts`, `scripts/security/`, `data/security/`, `components/procurement/security/`;
+identifiers: `SECURITY_SECTOR_EIKS`, `SECURITY_ALIAS_EIKS`, `SECURITY_UNIVERSES`, `SecurityUniverse`,
+`securityRoadSafety`, `build/…SecurityModel`, …; data-map `src:security`/`ds:security`; AI path
+`/security/…`). **Kept as МВР (the ministry, unchanged):** `MvrPack`, `useMvr`, `MvrUnitAgg`, `MVR_EIK`,
+`MVR_ENTITIES`, `MEDICAL_INSTITUTE_EIK`, `MVR_BUDGET_NODE`. **Kept as `police`:** the `police` **universe
+value** (a real sub-group — ГДНП/ОДМВР — distinct from border/fire) and its "Полиция" universe label; the
+`eurostat_road_safety` watcher + `road_safety.json` filename (road safety, not a police concept). Note:
+"Сигурност" sits inside the cluster "Сигурност и правосъдие", so it reads slightly redundant — kept per
+the rename request; easy to switch to "Вътрешна сигурност" / "Обществен ред" if preferred.
+
+**Still deferred (genuinely blocked / low-value):** `db:gen-sector-stats` (needs live PG — hub € badge
+only; the dashboard reads the runtime API); §7a #2–#4 outcomes (fire incidents, crime-clearance rate,
+border apprehensions — each a further ingest); a bespoke `/police` vanity route (the pack on
+`/sector/security` already delivers the full Phase-3 experience, so a separate screen adds no value);
+the browse-pack `Section` enrichment strip (filter-only for now).
 
 ---
 
@@ -129,7 +225,7 @@ recommendation maps onto an **existing reusable house component**, so the UX amb
 ## 1. Goal & thesis
 
 Give the **Ministry of Interior (Министерство на вътрешните работи, МВР, ЕИК 000695235)** — Bulgaria's
-police, border, fire and civil-protection apparatus — a proper sector dashboard at `/sector/police`
+police, border, fire and civil-protection apparatus — a proper sector dashboard at `/sector/security`
 (Phase 1) and, if warranted, a bespoke `/police` screen (Phase 2), consistent with the other
 government-entity dashboards.
 
@@ -225,7 +321,7 @@ This is a **presentation + config** project first, then an optional bespoke pack
 
 ### Not built (this plan's work)
 
-- A curated `POLICE_SECTOR_EIKS` allowlist with per-unit universe tags (§3) — the one load-bearing new
+- A curated `SECURITY_SECTOR_EIKS` allowlist with per-unit universe tags (§3) — the one load-bearing new
   data artifact.
 - Config wiring: `sectorDashboards.ts`, `sectorRegistry.ts`, `sectorScenes.tsx`, `sectorPacks.tsx`,
   i18n keys, `sector_stats.ts`, `scripts/prerender/routes.ts` SEO copy.
@@ -261,9 +357,9 @@ and a `Select` lets the reader isolate one or drop the health confound):
 | `health` | Здравеопазване (Мед. институт) / Health (Medical Institute) | `129007218` — **the confound** |
 | `logistics` | Собственост и обучение / Estate & training | ДУССД, Академия, Международни проекти, СКС |
 
-Ship the allowlist in `src/lib/policeReferenceData.ts` (mirror `defenseReferenceData.ts`): one row per
+Ship the allowlist in `src/lib/securityReferenceData.ts` (mirror `defenseReferenceData.ts`): one row per
 distinct EIK with `{ eik, name, universe }`, `MVR_EIK`, `MEDICAL_INSTITUTE_EIK` (the ВМА analogue),
-`POLICE_SECTOR_EIKS`, `POLICE_ALIAS_EIKS`, `POLICE_UNIVERSES`, `universeOf`, `universeLabel`.
+`SECURITY_SECTOR_EIKS`, `SECURITY_ALIAS_EIKS`, `SECURITY_UNIVERSES`, `universeOf`, `universeLabel`.
 
 **Tier verification before ship:** the 28 ОДМВР + 28 РДПБЗН + ~15 central units are all EIK-verified
 from the corpus (§1). Re-run the corpus scan for the 6 ОДМВР that surfaced only under name variants
@@ -273,24 +369,24 @@ from the corpus (§1). Re-run the corpus scan for the 6 ОДМВР that surfaced
 
 ## 4. Architecture — three-phase, generic first (defense playbook)
 
-### Phase 1 — generic `/sector/police` (cheapest real-data ship)
+### Phase 1 — generic `/sector/security` (cheapest real-data ship)
 
 Add config; no new screen. Delivers the real ~€1.84bn group dashboard with date scoping and the
 per-unit awarders tile today.
 
-1. `src/lib/policeReferenceData.ts` — the allowlist (§3). The one load-bearing new artifact.
+1. `src/lib/securityReferenceData.ts` — the allowlist (§3). The one load-bearing new artifact.
 2. `src/screens/sector/sectorDashboards.ts` — add `SECTOR_DASHBOARDS.police`
    (`leadEik: MVR_EIK`, `members` = the full group with `group` tags, `browsePackId: "police"`,
    `agency: "МВР"`, `titleKey/descKey`). The multi-EIK `members` array folds every unit into the KPI
    rollup exactly like `energy`.
 3. `src/screens/components/procurement/sectorPacks.tsx` — add `police` to `SECTOR_BROWSE_PACKS`
-   (`eiks: POLICE_SECTOR_EIKS`). Enables `?sector=police` on `/procurement/contracts|tenders`. No server change.
+   (`eiks: SECURITY_SECTOR_EIKS`). Enables `?sector=police` on `/procurement/contracts|tenders`. No server change.
 4. `src/screens/governance/sectorRegistry.ts` — add a `Sector` entry to `sectors_cluster_security`
-   (next to defense/justice): `id: "police"`, `to: "/sector/police"`, `agency: "МВР"`, a new accent
+   (next to defense/justice): `id: "police"`, `to: "/sector/security"`, `agency: "МВР"`, a new accent
    token (§10 decision 3).
 5. `src/screens/governance/sectorScenes.tsx` — a `police` SVG scene (shield / badge + bars, reusing the
    scene primitives; a slate-blue shield reads distinctly from МО's green).
-6. `scripts/db/gen_procurement/sector_stats.ts` — add `police: POLICE_SECTOR_EIKS` to `SECTOR_EIKS`;
+6. `scripts/db/gen_procurement/sector_stats.ts` — add `police: SECURITY_SECTOR_EIKS` to `SECTOR_EIKS`;
    rerun `db:gen-sector-stats` (needs live PG) → hub tile € populates per `?pscope`. Non-blocking: the
    dashboard KPIs come from the runtime `awarder-group-model` call; only the hub badge waits.
 7. i18n — `sector_police_title` / `sector_police_desc` in `src/locales/{en,bg}/translation.json`.
@@ -305,12 +401,12 @@ confound + budget bridge + competition heatmap + transparency gap). Register it 
 `PACKS`. Wire `SECTOR_DASHBOARDS.police.ThematicTiles` OR (better) let `getSectorPack(leadEik)` return
 `MvrPack` so it becomes the whole content (the defense path). Files (mirror `defense/`):
 
-- `src/screens/components/procurement/police/MvrPack.tsx` — universe `Select` + the tile stack.
+- `src/screens/components/procurement/security/MvrPack.tsx` — universe `Select` + the tile stack.
 - `MvrBudgetBridgeTile.tsx` — the iceberg (visible procurement vs total МВР budget vs personnel share).
 - `MvrCategoryTile.tsx` — what МВР buys by operating function (reuse the CPV→category classifier idea).
 - `MvrCompetitionTile.tsx` — single-bid share **by unit** (the 28 ОДМВР make a great small-multiples heatmap).
 - `MvrTransparencyTile.tsx` — the security-exemption gap narrative (§7 tile 8).
-- `src/data/procurement/useMvr.tsx` + `src/lib/policeAttributes.ts` — clone `useDefense.tsx` / `defenseAttributes.ts`.
+- `src/data/procurement/useMvr.tsx` + `src/lib/securityAttributes.ts` — clone `useDefense.tsx` / `defenseAttributes.ts`.
 
 No new data ingest — renders off the existing corpus + the already-ingested МВР budget node.
 
@@ -517,7 +613,7 @@ The thesis is a part-to-whole where one slice (~92% salaries) dominates and the 
 ### C. Interaction patterns
 
 - **Universe segment + scope pill stay on the surface** — both are primary controls, never a menu. The
-  universe `Select` (ministry/police/border/fire/migration/health/logistics) is the defense pattern; the
+  universe `Select` (ministry/security/border/fire/migration/health/logistics) is the defense pattern; the
   `?pscope` pill is the shared `ScopeControl`. Keep segments ≤5 visible, plain-BG labels.
 - **Every state is URL-encoded** — extend the strong house URL contract (`?elections`/`?cabinet`/`?pscope`)
   so the universe filter, map-selected oblast and scope all round-trip. This is what makes a shared link (and
@@ -586,7 +682,7 @@ configured, silent empties) · rainbow / red-green choropleth · hover-only trut
 
 ## 8. Data honesty & provenance (non-negotiable)
 
-- Procurement tiles: `● OCDS · data.egov.bg`, measured from the group rollup over `POLICE_SECTOR_EIKS`.
+- Procurement tiles: `● OCDS · data.egov.bg`, measured from the group rollup over `SECURITY_SECTOR_EIKS`.
 - Budget / iceberg: `◆ Закон за държавния бюджет`, from `years[].expenditure.amountEur` in
   `data/budget/ministries/admin-ministerstvo-na-vatreshnite-raboti.json` — the authoritative **total**
   budget (2025 = €2.11bn), already ingested; no press number, no annex lookup (see Audit rev 1.2). The
@@ -605,7 +701,7 @@ configured, silent empties) · rainbow / red-green choropleth · hover-only trut
 
 | Concern | File | Change |
 |---|---|---|
-| Buyer allowlist (+ universes) | `src/lib/policeReferenceData.ts` (new) | `MVR_EIK`, `MEDICAL_INSTITUTE_EIK`, `MVR_ENTITIES`, `POLICE_SECTOR_EIKS`, `POLICE_ALIAS_EIKS`, `POLICE_UNIVERSES`, `universeOf`/`universeLabel` |
+| Buyer allowlist (+ universes) | `src/lib/securityReferenceData.ts` (new) | `MVR_EIK`, `MEDICAL_INSTITUTE_EIK`, `MVR_ENTITIES`, `SECURITY_SECTOR_EIKS`, `SECURITY_ALIAS_EIKS`, `SECURITY_UNIVERSES`, `universeOf`/`universeLabel` |
 | Generic dashboard | `src/screens/sector/sectorDashboards.ts` | `SECTOR_DASHBOARDS.police` (multi-EIK `members`) |
 | Browse filter | `src/screens/components/procurement/sectorPacks.tsx` | `SECTOR_BROWSE_PACKS.police` (+ register `MvrPack` under `MVR_EIK` in Phase 2) |
 | Hub list | `src/screens/governance/sectorRegistry.ts` | `Sector` entry in `sectors_cluster_security` |
@@ -615,16 +711,16 @@ configured, silent empties) · rainbow / red-green choropleth · hover-only trut
 | Prerender SEO | `scripts/prerender/routes.ts` | `police` copy in `SECTOR_PAGES` (build guard requires it) |
 | Accent token | `src/ux/infographic/tileAccents.ts` | add a police slate-blue (all 17 tokens are used — §10.3) |
 | Server | — | none (`awarder_eik IN` already allowed) |
-| Phase 2 pack | `src/screens/components/procurement/police/*`, `src/data/procurement/useMvr.tsx`, `src/lib/policeAttributes.ts` | clone `defense/*` + `useDefense.tsx` + `defenseAttributes.ts` |
-| Phase 3 screen | `src/screens/police/*`, `src/routes.tsx`, per-oblast choropleth off `data/regional.json` + `grao_population.json` | clone Culture/Water shell; crime overlay |
+| Phase 2 pack | `src/screens/components/procurement/security/*`, `src/data/procurement/useMvr.tsx`, `src/lib/securityAttributes.ts` | clone `defense/*` + `useDefense.tsx` + `defenseAttributes.ts` |
+| Phase 3 screen | `src/screens/security/*`, `src/routes.tsx`, per-oblast choropleth off `data/regional.json` + `grao_population.json` | clone Culture/Water shell; crime overlay |
 | Budget bridge node | ✅ exists | `admin-ministerstvo-na-vatreshnite-raboti` in `data/budget/ministries/` (mirror `MO_BUDGET_NODE`) |
-| AI explorer (optional) | `ai/tools/police.ts` (new) | model on `ai/tools/defense.ts` |
+| AI explorer (optional) | `ai/tools/security.ts` (new) | model on `ai/tools/defense.ts` |
 
 ---
 
 ## 10. Open decisions
 
-1. **Slug** — `/sector/police` vs `/sector/mvr` vs `/sector/interior`. Recommend **`police`** (matches
+1. **Slug** — `/sector/security` vs `/sector/mvr` vs `/sector/interior`. Recommend **`police`** (matches
    the citizen mental model; the registry `agency: "МВР"` and title carry the acronym). Bespoke Phase-3
    vanity path `/police`.
 2. **Cluster** — `sectors_cluster_security` next to defense/justice (zero new i18n keys). Decided.

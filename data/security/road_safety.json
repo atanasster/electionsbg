@@ -1,0 +1,79 @@
+{
+  "source": {
+    "name": "Eurostat",
+    "dataset": "sdg_11_40",
+    "label": "Road traffic deaths, by type of roads",
+    "unit": "number of deaths (all roads)",
+    "sourceUrl": "https://ec.europa.eu/eurostat/databrowser/view/sdg_11_40/default/table",
+    "eurostatUpdated": "2026-07-10T11:00:00+0200",
+    "fetchedAt": "2026-07-15T06:00:07.801Z"
+  },
+  "series": [
+    {
+      "year": 2011,
+      "deaths": 656
+    },
+    {
+      "year": 2012,
+      "deaths": 601
+    },
+    {
+      "year": 2013,
+      "deaths": 601
+    },
+    {
+      "year": 2014,
+      "deaths": 661
+    },
+    {
+      "year": 2015,
+      "deaths": 708
+    },
+    {
+      "year": 2016,
+      "deaths": 708
+    },
+    {
+      "year": 2017,
+      "deaths": 682
+    },
+    {
+      "year": 2018,
+      "deaths": 610
+    },
+    {
+      "year": 2019,
+      "deaths": 628
+    },
+    {
+      "year": 2020,
+      "deaths": 463
+    },
+    {
+      "year": 2021,
+      "deaths": 561
+    },
+    {
+      "year": 2022,
+      "deaths": 531
+    },
+    {
+      "year": 2023,
+      "deaths": 525
+    },
+    {
+      "year": 2024,
+      "deaths": 478
+    }
+  ],
+  "latest": {
+    "year": 2024,
+    "deaths": 478
+  },
+  "peak": {
+    "year": 2015,
+    "deaths": 708
+  },
+  "changeSincePeakPct": -32,
+  "changeSinceFirstPct": -27
+}

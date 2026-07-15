@@ -18,6 +18,7 @@
 // medicines.
 
 import { FC, useMemo, useState } from "react";
+import { Link, useSearchParams, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   Shield,
@@ -40,8 +41,12 @@ import { WARN_CHIP_COLORS } from "../chipStyles";
 import { PackSection } from "../PackSection";
 import { useHashScroll } from "@/ux/useHashScroll";
 import { useDefense, type ScopeWindow } from "@/data/procurement/useDefense";
-import { categoryLabel } from "@/lib/defenseAttributes";
-import { buildPackInsights } from "@/lib/packInsights";
+import {
+  categoryLabel,
+  categoryCpvDivs,
+  type DefenseCategory,
+} from "@/lib/defenseAttributes";
+import { buildPackInsights, type PackInsight } from "@/lib/packInsights";
 import {
   DEFENSE_UNIVERSES,
   universeLabel,
@@ -97,6 +102,42 @@ export const DefensePack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
     if (!model || !procYears || procYears <= 0) return null;
     return model.totalEur / procYears;
   }, [model, procYears]);
+
+  // Is the scope a whole number of full calendar years (Jan-1→Jan-1, or "all")?
+  // Then the headline KPI is a per-year figure; a partial window (e.g. the current
+  // parliament, from an election date) shows the period TOTAL, labelled "за периода".
+  const yearAligned = useMemo(() => {
+    const from = scopeWindow?.from;
+    const to = scopeWindow?.to;
+    if (!from && !to) return true;
+    return !!from && from.endsWith("-01-01") && !!to && to.endsWith("-01-01");
+  }, [scopeWindow]);
+  const procValue = yearAligned ? annualProc : (model?.totalEur ?? null);
+
+  // Drill-down links. contractsHref carries the current scope onto
+  // /procurement/contracts?sector=defense, plus optional overrides (cpv / pscope).
+  const [searchParams] = useSearchParams();
+  const location = useLocation();
+  const contractsHref = (extra?: Record<string, string>) => {
+    const p = new URLSearchParams(searchParams);
+    p.set("sector", "defense");
+    if (extra) for (const [k, v] of Object.entries(extra)) p.set(k, v);
+    return `/procurement/contracts?${p.toString()}`;
+  };
+  const anchorHref = (id: string) =>
+    `${location.pathname}${location.search}#${id}`;
+  const insightHref = (it: PackInsight): string | undefined => {
+    if (it.kind === "peak" && it.year != null)
+      return contractsHref({ pscope: `y:${it.year}` });
+    if (it.kind === "category" && it.categoryId) {
+      const divs = categoryCpvDivs(it.categoryId as DefenseCategory);
+      return divs.length
+        ? contractsHref({ cpv: divs.join(",") })
+        : anchorHref("function");
+    }
+    if (it.kind === "direct") return anchorHref("competition");
+    return undefined;
+  };
 
   const insights = useMemo(
     () => buildPackInsights(model, categoryLabel, lang),
@@ -158,23 +199,37 @@ export const DefensePack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
           sit in the awarder header above; keep only the group-only figures. */}
       <div className="grid gap-3 grid-cols-2 lg:grid-cols-3">
         <StatCard
-          label={bg ? "Поръчки на година" : "Procurement per year"}
+          label={
+            yearAligned
+              ? bg
+                ? "Поръчки на година"
+                : "Procurement per year"
+              : bg
+                ? "Поръчки за периода"
+                : "Procurement in period"
+          }
+          to={contractsHref()}
           hint={
-            bg
-              ? `Договорена стойност, усреднена за обхвата${procSpan ? ` (${procSpan.from}–${procSpan.to})` : ""}.`
-              : `Contracted value, averaged over the scope${procSpan ? ` (${procSpan.from}–${procSpan.to})` : ""}.`
+            yearAligned
+              ? bg
+                ? `Договорена стойност, усреднена за обхвата${procSpan ? ` (${procSpan.from}–${procSpan.to})` : ""}. Виж договорите →`
+                : `Contracted value, averaged over the scope${procSpan ? ` (${procSpan.from}–${procSpan.to})` : ""}. See the contracts →`
+              : bg
+                ? "Обща договорена стойност за избрания период. Виж договорите →"
+                : "Total contracted value for the selected period. See the contracts →"
           }
         >
           <span className="text-2xl font-bold tabular-nums">
-            {annualProc != null ? formatEurCompact(annualProc, lang) : "—"}
+            {procValue != null ? formatEurCompact(procValue, lang) : "—"}
           </span>
         </StatCard>
         <StatCard
           label={bg ? "Структури с договори" : "Units with contracts"}
+          to={anchorHref("competition")}
           hint={
             bg
-              ? "Брой военни структури с договори в обхвата."
-              : "МО budget units with contracts in scope."
+              ? "Брой военни структури с договори в обхвата. Виж ги по структура →"
+              : "МО budget units with contracts in scope. See them by unit →"
           }
         >
           <span className="text-2xl font-bold tabular-nums">
@@ -184,10 +239,11 @@ export const DefensePack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
         {vmaShare != null && (
           <StatCard
             label={bg ? "От което ВМА" : "Of which ВМА"}
+            to={`/awarder/${VMA_EIK}`}
             hint={
               bg
-                ? "Дял на военната медицина (лекарства, болнично) в стойността на групата. Използвайте филтъра „без ВМА“."
-                : "Military-health (drugs, hospital) share of the group's value. Use the “excluding ВМА” filter."
+                ? "Дял на военната медицина (лекарства, болнично) в стойността на групата. Използвайте филтъра „без ВМА“. Виж институцията →"
+                : "Military-health (drugs, hospital) share of the group's value. Use the “excluding ВМА” filter. See the institution →"
             }
           >
             <span className="text-2xl font-bold tabular-nums">
@@ -199,18 +255,27 @@ export const DefensePack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
 
       {insights.length > 0 && (
         <div className="flex flex-wrap gap-2">
-          {insights.map((it, i) => (
-            <span
-              key={i}
-              className={`inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium ${
-                it.warn
-                  ? WARN_CHIP_COLORS
-                  : "border-border bg-muted/40 text-foreground"
-              }`}
-            >
-              {it.text}
-            </span>
-          ))}
+          {insights.map((it, i) => {
+            const href = insightHref(it);
+            const cls = `inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-medium ${
+              it.warn
+                ? WARN_CHIP_COLORS
+                : "border-border bg-muted/40 text-foreground"
+            }`;
+            return href ? (
+              <Link
+                key={i}
+                to={href}
+                className={`${cls} transition-colors hover:border-primary/50 hover:bg-primary/5`}
+              >
+                {it.text}
+              </Link>
+            ) : (
+              <span key={i} className={cls}>
+                {it.text}
+              </span>
+            );
+          })}
         </div>
       )}
 
@@ -220,13 +285,8 @@ export const DefensePack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
         icon={Landmark}
         id="mo-budget"
         title={bg ? "В мащаба на бюджета" : "At the scale of the budget"}
-        sub={
-          bg
-            ? "Колко малка част от парите за отбрана минават през конкурентни поръчки."
-            : "How small a slice of defence money runs through competitive procurement."
-        }
       >
-        <DefenseBudgetBridgeTile annualProcEur={annualProc} />
+        <DefenseBudgetBridgeTile procEur={procValue} perYear={yearAligned} />
       </PackSection>
 
       <PackSection

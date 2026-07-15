@@ -146,6 +146,14 @@ export const SECTOR_CLUSTERS: { labelKey: string; sectors: Sector[] }[] = [
         accent: TILE_ACCENTS.moss,
       },
       {
+        id: "security",
+        titleKey: "sector_security_title",
+        descKey: "sector_security_desc",
+        agency: "МВР",
+        to: "/sector/security",
+        accent: TILE_ACCENTS.slate,
+      },
+      {
         id: "justice",
         titleKey: "sector_justice_title",
         descKey: "sector_justice_desc",

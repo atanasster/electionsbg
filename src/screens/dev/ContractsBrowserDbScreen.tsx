@@ -103,7 +103,13 @@ export const ContractsBrowserDbScreen: FC = () => {
     const f: DbColumnFilter[] = [...windowFilter];
     if (singleBidder) f.push({ id: "number_of_tenderers", min: 1, max: 1 });
     if (method !== ALL) f.push({ id: "procurement_method", value: [method] });
-    if (cpvDiv !== CPV_ALL) f.push({ id: "cpv", value: cpvDiv });
+    // A sector category can span several CPV divisions (?cpv=72,48,32,30) — pass
+    // them as an array so the prefix filter ORs them for an exact category match.
+    if (cpvDiv !== CPV_ALL)
+      f.push({
+        id: "cpv",
+        value: cpvDiv.includes(",") ? cpvDiv.split(",") : cpvDiv,
+      });
     // Restrict to the sector's awarder EIK-set (awarder_eik IN …).
     if (browsePack) f.push({ id: "awarder_eik", value: [...browsePack.eiks] });
     return f;

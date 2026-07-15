@@ -476,6 +476,28 @@ type SectorPageContent = {
 
 const SECTOR_PAGES: SectorPageContent[] = [
   {
+    id: "security",
+    eik: "000695235",
+    bg: {
+      title: "Сигурност — обществените поръчки на МВР | electionsbg.com",
+      description:
+        "Обществените поръчки на Министерството на вътрешните работи (МВР): полиция, гранична полиция, пожарна безопасност — общо възложени по 74 структури, изпълнители и разбивка по функция и структура.",
+      breadcrumb: "Сигурност",
+      h1: "Сигурност — обществените поръчки на МВР",
+      intro:
+        "МВР харчи ~2,1 млрд. € годишно, но около 90% са заплати, а част от доставките за сигурност са класифицирани — видимите обществени поръчки са върхът на айсберга. Тази страница консолидира поръчките на 74 структури на МВР (полиция, граница, пожарна, Медицински институт) по избрания парламент или за цялата история.",
+    },
+    en: {
+      title: "Security — the Ministry of Interior's procurement | electionsbg.com", // prettier-ignore
+      description:
+        "The public procurement of Bulgaria's Ministry of Interior (МВР): police, border police and fire safety — total awarded across 74 units, contractors and the breakdown by function and unit.",
+      breadcrumb: "Security",
+      h1: "Security — the Ministry of Interior's procurement",
+      intro:
+        "МВР spends ~€2.1bn a year, but around 90% is salaries and part of its security buys are classified — visible public procurement is the tip of the iceberg. This page consolidates the tenders of 74 МВР units (police, border, fire, the Medical Institute) for the selected parliament or the full history.",
+    },
+  },
+  {
     id: "tourism",
     eik: "176789478",
     bg: {

@@ -64,6 +64,7 @@ import { ivssDeclarations } from "./ivss_declarations";
 import { natoDefexp } from "./nato_defexp";
 import { modDefenseReport } from "./mod_defense_report";
 import { moeArmsExports } from "./moe_arms_exports";
+import { eurostatRoadSafety } from "./eurostat_road_safety";
 import { emberGeneration } from "./ember_generation";
 import { eurostatEnergyPrices } from "./eurostat_energy_prices";
 import { eurostatTourism } from "./eurostat_tourism";
@@ -195,4 +196,5 @@ export const SOURCES: WatchSource[] = [
   natoDefexp,
   modDefenseReport,
   moeArmsExports,
+  eurostatRoadSafety,
 ];

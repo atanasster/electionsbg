@@ -34,6 +34,7 @@ export const TILE_ACCENTS = {
   terracotta: "#b5573f",
   copper: "#b85c26",
   aqua: "#1f9e94",
+  slate: "#48587a",
 } as const;
 
 export type TileAccent = (typeof TILE_ACCENTS)[keyof typeof TILE_ACCENTS];

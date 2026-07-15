@@ -25,6 +25,11 @@ import { CUSTOMS_EIK } from "@/lib/customsReferenceData";
 import { AGRI_PAYER_EIK } from "@/data/agri/constants";
 import { BEH_EIK } from "@/lib/energyReferenceData";
 import { TOURISM_MINISTRY_EIK } from "@/lib/tourismReferenceData";
+import {
+  MVR_EIK,
+  MVR_ENTITIES,
+  SECURITY_UNIVERSE_LABEL,
+} from "@/lib/securityReferenceData";
 
 export interface SectorMember {
   eik: string;
@@ -324,6 +329,25 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
         group: { bg: "Природен газ", en: "Natural gas" },
       },
     ],
+  },
+  // Сигурност / МВР (sector id "security") — the security-cluster twin of energy:
+  // `members` IS the whole ~75-EIK group so the awarders tile lists every unit
+  // (grouped by universe). МВР leads; its /awarder page renders the MvrPack
+  // (registered under MVR_EIK), and so does this dashboard (getSectorPack(leadEik)
+  // → MvrPack becomes the content). Members generated from the curated allowlist
+  // (securityReferenceData.ts); the canonical BG name doubles as the en label.
+  security: {
+    id: "security",
+    titleKey: "sector_security_title",
+    descKey: "sector_security_desc",
+    agency: "МВР",
+    leadEik: MVR_EIK,
+    browsePackId: "security",
+    members: MVR_ENTITIES.map((e) => ({
+      eik: e.eik,
+      name: { bg: e.name, en: e.name },
+      group: SECURITY_UNIVERSE_LABEL[e.universe],
+    })),
   },
 };
 
