@@ -115,6 +115,19 @@ export const formatEurCompact = (
   }).format(value)}`;
 };
 
+/** Compact plain number: "4,1 млн" / "4.1M". The non-currency sibling of
+ * formatEurCompact — for counts (nights, arrivals) in tight chart labels. */
+export const formatCompact = (
+  value: number | null | undefined,
+  locale: string = "bg-BG",
+): string =>
+  value == null || !Number.isFinite(value)
+    ? ""
+    : new Intl.NumberFormat(resolveLocale(locale), {
+        notation: "compact",
+        maximumFractionDigits: 1,
+      }).format(value);
+
 /** Format an amount in its native currency, for the "originally …" footnote
  * on legacy rows: "5 000 лв", "€1 234", "1 200 USD". */
 export const formatNative = (

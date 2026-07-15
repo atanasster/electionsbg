@@ -129,6 +129,7 @@ npm run bucket:sync:all    # bucket:sync then bucket:gz (recommended deploy)
 #   npx tsx scripts/macro/fetch_eurostat.ts            # Eurostat + WGI + curated tables
 #   npx tsx scripts/macro/fetch_cofog.ts               # Eurostat COFOG (gov_10a_exp) general-gov spend by function → data/cofog.json
 #   npx tsx scripts/macro/fetch_eu_peers.ts            # Eurostat peer comparison (BG + EU27 + RO + GR + HU + HR) → data/macro_peers.json
+#   npm run data:tourism                               # Eurostat BG tourism nights — seasonality (tour_occ_nim) + source markets (tour_occ_ninraw) → data/tourism/visitors.json
 #                                                      #   gov_10a_main (% GDP triple) + quarterly per-indicator peer series for /indicators "Compare with EU" overlay
 #   npx tsx scripts/macro/fetch_bnb_auctions.ts        # BNB domestic ДЦК auctions → debt-emissions-domestic.json
 #   npx tsx scripts/macro/fetch_bnb_fdi.ts             # БНБ monthly FDI flows (balance of payments, BPM6) → data/macro_fdi.json

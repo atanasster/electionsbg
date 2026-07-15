@@ -268,7 +268,8 @@ export const CompanyContractsDbScreen: FC<{
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value={ALL}>
-                      {t("company_contracts_all_cpv") || "Всички сектори (CPV)"}
+                      {t("company_contracts_all_cpv") ||
+                        "Всички категории (CPV)"}
                     </SelectItem>
                     {cpvOptions.map((o) => (
                       <SelectItem key={o.value} value={o.value}>

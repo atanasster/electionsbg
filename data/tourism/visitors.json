@@ -1,0 +1,164 @@
+{
+  "source": {
+    "publisher": "Eurostat",
+    "dataset": "tour_occ_nim",
+    "url": "https://ec.europa.eu/eurostat/databrowser/view/tour_occ_nim",
+    "note": "Nights spent at hotels & similar (NACE I551), Bulgaria, by guest residence."
+  },
+  "generatedAt": "2026-07-14T22:46:01.653Z",
+  "unit": "nights",
+  "seasonalityYear": 2025,
+  "peakMonth": 8,
+  "summerShareForeign": 0.7895694300236926,
+  "winterShareForeign": 0.0999149506746883,
+  "seasonality": [
+    {
+      "month": 1,
+      "foreign": 472764,
+      "domestic": 575085
+    },
+    {
+      "month": 2,
+      "foreign": 439600,
+      "domestic": 619010
+    },
+    {
+      "month": 3,
+      "foreign": 357598,
+      "domestic": 669835
+    },
+    {
+      "month": 4,
+      "foreign": 344344,
+      "domestic": 631919
+    },
+    {
+      "month": 5,
+      "foreign": 707066,
+      "domestic": 707210
+    },
+    {
+      "month": 6,
+      "foreign": 2591776,
+      "domestic": 1016313
+    },
+    {
+      "month": 7,
+      "foreign": 3867368,
+      "domestic": 1691718
+    },
+    {
+      "month": 8,
+      "foreign": 4106477,
+      "domestic": 1763970
+    },
+    {
+      "month": 9,
+      "foreign": 1887487,
+      "domestic": 1049674
+    },
+    {
+      "month": 10,
+      "foreign": 412677,
+      "domestic": 660116
+    },
+    {
+      "month": 11,
+      "foreign": 278968,
+      "domestic": 655903
+    },
+    {
+      "month": 12,
+      "foreign": 305899,
+      "domestic": 673934
+    }
+  ],
+  "annualForeign": [
+    {
+      "year": 2018,
+      "nights": 17326682
+    },
+    {
+      "year": 2019,
+      "nights": 17032461
+    },
+    {
+      "year": 2020,
+      "nights": 4527423
+    },
+    {
+      "year": 2021,
+      "nights": 7817504
+    },
+    {
+      "year": 2022,
+      "nights": 12556769
+    },
+    {
+      "year": 2023,
+      "nights": 14200230
+    },
+    {
+      "year": 2024,
+      "nights": 14751606
+    },
+    {
+      "year": 2025,
+      "nights": 15772024
+    }
+  ],
+  "sourceMarketsYear": 2024,
+  "sourceMarketsForeignTotal": 14751606,
+  "sourceMarkets": [
+    {
+      "code": "RO",
+      "name": "Romania",
+      "nights": 3290629
+    },
+    {
+      "code": "UA",
+      "name": "Ukraine",
+      "nights": 1586120
+    },
+    {
+      "code": "PL",
+      "name": "Poland",
+      "nights": 1447129
+    },
+    {
+      "code": "UK",
+      "name": "United Kingdom",
+      "nights": 1273963
+    },
+    {
+      "code": "DE",
+      "name": "Germany",
+      "nights": 1179618
+    },
+    {
+      "code": "CZ",
+      "name": "Czechia",
+      "nights": 914308
+    },
+    {
+      "code": "TR",
+      "name": "Türkiye",
+      "nights": 317391
+    },
+    {
+      "code": "SK",
+      "name": "Slovakia",
+      "nights": 263701
+    },
+    {
+      "code": "EL",
+      "name": "Greece",
+      "nights": 218363
+    },
+    {
+      "code": "FR",
+      "name": "France",
+      "nights": 215268
+    }
+  ]
+}

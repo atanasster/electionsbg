@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-14T12:38:11.085Z",
+  "generatedAt": "2026-07-14T22:55:17.648Z",
   "nodes": [
     {
       "id": "src:water",
@@ -1029,6 +1029,12 @@
           "url": "https://ec.europa.eu/eurostat/databrowser/view/nama_10r_3gdp/default/table",
           "cadence": "monthly",
           "freshness": "2026-07-13T06:08:38.041Z"
+        },
+        {
+          "id": "eurostat_tourism",
+          "label": "Eurostat tourism (BG): nights by month & country of origin (tour_occ_nim, tour_occ_ninraw)",
+          "url": "https://ec.europa.eu/eurostat/databrowser/view/tour_occ_nim/default/table",
+          "cadence": "monthly"
         },
         {
           "id": "ec_budget_per_ms",

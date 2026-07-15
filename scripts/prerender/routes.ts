@@ -476,6 +476,28 @@ type SectorPageContent = {
 
 const SECTOR_PAGES: SectorPageContent[] = [
   {
+    id: "tourism",
+    eik: "176789478",
+    bg: {
+      title: "Туризъм — обществените поръчки на МТ | electionsbg.com",
+      description:
+        "Обществените поръчки на Министерството на туризма: реклама на дестинацията, медиа и кампании — общо възложени, изпълнители и разбивка по договори.",
+      breadcrumb: "Туризъм",
+      h1: "Туризъм — обществените поръчки на МТ",
+      intro:
+        "Министерството на туризма е предимно рекламодател: над половината от неговите ~27 млн. € обществени поръчки са реклама и медиа — медиа баинг, телевизионен ефир и PR. Тази страница обобщава поръчките му по избрания парламент или за цялата история.",
+    },
+    en: {
+      title: "Tourism — the Ministry of Tourism's procurement | electionsbg.com", // prettier-ignore
+      description:
+        "The public procurement of Bulgaria's Ministry of Tourism: destination marketing, media and campaigns — total awarded, contractors and the breakdown by contracts.",
+      breadcrumb: "Tourism",
+      h1: "Tourism — the Ministry of Tourism's procurement",
+      intro:
+        "The Ministry of Tourism is mostly an advertiser: over half of its ~€27M in public procurement is advertising and media — media buying, TV air-time and PR. This page summarises its tenders for the selected parliament or the full history.",
+    },
+  },
+  {
     id: "health",
     eik: "121858220",
     bg: {
@@ -737,6 +759,14 @@ const sectorBody = (c: SectorPageContent, lang: "bg" | "en"): string => {
   if (missing.length)
     throw new Error(
       `prerender SECTOR_PAGES missing sector(s): ${missing.join(", ")}`,
+    );
+  // A duplicate id maps two entries onto the same sector/<id> path — last wins,
+  // silently dropping one entry's SEO copy and emitting a duplicate sitemap loc.
+  const ids = SECTOR_PAGES.map((p) => p.id);
+  const dupes = [...new Set(ids.filter((id, i) => ids.indexOf(id) !== i))];
+  if (dupes.length)
+    throw new Error(
+      `prerender SECTOR_PAGES duplicate sector(s): ${dupes.join(", ")}`,
     );
 }
 

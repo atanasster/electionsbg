@@ -38,8 +38,11 @@ Verified every load-bearing claim against current code before implementation. Ga
    no € until a DB-connected `db:gen-sector-stats` runs). → **Non-blocking; deferred.** §4 step 6 and
    §9's "rerun `db:gen-sector-stats`" must be read as "requires PG; hub badge only".
 
-4. **Accent DECIDED: `TILE_ACCENTS.copper`** (#b85c26) — the single UNUSED token, warm/sun, no clash
-   (water=teal, customs=azure). Supersedes §10 decision 3.
+4. **Accent DECIDED: `TILE_ACCENTS.aqua`** (#1f9e94, NEW token). Re-checked at build time: all 16
+   existing tokens are now used (energy took `copper`), so a fresh token was added to
+   `tileAccents.ts` — a sea-aqua that stands out among the earthy "land & culture" cluster
+   (agri=gold, culture=terracotta) and evokes the Black Sea. Supersedes §10 decision 3 (and the
+   earlier "copper" note — copper is taken).
 
 5. **EIK uniqueness CONFIRMED** — exactly one awarder file matches "Министерство на туризма"
    (`176789478.json`). No dedup/alias work (contrast transport's MTITC concern). Ship single-member.
@@ -52,6 +55,210 @@ Verified every load-bearing claim against current code before implementation. Ga
    + `<ScopeControl mode="toggle">` (date scoping) + `SectorAwardersTile`. Pure config, no new screen.
 
 **Net Phase-1 surface: 6 edits (1 new file) + 1 deferred PG pipeline line.** No route/server/SQL change.
+
+### Code-repair pass (2026-07-15) — CODE_REVIEW_REPORT.md findings applied
+
+All 5 findings implemented + stabilized (lint → tsc → build → test all green):
+- **FINDING-001 (bug)** — removed the duplicate `SECTOR_PAGES` tourism entry (a concurrent worker's
+  generic copy) in `scripts/prerender/routes.ts`; kept the richer advertiser-thesis entry. Added a
+  duplicate-id guard next to the existing coverage assert. Verified: exactly 1 `sector/tourism` route.
+- **DUP-001 / DUP-003** — extracted a shared `src/lib/tourismLabels.ts` (`TOURISM_MARKET_NAMES_BG`
+  superset + `MONTH_NAMES_BG/EN`); the source-markets tile, seasonality tile and AI tool now import it
+  (the AI map had drifted, lacking RU/BE/CH/…). Tile-specific single-letter axis labels stay local.
+- **DUP-002** — added `formatCompact` to `@/lib/currency` (the non-€ sibling of `formatEurCompact`);
+  the 3 tiles now import it instead of each defining an identical helper.
+- **TEST-001** — `scripts/db/tests/tourism_classifier.data.test.ts` (node `--test`) locks the CPV→bucket
+  mapping (advertising/events/research/digital/production/other). Passes 3/3 standalone.
+Verified live: source-markets, seasonality and ROI tiles still render (Румъния 22%, peak август) — the
+refactor is behavior-preserving. `CODE_REVIEW_REPORT.md` left in the repo root (reviewer artifact).
+
+### Self-audit (2026-07-15)
+
+Full audit of all uncommitted changes (26 files). Whole suite green: `tsc -b`, `eslint` (every changed
+file), `vite build` (✓ 53s), `build_manifest` gate, locales valid JSON, watcher fingerprint live, AI
+registry parses (188 tools).
+
+Findings:
+1. **BUG FOUND + FIXED — multi-member "Изпълнители" link.** The generic `KpiCard` contractors link I
+   added pointed to `/awarder/<leadEik>/contractors` for ALL sectors, but `energy` is multi-member (9
+   EIKs) — its supplier COUNT spans the group while that link shows only the lead's contractors (a
+   misleading subset). Fixed: the contractors drill-down is now single-member-only
+   (`config.members.length === 1`); energy's tile is non-linked (money/contracts still link to the
+   group browse, top-contractor to the company). Verified live: energy `Изпълнители → null`, tourism
+   `→ /awarder/176789478/contractors`.
+2. **OPEN — CPV terminology inconsistency (needs a call).** Renaming the CPV filter сектори→категории
+   fixed the on-page collision the user flagged, but the app elsewhere still calls CPV divisions
+   "сектори" (`/procurement/sectors` = "Какво купува държавата", "Виж всички сектори", the ProcurementSectorsTile).
+   So the CPV *filter* now says "категории" while the CPV *breakdown* pages say "сектори" — a mild
+   cross-page mismatch (different pages, same taxonomy). Options: (a) accept it — the pages are separate
+   contexts and the collision fix is worth it; (b) extend "категории (CPV)" app-wide (~7 i18n keys +
+   the /procurement/sectors page). Left for a decision; not auto-changed.
+
+Clean checks: `aqua` accent unique; no TODO/FIXME/stray console (the fetch script's `console.log` is CLI
+output); `data/tourism/` bucket-syncs (not PG-excluded); spend-vs-nights zero-bar floor never triggers
+(all overlap years have spend); prerender emits `sector/tourism` bg+en; only intended files touched
+(the two `nzok/*` in `git status` are a concurrent worker's, not mine).
+
+### Term disambiguation (2026-07-15)
+
+Drilling from a government **sector** (Туризъм) into `/procurement/contracts?sector=tourism` showed a
+CPV-division filter also labelled "Всички **сектори** (CPV)" — two different "sector" meanings on one page.
+Renamed the CPV filter's user-facing term from **сектори → категории (CPV)** so "сектор" is reserved for the
+government entity: `CpvFilterCombobox.tsx` (trigger + item + search placeholder, hardcoded strings) and the
+`company_contracts_all_cpv` i18n key (bg/en) + its `CompanyContractsDbScreen` fallback. Verified live: the
+banner reads "…поръчките на: Туризъм", the dropdown now reads "Всички категории (CPV)". App-wide change
+(shared CPV combobox), not tourism-only.
+
+### KPI drill-downs (2026-07-15)
+
+The generic `KpiCard` (SectorDashboardScreen) gained an optional `to` prop → the whole tile becomes a
+drill-down link (hover border). Wired for EVERY config-driven sector (not just tourism): **Общо
+възложени** + **Договори** → `/procurement/contracts?sector=<id>` (scope carried forward), **Изпълнители**
+→ `/awarder/<leadEik>/contractors` (the awarder's full contractors list), **Топ изпълнител** →
+`/company/<eik>` (that specific contractor). Verified live on tourism: hrefs resolve to
+`…?pscope=all&sector=tourism`, `/awarder/176789478/contractors`, `/company/831727361` (Апра); all target
+pages load.
+
+### Phase 1 SHIPPED (2026-07-14)
+
+Generic `/sector/tourism` is wired and live. Files landed:
+`src/lib/tourismReferenceData.ts` (new) · `src/ux/infographic/tileAccents.ts` (+`aqua`) ·
+`src/screens/sector/sectorDashboards.ts` (`SECTOR_DASHBOARDS.tourism`) ·
+`src/screens/components/procurement/sectorPacks.tsx` (`SECTOR_BROWSE_PACKS.tourism`) ·
+`src/screens/governance/sectorRegistry.ts` (land cluster, aqua) ·
+`src/screens/governance/sectorScenes.tsx` (sun/sea/sailboat scene) ·
+`src/locales/{bg,en}/translation.json` (`sector_tourism_title`/`_desc`) ·
+`scripts/db/gen_procurement/sector_stats.ts` (`tourism` in `SECTOR_EIKS`) ·
+`scripts/prerender/routes.ts` (`SECTOR_PAGES` tourism SEO copy — REQUIRED: a build-time guard
+`assertAllSectorsHavePrerenderCopy` fails prerender if a `SECTOR_DASHBOARD_IDS` sector lacks copy;
+verified `prerenderRoutes()` emits `sector/tourism` bg+en). The sitemap needs no edit — it derives
+slugs from `SECTOR_DASHBOARD_IDS`.
+
+Verified: `tsc -b` clean, `eslint` clean, full `vite build` clean (4837 modules), locales valid
+JSON, dev server serves `/governance/sectors` + `/sector/tourism` → 200.
+
+Deferred (needs live Postgres): `npm run db:gen-sector-stats` to populate the hub-tile € badge for
+tourism in `sector_stats.json`. The dashboard itself needs no regen (KPIs come from the runtime
+`/api/db/awarder-group-model` call).
+
+### Phase 2 IN PROGRESS (2026-07-15) — campaign-category tile
+
+Rather than a full bespoke screen (which the NSI fork §10.4 blocks), Phase 2 starts with the
+highest-value all-real differentiator via the config's `ThematicTiles` slot — no NSI needed.
+
+Landed (uncommitted, pending review):
+- `src/screens/sector/tourism/tourismCategories.ts` — `tourismClassifier` (CPV→campaign category)
+  + `TOURISM_CAT_LABELS`. Validated on the real 303-row corpus: advertising ~53%, production ~14%,
+  operational ~11%, events ~9%, digital ~9%, research ~4%. Classifies by CPV ONLY.
+- `src/screens/sector/tourism/TourismThematicTiles.tsx` — TWO tiles in a responsive grid:
+  (1) **"Разход по кампании"** — per-category €/%, contract count, single-bid rate, top supplier;
+  reuses the dashboard's own group-model fetch (deduped → free), inherits `?pscope`.
+  (2) **"Най-големи кампании"** — biggest individual contracts by name, with contractor link, year,
+  EU-funded badge and single-bid flag; pulls МТ's 300-row corpus once via `useAwarderContracts` +
+  `scopeByWindow` (prod-safe `awarder-contracts` endpoint), also `?pscope`-scoped. Each title links to
+  the contract detail page `/procurement/contract/:key` (verified: opens the full risk/normalcy view);
+  a **"виж всички →"** header link goes to `/procurement/contracts?sector=tourism` carrying the current
+  scope forward (the browse pack filters to "Туризъм (МТ)", 300 rows).
+- `sectorDashboards.ts` — `SECTOR_DASHBOARDS.tourism.ThematicTiles` (lazy).
+
+Verified live on `/sector/tourism?pscope=all`:
+- Category split: **Реклама и медиа €14.4M · 53% · 98% single-bid** (the headline transparency
+  signal), matching the offline CPV validation.
+- Biggest campaigns: **BBC News Channel airtime €1.1M (2024, 1 bid)**, VisitBulgaria.com platform
+  €1M (2025), Apra media campaign €740.6K (2018) — real named campaigns.
+- tsc -b + eslint clean.
+
+Follow-on tiles ADDED (2026-07-15):
+- **"Най-големи кампании"** — biggest individual contracts by name (BBC airtime €1.1M, VisitBulgaria.com
+  €1M), EU-funded + single-bid flags, via the prod-safe `awarder-contracts` endpoint + `scopeByWindow`.
+- **"Сезонност на нощувките"** — the VISITOR-OUTCOME layer, REAL Eurostat data (no NSI-ingest decision
+  needed after all): `scripts/tourism/fetch_eurostat_tourism.ts` pulls `tour_occ_nim` (monthly nights,
+  foreign vs domestic, hotels/I551) → `data/tourism/visitors.json` → `useTourismVisitors` +
+  `TourismSeasonalityTile`. Verified live: **summer (Jun–Sep) = 79% of foreign nights, peak August,
+  15.8M foreign nights 2025**, sourced to Eurostat. This is the spend↔outcome fusion the competitive
+  research (§6) flagged as the differentiator — shipped with real data.
+  - §10.4 RESOLVED: the visitor layer uses **Eurostat** (public JSON-stat REST, reachable, no auth) —
+    NOT gated on NSI. NSI/ЕСТИ stays a future enhancement for resort-level / source-market detail.
+  - The fetcher is a standalone `tsx` script (like the macro fetchers); `data/tourism/` bucket-syncs
+    normally. Re-run on a cadence (Eurostat updates monthly); optionally register in the refresh pipeline.
+
+- **"Реклама и чужди нощувки"** (spend↔outcome bridge) — ADDED. `TourismSpendVsNightsTile` overlays
+  the ministry's marketing € per year (real procurement) on foreign nights per year (real Eurostat,
+  from `visitors.json` `annualForeign`) as an inline-SVG bars+line chart. NO new data source — both
+  series already on the page. Framed DESCRIPTIVELY ("trends side by side — not a causal claim"),
+  dual-sourced (ЗОП + Eurostat). Full-history, not `?pscope`-scoped. Verified live, no console errors.
+
+The `/sector/tourism` ThematicTiles now render a 2×2: visitor-outcome row (seasonality +
+spend-vs-nights) over the procurement row (categories + biggest campaigns) — the complete
+spend↔outcome fusion, all real.
+
+- **"Пазари на произход"** (source markets) — ADDED. The correct Eurostat dataset is
+  **`tour_occ_ninraw`** (nights by country of origin; earlier `ninrt`/`arnrt` guesses 404'd — a wrong
+  code, not a missing dataset). The fetcher pulls it, keeps individual foreign countries (2-letter ISO,
+  minus BG/EU), and `TourismSourceMarketsTile` renders the top markets with BG-localized names. Verified
+  live: **Romania 22%, Ukraine 11%, Poland 10%, UK 9%, Germany 8%, Czechia 6%** (2024) — the real
+  concentration (top market = 1/5 of foreign nights) is itself a policy signal. Source: Eurostat.
+
+The ThematicTiles now render: **visitor row** (seasonality + source markets) → **fusion** (spend-vs-
+nights, full width) → **procurement row** (categories + biggest campaigns) — all real, all verified live.
+
+Remaining follow-ons (optional): (a) Tier-B EIK verification — DONE (§3, empty); (b) NSI resort-level
+detail (Sunny Beach / Bansko splits) — a bigger Infostat ingest, deferred, not fabricated. A bespoke
+`/tourism` screen is only warranted if these tiles outgrow the ThematicTiles slot.
+
+### Cross-cutting integration of the new Eurostat data (2026-07-15)
+
+The `data/tourism/visitors.json` blob is wired into every system a first-class dataset touches:
+
+- **Watchers / process-watch-report** — `scripts/watch/sources/eurostat_tourism.ts` fingerprints the
+  `updated` field of `tour_occ_nim` + `tour_occ_ninraw` (cadence monthly), registered in
+  `scripts/watch/sources/index.ts`. `npm run watch` now reports a tourism-data release. Placed on the
+  data map (below) — mandatory, or `build_manifest` fails.
+- **Data map + data pages** — added `eurostat_tourism` to the "eurostat" source group and an
+  `AI_PATH_RULES` entry `/tourism/ → indicators` in `scripts/data_map/model.ts`; `build_manifest`
+  regenerated `data/data_map.json` (93 watched sources). `/data/map` is model-driven (auto). `/data/sources`
+  is curated — added a Eurostat-tourism `SourceItem` + `eurostat_tourism_source` i18n key (bg/en).
+- **AI chat tools** — `ai/tools/tourism.ts` (`tourismSeasonality`, `tourismSourceMarkets`) modeled on
+  `culture.ts` (Envelope/facts, domain `indicators`), registered in `ai/tools/registry.ts` (188 tools).
+  The explorer can now answer "when is Bulgaria's tourism season?" / "where do tourists come from?".
+- **Docs** — `README.md` "Other scripts" block lists `npm run data:tourism`; `package.json` carries the
+  script (mirrors `data:nzok`).
+
+Verified: `tsc -b` + `eslint` clean, `build_manifest` green, watcher fingerprint returns live Eurostat
+timestamps, registry parses with both tourism tools present.
+
+### Performance & responsive (tested 2026-07-15)
+
+**Data loading — measured, no migration/index needed.** Evidence from the local PG (:5433):
+- `awarder-contracts` (tourism EIK, 303 rows) → **2.7ms**, Bitmap Index Scan on the existing
+  `idx_contracts_awarder_date` composite (`awarder_eik, date`) — exactly what
+  `WHERE awarder_eik ORDER BY date` needs.
+- `awarder_group_model(['176789478'])` → **3.9–9.7ms**.
+- `data/tourism/visitors.json` is a **2.8 KB** static reference blob → correctly NOT in PG (matches the
+  culture/macro/indicators JAMstack convention; a DB round-trip would cost more than the payload). The
+  procurement side is already PG + indexed. **Conclusion: nothing to migrate, no index to add** — a
+  redundant index would only add write cost. (Verdict is measured, not assumed.)
+
+**Responsive — audited at 375 / 768 / 1280, one fix.** No page-level horizontal overflow at any width
+(`document.body.scrollWidth` == viewport). Thematic tiles use `grid md:grid-cols-2` → stack to 1 column
+on mobile, 2 columns on tablet/desktop (verified 737px columns at 768). The generic spend-by-year tile
+scrolls inside its own `overflow-x-auto` container on narrow screens (existing house pattern). Fixes
+applied:
+1. The source-market value (`3,3 млн. · 22%`) was wrapping to two lines in a fixed `w-20` column →
+   switched to `whitespace-nowrap` (auto width) + narrowed the country label to `w-24`; now single-line
+   (h:16px) at 375px.
+2. **`TourismSpendVsNightsTile` chart towered over every other chart** — it used a `viewBox` SVG with
+   `w-full h-auto`, so its height scaled with the (full-width) tile → ~430–700px on desktop while
+   siblings are fixed-height (seasonality 150, spend-by-year 220). Rebuilt it the house way: a
+   FIXED-height (`170px`) container with HTML spend bars + an SVG line overlay (`preserveAspectRatio="none"`
+   + `vector-effect="non-scaling-stroke"`, so no text/stroke distortion) + HTML round vertices + HTML year
+   labels. Now fixed-height / fluid-width like the others (measured inner height = 170px at any width).
+   Follow-up: the first cut of that rebuild set the bar `height` as a `%`, which collapses to 0 against
+   the auto-height flex item (only the line showed) — switched to **pixel** heights
+   (`(spend/maxSpend) * (CHART_H-8)`), the same approach seasonality / spend-by-year use. Both series now
+   render (measured 8 bars, e.g. 2024 → 162px, 2022 → 17px).
+
+Long country names / campaign titles / contractor names clip via `truncate` (ellipsis) as designed.
 
 ---
 
@@ -120,11 +327,21 @@ This is mostly a **presentation + config** project. The machinery is shipped:
 
 ---
 
-## 3. Туризъм as an EIK set — allowlist (to VERIFY before build)
+## 3. Туризъм as an EIK set — allowlist (VERIFIED 2026-07-15)
 
 Linkage to a sector in this repo is a **curated buyer-EIK allowlist**, never a CPV or keyword
 classifier (both false-positive badly — see the warnings in `defenseReferenceData.ts` /
-`kulturaReferenceData.ts`). Create `src/lib/tourismReferenceData.ts` with a hand-verified set.
+`kulturaReferenceData.ts`). Shipped in `src/lib/tourismReferenceData.ts`.
+
+> **Tier-B verdict: EMPTY → ship single-member.** A full scan of the awarder corpus for state
+> tourism bodies (name contains туриз*/туристическ*, minus schools/private) returns exactly TWO
+> hits: the anchor **176789478 Министерство на туризма** (€27.26M), and **130169256 МИЕТ**
+> (Министерство на икономиката, енергетиката и туризма — the pre-2014 combined Economy+Energy+
+> Tourism ministry, €16.8M, 2011–2015). МИЕТ held tourism before МТ was split out, but its spend is
+> a MIXED economy/energy/tourism mandate that cannot be separated by EIK, so it is **EXCLUDED** (a
+> textbook anti-allowlist case). No clean subordinate tourism agency / regional centre exists in the
+> corpus. The single-member set is therefore correct, and the exclusion is documented in
+> `tourismReferenceData.ts` so МИЕТ isn't naively added later.
 
 - **Tier A — the anchor (VERIFIED):** `176789478` Министерство на туризма (€27.26M, seat BG411).
 - **Tier B — verify principal before including:** subordinate / second-level spending units under

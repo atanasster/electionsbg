@@ -100,6 +100,7 @@ export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
   { pattern: /^\/administration\//, dataset: "administration" },
   { pattern: /^\/water\//, dataset: "water" },
   { pattern: /^\/culture\//, dataset: "culture" },
+  { pattern: /^\/tourism\//, dataset: "indicators" }, // Eurostat tourism nights (visitors.json)
   { pattern: /^\/budget\//, dataset: "budget" },
   { pattern: /^\/customs\//, dataset: "budget" },
   // macro_fdi must precede the generic `macro` rule below (first match wins),
@@ -546,6 +547,7 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       "eurostat",
       "eurostat_policy",
       "eurostat_regional",
+      "eurostat_tourism",
       "ec_budget_per_ms",
     ],
     skills: ["update-macro", "update-regional", "update-budget"],

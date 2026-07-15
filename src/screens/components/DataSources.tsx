@@ -450,6 +450,10 @@ export const DataSources = () => {
                 label={t("eurostat_life_expectancy_source")}
               />
               <SourceItem
+                href="https://ec.europa.eu/eurostat/databrowser/view/tour_occ_nim/default/table"
+                label={t("eurostat_tourism_source")}
+              />
+              <SourceItem
                 href="https://www.bnb.bg/Statistics/StExternalSector/StDirectInvestments/StDIBulgaria/index.htm"
                 label={t("bnb_fdi_source")}
               />

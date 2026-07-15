@@ -9,7 +9,13 @@
 // so a sector graduates by adding config, not a bespoke screen.
 
 import { FC, Suspense, useCallback, useMemo } from "react";
-import { useParams, Navigate } from "react-router-dom";
+import {
+  useParams,
+  Navigate,
+  Link,
+  useSearchParams,
+  type To,
+} from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
 import { Card, CardContent } from "@/ux/Card";
@@ -42,12 +48,14 @@ const GENERIC_CLASSIFIER: SectorClassifier<"all"> = {
   categoryOf: () => "all",
 };
 
-const KpiCard: FC<{ label: string; value: string; sub?: string }> = ({
-  label,
-  value,
-  sub,
-}) => (
-  <Card>
+const KpiCard: FC<{
+  label: string;
+  value: string;
+  sub?: string;
+  /** When set, the whole tile is a drill-down link. */
+  to?: To;
+}> = ({ label, value, sub, to }) => {
+  const body = (
     <CardContent className="p-3 md:p-4">
       <div className="text-xs text-muted-foreground">{label}</div>
       <div className="mt-1 text-xl font-semibold tabular-nums">{value}</div>
@@ -57,13 +65,23 @@ const KpiCard: FC<{ label: string; value: string; sub?: string }> = ({
         </div>
       )}
     </CardContent>
-  </Card>
-);
+  );
+  return to ? (
+    <Link to={to} className="block h-full">
+      <Card className="h-full transition-colors hover:border-primary/50">
+        {body}
+      </Card>
+    </Link>
+  ) : (
+    <Card className="h-full">{body}</Card>
+  );
+};
 
 const Dashboard: FC<{ config: SectorDashboardConfig }> = ({ config }) => {
   const { t, i18n } = useTranslation();
   const bg = i18n.language === "bg";
   const locale = bg ? "bg-BG" : "en-US";
+  const [params] = useSearchParams();
 
   // The sector's domain-specific pack (e.g. the НЗОК hospital-payments hero, the
   // roads km/delivery tiles) — the disbursement/delivery substance that used to
@@ -88,6 +106,26 @@ const Dashboard: FC<{ config: SectorDashboardConfig }> = ({ config }) => {
 
   const top = model?.suppliers[0] ?? null;
   const awarderN = byUnit.filter((u) => (u.totalEur ?? 0) > 0).length;
+
+  // KPI drill-downs. Money/contracts → the sector-filtered browse table
+  // (carrying the current scope forward); contractors → the lead awarder's full
+  // contractors list; top contractor → that company's page.
+  const contractsSearch = new URLSearchParams(params);
+  contractsSearch.set("sector", config.browsePackId ?? config.id);
+  const contractsTo: To = {
+    pathname: "/procurement/contracts",
+    search: `?${contractsSearch.toString()}`,
+  };
+  // Only single-member sectors get a contractors drill-down: the awarder page's
+  // list is per-awarder, so on a multi-EIK sector (energy) it would show just the
+  // lead's contractors while the KPI counts the whole group — a misleading subset.
+  const contractorsTo: To | undefined =
+    config.members.length === 1
+      ? `/awarder/${config.leadEik}/contractors`
+      : undefined;
+  const topContractorTo: To | undefined = top
+    ? `/company/${top.eik}`
+    : undefined;
   const ThematicTiles = config.ThematicTiles;
   // Mirror each chart tile's own render condition so a lone survivor (e.g.
   // spend-by-year needs ≥2 years, absent on a narrow scope) spans full width
@@ -130,10 +168,12 @@ const Dashboard: FC<{ config: SectorDashboardConfig }> = ({ config }) => {
             <KpiCard
               label={bg ? "Общо възложени" : "Total awarded"}
               value={formatEurCompact(model.totalEur, locale)}
+              to={contractsTo}
             />
             <KpiCard
               label={bg ? "Договори" : "Contracts"}
               value={model.contractCount.toLocaleString(locale)}
+              to={contractsTo}
             />
             <KpiCard
               label={bg ? "Изпълнители" : "Contractors"}
@@ -145,11 +185,13 @@ const Dashboard: FC<{ config: SectorDashboardConfig }> = ({ config }) => {
                     : `${awarderN} awarders`
                   : undefined
               }
+              to={contractorsTo}
             />
             <KpiCard
               label={bg ? "Топ изпълнител" : "Top contractor"}
               value={top ? formatEurCompact(top.totalEur, locale) : "—"}
               sub={top?.name}
+              to={topContractorTo}
             />
           </div>
           {showSpendChart && showTopChart ? (

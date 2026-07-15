@@ -88,6 +88,7 @@
     "db:verify": "DB_VERIFY=1 NODE_OPTIONS=--max-old-space-size=4096 tsx --test scripts/db/tests/*.data.test.ts",
     "data": "tsx ./scripts/main.ts",
     "data:nzok": "tsx ./scripts/nzok/ingest.ts",
+    "data:tourism": "tsx ./scripts/tourism/fetch_eurostat_tourism.ts",
     "prices": "NODE_OPTIONS=--max-old-space-size=6144 tsx ./scripts/prices/ingest.ts",
     "prod": "tsx ./scripts/main.ts --all --prod",
     "sitemap": "tsx ./scripts/sitemap/index.ts",

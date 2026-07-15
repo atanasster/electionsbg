@@ -56,7 +56,7 @@ export const CpvFilterCombobox: FC<{
   // Label for the trigger button given the current filter value.
   const triggerLabel = useMemo(() => {
     if (value === CPV_ALL || !value)
-      return bg ? "Всички сектори (CPV)" : "All sectors (CPV)";
+      return bg ? "Всички категории (CPV)" : "All categories (CPV)";
     const div = divisions.find((d) => d.value === value);
     if (div) return `${cpvDivisionName(value, lang)} (${div.count})`;
     const desc = catalogByCode.get(value);
@@ -68,7 +68,7 @@ export const CpvFilterCombobox: FC<{
     const out: Item[] = [];
     out.push({
       value: CPV_ALL,
-      label: bg ? "Всички сектори (CPV)" : "All sectors (CPV)",
+      label: bg ? "Всички категории (CPV)" : "All categories (CPV)",
     });
     const digits = /^\d{2,8}$/.test(q);
     // A typed code/prefix is always applicable, even if it's not a catalogue key.
@@ -115,7 +115,9 @@ export const CpvFilterCombobox: FC<{
         <CommandPrimitive shouldFilter={false}>
           <CommandInput
             placeholder={
-              bg ? "Търси сектор или CPV код…" : "Search sector or CPV code…"
+              bg
+                ? "Търси категория или CPV код…"
+                : "Search category or CPV code…"
             }
             value={query}
             onValueChange={setQuery}

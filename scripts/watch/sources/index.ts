@@ -66,6 +66,7 @@ import { modDefenseReport } from "./mod_defense_report";
 import { moeArmsExports } from "./moe_arms_exports";
 import { emberGeneration } from "./ember_generation";
 import { eurostatEnergyPrices } from "./eurostat_energy_prices";
+import { eurostatTourism } from "./eurostat_tourism";
 import { councilMinutes } from "./council_minutes";
 import { ipiLocalTaxes } from "./ipi_local_taxes";
 import { municipalNaredba } from "./municipal_naredba";
@@ -141,6 +142,7 @@ export const SOURCES: WatchSource[] = [
   eurostat,
   eurostatPolicy,
   eurostatEnergyPrices,
+  eurostatTourism,
   emberGeneration,
   policyBaselineLocal,
   euTaxRates,

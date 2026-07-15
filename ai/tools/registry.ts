@@ -48,6 +48,7 @@ import {
   cultureCommissions,
   cultureMunicipal,
 } from "./culture";
+import { tourismSeasonality, tourismSourceMarkets } from "./tourism";
 import { schoolMatura } from "./education";
 import {
   nzokBudget,
@@ -4835,6 +4836,46 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: administrationOverview,
+  },
+  {
+    name: "tourismSeasonality",
+    domain: "indicators",
+    description: {
+      bg: "Сезонност на туризма в България — нощувки по месец (чуждестранни и местни), дял на летния и зимния сезон, пик. Източник: Евростат.",
+      en: "Bulgaria tourism seasonality — nights per month (foreign and domestic), summer/winter share and peak month. Source: Eurostat.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Кога е сезонът на туризма в България?",
+        en: "When is Bulgaria's tourism season?",
+      },
+      {
+        bg: "Какъв дял от нощувките са през лятото?",
+        en: "What share of nights are in summer?",
+      },
+    ],
+    run: tourismSeasonality,
+  },
+  {
+    name: "tourismSourceMarkets",
+    domain: "indicators",
+    description: {
+      bg: "Пазари на произход на туристите в България — нощувки и дял по държава на произход (Румъния, Германия, Украйна…). Източник: Евростат.",
+      en: "Tourist source markets for Bulgaria — nights and share by country of origin (Romania, Germany, Ukraine…). Source: Eurostat.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "От къде идват туристите в България?",
+        en: "Where do tourists to Bulgaria come from?",
+      },
+      {
+        bg: "Кой е най-големият туристически пазар за България?",
+        en: "What is Bulgaria's biggest tourism source market?",
+      },
+    ],
+    run: tourismSourceMarkets,
   },
 ];
 
