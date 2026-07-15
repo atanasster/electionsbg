@@ -162,12 +162,12 @@ INSERT INTO procurement_normalcy_cache (key, payload)
     ) END,
     'value', CASE WHEN cs.v_n IS NULL OR cs.v_n = 0 OR ba.amount_eur IS NULL THEN NULL ELSE jsonb_build_object(
       'dir', 'neutral', 'value', ba.amount_eur, 'n', cs.v_n,
-      'p10', cs.v_p10, 'p25', cs.v_p25, 'median', cs.v_med, 'p75', cs.v_p75, 'p90', cs.v_p90,
+      'p10', ROUND(cs.v_p10::numeric, 2), 'p25', ROUND(cs.v_p25::numeric, 2), 'median', ROUND(cs.v_med::numeric, 2), 'p75', ROUND(cs.v_p75::numeric, 2), 'p90', ROUND(cs.v_p90::numeric, 2),
       'percentile', ROUND(mr.v_below / NULLIF(cs.v_n, 0), 4)
     ) END,
     'bidders', CASE WHEN cs.b_n IS NULL OR cs.b_n = 0 OR ba.number_of_tenderers IS NULL THEN NULL ELSE jsonb_build_object(
       'dir', 'low', 'value', ba.number_of_tenderers, 'n', cs.b_n,
-      'p10', cs.b_p10, 'p25', cs.b_p25, 'median', cs.b_med, 'p75', cs.b_p75, 'p90', cs.b_p90,
+      'p10', ROUND(cs.b_p10::numeric, 2), 'p25', ROUND(cs.b_p25::numeric, 2), 'median', ROUND(cs.b_med::numeric, 2), 'p75', ROUND(cs.b_p75::numeric, 2), 'p90', ROUND(cs.b_p90::numeric, 2),
       'singleShare', cs.b_single, 'singleBidder', ba.number_of_tenderers = 1,
       'percentile', ROUND(mr.b_below / NULLIF(cs.b_n, 0), 4)
     ) END,

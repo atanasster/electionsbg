@@ -195,9 +195,9 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       'dir', 'neutral',
       'value',  (SELECT amount_eur FROM tgt),
       'n',      (SELECT n FROM val),
-      'p10',    (SELECT p10 FROM val), 'p25', (SELECT p25 FROM val),
-      'median', (SELECT median FROM val),
-      'p75',    (SELECT p75 FROM val), 'p90', (SELECT p90 FROM val),
+      'p10',    ROUND((SELECT p10 FROM val)::numeric, 2), 'p25', ROUND((SELECT p25 FROM val)::numeric, 2),
+      'median', ROUND((SELECT median FROM val)::numeric, 2),
+      'p75',    ROUND((SELECT p75 FROM val)::numeric, 2), 'p90', ROUND((SELECT p90 FROM val)::numeric, 2),
       'percentile', (SELECT ROUND((count(*) FILTER (
                        WHERE amount_eur < (SELECT amount_eur FROM tgt)))::numeric
                        / NULLIF((SELECT n FROM val), 0), 4) FROM cohort
@@ -208,9 +208,9 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       'dir', 'low',
       'value',  (SELECT number_of_tenderers FROM tgt),
       'n',      (SELECT n FROM bids),
-      'p10',    (SELECT p10 FROM bids), 'p25', (SELECT p25 FROM bids),
-      'median', (SELECT median FROM bids),
-      'p75',    (SELECT p75 FROM bids), 'p90', (SELECT p90 FROM bids),
+      'p10',    ROUND((SELECT p10 FROM bids)::numeric, 2), 'p25', ROUND((SELECT p25 FROM bids)::numeric, 2),
+      'median', ROUND((SELECT median FROM bids)::numeric, 2),
+      'p75',    ROUND((SELECT p75 FROM bids)::numeric, 2), 'p90', ROUND((SELECT p90 FROM bids)::numeric, 2),
       'singleShare', (SELECT single_share FROM bids),
       'singleBidder', (SELECT number_of_tenderers FROM tgt) = 1,
       'percentile', (SELECT ROUND((count(*) FILTER (
