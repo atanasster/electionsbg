@@ -1,13 +1,117 @@
 # Транспорт (Transportation) sector view — v1 plan & competitive brainstorm
 
-Status: **RESEARCH + BRAINSTORM (not yet built)** — drafted 2026-07-12.
-Closest built siblings to copy: `water-view-v1.md` (multi-EIK infrastructure sector with a
-holding + regional operators, choropleths, a signature "who-spent" tile, a `SECTOR_BROWSE_PACKS`
-entry) and the shipped **АПИ roads pack** (`RoadsPack` + `src/lib/roadAttributes.ts`). The defense
-plan (`defense-pack-v1.md`) is the reference for the tile vocabulary and the anatomy checklist.
+Status: **PHASE 0 SHIPPED (group dashboard) — 2026-07-15.** Phases below build the bespoke pack.
+Closest built sibling to copy is now the **security/МВР sector** (`MvrPack` + `securityReferenceData.ts`),
+the freshest multi-EIK-group template; energy is the group-dashboard-with-ThematicTiles reference.
 
-> All corpus figures below are **MEASURED** from `data/procurement/derived/awarders_index.json`
-> (rebuilt 2026-07-11), not external estimates. €m = per-row `amountEur`, the PG basis.
+> All corpus figures are **MEASURED** from `data/procurement/derived/awarders_index.json`
+> (rebuilt 2026-07-15). €m = per-row `amountEur`, the PG basis.
+
+---
+
+## Audit rev 2.0 (2026-07-15) — NEW `/sector/:slug` architecture; group dashboard SHIPPED
+
+The whole sector system was refactored into a **registry-driven `/sector/:slug`** platform since
+rev 1.1. Both of rev 1's structural assumptions are now dead: there is **no `/transport` standalone
+screen** and **no pack on `/awarder/000695388`**. Everything below in rev 1.1 / the body about
+*wiring* is superseded by this section (the *entity universe*, *thesis*, *competitive research* and
+*tile ideas* remain valid).
+
+### What the architecture is now
+- A generic **`SectorDashboardScreen`** (`src/screens/sector/SectorDashboardScreen.tsx`) renders
+  `/sector/:id` from a config in **`src/screens/sector/sectorDashboards.ts`** (`SECTOR_DASHBOARDS`).
+  Each entry: `{id, titleKey, descKey, agency, leadEik, members[], browsePackId?, ThematicTiles?}`.
+- KPIs roll up over the member EIK-set via **`useAwarderGroupModel`** → `/api/db/awarder-group-model`
+  (accepts an arbitrary ≤300 EIK set, no server allowlist — verified). A `SectorAwardersTile` lists
+  every member (grouped by `member.group`), each chip → `/awarder/:eik`.
+- If a **pack** is registered under `leadEik` in `sectorPacks.tsx`, the pack *becomes the entire
+  dashboard content* (generic KPI row skipped); otherwise the generic KPI row + `SectorSpendByYearTile`
+  + `SectorTopContractorsTile` render, then optional `config.ThematicTiles`, then the awarders tile.
+- The awarder page for a `leadEik` **auto-suppresses** the domain pack and links across to the
+  sector dashboard (via `sectorDashboardForLeadEik`). The hub is **`/governance/sectors`**; each
+  tile's headline € comes from `data/procurement/derived/sector_stats.json` (regen: `npm run
+  db:gen-sector-stats`, needs the DB). Full file map: mirror the security sector.
+
+### What SHIPPED this session (Phase 0 — the group dashboard)
+Transport was a single-member (МТС-only) stub. Upgraded it to a real **11-entity group**, verified
+live at `/sector/transport`:
+- **New `src/lib/transportReferenceData.ts`** — the curated EIK allowlist (`TRANSPORT_ENTITIES`,
+  5 universes, `TRANSPORT_SECTOR_EIKS`, `TRANSPORT_LEAD_EIK`, labels), mirroring `securityReferenceData.ts`.
+- **`sectorDashboards.ts`** — transport `members` now map `TRANSPORT_ENTITIES` (grouped by universe);
+  `TRANSPORT_EIK` re-exported from the reference data.
+- **`sectorPacks.tsx`** — `SECTOR_BROWSE_PACKS.transport.eiks` widened to `TRANSPORT_SECTOR_EIKS`
+  (the `?sector=transport` browse now covers the whole group; `awarder_eik` is a `filter:"in"`
+  column so no server change).
+- **`sector_stats.ts`** — `transport` metric EIK-set → `TRANSPORT_SECTOR_EIKS` (regen pending a DB run).
+
+**Verified in-browser** (`?pscope=all`): **€5.9bn / 3,958 contracts / 11 awarders**, top contractor
+БДЖ-Пътнически €980.6M, a 2011-2026 spend-by-year chart (rail/EU surge: 2019 €864M, 2025 €1.1bn,
+2026 €1.5bn), members grouped by 5 universes, no console errors. Parliament-scope → €9.8M (5 active).
+tsc + eslint clean. **Not committed** (sits alongside the uncommitted security-sector work).
+
+### The FROZEN transport group (roads excluded — per the dedicated-roads constraint)
+11 EIKs, measured 2026-07-15. АПИ (000695089) and Автомагистрали ЕАД (831646048) are the **`roads`
+sector** — excluded here; transport keeps only a minimal roads cross-link. Метрополитен (000632256)
+is municipal — excluded.
+
+| Universe | Entity | EIK | €m |
+|---|---|---|---|
+| ministry | Министерство на транспорта и съобщенията (МТС, lead) | 000695388 | 2,197 |
+| rail | НКЖИ (rail infrastructure) | 130823243 | 2,878 |
+| rail | „БДЖ — Пътнически превози" | 175405647 | 423 |
+| rail | „БДЖ — Товарни превози" | 175403856 | 124 |
+| rail | Холдинг БДЖ | 130822878 | 33 |
+| rail | ИА „Железопътна администрация" (ИАЖА) | 130663221 | 0.1 |
+| maritime | ДП „Пристанищна инфраструктура" | 130316140 | 220 |
+| maritime | ИА „Морска администрация" | 121797867 | 11 |
+| aviation | ГД „Гражданска въздухоплавателна администрация" | 121805755 | 3.1 |
+| road | ИА „Автомобилна администрация" | 121410441 | 46 |
+| road | ДАБДП (road safety) | 177344399 | 2.0 |
+| — | **Group total** | — | **≈5,938** |
+
+### Next: a bespoke `TransportPack` (mirror `MvrPack`) — Phase 1+
+The group dashboard is the generic tier. To reach "world's best," add a pack under `TRANSPORT_LEAD_EIK`
+in `PACKS` (then it replaces the generic KPI row): `src/data/procurement/useTransport.tsx` +
+`src/lib/transportAttributes.ts` (CPV classifier + `buildTransportModel`) + `src/screens/components/
+procurement/transport/TransportPack.tsx` + tiles. The competitive-research tiles below map onto its
+`PackSection` bands. A universe `<Select>` (ministry/rail/maritime/aviation/road) segments the group.
+
+---
+
+## Competitive research (rev 2.0, 2026-07-15) — civic transport platforms → adoptable tiles
+
+Surveyed the best civic transport-money & safety dashboards worldwide. Roads has its own sector, so
+these emphasize **rail subsidy, ports, airport/toll concessions, EU absorption, and safety**.
+
+**Top 5 differentiators to lead the pack with (all money-first, data-ready):**
+1. **Rail subsidy-dependency tile** ⭐ — state subsidy € vs farebox € for БДЖ, subsidy-per-passenger
+   + farebox-recovery ratio. *Inspired by US NTD (farebox recovery) + UK ORR (govt-support-vs-income
+   split).* Data: budget subsidy line (update-budget) + БДЖ revenue/ridership (ГФО). THE flagship story.
+2. **Concession scorecard (airports + toll)** ⭐ — per-concession card: concessionaire, term, upfront
+   + annual fee/revenue-share to the state, traffic served. *World Bank PPI airport/toll modules.*
+   Data: Sofia Airport (SOF Connect/Meridiam), Varna/Burgas (Fraport), АПИ toll — public fees + GFO,
+   some terms curated.
+3. **EU-funds transport absorption burn-down** ⭐ — planned → contracted → paid for ОП „Транспортна
+   свързаност" vs ОПТТИ (99.4% closed). *EU Cohesion Open Data / Kohesio.* Data: existing ИСУН funds
+   ingest, filtered to transport OP.
+4. **Megaproject cost-growth vs Flyvbjerg reference bands** ⭐ — per project tender-estimate →
+   contracted → paid, plotted against Flyvbjerg rail (+45%)/road (+20%) bands. *Reference-class
+   forecasting + UK IPA cost-vs-schedule.* Data: corpus УНП lineage + amendments.
+5. **"Bulgaria in the EU league table" safety strip** ⭐ — road deaths per million across EU27, BG
+   near the bottom, + trajectory-vs-2030-halving-target line. *ETSC PIN + EU CARE dashboard.* Data:
+   Eurostat / the existing `eurostat_road_safety.ts` watcher (already ingested for security). Reuses
+   `/indicators/compare` peer machinery.
+
+**Further ranked ideas:** per-entity USAspending-style spend profile (already have via group model);
+investment-vs-maintenance capital split (ITF/OECD); single-bidder/competition-health per awarder
+(Prozorro/DoZorro; bid counts at `release.bids.statistics`); forward megaproject pipeline timeline
+(UK IPA / Australia ANZIP; from award dates + Приложение III investment annex); ports throughput vs
+capex (ITF + NSI/Eurostat maritime); toll-revenue-vs-network-spend loop (links to /sector/roads);
+peer-context KPI header (rail modal share, investment %GDP — EU Transport Scoreboard); civic red-flag
+watchlist (existing risk machinery); rail delay-compensation € (UK ORR — low BG feasibility, stretch).
+
+Positioning still holds: **nobody in BG unifies transport money**; sigma.midt.bg re-skins the same
+АОП data. Lead = rail subsidy-dependency + the concession/absorption money story.
 
 ---
 
