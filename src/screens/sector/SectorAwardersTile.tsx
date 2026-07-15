@@ -5,7 +5,7 @@
 // note pointing at the awarder page for the full breakdown.
 
 import { FC } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Landmark, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -16,8 +16,22 @@ export const SectorAwardersTile: FC<{ config: SectorDashboardConfig }> = ({
 }) => {
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
-  const { members, leadEik } = config;
+  const { members } = config;
   const single = members.length === 1;
+
+  // The "whole group" link goes to the sector-filtered contracts table — the
+  // real consolidated view across every member EIK. (It must NOT link to
+  // /awarder/leadEik: on a sector-lead awarder page the group pack is disabled —
+  // it has moved to /sector/:id — so that page only shows the lead entity's own
+  // single-seat procurement, which for МВР is a tiny, name-collided directorate
+  // record under the ministry's shared Булстат.) Preserve the active time scope
+  // (pscope / elections) so the group view opens in the same window.
+  const [searchParams] = useSearchParams();
+  const groupHref = (() => {
+    const p = new URLSearchParams(searchParams);
+    p.set("sector", config.browsePackId ?? config.id);
+    return `/procurement/contracts?${p.toString()}`;
+  })();
 
   // Preserve declaration order of sub-groups (if any) for stable rendering.
   const groups = [
@@ -43,7 +57,7 @@ export const SectorAwardersTile: FC<{ config: SectorDashboardConfig }> = ({
       <CardContent className="p-3 md:p-4 space-y-3">
         {!single && (
           <Link
-            to={`/awarder/${leadEik}`}
+            to={groupHref}
             className="flex items-center justify-between rounded-lg border bg-muted/20 px-3 py-2.5 text-sm hover:border-primary/50"
           >
             <span className="font-medium">
