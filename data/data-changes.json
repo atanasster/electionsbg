@@ -1,12 +1,33 @@
 {
-  "updatedAt": "2026-07-15T01:09:42.717Z",
+  "updatedAt": "2026-07-15T09:07:56.715Z",
   "entries": [
     {
-      "timestamp": "2026-07-15T01:09:42.717Z",
+      "timestamp": "2026-07-15T09:07:56.715Z",
       "date": "2026-07-15",
       "skill": "update-prices",
-      "summary": "КЗП retail prices refreshed through 2026-07-14 (+3 daily archives; 1,247,447 store rows, 244 settlements, 207 chains)",
+      "summary": "КЗП retail prices refreshed through 2026-07-14 (+1 daily archive; 1,247,447 store rows, 244 settlements, 207 chains)",
       "source": "КЗП Колко струва (retail prices)"
+    },
+    {
+      "timestamp": "2026-07-15T09:03:37.842Z",
+      "date": "2026-07-15",
+      "skill": "update-administration",
+      "summary": "e-government adoption 2025 + ИИСДА services register (2668 services)",
+      "source": "Eurostat isoc_ciegi_ac + ИИСДА"
+    },
+    {
+      "timestamp": "2026-07-15T09:02:09.295Z",
+      "date": "2026-07-15",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП gap-fill through 2026-07-14; tender-stage refreshed (126,263 procedures)",
+      "source": "ЦАИС ЕОП open data"
+    },
+    {
+      "timestamp": "2026-07-15T08:45:16.800Z",
+      "date": "2026-07-15",
+      "skill": "update-council-minutes",
+      "summary": "16 municipalities scanned; +1 new decision (SZR01 prot 43), 2 protocols touched",
+      "source": "Municipal council resolutions"
     },
     {
       "timestamp": "2026-07-14T15:21:06.568Z",
