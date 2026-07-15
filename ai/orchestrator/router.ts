@@ -1990,7 +1990,42 @@ export const route = (question: string, ctx: ToolContext): Route => {
       "spend",
       "funding",
     );
+    // Per-INDIVIDUAL-court workload (judiciaryCourtLoad), which must outrank the
+    // per-tier workload: "кой съд е най-натоварен" / "busiest court" / a named
+    // court asks about one court, not the tier aggregate. `натоварен` also sits in
+    // workloadCue, so this narrower cue is checked first.
+    //
+    // Deliberately NOT "по съд": it is a substring of "по съдебен ред" (the
+    // standard phrase for "by court tier"), so it would hijack the per-tier
+    // workload/caseload questions — the same "pending" ⊂ "spending" trap this file
+    // warns about. The named-court regex below covers "натовареност на РС Х".
+    // The "съд" cues are guarded with a negative lookahead so they never fire inside
+    // "съдия" (which JUDGE — a per-tier workload question, handled by workloadCue +
+    // the "съдия" courtSubject below): "кой съд" ⊂ "кой съдия", exactly the substring
+    // trap this file warns about. A Cyrillic `\b` never matches, so instead require
+    // that "съд" is not followed by another Cyrillic letter.
+    const courtLoadCue =
+      /(?:кой|коя|най-натоварен|най-натоварения|най-натовареният) съд(?![а-я])/i.test(
+        q,
+      ) ||
+      has(q, "busiest court", "which court") ||
+      /(?:районен|окръжен|административен|апелативен) съд(?![а-я])|софийски (?:районен|градски)/i.test(
+        q,
+      );
+    // Best-effort city after a court type ("Районен съд Пловдив" → "пловдив"); feeds
+    // the tool's court filter. Shared by BOTH courtLoadCue exits below so a query that
+    // also carries a court/judge subject (routed via routeJudiciary) keeps its filter.
+    const extractCourt = (): string | undefined =>
+      q.match(
+        /(?:районен|окръжен|административен|апелативен|специализиран)\s+съд\s+([а-я-]+)/i,
+      )?.[1];
+    const courtLoadArgs = (): ToolArgs => {
+      const court = extractCourt();
+      return court ? { ...yearArgs, court } : yearArgs;
+    };
     const routeJudiciary = (): Route | null => {
+      if (courtLoadCue)
+        return { tool: "judiciaryCourtLoad", args: courtLoadArgs() };
       if (workloadCue) return { tool: "judiciaryWorkload", args: yearArgs };
       if (budgetCue) return { tool: "judiciaryBudget", args: yearArgs };
       if (caseloadCue) return { tool: "judiciaryCaseload", args: yearArgs };
@@ -2019,6 +2054,9 @@ export const route = (question: string, ctx: ToolContext): Route => {
       q,
       "съдилищ",
       "съдии",
+      // singular "съдия" so a per-judge question ("кой съдия е най-натоварен") reaches
+      // routeJudiciary and lands on the per-tier workload rather than falling through.
+      "съдия",
       "магистрат",
       "прокуратура",
       "courts",
@@ -2029,6 +2067,12 @@ export const route = (question: string, ctx: ToolContext): Route => {
       const r = routeJudiciary();
       if (r) return r;
     }
+    // A named court ("Районен съд Пловдив") or "кой е най-натовареният съд" carries
+    // no `courtSubject` token, so it never reaches routeJudiciary above — yet it can
+    // only mean the per-court workload. Route it here directly, reusing the same city
+    // extractor so the court filter is applied identically to the routeJudiciary path.
+    if (courtLoadCue)
+      return { tool: "judiciaryCourtLoad", args: courtLoadArgs() };
     // Phrases that can only mean court cases, with no subject to lean on:
     // "висящите дела", "приключваемост", "case backlog". `приключваем` also sits
     // in `caseloadCue` above — not redundant: these are separate has() calls under

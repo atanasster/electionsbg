@@ -2084,6 +2084,30 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "judiciary/magistrates",
+    title: "Магистрати с декларирани дружества (ИВСС) | electionsbg.com",
+    description:
+      "Съдиите, прокурорите и следователите, посочили търговско дружество (дялове/акции/участие) в имуществената си декларация по чл. 175а ЗСВ — разпознати по име в Търговския регистър. Търсеща и сортируема таблица.",
+    breadcrumbName: "Магистрати с дружества",
+    bodyHtml: `
+<h1>Магистрати с декларирани дружества</h1>
+<p>Магистратите (съдии, прокурори и следователи) декларират пред Инспектората към ВСС имуществото и интересите си по чл. 175а ЗСВ. Тази таблица събира тези от тях, които са посочили дял, акции или участие в търговско дружество, и свързва дружеството по име с Търговския регистър — за да се проследи връзката между магистрат и фирма.</p>
+<p>Таблицата е търсеща (по магистрат или по дружество) и сортируема по брой декларирани дружества. Магистратите не са изборни лица; показва се само каквото публикува ИВСС, разпознато по име — следа, не доказателство.</p>
+<p>Виж и <a href="${SITE_URL}/judiciary">таблото на съдебната власт</a> — натовареност на съдиите, движение на делата и имуществените декларации.</p>`.trim(),
+    english: {
+      title:
+        "Magistrates with declared companies (Inspectorate) | electionsbg.com",
+      description:
+        "The judges, prosecutors and investigators who named a commercial company (shares/holdings/participation) in their art. 175a ЗСВ asset declaration — matched by name to the Commerce Registry. A searchable, sortable table.",
+      breadcrumbName: "Magistrates with companies",
+      bodyHtml: `
+<h1>Magistrates with declared companies</h1>
+<p>Magistrates (judges, prosecutors and investigators) declare their assets and interests to the Inspectorate to the Supreme Judicial Council under art. 175a ЗСВ. This table gathers those who named a share, stock or participation in a commercial company, matching the company by name to the Commerce Registry — to trace the link between a magistrate and a firm.</p>
+<p>The table is searchable (by magistrate or company) and sortable by the number of declared companies. Magistrates are not elected officials; only what the Inspectorate publishes is shown, name-matched — a lead, not proof.</p>
+<p>See also the <a href="${SITE_URL}/en/judiciary">judiciary dashboard</a> — judge workload, case flow and asset declarations.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "defense",
     title:
       "Отбрана — разходите на България за отбрана, F-16, износ на оръжие | electionsbg.com",

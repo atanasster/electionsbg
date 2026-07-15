@@ -1674,6 +1674,68 @@ const DB_ROUTES = {
     ]).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? null };
   },
+  // Per-court натовареност for one year → the /judiciary court-load map (schema
+  // 069). Fetched per year so the map never ships the 531 KB all-years JSON.
+  "court-load": async (dbRows, q) => {
+    const year = clampInt(q.year, 0, 2000, 2100);
+    const rows = await dbRows("SELECT court_load_year($1) AS r", [year]).catch(
+      missingMigrationEmpty,
+    );
+    return { body: rows[0]?.r ?? { year, courts: [] } };
+  },
+  "court-load-years": async (dbRows) => {
+    const rows = await dbRows("SELECT court_load_years() AS r", []).catch(
+      missingMigrationEmpty,
+    );
+    return { body: rows[0]?.r ?? [] };
+  },
+  // Magistrate declared-companies + informational financials (schema 070).
+  // One magistrate by normalized name → the /person tile (was the 123 KB file).
+  "magistrate-by-name": async (dbRows, q) => {
+    const norm = s(q, "norm");
+    if (!norm) return { body: null };
+    const rows = await dbRows("SELECT magistrate_by_name($1) AS r", [
+      norm,
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
+  // Magistrates who declared a company by EIK → the /company/:eik tile.
+  "magistrate-by-company": async (dbRows, q) => {
+    const eik = s(q, "eik");
+    if (!eik) return { body: [] };
+    const rows = await dbRows("SELECT magistrate_by_company($1) AS r", [
+      eik,
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? [] };
+  },
+  // Slim roster for the procurement combined search.
+  "magistrate-search": async (dbRows) => {
+    const rows = await dbRows("SELECT magistrate_search() AS r", []).catch(
+      missingMigrationEmpty,
+    );
+    return { body: rows[0]?.r ?? { roster: [] } };
+  },
+  // Top-N (by declared-company count) + stats → the /judiciary tile.
+  "magistrate-overview": async (dbRows, q) => {
+    const limit = clampInt(q.limit, 8, 1, 5000);
+    const rows = await dbRows("SELECT magistrate_overview($1) AS r", [
+      limit,
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? { magistrates: [], stats: {} } };
+  },
+  // The "richer bridge": politicians reachable from a magistrate's DECLARED
+  // companies over the TR officer graph (schema 071). Empty for almost every
+  // magistrate — the /person magistrate tile only renders it on a match.
+  "magistrate-politician-links": async (dbRows, q) => {
+    const norm = s(q, "norm");
+    if (!norm) return { body: [] };
+    const depth = clampInt(q.depth, 2, 1, 3);
+    const rows = await dbRows(
+      "SELECT magistrate_politician_links($1, $2) AS r",
+      [norm, depth],
+    ).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? [] };
+  },
 };
 
 module.exports = { DB_ROUTES };

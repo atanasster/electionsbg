@@ -400,6 +400,26 @@ const REGISTRY = {
     maxPageSize: 100,
   },
 
+  // Magistrates with a declared company (ИВСС чл. 175а ЗСВ) — the standalone
+  // „виж всички" browse behind the /judiciary holdings tile (view
+  // magistrate_holdings_table, migration 070). One row per holder (208); `companies`
+  // is the flattened, searchable list so a reader can find every magistrate who named
+  // a given company. Small set — no scope, no facets.
+  magistrate_holdings: {
+    base: "magistrate_holdings_table",
+    scopeCols: [],
+    columns: {
+      name: { type: "text", sort: true, filter: "text", search: true },
+      court: { type: "text", sort: true, filter: "text", search: true },
+      company_count: { type: "int", sort: true, filter: "range" },
+      companies: { type: "text", filter: "text", search: true },
+    },
+    select: ["name", "court", "company_count", "companies"],
+    defaultSort: [["company_count", "desc"]],
+    aggregates: [{ fn: "count" }],
+    maxPageSize: 100,
+  },
+
   // КЗП product browser (migration 048). One row per CANONICAL product — the
   // cross-chain identity derived from names, because the feed carries no EAN.
   //

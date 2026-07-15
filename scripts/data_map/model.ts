@@ -680,8 +680,8 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       en: "case movement and workload",
     },
     desc: {
-      bg: "Годишните „Обобщени статистически таблици за дейността на съдилищата“ на Висшия съдебен съвет — постъпили, свършени и висящи дела, срокове и натовареност на съдиите, по съдебен ред. Публикуват се само като PDF. Плюс регистъра на имуществените декларации на магистратите и списъците на ИВСС за неизрядни декларации. Забележка: регистърът на ИВСС се публикува на гол IP адрес по нешифрован HTTP (без TLS), затова обхождането му се прави от доверена мрежа и всяка промяна в имената се преглежда ръчно преди публикуване.",
-      en: "The Supreme Judicial Council's annual summary statistical tables on the activity of the courts — cases filed, resolved and pending, delays and judges' workload, by court tier. Published as PDFs only. Plus the magistrates' asset-declaration register and the Inspectorate's non-compliance lists. Note: the Inspectorate's register is served from a bare IP over unencrypted HTTP (no TLS), so the crawl is run from a trusted network and every change to the named individuals is reviewed by hand before publication.",
+      bg: "Годишните „Обобщени статистически таблици за дейността на съдилищата“ на Висшия съдебен съвет — постъпили, свършени и висящи дела, срокове и натовареност на съдиите, по съдебен ред (Приложение № 1) и по конкретен съд за картата на натовареността (Приложение № 2). Публикуват се само като PDF. Плюс регистъра на имуществените декларации на магистратите и списъците на ИВСС за неизрядни декларации, както и декларираните от магистрати дружества (целият състав, кръстосан с поръчките и с политици през общи управители). Забележка: регистърът на ИВСС се публикува на гол IP адрес по нешифрован HTTP (без TLS), затова обхождането му се прави от доверена мрежа и всяка промяна в имената се преглежда ръчно преди публикуване.",
+      en: "The Supreme Judicial Council's annual summary statistical tables on the activity of the courts — cases filed, resolved and pending, delays and judges' workload, by court tier (Приложение № 1) and by individual court for the per-court workload map (Приложение № 2). Published as PDFs only. Plus the magistrates' asset-declaration register and the Inspectorate's non-compliance lists, and the companies magistrates declare (the full roster, cross-linked to procurement and — through shared officers — to politicians). Note: the Inspectorate's register is served from a bare IP over unencrypted HTTP (no TLS), so the crawl is run from a trusted network and every change to the named individuals is reviewed by hand before publication.",
     },
     url: "https://vss.justice.bg/page/view/1082",
     origin: "state",
@@ -1005,8 +1005,8 @@ export const DATASETS: DatasetDef[] = [
       en: "caseload, delays, workload",
     },
     desc: {
-      bg: "Движението на делата в българските съдилища от 2018 г. насам — постъпили, свършени и висящи дела, дял решени в 3-месечния срок, брой съдии и двата официални показателя за натовареност (по щат и действителна), по съдебен ред.",
-      en: "The movement of cases through Bulgaria's courts since 2018 — filed, resolved and pending, the share closed inside the three-month deadline, judge posts and both official workload measures (per post and actual), by court tier.",
+      bg: "Движението на делата в българските съдилища от 2018 г. насам — постъпили, свършени и висящи дела, дял решени в 3-месечния срок, брой съдии и двата официални показателя за натовареност (по щат и действителна), по съдебен ред и по конкретен съд (геокодирана карта на натовареността). Плюс регистъра на имуществените декларации на целия магистратски състав и декларираните от тях дружества, които се кръстосват с обществените поръчки и — през общи управители/съдружници — с политици.",
+      en: "The movement of cases through Bulgaria's courts since 2018 — filed, resolved and pending, the share closed inside the three-month deadline, judge posts and both official workload measures (per post and actual), by court tier and by individual court (a geocoded workload map). Plus the full magistrate roster's asset-declaration index and the companies they declare, cross-linked to public procurement and — through shared officers — to politicians.",
     },
     path: "data/judiciary/",
     tags: ["fiscal"],
@@ -1431,8 +1431,8 @@ export const FEATURES: FeatureDef[] = [
       en: "caseload, delays and workload",
     },
     desc: {
-      bg: "Колко дела влизат в съдилищата, колко излизат и колко остават висящи — плюс натовареността на съдиите и бюджета на съдебната власт по органи.",
-      en: "How many cases enter the courts, how many leave, and how many stay pending — plus judges' workload and the judiciary's budget by spending body.",
+      bg: "Колко дела влизат в съдилищата, колко излизат и колко остават висящи — плюс натовареността на всеки съд върху карта, разхода за свършено дело, бюджета на съдебната власт по органи и декларираните от магистрати дружества.",
+      en: "How many cases enter the courts, how many leave, and how many stay pending — plus each court's workload on a map, the cost per resolved case, the judiciary's budget by spending body, and the companies magistrates declare.",
     },
     route: "/judiciary",
     tags: ["fiscal"],

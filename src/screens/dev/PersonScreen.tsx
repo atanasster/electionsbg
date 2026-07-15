@@ -58,6 +58,8 @@ import {
   type Associate,
 } from "../components/procurement/PersonAssociatesTile";
 import { PersonTimelineTile } from "../components/procurement/PersonTimelineTile";
+import { PersonMagistrateHoldingsTile } from "../components/procurement/PersonMagistrateHoldingsTile";
+import { PersonMagistratePoliticianLinks } from "../components/procurement/PersonMagistratePoliticianLinks";
 import type {
   ProcurementContractorRollup,
   ProcurementBreakdown,
@@ -447,6 +449,13 @@ export const PersonScreen: FC = () => {
 
       {!loading && !error && (
         <div className="space-y-6">
+          {/* If this person is a magistrate with a declared company (ИВСС), show it.
+              Renders nothing otherwise. */}
+          <PersonMagistrateHoldingsTile name={person} />
+          {/* The richer bridge: politicians reachable from a magistrate's declared
+              companies over the officer graph. Renders nothing unless a link exists. */}
+          <PersonMagistratePoliticianLinks name={person} />
+
           {/* Portfolio procurement */}
           {rollup && rollup.contractCount > 0 && (
             <>

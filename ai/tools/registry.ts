@@ -67,6 +67,7 @@ import {
   judiciaryBudget,
   judiciaryCaseload,
   judiciaryWorkload,
+  judiciaryCourtLoad,
   judiciaryDeclarations,
 } from "./judiciary";
 import {
@@ -2041,6 +2042,36 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: judiciaryWorkload,
+  },
+  {
+    name: "judiciaryCourtLoad",
+    domain: "indicators",
+    description: {
+      bg: "Действителна натовареност по КОНКРЕТЕН съд — дела за разглеждане и свършени на един съдия месечно. Кой съд е най-натоварен; натовареност на съда в даден град.",
+      en: "Actual workload of an INDIVIDUAL court — cases to consider and resolved per judge per month. Which court is busiest; a named court's or city's load.",
+    },
+    params: [
+      { name: "year", type: "year", description: { bg: "Година", en: "Year" } },
+      {
+        name: "court",
+        type: "text",
+        description: {
+          bg: "Име на съд или град (по избор)",
+          en: "Court or city name (optional)",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Кой е най-натовареният съд?",
+        en: "Which court is the busiest?",
+      },
+      {
+        bg: "Каква е натовареността на Районен съд Пловдив?",
+        en: "What is the workload of the Plovdiv District Court?",
+      },
+    ],
+    run: judiciaryCourtLoad,
   },
   {
     name: "judiciaryDeclarations",

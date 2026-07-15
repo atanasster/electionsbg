@@ -221,7 +221,7 @@ the АПИ / НОИ / НЗОК sector packs. The reader-facing thesis no existin
 the **backlog + натовареност dissonance** — cases pile up while courts sit at wildly
 uneven load (Sofia District Court ~2× the national average, military courts idle),
 and the money-and-integrity layer (judicial budget per case, magistrate asset
-declarations) lives only in ВСС PDFs, NGO microsites, and the Инспекторат register.
+declarations) lives only in scattered ВСС PDFs and the Инспекторат register.
 We are the only place that *joins* caseload, money, geography, and integrity.
 
 Home surface: a **VssPack** on `/awarder/121513231` (Висш съдебен съвет) plus a
@@ -320,15 +320,15 @@ Three sources are **already in our data** — the Tier-A MVP renders before any 
   of the caseload + натовареност + duration story. Needs a **stable court-ID crosswalk**
   (courts get reorganised across the span — same class of problem as the oblast-code
   shard mismatch).
-- **SINS натовареност** — complexity-weighted judge workload (contested methodology —
-  show raw + weighted, cite IME/Capital).
+- **SINS натовареност** — complexity-weighted judge workload (publicly contested
+  methodology — show raw + weighted).
 
 ### Tier C — new scrape (integrity differentiator)
 - **Magistrate asset declarations** — Инспекторат към ВСС register (inspectoratvss.bg;
   **separate from the cacbg register** we already scrape for MPs/officials; ~25k
   declarations 2017–2024). Feeds the integrity tile (wealthiest magistrates, cars,
-  apartments) cross-linked into the **Връзки** graph — the differentiator no competitor
-  (BILI, fathers.bg) matches.
+  apartments) cross-linked into the **Връзки** graph — a distinguishing capability of
+  this view.
 
 ### Tier D — benchmarks (reuse existing)
 - **EU Justice Scoreboard / CEPEJ** — clearance rate, disposition time, budget/capita,
@@ -659,19 +659,235 @@ route only; gate them the way candidate sub-tabs are gated.
   it becomes live with the first prosecution roll-up.
 - Court reorganisations (съдебна карта) shift unit boundaries 2005–2025 — the court-ID
   crosswalk (`court_dim.active_from/to`) is the hard part.
-- SINS натовареност methodology is politically contested (IME/Capital) — show raw +
-  weighted with a one-line "why these differ".
+- SINS натовареност methodology is publicly contested — show raw + weighted with a
+  one-line "why these differ".
 - Magistrate declarations are public and precedented, but magistrates aren't elected —
   mirror the MP-declaration framing, don't sensationalize; ИВСС register may need OCR (reuse
   the Gemini Vision pattern from council/capital-programmes).
 - `SECTOR_BROWSE_PACKS` is unbuilt — coordinate with the water plan so it's built once.
 
-## 13. Competitive context (why this wins)
-Public data exists but lives as government-CMS PDFs (vss.justice.bg, 2005–2025) or one-off
-NGO analyses on separate microsites — nobody has an interactive, longitudinal, geographic,
-integrity-linked judiciary dashboard. Closest players: **ИПИ/IME** (натовареност essays, no
-live data), **BILI** (`appointmentsboard.bg` + `judicialprofiles.bg` + asset analyses;
-fragmented, appointment-centric), **fathers.bg** (single-axis wealth ranking), **Инспекторат
-към ВСС** (the raw declaration register). Наясно's edge: geographic + longitudinal +
-cross-linked (magistrate ↔ declarations ↔ Връзки ↔ procurement) + EU peer compare, all on
-infrastructure already built.
+## 13. Why this view is valuable
+Public judiciary data exists but is scattered — government-CMS PDFs (vss.justice.bg,
+2005–2025), the ИВСС declaration register, and assorted one-off analyses — with no single
+interactive, longitudinal, geographic, integrity-linked dashboard. The value this view
+adds: geographic + longitudinal + cross-linked (magistrate ↔ declarations ↔ Връзки ↔
+procurement) + EU peer compare, all on infrastructure already built.
+
+## Phase 5 — improvement analysis & suggestions (2026-07-15)
+
+A review of the judiciary view produced a ranked set of improvement ideas, each
+resolved for feasibility against our own data:
+
+### SHIPPED this pass
+- **Разход на свършено дело** (`CostPerCaseTile` + `data/judiciary/costPerCase.ts`).
+  Courts' ЗДБРБ appropriation (`bodies[id=courts].amountEur`) ÷ Приложение № 1 resolved
+  total — **scope-matched** (both exclude прокуратура/ВКС/ВАС), so we do NOT fold the
+  ~€252M prosecution line into a per-court-case cost the way a naive "total judiciary
+  budget ÷ court cases" figure does. Series 2018–2025: **€255 → €663, ×2.6**, resolved
+  volume flat. Rendered on `/judiciary`, typecheck+lint clean, verified in dev.
+
+### Improvement 1 (flagship) — per-court натовареност map — SHIPPED (2026-07-15)
+
+A Leaflet map of **178 individual courts** (Районен 113 = rs_oblast 27 + rs_izvan 86,
+Окръжен 28, Административен 28, Апелативен 6, Военен 3),
+**2018–2025**, filter by year (page scope) / indicator / court type, dot size+colour = cases
+per judge per month. `CourtLoadMap.tsx` + `useCourtLoad.tsx`, rendered as the signature
+visual atop `/judiciary`. Verified in dev; typecheck + lint clean.
+
+**Source:** **Приложение № 2 „Таблица за натовареността на магистратите"** — per-court
+ДЕЙСТВИТЕЛНА натовареност (постъпили / за разглеждане / свършени на съдия месечно).
+Parser `scripts/judiciary/__write_court_load.ts` → `data/judiciary/court_load.json`.
+
+**Parser design that made it robust** (the table is a nightmare — unspaced counts weld into
+the name cell, trailing administration columns vary by tier, section headers wrap):
+- each row is reduced to its numeric sequence; the load block is anchored on the
+  действителна triple (за разглеждане is the largest of the three) + the judge count after it;
+- the anchor is **locked to the ВСС's own identity** `load = case_count ÷ person-months` — a
+  backing integer count must exist in the row — which is what rejects the admin ratios
+  (`5, 3, 2 …`) that otherwise mis-anchor the tiny районни;
+- tiers assigned by **name prefix** (АС/ВС/ОС/СГС/АдмС/РС/СРС + the defunct АСНС/СНС for
+  2018–2021), NOT the wrapping section headers; районни split by an oblast-capital set;
+  a `cleanName` trim handles a header phrase that bleeds onto a row (2018 РС-Перник);
+- **NB `\b` is ASCII-only** and does not fire after Cyrillic — bare abbreviations are matched
+  by prefix, not `\b` (this cost a debugging cycle).
+- **Reconciliation (hard gate, per tier):** Σ person-months and the pm-weighted действителна
+  load == `caseload.json` (the ВСС's own definitions, exact to rounding). This gates exactly
+  what the map shows and is independent of the judge-count щат-vs-заети/младши accounting,
+  which differs from caseload by a few posts. **All 8 years reconcile; all 178 geocoded.**
+- Geocoding: join court town → `settlements.json` `loc` (case-insensitive; Sofia pinned, as
+  it is absent from that file).
+
+**Markers (2026-07-15):** the map renders through the reusable
+`src/screens/components/maps/SectorPointMap.tsx` — **one marker per CITY** (all courts in a
+town merge, since they share the settlement centroid). The badge shows the **total judges**
+in the city (Sofia = 633 across 8 courts); the colour is the **busiest court's** load band
+(Sofia = amber, its СРС at 36.2), so an overloaded city stays visible. Multi-court cities
+open a **paginating card** (header "N съдилища · M съдии", busiest court first, chevrons),
+single-court towns a plain hover card — both in the polling-section look (`.sector-point-icon`
+/ `.sector-tooltip`, smart placement + edge-clamp). NB: the earlier "#N rank" badge was
+rejected — the number is a meaningful count, not a rank. `CourtLoadMap` owns the controls,
+banding and legend and passes `SectorMapPoint[]` (value ranks within a city + colours the
+marker; `badge` sums to the number). **SectorPointMap is generic** — МВР / other regional
+dashboards reuse it (e.g. Варна's ОДМВР + РДПБЗН + … merge into one marker; `badge`/`value`
+/`groupNoun`/`badgeNoun` are theirs to define).
+
+**The finding the map shows:** the load is wildly uneven and *inverted* — the smallest районни
+courts carry the heaviest per-judge load (2025: РС-Омуртаг 56, Малко Търново 55, Кула 54
+resolved cases/judge/month) while appellate benches sit light. Rides the existing
+`vss_court_statistics` watcher; `update-judiciary` skill gained Step 1b.
+
+**Still open — the money join** (not yet built): €/case per court, or a procurement
+column per court.
+
+### Improvement 2 (EU justice-%GDP) — BLOCKED on clean source, deliberately not shipped
+An EU comparison of justice spend as a share of GDP would need CEPEJ court-isolated spend.
+Our only EU-peer source is COFOG division **03 „Public order & safety"**, which conflates
+police + prisons + courts — using it would introduce exactly the case-mix/scope confound we
+otherwise avoid. BG's own justice-%GDP is computable (`budget.totalExpenditure` ÷
+`macro.nominalGdp`) but is benchmark-less without peers, so deferred until a CEPEJ pull.
+
+### Improvements 3/4 — candidate net-new ingests (not built)
+- **(Само)отводи** (recusals) and **командироване** (secondment): novel, strong analytical
+  angles (recusals have risen sharply in recent years; secondment often bypasses the
+  конкурс). Both are net-new sources (likely further ВСС appendices / decisions) → their
+  own ingest.
+- **Prosecution coverage**: we deliberately excluded ВКС/ВАС/прокуратура (Приложение № 1
+  scope). Reconsider at least a prosecution-activity summary tile.
+
+## Phase 6 — magistrates as connection nodes (declared holdings) — v1 slice BUILT (2026-07-15)
+
+Extends the "money/connections join" to the judiciary: parse the ИВСС asset/interest
+declarations (чл. 175а ЗСВ) for the companies each magistrate declares, resolve to EIK,
+and surface as a first-class magistrate→company link. Deep-implementation analysis and
+the deliberately narrow first slice below.
+
+### Source (verified against a real declaration)
+The v3.0 PDF form (since 22.11.2022) has a real text layer, 12 pages. Connection-relevant
+sections: Таблица 16 (дялове в ООД/КД — company, %, seat, value), Ценни книги (акции —
+emitter АД), ЧАСТ II Таблица 22 (управител/член на орган на управление/контрол),
+Таблица 23 (участие в търговски дружества), Таблица 21 (ЕТ), Таблица 29 (свързани лица).
+Filled values are positionally clean (same y-bucket/x-order technique as the court map),
+but the fillable-form text layer **interleaves template labels with values**, so a
+per-table column reconstruction is fragile.
+
+### Design — company-name harvesting, not per-table parsing
+Connections only need the company SET, so instead of reconstructing each table we harvest
+cells that are company names (start with a capital, end in a legal-form token ООД/ЕАД/АД/…),
+excluding template labels ("Наименование на ЕТ", "дялове в ООД", "акции"), from the two
+pages that carry declared links. Attach a stake % when the row has one. Validated on a
+13-declaration sample: Аглика Адамова → Елана Агрокредит АД / Градус АД / ГГС АД / Еуросис
+ООД (25%); 11/13 declare nothing (sitting magistrates are barred from management — **the
+output is sparse by design**).
+
+### Reuse — the officials pipeline is the template
+`scripts/declarations/build_officials_company_links.ts` already does name→EIK resolution
+(`normCompany` strips legal-form tokens, matches `raw_data/tr/state.sqlite` `companies`,
+UIC only on a UNIQUE match) with namesake confidence rules. The magistrate parser reuses
+that verbatim. The one genuinely new component is the ИВСС PDF harvester.
+
+### Built (this slice)
+- `scripts/judiciary/__write_magistrate_holdings.ts` → `data/judiciary/magistrate_holdings.json`.
+  Latest-year annual declarations only; streams PDFs (fetch→parse→discard, ~4 GB corpus
+  never stored), resumable via `raw_data/judiciary/holdings_cache.json`. EIK resolved once
+  against TR. Ownership + participation company names only.
+- `useMagistrateHoldings.tsx` + `MagistrateHoldingsTile.tsx` on `/judiciary`: lists
+  magistrates with a declared company; resolved companies link to `/company/:eik`;
+  unresolved/ambiguous shown as text (never invented into a link).
+
+### Framing (baked in, non-negotiable)
+Magistrates are NOT elected officials. Reproduce only what the ИВСС publishes (a company
+name in a filed declaration), name-matched to the registry — a LEAD, not proof. No stake
+is inferred that is not printed; ambiguous names stay text.
+
+### Key constraints / risks (from the analysis)
+- **No EGN/ID** — 5,556 magistrates keyed by name only; namesake risk at scale (the same
+  problem officials have, with no institutional slug). Confidence gating is essential.
+- **No reconciliation ground-truth** — each declaration is unique, so parse errors are
+  silent (unlike the court map, which asserts Σ vs caseload). Mitigated by internal markers
+  ("Нямам нищо за деклариране") + a hand-checked sample; NOT yet a hard gate.
+- **Partial EIK coverage** — name→UIC only on a unique match, so some declared companies
+  stay unresolved. Honest, shown as text.
+
+### Company-page surface — BUILT (2026-07-15)
+The parser also emits `data/judiciary/magistrate_company_index.json` (inverse index
+eik → magistrates who declared it; 235 companies, 7 declared by >1 magistrate — e.g.
+Синергон Холдинг АД by 3). `useCompanyMagistrates(eik)` + `CompanyMagistratesTile`
+render on `/company/:eik` next to `CompanyConnectionCheck`, showing nothing unless there
+is a match. Verified on Синергон Холдинг АД (121228499). Skill wiring done (rides
+`ivss_declarations`).
+
+### Person-page surface — BUILT (2026-07-15)
+`usePersonMagistrateHoldings(name)` + `PersonMagistrateHoldingsTile` on `/person/:name`:
+if the person's name matches a magistrate with declared companies, the tile shows them
+(resolved → `/company/:eik`, unresolved → text). Name-matched (normalized), framed as a
+lead. Verified on Аглика Адамова-Петкова (3 resolved + 1 text). **All three connection
+surfaces now shipped: `/judiciary`, `/company/:eik`, `/person/:name`.**
+
+### Combined-search surface — BUILT (2026-07-15)
+The parser emits a slim `data/judiciary/magistrate_search.json` roster (name · court ·
+company count, ~33 KB). `useMagistrateSearchRoster(enabled)` + a **"Магистрати"** group in
+the procurement `ProcurementSearchTile` match it client-side (same bilingual Cyrillic +
+transliterated token match as the political roster), gated to first search interaction,
+linking to `/person/:name`; deduped against the political and Commerce-Registry groups so a
+name appears once. Verified: "Аглика Адамова" → the magistrate under МАГИСТРАТИ, the
+namesake TR officer under ЛИЦА. All FOUR surfaces now shipped: `/judiciary`, `/company/:eik`,
+`/person/:name`, procurement search.
+
+### Not yet built (follow-ons)
+- **Declared financials — a RANKING is not viable, but INFORMATIONAL per-page display SHIPPED
+  (2026-07-15).** The parser now also extracts three validated figures per magistrate into
+  `magistrate_holdings.json` `financials{bankCashLv, securitiesLv, realEstateCount}`, shown on
+  the magistrate's `/person/:name` tile as SPECIFIC labelled amounts (converted лв→EUR), NOT a
+  net-worth total and NOT a cross-magistrate ranking — framed "ориентировъчни, извлечени
+  автоматично; следа, не доказателство". 203/208 have data; Аглика exact, Атанасов €496.8k +
+  5 имота. Only the reliable dimensions are extracted: **bank/cash** (Tables 10+11, лв value =
+  равностойност-after-currency else размер-before; bounded before Вземания), **securities**
+  (лв after emitter), **real-estate COUNT** (Table 1 owned only, bounded before agricultural/
+  transferred). **Income and liabilities are deliberately NOT extracted** — the prototype
+  showed them unreliable, and a wrong figure on a named judge isn't worth it.
+  - A **cross-magistrate RANKING remains not viable** — the earlier prototype showed the
+    fillable form is filled inconsistently across declarations:
+  - **Structure varies** — some fill the равностойност-в-лв column for BGN rows (Аглика,
+    redundant), others leave it blank so размер IS the лв value (Vladimir Kovachev: the
+    currency-anchored read caught only his 104 293 EUR row = 203 979 лв and **missed** two
+    BGN rows totalling 63 395 лв → a 24% undercount).
+  - **False positives** — NADEZHDA Shutova declared no bank accounts >10k, yet the bounded
+    read still returned 6 854 лв from stray cells.
+  - **No reconciliation ground-truth** (each declaration is unique), so good and bad
+    extractions can't be told apart, and Table 10 (cash-on-hand) vs 11 (bank) vs 12
+    (receivables) vs 13 (liabilities) all sit under one section III with drifting layouts.
+  A wrong "declared wealth" on a NAMED judge is a serious integrity/liability risk, so this
+  is **deferred**. If ever revived: needs per-declaration structure detection + a hand-checked
+  validation set, or scope to a robust COUNT (not a лв total). The MP ranking
+  (`build_assets_rankings.ts`) works only because its source is structured CAC XML, not this PDF.
+- Related-persons (Таблица 29) and the TR-side name match (magistrate name → company_persons).
+- Historical years / change declarations (only latest-annual current-holdings snapshot now).
+- Magistrates without declared companies are not in the roster (only the 208 with a company).
+
+### Tile UX (2026-07-15)
+`MagistrateHoldingsTile` no longer scrolls a 208-row list: it shows the **top 8** (ranked by
+declared-company count) with a **"Виж всички (208)"** expand toggle. House rule — no long
+scrolling lists in tiles; top-N + see-all.
+
+## Phase 7 — Postgres migration + perf + responsive (2026-07-15)
+
+**Perf (data loading):** `/judiciary` shipped court_load.json (531 KB) + magistrate_holdings
+(123 KB) + company_index (67 KB) + search (33 KB). Migrated to Postgres:
+- **court_load** → schema `069_court_load.sql` (table + `idx_court_load_year` + serving fns
+  `court_load_year(year)` / `court_load_years()`), loader `load_court_load_pg.ts`. The map
+  now fetches **one year (~34 KB)** via `/api/db/court-load?year=` — a **94% cut** — and
+  re-fetches on year change (`useCourtLoad(year)`, `CourtLoadMap` takes `{year, courts}`).
+  EXPLAIN: 1.1 ms.
+- **magistrate** → schema `070_magistrates.sql` (`magistrate` + `magistrate_company` tables;
+  indexes on `name_norm`, `company_count DESC`, `magistrate_company(eik)`), loader
+  `load_magistrates_pg.ts`. Serving fns: `magistrate_by_name` (person page, **492 B / 0.05 ms**
+  vs the 123 KB file), `magistrate_by_company` (company page, 0.12 ms), `magistrate_search`
+  (roster), `magistrate_overview(limit)` (the /judiciary tile — top-8, fetches all on "see all").
+  Routes in `functions/db_routes.js`; the four hooks (`useMagistrateOverview`,
+  `useCompanyMagistrates`, `usePersonMagistrateHoldings`, `useMagistrateSearchRoster`) now hit
+  `/api/db`. `magistrate_company_index.json` / `magistrate_search.json` are no longer emitted
+  (PG-derived). Both loaders wired into `db:refresh`.
+
+**Responsive:** audited `/judiciary`, `/company/:eik`, `/person/:name` at 375 px — no
+horizontal page overflow; KPIs are 2-col, the map + controls fit, the tier table scrolls in
+its own `overflow-x-auto` wrapper, tiles wrap. No fixes required.

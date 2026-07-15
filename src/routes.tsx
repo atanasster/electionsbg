@@ -140,6 +140,11 @@ const JudiciaryScreen = lazy(() =>
     default: m.JudiciaryScreen,
   })),
 );
+const MagistrateHoldingsBrowseScreen = lazy(() =>
+  import("./screens/judiciary/MagistrateHoldingsBrowseScreen").then((m) => ({
+    default: m.MagistrateHoldingsBrowseScreen,
+  })),
+);
 const DefenseScreen = lazy(() =>
   import("./screens/defense/DefenseScreen").then((m) => ({
     default: m.DefenseScreen,
@@ -1437,6 +1442,16 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <JudiciaryScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="judiciary/magistrates"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <MagistrateHoldingsBrowseScreen />
+                </Suspense>
               </LayoutScreen>
             }
           />

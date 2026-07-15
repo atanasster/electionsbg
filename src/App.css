@@ -171,6 +171,54 @@
   pointer-events: auto;
 }
 
+/* Reusable ranked-point map (SectorPointMap) — numbered marker badge + card,
+   sharing the polling-section marker/tooltip look so every regional/city sector
+   map reads the same. */
+.sector-point-icon {
+  background: transparent;
+  border: 0;
+}
+.sector-point-icon > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 22px;
+  padding: 0 5px;
+  border-radius: 9999px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.45);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.leaflet-tooltip.sector-tooltip {
+  background: hsl(var(--popover));
+  color: hsl(var(--popover-foreground));
+  border: 1px solid hsl(var(--border));
+  box-shadow:
+    0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  border-radius: 0.375rem;
+  padding: 0.375rem 0.75rem;
+  white-space: normal;
+  max-width: 320px;
+}
+.leaflet-tooltip.sector-tooltip.leaflet-tooltip-top::before {
+  border-top-color: hsl(var(--popover));
+}
+.leaflet-tooltip.sector-tooltip.leaflet-tooltip-bottom::before {
+  border-bottom-color: hsl(var(--popover));
+}
+.leaflet-tooltip.sector-tooltip.leaflet-tooltip-left::before {
+  border-left-color: hsl(var(--popover));
+}
+.leaflet-tooltip.sector-tooltip.leaflet-tooltip-right::before {
+  border-right-color: hsl(var(--popover));
+}
+
 @layer components {
   /* Styling for Markdown-generated content in chat messages */
   .markdown-content {

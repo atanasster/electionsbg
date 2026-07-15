@@ -55,6 +55,7 @@ export const ENGLISH_STATIC_PAGES = [
   "demographics",
   "prices",
   "judiciary",
+  "judiciary/magistrates",
   "defense",
   "water",
   "water/operators",
@@ -111,6 +112,10 @@ export const routeDefs = (year: string): RouteDefs => [
   {
     path: "judiciary",
     file: `src/screens/judiciary/JudiciaryScreen.tsx`,
+  },
+  {
+    path: "judiciary/magistrates",
+    file: `src/screens/judiciary/MagistrateHoldingsBrowseScreen.tsx`,
   },
   { path: "defense", file: `src/screens/defense/DefenseScreen.tsx` },
   { path: "water", file: `src/screens/water/WaterScreen.tsx` },

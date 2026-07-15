@@ -412,6 +412,127 @@ export const judiciaryWorkload = async (
   };
 };
 
+// ---- per-court натовареност (Приложение № 2) --------------------------------
+
+type CourtLoadCourt = {
+  name: string;
+  tier: string;
+  place: string | null;
+  judges: number;
+  filedPerMonth: number;
+  considerPerMonth: number;
+  resolvedPerMonth: number;
+};
+type CourtLoadFile = {
+  latestYear: number;
+  years: { year: number; courts: CourtLoadCourt[] }[];
+};
+
+const TIER_LABEL: Record<string, { bg: string; en: string }> = {
+  apelativni: { bg: "Апелативен", en: "Appellate" },
+  voenni: { bg: "Военен", en: "Military" },
+  okrazhni: { bg: "Окръжен", en: "Regional" },
+  rs_oblast: { bg: "Районен (център)", en: "District (centre)" },
+  rs_izvan: { bg: "Районен (извън)", en: "District (outside)" },
+  administrativni: { bg: "Административен", en: "Administrative" },
+};
+
+// "Кой съд е най-натоварен?" — the PER-COURT actual workload (свършени дела на
+// съдия месечно), the grain judiciaryWorkload (per tier) can't show. Optional
+// `court` filters to a named court or city; otherwise the busiest are listed.
+export const judiciaryCourtLoad = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const f = await fetchData<CourtLoadFile>("/judiciary/court_load.json");
+  const picked = pickYear(f.years, (y) => y.year, args.year);
+  if (picked.missing != null)
+    return noYearEnvelope(
+      "judiciaryCourtLoad",
+      "indicators",
+      ["judiciary/court_load.json"],
+      picked.missing,
+      picked.first,
+      picked.last,
+      ctx.lang,
+    );
+  const year = picked.year;
+  if (!year) {
+    return {
+      tool: "judiciaryCourtLoad",
+      domain: "indicators",
+      kind: "scalar",
+      title: bg ? "Няма данни за натовареността" : "No court-load data",
+      viz: "none",
+      facts: {},
+      provenance: ["judiciary/court_load.json"],
+    };
+  }
+
+  const q = String(args.court ?? args.query ?? "")
+    .toLowerCase()
+    .trim();
+  const byLoad = [...year.courts].sort(
+    (a, b) => b.considerPerMonth - a.considerPerMonth,
+  );
+  const matched = q
+    ? byLoad.filter(
+        (c) =>
+          c.name.toLowerCase().includes(q) ||
+          (c.place ?? "").toLowerCase().includes(q),
+      )
+    : byLoad.slice(0, 15);
+  const busiest = byLoad[0];
+
+  const tl = (t: string) => (bg ? TIER_LABEL[t]?.bg : TIER_LABEL[t]?.en) ?? t;
+  const rows: Row[] = matched.map((c) => ({
+    court: c.name,
+    tier: tl(c.tier),
+    judges: fmtInt(c.judges, ctx.lang),
+    consider: n1(c.considerPerMonth, ctx.lang),
+    resolved: n1(c.resolvedPerMonth, ctx.lang),
+  }));
+  const columns: Column[] = [
+    { key: "court", label: bg ? "Съд" : "Court" },
+    { key: "tier", label: bg ? "Ред" : "Tier" },
+    { key: "judges", label: bg ? "Съдии" : "Judges", numeric: true },
+    {
+      key: "consider",
+      label: bg ? "За разглеждане" : "To consider",
+      numeric: true,
+    },
+    { key: "resolved", label: bg ? "Свършени" : "Resolved", numeric: true },
+  ];
+
+  return {
+    tool: "judiciaryCourtLoad",
+    domain: "indicators",
+    kind: "table",
+    title: q
+      ? bg
+        ? `Натовареност по съд — „${args.court ?? args.query}" (${year.year})`
+        : `Court workload — “${args.court ?? args.query}” (${year.year})`
+      : bg
+        ? `Най-натоварените съдилища (${year.year})`
+        : `The busiest courts (${year.year})`,
+    subtitle: bg
+      ? "Действителна натовареност: дела за разглеждане / свършени на един съдия месечно"
+      : "Actual workload: cases to consider / resolved per judge per month",
+    columns,
+    rows,
+    viz: "none",
+    facts: {
+      year: year.year,
+      courts: fmtInt(year.courts.length, ctx.lang),
+      busiest_court: busiest ? busiest.name : "—",
+      busiest_load: busiest ? n1(busiest.considerPerMonth, ctx.lang) : "—",
+      ...(q ? { matched: matched.length } : {}),
+    },
+    provenance: ["judiciary/court_load.json"],
+  };
+};
+
 // ---- the ИВСС asset-declaration register (index, not contents) --------------
 
 type IntegrityList = {

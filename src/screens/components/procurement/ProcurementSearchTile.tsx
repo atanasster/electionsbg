@@ -20,6 +20,7 @@ import {
   Receipt,
   ClipboardList,
   Users,
+  Scale,
   ArrowRight,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -27,6 +28,7 @@ import {
   useCorpusPersonIndex,
   type PersonProcurementRow,
 } from "@/data/procurement/usePersonProcurementIndex";
+import { useMagistrateSearchRoster } from "@/data/judiciary/useMagistrateHoldings";
 import { normalizeMpName } from "@/lib/utils";
 import { transliterateName } from "@/data/candidates/transliterateName";
 import { formatEurCompact } from "@/lib/currency";
@@ -123,6 +125,21 @@ export const ProcurementSearchTile: FC = () => {
     [personRows],
   );
 
+  // Magistrates who declared a company (ИВСС). Same client-side, bilingual token
+  // match as the political roster; links to the generic /person/:name page, which
+  // carries the magistrate's declared-companies tile.
+  const magistrateRows = useMagistrateSearchRoster(touched);
+  const magistrateSearchRows = useMemo(
+    () =>
+      magistrateRows.map((row) => ({
+        row,
+        haystack: `${normalizeMpName(row.name)} ${normalizeMpName(
+          transliterateName(row.name),
+        )}`,
+      })),
+    [magistrateRows],
+  );
+
   // Debounced live DB search (200 ms); stale requests aborted. Two endpoints in
   // parallel: procurement-search (companies/awarders/contracts/tenders by name)
   // and person-search (ANY Commerce-Registry officer by name, so a company
@@ -173,6 +190,18 @@ export const ProcurementSearchTile: FC = () => {
       .map(({ row }) => row);
   }, [personSearchRows, term, hasQuery]);
 
+  const magistrates = useMemo(() => {
+    if (!hasQuery) return [];
+    const tokens = normalizeMpName(term).split(" ").filter(Boolean);
+    if (tokens.length === 0) return [];
+    const shown = new Set(persons.map((p) => normalizeMpName(p.name)));
+    return magistrateSearchRows
+      .filter(({ haystack }) => tokens.every((tok) => haystack.includes(tok)))
+      .map(({ row }) => row)
+      .filter((row) => !shown.has(normalizeMpName(row.name)))
+      .slice(0, MAX_PERSONS);
+  }, [magistrateSearchRows, persons, term, hasQuery]);
+
   // Commerce-Registry people matching the name, EXCLUDING anyone already shown
   // in the political group (dedup by folded name — the endpoint also returns
   // case-variant rows of the same name, which this collapses too). Gated to
@@ -183,7 +212,10 @@ export const ProcurementSearchTile: FC = () => {
   const trPeopleFiltered = useMemo((): TrPersonRow[] => {
     const tokenCount = normalizeMpName(term).split(" ").filter(Boolean).length;
     if (!hasQuery || tokenCount < 2 || trPeople.length === 0) return [];
-    const seen = new Set(persons.map((p) => normalizeMpName(p.name)));
+    const seen = new Set([
+      ...persons.map((p) => normalizeMpName(p.name)),
+      ...magistrates.map((m) => normalizeMpName(m.name)),
+    ]);
     const out: TrPersonRow[] = [];
     for (const p of trPeople) {
       const norm = normalizeMpName(p.name);
@@ -193,7 +225,7 @@ export const ProcurementSearchTile: FC = () => {
       if (out.length >= MAX_PERSONS) break;
     }
     return out;
-  }, [trPeople, persons, term, hasQuery]);
+  }, [trPeople, persons, magistrates, term, hasQuery]);
 
   const groups = useMemo((): Group[] => {
     // "See all" links keep the section state (?pscope, elections) AND carry
@@ -222,6 +254,19 @@ export const ProcurementSearchTile: FC = () => {
               : t("procurement_search_kind_official") || "Official",
           amountEur: p.totalEur,
           icon: Users,
+        })),
+      });
+    if (magistrates.length > 0)
+      g.push({
+        key: "magistrates",
+        label: t("procurement_search_group_magistrates") || "Magistrates",
+        items: magistrates.map((m, i) => ({
+          id: `magistrate-${i}`,
+          to: `/person/${encodeURIComponent(m.name)}`,
+          primary: m.name,
+          secondary:
+            m.court ?? (i18n.language === "bg" ? "магистрат" : "magistrate"),
+          icon: Scale,
         })),
       });
     if (trPeopleFiltered.length > 0)
@@ -302,7 +347,16 @@ export const ProcurementSearchTile: FC = () => {
         })),
       });
     return g;
-  }, [persons, trPeopleFiltered, db, t, term, params]);
+  }, [
+    persons,
+    magistrates,
+    trPeopleFiltered,
+    db,
+    t,
+    i18n.language,
+    term,
+    params,
+  ]);
 
   const flat = useMemo(() => groups.flatMap((g) => g.items), [groups]);
   // Stable id → flat-highlight-index lookup, so the grouped render never has

@@ -17,6 +17,7 @@
 // appears only because the ИВСС named them.
 
 import { FC } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ShieldAlert, ExternalLink, Check } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -92,7 +93,12 @@ export const IntegrityListsTile: FC<{ lists: IntegrityList[] }> = ({
                       key={`${p.name}-${i}`}
                       className="flex flex-wrap items-baseline gap-x-2 border-t border-border/60 py-1"
                     >
-                      <span className="font-medium">{p.name}</span>
+                      <Link
+                        to={`/person/${encodeURIComponent(p.name)}`}
+                        className="font-medium hover:text-primary hover:underline"
+                      >
+                        {p.name}
+                      </Link>
                       {p.filedLate && (
                         <span className="rounded-full border border-border bg-muted/40 px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
                           {bg ? "подал извън срока" : "filed late"}

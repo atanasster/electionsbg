@@ -22,11 +22,16 @@ import {
   useJudiciaryCaseload,
 } from "@/data/judiciary/useCaseload";
 import { useJudiciaryDeclarations } from "@/data/judiciary/useDeclarations";
+import { useJudiciaryBudget } from "@/data/budget/useBudget";
+import { useCourtLoad } from "@/data/judiciary/useCourtLoad";
 import { CaseloadFlowTile } from "./CaseloadFlowTile";
+import { CostPerCaseTile } from "./CostPerCaseTile";
+import { CourtLoadMap } from "./CourtLoadMap";
 import { WorkloadTile } from "./WorkloadTile";
 import { TierTable } from "./TierTable";
 import { DeclarationsTile } from "./DeclarationsTile";
 import { IntegrityListsTile } from "./IntegrityListsTile";
+import { MagistrateHoldingsTile } from "./MagistrateHoldingsTile";
 import { JudicialAwardersTile } from "./JudicialAwardersTile";
 
 export const JudiciaryScreen = () => {
@@ -37,6 +42,10 @@ export const JudiciaryScreen = () => {
   // The declarations register is a second, independent artifact — it must not
   // gate the caseload tiles, so it renders on its own once it lands.
   const { data: declarations } = useJudiciaryDeclarations();
+  // The судебна власт budget (ЗДБРБ) is a third, independent artifact. It only
+  // feeds the derived cost-per-case tile, so — like the declarations register — it
+  // must not gate the caseload tiles; the tile renders once both have landed.
+  const { data: budget } = useJudiciaryBudget();
 
   // Resolve the picked year against the data rather than trusting the override:
   // if a refreshed caseload.json drops the year the user picked, fall back to the
@@ -49,6 +58,10 @@ export const JudiciaryScreen = () => {
     return data.years.find((y) => y.year === want) ?? data.years[0];
   }, [data, yearOverride]);
   const selectedYear = year?.year ?? null;
+
+  // Per-court workload map (Приложение № 2), served per year from Postgres — fetched
+  // for the selected year so the map never ships the 531 KB all-years JSON.
+  const { data: courtLoad } = useCourtLoad(selectedYear);
 
   // Map the year state onto the shared scope-control vocabulary, so /judiciary
   // reads exactly like the other government-entity dashboards: an "Обхват" strip
@@ -190,8 +203,16 @@ export const JudiciaryScreen = () => {
             </StatCard>
           </div>
 
+          {/* Signature visual — the per-court workload map */}
+          {courtLoad && courtLoad.courts.length > 0 && (
+            <CourtLoadMap year={courtLoad.year} courts={courtLoad.courts} />
+          )}
+
           {/* Hero — the flow of cases and the backlog it leaves */}
           <CaseloadFlowTile years={data.years} />
+
+          {/* Money per output — courts' budget ÷ their resolved cases */}
+          {budget && <CostPerCaseTile years={data.years} budget={budget} />}
 
           {/* Workload — the two official measures, side by side */}
           <WorkloadTile tiers={year.tiers} year={year.year} />
@@ -206,6 +227,9 @@ export const JudiciaryScreen = () => {
               <IntegrityListsTile lists={declarations.integrity} />
             </>
           )}
+
+          {/* Declared magistrate → company links (independent artifact) */}
+          <MagistrateHoldingsTile />
 
           {/* Bridge to the money half of the story — one link per judicial body */}
           <JudicialAwardersTile />

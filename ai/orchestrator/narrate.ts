@@ -343,6 +343,19 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `През ${f(env, "year")} г. ${f(env, "judges")} съдии по щат носят средно ${f(env, "national_per_post")} дела на месец по щат и ${f(env, "national_actual")} действително. Най-натоварени са ${f(env, "busiest_tier")} (${f(env, "busiest_load")}), най-малко — ${f(env, "quietest_tier")} (${f(env, "quietest_load")}).`
         : `In ${f(env, "year")}, ${f(env, "judges")} judge posts carried ${f(env, "national_per_post")} cases a month per post and ${f(env, "national_actual")} in actual terms. The busiest tier is ${f(env, "busiest_tier")} (${f(env, "busiest_load")}), the quietest ${f(env, "quietest_tier")} (${f(env, "quietest_load")}).`;
+    // Per-INDIVIDUAL-court workload. `matched` is null for the default "busiest
+    // courts" list and a count when the caller filtered by a court/city name.
+    case "judiciaryCourtLoad": {
+      if (!env.facts.year) return env.title;
+      const matched = env.facts.matched;
+      if (matched != null)
+        return lang === "bg"
+          ? `${f(env, "matched")} съдилища отговарят на търсенето (${f(env, "year")} г.). Данните са за действителната натовареност — дела за разглеждане и свършени на един съдия месечно; вижте таблицата за всеки съд.`
+          : `${f(env, "matched")} courts match the search (${f(env, "year")}). The figures are actual workload — cases to consider and resolved per judge per month; see the table for each court.`;
+      return lang === "bg"
+        ? `През ${f(env, "year")} г. най-натовареният съд е ${f(env, "busiest_court")} с ${f(env, "busiest_load")} дела за разглеждане на един съдия месечно. Таблицата подрежда съдилищата по действителна натовареност.`
+        : `In ${f(env, "year")} the busiest court is ${f(env, "busiest_court")}, with ${f(env, "busiest_load")} cases to consider per judge per month. The table ranks courts by actual workload.`;
+    }
     case "defenseSpending":
       if (!env.facts.latest_pct) return env.title;
       return lang === "bg"

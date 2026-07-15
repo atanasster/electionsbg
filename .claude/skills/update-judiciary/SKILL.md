@@ -1,6 +1,6 @@
 ---
 name: update-judiciary
-description: Refresh the judiciary (Съдебна власт) data — the court caseload/workload series in data/judiciary/caseload.json, parsed from the ВСС annual "Обобщени статистически таблици за дейността на съдилищата" PDFs, and the judiciary budget-by-body in data/budget/vss/budget.json, parsed from the State Budget Law. It also indexes the ИВСС magistrate asset-declaration register into data/judiciary/declarations.json. These feed the /judiciary dashboard, the ВСС sector pack on /awarder/121513231, and the AI judiciaryCaseload / judiciaryWorkload / judiciaryBudget / judiciaryDeclarations tools. Use when the daily watch report flags `vss_court_statistics` or `ivss_declarations` as changed, when the user asks to refresh judiciary / съдебна власт / court statistics / натовареност data, or after a fresh git clone if data/judiciary/caseload.json is missing.
+description: Refresh the judiciary (Съдебна власт) data — the court caseload/workload series in data/judiciary/caseload.json, the per-court натовареност map data in data/judiciary/court_load.json (Приложение № 2, ~178 geolocated courts), both parsed from the ВСС annual "Обобщени статистически таблици за дейността на съдилищата" PDFs, and the judiciary budget-by-body in data/budget/vss/budget.json, parsed from the State Budget Law. It also indexes the ИВСС magistrate asset-declaration register into data/judiciary/declarations.json and parses the declared companies (dyalove/aktsii) into data/judiciary/magistrate_holdings.json (EIK-resolved, the "Магистрати с декларирани дружества" tile). These feed the /judiciary dashboard (incl. the court-load map), the ВСС sector pack on /awarder/121513231, and the AI judiciaryCaseload / judiciaryWorkload / judiciaryBudget / judiciaryDeclarations tools. Use when the daily watch report flags `vss_court_statistics` or `ivss_declarations` as changed, when the user asks to refresh judiciary / съдебна власт / court statistics / натовареност data, or after a fresh git clone if data/judiciary/caseload.json or court_load.json is missing.
 allowed-tools:
   - Read
   - Bash
@@ -15,6 +15,7 @@ Two independent artifacts, two independent triggers.
 | Artifact | Source | Watcher | Script |
 |---|---|---|---|
 | `data/judiciary/caseload.json` | ВСС annual statistical-tables PDFs (vss.justice.bg) | `vss_court_statistics` | `scripts/judiciary/__write_caseload.ts` |
+| `data/judiciary/court_load.json` | Same PDFs, Приложение № 2 (per-court натовареност) | `vss_court_statistics` | `scripts/judiciary/__write_court_load.ts` |
 | `data/budget/vss/budget.json` | ЗДБРБ „Бюджет на съдебната власт" article (cached law HTML) | `budget_law` (owned by `update-budget`) | `scripts/budget/__write_judiciary.ts` |
 | `data/judiciary/declarations.json` | ИВСС declaration register + its non-compliance lists | `ivss_declarations` | `scripts/judiciary/__write_declarations.ts` |
 
@@ -47,6 +48,27 @@ The PDFs carry a real text layer, so there is **no OCR step**. Parsing reconstru
 the table with pdfjs text positioning (bucket items into rows by y, merge into cells
 by x-gap), the same technique as the investment-annex parser.
 
+## Step 1b — Per-court load ingest (the map)
+
+```bash
+npx tsx scripts/judiciary/__write_court_load.ts
+```
+
+Parses **Приложение № 2 „Таблица за натовареността на магистратите"** (the per-court
+grain) out of the SAME cached PDFs and writes `data/judiciary/court_load.json` — one
+row per court (~178), geolocated, with its ДЕЙСТВИТЕЛНА натовареност (постъпили / за
+разглеждане / свършени дела на съдия месечно). This drives the court-load map on
+`/judiciary`. **Run it after Step 1** — it reads `caseload.json` for its reconciliation
+targets, so caseload must be current first.
+
+Robustness notes (all documented in the script): each court row is anchored on the
+действителна triple + the judge count that follows it, locked to the ВСС's own identity
+`load = case_count ÷ person-months` so the administration ratios never mis-anchor;
+tiers are assigned by court-name prefix (АС/ВС/ОС/СГС/АдмС/РС/СРС, plus the defunct
+АСНС/СНС for 2018–2021) with районни split by the oblast-capital set; and the parse is
+reconciled per tier against `caseload.json` (Σ person-months and the pm-weighted
+действителна load), so a bad parse throws rather than shipping.
+
 ## Step 2 — Verify (the script asserts, but read the output)
 
 If ANY year fails to parse the script **throws and writes nothing** — a partial
@@ -70,8 +92,9 @@ agree with Приложение № 1; and the ВСС's published 2021 headline 
 npx tsx scripts/stamp-ingest.ts update-judiciary --summary "caseload <first>-<last>"
 ```
 
-Commit `data/judiciary/caseload.json` (+ `scripts/judiciary/sources.ts` if a year was
-added). `data/` is served from the bucket in prod, so `bucket:sync data/judiciary/`.
+Commit `data/judiciary/caseload.json` **and `data/judiciary/court_load.json`** (+
+`scripts/judiciary/sources.ts` if a year was added). `data/` is served from the bucket
+in prod, so `bucket:sync data/judiciary/`.
 
 ## Declarations ingest
 
@@ -83,7 +106,81 @@ Crawls the register (9 years × 29 first-letter pages = 261 HTML pages, ~2 min a
 concurrency 4) plus the ИВСС's four non-compliance lists, and writes
 `data/judiciary/declarations.json` (~12 KB). The full per-declaration index with PDF
 paths goes to `raw_data/judiciary/declarations_index.json` (gitignored) — it is the
-input for any future asset-extraction job.
+input for the magistrate-holdings ingest below.
+
+## Magistrate declared-companies ingest (the connections slice)
+
+```bash
+npx tsx scripts/judiciary/__write_magistrate_holdings.ts
+```
+
+Reads `declarations_index.json`, fetches each latest-year annual declaration PDF from
+the register (**~3.1k, ~10 min**, streamed to memory and discarded — the corpus is
+~4 GB and never stored), harvests the company names in the ownership + participation
+sections, resolves each to an EIK against the TR SQLite (`raw_data/tr/state.sqlite` —
+run `update-connections` first if it is missing), and writes
+`data/judiciary/magistrate_holdings.json`. Resumable: parsed holdings are cached in
+`raw_data/judiciary/holdings_cache.json`, so a re-run only fetches new magistrates
+(`--limit N` bounds a test run; `--local <dir>` parses already-downloaded PDFs).
+
+Emits the **full latest-year roster** — every magistrate the parser reads, not only
+the holders (current run: 3,113 emitted / 3,114 scanned, 1 fetch failure). Postgres
+serves one record at a time, so the person page + procurement search cover all ~3.1k
+while the „Магистрати с декларирани дружества" tile stays holder-only (server-side
+`WHERE company_count > 0`). Companies stay **sparse** — magistrates are barred from
+management — so only **208 have a declared company** (363 companies, ~67% EIK-resolved).
+
+Each record also carries `financials{bankCashLv, securitiesLv, realEstateCount}` — a
+best-effort, INFORMATIONAL reproduction from the declaration (shown лв→EUR on the
+`/person/:name` magistrate tile, NOT a ranking, NOT a net-worth total). Only reliable
+dimensions are extracted (bank/cash, securities value, owned-property count); income and
+liabilities are deliberately skipped as unreliable. **2,797 magistrates carry non-zero
+financials, but only a small set was hand-checked** (Аглика 183,546 лв bank ✓, Vladimir
+267,374 ✓, NADEZHDA 0 ✓, Marija 4 owned properties ✓). The distribution is plausible in
+the middle (median ~78k лв, p95 ~395k лв) but the **high tail is unreliable**: ~15 rows
+over 1M лв and a max of ~19.7M лв that is near-certainly a parse artifact (the bank/cash
+extractor sums every row before Вземания, so a misread digit or a fat account list
+inflates it). Before shipping a run, eyeball the top of
+`SELECT name, court, bank_cash_lv FROM magistrate ORDER BY bank_cash_lv DESC LIMIT 30`
+against source PDFs; the tile framing („ориентировъчни; следа, не доказателство") is the
+safety net, not a licence to publish a wrong million-лв figure on a named judge.
+
+**FRAMING (non-negotiable):** magistrates are NOT elected officials. Reproduce only
+what the ИВСС publishes (a company name in a filed declaration), name-matched to the
+registry — a LEAD, not proof. A name that does not resolve to exactly one registry
+entity is shown as text, never invented into a link. There is **no reconciliation
+ground-truth** for this parse (each declaration is unique), unlike the caseload/court
+tables — so validate parser changes against a hand-checked sample.
+
+### Load to Postgres (both artifacts are PG-served)
+
+`court_load.json` and `magistrate_holdings.json` are **loaded into Postgres** — the map
+fetches one year (`court_load_year`), and the person/company/search/tile magistrate views
+are all derived server-side from the `magistrate` table (schema 069/070). So after
+generating the JSON:
+
+```bash
+npm run db:load:court-load:pg      # + :cloud for Cloud SQL
+npm run db:load:magistrates:pg     # + :cloud
+```
+
+(Both are also wired into `db:refresh`.) The magistrate views no longer emit
+`magistrate_company_index.json` / `magistrate_search.json` — those are PG-derived.
+
+The magistrate loader also applies **`071_magistrate_connections.sql`** (the
+magistrate→politician bridge, `magistrate_politician_links`) and refreshes the
+`company_officer_counts` matview it uses. That schema depends on the connections
+tables from `008` (`company_politicians`, `officer_name_counts`, `tr_officers`), which
+`db:refresh` loads before magistrates — on a bare magistrate-only load against a DB
+without them, the loader logs a warning and the bridge simply serves empty. The bridge
+seeds an officer-graph BFS from the magistrate's DECLARED companies (they are not
+officers, so the normal `person_politicians` never finds them a link) and excludes both
+hub people (>12 companies) and hub companies (>20 officers — state entities), so a judge
+holding public shares is not spuriously linked to every politician. Surfaced on
+`/person/:name` only.
+
+Rides the `ivss_declarations` watcher. Commit `data/judiciary/magistrate_holdings.json`
+(the loader input) + reload PG. No `bucket:sync` needed for the PG-served views.
 
 Asserts: ≥8 years; every **closed** year has ≥3,000 magistrates and BOTH filing
 batches (annual + change); dedupe accounting balances and every surviving row has a
