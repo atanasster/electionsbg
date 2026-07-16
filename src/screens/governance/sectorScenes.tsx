@@ -246,28 +246,36 @@ const Pension: FC = () => (
 
 const Social: FC = () => (
   <SceneFrame>
-    {/* umbrella = safety net */}
-    <path d="M78 40 a52 52 0 0 1 104 0 Z" fill="var(--sector)" opacity=".85" />
-    <path d="M78 40 h104" stroke={PAPER} strokeWidth="2" />
+    {/* safety-net arc = social protection (distinct from НОИ's pension scene) */}
     <path
-      d="M130 40 v44 a10 10 0 0 0 20 0"
+      d="M92 30 a58 34 0 0 1 116 0"
+      fill="none"
+      stroke="var(--sector)"
+      strokeWidth="3"
+      opacity=".85"
+    />
+    <g stroke="var(--sector)" strokeWidth="1.2" opacity=".45">
+      <path d="M110 30 l14 14 M134 30 l14 14 M150 30 l14 14 M176 30 l14 14" />
+    </g>
+    {/* heart cradled above a supporting hand = грижа / подпомагане */}
+    <path
+      d="M150 58 c-6 -11 -22 -7 -22 5 c0 9 13 16 22 23 c9 -7 22 -14 22 -23 c0 -12 -16 -16 -22 -5 Z"
+      fill="var(--sector)"
+    />
+    {/* the supporting cupping hand */}
+    <path
+      d="M112 90 q38 24 76 0"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2.4"
+      strokeWidth="3"
       strokeLinecap="round"
     />
-    {/* three sheltered figures */}
-    <g fill="currentColor" opacity=".7">
-      <circle cx="96" cy="86" r="6" />
-      <path d="M86 104 a10 10 0 0 1 20 0 Z" />
-      <circle cx="180" cy="86" r="6" />
-      <path d="M170 104 a10 10 0 0 1 20 0 Z" />
-    </g>
-    {/* contribution bars */}
-    <g fill="var(--sector)">
-      <rect x="214" y="84" width="10" height="20" rx="2" opacity=".5" />
-      <rect x="228" y="74" width="10" height="30" rx="2" opacity=".72" />
-      <rect x="242" y="64" width="10" height="40" rx="2" />
+    <g fill="currentColor" opacity=".8">
+      <circle cx="112" cy="90" r="4" />
+      <circle cx="131" cy="98" r="4" />
+      <circle cx="150" cy="101" r="4" />
+      <circle cx="169" cy="98" r="4" />
+      <circle cx="188" cy="90" r="4" />
     </g>
   </SceneFrame>
 );

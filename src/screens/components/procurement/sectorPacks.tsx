@@ -36,6 +36,7 @@ import { MOSV_EIK, ENV_SECTOR_EIKS } from "@/lib/environmentReferenceData";
 import { ADMIN_SECTOR_EIKS } from "@/lib/administrationReferenceData";
 import { TOURISM_SECTOR_EIKS } from "@/lib/tourismReferenceData";
 import { MVR_EIK, SECURITY_SECTOR_EIKS } from "@/lib/securityReferenceData";
+import { SOCIAL_SECTOR_EIKS } from "@/lib/socialReferenceData";
 import type { ScopeWindow } from "@/data/procurement/useAwarderContracts";
 
 export interface SectorPackProps {
@@ -256,6 +257,14 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
     id: "transport",
     label: { bg: "Транспорт (МТС)", en: "Transport (МТС)" },
     eiks: TRANSPORT_SECTOR_EIKS,
+  },
+  social: {
+    id: "social",
+    label: {
+      bg: "Социално подпомагане (МТСП)",
+      en: "Social assistance (МТСП)",
+    },
+    eiks: SOCIAL_SECTOR_EIKS,
   },
   environment: {
     id: "environment",

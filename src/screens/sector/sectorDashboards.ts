@@ -17,7 +17,6 @@
 
 import { lazy, type ComponentType } from "react";
 import { API_EIK } from "@/lib/roadAttributes";
-import { NOI_EIK } from "@/lib/noiBenchmarks";
 import { NZOK_EIK } from "@/lib/nzokBenchmarks";
 import { MON_EIK } from "@/lib/monBenchmarks";
 import { NAP_EIK } from "@/lib/napReferenceData";
@@ -35,6 +34,11 @@ import {
   TRANSPORT_ENTITIES,
   TRANSPORT_UNIVERSE_LABEL,
 } from "@/lib/transportReferenceData";
+import {
+  SOCIAL_LEAD_EIK,
+  SOCIAL_ENTITIES,
+  SOCIAL_UNIVERSE_LABEL,
+} from "@/lib/socialReferenceData";
 import {
   MOSV_EIK,
   ENV_ENTITIES,
@@ -164,22 +168,25 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
       group: TRANSPORT_UNIVERSE_LABEL[e.universe],
     })),
   },
+  // Социално подпомагане — the МТСП/АСП state social group: the ministry (policy
+  // principal), the social-assistance agency that pays the benefits (АСП — the
+  // star), the labour agencies (АЗ + ГИТ) and the small policy/quality agencies
+  // (АХУ + АКСУ). МТСП leads; its /awarder page renders the SocialPack. ⚠ НОИ
+  // (pensions) is a SEPARATE view (/pensions) — deliberately excluded, never folded
+  // (this is the redundancy fix: the slot used to duplicate `pension`). Members
+  // from the curated allowlist (socialReferenceData.ts).
   social: {
     id: "social",
     titleKey: "sector_social_title",
     descKey: "sector_social_desc",
-    agency: "НОИ",
-    leadEik: NOI_EIK,
-    browsePackId: "noi",
-    members: [
-      {
-        eik: NOI_EIK,
-        name: {
-          bg: "Национален осигурителен институт",
-          en: "National Social Security Institute",
-        },
-      },
-    ],
+    agency: "МТСП",
+    leadEik: SOCIAL_LEAD_EIK,
+    browsePackId: "social",
+    members: SOCIAL_ENTITIES.map((e) => ({
+      eik: e.eik,
+      name: { bg: e.name, en: e.name },
+      group: SOCIAL_UNIVERSE_LABEL[e.universe],
+    })),
   },
   revenue: {
     id: "revenue",

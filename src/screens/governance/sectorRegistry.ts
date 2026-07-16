@@ -83,7 +83,7 @@ export const SECTOR_CLUSTERS: { labelKey: string; sectors: Sector[] }[] = [
         id: "social",
         titleKey: "sector_social_title",
         descKey: "sector_social_desc",
-        agency: "НОИ",
+        agency: "МТСП",
         to: "/sector/social",
         accent: TILE_ACCENTS.olive,
       },

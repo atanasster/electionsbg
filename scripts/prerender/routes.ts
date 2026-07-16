@@ -633,24 +633,24 @@ const SECTOR_PAGES: SectorPageContent[] = [
   },
   {
     id: "social",
-    eik: "121082521",
+    eik: "000695395",
     bg: {
-      title: "Осигуряване — обществените поръчки на НОИ | electionsbg.com",
+      title: "Социално подпомагане — парите на държавата за помощи и бедност (МТСП/АСП) | electionsbg.com", // prettier-ignore
       description:
-        "Обществените поръчки на Националния осигурителен институт (НОИ): общо възложени, изпълнители и разбивка по договори.",
-      breadcrumb: "Осигуряване",
-      h1: "Осигуряване — обществените поръчки на НОИ",
+        "Социалната защита е 37% от разхода на държавата (€15 млрд.), а е и най-невидимата. Тук: бюджетът на МТСП по вид помощ, детските надбавки, помощите за хора с увреждания, целевата помощ за отопление и ГМД, и намаляват ли социалните трансфери бедността спрямо ЕС. Пенсиите (НОИ) са отделен изглед.",
+      breadcrumb: "Социално подпомагане",
+      h1: "Социално подпомагане — къде отиват парите и какво постигат",
       intro:
-        "Националният осигурителен институт изплаща пенсиите и обезщетенията; обществените поръчки са малка част от бюджета му. Тази страница обобщава тези поръчки.",
+        "Социалната защита е най-големият разход на държавата — €15,09 млрд. (37% от бюджета, 2024). Пенсиите (НОИ) са едната половина и имат собствен изглед; другата — помощите, които Агенцията за социално подпомагане (АСП) плаща на домакинствата: месечни помощи за деца, помощи за хора с увреждания (бюджетът им се утрои за 5 години), целева помощ за отопление и гарантиран минимален доход. Тази страница показва бюджета на МТСП по вид помощ, обществените поръчки на групата (МТСП, АСП, Агенцията по заетостта, Главната инспекция по труда) и дали социалните трансфери намаляват бедността спрямо средното за ЕС. Обществените поръчки са около 1% от бюджета — цялата история е в изплатените помощи и техния ефект.",
     },
     en: {
-      title: "Social security — the NSSI's procurement | electionsbg.com",
+      title: "Social assistance — Bulgaria's spending on benefits and poverty (МТСП/АСП) | electionsbg.com", // prettier-ignore
       description:
-        "The public procurement of Bulgaria's National Social Security Institute (НОИ): total awarded, contractors and the breakdown by contracts.",
-      breadcrumb: "Social security",
-      h1: "Social security — the NSSI's procurement",
+        "Social protection is 37% of government spending (€15bn) and the least visible. Here: the МТСП budget by benefit type, child allowances, disability support, targeted heating aid and guaranteed minimum income, and whether social transfers cut poverty vs the EU. Pensions (НОИ) are a separate view.",
+      breadcrumb: "Social assistance",
+      h1: "Social assistance — where the money goes and what it achieves",
       intro:
-        "The National Social Security Institute pays pensions and benefits; public procurement is a small part of its budget. This page summarises those tenders.",
+        "Social protection is the state's largest expenditure — €15.09bn (37% of the budget, 2024). Pensions (НОИ) are one half and have their own view; the other is the benefits the Agency for Social Assistance (АСП) pays to households: monthly child allowances, disability support (its budget tripled in five years), targeted heating aid and the guaranteed minimum income. This page shows the МТСП budget by benefit type, the procurement of the group (МТСП, АСП, the Employment Agency, the Labour Inspectorate), and whether social transfers reduce poverty relative to the EU average. Procurement is roughly 1% of the budget — the whole story is in the benefits paid and their effect.",
     },
   },
   {
