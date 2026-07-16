@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ShieldAlert, Users, Building, Coins, Ban } from "lucide-react";
 import { Title } from "@/ux/Title";
+import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { usePoliticalIndex } from "@/data/funds/usePoliticalLinks";
@@ -66,6 +67,12 @@ export const FundsPoliticalScreen: FC = () => {
   return (
     <>
       <Title description={description}>{title}</Title>
+      <GovernanceBreadcrumb
+        sectionKey="funds_index_title"
+        sectionTo="/funds"
+        currentKey="funds_political_page_title"
+        className="mt-5"
+      />
       <section className="my-4 space-y-4">
         <p className="text-sm text-muted-foreground">
           {t("funds_political_page_intro") ||

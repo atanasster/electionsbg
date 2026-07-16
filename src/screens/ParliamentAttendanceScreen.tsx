@@ -2,6 +2,7 @@ import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { UserCheck, UserX } from "lucide-react";
 import { Title } from "@/ux/Title";
+import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { Link } from "@/ux/Link";
 import { useAttendance } from "@/data/parliament/votes/useAttendance";
 import { useMpProfile } from "@/data/parliament/votes/useMpProfile";
@@ -87,8 +88,14 @@ export const ParliamentAttendanceScreen: FC = () => {
       <Title description={t("attendance_description") || pageTitle}>
         {pageTitle}
       </Title>
+      <GovernanceBreadcrumb
+        sectionKey="gov_hub_parliament_title"
+        sectionTo="/parliament"
+        currentKey="attendance_title"
+        className="mt-5"
+      />
 
-      <div className="pb-12 space-y-6">
+      <div data-og="attendance" className="pb-12 space-y-6">
         <p className="text-sm text-muted-foreground">
           {t("attendance_intro") ||
             "Share of roll-call items where each MP cast a vote (yes / no / abstain). The denominator is items where the MP appears in the roll-call at all, so the metric scopes to each MP's seated window. MPs with fewer than 30 items are excluded to suppress noise from short tenures."}

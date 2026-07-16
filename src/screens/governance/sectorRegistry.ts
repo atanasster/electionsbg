@@ -196,17 +196,17 @@ export const SECTOR_CLUSTERS: { labelKey: string; sectors: Sector[] }[] = [
 
 export const SECTORS: Sector[] = SECTOR_CLUSTERS.flatMap((c) => c.sectors);
 
-// The highest-spend sectors, surfaced directly on the /procurement hub as a
-// "featured" strip (the rest are one click away via the "all sectors" link).
-// Curated by procurement value; revisit if the corpus ordering shifts.
+// The procurement-DOMINANT sectors, surfaced directly on the /procurement hub as
+// a "featured" strip (the rest — and the payout/subsidy sectors — are one click
+// away via the "all sectors" link to the cross-cutting /governance/sectors hub).
+// Trimmed to sectors where public procurement is the primary money lens; the
+// payout/subsidy/tax sectors (health=НЗОК, agri=ДФЗ, revenue=НАП) were dropped
+// because their headline money is not procurement and reads misleadingly here.
 export const FEATURED_SECTOR_IDS = [
   "roads",
-  "energy",
-  "health",
   "defense",
+  "energy",
   "water",
-  "agri",
-  "revenue",
 ] as const;
 
 export const FEATURED_SECTORS: Sector[] = FEATURED_SECTOR_IDS.map(

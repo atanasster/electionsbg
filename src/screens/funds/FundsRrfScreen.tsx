@@ -22,6 +22,7 @@ import {
   Calendar,
 } from "lucide-react";
 import { Title } from "@/ux/Title";
+import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { useFundsProgramSummary } from "@/data/funds/useFundsProgramSummary";
@@ -111,6 +112,12 @@ export const FundsRrfScreen: FC = () => {
   return (
     <>
       <Title description={description}>{title}</Title>
+      <GovernanceBreadcrumb
+        sectionKey="funds_index_title"
+        sectionTo="/funds"
+        currentKey="rrf_page_title"
+        className="mt-5"
+      />
       <section className="my-4 space-y-4">
         <Link
           to="/funds"

@@ -22,6 +22,7 @@ import {
   type SimulationLinkDatum,
 } from "d3-force";
 import { Title } from "@/ux/Title";
+import { DeclarationsBreadcrumb } from "@/screens/components/DeclarationsBreadcrumb";
 import { Card, CardContent } from "@/ux/Card";
 import { useConnectionsGraph } from "@/data/parliament/useConnectionsGraph";
 import { useConnectionsRankings } from "@/data/parliament/useConnectionsRankings";
@@ -1294,6 +1295,10 @@ export const ConnectionsScreen: FC = () => {
       <Title description="MP–company–person connections graph">
         {t("connections_title") || "Connections"}
       </Title>
+      <DeclarationsBreadcrumb
+        currentKey="connections_link_label"
+        className="mt-5"
+      />
 
       <ConnectionsHero
         ns={selectedNs}

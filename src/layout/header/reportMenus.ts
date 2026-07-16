@@ -242,69 +242,22 @@ export const governanceMenu: MenuItem[] = [
   {
     title: "nav_governance",
     link: "/governance",
-    // Four sections (budget, parliament, declarations, indicators) run a
-    // single column the full viewport height — split into two columns on
-    // desktop to halve it while keeping every leaf one open away.
-    columns: 2,
+    // Collapsed from the old 4-group / 18-leaf mega-menu to the curated set of
+    // sub-hubs (governance-hub-v1 plan). Each links to a hub that carries its
+    // own shortcut tiles — the depth lives in the hubs, not the dropdown. The
+    // deep leaves (tax calculator, simulator, votes, cohesion, mp-assets,
+    // officials, indicator themes, demographics…) are surfaced as shortcut
+    // tiles inside /budget, /parliament, /governance/declarations, /indicators.
     subMenu: [
       { title: "menu_overview", link: "/governance", mobileOnly: true },
-      {
-        title: "menu_header_budget_spending",
-        group: true,
-        subMenu: [
-          { title: "budget_link_label", link: "/budget" },
-          {
-            title: "budget_tax_calculator_link_label",
-            link: "/budget/tax-calculator",
-          },
-          { title: "budget_policy_page_title", link: "/budget/simulator" },
-          { title: "procurement_link_label", link: "/procurement" },
-          { title: "funds_index_title", link: "/funds" },
-          // The 15 per-entity spending dashboards (АПИ, НОИ, НЗОК, МОН, ВиК,
-          // ВСС, МО, ДФЗ, НАП, Митници, МТС, МЕУ…) used to live here as a long
-          // "Държавни структури" column that ran the dropdown the full viewport
-          // height. They now live behind one link — the visual sector hub at
-          // /governance/sectors — which is also surfaced as a section on the
-          // governance + procurement dashboards. See GovernanceSectorsScreen.
-          { title: "sectors_hub_nav", link: "/governance/sectors" },
-        ],
-      },
-      { title: "-" },
-      {
-        title: "menu_group_parliament",
-        group: true,
-        subMenu: [
-          { title: "dashboard_section_parliament", link: "/parliament" },
-          { title: "sessions_index_title", link: "/votes" },
-          { title: "parliament_cohesion_title", link: "/parliament/cohesion" },
-          {
-            title: "parliament_embedding_title",
-            link: "/parliament/embedding",
-          },
-        ],
-      },
-      { title: "-" },
-      {
-        title: "menu_group_declarations",
-        group: true,
-        subMenu: [
-          { title: "connections_link_label", link: "/connections" },
-          { title: "mp_assets_link_label", link: "/mp-assets" },
-          { title: "mp_cars_link_label", link: "/mp-cars" },
-          { title: "all_companies", link: "/mp/companies" },
-        ],
-      },
-      { title: "-" },
-      {
-        title: "menu_header_indicators_context",
-        group: true,
-        subMenu: [
-          { title: "governments_title", link: "/governments" },
-          { title: "indicators_page_title", link: "/indicators" },
-          { title: "eu_compare_menu_label", link: "/indicators/compare" },
-          { title: "demographics_title", link: "/demographics" },
-        ],
-      },
+      { title: "budget_link_label", link: "/budget" },
+      { title: "procurement_link_label", link: "/procurement" },
+      { title: "funds_index_title", link: "/funds" },
+      { title: "sectors_hub_nav", link: "/governance/sectors" },
+      { title: "gov_hub_parliament_title", link: "/parliament" },
+      { title: "menu_group_declarations", link: "/governance/declarations" },
+      { title: "gov_hub_indicators_title", link: "/indicators" },
+      { title: "gov_hub_overview_title", link: "/governance/overview" },
     ],
   },
 ];

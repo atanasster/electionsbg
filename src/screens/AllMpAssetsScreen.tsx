@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowUp, ArrowDown, ExternalLink } from "lucide-react";
 import { Title } from "@/ux/Title";
+import { DeclarationsBreadcrumb } from "@/screens/components/DeclarationsBreadcrumb";
 import { useAssetsRankings } from "@/data/parliament/useAssetsRankings";
 import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder } from "@/data/parliament/nsFolders";
@@ -262,6 +263,10 @@ export const AllMpAssetsScreen: FC = () => {
           {pageTitle}
         </Title>
       )}
+      <DeclarationsBreadcrumb
+        currentKey="mp_assets_link_label"
+        className="mt-5"
+      />
 
       <DataTable<MpAssetsRankingEntry, unknown>
         title={pageTitle}

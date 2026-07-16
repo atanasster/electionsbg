@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
+import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { useGovernments } from "@/data/governments/useGovernments";
 import { useMacro } from "@/data/macro/useMacro";
 import {
@@ -98,6 +99,11 @@ export const GovernmentsScreen = () => {
       <Title description={t("governments_description")}>
         {t("governments_title")}
       </Title>
+      <GovernanceBreadcrumb
+        sectionKey="governments_title"
+        sectionTo="/governments"
+        className="mt-5"
+      />
 
       <p className="text-sm text-muted-foreground mb-6 max-w-3xl mx-auto text-center">
         {t("governments_explainer")}

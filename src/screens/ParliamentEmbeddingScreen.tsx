@@ -21,6 +21,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { Title } from "@/ux/Title";
+import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { useMpEmbedding } from "@/data/parliament/votes/useMpEmbedding";
 import { useMpProfile } from "@/data/parliament/votes/useMpProfile";
 import { useCandidateUrlForVote } from "@/data/parliament/votes/useCandidateUrlForVote";
@@ -271,6 +272,12 @@ export const ParliamentEmbeddingScreen: FC = () => {
       <Title description={t("embedding_description") || pageTitle}>
         {pageTitle}
       </Title>
+      <GovernanceBreadcrumb
+        sectionKey="gov_hub_parliament_title"
+        sectionTo="/parliament"
+        currentKey="parliament_embedding_title"
+        className="mt-5"
+      />
 
       <section aria-label={pageTitle} className="my-4 space-y-6">
         <p className="text-sm text-muted-foreground">

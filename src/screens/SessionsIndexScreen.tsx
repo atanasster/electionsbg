@@ -4,6 +4,7 @@ import { Link } from "@/ux/Link";
 import { useTranslation } from "react-i18next";
 import { Calendar, X } from "lucide-react";
 import { Title } from "@/ux/Title";
+import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
 import { useRollcallIndex } from "@/data/parliament/votes/useRollcallIndex";
 import { useTopicIndex } from "@/data/parliament/votes/useTopicIndex";
@@ -114,6 +115,12 @@ export const SessionsIndexScreen: FC = () => {
       <Title description={t("votes_index_description") || pageTitle}>
         {pageTitle}
       </Title>
+      <GovernanceBreadcrumb
+        sectionKey="gov_hub_parliament_title"
+        sectionTo="/parliament"
+        currentKey="sessions_index_title"
+        className="mt-5"
+      />
 
       <div className="pb-12 space-y-6">
         <p className="text-sm text-muted-foreground max-w-3xl">

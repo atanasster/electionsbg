@@ -29,6 +29,7 @@ import { useChartEvents } from "@/screens/components/governments/chartEvents";
 import { KpiTile } from "@/screens/components/macro/KpiTile";
 import { CabinetScoreDetail } from "@/screens/components/macro/CabinetScoreCard";
 import { IndicatorsNav } from "./indicatorsNav";
+import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { LANDING_KPI_ORDER } from "./indicatorsRegistry";
 
 const localDateFromIso = (
@@ -163,6 +164,11 @@ export const IndicatorsLandingScreen: FC = () => {
       <Title description={t("indicators_page_description")}>
         {t("indicators_page_title")}
       </Title>
+      <GovernanceBreadcrumb
+        sectionKey="gov_hub_indicators_title"
+        sectionTo="/indicators"
+        className="mt-5"
+      />
 
       <p className="text-sm text-muted-foreground mb-3 max-w-3xl mx-auto text-center">
         {t("indicators_page_explainer")}

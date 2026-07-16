@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Briefcase, ExternalLink } from "lucide-react";
 import { Title } from "@/ux/Title";
+import { DeclarationsBreadcrumb } from "@/screens/components/DeclarationsBreadcrumb";
 import {
   useCompanyIndex,
   CompanyEntry,
@@ -193,6 +194,7 @@ export const AllMpCompaniesScreen: FC = () => {
       <Title description={t("all_companies_description") || ""}>
         {t("all_companies") || "MP-connected companies"}
       </Title>
+      <DeclarationsBreadcrumb currentKey="all_companies" className="mt-5" />
 
       {isLoading ? (
         <div className="text-sm text-muted-foreground">

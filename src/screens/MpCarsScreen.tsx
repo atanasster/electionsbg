@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ExternalLink } from "lucide-react";
 import { Title } from "@/ux/Title";
+import { DeclarationsBreadcrumb } from "@/screens/components/DeclarationsBreadcrumb";
 import { useMpCars } from "@/data/parliament/useMpCars";
 import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder } from "@/data/parliament/nsFolders";
@@ -245,6 +246,10 @@ export const MpCarsScreen: FC = () => {
           {pageTitle}
         </Title>
       )}
+      <DeclarationsBreadcrumb
+        currentKey="mp_cars_link_label"
+        className="mt-5"
+      />
 
       <div className="text-xs text-muted-foreground mt-4 mb-2">
         {t("mp_cars_page_summary", {

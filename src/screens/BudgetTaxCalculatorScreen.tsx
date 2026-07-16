@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft } from "lucide-react";
 import { Title } from "@/ux/Title";
+import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { BudgetTaxCalculator } from "./components/budget/BudgetTaxCalculator";
 
 export const BudgetTaxCalculatorScreen: FC = () => {
@@ -20,6 +21,12 @@ export const BudgetTaxCalculatorScreen: FC = () => {
   return (
     <>
       <Title description={description}>{title}</Title>
+      <GovernanceBreadcrumb
+        sectionKey="budget_link_label"
+        sectionTo="/budget"
+        currentKey="budget_tax_calculator_link_label"
+        className="mt-5"
+      />
       <section aria-label={title} className="my-4 space-y-4">
         <Link
           to="/budget"

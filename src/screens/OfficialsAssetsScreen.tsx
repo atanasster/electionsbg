@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowUp, ArrowDown, Briefcase, Landmark, MapPin } from "lucide-react";
 import { Title } from "@/ux/Title";
+import { DeclarationsBreadcrumb } from "@/screens/components/DeclarationsBreadcrumb";
 import { useOfficialsRankings } from "@/data/officials/useOfficialsRankings";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { formatThousands } from "@/data/utils";
@@ -260,6 +261,10 @@ export const OfficialsAssetsScreen: FC = () => {
       <Title description={t("officials_assets_page_description") || ""}>
         {pageTitle}
       </Title>
+      <DeclarationsBreadcrumb
+        currentKey="decl_officials_title"
+        className="mt-5"
+      />
 
       <DataTable<OfficialAssetsRankingEntry, unknown>
         title={pageTitle}

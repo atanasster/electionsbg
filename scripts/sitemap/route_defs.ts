@@ -39,6 +39,9 @@ export const ENGLISH_STATIC_PAGES = [
   "regions",
   "articles",
   "governance",
+  "governance/overview",
+  "governance/declarations",
+  "parliament/attendance",
   "governments",
   "indicators",
   "indicators/economy",
@@ -153,6 +156,18 @@ export const routeDefs = (year: string): RouteDefs => [
   { path: "simulator", file: `src/screens/SimulatorScreen.tsx` },
   { path: "compare", file: `src/screens/CompareScreen.tsx` },
   { path: "governance", file: `src/screens/GovernanceScreen.tsx` },
+  {
+    path: "governance/overview",
+    file: `src/screens/governance/GovernanceOverviewScreen.tsx`,
+  },
+  {
+    path: "governance/declarations",
+    file: `src/screens/governance/GovernanceDeclarationsScreen.tsx`,
+  },
+  {
+    path: "parliament/attendance",
+    file: `src/screens/ParliamentAttendanceScreen.tsx`,
+  },
   { path: "governments", file: `src/screens/GovernmentsScreen.tsx` },
   // Per-cabinet detail pages — one URL per entry in data/governments.json.
   // The sitemap entry is needed even though the pages are prerendered

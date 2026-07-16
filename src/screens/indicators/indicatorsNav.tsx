@@ -21,6 +21,7 @@ import { useTranslation } from "react-i18next";
 import { NavLink, useLocation } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 
 const DOMAINS = [
   { path: "/indicators/economy", labelKey: "indicators_nav_economy" },
@@ -47,7 +48,8 @@ export const IndicatorsNav: FC<{
   variant?: "subpage" | "landing";
 }> = ({ className, variant = "subpage" }) => {
   const { t } = useTranslation();
-  const { search } = useLocation();
+  const { pathname, search } = useLocation();
+  const activeDomain = DOMAINS.find((d) => d.path === pathname);
 
   const renderPills = (
     <nav
@@ -78,20 +80,31 @@ export const IndicatorsNav: FC<{
   }
 
   return (
-    <div
-      className={cn(
-        "mb-6 flex items-center justify-between gap-3 flex-wrap",
-        className,
-      )}
-    >
-      <NavLink
-        to={{ pathname: "/indicators", search }}
-        className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+    <>
+      {/* Hierarchy breadcrumb up to Управление — the sub-page counterpart of the
+          landing's own breadcrumb (rendered here since IndicatorsNav sits right
+          under the Title on every theme page). */}
+      <GovernanceBreadcrumb
+        sectionKey="gov_hub_indicators_title"
+        sectionTo="/indicators"
+        currentKey={activeDomain?.labelKey}
+        className="mt-5 mb-3"
+      />
+      <div
+        className={cn(
+          "mb-6 flex items-center justify-between gap-3 flex-wrap",
+          className,
+        )}
       >
-        <ChevronLeft className="h-3.5 w-3.5" />
-        {t("indicators_nav_back_to_dashboard")}
-      </NavLink>
-      {renderPills}
-    </div>
+        <NavLink
+          to={{ pathname: "/indicators", search }}
+          className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+        >
+          <ChevronLeft className="h-3.5 w-3.5" />
+          {t("indicators_nav_back_to_dashboard")}
+        </NavLink>
+        {renderPills}
+      </div>
+    </>
   );
 };

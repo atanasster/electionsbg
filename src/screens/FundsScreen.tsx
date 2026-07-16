@@ -37,6 +37,7 @@ import { IntegrityTeaserTile } from "./funds/IntegrityTeaserTile";
 import { FundsFocusTile } from "./funds/FundsFocusTile";
 import { RrfTeaserTile } from "./funds/RrfTeaserTile";
 import { DualCorpusLeaderboardTile } from "./funds/DualCorpusLeaderboardTile";
+import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { DashboardSection } from "./dashboard/DashboardSection";
 import { orgFormLabel, orgTypeLabel } from "@/data/funds/orgLabels";
 import { formatEur } from "@/lib/currency";
@@ -214,6 +215,11 @@ export const FundsScreen: FC = () => {
   return (
     <>
       <Title description={description}>{title}</Title>
+      <GovernanceBreadcrumb
+        sectionKey="funds_index_title"
+        sectionTo="/funds"
+        className="mt-5"
+      />
       <section aria-label={title} className="my-4">
         <p className="mb-4 text-sm text-muted-foreground">
           {t("funds_index_intro") ||

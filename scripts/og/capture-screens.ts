@@ -412,11 +412,30 @@ const captures: Capture[] = [
   {
     slug: "governance",
     routePath: "governance",
-    // The budget-summary tile is the largest data-driven visual on the
-    // governance dashboard (the rest are mostly stat cards + small SVGs).
+    // /governance is now the Управление tile-hub — lead the card with the first
+    // cluster of sub-hub tiles (like the sectors hub), not the old dashboard.
+    waitFor: '[data-og="governance-hub"] a',
+    anchor: '[data-og="governance-hub"]',
+    leftAlign: true,
+    settleMs: 2500,
+  },
+  {
+    slug: "governance-overview",
+    routePath: "governance/overview",
+    // The former governance dashboard (moved to /overview). The budget-summary
+    // tile is its largest data-driven visual.
     waitFor: '[data-og="budget-summary"]',
     anchor: '[data-og="budget-summary"]',
     centerOnAnchor: true,
+    settleMs: 2500,
+  },
+  {
+    slug: "governance-declarations",
+    routePath: "governance/declarations",
+    // The Декларации sub-hub tile grid.
+    waitFor: '[data-og="declarations-hub"] a',
+    anchor: '[data-og="declarations-hub"]',
+    leftAlign: true,
     settleMs: 2500,
   },
   {
@@ -430,6 +449,17 @@ const captures: Capture[] = [
     anchor: '[data-og="sectors-hub"]',
     leftAlign: true,
     settleMs: 3000,
+  },
+  {
+    slug: "parliament-attendance",
+    routePath: "parliament/attendance",
+    // Per-MP attendance ranking (surfaced from the parliament hub). The anchor
+    // wraps the tall list from the top, so top-align (no centerOnAnchor) to keep
+    // the clip inside the viewport and lead with the heading + first rows.
+    waitFor: '[data-og="attendance"]',
+    anchor: '[data-og="attendance"]',
+    leftAlign: true,
+    settleMs: 2500,
   },
 ];
 

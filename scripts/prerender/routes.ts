@@ -1914,6 +1914,50 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "governance/overview",
+    title:
+      "Национален преглед — управление на държавата | electionsbg.com",
+    description:
+      "Националното управленско табло за България: действащ кабинет, изпълнение на държавния бюджет, обществени поръчки, макроикономически контекст и парламентарна активност на едно място.",
+    breadcrumbName: "Национален преглед",
+    ogImage: "/og/governance-overview.png",
+    english: {
+      title: "National governance overview | electionsbg.com",
+      description:
+        "Bulgaria's national governance dashboard: the sitting cabinet, state-budget execution, public procurement, macroeconomic context and parliamentary activity in one place.",
+      breadcrumbName: "National overview",
+    },
+  }),
+  staticPage({
+    path: "governance/declarations",
+    title:
+      "Декларации на депутати и длъжностни лица | electionsbg.com",
+    description:
+      "Имущество, интереси и връзки на властта: декларации на депутатите (имущество, автомобили, фирми), бизнес връзки и класация на длъжностните лица по нетно състояние от регистъра на Сметната палата.",
+    breadcrumbName: "Декларации",
+    ogImage: "/og/governance-declarations.png",
+    english: {
+      title: "MP and official declarations | electionsbg.com",
+      description:
+        "Assets, interests and ties of those in power: MP declarations (assets, cars, companies), business connections and an officials net-worth ranking from the Court of Audit register.",
+      breadcrumbName: "Declarations",
+    },
+  }),
+  staticPage({
+    path: "parliament/attendance",
+    title: "Посещаемост на депутатите | electionsbg.com",
+    description:
+      "Кои народни представители присъстват и гласуват най-често — посещаемост по депутат и парламентарна група, извлечена от поименните гласувания на parliament.bg.",
+    breadcrumbName: "Посещаемост",
+    ogImage: "/og/parliament-attendance.png",
+    english: {
+      title: "Parliamentary attendance | electionsbg.com",
+      description:
+        "Which MPs show up and vote most often — attendance per MP and parliamentary group, derived from the roll-call votes on parliament.bg.",
+      breadcrumbName: "Attendance",
+    },
+  }),
+  staticPage({
     path: "governance/sectors",
     title:
       "Държавни сектори — пари, договори и институции по сектори | electionsbg.com",

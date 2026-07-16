@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Title } from "@/ux/Title";
+import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { useCensus } from "@/data/census/useCensus";
 import { CountryBreakdown } from "./components/demographics/CountryBreakdown";
 import { CensusChoroplethMap } from "./components/demographics/CensusChoroplethMap";
@@ -105,6 +106,11 @@ export const DemographicsScreen = () => {
       <Title description={t("demographics_description")}>
         {t("demographics_title")}
       </Title>
+      <GovernanceBreadcrumb
+        sectionKey="demographics_title"
+        sectionTo="/demographics"
+        className="mt-5"
+      />
 
       <p className="text-sm text-muted-foreground mb-6 max-w-3xl mx-auto text-center">
         {t("demographics_explainer")}

@@ -48,6 +48,7 @@ import { BudgetTopDeviationsTile } from "./components/budget/BudgetTopDeviations
 import { BudgetCitizenViewTile } from "./components/budget/BudgetCitizenViewTile";
 import { PeerBandChip } from "./components/budget/PeerBandChip";
 import { useMacroPeers, type PeerBand } from "@/data/macro/useMacroPeers";
+import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 
 const SkeletonCard: FC = () => (
   <div className="rounded-xl border bg-card p-4 shadow-sm animate-pulse h-[120px]">
@@ -281,6 +282,11 @@ export const BudgetScreen: FC = () => {
     return (
       <>
         <Title description={description}>{title}</Title>
+        <GovernanceBreadcrumb
+          sectionKey="budget_link_label"
+          sectionTo="/budget"
+          className="mt-5"
+        />
         <section aria-label={title} className="my-4 space-y-4">
           {term.years.length > 0 ? (
             <FiscalYearSelector
@@ -325,6 +331,11 @@ export const BudgetScreen: FC = () => {
   return (
     <>
       <Title description={description}>{title}</Title>
+      <GovernanceBreadcrumb
+        sectionKey="budget_link_label"
+        sectionTo="/budget"
+        className="mt-5"
+      />
       <section aria-label={title} className="my-4">
         <div className="flex flex-col gap-3">
           <div className="flex flex-wrap items-start justify-between gap-3">

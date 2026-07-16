@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft, BookOpen } from "lucide-react";
 import { Title } from "@/ux/Title";
+import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { BudgetPolicySimulator } from "./components/budget/BudgetPolicySimulator";
 
 export const BudgetPolicySimulatorScreen: FC = () => {
@@ -18,6 +19,12 @@ export const BudgetPolicySimulatorScreen: FC = () => {
   return (
     <>
       <Title description={description}>{title}</Title>
+      <GovernanceBreadcrumb
+        sectionKey="budget_link_label"
+        sectionTo="/budget"
+        currentKey="budget_policy_page_title"
+        className="mt-5"
+      />
       <section aria-label={title} className="my-4 space-y-4">
         <Link
           to="/budget"

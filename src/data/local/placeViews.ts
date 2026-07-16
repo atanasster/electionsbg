@@ -74,12 +74,13 @@ export const isSofiaCityObshtina = (code?: string): boolean =>
 // (which has no governance of its own — it drops to its settlement via the
 // nav, same as the other two views). A null here is what drops the
 // "Governance" pill from the switcher on that level.
-//   country      → /governance              (the national governance page)
+//   country      → /governance/overview     (the national governance dashboard;
+//                                             /governance itself is the nav hub)
 //   region       → /governance/region/:oblast
 //   município    → /governance/:obshtina    (Sofia city → /governance/SOF00)
 //   settlement   → /governance/:ekatte
 export const governanceUrl = (p: PlaceRef): string | null => {
-  if (p.level === "country") return "/governance";
+  if (p.level === "country") return "/governance/overview";
   if (p.level === "region" && p.oblast) return `/governance/region/${p.oblast}`;
   if (p.level === "settlement" && p.ekatte) return `/governance/${p.ekatte}`;
   if (p.level === "municipality" && isSofiaCityObshtina(p.obshtina))

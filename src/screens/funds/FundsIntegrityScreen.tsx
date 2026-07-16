@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ShieldAlert, Ban, Repeat, Trophy } from "lucide-react";
 import { Title } from "@/ux/Title";
+import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { useFundsIntegrityIndex } from "@/data/funds/useFundsIntegrity";
@@ -74,6 +75,12 @@ export const FundsIntegrityScreen: FC = () => {
   return (
     <>
       <Title description={description}>{title}</Title>
+      <GovernanceBreadcrumb
+        sectionKey="funds_index_title"
+        sectionTo="/funds"
+        currentKey="integrity_page_title"
+        className="mt-5"
+      />
       <section className="my-4 space-y-4">
         <p className="text-sm text-muted-foreground">
           {t("integrity_page_intro") ||

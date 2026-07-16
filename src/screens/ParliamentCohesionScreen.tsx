@@ -2,6 +2,7 @@ import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Users } from "lucide-react";
 import { Title } from "@/ux/Title";
+import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { useFactionCohesion } from "@/data/parliament/votes/useFactionCohesion";
 import { useParliamentGroups } from "@/data/parliament/useParliamentGroups";
 import { CohesionTrendChart } from "./components/charts/CohesionTrendChart";
@@ -70,6 +71,12 @@ export const ParliamentCohesionScreen: FC = () => {
       <Title description={t("cohesion_description") || pageTitle}>
         {pageTitle}
       </Title>
+      <GovernanceBreadcrumb
+        sectionKey="gov_hub_parliament_title"
+        sectionTo="/parliament"
+        currentKey="parliament_cohesion_title"
+        className="mt-5"
+      />
 
       <div className="pb-12 space-y-6">
         <p className="text-sm text-muted-foreground">

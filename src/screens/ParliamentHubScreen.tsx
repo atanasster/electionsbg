@@ -8,6 +8,7 @@ import { ParliamentEmbeddingMiniTile } from "./dashboard/ParliamentEmbeddingMini
 import { ParliamentVotingTile } from "./dashboard/ParliamentVotingTile";
 import { ParliamentMostPresentMiniTile } from "./dashboard/ParliamentMostPresentMiniTile";
 import { ParliamentMostAbsentMiniTile } from "./dashboard/ParliamentMostAbsentMiniTile";
+import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 
 export const ParliamentHubScreen: FC = () => {
   const { t } = useTranslation();
@@ -16,6 +17,11 @@ export const ParliamentHubScreen: FC = () => {
   return (
     <>
       <Title description={t("hub_description") || pageTitle}>{pageTitle}</Title>
+      <GovernanceBreadcrumb
+        sectionKey="gov_hub_parliament_title"
+        sectionTo="/parliament"
+        className="mt-5"
+      />
 
       <section aria-label={pageTitle} className="my-4">
         <p className="text-sm text-muted-foreground mb-6">

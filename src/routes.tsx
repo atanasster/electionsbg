@@ -20,6 +20,16 @@ const GovernanceScreen = lazy(() =>
     default: m.GovernanceScreen,
   })),
 );
+const GovernanceOverviewScreen = lazy(() =>
+  import("@/screens/governance/GovernanceOverviewScreen").then((m) => ({
+    default: m.GovernanceOverviewScreen,
+  })),
+);
+const GovernanceDeclarationsScreen = lazy(() =>
+  import("@/screens/governance/GovernanceDeclarationsScreen").then((m) => ({
+    default: m.GovernanceDeclarationsScreen,
+  })),
+);
 const GovernanceSectorsScreen = lazy(() =>
   import("@/screens/governance/GovernanceSectorsScreen").then((m) => ({
     default: m.GovernanceSectorsScreen,
@@ -1337,6 +1347,22 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <GovernanceScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="governance/overview"
+            element={
+              <LayoutScreen>
+                <GovernanceOverviewScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="governance/declarations"
+            element={
+              <LayoutScreen>
+                <GovernanceDeclarationsScreen />
               </LayoutScreen>
             }
           />
