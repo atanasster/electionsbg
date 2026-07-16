@@ -97,6 +97,122 @@ is added. Phase 1's only non-static dependency is the cohesion-by-oblast route/p
 
 ---
 
+## 0b. Deep-audit pass 2 (2026-07-16) — wiring mechanics + competitive deep-dive
+
+Pass 1 (§0 above) verified figures + reuse-component existence. Pass 2 deep-audited the wiring
+mechanics the plan asserts in §6–§12 (AI tools, watchers, data-map, DB/scope, prerender/OG,
+sector-stats basis) against the repo, and ran a deeper competitive dive. **Two more load-bearing
+errors found** (both would fail the build or mislead the headline); the rest of the spine wiring is
+confirmed accurate.
+
+### Critical corrections (apply before building)
+
+**C1 — Sector-stats basis is WRONG (plan §7 row 7, §12). Use budget-basis, not procurement.**
+The plan says add `regional: REGIONAL_SECTOR_EIKS` to `SECTOR_EIKS` in
+`scripts/db/gen_procurement/sector_stats.ts` → a **procurement-basis** hub headline (~€213M,
+caption "поръчки"). This **contradicts the file's own anti-understatement convention** — its comment
+reads *"Procurement alone understated these 100×–78,000× (Култура showed €3k vs a €234M budget)"* —
+and it contradicts МРРБ's **own pass-through thesis** (the whole point is that procurement is a thin
+slice of the €1.06bn). МРРБ is a **first-level ПРБ ministry**, identical in kind to
+defense/security/justice/culture/tourism/social, which the file deliberately routes through
+`BUDGET_SECTOR_NODE`. **Fix:** add `regional:
+"admin-ministerstvo-na-regionalnoto-razvitie-i-blagoustroystvoto"` to `BUDGET_SECTOR_NODE` (basis
+`budget`, headline **€1.06bn / "бюджет 2025"**), NOT `regional` to `SECTOR_EIKS`. The budget node is
+already present + populated — **no new ingest for the hub headline**. (A procurement rollup still
+powers the dashboard *body* via `useAwarderGroupModel`; only the hub *tile headline* must be
+budget-basis.) ⚠ Twin-file hazard: wire the canonical `…blagoustroystvoto.json` (eik `831661388`),
+not the soft-hyphen `…blago-ustroystvoto.json` stub. Ref my memory `project_sector_hub_kpi_basis`.
+
+**C2 — data-map edge `["ds:regional"→"f:regional"]` is WRONG and would FAIL the build (plan §10).**
+There is no `ds:regional` dataset — regional NUTS3 lives inside **`ds:indicators`** (confirmed:
+`AI_PATH_RULES` maps `/regional` → the `indicators` dataset, `model.ts:120`). `build_manifest.ts`
+`validate()` throws `edge references unknown node` on `ds:regional`. **Fix:** use
+`["ds:indicators","f:regional"]`. The plan's other four proposed edges (`ds:funds`, `ds:budget`,
+`ds:macro`, `ds:procurement` → `f:regional`) all reference real datasets and are valid. And because
+`/regional`, `/funds/`, `/macro`, `/api/db/*` are **already** covered by `AI_PATH_RULES`, a new
+regional AI tool needs **no** `AI_PATH_RULES` edit — the FEATURE + 5 edges is the only data-map work.
+
+### Secondary corrections
+
+**C3 — §11 "ВиК/вод → water (existing `roadsSpending` twin)" has NO existing target.** There is
+**no water AI tool** and **no water routing** in `ai/orchestrator/router.ts` (`ai/tools/vik.ts`
+exports only `riverbedCleaning`). The roads guard (`router.ts:3016-3059` → real `roadsSpending`) is
+genuine; the water guard would be **net-new and needs a water tool built first**. Drop the "reuses
+existing" implication, or scope a water tool separately. The АПИ/магистрал/път→roads guard IS real
+and correct to place before the new regional block.
+
+**C4 — §11 router placement is UNDER-specified.** The cited `roadsSpending` precedent sits AFTER the
+COFOG `budgetFunction` gate (`router.ts:2770`) and before only the procurement gate (`:3061`). A
+regional/МРРБ/**кохезия** query can be caught by `budgetFunction` (GF06 housing), so the regional
+block must go **above line 2770**, not merely above the procurement gate — stronger than where the
+roads precedent actually sits.
+
+**C5 — §6 Dec-31 half-open scope: CONFIRMED real but ALREADY MITIGATED — guard-against, not
+fix-needed.** The SQL is half-open (`061_awarder_group_model.sql:32-33`, `date < COALESCE(p_to,
+'99999999')`), and `scopeRange` yields an inclusive `YYYY-12-31`. **But** `useAwarderGroupModel`
+sources its window from `useScopeWindow` (already half-open, `y:`→`(Y+1)-01-01`), and
+`SectorDashboardScreen` passes `windowOverride=undefined`. So a config-driven regional pack is **safe
+by construction**; the bug only appears if someone feeds `scopeRange` output as a `windowOverride`
+(as `CompanyDbScreen` does, with a manual convert). **Action:** wire the regional pack via the
+default `useScopeWindow` path — don't re-plumb `scopeRange`. Route EIK cap is **300**, not 30
+(plan's ~30 is fine).
+
+### Minor (doc-accuracy) nits — non-blocking
+- The prerender coverage guard is an **anonymous block** (`routes.ts:799-815`), not a named
+  `assertAllSectorsHavePrerenderCopy` (§7/§8 cite a name that doesn't exist). Behaviour is as
+  described — a missing `SECTOR_PAGES` entry throws.
+- §11 file paths: `links.ts`→`ai/render/links.ts`, `followups.ts`→`ai/app/followups.ts`,
+  `narrate.ts`→`ai/orchestrator/narrate.ts`, regression→`ai/tests/regression.ts`. `narrate` cases
+  are optional (fall through to title).
+- Tile 11 (§4): `TransportRoadsLinkTile` is a **zero-prop hardcoded** single-target card, not a
+  generic reuse — clone/generalize to `{to,icon,text*}` for the roads+water cross-link strip.
+- Tile 4 scatter (§4): **`MvrCrimeScatterTile`** (median quadrant lines + mobile-safe outlier
+  anchoring `textAnchor={rightHalf?"end":"start"}` + `regional.json` self-fetch + Card) is the
+  ~70%-lift template — better than `education/ContextScatter` (large desktop OLS plot, no mobile
+  anchoring). Both are bespoke inline-SVG (copy, not import).
+- Use the **`procurement/OblastChoropleth`** (Sofia+PDV fold via `featureToCanon`), NOT the duplicate
+  `screens/pensions/OblastChoropleth`. `SectorPointMap` is a city/point map — wrong for oblast fill.
+
+### Confirmed-accurate spine wiring (no change)
+`TOOLS` registry shape + the 5 existing tools (`municipalTransfers`/`fundsProjects`/
+`subnationalIndicator`/`regionIndicator`/`roadsSpending`); the `ai/**` eslint `no-restricted-imports`
+`@/data` boundary (why `regionalAttributes.ts` must live in `src/lib`); the `WatchSource` shape
+(`describe?` optional) + `SOURCES` registry with `nsi_regional`/`eurostat_regional`/`isun_eu_funds`;
+the `SOURCE_GROUPS` "watcher source(s) not placed" guard (`build_manifest.ts:210`, groups declared
+`model.ts:144`); the PWR by-label + by-id tables mapping update-regional/-funds/-budget/-macro; the
+`FeatureDef`/`EDGES` model + `data:map` pipeline; `SectorDashboardScreen` delivering a full working
+KPI+charts+awarders dashboard from config alone (Phase 0 = zero bespoke code, confirmed).
+
+### Competitive deep-dive (strengthens §2; sharper framings for tiles 2 & 4)
+
+- **OpenCoesione (Italy) is the deepest gold standard** — planned resources + expenditures +
+  locations + thematic + implementing bodies + timings + payments per project, 100+ variables + API,
+  **plus territorial indicators that connect each project to the issue it should impact** (exactly
+  our money-next-to-outcome move, validated by the best-in-class) and **Monithon** civic-monitoring
+  ("monitoring marathons" — citizens verify where money landed). *Adopt:* the territorial-indicator
+  linkage as the convergence frame; note Monithon as a possible future community layer.
+- **Kohesio (EU)** — 1.5M projects / 500k beneficiaries, geocoded, AI smart-search, per-project
+  theme/intervention-field/beneficiary. Caveat we beat: its geocode = **beneficiary** location, not
+  where the investment landed; our ИСУН `oblast` tag is closer to where the money actually lands.
+- **ИПИ `regionalprofiles.bg` precise methodology** — 12 categories (6 economic + 6 social), ~80
+  indicators, composite **centred on the national mean + variance-correction**, 5 bands (poor→very
+  good), annual, static. **It explicitly does NOT link indicators to EU-fund/budget money** — the
+  confirmed gap Наясно fills. Their **2025 headline is our tile-4 thesis handed to us:** *"persistent
+  polarization / two-speed development"* — top Sofia/Varna/Plovdiv/Gabrovo/Burgas ("very good"),
+  bottom **Kardzhali(KRZ)/Montana(MON)/Vidin(VID)/Silistra(SLS)** ("weak/unsatisfactory"), 9 oblasts
+  "unsatisfactory". Convergence tile question: does the cohesion € go to KRZ/MON/VID/SLS, or
+  concentrate where absorption capacity already is (Sofia/Varna)?
+- **The n+3 clock is a hard 31 Dec 2029** (final decommitment; commitments still open then are LOST).
+  **Retarget tile 2** from the vague "before the 2027 deadline" to the real **31 Dec 2029**
+  decommitment deadline — Развитие на регионите at ~20% paid must ramp to ~100% or forfeit money;
+  quantify the €-at-risk against that date. Sharper, and correct.
+- **EU allocation logic is largely GDP-per-capita** (poorer regions get more €/capita by design) —
+  this **grounds the tile-4 expectation line:** the OLS/median residual reveals whether BG's *internal*
+  cohesion distribution follows the EU's own convergence logic (progressive) or is regressive.
+  Positioning line unchanged: „Парите за регионите — къде отиват и стигат ли до най-бедните области."
+
+---
+
 ## 0. The one-line thesis
 
 **МРРБ is a pass-through ministry: it controls ~€1.06bn/year but spends almost none of it through
@@ -208,7 +324,8 @@ Surveyed the best regional-money & cohesion-absorption dashboards, and the stron
 | Source | What's world-class | Adopt for МРРБ |
 |---|---|---|
 | **EU Cohesion Open Data Platform** (cohesiondata.ec.europa.eu) | Planned→decided→spent burn-down per programme/fund/region; absorption % as the headline; category-of-intervention split. | The **absorption burn-down** hero (ОПРР closed vs Развитие на регионите stalling) + planned-vs-paid gauge. |
-| **Kohesio** (kohesio.ec.europa.eu) | Per-project, per-beneficiary explorer for every EU-funded project, geocoded. | Our ИСУН corpus already IS this for BG — surface it per-oblast + per-municipality beneficiary. |
+| **Kohesio** (kohesio.ec.europa.eu) | Per-project, per-beneficiary explorer for every EU-funded project (1.5M projects / 500k beneficiaries), geocoded, AI smart-search. | Our ИСУН corpus already IS this for BG — surface it per-oblast + per-municipality beneficiary. We beat its geocode caveat (Kohesio pins to *beneficiary* location, not where the money landed; our `oblast` tag is closer). |
+| **OpenCoesione** (opencoesione.gov.it — the deepest gold standard, audit 0b) | Planned resources + expenditures + locations + implementing bodies + timings + payments per project, 100+ vars + API, **territorial indicators linking each project to the issue it should impact**, + **Monithon** citizen civic-monitoring. | The **territorial-indicator linkage** IS our money-next-to-outcome move, validated by the best-in-class. Monithon = a possible future community-monitoring layer. |
 | **ИПИ / IME `regionalprofiles.bg`** (the strongest BG competitor — see `project_competitor_ime`) | 75 indicators × 28 oblasts, annual since 2012, per-category 5-band rating map; centre-on-mean + variance-correction normalization. | The per-oblast **convergence** frame — but we beat them on **currency (live vs annual PDF), money-linkage (they have indicators, not the cohesion € that drives them), and interactivity**. |
 | **OECD Regional Well-Being / EU Regional Competitiveness Index** | Multi-indicator regional convergence, "is the gap closing" trajectory. | The spend-vs-outcome scatter: does cohesion € flow to the poorest oblasts, and is GDP/capita converging. |
 | **UK "Levelling Up" fund trackers / Bloomberg CityLab** | Per-place allocation vs need, "did the money follow the deprivation." | The distributional-fairness tile — cohesion €/capita vs GDP/capita residual. |
@@ -292,7 +409,10 @@ caption**. Money-first band order. Signature tiles marked ★.
 2. **★ EU cohesion absorption burn-down (the flagship).** Two burn-down bars: ОПРР 2014-20
    (€1.61bn contracted / €1.55bn paid = ~96%, closed) vs Развитие на регионите 2021-27 (€2.47bn
    contracted / €491M paid = ~20%) — planned → contracted → paid, absorption-risk highlighted
-   against the 2027 deadline. Straight from `fund_projects` by `program_code`. *Inspired by EU
+   against the **hard 31 Dec 2029 n+3 decommitment deadline** (audit 0b: commitments still open then
+   are LOST — Развитие на регионите at ~20% paid must ramp to ~100% or forfeit money; quantify the
+   €-at-risk against that date, not the vague "2027"). Straight from `fund_projects` by `program_code`
+   or `data/funds/derived/absorption.json` (programme-grained, no DB). *Inspired by EU
    Cohesion Open Data.* THE differentiator tile.
 
 3. **★ Regional-investment-by-oblast choropleth.** Cohesion € absorbed per capita by oblast (ИСУН
@@ -410,7 +530,7 @@ Prerequisite: **`src/lib/regionalReferenceData.ts`** (the allowlist — imported
 | 4 | `src/ux/infographic/tileAccents.ts` | ⚠ **CORRECTED (audit §0.2):** all 18 tokens are taken (`brass`→revenue, `moss`→defense). **Add a NEW token** — recommend `fern:"#5f8a4e"` (infra has no green) |
 | 5 | `src/screens/governance/sectorScenes.tsx` | new `Regional` SVG scene (map/building motif) + `regional:` in `SECTOR_SCENES` |
 | 6 | `src/screens/components/procurement/sectorPacks.tsx` | `SECTOR_BROWSE_PACKS.regional` (`eiks: REGIONAL_SECTOR_EIKS`); **Phase 2** `[REGIONAL_EIK]: RegionalPack` in `PACKS` (lazy) |
-| 7 | `scripts/db/gen_procurement/sector_stats.ts` | add `regional: REGIONAL_SECTOR_EIKS` to `SECTOR_EIKS`; rerun `db:gen-sector-stats` (needs PG) |
+| 7 | `scripts/db/gen_procurement/sector_stats.ts` | ⚠ **CORRECTED (audit C1):** add `regional: "admin-ministerstvo-na-regionalnoto-razvitie-i-blagoustroystvoto"` to **`BUDGET_SECTOR_NODE`** (budget-basis headline €1.06bn), **NOT** `regional` to `SECTOR_EIKS` — procurement-basis (~€213M) understates the sector ~5× and contradicts both the file's anti-understatement convention and the pass-through thesis. No PG rerun needed for the tile headline (budget node already populated) |
 | 8 | `scripts/prerender/routes.ts` | add `regional` to `SECTOR_PAGES` (**hard build guard** `assertAllSectorsHavePrerenderCopy` — bilingual title/description/intro naming cohesion/oblasts/АГКК and that roads/water are separate) |
 | 9 | `src/locales/{bg,en}/translation.json` | `sector_regional_title` = "Регионално развитие" / "Regional development"; `sector_regional_desc` = middot subtitle (e.g. "Кохезия · кадастър · области") |
 
@@ -464,7 +584,9 @@ only, real ~€213M group + KPIs + awarders); Phase 2 = bespoke `RegionalPack` u
 - **Data map** (`scripts/data_map/model.ts` → `npm run data:map` → `data/data_map.json`): a
   `regional` FEATURE (`route:"/sector/regional"`, `tags:["fiscal"]`) with EDGES to the **existing**
   datasets it reuses — `["ds:funds","f:regional"]`, `["ds:budget","f:regional"]`,
-  `["ds:macro","f:regional"]`, `["ds:regional"→"f:regional"]`, `["ds:procurement","f:regional"]`.
+  `["ds:macro","f:regional"]`, `["ds:indicators","f:regional"]` (⚠ **CORRECTED audit C2:** NUTS3
+  regional lives in `ds:indicators`; there is **no** `ds:regional` dataset — `["ds:regional",…]`
+  would fail `validate()` with `edge references unknown node`), `["ds:procurement","f:regional"]`.
   A **new SOURCE_GROUP/DATASET is only needed if a new `data/` tree is created** (e.g. АГКК cadastre);
   if the view reads only existing datasets, add just the FEATURE + edges. Any `ai/` `fetchData` path
   needs an `AI_PATH_RULES` entry (existing `/regional`, `/funds/`, `/macro` rules already cover the
@@ -478,8 +600,10 @@ only, real ~€213M group + KPIs + awarders); Phase 2 = bespoke `RegionalPack` u
 ## 11. AI chat tools
 
 Files (per `project_ai_chat_tools`, 5 wiring points): `ai/tools/regional.ts` (new); edit
-`ai/tools/registry.ts` (`TOOLS`), `ai/orchestrator/router.ts` (keyword block), `narrate.ts` (cases),
-+ `links.ts`/`followups.ts`/regression. `ai/` **cannot import `@/data/*`** — keep the engine in
+`ai/tools/registry.ts` (`TOOLS`), `ai/orchestrator/router.ts` (keyword block),
+`ai/orchestrator/narrate.ts` (cases, optional), + `ai/render/links.ts` / `ai/app/followups.ts` /
+`ai/tests/regression.ts` (audit 0b: corrected paths). `ai/` **cannot import `@/data/*`** (eslint
+`no-restricted-imports`, `eslint.config.js:79`) — keep the engine in
 `src/lib/regionalAttributes.ts`. `domain: "fiscal"` or `"indicators"` (no "sectors" domain).
 
 Proposed tools (Envelope → narrate `facts`, never compute prose numbers):
@@ -493,8 +617,12 @@ Proposed tools (Envelope → narrate `facts`, never compute prose numbers):
 
 Router keywords: `регионал|МРРБ|благоустройств|кохези|Региони в растеж|развитие на регионите|
 кадастър|геодез|области|regional|cohesion|cadastre`. Guards: route **АПИ/магистрал/път → roads**
-(existing `roadsSpending`), **ВиК/вод → water** — a specific regional block placed BEFORE the
-generic budget/procurement gates. Note existing overlap to differentiate: `municipalTransfers`
+(existing `roadsSpending`, real). ⚠ **CORRECTED (audit C3): ВиК/вод → water has NO existing target**
+— there is no water AI tool and no water routing in `router.ts`; drop that guard or build a water
+tool first. ⚠ **(audit C4):** the regional block must be placed **above the COFOG `budgetFunction`
+gate (`router.ts:2770`)**, not merely above the procurement gate (`:3061`) — a кохезия/МРРБ query can
+otherwise be swallowed by the GF06 housing budget-function match (stronger than the roads precedent's
+placement). Note existing overlap to differentiate: `municipalTransfers`
 (Art-53 transfers), `fundsProjects` (all-ИСУН), `subnationalIndicator`/`regionIndicator`
 (NUTS3 indicators) — the new tools are the **МРРБ-scoped / cohesion-programme-scoped** cuts.
 
