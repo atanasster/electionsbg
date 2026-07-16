@@ -65,15 +65,23 @@ test("EUR peg (1.95583) holds on convertible rows", { skip }, async () => {
     currency: string;
     amount: number;
     amount_eur: number;
+    signing_amount_eur: number | null;
   }>(
-    `SELECT key, currency, amount, amount_eur
+    // The peg holds on the AT-SIGNING euro value, which pegs to the native
+    // `amount`. For annexed rows the headline `amount_eur` is the CURRENT
+    // (post-annex) value and deliberately no longer pegs — `signing_amount_eur`
+    // preserves the peggable value (NULL ⇒ amount_eur IS the signing value). So
+    // check COALESCE(signing_amount_eur, amount_eur), matching the authoritative
+    // canary in scripts/db/lib/contracts_aggregate.ts. Checking amount_eur alone
+    // false-flagged all ~7.8k folded rows (the current-value fold, migration 078).
+    `SELECT key, currency, amount, amount_eur, signing_amount_eur
      FROM contracts
      WHERE amount IS NOT NULL AND amount_eur IS NOT NULL AND currency IS NOT NULL
        AND (
          (upper(btrim(currency)) = 'EUR'
-            AND abs(amount_eur - amount) > 0.01)
+            AND abs(COALESCE(signing_amount_eur, amount_eur) - amount) > 0.01)
          OR (upper(btrim(currency)) IN ('BGN', 'ЛВ', 'ЛВ.', 'ЛЕВА')
-            AND abs(amount_eur - amount / ${BGN_PER_EUR}) > 0.01)
+            AND abs(COALESCE(signing_amount_eur, amount_eur) - amount / ${BGN_PER_EUR}) > 0.01)
        )
      LIMIT 25`,
   );
