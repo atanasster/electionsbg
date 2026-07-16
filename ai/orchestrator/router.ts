@@ -2700,7 +2700,13 @@ export const route = (question: string, ctx: ToolContext): Route => {
   // in the ministries tree, so ministryBudget serves them off data/budget/agencies/.
   if (
     (/(^|[^а-я])нап([^а-я]|$)/.test(q) ||
-      has(q, "митниц", "агенция за приход", "revenue agency", "customs agency")) &&
+      has(
+        q,
+        "митниц",
+        "агенция за приход",
+        "revenue agency",
+        "customs agency",
+      )) &&
     has(q, "бюджет", "budget", "харчи", "spend", "колко пари", "разходи")
   )
     return { tool: "ministryBudget", args: { ministry: q } };

@@ -3460,7 +3460,10 @@ export const TOOLS: ToolDef[] = [
         name: "ministry",
         type: "metric",
         required: true,
-        description: { bg: "Министерство или ведомство", en: "Ministry or agency" },
+        description: {
+          bg: "Министерство или ведомство",
+          en: "Ministry or agency",
+        },
       },
     ],
     examples: [

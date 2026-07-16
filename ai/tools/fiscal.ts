@@ -2985,13 +2985,17 @@ export const exciseWarehouses = async (
     .replace(/^(гр\.|с\.|град|село)\s*/, "")
     .trim();
   const bareName = (place: string | null): string =>
-    (place ?? "").toLowerCase().replace(/^(гр\.|с\.|град|село)\s*/, "").trim();
+    (place ?? "")
+      .toLowerCase()
+      .replace(/^(гр\.|с\.|град|село)\s*/, "")
+      .trim();
 
   if (placeQ) {
     const inCity = whs.filter((w) => bareName(w.place).includes(placeQ));
     const cityLabel = inCity[0]?.place ?? String(args.place ?? "");
     const byCat = new Map<string, number>();
-    for (const w of inCity) byCat.set(w.category, (byCat.get(w.category) ?? 0) + 1);
+    for (const w of inCity)
+      byCat.set(w.category, (byCat.get(w.category) ?? 0) + 1);
     return {
       tool: "exciseWarehouses",
       domain: "fiscal",
@@ -3032,7 +3036,9 @@ export const exciseWarehouses = async (
     const key = w.loc.join(",");
     const g =
       byCity.get(key) ??
-      byCity.set(key, { place: w.place ?? "—", count: 0, cats: new Map() }).get(key)!;
+      byCity
+        .set(key, { place: w.place ?? "—", count: 0, cats: new Map() })
+        .get(key)!;
     g.count += 1;
     g.cats.set(w.category, (g.cats.get(w.category) ?? 0) + 1);
   }

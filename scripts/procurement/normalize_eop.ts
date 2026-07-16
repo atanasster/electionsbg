@@ -144,7 +144,10 @@ export const resolvePrimaryBuyer = (
   const idx = canons.findIndex((c) => isValidEik(c) && prefer.has(c));
   if (idx < 0) return { eik: "", name: "" };
   const nameToks = splitMulti(rawName);
-  return { eik: canons[idx], name: (nameToks[idx] ?? nameToks[0] ?? "").trim() };
+  return {
+    eik: canons[idx],
+    name: (nameToks[idx] ?? nameToks[0] ?? "").trim(),
+  };
 };
 
 export interface EopNormalizeStats {
