@@ -105,10 +105,6 @@ export const GovernmentsScreen = () => {
         className="mt-5"
       />
 
-      <p className="text-sm text-muted-foreground mb-6 max-w-3xl mx-auto text-center">
-        {t("governments_explainer")}
-      </p>
-
       {xDomain ? (
         <CabinetStrip
           governments={governments}
