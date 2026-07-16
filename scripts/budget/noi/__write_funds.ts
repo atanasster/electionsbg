@@ -1,12 +1,14 @@
-// One-off: parse the cached NOI B1 XLS files (raw_data/budget/noi/) and
-// write data/budget/noi/funds.json. Used for testing the drilldown without
-// running the full ingest pipeline.
+// Parse the cached NOI B1 XLS files (raw_data/budget/noi/) and write
+// data/budget/noi/funds.json.
 //
-// Auto-download from nssi.bg is unreliable (302 redirect to homepage on
-// most GET requests despite 200 on HEAD), so the operator runs:
+//   tsx scripts/budget/noi/__write_funds.ts            # parse cached files only
+//   tsx scripts/budget/noi/__write_funds.ts --fetch    # download latest, then parse
 //
-//   1. Manual fetch any missing B1_{YYYY}_{MM}_{FUND}.xls into raw_data/budget/noi/
-//   2. tsx scripts/budget/noi/__write_funds.ts
+// With --fetch it first pulls the full-year (_12_) B1 for every TRY_YEARS × fund
+// from nssi.bg via fetch_b1.ts (a Referer header defeats nssi's 302-to-homepage
+// redirect; the OLE2 magic is validated so an HTML redirect is never cached).
+// Years whose _12_ file isn't published yet are simply skipped. Without the flag
+// it parses whatever is already cached (offline / testing).
 //
 // Vite's dev middleware mounts data/ at the dev-server root, so the file is
 // served at /budget/noi/funds.json.
@@ -25,6 +27,7 @@ import {
   parsePensionYearbook,
   aggregatePensionTypes,
 } from "./parse_pension_yearbook";
+import { fetchB1File } from "./fetch_b1";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -43,6 +46,19 @@ const YEARBOOK_DIR = path.resolve(
 const main = async (): Promise<void> => {
   const snapshotsByYear = new Map<number, NoiFundSnapshot[]>();
   const pensionTypesByYear = new Map<number, NoiPensionTypeBreakdown>();
+
+  // --fetch: pull the full-year (_12_) B1 for every year × fund before parsing.
+  // Unpublished years (the current year mid-cycle) 302 → reported unavailable
+  // and skipped; already-current files report unchanged.
+  if (process.argv.includes("--fetch")) {
+    console.log("Fetching B1 files from nssi.bg (Referer workaround)…");
+    for (const year of TRY_YEARS) {
+      for (const fund of FUNDS) {
+        const r = await fetchB1File(year, 12, fund, RAW_DIR);
+        if (r !== "unavailable") console.log(`  • B1_${year}_12_${fund}: ${r}`);
+      }
+    }
+  }
 
   for (const year of TRY_YEARS) {
     const funds: NoiFundSnapshot[] = [];

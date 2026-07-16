@@ -25,47 +25,39 @@ Three funds at the EBK level — all aggregated to fund 5500 from sub-funds:
 
 | Trigger | Action |
 |---|---|
-| Watcher: `nssi_b1` describe-line says "N new B1 file(s)" or "N B1 file(s) re-uploaded" | Manual fetch + re-run (steps below) → `funds.json` |
+| Watcher: `nssi_b1` describe-line says "N new B1 file(s)" or "N B1 file(s) re-uploaded" | `tsx scripts/budget/noi/__write_funds.ts --fetch` (auto-downloads + rebuilds `funds.json`) |
 | User asks to refresh NOI / social-security data | Same |
 | Adding a new fiscal year (e.g. 2026 once Jan 2027 file lands) | Same — `TRY_YEARS` in `__write_funds.ts` already covers 2020-2025 |
-| Fresh clone, `data/budget/noi/funds.json` missing | Manual fetch + re-run; auto-fetch is unreliable |
+| Fresh clone, `data/budget/noi/funds.json` missing | `--fetch` re-run (the Referer workaround pulls the bodies) |
 | Watcher: `nssi_yearbook` says "N new yearbook ZIP(s)" | Pensions ingest (§ Yearbook below) → `pensions.json` |
 | Watcher: `kfn_pensions` says "N new КФН statistics period(s)" | КФН ingest (§ КФН below) → `kfn/funds.json` |
 | Fresh clone, `data/budget/noi/pensions.json` or `data/budget/kfn/funds.json` missing | Run the yearbook / КФН ingests below (both auto-fetch cleanly) |
 
 ## Procedure
 
-### 1. Manually download new B1 XLSes
-
-Auto-fetch from `nssi.bg/wp-content/uploads/B1_{YYYY}_{MM}_{FUND}.xls` is **unreliable** — the NSSI returns HTTP 302 redirecting to the homepage on GET requests for many user-agents, despite returning HTTP 200 on HEAD. The watcher uses HEAD-only probing for the fingerprint, but the ingest needs the body bytes.
-
-For each year × fund the watcher flagged as added/changed:
+### 1. Fetch + rebuild (one command)
 
 ```bash
-mkdir -p raw_data/budget/noi
-for fund in 5500 5591 5592; do
-  curl -sSL -o raw_data/budget/noi/B1_2024_12_${fund}.xls \
-    "https://www.nssi.bg/wp-content/uploads/B1_2024_12_${fund}.xls" \
-    -A "Mozilla/5.0 (compatible; electionsbg-budget/1.0)"
-done
+tsx scripts/budget/noi/__write_funds.ts --fetch
 ```
 
-After download verify each file is a real BIFF8 document:
+`--fetch` downloads the full-year (`_12_`) B1 for every year × fund via
+`scripts/budget/noi/fetch_b1.ts` before parsing. nssi.bg 302-redirects B1 GETs
+to its homepage for most clients, but sending a **Referer** of the
+`отчети-и-баланси` listing page defeats the redirect and serves the real BIFF8
+body; the fetcher validates the OLE2 magic bytes so an HTML redirect is never
+cached, and overwrites a cached file only when the bytes differ (reports
+`saved` / `unchanged`). Years whose `_12_` file isn't published yet (the current
+year mid-cycle — e.g. 2025 only had months 01–11 as of Jul 2026) simply 302 and
+are skipped. Files land in `raw_data/budget/noi/`.
 
-```bash
-file raw_data/budget/noi/B1_2024_12_5500.xls
-# Expected: Composite Document File V2 Document, Little Endian, Os: Windows, Code page: 1251, …
-# If you see "HTML document" — the NSSI redirect bit you. Try a different UA or hit the
-# nssi.bg page in a browser first to seed cookies, then retry curl from the same shell.
-```
+Then the writer iterates `TRY_YEARS = [2020..2025]`, skipping any year × fund
+without a cached XLS, and writes `data/budget/noi/funds.json` (~16 KB).
 
-### 2. Run the writer
-
-```bash
-tsx scripts/budget/noi/__write_funds.ts
-```
-
-The writer iterates `TRY_YEARS = [2020..2025]`, skipping any year × fund combo that doesn't have a cached XLS. It writes `data/budget/noi/funds.json` (~16 KB across the available fiscal years).
+Offline / testing: drop the `--fetch` flag to parse whatever is already cached.
+To verify a cached file by hand: `file raw_data/budget/noi/B1_2024_12_5500.xls`
+→ expect `Composite Document File V2 Document …` (an `HTML document` means a
+stale manual download hit the redirect — re-run with `--fetch`).
 
 Output sample:
 
@@ -76,7 +68,7 @@ Output sample:
   →  wrote /Users/.../data/budget/noi/funds.json (1 year(s))
 ```
 
-### 3. Sanity-check the output
+### 2. Sanity-check the output
 
 Quick canary: the 2024 ДОО pensions figure (§4100) should be in the €11.0-€11.2B band. Anything below €5B or above €15B → re-check the source file or parser.
 
@@ -89,7 +81,7 @@ for y in d['years']:
 "
 ```
 
-### 4. Stamp the ingest marker
+### 3. Stamp the ingest marker
 
 ```bash
 tsx scripts/stamp-ingest.ts update-noi --summary "noi: 2024 (all 3 funds)"
