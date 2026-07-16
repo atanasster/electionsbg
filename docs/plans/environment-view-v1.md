@@ -1,6 +1,8 @@
 # Околна среда (Environment / МОСВ) sector view — v1 plan, competitive research & brainstorm
 
-Status: **NOT BUILT — plan/design only.** (2026-07-16) Research-and-design pass. Nothing committed.
+Status: **NOT BUILT — plan/design only.** (2026-07-16) Research-and-design pass + a full data/template
+**audit** (see §0.5) that verified the measured figures against the live repo and corrected three plan
+mechanisms (no air time-series; no `useFundsAbsorption` hook; all tile accents used). Nothing committed.
 Closest built siblings to copy: the **energy / security group dashboards** (`sectorDashboards.ts` +
 `SectorAwardersTile`) for the cheapest Phase-1 group ship, the **water pack** (`VikPack` +
 `VikEuFundsTile`) for the EU-funds + sector-map grammar, and **transport** (`data/transport/*.json` +
@@ -19,8 +21,9 @@ Closest built siblings to copy: the **energy / security group dashboards** (`sec
 entire €0.64bn/yr function with zero coverage. And it is the one sector where we already measure the
 outcome: we ingest the air.** МОСВ is the only ministry where Наясно can close the loop the whole
 genre is missing — **put the money next to the result**: ПУДООС grants + ОП „Околна среда" EU money +
-МОСВ/ИАОС procurement on one side, and the **measured PM10/PM2.5 trend we already hold** (`data/air/
-index.json`, from ИАОС — an МОСВ agency) plus recycling-rate-vs-EU-target on the other.
+МОСВ/ИАОС procurement on one side, and the **measured PM10/PM2.5 levels we already hold** (`data/air/
+index.json`, from ИАОС — an МОСВ agency; ⚠ a current SNAPSHOT vs the EU limit, **not yet a multi-year
+trend** — see §0.5) plus recycling-rate-vs-EU-target on the other.
 
 Positioning: **"Парите за чист въздух — и въздухът."** No Bulgarian portal ties environmental spend to
 a measured environmental outcome. sigma.midt.bg re-skins the same АОП data; ИПИ/IME
@@ -34,6 +37,61 @@ The signature structural finding, measured against the corpus:
 
 Completing GF05 also finishes the COFOG top-level map: every function (GF01–GF10) then has at least
 one sector view.
+
+---
+
+## 0.5 Audit & data verification (2026-07-16 — pre-build pass, no code committed)
+
+A full data + template audit was run against the live repo before any build. Findings below are
+**load-bearing corrections** to §§3/5/6 — read these first; they change what Phase 1 can ship.
+
+**Verified accurate (build on these as-is):**
+- **Corpus € per EIK** — `awarders_index.json` (4,398 rows) confirms МОСВ €82.72M/691, ИАОС
+  €75.89M/733, ПУДООС €9.25M/65, НП Рила €10.79M/35, НИМХ €4.18M/129. The signature ИАОС≈МОСВ
+  finding holds.
+- **Air-station geocode** — `data/air/index.json` has **37 foreground stations** (35 with PM10) on
+  **26 distinct obshtina codes**; **25/26 join `data/municipalities.json` centroids** cleanly
+  (`obshtina`→`loc` `"lng,lat"`). **Only `SOF00` (Столична) misses** — municipalities.json has no
+  Столична row, so pin a one-line override `SOF00 → [23.3219, 42.6977]`. The **14 background stations
+  carry an empty `obshtina`** → omit from the map (footnote), confirming open-question 5.
+- **EU-funds absorption** — `data/funds/derived/absorption.json` `byProgramme[]` (46 programmes)
+  carries **all five** env codes: `2014BG16M1OP002` (ОПОС 2014-20, €1.709bn, **95.08%**),
+  `2021BG16FFPR002` (ПОС 2021-27, €1.763bn, **17.79%**), plus `BGENVIRONMENT` (€11M, 95.48%),
+  `MODAIRN` (air quality, €19M, 0%) and `PEST` (pesticides, €29M, 0%). The MODAIRN air grant is
+  on-thesis for the air loop.
+- **COFOG GF05** — `data/cofog.json` `peers.GF05 = {year:2024, bgPctGdp:0.6, euAvgPctGdp:0.8,
+  rank:17, total:26, top:{geo:"NL", pctGdp:1.6}}`. The peer series key is **`EU27_2020`** (not
+  `EU27`); `peerSeriesByYear[2024].BG.GF05 = 0.6`. The EU-peer tile clone works unchanged with
+  function code swapped to `GF05`.
+- **МОСВ budget node** — `admin-ministerstvo-na-okolnata-sreda-i-vodite.json` has the 2018→2025
+  `years[]` with `expenditure.amountEur` + the 3 policy programs. Budget-bridge tile renders as planned.
+- **Template** — transport is the exact clone target. `SectorDashboardScreen` mounts
+  `getSectorPack(config.leadEik)` passing `{eik, scopeWindow}`, so registering
+  `[MOSV_EIK]: EnvironmentPack` in `PACKS` (sectorPacks.tsx) makes the pack the whole dashboard body.
+
+**⚠ CORRECTIONS — the plan is wrong on three mechanisms:**
+1. **No air TIME SERIES exists.** `air/index.json` stations carry only `latestReadings` +
+   `maxObserved` (snapshot `snapshotAsOf: 2026-03-31`), **no annual/historical trend** (`history7d` is
+   absent in the current file). So **tile 3's "measured PM10/PM2.5 trend" is NOT buildable from
+   `data/air`.** Redesign tile 3 honestly: pair the **budget/spend trend (money, multi-year)** with the
+   **current measured national PM10/PM2.5 mean vs the EU limit (outcome SNAPSHOT, not a trend)**, framed
+   "€X on monitoring & clean-air — here is where the air stands vs the 50/25 µg/m³ limit." A real
+   money-vs-outcome *trend* needs a Phase-2 ingest of the ИАОС annual series (see §3 addendum).
+2. **`useFundsAbsorption()` does not exist.** No such hook in `src/data/funds/` (only
+   `useFundsProgramSummary`, `useFundsTaxonomy`, …). The absorption data is the **static JSON
+   `data/funds/derived/absorption.json`** — the env EU-funds tile should fetch it directly
+   (React Query, `staleTime:Infinity`, `dataUrl("/funds/derived/absorption.json")`) and filter
+   `byProgramme` to the five env codes. This is *simpler* than the plan (no server call at all), and
+   OP-code join is exact. Transport's `useTransportFunds` uses a different path
+   (`/api/db/awarder-funds-rollup`, per-beneficiary EIK) — **do NOT copy that**; use the JSON.
+3. **All 18 `TILE_ACCENTS` tokens are already used** by the sector registry (clay/teal/steel/amber/
+   olive/rose/green/emerald/brass/azure/indigo/moss/plum/gold/terracotta/copper/aqua/slate). Env needs a
+   **genuinely NEW token** added to `src/ux/infographic/tileAccents.ts` — a nature/leaf green distinct
+   from edu's `green` (#3a7a5e), defense's `moss` (#6e845d) and water's `teal`. Proposed:
+   `leaf: "#5a9e3d"` (a brighter yellow-green); eyeball on both grounds per the file's contrast note.
+
+**EIK count clarification:** the env-core group is **27 EIK** as enumerated in §1 (3 core + 3 parks +
+1 meteo + 4 basin + 16 РИОСВ), not "~24" — the group-total € (~€216M) is unchanged; fix the label.
 
 ---
 
@@ -60,7 +118,7 @@ EIK-verified from the corpus; no alias-EIK duplicates exist for the core bodies.
 | basin | Басейнова дирекция „Източнобеломорски район" (Пловдив) | 115756766 | 1.54 | 18 |
 | basin | Басейнова дирекция „Западнобеломорски район" (Благоевград) | 101619985 | 0.76 | 9 |
 | riosv | 16 × РИОСВ (regional inspectorates) — see below | (16 EIKs) | 11.96 | 119 |
-| — | **Env-core group total (~24 EIK)** | — | **≈216.4** | **1,940** |
+| — | **Env-core group total (27 EIK — §0.5)** | — | **≈216.4** | **1,940** |
 
 **16 РИОСВ** (regional inspectorates on environment & water). 8 carry the city in the name; 8 are the
 generic „Регионална инспекция по околната среда и водите" and were disambiguated via
@@ -119,8 +177,10 @@ absorption burn-down for EU money; (5) plain "did the spend move the number?" fr
 
 **The differentiated thesis (money → outcome), three concrete loops nobody in BG ships:**
 1. **Air loop ⭐ (flagship):** МОСВ/ИАОС air-quality monitoring budget + ПУДООС/ОПОС air projects
-   (МODAIRN, clean-air municipal grants) vs the **measured PM10/PM2.5 trend** from `data/air`. "€X on
-   air monitoring and clean-air projects — did ФПЧ10 fall?" We are the only site holding both halves.
+   (МODAIRN, clean-air municipal grants) vs the **measured PM10/PM2.5 levels** from `data/air` (a
+   current snapshot vs the EU limit today; a multi-year trend awaits the Phase-2 ИАОС annual ingest,
+   §0.5). "€X on air monitoring and clean-air projects — where does ФПЧ10 stand vs the norm?" We are
+   the only site holding both halves.
 2. **Waste loop ⭐:** ПУДООС waste-facility grants + waste-CPV procurement vs the **recycling rate vs
    the EU 2025 (55%) / 2035 (65%) targets** (Eurostat `cei_wm011`; BG ~35–40%, below target).
 3. **EU-money loop ⭐:** ОПОС 2014-20 closed at ~95% vs ПОС 2021-27 at ~17.8% — the absorption-risk
@@ -137,10 +197,13 @@ absorption burn-down for EU money; (5) plain "did the spend move the number?" fr
 - **EU funds (ИСУН / ОП „Околна среда")** — **in PG, no new ingest.** ОПОС appears as **two OPs**:
   `2014BG16M1OP002` „Околна среда" 2014-20 (391 contracts, €1.709bn contracted, €1.625bn paid, **~95%**)
   and `2021BG16FFPR002` Програма „Околна среда" 2021-27 (186 contracts, €1.763bn contracted, €0.314bn
-  paid, **~17.8%**), plus EEA/Norway grants `BGENVIRONMENT`, `MODAIRN` (air-quality), `PEST`. Served via
-  `useFundsAbsorption()` (`absorption.byProgramme[]` → `{programCode, programName, contractedEur,
-  paidEur, absorptionPct, contractCount}`) or the richer `useFundsProgramSummary('2021BG16FFPR002')`
-  (`fund-payload?kind=program-summary`). **Caveat:** ИСУН carries contracted + paid, **no
+  paid, **~17.8%**), plus EEA/Norway grants `BGENVIRONMENT`, `MODAIRN` (air-quality), `PEST`.
+  ⚠ **Corrected mechanism (§0.5):** there is **no `useFundsAbsorption()` hook** — fetch the static
+  `data/funds/derived/absorption.json` (`byProgramme[]` → `{programCode, programName, contractedEur,
+  paidEur, absorptionPct, contractCount}`, verified to contain all five env codes) directly with React
+  Query `staleTime:Infinity`; filter to the env codes. The richer per-programme
+  `useFundsProgramSummary('2021BG16FFPR002')` (`fund-payload?kind=program-summary`) stays available for
+  a drill-down. **Caveat:** ИСУН carries contracted + paid, **no
   planned/allocation column and no dates** — so the funnel is contracted→paid (the *planned* envelope,
   if wanted, is a curated constant from the programme's approved budget, not from `data/funds/`).
   Join by **OP code** (the accurate path) rather than the ВиК pack's EIK-sum approximation.
@@ -175,6 +238,13 @@ absorption burn-down for EU money; (5) plain "did the spend move the number?" fr
 - **Natura 2000 coverage** — % territory protected + site count from EEA Natura 2000 barometer / МОСВ →
   a small `data/environment/natura2000.json` (or curated constants in reference data). Context strip
   only; low cadence.
+
+- **ИАОС air ANNUAL series (§0.5 addendum — needed for the true money-vs-outcome TREND).** The current
+  `air/index.json` is a latest-snapshot only, so tile 3's trend half is not yet buildable. To ship the
+  full "did the spend move ФПЧ10 over the years?" loop, extend `update-air-quality` (or a sibling step)
+  to emit a small `data/air/annual.json` — national + per-oblast PM10/PM2.5 annual means from the ИАОС
+  data.egov.bg resources (the same source already fetched, aggregated by year instead of latest). Tiny
+  JSON, annual cadence. Until then tile 3 = money-trend + outcome-snapshot (§5 tile 3).
 
 **Tier C — extend the existing air asset (Phase 3, no new pipeline):**
 - **NO₂ / O₃ / SO₂** — the air index schema already supports them (`euLimit` present); `update-air-
@@ -247,7 +317,9 @@ dashboard content (the security/transport path). Files mirror `security/` + `tra
 - **`src/data/environment/useWaste.tsx`, `useNatura2000.tsx`** — React Query hooks over the tiny Tier-B
   JSON (mirror `src/data/procurement/useRailSubsidy.tsx`). **`usePudoosGrants.tsx`** instead reads the
   PG `environment_payloads` overview blob + a DbDataTable feed (mirror the funds hooks).
-- Reuse `useFundsAbsorption()` (already in `src/data/funds/`) for the OP tile — no new hook.
+- **⚠ §0.5:** the OP tile reads the static `data/funds/derived/absorption.json` (`byProgramme` filtered
+  to the five env codes) — there is **no `useFundsAbsorption()` hook**; write a tiny React-Query reader
+  (`useEnvironmentFunds.tsx`) over the JSON, no server call.
 
 ### Phase 3 — pollutant depth + Natura + AI/watchers
 NO₂/O₃/SO₂ into the air index (Step 0), Natura tile, `ai/tools/environment.ts`, `eurostat_env` watcher,
@@ -275,14 +347,19 @@ deep-link `id`, each external tile a provenance chip: `● real` (OCDS/ЦАИС,
    codes (no coords in source) → município centroids from `settlements.json`/`municipalities.json` (the
    transport-map title→centroid precedent). `data-og="environment-air-map"` for the OG card.
 3. **★ Money-vs-outcome — „Парите за чист въздух срещу въздуха"** (the differentiator, `● real ◆ budget
-   ÷ context`). Dual-axis (honest, two panels not one twinned axis): (a) МОСВ monitoring-program budget
-   + ПУДООС/ОПОС air projects €/yr; (b) the measured national PM10/PM2.5 trend from `data/air`
-   (station-mean, annual). Framing "€X за мониторинг и чист въздух — ФПЧ10 се движи така" — context, not
-   causation (education report-card precedent). This tile is why the view exists.
+   ÷ context`). Two honest panels, not one twinned axis: (a) МОСВ monitoring-program budget +
+   ПУДООС/ОПОС air projects €/yr (the money TREND); (b) — **⚠ corrected (§0.5): `data/air` has NO
+   time series, only a latest snapshot** — the **current** national PM10/PM2.5 station-mean vs the EU
+   limit (50 / 25 µg/m³), an outcome SNAPSHOT with `maxObserved` peaks. Framing "€X за мониторинг и чист
+   въздух — ето къде е въздухът спрямо нормата" (context, not causation; education report-card
+   precedent). **A true money-vs-outcome TREND requires the Phase-2 ИАОС annual-series ingest** (§3
+   addendum) — until then this tile is money-trend + outcome-snapshot. This tile is why the view exists.
 4. **★ EU-funds absorption — ОПОС 2014-20 vs ПОС 2021-27** (`◇ context`, from PG, no ingest). Burn-down
-   bars: ~95% closed vs ~17.8% new; contracted→paid per OP via `useFundsAbsorption()` filtered to the
-   two env OP codes (+ EEA/Norway MODAIRN/PEST). Absorption-risk is the story. Clone `VikEuFundsTile`
-   but join by **OP code**, not EIK-sum.
+   bars: ~95% closed vs ~17.8% new; contracted→paid per OP by fetching
+   `data/funds/derived/absorption.json` and filtering `byProgramme` to the five env codes
+   (§0.5 — **no `useFundsAbsorption()` hook exists**; the JSON join by OP code is exact and needs no
+   server call). Absorption-risk is the story. Clone `VikEuFundsTile`'s VISUAL but source from the JSON,
+   not the EIK-sum.
 5. **★ ПУДООС grant flow** (`◇ context`, Tier B). Where the environmental fund's grants land: per-
    município / per-purpose (water / waste / clean-air / nature) `€` flow, Top-N → a DbDataTable "see
    all". The fund is small in procurement (€9.25M) but disburses grants — the money that doesn't show
@@ -315,8 +392,9 @@ light+dark. Air-limit bands use a fixed green/amber/red ramp keyed to the EU lim
 
 **Reuse as-is (no rebuild):** `SectorDashboardScreen` + `SectorAwardersTile` (Phase-1 group dashboard),
 `SectorPointMap` (air-station map, tile 2), `useAwarderGroupModel` / `awarder_group_model`
-([[reference_awarder_group_model]]), `useFundsAbsorption` / `useFundsProgramSummary` (`src/data/funds/`,
-tile 4), `useCofog` + `MvrEuPeerTile` + `euFlags.tsx` (GF05 peer strip, tile 8), `VikContractorHhiTile`
+([[reference_awarder_group_model]]), the static `data/funds/derived/absorption.json` /
+`useFundsProgramSummary` (`src/data/funds/`, tile 4 — ⚠ §0.5: `useFundsAbsorption` does NOT exist),
+`useCofog` + `MvrEuPeerTile` + `euFlags.tsx` (GF05 peer strip, tile 8), `VikContractorHhiTile`
 (HHI), `PackSection` (stacked bands), `StatCard` (KPI row), `buildPackInsights` (linkified chips),
 `InfographicTile` + `TILE_ACCENTS` (the hub tile), `AwarderBreadcrumb`, `ScopeControl` /
 `useScope`/`useScopeWindow`, `DbDataTable` ("see all"), `useAirQuality` (`src/data/air/`), and the shared
@@ -498,7 +576,7 @@ zero new ingest.** Add `TILE_ACCENTS.<new>` to `tileAccents.ts`.
 **Phase 1 (~1d) — bespoke `EnvironmentPack` off Tier-A data only.** `useEnvironment.tsx`,
 `environmentAttributes.ts`, `EnvironmentPack.tsx` + tiles 1/2/3(air-only)/4(funds)/7/8/9/11. The air
 map (tile 2, `SectorPointMap` + obshtina→centroid) and the **air money-vs-outcome tile** (tile 3, from
-`data/air` + budget node + `useFundsAbsorption`) — the flagship, all from already-ingested data.
+`data/air` + budget node + `absorption.json`, §0.5) — the flagship, all from already-ingested data.
 Register `[MOSV_EIK]: EnvironmentPack` in `PACKS`. OG decision (bulk vs dedicated map capture).
 
 **Phase 2 (~1–2d) — Tier-B ingest + waste/grants tiles.** `scripts/environment/fetch_waste.ts`
@@ -523,7 +601,7 @@ Cabinet anchoring last.
    Gates whether tile 5 is a full DbDataTable or a curated purpose-split. Needs a source probe.
 3. **Nature-parks universe** — include the 11 природни паркове (~€12.5M) in the group total, or keep the
    core 24 EIK and cross-link parks? (Recommended: include as their own `nature_parks` universe, Phase 2.)
-4. **OP-code vs EIK join for the funds tile** — OP-code (`useFundsAbsorption`, accurate, recommended)
+4. **OP-code vs EIK join for the funds tile** — OP-code (via static `absorption.json`, accurate, recommended; §0.5)
    vs the ВиК EIK-sum. And whether to curate the *planned* envelope (not in ИСУН) for a full funnel.
 5. **Air-station map geocode coverage** — obshtina→centroid covers ~37 município stations; the ~14
    background/mountain stations (Витиня, Копитото, Рожен) have no município bind — show as a separate
