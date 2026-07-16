@@ -13,6 +13,90 @@ EU-funds spine + `OblastChoropleth` small-multiples + the `?sector=` browse pack
 
 ---
 
+## 0. Audit addendum (2026-07-16) — verified against repo, with plan corrections
+
+A full audit against the live repo + the committed `TransportPack` template + competitive-research
+re-validation. **Every headline figure in §0/§1/§3 confirmed** against the corpus; six plan
+assumptions needed correction before a build starts. Read this section first — it overrides the
+stale claims flagged inline below.
+
+### Confirmed (no change)
+- **Procurement figures exact:** МРРБ `831661388` **€99.96M / 684** (tier `central_ministry`); АГКК
+  `130362903` **€48.72M / 549**; ДНСК `130008993` **€6.64M / 142**; АПИ `000695089` **€6,332.0M /
+  2,232** (tier `central_agency`, ~63× the whole МРРБ group — the exclusion is load-bearing); ВиК
+  холдинг `206086428` €0.33M / 12. Governors tier = `regional_gov`.
+- **Cohesion (taxonomy.json):** ОПРР „Региони в растеж" `2014BG16RFOP001` **€1,613.97M contracted /
+  €1,549.39M paid = 96%** (824 contracts, closed); „Развитие на регионите" `2021BG16FFPR003`
+  **€2,469.32M contracted / €491.52M paid = 20%** (669 contracts — the absorption-risk story).
+- **COFOG GF06:** `series.GF06` = €0.466bn (2020) → €1.005bn (2023) → **€1.067bn (2024), +129% since
+  2020**; `peers.GF06 = {year:2024, bgPctGdp:1, euAvgPctGdp:0.7, rank:5, total:26, top:{geo:"CY",
+  pctGdp:2.1}}`. Drop-in for the EU-peer band.
+- **МРРБ 2019 budget hole is real:** the main node
+  `admin-ministerstvo-na-regionalnoto-razvitie-i-blagoustroystvoto.json` (eik `831661388`) holds
+  2018/2020/2021/2022/2023/2024/2025 (year key is **`fiscalYear`**, not `year`); **2019 (€264.18M)
+  lives only in the soft-hyphen duplicate** `…-blago-ustroystvoto.json` (`eik:null`). §12 fix stands.
+- **`regional.json` shape:** `series.<indicator>.<oblastCode>[] = {year,value}`; 10 indicators; 31
+  oblast keys incl. the Sofia shards `S23/S24/S25`, `SFO`, and `PDV`/`PDV-00`.
+- **Reusable components all present & shapes as claimed:** `OblastChoropleth`, `RegionalChoroplethMap`,
+  `MvrEuPeerTile`, `MvrBudgetBridgeTile`, `VikContractorHhiTile`, `useAwarderGroupModel`,
+  `buildPackInsights`, `StatCard`, `PackSection`, `euFlags.tsx (EuFlag)`, `awarder_group_model` SQL fn.
+
+### Corrections (six) — apply these; the inline text below is superseded where flagged
+1. **Accent token — `brass`/`moss` are NOT free (plan §7 rows 3-4 are WRONG).** All 18 `TILE_ACCENTS`
+   tokens are already assigned — `brass`→revenue, `moss`→defense; reusing either collides visually.
+   **Add a NEW token** to `src/ux/infographic/tileAccents.ts`. Recommend **`fern: "#5f8a4e"`** (a
+   fresh regional/land green — the infra cluster currently has no green among clay/teal/steel/copper,
+   so it reads distinctly), or `sienna: "#a26b46"` if a warmer building/благоустройство tone is
+   preferred. Eyeball on both cream `#F1ECE0` and navy `#0B1224` grounds (~48-58% L, moderate chroma).
+2. **`PassThroughHero.tsx` DOES NOT EXIST (plan §5 "reuse, don't rebuild" is WRONG).** The
+   social-assistance plan intended it but it was never built — zero references in `src/`. The
+   inversion hero (tile 1) is a **genuine new build here**, not a reuse. Either build the shared
+   `PassThroughHero.tsx` now (part-to-whole bar: €1.06bn controlled vs ~€100M procured + caption,
+   `data-og="regional-hero"`) so social-assistance can later reuse it, or inline a bespoke
+   `RegionalPassThroughTile`. Move it from §5's reuse table into the "genuinely bespoke" list.
+3. **EU-peer tile reads GF03, not GF06.** `MvrEuPeerTile` hardcodes `data.peers.GF03` +
+   `data.peerSeriesByYear[year].GF03`. It is a **template to clone + retarget to GF06**, not a
+   reuse-as-is. Confirmed the data is there: `peerSeriesByYear["2024"]` carries `GF06` for
+   BG(1.0)/EU27(0.7)/HR/HU/RO and `peers.GF06` the band — so a `RegionalEuPeerTile` swapping the
+   function code to `GF06` is clean.
+4. **Cohesion-by-oblast choropleth (tile 3) has NO static fallback.** There is no per-oblast funds
+   rollup in `data/funds/` (`derived/absorption.json` is programme/period-grained only:
+   `byProgramme`/`byPeriod`/`byFundType`/`byBucket`). The oblast map **requires the DB path** —
+   `fund_projects` is indexed on `oblast`, so add either a small serving fn/route
+   (`/api/db/regional-cohesion-by-oblast`) or a precomputed `regional_absorption` blob. This is the
+   one Phase-1 tile that is not pure Tier-A-static; budget its extra route/precompute. (The
+   programme-level burn-down tile 2 CAN render off `taxonomy.json` or `derived/absorption.json`
+   without the DB.)
+5. **Taxonomy carries NO beneficiary counts.** `taxonomy.json` programmes expose only
+   `contractCount`/`totalEur`/`paidEur` — the "119 / 96 beneficiaries" figures in §0/§3 must come
+   from the DB (`fund_projects` distinct `beneficiary_eik`) or `data/funds/beneficiaries-by-eik/`,
+   not the taxonomy. Drop beneficiary counts from any taxonomy-only tile, or source them from the DB.
+6. **The 27-governor allowlist is now fully enumerated** (frozen table in §1 below) with oblast-code
+   joins. Sofia note: „Областна администрация - област софия" `831912591` = София-град →
+   `SOFIA_CITY` (the choropleth's `featureToCanon` folds `S23/S24/S25`→`SOFIA_CITY`); „Софийска
+   област" `000776057` → `SFO`. Use the procurement `OblastChoropleth` for the money map (its
+   `featureToCanon` folds both Sofia shards AND `PDV-00`→`PDV`); `RegionalChoroplethMap` only
+   special-cases Sofia, not Plovdiv, so it is the indicator-layer reference, not the money map.
+
+### Competitive research — re-validated (strengthens §2, no change to thesis)
+- **EU Cohesion Open Data Platform** (`cohesiondata.ec.europa.eu`, 2021-27 view): confirmed as the
+  gold standard — 150 adopted programmes, >€110bn EU financing, interactive charts on *planned →
+  finances implemented → EU payments made → achievement targets*. All 2021-27 programmes finalised,
+  so the **planned/contracted/paid burn-down** (our tile 2) is exactly the frame they lead with —
+  our differentiator remains joining it to the **per-oblast convergence map** (which they don't do
+  at the sub-national BG grain) and to live procurement, per §2.
+- **`regionalprofiles.bg` (ИПИ)** remains the strongest BG competitor (outcome indicators, no money
+  linkage); our win is money-next-to-map-next-to-convergence, live. Positioning line unchanged:
+  „Парите за регионите — къде отиват и стигат ли до най-бедните области."
+
+### Build-readiness verdict
+Phase 0 (config-only generic dashboard) is a pure mechanical mirror of the committed `TransportPack`
+wiring (reference-data module + 8 registry edits) and can ship immediately once the new accent token
+is added. Phase 1's only non-static dependency is the cohesion-by-oblast route/precompute
+(correction 4). No blockers found.
+
+---
+
 ## 0. The one-line thesis
 
 **МРРБ is a pass-through ministry: it controls ~€1.06bn/year but spends almost none of it through
@@ -66,10 +150,31 @@ Home: **`src/lib/regionalReferenceData.ts`** (mirror `transportReferenceData.ts`
 
 - Core three (ministry + cadastre + control): **~€155.3M / 1,375 contracts**.
 - The **27 областни администрации** (regional governors, МРРБ-supervised) add **~€58.3M** and — more
-  importantly — the **per-oblast geography** the choropleth hero needs. Top spenders: Варна
-  `000093360` (€13.6M), Бургас `000056757` (€11.6M), Смолян `120068166` (€9.4M), Пловдив
-  `115009166` (€4.5M), Ловеч `000291335` (€2.6M). Enumerate all 27 from the corpus into the
-  allowlist (their `Областна администрация - област <x>` names resolve cleanly to oblasts).
+  importantly — the **per-oblast geography** the choropleth hero needs.
+
+**FROZEN 27-governor allowlist (measured 2026-07-16, EIK · oblast-code · €m, all tier `regional_gov`).**
+The `Областна администрация - област <x>` names resolve cleanly; `oblastCode` is the choropleth join
+key (`featureToCanon` bucket). Add each row to `MRRB_ENTITIES` with `universe:"governors"` and an
+`oblastCode` field:
+
+| EIK | Oblast | code | €m | | EIK | Oblast | code | €m |
+|---|---|---|--:|---|---|---|---|--:|
+| 000093360 | Варна | VAR | 13.60 | | 000531150 | Русе | RSE | 0.74 |
+| 000056757 | Бургас | BGS | 11.63 | | 109069461 | Кюстендил | KNL | 0.58 |
+| 120068166 | Смолян | SML | 9.36 | | 107053704 | Габрово | GAB | 0.58 |
+| 115009166 | Пловдив | PDV | 4.54 | | 123138141 | Стара Загора | SZR | 0.53 |
+| 000291335 | Ловеч | LOV | 2.64 | | 128052865 | Ямбол | JAM | 0.38 |
+| 116045521 | Разград | RAZ | 2.09 | | 104103739 | Велико Търново | VTR | 0.32 |
+| 108070973 | Кърджали | KRZ | 1.79 | | 114125755 | Плевен | PVN | 0.28 |
+| 831912591 | София (столица) | SOFIA_CITY | 1.60 | | 000320534 | Монтана | MON | 0.27 |
+| 105042424 | Видин | VID | 1.51 | | 113055670 | Перник | PER | 0.24 |
+| 106063115 | Враца | VRC | 1.47 | | 124125725 | Добрич | DOB | 0.24 |
+| 836147490 | Хасково | HKV | 1.28 | | 112121473 | Пазарджик | PAZ | 0.11 |
+| 000776057 | Софийска област | SFO | 1.26 | | 118039613 | Силистра | SLS | 0.11 |
+| 101146105 | Благоевград | BLG | 1.01 | | 127070650 | Шумен | SHU | 0.08 |
+| | | | | | 119101402 | Сливен | SLV | 0.03 |
+
+Full-group total (core three + 27 governors) ≈ **€213.6M / ~1,700 contracts**.
 
 **Decision — include the 27 governors as a segmentable `governors` universe (recommended).** They
 are the МРРБ regional chain and give the map its backbone, but a universe `<Select>`
@@ -205,8 +310,9 @@ caption**. Money-first band order. Signature tiles marked ★.
    quadrant lines).* The beat-the-competitor tile.
 
 5. **COFOG GF06 EU peer band.** BG spends **1.0% of GDP** on Housing & community amenities vs EU-avg
-   0.7%, **rank 5/26**, +129% since 2020 — bars BG vs peers. Near-mechanical clone of
-   `MvrEuPeerTile` + `euFlags.tsx` (swap the function code to `GF06`; `useCofog()` → `peers.GF06`).
+   0.7%, **rank 5/26**, +129% since 2020 — bars BG vs peers. Clone `MvrEuPeerTile` + `euFlags.tsx`
+   into a `RegionalEuPeerTile` and **retarget GF03→GF06** (audit §0.3: the МВР tile hardcodes GF03).
+   Data verified present: `useCofog().peers.GF06` + `peerSeriesByYear["2024"].GF06` for BG/EU27/HR/HU/RO.
 
 6. **Budget bridge — the transfer gap.** МРРБ €1.06bn total budget (`years[].expenditure.amountEur`,
    ЗДБ, authoritative) vs €100M own procurement highlighted as the thin visible slice; a sourced
@@ -256,7 +362,7 @@ light+dark; color-follows-entity-not-rank.
 | Contractor HHI | `../vik/VikContractorHhiTile` (DOJ bands, gated) | tile 9 |
 | EU peer band | `security/MvrEuPeerTile` + `euFlags.tsx` (`useCofog().peers.<GF>`) | tile 5 (GF06) |
 | Budget bridge | `security/MvrBudgetBridgeTile` (`useBudgetMinistryRollup`) | tile 6 |
-| **Pass-through / iceberg hero** | `src/screens/components/procurement/PassThroughHero.tsx` — the shared inversion-hero built once by the **social-assistance** plan (part-to-whole bar: procured slice vs whole envelope + caption, OG-screenshottable). See `docs/plans/social-assistance-view-v1.md §5` | tile 1 (МРРБ €1.06bn controls vs ~€100M procured) — reuse, don't rebuild |
+| ~~Pass-through / iceberg hero~~ | ⚠ **CORRECTED (audit §0.2): `PassThroughHero.tsx` was NEVER built** — zero refs in `src/`. Tile 1 is a genuine new build (see "genuinely bespoke" below), not a reuse. Build the shared component here (so social-assistance can reuse it) or inline a `RegionalPassThroughTile`. | tile 1 |
 | Group model | `useAwarderGroupModel` → `/api/db/awarder-group-model` (`reference_awarder_group_model`) | KPI rollup over the ~30-EIK set |
 | Scope control | `src/data/scope/` (`useScope`/`useScopeWindow`, `?pscope`) | §6 |
 | Browse pack | `SECTOR_BROWSE_PACKS` + `SectorBrowseSlot` (sectorPacks.tsx) | `?sector=regional` |
@@ -264,7 +370,8 @@ light+dark; color-follows-entity-not-rank.
 | Tenders / appeals / MP-connected | generic awarder tiles | free above the pack |
 
 Genuinely bespoke: `regionalReferenceData.ts` (allowlist), `regionalAttributes.ts` (CPV classifier),
-`useRegional*` hooks, the absorption burn-down tile, the convergence scatter, the cross-link strip.
+`useRegional*` hooks, **the pass-through/iceberg hero (tile 1 — not previously built, audit §0.2)**,
+the absorption burn-down tile, the convergence scatter, the cross-link strip.
 
 ---
 
@@ -299,8 +406,8 @@ Prerequisite: **`src/lib/regionalReferenceData.ts`** (the allowlist — imported
 |---|---|---|
 | 1 | `src/lib/regionalReferenceData.ts` (**new**) | `REGIONAL_EIK`, `MRRB_ENTITIES[]`, `REGIONAL_SECTOR_EIKS`, universe labels, `REGIONAL_BUDGET_NODE` |
 | 2 | `src/screens/sector/sectorDashboards.ts` | add `regional:` to `SECTOR_DASHBOARDS` (`leadEik: REGIONAL_EIK`, `members = MRRB_ENTITIES.map(...)` with `group`, `browsePackId:"regional"`, `agency:"МРРБ"`). Drives sitemap/OG/prerender/hub via `SECTOR_DASHBOARD_IDS` |
-| 3 | `src/screens/governance/sectorRegistry.ts` | add a `Sector` to the **infra** cluster (`to:"/sector/regional"`, `accent: TILE_ACCENTS.brass`) |
-| 4 | `src/ux/infographic/tileAccents.ts` | add `brass`/`moss` token if not free (it is free) |
+| 3 | `src/screens/governance/sectorRegistry.ts` | add a `Sector` to the **infra** cluster (`to:"/sector/regional"`, `accent: TILE_ACCENTS.fern`) |
+| 4 | `src/ux/infographic/tileAccents.ts` | ⚠ **CORRECTED (audit §0.2):** all 18 tokens are taken (`brass`→revenue, `moss`→defense). **Add a NEW token** — recommend `fern:"#5f8a4e"` (infra has no green) |
 | 5 | `src/screens/governance/sectorScenes.tsx` | new `Regional` SVG scene (map/building motif) + `regional:` in `SECTOR_SCENES` |
 | 6 | `src/screens/components/procurement/sectorPacks.tsx` | `SECTOR_BROWSE_PACKS.regional` (`eiks: REGIONAL_SECTOR_EIKS`); **Phase 2** `[REGIONAL_EIK]: RegionalPack` in `PACKS` (lazy) |
 | 7 | `scripts/db/gen_procurement/sector_stats.ts` | add `regional: REGIONAL_SECTOR_EIKS` to `SECTOR_EIKS`; rerun `db:gen-sector-stats` (needs PG) |
@@ -441,8 +548,10 @@ absorption bars + convergence scatter + EU-peer band readable. Light + dark veri
   `src/screens/components/procurement/regional/RegionalPack.tsx` + tiles: hero pass-through flow,
   **cohesion absorption burn-down** (ИСУН), **oblast choropleth** (ИСУН × population), **COFOG GF06
   EU-peer band**, budget bridge, category (universe-segmented), HHI/competition, cross-link strip,
-  awarders bridge. Register `[REGIONAL_EIK]: RegionalPack`. All off Tier-A. **Data-hygiene fix:**
-  fold the 2019 soft-hyphen stub node into the МРРБ series (`update-budget` de-dup).
+  awarders bridge. Register `[REGIONAL_EIK]: RegionalPack`. Off Tier-A **except the oblast
+  choropleth**, which needs the cohesion-by-oblast DB route/precompute (audit §0.4 — no static
+  per-oblast funds rollup exists). **Data-hygiene fix:** fold the 2019 soft-hyphen stub node into the
+  МРРБ series (`update-budget` de-dup).
 - **Phase 2 — the convergence differentiator + AI + productionization (~1-2 days).** The
   regional-convergence scatter (spend vs GDP/capita residual — the beat-`regionalprofiles.bg`
   tile), the 4 AI tools, bespoke map-focused OG, data-map FEATURE + edges, README, watcher/PWR rows.
