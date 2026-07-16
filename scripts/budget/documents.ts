@@ -187,10 +187,7 @@ const buildInterimLawDocuments = (): BudgetDocument[] =>
 // the link is the ZIP (a viewer downloads and extracts).
 const buildExecutionDocuments = (): BudgetDocument[] =>
   EXECUTION_REPORTS.map((r) => ({
-    id: executionDocumentId(
-      canonicalExecutionAdminId(r.adminId),
-      r.fiscalYear,
-    ),
+    id: executionDocumentId(canonicalExecutionAdminId(r.adminId), r.fiscalYear),
     kind: "execution-report" as const,
     fiscalYear: r.fiscalYear,
     seq: 0,

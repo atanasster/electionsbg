@@ -1937,8 +1937,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "governance/overview",
-    title:
-      "Национален преглед — управление на държавата | electionsbg.com",
+    title: "Национален преглед — управление на държавата | electionsbg.com",
     description:
       "Националното управленско табло за България: действащ кабинет, изпълнение на държавния бюджет, обществени поръчки, макроикономически контекст и парламентарна активност на едно място.",
     breadcrumbName: "Национален преглед",
@@ -1952,8 +1951,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "governance/declarations",
-    title:
-      "Декларации на депутати и длъжностни лица | electionsbg.com",
+    title: "Декларации на депутати и длъжностни лица | electionsbg.com",
     description:
       "Имущество, интереси и връзки на властта: декларации на депутатите (имущество, автомобили, фирми), бизнес връзки и класация на длъжностните лица по нетно състояние от регистъра на Сметната палата.",
     breadcrumbName: "Декларации",
