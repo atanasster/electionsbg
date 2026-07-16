@@ -35,6 +35,11 @@ import {
   TRANSPORT_ENTITIES,
   TRANSPORT_UNIVERSE_LABEL,
 } from "@/lib/transportReferenceData";
+import {
+  MOSV_EIK,
+  ENV_ENTITIES,
+  ENV_UNIVERSE_LABEL,
+} from "@/lib/environmentReferenceData";
 
 export interface SectorMember {
   eik: string;
@@ -357,6 +362,27 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
       eik: e.eik,
       name: { bg: e.name, en: e.name },
       group: SECURITY_UNIVERSE_LABEL[e.universe],
+    })),
+  },
+  // Околна среда / МОСВ (sector id "environment") — the last untouched top-level
+  // COFOG function (GF05). `members` IS the whole ~27-EIK group (ministry + ИАОС +
+  // ПУДООС + 3 national parks + НИМХ + 4 river-basin directorates + 16 РИОСВ) so the
+  // awarders tile lists every unit grouped by universe. МОСВ leads; its /awarder page
+  // renders the EnvironmentPack (registered under MOSV_EIK), and so does this
+  // dashboard (getSectorPack(leadEik) → EnvironmentPack becomes the content). The
+  // signature finding: ИАОС — the agency that produces the PM10 series the pack maps —
+  // is itself a top-tier buyer, nearly the size of the whole ministry.
+  environment: {
+    id: "environment",
+    titleKey: "sector_environment_title",
+    descKey: "sector_environment_desc",
+    agency: "МОСВ",
+    leadEik: MOSV_EIK,
+    browsePackId: "environment",
+    members: ENV_ENTITIES.map((e) => ({
+      eik: e.eik,
+      name: { bg: e.name, en: e.name },
+      group: ENV_UNIVERSE_LABEL[e.universe],
     })),
   },
 };

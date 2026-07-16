@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-16T19:25:50.414Z",
+  "generatedAt": "2026-07-16T20:10:56.499Z",
   "nodes": [
     {
       "id": "awarder:000012465",
@@ -2727,6 +2727,11 @@
       "label": "Лазар Манолов Лазаров"
     },
     {
+      "id": "official:stoyan-dragomirov-nikolov-8d82ff",
+      "type": "official",
+      "label": "Стоян Драгомиров Николов"
+    },
+    {
       "id": "contractor:102151443",
       "type": "contractor",
       "label": "Комнет българия холдинг ООД"
@@ -2745,11 +2750,6 @@
       "id": "official:vesela-dimova-vasileva-4b2141",
       "type": "official",
       "label": "Весела Димова Василева"
-    },
-    {
-      "id": "official:stoyan-dragomirov-nikolov-8d82ff",
-      "type": "official",
-      "label": "Стоян Драгомиров Николов"
     },
     {
       "id": "official:bilyana-stanimirova-atanasova-f73908",
@@ -2792,6 +2792,16 @@
       "label": "Васил Петков Загорчев"
     },
     {
+      "id": "contractor:201901327",
+      "type": "contractor",
+      "label": "Кокомпютърс ЕООД"
+    },
+    {
+      "id": "official:milena-kirova-dimitrova-cb2ee8",
+      "type": "official",
+      "label": "Милена Кирова Димитрова"
+    },
+    {
       "id": "contractor:121683408",
       "type": "contractor",
       "label": "Столичен автотранспорт ЕАД"
@@ -2820,16 +2830,6 @@
       "id": "official:metodi-genadiev-metodiev-f86fda",
       "type": "official",
       "label": "Методи Генадиев Методиев"
-    },
-    {
-      "id": "contractor:201901327",
-      "type": "contractor",
-      "label": "Кокомпютърс ЕООД"
-    },
-    {
-      "id": "official:milena-kirova-dimitrova-cb2ee8",
-      "type": "official",
-      "label": "Милена Кирова Димитрова"
     },
     {
       "id": "contractor:201339475",
@@ -3471,7 +3471,7 @@
     {
       "source": "awarder:000320580",
       "target": "contractor:204331947",
-      "valueEur": 1562776.89
+      "valueEur": 1717905.74
     },
     {
       "source": "awarder:000320865",
@@ -3676,7 +3676,7 @@
     {
       "source": "awarder:000662790",
       "target": "contractor:121396123",
-      "valueEur": 318252.41
+      "valueEur": 267057.26
     },
     {
       "source": "awarder:000662819",
@@ -5356,12 +5356,12 @@
     {
       "source": "contractor:121396123",
       "target": "mp:1129",
-      "valueEur": 199279858.74
+      "valueEur": 199228663.59
     },
     {
       "source": "contractor:121396123",
       "target": "mp:938",
-      "valueEur": 199279858.74
+      "valueEur": 199228663.59
     },
     {
       "source": "contractor:833017552",
@@ -5646,7 +5646,7 @@
     {
       "source": "contractor:204331947",
       "target": "official:iordan-aleksandrov-dimitrov-bc224b",
-      "valueEur": 1807871
+      "valueEur": 1962999.85
     },
     {
       "source": "contractor:123685800",
@@ -5804,6 +5804,11 @@
       "valueEur": 122710.05
     },
     {
+      "source": "contractor:206722359",
+      "target": "official:stoyan-dragomirov-nikolov-8d82ff",
+      "valueEur": 120332.54
+    },
+    {
       "source": "contractor:102151443",
       "target": "official:ivan-dochev-ivanov-ba8abb",
       "valueEur": 108944.73
@@ -5812,11 +5817,6 @@
       "source": "contractor:206347383",
       "target": "official:vesela-dimova-vasileva-4b2141",
       "valueEur": 103017.64
-    },
-    {
-      "source": "contractor:206722359",
-      "target": "official:stoyan-dragomirov-nikolov-8d82ff",
-      "valueEur": 102583.04
     },
     {
       "source": "contractor:203064800",
@@ -5849,6 +5849,11 @@
       "valueEur": 79994.4
     },
     {
+      "source": "contractor:201901327",
+      "target": "official:milena-kirova-dimitrova-cb2ee8",
+      "valueEur": 78582.57
+    },
+    {
       "source": "contractor:121683408",
       "target": "official:slav-iordanov-monov-4b176c",
       "valueEur": 77339.82
@@ -5862,11 +5867,6 @@
       "source": "contractor:113015334",
       "target": "official:metodi-genadiev-metodiev-f86fda",
       "valueEur": 75687.86
-    },
-    {
-      "source": "contractor:201901327",
-      "target": "official:milena-kirova-dimitrova-cb2ee8",
-      "valueEur": 70657.54
     },
     {
       "source": "contractor:201339475",
@@ -6234,6 +6234,11 @@
       "valueEur": 383.47
     },
     {
+      "source": "awarder:201619580",
+      "target": "contractor:201901327",
+      "valueEur": 78582.57
+    },
+    {
       "source": "awarder:000696327",
       "target": "contractor:121683408",
       "valueEur": 77339.82
@@ -6247,11 +6252,6 @@
       "source": "awarder:833017552",
       "target": "contractor:113015334",
       "valueEur": 75687.86
-    },
-    {
-      "source": "awarder:201619580",
-      "target": "contractor:201901327",
-      "valueEur": 70657.54
     },
     {
       "source": "awarder:833017552",

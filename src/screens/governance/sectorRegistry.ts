@@ -58,6 +58,14 @@ export const SECTOR_CLUSTERS: { labelKey: string; sectors: Sector[] }[] = [
         to: "/sector/energy",
         accent: TILE_ACCENTS.copper,
       },
+      {
+        id: "environment",
+        titleKey: "sector_environment_title",
+        descKey: "sector_environment_desc",
+        agency: "МОСВ",
+        to: "/sector/environment",
+        accent: TILE_ACCENTS.leaf,
+      },
     ],
   },
   {

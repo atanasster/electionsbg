@@ -236,12 +236,15 @@ const FundsMuniMapInner: FC<{
                 fillColor={fill}
                 feature={feature}
                 onClick={() => {
-                  // Sofia districts route to /settlement/SOF00 (the same
-                  // destination IndicatorsChoroplethMap uses) instead of
-                  // the per-district code — the Phase 1 EuFundsTile uses
-                  // S22 muni data; a future Sofia merge of the muni shards
-                  // will follow.
-                  navigate({ pathname: `/settlement/${code}` });
+                  // The Sofia city bundle carries the synthetic code SOF00,
+                  // which /settlement/:id can't resolve (its parliamentary
+                  // view is the dedicated /sofia page — see placeViews
+                  // parliamentaryUrl). Every other município resolves at
+                  // /settlement/<obshtina>.
+                  navigate({
+                    pathname:
+                      code === SOFIA_SYNTH ? "/sofia" : `/settlement/${code}`,
+                  });
                 }}
                 onMouseEnter={(e) => {
                   const info = findMunicipality(code);

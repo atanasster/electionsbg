@@ -766,11 +766,53 @@ const Security: FC = () => (
   </SceneFrame>
 );
 
+// Околна среда (МОСВ) — a leaf over mountains, with monitoring bars (the air/PM10
+// series ИАОС measures). A leaf-green reads distinctly from teal-water and moss-defense.
+const Environment: FC = () => (
+  <SceneFrame>
+    {/* mountains */}
+    <g fill="var(--sector)" opacity=".16">
+      <path d="M40 100 L90 44 L128 100 Z" />
+      <path d="M104 100 L150 54 L196 100 Z" />
+    </g>
+    {/* monitoring bars (the measured outcome beside the money) */}
+    <g fill="var(--sector)" opacity=".2">
+      <rect x="214" y="80" width="9" height="20" rx="1.5" />
+      <rect x="228" y="68" width="9" height="32" rx="1.5" />
+      <rect x="242" y="74" width="9" height="26" rx="1.5" />
+      <rect x="256" y="58" width="9" height="42" rx="1.5" />
+    </g>
+    {/* leaf */}
+    <g transform="translate(150 34)">
+      <path
+        d="M0 0 C 34 4 40 34 8 52 C -24 34 -18 4 0 0 Z"
+        fill="var(--sector)"
+        opacity=".85"
+      />
+      <path
+        d="M4 6 C 6 22 6 38 7 50"
+        fill="none"
+        stroke={PAPER}
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M5 20 L18 16 M5 30 L17 28 M6 40 L15 39"
+        fill="none"
+        stroke={PAPER}
+        strokeWidth="1.4"
+        opacity=".8"
+      />
+    </g>
+  </SceneFrame>
+);
+
 export const SECTOR_SCENES: Record<string, FC> = {
   roads: Roads,
   water: Water,
   transport: Transport,
   energy: Energy,
+  environment: Environment,
   pension: Pension,
   social: Social,
   health: Health,

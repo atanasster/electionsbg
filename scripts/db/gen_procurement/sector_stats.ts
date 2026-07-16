@@ -61,6 +61,7 @@ import { API_EIK } from "../../../src/lib/roadAttributes";
 import { WATER_SECTOR_EIKS } from "../../../src/lib/vikReferenceData";
 import { ENERGY_SECTOR_EIKS } from "../../../src/lib/energyReferenceData";
 import { TRANSPORT_SECTOR_EIKS } from "../../../src/lib/transportReferenceData";
+import { ENV_SECTOR_EIKS } from "../../../src/lib/environmentReferenceData";
 
 const ROOT = path.resolve(
   path.dirname(new URL(import.meta.url).pathname),
@@ -85,6 +86,7 @@ const SECTOR_EIKS: Record<string, string[]> = {
   water: WATER_SECTOR_EIKS,
   transport: TRANSPORT_SECTOR_EIKS, // МТС group (rail/ports/aviation/road-reg — АПИ roads excluded)
   energy: [...ENERGY_SECTOR_EIKS],
+  environment: ENV_SECTOR_EIKS, // МОСВ group (ministry + ИАОС + ПУДООС + parks + НИМХ + basins + 16 РИОСВ)
 };
 
 // Budget-basis sectors, first-level: id → the first-level budget org (ПРБ) node

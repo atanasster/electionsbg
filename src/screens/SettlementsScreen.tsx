@@ -1,9 +1,9 @@
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useRegions } from "@/data/regions/useRegions";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useMunicipalityVotes } from "@/data/municipalities/useMunicipalityVotes";
-import { isSofiaRayonObshtina } from "@/data/local/placeViews";
+import { isSofiaCityObshtina, isSofiaRayonObshtina } from "@/data/local/placeViews";
 import { findCityRayon } from "@/data/local/cityRayonCatalog";
 import { SEO } from "@/ux/SEO";
 import { placeResultsTitle } from "@/ux/seoTitle";
@@ -29,6 +29,13 @@ export const SettlementsScreen = () => {
   // shapes to the settlement view rather than breaking the page.
   if (/^\d/.test(muniCode)) {
     return <SectionsScreen />;
+  }
+  // The Sofia city bundle (synthetic SOF00 / local SOF) has no município row
+  // in municipalities.json — its parliamentary view is the dedicated /sofia
+  // page (see placeViews parliamentaryUrl). Without this, every lookup here
+  // returns undefined and the page renders the raw code with empty tiles.
+  if (isSofiaCityObshtina(muniCode)) {
+    return <Navigate to="/sofia" replace />;
   }
   const lang = i18n.language === "bg" ? "bg" : "en";
   const info = findMunicipality(muniCode);
