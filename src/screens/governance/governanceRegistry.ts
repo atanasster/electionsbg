@@ -135,4 +135,30 @@ export const GOV_HUB_CLUSTERS: { labelKey: string; tiles: GovHubTile[] }[] = [
       },
     ],
   },
+  {
+    // Инструменти — the interactive tools (as opposed to read-only dashboards):
+    // the personal "what did my taxes buy?" calculator and the national
+    // tax-policy simulator. Both live under /budget but are hoisted here so
+    // they're reachable straight from the hub (they were orphaned when the
+    // mega-menu collapsed — see reportMenus.ts governanceMenu). Kept last as a
+    // footer band of hands-on tools below the read-only dashboards. Titles reuse
+    // the budget page/link label keys so the hub and the pages agree.
+    labelKey: "gov_hub_cluster_tools",
+    tiles: [
+      {
+        id: "tax_calculator",
+        titleKey: "budget_tax_calculator_link_label",
+        descKey: "gov_hub_tax_calc_desc",
+        to: "/budget/tax-calculator",
+        accent: TILE_ACCENTS.copper,
+      },
+      {
+        id: "simulator",
+        titleKey: "budget_policy_page_title",
+        descKey: "gov_hub_simulator_desc",
+        to: "/budget/simulator",
+        accent: TILE_ACCENTS.aqua,
+      },
+    ],
+  },
 ];

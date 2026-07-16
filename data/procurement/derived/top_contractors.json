@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-07-16T20:10:55.690Z",
-  "total": 27823,
+  "generatedAt": "2026-07-16T21:05:49.751Z",
+  "total": 27837,
   "entries": [
     {
       "eik": "103267194",
       "name": "Софарма трейдинг АД",
-      "totalEur": 2313710204.56,
+      "totalEur": 2313882639.86,
       "totalOther": {},
       "contractCount": 6130,
       "awardCount": 0,
@@ -25,7 +25,7 @@
     {
       "eik": "203283623",
       "name": "Фьоникс Фарма ЕООД",
-      "totalEur": 1099991702.49,
+      "totalEur": 1099996881.9,
       "totalOther": {},
       "contractCount": 3372,
       "awardCount": 0,
@@ -97,9 +97,9 @@
     {
       "eik": "130131711",
       "name": "ГБС - Инфраструктурно строителство АД",
-      "totalEur": 680254537.1,
+      "totalEur": 681191172.96,
       "totalOther": {},
-      "contractCount": 91,
+      "contractCount": 93,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -107,9 +107,9 @@
     {
       "eik": "113570147",
       "name": "Електрохолд Трейд ЕАД",
-      "totalEur": 567347756.95,
+      "totalEur": 569594090.36,
       "totalOther": {},
-      "contractCount": 919,
+      "contractCount": 932,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -117,9 +117,9 @@
     {
       "eik": "200852966",
       "name": "Бент ОЙЛ АД",
-      "totalEur": 548600721.82,
+      "totalEur": 548779081.73,
       "totalOther": {},
-      "contractCount": 832,
+      "contractCount": 833,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -127,9 +127,9 @@
     {
       "eik": "831496285",
       "name": "Петрол АД",
-      "totalEur": 518913415.55,
+      "totalEur": 533349541.53,
       "totalOther": {},
-      "contractCount": 1899,
+      "contractCount": 1908,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -147,9 +147,9 @@
     {
       "eik": "113580690",
       "name": "Нивел строй ЕООД",
-      "totalEur": 462243914.95,
+      "totalEur": 463870835.41,
       "totalOther": {},
-      "contractCount": 232,
+      "contractCount": 233,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -197,7 +197,7 @@
     {
       "eik": "835013079",
       "name": "ЕМУ АД",
-      "totalEur": 425537155.85,
+      "totalEur": 425528366.79,
       "totalOther": {},
       "contractCount": 414,
       "awardCount": 0,
@@ -227,12 +227,24 @@
     {
       "eik": "131468980",
       "name": "А1 България ЕАД",
-      "totalEur": 372060585.19,
+      "totalEur": 375351647.11,
       "totalOther": {},
-      "contractCount": 1290,
+      "contractCount": 1306,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
+    },
+    {
+      "eik": "831641791",
+      "name": "Информационно обслужване АД",
+      "totalEur": 354065766.63,
+      "totalOther": {},
+      "contractCount": 337,
+      "awardCount": 0,
+      "mpTied": true,
+      "mpIds": [
+        4727
+      ]
     },
     {
       "eik": "106530686",
@@ -247,24 +259,12 @@
     {
       "eik": "121706547",
       "name": "РСР ЕООД",
-      "totalEur": 346546762.17,
+      "totalEur": 346572326.76,
       "totalOther": {},
-      "contractCount": 1976,
+      "contractCount": 1977,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
-    },
-    {
-      "eik": "831641791",
-      "name": "Информационно обслужване АД",
-      "totalEur": 345410249.53,
-      "totalOther": {},
-      "contractCount": 335,
-      "awardCount": 0,
-      "mpTied": true,
-      "mpIds": [
-        4727
-      ]
     },
     {
       "eik": "835009611",
@@ -317,21 +317,21 @@
       "mpIds": []
     },
     {
-      "eik": "831029075",
-      "name": "ЕКОС-МЕДИКА ООД",
-      "totalEur": 268619291.21,
+      "eik": "127001597",
+      "name": "Автомагистрали - черно море АД",
+      "totalEur": 286979624.06,
       "totalOther": {},
-      "contractCount": 1396,
+      "contractCount": 253,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
     },
     {
-      "eik": "127001597",
-      "name": "Автомагистрали - черно море АД",
-      "totalEur": 265944320.95,
+      "eik": "831029075",
+      "name": "ЕКОС-МЕДИКА ООД",
+      "totalEur": 268619291.21,
       "totalOther": {},
-      "contractCount": 252,
+      "contractCount": 1396,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -391,9 +391,9 @@
     {
       "eik": "201090465",
       "name": "Интермедика Груп ЕООД",
-      "totalEur": 230071338.65,
+      "totalEur": 230264827.42,
       "totalOther": {},
-      "contractCount": 919,
+      "contractCount": 920,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -469,21 +469,21 @@
       "mpIds": []
     },
     {
-      "eik": "202920330",
-      "name": "Пътинженеринг АД",
-      "totalEur": 210482318.03,
+      "eik": "",
+      "name": "Delcho Stefanov",
+      "totalEur": 210904842.2,
       "totalOther": {},
-      "contractCount": 174,
+      "contractCount": 636,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
     },
     {
-      "eik": "",
-      "name": "Delcho Stefanov",
-      "totalEur": 210176031.05,
+      "eik": "202920330",
+      "name": "Пътинженеринг АД",
+      "totalEur": 210482318.03,
       "totalOther": {},
-      "contractCount": 636,
+      "contractCount": 174,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -499,9 +499,22 @@
       "mpIds": []
     },
     {
+      "eik": "121396123",
+      "name": "Български пощи ЕАД",
+      "totalEur": 206645031.9,
+      "totalOther": {},
+      "contractCount": 705,
+      "awardCount": 0,
+      "mpTied": true,
+      "mpIds": [
+        938,
+        1129
+      ]
+    },
+    {
       "eik": "206534575",
       "name": "Дансон трейдинг ООД",
-      "totalEur": 204363384.26,
+      "totalEur": 204363957.9,
       "totalOther": {},
       "contractCount": 1633,
       "awardCount": 0,
@@ -539,17 +552,14 @@
       "mpIds": []
     },
     {
-      "eik": "121396123",
-      "name": "Български пощи ЕАД",
-      "totalEur": 199228663.59,
+      "eik": "131085380",
+      "name": "Плъкси българия ЕООД",
+      "totalEur": 199839537.72,
       "totalOther": {},
-      "contractCount": 700,
+      "contractCount": 570,
       "awardCount": 0,
-      "mpTied": true,
-      "mpIds": [
-        938,
-        1129
-      ]
+      "mpTied": false,
+      "mpIds": []
     },
     {
       "eik": "813103524",
@@ -636,7 +646,7 @@
     {
       "eik": "831609046",
       "name": "Топлофикация софия ЕАД",
-      "totalEur": 182786693.27,
+      "totalEur": 183375752.05,
       "totalOther": {},
       "contractCount": 526,
       "awardCount": 0,
@@ -654,21 +664,11 @@
       "mpIds": []
     },
     {
-      "eik": "131085380",
-      "name": "Плъкси българия ЕООД",
-      "totalEur": 178919471.41,
-      "totalOther": {},
-      "contractCount": 569,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
       "eik": "202668908",
       "name": "Синергон енерджи ООД",
-      "totalEur": 178135316.27,
+      "totalEur": 178743823.23,
       "totalOther": {},
-      "contractCount": 525,
+      "contractCount": 526,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -696,9 +696,9 @@
     {
       "eik": "115096057",
       "name": "Интеркомплекс ООД",
-      "totalEur": 172141668.9,
+      "totalEur": 172099253.98,
       "totalOther": {},
-      "contractCount": 403,
+      "contractCount": 409,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -806,9 +806,19 @@
     {
       "eik": "103533691",
       "name": "ЕНЕРГО-ПРО Продажби АД",
-      "totalEur": 155063292.71,
+      "totalEur": 155287620.68,
       "totalOther": {},
-      "contractCount": 187,
+      "contractCount": 188,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "833103535",
+      "name": "Енергоремонт - гълъбово АД",
+      "totalEur": 153896328.38,
+      "totalOther": {},
+      "contractCount": 353,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -834,16 +844,6 @@
       "mpIds": []
     },
     {
-      "eik": "833103535",
-      "name": "Енергоремонт - гълъбово АД",
-      "totalEur": 153239350.63,
-      "totalOther": {},
-      "contractCount": 353,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
       "eik": "176441201",
       "name": "Консорциум \"СТРУМА-ЛОТ 2",
       "totalEur": 152843038.51,
@@ -856,9 +856,9 @@
     {
       "eik": "175415627",
       "name": "Контракс АД",
-      "totalEur": 152500859.94,
+      "totalEur": 152523805.94,
       "totalOther": {},
-      "contractCount": 1266,
+      "contractCount": 1267,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -896,7 +896,7 @@
     {
       "eik": "102227154",
       "name": "Фаркол АД",
-      "totalEur": 149192106.51,
+      "totalEur": 149191396.8,
       "totalOther": {},
       "contractCount": 2296,
       "awardCount": 0,
@@ -916,9 +916,9 @@
     {
       "eik": "831642181",
       "name": "Виваком България ЕАД",
-      "totalEur": 148695163.6,
+      "totalEur": 148707464.6,
       "totalOther": {},
-      "contractCount": 923,
+      "contractCount": 924,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -1024,6 +1024,16 @@
       "mpIds": []
     },
     {
+      "eik": "040336507",
+      "name": "ТОМБОУ-БЪЛГАРИЯ ЕООД",
+      "totalEur": 132859283.11,
+      "totalOther": {},
+      "contractCount": 433,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "000670919",
       "name": "Национален Археологически институт с музей на БАН",
       "totalEur": 132786935.7,
@@ -1054,11 +1064,11 @@
       "mpIds": []
     },
     {
-      "eik": "040336507",
-      "name": "ТОМБОУ-БЪЛГАРИЯ ЕООД",
-      "totalEur": 127555759.12,
+      "eik": "201325372",
+      "name": "Мост енерджи АД",
+      "totalEur": 123279188.8,
       "totalOther": {},
-      "contractCount": 432,
+      "contractCount": 522,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -1069,16 +1079,6 @@
       "totalEur": 123134692.99,
       "totalOther": {},
       "contractCount": 38,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "201325372",
-      "name": "Мост енерджи АД",
-      "totalEur": 123073713.66,
-      "totalOther": {},
-      "contractCount": 521,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -1104,6 +1104,16 @@
       "mpIds": []
     },
     {
+      "eik": "831637711",
+      "name": "Мултифорс А.С. ЕООД",
+      "totalEur": 120068892.91,
+      "totalOther": {},
+      "contractCount": 86,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "176867941",
       "name": "ДЗЗД Консорциум Струма - Лот 3.3",
       "totalEur": 119705195.24,
@@ -1116,7 +1126,7 @@
     {
       "eik": "831641528",
       "name": "Медицинска техника инженеринг ООД",
-      "totalEur": 119068632.28,
+      "totalEur": 119091861.47,
       "totalOther": {
         "CHF": 38369.45
       },
@@ -1156,21 +1166,21 @@
       "mpIds": []
     },
     {
-      "eik": "831637711",
-      "name": "Мултифорс А.С. ЕООД",
-      "totalEur": 116822189.47,
+      "eik": "030276307",
+      "name": "Търговска Лига - Глобален Аптечен Център АД",
+      "totalEur": 116621499.83,
       "totalOther": {},
-      "contractCount": 86,
+      "contractCount": 1675,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
     },
     {
-      "eik": "030276307",
-      "name": "Търговска Лига - Глобален Аптечен Център АД",
-      "totalEur": 116624480.59,
+      "eik": "831404223",
+      "name": "Кремък ЕООД",
+      "totalEur": 113975830.79,
       "totalOther": {},
-      "contractCount": 1674,
+      "contractCount": 92,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -1203,6 +1213,16 @@
       "totalEur": 113418150.4,
       "totalOther": {},
       "contractCount": 3,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "131318482",
+      "name": "ПАНДА-И.П. ЕООД",
+      "totalEur": 113367494.77,
+      "totalOther": {},
+      "contractCount": 127,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -1320,11 +1340,41 @@
       "mpIds": []
     },
     {
+      "eik": "030215702",
+      "name": "Медикард ООД",
+      "totalEur": 103878316.41,
+      "totalOther": {},
+      "contractCount": 225,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "202714798",
       "name": "Рудин ООД",
       "totalEur": 103561592.08,
       "totalOther": {},
       "contractCount": 197,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "175819840",
+      "name": "Грийн ПАРТНЪРС-БКС",
+      "totalEur": 103507490.71,
+      "totalOther": {},
+      "contractCount": 11,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "130533432",
+      "name": "Овергаз мрежи АД",
+      "totalEur": 102793687.99,
+      "totalOther": {},
+      "contractCount": 863,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -1355,16 +1405,6 @@
       "totalEur": 101847582.35,
       "totalOther": {},
       "contractCount": 1,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "130533432",
-      "name": "Овергаз мрежи АД",
-      "totalEur": 100796070.68,
-      "totalOther": {},
-      "contractCount": 863,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -1420,6 +1460,16 @@
       "mpIds": []
     },
     {
+      "eik": "204917226",
+      "name": "Мотобул ЕАД",
+      "totalEur": 98369066.45,
+      "totalOther": {},
+      "contractCount": 189,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "131148628",
       "name": "Булмар МЛ ООД",
       "totalEur": 98296585.55,
@@ -1435,16 +1485,6 @@
       "totalEur": 97983645.83,
       "totalOther": {},
       "contractCount": 167,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "204917226",
-      "name": "Мотобул ЕАД",
-      "totalEur": 97868762.14,
-      "totalOther": {},
-      "contractCount": 189,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -1505,16 +1545,6 @@
       "totalEur": 94484265.13,
       "totalOther": {},
       "contractCount": 294,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "131318482",
-      "name": "ПАНДА-И.П. ЕООД",
-      "totalEur": 94425294.17,
-      "totalOther": {},
-      "contractCount": 127,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -1612,9 +1642,9 @@
     {
       "eik": "121057952",
       "name": "Лирекс БГ ООД",
-      "totalEur": 89859506.92,
+      "totalEur": 90344421.25,
       "totalOther": {},
-      "contractCount": 753,
+      "contractCount": 757,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -1660,16 +1690,6 @@
       "mpIds": []
     },
     {
-      "eik": "175819840",
-      "name": "Грийн ПАРТНЪРС-БКС",
-      "totalEur": 87273973.48,
-      "totalOther": {},
-      "contractCount": 10,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
       "eik": "110052320",
       "name": "Виастрой АД",
       "totalEur": 86742369.31,
@@ -1692,9 +1712,29 @@
     {
       "eik": "200907117",
       "name": "Кумер ООД",
-      "totalEur": 85999634.82,
+      "totalEur": 86268922.55,
       "totalOther": {},
-      "contractCount": 371,
+      "contractCount": 372,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "175251156",
+      "name": "Люник ЕООД",
+      "totalEur": 85779943.48,
+      "totalOther": {},
+      "contractCount": 120,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "130469816",
+      "name": "Елта 90м ООД",
+      "totalEur": 85348330.06,
+      "totalOther": {},
+      "contractCount": 1193,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -1705,16 +1745,6 @@
       "totalEur": 85248596.09,
       "totalOther": {},
       "contractCount": 244,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "130469816",
-      "name": "Елта 90м ООД",
-      "totalEur": 85047179.14,
-      "totalOther": {},
-      "contractCount": 1192,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -1772,19 +1802,9 @@
     {
       "eik": "123164262",
       "name": "ЕЛ Контрол ЕООД",
-      "totalEur": 83049080.6,
+      "totalEur": 83040291.54,
       "totalOther": {},
       "contractCount": 218,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "175251156",
-      "name": "Люник ЕООД",
-      "totalEur": 83047799.05,
-      "totalOther": {},
-      "contractCount": 114,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -1832,7 +1852,7 @@
     {
       "eik": "115812097",
       "name": "Електролукс Табаков и синове ООД",
-      "totalEur": 81702197.08,
+      "totalEur": 81509409.43,
       "totalOther": {},
       "contractCount": 132,
       "awardCount": 0,
@@ -1882,9 +1902,19 @@
     {
       "eik": "124000579",
       "name": "Пътно строителство АД",
-      "totalEur": 79661871.57,
+      "totalEur": 79728602.83,
       "totalOther": {},
       "contractCount": 408,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "822105378",
+      "name": "Каучук АД",
+      "totalEur": 79704146.39,
+      "totalOther": {},
+      "contractCount": 60,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -1902,29 +1932,9 @@
     {
       "eik": "831914037",
       "name": "Централна енергоремонтна база ЕАД",
-      "totalEur": 79511985.04,
+      "totalEur": 79514184.82,
       "totalOther": {},
       "contractCount": 187,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "831404223",
-      "name": "Кремък ЕООД",
-      "totalEur": 79413949.53,
-      "totalOther": {},
-      "contractCount": 90,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "030215702",
-      "name": "Медикард ООД",
-      "totalEur": 79336306.11,
-      "totalOther": {},
-      "contractCount": 225,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -1935,16 +1945,6 @@
       "totalEur": 79322214.7,
       "totalOther": {},
       "contractCount": 23,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "822105378",
-      "name": "Каучук АД",
-      "totalEur": 79319074.76,
-      "totalOther": {},
-      "contractCount": 60,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -2180,6 +2180,16 @@
       "mpIds": []
     },
     {
+      "eik": "201208860",
+      "name": "Гранд енерджи дистрибюшън ЕООД",
+      "totalEur": 71110671.11,
+      "totalOther": {},
+      "contractCount": 130,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "176922583",
       "name": "Симетро софия",
       "totalEur": 70698163.33,
@@ -2195,16 +2205,6 @@
       "totalEur": 70662600.76,
       "totalOther": {},
       "contractCount": 2,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "201208860",
-      "name": "Гранд енерджи дистрибюшън ЕООД",
-      "totalEur": 70645407.81,
-      "totalOther": {},
-      "contractCount": 126,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -2262,9 +2262,9 @@
     {
       "eik": "121759222",
       "name": "ОМВ България ООД",
-      "totalEur": 69089636.23,
+      "totalEur": 69089685.11,
       "totalOther": {},
-      "contractCount": 129,
+      "contractCount": 130,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -2310,9 +2310,19 @@
       "mpIds": []
     },
     {
+      "eik": "833067427",
+      "name": "Металик АД",
+      "totalEur": 68155806.69,
+      "totalOther": {},
+      "contractCount": 289,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "175340669",
       "name": "Климатроник ЕООД",
-      "totalEur": 67310260.13,
+      "totalEur": 67381840.99,
       "totalOther": {},
       "contractCount": 94,
       "awardCount": 0,
@@ -2340,21 +2350,21 @@
       "mpIds": []
     },
     {
-      "eik": "176232461",
-      "name": "ДЗЗД Сдружение Железопътна инфраструктура 2011",
-      "totalEur": 65974037.66,
+      "eik": "115345761",
+      "name": "ГБС - Пловдив АД",
+      "totalEur": 66164713.45,
       "totalOther": {},
-      "contractCount": 2,
+      "contractCount": 31,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
     },
     {
-      "eik": "833067427",
-      "name": "Металик АД",
-      "totalEur": 65304407.03,
+      "eik": "176232461",
+      "name": "ДЗЗД Сдружение Железопътна инфраструктура 2011",
+      "totalEur": 65974037.66,
       "totalOther": {},
-      "contractCount": 287,
+      "contractCount": 2,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -2370,21 +2380,21 @@
       "mpIds": []
     },
     {
-      "eik": "115345761",
-      "name": "ГБС - Пловдив АД",
-      "totalEur": 65228077.59,
-      "totalOther": {},
-      "contractCount": 29,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
       "eik": "131380199",
       "name": "Исубус ООД",
       "totalEur": 65148873.83,
       "totalOther": {},
       "contractCount": 35,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "130526402",
+      "name": "Идънред българия АД",
+      "totalEur": 65136978.78,
+      "totalOther": {},
+      "contractCount": 181,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -2420,11 +2430,11 @@
       "mpIds": []
     },
     {
-      "eik": "130526402",
-      "name": "Идънред българия АД",
-      "totalEur": 62432030.58,
+      "eik": "131433890",
+      "name": "Евромаркет кънстракшън ЕАД",
+      "totalEur": 62868617.83,
       "totalOther": {},
-      "contractCount": 181,
+      "contractCount": 282,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -2435,6 +2445,16 @@
       "totalEur": 62201724.77,
       "totalOther": {},
       "contractCount": 414,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "131285259",
+      "name": "Ситигаз българия ЕАД",
+      "totalEur": 62025901.47,
+      "totalOther": {},
+      "contractCount": 316,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -2460,16 +2480,6 @@
       "mpIds": []
     },
     {
-      "eik": "131285259",
-      "name": "Ситигаз българия ЕАД",
-      "totalEur": 61657771.31,
-      "totalOther": {},
-      "contractCount": 316,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
       "eik": "176990100",
       "name": "България ЕР - посока",
       "totalEur": 61008463.7,
@@ -2490,11 +2500,11 @@
       "mpIds": []
     },
     {
-      "eik": "131433890",
-      "name": "Евромаркет кънстракшън ЕАД",
-      "totalEur": 60420142.94,
+      "eik": "103561242",
+      "name": "ПЪТСТРОЙ-ВАРНА ЕООД",
+      "totalEur": 60387830.04,
       "totalOther": {},
-      "contractCount": 282,
+      "contractCount": 89,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -2515,16 +2525,6 @@
       "totalEur": 59491877.38,
       "totalOther": {},
       "contractCount": 5,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "103561242",
-      "name": "ПЪТСТРОЙ-ВАРНА ЕООД",
-      "totalEur": 59454402.48,
-      "totalOther": {},
-      "contractCount": 88,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -2710,6 +2710,16 @@
       "mpIds": []
     },
     {
+      "eik": "121152973",
+      "name": "Антисел българия ООД",
+      "totalEur": 57055357.48,
+      "totalOther": {},
+      "contractCount": 837,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "180854298",
       "name": "Метро шипка",
       "totalEur": 57041898.55,
@@ -2852,9 +2862,9 @@
     {
       "eik": "831144177",
       "name": "Сектрон ООД",
-      "totalEur": 54580060.67,
+      "totalEur": 54607555.9,
       "totalOther": {},
-      "contractCount": 164,
+      "contractCount": 165,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -2890,16 +2900,6 @@
       "mpIds": []
     },
     {
-      "eik": "121152973",
-      "name": "Антисел българия ООД",
-      "totalEur": 53674409.45,
-      "totalOther": {},
-      "contractCount": 835,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
       "eik": "202917932",
       "name": "Инфра билд проект ЕООД",
       "totalEur": 53670813.31,
@@ -2922,7 +2922,7 @@
     {
       "eik": "040967273",
       "name": "Континвест ООД",
-      "totalEur": 52762954.15,
+      "totalEur": 52895890.04,
       "totalOther": {},
       "contractCount": 144,
       "awardCount": 0,
@@ -2952,9 +2952,19 @@
     {
       "eik": "205415283",
       "name": "ДК Инфра инвест ЕООД",
-      "totalEur": 52318962.56,
+      "totalEur": 52526880.11,
       "totalOther": {},
       "contractCount": 68,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "205722229",
+      "name": "Хитачи Енерджи България ЕООД",
+      "totalEur": 52488727.19,
+      "totalOther": {},
+      "contractCount": 13,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -2965,16 +2975,6 @@
       "totalEur": 52201864.25,
       "totalOther": {},
       "contractCount": 11,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "205722229",
-      "name": "Хитачи Енерджи България ЕООД",
-      "totalEur": 51868346.12,
-      "totalOther": {},
-      "contractCount": 13,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -3012,7 +3012,7 @@
     {
       "eik": "200431401",
       "name": "ИВТ Дивелъпмънт ЕООД",
-      "totalEur": 51216728.5,
+      "totalEur": 51276969.45,
       "totalOther": {},
       "contractCount": 65,
       "awardCount": 0,
@@ -3060,6 +3060,16 @@
       "mpIds": []
     },
     {
+      "eik": "107544354",
+      "name": "Стелит 1 ЕООД",
+      "totalEur": 50522438.02,
+      "totalOther": {},
+      "contractCount": 1033,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "207021725",
       "name": "Трейс БГ ЕООД",
       "totalEur": 50408808.31,
@@ -3075,16 +3085,6 @@
       "totalEur": 50395250.68,
       "totalOther": {},
       "contractCount": 105,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "107544354",
-      "name": "Стелит 1 ЕООД",
-      "totalEur": 50195671.18,
-      "totalOther": {},
-      "contractCount": 1022,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -3144,7 +3144,7 @@
     {
       "eik": "103895548",
       "name": "Т и д инженеринг ЕООД",
-      "totalEur": 48911327.46,
+      "totalEur": 48902538.4,
       "totalOther": {},
       "contractCount": 174,
       "awardCount": 0,
@@ -3242,6 +3242,16 @@
       "mpIds": []
     },
     {
+      "eik": "000708921",
+      "name": "Мениджмънт бизнес Машин ЕООД",
+      "totalEur": 47045205.78,
+      "totalOther": {},
+      "contractCount": 363,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "177463439",
       "name": "ДЗЗД Вистра",
       "totalEur": 47038341.78,
@@ -3262,9 +3272,19 @@
       "mpIds": []
     },
     {
+      "eik": "206117083",
+      "name": "КЕР Токи пауър ЕАД",
+      "totalEur": 46933116.85,
+      "totalOther": {},
+      "contractCount": 324,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "200358273",
       "name": "Екосол българия АД",
-      "totalEur": 46888693.28,
+      "totalEur": 46894828.78,
       "totalOther": {},
       "contractCount": 347,
       "awardCount": 0,
@@ -3292,31 +3312,21 @@
       "mpIds": []
     },
     {
-      "eik": "206117083",
-      "name": "КЕР Токи пауър ЕАД",
-      "totalEur": 46750324.01,
-      "totalOther": {},
-      "contractCount": 323,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "000708921",
-      "name": "Мениджмънт бизнес Машин ЕООД",
-      "totalEur": 46592405.7,
-      "totalOther": {},
-      "contractCount": 359,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
       "eik": "180854273",
       "name": "Метро Слатина",
       "totalEur": 46473297.96,
       "totalOther": {},
       "contractCount": 1,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "206645910",
+      "name": "Равнако ООД",
+      "totalEur": 46418528.54,
+      "totalOther": {},
+      "contractCount": 121,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -3484,11 +3494,11 @@
       "mpIds": []
     },
     {
-      "eik": "206645910",
-      "name": "Равнако ООД",
-      "totalEur": 43583624.69,
+      "eik": "131223059",
+      "name": "Стреза ЕООД",
+      "totalEur": 42803516.84,
       "totalOther": {},
-      "contractCount": 120,
+      "contractCount": 119,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -3531,16 +3541,6 @@
       "totalEur": 42353243.18,
       "totalOther": {},
       "contractCount": 19,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "131223059",
-      "name": "Стреза ЕООД",
-      "totalEur": 42326134.59,
-      "totalOther": {},
-      "contractCount": 118,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -3736,6 +3736,16 @@
       "mpIds": []
     },
     {
+      "eik": "131565689",
+      "name": "ЕН Пауър ЕООД",
+      "totalEur": 40309403.98,
+      "totalOther": {},
+      "contractCount": 276,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "030269049",
       "name": "Дженерали застраховане АД",
       "totalEur": 40299599.43,
@@ -3758,21 +3768,31 @@
       "mpIds": []
     },
     {
-      "eik": "177356309",
-      "name": "Асклеп - Фарма Консорциум",
-      "totalEur": 40134465.19,
+      "eik": "123737210",
+      "name": "Медина МЕД ООД",
+      "totalEur": 40282486.36,
       "totalOther": {},
-      "contractCount": 11,
+      "contractCount": 64,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
     },
     {
-      "eik": "123737210",
-      "name": "Медина МЕД ООД",
-      "totalEur": 40134089.14,
+      "eik": "200010904",
+      "name": "Булплан инвест ООД",
+      "totalEur": 40241309.82,
       "totalOther": {},
-      "contractCount": 64,
+      "contractCount": 127,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "177356309",
+      "name": "Асклеп - Фарма Консорциум",
+      "totalEur": 40134465.19,
+      "totalOther": {},
+      "contractCount": 11,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -3793,16 +3813,6 @@
       "totalEur": 39513514.55,
       "totalOther": {},
       "contractCount": 1,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "131565689",
-      "name": "ЕН Пауър ЕООД",
-      "totalEur": 39478948,
-      "totalOther": {},
-      "contractCount": 274,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -4000,7 +4010,7 @@
     {
       "eik": "119677914",
       "name": "КЕЙ ЕНД ВИ ООД",
-      "totalEur": 37659994.88,
+      "totalEur": 37729004.52,
       "totalOther": {},
       "contractCount": 189,
       "awardCount": 0,
@@ -4058,11 +4068,31 @@
       "mpIds": []
     },
     {
+      "eik": "813144389",
+      "name": "Космос шипинг АД",
+      "totalEur": 36826758.31,
+      "totalOther": {},
+      "contractCount": 10,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "103785856",
       "name": "Панов ЕООД",
       "totalEur": 36760172.01,
       "totalOther": {},
       "contractCount": 139,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "131086564",
+      "name": "АЙ БИ ЕС - България ЕООД",
+      "totalEur": 36614304.8,
+      "totalOther": {},
+      "contractCount": 168,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -4093,16 +4123,6 @@
       "totalEur": 36353805.51,
       "totalOther": {},
       "contractCount": 33,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "200010904",
-      "name": "Булплан инвест ООД",
-      "totalEur": 36318482.34,
-      "totalOther": {},
-      "contractCount": 126,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -4188,6 +4208,16 @@
       "mpIds": []
     },
     {
+      "eik": "200398920",
+      "name": "Хранкотош ЕООД",
+      "totalEur": 35921540.1,
+      "totalOther": {},
+      "contractCount": 30,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "202027635",
       "name": "\" Екодин \" ЕООД",
       "totalEur": 35914667.72,
@@ -4263,16 +4293,6 @@
       "totalEur": 35526393.89,
       "totalOther": {},
       "contractCount": 62,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "131086564",
-      "name": "АЙ БИ ЕС - България ЕООД",
-      "totalEur": 35412983.76,
-      "totalOther": {},
-      "contractCount": 157,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -4358,21 +4378,21 @@
       "mpIds": []
     },
     {
-      "eik": "203484487",
-      "name": "Алфа билд инженеринг ЕООД",
-      "totalEur": 34825631.29,
+      "eik": "831661979",
+      "name": "ГРУП-7 ЕООД",
+      "totalEur": 34877881.81,
       "totalOther": {},
-      "contractCount": 64,
+      "contractCount": 89,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
     },
     {
-      "eik": "831661979",
-      "name": "ГРУП-7 ЕООД",
-      "totalEur": 34724616.96,
+      "eik": "203484487",
+      "name": "Алфа билд инженеринг ЕООД",
+      "totalEur": 34825631.29,
       "totalOther": {},
-      "contractCount": 88,
+      "contractCount": 64,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -4393,6 +4413,16 @@
       "totalEur": 34618590.48,
       "totalOther": {},
       "contractCount": 36,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "127588059",
+      "name": "Гарант строй ООД",
+      "totalEur": 34551637.98,
+      "totalOther": {},
+      "contractCount": 127,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -4468,31 +4498,11 @@
       "mpIds": []
     },
     {
-      "eik": "127588059",
-      "name": "Гарант строй ООД",
-      "totalEur": 33993597.15,
-      "totalOther": {},
-      "contractCount": 125,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
       "eik": "176277517",
       "name": "ДЗЗД Консорциум Прокон",
       "totalEur": 33970722.82,
       "totalOther": {},
       "contractCount": 13,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "200398920",
-      "name": "Хранкотош ЕООД",
-      "totalEur": 33782174.17,
-      "totalOther": {},
-      "contractCount": 29,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -4548,11 +4558,31 @@
       "mpIds": []
     },
     {
+      "eik": "040451865",
+      "name": "Застрахователна компания уника АД",
+      "totalEur": 33608628.14,
+      "totalOther": {},
+      "contractCount": 70,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "176290728",
       "name": "Биовета ЕЪР",
       "totalEur": 33428264.14,
       "totalOther": {},
       "contractCount": 6,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "131344648",
+      "name": "Изипей АД",
+      "totalEur": 33406906.62,
+      "totalOther": {},
+      "contractCount": 138,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -4568,16 +4598,6 @@
       "mpIds": []
     },
     {
-      "eik": "131344648",
-      "name": "Изипей АД",
-      "totalEur": 33116493.27,
-      "totalOther": {},
-      "contractCount": 137,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
       "eik": "206858488",
       "name": "АЕЦ Сервиз ЕООД",
       "totalEur": 33052169.79,
@@ -4588,31 +4608,21 @@
       "mpIds": []
     },
     {
+      "eik": "202861597",
+      "name": "Ситибанк Европа АД, клон България КЧТ",
+      "totalEur": 33048939.71,
+      "totalOther": {},
+      "contractCount": 14,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "126629777",
       "name": "НЕО-ТИТАН ООД",
       "totalEur": 32979369.68,
       "totalOther": {},
       "contractCount": 18,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "040451865",
-      "name": "Застрахователна компания уника АД",
-      "totalEur": 32961128.14,
-      "totalOther": {},
-      "contractCount": 69,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "202861597",
-      "name": "Ситибанк Европа АД, клон България КЧТ",
-      "totalEur": 32958032.01,
-      "totalOther": {},
-      "contractCount": 10,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -4710,7 +4720,7 @@
     {
       "eik": "121002176",
       "name": "Гелак ООД",
-      "totalEur": 32403975.47,
+      "totalEur": 32437053.92,
       "totalOther": {},
       "contractCount": 22,
       "awardCount": 0,
@@ -4812,7 +4822,7 @@
     {
       "eik": "833101609",
       "name": "Перфект медика ООД",
-      "totalEur": 31874654.61,
+      "totalEur": 31892615.29,
       "totalOther": {
         "CZK": 64585
       },
@@ -4824,7 +4834,7 @@
     {
       "eik": "131294871",
       "name": "Стийл трейд българия ЕООД",
-      "totalEur": 31826874.49,
+      "totalEur": 31829074.27,
       "totalOther": {},
       "contractCount": 45,
       "awardCount": 0,
@@ -4857,6 +4867,16 @@
       "totalEur": 31722276.36,
       "totalOther": {},
       "contractCount": 2,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "833055130",
+      "name": "Контрагент 35 ЕООД",
+      "totalEur": 31587783.07,
+      "totalOther": {},
+      "contractCount": 205,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -4954,16 +4974,6 @@
       "mpIds": []
     },
     {
-      "eik": "833055130",
-      "name": "Контрагент 35 ЕООД",
-      "totalEur": 31272446.93,
-      "totalOther": {},
-      "contractCount": 199,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
       "eik": "180711624",
       "name": "Интернешънал ГАЗ",
       "totalEur": 31252093.08,
@@ -5024,6 +5034,16 @@
       "mpIds": []
     },
     {
+      "eik": "115813904",
+      "name": "Дестинация българия ЕООД",
+      "totalEur": 30833316.31,
+      "totalOther": {},
+      "contractCount": 242,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "177406370",
       "name": "ДЗЗД \"ПП София\"",
       "totalEur": 30792435.6,
@@ -5039,6 +5059,26 @@
       "totalEur": 30746778.33,
       "totalOther": {},
       "contractCount": 679,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "123587426",
+      "name": "Петко Петков - 24 ООД",
+      "totalEur": 30716996.54,
+      "totalOther": {},
+      "contractCount": 227,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "112639195",
+      "name": "Еспас ауто ООД",
+      "totalEur": 30707661.19,
+      "totalOther": {},
+      "contractCount": 187,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -5134,31 +5174,21 @@
       "mpIds": []
     },
     {
+      "eik": "160109101",
+      "name": "\"Алтрам\" ООД",
+      "totalEur": 30383477.29,
+      "totalOther": {},
+      "contractCount": 41,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "831578978",
       "name": "ВНП Фасилити ЕООД",
       "totalEur": 30318085.51,
       "totalOther": {},
       "contractCount": 114,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "112639195",
-      "name": "Еспас ауто ООД",
-      "totalEur": 30254733.28,
-      "totalOther": {},
-      "contractCount": 186,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "115813904",
-      "name": "Дестинация българия ЕООД",
-      "totalEur": 30251923.34,
-      "totalOther": {},
-      "contractCount": 242,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -5179,6 +5209,16 @@
       "totalEur": 30142389.73,
       "totalOther": {},
       "contractCount": 37,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "000694749",
+      "name": "Юробанк българия АД",
+      "totalEur": 30057595.83,
+      "totalOther": {},
+      "contractCount": 50,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -5236,29 +5276,9 @@
     {
       "eik": "200285252",
       "name": "Стройнорм ЕООД",
-      "totalEur": 29854701.56,
+      "totalEur": 29875031.56,
       "totalOther": {},
-      "contractCount": 243,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "160109101",
-      "name": "\"Алтрам\" ООД",
-      "totalEur": 29787476.54,
-      "totalOther": {},
-      "contractCount": 38,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "000694749",
-      "name": "Юробанк българия АД",
-      "totalEur": 29760023.95,
-      "totalOther": {},
-      "contractCount": 47,
+      "contractCount": 244,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -5276,7 +5296,7 @@
     {
       "eik": "130928543",
       "name": "Дъчмед интернешанъл ЕООД",
-      "totalEur": 29588315.36,
+      "totalEur": 29609368.82,
       "totalOther": {},
       "contractCount": 680,
       "awardCount": 0,
@@ -5364,21 +5384,21 @@
       "mpIds": []
     },
     {
-      "eik": "202603814",
-      "name": "Инфракънстракшън ЕАД",
-      "totalEur": 29154944.59,
+      "eik": "811187662",
+      "name": "Диана ЕООД",
+      "totalEur": 29159330.52,
       "totalOther": {},
-      "contractCount": 44,
+      "contractCount": 327,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
     },
     {
-      "eik": "811187662",
-      "name": "Диана ЕООД",
-      "totalEur": 29093389.76,
+      "eik": "202603814",
+      "name": "Инфракънстракшън ЕАД",
+      "totalEur": 29154944.59,
       "totalOther": {},
-      "contractCount": 324,
+      "contractCount": 44,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -5394,11 +5414,11 @@
       "mpIds": []
     },
     {
-      "eik": "176283922",
-      "name": "ДЗЗД Ж.П. Строй",
-      "totalEur": 28779658.45,
+      "eik": "130642168",
+      "name": "КОТА-2001 ООД",
+      "totalEur": 29055985.47,
       "totalOther": {},
-      "contractCount": 17,
+      "contractCount": 40,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -5406,9 +5426,19 @@
     {
       "eik": "131481248",
       "name": "Енерджи Маркет Глобал ООД",
-      "totalEur": 28728961.59,
+      "totalEur": 28867010.34,
       "totalOther": {},
       "contractCount": 64,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "176283922",
+      "name": "ДЗЗД Ж.П. Строй",
+      "totalEur": 28779658.45,
+      "totalOther": {},
+      "contractCount": 17,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -5464,6 +5494,16 @@
       "mpIds": []
     },
     {
+      "eik": "123544268",
+      "name": "Индустриал партс ООД",
+      "totalEur": 28191579.97,
+      "totalOther": {},
+      "contractCount": 203,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "177184119",
       "name": "ДЗЗД Хвп - Ябланица",
       "totalEur": 28115940.55,
@@ -5479,6 +5519,16 @@
       "totalEur": 28055182.16,
       "totalOther": {},
       "contractCount": 64,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "123759274",
+      "name": "Техноинженеринг ЕООД",
+      "totalEur": 27920763.77,
+      "totalOther": {},
+      "contractCount": 172,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -5514,16 +5564,6 @@
       "mpIds": []
     },
     {
-      "eik": "123544268",
-      "name": "Индустриал партс ООД",
-      "totalEur": 27770118.68,
-      "totalOther": {},
-      "contractCount": 202,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
       "eik": "040211279",
       "name": "Ломини ООД",
       "totalEur": 27679648.15,
@@ -5554,6 +5594,16 @@
       "mpIds": []
     },
     {
+      "eik": "130002410",
+      "name": "Евро импекс ЕООД",
+      "totalEur": 27611554.82,
+      "totalOther": {},
+      "contractCount": 56,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "176465355",
       "name": "Обединение Метро Билд Младост",
       "totalEur": 27558174.78,
@@ -5566,9 +5616,29 @@
     {
       "eik": "113546751",
       "name": "Саламандър - АСО ООД",
-      "totalEur": 27485216.63,
+      "totalEur": 27533738.23,
       "totalOther": {},
       "contractCount": 320,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "177135378",
+      "name": "България ЕР и посока",
+      "totalEur": 27521515.21,
+      "totalOther": {},
+      "contractCount": 89,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "121327440",
+      "name": "АСМ 2 ЕООД",
+      "totalEur": 27508596.44,
+      "totalOther": {},
+      "contractCount": 246,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -5614,26 +5684,6 @@
       "mpIds": []
     },
     {
-      "eik": "130642168",
-      "name": "КОТА-2001 ООД",
-      "totalEur": 27336353.51,
-      "totalOther": {},
-      "contractCount": 39,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "121327440",
-      "name": "АСМ 2 ЕООД",
-      "totalEur": 27246184.07,
-      "totalOther": {},
-      "contractCount": 244,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
       "eik": "203540174",
       "name": "Иддд Логистик ЕООД",
       "totalEur": 27238120.88,
@@ -5669,16 +5719,6 @@
       "totalEur": 27169326.45,
       "totalOther": {},
       "contractCount": 109,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "177135378",
-      "name": "България ЕР и посока",
-      "totalEur": 27159350.14,
-      "totalOther": {},
-      "contractCount": 89,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -5726,6 +5766,16 @@
       "mpIds": []
     },
     {
+      "eik": "130548570",
+      "name": "Бат Секюрити ЕООД - София",
+      "totalEur": 26623602.6,
+      "totalOther": {},
+      "contractCount": 80,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "120590883",
       "name": "Строй Инвест Груп 2 ЕООД",
       "totalEur": 26618425.6,
@@ -5736,31 +5786,11 @@
       "mpIds": []
     },
     {
-      "eik": "130548570",
-      "name": "Бат Секюрити ЕООД - София",
-      "totalEur": 26556112.07,
-      "totalOther": {},
-      "contractCount": 79,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
       "eik": "116042078",
       "name": "Строймонтаж ЕАД",
       "totalEur": 26548470.9,
       "totalOther": {},
       "contractCount": 42,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "123587426",
-      "name": "Петко Петков - 24 ООД",
-      "totalEur": 26503901.88,
-      "totalOther": {},
-      "contractCount": 226,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -5926,6 +5956,16 @@
       "mpIds": []
     },
     {
+      "eik": "115552190",
+      "name": "Електроразпределение Юг ЕАД",
+      "totalEur": 25687273.43,
+      "totalOther": {},
+      "contractCount": 137,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "114646733",
       "name": "Стройконсулт ЕООД",
       "totalEur": 25599179.41,
@@ -5976,11 +6016,11 @@
       "mpIds": []
     },
     {
-      "eik": "123759274",
-      "name": "Техноинженеринг ЕООД",
-      "totalEur": 25475507.05,
+      "eik": "201799598",
+      "name": "РаТек ООД",
+      "totalEur": 25467358.58,
       "totalOther": {},
-      "contractCount": 171,
+      "contractCount": 56,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -6021,16 +6061,6 @@
       "totalEur": 25247167.7,
       "totalOther": {},
       "contractCount": 2,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "201799598",
-      "name": "РаТек ООД",
-      "totalEur": 25163139.91,
-      "totalOther": {},
-      "contractCount": 56,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -6146,6 +6176,16 @@
       "mpIds": []
     },
     {
+      "eik": "836149057",
+      "name": "Химтекс ООД",
+      "totalEur": 24657566.1,
+      "totalOther": {},
+      "contractCount": 1209,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "200523814",
       "name": "Инджовстрой ЕООД",
       "totalEur": 24642282.42,
@@ -6156,31 +6196,11 @@
       "mpIds": []
     },
     {
-      "eik": "836149057",
-      "name": "Химтекс ООД",
-      "totalEur": 24631360.69,
-      "totalOther": {},
-      "contractCount": 1208,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
       "eik": "206914677",
       "name": "ЕСО Проект ЕООД",
       "totalEur": 24587793.3,
       "totalOther": {},
       "contractCount": 129,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "813144389",
-      "name": "Космос шипинг АД",
-      "totalEur": 24510503.83,
-      "totalOther": {},
-      "contractCount": 9,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -6288,7 +6308,7 @@
     {
       "eik": "102986183",
       "name": "Панайот Пейчев ЕООД",
-      "totalEur": 23906628.97,
+      "totalEur": 23916854.81,
       "totalOther": {},
       "contractCount": 148,
       "awardCount": 0,
@@ -6336,6 +6356,16 @@
       "mpIds": []
     },
     {
+      "eik": "123684761",
+      "name": "ПИР-ИМПЕКС ЕООД",
+      "totalEur": 23490779.77,
+      "totalOther": {},
+      "contractCount": 28,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "181515735",
       "name": "Метро Люлин 2024",
       "totalEur": 23470257.01,
@@ -6371,6 +6401,16 @@
       "totalEur": 23325398,
       "totalOther": {},
       "contractCount": 44,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "131355648",
+      "name": "Д.М. Секюрити груп ООД",
+      "totalEur": 23290233.05,
+      "totalOther": {},
+      "contractCount": 115,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -6416,21 +6456,21 @@
       "mpIds": []
     },
     {
-      "eik": "131355648",
-      "name": "Д.М. Секюрити груп ООД",
-      "totalEur": 23156489.8,
-      "totalOther": {},
-      "contractCount": 114,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
       "eik": "101688586",
       "name": "БРАВО-СТРОЙ ЕООД",
       "totalEur": 23149378.27,
       "totalOther": {},
       "contractCount": 50,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "831913939",
+      "name": "ЕТ Янка Янкова Георгиева",
+      "totalEur": 23140741.4,
+      "totalOther": {},
+      "contractCount": 195,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -6486,16 +6526,6 @@
       "mpIds": []
     },
     {
-      "eik": "831913939",
-      "name": "ЕТ Янка Янкова Георгиева",
-      "totalEur": 22968306.1,
-      "totalOther": {},
-      "contractCount": 195,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
       "eik": "813069812",
       "name": "АМУРАА-КОНСЕРВ-68 ООД",
       "totalEur": 22945618.75,
@@ -6526,6 +6556,16 @@
       "mpIds": []
     },
     {
+      "eik": "114078736",
+      "name": "Инжстрой ЕООД",
+      "totalEur": 22913383.52,
+      "totalOther": {},
+      "contractCount": 48,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "201783380",
       "name": "“Български бетонни елементи” ЕООД",
       "totalEur": 22878087.57,
@@ -6541,16 +6581,6 @@
       "totalEur": 22867861.3,
       "totalOther": {},
       "contractCount": 40,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "130002410",
-      "name": "Евро импекс ЕООД",
-      "totalEur": 22738698.93,
-      "totalOther": {},
-      "contractCount": 55,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -6576,11 +6606,11 @@
       "mpIds": []
     },
     {
-      "eik": "114078736",
-      "name": "Инжстрой ЕООД",
-      "totalEur": 22560592.12,
+      "eik": "040616014",
+      "name": "АКВАРОР-БОЯДЖИЕВ и Синове ООД",
+      "totalEur": 22630489.01,
       "totalOther": {},
-      "contractCount": 48,
+      "contractCount": 140,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -6631,6 +6661,16 @@
       "totalEur": 22439718.39,
       "totalOther": {},
       "contractCount": 10,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "130026450",
+      "name": "Атлас травелс ЕООД",
+      "totalEur": 22407432.79,
+      "totalOther": {},
+      "contractCount": 244,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -6696,6 +6736,16 @@
       "mpIds": []
     },
     {
+      "eik": "121370541",
+      "name": "Д.Д.Д.-1 ООД",
+      "totalEur": 22273473.26,
+      "totalOther": {},
+      "contractCount": 126,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "121164819",
       "name": "Тракабел ООД",
       "totalEur": 22273408.22,
@@ -6706,31 +6756,11 @@
       "mpIds": []
     },
     {
-      "eik": "121370541",
-      "name": "Д.Д.Д.-1 ООД",
-      "totalEur": 22272699.11,
-      "totalOther": {},
-      "contractCount": 125,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
       "eik": "202571423",
       "name": "Сетатех ЕООД",
       "totalEur": 22254364.74,
       "totalOther": {},
       "contractCount": 59,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "130026450",
-      "name": "Атлас травелс ЕООД",
-      "totalEur": 22157477.04,
-      "totalOther": {},
-      "contractCount": 243,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -6951,16 +6981,6 @@
       "totalEur": 21621122.08,
       "totalOther": {},
       "contractCount": 2,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "040616014",
-      "name": "АКВАРОР-БОЯДЖИЕВ и Синове ООД",
-      "totalEur": 21607905.25,
-      "totalOther": {},
-      "contractCount": 140,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -7246,6 +7266,16 @@
       "mpIds": []
     },
     {
+      "eik": "205075635",
+      "name": "Ай Тръкс ЕАД",
+      "totalEur": 20724101.38,
+      "totalOther": {},
+      "contractCount": 105,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "202357469",
       "name": "Интерхолд ЕООД",
       "totalEur": 20709264.17,
@@ -7366,16 +7396,6 @@
       "mpIds": []
     },
     {
-      "eik": "115552190",
-      "name": "Електроразпределение Юг ЕАД",
-      "totalEur": 20369837.87,
-      "totalOther": {},
-      "contractCount": 137,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
       "eik": "200704348",
       "name": "Симатекс ЕООД",
       "totalEur": 20340297.04,
@@ -7401,16 +7421,6 @@
       "totalEur": 20277618.71,
       "totalOther": {},
       "contractCount": 1,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "123684761",
-      "name": "ПИР-ИМПЕКС ЕООД",
-      "totalEur": 20264468.66,
-      "totalOther": {},
-      "contractCount": 26,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -7456,11 +7466,21 @@
       "mpIds": []
     },
     {
-      "eik": "205075635",
-      "name": "Ай Тръкс ЕАД",
-      "totalEur": 20182131.99,
+      "eik": "175123459",
+      "name": "ЕС АЙ ВИ.БГ ЕООД",
+      "totalEur": 20211005.13,
       "totalOther": {},
-      "contractCount": 104,
+      "contractCount": 35,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "130923806",
+      "name": "Алиаксис българия ЕООД",
+      "totalEur": 20182213.55,
+      "totalOther": {},
+      "contractCount": 185,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -7566,16 +7586,6 @@
       "mpIds": []
     },
     {
-      "eik": "130923806",
-      "name": "Алиаксис българия ЕООД",
-      "totalEur": 19944462.83,
-      "totalOther": {},
-      "contractCount": 184,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
       "eik": "123005064",
       "name": "Енергоимпорт - експорт ООД",
       "totalEur": 19871146.9,
@@ -7626,21 +7636,21 @@
       "mpIds": []
     },
     {
-      "eik": "131392221",
-      "name": "Медитех ООД",
-      "totalEur": 19749952.59,
+      "eik": "200140730",
+      "name": "Застрахователно дружество \"Озок Инс\" АД",
+      "totalEur": 19755587.08,
       "totalOther": {},
-      "contractCount": 241,
+      "contractCount": 312,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
     },
     {
-      "eik": "200140730",
-      "name": "Застрахователно дружество \"Озок Инс\" АД",
-      "totalEur": 19731556.36,
+      "eik": "131392221",
+      "name": "Медитех ООД",
+      "totalEur": 19749952.59,
       "totalOther": {},
-      "contractCount": 312,
+      "contractCount": 241,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -8176,6 +8186,16 @@
       "mpIds": []
     },
     {
+      "eik": "831654365",
+      "name": "Агролеспроект ЕООД",
+      "totalEur": 18106787.88,
+      "totalOther": {},
+      "contractCount": 101,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "831915840",
       "name": "ШЕЛ България ЕАД",
       "totalEur": 18087339.72,
@@ -8258,9 +8278,9 @@
     {
       "eik": "811132858",
       "name": "Пиринстройинженеринг ЕАД",
-      "totalEur": 17984112.51,
+      "totalEur": 17984161.19,
       "totalOther": {},
-      "contractCount": 80,
+      "contractCount": 82,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -8366,6 +8386,16 @@
       "mpIds": []
     },
     {
+      "eik": "115013855",
+      "name": "Омникар ауто ООД",
+      "totalEur": 17661582.63,
+      "totalOther": {},
+      "contractCount": 266,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "176640274",
       "name": "ДЗЗД  Консорциум  Ямбол 2013-ПСОВ - гр.София",
       "totalEur": 17601739.93,
@@ -8401,16 +8431,6 @@
       "totalEur": 17522721.11,
       "totalOther": {},
       "contractCount": 171,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "121414589",
-      "name": "Кабел трейд ЕООД",
-      "totalEur": 17512181.68,
-      "totalOther": {},
-      "contractCount": 9,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -8516,6 +8536,16 @@
       "mpIds": []
     },
     {
+      "eik": "121414589",
+      "name": "Кабел трейд ЕООД",
+      "totalEur": 17319394.03,
+      "totalOther": {},
+      "contractCount": 9,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "203049232",
       "name": "ТМС Ко ООД",
       "totalEur": 17315391.21,
@@ -8596,16 +8626,6 @@
       "mpIds": []
     },
     {
-      "eik": "115013855",
-      "name": "Омникар ауто ООД",
-      "totalEur": 17168850.64,
-      "totalOther": {},
-      "contractCount": 264,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
       "eik": "202363027",
       "name": "Енергомонтаж - МК ЕООД",
       "totalEur": 17160193.11,
@@ -8651,6 +8671,16 @@
       "totalEur": 17099887.03,
       "totalOther": {},
       "contractCount": 1,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "115016602",
+      "name": "ЕВН България топлофикация ЕАД",
+      "totalEur": 17096187.24,
+      "totalOther": {},
+      "contractCount": 127,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -8756,16 +8786,6 @@
       "mpIds": []
     },
     {
-      "eik": "115016602",
-      "name": "ЕВН България топлофикация ЕАД",
-      "totalEur": 17002620.83,
-      "totalOther": {},
-      "contractCount": 127,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
       "eik": "175096421",
       "name": "Гигастрой ООД",
       "totalEur": 16941449.35,
@@ -8816,21 +8836,21 @@
       "mpIds": []
     },
     {
-      "eik": "102705120",
-      "name": "Аква системс АД",
-      "totalEur": 16889143.35,
+      "eik": "130998890",
+      "name": "Хроно ООД",
+      "totalEur": 16901517.93,
       "totalOther": {},
-      "contractCount": 32,
+      "contractCount": 333,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
     },
     {
-      "eik": "130998890",
-      "name": "Хроно ООД",
-      "totalEur": 16886111,
+      "eik": "102705120",
+      "name": "Аква системс АД",
+      "totalEur": 16889143.35,
       "totalOther": {},
-      "contractCount": 333,
+      "contractCount": 32,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -8908,7 +8928,7 @@
     {
       "eik": "120556183",
       "name": "Парти фууд",
-      "totalEur": 16505092.55,
+      "totalEur": 16556221.73,
       "totalOther": {},
       "contractCount": 35,
       "awardCount": 0,
@@ -9150,7 +9170,7 @@
     {
       "eik": "115501317",
       "name": "БАУ Систем ООД",
-      "totalEur": 15885271.49,
+      "totalEur": 15950655.35,
       "totalOther": {},
       "contractCount": 14,
       "awardCount": 0,
@@ -9278,6 +9298,16 @@
       "mpIds": []
     },
     {
+      "eik": "201802770",
+      "name": "ДИ ЕС ВИ Груп ЕООД",
+      "totalEur": 15686074.76,
+      "totalOther": {},
+      "contractCount": 13,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "175442656",
       "name": "Никман канал сервиз ЕООД",
       "totalEur": 15675155.43,
@@ -9298,6 +9328,16 @@
       "mpIds": []
     },
     {
+      "eik": "202265622",
+      "name": "Сезар Трейд ЕООД",
+      "totalEur": 15662279.43,
+      "totalOther": {},
+      "contractCount": 119,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "202694924",
       "name": "Планекс инфраструктура ЕООД",
       "totalEur": 15649761.16,
@@ -9313,16 +9353,6 @@
       "totalEur": 15645640.66,
       "totalOther": {},
       "contractCount": 7,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "201802770",
-      "name": "ДИ ЕС ВИ Груп ЕООД",
-      "totalEur": 15620690.9,
-      "totalOther": {},
-      "contractCount": 13,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -9548,16 +9578,6 @@
       "mpIds": []
     },
     {
-      "eik": "202265622",
-      "name": "Сезар Трейд ЕООД",
-      "totalEur": 15150987.6,
-      "totalOther": {},
-      "contractCount": 119,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
       "eik": "176766586",
       "name": "Майнинг секюрити",
       "totalEur": 15147991.57,
@@ -9760,6 +9780,16 @@
       "mpIds": []
     },
     {
+      "eik": "130284625",
+      "name": "ТОП-ДИАГНОСТИКА ООД",
+      "totalEur": 14792359.57,
+      "totalOther": {},
+      "contractCount": 423,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "180866927",
       "name": "Булсор - 2022",
       "totalEur": 14788606.37,
@@ -9775,16 +9805,6 @@
       "totalEur": 14779579.48,
       "totalOther": {},
       "contractCount": 7,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "130284625",
-      "name": "ТОП-ДИАГНОСТИКА ООД",
-      "totalEur": 14776952.64,
-      "totalOther": {},
-      "contractCount": 423,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -9852,9 +9872,19 @@
     {
       "eik": "121020530",
       "name": "ДАРИС-МС ЕООД",
-      "totalEur": 14651392.23,
+      "totalEur": 14672445.69,
       "totalOther": {},
       "contractCount": 86,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "177202962",
+      "name": "\"Приста - ТР\"",
+      "totalEur": 14670265.06,
+      "totalOther": {},
+      "contractCount": 13,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -9895,6 +9925,16 @@
       "totalEur": 14576100.34,
       "totalOther": {},
       "contractCount": 122,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "206354207",
+      "name": "Ай Строй Инженеринг ЕООД",
+      "totalEur": 14564356.13,
+      "totalOther": {},
+      "contractCount": 36,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -9950,6 +9990,16 @@
       "mpIds": []
     },
     {
+      "eik": "126163482",
+      "name": "ЕТ Тано - николай Траилов",
+      "totalEur": 14430235.97,
+      "totalOther": {},
+      "contractCount": 76,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
       "eik": "202553090",
       "name": "Грийн Бордър ООД",
       "totalEur": 14392479.3,
@@ -9970,16 +10020,6 @@
       "mpIds": []
     },
     {
-      "eik": "206354207",
-      "name": "Ай Строй Инженеринг ЕООД",
-      "totalEur": 14356438.58,
-      "totalOther": {},
-      "contractCount": 36,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
       "eik": "121718407",
       "name": "ДЗИ - Общо застраховане ЕАД",
       "totalEur": 14319108.36,
@@ -9995,46 +10035,6 @@
       "totalEur": 14316172.67,
       "totalOther": {},
       "contractCount": 1,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "203419767",
-      "name": "Трилиум инженеринг ЕООД",
-      "totalEur": 14302353.47,
-      "totalOther": {},
-      "contractCount": 27,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "181099863",
-      "name": "КМС Козлодуй",
-      "totalEur": 14289506.16,
-      "totalOther": {},
-      "contractCount": 3,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "114141282",
-      "name": "Майкромет ООД",
-      "totalEur": 14289255.21,
-      "totalOther": {},
-      "contractCount": 19,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "201849923",
-      "name": "Ейч Ти Ай България ЕООД",
-      "totalEur": 14285668.49,
-      "totalOther": {},
-      "contractCount": 44,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []

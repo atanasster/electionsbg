@@ -3,7 +3,10 @@ import { useTranslation } from "react-i18next";
 import { useRegions } from "@/data/regions/useRegions";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useMunicipalityVotes } from "@/data/municipalities/useMunicipalityVotes";
-import { isSofiaCityObshtina, isSofiaRayonObshtina } from "@/data/local/placeViews";
+import {
+  isSofiaCityObshtina,
+  isSofiaRayonObshtina,
+} from "@/data/local/placeViews";
 import { findCityRayon } from "@/data/local/cityRayonCatalog";
 import { SEO } from "@/ux/SEO";
 import { placeResultsTitle } from "@/ux/seoTitle";

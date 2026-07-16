@@ -8,13 +8,7 @@
 import { FC } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import {
-  Activity,
-  Coins,
-  Layers,
-  MapPin,
-  Users,
-} from "lucide-react";
+import { Activity, Coins, Layers, MapPin, Users } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";

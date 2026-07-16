@@ -138,7 +138,14 @@ const Parliament: FC = () => (
 const Governments: FC = () => (
   <SceneFrame>
     <path d="M112 44 L150 24 L188 44 Z" fill="var(--sector)" opacity=".85" />
-    <rect x={110} y={44} width={80} height={8} fill="var(--sector)" opacity=".7" />
+    <rect
+      x={110}
+      y={44}
+      width={80}
+      height={8}
+      fill="var(--sector)"
+      opacity=".7"
+    />
     <g fill="currentColor" opacity=".55">
       {[116, 132, 148, 164, 176].map((x) => (
         <rect key={x} x={x} y={54} width={8} height={40} />
@@ -372,11 +379,74 @@ const IndCompare: FC = () => (
   </SceneFrame>
 );
 
+// Данъчен калкулатор — a pocket calculator with a euro readout + keypad.
+const TaxCalculator: FC = () => (
+  <SceneFrame>
+    <rect
+      x={112}
+      y={16}
+      width={76}
+      height={84}
+      rx={8}
+      fill={PAPER}
+      stroke="currentColor"
+      strokeWidth="2"
+    />
+    <rect
+      x={122}
+      y={26}
+      width={56}
+      height={18}
+      rx={3}
+      fill="var(--sector)"
+      opacity=".85"
+    />
+    <text
+      x={150}
+      y={40}
+      textAnchor="middle"
+      fontSize="13"
+      fontWeight="700"
+      fill={PAPER}
+    >
+      €
+    </text>
+    <g fill="currentColor" opacity=".5">
+      {Array.from({ length: 9 }).map((_, i) => (
+        <circle
+          key={i}
+          cx={128 + (i % 3) * 22}
+          cy={58 + Math.floor(i / 3) * 16}
+          r={4.5}
+        />
+      ))}
+    </g>
+  </SceneFrame>
+);
+
+// Бюджетен симулатор — three policy levers (sliders) set at different marks.
+const Simulator: FC = () => (
+  <SceneFrame>
+    <g stroke="currentColor" strokeWidth="3" strokeLinecap="round" opacity=".4">
+      <path d="M70 40 H230" />
+      <path d="M70 62 H230" />
+      <path d="M70 84 H230" />
+    </g>
+    <g fill="var(--sector)">
+      <circle cx={122} cy={40} r={9} />
+      <circle cx={190} cy={62} r={9} />
+      <circle cx={96} cy={84} r={9} />
+    </g>
+  </SceneFrame>
+);
+
 export const GOV_HUB_SCENES: Record<string, FC> = {
   budget: Budget,
   procurement: Procurement,
   funds: Funds,
   sectors: Sectors,
+  tax_calculator: TaxCalculator,
+  simulator: Simulator,
   parliament: Parliament,
   governments: Governments,
   declarations: Declarations,

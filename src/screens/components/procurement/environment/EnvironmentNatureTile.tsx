@@ -30,8 +30,10 @@ export const EnvironmentNatureTile: FC = () => {
 
   const bgVal = pa.byGeo.BG;
   const euVal = pa.byGeo.EU27_2020 ?? null;
-  const rows = PEERS.filter((g) => pa.byGeo[g] != null)
-    .map((g) => ({ geo: g, val: pa.byGeo[g] }))
+  const rows: { geo: string; val: number }[] = PEERS.filter(
+    (g) => pa.byGeo[g] != null,
+  )
+    .map((g) => ({ geo: g as string, val: pa.byGeo[g] }))
     .sort((a, b) => b.val - a.val);
   if (euVal != null) rows.push({ geo: "EU27_2020", val: euVal });
   const max = Math.max(...rows.map((r) => r.val), 1);

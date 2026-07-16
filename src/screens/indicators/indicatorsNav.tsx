@@ -92,7 +92,9 @@ export const IndicatorsNav: FC<{
       />
       {/* No back-link — the breadcrumb above (Показатели → /indicators) is the
           way back to the dashboard now. */}
-      <div className={cn("mb-6 flex justify-end", className)}>{renderPills}</div>
+      <div className={cn("mb-6 flex justify-end", className)}>
+        {renderPills}
+      </div>
     </>
   );
 };
