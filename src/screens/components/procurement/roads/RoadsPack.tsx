@@ -65,13 +65,17 @@ export const RoadsPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
     const out: { text: string; warn?: boolean }[] = [];
     const eur = (v: number) => formatEurCompact(v, lang);
     const topYear = [...model.years].sort((a, b) => b.totalEur - a.totalEur)[0];
-    if (topYear)
-      out.push({
-        text:
-          lang === "bg"
-            ? `${topYear.year}: ${eur(topYear.totalEur)} — най-силна година`
-            : `${topYear.year}: ${eur(topYear.totalEur)} — peak year`,
-      });
+    // "Peak year" is only meaningful when there are several years to rank; a
+    // single-year scope shows just that year's total without the superlative.
+    if (topYear) {
+      const suffix =
+        model.years.length > 1
+          ? lang === "bg"
+            ? " — най-силна година"
+            : " — peak year"
+          : "";
+      out.push({ text: `${topYear.year}: ${eur(topYear.totalEur)}${suffix}` });
+    }
     const topCor = model.corridors[0];
     if (topCor)
       out.push({
