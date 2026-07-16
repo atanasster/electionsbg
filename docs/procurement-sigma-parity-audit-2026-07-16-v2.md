@@ -245,13 +245,17 @@ SIGMA's unfiltered `/contracts.csv` returns its **entire corpus** (196,156 rows 
 2. **2021+ coverage gaps** — €3.3 bn of contracts we hold that SIGMA lacks (€1.7 bn in 2021 alone; e.g. МО `00164-2021-0015`, hospital `00086-2021-0001` — 0 SIGMA rows).
 3. **Face-value stotinki errors** — SIGMA trusts garbage source amounts. `00105-2025-0026`: source `contractValue`=`102 258 376 EUR` but `estimatedValue`=`2 000 000` — SIGMA booked €102.26 M; we correctly divided the stotinki error to €1.02 M via `amount_overrides.ts` (100× cluster: 8 УНП / €143 M, SIGMA inflated).
 
-**Our-side issues found (actionable):**
-1. **Residual coverage gap** — 2,813 УНП / €784 M SIGMA has and we still lack (foreign members of mixed consortia left unsplit by §8.5, keying, feed edges).
-2. **Zero-value rows** — 47 УНП / €35.4 M where our `amount_eur`≈0 but SIGMA has a real value (source published no contract value; e.g. `00120-2021-0004` ours €0 vs SIGMA €18.9 M).
-3. **`amount_overrides` /100 to re-review** — the 100× cluster is correct for the SME `00105` but questionable for `00116-2026-0001` (Технически университет €2.19 M) and `03000-2025-0001` (Овергаз €10 M), where the un-divided value may be the real one — our override may under-count by 100×.
-4. **Annex over-rejection** — the `MAX_MULTIPLE=15` guard drops genuinely-huge annexes: `00747-2024-0003` ours €1.09 M (fold rejected a ×96 jump) vs SIGMA €53.8 M (their ÷1.96 of the same €105 M annex) — both wrong; the true value needs the source, but our guard may miss legitimate large scope-ups.
+**Our-side items — investigated; 2 real (fixed), 2 non-issues:**
+1. **[FIXED] Joint-procurement contracts dropped** — 653 rows / ~€1.16 bn (gross) with a multi-token `buyerRegistryNumber` (`115552190; 115016602`) were dropped by `resolvePrimaryBuyer`. Now recovered under the **primary (first valid) buyer**, as SIGMA does, gated to the content-deduped backfill so the incremental double-count invariant is untouched (§9.1).
+2. **[FIXED] Placeholder contract values** — 715 rows / ~€330 M where the source published a stub (`0,01`/`1,20`) and we booked €0. Now fall back to the procedure's `estimatedValue`, as SIGMA does (§9.1).
+3. **[NON-ISSUE] `amount_overrides` /100** — on review, all 8 are **correct**: each reproduces its published lot/procedure estimate exactly (`00116-2026-0001` ÷100 = 21 893.52 = the estimate; `03000-2025-0001` ÷100 = 201 592 = the estimate). SIGMA is the one inflating by taking the stotinki-error `contractValue` at face. My original flag confused the *supplier* name with the entity.
+4. **[NON-ISSUE] Annex over-rejection** — the `MAX_MULTIPLE=15` guard correctly rejects **garbage** annexes: `00747-2024-0003`'s annex chain is €1.09 M → €2.17 M → **€105.2 M** (a ×48 single-step jump = a data error). We hold ~signing; SIGMA divides the garbage to €53.8 M. Our guard is right.
 
-**Net verdict:** on the €44 bn of directly-comparable value, we and SIGMA agree to the euro on **93% of procedures**. Every material divergence is explained: the larger ones are SIGMA's (annex ÷-bug €2–4 bn, 2021 coverage €3.3 bn, stotinki inflation); ours are small and bounded (€784 M residual coverage, €35 M zero-value rows, 8 override cases, an annex-guard edge). We are the more complete and more euro-accurate corpus; the actionable follow-ups on our side total under ~€1 bn and are itemized above.
+### 9.1 Fixes shipped (local + Cloud SQL)
+
+`normalize_eop.ts`: (a) `resolvePrimaryBuyer(..., recoverToPrimary)` attributes joint procurements to the first valid buyer under the cross-source backfill; (b) a placeholder `contractValue` (<1) falls back to `estimatedValue` in its own currency. Re-ingest + surgical patch (existing placeholder rows) + fold-preserving rebuild + reload. **+524 contracts / +€431 M → 353,741 / €89.377 bn.** Verified matching SIGMA: `00143-2024-0081` €34.5 M (was absent), `00120-2021-0004` €18.94 M (was €0). Integrity green. **SIGMA "sigma-only" gap 2,813 → 2,618 (€784 M → €509 M); zero-value rows 47 → 4.** The €509 M residual is dominated by cais_id↔SIGMA-unp keying (same contract under our standard УНП vs SIGMA's T-id fallback) — not missing data.
+
+**Net verdict:** on the €44 bn of directly-comparable value we agree with SIGMA to the euro on **93% of procedures**; after §9.1, the corpus is €89.38 bn. Every material divergence is explained — the large ones are SIGMA's (annex ÷-bug €2–4 bn, 2021 coverage €3.3 bn, stotinki inflation); our residuals are small (≈€0.5 bn, mostly keying not gaps). We are the more complete and more euro-accurate corpus.
 
 ---
 
