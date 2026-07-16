@@ -1726,6 +1726,20 @@ const DB_ROUTES = {
     ]).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? { directorates: [] } };
   },
+  "transport-project-map": async (dbRows, q) => {
+    const eiks = s(q, "eiks")
+      .split(",")
+      .map((e) => e.trim())
+      .filter((e) => /^\d{9,13}$/.test(e))
+      .slice(0, 300);
+    if (!eiks.length) return { status: 400, body: { error: "missing eiks" } };
+    const rows = await dbRows("SELECT transport_project_map($1, $2, $3) AS r", [
+      eiks,
+      orNull(q, "from"),
+      orNull(q, "to"),
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? { segments: [], points: [] } };
+  },
   // Geolocated active excise warehouses → the /customs/warehouses count map
   // (schema 072). One point per warehouse; the client groups them per city.
   "excise-warehouses": async (dbRows) => {

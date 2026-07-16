@@ -30,6 +30,11 @@ import {
   MVR_ENTITIES,
   SECURITY_UNIVERSE_LABEL,
 } from "@/lib/securityReferenceData";
+import {
+  TRANSPORT_EIK,
+  TRANSPORT_ENTITIES,
+  TRANSPORT_UNIVERSE_LABEL,
+} from "@/lib/transportReferenceData";
 
 export interface SectorMember {
   eik: string;
@@ -63,7 +68,9 @@ export interface SectorDashboardConfig {
 // Awarder EIKs given as literals where no reference-data export exists yet.
 // Exported so sibling surfaces (sectorPacks browse-pack set) reuse them rather
 // than re-hardcoding the same digits.
-export const TRANSPORT_EIK = "000695388"; // Министерство на транспорта и съобщенията (МТС)
+// TRANSPORT_EIK (000695388, МТС) is the group lead — defined in its reference data,
+// re-exported so sibling surfaces (sectorPacks) keep importing it here.
+export { TRANSPORT_EIK };
 export const ADMIN_EIK = "180680495"; // Министерство на електронното управление (МЕУ)
 
 // Energy is the first sector to ship bespoke ThematicTiles (the invisible-€14bn
@@ -132,6 +139,13 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
       },
     ],
   },
+  // Транспорт — the МТС state transport group: rail (НКЖИ + БДЖ + ИАЖА), ports
+  // (Пристанищна инфраструктура + Морска администрация), aviation (ГД ГВА) and road
+  // regulation/safety (Автомобилна администрация + ДАБДП). МТС leads; its /awarder
+  // page renders the TransportPack (registered under TRANSPORT_EIK), and so does this
+  // dashboard. ⚠ ROAD BUILDING is a SEPARATE sector — АПИ/Автомагистрали are excluded;
+  // the pack cross-links to /sector/roads. Метрополитен is municipal, also excluded.
+  // Members from the curated allowlist (transportReferenceData.ts).
   transport: {
     id: "transport",
     titleKey: "sector_transport_title",
@@ -139,15 +153,11 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
     agency: "МТС",
     leadEik: TRANSPORT_EIK,
     browsePackId: "transport",
-    members: [
-      {
-        eik: TRANSPORT_EIK,
-        name: {
-          bg: "Министерство на транспорта и съобщенията",
-          en: "Ministry of Transport and Communications",
-        },
-      },
-    ],
+    members: TRANSPORT_ENTITIES.map((e) => ({
+      eik: e.eik,
+      name: { bg: e.name, en: e.name },
+      group: TRANSPORT_UNIVERSE_LABEL[e.universe],
+    })),
   },
   social: {
     id: "social",

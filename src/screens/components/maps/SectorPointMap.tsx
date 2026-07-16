@@ -22,6 +22,7 @@ import {
   MapContainer,
   TileLayer,
   Marker,
+  Polyline,
   Tooltip,
   useMap,
 } from "react-leaflet";
@@ -58,6 +59,22 @@ export interface SectorMapPoint {
   /** Extra card content (e.g. the metric line). */
   detail?: ReactNode;
   /** Optional navigation target on click / the card's "view" button. */
+  href?: string;
+}
+
+/** A line drawn between two points — e.g. a funded rail section between two towns. */
+export interface SectorMapLine {
+  id: string;
+  /** [lng, lat] endpoints (matches settlements.json `loc`). */
+  a: [number, number];
+  b: [number, number];
+  color: string;
+  /** Stroke width in px (default 4). */
+  weight?: number;
+  /** Hover-card heading (bold). */
+  title: string;
+  subtitle?: string;
+  detail?: ReactNode;
   href?: string;
 }
 
@@ -320,6 +337,43 @@ const ClusterMarker: FC<{
   );
 };
 
+// A funded rail section — a coloured line between two towns with a hover card and an
+// optional click-through. A slightly wider invisible line sits under it as a fat hit target.
+const LineSegment: FC<{ line: SectorMapLine }> = ({ line }) => {
+  const navigate = useNavigate();
+  const positions: [number, number][] = [
+    [line.a[1], line.a[0]],
+    [line.b[1], line.b[0]],
+  ];
+  const weight = line.weight ?? 4;
+  return (
+    <Polyline
+      positions={positions}
+      pathOptions={{ color: line.color, weight, opacity: 0.85 }}
+      eventHandlers={{
+        click: () => {
+          if (line.href) navigate(line.href);
+        },
+      }}
+    >
+      <Tooltip sticky className="sector-tooltip" direction="top">
+        <PointCard
+          p={{
+            id: line.id,
+            loc: line.a,
+            value: 0,
+            color: line.color,
+            badge: 0,
+            title: line.title,
+            subtitle: line.subtitle,
+            detail: line.detail,
+          }}
+        />
+      </Tooltip>
+    </Polyline>
+  );
+};
+
 const FitPoints: FC<{ bounds: LatLngBoundsExpression }> = ({ bounds }) => {
   const map = useMap();
   useEffect(() => {
@@ -342,6 +396,8 @@ const FitPoints: FC<{ bounds: LatLngBoundsExpression }> = ({ bounds }) => {
 
 export const SectorPointMap: FC<{
   points: SectorMapPoint[];
+  /** Optional lines drawn under the markers (e.g. funded rail sections). */
+  lines?: SectorMapLine[];
   /** Plural noun for the unit count in a city's pager header, e.g. "съдилища". */
   groupNoun?: string;
   /** Noun for the summed badge total in the pager header, e.g. "съдии". Omit when
@@ -352,7 +408,14 @@ export const SectorPointMap: FC<{
    *  wording). Pass a domain noun, e.g. "Виж болницата". */
   openLabel?: string;
   height?: number;
-}> = ({ points, groupNoun = "", badgeNoun = "", openLabel, height = 460 }) => {
+}> = ({
+  points,
+  lines = [],
+  groupNoun = "",
+  badgeNoun = "",
+  openLabel,
+  height = 460,
+}) => {
   // One marker per city (shared settlement centroid). Each group is sorted busiest
   // first, so group[0] is both the pager's first page and the marker's colour.
   const groups = useMemo(() => {
@@ -367,13 +430,16 @@ export const SectorPointMap: FC<{
   }, [points]);
 
   const bounds = useMemo<LatLngBoundsExpression>(() => {
-    if (!points.length) return BG_BOUNDS;
+    const coords: [number, number][] = [
+      ...points.map((p) => p.loc),
+      ...lines.flatMap((l) => [l.a, l.b]),
+    ];
+    if (!coords.length) return BG_BOUNDS;
     let minLat = Infinity,
       maxLat = -Infinity,
       minLng = Infinity,
       maxLng = -Infinity;
-    for (const p of points) {
-      const [lng, lat] = p.loc;
+    for (const [lng, lat] of coords) {
       minLat = Math.min(minLat, lat);
       maxLat = Math.max(maxLat, lat);
       minLng = Math.min(minLng, lng);
@@ -384,7 +450,7 @@ export const SectorPointMap: FC<{
       [minLat, minLng],
       [maxLat, maxLng],
     ];
-  }, [points]);
+  }, [points, lines]);
 
   return (
     <div
@@ -402,6 +468,10 @@ export const SectorPointMap: FC<{
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        {/* Lines under the markers so town badges stay on top. */}
+        {lines.map((line) => (
+          <LineSegment key={line.id} line={line} />
+        ))}
         {groups.map((group) => {
           const [lng, lat] = group[0].loc;
           const center: [number, number] = [lat, lng];

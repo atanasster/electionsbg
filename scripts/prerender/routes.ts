@@ -591,22 +591,22 @@ const SECTOR_PAGES: SectorPageContent[] = [
     id: "transport",
     eik: "000695388",
     bg: {
-      title: "Транспорт — обществените поръчки на МТС | electionsbg.com",
+      title: "Транспорт — парите на държавата за железници, пристанища и БДЖ | electionsbg.com", // prettier-ignore
       description:
-        "Обществените поръчки на Министерството на транспорта и съобщенията (МТС): общо възложени, изпълнители и разбивка по договори.",
+        "Обществените поръчки на държавния транспорт — МТС, НКЖИ, БДЖ, пристанища и регулатори (~€5,9 млрд.): по вид транспорт, европейски средства (усвояване), субсидията за влака на пътник и къде отиват парите. Пътищата (АПИ) са отделен сектор.",
       breadcrumb: "Транспорт",
-      h1: "Транспорт — обществените поръчки на МТС",
+      h1: "Транспорт — къде отиват парите на държавата",
       intro:
-        "Тази страница обобщава обществените поръчки на Министерството на транспорта и съобщенията — по избрания парламент или за цялата история.",
+        "Държавната транспортна група — Министерството на транспорта и съобщенията, НКЖИ, БДЖ (пътнически и товарни превози), Пристанищна инфраструктура и морската, въздушната и железопътната администрация — е сред най-големите възложители в страната. Тази страница показва обществените ѝ поръчки по вид транспорт (железници, пристанища, въздух), усвояването на европейските средства, държавната субсидия за железниците на пътник и картата на структурите по град. Железниците водят. Пътната инфраструктура (АПИ) е отделен сектор.",
     },
     en: {
-      title: "Transport — the Ministry of Transport's procurement | electionsbg.com", // prettier-ignore
+      title: "Transport — Bulgaria's spending on rail, ports and БДЖ | electionsbg.com", // prettier-ignore
       description:
-        "The public procurement of Bulgaria's Ministry of Transport and Communications (МТС): total awarded, contractors and the breakdown by contracts.",
+        "State-transport procurement — МТС, НКЖИ, БДЖ, ports and regulators (~€5.9bn): by mode, EU-funds absorption, the state rail subsidy per passenger and where the money goes. Roads (АПИ) are a separate sector.",
       breadcrumb: "Transport",
-      h1: "Transport — the Ministry of Transport's procurement",
+      h1: "Transport — where the state's money goes",
       intro:
-        "This page summarises the public procurement of the Ministry of Transport and Communications — for the selected parliament or the full history.",
+        "The state transport group — the Ministry of Transport and Communications, НКЖИ (rail infrastructure), БДЖ (passenger and freight), the Port Infrastructure company and the maritime, aviation and railway administrations — is one of the country's largest awarders. This page shows its public procurement by mode (rail, ports, aviation), EU-funds absorption, the state rail subsidy per passenger, and a map of the entities city by city. Railways dominate. Road infrastructure (АПИ) is a separate sector.",
     },
   },
   {

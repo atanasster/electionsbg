@@ -79,6 +79,7 @@ import {
   defensePeerCompare,
 } from "./defense";
 import { securityRoadSafety } from "./security";
+import { transportSpending, transportEuFunds, railSubsidy } from "./transport";
 import { generationMix, electricityPrices, powerPlants } from "./energy";
 import { riverbedCleaning } from "./vik";
 import { ngoOverview, ngoTopFunded, ngoConflictAwarders } from "./ngo";
@@ -2188,6 +2189,67 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: securityRoadSafety,
+  },
+  {
+    name: "transportSpending",
+    domain: "fiscal",
+    description: {
+      bg: "Обществените поръчки на държавния транспорт (МТС, НКЖИ, БДЖ, пристанища, авиация) по вид транспорт и функция, с конкуренция. Железниците водят. Пътищата (АПИ) са отделен сектор.",
+      en: "State transport procurement (МТС, НКЖИ, БДЖ, ports, aviation) by mode and function, with competition. Railways dominate. Roads (АПИ) are a separate sector.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Колко харчи държавата за транспорт?",
+        en: "How much does the state spend on transport?",
+      },
+      {
+        bg: "Къде отиват парите за железници?",
+        en: "Where does the railway money go?",
+      },
+      { bg: "Поръчки на БДЖ и НКЖИ", en: "БДЖ and НКЖИ procurement" },
+    ],
+    run: transportSpending,
+  },
+  {
+    name: "transportEuFunds",
+    domain: "fiscal",
+    description: {
+      bg: "Европейските средства за транспорт (ИСУН) — договорени срещу реално изплатени (усвояване) по бенефициенти (НКЖИ, БДЖ, пристанища). Показва колко от парите наистина се усвояват.",
+      en: "EU funds for transport (ИСУН) — contracted vs actually paid (absorption) by beneficiary (НКЖИ, БДЖ, ports). Shows how much money is actually drawn down.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Колко европейски пари усвоява транспортът?",
+        en: "How much EU money does transport absorb?",
+      },
+      {
+        bg: "Усвояване на еврофондовете за железници",
+        en: "EU-funds absorption for railways",
+      },
+    ],
+    run: transportEuFunds,
+  },
+  {
+    name: "railSubsidy",
+    domain: "fiscal",
+    description: {
+      bg: "Държавната субсидия за железниците — колко плаща държавата на пътник на БДЖ (PSO), общата субсидия (БДЖ + НКЖИ) и как расте. Отговаря на въпроса кой плаща за влака.",
+      en: "The state rail subsidy — how much the state pays per БДЖ passenger (PSO), the total subsidy (БДЖ + НКЖИ) and how it is rising. Answers who pays for the railway.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Колко субсидира държавата влака?",
+        en: "How much does the state subsidise the railway?",
+      },
+      {
+        bg: "Каква е субсидията за БДЖ на пътник?",
+        en: "What is the БДЖ subsidy per passenger?",
+      },
+    ],
+    run: railSubsidy,
   },
   {
     name: "defensePeerCompare",

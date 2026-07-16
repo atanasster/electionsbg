@@ -310,8 +310,17 @@ const COFOG_FUNCTIONS_ONLY = [
   "GF08",
   "GF09",
   "GF10",
+  // GF0405 (Transport) — a GF04 sub-code, kept alongside the ten top-level
+  // functions so the /sector/transport EU-peer tile can compare transport spend
+  // as % of GDP. Additive: the /budget + /indicators/compare consumers read only
+  // the ten top-levels and ignore this extra key. The peer fetch leaves the
+  // cofog99 dimension open, so these rows are already in the payload.
+  "GF0405",
 ] as const;
 type CofogFunctionCode = (typeof COFOG_FUNCTIONS_ONLY)[number];
+
+// COFOG sub-codes (beyond the ten top-levels) we also build a peer band for.
+const PEER_EXTRA_CODES: readonly string[] = ["GF0405"];
 
 // Build per-year, per-peer COFOG composition for the EU compare dashboard.
 // Output shape: { [year]: { [geo]: { [code]: pctGdp } } }. Keeps every year
@@ -357,7 +366,11 @@ const buildPeerBands = (
   }
   const out: Record<string, PeerBand> = {};
   for (const [cofog, years] of byCofogYear) {
-    if (!(COFOG_TOP_LEVEL as readonly string[]).includes(cofog)) continue;
+    if (
+      !(COFOG_TOP_LEVEL as readonly string[]).includes(cofog) &&
+      !PEER_EXTRA_CODES.includes(cofog)
+    )
+      continue;
     // Newest year first; pick the first one that has BG + at least 20
     // member-state observations.
     const candidates = [...years.keys()].sort((a, b) => b - a);

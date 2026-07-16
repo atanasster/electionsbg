@@ -1,0 +1,91 @@
+{
+  "source": {
+    "name": "Eurostat",
+    "dataset": "rail_pa_total",
+    "url": "https://ec.europa.eu/eurostat/databrowser/view/rail_pa_total/default/table",
+    "note": "Национален железопътен транспорт (≈ БДЖ, доминиращият оператор). THS_PAS → пътници; MIO_PKM → пътнико-километри."
+  },
+  "fetchedAt": "2026-07-16T00:48:21.899Z",
+  "series": [
+    {
+      "year": 2011,
+      "passengers": 29287000,
+      "passengerKmMio": 2059
+    },
+    {
+      "year": 2012,
+      "passengers": 26508000,
+      "passengerKmMio": 1870
+    },
+    {
+      "year": 2013,
+      "passengers": 26059000,
+      "passengerKmMio": 1821
+    },
+    {
+      "year": 2014,
+      "passengers": 24615000,
+      "passengerKmMio": 1698
+    },
+    {
+      "year": 2015,
+      "passengers": 22518000,
+      "passengerKmMio": 1549
+    },
+    {
+      "year": 2016,
+      "passengers": 21425000,
+      "passengerKmMio": 1455
+    },
+    {
+      "year": 2017,
+      "passengers": 21195000,
+      "passengerKmMio": 1434
+    },
+    {
+      "year": 2018,
+      "passengers": 21329000,
+      "passengerKmMio": 1476
+    },
+    {
+      "year": 2019,
+      "passengers": 21329000,
+      "passengerKmMio": 1520
+    },
+    {
+      "year": 2020,
+      "passengers": 16808000,
+      "passengerKmMio": 1118
+    },
+    {
+      "year": 2021,
+      "passengers": 17142000,
+      "passengerKmMio": 1203
+    },
+    {
+      "year": 2022,
+      "passengers": 23065000,
+      "passengerKmMio": 1600
+    },
+    {
+      "year": 2023,
+      "passengers": 21811000,
+      "passengerKmMio": 1592
+    },
+    {
+      "year": 2024,
+      "passengers": 21141000,
+      "passengerKmMio": 1498
+    },
+    {
+      "year": 2025,
+      "passengers": 20979000,
+      "passengerKmMio": 1456
+    }
+  ],
+  "latest": {
+    "year": 2025,
+    "passengers": 20979000,
+    "passengerKmMio": 1456
+  }
+}

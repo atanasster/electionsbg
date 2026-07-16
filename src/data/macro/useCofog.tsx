@@ -18,6 +18,11 @@ export const COFOG_CODES = [
 ] as const;
 export type CofogCode = (typeof COFOG_CODES)[number];
 
+// COFOG sub-codes carried alongside the ten top-levels for specific sector tiles.
+// GF0405 (Transport, a GF04 sub-code) drives the /sector/transport EU-peer tile.
+// Emitted by fetch_cofog.ts into `peers` + `peerSeriesByYear` (not `series`).
+export type CofogSubCode = "GF0405";
+
 // Pre-filtered list of just the 10 function codes (excludes TOTAL) for tile
 // rendering — TOTAL is the denominator, not a renderable slice.
 export const COFOG_FUNCTIONS: ReadonlyArray<Exclude<CofogCode, "TOTAL">> = [
@@ -54,7 +59,10 @@ export type CofogPeerBand = {
 // geo (BG, EU27_2020, RO, GR, HU, HR), then by COFOG code. The dashboard
 // can hold any of the years emitted in `peerSeriesByYear`.
 export type CofogPeerComposition = Partial<
-  Record<string, Partial<Record<Exclude<CofogCode, "TOTAL">, number>>>
+  Record<
+    string,
+    Partial<Record<Exclude<CofogCode, "TOTAL"> | CofogSubCode, number>>
+  >
 >;
 
 export type CofogPayload = {
@@ -71,7 +79,7 @@ export type CofogPayload = {
   cofogTopLevel: CofogCode[];
   latestYear: number;
   series: Record<CofogCode, CofogPoint[]>;
-  peers?: Partial<Record<CofogCode, CofogPeerBand>>;
+  peers?: Partial<Record<CofogCode | CofogSubCode, CofogPeerBand>>;
   // v3 — per-year, per-peer composition for the EU compare dashboard so the
   // user can pick a year matching the selected election cycle. Keyed by
   // year-as-string ("2024", "2023", ...). `peerSeriesLatestYear` is a

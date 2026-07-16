@@ -2858,6 +2858,85 @@ export const route = (question: string, ctx: ToolContext): Route => {
     return { tool: "procurementSingleBidSectors", args: {} };
   if (has(q, "черен списък", "черния списък", "debarred", "субекти с нарушени"))
     return { tool: "procurementDebarred", args: {} };
+  // Транспорт — the state transport group (rail НКЖИ/БДЖ, ports, aviation) procurement
+  // + EU-funds absorption (/sector/transport, via transportSpending / transportEuFunds).
+  // Placed BEFORE the roads rule: "железопътна" must not fall to roads. ROADS
+  // (АПИ/магистрали) are a SEPARATE sector and keep their own rule below; toll/vignette
+  // REVENUE (винетки/тол) is handled far above.
+  {
+    const transportWord = has(
+      q,
+      "транспорт",
+      "железниц",
+      "железопът",
+      "жп",
+      "влак",
+      "бдж",
+      "нкжи",
+      "пристанищ",
+      "морск",
+      "летищ",
+      "авиаци",
+      "railway",
+      "train",
+      "maritime",
+      "aviation",
+      "airport",
+      "seaport",
+    );
+    const isRoadsOnly =
+      has(q, "магистрал", "motorway", "highway") ||
+      ((q.includes(" апи") || q.startsWith("апи")) && !q.includes("терапи"));
+    const tollRevenue = has(q, "винетк", "тол такс", "пътни такси");
+    if (transportWord && !isRoadsOnly && !tollRevenue) {
+      // Subsidy-specific → the rail subsidy-dependency tile (per-passenger PSO).
+      if (
+        has(
+          q,
+          "субсиди",
+          "дотаци",
+          "subsid",
+          "на пътник",
+          "per passenger",
+          "poso",
+          "издръжка на бдж",
+        )
+      )
+        return { tool: "railSubsidy", args: {} };
+      if (
+        has(
+          q,
+          "европейск",
+          "еврофонд",
+          "исун",
+          "усвоя",
+          "eu fund",
+          "european fund",
+          "absorb",
+          "absorption",
+        )
+      )
+        return { tool: "transportEuFunds", args: {} };
+      if (
+        has(
+          q,
+          "харч",
+          "разход",
+          "струва",
+          "поръчк",
+          "колко",
+          "пари",
+          "бюджет",
+          "spend",
+          "cost",
+          "procurement",
+          "money",
+          "budget",
+        )
+      )
+        return { tool: "transportSpending", args: {} };
+    }
+  }
   // АПИ road spending — kind-of-work + competition, top corridors, €/km, trend
   // (the /procurement/roads dashboard, via roadsSpending). Roads-specific intent
   // only, so the generic procurement/awarder routing keeps its traffic. Guards:

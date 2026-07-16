@@ -24,6 +24,7 @@ import { eurostat } from "./eurostat";
 import { eurostatPolicy } from "./eurostat_policy";
 import { policyBaselineLocal } from "./policy_baseline_local";
 import { eurostatRegional } from "./eurostat_regional";
+import { eurostatRail } from "./eurostat_rail";
 import { nsiRegional } from "./nsi_regional";
 import { ecBudgetPerMs } from "./ec_budget_per_ms";
 import { ecFts } from "./ec_fts";
@@ -159,6 +160,7 @@ export const SOURCES: WatchSource[] = [
   fiscalCouncilBg,
   apiRoadCharges,
   eurostatRegional,
+  eurostatRail,
   nsiRegional,
   ecBudgetPerMs,
   ecFts,

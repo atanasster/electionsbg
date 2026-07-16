@@ -21,8 +21,10 @@ const OG_DIR = path.join(REPO_ROOT, "public/og");
 
 const BASE = process.env.OG_BASE_URL ?? "http://localhost:5173";
 
-// Single source of truth — every sector dashboard gets a screenshot.
-const SECTOR_IDS = SECTOR_DASHBOARD_IDS;
+// Single source of truth — every sector dashboard gets a screenshot, EXCEPT transport:
+// its OG is a hand-framed, map-focused capture (scripts/og/screenshot_transport.ts) that
+// this generic KPI-clip would overwrite. Run that script separately for transport.
+const SECTOR_IDS = SECTOR_DASHBOARD_IDS.filter((id) => id !== "transport");
 
 const run = async (): Promise<void> => {
   fs.mkdirSync(OG_DIR, { recursive: true });

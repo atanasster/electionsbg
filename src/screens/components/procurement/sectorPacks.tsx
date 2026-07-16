@@ -28,7 +28,10 @@ import { NAP_EIK, NAP_AWARDER_PATH } from "@/lib/napReferenceData";
 import { CUSTOMS_EIK, CUSTOMS_AWARDER_PATH } from "@/lib/customsReferenceData";
 import { AGRI_PAYER_EIK } from "@/data/agri/constants";
 import { ENERGY_SECTOR_EIKS } from "@/lib/energyReferenceData";
-import { TRANSPORT_EIK } from "@/screens/sector/sectorDashboards";
+import {
+  TRANSPORT_EIK,
+  TRANSPORT_SECTOR_EIKS,
+} from "@/lib/transportReferenceData";
 import { ADMIN_SECTOR_EIKS } from "@/lib/administrationReferenceData";
 import { TOURISM_SECTOR_EIKS } from "@/lib/tourismReferenceData";
 import { MVR_EIK, SECURITY_SECTOR_EIKS } from "@/lib/securityReferenceData";
@@ -102,6 +105,16 @@ const DefensePack = lazy(() =>
 const MvrPack = lazy(() =>
   import("./security/MvrPack").then((m) => ({ default: m.MvrPack })),
 );
+// No TRANSPORT_AWARDER_PATH export (deliberately, like ВСС/culture/defense/МВР): the
+// transport view's home is the /sector/transport dashboard, which the nav points at;
+// the МТС awarder page is reached from there. The pack registers by EIK below and
+// renders off the existing corpus (11-unit group roll-up) with no new ingest. Road
+// building (АПИ) is a SEPARATE sector — the pack cross-links to it, never folds it.
+const TransportPack = lazy(() =>
+  import("./transport/TransportPack").then((m) => ({
+    default: m.TransportPack,
+  })),
+);
 const NapPack = lazy(() =>
   import("./nap/NapPack").then((m) => ({ default: m.NapPack })),
 );
@@ -119,6 +132,7 @@ const PACKS: Record<string, ComponentType<SectorPackProps>> = {
   [VIK_HOLDING_EIK]: VikPack,
   [MOD_EIK]: DefensePack,
   [MVR_EIK]: MvrPack,
+  [TRANSPORT_EIK]: TransportPack,
   [NAP_EIK]: NapPack,
   [CUSTOMS_EIK]: CustomsPack,
 };
@@ -229,7 +243,7 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
   transport: {
     id: "transport",
     label: { bg: "Транспорт (МТС)", en: "Transport (МТС)" },
-    eiks: [TRANSPORT_EIK],
+    eiks: TRANSPORT_SECTOR_EIKS,
   },
   administration: {
     id: "administration",

@@ -12,20 +12,44 @@
 //
 //   npm run db:gen-sector-stats   # reads PG (after db:refresh) + bespoke JSON
 //
-// Two kinds of metric, because "procurement € through the awarder" understates
-// the sectors whose real money is a payout, not a contract:
-//   - eur (procurement, windowed): the 11 sectors that spend via tenders —
-//     roads, water, transport, social, edu, revenue, customs, administration,
-//     defense, justice, culture. Summed per scope from `contracts`.
-//   - eur (payout, annual): pension = ДОО fund pension outlay (funds.json),
-//     health = НЗОК cash execution (nzok/execution_history.json), agri = ДФЗ CAP
-//     paid (agri_payloads). These dwarf the sector's procurement line.
+// The headline answers "how much money does this sector spend from public
+// funds?" — so most sectors carry a BUDGET or PAYOUT figure, not their thin
+// procurement line. Each stat therefore also carries a `basis` the tile turns
+// into a one-word caption (бюджет / изплатено / поръчки / служители / успех), so
+// the mixed metric kinds stay honest side by side. Five bases:
+//   - budget (annual): the tax-funded bodies whose tile fronts a budget seat.
+//     Two shapes, same basis + caption (бюджет <year>):
+//       * first-level ПРБ — defense (МО), security (МВР), justice (ВСС/съдебна
+//         власт), culture (Min. Culture), edu (МОН), tourism (МТ), social (МТСП).
+//         Value = that PRB's enacted expenditure from
+//         data/budget/ministries/<node>.json (execution is null there;
+//         `expenditure` = приет по ЗДБРБ). Procurement alone understated these
+//         100×–78,000× (Култура showed €3k vs a €234M budget).
+//       * second-level agencies with no clean ЗДБРБ line — revenue (НАП) and
+//         customs (Агенция „Митници“). Both are второстепенни разпоредители по
+//         бюджета на МФ, so the budget law carries no per-agency total and the
+//         МФ program budget lumps them into one „ефективно събиране / администри-
+//         ране на приходите“ line (~€312M in 2025) that crosses both agencies.
+//         Value = each agency's OWN годишен уточнен план (собствен ведомствен
+//         бюджет) from data/budget/agencies/{nap,customs}.json — sourced from
+//         НАП's годишен отчет and АМ's Отчет за касовото изпълнение (see those
+//         files' `source`). Slightly different basis than the ЗДБРБ-приет above
+//         (final adjusted plan, not initial law figure), but the only clean
+//         per-agency budget that exists — far more honest than their thin tender
+//         line, which understated НАП/АМ the same way.
+//   - payout (annual): pension = ДОО fund pension outlay (funds.json), health =
+//     НЗОК cash execution (nzok/execution_history.json), agri = ДФЗ CAP paid
+//     (agri_payloads) — transfers, not contracts.
+//   - procurement (windowed): the operational/commercial seats whose real spend
+//     IS their tender flow, not a tiny ministry line — roads (АПИ), water (ВиК),
+//     transport (МТС rail/ports group), energy (БЕХ group). Summed per scope
+//     from `contracts`.
 //   - score (annual): schools = national mean ДЗИ-по-БЕЛ success
 //     (indicators.json series.dzi) — schools have no single procurement seat, so
 //     the tile carries an outcome number instead of a €.
-//   - count (annual): administration = total filled positions across the whole
-//     state administration (budget/personnel.json) — headcount, not МЕУ's thin
-//     procurement line.
+//   - headcount (annual): administration = total filled positions across the
+//     whole state administration (budget/personnel.json) — headcount, not МЕУ's
+//     thin procurement line.
 // Annual figures track the scope's year for a y:<year> scope (falling back to
 // the source's latest year), and show the latest year for ns/all — a parliament
 // window spans several fiscal years, so "current scale" is the honest read.
@@ -34,21 +58,9 @@ import fs from "node:fs";
 import path from "node:path";
 import { allRows } from "../lib/pg";
 import { API_EIK } from "../../../src/lib/roadAttributes";
-import { NOI_EIK } from "../../../src/lib/noiBenchmarks";
-import { MON_EIK } from "../../../src/lib/monBenchmarks";
-import { NAP_EIK } from "../../../src/lib/napReferenceData";
-import { CUSTOMS_EIK } from "../../../src/lib/customsReferenceData";
-import { KULTURA_EIK } from "../../../src/lib/kulturaReferenceData";
 import { WATER_SECTOR_EIKS } from "../../../src/lib/vikReferenceData";
-import { DEFENSE_SECTOR_EIKS } from "../../../src/lib/defenseReferenceData";
 import { ENERGY_SECTOR_EIKS } from "../../../src/lib/energyReferenceData";
-import { TOURISM_SECTOR_EIKS } from "../../../src/lib/tourismReferenceData";
-import { SECURITY_SECTOR_EIKS } from "../../../src/lib/securityReferenceData";
-import {
-  VSS_EIK,
-  VSS_ALIAS_EIKS,
-  JUDICIAL_EIKS,
-} from "../../../src/lib/vssReferenceData";
+import { TRANSPORT_SECTOR_EIKS } from "../../../src/lib/transportReferenceData";
 
 const ROOT = path.resolve(
   path.dirname(new URL(import.meta.url).pathname),
@@ -61,24 +73,44 @@ const dash = (d: string): string => d.replace(/_/g, "-");
 const readJson = <T>(p: string): T =>
   JSON.parse(fs.readFileSync(path.join(ROOT, p), "utf8")) as T;
 
-// Procurement sectors: id (matches SECTOR_SCENES / sectorRegistry) → the awarder
-// EIK-set whose contract € rolls up to that sector. health, agri and
-// administration are NOT here — they carry a bespoke figure below (payout /
-// headcount), the far more meaningful number than their thin procurement line.
+// Procurement-basis sectors: id (matches SECTOR_SCENES / sectorRegistry) → the
+// awarder EIK-set whose contract € rolls up to that sector. Only the
+// operational/commercial seats whose real spend IS their tender flow live here
+// (roads/water/transport/energy). The tax-funded bodies carry a budget figure
+// (BUDGET_SECTOR_NODE + AGENCY_BUDGET_FILE below); health/pension/agri/schools/
+// administration carry a bespoke figure — all far more meaningful than a thin
+// procurement line.
 const SECTOR_EIKS: Record<string, string[]> = {
   roads: [API_EIK],
   water: WATER_SECTOR_EIKS,
-  transport: ["000695388"], // МТС
-  social: [NOI_EIK],
-  edu: [MON_EIK],
-  revenue: [NAP_EIK],
-  customs: [CUSTOMS_EIK],
-  defense: DEFENSE_SECTOR_EIKS,
-  security: SECURITY_SECTOR_EIKS,
-  justice: [VSS_EIK, ...VSS_ALIAS_EIKS, ...JUDICIAL_EIKS],
-  culture: [KULTURA_EIK],
+  transport: TRANSPORT_SECTOR_EIKS, // МТС group (rail/ports/aviation/road-reg — АПИ roads excluded)
   energy: [...ENERGY_SECTOR_EIKS],
-  tourism: [...TOURISM_SECTOR_EIKS],
+};
+
+// Budget-basis sectors, first-level: id → the first-level budget org (ПРБ) node
+// file under data/budget/ministries/. The tile fronts a tax-funded seat, so the
+// honest headline is that body's enacted (приет) expenditure, not its procurement.
+const BUDGET_SECTOR_NODE: Record<string, string> = {
+  defense: "admin-ministerstvo-na-otbranata",
+  security: "admin-ministerstvo-na-vatreshnite-raboti",
+  justice: "admin-sadebnata-vlast",
+  culture: "admin-ministerstvo-na-kulturata",
+  edu: "admin-ministerstvo-na-obrazovanieto-i-naukata",
+  tourism: "admin-ministerstvo-na-turizma",
+  social: "admin-ministerstvo-na-truda-i-sotsialnata-politika",
+};
+
+// Budget-basis sectors, second-level: id → the agency budget file under
+// data/budget/agencies/. НАП and Агенция „Митници“ are второстепенни разпоредители
+// по бюджета на МФ, so they're absent from the first-level ministries tree and
+// the ЗДБРБ carries no clean per-agency total (the МФ program budget lumps them
+// into one revenue-collection line). Each file carries that agency's OWN годишен
+// уточнен план (собствен ведомствен бюджет) per fiscal year — same
+// `years[].expenditure.amountEur` shape as the ministries nodes, so it folds
+// into budgetByYear below and emits basis='budget'. See each file's `source`.
+const AGENCY_BUDGET_FILE: Record<string, string> = {
+  revenue: "nap",
+  customs: "customs",
 };
 
 // Flattened (eik, sector) pairs for a single grouped query per scope.
@@ -91,9 +123,19 @@ for (const [sector, eiks] of Object.entries(SECTOR_EIKS)) {
   }
 }
 
+// `kind` drives number formatting (€ / score / integer); `basis` drives the
+// tile's one-word caption. `year` (annual bases only) lets the caption name the
+// fiscal year — procurement is a scope window, so it carries none. `note` is an
+// optional caption qualifier the tile abbreviates: 'adjusted' marks the two
+// second-level agencies (НАП/АМ) whose budget figure is a годишен уточнен план,
+// not the ЗДБРБ-приет shown by the first-level ПРБ tiles.
+type SectorBasis = "budget" | "payout" | "procurement" | "headcount" | "score";
 interface SectorVal {
   kind: "eur" | "score" | "count";
+  basis: SectorBasis;
   value: number;
+  year?: number;
+  note?: "adjusted";
 }
 type ScopeStats = Record<string, SectorVal>;
 
@@ -103,6 +145,38 @@ const seriesLatest = (byYear: Record<number, number>): number => {
   const ys = Object.keys(byYear).map(Number);
   return ys.length ? byYear[Math.max(...ys)] : 0;
 };
+const latestYearOf = (byYear: Record<number, number>): number => {
+  const ys = Object.keys(byYear).map(Number);
+  return ys.length ? Math.max(...ys) : 0;
+};
+
+// Budget € per fiscal year, per budget-basis sector. Both the first-level ПРБ
+// nodes and the second-level agency files share the `years[].expenditure.amountEur`
+// shape, so they fold into one map: ministries carry приет по ЗДБРБ (`execution`
+// null there), agencies carry their own годишен уточнен план.
+type BudgetFile = {
+  years?: Array<{
+    fiscalYear: number;
+    expenditure?: { amountEur?: number | null };
+  }>;
+};
+const budgetSeries = (m: BudgetFile): Record<number, number> => {
+  const byYear: Record<number, number> = {};
+  for (const y of m.years ?? []) {
+    const v = y.expenditure?.amountEur;
+    if (v) byYear[y.fiscalYear] = v;
+  }
+  return byYear;
+};
+const budgetByYear: Record<string, Record<number, number>> = {};
+for (const [sector, node] of Object.entries(BUDGET_SECTOR_NODE))
+  budgetByYear[sector] = budgetSeries(
+    readJson<BudgetFile>(`data/budget/ministries/${node}.json`),
+  );
+for (const [sector, file] of Object.entries(AGENCY_BUDGET_FILE))
+  budgetByYear[sector] = budgetSeries(
+    readJson<BudgetFile>(`data/budget/agencies/${file}.json`),
+  );
 
 // Pension: ДОО fund pension outlay per fiscal year.
 const funds = readJson<{
@@ -179,12 +253,23 @@ for (const [y, rec] of Object.entries(personnel.national ?? {})) {
 // is computed (scopeStats closes over it).
 const agriByYear: Record<number, number> = {};
 
-// pick the year's value for a y:<year> scope, else the source's latest.
-const pick = (
+// An annual-basis stat: the scope's year where the series has it, else latest;
+// `year` names whichever fiscal year the value came from (for the caption).
+const annual = (
   byYear: Record<number, number>,
   year: number | null,
-  latest: number,
-): number => (year != null && byYear[year] != null ? byYear[year] : latest);
+  kind: SectorVal["kind"],
+  basis: SectorBasis,
+): SectorVal => {
+  const resolved =
+    year != null && byYear[year] != null ? year : latestYearOf(byYear);
+  return {
+    kind,
+    basis,
+    value: byYear[resolved] ?? 0,
+    year: resolved || undefined,
+  };
+};
 
 // ---------------------------------------------------------------------------
 
@@ -208,27 +293,35 @@ const scopeStats = async (
   )) as { sector: string; eur: number }[];
 
   const out: ScopeStats = {};
-  for (const s of Object.keys(SECTOR_EIKS)) out[s] = { kind: "eur", value: 0 };
-  for (const r of rows) out[r.sector] = { kind: "eur", value: r.eur };
+  for (const s of Object.keys(SECTOR_EIKS))
+    out[s] = { kind: "eur", basis: "procurement", value: 0 };
+  for (const r of rows)
+    out[r.sector] = { kind: "eur", basis: "procurement", value: r.eur };
 
-  // Bespoke payouts / score.
-  out.pension = {
-    kind: "eur",
-    value: pick(pensionByYear, year, seriesLatest(pensionByYear)),
-  };
-  out.health = { kind: "eur", value: pick(nzokByYear, year, nzokLatest) };
-  out.agri = {
-    kind: "eur",
-    value: pick(agriByYear, year, seriesLatest(agriByYear)),
-  };
-  out.schools = {
-    kind: "score",
-    value: pick(dziByYear, year, seriesLatest(dziByYear)),
-  };
-  out.administration = {
-    kind: "count",
-    value: pick(adminByYear, year, seriesLatest(adminByYear)),
-  };
+  // Budget-basis sectors: enacted (приет) expenditure of the fronting ПРБ, plus
+  // the second-level agencies' own annual budget (revenue/customs) — both live
+  // in budgetByYear. The agencies carry a годишен уточнен план (not ЗДБРБ-приет),
+  // so tag them 'adjusted' for the tile's caption qualifier.
+  for (const s of Object.keys(budgetByYear)) {
+    out[s] = annual(budgetByYear[s], year, "eur", "budget");
+    if (s in AGENCY_BUDGET_FILE) out[s].note = "adjusted";
+  }
+
+  // Bespoke payouts / score / headcount.
+  out.pension = annual(pensionByYear, year, "eur", "payout");
+  // НЗОК: latest is the last FULL year (month 12), not the partial current YTD.
+  out.health =
+    year != null && nzokByYear[year] != null
+      ? { kind: "eur", basis: "payout", value: nzokByYear[year], year }
+      : {
+          kind: "eur",
+          basis: "payout",
+          value: nzokLatest,
+          year: nzokLatestYear || undefined,
+        };
+  out.agri = annual(agriByYear, year, "eur", "payout");
+  out.schools = annual(dziByYear, year, "score", "score");
+  out.administration = annual(adminByYear, year, "count", "headcount");
   return out;
 };
 
@@ -252,6 +345,14 @@ const main = async (): Promise<void> => {
     ["agri (agri_payloads)", agriByYear],
     ["schools (indicators dzi)", dziByYear],
     ["administration (personnel.json)", adminByYear],
+    ...Object.entries(budgetByYear).map(
+      ([s, series]): [string, Record<number, number>] => [
+        BUDGET_SECTOR_NODE[s]
+          ? `${s} budget (ministries/${BUDGET_SECTOR_NODE[s]})`
+          : `${s} budget (agencies/${AGENCY_BUDGET_FILE[s]})`,
+        series,
+      ],
+    ),
   ];
   for (const [label, series] of bespoke) {
     if (Object.keys(series).length === 0)

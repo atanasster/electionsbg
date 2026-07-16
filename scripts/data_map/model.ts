@@ -97,6 +97,7 @@ export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
   { pattern: /^\/judiciary\//, dataset: "judiciary" },
   { pattern: /^\/defense\//, dataset: "defense" },
   { pattern: /^\/security\//, dataset: "security" },
+  { pattern: /^\/transport\//, dataset: "transport" },
   { pattern: /^\/energy\//, dataset: "energy" },
   { pattern: /^\/administration\//, dataset: "administration" },
   { pattern: /^\/water\//, dataset: "water" },
@@ -741,6 +742,23 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     tags: ["indicators"],
   },
   {
+    id: "transport",
+    label: { bg: "Eurostat · железници · субсидия", en: "Eurostat · rail · subsidy" }, // prettier-ignore
+    detail: {
+      bg: "жп пътници (знаменател)",
+      en: "rail passengers (denominator)",
+    },
+    desc: {
+      bg: "Данните за железопътната субсидия до парите на транспорта: жп пътниците от Eurostat (rail_pa_total) — знаменателят на „субсидия на пътник“ — сдвоени с държавната субсидия за БДЖ/НКЖИ от Закона за държавния бюджет (data/transport/). Субсидията се парсва от вече кешираните ЗДБ HTML файлове (rides the budget_law watcher). Обществените поръчки на транспортната група идват от корпуса на договорите, не оттук.",
+      en: "The rail-subsidy data beside the transport money: rail passengers from Eurostat (rail_pa_total) — the denominator of 'subsidy per passenger' — paired with the state subsidy to БДЖ/НКЖИ from the State Budget Law (data/transport/). The subsidy is parsed from the already-cached ЗДБ HTML (rides the budget_law watcher). The transport group's procurement comes from the contracts corpus, not here.",
+    },
+    url: "https://ec.europa.eu/eurostat/databrowser/view/rail_pa_total/default/table",
+    origin: "intl",
+    members: ["eurostat_rail"],
+    skills: [],
+    tags: ["indicators"],
+  },
+  {
     id: "administration",
     label: { bg: "ИИСДА · Eurostat · администрация", en: "IISDA · Eurostat · administration" }, // prettier-ignore
     detail: {
@@ -1051,6 +1069,20 @@ export const DATASETS: DatasetDef[] = [
       en: "The outcome layer beside МВР's money: national road-traffic deaths by year from Eurostat (708 peak 2015 → 478 in 2024), paired with МВР patrol-car procurement. The МВР group's procurement (~75 units, ~€1.9bn) comes from the contracts corpus; the spend-vs-crime scatter reuses data/regional.json.",
     },
     path: "data/security/",
+    tags: ["indicators"],
+  },
+  {
+    id: "transport",
+    label: { bg: "Транспорт", en: "Transport" },
+    detail: {
+      bg: "жп субсидия и пътници",
+      en: "rail subsidy & passengers",
+    },
+    desc: {
+      bg: "Данните до парите на транспорта: държавната субсидия за железниците (БДЖ PSO + НКЖИ) от Закона за държавния бюджет и жп пътниците от Eurostat, за плочката „субсидия на пътник“ на /sector/transport. Обществените поръчки на групата (~€5.9 млрд., 11 структури) идват от корпуса на договорите; пътната инфраструктура (АПИ) е отделен сектор.",
+      en: "The data beside the transport money: the state rail subsidy (БДЖ PSO + НКЖИ) from the State Budget Law and rail passengers from Eurostat, for the 'subsidy per passenger' tile on /sector/transport. The group's procurement (~€5.9bn, 11 entities) comes from the contracts corpus; road infrastructure (АПИ) is a separate sector.",
+    },
+    path: "data/transport/",
     tags: ["indicators"],
   },
   {
@@ -1599,6 +1631,7 @@ export const EDGES: [string, string][] = [
   ["ds:budget", "f:defense"],
   ["ds:macro", "f:defense"],
   ["src:security", "ds:security"],
+  ["src:transport", "ds:transport"],
   ["src:energy", "ds:energy"],
   ["ds:energy", "f:energy"],
   // /sector/energy leads with the БЕХ procurement pack (the €8.96bn group), which
