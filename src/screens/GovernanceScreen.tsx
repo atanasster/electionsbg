@@ -15,6 +15,21 @@ import { TileHubGrid, TileHubSection } from "@/ux/infographic";
 import { GOV_HUB_CLUSTERS } from "./governance/governanceRegistry";
 import { GOV_HUB_SCENES } from "./governance/governanceScenes";
 
+// Dev-time guard for the stringly-typed tile.id ↔ GOV_HUB_SCENES contract:
+// a tile whose id has no scene key would silently render an empty vignette
+// (GOV_HUB_SCENES[id] === undefined) rather than fail the build. Flag any such
+// gap loudly in dev; compiled out of production.
+if (import.meta.env.DEV) {
+  const missing = GOV_HUB_CLUSTERS.flatMap((cluster) => cluster.tiles)
+    .map((tile) => tile.id)
+    .filter((id) => !GOV_HUB_SCENES[id]);
+  if (missing.length) {
+    console.error(
+      `[governance hub] tile id(s) with no GOV_HUB_SCENES scene: ${missing.join(", ")}`,
+    );
+  }
+}
+
 export const GovernanceScreen: FC = () => {
   const { t } = useTranslation();
   const title = t("nav_governance") || "Governance";
