@@ -175,6 +175,17 @@ Adding a new year: same pattern — find the PDF URL (via `site:nra.bg "Годи
 
 The NAP parser shells out to `pdftotext -layout` (poppler-utils) because the NAP report's tables have multi-line wrapping that defeats custom pdfjs column extraction. `pdftotext` is universal on dev/CI environments. The customs parser is pdfjs-only — no extra dependency.
 
+## Agency budgets (НАП / Митници) → /governance/sectors tiles
+
+`data/budget/agencies/{nap,customs}.json` carry the **own annual budget (уточнен план на разходите)** of НАП and Агенция „Митници“ — second-level разпоредители under МФ that are absent from the first-level `ministries/` tree, so the ЗДБРБ carries no clean per-agency line. These files are the `revenue` and `customs` sector headlines on `/governance/sectors` + the `/procurement` featured strip (folded via `AGENCY_BUDGET_FILE` in `scripts/db/gen_procurement/sector_stats.ts` → `basis:'budget'`). Same `years[].expenditure.amountEur` shape as a ministries node.
+
+**Hand-curated constants** (no parser — like `defense/programs.json`), committed to git. Sources, both published ~March of T+1:
+
+- **НАП** (`nap.json`): the НАП „Годишен отчет за дейността“ — the **same PDF** the `nap_annual` watcher already tracks and `run_nap_annual.ts` fetches. Table „Отчет на разходите на НАП“, column „Уточнен план“ (в хил. лв → EUR ÷ 1.95583). So when `nap_annual` flips, refresh this alongside the VAT/PIT ingest above.
+- **Митници** (`customs.json`): the customs.bg „Отчет за касовото изпълнение на бюджета“ (форма Б-3, декемврийски кумулативен), ред „II. РАЗХОДИ“, column „Годишен уточнен план“ — a *different* customs.bg form than the Митническа хроника `customs_revenue` watches, but the same annual cadence, so refresh it in the same pass.
+
+To refresh: read the new уточнен-план figure from the report, add/patch the `years[]` row (keep `source`), then **rerun `npm run db:gen-sector-stats`** (needs local PG + local `ministries/` files) so the two hub tiles pick up the new year. No new watcher — the `nap_annual` flip is the trigger for НАП; customs rides the same March cycle.
+
 ## Policy-baseline ingest (tax-policy simulator)
 
 The `/budget/simulator` screen scores rate-change scenarios (ДДС standard + per-category, ДДФЛ flat, корпоративен, дивидент, МОД cap) against a single derived file. Two scripts, run in order:
