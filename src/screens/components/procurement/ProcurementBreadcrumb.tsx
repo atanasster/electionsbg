@@ -27,7 +27,7 @@ export const ProcurementBreadcrumb: FC<{
     // Linked to the hub when we're on a sub-page; the current (non-linked) crumb
     // on the hub itself.
     {
-      label: t("procurement_index_title"),
+      label: t("procurement_link_label"),
       ...(label ? { to: "/procurement" } : {}),
     },
   ];

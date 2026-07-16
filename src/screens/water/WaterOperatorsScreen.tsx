@@ -176,7 +176,7 @@ export const WaterOperatorsScreen: FC = () => {
         className="mt-2"
         items={[
           { label: t("nav_governance"), to: "/governance" },
-          { label: t("procurement_index_title"), to: "/procurement" },
+          { label: t("procurement_link_label"), to: "/procurement" },
           { label: t("sectors_hub_nav"), to: "/governance/sectors" },
           { label: t("procurement_water_nav"), to: "/water" },
           { label: bg ? "ВиК оператори" : "Water operators" },

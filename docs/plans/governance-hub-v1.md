@@ -214,9 +214,9 @@ Two **disjoint** systems in the repo (do not merge — a new hub uses the first)
   **These existing pages need their headers updated** to add this breadcrumb.
 - `/governance/overview`: keep `PlaceHeader` unchanged (only the route path is new).
 
-**Cleanup while here:** standardize the procurement root-crumb label key (files disagree —
-`procurement_link_label` vs `procurement_index_title`); `SectorBreadcrumb` is misfiled under
-`components/procurement/` (cosmetic).
+**Cleanup:** procurement root-crumb label key standardized on `procurement_link_label` across all
+breadcrumbs (wrappers + the inline Contract/Tender/Water trails) — DONE. Still open: `SectorBreadcrumb`
+is misfiled under `components/procurement/` (cosmetic; moving it churns ~11 imports, left as-is).
 
 ## New-page inventory (everything reachable from the hubs)
 

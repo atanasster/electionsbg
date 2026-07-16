@@ -84,7 +84,7 @@ export const ContractDetailScreen: FC = () => {
       <Breadcrumbs
         items={[
           { label: t("nav_governance"), to: "/governance" },
-          { label: t("procurement_index_title"), to: "/procurement" },
+          { label: t("procurement_link_label"), to: "/procurement" },
           {
             label: t("procurement_contracts_title"),
             to: "/procurement/contracts",

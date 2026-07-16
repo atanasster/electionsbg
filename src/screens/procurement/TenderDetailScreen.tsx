@@ -677,7 +677,7 @@ export const TenderDetailScreen: FC = () => {
       <Breadcrumbs
         items={[
           { label: t("nav_governance"), to: "/governance" },
-          { label: t("procurement_index_title"), to: "/procurement" },
+          { label: t("procurement_link_label"), to: "/procurement" },
           {
             label: t("procurement_tenders_nav") || "Tenders",
             to: "/procurement/tenders",
