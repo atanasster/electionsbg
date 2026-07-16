@@ -1,7 +1,14 @@
 # Социална политика / Социално подпомагане (МТСП + АСП) sector view — v1 plan & competitive research
 
-Status: **NOT BUILT — plan/design only; AUDITED & VERIFIED against live code 2026-07-16 (see §0.5).**
-This is the single biggest coverage gap in the app: the
+Status: **BUILT & SHIPPED (Phases 1–3) 2026-07-17.** `/sector/social` now renders the МТСП/АСП group
+dashboard: the €15bn disbursement-iceberg hero, the benefit-mix budget bridge (disability ×7.2), the
+before/after poverty dumbbell (BG −27% vs EU −33%) + value-for-money scatter, the GF10 EU-peer strip, the
+АСП benefit tiles (heating 357k hh/€110M; child/GMI/disability spend×caseload), and the CPV-category /
+competition / HHI procurement tiles. Redundancy fix landed (НОИ reclaimed its NoiPack). **Deferred
+follow-ups** (infra, not user-visible): AI `socialSpending`/`socialBenefits` chat tools, the `asp_benefits`
+watcher + `update-social` skill + process-watch mapping, `data_map/model.ts` wiring, README/`/data` pages,
+and the OG-image regen. Original plan/audit preserved below.
+This was the single biggest coverage gap in the app: the
 Social-protection function is **€15.09bn = 36.8% of ALL Bulgarian government spending (2024)** — the
 largest COFOG function by a wide margin — and the app today surfaces only its pension slice (НОИ, via
 `/pensions`). The entire social-**assistance** side (family/child allowances, disability support,
