@@ -442,6 +442,10 @@ export const DataSources = () => {
                 label={t("admin_egov_source")}
               />
               <SourceItem
+                href="https://ec.europa.eu/eurostat/databrowser/view/isoc_sk_dskl_i21/default/table"
+                label={t("admin_digital_skills_source")}
+              />
+              <SourceItem
                 href="https://ec.europa.eu/eurostat/web/income-and-living-conditions/database"
                 label={t("eurostat_silc_source")}
               />

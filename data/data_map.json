@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-16T12:43:53.321Z",
+  "generatedAt": "2026-07-16T13:42:07.795Z",
   "nodes": [
     {
       "id": "src:water",
@@ -1598,8 +1598,8 @@
         "en": "workforce, services, e-gov"
       },
       "desc": {
-        "bg": "Държавната администрация като институция: административните услуги от Административния регистър (ИИСДА, ~2 668 услуги), използването на електронно управление спрямо ЕС от Eurostat (isoc_ciegi_ac), и показателите за административно обслужване от годишния Доклад за състоянието на администрацията. Численост, структури и разход идват от Доклада (personnel.json) и COFOG.",
-        "en": "The state administration as an institution: the administrative-services register (IISDA, ~2,668 services), e-government use vs the EU from Eurostat (isoc_ciegi_ac), and the service-quality metrics from the annual Report on the State of the Administration. Headcount, structures and cost come from the Report (personnel.json) and COFOG."
+        "bg": "Държавната администрация като институция: административните услуги от Административния регистър (ИИСДА, ~2 668 услуги), използването на електронно управление спрямо ЕС от Eurostat (isoc_ciegi_ac), дигиталните умения на гражданите (isoc_sk_dskl_i21) и показателите за административно обслужване от годишния Доклад за състоянието на администрацията. Численост, структури и разход идват от Доклада (personnel.json) и COFOG.",
+        "en": "The state administration as an institution: the administrative-services register (IISDA, ~2,668 services), e-government use vs the EU from Eurostat (isoc_ciegi_ac), citizen digital skills (isoc_sk_dskl_i21), and the service-quality metrics from the annual Report on the State of the Administration. Headcount, structures and cost come from the Report (personnel.json) and COFOG."
       },
       "tags": [
         "fiscal",
@@ -1626,6 +1626,12 @@
           "url": "https://ec.europa.eu/eurostat/databrowser/view/isoc_ciegi_ac/default/table",
           "cadence": "monthly",
           "freshness": "2026-07-15T06:08:41.204Z"
+        },
+        {
+          "id": "eurostat_digital_skills",
+          "label": "Eurostat digital skills (isoc_sk_dskl_i21)",
+          "url": "https://ec.europa.eu/eurostat/databrowser/view/isoc_sk_dskl_i21/default/table",
+          "cadence": "monthly"
         }
       ],
       "x": 28,

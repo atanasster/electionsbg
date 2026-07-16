@@ -702,6 +702,19 @@ const PEER_INDICATORS_ANNUAL: AnnualPeerIndicatorConfig[] = [
     minYears: 8,
     computeEu27FromMembers: true,
   },
+  {
+    key: "digitalSkills",
+    dataset: "isoc_sk_dskl_i21",
+    // Citizen digital skills — share (16-74) with at least basic overall skills
+    // across all five DigComp areas. Pin the total individual type + the overall
+    // "at least basic" indicator + the % unit. Biennial (odd years from 2021),
+    // so only a few points exist — lower the minYears floor accordingly.
+    query: { ind_type: "IND_TOTAL", indic_is: "I_DSK2_BAB", unit: "PC_IND" },
+    direction: "higher",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/isoc_sk_dskl_i21/default/table",
+    minYears: 2,
+  },
 ];
 
 const fetchAnnualIndicatorPeers = async (

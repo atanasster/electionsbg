@@ -37,6 +37,8 @@ import {
   useAdminEgov,
   type EgovPayload,
 } from "@/data/administration/useAdminEgov";
+import { useAdminDigitalSkills } from "@/data/administration/useAdminDigitalSkills";
+import { DigitalSkillsSection } from "./DigitalSkillsTiles";
 import {
   useAdminServiceQuality,
   type ServiceQualityPayload,
@@ -654,6 +656,7 @@ export const AdministrationScreen: FC = () => {
   // (~324 KB) on this page — see scripts/administration/build_context.ts.
   const { data: ctx } = useAdminContext();
   const { data: egov } = useAdminEgov();
+  const { data: digitalSkills } = useAdminDigitalSkills();
   const { data: serviceQuality } = useAdminServiceQuality();
   const { data: services } = useAdminServices();
 
@@ -902,6 +905,9 @@ export const AdministrationScreen: FC = () => {
           </div>
         </PackSection>
       )}
+
+      {/* Digital skills — the demand-side companion to e-government use */}
+      <DigitalSkillsSection data={digitalSkills} bg={bg} />
 
       {/* Money — the e-government procurement group */}
       <PackSection

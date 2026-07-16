@@ -1,6 +1,6 @@
 ---
 name: update-administration
-description: Refresh the Държавна администрация data behind /sector/administration — the e-government adoption vs the EU (data/administration/egov.json, Eurostat isoc_ciegi_ac), the административно обслужване service-quality metrics (data/administration/service_quality.json, parsed from the annual Доклад за състоянието на администрацията), the ИИСДА administrative-services register (data/administration/services_catalog.json + the admin_services Postgres table + the services_overview.json aggregate), and the precomputed page-context blob (data/administration/context.json, baked from personnel.json + macro.json + cofog.json). Use when the daily watch report flags `iisda_services`, `eurostat_egov`, or `iisda_doklad` as changed, when the user asks to refresh administration / държавна администрация / електронно управление / административни услуги data, or after a fresh git clone if data/administration/ is missing or the admin_services table is empty.
+description: Refresh the Държавна администрация data behind /sector/administration — the e-government adoption vs the EU (data/administration/egov.json, Eurostat isoc_ciegi_ac), the citizen digital-skills band vs the EU (data/administration/digital_skills.json, Eurostat isoc_sk_dskl_i21, incl. the full-27 youth cross-section behind the reusable EU choropleth), the административно обслужване service-quality metrics (data/administration/service_quality.json, parsed from the annual Доклад за състоянието на администрацията), the ИИСДА administrative-services register (data/administration/services_catalog.json + the admin_services Postgres table + the services_overview.json aggregate), and the precomputed page-context blob (data/administration/context.json, baked from personnel.json + macro.json + cofog.json). Use when the daily watch report flags `iisda_services`, `eurostat_egov`, `eurostat_digital_skills`, or `iisda_doklad` as changed, when the user asks to refresh administration / държавна администрация / електронно управление / дигитални умения / административни услуги data, or after a fresh git clone if data/administration/ is missing or the admin_services table is empty.
 ---
 
 # update-administration
@@ -15,6 +15,7 @@ services browser), and read by the `administrationOverview` AI chat tool. See
 | Artifact | Source | Cadence | Watcher |
 |---|---|---|---|
 | `egov.json` | Eurostat `isoc_ciegi_ac` (I_IUGOV1 — interaction with public authorities) | annual | `eurostat_egov` |
+| `digital_skills.json` | Eurostat `isoc_sk_dskl_i21` (I_DSK2_* — citizen digital skills, DESI human-capital pillar; headline + 5 areas + composition + full-27 youth cut) | biennial (odd years) | `eurostat_digital_skills` |
 | `services_catalog.json` + `admin_services` (PG) + `services_overview.json` | Административен регистър (`iisda.government.bg/adm_services/services`) | weekly-ish | `iisda_services` |
 | `service_quality.json` | Annual Доклад за състоянието на администрацията (parsed from the cached `raw_data/budget/doklad-*.txt`) | annual | `iisda_doklad` (shared with /update-budget) |
 | `context.json` (derived) | `data/budget/personnel.json` + `data/macro.json` + `data/cofog.json` | on any of those | — (rebuild after /update-budget or /update-macro) |
@@ -27,6 +28,7 @@ it refreshes with /update-procurement.
 
 ```bash
 npx tsx scripts/administration/fetch_egov.ts              # egov.json (Eurostat)
+npx tsx scripts/administration/fetch_digital_skills.ts    # digital_skills.json (Eurostat isoc_sk_dskl_i21)
 npx tsx scripts/administration/fetch_services.ts          # services_overview.json + services_catalog.json (ИИСДА scrape)
 npx tsx scripts/administration/parse_service_quality.ts   # service_quality.json (from cached doklad-*.txt)
 npm run admin:build-context                               # context.json (from personnel + macro + cofog)

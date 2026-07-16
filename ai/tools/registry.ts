@@ -120,7 +120,7 @@ import {
   noiPensionDistribution,
   noiPensionSeries,
 } from "./pensions";
-import { administrationOverview } from "./administration";
+import { administrationOverview, digitalSkills } from "./administration";
 import {
   chmiEvents,
   localCouncil,
@@ -4992,6 +4992,26 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: administrationOverview,
+  },
+  {
+    name: "digitalSkills",
+    domain: "fiscal",
+    description: {
+      bg: "Дигиталните умения на гражданите спрямо ЕС (Eurostat, DESI): дял с поне базови умения, класиране в ЕС, младежите 16-24 г., разликата по пол и по области на уменията.",
+      en: "Citizen digital skills vs the EU (Eurostat, DESI): share with at least basic skills, EU rank, young people 16-24, the gender gap and the skill areas.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Как е България по дигитални умения спрямо ЕС?",
+        en: "How does Bulgaria compare on digital skills vs the EU?",
+      },
+      {
+        bg: "Колко българи имат базови компютърни умения?",
+        en: "How many Bulgarians have basic digital skills?",
+      },
+    ],
+    run: digitalSkills,
   },
   {
     name: "tourismSeasonality",

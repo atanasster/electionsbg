@@ -1,0 +1,228 @@
+{
+  "indicator": {
+    "dataset": "isoc_sk_dskl_i21",
+    "code": "I_DSK2_BAB",
+    "titleBg": "Дигитални умения на гражданите",
+    "titleEn": "Citizen digital skills",
+    "unit": "% of individuals aged 16-74"
+  },
+  "source": {
+    "name": "Eurostat",
+    "url": "https://ec.europa.eu/eurostat/databrowser/view/isoc_sk_dskl_i21/default/table"
+  },
+  "fetchedAt": "2026-07-16T14:19:56.938Z",
+  "latestYear": 2025,
+  "peers": [
+    "BG",
+    "EU27_2020",
+    "RO",
+    "EL",
+    "HU",
+    "HR"
+  ],
+  "rank": {
+    "rank": 26,
+    "total": 27,
+    "isLast": false
+  },
+  "atLeastBasic": {
+    "BG": [
+      {
+        "year": 2021,
+        "value": 31.18
+      },
+      {
+        "year": 2023,
+        "value": 35.52
+      },
+      {
+        "year": 2025,
+        "value": 38.26
+      }
+    ],
+    "EU27_2020": [
+      {
+        "year": 2021,
+        "value": 53.92
+      },
+      {
+        "year": 2023,
+        "value": 55.56
+      },
+      {
+        "year": 2025,
+        "value": 60.4
+      }
+    ],
+    "RO": [
+      {
+        "year": 2021,
+        "value": 27.82
+      },
+      {
+        "year": 2023,
+        "value": 27.73
+      },
+      {
+        "year": 2025,
+        "value": 31.84
+      }
+    ],
+    "EL": [
+      {
+        "year": 2021,
+        "value": 52.48
+      },
+      {
+        "year": 2023,
+        "value": 52.4
+      },
+      {
+        "year": 2025,
+        "value": 50.96
+      }
+    ],
+    "HU": [
+      {
+        "year": 2021,
+        "value": 49.09
+      },
+      {
+        "year": 2023,
+        "value": 58.89
+      },
+      {
+        "year": 2025,
+        "value": 57.32
+      }
+    ],
+    "HR": [
+      {
+        "year": 2021,
+        "value": 63.37
+      },
+      {
+        "year": 2023,
+        "value": 58.95
+      },
+      {
+        "year": 2025,
+        "value": 63.38
+      }
+    ]
+  },
+  "composition": [
+    {
+      "year": 2021,
+      "atLeastBasic": 31.18,
+      "below": 37.93,
+      "noSkills": 6.16,
+      "notAssessed": 24.73
+    },
+    {
+      "year": 2023,
+      "atLeastBasic": 35.52,
+      "below": 38.98,
+      "noSkills": 5.88,
+      "notAssessed": 19.61
+    },
+    {
+      "year": 2025,
+      "atLeastBasic": 38.26,
+      "below": 41.94,
+      "noSkills": 6.65,
+      "notAssessed": 13.15
+    }
+  ],
+  "areas": [
+    {
+      "code": "IL",
+      "labelBg": "Информация и грамотност",
+      "labelEn": "Information & data literacy",
+      "bgValue": 73.64,
+      "euValue": 86.47
+    },
+    {
+      "code": "CC",
+      "labelBg": "Комуникация и сътрудничество",
+      "labelEn": "Communication & collaboration",
+      "bgValue": 85.34,
+      "euValue": 92.07
+    },
+    {
+      "code": "DCC",
+      "labelBg": "Създаване на съдържание",
+      "labelEn": "Digital content creation",
+      "bgValue": 53.7,
+      "euValue": 70.51
+    },
+    {
+      "code": "SF",
+      "labelBg": "Безопасност",
+      "labelEn": "Safety",
+      "bgValue": 55.11,
+      "euValue": 74.63
+    },
+    {
+      "code": "PS",
+      "labelBg": "Решаване на проблеми",
+      "labelEn": "Problem solving",
+      "bgValue": 64.3,
+      "euValue": 86.07
+    }
+  ],
+  "youth": {
+    "latestYear": 2025,
+    "unit": "% of individuals aged 16-24",
+    "byGeo": {
+      "EU27_2020": 74.55,
+      "EA": 75.18,
+      "BE": 73.09,
+      "BG": 52.81,
+      "CZ": 91.68,
+      "DK": 92.06,
+      "DE": 62.34,
+      "EE": 80.91,
+      "IE": 85.5,
+      "EL": 79.24,
+      "ES": 82.55,
+      "FR": 80.42,
+      "HR": 89.09,
+      "IT": 68.5,
+      "CY": 63.86,
+      "LV": 65.36,
+      "LT": 80.66,
+      "LU": 63.62,
+      "HU": 76.32,
+      "MT": 91.52,
+      "NL": 88.51,
+      "AT": 78.04,
+      "PL": 73.64,
+      "PT": 83.37,
+      "RO": 53.28,
+      "SI": 67.45,
+      "SK": 80.53,
+      "FI": 89.87,
+      "SE": 74.16,
+      "NO": 81.03,
+      "CH": 84.8,
+      "BA": 70.78,
+      "ME": 62.4,
+      "MK": 44.47,
+      "AL": 61.15,
+      "RS": 77.05,
+      "TR": 46.33,
+      "XK": 93.13
+    },
+    "rank": {
+      "rank": 27,
+      "total": 27,
+      "isLast": true
+    },
+    "bg": {
+      "total": 52.81,
+      "male": 50.46,
+      "female": 55.33
+    }
+  }
+}

@@ -2235,6 +2235,22 @@ export const route = (question: string, ctx: ToolContext): Route => {
     if (hasPriceCue(q)) return { tool: "electricityPrices", args: {} };
     return { tool: "generationMix", args: {} };
   }
+  // citizen digital skills (Eurostat DESI band on /sector/administration) —
+  // checked before the administration block so the skills question isn't folded
+  // into the generic administration overview.
+  if (
+    has(
+      q,
+      "дигитални умения",
+      "цифрови умения",
+      "дигитална грамотност",
+      "компютърна грамотност",
+      "digital skills",
+      "digital literacy",
+      "desi",
+    )
+  )
+    return { tool: "digitalSkills", args: {} };
   // state administration (the /sector/administration view) — size, cost, service
   // quality and the EU e-government gap. Distinctive multi-word cues only, so a
   // generic "администрация" (e.g. общинска администрация on a place page) or a

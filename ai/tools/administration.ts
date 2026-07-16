@@ -182,3 +182,132 @@ export const administrationOverview = async (
     ],
   };
 };
+
+// ---- citizen digital skills (Eurostat isoc_sk_dskl_i21) ---------------------
+type DskPoint = { year: number; value: number };
+type DskArea = {
+  code: string;
+  labelBg: string;
+  labelEn: string;
+  bgValue: number | null;
+  euValue: number | null;
+};
+type EuRank = { rank: number; total: number; isLast: boolean };
+type DigitalSkillsPayload = {
+  latestYear: number;
+  rank: EuRank | null;
+  atLeastBasic: Record<string, DskPoint[]>;
+  areas: DskArea[];
+  youth: {
+    latestYear: number;
+    byGeo: Record<string, number>;
+    rank: EuRank | null;
+    bg: { total: number | null; male: number | null; female: number | null };
+  };
+};
+
+// "26th of 27" / "last in the EU" from a computed rank (never hard-coded).
+const rankPhrase = (r: EuRank | null | undefined, bg: boolean): string => {
+  if (!r) return "";
+  if (r.isLast) return bg ? "последна в ЕС" : "last in the EU";
+  return bg ? `${r.rank}-а от ${r.total}` : `${r.rank}th of ${r.total}`;
+};
+
+// Citizen digital skills — BG vs the EU on "at least basic digital skills", the
+// demand-side companion to e-government use. Cues: дигитални умения / цифрови
+// умения / компютърна грамотност / digital skills / DESI.
+export const digitalSkills = async (
+  _args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const d = await fetchData<DigitalSkillsPayload>(
+    "/administration/digital_skills.json",
+  );
+
+  const yr = d.latestYear;
+  const at = (geo: string) =>
+    d.atLeastBasic[geo]?.find((p) => p.year === yr)?.value ?? null;
+  const bgV = at("BG");
+  const euV = at("EU27_2020");
+  const youth = d.youth;
+  const yBg = youth.byGeo.BG ?? null;
+  const yEu = youth.byGeo.EU27_2020 ?? null;
+
+  const headlineRank = rankPhrase(d.rank, bg);
+  const youthRankLabel = rankPhrase(youth.rank, bg);
+
+  const rows: Array<Record<string, string | number | null>> = [];
+  if (bgV != null) {
+    const suffix = headlineRank ? ` · ${headlineRank}` : "";
+    rows.push({
+      metric: bg
+        ? `Поне базови дигитални умения (${yr})`
+        : `At least basic digital skills (${yr})`,
+      value:
+        euV != null
+          ? bg
+            ? `${bgV.toFixed(0)}% (ЕС: ${euV.toFixed(0)}%)${suffix}`
+            : `${bgV.toFixed(0)}% (EU: ${euV.toFixed(0)}%)${suffix}`
+          : `${bgV.toFixed(0)}%`,
+    });
+  }
+  if (yBg != null) {
+    const suffix = youthRankLabel ? ` — ${youthRankLabel}` : "";
+    rows.push({
+      metric: bg
+        ? `Младежи 16-24 г. (${youth.latestYear})`
+        : `Young people 16-24 (${youth.latestYear})`,
+      value:
+        yEu != null
+          ? bg
+            ? `${yBg.toFixed(0)}%${suffix} (ЕС: ${yEu.toFixed(0)}%)`
+            : `${yBg.toFixed(0)}%${suffix} (EU: ${yEu.toFixed(0)}%)`
+          : `${yBg.toFixed(0)}%`,
+    });
+  }
+  if (youth.bg.male != null && youth.bg.female != null) {
+    rows.push({
+      metric: bg ? "Младежи по пол (жени/мъже)" : "Youth by sex (women/men)",
+      value: `${youth.bg.female.toFixed(0)}% / ${youth.bg.male.toFixed(0)}%`,
+    });
+  }
+  // Weakest area (largest gap to the EU).
+  const gap = d.areas
+    .filter((a) => a.bgValue != null && a.euValue != null)
+    .map((a) => ({ a, g: (a.euValue as number) - (a.bgValue as number) }))
+    .sort((x, y) => y.g - x.g)[0];
+  if (gap) {
+    rows.push({
+      metric: bg ? "Най-голямо изоставане" : "Widest gap to the EU",
+      value: bg
+        ? `${gap.a.labelBg}: ${(gap.a.bgValue as number).toFixed(0)}% срещу ${(gap.a.euValue as number).toFixed(0)}% в ЕС`
+        : `${gap.a.labelEn}: ${(gap.a.bgValue as number).toFixed(0)}% vs ${(gap.a.euValue as number).toFixed(0)}% in the EU`,
+    });
+  }
+
+  return {
+    tool: "digitalSkills",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? `Дигитални умения на гражданите — България спрямо ЕС (${yr})`
+      : `Citizen digital skills — Bulgaria vs the EU (${yr})`,
+    viz: "none",
+    columns: [
+      { key: "metric", label: bg ? "Показател" : "Metric" },
+      { key: "value", label: bg ? "Стойност" : "Value" },
+    ],
+    rows,
+    facts: {
+      ...(bgV != null ? { bgAtLeastBasic: bgV } : {}),
+      ...(euV != null ? { euAtLeastBasic: euV } : {}),
+      ...(d.rank ? { rank: d.rank.rank, total: d.rank.total } : {}),
+      ...(yBg != null ? { youthBg: yBg } : {}),
+      ...(yEu != null ? { youthEu: yEu } : {}),
+      ...(youth.rank ? { youthRank: youth.rank.rank } : {}),
+      target2030: 80,
+    },
+    provenance: ["administration/digital_skills.json"],
+  };
+};

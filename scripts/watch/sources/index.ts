@@ -20,6 +20,7 @@ import { ministryExecutionReports } from "./ministry_execution_reports";
 import { iisdaDoklad } from "./iisda_doklad";
 import { iisdaServices } from "./iisda_services";
 import { eurostatEgov } from "./eurostat_egov";
+import { eurostatDigitalSkills } from "./eurostat_digital_skills";
 import { eurostat } from "./eurostat";
 import { eurostatPolicy } from "./eurostat_policy";
 import { policyBaselineLocal } from "./policy_baseline_local";
@@ -132,6 +133,7 @@ export const SOURCES: WatchSource[] = [
   iisdaDoklad,
   iisdaServices,
   eurostatEgov,
+  eurostatDigitalSkills,
   customsRevenue,
   customsExciseRegister,
   napAnnual,
