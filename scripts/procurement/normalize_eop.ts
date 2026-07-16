@@ -120,7 +120,8 @@ const splitMulti = (v: string | undefined): string[] =>
 // Unpublished / anonymised supplier markers — the source hides some suppliers
 // (protected natural persons). Keep the row (its value lands on the buyer) but
 // with no contractor identity.
-const UNPUBLISHED_SUPPLIER = /^(-+|не се публикува|няма( данни)?|n\/?a)$/i;
+const UNPUBLISHED_SUPPLIER =
+  /^(—+|-+|не се публикува|няма( данни)?|неизвестен|н\/?д|n\.?\/?a\.?)$/i;
 
 // Resolve a supplier token to a contractor key. A clean BG EIK passes through.
 // Otherwise recover a BG EIK embedded in a messy id (BG-VAT "BG104529087",
@@ -299,17 +300,30 @@ export const normalizeEopDay = (
     // to the awarded total — the way SIGMA reports framework totals.
     //
     // Resolve each supplier: a clean BG EIK, a BG EIK recovered from a messy id,
-    // or a kept foreign vendor. A contract that has any validated BG supplier
-    // keeps its historical split/attribution EXACTLY (split across the BG
-    // suppliers; non-BG members dropped) so a --cross-source-dedup re-ingest
-    // content-matches it against the existing corpus — no double-count, no total
-    // shift. Only a contract with NO BG supplier at all — previously dropped
-    // wholesale (Stadler, WARTSILA, "не се публикува" sole awards) — is recovered,
-    // split across its foreign/anonymous suppliers.
+    // or a kept foreign vendor. A contract whose BG suppliers were ALREADY clean
+    // EIKs keeps its historical split/attribution unchanged (split across those
+    // BG suppliers; non-BG members dropped), so a --cross-source-dedup re-ingest
+    // content-matches it against the existing corpus. Embedded-BG ids (BG-VAT,
+    // "ЕИК …", space-grouped) are now ADDITIONALLY recovered as BG suppliers —
+    // the old isValidEik gate dropped them, so recovering them shifts that
+    // contract's per-row split (and transiently its content-key amount) until a
+    // rowKey re-ingest restores the corpus total. Only a contract with NO BG
+    // supplier at all — previously dropped wholesale (Stadler, WARTSILA,
+    // "не се публикува" sole awards) — is recovered whole, split across its
+    // foreign/anonymous suppliers.
     const resolved = eiks.map((e) => resolveSupplierEik(e));
     const bgCount = resolved.filter((r) => !r.foreign).length;
     const recoverForeign = bgCount === 0;
-    const denom = (recoverForeign ? resolved.length : bgCount) || 1;
+    // Split by the number of rows that will actually SURVIVE the month-shard
+    // rowKey merge (releaseId::contractId::contractorEik::tag), not the raw
+    // supplier count: rows sharing a contractorEik collapse to one, so
+    // identity-less anonymous suppliers (eik "") — and any duplicated EIK —
+    // count ONCE. Using the raw count here divides the value by phantom rows
+    // that then merge away, silently losing (N-1)/N of the contract.
+    const keptKeys = new Set(
+      resolved.filter((r) => !r.foreign || recoverForeign).map((r) => r.eik),
+    );
+    const denom = keptKeys.size || 1;
     const amountPer = amount != null ? amount / denom : amount;
     const amountEurPer = amountEur != null ? amountEur / denom : amountEur;
     resolved.forEach((res, i) => {
