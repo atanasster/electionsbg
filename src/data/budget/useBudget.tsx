@@ -39,6 +39,7 @@ import type {
   NzokActivitiesFile,
   NzokActivityByEik,
   NzokHospitalRiskFile,
+  NzokHospitalMapFile,
   NzokDrugRiskFile,
   NzokDrugSavingsFile,
   NzokDrugQuarterlyFile,
@@ -477,6 +478,16 @@ export const useNzokHospitalRisk = () =>
   useQuery({
     queryKey: ["nzok", "hospital-risk"] as const,
     queryFn: () => fetchDb<NzokHospitalRiskFile>("/api/db/nzok-hospital-risk"),
+    staleTime: Infinity,
+  });
+
+// Geolocated hospitals for the health-pack marker map (migration 073): one point
+// per hospital, three latest-period metrics folded on so the map recolours
+// client-side. null-body until the geo crosswalk is loaded.
+export const useNzokHospitalMap = () =>
+  useQuery({
+    queryKey: ["nzok", "hospital-map"] as const,
+    queryFn: () => fetchDb<NzokHospitalMapFile>("/api/db/nzok-hospital-map"),
     staleTime: Infinity,
   });
 

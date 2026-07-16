@@ -57,6 +57,8 @@
     "db:load:court-load:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:court-load:pg",
     "db:load:magistrates:pg": "tsx scripts/db/load_magistrates_pg.ts",
     "db:load:magistrates:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:magistrates:pg",
+    "db:load:nzok-hospital-map:pg": "tsx scripts/db/load_nzok_hospital_map_pg.ts",
+    "db:load:nzok-hospital-map:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:nzok-hospital-map:pg",
     "db:load:nzok-hospital:pg": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/load_nzok_hospital_pg.ts",
     "db:load:nzok-hospital:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:nzok-hospital:pg",
     "db:load:nzok-financials:pg": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/load_nzok_financials_pg.ts",

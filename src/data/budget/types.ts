@@ -2937,6 +2937,29 @@ export interface NzokHospitalRiskFile {
   hospitals: NzokHospitalRiskRow[];
 }
 
+/** One geolocated hospital on the health-pack map (/api/db/nzok-hospital-map,
+ *  migration 075). Metrics are the latest-period snapshots the map colours by. */
+export interface NzokHospitalMapPoint {
+  eik: string;
+  name: string;
+  city: string | null;
+  oblast: string | null;
+  loc: [number, number] | null; // [lng, lat]; null when not geocoded (filtered out)
+  paymentsEur: number; // latest-period БМП cumulative payments
+  drugOverpayEur: number; // latest-full-year drug overpay (0 when absent)
+  activityCases: number; // latest-period clinical-activity case count (0 when absent)
+}
+
+/** /api/db/nzok-hospital-map — geolocated hospitals + coverage counts. `total` is
+ *  every hospital with payments; `geocoded` (== hospitals.length) is those that
+ *  resolved to a map point via the awarder_seats → settlements.json bridge. */
+export interface NzokHospitalMapFile {
+  asOf: string;
+  total: number;
+  geocoded: number;
+  hospitals: NzokHospitalMapPoint[];
+}
+
 /** One pack beneath an INN in the by-drug risk board. */
 export interface NzokDrugRiskPack {
   nationalNo: string;

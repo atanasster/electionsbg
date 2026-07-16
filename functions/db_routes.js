@@ -1689,6 +1689,15 @@ const DB_ROUTES = {
     );
     return { body: rows[0]?.r ?? [] };
   },
+  // Geolocated НЗОК hospitals + live spend metrics → the health-pack hospital map
+  // at the top of /awarder/121858220 (schema 075). One blob (no params); the browser
+  // never geocodes.
+  "nzok-hospital-map": async (dbRows) => {
+    const rows = await dbRows("SELECT nzok_hospital_map() AS r", []).catch(
+      missingMigrationEmpty,
+    );
+    return { body: rows[0]?.r ?? { total: 0, geocoded: 0, hospitals: [] } };
+  },
   // Magistrate declared-companies + informational financials (schema 070).
   // One magistrate by normalized name → the /person tile (was the 123 KB file).
   "magistrate-by-name": async (dbRows, q) => {

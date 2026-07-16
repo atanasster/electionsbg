@@ -50,6 +50,7 @@ import { NzokSavingsLeaderboardTile } from "./NzokSavingsLeaderboardTile";
 import { NzokHospitalRiskTile } from "./NzokHospitalRiskTile";
 import { NzokProcurementLensTile } from "./NzokProcurementLensTile";
 import { NzokPublicPrivateBand } from "./NzokPublicPrivateBand";
+import { NzokHospitalMap } from "./NzokHospitalMap";
 
 // Sections stay in money-first order: the €5.5bn fund and the flows that
 // actually spend it come first; ЗОП (~1.5%) closes the page. The banded layout
@@ -191,6 +192,13 @@ export const NzokPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
 
   return (
     <section className="space-y-4">
+      {/* Signature visual — where the health money goes, hospital by hospital.
+          Self-fetches (migration 073) and self-hides until the geo crosswalk is
+          loaded, so it never blocks the rest of the pack. */}
+      <div id="nzok-hospital-map" className="scroll-mt-24">
+        <NzokHospitalMap />
+      </div>
+
       {/* ── Band 1 · Фондът накратко / The fund at a glance ─────────────
           The €5.5bn anchor number and the story that ~98.5% of it flows
           OUTSIDE procurement. Everything below is a share of this whole. */}

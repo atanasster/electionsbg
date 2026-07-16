@@ -44,6 +44,13 @@ The budget law (`--budget`, `budget.json`) is **hard-keyed** from the annual З�
    npm run db:dump:cloud                     # refresh the GCS snapshot
    ```
    The loader is idempotent (TRUNCATE+reload in one txn, changelog-deduped) and applies **both** migration 045 (the table) and 047 (the `nzok_hospital_payments_trends` / `nzok_hospital_momentum_by_eik` functions that serve the momentum tile + the `/company/:eik` spend-growth percentile), so the trend endpoints refresh with the table. Skip when only `--drugs`/`--execution` changed (those stay static-JSON-served).
+
+   Then rebuild the **hospital map geo crosswalk** (`nzok_hospital_geo`, migration 075) that the health-pack marker map at the top of `/awarder/121858220` is drawn from. It re-resolves one HQ point per hospital EIK from `awarder_seats` + `data/settlements.json`, so a new monthly БМП file (new/renamed facilities) means new points:
+   ```bash
+   npm run db:load:nzok-hospital-map:pg        # local — verify geolocated count
+   npm run db:load:nzok-hospital-map:pg:cloud  # Cloud SQL via the proxy on :5434
+   ```
+   Must run **after** `db:load:nzok-hospital:pg` (it reads `nzok_hospital_payments`) and after `db:load:awarder-seats:pg` (the geo bridge). The metric fold (`nzok_hospital_map()`) is live over the payments / drug-overpay / activities tables, so the crosswalk only needs a re-run when the facility universe or its seats change — not when a metric moves.
 3. Sanity-check the console output: hospital payments print the facility count + national total that must reconcile to the file's own "Общо РЗОК" grand total; drugs print the €total + top INN + oncology group L; execution prints revenue + expenditure YTD.
 4. Commit the changed `data/budget/nzok/*.json` (+ `data/db/procurement.lock.json` if you pushed).
 5. **`bucket:sync data/budget/nzok/`** — the budget/drug/execution JSONs are served from the GCS bucket; without the sync those tiles aren't live.

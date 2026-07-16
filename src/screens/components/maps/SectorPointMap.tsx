@@ -187,7 +187,8 @@ const ClusterMarker: FC<{
   center: [number, number];
   groupNoun: string;
   badgeNoun: string;
-}> = ({ group, center, groupNoun, badgeNoun }) => {
+  openLabel?: string;
+}> = ({ group, center, groupNoun, badgeNoun, openLabel }) => {
   const map = useMap();
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -288,7 +289,11 @@ const ClusterMarker: FC<{
               <ChevronLeft className="h-4 w-4" />
             </button>
             <span className="whitespace-nowrap text-[10px] uppercase tracking-wide opacity-70">
-              {group.length} {groupNoun} · {total} {badgeNoun}
+              {group.length} {groupNoun}
+              {/* Only append the summed badge when it is a DISTINCT second metric
+                  (e.g. judges). A pure count map (badge = 1 each) leaves badgeNoun
+                  empty, so the total equals group.length and is not repeated. */}
+              {badgeNoun ? ` · ${total} ${badgeNoun}` : ""}
             </span>
             <button
               type="button"
@@ -306,7 +311,7 @@ const ClusterMarker: FC<{
               className="mt-1.5 w-full rounded bg-foreground/10 py-1 text-[11px] font-semibold hover:bg-foreground/20"
               onClick={() => current.href && navigate(current.href)}
             >
-              {t("view_section") || "Open"} →
+              {openLabel || t("view_section") || "Open"} →
             </button>
           )}
         </div>
@@ -339,10 +344,15 @@ export const SectorPointMap: FC<{
   points: SectorMapPoint[];
   /** Plural noun for the unit count in a city's pager header, e.g. "съдилища". */
   groupNoun?: string;
-  /** Noun for the summed badge total in the pager header, e.g. "съдии". */
+  /** Noun for the summed badge total in the pager header, e.g. "съдии". Omit when
+   *  the badge simply counts the units themselves (then the pager shows only the
+   *  unit count, not a repeated "· N units"). */
   badgeNoun?: string;
+  /** Label for the popup's navigate button (defaults to the polling-section
+   *  wording). Pass a domain noun, e.g. "Виж болницата". */
+  openLabel?: string;
   height?: number;
-}> = ({ points, groupNoun = "", badgeNoun = "", height = 460 }) => {
+}> = ({ points, groupNoun = "", badgeNoun = "", openLabel, height = 460 }) => {
   // One marker per city (shared settlement centroid). Each group is sorted busiest
   // first, so group[0] is both the pager's first page and the marker's colour.
   const groups = useMemo(() => {
@@ -404,6 +414,7 @@ export const SectorPointMap: FC<{
               center={center}
               groupNoun={groupNoun}
               badgeNoun={badgeNoun}
+              openLabel={openLabel}
             />
           );
         })}
