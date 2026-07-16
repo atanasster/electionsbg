@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-16T01:09:44.925Z",
+  "generatedAt": "2026-07-16T12:43:53.321Z",
   "nodes": [
     {
       "id": "src:water",
@@ -106,7 +106,7 @@
       "url": "https://www.parliament.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-11T07:55:23.491Z",
+      "freshness": "2026-07-16T08:56:02.091Z",
       "skills": [
         "update-rollcall",
         "parliament-scrape"
@@ -117,7 +117,7 @@
           "label": "Parliament roll-call votes",
           "url": "https://www.parliament.bg/api/v1/pl-sten/{id}",
           "cadence": "daily",
-          "freshness": "2026-07-11T07:55:23.491Z"
+          "freshness": "2026-07-16T08:56:02.091Z"
         },
         {
           "id": "parliament_mps",
@@ -280,7 +280,7 @@
       "url": "https://data.egov.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-15T06:08:41.204Z",
+      "freshness": "2026-07-16T06:08:43.640Z",
       "skills": [
         "update-procurement",
         "update-connections",
@@ -302,7 +302,7 @@
           "label": "data.egov.bg Commerce Registry (Търговски регистър)",
           "url": "https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=1",
           "cadence": "daily",
-          "freshness": "2026-07-15T06:08:41.204Z"
+          "freshness": "2026-07-16T06:08:43.640Z"
         },
         {
           "id": "egov_budget_execution",
@@ -373,7 +373,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-15T06:08:41.204Z",
+      "freshness": "2026-07-16T06:08:43.640Z",
       "skills": [
         "update-procurement"
       ],
@@ -383,7 +383,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-07-15T06:08:41.204Z"
+          "freshness": "2026-07-16T06:08:43.640Z"
         }
       ],
       "x": 28,
@@ -1002,7 +1002,7 @@
       "url": "https://ec.europa.eu/eurostat/",
       "origin": "eu",
       "cadence": "weekly",
-      "freshness": "2026-07-15T06:08:41.204Z",
+      "freshness": "2026-07-16T08:56:06.056Z",
       "skills": [
         "update-macro",
         "update-regional",
@@ -1014,7 +1014,7 @@
           "label": "Eurostat macro (BG): 23 datasets",
           "url": "https://ec.europa.eu/eurostat/databrowser/",
           "cadence": "monthly",
-          "freshness": "2026-06-16T07:08:32.388Z"
+          "freshness": "2026-07-16T08:56:06.056Z"
         },
         {
           "id": "eurostat_policy",
@@ -1308,7 +1308,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-15T06:08:41.204Z",
+      "freshness": "2026-07-16T06:08:43.640Z",
       "skills": [
         "update-prices"
       ],
@@ -1318,7 +1318,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-07-15T06:08:41.204Z"
+          "freshness": "2026-07-16T06:08:43.640Z"
         }
       ],
       "x": 28,
@@ -1570,13 +1570,15 @@
       "url": "https://ec.europa.eu/eurostat/databrowser/view/rail_pa_total/default/table",
       "origin": "intl",
       "cadence": "monthly",
+      "freshness": "2026-07-16T06:08:43.640Z",
       "skills": [],
       "sources": [
         {
           "id": "eurostat_rail",
           "label": "Eurostat rail (BG): жп пътници (rail_pa_total)",
           "url": "https://ec.europa.eu/eurostat/databrowser/view/rail_pa_total/default/table",
-          "cadence": "monthly"
+          "cadence": "monthly",
+          "freshness": "2026-07-16T06:08:43.640Z"
         }
       ],
       "x": 28,
