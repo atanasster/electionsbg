@@ -36,7 +36,7 @@ import { MOSV_EIK, ENV_SECTOR_EIKS } from "@/lib/environmentReferenceData";
 import { ADMIN_SECTOR_EIKS } from "@/lib/administrationReferenceData";
 import { TOURISM_SECTOR_EIKS } from "@/lib/tourismReferenceData";
 import { MVR_EIK, SECURITY_SECTOR_EIKS } from "@/lib/securityReferenceData";
-import { SOCIAL_SECTOR_EIKS } from "@/lib/socialReferenceData";
+import { SOCIAL_LEAD_EIK, SOCIAL_SECTOR_EIKS } from "@/lib/socialReferenceData";
 import type { ScopeWindow } from "@/data/procurement/useAwarderContracts";
 
 export interface SectorPackProps {
@@ -133,6 +133,14 @@ const NapPack = lazy(() =>
 const CustomsPack = lazy(() =>
   import("./customs/CustomsPack").then((m) => ({ default: m.CustomsPack })),
 );
+// No SOCIAL_AWARDER_PATH export (deliberately, like transport/МВР): the social
+// view's home is the /sector/social dashboard, which the nav points at; the МТСП
+// awarder page is reached from there. The pack registers by EIK below and leads
+// with the disbursement iceberg + poverty outcome (the inversion) off the existing
+// corpus + already-ingested budget/COFOG/SILC — no new procurement ingest.
+const SocialPack = lazy(() =>
+  import("./social/SocialPack").then((m) => ({ default: m.SocialPack })),
+);
 
 const PACKS: Record<string, ComponentType<SectorPackProps>> = {
   [API_EIK]: RoadsPack,
@@ -146,6 +154,7 @@ const PACKS: Record<string, ComponentType<SectorPackProps>> = {
   [MVR_EIK]: MvrPack,
   [TRANSPORT_EIK]: TransportPack,
   [MOSV_EIK]: EnvironmentPack,
+  [SOCIAL_LEAD_EIK]: SocialPack,
   [NAP_EIK]: NapPack,
   [CUSTOMS_EIK]: CustomsPack,
 };

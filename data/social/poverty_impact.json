@@ -1,0 +1,418 @@
+{
+  "fetchedAt": "2026-07-16T23:18:36.004Z",
+  "source": {
+    "publisher": "Eurostat (EU-SILC)",
+    "datasets": {
+      "before": "ilc_li10 (AROP before social transfers, pensions excluded)",
+      "after": "ilc_li02 (AROP after social transfers)"
+    },
+    "pins": {
+      "statinfo": "MED_EI",
+      "rskpovth": "B_60",
+      "sex": "T",
+      "age": "TOTAL",
+      "unit": "PC"
+    },
+    "urls": {
+      "before": "https://ec.europa.eu/eurostat/databrowser/view/ilc_li10/default/table",
+      "after": "https://ec.europa.eu/eurostat/databrowser/view/ilc_li02/default/table"
+    }
+  },
+  "geos": [
+    "BG",
+    "EU27_2020",
+    "RO",
+    "GR",
+    "HU",
+    "HR"
+  ],
+  "latestYear": 2025,
+  "series": {
+    "BG": [
+      {
+        "year": 2015,
+        "before": 28.4,
+        "after": 22
+      },
+      {
+        "year": 2016,
+        "before": 27.9,
+        "after": 22.9
+      },
+      {
+        "year": 2017,
+        "before": 29.2,
+        "after": 23.4
+      },
+      {
+        "year": 2018,
+        "before": 29.5,
+        "after": 22
+      },
+      {
+        "year": 2019,
+        "before": 29.6,
+        "after": 22.6
+      },
+      {
+        "year": 2020,
+        "before": 29.9,
+        "after": 23.8
+      },
+      {
+        "year": 2021,
+        "before": 31.5,
+        "after": 22.1
+      },
+      {
+        "year": 2022,
+        "before": 30.3,
+        "after": 22.9
+      },
+      {
+        "year": 2023,
+        "before": 28.5,
+        "after": 20.6
+      },
+      {
+        "year": 2024,
+        "before": 30,
+        "after": 21.7
+      },
+      {
+        "year": 2025,
+        "before": 29,
+        "after": 21.2
+      }
+    ],
+    "EU27_2020": [
+      {
+        "year": 2015,
+        "before": 25.6,
+        "after": 17.4
+      },
+      {
+        "year": 2016,
+        "before": 25.6,
+        "after": 17.5
+      },
+      {
+        "year": 2017,
+        "before": 25,
+        "after": 16.9
+      },
+      {
+        "year": 2018,
+        "before": 25,
+        "after": 16.8
+      },
+      {
+        "year": 2019,
+        "before": 24.5,
+        "after": 16.5
+      },
+      {
+        "year": 2020,
+        "before": 25,
+        "after": 16.7
+      },
+      {
+        "year": 2021,
+        "before": 26.6,
+        "after": 16.8
+      },
+      {
+        "year": 2022,
+        "before": 25.4,
+        "after": 16.5
+      },
+      {
+        "year": 2023,
+        "before": 24.8,
+        "after": 16.2
+      },
+      {
+        "year": 2024,
+        "before": 24.6,
+        "after": 16.2
+      },
+      {
+        "year": 2025,
+        "before": 24.4,
+        "after": 16.3
+      }
+    ],
+    "RO": [
+      {
+        "year": 2015,
+        "before": 29.3,
+        "after": 25.4
+      },
+      {
+        "year": 2016,
+        "before": 29.5,
+        "after": 25.3
+      },
+      {
+        "year": 2017,
+        "before": 28.3,
+        "after": 23.6
+      },
+      {
+        "year": 2018,
+        "before": 28,
+        "after": 23.5
+      },
+      {
+        "year": 2019,
+        "before": 28.1,
+        "after": 23.8
+      },
+      {
+        "year": 2020,
+        "before": 27.8,
+        "after": 23.4
+      },
+      {
+        "year": 2021,
+        "before": 27.4,
+        "after": 22.5
+      },
+      {
+        "year": 2022,
+        "before": 25.4,
+        "after": 21.2
+      },
+      {
+        "year": 2023,
+        "before": 25,
+        "after": 21.1
+      },
+      {
+        "year": 2024,
+        "before": 23.4,
+        "after": 19
+      },
+      {
+        "year": 2025,
+        "before": 23.5,
+        "after": 18.4
+      }
+    ],
+    "GR": [
+      {
+        "year": 2015,
+        "before": 25.5,
+        "after": 21.4
+      },
+      {
+        "year": 2016,
+        "before": 25.2,
+        "after": 21.2
+      },
+      {
+        "year": 2017,
+        "before": 24,
+        "after": 20.2
+      },
+      {
+        "year": 2018,
+        "before": 23.2,
+        "after": 18.5
+      },
+      {
+        "year": 2019,
+        "before": 23.2,
+        "after": 17.9
+      },
+      {
+        "year": 2020,
+        "before": 23.5,
+        "after": 17.7
+      },
+      {
+        "year": 2021,
+        "before": 24.7,
+        "after": 19.6
+      },
+      {
+        "year": 2022,
+        "before": 23.6,
+        "after": 18.8
+      },
+      {
+        "year": 2023,
+        "before": 23.1,
+        "after": 18.9
+      },
+      {
+        "year": 2024,
+        "before": 23.5,
+        "after": 19.6
+      },
+      {
+        "year": 2025,
+        "before": 23.2,
+        "after": 19.6
+      }
+    ],
+    "HU": [
+      {
+        "year": 2015,
+        "before": 25.7,
+        "after": 14.9
+      },
+      {
+        "year": 2016,
+        "before": 25.8,
+        "after": 14.5
+      },
+      {
+        "year": 2017,
+        "before": 25,
+        "after": 13.4
+      },
+      {
+        "year": 2018,
+        "before": 25,
+        "after": 12.8
+      },
+      {
+        "year": 2019,
+        "before": 22,
+        "after": 14
+      },
+      {
+        "year": 2020,
+        "before": 22.4,
+        "after": 13.9
+      },
+      {
+        "year": 2021,
+        "before": 20,
+        "after": 13.2
+      },
+      {
+        "year": 2022,
+        "before": 18.5,
+        "after": 13.5
+      },
+      {
+        "year": 2023,
+        "before": 18.6,
+        "after": 13.8
+      },
+      {
+        "year": 2024,
+        "before": 18.7,
+        "after": 14.3
+      },
+      {
+        "year": 2025,
+        "before": 18.2,
+        "after": 14
+      }
+    ],
+    "HR": [
+      {
+        "year": 2015,
+        "before": 31,
+        "after": 20
+      },
+      {
+        "year": 2016,
+        "before": 27.3,
+        "after": 19.5
+      },
+      {
+        "year": 2017,
+        "before": 26.6,
+        "after": 20
+      },
+      {
+        "year": 2018,
+        "before": 25.7,
+        "after": 19.3
+      },
+      {
+        "year": 2019,
+        "before": 24.3,
+        "after": 18.3
+      },
+      {
+        "year": 2020,
+        "before": 23.8,
+        "after": 18.3
+      },
+      {
+        "year": 2021,
+        "before": 24.2,
+        "after": 19.2
+      },
+      {
+        "year": 2022,
+        "before": 22.6,
+        "after": 18
+      },
+      {
+        "year": 2023,
+        "before": 24.4,
+        "after": 19.3
+      },
+      {
+        "year": 2024,
+        "before": 25.9,
+        "after": 20.3
+      },
+      {
+        "year": 2025,
+        "before": 25.5,
+        "after": 19.5
+      }
+    ]
+  },
+  "latest": {
+    "BG": {
+      "year": 2025,
+      "before": 29,
+      "after": 21.2,
+      "pp": 7.8,
+      "pct": 26.9
+    },
+    "EU27_2020": {
+      "year": 2025,
+      "before": 24.4,
+      "after": 16.3,
+      "pp": 8.1,
+      "pct": 33.2
+    },
+    "RO": {
+      "year": 2025,
+      "before": 23.5,
+      "after": 18.4,
+      "pp": 5.1,
+      "pct": 21.7
+    },
+    "GR": {
+      "year": 2025,
+      "before": 23.2,
+      "after": 19.6,
+      "pp": 3.6,
+      "pct": 15.5
+    },
+    "HU": {
+      "year": 2025,
+      "before": 18.2,
+      "after": 14,
+      "pp": 4.2,
+      "pct": 23.1
+    },
+    "HR": {
+      "year": 2025,
+      "before": 25.5,
+      "after": 19.5,
+      "pp": 6,
+      "pct": 23.5
+    }
+  }
+}
