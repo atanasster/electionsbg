@@ -10,13 +10,13 @@ import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   Activity,
-  ArrowLeft,
   Coins,
   Layers,
   MapPin,
   Users,
 } from "lucide-react";
 import { Title } from "@/ux/Title";
+import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useFundsProgramSummary } from "@/data/funds/useFundsProgramSummary";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
@@ -379,13 +379,11 @@ export const FundsProgramScreen: FC = () => {
   if (!data) {
     return (
       <section className="my-4 space-y-3">
-        <Link
-          to="/funds"
-          className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
-        >
-          <ArrowLeft className="h-3 w-3" aria-hidden />
-          {t("funds_program_back")}
-        </Link>
+        <GovernanceBreadcrumb
+          sectionKey="funds_index_title"
+          sectionTo="/funds"
+          className="mt-5"
+        />
         <p className="text-sm text-muted-foreground">
           {t("funds_program_not_found", { code })}
         </p>
@@ -401,15 +399,14 @@ export const FundsProgramScreen: FC = () => {
           <span>{data.programName}</span>
         </span>
       </Title>
+      <GovernanceBreadcrumb
+        sectionKey="funds_index_title"
+        sectionTo="/funds"
+        current={data.programName}
+        className="mt-5"
+      />
       <section aria-label={data.programName} className="my-4 space-y-4">
-        <div className="flex items-baseline justify-between flex-wrap gap-3">
-          <Link
-            to="/funds"
-            className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
-          >
-            <ArrowLeft className="h-3 w-3" aria-hidden />
-            {t("funds_program_back")}
-          </Link>
+        <div className="flex items-baseline justify-end">
           <span className="text-xs text-muted-foreground tabular-nums">
             {data.programCode}
           </span>
