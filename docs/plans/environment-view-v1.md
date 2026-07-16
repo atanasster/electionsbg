@@ -1,10 +1,13 @@
 # Околна среда (Environment / МОСВ) sector view — v1 plan, competitive research & brainstorm
 
-Status: **NOT BUILT — plan/design only.** (2026-07-16) Research-and-design pass + **two audit passes**
-(see §0.5). Pass 1 corrected three mechanisms (no air time-series; no `useFundsAbsorption` hook; all
-tile accents used). Pass 2 (deeper, same day) found the measured € are already stale after an intra-day
-corpus refresh (group €216M→≈€227M, ПУДООС +46%), that `PassThroughHero` is a phantom reuse (never
-built), and that env CPV coverage is low (~40%, so the category tile is >50% "other"). Nothing committed.
+Status: **BUILT & SHIPPED — Phase 0 + Phase 1 live at `/sector/environment`.** (2026-07-16) Two audit
+passes (see §0.5) preceded the build; all findings were folded in. Shipped: the 27-EIK group dashboard +
+the bespoke `EnvironmentPack` (air-station map hero, money-vs-outcome, EU-funds absorption by OP code,
+МОСВ budget bridge, GF05 EU-peer strip, what-МОСВ-buys with CPV-coverage disclosed, HHI, per-unit
+competition, universe Select, 27-awarder tile). Verified in-browser (desktop + 375px, light + dark; 0
+console errors; `?sector=environment` browse filter works). Deferred to Phase 2/3: Tier-B waste ingest +
+recycling gauge, ПУДООС grant register (PG), Natura strip, AI tools, `db:gen-sector-stats` rerun for the
+hub € badge (needs live PG), a dedicated air-map OG capture.
 Closest built siblings to copy: the **energy / security group dashboards** (`sectorDashboards.ts` +
 `SectorAwardersTile`) for the cheapest Phase-1 group ship, the **water pack** (`VikPack` +
 `VikEuFundsTile`) for the EU-funds + sector-map grammar, and **transport** (`data/transport/*.json` +
@@ -115,12 +118,16 @@ A second, deeper audit re-checked every figure and every component/hook/script t
    **zero** references — the social-assistance plan is itself unbuilt, so the component was never
    written. **Drop the PassThroughHero reuse claim** (or build the hero from scratch and own it here); it
    is not a free reuse. The money-strip can be a plain KPI/`StatCard` band instead.
-6. **⚠ CPV coverage is LOW — the category tile will be >50% "unknown".** Per-awarder breakdowns:
-   **МОСВ CPV-known 46%, ИАОС 39%, ПУДООС 33%** of €. `categoryOfCpv("")→"other"`, so tile 7 ("what
-   МОСВ buys") will be **dominated by the „Друго/Other" sink** (≈55–65% of the money). This still ships,
-   but the tile MUST disclose the CPV-known coverage % and **verify whether the awarder model bases its
-   category split on `cpvKnownEur` or `totalEur`** (if the former, the tile shows <half the money and
-   must say so). Transport/energy have far higher CPV coverage — do not assume env behaves like them.
+6. **CPV coverage — RESOLVED at build (the "<half the money" worry was UNFOUNDED).** The per-awarder
+   `breakdowns/a/*.json` `cpvKnownEur/totalEur` reads low (МОСВ 46%, ИАОС 39%, ПУДООС 33%), BUT the
+   **group-model** builder (`buildAwarderModelFromAggregates`) folds no-CPV value into a `cpv=""` bucket
+   → the classifier's `"other"` sink, so **the category tile's categories sum to the FULL group total**
+   (`model.totalEur`), not to cpv-known only (awarderModel.ts L396-397). Measured live: the „Друго/Other"
+   share is only **~15% all-time** (so ~85% is classified into a named function), not >50%. The two
+   `cpvKnownEur` metrics differ because the breakdown file uses a stricter CPV-validity rule over a
+   different row set. **Action taken:** the shipped tile discloses the classified share ("X% от
+   стойността е класифицирана по функция; останалото е в „Друго“ — договори без CPV код или извън тези
+   категории"), which is accurate for either denominator.
 
 **Minor path/name corrections (fix inline where the plan cites them):**
 - `useAwarderGroupModel` is at `src/data/procurement/useAwarderGroupModel.**ts**` (not `.tsx`).
