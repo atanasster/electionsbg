@@ -3,8 +3,9 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { Link } from "@/ux/Link";
 import { PartyTag } from "@/screens/components/party/PartyTag";
 import { useTranslation } from "react-i18next";
-import { ChevronLeft, ChevronDown, ChevronRight } from "lucide-react";
+import { ChevronDown, ChevronRight } from "lucide-react";
 import { Title } from "@/ux/Title";
+import { Breadcrumbs } from "@/ux/Breadcrumbs";
 import { useRollcallSession } from "@/data/parliament/votes/useRollcallSession";
 import { useCandidateUrlForVote } from "@/data/parliament/votes/useCandidateUrlForVote";
 import { useMps } from "@/data/parliament/useMps";
@@ -209,18 +210,19 @@ export const SessionScreen: FC = () => {
   return (
     <div className="w-full px-4 md:px-8">
       <Title description={pageTitle}>{pageTitle}</Title>
+      <Breadcrumbs
+        className="mt-5"
+        items={[
+          { label: t("nav_governance"), to: "/governance" },
+          { label: t("gov_hub_parliament_title"), to: "/parliament" },
+          { label: t("sessions_index_title"), to: "/votes" },
+          { label: headingDate },
+        ]}
+      />
 
       <div className="pb-12 space-y-4">
-        <div className="flex items-center justify-between gap-3 flex-wrap">
-          <Link
-            to="/votes"
-            underline={false}
-            className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
-          >
-            <ChevronLeft className="h-4 w-4" />
-            {t("votes_session_back") || "All sessions"}
-          </Link>
-          {focusedMpId != null && focusedName && (
+        {focusedMpId != null && focusedName && (
+          <div className="flex items-center justify-end gap-3 flex-wrap">
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
               <span>
                 {t("votes_session_focused_mp") || "Highlighting votes for"}:
@@ -237,8 +239,8 @@ export const SessionScreen: FC = () => {
                 {focusedName}
               </Link>
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
         {isLoading ? (
           <div className="text-sm text-muted-foreground">
