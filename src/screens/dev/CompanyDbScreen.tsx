@@ -992,6 +992,10 @@ export const CompanyDbScreen: FC = () => {
                   </div>
                 </StatCard>
               </div>
+              {/* Risk scorecard sits directly under the KPIs so it stays near the
+                  top of the section — otherwise a sector pack's hero + tiles push
+                  it far below the fold (unlike plain awarder pages). */}
+              <EntityRiskGradeCard grade={awarderGrade} />
               {/* Domain pack hero (roads for АПИ …) — kept the focus of the page
                   for the buyers that have one; renders nothing for the rest.
                   Sector-lead awarders (НЗОК/НАП/…) instead cross-link to their
@@ -1099,7 +1103,6 @@ export const CompanyDbScreen: FC = () => {
             </section>
           )}
           <EntityRiskGradeCard grade={supplierGrade} />
-          <EntityRiskGradeCard grade={awarderGrade} />
           {awarderKindex &&
             awarderKindex.linkedSupplierCount > 0 &&
             awarderKindex.totalEur > 0 && (
