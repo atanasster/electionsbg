@@ -45,7 +45,11 @@ export const TransportRoadSafetyTile: FC = () => {
   const { data } = useRoadSafety();
   if (!data || data.series.length < 2) return null;
 
-  const { series, latest, peak, changeSincePeakPct } = data;
+  const { latest, peak, changeSincePeakPct } = data;
+  // Sort ascending defensively — the baseline fallback (`.find(year >= …)`) and the left
+  // axis label (`series[0].year`) both assume chronological order. latest/peak are
+  // precomputed in the JSON, so they don't depend on this ordering.
+  const series = [...data.series].sort((a, b) => a.year - b.year);
   const baseline =
     series.find((d) => d.year === BASELINE_YEAR) ??
     series.find((d) => d.year >= BASELINE_YEAR) ??

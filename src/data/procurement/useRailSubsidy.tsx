@@ -97,9 +97,14 @@ export const useRailSubsidy = (): {
       .sort((a, b) => a.year - b.year);
   }, [subsidy.data, ridership.data]);
 
+  // Anchor on the latest year that actually has a PER-PASSENGER figure, not merely a PSO
+  // subsidy. The subsidy comes from the budget-law watcher and ridership from the (lagging)
+  // Eurostat watcher, so a new ЗДБ routinely lands a PSO year before ridership exists for it.
+  // Gating on `pso != null` would make `latest.perPassenger` null and blank the whole tile;
+  // this mirrors the AI railSubsidy tool, which selects the same way.
   const latest = useMemo(() => {
-    const withPso = rows.filter((r) => r.pso != null);
-    return withPso[withPso.length - 1] ?? null;
+    const withPer = rows.filter((r) => r.perPassenger != null);
+    return withPer[withPer.length - 1] ?? null;
   }, [rows]);
 
   return { rows, latest, isLoading: subsidy.isLoading || ridership.isLoading };

@@ -84,6 +84,15 @@ const main = (): void => {
       console.warn(`  ${year}: no rail subsidy lines found — skipped`);
       continue;
     }
+    // We assume exactly two matches per recipient (operating then capital, in document
+    // order). A stray reference elsewhere in the law would push extra matches in and shift
+    // the positional [0]=operating / [1]=capital assignment, silently mis-labelling the
+    // subsidy. Warn loudly so a future ЗДБ layout change surfaces instead of mis-parsing.
+    if (bdz.length > 2 || nkzhi.length > 2)
+      console.warn(
+        `  ${year}: unexpected match count (БДЖ ${bdz.length}, НКЖИ ${nkzhi.length}, ` +
+          `expected ≤2 each) — positional operating/capital assignment may be wrong`,
+      );
     years.push({
       fiscalYear: year,
       bdzPassengerPsoEur: bdz[0] ?? null,

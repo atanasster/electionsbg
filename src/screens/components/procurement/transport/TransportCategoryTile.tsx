@@ -39,6 +39,7 @@ export const TransportCategoryTile: FC<{
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
+  const loc = bg ? "bg-BG" : "en-US";
   const [params] = useSearchParams();
   const rows = categories.filter((c) => c.totalEur > 0);
   if (rows.length < 2 || totalEur <= 0) return null;
@@ -89,7 +90,7 @@ export const TransportCategoryTile: FC<{
                 <span className="tabular-nums text-muted-foreground">
                   {formatEurCompact(c.totalEur, lang)}
                   <span className="ml-1 text-muted-foreground/70">
-                    {(share * 100).toLocaleString(lang, {
+                    {(share * 100).toLocaleString(loc, {
                       maximumFractionDigits: 0,
                     })}
                     %
@@ -136,7 +137,7 @@ export const TransportCategoryTile: FC<{
                         : ""
                     }
                   >
-                    {(sb * 100).toLocaleString(lang, {
+                    {(sb * 100).toLocaleString(loc, {
                       maximumFractionDigits: 0,
                     })}
                     % {bg ? "с една оферта" : "single-bid"}

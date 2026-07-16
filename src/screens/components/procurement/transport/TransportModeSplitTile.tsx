@@ -39,6 +39,7 @@ export const TransportModeSplitTile: FC<{ units: TransportUnitAgg[] }> = ({
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
+  const loc = bg ? "bg-BG" : "en-US";
 
   const { rows, total } = useMemo(() => {
     const acc = new Map<TransportUniverse, ModeAgg>();
@@ -87,7 +88,7 @@ export const TransportModeSplitTile: FC<{ units: TransportUnitAgg[] }> = ({
                 <span className="tabular-nums text-muted-foreground">
                   {formatEurCompact(m.totalEur, lang)}
                   <span className="ml-1 text-muted-foreground/70">
-                    {(share * 100).toLocaleString(lang, {
+                    {(share * 100).toLocaleString(loc, {
                       maximumFractionDigits: 0,
                     })}
                     %
