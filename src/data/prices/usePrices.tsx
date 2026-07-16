@@ -262,3 +262,30 @@ export const fmtPriceDate = (
         year: "numeric",
       })
     : "";
+
+/**
+ * Trailing moving average over a {d,v} series. The daily КЗП basket is
+ * recomputed each day from whichever stores reported, so it swings on
+ * reporting/promo noise — plotted raw it reads as a squiggle, not a trend.
+ * Averaging over a trailing window (default 7 points ≈ one week of daily data)
+ * calms that noise so the line shows the underlying path. The window ramps up
+ * over the first few points (uses however many are available) so the series
+ * keeps its original length and endpoints. `window` is in points, not days.
+ */
+export const movingAverage = (
+  points: PricePoint[],
+  window = 7,
+): PricePoint[] => {
+  if (points.length === 0) return points;
+  const w = Math.max(1, Math.min(window, points.length));
+  const out: PricePoint[] = [];
+  const q: number[] = [];
+  let sum = 0;
+  for (const p of points) {
+    q.push(p.v);
+    sum += p.v;
+    if (q.length > w) sum -= q.shift()!;
+    out.push({ d: p.d, v: sum / q.length });
+  }
+  return out;
+};

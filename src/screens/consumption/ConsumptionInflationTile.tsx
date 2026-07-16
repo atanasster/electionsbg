@@ -7,7 +7,7 @@
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { PriceSparkline } from "@/screens/components/prices/PriceSparkline";
+import { PriceIndexTrendChart } from "@/screens/components/prices/PriceIndexTrendChart";
 import {
   usePriceIndex,
   fmtPct,
@@ -62,18 +62,13 @@ export const ConsumptionInflationTile: FC = () => {
           <div className="text-xs text-muted-foreground mb-1">
             {T("Кошница на КЗП (мониторинг)", "CPC basket (monitoring)")}
           </div>
-          <div className="flex items-end justify-between gap-2">
-            <div>
-              <div
-                className={`text-2xl font-bold tabular-nums ${changeColor(basketChange)}`}
-              >
-                {fmtPct(basketChange)}
-              </div>
-              <div className="text-[11px] text-muted-foreground">
-                {T("от", "since")} {baselineLabel}
-              </div>
-            </div>
-            <PriceSparkline points={series} width={150} height={40} />
+          <div
+            className={`text-2xl font-bold tabular-nums ${changeColor(basketChange)}`}
+          >
+            {fmtPct(basketChange)}
+          </div>
+          <div className="text-[11px] text-muted-foreground">
+            {T("от", "since")} {baselineLabel}
           </div>
         </div>
 
@@ -96,6 +91,17 @@ export const ConsumptionInflationTile: FC = () => {
             ))}
           </ul>
         </div>
+      </div>
+
+      {/* Basket path since the euro — a clean trend, not a per-day squiggle. */}
+      <div>
+        <div className="text-xs text-muted-foreground mb-1">
+          {T(
+            "Кошница на КЗП във времето (индекс, база 100)",
+            "CPC basket over time (index, base 100)",
+          )}
+        </div>
+        <PriceIndexTrendChart series={series} />
       </div>
 
       <p className="text-xs text-muted-foreground">

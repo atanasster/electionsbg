@@ -199,7 +199,7 @@ export const MyAreaPricesTile: FC<Props> = ({
           </div>
         </div>
         {hasSettlement && sett!.basketSeriesWeekly.length > 1 ? (
-          <PriceSparkline points={sett!.basketSeriesWeekly} />
+          <PriceSparkline points={sett!.basketSeriesWeekly} smoothWindow={3} />
         ) : null}
       </div>
 
