@@ -54,8 +54,8 @@ export const EuChoroplethMap: FC<{
   highlightGeo = "BG",
   excludeFromScale = DEFAULT_AGGREGATES,
   scaleGeos,
-  width = 640,
-  height = 460,
+  width = 360,
+  height = 560,
 }) => {
   const { data: geo } = useEuropeGeo();
   const { tooltip, ...tt } = useTooltip();
@@ -73,13 +73,16 @@ export const EuChoroplethMap: FC<{
       type: "FeatureCollection" as const,
       features: geo.features.filter((f) => !FIT_EXCLUDE.has(f.properties.geo)),
     };
-    // Conic conformal is the standard European projection (≈ EPSG:3035) and,
-    // unlike azimuthal-equal-area, has no antipodal-disc failure mode for
-    // European polygons. Parallels/rotation frame the continent; fitSize scales.
+    // Web Mercator. The earlier conic/azimuthal (LAEA) fits looked more
+    // "landscape" only because they fan meridians around the central meridian —
+    // which rotates every geo away from it (BG at ~25°E tilted ~12° clockwise).
+    // Mercator's meridians are all vertical, so every country renders upright
+    // (BG's Danube border sits horizontal) and shapes stay locally correct
+    // (conformal). The trade-off is size inflation toward the north and a
+    // naturally portrait Europe (~0.64 w/h) — hence the portrait default frame
+    // and the bounded map column in the caller. fitSize scales.
     const projection = d3
-      .geoConicConformal()
-      .parallels([43, 62])
-      .rotate([-10, 0])
+      .geoMercator()
       .fitSize([width, height], fit as d3.GeoPermissibleObjects);
     const p = d3.geoPath(projection);
     let min = Infinity;

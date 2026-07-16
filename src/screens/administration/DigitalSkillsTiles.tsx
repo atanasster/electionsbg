@@ -298,7 +298,7 @@ const YouthMapTile: FC<{ d: DigitalSkillsPayload; bg: boolean }> = ({
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid gap-3 md:grid-cols-2">
+        <div className="grid gap-3 md:grid-cols-[minmax(0,360px)_1fr] md:items-center">
           <EuChoroplethMap
             valuesByGeo={y.byGeo}
             bg={bg}
