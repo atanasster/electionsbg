@@ -1689,6 +1689,24 @@ const DB_ROUTES = {
     );
     return { body: rows[0]?.r ?? [] };
   },
+  // Geolocated ВиК operators + windowed single-bid metric → the /water operator map
+  // (schema 073). One marker per operator HQ city, coloured by single-bid share.
+  // Windowed [from, to) with sargable COALESCE bounds, same basis as
+  // awarder-group-model. Degrades to an empty map on a DB predating the migration.
+  "water-operator-map": async (dbRows, q) => {
+    const eiks = s(q, "eiks")
+      .split(",")
+      .map((e) => e.trim())
+      .filter((e) => /^\d{9,13}$/.test(e))
+      .slice(0, 300);
+    if (!eiks.length) return { body: { operators: [] } };
+    const rows = await dbRows("SELECT water_operator_map($1, $2, $3) AS r", [
+      eiks,
+      orNull(q, "from"),
+      orNull(q, "to"),
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? { operators: [] } };
+  },
   // Geolocated МВР structures (spend + single-bid share per directorate, windowed)
   // → the /sector/security (Полиция / МВР) marker map. Folds the live contracts
   // corpus onto the static mvr_directorate_geo crosswalk server-side (schema 074),

@@ -13,6 +13,8 @@ import { Title } from "@/ux/Title";
 import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
 import { ScopeControl } from "@/screens/components/ScopeControl";
 import { useVik, useVikFunds } from "@/data/procurement/useVik";
+import { useWaterOperatorMap } from "@/data/water/useWaterOperatorMap";
+import { WaterOperatorMap } from "./WaterOperatorMap";
 import { VIK_HOLDING_EIK } from "@/lib/vikReferenceData";
 import { VikSubsidiaryTile } from "@/screens/components/procurement/vik/VikSubsidiaryTile";
 import { VikCategoryTile } from "@/screens/components/procurement/vik/VikCategoryTile";
@@ -27,6 +29,7 @@ export const WaterScreen: FC = () => {
   const bg = i18n.language === "bg";
   const { model, operators, groupEiks, isLoading } = useVik(VIK_HOLDING_EIK);
   const { funds } = useVikFunds(groupEiks);
+  const { operators: mapOperators } = useWaterOperatorMap();
 
   return (
     <div className="space-y-4">
@@ -55,6 +58,10 @@ export const WaterScreen: FC = () => {
       <div className="mb-3">
         <ScopeControl mode="toggle" />
       </div>
+
+      {/* The regional operator map — the sector's signature visual, above the
+          consolidated-group tiles. Renders nothing until the operators geo-resolve. */}
+      <WaterOperatorMap operators={mapOperators} />
 
       {isLoading ? (
         <div className="h-[280px] animate-pulse rounded-xl border bg-card" />
