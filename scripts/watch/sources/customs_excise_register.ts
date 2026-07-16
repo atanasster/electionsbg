@@ -6,7 +6,11 @@
 // Fingerprint = sha256 over the sorted set of `EIK|status` rows (not the raw
 // HTML, which carries volatile formatting/whitespace). A flip means an operator
 // was added, terminated, or re-licensed — re-run the ingest
-// (`npm run customs:excise-register`) to rewrite data/customs/excise_register.json.
+// (`npm run customs:excise-register`), which rewrites both
+// data/customs/excise_register.json and the geolocated
+// data/customs/excise_warehouses.json; then `npm run db:load:excise-warehouses:pg`
+// reloads the warehouse count-map table (schema 072). See the
+// process-watch-report mapping for the prod (bucket:sync + :cloud reload) steps.
 
 import { createHash } from "crypto";
 import type { WatchSource, Fingerprint, WatchState } from "../types";
