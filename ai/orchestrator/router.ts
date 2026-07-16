@@ -2696,6 +2696,14 @@ export const route = (question: string, ctx: ToolContext): Route => {
     !has(q, "живот", "living")
   )
     return { tool: "institutionMaintenance", args: { institution: q } };
+  // НАП / Агенция „Митници“ own-agency budget — second-level разпоредители, not
+  // in the ministries tree, so ministryBudget serves them off data/budget/agencies/.
+  if (
+    (/(^|[^а-я])нап([^а-я]|$)/.test(q) ||
+      has(q, "митниц", "агенция за приход", "revenue agency", "customs agency")) &&
+    has(q, "бюджет", "budget", "харчи", "spend", "колко пари", "разходи")
+  )
+    return { tool: "ministryBudget", args: { ministry: q } };
   const gf = resolveBudgetFunction(q);
   if (gf && !has(q, "поръчк", "procurement", "аоп", " aop"))
     return {

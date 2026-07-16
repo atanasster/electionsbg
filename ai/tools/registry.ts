@@ -3452,21 +3452,25 @@ export const TOOLS: ToolDef[] = [
     name: "ministryBudget",
     domain: "fiscal",
     description: {
-      bg: "Бюджет на конкретно министерство/ведомство по програми.",
-      en: "A specific ministry's budget by programme.",
+      bg: "Бюджет на конкретно министерство/ведомство по програми (вкл. НАП и Агенция „Митници“).",
+      en: "A specific ministry's or agency's budget by programme (incl. НАП and the Customs Agency).",
     },
     params: [
       {
         name: "ministry",
         type: "metric",
         required: true,
-        description: { bg: "Министерство", en: "Ministry" },
+        description: { bg: "Министерство или ведомство", en: "Ministry or agency" },
       },
     ],
     examples: [
       {
         bg: "Какъв е бюджетът на Министерството на транспорта?",
         en: "What's the transport ministry's budget?",
+      },
+      {
+        bg: "Колко е бюджетът на НАП?",
+        en: "What's the budget of the Revenue Agency (НАП)?",
       },
     ],
     run: ministryBudget,

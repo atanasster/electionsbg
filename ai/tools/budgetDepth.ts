@@ -103,11 +103,79 @@ type MinistryFile = { nameBg: string; nameEn?: string; years: MinistryYear[] };
 const norm = (s: string): string =>
   s.toLowerCase().replace(/[\s.,„“”"'`-]+/g, "");
 
+// НАП and Агенция „Митници“ are second-level разпоредители under МФ — not in the
+// ministries tree (admin_flow), so they carry their own budget in
+// data/budget/agencies/. Resolve them here so "бюджетът на НАП / Митници?"
+// answers off that file (same years[].expenditure shape, no programs).
+const AGENCY_BUDGETS: { slug: string; match: (q: string) => boolean }[] = [
+  {
+    slug: "nap",
+    match: (q) =>
+      /(^|[^а-я])нап([^а-я]|$)/.test(q) ||
+      q.includes("национална агенция за приход") ||
+      q.includes("revenue agency") ||
+      /(^|[^a-z])n[ar]a([^a-z]|$)/.test(q),
+  },
+  {
+    slug: "customs",
+    match: (q) => q.includes("митниц") || q.includes("customs"),
+  },
+];
+
+const agencyBudget = async (
+  slug: string,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const file = await fetchData<MinistryFile>(`/budget/agencies/${slug}.json`);
+  const years = [...file.years]
+    .filter((y) => y.expenditure)
+    .sort((a, b) => b.fiscalYear - a.fiscalYear);
+  const latest = years[0];
+  const columns: Column[] = [
+    { key: "year", label: ctx.lang === "bg" ? "Година" : "Year" },
+    {
+      key: "budget",
+      label: ctx.lang === "bg" ? "Бюджет (разходи)" : "Budget (expenditure)",
+      numeric: true,
+    },
+  ];
+  const rows: Row[] = years.map((y) => ({
+    year: y.fiscalYear,
+    budget: fmtEurCompact(y.expenditure?.amountEur ?? 0, ctx.lang),
+  }));
+  return {
+    tool: "ministryBudget",
+    domain: "fiscal",
+    kind: "table",
+    title:
+      ctx.lang === "bg"
+        ? `Бюджет — ${file.nameBg} (${latest?.fiscalYear ?? "—"})`
+        : `Budget — ${file.nameEn || file.nameBg} (${latest?.fiscalYear ?? "—"})`,
+    columns,
+    rows,
+    viz: "none",
+    facts: {
+      agency: file.nameBg,
+      year: latest?.fiscalYear ?? "—",
+      expenditure: latest?.expenditure
+        ? fmtEurCompact(latest.expenditure.amountEur, ctx.lang)
+        : "—",
+      note:
+        ctx.lang === "bg"
+          ? "Собствен ведомствен бюджет (годишен уточнен план) — второстепенен разпоредител по бюджета на МФ."
+          : "The agency's own budget (adjusted annual plan) — a second-level spending unit under the Ministry of Finance.",
+    },
+    provenance: [`budget/agencies/${slug}.json`],
+  };
+};
+
 export const ministryBudget = async (
   args: ToolArgs,
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const query = String(args.ministry ?? args.place ?? "");
+  const agency = AGENCY_BUDGETS.find((a) => a.match(query.toLowerCase()));
+  if (agency) return agencyBudget(agency.slug, ctx);
   const flow = await fetchData<AdminFlow>("/budget/derived/admin_flow.json");
   // de-dupe ministries across years into name -> nodeId
   const byNode = new Map<string, AdminMin>();
