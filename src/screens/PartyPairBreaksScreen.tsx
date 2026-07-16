@@ -1,9 +1,9 @@
 import { FC, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ChevronLeft } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { Link } from "@/ux/Link";
+import { Breadcrumbs } from "@/ux/Breadcrumbs";
 import { useParliamentGroups } from "@/data/parliament/useParliamentGroups";
 import { usePartyPairBreaks } from "@/data/parliament/votes/usePartyPairBreaks";
 import { TopicChip } from "@/screens/components/votes/TopicChip";
@@ -72,17 +72,17 @@ export const PartyPairBreaksScreen: FC = () => {
   return (
     <div className="w-full px-4 md:px-8">
       <Title description={pageTitle}>{pageTitle}</Title>
+      <Breadcrumbs
+        className="mt-5"
+        items={[
+          { label: t("nav_governance"), to: "/governance" },
+          { label: t("gov_hub_parliament_title"), to: "/parliament" },
+          { label: t("sessions_index_title"), to: "/votes" },
+          { label: `${labelA} ↔ ${labelB}` },
+        ]}
+      />
 
-      <div className="max-w-5xl mx-auto pb-12 space-y-4">
-        <Link
-          to="/votes"
-          underline={false}
-          className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
-        >
-          <ChevronLeft className="h-4 w-4" />
-          {t("votes_session_back") || "All sessions"}
-        </Link>
-
+      <div className="pb-12 space-y-4 mt-4">
         <section className="rounded-xl border bg-card p-5">
           <div className="flex flex-wrap items-center gap-3 text-base">
             <span className="font-semibold" style={{ color: colorA }}>
