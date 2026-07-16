@@ -18,6 +18,7 @@ import {
   TILE_ACCENTS,
 } from "@/ux/infographic";
 import { ScopeControl } from "./components/ScopeControl";
+import { GovernanceBreadcrumb } from "./components/GovernanceBreadcrumb";
 import { ProcurementSearchTile } from "./components/procurement/ProcurementSearchTile";
 import { WatchlistDigestTile } from "./components/procurement/WatchlistDigestTile";
 import { useProcurementHubStats } from "@/data/procurement/useProcurementHubStats";
@@ -173,6 +174,11 @@ export const ProcurementScreen: FC = () => {
       <Title description="Aggregated public-procurement contracts from data.egov.bg">
         {title}
       </Title>
+      <GovernanceBreadcrumb
+        sectionKey="procurement_link_label"
+        sectionTo="/procurement"
+        className="mt-5"
+      />
 
       <div className="my-3">
         <ScopeControl mode="toggle" />
