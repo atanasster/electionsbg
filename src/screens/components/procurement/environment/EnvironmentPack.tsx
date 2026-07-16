@@ -55,6 +55,7 @@ import { EnvironmentBudgetTile } from "./EnvironmentBudgetTile";
 import { EnvironmentCategoryTile } from "./EnvironmentCategoryTile";
 import { EnvironmentCompetitionTile } from "./EnvironmentCompetitionTile";
 import { EnvironmentWasteTile } from "./EnvironmentWasteTile";
+import { EnvironmentNatureTile } from "./EnvironmentNatureTile";
 
 type UniverseFilter = EnvUniverse | "all";
 
@@ -291,6 +292,10 @@ export const EnvironmentPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
 
       <PackSection id="waste">
         <EnvironmentWasteTile />
+      </PackSection>
+
+      <PackSection id="nature">
+        <EnvironmentNatureTile />
       </PackSection>
 
       <PackSection id="function">

@@ -19,6 +19,14 @@ export interface WasteFile {
   targets: { y2025: number; y2030: number; y2035: number };
   recyclingRate: { unit: string; byGeo: Record<string, WastePoint[]> };
   wastePerCapita: { unit: string; byGeo: Record<string, WastePoint[]> };
+  /** Terrestrial protected areas as % of land (Natura 2000 + national designations),
+   *  latest value per geo. BG is among the EU's highest. */
+  protectedArea?: {
+    unit: string;
+    latestYear: number | null;
+    byGeo: Record<string, number>;
+    source: string;
+  };
 }
 
 const fetchWaste = async (): Promise<WasteFile> => {

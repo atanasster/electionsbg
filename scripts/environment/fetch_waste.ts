@@ -90,6 +90,50 @@ const fetchDataset = async (
   return parseGeoTime(json);
 };
 
+// Protected-area coverage (env_bio4, terrestrial areas, % of land). Fetched PER GEO
+// because env_bio4's dimension order puts geo LAST (time before geo), which the flat
+// geo×time parser above (built for the geo-before-time waste datasets) can't index —
+// single-geo requests sidestep it. Returns the latest value per geo. BG is among the
+// EU's highest (a positive counterpoint to the recycling story).
+const fetchProtectedAreaLatest = async (): Promise<{
+  latestYear: number | null;
+  byGeo: Record<string, number>;
+}> => {
+  const byGeo: Record<string, number> = {};
+  let latestYear: number | null = null;
+  for (const g of GEOS) {
+    const params = new URLSearchParams({
+      format: "JSON",
+      lang: "EN",
+      freq: "A",
+      areaprot: "TPA",
+      unit: "PC",
+      geo: g,
+    });
+    const res = await fetch(`${EUROSTAT_BASE}/env_bio4?${params.toString()}`);
+    if (!res.ok) continue;
+    const j = (await res.json()) as JsonStat;
+    const ti = j.dimension.time.category.index;
+    const v = j.value;
+    const at = (i: number): number | undefined => {
+      const x = Array.isArray(v) ? v[i] : v[String(i)];
+      return typeof x === "number" && Number.isFinite(x) ? x : undefined;
+    };
+    const entries = Object.entries(ti)
+      .map(([y, i]) => [Number(y), i] as const)
+      .sort((a, b) => a[0] - b[0]);
+    for (let k = entries.length - 1; k >= 0; k--) {
+      const val = at(entries[k][1]);
+      if (val !== undefined) {
+        byGeo[g] = round(val, 1);
+        latestYear = Math.max(latestYear ?? 0, entries[k][0]);
+        break;
+      }
+    }
+  }
+  return { latestYear, byGeo };
+};
+
 const main = async () => {
   process.stdout.write("Loading cei_wm011 (recycling rate)... ");
   const recyclingRate = await fetchDataset("cei_wm011", {
@@ -111,6 +155,12 @@ const main = async () => {
     `${Object.keys(wastePerCapita).length} geos, BG latest ${bgGen.length ? `${bgGen[bgGen.length - 1].year}: ${bgGen[bgGen.length - 1].value} kg` : "—"}`,
   );
 
+  process.stdout.write("Loading env_bio4 (protected areas)... ");
+  const protectedArea = await fetchProtectedAreaLatest();
+  console.log(
+    `BG ${protectedArea.byGeo.BG ?? "—"}% of land (latest ${protectedArea.latestYear ?? "—"})`,
+  );
+
   if ((recyclingRate.BG?.length ?? 0) < 5)
     throw new Error(
       "safety: cei_wm011 BG series too short — upstream query likely broke",
@@ -118,7 +168,7 @@ const main = async () => {
 
   const payload = {
     source:
-      "Eurostat cei_wm011 (recycling rate of municipal waste) + env_wasmun (municipal waste generated per capita)",
+      "Eurostat cei_wm011 (recycling rate of municipal waste) + env_wasmun (municipal waste generated per capita) + env_bio4 (terrestrial protected areas)",
     sourceUrl:
       "https://ec.europa.eu/eurostat/databrowser/view/cei_wm011/default/table",
     fetchedAt: new Date().toISOString(),
@@ -126,6 +176,13 @@ const main = async () => {
     targets: TARGETS,
     recyclingRate: { unit: "%", byGeo: recyclingRate },
     wastePerCapita: { unit: "kg/capita", byGeo: wastePerCapita },
+    // Terrestrial protected areas as % of land (Natura 2000 + national designations).
+    protectedArea: {
+      unit: "%",
+      latestYear: protectedArea.latestYear,
+      byGeo: protectedArea.byGeo,
+      source: "Eurostat env_bio4 (terrestrial protected areas, % of land)",
+    },
   };
 
   fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true });
