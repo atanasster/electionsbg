@@ -184,4 +184,31 @@ Each item below was re-checked against source data and code after the first draf
 
 ---
 
+## 8. Ingestion gaps (extended comparison via `cais_id`)
+
+With `cais_id` giving a clean join (§7.1), the "SIGMA-only" set finally separates **true ingestion gaps** from key-mismatches. Anti-joining SIGMA's per-entity contract lists against our corpus on `cais_id`:
+
+### 8.1 The finding
+
+- **16 sampled authorities: 908 contracts / €959.3 M that SIGMA has and we genuinely lack** — and **zero mis-attributed** (every gap is globally absent from our corpus, so these are real ingestion misses, not attribution/keying artifacts). Concentrated in big buyers: Метрополитен €211 M, НКЖИ €168 M, Мин.транспорт €154 M, ЕСО €125 M, УМБАЛ Пловдив €123 M, ЦВО €73 M, АЕЦ Козлодуй €34 M, АПИ €28 M.
+- **By procedure, €591 M of the gap is 58 large "Открита" (open-procedure) contracts** — the most standard, openly-published kind — plus €293 M of `T`-id ("Неизвестна") procedures. By year it spans **2020–2026** (2022–2023 are the bulk by count), so it is **not** feed-lag.
+- **Corpus-wide: 29,404 distinct procedures / ~€3.39 bn EUR (€5.8 bn native, BGN@1.95583)** present in the storage.eop `договори` feed but absent from our corpus (22% of that feed's 131,961 УНП).
+
+### 8.2 Root cause — proven, and the data is already on disk
+
+For the top misses (`00042-2024-0003` Мин.транспорт €153.7 M; `00423-2024-0009`/`00423-2025-0014` Метрополитен; `00233-2022-0021` НКЖИ) all three checks line up:
+1. **Absent** from our `contracts` (any tag/key) — confirmed.
+2. **Present in our `tenders`** — we ingested the *procedure* but never the awarded *contract*.
+3. **Present in the raw `raw_data/procurement/eop/*.json.gz`** we already downloaded.
+
+**100% of the €959 M authority gap (907 of 908 contracts) is already in our raw storage.eop feed** — we downloaded it and the ingest dropped it. The mechanism is the **existing-buyer guard** in `scripts/procurement/ingest_eop.ts` (`loadExistingAwarderEiks`): it gap-fills *only buyers entirely absent from our corpus*, so for any covered buyer (all the big ones), their storage.eop-only `договори` rows — the ones the narrower OCDS fortnightly bundle omits — are skipped wholesale. The P1 coverage fix (commit 7327905f5) addressed this only for a narrow `--only-buyers` whitelist (АПИ + a few); the gap persists for every other major buyer.
+
+### 8.3 The fix (tooling already exists)
+
+`ingest_eop.ts` already has **`--cross-source-dedup`**: keep *all* buyers and drop only flat-feed rows that content-match an already-ingested contract (3 nets: УНП+supplier+€, buyer+supplier+€, buyer+supplier+date+€). Running the storage.eop `договори` ingest in that mode over full history recovers the ~29,404 procedures / ~€3.39 bn **without double-counting**, then a rollup/derived rebuild + PG reload. No new scraping — the raw data is already cached. This is a headline-moving change (+~€3–4 bn to the corpus current-value basis) and a full rebuild + cloud reload, so it should be run deliberately, not folded into a routine ingest.
+
+*(The bidder side shows the same signature — 158 contracts / €194 M across the 15 sampled companies, same mechanism.)*
+
+---
+
 *Method notes: our side = local Docker Postgres `contracts`, `tag='contract'` only (amendment rows excluded, matching production rollups `rollups.ts`/`by_ns.ts`). SIGMA CSV `value_eur` = current basis (post-annex), matching our `amount_eur`. Join key = УНП (identical format both sides). Reconciler + raw CSVs retained in session scratchpad (`reconcile.py`, `sig/*.csv`).*
