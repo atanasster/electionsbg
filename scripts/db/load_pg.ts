@@ -333,6 +333,17 @@ export const loadPg = async (): Promise<{
         `contracts merge parity check failed: live=${live} staged=${staged}`,
       );
 
+    // Canonical ЦАИС join key (cais_id) — derived from unp/ocid so in-house /
+    // negotiated awards (T-id only) reconcile against СИГМА. Not COPY'd (it's a
+    // plain column, absent from COLUMN_NAMES), so set it here for new/changed
+    // rows. IS DISTINCT guard → touches only rows that actually changed; the
+    // UPDATE takes RowExclusiveLock (readers never block). See
+    // 079_contracts_cais_id.sql for why this is a plain column, not GENERATED.
+    await c.query(
+      `UPDATE contracts SET cais_id = contract_cais_ref(unp, ocid)
+       WHERE cais_id IS DISTINCT FROM contract_cais_ref(unp, ocid)`,
+    );
+
     // Contract-name search index — distinct contractor as they appear in the
     // corpus (covers contractors absent from TR). Rebuilt each load.
     await c.query("TRUNCATE contractor_search");

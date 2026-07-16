@@ -16,24 +16,41 @@
 --
 -- `cais_id` = the standard УНП when we have one, else the recovered `T…` id.
 -- That equals СИГМА's `unp` field exactly, so `sigma.unp = contracts.cais_id`
--- joins the whole corpus. Purely DERIVED (a STORED generated column, like
--- `title_fold`): it changes NO totals, needs no shard/Contract-type change, and
--- is recomputed automatically on every reload (contracts_stage is created
--- `LIKE contracts INCLUDING GENERATED`). NULL only for the pre-ЦАИС
--- `aop-legacy-*` tail, whose ocid holds a legacy АОП doc-id, not a ЦАИС id.
+-- joins the whole corpus. It changes NO totals — purely a join key.
 --
--- ALTER-based (001's CREATE TABLE IF NOT EXISTS is a no-op on an existing DB).
+-- WHY a plain column + helper fn, NOT a GENERATED column. A STORED generated
+-- column can't be added without a full table REWRITE under AccessExclusive
+-- (~40s local / minutes on Cloud SQL for 347k rows), which would 500 every
+-- /procurement + contracts-browser read for the whole window (see
+-- reference_contracts_reload_lock). A plain `ADD COLUMN` is instant (metadata
+-- only) and the populating UPDATE takes RowExclusiveLock (readers never block),
+-- so this deploys with ZERO downtime — same lock-free discipline as the
+-- contracts MERGE. Population is done by load_pg.ts right after the MERGE (so
+-- new/changed rows stay correct every reload); a standalone apply to a live DB
+-- runs the same UPDATE once (see below).
 
-ALTER TABLE contracts
-  ADD COLUMN IF NOT EXISTS cais_id text
-  GENERATED ALWAYS AS (
-    CASE
-      WHEN unp IS NOT NULL AND unp <> '' THEN unp
-      WHEN ocid LIKE 'eop-T%'        THEN substring(ocid FROM 5)         -- 'eop-T78923'        -> 'T78923'
-      WHEN ocid LIKE 'ocds-e82gsb-%' THEN 'T' || substring(ocid FROM 13) -- 'ocds-e82gsb-566491'-> 'T566491'
-      ELSE NULL
-    END
-  ) STORED;
+-- Deterministic derivation, shared by the loader's post-merge UPDATE and any
+-- standalone backfill. IMMUTABLE: same (unp, ocid) → same ref, always.
+CREATE OR REPLACE FUNCTION contract_cais_ref(p_unp text, p_ocid text)
+  RETURNS text
+  LANGUAGE sql IMMUTABLE PARALLEL SAFE
+AS $$
+  SELECT CASE
+    WHEN p_unp IS NOT NULL AND p_unp <> '' THEN p_unp
+    WHEN p_ocid LIKE 'eop-T%'        THEN substring(p_ocid FROM 5)         -- 'eop-T78923'         -> 'T78923'
+    WHEN p_ocid LIKE 'ocds-e82gsb-%' THEN 'T' || substring(p_ocid FROM 13) -- 'ocds-e82gsb-566491' -> 'T566491'
+    ELSE NULL
+  END
+$$;
+
+ALTER TABLE contracts ADD COLUMN IF NOT EXISTS cais_id text;
 
 -- Join/lookup key for external reconciliation (sigma.unp = contracts.cais_id).
 CREATE INDEX IF NOT EXISTS idx_contracts_cais_id ON contracts(cais_id);
+
+-- Populate existing rows (idempotent; RowExclusiveLock — readers never block).
+-- On a fresh build the table is empty here and this is a no-op; load_pg.ts
+-- re-runs the same UPDATE after the corpus MERGE so new rows are always set.
+UPDATE contracts
+   SET cais_id = contract_cais_ref(unp, ocid)
+ WHERE cais_id IS DISTINCT FROM contract_cais_ref(unp, ocid);
