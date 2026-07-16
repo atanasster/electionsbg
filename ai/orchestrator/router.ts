@@ -774,6 +774,46 @@ export const route = (question: string, ctx: ToolContext): Route => {
   )
     return { tool: "riverbedCleaning", args: {} };
 
+  // Околна среда / МОСВ — the environment sector (МОСВ procurement group + the
+  // measured outcomes). Placed among the early domain guards (like riverbedCleaning)
+  // so the specific env intent isn't pre-empted by the generic procurement / budget-
+  // function / compare heuristics below. Air questions carry no env-sector cue here
+  // and fall through to airQuality later, so airQuality keeps precedence for air words.
+  {
+    // Recycling-rate-vs-target outcome (Eurostat) — a strong, unambiguous cue.
+    if (
+      has(q, "рецикл", "recycl", "депонир", "landfill") &&
+      !has(q, "избор", "election")
+    )
+      return { tool: "wasteRecycling", args: {} };
+
+    const envSector = has(
+      q,
+      "околна среда",
+      "мосв",
+      "пудоос",
+      "риосв",
+      "иаос",
+      "национален парк",
+      "натура 2000",
+      "environmental protection",
+    );
+    if (envSector) {
+      // ОП „Околна среда" EU-funds absorption.
+      if (
+        has(q, "усвоя", "опос", "оп околна", "absorb") ||
+        (has(q, "европейск", "еврофонд", "eu funds", "исун") &&
+          !has(q, "бюджет", "budget"))
+      )
+        return { tool: "environmentFunds", args: {} };
+      // A budget-function question ("бюджет за околна среда", % of GDP) is the COFOG
+      // budgetFunction tool's job — fall through, don't hijack. Otherwise it's the
+      // МОСВ procurement group.
+      if (!has(q, "бюджет", "budget", "% от бвп", "cofog", "кофог"))
+        return { tool: "environmentSpending", args: {} };
+    }
+  }
+
   // A bare polling-section id (exactly 9 digits) names ONE station, not a place —
   // route it to the section tools straight away, before the year/count detectors
   // (a section id can embed a "20xx" run) or the place extractor (which can't read

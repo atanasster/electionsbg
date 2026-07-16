@@ -99,6 +99,11 @@ export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
   { pattern: /^\/security\//, dataset: "security" },
   { pattern: /^\/transport\//, dataset: "transport" },
   { pattern: /^\/energy\//, dataset: "energy" },
+  // /sector/environment reads waste.json (Eurostat recycling/per-capita indicators);
+  // its other data rides existing datasets (air→localgov, funds→funds, procurement→
+  // procurement, cofog→macro). Attribute the env indicator series to `indicators`,
+  // mirroring the `/tourism/` → indicators rule.
+  { pattern: /^\/environment\//, dataset: "indicators" },
   { pattern: /^\/administration\//, dataset: "administration" },
   { pattern: /^\/water\//, dataset: "water" },
   { pattern: /^\/culture\//, dataset: "culture" },

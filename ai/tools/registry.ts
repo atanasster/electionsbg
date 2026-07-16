@@ -80,6 +80,11 @@ import {
 } from "./defense";
 import { securityRoadSafety } from "./security";
 import { transportSpending, transportEuFunds, railSubsidy } from "./transport";
+import {
+  environmentSpending,
+  environmentFunds,
+  wasteRecycling,
+} from "./environment";
 import { generationMix, electricityPrices, powerPlants } from "./energy";
 import { riverbedCleaning } from "./vik";
 import { ngoOverview, ngoTopFunded, ngoConflictAwarders } from "./ngo";
@@ -2250,6 +2255,67 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: railSubsidy,
+  },
+  {
+    name: "environmentSpending",
+    domain: "fiscal",
+    description: {
+      bg: "Обществените поръчки на държавната система по околна среда (МОСВ, ИАОС, ПУДООС, националните паркове, НИМХ, басейновите дирекции, 16-те РИОСВ) по структура и функция, с конкуренция. ИАОС — която мери въздуха — е почти колкото цялото министерство.",
+      en: "Procurement of the state environment system (МОСВ, ИАОС, ПУДООС, national parks, НИМХ, river-basin directorates, the 16 РИОСВ) by unit and function, with competition. ИАОС — which measures the air — is nearly the size of the whole ministry.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Колко харчи МОСВ за обществени поръчки?",
+        en: "How much does МОСВ spend on procurement?",
+      },
+      {
+        bg: "Къде отиват парите за околна среда?",
+        en: "Where does the environment money go?",
+      },
+      { bg: "Поръчки на ИАОС и ПУДООС", en: "ИАОС and ПУДООС procurement" },
+    ],
+    run: environmentSpending,
+  },
+  {
+    name: "environmentFunds",
+    domain: "fiscal",
+    description: {
+      bg: "Европейските средства по ОП/Програма „Околна среда“ (ИСУН) — договорени срещу реално изплатени (усвояване). ОПОС 2014-2020 приключи с ~95%, а Програма „Околна среда“ 2021-2027 е около ~18% — рискът от неусвояване.",
+      en: "EU funds under ОП/Programme „Околна среда“ (ИСУН) — contracted vs actually paid (absorption). ОПОС 2014-2020 closed at ~95%, while Programme „Околна среда“ 2021-2027 sits near ~18% — the absorption risk.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Колко усвоява ОП Околна среда?",
+        en: "How much does ОП Околна среда absorb?",
+      },
+      {
+        bg: "Европейски пари за околна среда",
+        en: "EU money for the environment",
+      },
+    ],
+    run: environmentFunds,
+  },
+  {
+    name: "wasteRecycling",
+    domain: "indicators",
+    description: {
+      bg: "Степента на рециклиране на битовите отпадъци в България спрямо целите на ЕС (55% до 2025, 65% до 2035). България достигна ~35% през 2020, после падна до 16.7% (2023) — далеч под целта и под средното за ЕС.",
+      en: "Bulgaria's municipal-waste recycling rate against the EU targets (55% by 2025, 65% by 2035). BG peaked at ~35% in 2020 then fell to 16.7% (2023) — far below the target and the EU average.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Колко рециклира България?",
+        en: "How much does Bulgaria recycle?",
+      },
+      {
+        bg: "Степен на рециклиране спрямо целта на ЕС",
+        en: "Recycling rate vs the EU target",
+      },
+    ],
+    run: wasteRecycling,
   },
   {
     name: "defensePeerCompare",
