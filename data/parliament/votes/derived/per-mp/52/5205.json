@@ -3,29 +3,69 @@
   "ns": "52",
   "partyShort": "ПБ",
   "loyalty": {
-    "votesCast": 410,
-    "withParty": 351,
-    "loyaltyPct": 0.8560975609756097,
+    "votesCast": 423,
+    "withParty": 360,
+    "loyaltyPct": 0.851063829787234,
     "windowFrom": "2026-04-30",
-    "windowTo": "2026-07-10",
-    "totalVoteItems": 682
+    "windowTo": "2026-07-15",
+    "totalVoteItems": 697
   },
   "attendance": {
-    "totalItems": 682,
-    "presentCount": 410,
-    "absentCount": 272,
-    "presentPct": 0.6011730205278593
+    "totalItems": 697,
+    "presentCount": 423,
+    "absentCount": 274,
+    "presentPct": 0.6068866571018652
   },
   "cohort": {
     "size": 268,
-    "votesCastMedian": 486,
-    "loyaltyPctMedian": 0.9796600820491606,
-    "presentPctMedian": 0.7126099706744868
+    "votesCastMedian": 499.5,
+    "loyaltyPctMedian": 0.9797979797979798,
+    "presentPctMedian": 0.7173601147776184
   },
   "dissents": {
-    "totalCast": 410,
-    "dissentCount": 59,
+    "totalCast": 423,
+    "dissentCount": 63,
     "recent": [
+      {
+        "date": "2026-07-15",
+        "item": 8,
+        "slug": "8-programa-za-rabotata-na-narodnoto-sabranie-za-15-17-yuli-202",
+        "title": "Програма за работата на Народното събрание за 15 - 17 юли 2026 г. - предложение от Костадин Костадинов и група н.п. - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 124
+      },
+      {
+        "date": "2026-07-15",
+        "item": 7,
+        "slug": "7-programa-za-rabotata-na-narodnoto-sabranie-za-15-17-yuli-202",
+        "title": "Програма за работата на Народното събрание за 15 - 17 юли 2026 г. - предложение от Костадин Костадинов и група н.п",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 127
+      },
+      {
+        "date": "2026-07-15",
+        "item": 6,
+        "slug": "6-programa-za-rabotata-na-narodnoto-sabranie-za-15-17-yuli-202",
+        "title": "Програма за работата на Народното събрание за 15 - 17 юли 2026 г. - предложение от Стою Стоев - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 126
+      },
+      {
+        "date": "2026-07-15",
+        "item": 4,
+        "slug": "4-programa-za-rabotata-na-narodnoto-sabranie-za-15-17-yuli-202",
+        "title": "Програма за работата на Народното събрание за 15 - 17 юли 2026 г. - предложение от Петър Петров - прегласуване",
+        "topic": "other",
+        "mpVote": "abstain",
+        "majorityVote": "no",
+        "groupSize": 124
+      },
       {
         "date": "2026-07-08",
         "item": 11,
@@ -485,46 +525,6 @@
         "mpVote": "abstain",
         "majorityVote": "no",
         "groupSize": 122
-      },
-      {
-        "date": "2026-06-03",
-        "item": 26,
-        "slug": "26-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-2-predlozhe",
-        "title": "ЗИД на Закона за водите - второ гласуване - параграф 2 - предложение от Петър Петров",
-        "topic": "zid",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 119
-      },
-      {
-        "date": "2026-06-03",
-        "item": 25,
-        "slug": "25-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-2-predlozhe",
-        "title": "ЗИД на Закона за водите - второ гласуване - параграф 2 - предложение от Катя Панева и група н.п. в чл.198д",
-        "topic": "zid",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 122
-      },
-      {
-        "date": "2026-06-03",
-        "item": 24,
-        "slug": "24-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-2-predlozhe",
-        "title": "ЗИД на Закона за водите - второ гласуване - параграф 2 - предложение от Петър Петров в чл.198в",
-        "topic": "zid",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 120
-      },
-      {
-        "date": "2026-06-03",
-        "item": 23,
-        "slug": "23-zid-na-zakona-za-vodite-vtoro-glasuvane-paragraf-2-predlozhe",
-        "title": "ЗИД на Закона за водите - второ гласуване - параграф 2 - предложение от Катя Панева и група н.п. - ОТМЕНЕНО",
-        "topic": "zid",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 121
       }
     ]
   },
@@ -532,205 +532,205 @@
     "topK": [
       {
         "mpId": 5087,
-        "score": 0.836047213411056,
-        "overlap": 395
+        "score": 0.8359035176218751,
+        "overlap": 408
       },
       {
         "mpId": 5088,
-        "score": 0.7930914938688088,
-        "overlap": 396
-      },
-      {
-        "mpId": 5252,
-        "score": 0.7755774509482167,
-        "overlap": 375
-      },
-      {
-        "mpId": 5160,
-        "score": 0.76957489253962,
-        "overlap": 410
-      },
-      {
-        "mpId": 5240,
-        "score": 0.766946236417904,
-        "overlap": 351
-      },
-      {
-        "mpId": 5219,
-        "score": 0.7488399749835486,
-        "overlap": 407
-      },
-      {
-        "mpId": 5174,
-        "score": 0.7446206370012373,
-        "overlap": 396
-      },
-      {
-        "mpId": 5260,
-        "score": 0.7445503365252811,
-        "overlap": 365
-      },
-      {
-        "mpId": 5238,
-        "score": 0.7440849441374766,
+        "score": 0.7933137914885335,
         "overlap": 409
       },
       {
-        "mpId": 5162,
-        "score": 0.743766084519929,
-        "overlap": 397
+        "mpId": 5252,
+        "score": 0.7770814806747752,
+        "overlap": 388
       },
       {
-        "mpId": 5177,
-        "score": 0.7410938824484354,
-        "overlap": 394
+        "mpId": 5160,
+        "score": 0.7703701846474845,
+        "overlap": 423
+      },
+      {
+        "mpId": 5240,
+        "score": 0.7677841083405725,
+        "overlap": 364
+      },
+      {
+        "mpId": 5219,
+        "score": 0.7485830522824783,
+        "overlap": 419
+      },
+      {
+        "mpId": 5260,
+        "score": 0.7468547970509715,
+        "overlap": 378
+      },
+      {
+        "mpId": 5174,
+        "score": 0.7467256728434087,
+        "overlap": 409
+      },
+      {
+        "mpId": 5238,
+        "score": 0.7454977540603999,
+        "overlap": 422
+      },
+      {
+        "mpId": 5162,
+        "score": 0.745192335446782,
+        "overlap": 410
       },
       {
         "mpId": 5132,
-        "score": 0.7401368150770716,
+        "score": 0.7424184833908254,
+        "overlap": 419
+      },
+      {
+        "mpId": 5177,
+        "score": 0.7410449050017277,
         "overlap": 406
       },
       {
         "mpId": 5253,
-        "score": 0.7394884294259796,
-        "overlap": 405
+        "score": 0.7409641925420016,
+        "overlap": 418
       },
       {
         "mpId": 5332,
-        "score": 0.737665643375803,
-        "overlap": 302
+        "score": 0.7392340594478723,
+        "overlap": 315
       },
       {
         "mpId": 5210,
-        "score": 0.7349956070676751,
-        "overlap": 405
+        "score": 0.7371458659076338,
+        "overlap": 418
       },
       {
         "mpId": 5084,
-        "score": 0.7314715173824958,
-        "overlap": 409
+        "score": 0.7315337551280573,
+        "overlap": 421
       },
       {
-        "mpId": 5102,
-        "score": 0.7312591030885273,
-        "overlap": 372
+        "mpId": 5069,
+        "score": 0.7310239906035549,
+        "overlap": 404
       },
       {
         "mpId": 5135,
-        "score": 0.7286370578691949,
-        "overlap": 403
+        "score": 0.7303857137851235,
+        "overlap": 416
       },
       {
         "mpId": 5279,
-        "score": 0.7282277380397578,
-        "overlap": 403
+        "score": 0.7299415238313587,
+        "overlap": 416
       },
       {
         "mpId": 5243,
-        "score": 0.7280089954960859,
-        "overlap": 403
+        "score": 0.7297448037513945,
+        "overlap": 416
       }
     ],
     "bottomK": [
       {
         "mpId": 5060,
-        "score": -0.010873741309866576,
-        "overlap": 283
-      },
-      {
-        "mpId": 5194,
-        "score": -0.0030556616567607043,
-        "overlap": 219
+        "score": -0.015939530318019795,
+        "overlap": 291
       },
       {
         "mpId": 5074,
-        "score": 0,
-        "overlap": 253
+        "score": -0.00791152005328365,
+        "overlap": 266
+      },
+      {
+        "mpId": 5194,
+        "score": -0.005929369050423703,
+        "overlap": 230
       },
       {
         "mpId": 5171,
-        "score": 0.020898344949269804,
-        "overlap": 270
+        "score": 0.012687535936505219,
+        "overlap": 283
       },
       {
         "mpId": 5101,
-        "score": 0.030815864666880632,
-        "overlap": 293
-      },
-      {
-        "mpId": 5247,
-        "score": 0.03782126531152809,
+        "score": 0.02246212708888939,
         "overlap": 306
       },
       {
-        "mpId": 5258,
-        "score": 0.0584264890137504,
-        "overlap": 159
-      },
-      {
-        "mpId": 5159,
-        "score": 0.05865555671007873,
-        "overlap": 233
-      },
-      {
-        "mpId": 5234,
-        "score": 0.06048968009119619,
-        "overlap": 334
+        "mpId": 5247,
+        "score": 0.028938752208282858,
+        "overlap": 317
       },
       {
         "mpId": 5335,
-        "score": 0.06937459350943205,
-        "overlap": 24
+        "score": 0.04199142412734356,
+        "overlap": 28
+      },
+      {
+        "mpId": 5159,
+        "score": 0.048727195129736146,
+        "overlap": 246
+      },
+      {
+        "mpId": 5234,
+        "score": 0.04922511187200064,
+        "overlap": 344
+      },
+      {
+        "mpId": 5258,
+        "score": 0.05352877275721892,
+        "overlap": 166
       },
       {
         "mpId": 5100,
-        "score": 0.08284168695795141,
+        "score": 0.08176655100601524,
         "overlap": 21
       },
       {
         "mpId": 4169,
-        "score": 0.09440686400617013,
+        "score": 0.09318163287761887,
         "overlap": 30
       },
       {
         "mpId": 4099,
-        "score": 0.09701425001453319,
+        "score": 0.09575517970982428,
         "overlap": 5
       },
       {
         "mpId": 4100,
-        "score": 0.09701425001453319,
+        "score": 0.09575517970982428,
         "overlap": 5
       },
       {
         "mpId": 4105,
-        "score": 0.09701425001453319,
+        "score": 0.09575517970982428,
         "overlap": 5
       },
       {
         "mpId": 4109,
-        "score": 0.09701425001453319,
+        "score": 0.09575517970982428,
         "overlap": 5
       },
       {
         "mpId": 4110,
-        "score": 0.09701425001453319,
+        "score": 0.09575517970982428,
         "overlap": 5
       },
       {
         "mpId": 4111,
-        "score": 0.09701425001453319,
+        "score": 0.09575517970982428,
         "overlap": 5
       },
       {
-        "mpId": 5248,
-        "score": 0.1217720467617631,
-        "overlap": 25
+        "mpId": 5185,
+        "score": 0.11099962569956769,
+        "overlap": 335
       },
       {
-        "mpId": 5185,
-        "score": 0.12231274357081116,
-        "overlap": 322
+        "mpId": 5248,
+        "score": 0.12019166482819776,
+        "overlap": 25
       }
     ]
   }
