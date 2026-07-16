@@ -54,6 +54,10 @@ const CONTRACT_CURRENT_VALUE_FILE = path.join(
   SCHEMA_DIR,
   "078_contracts_current_value.sql",
 );
+const CONTRACT_CAIS_ID_FILE = path.join(
+  SCHEMA_DIR,
+  "079_contracts_cais_id.sql",
+);
 const TRACKING_FILE = path.join(SCHEMA_DIR, "005_ingest_tracking.sql");
 const CONTRACTOR_SEARCH_FILE = path.join(
   SCHEMA_DIR,
@@ -243,6 +247,7 @@ export const loadPg = async (): Promise<{
   await exec(readFileSync(CONTRACTS_UNP_FILE, "utf8"));
   await exec(readFileSync(CONTRACT_LOT_FILE, "utf8"));
   await exec(readFileSync(CONTRACT_CURRENT_VALUE_FILE, "utf8"));
+  await exec(readFileSync(CONTRACT_CAIS_ID_FILE, "utf8"));
   await exec(readFileSync(TRACKING_FILE, "utf8"));
   await exec(readFileSync(CONTRACTOR_SEARCH_FILE, "utf8"));
   await exec(readFileSync(COMPANY_API_FILE, "utf8"));
