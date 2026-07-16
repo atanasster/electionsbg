@@ -18,7 +18,6 @@ import { FC, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
-  ChevronLeft,
   Coins,
   Landmark,
   Scale,
@@ -39,6 +38,7 @@ import {
   YAxis,
 } from "recharts";
 import { Title } from "@/ux/Title";
+import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { StatCard } from "./dashboard/StatCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { MinistryPersonnelBlock } from "./components/budget/MinistryPersonnelBlock";
@@ -889,20 +889,18 @@ export const BudgetMinistryScreen: FC = () => {
   const { data, isLoading } = useBudgetMinistryRollup(id);
   const lang = i18n.language === "bg" ? "bg" : "en";
 
-  const backLink = (
-    <Link
-      to="/budget"
-      className="inline-flex items-center gap-1 text-xs uppercase tracking-wide text-muted-foreground hover:text-foreground hover:underline"
-    >
-      <ChevronLeft className="h-3.5 w-3.5" />
-      {t("budget_index_title") || "State budget"}
-    </Link>
+  const breadcrumb = (
+    <GovernanceBreadcrumb
+      sectionKey="budget_link_label"
+      sectionTo="/budget"
+      className="mt-5"
+    />
   );
 
   if (isLoading) {
     return (
       <section className="my-4 space-y-4">
-        {backLink}
+        {breadcrumb}
         <div className="grid gap-3 grid-cols-1 sm:grid-cols-3">
           <SkeletonCard />
           <SkeletonCard />
@@ -915,7 +913,7 @@ export const BudgetMinistryScreen: FC = () => {
   if (!data) {
     return (
       <section className="my-4 space-y-4">
-        {backLink}
+        {breadcrumb}
         <p className="text-sm text-muted-foreground">
           {t("budget_ministry_not_found") ||
             "No budget-law data found for this spending unit."}
@@ -931,9 +929,14 @@ export const BudgetMinistryScreen: FC = () => {
       <Title description={`${name} — state budget appropriations`}>
         {name}
       </Title>
+      <GovernanceBreadcrumb
+        sectionKey="budget_link_label"
+        sectionTo="/budget"
+        current={name}
+        className="mt-5"
+      />
       <section aria-label={name} className="my-4">
-        {backLink}
-        <p className="mt-3 text-sm text-muted-foreground">
+        <p className="text-sm text-muted-foreground">
           {data.years.some((y) => y.execution)
             ? t("budget_ministry_intro_with_execution") ||
               "Appropriations from the State Budget Law plus actual execution from the year-end program-budget report (Отчет за изпълнението на програмния бюджет)."

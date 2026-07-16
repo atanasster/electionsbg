@@ -6,7 +6,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft, BookOpen } from "lucide-react";
+import { BookOpen } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { BudgetPolicySimulator } from "./components/budget/BudgetPolicySimulator";
@@ -26,13 +26,6 @@ export const BudgetPolicySimulatorScreen: FC = () => {
         className="mt-5"
       />
       <section aria-label={title} className="my-4 space-y-4">
-        <Link
-          to="/budget"
-          className="text-primary hover:underline inline-flex items-center gap-1 text-sm"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" />
-          {t("budget_index_title")}
-        </Link>
         <p className="text-sm text-muted-foreground">
           {t("budget_policy_page_intro")}
         </p>
