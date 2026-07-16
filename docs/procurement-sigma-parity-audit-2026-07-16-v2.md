@@ -259,4 +259,20 @@ SIGMA's unfiltered `/contracts.csv` returns its **entire corpus** (196,156 rows 
 
 ---
 
-*Method notes: our side = local Docker Postgres `contracts`, `tag='contract'` only (amendment rows excluded, matching production rollups `rollups.ts`/`by_ns.ts`). SIGMA CSV `value_eur` = current basis (post-annex), matching our `amount_eur`. Join key = УНП (identical format both sides). Reconciler + raw CSVs retained in session scratchpad (`reconcile.py`, `sig/*.csv`).*
+## 10. SIGMA-side issues (analysed against their full 196k-row corpus, excluding the 2026 annex ÷1.95583 bug of §2)
+
+1. **No publisher-error correction — inflated values (~€270 M+).** SIGMA books obvious source errors at face value; it has no override table or plausibility guard.
+   - **×100 stotinki errors** — where the publisher dropped the decimal (entered stotinki into a leva field), SIGMA carries the ×100 figure. All 18 contracts our `amount_overrides.ts` corrects are present in SIGMA **uncorrected**, totalling **€275 M** where the truth is ~1/100th: `00105-2025-0026` SIGMA €102.26 M (est. €2 M); `00621-2020-0008` SIGMA €14.2 M for **Община Две могили**, a ~9k-person municipality (truth ~€142 k). Each of ours reproduces the row's own published estimate to the stotinka.
+   - **Garbage outliers** — no MAX-multiple guard, so a corrupt annex passes through: `00747-2024-0003`'s annex chain is €1.09 M → €2.17 M → **€105.2 M** (a ×48 single-step jump = a data error). SIGMA books €53.8 M (its ÷1.96 of the garbage); we reject it. Corpus-wide, 5 УНП show SIGMA >20× our value / €206 M vs €3 M.
+
+2. **Genuine coverage gap — ~€0.95 bn / 628 contracts (2020+ procedures).** Contracts with a **2020-or-later УНП** that we hold and SIGMA lacks. (A further €2.29 bn / 331 УНП is **scope-basis, not a bug** — pre-2020 procedures *awarded* 2020+; SIGMA scopes by procedure year, we by award date. Both defensible.)
+
+3. **Consortium "…и др." union entities erase company-level accountability (€12.6 bn).** SIGMA books consortium/framework awards under an anonymous "…и др." union pseudo-entity at full value — **4,637 rows / €12.60 bn** with no member `contractor_eik`. Consequence: a firm that wins only through consortia shows **€0 on its own SIGMA profile**; you cannot trace how much a specific company won (e.g. the €1.3 bn `00080-2024-0030` МЗ drug framework sits under "МЕДЕКС ООД и др."). We split each award to its members' EIKs, preserving per-company accountability — the core of the political-accountability use case.
+
+4. **207 zero-value rows** — contracts SIGMA carries at €0 (a smaller mirror of the placeholder issue we now handle via the estimate fallback, §9.1).
+
+**Not issues (checked and cleared):** no negative values; the 2 >€500 M rows (МЕДЕКС €1.3 bn, БДЖ rolling-stock €1.4 bn) are legitimate mega-contracts both sides agree on; the 3,369 "duplicate" (unp, contractor, value, date) rows are distinct lots/consortia sharing a value, not double-counts — SIGMA's per-УНП totals are not inflated (the annex bug makes them *lower* than ours, not higher).
+
+---
+
+*Method notes: our side = local Docker Postgres `contracts`, `tag='contract'` only (amendment rows excluded, matching production rollups `rollups.ts`/`by_ns.ts`). SIGMA CSV `value_eur` = current basis (post-annex), matching our `amount_eur`. Join key = УНП / `cais_id`. Full SIGMA corpus via unfiltered `/contracts.csv` (196,156 rows). Analysis scripts + raw CSVs retained in session scratchpad.*
