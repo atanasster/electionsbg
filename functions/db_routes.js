@@ -20,31 +20,44 @@ const orNull = (q, k) => s(q, k) || null;
 
 // Single contract by key → ProcurementContract shape (camelCased). The columns
 // common to both the enriched (contracts_list) and base (contracts) queries.
+// Every column is qualified `c.` because both queries LEFT JOIN tenders `t`
+// (below), and ocid/cpv/currency/eu_program exist on both tables — unqualified
+// they'd be ambiguous.
 const CONTRACT_COLS = `
-  key, ocid, tag, date, date_signed AS "dateSigned",
-  awarder_eik AS "awarderEik", awarder_name AS "awarderName",
-  awarder_region AS "awarderRegion",
-  contractor_eik AS "contractorEik", contractor_eik_full AS "contractorEikFull",
-  contractor_name AS "contractorName",
-  amount, currency, amount_eur AS "amountEur",
-  signing_amount_eur AS "signingAmountEur", title, cpv,
-  procurement_method AS "procurementMethod",
-  procurement_method_rationale AS "procurementMethodRationale",
-  number_of_tenderers AS "numberOfTenderers",
-  CASE WHEN eu_funded IS NULL THEN NULL ELSE eu_funded = 1 END AS "euFunded",
-  eu_program AS "euProgram",
-  tender_period_start_date AS "tenderPeriodStartDate",
-  tender_period_end_date AS "tenderPeriodEndDate",
-  category, bundle_uuid AS "bundleUuid", source_url AS "sourceUrl",
-  lot_name AS "lotName"`;
+  c.key, c.ocid, c.tag, c.date, c.date_signed AS "dateSigned",
+  c.awarder_eik AS "awarderEik", c.awarder_name AS "awarderName",
+  c.awarder_region AS "awarderRegion",
+  c.contractor_eik AS "contractorEik", c.contractor_eik_full AS "contractorEikFull",
+  c.contractor_name AS "contractorName",
+  c.amount, c.currency, c.amount_eur AS "amountEur",
+  c.signing_amount_eur AS "signingAmountEur", c.title, c.cpv,
+  c.procurement_method AS "procurementMethod",
+  c.procurement_method_rationale AS "procurementMethodRationale",
+  c.number_of_tenderers AS "numberOfTenderers",
+  CASE WHEN c.eu_funded IS NULL THEN NULL ELSE c.eu_funded = 1 END AS "euFunded",
+  c.eu_program AS "euProgram",
+  c.tender_period_start_date AS "tenderPeriodStartDate",
+  c.tender_period_end_date AS "tenderPeriodEndDate",
+  c.category, c.bundle_uuid AS "bundleUuid", c.source_url AS "sourceUrl",
+  c.lot_name AS "lotName"`;
+// The procedure's PROGNOZA (estimated value) + поръчки source-day provenance,
+// from the УНП-matched tender (tenders.unp is the PK → single-row seek). NULL for
+// the ~49% of contracts with no matching tender — the UI degrades to two bases.
+const TENDER_COLS = `
+  t.estimated_value_eur AS "estimatedValueEur",
+  t.source_url AS "tenderSourceUrl",
+  t.source_day AS "tenderSourceDay"`;
 const CONTRACT_SQL = `
-  SELECT ${CONTRACT_COLS},
-         has_appeal AS "hasAppeal", appeal_upheld AS "appealUpheld"
-  FROM contracts_list WHERE key = $1 LIMIT 1`;
+  SELECT ${CONTRACT_COLS}, ${TENDER_COLS},
+         c.has_appeal AS "hasAppeal", c.appeal_upheld AS "appealUpheld"
+  FROM contracts_list c LEFT JOIN tenders t ON c.unp = t.unp
+  WHERE c.key = $1 LIMIT 1`;
 // Fallback for a DB predating migration 042 (contracts_list missing → 42P01):
 // serve the contract without the appeal fields rather than 500 the whole page.
 const CONTRACT_SQL_BASE = `
-  SELECT ${CONTRACT_COLS} FROM contracts WHERE key = $1 LIMIT 1`;
+  SELECT ${CONTRACT_COLS}, ${TENDER_COLS}
+  FROM contracts c LEFT JOIN tenders t ON c.unp = t.unp
+  WHERE c.key = $1 LIMIT 1`;
 
 // Degrade to "no appeals" ONLY for the missing-migration case (42883 =
 // undefined_function): until 042 reaches this DB the appeals tile stays empty

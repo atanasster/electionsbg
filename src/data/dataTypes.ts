@@ -1543,6 +1543,17 @@ export type ProcurementContract = {
   /** At-signing euro value; present ONLY when an annex moved the value (so
    * `amountEur` now holds the current value). Drives the signed→current Δ. */
   signingAmountEur?: number;
+  /** The originating procedure's ПРОГНОЗНА (estimated) euro value — the third
+   * value basis (procedure-level, not per-lot). From the УНП-matched tender;
+   * present for ~51% of contracts (those with a matching tender). See
+   * scripts/db/schema/pg/009_tenders.sql estimated_value_eur. */
+  estimatedValueEur?: number;
+  /** The поръчки source day-file (storage.eop.bg) the matched tender was
+   * published in — a richer provenance link alongside the договори source.
+   * Present only with `estimatedValueEur` (same tender join). */
+  tenderSourceUrl?: string;
+  /** The matched tender's source_day (YYYY-MM-DD) — the day-file's date. */
+  tenderSourceDay?: string;
   title: string;
   /** Fuller per-lot description recovered from the УНП-matched tender's
    *  lots[].name (АОП truncates the lot tail welded into `title`). Present only

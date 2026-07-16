@@ -141,57 +141,7 @@ export const ContractDetailScreen: FC = () => {
             </div>
           );
         })()}
-        {c.amount != null
-          ? (() => {
-              const { primary, original } = formatAmountEur(
-                c.amountEur,
-                c.amount,
-                c.currency,
-                i18n.language,
-              );
-              // When an annex moved the value, `amountEur` is the CURRENT value
-              // and `signingAmountEur` the at-signing one. Show the signed value
-              // and the Δ% so the header reads as "текуща стойност" with lineage.
-              const signed = c.signingAmountEur;
-              const showDelta =
-                signed != null &&
-                c.amountEur != null &&
-                Math.abs(c.amountEur - signed) >= 0.005 &&
-                signed > 0;
-              const deltaPct = showDelta
-                ? ((c.amountEur! - signed!) / signed!) * 100
-                : 0;
-              const signedFmt = showDelta
-                ? formatAmountEur(signed, undefined, "EUR", i18n.language)
-                    .primary
-                : null;
-              return (
-                <p className="text-2xl font-bold tabular-nums">
-                  {primary}
-                  {showDelta ? (
-                    <span className="block text-sm font-normal text-muted-foreground">
-                      {t("contract_current_value") || "current value"} ·{" "}
-                      {t("contract_signed_at") || "signed at"} {signedFmt} (
-                      <span
-                        className={
-                          deltaPct >= 0 ? "text-red-600" : "text-emerald-600"
-                        }
-                      >
-                        {deltaPct >= 0 ? "+" : ""}
-                        {deltaPct.toFixed(1)}%
-                      </span>
-                      )
-                    </span>
-                  ) : null}
-                  {original ? (
-                    <span className="block text-sm font-normal text-muted-foreground">
-                      {t("contract_originally") || "originally"} {original}
-                    </span>
-                  ) : null}
-                </p>
-              );
-            })()
-          : null}
+        <ContractValueBases contract={c} />
         {riskResult ? (
           <div className="pt-2">
             <RiskBadges result={riskResult} variant="full" />
@@ -389,6 +339,22 @@ export const ContractDetailScreen: FC = () => {
                 </p>
               );
             })()}
+            {c.tenderSourceUrl ? (
+              <p>
+                {t("contract_source_hint_tender") ||
+                  "The originating procedure in the open-data feed:"}{" "}
+                <a
+                  href={c.tenderSourceUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-primary hover:underline inline-flex items-center gap-0.5"
+                >
+                  {t("contract_view_tender_source") ||
+                    "Поръчки — storage.eop.bg (пълни данни за деня)"}{" "}
+                  <ExternalLink className="h-3 w-3" />
+                </a>
+              </p>
+            ) : null}
             <p>
               {/* This record as clean JSON — mirrors SIGMA's per-contract JSON
                   download. Serialises the on-disk by-id row exactly. The raw
@@ -420,6 +386,178 @@ export const ContractDetailScreen: FC = () => {
         </div>
       </div>
     </section>
+  );
+};
+
+// The value bases as a visual ladder: прогнозна → при сключване → текуща, each a
+// bar scaled to the largest so the annex-driven growth reads at a glance. This
+// replaced an inline "текуща стойност · при сключване €X (+Δ)" run that read as a
+// contradiction (текуща = current) and repeated the same figure + delta twice.
+// Only the bases that exist are shown:
+//   • прогнозна  — the procedure estimate (estimatedValueEur), whole-procedure
+//   • при сключване — the at-signing value (signingAmountEur); present ONLY when
+//     an annex later moved the value, so current ≠ signed
+//   • текуща     — the current (post-annex) value (amountEur), the emphasised row
+const ContractValueBases: FC<{ contract: ProcurementContract }> = ({
+  contract: c,
+}) => {
+  const { t, i18n } = useTranslation();
+  if (c.amount == null) return null;
+  const { primary, original } = formatAmountEur(
+    c.amountEur,
+    c.amount,
+    c.currency,
+    i18n.language,
+  );
+  const current = c.amountEur;
+  const signed = c.signingAmountEur ?? null;
+  const estimated = c.estimatedValueEur ?? null;
+  const fmt = (v: number) =>
+    formatAmountEur(v, undefined, "EUR", i18n.language).primary;
+
+  type Stage = {
+    key: string;
+    label: string;
+    // Normal-case suffix printed after the uppercase label (e.g. the procedure
+    // scope on прогнозна) — kept out of the label so it doesn't read as SHOUTING.
+    qualifier?: string;
+    value: number;
+    emphasis?: boolean;
+  };
+  const stages: Stage[] = [];
+  if (current != null) {
+    if (estimated != null)
+      stages.push({
+        key: "estimated",
+        label: t("contract_estimated_short") || "estimated",
+        qualifier: t("contract_estimated_qualifier") || "(whole procedure)",
+        value: estimated,
+      });
+    if (signed != null)
+      stages.push({
+        key: "signed",
+        label: t("contract_signed_at") || "at signing",
+        value: signed,
+      });
+    stages.push({
+      key: "current",
+      label: t("contract_current_value") || "current value",
+      value: current,
+      emphasis: true,
+    });
+  }
+
+  // A foreign-currency row with no EUR conversion, or a single lone basis → keep
+  // the plain headline (the ladder needs ≥2 comparable EUR figures to be worth it).
+  if (current == null || stages.length < 2) {
+    return (
+      <p className="text-2xl font-bold tabular-nums">
+        {primary}
+        {original ? (
+          <span className="block text-sm font-normal text-muted-foreground">
+            {t("contract_originally") || "originally"} {original}
+          </span>
+        ) : null}
+      </p>
+    );
+  }
+
+  const max = Math.max(...stages.map((st) => st.value), 1);
+  // Growth of the current value over its baseline — the signed value when an
+  // annex moved it, else the procedure estimate. Positive = the value grew past
+  // the baseline (cost overrun), surfaced red to mirror the risk convention.
+  const baseline = signed ?? estimated;
+  const showDelta =
+    baseline != null && baseline > 0 && Math.abs(current - baseline) >= 0.005;
+  const deltaPct = showDelta ? ((current - baseline) / baseline) * 100 : 0;
+  // Read the note as natural language: "{p} над/под {baseline}" where p is the
+  // ABSOLUTE percentage (the sign lives in the над/под word, not a "-" prefix).
+  const over = deltaPct >= 0;
+  const p = `${Math.abs(deltaPct).toFixed(1)}%`;
+  const growthNote = !showDelta
+    ? null
+    : signed != null
+      ? over
+        ? t("contract_value_over_signed", {
+            p,
+            defaultValue:
+              "Current value is {{p}} above the signed value (annexes).",
+          })
+        : t("contract_value_under_signed", {
+            p,
+            defaultValue:
+              "Current value is {{p}} below the signed value (annexes).",
+          })
+      : over
+        ? t("contract_value_over_estimated", {
+            p,
+            defaultValue:
+              "Current value is {{p}} above the procedure estimate.",
+          })
+        : t("contract_value_under_estimated", {
+            p,
+            defaultValue:
+              "Current value is {{p}} below the procedure estimate.",
+          });
+
+  return (
+    <div className="space-y-2 max-w-xl">
+      <div className="space-y-2.5">
+        {stages.map((st) => (
+          <div key={st.key}>
+            <div className="flex items-baseline justify-between gap-3">
+              <span className="text-xs uppercase tracking-wide text-muted-foreground">
+                {st.label}
+                {st.qualifier ? (
+                  <span className="normal-case text-muted-foreground/70">
+                    {" "}
+                    {st.qualifier}
+                  </span>
+                ) : null}
+              </span>
+              <span
+                className={
+                  "tabular-nums " +
+                  (st.emphasis
+                    ? "text-2xl font-bold"
+                    : "text-sm font-medium text-muted-foreground")
+                }
+              >
+                {fmt(st.value)}
+                {st.emphasis && showDelta ? (
+                  <span
+                    className={
+                      "ml-2 text-sm font-semibold " +
+                      (deltaPct >= 0 ? "text-red-600" : "text-emerald-600")
+                    }
+                  >
+                    {deltaPct >= 0 ? "+" : ""}
+                    {deltaPct.toFixed(1)}%
+                  </span>
+                ) : null}
+              </span>
+            </div>
+            <div className="mt-1 h-2 rounded-full bg-muted overflow-hidden">
+              <div
+                className={
+                  "h-full rounded-full " +
+                  (st.emphasis ? "bg-primary" : "bg-muted-foreground/40")
+                }
+                style={{ width: `${Math.max((st.value / max) * 100, 2)}%` }}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+      {growthNote ? (
+        <p className="text-[11px] text-muted-foreground">{growthNote}</p>
+      ) : null}
+      {original ? (
+        <p className="text-[11px] text-muted-foreground/80">
+          {t("contract_originally") || "originally"} {original}
+        </p>
+      ) : null}
+    </div>
   );
 };
 
