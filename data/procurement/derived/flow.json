@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-15T08:56:52.585Z",
+  "generatedAt": "2026-07-16T10:26:56.104Z",
   "nodes": [
     {
       "id": "contractor:101055748",
@@ -964,6 +964,16 @@
       "valueEur": 186556070.07
     },
     {
+      "source": "contractor:831643461",
+      "target": "official:hristin-tsvetolyubov-savov-ea02aa",
+      "valueEur": 108655571.44
+    },
+    {
+      "source": "awarder:000695089",
+      "target": "contractor:831643461",
+      "valueEur": 88845431.76
+    },
+    {
       "source": "awarder:180680495",
       "target": "contractor:831641791",
       "valueEur": 65791878.39
@@ -972,11 +982,6 @@
       "source": "awarder:000695406",
       "target": "contractor:831641791",
       "valueEur": 64324530.05
-    },
-    {
-      "source": "contractor:831643461",
-      "target": "official:hristin-tsvetolyubov-savov-ea02aa",
-      "valueEur": 52377199.95
     },
     {
       "source": "awarder:130823243",
@@ -1007,11 +1012,6 @@
       "source": "awarder:203740812",
       "target": "contractor:175331015",
       "valueEur": 35053380.21
-    },
-    {
-      "source": "awarder:000695089",
-      "target": "contractor:831643461",
-      "valueEur": 32567060.27
     },
     {
       "source": "contractor:202758921",
