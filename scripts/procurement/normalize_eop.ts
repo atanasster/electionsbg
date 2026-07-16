@@ -117,6 +117,44 @@ const splitMulti = (v: string | undefined): string[] =>
     .map((s) => s.trim())
     .filter((s) => s.length > 0);
 
+// Unpublished / anonymised supplier markers — the source hides some suppliers
+// (protected natural persons). Keep the row (its value lands on the buyer) but
+// with no contractor identity.
+const UNPUBLISHED_SUPPLIER = /^(-+|не се публикува|няма( данни)?|n\/?a)$/i;
+
+// Resolve a supplier token to a contractor key. A clean BG EIK passes through.
+// Otherwise recover a BG EIK embedded in a messy id (BG-VAT "BG104529087",
+// "ЕИК 205994492", space-grouped "827 184 123"); failing that, KEEP it as a
+// FOREIGN vendor instead of dropping the contract — the flat feed (and the OCDS
+// path) used to drop every non-BG-EIK supplier, silently losing clean
+// foreign-vendor contracts (Stadler, WARTSILA, Dinghan…). Foreign vendors are
+// keyed by a normalized form of their registration id — the same way the corpus
+// already carries numeric-regnum foreign vendors (Leonardo, Škoda). `foreign` is
+// true whenever the id is not a validated BG EIK.
+export const resolveSupplierEik = (
+  raw: string | undefined,
+): { eik: string; foreign: boolean } => {
+  const canon = canonicalEik(raw);
+  if (isValidEik(canon)) return { eik: canon, foreign: false };
+  const s = (raw ?? "").trim();
+  if (!s || UNPUBLISHED_SUPPLIER.test(s)) return { eik: "", foreign: true };
+  // Embedded BG EIK: a standalone 9- or 13-digit run, after removing spaces and
+  // a leading BG-EIK marker ("ЕИК", "BG", "EIK"). Requiring an exact 9/13 length
+  // avoids mis-reading a foreign id that only looks numeric once separators are
+  // stripped (e.g. "821-24-77-136" → 10 digits → NOT treated as BG).
+  const stripped = s.replace(/\s+/g, "").replace(/^(ЕИК|BG|EIK)/i, "");
+  if (/^(\d{9}|\d{13})$/.test(stripped)) {
+    const c = canonicalEik(stripped);
+    if (isValidEik(c)) return { eik: c, foreign: false };
+  }
+  // Genuine foreign vendor — key by a normalized registration id.
+  const norm = s
+    .replace(/[^A-Za-z0-9]/g, "")
+    .toUpperCase()
+    .slice(0, 24);
+  return { eik: norm, foreign: true };
+};
+
 // Resolve the contracting authority from `buyerRegistryNumber`, which is
 // USUALLY a single EIK but is occasionally a semicolon-joined list — either a
 // genuine joint procurement or (as on АПИ's big road contracts) a control body
@@ -157,6 +195,7 @@ export interface EopNormalizeStats {
   rowsEmitted: number;
   rowsDroppedNoSupplierEik: number;
   rowsDroppedSelfDeal: number;
+  rowsForeignKept: number;
 }
 
 const emptyStats = (): EopNormalizeStats => ({
@@ -166,6 +205,7 @@ const emptyStats = (): EopNormalizeStats => ({
   rowsEmitted: 0,
   rowsDroppedNoSupplierEik: 0,
   rowsDroppedSelfDeal: 0,
+  rowsForeignKept: 0,
 });
 
 // Normalize one day's flat договори records into Contract[].
@@ -255,16 +295,28 @@ export const normalizeEopDay = (
     // repeats the SAME total contractValue on every supplier in the flat feed.
     // Crediting each supplier the full value would multiply one award's money by
     // the supplier count (a €1.3bn drug framework awarded to six distributors
-    // would read as €7.8bn). Split it across the valid suppliers so the rows sum
-    // back to the awarded total — the way SIGMA reports framework totals.
-    const validSupplierCount =
-      eiks.filter((e) => isValidEik(canonicalEik(e))).length || 1;
-    const amountPer = amount != null ? amount / validSupplierCount : amount;
-    const amountEurPer =
-      amountEur != null ? amountEur / validSupplierCount : amountEur;
-    eiks.forEach((rawEik, i) => {
-      const supplierEik = canonicalEik(rawEik);
-      if (!isValidEik(supplierEik)) {
+    // would read as €7.8bn). Split it across the suppliers so the rows sum back
+    // to the awarded total — the way SIGMA reports framework totals.
+    //
+    // Resolve each supplier: a clean BG EIK, a BG EIK recovered from a messy id,
+    // or a kept foreign vendor. A contract that has any validated BG supplier
+    // keeps its historical split/attribution EXACTLY (split across the BG
+    // suppliers; non-BG members dropped) so a --cross-source-dedup re-ingest
+    // content-matches it against the existing corpus — no double-count, no total
+    // shift. Only a contract with NO BG supplier at all — previously dropped
+    // wholesale (Stadler, WARTSILA, "не се публикува" sole awards) — is recovered,
+    // split across its foreign/anonymous suppliers.
+    const resolved = eiks.map((e) => resolveSupplierEik(e));
+    const bgCount = resolved.filter((r) => !r.foreign).length;
+    const recoverForeign = bgCount === 0;
+    const denom = (recoverForeign ? resolved.length : bgCount) || 1;
+    const amountPer = amount != null ? amount / denom : amount;
+    const amountEurPer = amountEur != null ? amountEur / denom : amountEur;
+    resolved.forEach((res, i) => {
+      const rawEik = eiks[i];
+      const supplierEik = res.eik;
+      if (res.foreign && !recoverForeign) {
+        // Non-BG member of a mixed consortium — historical behaviour: dropped.
         stats.rowsDroppedNoSupplierEik++;
         return;
       }
@@ -280,6 +332,7 @@ export const normalizeEopDay = (
         stats.rowsDroppedSelfDeal++;
         return;
       }
+      if (res.foreign) stats.rowsForeignKept++;
       rows.push({
         key: contractKey(releaseId, contractNumber, supplierEik, tag),
         ocid,
@@ -300,7 +353,10 @@ export const normalizeEopDay = (
         // else). Acceptable for the gap-fill; revisit if a buyer→settlement
         // lookup is added.
         contractorEik: supplierEik,
-        contractorEikFull: rawEik !== supplierEik ? rawEik : undefined,
+        // Preserve the raw source id when it differs from the canonical key
+        // (13-digit branch form, or a foreign / messy-BG id we normalized).
+        contractorEikFull:
+          supplierEik && rawEik !== supplierEik ? rawEik : undefined,
         contractorName: supplierName,
         amount: amountPer,
         currency,
