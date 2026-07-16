@@ -1,8 +1,10 @@
 # Околна среда (Environment / МОСВ) sector view — v1 plan, competitive research & brainstorm
 
-Status: **NOT BUILT — plan/design only.** (2026-07-16) Research-and-design pass + a full data/template
-**audit** (see §0.5) that verified the measured figures against the live repo and corrected three plan
-mechanisms (no air time-series; no `useFundsAbsorption` hook; all tile accents used). Nothing committed.
+Status: **NOT BUILT — plan/design only.** (2026-07-16) Research-and-design pass + **two audit passes**
+(see §0.5). Pass 1 corrected three mechanisms (no air time-series; no `useFundsAbsorption` hook; all
+tile accents used). Pass 2 (deeper, same day) found the measured € are already stale after an intra-day
+corpus refresh (group €216M→≈€227M, ПУДООС +46%), that `PassThroughHero` is a phantom reuse (never
+built), and that env CPV coverage is low (~40%, so the category tile is >50% "other"). Nothing committed.
 Closest built siblings to copy: the **energy / security group dashboards** (`sectorDashboards.ts` +
 `SectorAwardersTile`) for the cheapest Phase-1 group ship, the **water pack** (`VikPack` +
 `VikEuFundsTile`) for the EU-funds + sector-map grammar, and **transport** (`data/transport/*.json` +
@@ -93,9 +95,54 @@ A full data + template audit was run against the live repo before any build. Fin
 **EIK count clarification:** the env-core group is **27 EIK** as enumerated in §1 (3 core + 3 parks +
 1 meteo + 4 basin + 16 РИОСВ), not "~24" — the group-total € (~€216M) is unchanged; fix the label.
 
+### Second audit pass (2026-07-16, later same day — deeper cross-reference sweep)
+
+A second, deeper audit re-checked every figure and every component/hook/script the plan names. Three
+**new material findings** on top of the three above:
+
+4. **⚠ THE MEASURED € ARE ALREADY STALE — the corpus refreshes intra-day.** `awarders_index.json` was
+   **regenerated at 23:10 the same day** (EOP gap-fill + tender refresh; 4,398→**4,400** rows) *after*
+   the plan's figures were taken. Re-measured now: **МОСВ €82.72M→€88.04M** (707 contracts), **ИАОС
+   €75.89M→€75.95M**, **ПУДООС €9.25M→€13.52M (+46%)**, and the **group total €216.4M→≈€226.6M**. No
+   duplicate-EIK artifact (4,400 rows = 4,400 distinct EIK). **Consequences:** (a) every € in this plan
+   is *as-of-a-timestamp*, not frozen — **re-measure at build time** and label the source-date; (b)
+   tile 5's framing "the fund is small in procurement (€9.25M)" must become **€13.5M**; (c) the ИАОС≈МОСВ
+   headline still holds directionally but is now **€76.0M vs €88.0M** (ИАОС ≈ 86% of the ministry, was
+   ~92%). Do NOT hard-code any of these into `environmentReferenceData.ts` — keep it EIK-only, figures
+   live from the model, exactly like transport.
+5. **⚠ `PassThroughHero` DOES NOT EXIST.** §6 lists it as a "reuse as-is" (`src/screens/components/
+   procurement/PassThroughHero.tsx`, "built once by the social-assistance plan"). A repo-wide grep finds
+   **zero** references — the social-assistance plan is itself unbuilt, so the component was never
+   written. **Drop the PassThroughHero reuse claim** (or build the hero from scratch and own it here); it
+   is not a free reuse. The money-strip can be a plain KPI/`StatCard` band instead.
+6. **⚠ CPV coverage is LOW — the category tile will be >50% "unknown".** Per-awarder breakdowns:
+   **МОСВ CPV-known 46%, ИАОС 39%, ПУДООС 33%** of €. `categoryOfCpv("")→"other"`, so tile 7 ("what
+   МОСВ buys") will be **dominated by the „Друго/Other" sink** (≈55–65% of the money). This still ships,
+   but the tile MUST disclose the CPV-known coverage % and **verify whether the awarder model bases its
+   category split on `cpvKnownEur` or `totalEur`** (if the former, the tile shows <half the money and
+   must say so). Transport/energy have far higher CPV coverage — do not assume env behaves like them.
+
+**Minor path/name corrections (fix inline where the plan cites them):**
+- `useAwarderGroupModel` is at `src/data/procurement/useAwarderGroupModel.**ts**` (not `.tsx`).
+- `fetch_cofog.ts` lives at **`scripts/macro/fetch_cofog.ts`**, not `scripts/transport/` (§3 Tier B).
+- The prerender build guard is an **inline throw** (`prerender SECTOR_PAGES missing sector(s): …`), not a
+  named `assertAllSectorsHavePrerenderCopy` function (§§4/9) — the guard is real, the name is wrong.
+
+**Newly confirmed solid (no change needed):**
+- **All 27 core EIKs present** in the corpus; **Universe B** parks present too (Витоша €1.92M, Странджа
+  €1.52M) — the nature-parks extension is viable.
+- **Tile 2 needs NO server route** — `SectorPointMap` takes a `points[]` prop and has client-fed
+  precedent (WaterOperatorMap, CourtLoadMap, ExciseWarehouseMap, NzokHospitalMap). Feeding it
+  air-station points computed client-side from `air/index.json` + `municipalities.json` is sound.
+- Every other named artifact exists: `absorption.json` (all 5 OP codes), `useCofog`
+  (`src/data/macro/useCofog.tsx`), `useBudget`, `VikContractorHhiTile`, `MvrEuPeerTile`, `euFlags.tsx`,
+  `PackSection`, `StatCard`, `packInsights`, `ScopeControl`, `useScopeWindow`, `SectorAwardersTile`, the
+  `awarder_group_model` SQL fn (migration 061), the `eurostat_rail` watcher + `data_map/model.ts` to
+  mirror, and the AI `airQuality` tool (registry ~4346) + its router block (~3426).
+
 ---
 
-## 1. Entities — the FROZEN EIK allowlist (measured 2026-07-16)
+## 1. Entities — the FROZEN EIK allowlist (measured 2026-07-16; re-measure at build — §0.5 pt 4)
 
 Curate **by EIK allowlist, never a name regex** — a "околна среда" / "парк" sweep hits the
 **historical-monument museum** „Шипка — Бузлуджа" (`000804161`, €7.1M, a national-**park-museum**, NOT
@@ -397,10 +444,9 @@ light+dark. Air-limit bands use a fixed green/amber/red ramp keyed to the EU lim
 `useCofog` + `MvrEuPeerTile` + `euFlags.tsx` (GF05 peer strip, tile 8), `VikContractorHhiTile`
 (HHI), `PackSection` (stacked bands), `StatCard` (KPI row), `buildPackInsights` (linkified chips),
 `InfographicTile` + `TILE_ACCENTS` (the hub tile), `AwarderBreadcrumb`, `ScopeControl` /
-`useScope`/`useScopeWindow`, `DbDataTable` ("see all"), `useAirQuality` (`src/data/air/`), and the shared
-**`PassThroughHero`** (`src/screens/components/procurement/PassThroughHero.tsx`) — the inversion-hero built
-once by the social-assistance plan; reuse it for the money strip (€216M procured vs the GF05 envelope)
-rather than rebuilding.
+`useScope`/`useScopeWindow`, `DbDataTable` ("see all"), `useAirQuality` (`src/data/air/`). **⚠ §0.5 pt 5: `PassThroughHero` does NOT exist** (never built —
+the social-assistance plan is itself unbuilt), so it is **not** a free reuse. For the money strip (≈€227M
+procured vs the GF05 envelope) use a plain `StatCard` band, or build a hero from scratch and own it here.
 
 **Near-mechanical clones:** `EnvironmentPack` ← `MvrPack`; `useEnvironment.tsx` ← `useMvr.tsx`;
 `environmentAttributes.ts` ← `securityAttributes.ts`; `EnvironmentCategoryTile` ← `MvrCategoryTile`;
