@@ -610,6 +610,28 @@ const SECTOR_PAGES: SectorPageContent[] = [
     },
   },
   {
+    id: "environment",
+    eik: "000697371",
+    bg: {
+      title: "Околна среда — парите на държавата за чист въздух, отпадъци и природа | electionsbg.com", // prettier-ignore
+      description:
+        "Обществените поръчки на МОСВ, ИАОС, ПУДООС, националните паркове и 16-те РИОСВ (~€227 млн.): парите за мониторинг на въздуха до измереното качество на въздуха (ФПЧ10/ФПЧ2.5), усвояването на ОП „Околна среда“ и разходът за околна среда спрямо ЕС (COFOG GF05).",
+      breadcrumb: "Околна среда",
+      h1: "Околна среда — парите и въздухът",
+      intro:
+        "Опазването на околната среда (COFOG GF05) е единствената голяма държавна функция, при която Наясно измерва и резултата — качеството на въздуха. Тази страница слага парите до резултата: обществените поръчки на Министерството на околната среда и водите, Изпълнителната агенция по околна среда (ИАОС — тя произвежда самите данни за ФПЧ10), фонд ПУДООС, дирекциите на националните паркове Рила, Пирин и Централен Балкан, НИМХ, четирите басейнови дирекции и 16-те регионални инспекции (РИОСВ) — до измереното качество на въздуха по станции, усвояването на ОП „Околна среда“ 2014-2020 срещу Програма „Околна среда“ 2021-2027, бюджета на министерството и разхода за околна среда спрямо ЕС. ИАОС — агенцията, която мери въздуха — сама е сред най-големите възложители, почти колкото цялото министерство.",
+    },
+    en: {
+      title: "Environment — Bulgaria's spending on clean air, waste and nature | electionsbg.com", // prettier-ignore
+      description:
+        "Procurement of МОСВ, ИАОС, ПУДООС, the national parks and the 16 РИОСВ (~€227M): the money for air monitoring next to the measured air quality (PM10/PM2.5), ОП „Околна среда“ absorption, and environment spending vs the EU (COFOG GF05).",
+      breadcrumb: "Environment",
+      h1: "Environment — the money and the air",
+      intro:
+        "Environmental protection (COFOG GF05) is the one large state function where Наясно also measures the outcome — air quality. This page puts the money next to the result: the public procurement of the Ministry of Environment and Water, the Executive Environment Agency (ИАОС — which produces the very PM10 series), the ПУДООС environment fund, the Rila, Pirin and Central Balkan national-park directorates, НИМХ, the four river-basin directorates and the 16 regional inspectorates (РИОСВ) — next to the measured air quality per station, the absorption of ОП „Околна среда“ 2014-2020 vs Програма „Околна среда“ 2021-2027, the ministry budget, and environment spending vs the EU. ИАОС — the agency that measures the air — is itself one of the largest buyers, nearly the size of the whole ministry.",
+    },
+  },
+  {
     id: "social",
     eik: "121082521",
     bg: {

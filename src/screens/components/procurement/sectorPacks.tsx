@@ -32,6 +32,7 @@ import {
   TRANSPORT_EIK,
   TRANSPORT_SECTOR_EIKS,
 } from "@/lib/transportReferenceData";
+import { MOSV_EIK, ENV_SECTOR_EIKS } from "@/lib/environmentReferenceData";
 import { ADMIN_SECTOR_EIKS } from "@/lib/administrationReferenceData";
 import { TOURISM_SECTOR_EIKS } from "@/lib/tourismReferenceData";
 import { MVR_EIK, SECURITY_SECTOR_EIKS } from "@/lib/securityReferenceData";
@@ -115,6 +116,16 @@ const TransportPack = lazy(() =>
     default: m.TransportPack,
   })),
 );
+// No ENV_AWARDER_PATH export (deliberately, like transport/МВР): the environment
+// view's home is the /sector/environment dashboard, which the nav points at; the МОСВ
+// awarder page is reached from there. The pack registers by EIK below and renders off
+// the existing corpus (27-unit group roll-up) plus the already-ingested air / EU-funds
+// / budget / COFOG assets — no new procurement ingest.
+const EnvironmentPack = lazy(() =>
+  import("./environment/EnvironmentPack").then((m) => ({
+    default: m.EnvironmentPack,
+  })),
+);
 const NapPack = lazy(() =>
   import("./nap/NapPack").then((m) => ({ default: m.NapPack })),
 );
@@ -133,6 +144,7 @@ const PACKS: Record<string, ComponentType<SectorPackProps>> = {
   [MOD_EIK]: DefensePack,
   [MVR_EIK]: MvrPack,
   [TRANSPORT_EIK]: TransportPack,
+  [MOSV_EIK]: EnvironmentPack,
   [NAP_EIK]: NapPack,
   [CUSTOMS_EIK]: CustomsPack,
 };
@@ -244,6 +256,11 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
     id: "transport",
     label: { bg: "Транспорт (МТС)", en: "Transport (МТС)" },
     eiks: TRANSPORT_SECTOR_EIKS,
+  },
+  environment: {
+    id: "environment",
+    label: { bg: "Околна среда (МОСВ)", en: "Environment (МОСВ)" },
+    eiks: ENV_SECTOR_EIKS,
   },
   administration: {
     id: "administration",
