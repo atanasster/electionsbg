@@ -117,36 +117,6 @@ const splitMulti = (v: string | undefined): string[] =>
     .map((s) => s.trim())
     .filter((s) => s.length > 0);
 
-// Resolve the contracting authority from `buyerRegistryNumber`, which is
-// USUALLY a single EIK but is occasionally a semicolon-joined list — either a
-// genuine joint procurement or (as on АПИ's big road contracts) a control body
-// such as the АДФИ listed *alongside* the real authority, e.g.
-// "175076479999; 000695089" (АДФИ; АПИ) with the aligned names in `buyerName`.
-//
-// Single-token fields keep their historical behaviour exactly. For a multi-token
-// field we deliberately DROP it (return "") in the general feed — picking one
-// primary buyer for arbitrary joint procurements is out of scope and could
-// mis-attribute. Only when the caller passes a `prefer` set (the scoped
-// gap-fill's --only-buyers whitelist) do we recover the record under the
-// whitelisted authority, taking its positionally-aligned name. This keeps the
-// incremental path — and its double-count invariant — byte-for-byte unchanged.
-export const resolvePrimaryBuyer = (
-  rawEik: string | undefined,
-  rawName: string | undefined,
-  prefer?: Set<string>,
-): { eik: string; name: string } => {
-  const eikToks = splitMulti(rawEik);
-  if (eikToks.length <= 1) {
-    return { eik: canonicalEik(rawEik), name: (rawName ?? "").trim() };
-  }
-  if (!prefer) return { eik: "", name: "" };
-  const canons = eikToks.map((t) => canonicalEik(t));
-  const idx = canons.findIndex((c) => isValidEik(c) && prefer.has(c));
-  if (idx < 0) return { eik: "", name: "" };
-  const nameToks = splitMulti(rawName);
-  return { eik: canons[idx], name: (nameToks[idx] ?? nameToks[0] ?? "").trim() };
-};
-
 export interface EopNormalizeStats {
   recordsSeen: number;
   recordsSkippedNoContract: number;
@@ -173,7 +143,6 @@ export const normalizeEopDay = (
   records: EopContractRecord[],
   day: string,
   sourceUrl: string,
-  opts?: { preferBuyers?: Set<string> },
 ): { rows: Contract[]; stats: EopNormalizeStats } => {
   const stats = emptyStats();
   const rows: Contract[] = [];
@@ -193,16 +162,12 @@ export const normalizeEopDay = (
       stats.recordsSkippedNoContract++;
       continue;
     }
-    const { eik: buyerEik, name: buyerRawName } = resolvePrimaryBuyer(
-      rec.buyerRegistryNumber,
-      rec.buyerName,
-      opts?.preferBuyers,
-    );
+    const buyerEik = canonicalEik(rec.buyerRegistryNumber);
     if (!isValidEik(buyerEik)) {
       stats.recordsSkippedNoBuyerEik++;
       continue;
     }
-    const buyerName = normaliseOrgName(buyerRawName);
+    const buyerName = normaliseOrgName(rec.buyerName ?? "");
 
     // `uniqueProcurementNumber` is NOT always a УНП: for some ЦАИС-internal
     // procedures the source publishes a `T…` id (e.g. "T56644") in the same

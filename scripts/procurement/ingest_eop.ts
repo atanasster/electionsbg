@@ -31,7 +31,6 @@ import zlib from "zlib";
 import { fileURLToPath } from "url";
 import { command, run, optional, option, string, flag, boolean } from "cmd-ts";
 import { normalizeEopDay, type EopContractRecord } from "./normalize_eop";
-import { canonicalEik } from "./eik";
 import { canonicalJson } from "./validate";
 import type { Contract } from "./types";
 
@@ -234,7 +233,6 @@ const main = async (args: {
   refreshCache: boolean;
   includeExistingBuyers: boolean;
   crossSourceDedup: boolean;
-  onlyBuyers: Set<string>;
   delayMs: number;
 }): Promise<void> => {
   const days = enumerateDays(args.from, args.to);
@@ -253,22 +251,6 @@ const main = async (args: {
   // 2020/2021 transition-year backfill.
   const crossSourceDedup = args.crossSourceDedup;
   const includeExistingBuyers = args.includeExistingBuyers || crossSourceDedup;
-
-  // --only-buyers scopes the run to a whitelist of authority EIKs (the P1
-  // storage.eop.bg coverage-gap fix for already-covered buyers like АПИ). Those
-  // buyers ARE in our corpus, so their EOP rows overlap the OCDS/legacy base and
-  // MUST be content-deduped — refuse to run without --cross-source-dedup, which
-  // is the only mode that drops the overlap. Passing the whitelist into the
-  // normalizer as `preferBuyers` also recovers multi-buyer records (e.g. АДФИ
-  // listed alongside АПИ) under the whitelisted authority.
-  const onlyBuyers = args.onlyBuyers;
-  if (onlyBuyers.size > 0 && !crossSourceDedup) {
-    throw new Error(
-      `--only-buyers requires --cross-source-dedup — the whitelisted buyers are ` +
-        `already in the corpus, so their EOP rows would double-count the OCDS/` +
-        `legacy base without content dedup`,
-    );
-  }
 
   const existing = loadExistingAwarderEiks();
   const years = new Set(days.map((d) => d.slice(0, 4)));
@@ -291,23 +273,15 @@ const main = async (args: {
         `Use ONLY for windows with no OCDS (2024–2025); otherwise this double-counts.`,
     );
   }
-  if (onlyBuyers.size > 0) {
-    console.log(
-      `→ --only-buyers: scoped to ${onlyBuyers.size} authority EIK(s): ` +
-        `${[...onlyBuyers].sort().join(", ")}`,
-    );
-  }
 
   const kept: Contract[] = [];
   const newBuyers = new Set<string>();
-  const keptByBuyer = new Map<string, { rows: number; eur: number }>();
   let daysPublished = 0;
   let daysMissing = 0;
   let recordsSeen = 0;
   let rowsBeforeGapfill = 0;
   let droppedExisting = 0;
   let droppedDuplicate = 0;
-  let droppedNotWhitelisted = 0;
 
   for (const day of days) {
     let records: EopContractRecord[] | null;
@@ -323,18 +297,9 @@ const main = async (args: {
     }
     daysPublished++;
     recordsSeen += records.length;
-    const { rows } = normalizeEopDay(
-      records,
-      day,
-      dayUrl(day),
-      onlyBuyers.size > 0 ? { preferBuyers: onlyBuyers } : undefined,
-    );
+    const { rows } = normalizeEopDay(records, day, dayUrl(day));
     rowsBeforeGapfill += rows.length;
     for (const r of rows) {
-      if (onlyBuyers.size > 0 && !onlyBuyers.has(r.awarderEik)) {
-        droppedNotWhitelisted++;
-        continue;
-      }
       if (!includeExistingBuyers && existing.has(r.awarderEik)) {
         droppedExisting++;
         continue;
@@ -351,10 +316,6 @@ const main = async (args: {
       }
       kept.push(r);
       newBuyers.add(r.awarderEik);
-      const agg = keptByBuyer.get(r.awarderEik) ?? { rows: 0, eur: 0 };
-      agg.rows++;
-      agg.eur += r.amountEur ?? 0;
-      keptByBuyer.set(r.awarderEik, agg);
     }
     // Only sleep on a live fetch (cache hits are free).
     if (!args.refreshCache && args.delayMs > 0) await sleep(args.delayMs);
@@ -376,19 +337,6 @@ const main = async (args: {
         `${newBuyers.size.toLocaleString()} NEW buyer(s); ` +
         `dropped ${droppedExisting.toLocaleString()} row(s) for buyers already in corpus`,
     );
-  }
-  if (onlyBuyers.size > 0) {
-    console.log(
-      `→ --only-buyers: dropped ${droppedNotWhitelisted.toLocaleString()} row(s) ` +
-        `for non-whitelisted buyers; per-whitelisted-buyer recovery:`,
-    );
-    for (const eik of [...onlyBuyers].sort()) {
-      const agg = keptByBuyer.get(eik) ?? { rows: 0, eur: 0 };
-      console.log(
-        `    ${eik}: ${agg.rows.toLocaleString()} new row(s), ` +
-          `€${Math.round(agg.eur).toLocaleString()}`,
-      );
-    }
   }
 
   if (!args.apply) {
@@ -463,15 +411,6 @@ const cli = command({
         "--include-existing-buyers.",
       defaultValue: () => false,
     }),
-    onlyBuyers: option({
-      type: optional(string),
-      long: "only-buyers",
-      description:
-        "Comma-separated authority EIK whitelist. Restricts output to these " +
-        "buyers (the P1 storage.eop.bg coverage-gap fix for already-covered " +
-        "infra authorities, e.g. АПИ 000695089). Requires --cross-source-dedup " +
-        "and recovers multi-buyer records under the whitelisted authority.",
-    }),
     delayMs: option({
       type: optional(string),
       long: "delay-ms",
@@ -492,12 +431,6 @@ const cli = command({
       refreshCache: !!args.refreshCache,
       includeExistingBuyers: !!args.includeExistingBuyers,
       crossSourceDedup: !!args.crossSourceDedup,
-      onlyBuyers: new Set(
-        (args.onlyBuyers ?? "")
-          .split(",")
-          .map((s) => canonicalEik(s.trim()))
-          .filter((e) => e.length > 0),
-      ),
       delayMs: args.delayMs ? parseInt(args.delayMs, 10) : 150,
     }),
 });
