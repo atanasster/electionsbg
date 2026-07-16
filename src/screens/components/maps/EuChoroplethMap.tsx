@@ -14,9 +14,17 @@ import { sequentialColor } from "../demographics/censusMetrics";
 // up, so it only reads as "complete" when the ingest carries the full 27-member
 // cross-section.
 
-// Core frame for the projection fit; far/edge geos (TR, UA, CY, IS…) still render
-// but are cropped by the viewport, matching the Eurostat map's European window.
-const FIT_EXCLUDE = new Set(["TR", "UA", "BY", "MD", "CY", "IS", "MT", "XK"]);
+// Visible geographic window (lon W/E, lat S/N). We fit Mercator to this fixed
+// frame rather than to the country geometry, deliberately cropping the tall,
+// mostly-empty far north (Scandinavia above ~60°N) so the map stays compact and
+// landscape — this is an indicator backdrop, not a reference atlas. Countries
+// extending past the window (Nordic tips, TR/UA to the east) still render and
+// are clipped by the SVG viewport. VIEW aspect (W→E vs Mercator S→N) drives the
+// default frame; keep width/height in that ratio to fill without letterboxing.
+const VIEW_W = -11;
+const VIEW_E = 30;
+const VIEW_S = 34.5;
+const VIEW_N = 60;
 const DEFAULT_AGGREGATES = ["EU27_2020", "EA"];
 
 export const EuChoroplethMap: FC<{
@@ -54,8 +62,8 @@ export const EuChoroplethMap: FC<{
   highlightGeo = "BG",
   excludeFromScale = DEFAULT_AGGREGATES,
   scaleGeos,
-  width = 360,
-  height = 560,
+  width = 520,
+  height = 490,
 }) => {
   const { data: geo } = useEuropeGeo();
   const { tooltip, ...tt } = useTooltip();
@@ -69,21 +77,23 @@ export const EuChoroplethMap: FC<{
   const { path, range } = useMemo(() => {
     if (!geo)
       return { path: undefined as d3.GeoPath | undefined, range: undefined };
-    const fit = {
-      type: "FeatureCollection" as const,
-      features: geo.features.filter((f) => !FIT_EXCLUDE.has(f.properties.geo)),
-    };
-    // Web Mercator. The earlier conic/azimuthal (LAEA) fits looked more
-    // "landscape" only because they fan meridians around the central meridian —
-    // which rotates every geo away from it (BG at ~25°E tilted ~12° clockwise).
+    // Web Mercator. The earlier conic/azimuthal (LAEA) fits looked "landscape"
+    // only because they fan meridians around the central meridian — which
+    // rotates every geo away from it (BG at ~25°E tilted ~12° clockwise).
     // Mercator's meridians are all vertical, so every country renders upright
     // (BG's Danube border sits horizontal) and shapes stay locally correct
-    // (conformal). The trade-off is size inflation toward the north and a
-    // naturally portrait Europe (~0.64 w/h) — hence the portrait default frame
-    // and the bounded map column in the caller. fitSize scales.
-    const projection = d3
-      .geoMercator()
-      .fitSize([width, height], fit as d3.GeoPermissibleObjects);
+    // (conformal). We fit to the fixed VIEW window (not the geometry) so the
+    // tall far north is cropped and the frame stays compact. A MultiPoint of the
+    // four window corners avoids spherical-polygon winding ambiguity in fitSize.
+    const projection = d3.geoMercator().fitSize([width, height], {
+      type: "MultiPoint",
+      coordinates: [
+        [VIEW_W, VIEW_S],
+        [VIEW_E, VIEW_S],
+        [VIEW_E, VIEW_N],
+        [VIEW_W, VIEW_N],
+      ],
+    } as d3.GeoPermissibleObjects);
     const p = d3.geoPath(projection);
     let min = Infinity;
     let max = -Infinity;
