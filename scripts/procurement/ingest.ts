@@ -59,7 +59,7 @@ import { writeContractorContracts } from "./contractor_contracts";
 import { writeAwarderContracts } from "./awarder_contracts";
 import { buildByNs } from "./by_ns";
 import { buildBySettlement } from "./by_settlement";
-import { uploadText, uploadTextTree } from "../lib/upload";
+import { uploadText } from "../lib/upload";
 import type {
   BundleEntry,
   BundlesIndex,
@@ -598,12 +598,45 @@ const main = async (args: {
   });
   console.log(`✓ index.json + bundles.json updated`);
 
-  // 7. Upload.
+  // 7. Upload. The contract / awarder / contractor corpus serves from Postgres
+  // (/api/db/*), NOT the static bucket — the local data/procurement/ tree exists
+  // only as the PG-load source (load_pg / load_tr_pg read it). So we push ONLY
+  // the few small blobs the SPA still fetches straight from the bucket (firebase
+  // rewrites /procurement/*.json → GCS), never the whole ~3 GB tree.
   if (args.upload) {
-    console.log(`→ uploading data/procurement/ to bucket`);
-    await uploadTextTree(PROCUREMENT_DIR, "procurement");
-    await uploadText(INDEX_FILE, "procurement/index.json");
-    console.log(`✓ uploaded`);
+    console.log(`→ uploading procurement serving blobs to bucket`);
+    // (localPath, remoteSubpath, frontend consumer)
+    const servingBlobs: Array<[string, string, string]> = [
+      [INDEX_FILE, "procurement/index.json", "dashboard index"],
+      [
+        path.join(PROCUREMENT_DIR, "roads.json"),
+        "procurement/roads.json",
+        "useRoadGeometry",
+      ],
+      [
+        path.join(DERIVED_DIR, "mp_party.json"),
+        "procurement/derived/mp_party.json",
+        "useMpParty",
+      ],
+      [
+        path.join(DERIVED_DIR, "hub_stats.json"),
+        "procurement/derived/hub_stats.json",
+        "useProcurementHubStats",
+      ],
+      [
+        path.join(DERIVED_DIR, "sector_stats.json"),
+        "procurement/derived/sector_stats.json",
+        "useSectorStats",
+      ],
+    ];
+    for (const [local, remote, consumer] of servingBlobs) {
+      if (!fs.existsSync(local)) {
+        console.warn(`  ⚠ ${remote} missing on disk (${consumer}) — skipped`);
+        continue;
+      }
+      await uploadText(local, remote);
+    }
+    console.log(`✓ uploaded ${servingBlobs.length} serving blob(s)`);
   }
 };
 

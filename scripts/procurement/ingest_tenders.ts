@@ -31,7 +31,6 @@ import { command, run, optional, option, string, flag, boolean } from "cmd-ts";
 import { buildTenders, type Tender } from "./normalize_eop_tender";
 import { tendersDayUrl, type EopTenderRecord } from "./eop_tender_types";
 import { canonicalJson } from "./validate";
-import { uploadTextTree } from "../lib/upload";
 import type { TenderSearchRow } from "@/lib/tenderTopics";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -633,11 +632,12 @@ const main = async (args: {
       `forecast Σ €${(index.totals.estimatedValueEur / 1e9).toFixed(1)}bn (quarantined)`,
   );
 
-  // 4. Optional bucket sync.
+  // 4. Upload. Tenders serve entirely from Postgres (/api/db/*). The month-shard
+  // tree under data/procurement/tenders/ is only the PG-load source
+  // (load_tenders_pg reads it) — nothing under it is fetched from the static
+  // bucket — so there is nothing to upload. The flag stays for CLI symmetry.
   if (args.upload) {
-    console.log(`→ uploading data/procurement/tenders/ to bucket`);
-    await uploadTextTree(TENDERS_DIR, "procurement/tenders");
-    console.log(`✓ uploaded`);
+    console.log(`→ tenders serve from Postgres; no bucket upload needed`);
   }
 };
 
