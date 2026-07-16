@@ -20,8 +20,11 @@ don't pre-empt it; air keeps precedence; pure budget questions cede to `budgetFu
 bullet + data-dir + data-source entries added. The **Natura 2000 / protected-area nature strip** also
 shipped (Eurostat `env_bio4`, folded into `fetch_waste.ts` + `waste.json`; `EnvironmentNatureTile`) —
 completing the **outcome triad** (air ✓, waste ✓, nature ✓): BG protects **44% of its land**, ~1.7× the
-EU average, a positive counterpoint to the recycling gap. Deferred: ПУДООС grant register (PG ingest +
-source probe — the third *money* loop), the `update-environment` skill (the watcher currently instructs a manual fetch),
+EU average, a positive counterpoint to the recycling gap. The **process-watch-report mapping** for `eurostat_env` is
+also wired (a direct `→ npx tsx scripts/environment/fetch_waste.ts` row, no separate skill — matching
+the `eurostat_rail`/`eurostat_road_safety` small-committed-Eurostat-file convention rather than the
+plan's original separate-skill suggestion). Deferred: **ПУДООС grant register** (PG ingest — source
+probed 2026-07-16, it's PDF-only, so a real crawl + parse; the third *money* loop, §Open-questions 2),
 `db:gen-sector-stats` rerun for the hub € badge (needs live PG), a dedicated air-map OG capture, and
 `bucket:sync` of `data/environment/` for prod.
 Closest built siblings to copy: the **energy / security group dashboards** (`sectorDashboards.ts` +
@@ -666,8 +669,12 @@ Cabinet anchoring last.
 
 1. **Cluster placement** — `sectors_cluster_infra` (next to water; recommended, МОСВ sibling) vs
    `sectors_cluster_land` (with agri/nature; thematically "земя и природа"). One-line decision.
-2. **ПУДООС grants source** — is pudoos.bg's grant register machine-fetchable/structured, or scan-only?
-   Gates whether tile 5 is a full DbDataTable or a curated purpose-split. Needs a source probe.
+2. **ПУДООС grants source** — ✅ **PROBED (2026-07-16):** pudoos.bg is a legacy WordPress site
+   (Apache 2.2 / PHP 5.3) exposing only **PDF documents** (annual reports / registration docs), NOT a
+   machine-fetchable grant register; data.egov.bg has no clean ПУДООС org feed. So tile 5 needs a
+   **PDF-crawl + parse** of the annual reports (or a curated cited subset) → the `pudoos_grants` PG
+   table. Confirmed as the heaviest remaining item — genuinely a separate PG-backed ingest, not a quick
+   structured fetch. This is the last unbuilt piece of the plan.
 3. **Nature-parks universe** — include the 11 природни паркове (~€12.5M) in the group total, or keep the
    core 24 EIK and cross-link parks? (Recommended: include as their own `nature_parks` universe, Phase 2.)
 4. **OP-code vs EIK join for the funds tile** — OP-code (via static `absorption.json`, accurate, recommended; §0.5)
