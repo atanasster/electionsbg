@@ -605,9 +605,10 @@ const main = async (args: {
   // rewrites /procurement/*.json → GCS), never the whole ~3 GB tree.
   if (args.upload) {
     console.log(`→ uploading procurement serving blobs to bucket`);
-    // (localPath, remoteSubpath, frontend consumer)
+    // (localPath, remoteSubpath, frontend consumer). index.json is NOT here —
+    // nothing fetches /procurement/index.json from the bucket (the dashboard
+    // index is PG-served); it stays a local-only artifact.
     const servingBlobs: Array<[string, string, string]> = [
-      [INDEX_FILE, "procurement/index.json", "dashboard index"],
       [
         path.join(PROCUREMENT_DIR, "roads.json"),
         "procurement/roads.json",
