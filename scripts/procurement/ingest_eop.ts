@@ -323,12 +323,13 @@ const main = async (args: {
     }
     daysPublished++;
     recordsSeen += records.length;
-    const { rows } = normalizeEopDay(
-      records,
-      day,
-      dayUrl(day),
-      onlyBuyers.size > 0 ? { preferBuyers: onlyBuyers } : undefined,
-    );
+    const { rows } = normalizeEopDay(records, day, dayUrl(day), {
+      preferBuyers: onlyBuyers.size > 0 ? onlyBuyers : undefined,
+      // In the content-deduped cross-source backfill (double-count impossible)
+      // recover joint-procurement contracts under their primary buyer instead of
+      // dropping them — SIGMA parity issue 1.
+      recoverJointToPrimary: crossSourceDedup,
+    });
     rowsBeforeGapfill += rows.length;
     for (const r of rows) {
       if (onlyBuyers.size > 0 && !onlyBuyers.has(r.awarderEik)) {

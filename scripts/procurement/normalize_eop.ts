@@ -173,20 +173,31 @@ export const resolvePrimaryBuyer = (
   rawEik: string | undefined,
   rawName: string | undefined,
   prefer?: Set<string>,
+  recoverToPrimary?: boolean,
 ): { eik: string; name: string } => {
   const eikToks = splitMulti(rawEik);
   if (eikToks.length <= 1) {
     return { eik: canonicalEik(rawEik), name: (rawName ?? "").trim() };
   }
-  if (!prefer) return { eik: "", name: "" };
   const canons = eikToks.map((t) => canonicalEik(t));
-  const idx = canons.findIndex((c) => isValidEik(c) && prefer.has(c));
-  if (idx < 0) return { eik: "", name: "" };
   const nameToks = splitMulti(rawName);
-  return {
+  const pick = (idx: number) => ({
     eik: canons[idx],
     name: (nameToks[idx] ?? nameToks[0] ?? "").trim(),
-  };
+  });
+  // A whitelist wins: recover under the named authority (the --only-buyers path).
+  if (prefer) {
+    const idx = canons.findIndex((c) => isValidEik(c) && prefer.has(c));
+    return idx < 0 ? { eik: "", name: "" } : pick(idx);
+  }
+  // Otherwise: DROP by default (a joint-procurement field could mis-attribute,
+  // and the incremental path relies on this for its double-count invariant).
+  // But under `recoverToPrimary` (the content-deduped cross-source backfill, where
+  // double-count is impossible) attribute to the PRIMARY — the first valid buyer,
+  // as SIGMA does — rather than lose a real contract (~653 rows / €1.16bn).
+  if (!recoverToPrimary) return { eik: "", name: "" };
+  const idx = canons.findIndex((c) => isValidEik(c));
+  return idx < 0 ? { eik: "", name: "" } : pick(idx);
 };
 
 export interface EopNormalizeStats {
@@ -197,6 +208,8 @@ export interface EopNormalizeStats {
   rowsDroppedNoSupplierEik: number;
   rowsDroppedSelfDeal: number;
   rowsForeignKept: number;
+  rowsPlaceholderEstimate: number;
+  rowsJointToPrimary: number;
 }
 
 const emptyStats = (): EopNormalizeStats => ({
@@ -207,6 +220,8 @@ const emptyStats = (): EopNormalizeStats => ({
   rowsDroppedNoSupplierEik: 0,
   rowsDroppedSelfDeal: 0,
   rowsForeignKept: 0,
+  rowsPlaceholderEstimate: 0,
+  rowsJointToPrimary: 0,
 });
 
 // Normalize one day's flat договори records into Contract[].
@@ -217,7 +232,7 @@ export const normalizeEopDay = (
   records: EopContractRecord[],
   day: string,
   sourceUrl: string,
-  opts?: { preferBuyers?: Set<string> },
+  opts?: { preferBuyers?: Set<string>; recoverJointToPrimary?: boolean },
 ): { rows: Contract[]; stats: EopNormalizeStats } => {
   const stats = emptyStats();
   const rows: Contract[] = [];
@@ -241,11 +256,14 @@ export const normalizeEopDay = (
       rec.buyerRegistryNumber,
       rec.buyerName,
       opts?.preferBuyers,
+      opts?.recoverJointToPrimary,
     );
     if (!isValidEik(buyerEik)) {
       stats.recordsSkippedNoBuyerEik++;
       continue;
     }
+    if (String(rec.buyerRegistryNumber ?? "").includes(";"))
+      stats.rowsJointToPrimary++;
     const buyerName = normaliseOrgName(buyerRawName);
 
     // `uniqueProcurementNumber` is NOT always a УНП: for some ЦАИС-internal
@@ -267,14 +285,25 @@ export const normalizeEopDay = (
     // amount errors are corrected here (see amount_overrides.ts) so the split
     // and every downstream aggregate work off the true figure.
     const rawAmount = parseBgNumber(rec.contractValue);
+    // Placeholder contract value: the publisher signed the contract but left the
+    // amount field a stub ("0,01" / "1,20") instead of the real figure. Fall back
+    // to the procedure's estimated value (in the estimate's own currency), as
+    // SIGMA does — booking €0 for a real award under-counts the buyer (~715 rows
+    // / €330M). Overrides still win (they target the corrupt figure, not a stub).
+    const estValue = parseBgNumber(rec.estimatedValue);
+    const usePlaceholderEstimate =
+      rawAmount != null && rawAmount < 1 && estValue != null && estValue > 1;
     const amount =
       overrideAmount({
         unp,
         ocid,
         contractId: contractNumber,
         amount: rawAmount,
-      }) ?? rawAmount;
-    const currency = (rec.contractCurrency ?? "").trim() || undefined;
+      }) ?? (usePlaceholderEstimate ? estValue : rawAmount);
+    const currency = usePlaceholderEstimate
+      ? (rec.currency ?? rec.contractCurrency ?? "").trim() || undefined
+      : (rec.contractCurrency ?? "").trim() || undefined;
+    if (usePlaceholderEstimate) stats.rowsPlaceholderEstimate++;
     const amountEur = toEur(amount, currency) ?? undefined;
     const title = (rec.contractSubject || rec.tenderName || "").trim();
     const cpv = (rec.tenderMainCpv ?? "").trim() || undefined;
