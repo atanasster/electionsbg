@@ -1,0 +1,147 @@
+{
+  "fetchedAt": "2026-07-17T00:00:00.000Z",
+  "source": {
+    "publisher": "Агенция за социално подпомагане (АСП)",
+    "description": "Годишен отчет за дейността на АСП — national, annual, PDF. No per-oblast breakdown is published (internal РДСП analyses only). Figures verified from the report PDFs; convert BGN→EUR at 1.95583. See docs/plans/social-assistance-view-v1.md §2.1.",
+    "reports": {
+      "2020": "https://asp.government.bg/uploaded/files/5679-Godishen-doklad-2020.pdf",
+      "2021": "https://asp.government.bg/uploaded/files/6395-YearlyASP-site.pdf",
+      "2022": "https://asp.government.bg/uploaded/files/7129-YearlyASP-podpisan.pdf",
+      "2023": "https://asp.government.bg/uploaded/files/8271-yearlyasp.pdf",
+      "2024": "https://asp.government.bg/uploaded/files/9153-2024yearlyasp.pdf",
+      "2025": "https://asp.government.bg/uploaded/files/9840-yearlyasp-fin.pdf"
+    },
+    "landing": "https://asp.government.bg/bg/za-agentsiyata/misiya-i-tseli/otcheti-i-dokladi/"
+  },
+  "latestYear": 2025,
+  "eurRate": 1.95583,
+  "families": [
+    {
+      "id": "disability",
+      "label": {
+        "bg": "Хора с увреждания",
+        "en": "Disability"
+      },
+      "law": "ЗХУ — месечна финансова подкрепа",
+      "recipientNoun": {
+        "bg": "получатели",
+        "en": "recipients"
+      },
+      "unit": "annual",
+      "series": [
+        {
+          "year": 2024,
+          "recipients": 697525,
+          "amountBgn": 685078764
+        },
+        {
+          "year": 2025,
+          "recipients": 732634,
+          "amountBgn": 858022302
+        }
+      ],
+      "note": {
+        "bg": "След Закона за хората с увреждания (2019) и механизма „лична помощ“ разходът се утрои — най-бързо растящата помощ.",
+        "en": "After the 2019 Disability Act and the personal-assistance mechanism, spending tripled — the fastest-growing benefit."
+      }
+    },
+    {
+      "id": "child",
+      "label": {
+        "bg": "Месечни помощи за деца",
+        "en": "Monthly child allowances"
+      },
+      "law": "чл. 7 ЗСПД",
+      "recipientNoun": {
+        "bg": "деца (средномесечно)",
+        "en": "children (monthly avg)"
+      },
+      "unit": "annual",
+      "meansTestBgn": 760,
+      "series": [
+        {
+          "year": 2024,
+          "recipients": 439161,
+          "amountBgn": 279725661
+        },
+        {
+          "year": 2025,
+          "recipients": 416687,
+          "amountBgn": 266686943
+        }
+      ],
+      "note": {
+        "bg": "Средномесечен брой деца по чл. 7 ЗСПД. Достъпът зависи от доход на член от семейството (пълен размер до 760 лв./член, 2025).",
+        "en": "Monthly-average children under чл. 7 ЗСПД. Access is means-tested on income per family member (full amount up to 760 BGN/member, 2025)."
+      }
+    },
+    {
+      "id": "gmi",
+      "label": {
+        "bg": "Месечни социални помощи (ГМД)",
+        "en": "Guaranteed minimum income"
+      },
+      "law": "чл. 9 ППЗСП",
+      "recipientNoun": {
+        "bg": "случаи (средномесечно)",
+        "en": "cases (monthly avg)"
+      },
+      "unit": "annual",
+      "series": [
+        {
+          "year": 2024,
+          "recipients": 29844,
+          "amountBgn": 99798989
+        },
+        {
+          "year": 2025,
+          "recipients": 35987,
+          "amountBgn": 144984544
+        }
+      ],
+      "note": {
+        "bg": "Основата за подпомагане е 30% от линията на бедност (157,80 лв./мес., 2024) — доста под самата линия (526 лв.).",
+        "en": "The support base is 30% of the poverty line (157.80 BGN/mo, 2024) — well below the line itself (526 BGN)."
+      }
+    },
+    {
+      "id": "heating",
+      "label": {
+        "bg": "Целева помощ за отопление",
+        "en": "Targeted heating aid"
+      },
+      "law": "Наредба РД-07-5/2008",
+      "recipientNoun": {
+        "bg": "домакинства",
+        "en": "households"
+      },
+      "unit": "season",
+      "series": [
+        {
+          "season": "2023/2024",
+          "year": 2023,
+          "households": 324674,
+          "amountBgn": 176849155
+        },
+        {
+          "season": "2024/2025",
+          "year": 2024,
+          "households": 338923,
+          "amountBgn": 187123639,
+          "perHouseholdMonthlyBgn": 110.75
+        },
+        {
+          "season": "2025/2026",
+          "year": 2025,
+          "households": 357271,
+          "amountBgn": 215098559,
+          "perHouseholdMonthlyBgn": 121.34
+        }
+      ],
+      "note": {
+        "bg": "Издадени заповеди за сезона (към 31.12). Помощта е за 5 месеца; за 2025/2026 — 606,70 лв. общо (121,34 лв./мес.). Само национално — по области не се публикува.",
+        "en": "Orders issued for the season (as of 31.12). The aid covers 5 months; for 2025/2026 — 606.70 BGN total (121.34 BGN/mo). National only — no per-oblast breakdown is published."
+      }
+    }
+  ]
+}

@@ -13,7 +13,7 @@
 import { FC, useMemo, useState } from "react";
 import { Link, useSearchParams, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { HeartHandshake, Boxes, Activity } from "lucide-react";
+import { HeartHandshake, Boxes, Activity, HandCoins } from "lucide-react";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatEurCompact } from "@/lib/currency";
 import {
@@ -41,6 +41,8 @@ import {
 import { VikContractorHhiTile } from "../vik/VikContractorHhiTile";
 import { SocialHeroTile } from "./SocialHeroTile";
 import { SocialBudgetBridgeTile } from "./SocialBudgetBridgeTile";
+import { SocialBenefitsTile } from "./SocialBenefitsTile";
+import { SocialHeatingAidTile } from "./SocialHeatingAidTile";
 import { SocialPovertyImpactTile } from "./SocialPovertyImpactTile";
 import { SocialValueForMoneyTile } from "./SocialValueForMoneyTile";
 import { SocialEuPeerTile } from "./SocialEuPeerTile";
@@ -170,6 +172,27 @@ export const SocialPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
       {/* Disbursement + outcome bands lead (the inversion). */}
       <PackSection id="social-benefit-mix">
         <SocialBudgetBridgeTile />
+      </PackSection>
+
+      {/* The benefits АСП actually pays households (national/annual, off-corpus). */}
+      <PackSection
+        icon={HandCoins}
+        id="social-benefits"
+        title={
+          bg
+            ? "Помощите — кой и колко получава"
+            : "The benefits — who gets how much"
+        }
+        sub={
+          bg
+            ? "Помощите, които АСП изплаща на домакинствата — извън обществените поръчки. Само национално (по области не се публикува)."
+            : "The benefits АСП pays households — outside public procurement. National only (no per-oblast breakdown is published)."
+        }
+      >
+        <div className="grid gap-4 md:grid-cols-2">
+          <SocialBenefitsTile />
+          <SocialHeatingAidTile />
+        </div>
       </PackSection>
 
       <PackSection
