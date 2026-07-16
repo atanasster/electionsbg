@@ -17,8 +17,11 @@ absorption), `wasteRecycling` (recycling-vs-target) in `ai/tools/environment.ts`
 (a tightly-gated router block among the early domain guards so procurement/budget/compare heuristics
 don't pre-empt it; air keeps precedence; pure budget questions cede to `budgetFunction`; `AI_PATH_RULE`
 `/environment/` → indicators). Verified end-to-end (all 3 tools return correct facts). **README** feature
-bullet + data-dir + data-source entries added. Deferred: ПУДООС grant register (PG ingest + source probe),
-Natura strip, the `update-environment` skill (the watcher currently instructs a manual fetch),
+bullet + data-dir + data-source entries added. The **Natura 2000 / protected-area nature strip** also
+shipped (Eurostat `env_bio4`, folded into `fetch_waste.ts` + `waste.json`; `EnvironmentNatureTile`) —
+completing the **outcome triad** (air ✓, waste ✓, nature ✓): BG protects **44% of its land**, ~1.7× the
+EU average, a positive counterpoint to the recycling gap. Deferred: ПУДООС grant register (PG ingest +
+source probe — the third *money* loop), the `update-environment` skill (the watcher currently instructs a manual fetch),
 `db:gen-sector-stats` rerun for the hub € badge (needs live PG), a dedicated air-map OG capture, and
 `bucket:sync` of `data/environment/` for prod.
 Closest built siblings to copy: the **energy / security group dashboards** (`sectorDashboards.ts` +
