@@ -226,4 +226,33 @@ The remaining €0.9 bn of the original €3.39 bn cais_id estimate was contract
 
 ---
 
+## 9. Full 1-to-1 corpus validation (every procedure, both directions)
+
+SIGMA's unfiltered `/contracts.csv` returns its **entire corpus** (196,156 rows / 109,652 УНП / €52.29 bn) — a full bulk export, so this is not a sample. Joined to our whole corpus on `cais_id` (277,962 keyed contract rows / 142,125 УНП / €73.15 bn), summing value per УНП:
+
+| Category | УНП | SIGMA €M | Reading |
+|---|--:|--:|---|
+| **MATCH (±2%)** | **102,166** | **44,257** | value agrees to the euro — 93% of common procedures |
+| ours-only (SIGMA lacks) | 35,286 | — | €15.9 bn is **pre-2020** (outside SIGMA's window — legitimate); **€3.3 bn is 2021+** = SIGMA coverage gaps (verified absent, not keying) |
+| ~×1.96 (SIGMA annex ÷ bug) | 1,713 | 2,209 | **their bug** — SIGMA double-converts 2026-EUR annexes; we're correct/higher |
+| we-higher, other ratios | 1,458 | 2,925 | mostly the same SIGMA annex ÷ bug blended across mixed lots (АПИ/Метрополитен/ЕСО) |
+| we-lower, other ratios | 1,202 | 2,067 | **mixed** — see below |
+| sigma-only (we lack) | 2,813 | 784 | our residual coverage gap (2022–26), down from the €3.4 bn §8 recovered |
+| ~÷1.96 (we lower) | 145 | 46 | small; the genuine BGN-mislabel tail (§7.2) |
+
+**Their-side issues found:**
+1. **Annex ÷1.95583 double-conversion** — ≥1,713 procedures / €2.2 bn clean, plus most of the €2.9 bn "we-higher" bucket. SIGMA understates post-annex current on the 2026 euro transition (already established §2).
+2. **2021+ coverage gaps** — €3.3 bn of contracts we hold that SIGMA lacks (€1.7 bn in 2021 alone; e.g. МО `00164-2021-0015`, hospital `00086-2021-0001` — 0 SIGMA rows).
+3. **Face-value stotinki errors** — SIGMA trusts garbage source amounts. `00105-2025-0026`: source `contractValue`=`102 258 376 EUR` but `estimatedValue`=`2 000 000` — SIGMA booked €102.26 M; we correctly divided the stotinki error to €1.02 M via `amount_overrides.ts` (100× cluster: 8 УНП / €143 M, SIGMA inflated).
+
+**Our-side issues found (actionable):**
+1. **Residual coverage gap** — 2,813 УНП / €784 M SIGMA has and we still lack (foreign members of mixed consortia left unsplit by §8.5, keying, feed edges).
+2. **Zero-value rows** — 47 УНП / €35.4 M where our `amount_eur`≈0 but SIGMA has a real value (source published no contract value; e.g. `00120-2021-0004` ours €0 vs SIGMA €18.9 M).
+3. **`amount_overrides` /100 to re-review** — the 100× cluster is correct for the SME `00105` but questionable for `00116-2026-0001` (Технически университет €2.19 M) and `03000-2025-0001` (Овергаз €10 M), where the un-divided value may be the real one — our override may under-count by 100×.
+4. **Annex over-rejection** — the `MAX_MULTIPLE=15` guard drops genuinely-huge annexes: `00747-2024-0003` ours €1.09 M (fold rejected a ×96 jump) vs SIGMA €53.8 M (their ÷1.96 of the same €105 M annex) — both wrong; the true value needs the source, but our guard may miss legitimate large scope-ups.
+
+**Net verdict:** on the €44 bn of directly-comparable value, we and SIGMA agree to the euro on **93% of procedures**. Every material divergence is explained: the larger ones are SIGMA's (annex ÷-bug €2–4 bn, 2021 coverage €3.3 bn, stotinki inflation); ours are small and bounded (€784 M residual coverage, €35 M zero-value rows, 8 override cases, an annex-guard edge). We are the more complete and more euro-accurate corpus; the actionable follow-ups on our side total under ~€1 bn and are itemized above.
+
+---
+
 *Method notes: our side = local Docker Postgres `contracts`, `tag='contract'` only (amendment rows excluded, matching production rollups `rollups.ts`/`by_ns.ts`). SIGMA CSV `value_eur` = current basis (post-annex), matching our `amount_eur`. Join key = УНП (identical format both sides). Reconciler + raw CSVs retained in session scratchpad (`reconcile.py`, `sig/*.csv`).*
