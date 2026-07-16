@@ -18,12 +18,15 @@ import { PeerSnapshotStripAnnual } from "@/screens/components/macro/PeerSnapshot
 import { CompareToggleButton } from "@/screens/components/macro/CompareToggleButton";
 import { IndicatorsNav } from "./indicatorsNav";
 import { ChartSources } from "./indicatorsShared";
+import { useAdminDigitalSkills } from "@/data/administration/useAdminDigitalSkills";
+import { DigitalSkillsTilesGrid } from "@/screens/administration/DigitalSkillsTiles";
 
 export const IndicatorsSocietyScreen = () => {
   const { t, i18n } = useTranslation();
   const { data: governments } = useGovernments();
   const { data: macro } = useMacro();
   const { data: peers } = useMacroPeers();
+  const { data: digitalSkills } = useAdminDigitalSkills();
   const [compare, toggleCompare] = useCompareToggle();
   const lang: "en" | "bg" = i18n.language === "bg" ? "bg" : "en";
 
@@ -243,6 +246,28 @@ export const IndicatorsSocietyScreen = () => {
           </div>
         </div>
       </section>
+
+      {digitalSkills ? (
+        <section className="mb-10" id="society-digital">
+          <h2 className="mb-3 text-lg font-semibold">
+            {t("indicators_society_digital_title")}
+          </h2>
+          <p className="mb-3 max-w-3xl text-xs text-muted-foreground">
+            {t("indicators_society_digital_explainer")}
+          </p>
+          <ChartSources
+            prefix={t("governments_chart_sources_prefix")}
+            sources={[
+              {
+                href: "https://ec.europa.eu/eurostat/databrowser/view/isoc_sk_dskl_i21/default/table",
+                label:
+                  "Eurostat isoc_sk_dskl_i21 (Digital Skills Indicator 2.0, DESI human capital)",
+              },
+            ]}
+          />
+          <DigitalSkillsTilesGrid data={digitalSkills} bg={lang === "bg"} />
+        </section>
+      ) : null}
     </div>
   );
 };

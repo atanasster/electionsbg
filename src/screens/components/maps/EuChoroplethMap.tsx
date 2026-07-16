@@ -175,10 +175,14 @@ export const EuChoroplethMap: FC<{
                 key={g}
                 d={path(f as unknown as d3.GeoPermissibleObjects) ?? undefined}
                 fill={hasV ? colorAt(v as number) : "hsl(var(--muted))"}
+                // Match the house election maps: visible `--border` country
+                // outlines (FeatureMap idiom), with the highlighted country in a
+                // thicker but soft muted-foreground stroke so it reads as the
+                // subject without a harsh black edge.
                 stroke={
-                  isHi ? "hsl(var(--foreground))" : "hsl(var(--background))"
+                  isHi ? "hsl(var(--muted-foreground))" : "hsl(var(--border))"
                 }
-                strokeWidth={isHi ? 1.6 : 0.4}
+                strokeWidth={isHi ? 3 : 0.8}
                 strokeLinejoin="round"
                 className="cursor-default"
                 onMouseEnter={(e) =>

@@ -38,7 +38,7 @@ import {
   type EgovPayload,
 } from "@/data/administration/useAdminEgov";
 import { useAdminDigitalSkills } from "@/data/administration/useAdminDigitalSkills";
-import { DigitalSkillsSection } from "./DigitalSkillsTiles";
+import { DigitalSkillsStub } from "./DigitalSkillsTiles";
 import {
   useAdminServiceQuality,
   type ServiceQualityPayload,
@@ -884,7 +884,7 @@ export const AdministrationScreen: FC = () => {
 
       {/* Service quality + digital — two compact tiles, one row (side by side on
           desktop, stacked on mobile). */}
-      {(serviceQuality || egov) && (
+      {(serviceQuality || egov || digitalSkills) && (
         <PackSection
           icon={MessagesSquare}
           title={
@@ -894,20 +894,18 @@ export const AdministrationScreen: FC = () => {
           }
           sub={
             bg
-              ? "Обратна връзка от гражданите (Доклад за състоянието на администрацията) и мястото на България в ЕС по използване на е-услуги."
-              : "Citizen feedback (Report on the State of the Administration) and where Bulgaria stands in the EU on e-service use."
+              ? "Обратна връзка от гражданите (Доклад за състоянието на администрацията), мястото на България в ЕС по използване на е-услуги и дигиталните умения на гражданите зад тях."
+              : "Citizen feedback (Report on the State of the Administration), where Bulgaria stands in the EU on e-service use, and the citizen digital skills behind it."
           }
           id="admin-quality"
         >
-          <div className="grid items-start gap-3 md:grid-cols-2">
+          <div className="grid items-start gap-3 md:grid-cols-2 lg:grid-cols-3">
             <ServiceQualityTile sq={serviceQuality} bg={bg} />
             <EgovAdoptionTile egov={egov} bg={bg} />
+            <DigitalSkillsStub data={digitalSkills} bg={bg} />
           </div>
         </PackSection>
       )}
-
-      {/* Digital skills — the demand-side companion to e-government use */}
-      <DigitalSkillsSection data={digitalSkills} bg={bg} />
 
       {/* Money — the e-government procurement group */}
       <PackSection

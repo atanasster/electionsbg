@@ -1,13 +1,14 @@
-// Citizen digital-skills band for /sector/administration — the demand-side
-// companion to the e-government tile. Same house idiom as AdministrationScreen:
-// Card + CSS/flex bars + footnote, no chart lib, except the youth tile which
-// uses the reusable EuChoroplethMap. Data: Eurostat isoc_sk_dskl_i21 via
-// useAdminDigitalSkills.
+// Citizen digital-skills tiles. Digital skills is a human-capital measure, so
+// the full band's home is /indicators/society (DigitalSkillsTilesGrid); a slim
+// DigitalSkillsStub stays on /sector/administration as the demand-side
+// companion to the e-government tile. Card + CSS/flex bars + footnote, no chart
+// lib, except the youth tile which uses the reusable EuChoroplethMap. Data:
+// Eurostat isoc_sk_dskl_i21 via useAdminDigitalSkills.
 
 import { FC } from "react";
+import { Link } from "react-router-dom";
 import { Laptop, LayoutGrid, Users2, GraduationCap } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import { PackSection } from "@/screens/components/procurement/PackSection";
 import { EuChoroplethMap } from "@/screens/components/maps/EuChoroplethMap";
 import { euGeoName, EU27_GEOS } from "@/screens/components/maps/euGeoNames";
 import { Flag } from "@/screens/components/euCompare/Flag";
@@ -263,8 +264,8 @@ const CompositionTile: FC<{
         </div>
         <p className="pt-1 text-xs text-muted-foreground">
           {bg
-            ? `Групата, която не ползва интернет (и не може да бъде оценена), намалява бързо — от ${naFirst.toFixed(1)}% на ${naLast.toFixed(1)}% — но напредъкът тръгва от много ниска база.`
-            : `The group that doesn't use the internet (and can't be assessed) is shrinking fast — ${naFirst.toFixed(1)}% to ${naLast.toFixed(1)}% — but progress starts from a very low base.`}
+            ? `Проучването на ЕС е на всеки две години (затова липсват 2022 и 2024). Групата, която не ползва интернет (и не може да бъде оценена), намалява бързо — от ${naFirst.toFixed(1)}% на ${naLast.toFixed(1)}% — но напредъкът тръгва от много ниска база.`
+            : `The EU survey runs every two years (hence no 2022 or 2024). The group that doesn't use the internet (and can't be assessed) is shrinking fast — ${naFirst.toFixed(1)}% to ${naLast.toFixed(1)}% — but progress starts from a very low base.`}
         </p>
       </CardContent>
     </Card>
@@ -298,7 +299,10 @@ const YouthMapTile: FC<{ d: DigitalSkillsPayload; bg: boolean }> = ({
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="grid gap-3 md:grid-cols-[minmax(0,480px)_1fr] md:items-center">
+        {/* Now a half-width grid tile: the near-square map is capped + centred
+            (a wide cell would otherwise stretch it too tall), over a compact
+            two-block stats row that wraps on narrow cells. */}
+        <div className="mx-auto w-full max-w-[440px]">
           <EuChoroplethMap
             valuesByGeo={y.byGeo}
             bg={bg}
@@ -311,19 +315,19 @@ const YouthMapTile: FC<{ d: DigitalSkillsPayload; bg: boolean }> = ({
             unit={bg ? "% от 16-24 г." : "% of 16-24"}
             year={y.latestYear}
           />
-          <div className="flex flex-col justify-center gap-3">
-            <div>
-              <div className="text-3xl font-bold tabular-nums text-rose-600">
-                {pct(bgV)}
-              </div>
-              <div className="text-sm text-muted-foreground">
-                {bg
-                  ? `България${rankLabel ? ` — ${rankLabel}` : ""} (ЕС средно ${pct(euV)})`
-                  : `Bulgaria${rankLabel ? ` — ${rankLabel}` : ""} (EU average ${pct(euV)})`}
-              </div>
+        </div>
+        <div className="mt-3 flex flex-wrap items-start gap-x-8 gap-y-3">
+          <div className="min-w-[150px]">
+            <div className="text-3xl font-bold tabular-nums text-rose-600">
+              {pct(bgV)}
+            </div>
+            <div className="text-sm text-muted-foreground">
+              {bg
+                ? `България${rankLabel ? ` — ${rankLabel}` : ""} (ЕС средно ${pct(euV)})`
+                : `Bulgaria${rankLabel ? ` — ${rankLabel}` : ""} (EU average ${pct(euV)})`}
             </div>
             {y.bg.male != null && y.bg.female != null && (
-              <div className="text-sm">
+              <div className="mt-1 text-sm">
                 <span className="text-muted-foreground">
                   {bg ? "Обратна разлика по пол: " : "Reverse gender gap: "}
                 </span>
@@ -336,76 +340,114 @@ const YouthMapTile: FC<{ d: DigitalSkillsPayload; bg: boolean }> = ({
                 </span>
               </div>
             )}
-            {peerRows.length > 0 && (
-              <div>
-                <div className="mb-1 text-xs font-medium text-muted-foreground">
-                  {bg ? "Съседи в ЕС · 16-24 г." : "EU peers · 16-24"}
-                </div>
-                <div className="space-y-0.5">
-                  {peerRows.map((r) => {
-                    const isBg = r.geo === "BG";
-                    return (
-                      <div
-                        key={r.geo}
-                        className="flex items-center justify-between gap-3 text-xs"
-                      >
-                        <span
-                          className={
-                            "flex items-center gap-1.5 " +
-                            (isBg ? "font-semibold" : "text-muted-foreground")
-                          }
-                        >
-                          <Flag
-                            geo={flagGeo(r.geo)}
-                            size={12}
-                            title={euGeoName(r.geo, bg)}
-                          />
-                          {euGeoName(r.geo, bg)}
-                        </span>
-                        <span
-                          className={
-                            "tabular-nums " + (isBg ? "font-semibold" : "")
-                          }
-                        >
-                          {r.value.toFixed(1)}%
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
           </div>
+          {peerRows.length > 0 && (
+            <div className="min-w-[190px] max-w-[240px] flex-1">
+              <div className="mb-1 text-xs font-medium text-muted-foreground">
+                {bg ? "Съседи в ЕС · 16-24 г." : "EU peers · 16-24"}
+              </div>
+              <div className="space-y-0.5">
+                {peerRows.map((r) => {
+                  const isBg = r.geo === "BG";
+                  return (
+                    <div
+                      key={r.geo}
+                      className="flex items-center justify-between gap-3 text-xs"
+                    >
+                      <span
+                        className={
+                          "flex items-center gap-1.5 " +
+                          (isBg ? "font-semibold" : "text-muted-foreground")
+                        }
+                      >
+                        <Flag
+                          geo={flagGeo(r.geo)}
+                          size={12}
+                          title={euGeoName(r.geo, bg)}
+                        />
+                        {euGeoName(r.geo, bg)}
+                      </span>
+                      <span
+                        className={
+                          "tabular-nums " + (isBg ? "font-semibold" : "")
+                        }
+                      >
+                        {r.value.toFixed(1)}%
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>
   );
 };
 
-export const DigitalSkillsSection: FC<{
+// The full band (four tiles, no section chrome) — its home is the
+// /indicators/society page; digital skills is a human-capital measure, not a
+// property of the state administration.
+export const DigitalSkillsTilesGrid: FC<{
   data: DigitalSkillsPayload | undefined;
   bg: boolean;
 }> = ({ data, bg }) => {
   if (!data) return null;
   return (
-    <PackSection
-      icon={Laptop}
-      title={bg ? "Дигитални умения на гражданите" : "Citizen digital skills"}
-      sub={
-        bg
-          ? "Способността на населението да ползва дигитални услуги — търсенето, което електронното управление предполага. България е сред последните в ЕС."
-          : "The population's ability to use digital services — the demand e-government assumes. Bulgaria is among the last in the EU."
-      }
-      id="admin-digital-skills"
-    >
-      <div className="grid items-start gap-3 md:grid-cols-2">
-        <AtLeastBasicTile d={data} bg={bg} />
-        <AreasTile areas={data.areas} bg={bg} />
-        <CompositionTile comp={data.composition} bg={bg} />
-      </div>
-      <div className="mt-3">
-        <YouthMapTile d={data} bg={bg} />
-      </div>
-    </PackSection>
+    <div className="grid items-start gap-3 md:grid-cols-2">
+      <AtLeastBasicTile d={data} bg={bg} />
+      <AreasTile areas={data.areas} bg={bg} />
+      <CompositionTile comp={data.composition} bg={bg} />
+      <YouthMapTile d={data} bg={bg} />
+    </div>
+  );
+};
+
+// Compact demand-side companion for /sector/administration, beside the e-gov
+// tile: the single "citizens can't use what they can't operate" stat, linking
+// to the full band on /indicators/society.
+export const DigitalSkillsStub: FC<{
+  data: DigitalSkillsPayload | undefined;
+  bg: boolean;
+}> = ({ data, bg }) => {
+  if (!data) return null;
+  const bgV =
+    data.atLeastBasic.BG?.find((p) => p.year === data.latestYear)?.value ??
+    null;
+  const euV =
+    data.atLeastBasic.EU27_2020?.find((p) => p.year === data.latestYear)
+      ?.value ?? null;
+  const rankLabel = rankPhrase(data.rank, bg);
+  return (
+    <Card>
+      <CardHeader className="pb-2">
+        <CardTitle className="flex items-center gap-2 text-base">
+          <Laptop className="h-4 w-4 text-violet-600" aria-hidden />
+          {bg ? "Дигитални умения на гражданите" : "Citizen digital skills"}
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="text-2xl font-bold tabular-nums">{pct(bgV)}</div>
+        <div className="text-sm text-muted-foreground">
+          {bg
+            ? `поне базови умения (16-74 г.)${rankLabel ? ` · ${rankLabel}` : ""}${euV != null ? ` · ЕС ${pct(euV)}` : ""}`
+            : `at least basic skills (16-74)${rankLabel ? ` · ${rankLabel}` : ""}${euV != null ? ` · EU ${pct(euV)}` : ""}`}
+        </div>
+        <p className="pt-2 text-xs text-muted-foreground">
+          {bg
+            ? "Търсенето, което електронното управление предполага: без дигитални умения гражданите не ползват е-услугите."
+            : "The demand e-government assumes: without digital skills, citizens don't use e-services."}
+        </p>
+        <Link
+          to="/indicators/society#society-digital"
+          className="mt-1 inline-block text-xs font-medium text-primary hover:underline"
+        >
+          {bg
+            ? "Дигитални умения — пълната картина →"
+            : "Digital skills — the full picture →"}
+        </Link>
+      </CardContent>
+    </Card>
   );
 };
