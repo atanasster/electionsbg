@@ -27,7 +27,7 @@ import { useProcurementMpConnectedByEik } from "@/data/procurement/useMpConnecte
 import { usePepConnectedByEik } from "@/data/procurement/usePepConnectedByEik";
 import { formatAmountEur } from "@/lib/currency";
 import { splitContractTitle } from "@/lib/contractTitle";
-import { Breadcrumbs } from "@/ux/Breadcrumbs";
+import { ProcurementBreadcrumb } from "./components/procurement/ProcurementBreadcrumb";
 import {
   displayProcurementMethod,
   contractCategoryLabel,
@@ -81,22 +81,17 @@ export const ContractDetailScreen: FC = () => {
 
   return (
     <section className="my-4 space-y-6">
-      <Breadcrumbs
-        items={[
-          { label: t("nav_governance"), to: "/governance" },
-          { label: t("procurement_link_label"), to: "/procurement" },
-          {
-            label: t("procurement_contracts_title"),
-            to: "/procurement/contracts",
-          },
-          {
-            label:
-              splitContractTitle(c.title).main ||
-              c.title ||
-              t("contract_untitled") ||
-              "Untitled contract",
-          },
-        ]}
+      <ProcurementBreadcrumb
+        section={{
+          labelKey: "procurement_contracts_title",
+          to: "/procurement/contracts",
+        }}
+        current={
+          splitContractTitle(c.title).main ||
+          c.title ||
+          t("contract_untitled") ||
+          "Untitled contract"
+        }
       />
       <header className="space-y-2">
         <p className="text-xs uppercase tracking-wide text-muted-foreground flex items-center gap-2">

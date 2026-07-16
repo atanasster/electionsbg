@@ -6,7 +6,11 @@
 //   Управление › Обществени поръчки › <this sub-page>
 //
 // Governance + Обществени поръчки (the hub) are links; the last crumb is the
-// current sub-page.
+// current sub-page. Detail pages (a single contract/tender) sit one level
+// deeper — pass `section` for the linked sub-page they belong to, and the
+// resolved entity name as `current`:
+//
+//   Управление › Обществени поръчки › <section> › <current leaf>
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
@@ -17,10 +21,15 @@ export const ProcurementBreadcrumb: FC<{
   currentKey?: string;
   /** Already-resolved current label. Wins over currentKey. */
   current?: string;
+  /** Optional linked sub-page crumb between the hub and the current leaf, for
+   *  detail pages (e.g. Договори → /procurement/contracts). */
+  section?: { labelKey: string; to: string };
   className?: string;
-}> = ({ currentKey, current, className }) => {
+}> = ({ currentKey, current, section, className }) => {
   const { t } = useTranslation();
   const label = current ?? (currentKey ? t(currentKey) : undefined);
+  // The hub links whenever anything (a section and/or leaf) sits below it.
+  const hasDescendant = label != null || section != null;
 
   const items: Crumb[] = [
     { label: t("nav_governance"), to: "/governance" },
@@ -28,9 +37,10 @@ export const ProcurementBreadcrumb: FC<{
     // on the hub itself.
     {
       label: t("procurement_link_label"),
-      ...(label ? { to: "/procurement" } : {}),
+      ...(hasDescendant ? { to: "/procurement" } : {}),
     },
   ];
+  if (section) items.push({ label: t(section.labelKey), to: section.to });
   if (label) items.push({ label });
 
   return <Breadcrumbs items={items} className={className} />;

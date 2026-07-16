@@ -32,7 +32,7 @@ import type { Tender } from "@/lib/tenderTypes";
 import type { ProcurementContract } from "@/data/dataTypes";
 import { useContractRiskScorer } from "@/data/procurement/useContractRiskFlags";
 import { RiskBadges } from "@/screens/components/procurement/RiskBadges";
-import { Breadcrumbs } from "@/ux/Breadcrumbs";
+import { ProcurementBreadcrumb } from "@/screens/components/procurement/ProcurementBreadcrumb";
 import { TenderNormalcyPanel } from "@/screens/components/procurement/TenderNormalcyPanel";
 import { formatAmountEur } from "@/lib/currency";
 import {
@@ -674,16 +674,12 @@ export const TenderDetailScreen: FC = () => {
 
   return (
     <section className="my-4 space-y-6">
-      <Breadcrumbs
-        items={[
-          { label: t("nav_governance"), to: "/governance" },
-          { label: t("procurement_link_label"), to: "/procurement" },
-          {
-            label: t("procurement_tenders_nav") || "Tenders",
-            to: "/procurement/tenders",
-          },
-          { label: tender.subject },
-        ]}
+      <ProcurementBreadcrumb
+        section={{
+          labelKey: "procurement_tenders_nav",
+          to: "/procurement/tenders",
+        }}
+        current={tender.subject}
       />
       <header className="space-y-2">
         <p className="text-xs uppercase tracking-wide text-muted-foreground flex flex-wrap items-center gap-2">
