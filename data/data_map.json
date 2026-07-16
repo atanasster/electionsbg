@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-16T13:42:07.795Z",
+  "generatedAt": "2026-07-16T20:50:31.250Z",
   "nodes": [
     {
       "id": "src:water",
@@ -1036,6 +1036,12 @@
           "url": "https://ec.europa.eu/eurostat/databrowser/view/tour_occ_nim/default/table",
           "cadence": "monthly",
           "freshness": "2026-07-15T06:08:41.204Z"
+        },
+        {
+          "id": "eurostat_env",
+          "label": "Eurostat environment (BG): рециклиране на отпадъци (cei_wm011)",
+          "url": "https://ec.europa.eu/eurostat/databrowser/view/cei_wm011/default/table",
+          "cadence": "monthly"
         },
         {
           "id": "ec_budget_per_ms",
