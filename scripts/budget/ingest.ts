@@ -55,7 +55,10 @@ import { parseExecutionPdf } from "./execution_pdf";
 import { parseBorderlessExecutionPdf } from "./execution_borderless_pdf";
 import { parseExecutionXlsx } from "./execution_xlsx";
 import { parseExecutionDocx } from "./execution_docx";
-import { buildExecutionFacts } from "./execution_facts";
+import {
+  buildExecutionFacts,
+  canonicalExecutionAdminId,
+} from "./execution_facts";
 import {
   buildPersonnel,
   PERSONNEL_FILE,
@@ -525,7 +528,7 @@ const main = async (args: {
     }
     if (sourceBytes) {
       personnelSources.push({
-        adminId: r.adminId,
+        adminId: canonicalExecutionAdminId(r.adminId),
         fiscalYear: r.fiscalYear,
         format: r.format,
         bytes: sourceBytes,
@@ -560,7 +563,11 @@ const main = async (args: {
     ) {
       canaryXlsxUnit = unit;
     }
-    const facts = buildExecutionFacts(r.adminId, unit, programRegistry);
+    const facts = buildExecutionFacts(
+      canonicalExecutionAdminId(r.adminId),
+      unit,
+      programRegistry,
+    );
     const bucket = executionFactsByYear.get(r.fiscalYear) ?? [];
     bucket.push(...facts);
     executionFactsByYear.set(r.fiscalYear, bucket);
@@ -653,7 +660,7 @@ const main = async (args: {
     const yearKey = String(PERSONNEL_CANARY_YEAR);
     const summaries = personnel.file.byMinistry[yearKey] ?? [];
     const pdfCanary = summaries.find(
-      (s) => s.adminId === EXECUTION_CANARY_ADMIN_ID,
+      (s) => s.adminId === canonicalExecutionAdminId(EXECUTION_CANARY_ADMIN_ID),
     );
     if (pdfCanary) {
       console.log(
@@ -662,7 +669,8 @@ const main = async (args: {
       runCanary(HEADCOUNT_PDF_CANARY_FIXTURE, pdfCanary);
     }
     const xlsxCanary = summaries.find(
-      (s) => s.adminId === EXECUTION_XLSX_CANARY_ADMIN_ID,
+      (s) =>
+        s.adminId === canonicalExecutionAdminId(EXECUTION_XLSX_CANARY_ADMIN_ID),
     );
     if (xlsxCanary) {
       console.log(
@@ -671,7 +679,8 @@ const main = async (args: {
       runCanary(HEADCOUNT_XLSX_CANARY_FIXTURE, xlsxCanary);
     }
     const docxCanary = summaries.find(
-      (s) => s.adminId === HEADCOUNT_DOCX_CANARY_ADMIN_ID,
+      (s) =>
+        s.adminId === canonicalExecutionAdminId(HEADCOUNT_DOCX_CANARY_ADMIN_ID),
     );
     if (docxCanary) {
       console.log(

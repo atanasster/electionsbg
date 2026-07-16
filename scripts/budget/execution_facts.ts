@@ -58,6 +58,22 @@ const findProgramNode = (
   return null;
 };
 
+// Align an execution-report's configured adminId onto the State Budget Law's
+// admin node id. The law parser strips the definite article from each spending
+// unit's name (law_html.ts → stripDefiniteArticle), so its ministry nodes are
+// `admin-ministerstvo-na-…`. The execution-report configs, however, slug the
+// ministry from its definite-article source label ("Министерството на …"),
+// yielding `admin-ministerstvoto-na-…`. Left unaligned, every execution fact
+// lands on an orphan node the law never created: the reconciliation row shows
+// the raw slug as its display name, the "largest deviations" tile links to a
+// ministry page with no rollup ("no budget-law data"), and the ministry's own
+// rollup shows plan-only. Canonicalising here (used for both the fact
+// classification and the document id) makes the whole law→amended→executed
+// journey join to the right node. Non-ministry units (Министерския съвет etc.)
+// already share the law's slug and pass through unchanged.
+export const canonicalExecutionAdminId = (adminId: string): string =>
+  adminId.replace(/^admin-ministerstvoto-na-/, "admin-ministerstvo-na-");
+
 // Stable document id for a ministry's execution report — referenced from
 // documents.json and from every fact's sourceRef.
 export const executionDocumentId = (

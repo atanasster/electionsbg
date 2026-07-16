@@ -23,7 +23,10 @@ import {
   EXECUTION_REPORTS,
   lawDvUrl,
 } from "./fetch_sources";
-import { executionDocumentId } from "./execution_facts";
+import {
+  canonicalExecutionAdminId,
+  executionDocumentId,
+} from "./execution_facts";
 import type {
   BudgetDocument,
   BudgetDocumentsFile,
@@ -184,7 +187,10 @@ const buildInterimLawDocuments = (): BudgetDocument[] =>
 // the link is the ZIP (a viewer downloads and extracts).
 const buildExecutionDocuments = (): BudgetDocument[] =>
   EXECUTION_REPORTS.map((r) => ({
-    id: executionDocumentId(r.adminId, r.fiscalYear),
+    id: executionDocumentId(
+      canonicalExecutionAdminId(r.adminId),
+      r.fiscalYear,
+    ),
     kind: "execution-report" as const,
     fiscalYear: r.fiscalYear,
     seq: 0,

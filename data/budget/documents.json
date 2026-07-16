@@ -33,6 +33,21 @@
       "title": "Закон за държавния бюджет на Република България за 2019 г."
     },
     {
+      "discovery": "auto",
+      "fiscalYear": 2020,
+      "id": "audit-2020",
+      "kind": "audit-report",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "pdf",
+          "role": "report",
+          "url": "https://www.bulnao.government.bg/bg/documents/17574/07_2026_OD_Admin_akcizi-inet-3.pdf"
+        }
+      ],
+      "title": "Одитен доклад за извършен одит на изпълнението „Администриране на приходите от акцизи“ за периода от 01.01.2020 г. до 31.12.2024 г."
+    },
+    {
       "discovery": "auto-confirmed",
       "fiscalYear": 2020,
       "id": "law-2020",
@@ -86,6 +101,23 @@
       "discovery": "auto-confirmed",
       "fiscalYear": 2022,
       "id": "exec-admin-ministerstvoto-na-ikonomikata-i-industriyata-2022",
+      "kind": "execution-report",
+      "reportDate": "2022-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "pdf",
+          "label": "Министерството на икономиката и индустрията — програмен отчет",
+          "role": "report",
+          "url": "https://www.mi.government.bg/files/useruploads/files/budget/2000_Otchet programi 31.12.2022 MII.pdf"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на икономиката и индустрията за 2022 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2022,
+      "id": "exec-admin-ministerstvo-na-ikonomikata-i-industriyata-2022",
       "kind": "execution-report",
       "reportDate": "2022-12-31",
       "seq": 0,
@@ -204,6 +236,108 @@
       "discovery": "auto-confirmed",
       "fiscalYear": 2023,
       "id": "exec-admin-ministerstvoto-na-vanshnite-raboti-2023",
+      "kind": "execution-report",
+      "reportDate": "2023-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "xlsx",
+          "label": "Министерството на външните работи — програмен отчет (XLSX в ZIP архив)",
+          "role": "report",
+          "url": "https://www.mfa.bg/upload/121303/програмен отчет МВнР 31122023.zip"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на външните работи за 2023 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2023,
+      "id": "exec-admin-ministerstvo-na-ikonomikata-i-industriyata-2023",
+      "kind": "execution-report",
+      "reportDate": "2023-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "pdf",
+          "label": "Министерството на икономиката и индустрията — програмен отчет",
+          "role": "report",
+          "url": "https://www.mi.government.bg/files/useruploads/files/budget/2000_Otchet programi 31.12.2023 MII.pdf"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на икономиката и индустрията за 2023 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2023,
+      "id": "exec-admin-ministerstvo-na-zdraveopazvaneto-2023",
+      "kind": "execution-report",
+      "reportDate": "2023-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "pdf",
+          "label": "Министерството на здравеопазването — програмен отчет",
+          "role": "report",
+          "url": "https://www.mh.government.bg/upload/11890/otchet_mz_programen_31122023.pdf"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на здравеопазването за 2023 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2023,
+      "id": "exec-admin-ministerstvo-na-truda-i-sotsialnata-politika-2023",
+      "kind": "execution-report",
+      "reportDate": "2023-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "xlsx",
+          "label": "Министерството на труда и социалната политика — програмен отчет (XLSX в ZIP архив)",
+          "role": "report",
+          "url": "https://www.mlsp.government.bg/uploads/11/finansi-1/na-mtsp-za-2023-g.zip"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на труда и социалната политика за 2023 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2023,
+      "id": "exec-admin-ministerstvo-na-zemedelieto-2023",
+      "kind": "execution-report",
+      "reportDate": "2023-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "pdf",
+          "label": "Министерството на земеделието — програмен отчет",
+          "role": "report",
+          "url": "https://www.mzh.government.bg/media/filer_public/2024/03/13/2200_otchet_31-12-2023_.docx"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на земеделието за 2023 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2023,
+      "id": "exec-admin-ministerstvo-na-finansite-2023",
+      "kind": "execution-report",
+      "reportDate": "2023-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "pdf",
+          "label": "Министерството на финансите — програмен отчет",
+          "role": "report",
+          "url": "https://www.minfin.bg/upload/57898/1000_Pril-1-MoF_draft+ProgOtchet_31.12.2023_Official.pdf"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на финансите за 2023 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2023,
+      "id": "exec-admin-ministerstvo-na-vanshnite-raboti-2023",
       "kind": "execution-report",
       "reportDate": "2023-12-31",
       "seq": 0,
@@ -401,6 +535,142 @@
         }
       ],
       "title": "Отчет за изпълнението на програмния бюджет на Министерството на земеделието за 2024 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2024,
+      "id": "exec-admin-ministerstvo-na-ikonomikata-i-industriyata-2024",
+      "kind": "execution-report",
+      "reportDate": "2024-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "pdf",
+          "label": "Министерството на икономиката и индустрията — програмен отчет",
+          "role": "report",
+          "url": "https://www.mi.government.bg/files/useruploads/files/budget/2000_Otchet programi 31.12.2024 MII.pdf"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на икономиката и индустрията за 2024 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2024,
+      "id": "exec-admin-ministerstvo-na-zemedelieto-2024",
+      "kind": "execution-report",
+      "reportDate": "2024-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "pdf",
+          "label": "Министерството на земеделието — програмен отчет",
+          "role": "report",
+          "url": "https://www.mzh.government.bg/media/filer_public/2025/03/25/2200_otchet_31-12-2024.zip"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на земеделието за 2024 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2024,
+      "id": "exec-admin-ministerstvo-na-zdraveopazvaneto-2024",
+      "kind": "execution-report",
+      "reportDate": "2024-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "pdf",
+          "label": "Министерството на здравеопазването — програмен отчет",
+          "role": "report",
+          "url": "https://www.mh.government.bg/upload/13778/OTCHET_MZ_PROGRAMEN_31.12.2024 - публикуване.pdf"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на здравеопазването за 2024 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2024,
+      "id": "exec-admin-ministerstvo-na-inovatsiite-i-rastezha-2024",
+      "kind": "execution-report",
+      "reportDate": "2024-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "pdf",
+          "label": "Министерството на иновациите и растежа — програмен отчет",
+          "role": "report",
+          "url": "https://www.mig.government.bg/wp-content/uploads/2025/02/otchet-za-izpalnenieto-na-programniya-byudzhet-na-mir-kam-31.12.2024-g.pdf"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на иновациите и растежа за 2024 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2024,
+      "id": "exec-admin-ministerstvo-na-okolnata-sreda-i-vodite-2024",
+      "kind": "execution-report",
+      "reportDate": "2024-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "pdf",
+          "label": "Министерството на околната среда и водите — програмен отчет",
+          "role": "report",
+          "url": "https://www.moew.government.bg/static/media/ups/articles/attachments/1900_MOEW_Doklad_Otchet 202498ff9b70b3e3a3a3dc7d122afbc379df.pdf"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на околната среда и водите за 2024 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2024,
+      "id": "exec-admin-ministerstvo-na-turizma-2024",
+      "kind": "execution-report",
+      "reportDate": "2024-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "pdf",
+          "label": "Министерството на туризма — програмен отчет",
+          "role": "report",
+          "url": "https://www.tourism.government.bg/sites/tourism.government.bg/files/uploads/Budjet/2024/otchet_-_mt_31.12.2024_finale.pdf"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на туризма за 2024 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2024,
+      "id": "exec-admin-ministerstvo-na-truda-i-sotsialnata-politika-2024",
+      "kind": "execution-report",
+      "reportDate": "2024-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "xlsx",
+          "label": "Министерството на труда и социалната политика — програмен отчет (XLSX в ZIP архив)",
+          "role": "report",
+          "url": "https://www.mlsp.government.bg/uploads/11/finansi-1/na-mtsp-za-2024-g.zip"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на труда и социалната политика за 2024 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2024,
+      "id": "exec-admin-ministerstvo-na-otbranata-2024",
+      "kind": "execution-report",
+      "reportDate": "2024-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "pdf",
+          "label": "Министерството на отбраната — програмен отчет",
+          "role": "report",
+          "url": "https://www.mod.bg/documents/6810b54553c8a_20251504_Otchet_programi-31.12.2024.pdf"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на отбраната за 2024 г."
     },
     {
       "discovery": "auto-confirmed",
@@ -852,5 +1122,5 @@
       "title": "КФП — state budget execution by major budget indicators"
     }
   ],
-  "generatedAt": "2026-07-05T10:46:25.195Z"
+  "generatedAt": "2026-07-16T18:54:49.887Z"
 }

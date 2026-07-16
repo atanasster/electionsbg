@@ -30,6 +30,7 @@ import {
   type PersonnelExecutionSource,
 } from "./personnel_facts";
 import { EXECUTION_REPORTS } from "./fetch_sources";
+import { canonicalExecutionAdminId } from "./execution_facts";
 import { runCanary } from "./validate";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -64,7 +65,7 @@ const main = async (): Promise<void> => {
       continue;
     }
     sources.push({
-      adminId: r.adminId,
+      adminId: canonicalExecutionAdminId(r.adminId),
       fiscalYear: r.fiscalYear,
       format: r.format,
       bytes,
@@ -110,21 +111,29 @@ const main = async (): Promise<void> => {
   const summaries = result.file.byMinistry[CANARY_YEAR] ?? [];
   const fixturesDir = path.resolve(REPO_ROOT, "tests/fixtures/budget");
   const pdfCanary = summaries.find(
-    (s) => s.adminId === "admin-ministerstvoto-na-zdraveopazvaneto",
+    (s) =>
+      s.adminId ===
+      canonicalExecutionAdminId("admin-ministerstvoto-na-zdraveopazvaneto"),
   );
   if (pdfCanary) {
     console.log("→ canary on headcount [pdf]");
     runCanary(path.join(fixturesDir, "headcount-pdf-canary.json"), pdfCanary);
   }
   const xlsxCanary = summaries.find(
-    (s) => s.adminId === "admin-ministerstvoto-na-truda-i-sotsialnata-politika",
+    (s) =>
+      s.adminId ===
+      canonicalExecutionAdminId(
+        "admin-ministerstvoto-na-truda-i-sotsialnata-politika",
+      ),
   );
   if (xlsxCanary) {
     console.log("→ canary on headcount [xlsx-in-zip]");
     runCanary(path.join(fixturesDir, "headcount-xlsx-canary.json"), xlsxCanary);
   }
   const docxCanary = summaries.find(
-    (s) => s.adminId === "admin-ministerstvoto-na-zemedelieto",
+    (s) =>
+      s.adminId ===
+      canonicalExecutionAdminId("admin-ministerstvoto-na-zemedelieto"),
   );
   if (docxCanary) {
     console.log("→ canary on headcount [docx-in-zip]");
@@ -152,7 +161,7 @@ const main = async (): Promise<void> => {
         m.avgAnnualCostPerFte?.amountEur != null
           ? `€${m.avgAnnualCostPerFte.amountEur.toLocaleString("en-US")}/yr`
           : "—";
-      const adminShort = m.adminId.replace("admin-ministerstvoto-na-", "");
+      const adminShort = m.adminId.replace("admin-ministerstvo-na-", "");
       console.log(
         `  ${adminShort.padEnd(40)} ${headcount.padStart(8)}  ${personnel.padStart(15)}  ${avg.padStart(14)}`,
       );
