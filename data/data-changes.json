@@ -1,6 +1,46 @@
 {
-  "updatedAt": "2026-07-15T09:07:56.715Z",
+  "updatedAt": "2026-07-16T14:01:16.856Z",
   "entries": [
+    {
+      "timestamp": "2026-07-16T14:01:16.856Z",
+      "date": "2026-07-16",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-07-15 (+1 daily archive; 1,721,940 store rows, 243 settlements, 204 chains)",
+      "source": "КЗП Колко струва (retail prices)"
+    },
+    {
+      "timestamp": "2026-07-16T13:57:25.925Z",
+      "date": "2026-07-16",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП: нов договор от 15.07.2026 + обновени процедури (текуща стойност €85.5 млрд)",
+      "source": "ЦАИС ЕОП / АОП (data.egov.bg)"
+    },
+    {
+      "timestamp": "2026-07-16T13:29:48.761Z",
+      "date": "2026-07-16",
+      "skill": "update-rollcall",
+      "summary": "Ново поименно гласуване от 15.07.2026 (18 точки)",
+      "source": "parliament.bg — поименни гласувания",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-16T13:24:15.855Z",
+      "date": "2026-07-16",
+      "skill": "update-macro",
+      "summary": "Обновени макро показатели до 2026 Q2 + сравнение с ЕС",
+      "source": "Eurostat macro (BG) + World Bank WGI",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
     {
       "timestamp": "2026-07-15T09:07:56.715Z",
       "date": "2026-07-15",
