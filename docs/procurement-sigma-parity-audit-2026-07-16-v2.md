@@ -203,11 +203,20 @@ For the top misses (`00042-2024-0003` Мин.транспорт €153.7 M; `004
 
 **100% of the €959 M authority gap (907 of 908 contracts) is already in our raw storage.eop feed** — we downloaded it and the ingest dropped it. The mechanism is the **existing-buyer guard** in `scripts/procurement/ingest_eop.ts` (`loadExistingAwarderEiks`): it gap-fills *only buyers entirely absent from our corpus*, so for any covered buyer (all the big ones), their storage.eop-only `договори` rows — the ones the narrower OCDS fortnightly bundle omits — are skipped wholesale. The P1 coverage fix (commit 7327905f5) addressed this only for a narrow `--only-buyers` whitelist (АПИ + a few); the gap persists for every other major buyer.
 
-### 8.3 The fix (tooling already exists)
+### 8.3 The dry-run corrected the estimate — two distinct gaps, not one
 
-`ingest_eop.ts` already has **`--cross-source-dedup`**: keep *all* buyers and drop only flat-feed rows that content-match an already-ingested contract (3 nets: УНП+supplier+€, buyer+supplier+€, buyer+supplier+date+€). Running the storage.eop `договори` ingest in that mode over full history recovers the ~29,404 procedures / ~€3.39 bn **without double-counting**, then a rollup/derived rebuild + PG reload. No new scraping — the raw data is already cached. This is a headline-moving change (+~€3–4 bn to the corpus current-value basis) and a full rebuild + cloud reload, so it should be run deliberately, not folded into a routine ingest.
+The cais_id anti-join (§8.1) **over-counted**: it can't see a contract we already hold under a *different* key form. The ingest's content dedup (buyer+supplier+€+date) is the stronger, truer test. Running `ingest_eop.ts --cross-source-dedup` over full history (dry-run) resolved the €3.39 bn estimate into two separate gaps:
 
-*(The bidder side shows the same signature — 158 contracts / €194 M across the 15 sampled companies, same mechanism.)*
+1. **Existing-buyer guard — recoverable now.** `ingest_eop.ts`'s default gap-fills *only buyers entirely absent from our corpus* (`loadExistingAwarderEiks`); covered buyers' storage.eop-only `договори` rows are skipped. `--cross-source-dedup` keeps all buyers and drops only content-duplicates (3 nets: УНП+supplier+€, buyer+supplier+contract#+date, buyer+supplier+date+€). **Genuinely new: 8,548 contract rows / +€2.60 bn** (measured after re-fold: corpus €85.51 bn → €88.11 bn). No new scraping — the raw data was already cached.
+2. **Foreign-supplier drop — needs a code fix.** `normalize_eop.ts` drops any row whose supplier isn't a Bulgarian EIK, so clean foreign-vendor contracts vanish: **580 contracts / €0.58 bn** — Stadler Polska €153.7 M (trains), Škoda €71.3 M, DB Fernverkehr, Framatome, Airbus Helicopters. `--cross-source-dedup` can't recover these (same normalizer drops them); recovering them means keeping the contract with a foreign-vendor bucket.
+
+The remaining €0.9 bn of the original €3.39 bn cais_id estimate was contracts we already held under a different key (e.g. НКЖИ's €93.8 M `00233-2022-0021`, held under legacy `00233-2017-0075`) — correctly *not* new.
+
+### 8.4 Shipped — Gap 1 recovered (Gap 2 deferred)
+
+**Applied 2026-07-16 (local + Cloud SQL).** Ran `ingest_eop.ts --cross-source-dedup --apply` (full history) → the documented fold-preserving rebuild (`eop_field_map` → `contract_index` → `by_id_shards` → `anexi_current_value --apply` → `rebuild_from_cache` → `rebuild_derived`) → `db:load:pg`. Result: **352,259 contracts / €88.109 bn** (+8,548 rows / +€2.60 bn), JSON↔PG reconcile to the euro, authoritative euro-peg canary 0 violations, round-trip lossless. **SIGMA gap on the 16 sampled authorities closed 908 → 553 contracts / €959 M → €558 M**; the €558 M residual is dominated by €386 M of "Открита" foreign-supplier contracts (Gap 2). Also fixed a pre-existing stale peg test (`invariants_pg`) that checked the annexed `amount_eur` instead of `signing_amount_eur`. **Gap 2 (foreign-supplier, €0.58 bn) deferred** as a separate `normalize_eop` change (operator's call: ship the €2.60 bn now).
+
+*(The bidder side shows the same signature — 158 contracts / €194 M across the 15 sampled companies.)*
 
 ---
 
