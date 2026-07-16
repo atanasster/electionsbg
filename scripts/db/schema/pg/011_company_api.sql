@@ -43,6 +43,45 @@ hd AS (
     (COUNT(DISTINCT awarder_eik) FILTER (WHERE tag = 'contract'))::int AS awarder_count
   FROM base
 ),
+-- Consortium participation. A contract is a joint (обединение / ДЗЗД) award when
+-- the SAME award (ocid + contract_number) was split across more than one
+-- contractor EIK. We credit each member an EQUAL share of the value; this flag
+-- lets the company page separate "участие в обединения" from solo work, so the
+-- equal-split shares don't silently distort how the headline total reads (a firm
+-- that only ever bids in consortia would otherwise look like it won that money
+-- outright). EXISTS over idx_contracts_ocid keeps it fast on the largest firms.
+cons AS (
+  SELECT b.*,
+    EXISTS (
+      SELECT 1 FROM contracts c
+      WHERE c.ocid = b.ocid
+        AND COALESCE(c.contract_id, '') = COALESCE(b.contract_id, '')
+        AND c.tag = 'contract'
+        AND c.contractor_eik <> b.contractor_eik
+    ) AS in_consortium
+  FROM base b
+  WHERE b.tag = 'contract'
+),
+conshd AS (
+  SELECT
+    COALESCE(SUM(amount_eur) FILTER (WHERE in_consortium), 0) AS consortium_eur,
+    (COUNT(*) FILTER (WHERE in_consortium))::int              AS consortium_count
+  FROM cons
+),
+conslist AS (
+  SELECT COALESCE(jsonb_agg(to_jsonb(t) ORDER BY t."amountEur" DESC NULLS LAST), '[]'::jsonb) AS arr FROM (
+    SELECT key, ocid, date,
+           amount_eur   AS "amountEur",
+           awarder_eik  AS "partyEik",
+           awarder_name AS "partyName",
+           title,
+           source_url   AS "sourceUrl"
+    FROM cons
+    WHERE in_consortium
+    ORDER BY amount_eur DESC NULLS LAST
+    LIMIT 25
+  ) t
+),
 other AS (
   SELECT COALESCE(jsonb_object_agg(cur, s), '{}'::jsonb) AS total_other FROM (
     SELECT currency AS cur, ROUND(SUM(amount)) AS s
@@ -83,9 +122,9 @@ topc AS (
            awarder_name AS "partyName",
            title,
            bundle_uuid  AS "bundleUuid",
-           source_url   AS "sourceUrl"
-    FROM base
-    WHERE tag = 'contract'
+           source_url   AS "sourceUrl",
+           in_consortium AS "inConsortium"
+    FROM cons
     ORDER BY amount_eur DESC NULLS LAST
     LIMIT 25
   ) t
@@ -144,6 +183,9 @@ SELECT CASE
     'awardCount', hd.award_count,
     'amendmentCount', hd.amendment_count,
     'awarderCount', hd.awarder_count,
+    'consortiumEur', conshd.consortium_eur,
+    'consortiumCount', conshd.consortium_count,
+    'consortiumContracts', conslist.arr,
     'byAwarder', byaw.arr,
     'byYear', byyr.arr,
     'topContracts', topc.arr,
@@ -162,5 +204,5 @@ SELECT CASE
     )
   )
 END
-FROM hd, other, byaw, byyr, topc, bd, bd_cpv, bd_proc;
+FROM hd, other, byaw, byyr, topc, bd, bd_cpv, bd_proc, conshd, conslist;
 $$;

@@ -243,6 +243,12 @@ type DbRollup = Pick<
 > & {
   awarderCount: number;
   amendmentCount: number;
+  // Consortium participation: the slice of totalEur (and count) won jointly, as a
+  // member of an обединение / ДЗЗД. The value is our EQUAL split across members,
+  // so we surface it separately — a firm that bids only in consortia would
+  // otherwise read as having won that money outright.
+  consortiumEur?: number;
+  consortiumCount?: number;
   breakdown: {
     totalEur: number;
     cpvKnownEur: number;
@@ -1237,6 +1243,21 @@ export const CompanyDbScreen: FC = () => {
                     )}{" "}
                     / договор
                   </div>
+                  {procurement && (procurement.consortiumCount ?? 0) > 0 && (
+                    <Link
+                      to={`/company/${eik}/contracts`}
+                      className="text-xs text-muted-foreground tabular-nums hover:underline hover:text-foreground"
+                      title="Стойност, спечелена като член на обединение (ДЗЗД). Показваме нашия равен дял между членовете — реалният дял на всеки член рядко е публикуван."
+                    >
+                      от които{" "}
+                      {formatEurCompact(
+                        procurement.consortiumEur ?? 0,
+                        i18n.language,
+                      )}{" "}
+                      в обединения (
+                      {num.format(procurement.consortiumCount ?? 0)})
+                    </Link>
+                  )}
                 </StatCard>
                 <StatCard label="Договори">
                   <Link
