@@ -57,12 +57,15 @@ const isExcluded = (rel: string): string | null => {
   if (rel.startsWith("parliament/company-connections"))
     return "parliament/company-connections/ is PG-served";
   if (rel === "procurement" || rel.startsWith("procurement/")) {
+    // Keep in sync with bucket:sync's -x regex allow-list in package.json.
     const allowed = [
       "procurement/roads.json",
       "procurement/derived/mp_party.json",
+      "procurement/derived/hub_stats.json",
+      "procurement/derived/sector_stats.json",
     ];
     if (!allowed.includes(rel))
-      return `procurement/ is served from Cloud SQL — only ${allowed.join(" and ")} belong on the bucket`;
+      return `procurement/ is served from Cloud SQL — only ${allowed.join(", ")} belong on the bucket`;
   }
   return null;
 };
