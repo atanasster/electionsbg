@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-15T08:56:52.585Z",
+  "generatedAt": "2026-07-16T11:58:09.386Z",
   "nodes": [
     {
       "id": "contractor:101055748",
@@ -427,14 +427,14 @@
       "label": "Изпълнителна агенция по лекарствата"
     },
     {
+      "id": "awarder:121242837",
+      "type": "awarder",
+      "label": "Национална експертна Лекарска комисия"
+    },
+    {
       "id": "awarder:121513231",
       "type": "awarder",
       "label": "Висш съдебен съвет"
-    },
-    {
-      "id": "awarder:121604974",
-      "type": "awarder",
-      "label": "Агенция по заетостта"
     },
     {
       "id": "awarder:121858220",
@@ -867,14 +867,14 @@
       "label": "Свилен Иванов Димитров"
     },
     {
-      "id": "official:iordan-aleksandrov-dimitrov-bc224b",
-      "type": "official",
-      "label": "Йордан Александров Димитров"
-    },
-    {
       "id": "official:anton-todorov-tonev-6701a1",
       "type": "official",
       "label": "Антон Тодоров Тонев"
+    },
+    {
+      "id": "official:iordan-aleksandrov-dimitrov-bc224b",
+      "type": "official",
+      "label": "Йордан Александров Димитров"
     },
     {
       "id": "official:reneta-georgieva-koleva-877928",
@@ -892,14 +892,14 @@
       "label": "Димитър Христов Петров"
     },
     {
-      "id": "official:plamen-borisov-yankov-8c2193",
-      "type": "official",
-      "label": "Пламен Борисов Янков"
-    },
-    {
       "id": "official:ilve-faikova-spahieva-94b2a9",
       "type": "official",
       "label": "Илве Фаикова Спахиева"
+    },
+    {
+      "id": "official:plamen-borisov-yankov-8c2193",
+      "type": "official",
+      "label": "Пламен Борисов Янков"
     },
     {
       "id": "official:andrei-simov-simov-03b222",
@@ -931,52 +931,57 @@
     {
       "source": "contractor:831646048",
       "target": "mp:3271",
-      "valueEur": 842499333.88
+      "valueEur": 983301278.69
     },
     {
       "source": "awarder:000695089",
       "target": "contractor:831646048",
-      "valueEur": 842141429.56
+      "valueEur": 982943374.37
     },
     {
       "source": "contractor:831641791",
       "target": "mp:4727",
-      "valueEur": 293434113.36
+      "valueEur": 330296521.22
     },
     {
       "source": "contractor:831641791",
       "target": "official:valentina-stefanova-nedyalkova-f07289",
-      "valueEur": 293434113.36
+      "valueEur": 330296521.22
     },
     {
       "source": "contractor:831641791",
       "target": "official:valeri-petrov-borisov-4cdc5f",
-      "valueEur": 293434113.36
+      "valueEur": 330296521.22
     },
     {
       "source": "contractor:121396123",
       "target": "mp:1129",
-      "valueEur": 186556070.07
+      "valueEur": 187306982.69
     },
     {
       "source": "contractor:121396123",
       "target": "mp:938",
-      "valueEur": 186556070.07
-    },
-    {
-      "source": "awarder:180680495",
-      "target": "contractor:831641791",
-      "valueEur": 65791878.39
-    },
-    {
-      "source": "awarder:000695406",
-      "target": "contractor:831641791",
-      "valueEur": 64324530.05
+      "valueEur": 187306982.69
     },
     {
       "source": "contractor:831643461",
       "target": "official:hristin-tsvetolyubov-savov-ea02aa",
-      "valueEur": 52377199.95
+      "valueEur": 108428514.48
+    },
+    {
+      "source": "awarder:000695089",
+      "target": "contractor:831643461",
+      "valueEur": 88845431.76
+    },
+    {
+      "source": "awarder:180680495",
+      "target": "contractor:831641791",
+      "valueEur": 80926154.46
+    },
+    {
+      "source": "awarder:000695406",
+      "target": "contractor:831641791",
+      "valueEur": 66173092.04
     },
     {
       "source": "awarder:130823243",
@@ -1009,24 +1014,24 @@
       "valueEur": 35053380.21
     },
     {
-      "source": "awarder:000695089",
-      "target": "contractor:831643461",
-      "valueEur": 32567060.27
-    },
-    {
       "source": "contractor:202758921",
       "target": "official:daniel-rumenov-gargov-c309b6",
       "valueEur": 27617196.67
     },
     {
-      "source": "contractor:206086428",
-      "target": "mp:3799",
-      "valueEur": 26841900.55
-    },
-    {
       "source": "awarder:176481459",
       "target": "contractor:831641791",
-      "valueEur": 26821718.52
+      "valueEur": 27020099.77
+    },
+    {
+      "source": "contractor:206086428",
+      "target": "mp:3799",
+      "valueEur": 26976756.13
+    },
+    {
+      "source": "awarder:131063188",
+      "target": "contractor:831641791",
+      "valueEur": 21712523.39
     },
     {
       "source": "awarder:115552190",
@@ -1041,7 +1046,7 @@
     {
       "source": "awarder:000695317",
       "target": "contractor:831641791",
-      "valueEur": 17538159.85
+      "valueEur": 17241099.27
     },
     {
       "source": "awarder:815123415",
@@ -1056,12 +1061,17 @@
     {
       "source": "contractor:122055819",
       "target": "official:plamen-peev-patev-f5c4ee",
-      "valueEur": 15555740.72
+      "valueEur": 15289603.1
     },
     {
-      "source": "awarder:131063188",
+      "source": "awarder:131236380",
       "target": "contractor:831641791",
-      "valueEur": 14978750.72
+      "valueEur": 14914052.84
+    },
+    {
+      "source": "awarder:000627597",
+      "target": "contractor:831641791",
+      "valueEur": 12801117.93
     },
     {
       "source": "awarder:130277958",
@@ -1074,9 +1084,9 @@
       "valueEur": 12239499.94
     },
     {
-      "source": "awarder:000627597",
+      "source": "awarder:000695228",
       "target": "contractor:831641791",
-      "valueEur": 12135671.55
+      "valueEur": 11265859.51
     },
     {
       "source": "awarder:000695406",
@@ -1087,11 +1097,6 @@
       "source": "awarder:831609046",
       "target": "contractor:121396123",
       "valueEur": 10402907.52
-    },
-    {
-      "source": "awarder:000695228",
-      "target": "contractor:831641791",
-      "valueEur": 10137029.29
     },
     {
       "source": "awarder:000133673",
@@ -1109,11 +1114,6 @@
       "valueEur": 8720546.83
     },
     {
-      "source": "awarder:131236380",
-      "target": "contractor:831641791",
-      "valueEur": 8689443
-    },
-    {
       "source": "contractor:175392783",
       "target": "mp:3410",
       "valueEur": 8207056.92
@@ -1121,12 +1121,12 @@
     {
       "source": "contractor:130158384",
       "target": "mp:3674",
-      "valueEur": 8006008.52
+      "valueEur": 8037489.33
     },
     {
       "source": "awarder:831913661",
       "target": "contractor:130158384",
-      "valueEur": 7869275.27
+      "valueEur": 7900756.08
     },
     {
       "source": "awarder:121082521",
@@ -1134,24 +1134,29 @@
       "valueEur": 7852413.02
     },
     {
+      "source": "awarder:204219357",
+      "target": "contractor:206086428",
+      "valueEur": 7759062.05
+    },
+    {
       "source": "awarder:000615118",
       "target": "contractor:202758921",
       "valueEur": 7671295.56
     },
     {
-      "source": "awarder:204219357",
-      "target": "contractor:206086428",
-      "valueEur": 7624206.47
+      "source": "awarder:000695025",
+      "target": "contractor:831641791",
+      "valueEur": 6502797.87
     },
     {
       "source": "contractor:831160078",
       "target": "official:mincho-stoikov-kazandzhiev-51c218",
-      "valueEur": 6321837.11
+      "valueEur": 6344848.45
     },
     {
       "source": "contractor:831160078",
       "target": "official:stefan-shtiliyanov-shtiliyanov-9d11f7",
-      "valueEur": 6321837.11
+      "valueEur": 6344848.45
     },
     {
       "source": "contractor:824106518",
@@ -1161,7 +1166,7 @@
     {
       "source": "awarder:121513231",
       "target": "contractor:831641791",
-      "valueEur": 5485536.69
+      "valueEur": 5597253.97
     },
     {
       "source": "awarder:000695235",
@@ -1181,32 +1186,32 @@
     {
       "source": "contractor:107564054",
       "target": "mp:5094",
-      "valueEur": 4369378.32
+      "valueEur": 4399631.3
     },
     {
       "source": "contractor:107564054",
       "target": "official:nikolai-ivanov-kosev-cd5565",
-      "valueEur": 4369378.32
+      "valueEur": 4399631.3
     },
     {
       "source": "contractor:102006848",
       "target": "official:ivanka-petrova-nikolova-1691b4",
-      "valueEur": 4317633.62
-    },
-    {
-      "source": "awarder:114532352",
-      "target": "contractor:122055819",
-      "valueEur": 4223895.21
+      "valueEur": 4335886.16
     },
     {
       "source": "contractor:101055748",
       "target": "official:metodi-petrov-baikushev-bb06bd",
-      "valueEur": 4152350.53
+      "valueEur": 4162576.36
     },
     {
       "source": "awarder:000413725",
       "target": "contractor:831643461",
       "valueEur": 4009895.09
+    },
+    {
+      "source": "awarder:114532352",
+      "target": "contractor:122055819",
+      "valueEur": 4006197.38
     },
     {
       "source": "awarder:812114464",
@@ -1216,12 +1221,12 @@
     {
       "source": "awarder:000695071",
       "target": "contractor:831641791",
-      "valueEur": 3655627.87
+      "valueEur": 3656771.64
     },
     {
-      "source": "awarder:000695025",
-      "target": "contractor:831641791",
-      "valueEur": 3532408.64
+      "source": "awarder:130345786",
+      "target": "contractor:121396123",
+      "valueEur": 3629763.32
     },
     {
       "source": "awarder:000777230",
@@ -1231,12 +1236,7 @@
     {
       "source": "awarder:831160078",
       "target": "contractor:831643461",
-      "valueEur": 3438451.9
-    },
-    {
-      "source": "awarder:130345786",
-      "target": "contractor:121396123",
-      "valueEur": 3024802.77
+      "valueEur": 3211394.94
     },
     {
       "source": "awarder:130362903",
@@ -1259,6 +1259,11 @@
       "valueEur": 2622927.35
     },
     {
+      "source": "awarder:114532352",
+      "target": "contractor:121396123",
+      "valueEur": 2412402.41
+    },
+    {
       "source": "contractor:812115210",
       "target": "mp:3551",
       "valueEur": 2310852.59
@@ -1269,14 +1274,14 @@
       "valueEur": 2258931.84
     },
     {
-      "source": "awarder:114532352",
-      "target": "contractor:121396123",
-      "valueEur": 2183343.64
-    },
-    {
       "source": "awarder:102274111",
       "target": "contractor:122055819",
       "valueEur": 2152271.41
+    },
+    {
+      "source": "awarder:202766380",
+      "target": "contractor:831641791",
+      "valueEur": 2033885.66
     },
     {
       "source": "awarder:831661388",
@@ -1299,6 +1304,11 @@
       "valueEur": 1891524.32
     },
     {
+      "source": "awarder:121015056",
+      "target": "contractor:121396123",
+      "valueEur": 1859659.78
+    },
+    {
       "source": "awarder:103002253",
       "target": "contractor:121396123",
       "valueEur": 1840650.77
@@ -1309,9 +1319,9 @@
       "valueEur": 1840645.65
     },
     {
-      "source": "awarder:121015056",
-      "target": "contractor:121396123",
-      "valueEur": 1834095.19
+      "source": "awarder:176789460",
+      "target": "contractor:831641791",
+      "valueEur": 1816875.7
     },
     {
       "source": "awarder:175403856",
@@ -1344,19 +1354,14 @@
       "valueEur": 1510703.6
     },
     {
+      "source": "contractor:123685800",
+      "target": "official:anton-todorov-tonev-6701a1",
+      "valueEur": 1510594.57
+    },
+    {
       "source": "contractor:204331947",
       "target": "official:iordan-aleksandrov-dimitrov-bc224b",
       "valueEur": 1497613.29
-    },
-    {
-      "source": "contractor:123685800",
-      "target": "official:anton-todorov-tonev-6701a1",
-      "valueEur": 1489979.28
-    },
-    {
-      "source": "awarder:202766380",
-      "target": "contractor:831641791",
-      "valueEur": 1454080.66
     },
     {
       "source": "awarder:837068284",
@@ -1369,14 +1374,14 @@
       "valueEur": 1448121.76
     },
     {
+      "source": "awarder:117505556",
+      "target": "contractor:107564054",
+      "valueEur": 1427790.8
+    },
+    {
       "source": "awarder:000852544",
       "target": "contractor:127003032",
       "valueEur": 1414999.25
-    },
-    {
-      "source": "awarder:117505556",
-      "target": "contractor:107564054",
-      "valueEur": 1411165.59
     },
     {
       "source": "contractor:131045382",
@@ -1429,6 +1434,11 @@
       "valueEur": 1247552.19
     },
     {
+      "source": "awarder:121242837",
+      "target": "contractor:831641791",
+      "valueEur": 1235610.61
+    },
+    {
       "source": "awarder:110549443",
       "target": "contractor:206086428",
       "valueEur": 1229352.15
@@ -1451,7 +1461,7 @@
     {
       "source": "awarder:114005624",
       "target": "contractor:831160078",
-      "valueEur": 1170978.64
+      "valueEur": 1180876.33
     },
     {
       "source": "contractor:114680479",
@@ -1464,14 +1474,14 @@
       "valueEur": 1141508.2
     },
     {
+      "source": "awarder:000261517",
+      "target": "contractor:101055748",
+      "valueEur": 1111344.03
+    },
+    {
       "source": "awarder:119502733",
       "target": "contractor:121396123",
       "valueEur": 1101926.69
-    },
-    {
-      "source": "awarder:000261517",
-      "target": "contractor:101055748",
-      "valueEur": 1101118.2
     },
     {
       "source": "awarder:109513731",
@@ -1506,7 +1516,12 @@
     {
       "source": "contractor:112028994",
       "target": "mp:2946",
-      "valueEur": 943333.23
+      "valueEur": 944989.82
+    },
+    {
+      "source": "contractor:205281254",
+      "target": "official:ilve-faikova-spahieva-94b2a9",
+      "valueEur": 943598.2
     },
     {
       "source": "awarder:000776477",
@@ -1514,19 +1529,14 @@
       "valueEur": 918796.74
     },
     {
-      "source": "awarder:176789460",
-      "target": "contractor:831641791",
-      "valueEur": 908437.85
+      "source": "awarder:835014989",
+      "target": "contractor:831160078",
+      "valueEur": 910892.32
     },
     {
       "source": "awarder:175076479",
       "target": "contractor:831641791",
       "valueEur": 900811.08
-    },
-    {
-      "source": "awarder:835014989",
-      "target": "contractor:831160078",
-      "valueEur": 897778.77
     },
     {
       "source": "contractor:206405370",
@@ -1554,9 +1564,9 @@
       "valueEur": 849767.11
     },
     {
-      "source": "contractor:205281254",
-      "target": "official:ilve-faikova-spahieva-94b2a9",
-      "valueEur": 826423.12
+      "source": "awarder:000024962",
+      "target": "contractor:205281254",
+      "valueEur": 827106.03
     },
     {
       "source": "awarder:000236164",
@@ -1586,12 +1596,12 @@
     {
       "source": "awarder:824106518",
       "target": "contractor:202809611",
-      "valueEur": 767389.33
+      "valueEur": 770389.33
     },
     {
       "source": "contractor:202809611",
       "target": "mp:5165",
-      "valueEur": 767389.33
+      "valueEur": 770389.33
     },
     {
       "source": "awarder:000413579",
@@ -1612,16 +1622,6 @@
       "source": "awarder:107507217",
       "target": "contractor:121396123",
       "valueEur": 714782.54
-    },
-    {
-      "source": "awarder:000024962",
-      "target": "contractor:205281254",
-      "valueEur": 709930.95
-    },
-    {
-      "source": "awarder:117505556",
-      "target": "contractor:122055819",
-      "valueEur": 700694.83
     },
     {
       "source": "awarder:121858220",
@@ -1649,6 +1649,11 @@
       "valueEur": 656364.55
     },
     {
+      "source": "awarder:117505556",
+      "target": "contractor:122055819",
+      "valueEur": 652255.04
+    },
+    {
       "source": "awarder:115245280",
       "target": "contractor:200360858",
       "valueEur": 648403.15
@@ -1672,11 +1677,6 @@
       "source": "awarder:104510514",
       "target": "contractor:107564054",
       "valueEur": 633858.76
-    },
-    {
-      "source": "awarder:121604974",
-      "target": "contractor:121396123",
-      "valueEur": 630540.07
     },
     {
       "source": "awarder:000662769",
