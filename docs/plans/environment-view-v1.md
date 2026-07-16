@@ -5,9 +5,14 @@ passes (see §0.5) preceded the build; all findings were folded in. Shipped: the
 the bespoke `EnvironmentPack` (air-station map hero, money-vs-outcome, EU-funds absorption by OP code,
 МОСВ budget bridge, GF05 EU-peer strip, what-МОСВ-buys with CPV-coverage disclosed, HHI, per-unit
 competition, universe Select, 27-awarder tile). Verified in-browser (desktop + 375px, light + dark; 0
-console errors; `?sector=environment` browse filter works). Deferred to Phase 2/3: Tier-B waste ingest +
-recycling gauge, ПУДООС grant register (PG), Natura strip, AI tools, `db:gen-sector-stats` rerun for the
-hub € badge (needs live PG), a dedicated air-map OG capture.
+console errors; `?sector=environment` browse filter works). **Phase 2 (partial) also shipped:** the
+**waste/recycling-vs-EU-target tile** (`scripts/environment/fetch_waste.ts` → `data/environment/waste.json`
+from Eurostat `cei_wm011`/`env_wasmun`; `useWaste` + `EnvironmentWasteTile`). Signature finding: BG's
+municipal-recycling rate **peaked ~35% (2020) then fell to 16.7% (2023)** — 38pp below the 55% 2025
+target and well under the EU average (~48%), while waste-per-capita rose to 490 kg. Deferred to Phase
+2/3: ПУДООС grant register (PG), Natura strip, AI tools, the `eurostat_env` watcher + `update-environment`
+skill, `db:gen-sector-stats` rerun for the hub € badge (needs live PG), a dedicated air-map OG capture,
+and `bucket:sync` of `data/environment/` for prod.
 Closest built siblings to copy: the **energy / security group dashboards** (`sectorDashboards.ts` +
 `SectorAwardersTile`) for the cheapest Phase-1 group ship, the **water pack** (`VikPack` +
 `VikEuFundsTile`) for the EU-funds + sector-map grammar, and **transport** (`data/transport/*.json` +
