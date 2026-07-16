@@ -31,6 +31,9 @@ export interface InfographicTileProps {
    *  in the card layout; shown top-right of the row on mobile. Turns the tile
    *  into a stat tile. */
   metric?: string;
+  /** Optional one-word caption under the number naming what it measures
+   *  (бюджет 2025 / изплатено / поръчки …) — keeps mixed metric kinds honest. */
+  metricCaption?: string;
 }
 
 // The big number is legible via a currentColor-tuned fill + a card-coloured halo
@@ -42,6 +45,10 @@ const metricColor =
   "color-mix(in srgb, var(--sector) 58%, hsl(var(--foreground)))";
 const metricShadow =
   "0 1px 0 hsl(var(--card)), 0 -1px 0 hsl(var(--card)), 1px 0 0 hsl(var(--card)), -1px 0 0 hsl(var(--card)), 0 0 5px hsl(var(--card)), 0 0 5px hsl(var(--card))";
+// The caption sits a notch quieter than the number but stays readable over the
+// scene via the same card-coloured halo.
+const captionColor =
+  "color-mix(in srgb, var(--sector) 40%, hsl(var(--muted-foreground)))";
 
 export const InfographicTile: FC<InfographicTileProps> = ({
   to,
@@ -52,6 +59,7 @@ export const InfographicTile: FC<InfographicTileProps> = ({
   scene: Scene,
   cta,
   metric,
+  metricCaption,
 }) => (
   <Link
     to={to}
@@ -80,11 +88,21 @@ export const InfographicTile: FC<InfographicTileProps> = ({
                 "radial-gradient(72% 72% at 6% 100%, color-mix(in srgb, hsl(var(--card)) 74%, transparent), transparent 62%)",
             }}
           />
-          <span
-            className="pointer-events-none absolute bottom-1.5 left-3 hidden text-2xl font-bold leading-none tabular-nums sm:block xl:text-3xl"
-            style={{ color: metricColor, textShadow: metricShadow }}
-          >
-            {metric}
+          <span className="pointer-events-none absolute bottom-1.5 left-3 hidden flex-col sm:flex">
+            <span
+              className="text-2xl font-bold leading-none tabular-nums xl:text-3xl"
+              style={{ color: metricColor, textShadow: metricShadow }}
+            >
+              {metric}
+            </span>
+            {metricCaption ? (
+              <span
+                className="mt-0.5 text-[10px] font-semibold uppercase leading-none tracking-wide"
+                style={{ color: captionColor, textShadow: metricShadow }}
+              >
+                {metricCaption}
+              </span>
+            ) : null}
           </span>
         </>
       ) : null}
@@ -100,11 +118,21 @@ export const InfographicTile: FC<InfographicTileProps> = ({
             coexist — sector tiles carry an agency badge AND a €). */}
         <div className="flex shrink-0 items-center gap-1.5">
           {metric ? (
-            <span
-              className="text-base font-bold tabular-nums sm:hidden"
-              style={{ color: metricColor }}
-            >
-              {metric}
+            <span className="flex flex-col items-end leading-none sm:hidden">
+              <span
+                className="text-base font-bold tabular-nums"
+                style={{ color: metricColor }}
+              >
+                {metric}
+              </span>
+              {metricCaption ? (
+                <span
+                  className="mt-0.5 text-[9px] font-semibold uppercase tracking-wide"
+                  style={{ color: captionColor }}
+                >
+                  {metricCaption}
+                </span>
+              ) : null}
             </span>
           ) : null}
           {badge ? (

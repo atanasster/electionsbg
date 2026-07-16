@@ -16,13 +16,17 @@ import { ScopeControl } from "@/screens/components/ScopeControl";
 import {
   useSectorStats,
   formatSectorMetric,
+  sectorMetricCaption,
+  scopeProcurementPeriod,
 } from "@/data/procurement/useSectorStats";
+import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import { SECTOR_CLUSTERS } from "./sectorRegistry";
 import { SECTOR_SCENES } from "./sectorScenes";
 
 export const GovernanceSectorsScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const stats = useSectorStats();
+  const period = scopeProcurementPeriod(useScopeWindow());
   const title = t("sectors_hub_title") || "Държавни сектори";
   const cta = t("sectors_hub_view") || "виж сектора";
 
@@ -37,6 +41,7 @@ export const GovernanceSectorsScreen: FC = () => {
       scene: SECTOR_SCENES[s.id],
       cta,
       metric: formatSectorMetric(stats?.[s.id], i18n.language),
+      metricCaption: sectorMetricCaption(stats?.[s.id], t, period),
     })),
   }));
 

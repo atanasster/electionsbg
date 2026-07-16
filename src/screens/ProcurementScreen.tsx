@@ -24,7 +24,10 @@ import { useProcurementHubStats } from "@/data/procurement/useProcurementHubStat
 import {
   useSectorStats,
   formatSectorMetric,
+  sectorMetricCaption,
+  scopeProcurementPeriod,
 } from "@/data/procurement/useSectorStats";
+import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import { useWatchlist } from "@/data/procurement/useWatchlist";
 import { formatEurCompact } from "@/lib/currency";
 import { PROCUREMENT_SCENES } from "./procurement/procurementScenes";
@@ -125,6 +128,7 @@ export const ProcurementScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const stat = useProcurementHubStats();
   const sectorStats = useSectorStats();
+  const sectorPeriod = scopeProcurementPeriod(useScopeWindow());
   const watchCount = useWatchlist().length;
   const title = t("procurement_index_title") || "Public procurement";
 
@@ -211,6 +215,11 @@ export const ProcurementScreen: FC = () => {
               scene={SECTOR_SCENES[s.id]}
               cta={t("sectors_hub_view") || "виж сектора"}
               metric={formatSectorMetric(sectorStats?.[s.id], i18n.language)}
+              metricCaption={sectorMetricCaption(
+                sectorStats?.[s.id],
+                t,
+                sectorPeriod,
+              )}
             />
           ))}
         </div>
