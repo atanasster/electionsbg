@@ -1,6 +1,7 @@
 # Социална политика / Социално подпомагане (МТСП + АСП) sector view — v1 plan & competitive research
 
-Status: **NOT BUILT — plan/design only.** This is the single biggest coverage gap in the app: the
+Status: **NOT BUILT — plan/design only; AUDITED & VERIFIED against live code 2026-07-16 (see §0.5).**
+This is the single biggest coverage gap in the app: the
 Social-protection function is **€15.09bn = 36.8% of ALL Bulgarian government spending (2024)** — the
 largest COFOG function by a wide margin — and the app today surfaces only its pension slice (НОИ, via
 `/pensions`). The entire social-**assistance** side (family/child allowances, disability support,
@@ -52,6 +53,70 @@ at-risk-of-poverty rates and one of the weakest poverty-reduction effects of soc
 already ingest the Eurostat SILC data to prove it (`data/macro.json`: `ilc_di12`, `ilc_peps01n`; add
 `ilc_li10` before/after transfers). No BG portal pairs the €15bn social budget with the poverty outcome
 it buys. That pairing is the "world's best" move.
+
+---
+
+## 0.5 Audit — plan verified against live code (2026-07-16)
+
+Every load-bearing claim below was re-checked against the working tree on the plan date. **The plan
+is accurate and buildable as written; three of the four open questions are now resolved.** Findings:
+
+**Corpus figures — all six EIKs match exactly** (`data/procurement/derived/awarders_index.json`, per-row
+`amountEur`):
+
+| EIK | Entity | Corpus name in index | Measured €m | Plan €m |
+|---|---|---|---:|---:|
+| 000695395 | МТСП | „Министерство на труда и социалната политика" | 81.87 | 81.9 ✓ |
+| 121015056 | АСП ⭐ | **„Регионална дирекция за социално подпомагане - Видин"** | 124.63 | 124.6 ✓ |
+| 121604974 | АЗ | „Агенция по заетостта" | 68.04 | 68.0 ✓ |
+| 831545394 | ГИТ | „Изпълнителна агенция «Главна инспекция по труда»" | 10.06 | 10.1 ✓ |
+| 121350407 | АХУ | „Агенция за хората с увреждания" | 0.89 | 0.9 ✓ |
+| 177453060 | АКСУ | „Агенция за качеството на социалните **усулги**" (sic — corpus typo) | 0.077 | 0.08 ✓ |
+| — | **Group total** | — | **285.5** | ≈285 ✓ |
+
+- **АСП shared-Булстат collision CONFIRMED** — `121015056` really does render as "РДСП — Видин" in the
+  index. The name-pin (§6) is mandatory. **Blast radius (open-Q 3) RESOLVED:** the only consumer of
+  `AWARDER_NAME_OVERRIDES` / `canonicalAwarderName` is `CompanyDbScreen.tsx:490` — which **is** the
+  `/awarder/:eik` route element (`routes.tsx:2454`). So adding `121015056 → "Агенция за социално
+  подпомагане (АСП)"` to `src/lib/awarderNameOverrides.ts` (today it holds only the МВР `000695235` pin)
+  flips the awarder header cleanly; no other surface hard-codes the "Видин" string. The `SectorAwardersTile`
+  chips read the inline `SOCIAL_ENTITIES` names, so they're already canonical.
+
+**Budget node CONFIRMED** — `data/budget/ministries/admin-ministerstvo-na-truda-i-sotsialnata-politika.json`
+carries 8 fiscal years (2018–2025), `years[]` each with `{expenditure.amountEur, programs[].planned.amountEur}`.
+FY2025: total expenditure **€1,796,645,056**; program "Политика в областта на хората с увреждания"
+planned **€1,045,048,343**, "социалното включване" €409,856,838, "социалното подпомагане…" €231M — matches
+the §2 table to the euro. Read via `useBudgetMinistryRollup(SOCIAL_BUDGET_NODE)`. **Phase-2 benefit-mix +
+iceberg tiles are fully backed today.**
+
+**COFOG GF10 peers CONFIRMED** — `data/cofog.json` `peers.GF10` = `{year:2024, bgPctGdp:14.4,
+euAvgPctGdp:19.6, rank:17, total:26, top:{geo:"FI", pctGdp:26.5}}`. The EU league-table strip renders with
+zero new data. **⚠ Two different denominators — do not conflate in copy:** §0's "36.8% / €15.09bn" is
+GF10's **share of total government expenditure** (`cofogTopLevel` / `data/cofog.json`); `peers.GF10` is GF10
+as **% of GDP** (14.4%, EU 19.6%). Both true; label each tile's basis explicitly.
+
+**SILC outcomes — partial.** `data/macro.json` has `series.gini` + `series.povertyRate` (AROPE proxy) and
+matching `indicators` — so the AROPE trend tile ships in Phase 2. **`ilc_li10` (AROP before transfers) is
+NOT present** — Tier B #7 fetch is genuinely still needed for the flagship before/after tile (see §3
+enhancement — pair it with `ilc_li02`, AROP after).
+
+**`PassThroughHero` / `IcebergHero` — neither exists.** Confirmed this view is the first to build the shared
+part-to-whole iceberg component (§5). Sibling packs (`TransportPack`, `MvrPack`) build heroes inline.
+
+**Redundancy CONFIRMED in all three surfaces** exactly as §6 states: `sectorRegistry.ts` (`social`
+`agency:"НОИ"`, `accent:TILE_ACCENTS.olive`, `to:"/sector/social"`); `sectorDashboards.ts:162-178`
+(`leadEik:NOI_EIK`, `browsePackId:"noi"`, single НОИ member); `scripts/prerender/routes.ts:612-633`
+(`id:"social"`, `eik:"121082521"`, "Осигуряване — обществените поръчки на НОИ" copy). **Extra find:**
+`scripts/db/gen_procurement/sector_stats.ts:100` already maps `social:
+"admin-ministerstvo-na-truda-i-sotsialnata-politika"` (a budget-node string, not an EIK set) — repoint to
+`social: SOCIAL_SECTOR_EIKS` alongside the other `SECTOR_EIKS` arrays. Current i18n: `sector_social_title`
+= "Осигуряване"/"Social security", `sector_social_desc` = "Осигуровки · договори на НОИ"/"Contributions ·
+НОИ procurement" — both retitled per §6.5. Cluster label `sectors_cluster_social` = "Социална държава" (keep).
+
+**Templates confirmed present & fresh** (both merged 2026-07-16): `src/lib/transportReferenceData.ts` +
+`transport/TransportPack.tsx` (the freshest sibling), `src/lib/securityReferenceData.ts` +
+`security/MvrPack.tsx`. `src/lib/socialReferenceData.ts` and `src/screens/components/procurement/social/`
+do **not** yet exist — clean greenfield.
 
 ---
 
@@ -183,6 +248,69 @@ Surveyed 2026-07-16. Social-assistance transparency dashboards worldwide, ranked
 **Positioning:** "Социалната защита е най-големият разход на държавата — а е и най-невидимият. Тук са
 парите, помощите и това, което постигат."
 
+### 3.1 Competitive research refresh (2026-07-16) — the world-class specifics to steal
+
+A fresh survey of the best-in-class portals sharpened four things the v1 tile list under-specified. **The
+first two are buildable in Phase 2 off already-ingested data** and materially raise the ceiling.
+
+**The single headline effectiveness metric — lock it in.** Across Eurostat, OECD, DWP and the World Bank
+the one number that fuses "€ spent → poverty outcome" is the **poverty-reduction effect of social
+transfers**: `AROP_before_transfers − AROP_after_transfers`, as a % cut. For Bulgaria it is a genuinely
+stark headline — transfers (excl. pensions) cut poverty by **~27.7%** vs an EU average nearer **~35%**:
+Bulgaria spends a near-EU-average share of GDP on social protection but **buys less poverty reduction per
+euro**. That sentence is the dashboard's thesis and the hero caption.
+
+**Chart forms the leaders use (adopt these exact shapes):**
+- **Before/after-transfers dumbbell** (Eurostat/OECD/DREES) — one row per year, a dot at "AROP before
+  transfers" and a dot at "AROP after transfers"; **the bar length IS the effectiveness.** Out-communicates
+  a Sankey for a single message. Data = **`ilc_li10` (before) paired with `ilc_li02` (after)** — a small
+  add on top of the Tier B #7 fetch. This REPLACES the vaguer §4.4 "before vs after" description with a
+  concrete mark. Buildable Phase 2.
+- **Value-for-money scatter** (OECD/Eurostat) — x = social-protection spend (% GDP), y = poverty-reduction
+  effect (pp), one dot per country, BG highlighted. Puts "spends a lot, reduces little" into a picture and
+  is **buildable now** off `peers.GF10` (x) + `ilc_li10`/`ilc_li02` per peer (y). New tile — the sharpest
+  single visual against the IME PDF. Buildable Phase 2 (once li10/li02 land).
+- **Spend × caseload dual series per benefit** (UK DWP "Benefit expenditure & caseload tables" — the
+  definitive model): area = € spend, overlaid line = recipients, caption = average benefit per recipient,
+  so `Δspend = Δcaseload × Δaverage-award` is legible. This is the shape of the `social_benefits` table and
+  the Phase-3 per-benefit tiles (child allowances / disability / heating / ГМД).
+
+**Novel tiles the leaders show that v1 omitted (Phase 3, ranked by impact):**
+1. **Targeting bars by income quintile** (World Bank ASPIRE benefit-incidence) — €/recipients by welfare
+   quintile Q1→Q5 per benefit; leans-left = well-targeted. THE "кой получава помощите" tile and precisely
+   the IME critique (child allowances spread broadly, not concentrated on the poor). Needs SILC deciles.
+2. **Take-up / non-take-up gap** (France DREES *non-recours* — "~4 in 10 eligible don't claim RSA"; also
+   DWP take-up): estimated eligible vs actual recipients per benefit, gap called out. Rare, high-impact,
+   almost nobody shows it.
+3. **Adequacy gauge** (ASPIRE) — average benefit as % of the poverty line, per family (exposes ГМД ≈
+   16–25% of the line — "the minimum-income floor is a quarter of the poverty line").
+4. **Error/fraud & admin cost** (DWP fraud-and-error is standard) — overpayment rate + admin cost per €100
+   delivered where АСП publishes it; render as an explicit **data-gap tile** if BG doesn't disclose.
+5. **Cash-vs-services split** (OECD SOCX) — for the disability family, indexed monthly support (cash) vs the
+   личната помощ personal-assistance mechanism (service).
+
+**Bulgaria-specific figures refreshed (cite these in copy, with the current basis):**
+
+| Metric | Value | Source |
+|---|---|---|
+| At-risk-of-poverty (AROP), 2024 | **21.7%** | Eurostat |
+| At-risk-of-poverty-or-social-exclusion (AROPE), 2024 | **30.3% — highest in the EU** | Eurostat (ddn-20250430-2) |
+| Poverty-reduction effect of transfers (excl. pensions), 2024 | **~27.7%** vs EU **~35%** | Eurostat `ilc_li10`/`ilc_li02` |
+| Disability monthly financial support | **405M BGN (2019) → ~858M BGN (2025)**, recipients ~752,955 | ИПИ/IME; МТСП ЗХУ |
+
+The disability figures independently corroborate the §2 budget table's €145M→€1,045M program climb: the
+2019 Закон за хората с увреждания tied support to the poverty line and launched личната помощ — the single
+biggest driver of social-spending growth (share of the reviewed social-programs budget ~20.7%→40.3%,
+2015→2019). The "×7 / tripled" framing in §0/§2 is corroborated when the indexed monthly support and the
+new personal-assistance service are taken together.
+
+**Sources (all live gov/IGO portals):** Eurostat ESSPROS + SILC `ilc_li10`/`ilc_li02`/`ilc_li10_r`; UK DWP
+Benefit expenditure & caseload tables + StatXplore; US HHS/ACF LIHEAP FY-Data dashboard (the households-served
++ average-benefit state card — the direct model for the heating-aid map) + TANF; World Bank ASPIRE
+(coverage/adequacy/incidence); France DREES monthly solidarity-benefits tracker + non-recours; OECD SOCX +
+Social Expenditure Dashboard; NZ MSD Benefit Fact Sheets; Ireland DSP quarterly stats; IME/ИПИ for the BG
+targeting critique.
+
 ---
 
 ## 4. The "world's best" dashboard — tile-by-tile (NO tabs; stacked `PackSection` bands)
@@ -209,11 +337,18 @@ under the **МТСП lead EIK** (`SocialPack` in `PACKS`) and becomes the whole 
    `MvrBudgetBridgeTile` / the program-node reader (`useBudgetMinistryRollup`). Ships in **Phase 1**
    off the already-ingested node. `◆ budget`.
 
-4. **★ Социалните трансфери и бедността (the outcome tile — the differentiator).** At-risk-of-poverty
-   before vs after social transfers, BG vs EU (Eurostat `ilc_li10`), + at-risk-of-poverty-or-social-
-   exclusion trend (`ilc_peps01n`, have it). "Трансферите свалят бедността с X пункта — под средното за
-   ЕС." Positional/non-judgmental framing (education report-card precedent). **Phase 2** (li10 fetch).
-   `◇ context`.
+4. **★ Социалните трансфери и бедността (the outcome tile — the differentiator).** Concrete mark =
+   **before/after-transfers dumbbell** (§3.1): AROP **before** (`ilc_li10`) vs **after** (`ilc_li02`)
+   transfers, one bar per year, bar length = the poverty reduction; BG vs EU. Caption locks the headline
+   metric: "Трансферите свалят бедността с ~27.7% — под средното за ЕС (~35%)." Pair with the AROPE trend
+   (`ilc_peps01n` / `series.povertyRate`, have it). Positional/non-judgmental framing (education report-card
+   precedent). **Phase 2** (li10 + li02 fetch). `◇ context`.
+
+4b. **★ Стойност за парите — разход спрямо ефект (value-for-money scatter, NEW from §3.1).** x = social-
+   protection spend (% GDP, `peers.GF10`), y = poverty-reduction effect (pp, `ilc_li10`−`ilc_li02` per
+   country), one dot per EU country, BG highlighted in the "spends-average / reduces-below-average"
+   quadrant. The single sharpest visual against the IME PDF. **Phase 2** (reuses the compare-dashboard
+   scatter pattern). `◇ context`.
 
 5. **★ Целева помощ за отопление — по области (heating-aid map).** Households served + €/household per
    oblast, `OblastChoropleth` (shared, built-in count⇄perCapita toggle) + ranked bar list. The most
@@ -475,8 +610,12 @@ Files: `src/lib/socialAttributes.ts` (classifier + `buildSocialModelFromAggregat
 `src/data/procurement/useSocial.tsx` (universe filter + two `useAwarderGroupModel` calls for a
 filter-invariant group total); `src/screens/components/procurement/social/` — `SocialPack.tsx` +
 `SocialBudgetBridgeTile` (iceberg + benefit-mix from `useBudgetMinistryRollup`), `SocialCategoryTile`,
-`SocialCompetitionTile`, `SocialEuPeerTile` (GF10), `SocialPovertyImpactTile` (SILC + fetch `ilc_li10`).
-Register `SocialPack` in `PACKS`. AI `socialSpending` tool. Everything off already-ingested data.
+`SocialCompetitionTile`, `SocialEuPeerTile` (GF10), `SocialPovertyImpactTile` (§4.4 before/after **dumbbell**
+— fetch `ilc_li10` + `ilc_li02`; AROPE trend already in `series.povertyRate`), and `SocialValueForMoneyTile`
+(§4b scatter — `peers.GF10` × per-country li10−li02, reuses the `/indicators/compare` scatter pattern).
+Also build the shared `PassThroughHero` (§5, confirmed new). Register `SocialPack` in `PACKS`. AI
+`socialSpending` tool. Everything off already-ingested data (only the small li10/li02 Eurostat series is new,
+as static `data/social/*.json` per §11).
 
 **Phase 3 (~2–3d) — the АСП benefit ingest (the flagship) + outcomes.**
 Files: `scripts/social/fetch_asp_benefits.ts` (egov/asp.government.bg → `social_benefits` PG table via
@@ -498,9 +637,16 @@ pages; `recent_updates` changelog. Optional Phase 3+: ГИТ inspection tile + w
 2. **The €15bn split** — the hero's "pensions vs assistance" partition needs a clean НОИ-vs-МТСП/АСП number
    for the same year; НОИ's ДОО disbursement is in `data/budget/noi/funds.json` (update-noi) — join it, or
    footnote the split as COFOG GF10.1 (old age) vs the rest.
-3. **АСП name-pin blast radius** — pinning `121015056` to "Агенция за социално подпомагане" changes the
-   awarder header on an existing `/awarder/121015056` page (today "РДСП Видин"); confirm no other surface
-   hard-codes the Видин label.
+3. ~~**АСП name-pin blast radius**~~ — **RESOLVED in §0.5 audit.** Only `CompanyDbScreen.tsx:490`
+   consumes `canonicalAwarderName`, and it is the `/awarder/:eik` route element — the pin flips the header
+   cleanly; no other surface hard-codes "Видин"; `SectorAwardersTile` chips already read canonical
+   `SOCIAL_ENTITIES` names. Just add the pin.
 4. **Lead EIK** — МТСП (ministry/principal, chosen here for the security/transport parity) vs АСП (the
    actual disbursement star). МТСП recommended (its awarder page suppresses the pack + links to the sector,
    the МО/МТС pattern); АСП remains the most prominent member chip + the star of the benefit tiles.
+
+**Still open (unchanged):** Q1 (АСП benefit-stats source shape — live probe of data.egov.bg АСП org vs
+asp.government.bg XLSX/PDF; gates Phase 3 heating-aid grain) and Q2 (the €15bn pensions-vs-assistance split
+number — join `data/budget/noi/funds.json` or footnote as COFOG GF10.1 vs the rest). Both are Phase-3 /
+hero-refinement concerns; **Phases 1–2 (the redundancy fix + the full budget/outcome/EU-peer dashboard) are
+unblocked and buildable off already-ingested data today.**
