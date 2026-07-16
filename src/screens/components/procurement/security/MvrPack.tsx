@@ -49,6 +49,7 @@ import { MvrCategoryTile } from "./MvrCategoryTile";
 import { MvrCompetitionTile } from "./MvrCompetitionTile";
 import { MvrTopContractsTile } from "./MvrTopContractsTile";
 import { MvrOblastMapTile } from "./MvrOblastMapTile";
+import { MvrDirectorateMap } from "./MvrDirectorateMap";
 import { MvrRoadSafetyTile } from "./MvrRoadSafetyTile";
 import { MvrCrimeScatterTile } from "./MvrCrimeScatterTile";
 import { MvrTransparencyTile } from "./MvrTransparencyTile";
@@ -176,6 +177,17 @@ export const MvrPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
 
   return (
     <section className="space-y-4">
+      {/* Signature visual — where the МВР structures sit, city by city. Mounted at
+          the top of the pack (the house convention for sector maps, cf. NzokPack).
+          Self-fetches its own scope-aware geo blob and self-hides until it loads. */}
+      <div id="mvr-map" className="scroll-mt-24">
+        <MvrDirectorateMap
+          eik={eik}
+          scopeWindow={scopeWindow}
+          periodLabel={periodLabel}
+        />
+      </div>
+
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1 pt-2">
         <Shield className="h-5 w-5 text-muted-foreground" />
         <h2 className="text-lg font-semibold">

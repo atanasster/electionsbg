@@ -1689,6 +1689,25 @@ const DB_ROUTES = {
     );
     return { body: rows[0]?.r ?? [] };
   },
+  // Geolocated МВР structures (spend + single-bid share per directorate, windowed)
+  // → the /sector/security (Полиция / МВР) marker map. Folds the live contracts
+  // corpus onto the static mvr_directorate_geo crosswalk server-side (schema 074),
+  // so the client fetches ONE scope-aware blob instead of geocoding in the browser.
+  // Windowed [from, to) with sargable COALESCE bounds, like awarder-group-model.
+  "mvr-directorate-map": async (dbRows, q) => {
+    const eiks = s(q, "eiks")
+      .split(",")
+      .map((e) => e.trim())
+      .filter((e) => /^\d{9,13}$/.test(e))
+      .slice(0, 300);
+    if (!eiks.length) return { status: 400, body: { error: "missing eiks" } };
+    const rows = await dbRows("SELECT mvr_directorate_map($1, $2, $3) AS r", [
+      eiks,
+      orNull(q, "from"),
+      orNull(q, "to"),
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? { directorates: [] } };
+  },
   // Geolocated НЗОК hospitals + live spend metrics → the health-pack hospital map
   // at the top of /awarder/121858220 (schema 075). One blob (no params); the browser
   // never geocodes.

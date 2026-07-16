@@ -97,6 +97,27 @@ value** (a real sub-group — ГДНП/ОДМВР — distinct from border/fire)
 "Сигурност" sits inside the cluster "Сигурност и правосъдие", so it reads slightly redundant — kept per
 the rename request; easy to switch to "Вътрешна сигурност" / "Обществен ред" if preferred.
 
+**Per-structure marker map — SHIPPED (2026-07-16, uncommitted).** The §7 geographic layer now has a
+second, per-STRUCTURE view alongside the per-oblast €/capita choropleth: `MvrDirectorateMap`
+(`src/screens/components/procurement/security/MvrDirectorateMap.tsx`) — one marker per CITY (the 28
+областни центрове + София's central bodies), coloured by each structure's ЗОП spend (slate sequential
+ramp) OR single-bid share (risk ramp, metric toggle), badged with its contract count, each linking to
+`/awarder/:eik`; София (24 bodies) + every oblast capital (ОДМВР + РДПБЗН) open the shared
+`SectorPointMap` paginating popup. Mirrors the /judiciary court-load map end-to-end:
+- **Serving:** `mvr_directorate_map(p_eiks, p_from, p_to)` (schema `074_mvr_directorate_map.sql`) folds the
+  LIVE contracts corpus per structure onto a tiny static geo crosswalk `mvr_directorate_geo` (loaded by
+  `scripts/db/load_mvr_directorate_map_pg.ts` via EIK → `awarder_seats` seat ekatte → `settlements.json`
+  centroid, with an entity-name fallback — awarder_seats resolves only 53/74, so the ~21 regional
+  directorates geocode by their oblast-capital name — for **74/74 geolocated, 0 dropped**). No new ingest.
+  EXPLAIN ANALYZE: **5.3 ms warm**, `idx_contracts_awarder` bitmap scan. Route `mvr-directorate-map` in
+  `functions/db_routes.js` (`missingMigrationEmpty`); hook `useMvrDirectorateMap` (mirrors
+  `useAwarderGroupModel`'s scope window, so it stays scope-restricted like the rest of the pack); mounted
+  at the **top** of `MvrPack` (the house convention for sector maps, cf. `NzokPack`), and passes an
+  `openLabel` ("Виж структурата") to the shared `SectorPointMap` popup. Verified live on
+  `/sector/security?pscope=all` (27 city markers, both ramps, toggle, scope windowing 74→58 for y:2024);
+  `tsc` + `eslint` clean. **NOT deployed** — needs `074` applied to Cloud SQL
+  + `db:load:mvr-directorate-map:pg:cloud` + `firebase deploy --only functions:db` (separate step).
+
 **Still deferred (genuinely blocked / low-value):** `db:gen-sector-stats` (needs live PG — hub € badge
 only; the dashboard reads the runtime API); §7a #2–#4 outcomes (fire incidents, crime-clearance rate,
 border apprehensions — each a further ingest); a bespoke `/police` vanity route (the pack on
