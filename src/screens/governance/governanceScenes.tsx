@@ -134,6 +134,28 @@ const Parliament: FC = () => (
   </SceneFrame>
 );
 
+// Правителства — a classic columned building (the executive / cabinets).
+const Governments: FC = () => (
+  <SceneFrame>
+    <path d="M112 44 L150 24 L188 44 Z" fill="var(--sector)" opacity=".85" />
+    <rect x={110} y={44} width={80} height={8} fill="var(--sector)" opacity=".7" />
+    <g fill="currentColor" opacity=".55">
+      {[116, 132, 148, 164, 176].map((x) => (
+        <rect key={x} x={x} y={54} width={8} height={40} />
+      ))}
+    </g>
+    <rect
+      x={106}
+      y={96}
+      width={88}
+      height={7}
+      rx={2}
+      fill="var(--sector)"
+      opacity=".7"
+    />
+  </SceneFrame>
+);
+
 // Декларации — a small ownership network (a person node linked to assets).
 const Declarations: FC = () => (
   <SceneFrame>
@@ -356,6 +378,7 @@ export const GOV_HUB_SCENES: Record<string, FC> = {
   funds: Funds,
   sectors: Sectors,
   parliament: Parliament,
+  governments: Governments,
   declarations: Declarations,
   indicators: Indicators,
   overview: Overview,

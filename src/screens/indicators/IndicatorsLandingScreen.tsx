@@ -8,7 +8,7 @@
 import { FC, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
-import { ArrowRight, ArrowUpRight, ChevronDown, ChevronUp } from "lucide-react";
+import { ArrowRight, ChevronDown, ChevronUp } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useGovernments } from "@/data/governments/useGovernments";
@@ -184,22 +184,6 @@ export const IndicatorsLandingScreen: FC = () => {
       ) : null}
 
       <IndicatorsNav variant="landing" />
-
-      {/* Sibling-section link — distinct from the sub-nav pills above so
-          it reads as "leave for a related section" rather than another
-          tab. Outlined chip with an external-link icon makes the
-          affordance explicit. Preserves the URL search (election +
-          cabinet anchor) so the user lands on /governments with the same
-          context they had here. */}
-      <div className="mb-6 flex justify-center">
-        <Link
-          to={{ pathname: "/governments", search }}
-          className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-3 py-1 text-xs text-foreground hover:bg-accent/10 hover:border-foreground/30 transition-colors"
-        >
-          {t("indicators_to_governments_link")}
-          <ArrowUpRight className="h-3 w-3" />
-        </Link>
-      </div>
 
       {macro ? (
         <section className="mb-6">

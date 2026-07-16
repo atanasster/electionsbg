@@ -63,6 +63,13 @@ export const GOV_HUB_CLUSTERS: { labelKey: string; tiles: GovHubTile[] }[] = [
         accent: TILE_ACCENTS.plum,
       },
       {
+        id: "governments",
+        titleKey: "governments_title",
+        descKey: "gov_hub_governments_desc",
+        to: "/governments",
+        accent: TILE_ACCENTS.steel,
+      },
+      {
         id: "declarations",
         titleKey: "menu_group_declarations",
         descKey: "gov_hub_declarations_desc",
