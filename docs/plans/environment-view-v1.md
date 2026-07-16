@@ -11,10 +11,16 @@ from Eurostat `cei_wm011`/`env_wasmun`; `useWaste` + `EnvironmentWasteTile`). Si
 municipal-recycling rate **peaked ~35% (2020) then fell to 16.7% (2023)** — 38pp below the 55% 2025
 target and well under the EU average (~48%), while waste-per-capita rose to 490 kg. The **`eurostat_env` watcher** is also wired
 (fingerprints `cei_wm011`, registered + placed in the data-map `eurostat` source group; on a new release
-its `describe()` tells the operator to run `fetch_waste.ts`). Deferred to Phase 2/3: ПУДООС grant register
-(PG), Natura strip, AI tools, the `update-environment` skill (the watcher currently instructs a manual
-fetch), README/data-map dataset+edge, `db:gen-sector-stats` rerun for the hub € badge (needs live PG), a
-dedicated air-map OG capture, and `bucket:sync` of `data/environment/` for prod.
+its `describe()` tells the operator to run `fetch_waste.ts`). **Phase 3 (partial) shipped too:** the
+**AI chat tools** — `environmentSpending` (МОСВ group procurement), `environmentFunds` (ОП „Околна среда"
+absorption), `wasteRecycling` (recycling-vs-target) in `ai/tools/environment.ts`, registered + routed
+(a tightly-gated router block among the early domain guards so procurement/budget/compare heuristics
+don't pre-empt it; air keeps precedence; pure budget questions cede to `budgetFunction`; `AI_PATH_RULE`
+`/environment/` → indicators). Verified end-to-end (all 3 tools return correct facts). **README** feature
+bullet + data-dir + data-source entries added. Deferred: ПУДООС grant register (PG ingest + source probe),
+Natura strip, the `update-environment` skill (the watcher currently instructs a manual fetch),
+`db:gen-sector-stats` rerun for the hub € badge (needs live PG), a dedicated air-map OG capture, and
+`bucket:sync` of `data/environment/` for prod.
 Closest built siblings to copy: the **energy / security group dashboards** (`sectorDashboards.ts` +
 `SectorAwardersTile`) for the cheapest Phase-1 group ship, the **water pack** (`VikPack` +
 `VikEuFundsTile`) for the EU-funds + sector-map grammar, and **transport** (`data/transport/*.json` +
