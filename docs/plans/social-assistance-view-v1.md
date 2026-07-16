@@ -120,6 +120,71 @@ do **not** yet exist — clean greenfield.
 
 ---
 
+## 0.6 Second-pass technical audit — reuse-API errata (2026-07-17)
+
+A deep verification of every §5 reuse claim and §6 wiring claim against the live code. **All reuse targets
+exist; the plan is buildable — but eight specifics are stale or mis-stated and would bite a builder.
+Corrections (authoritative — prefer these over the §5 prose where they differ):**
+
+1. **The `social` id is deliberately REPOINTED, not new (not a collision).** `social` already exists
+   end-to-end for НОИ (`sectorDashboards.ts:167`, `sectorScenes.tsx:247`+`:817` `social: Social`,
+   `sectorRegistry.ts:83-88` accent `olive`, `prerender/routes.ts:635`). §6 *intends* to rewrite that same
+   slot МТСП-ward — so keeping `accent: TILE_ACCENTS.olive`, replacing the `Social` scene FC in place, and
+   rewriting the prerender entry are all correct. Confirm the `pension` tile (→`/pensions`) still carries
+   the НОИ story so nothing is lost when `social` stops pointing at НОИ.
+
+2. **`OblastChoropleth` has NO built-in count⇄perCapita toggle** (§5 + §4.5 wrong). It is **single-metric**:
+   props `{values: Map<canon,number|undefined>, names?, ramp?, formatValue, tooltipExtra?, activeCanon?,
+   onSelectOblast?, ariaLabel, heightClass?}` (`OblastChoropleth.tsx:41-65`). Click-to-filter IS supported
+   (`onSelectOblast` + `activeCanon` dimming). **The caller must build the count/€-per-household toggle**
+   by swapping the `values` Map — budget a small amount of tile code for it (the heating-aid tile, §4.5).
+
+3. **The classifier template is `buildSecurityModelFromAggregates` in `src/lib/securityAttributes.ts`** —
+   NOT `buildMvrModelFromAggregates` / `mvrAttributes.ts` (those don't exist). Shapes to mirror:
+   `SecurityCategory` union, `SecurityModel = AwarderModel<SecurityCategory>`, `SectorClassifier<Cat> =
+   {categoryOf, order, sink}`, a two-digit-CPV-division `switch` in `categoryOfCpv`, plus `CATEGORY_LABEL` /
+   `CATEGORY_CPV_DIVS`. So the plan's `socialAttributes.ts` → `buildSocialModelFromAggregates`.
+
+4. **`useAwarderGroupModel`'s `buildModel` receives the WHOLE `GroupModelPayload`**, not a single row —
+   `{totalEur, contractCount, bidKnownN, singleBidN, suppliers[], byCpv[], byCpvContractor[], byMethod[],
+   byYear[], byUnit[]}` (`awarderModel.ts:331`). Typical impl: `buildAwarderModelFromAggregates(payload,
+   classifier)`. The hook also returns **`isError`** (plan's destructure omitted it). `byUnit` =
+   `{eik,totalEur,contractCount,bidKnownN,singleBidN}[]`.
+
+5. **`useBudgetMinistryRollup(nodeId)` returns `Money` objects, and programs are nested per-year** — NOT
+   scalar EUR / a top-level programs array. `MinistryRollup.years[]` = `{fiscalYear, revenue, expenditure,
+   balance, execution, programs[]}`; `programs[]` = `{nodeId, nameBg, nameEn, planned, execution}`; every
+   money field is `Money | null` = `{amount, amountEur, currency}`. So the benefit-mix tile reads
+   `rollup.years[i].programs[j].planned?.amountEur` per year (this matches the §0.5 node inspection).
+
+6. **`useCofog` access path is `useCofog().data?.peers?.GF10`** (destructure `data` first), NOT
+   `useCofog().peers.GF10`. `GF10` is a valid `CofogCode`; the fetch builds bands over all top-level codes,
+   so `peers.GF10` (`CofogPeerBand`) is reachable exactly like `MvrEuPeerTile`'s `peers.GF03`. `euFlags` is
+   at `src/screens/components/procurement/security/euFlags.tsx`.
+
+7. **The prerender guard is NOT a named `assertAllSectorsHavePrerenderCopy`** (§8) — it's an anonymous
+   top-level block at `scripts/prerender/routes.ts:799-815` that throws if any `SECTOR_DASHBOARD_IDS` id
+   lacks a matching `SECTOR_PAGES.id` (a second block rejects duplicate ids). Behaviour is as described
+   (requires a `social` entry, which exists) — just don't grep for that function name.
+
+8. **No server-side sector-id allowlist exists — §6/§7's "(and allow-listed server-side)" caveat is
+   stale.** `functions/db_table.js` whitelists only per-dataset columns; `contracts.awarder_eik` /
+   `tenders.buyer_eik` are `filter:"in"`. `?sector=social` is resolved to an EIK-set **client-side**
+   (`SECTOR_BROWSE_PACKS`, `sectorPacks.tsx:194`) and sent as `buyer_eik IN (...)` — the string `social`
+   never reaches the server. Only action needed: add the `social` browse-pack entry with
+   `eiks: SOCIAL_SECTOR_EIKS` (today the social sector reuses `browsePackId:"noi"`).
+
+**Confirmed exactly as planned (no change):** `StatCard` `{label,hint?,to?,seeMoreTo?}`
+(`dashboard/StatCard.tsx:28`); `PackSection` `{icon?,title?,note?,id?}`; `buildPackInsights<Cat>(model,
+categoryLabel, lang, sink)` + `PackInsight`; `VikContractorHhiTile` `{suppliers:{eik,name,totalEur}[],
+totalEur}` (gates `<3`); `SectorAwardersTile` `{config}`, `SectorSpendByYearTile`/`SectorTopContractorsTile`
+`{model: AwarderModel<"all">}`; `DbDataTable`; `SECTOR_DASHBOARD_IDS = Object.keys(SECTOR_DASHBOARDS)`
+auto-flows to sitemap (`route_defs.ts:11`) + OG (`screenshot_sectors.ts` — filters out `transport` only);
+`SECTOR_SCENES` (`sectorScenes.tsx:810`); `TILE_ACCENTS.olive` (`tileAccents.ts:24`); `PACKS`/`getSectorPack`
+lazy-registration pattern (`sectorPacks.tsx:106,145,152`).
+
+---
+
 ## 1. Entities — the FROZEN EIK allowlist (measured, curate by EIK never by name)
 
 Curate by an **EIK allowlist** in a new `src/lib/socialReferenceData.ts` (mirror
@@ -220,8 +285,48 @@ right is load-bearing.
     (детски €X/child, ГМД base, disability supplement bands) as cited constants for the "какво е една
     помощ" explainer — no clean machine feed; hand-maintain in `socialReferenceData.ts`.
 
-**Top 3 sources:** (1) МТСП program budget [have it, Tier A], (2) АСП benefit-disbursement stats [new PG
-ingest, Tier B — the flagship], (3) Eurostat SILC + `ilc_li10` poverty-reduction [have SILC; add li10].
+**Top 3 sources:** (1) МТСП program budget [have it, Tier A], (2) АСП benefit-disbursement stats [new
+ingest, Tier B — the flagship; **national/annual PDF, see §2.1**], (3) Eurostat SILC + `ilc_li10`/`ilc_li02`
+poverty-reduction [have SILC; add li10+li02].
+
+### 2.1 АСП benefit-source verdict — live probe (2026-07-17), resolves open-Q1
+
+**Authoritative machine-readable source = the АСП annual activity-report PDFs** (`Годишен отчет за
+дейността на АСП`), NOT data.egov.bg and NOT NSI:
+- **data.egov.bg — dead end for benefits.** АСП publishes only **register** datasets there (e.g. Регистър
+  на доставчиците на социални услуги, resource `2a97b078-da71-4c3f-a307-1ba5b4fc952e`). A keyword sweep
+  (целев/отопл/надбавк/увреж/гарантиран/подпомаг/минимал доход) across the portal returned **zero
+  benefit-disbursement datasets**. (АСП's exact org id was not definitively pinned — `listOrganisations`
+  only returns the 50 newest — but the keyword sweep is conclusive.)
+- **NSI — not an oblast fallback.** NSI "Социална защита" is **ESSPROS, national-only** (expenditure by
+  function). The NSI *regional* section (`nsi.bg/statistical-data/179`) covers demography/health/
+  education/crime — **no социално подпомагане recipient series at oblast level.**
+- **The report PDFs are the source.** Section `asp.government.bg/bg/za-agentsiyata/misiya-i-tseli/
+  otcheti-i-dokladi/`; one PDF/year (2020 report links 2006–2019 too). Per-benefit tables (recipients/cases
+  + BGN paid, current vs prior year). **National grain, annual.** Ingest = **low cost**: deterministic
+  `pdftotext -layout` + regex on stable section headings (the probe extracted every figure below cleanly).
+  Convert BGN→EUR at ingest (÷1.95583).
+- **Per-oblast exists internally but is UNPUBLISHED.** The report states АСП aggregates monthly data from
+  147 дирекции „Социално подпомагане" via 28 РДСП and produces internal quarterly "анализи по области" —
+  but those oblast breakdowns are **not published**; the only route is a one-off **ЗДОИ (FOI) request**, not
+  a repeatable ingest. **⇒ §4.5 heating-aid tile must be national-headline + benefit-family split + season
+  trend, NOT an `OblastChoropleth`.** (This frees the OblastChoropleth reuse dependency for this view.)
+
+**Concrete figures extracted from the 2024 & 2025 reports** (seed the Phase-3 benefit tiles; all BGN):
+
+| Benefit (national, annual) | 2025 recipients | 2025 paid (BGN) | Note |
+|---|---:|---:|---|
+| Целева помощ за отопление (season 2025/26, to 31.12) | 357,271 orders | 215,098,559 | 121.34 BGN/mo × 5 mo; 2024/25 = 338,923 / €187.1M |
+| Месечни помощи за деца (чл.7 ЗСПД) | 416,687 children | 266,686,943 | means-test ≤760 BGN/member (from Apr 2025); 50/110/165/175 BGN by #children |
+| Месечни социални помощи / ГМД (чл.9) | 35,987 cases | 144,984,544 | base = 30% of poverty line = 157.80 BGN/mo (2024); poverty line 526 BGN |
+| Месечна финансова подкрепа — хора с увреждания (ЗХУ) | 732,634 | 858,022,302 | matches §0 "~858M (2025)" exactly; 2024 = 685M; 2019 ≈ 405M |
+
+These corroborate the §2 budget-node climb and the §3.1 disability trajectory to the lev. **Ingest cadence =
+yearly** (revise §9's `asp_benefits` watcher from `monthly` → `yearly`; the report drops ~once/year).
+**Storage:** a small national-annual series (~4 benefits × ~10 years) is well under any precompute
+threshold — prefer **static `data/social/benefits.json`** (like the li10 series / `cofog`), not a PG table;
+`feedback_pg_changelog_required` only binds PG-migrated datasets, so a static JSON sidesteps it (still add a
+`recent_updates` line for user-facing freshness).
 
 ---
 
@@ -350,13 +455,17 @@ under the **МТСП lead EIK** (`SocialPack` in `PACKS`) and becomes the whole 
    quadrant. The single sharpest visual against the IME PDF. **Phase 2** (reuses the compare-dashboard
    scatter pattern). `◇ context`.
 
-5. **★ Целева помощ за отопление — по области (heating-aid map).** Households served + €/household per
-   oblast, `OblastChoropleth` (shared, built-in count⇄perCapita toggle) + ranked bar list. The most
-   concrete, most-covered benefit. **Phase 3** (АСП stats ingest). `◇ context`.
+5. **★ Целева помощ за отопление (heating aid — NATIONAL, reframed per §2.1).** ⚠ **NOT a choropleth** —
+   АСП publishes national-only (no oblast breakdown exists publicly). Instead: a big-number headline
+   (**357,271 households, €110M, 2025/26 season**) + **season-over-season trend** (households + total +
+   €/household/month) + its place in the benefit-mix. The most concrete, most-covered benefit. **Phase 3**
+   (АСП report-PDF ingest). `◇ context`. *(A per-oblast version is possible only via a one-off ЗДОИ/FOI
+   table — out of scope for a repeatable ingest.)*
 
 6. **★ Детски надбавки / помощи за деца — обхват (coverage).** Recipients vs eligible-child population
-   (means-test income threshold reach); child-allowance €/child vs the statutory amount. Coverage is the
-   ASPIRE-style targeting story. **Phase 3.** `◇ context`.
+   (416,687 children covered, 2025; means-test ≤760 BGN/member); child-allowance €/child vs the statutory
+   amount (50/110/165/175 BGN by #children). Coverage is the ASPIRE-style targeting story. **National,
+   Phase 3.** `◇ context`.
 
 7. **EU league-table strip (GF10 %GDP).** BG social-protection spend %GDP vs EU peers — reuse
    `MvrEuPeerTile` + `euFlags.tsx`, swap the function code to **GF10** (`useCofog().peers.GF10`). Near-
@@ -516,9 +625,10 @@ any DB-backed scoped tile (the confirmed inclusive-`to` Dec-31 drop bug; `refere
 
 New/reused watch sources in `scripts/watch/sources/` (register in `scripts/watch/sources/index.ts`
 `SOURCES`; `WatchSource` shape `{id,label,url,cadence,fingerprint(),describe()}`):
-- **`asp_benefits.ts`** (new, Tier B #6) — cadence `monthly`; fingerprint = the latest АСП statistics
-  publication link/date (egov resource hash or asp.government.bg page hash). → maps to a new
-  **`update-social`** skill running the АСП ingest.
+- **`asp_benefits.ts`** (new, Tier B #6) — cadence **`yearly`** (revised from `monthly` per §2.1 — the
+  authoritative source is the annual report PDF, not a monthly feed); fingerprint = the latest report link
+  on `asp.government.bg/bg/za-agentsiyata/misiya-i-tseli/otcheti-i-dokladi/` (page hash / newest PDF
+  filename). → maps to a new **`update-social`** skill running the АСП report-PDF ingest.
 - **`eurostat` (existing)** — the SILC / `ilc_li10` / GF10 releases already ride the `eurostat` +
   `eurostat_policy` watchers; no new source (folds into `update-macro`).
 - **`budget_law` / `ministry_execution_reports` (existing)** — the МТСП budget node rides `update-budget`;
@@ -553,7 +663,8 @@ numbers; `ai/` cannot import `@/data/*` — keep engines in `src/lib/`). Registe
   `fetchData` once ingested.
 - **`socialPovertyImpact`** (domain `indicators`) — at-risk-of-poverty before/after transfers, BG vs EU
   (`data/social/*.json` or `macro.json`). The differentiator tool.
-- **`heatingAidByOblast`** (domain `place`) — целева помощ за отопление households + €/household per oblast.
+- ~~**`heatingAidByOblast`**~~ — **dropped (§2.1: no oblast data published).** Fold heating aid into
+  `socialBenefits` as a national headline + season trend instead.
 
 **Router keywords:** `социал|подпомаг|помощ|детски надбавк|отоплен|увреждан|инвалид|бедност|минимален доход|
 ГМД|заетост|МТСП|АСП|social assistance|welfare|benefit|allowance|poverty|heating aid|disability`. **Guard
@@ -572,14 +683,13 @@ an `AI_PATH_RULES` entry (`scripts/data_map/model.ts`) or the prebuild fails.
 - **Worst-case entity = АСП `121015056`** (1,343 contracts — the largest single member). EXPLAIN ANALYZE
   the group-model + any `?sector=social` DbDataTable window-filter on АСП; both hit `idx_contracts_awarder`
   / `idx_contracts_awarder_date` (exist) — no new index expected (`feedback_db_query_perf`).
-- **АСП benefit ingest (Tier B):** load into PG via COPY (`reference_pg_bulk_load_copy`, text format). If
-  the heating-aid/coverage tiles need a per-oblast aggregate hotter than a live query, precompute a
-  `social_payloads` jsonb blob (kind=`overview`|`benefit`|`oblast`) with deterministic rounding
-  (`reference_pg_payload_determinism`: ROUND sums, rounded sort keys + eik tiebreaks) — but per the water
-  precedent, a 6-EIK/small-series query is well under the 200ms precompute threshold, so **prefer live
-  queries / small static JSON** unless EXPLAIN says otherwise.
-- The small Eurostat li10 series (~2KB annual) stays **static JSON** (like `cofog`/`road_safety`) — no PG
-  round-trip for a reference series.
+- **АСП benefit ingest (Tier B) — revised per §2.1:** the data is **national + annual** (~4 benefit
+  families × ~10 years ≈ a few hundred rows), not a per-oblast corpus. **No PG table, no `social_payloads`
+  blob, no `OblastChoropleth`** — this is a tiny reference series. Emit **static `data/social/benefits.json`**
+  (like the li10 series / `cofog`). The earlier "COPY into `social_benefits` PG + per-oblast precompute"
+  plan is over-built for national-annual data; drop it.
+- The small Eurostat `ilc_li10`/`ilc_li02` series (~2KB annual) stays **static JSON** (like
+  `cofog`/`road_safety`) — no PG round-trip for a reference series.
 
 ---
 
@@ -618,25 +728,27 @@ Also build the shared `PassThroughHero` (§5, confirmed new). Register `SocialPa
 as static `data/social/*.json` per §11).
 
 **Phase 3 (~2–3d) — the АСП benefit ingest (the flagship) + outcomes.**
-Files: `scripts/social/fetch_asp_benefits.ts` (egov/asp.government.bg → `social_benefits` PG table via
-COPY); schema migration `0NN_social_benefits.sql`; `functions/db_routes.js` route (if a payload blob);
-`src/data/social/useSocialBenefits.tsx`; tiles `SocialHeatingAidTile` (OblastChoropleth),
-`SocialBenefitCoverageTile`; `update-social` skill + `asp_benefits` watcher + process-watch mapping;
-`data_map/model.ts` (`social` SOURCE_GROUP + DATASET `data/social/` + `src:social→ds:social` edge +
-`/^\/social\//` AI_PATH_RULE); AI tools `socialBenefits`/`heatingAidByOblast`; README section + `/data`
-pages; `recent_updates` changelog. Optional Phase 3+: ГИТ inspection tile + watcher.
+Files (revised per §2.1 — national/annual static JSON, no PG): `scripts/social/fetch_asp_benefits.ts`
+(**`pdftotext -layout` + regex over the АСП annual report PDFs** → static `data/social/benefits.json`; NO
+egov, NO PG table, NO migration); `src/data/social/useSocialBenefits.tsx`; tiles `SocialHeatingAidTile`
+(**national headline + season trend, NOT OblastChoropleth**), `SocialBenefitCoverageTile` (child-allowance
+coverage, national); `update-social` skill + `asp_benefits` watcher (**cadence `yearly`**) + process-watch
+mapping; `data_map/model.ts` (`social` SOURCE_GROUP + DATASET `data/social/` + `src:social→ds:social` edge +
+`/^\/social\//` AI_PATH_RULE); AI tool `socialBenefits` (**drop `heatingAidByOblast`** — no oblast data;
+fold heating into `socialBenefits`); README section + `/data` pages; `recent_updates` changelog. Optional
+Phase 3+: ГИТ inspection tile + watcher.
 
 ---
 
 ## Open questions
 
-1. **АСП benefit-stats source shape** — needs a live probe: is the per-benefit, per-oblast data on
-   data.egov.bg (АСП org id, portal-hosted resources) or only in asp.government.bg XLSX/PDF отчети? Grain
-   (monthly vs annual, oblast vs national) determines whether the heating-aid map is per-oblast or national
-   with a per-benefit split. **Resolve before Phase 3 scoping.**
-2. **The €15bn split** — the hero's "pensions vs assistance" partition needs a clean НОИ-vs-МТСП/АСП number
-   for the same year; НОИ's ДОО disbursement is in `data/budget/noi/funds.json` (update-noi) — join it, or
-   footnote the split as COFOG GF10.1 (old age) vs the rest.
+**All four resolved as of 2026-07-17 — see the section noted on each. Nothing blocks the build.**
+
+1. ~~**АСП benefit-stats source shape**~~ — **RESOLVED (§2.1).** National/annual, from the АСП report PDFs
+   (`pdftotext`); no oblast breakdown published anywhere. Heating-aid tile = national headline + season
+   trend, not a choropleth. Static `data/social/benefits.json`, no PG.
+2. ~~**The €15bn split**~~ — **RESOLVED (the NOI×COFOG join table just below).** GF10 €15.09bn =
+   НОИ €12.64bn + МТСП/АСП €1.46bn + ~€1bn residual; no COFOG-subfunction footnote needed.
 3. ~~**АСП name-pin blast radius**~~ — **RESOLVED in §0.5 audit.** Only `CompanyDbScreen.tsx:490`
    consumes `canonicalAwarderName`, and it is the `/awarder/:eik` route element — the pin flips the header
    cleanly; no other surface hard-codes "Видин"; `SectorAwardersTile` chips already read canonical
@@ -645,8 +757,28 @@ pages; `recent_updates` changelog. Optional Phase 3+: ГИТ inspection tile + w
    actual disbursement star). МТСП recommended (its awarder page suppresses the pack + links to the sector,
    the МО/МТС pattern); АСП remains the most prominent member chip + the star of the benefit tiles.
 
-**Still open (unchanged):** Q1 (АСП benefit-stats source shape — live probe of data.egov.bg АСП org vs
-asp.government.bg XLSX/PDF; gates Phase 3 heating-aid grain) and Q2 (the €15bn pensions-vs-assistance split
-number — join `data/budget/noi/funds.json` or footnote as COFOG GF10.1 vs the rest). Both are Phase-3 /
-hero-refinement concerns; **Phases 1–2 (the redundancy fix + the full budget/outcome/EU-peer dashboard) are
-unblocked and buildable off already-ingested data today.**
+**Q2 (the €15bn split) — RESOLVED from local data (2026-07-17).** Join `data/budget/noi/funds.json`
+(NOI ДОО cash-execution) against `data/cofog.json` `series.GF10.valueEur`:
+
+| Leg | 2024 €bn | Source | Hero label |
+|---|---:|---|---|
+| GF10 social protection (whole bar) | **15.09** | `cofog.json series.GF10` (2024) | — |
+| НОИ ДОО disbursement | **12.64** | `noi/funds.json` totals.expenditure | → cross-link `/pensions` |
+| — of which pensions | 11.13 | `noi/funds.json` totals.pensions | |
+| — of which short-term benefits | ~1.5 | (ДОО exp − pensions) | |
+| МТСП / АСП disbursement | **~1.46** | budget node FY2024 total | → **this view** |
+| Residual (municipal social services / other) | **~1.0** | GF10 − НОИ − МТСП | "друго" sliver |
+
+So the §4.2 hero partition is a clean, defensible join — **no COFOG-subfunction footnote hedge needed.**
+The group's annual procurement (~€19M/yr) is a ~1% sliver of the МТСП €1.46bn leg, a ~0.1% sliver of GF10 —
+the iceberg framing holds and quantifies.
+
+**Q1 (АСП benefit-stats source shape) — RESOLVED by live probe (2026-07-17). See §2.1 for the full
+verdict.** Headline: **a per-oblast heating-aid choropleth is NOT feasible** — АСП publishes
+**national-only, annual, PDF** (the `Годишен отчет за дейността`); there is NO per-oblast recipient/amount
+breakdown for any benefit, on egov (register datasets only) or NSI (ESSPROS national-only; regional section
+has no социално подпомагане recipient series). §4.5 must be reframed national-with-benefit-split.
+
+**Nothing is now open.** Phases 1–2 (redundancy fix + full budget/outcome/EU-peer dashboard, incl. the
+resolved hero split) are unblocked off already-ingested data; Phase 3 is now fully scoped (national-annual
+benefit series from the АСП report PDFs — §2.1).
