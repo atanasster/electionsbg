@@ -15,12 +15,14 @@ import {
   type CompositionSegment,
 } from "../RevenueCompositionBar";
 import { CustomsExciseRegisterTile } from "./CustomsExciseRegisterTile";
+import { ExciseWarehouseMap } from "@/screens/customs/ExciseWarehouseMap";
 import { useHashScroll } from "@/ux/useHashScroll";
 import { formatEurCompact } from "@/lib/currency";
 import {
   useCustoms,
   customsLineEur,
   useExciseRegister,
+  useExciseWarehouseMap,
 } from "@/data/procurement/useCustoms";
 import {
   CUSTOMS_LINES,
@@ -72,6 +74,8 @@ export const CustomsPack: FC<SectorPackProps> = () => {
   const perSecond = total > 0 ? total / SECONDS_PER_YEAR : 0;
 
   const { data: register } = useExciseRegister();
+  const { data: whMap } = useExciseWarehouseMap();
+  const warehouses = whMap?.warehouses ?? [];
 
   useHashScroll([years.length, year, isLoading, register]);
 
@@ -275,6 +279,9 @@ export const CustomsPack: FC<SectorPackProps> = () => {
               : "Companies licensed to hold excise goods under duty suspension — fuels, tobacco, alcohol. Each links to its company page."
           }
         >
+          {warehouses.length > 0 && (
+            <ExciseWarehouseMap warehouses={warehouses} />
+          )}
           <CustomsExciseRegisterTile data={register} />
         </PackSection>
       )}

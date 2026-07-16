@@ -145,3 +145,20 @@ export interface ExciseRegisterFile {
   activeOperators: number;
   operators: ExciseOperator[];
 }
+
+// One geolocated active warehouse for the /customs/warehouses count map, served
+// from Postgres (excise_warehouses_map, schema 072). The ingest
+// (scripts/customs/excise_register.ts) emits the same shape into
+// data/customs/excise_warehouses.json; keep the two in sync.
+export interface ExciseWarehousePoint {
+  eik: string;
+  name: string; // operator name
+  category: ExciseCategory;
+  place: string | null; // display settlement, e.g. "гр. Бургас"
+  oblast: string | null;
+  loc: [number, number]; // [lng, lat]
+}
+
+export interface ExciseWarehouseMap {
+  warehouses: ExciseWarehousePoint[];
+}

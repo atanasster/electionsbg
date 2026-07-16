@@ -11,8 +11,10 @@ import { CUSTOMS_YEARS } from "@/lib/customsReferenceData";
 import type {
   ExciseOperator,
   ExciseRegisterFile,
+  ExciseWarehouseMap,
 } from "@/lib/customsReferenceData";
 import { dataUrl } from "@/data/dataUrl";
+import { fetchJsonSoft } from "@/data/fetchJson";
 import type { CustomsBreakdownFile } from "@/data/budget/types";
 
 export interface CustomsData {
@@ -69,5 +71,21 @@ export const useExciseRegister = () =>
       if (!r.ok) throw new Error(`fetch failed: ${r.status}`);
       return (await r.json()) as ExciseRegisterFile;
     },
+    staleTime: Infinity,
+  });
+
+// Geolocated active warehouses for the /customs/warehouses count map, from
+// Postgres (excise_warehouses_map). Soft-miss → empty so a DB predating schema
+// 072 (or a fresh clone) just hides the map instead of erroring.
+export type { ExciseWarehouseMap };
+export const useExciseWarehouseMap = () =>
+  useQuery({
+    queryKey: ["customs", "excise-warehouses"] as const,
+    queryFn: async (): Promise<ExciseWarehouseMap> =>
+      (await fetchJsonSoft<ExciseWarehouseMap>(
+        "/api/db/excise-warehouses",
+      )) ?? {
+        warehouses: [],
+      },
     staleTime: Infinity,
   });

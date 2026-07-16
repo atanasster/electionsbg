@@ -1726,6 +1726,14 @@ const DB_ROUTES = {
     ]).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? { directorates: [] } };
   },
+  // Geolocated active excise warehouses → the /customs/warehouses count map
+  // (schema 072). One point per warehouse; the client groups them per city.
+  "excise-warehouses": async (dbRows) => {
+    const rows = await dbRows("SELECT excise_warehouses_map() AS r", []).catch(
+      missingMigrationEmpty,
+    );
+    return { body: rows[0]?.r ?? { warehouses: [] } };
+  },
   // Geolocated НЗОК hospitals + live spend metrics → the health-pack hospital map
   // at the top of /awarder/121858220 (schema 075). One blob (no params); the browser
   // never geocodes.
