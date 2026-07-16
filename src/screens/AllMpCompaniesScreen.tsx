@@ -190,7 +190,7 @@ export const AllMpCompaniesScreen: FC = () => {
   );
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 pb-12">
+    <div className="w-full pb-12">
       <Title description={t("all_companies_description") || ""}>
         {t("all_companies") || "MP-connected companies"}
       </Title>
