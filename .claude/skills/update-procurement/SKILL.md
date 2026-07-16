@@ -69,12 +69,20 @@ If the canary line is missing it's because the canary bundle's `datasetUuid` mat
 
 АОП's OCDS "обявления" export (the data.egov.bg feed Step 1 ingests) is a strict **subset** of what ЦАИС ЕОП itself publishes. ЦАИС ЕОП's own daily open-data buckets (`storage.eop.bg/open-data-<YYYY-MM-DD>/`) carry a flat **`договори`** file that lists ~900 small contracting authorities — overwhelmingly schools & kindergartens — whose signed contracts never appear in the OCDS обявления export. The `eop_procurement` watcher source tracks that feed.
 
-Run the incremental gap-fill, then rebuild (the rebuild is single-sourced in Step 1's `procurement:ingest`, which re-reads every month-shard including the new EOP rows):
+Run the incremental gap-fill, **then the scoped infra-buyer recovery** (below), then rebuild (the rebuild is single-sourced in Step 1's `procurement:ingest`, which re-reads every month-shard including the new EOP rows):
 
 ```bash
-npx tsx scripts/procurement/ingest_eop.ts --apply   # incremental: last ~30 days
+npx tsx scripts/procurement/ingest_eop.ts --apply   # incremental: last ~30 days (absent buyers)
+# Scoped recovery — storage.eop.bg-only contracts of ALREADY-COVERED top infra buyers
+# (the plain gap-fill's existing-buyer guard drops these every fortnight; see below).
+npx tsx scripts/procurement/ingest_eop.ts --apply --cross-source-dedup \
+  --only-buyers "000695089,175203478,130823243,106513772,000695388,000696327"
 npm run procurement:ingest                           # rebuild rollups/derived/by-settlement/index
 ```
+
+**Why the scoped recovery step (SIGMA-parity P1, 2026-07-16).** The incremental gap-fill only adds buyers ENTIRELY absent from our corpus. But the biggest infra buyers (АПИ 000695089, Булгартрансгаз 175203478, НКЖИ 130823243, АЕЦ Козлодуй 106513772, Мин. транспорт 000695388, Столична община 000696327) ARE in our corpus via OCDS, yet ЦАИС ЕОП carries large consortium road/rail contracts of theirs that the АОП OCDS export omits — e.g. `00044-2020-0085` (Русе–Бяла, €785.8M), `00044-2021-0018` (€170.6M). The existing-buyer guard drops these, and it **recurs every fortnight** as new such contracts publish. `--only-buyers <whitelist> --cross-source-dedup` keeps just those authorities and content-dedups against the corpus (zero double-count — verified: a full run recovered ~1,247 rows / €1.99bn with 0 real collisions, at-signing EUR matching SIGMA `signingEur` to the cent). Do NOT add ЕСО (175201304, МЕР-branch aggregation) or МЗ (central-purchasing-body) — their apparent gaps are attribution artifacts, not holes. Note: `00044-2020-0085`'s `buyerRegistryNumber` is the multi-EIK string `"175076479999; 000695089"` (АДФИ + АПИ); `normalize_eop`'s `resolvePrimaryBuyer` attributes multi-buyer records to a whitelisted authority ONLY when `--only-buyers` is passed (the general feed still skips joint-procurement rows).
+
+One-time historical recovery (already run once): add `--backfill --from 2020-01-01` to the scoped command above to sweep the full 2020→ history rather than the rolling ~30-day window.
 
 `ingest_eop` fetches the flat `договори` feed and gap-fills **only buyers entirely absent from our corpus** — an absent buyer has zero OCDS rows, so an EOP row can never double-count an existing contract. New buyers get well-formed `Contract` rows (synthetic `eop-<УНП>` ids, namespaced away from OCDS) in the same month-shards, so the existing rollup machinery picks them up with no special handling. The flat feed carries no buyer address, so these awarders won't resolve to an EKATTE (absent from the by-settlement map, present everywhere else).
 
@@ -130,6 +138,19 @@ npx tsx scripts/procurement/eop_field_map.ts --apply   # CPV/procedure/bids/euFu
 npx tsx scripts/procurement/contract_index.ts          # per-year slim shards (derived/contract_index/) for the faceted /procurement/contracts browser
 npx tsx scripts/procurement/by_id_shards.ts            # prefix-sharded per-contract detail store (contracts/by-id/shard/) — the PG load source for /procurement/contract/:key
 ```
+
+**Current (post-annex) value — the headline basis.** `amountEur` is the CURRENT contract value ("текуща стойност"), matching SIGMA's default list value. It is derived from the ЦАИС ЕОП `анекси` feed and must be (re)applied AFTER every base normalization (`procurement:ingest` and any re-ingest reset `amountEur` back to `toEur(amount)` = the signing value):
+
+```bash
+npx tsx scripts/procurement/ingest_anexi.ts --apply            # fetch+cache annex feed (~30d incremental; --backfill --from 2020-01-01 once for full history)
+npx tsx scripts/procurement/anexi_current_value.ts --apply     # FLIP amountEur → current value in place; original signing value kept in signingAmountEur
+npx tsx scripts/procurement/rebuild_from_cache.ts              # rebuild rollups/by-id/index from the FLIPPED shards (this pass is flip-aware; see below)
+npx tsx scripts/procurement/rebuild_derived.ts                 # link-dependent files (mp_connected/pep/flow/top_contractors) with the TR-namesake filter
+```
+
+- ORDER MATTERS. Run the fold LAST (after `eop_field_map` and any `procurement:ingest`), because base normalization recomputes `amountEur = toEur(amount)` and drops the flip. `rebuild_from_cache.ts`'s euro-backfill is now **flip-aware** (it refreshes `signingAmountEur` from the native amount and leaves the current `amountEur` intact when a row is annexed), so the fold → rebuild order preserves the current basis; the reconcile then holds (`index.json.totals.totalEur` == PG `SUM(amount_eur)` to the euro).
+- Do NOT use `rebuild_derived` for rollups — it doesn't rebuild them; and do NOT rely on `procurement:ingest` alone for the current basis (it rebuilds rollups from the signed shards before the fold runs).
+- The euro-peg canary (`contracts_aggregate.ts`) checks `signingAmountEur ?? amountEur` against the native `amount` (the annexed `amountEur` no longer pegs to `amount`).
 
 > **RETIRED:** `eop_breakdowns.ts` (the per-entity 'Какво купува'/'Как купува' + `derived/sector_totals.json` builder) was removed in commit `7258bd1e` — breakdowns are now served from Postgres (`company_procurement` / `awarder_procurement`), so there is no JSON step. Do NOT re-add it; `derived/breakdowns/` + `derived/sector_totals.json` are gitignored leftovers.
 
