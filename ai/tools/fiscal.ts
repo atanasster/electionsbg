@@ -11,6 +11,7 @@ import { topicBySlug, detectTopic } from "@/lib/tenderTopics";
 import type {
   ExciseRegisterFile,
   ExciseCategory,
+  ExciseWarehouseMap,
 } from "@/lib/customsReferenceData";
 import {
   buildRoadsModel,
@@ -2938,5 +2939,138 @@ export const exciseRegister = async (
       top_operator: top[0]?.name ?? "—",
     },
     provenance: ["customs/excise_register.json"],
+  };
+};
+
+// Where the bonded warehouses ARE — the geographic companion to exciseRegister.
+// Answers "which cities have the most excise warehouses" / "how many данъчни
+// складове in <city>" from the same geolocated corpus the /customs/warehouses map
+// draws (Postgres excise_warehouses_map). One row per active warehouse, grouped by
+// city; an optional `place` filter lists the operators warehousing in one town.
+export const exciseWarehouses = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const d = await fetchDb<ExciseWarehouseMap>("excise-warehouses");
+  const CAT_LABEL: Record<string, { bg: string; en: string }> = {
+    energy: { bg: "Горива и енергия", en: "Fuels & energy" },
+    tobacco: { bg: "Тютюн", en: "Tobacco" },
+    alcohol: { bg: "Алкохол", en: "Alcohol" },
+    other: { bg: "Друго", en: "Other" },
+  };
+  const q = `${args.category ?? ""} ${args.metric ?? ""}`.toLowerCase();
+  const wantCat: ExciseCategory | null =
+    /горив|fuel|дизел|бензин|petrol|diesel|енерг|energy/.test(q)
+      ? "energy"
+      : /тютюн|tobacco|цигар|cigarette/.test(q)
+        ? "tobacco"
+        : /алкохол|alcohol|спирт|вино|wine|бира|beer/.test(q)
+          ? "alcohol"
+          : null;
+
+  let whs = d.warehouses;
+  if (wantCat) whs = whs.filter((w) => w.category === wantCat);
+
+  const catList = (cats: Map<string, number>): string =>
+    [...cats.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .map(([c, n]) => `${bg ? CAT_LABEL[c].bg : CAT_LABEL[c].en} ${n}`)
+      .join(", ");
+
+  // Optional city filter — "склад в Русе" / "warehouses in Ruse". Match the place
+  // label loosely (it carries the "гр./с." prefix, so compare on the bare name).
+  const placeQ = String(args.place ?? "")
+    .toLowerCase()
+    .replace(/^(гр\.|с\.|град|село)\s*/, "")
+    .trim();
+  const bareName = (place: string | null): string =>
+    (place ?? "").toLowerCase().replace(/^(гр\.|с\.|град|село)\s*/, "").trim();
+
+  if (placeQ) {
+    const inCity = whs.filter((w) => bareName(w.place).includes(placeQ));
+    const cityLabel = inCity[0]?.place ?? String(args.place ?? "");
+    const byCat = new Map<string, number>();
+    for (const w of inCity) byCat.set(w.category, (byCat.get(w.category) ?? 0) + 1);
+    return {
+      tool: "exciseWarehouses",
+      domain: "fiscal",
+      kind: "table",
+      title: bg
+        ? `Данъчни складове — ${cityLabel}`
+        : `Excise warehouses — ${cityLabel}`,
+      subtitle: bg
+        ? `${inCity.length} действащи склада · Агенция „Митници“ (BACIS)`
+        : `${inCity.length} active warehouses · Customs Agency (BACIS)`,
+      columns: [
+        { key: "name", label: bg ? "Складодържател" : "Warehouse keeper" },
+        { key: "cat", label: bg ? "Акцизни стоки" : "Excise goods" },
+      ],
+      rows: inCity
+        .sort((a, b) => a.name.localeCompare(b.name, "bg"))
+        .map((w) => ({
+          name: w.name,
+          cat: bg ? CAT_LABEL[w.category].bg : CAT_LABEL[w.category].en,
+        })),
+      viz: "none",
+      facts: {
+        place: cityLabel,
+        warehouses: inCity.length,
+        by_category: catList(byCat),
+        ...(wantCat ? { category: wantCat } : {}),
+      },
+      provenance: ["db:excise-warehouses"],
+    };
+  }
+
+  // Default: cities ranked by active-warehouse count (matches the map's markers).
+  const byCity = new Map<
+    string,
+    { place: string; count: number; cats: Map<string, number> }
+  >();
+  for (const w of whs) {
+    const key = w.loc.join(",");
+    const g =
+      byCity.get(key) ??
+      byCity.set(key, { place: w.place ?? "—", count: 0, cats: new Map() }).get(key)!;
+    g.count += 1;
+    g.cats.set(w.category, (g.cats.get(w.category) ?? 0) + 1);
+  }
+  const cities = [...byCity.values()].sort((a, b) => b.count - a.count);
+  const top = cities.slice(0, 12);
+
+  return {
+    tool: "exciseWarehouses",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? wantCat
+        ? `Данъчни складове по градове — ${CAT_LABEL[wantCat].bg}`
+        : "Данъчни складове по градове"
+      : wantCat
+        ? `Excise warehouses by city — ${CAT_LABEL[wantCat].en}`
+        : "Excise warehouses by city",
+    subtitle: bg
+      ? `${whs.length} действащи склада в ${cities.length} града · Агенция „Митници“ (BACIS)`
+      : `${whs.length} active warehouses across ${cities.length} cities · Customs Agency (BACIS)`,
+    columns: [
+      { key: "city", label: bg ? "Град" : "City" },
+      { key: "count", label: bg ? "Складове" : "Warehouses", numeric: true },
+      { key: "cats", label: bg ? "Категории" : "Categories" },
+    ],
+    rows: top.map((c) => ({
+      city: c.place,
+      count: c.count,
+      cats: catList(c.cats),
+    })),
+    viz: "none",
+    facts: {
+      total_warehouses: whs.length,
+      cities: cities.length,
+      top_city: top[0]?.place ?? "—",
+      top_city_count: top[0]?.count ?? 0,
+      ...(wantCat ? { category: wantCat } : {}),
+    },
+    provenance: ["db:excise-warehouses"],
   };
 };

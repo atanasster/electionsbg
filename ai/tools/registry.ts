@@ -32,6 +32,7 @@ import {
   procurementTotals,
   revenueBreakdown,
   exciseRegister,
+  exciseWarehouses,
   tenderLookup,
   topContractors,
 } from "./fiscal";
@@ -3167,6 +3168,43 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: exciseRegister,
+  },
+  {
+    name: "exciseWarehouses",
+    domain: "fiscal",
+    description: {
+      bg: "Къде са данъчните складове (Агенция „Митници“) — действащите акцизни складове по градове (брой на град), с разбивка по категория; или списък на складодържателите в даден град.",
+      en: "Where the excise warehouses are (Customs Agency) — active bonded warehouses by city (count per city) with a category split; or the warehouse keepers in one town.",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        description: {
+          bg: "Град (напр. Русе) — за складовете там",
+          en: "City (e.g. Ruse) — for the warehouses located there",
+        },
+      },
+      {
+        name: "category",
+        type: "metric",
+        description: {
+          bg: "Категория (горива / тютюн / алкохол)",
+          en: "Category (fuels / tobacco / alcohol)",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "В кои градове има най-много акцизни складове?",
+        en: "Which cities have the most excise warehouses?",
+      },
+      {
+        bg: "Колко данъчни склада има в Русе?",
+        en: "How many bonded warehouses are in Ruse?",
+      },
+    ],
+    run: exciseWarehouses,
   },
   {
     name: "fundsProjects",

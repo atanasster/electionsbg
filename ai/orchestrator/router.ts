@@ -2474,6 +2474,42 @@ export const route = (question: string, ctx: ToolContext): Route => {
       };
     }
   }
+  // Bonded warehouses BY GEOGRAPHY — where the excise warehouses are, count per
+  // city. Must precede the operator-register route below: a "по градове / къде"
+  // cue on the same warehouse noun asks for the map's count view, not the company
+  // list. (A specific city — "склад в Русе" — reaches exciseWarehouses via the
+  // LLM path, which fills args.place.)
+  if (
+    has(
+      q,
+      "складодържат",
+      "акцизен склад",
+      "акцизни складове",
+      "данъчен склад",
+      "данъчни складове",
+      "лицензиран склад",
+      "excise warehouse",
+      "bonded warehouse",
+      "warehouse keeper",
+    ) &&
+    has(
+      q,
+      "по градове",
+      "по град",
+      "в кой град",
+      "в кои град",
+      "кои градове",
+      "къде",
+      "by city",
+      "which city",
+      "which cities",
+      "where are",
+      "where the",
+      "на карта",
+      "geograph",
+    )
+  )
+    return { tool: "exciseWarehouses", args: { category: q } };
   // Licensed excise-warehouse register — WHO holds an excise licence (a company
   // list), distinct from the excise REVENUE breakdown below. Anchored on the
   // warehouse/licence noun so a revenue question doesn't misroute here.
