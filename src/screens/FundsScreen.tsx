@@ -36,6 +36,7 @@ import { FundsSankeyTile } from "./funds/FundsSankeyTile";
 import { IntegrityTeaserTile } from "./funds/IntegrityTeaserTile";
 import { FundsFocusTile } from "./funds/FundsFocusTile";
 import { RrfTeaserTile } from "./funds/RrfTeaserTile";
+import { DualCorpusLeaderboardTile } from "./funds/DualCorpusLeaderboardTile";
 import { DashboardSection } from "./dashboard/DashboardSection";
 import { orgFormLabel, orgTypeLabel } from "@/data/funds/orgLabels";
 import { formatEur } from "@/lib/currency";
@@ -387,6 +388,21 @@ export const FundsScreen: FC = () => {
           icon={AlertTriangle}
         >
           <FundsFocusTile />
+        </DashboardSection>
+
+        {/* Cross-corpus: firms that both won ЗОП contracts and drew EU grants.
+            Independent of projectsIndex (its own DB hook), so it renders even if
+            the projects index is still loading. */}
+        <DashboardSection
+          id="funds"
+          title={t("dual_corpus_title") || "Договори и грантове"}
+          subtitle={
+            t("dual_corpus_subtitle") ||
+            "Фирми, спечелили обществени поръчки и получили европейски средства."
+          }
+          icon={Layers}
+        >
+          <DualCorpusLeaderboardTile />
         </DashboardSection>
 
         {/* Leaderboards — top beneficiaries + top programmes side by side. */}

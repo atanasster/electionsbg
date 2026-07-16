@@ -399,6 +399,21 @@ export const loadFundsPg = async (): Promise<{
     await c.query("COMMIT");
   });
 
+  // Refresh the cross-corpus (ЗОП × ИСУН) leaderboard cache (migration 077,
+  // created + applied by load_pg). The funds side just changed, so the cache
+  // must track this reload — otherwise the /funds "договори и грантове" tile
+  // reflects the previous beneficiary corpus. Guarded on the matview + the
+  // procurement `contracts` relation both existing (a funds-only load against a
+  // DB where load_pg never ran has neither).
+  const canRefreshDual = await getPool()
+    .query(
+      `SELECT to_regclass('public.dual_corpus_rankings_cache') AS mv,
+              to_regclass('public.contracts') AS c`,
+    )
+    .then((r) => r.rows[0]?.mv != null && r.rows[0]?.c != null);
+  if (canRefreshDual)
+    await exec("REFRESH MATERIALIZED VIEW dual_corpus_rankings_cache");
+
   return { rows: rows.length, projects, payloads: payloadRows.length };
 };
 
