@@ -26,6 +26,7 @@ import { useMpEmbedding } from "@/data/parliament/votes/useMpEmbedding";
 import { useMpProfile } from "@/data/parliament/votes/useMpProfile";
 import { useCandidateUrlForVote } from "@/data/parliament/votes/useCandidateUrlForVote";
 import { useMps } from "@/data/parliament/useMps";
+import { useActiveMps } from "@/data/parliament/useActiveMps";
 import { useParliamentGroups } from "@/data/parliament/useParliamentGroups";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { cn } from "@/lib/utils";
@@ -547,7 +548,8 @@ const BridgeList: FC<{
   candidateUrl: (csvMpId: number, sessionName?: string | null) => string;
 }> = ({ points, labelForPartyShort, candidateUrl }) => {
   const { t } = useTranslation();
-  const K = 5;
+  const { isActiveMp } = useActiveMps();
+  const K = 10;
   const bridges = useMemo(() => {
     if (points.length === 0) return [];
     const results: Array<{
@@ -557,6 +559,9 @@ const BridgeList: FC<{
     }> = [];
     for (const a of points) {
       if (!a.partyShort) continue;
+      // Only feature currently-seated MPs; a departed member's early votes
+      // still sit in the data but shouldn't headline the bridges list.
+      if (!isActiveMp(a.mpId, a.name)) continue;
       const dists = points
         .filter((b) => b.mpId !== a.mpId)
         .map((b) => ({
@@ -583,7 +588,7 @@ const BridgeList: FC<{
       }
     }
     return results.sort((x, y) => y.foreignCount - x.foreignCount).slice(0, 15);
-  }, [points]);
+  }, [points, isActiveMp]);
 
   if (bridges.length === 0) {
     return (
@@ -614,8 +619,14 @@ const BridgeList: FC<{
                   .join(", ")}
               </div>
             </div>
-            <div className="text-xs tabular-nums text-muted-foreground shrink-0">
-              {b.foreignCount}/{K}
+            <div
+              className="text-xs tabular-nums text-muted-foreground shrink-0"
+              title={
+                t("embedding_cross_share_title") ||
+                `${b.foreignCount} of ${K} nearest neighbours are from another group`
+              }
+            >
+              {Math.round((b.foreignCount / K) * 100)}%
             </div>
           </Link>
         </li>

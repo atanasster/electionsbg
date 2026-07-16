@@ -7,11 +7,12 @@ import { useMpEmbedding } from "@/data/parliament/votes/useMpEmbedding";
 import { useMpProfile } from "@/data/parliament/votes/useMpProfile";
 import { useCandidateUrlForVote } from "@/data/parliament/votes/useCandidateUrlForVote";
 import { useMps } from "@/data/parliament/useMps";
+import { useActiveMps } from "@/data/parliament/useActiveMps";
 import { useParliamentGroups } from "@/data/parliament/useParliamentGroups";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 
 const PREVIEW = 5;
-const K = 5;
+const K = 10;
 
 // Same bridge-MP detection used inside ParliamentEmbeddingScreen, scoped down
 // to the top 5 outliers for a homepage-style preview.
@@ -24,6 +25,7 @@ export const ParliamentEmbeddingMiniTile: FC = () => {
   const { points, isLoading: emLoading } = useMpEmbedding();
   const { mpParty, mpNames } = useMpProfile();
   const { findMpById, isLoading: mpsLoading } = useMps();
+  const { isActiveMp } = useActiveMps();
   const { colorForPartyShort, labelForPartyShort } = useParliamentGroups();
   const candidateUrl = useCandidateUrlForVote();
 
@@ -54,6 +56,10 @@ export const ParliamentEmbeddingMiniTile: FC = () => {
     }> = [];
     for (const a of enriched) {
       if (!a.partyShort) continue;
+      // Only feature MPs who still hold their seat — a departed member (e.g.
+      // resigned to join the cabinet) keeps their early votes in the data but
+      // shouldn't headline the current chamber's cross-party bridges.
+      if (!isActiveMp(a.mpId, a.name)) continue;
       const dists = enriched
         .filter((b) => b.mpId !== a.mpId)
         .map((b) => ({ mp: b, d: Math.hypot(a.x - b.x, a.y - b.y) }))
@@ -79,7 +85,7 @@ export const ParliamentEmbeddingMiniTile: FC = () => {
     return results
       .sort((x, y) => y.foreignCount - x.foreignCount)
       .slice(0, PREVIEW);
-  }, [points, mpParty, mpNames, findMpById]);
+  }, [points, mpParty, mpNames, findMpById, isActiveMp]);
 
   if (emLoading || mpsLoading) {
     return (
@@ -131,8 +137,14 @@ export const ParliamentEmbeddingMiniTile: FC = () => {
                   >
                     {labelForPartyShort(b.mp.partyShort) || b.mp.partyShort}
                   </span>
-                  <span className="font-semibold tabular-nums shrink-0">
-                    {b.foreignCount}/{K}
+                  <span
+                    className="font-semibold tabular-nums shrink-0"
+                    title={
+                      t("embedding_cross_share_title") ||
+                      `${b.foreignCount} of ${K} nearest neighbours are from another group`
+                    }
+                  >
+                    {Math.round((b.foreignCount / K) * 100)}%
                   </span>
                 </Link>
               </li>

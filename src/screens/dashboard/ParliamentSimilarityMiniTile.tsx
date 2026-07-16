@@ -7,6 +7,7 @@ import { useSimilarityHeadline } from "@/data/parliament/votes/useSimilarityHead
 import { useMpProfile } from "@/data/parliament/votes/useMpProfile";
 import { useCandidateUrlForVote } from "@/data/parliament/votes/useCandidateUrlForVote";
 import { useMps } from "@/data/parliament/useMps";
+import { useActiveMps } from "@/data/parliament/useActiveMps";
 import { useParliamentGroups } from "@/data/parliament/useParliamentGroups";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { titleCaseName } from "@/lib/utils";
@@ -26,6 +27,7 @@ export const ParliamentSimilarityMiniTile: FC = () => {
   const { headline, isLoading: headlineLoading } = useSimilarityHeadline();
   const { mpNames } = useMpProfile();
   const { findMpById, isLoading: mpsLoading } = useMps();
+  const { isActiveMp } = useActiveMps();
   const { colorForPartyShort, labelForPartyShort } = useParliamentGroups();
   const candidateUrl = useCandidateUrlForVote();
 
@@ -81,33 +83,35 @@ export const ParliamentSimilarityMiniTile: FC = () => {
           <span className="text-xs text-muted-foreground">· {seedLabel}</span>
         </div>
         <ul className="space-y-1.5">
-          {headline.twins.map((twin) => {
-            const twinName = nameOf(twin.mpId);
-            const color = colorForPartyShort(twin.partyShort) ?? "#94a3b8";
-            const label =
-              labelForPartyShort(twin.partyShort) || twin.partyShort;
-            return (
-              <li key={twin.mpId}>
-                <Link
-                  to={candidateUrl(twin.mpId, twinName)}
-                  underline={false}
-                  className="flex items-center gap-2 text-xs hover:bg-muted/40 rounded px-1 py-1"
-                >
-                  <MpAvatar name={twinName} mpId={twin.mpId} />
-                  <span className="flex-1 truncate">{twinName}</span>
-                  <span
-                    className="text-[10px] uppercase tracking-wide shrink-0"
-                    style={{ color }}
+          {headline.twins
+            .filter((twin) => isActiveMp(twin.mpId, nameOf(twin.mpId)))
+            .map((twin) => {
+              const twinName = nameOf(twin.mpId);
+              const color = colorForPartyShort(twin.partyShort) ?? "#94a3b8";
+              const label =
+                labelForPartyShort(twin.partyShort) || twin.partyShort;
+              return (
+                <li key={twin.mpId}>
+                  <Link
+                    to={candidateUrl(twin.mpId, twinName)}
+                    underline={false}
+                    className="flex items-center gap-2 text-xs hover:bg-muted/40 rounded px-1 py-1"
                   >
-                    {label}
-                  </span>
-                  <span className="font-semibold tabular-nums shrink-0">
-                    {formatScore(twin.score, lang)}
-                  </span>
-                </Link>
-              </li>
-            );
-          })}
+                    <MpAvatar name={twinName} mpId={twin.mpId} />
+                    <span className="flex-1 truncate">{twinName}</span>
+                    <span
+                      className="text-[10px] uppercase tracking-wide shrink-0"
+                      style={{ color }}
+                    >
+                      {label}
+                    </span>
+                    <span className="font-semibold tabular-nums shrink-0">
+                      {formatScore(twin.score, lang)}
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
         </ul>
       </CardContent>
     </Card>
