@@ -54,6 +54,7 @@ import { EnvironmentEuPeerTile } from "./EnvironmentEuPeerTile";
 import { EnvironmentBudgetTile } from "./EnvironmentBudgetTile";
 import { EnvironmentCategoryTile } from "./EnvironmentCategoryTile";
 import { EnvironmentCompetitionTile } from "./EnvironmentCompetitionTile";
+import { EnvironmentWasteTile } from "./EnvironmentWasteTile";
 
 type UniverseFilter = EnvUniverse | "all";
 
@@ -286,6 +287,10 @@ export const EnvironmentPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
 
       <PackSection id="eu-funds">
         <EnvironmentEuFundsTile funds={funds} />
+      </PackSection>
+
+      <PackSection id="waste">
+        <EnvironmentWasteTile />
       </PackSection>
 
       <PackSection id="function">
