@@ -50,6 +50,10 @@ const FN_FILE = path.join(SCHEMA_DIR, "000_search_fns.sql");
 const SCHEMA_FILE = path.join(SCHEMA_DIR, "001_procurement.sql");
 const CONTRACTS_UNP_FILE = path.join(SCHEMA_DIR, "049_contracts_unp.sql");
 const CONTRACT_LOT_FILE = path.join(SCHEMA_DIR, "050_contract_lot_name.sql");
+const CONTRACT_CURRENT_VALUE_FILE = path.join(
+  SCHEMA_DIR,
+  "078_contracts_current_value.sql",
+);
 const TRACKING_FILE = path.join(SCHEMA_DIR, "005_ingest_tracking.sql");
 const CONTRACTOR_SEARCH_FILE = path.join(
   SCHEMA_DIR,
@@ -93,6 +97,7 @@ const PROC_RANKINGS_FILE = path.join(
   SCHEMA_DIR,
   "031_procurement_rankings.sql",
 );
+const DUAL_CORPUS_FILE = path.join(SCHEMA_DIR, "077_dual_corpus_rankings.sql");
 const TENDER_DETAIL_FILE = path.join(SCHEMA_DIR, "032_tender_detail.sql");
 const PROC_RISK_INDEXES_FILE = path.join(
   SCHEMA_DIR,
@@ -237,6 +242,7 @@ export const loadPg = async (): Promise<{
   // unp column + resolver arrive as their own ALTER-based migration.
   await exec(readFileSync(CONTRACTS_UNP_FILE, "utf8"));
   await exec(readFileSync(CONTRACT_LOT_FILE, "utf8"));
+  await exec(readFileSync(CONTRACT_CURRENT_VALUE_FILE, "utf8"));
   await exec(readFileSync(TRACKING_FILE, "utf8"));
   await exec(readFileSync(CONTRACTOR_SEARCH_FILE, "utf8"));
   await exec(readFileSync(COMPANY_API_FILE, "utf8"));
@@ -259,6 +265,9 @@ export const loadPg = async (): Promise<{
   await exec(readFileSync(PROC_RISK_FEED_FILE, "utf8"));
   await exec(readFileSync(PROC_BY_SETTLEMENT_FILE, "utf8"));
   await exec(readFileSync(PROC_RANKINGS_FILE, "utf8"));
+  // Cross-corpus (ЗОП × ИСУН) leaderboard — the funds tables (015/016) are
+  // applied above, so both relations exist here even before funds are loaded.
+  await exec(readFileSync(DUAL_CORPUS_FILE, "utf8"));
   await exec(readFileSync(TENDER_DETAIL_FILE, "utf8"));
   await exec(readFileSync(PROC_RISK_INDEXES_FILE, "utf8"));
   await exec(readFileSync(REF_PROCUREMENT_FILE, "utf8"));
@@ -503,6 +512,11 @@ export const loadPg = async (): Promise<{
   await exec("REFRESH MATERIALIZED VIEW procurement_overview_cache");
   await exec("REFRESH MATERIALIZED VIEW procurement_rankings_cache");
   await exec("REFRESH MATERIALIZED VIEW procurement_by_settlement_cache");
+  // Cross-corpus leaderboard cache (077). Both source relations exist (015/016
+  // applied above), so this refresh always succeeds; the intersection is empty
+  // until funds are loaded, at which point load_funds_pg re-refreshes it. Must
+  // track a contracts reload too, or new contracts wouldn't surface here.
+  await exec("REFRESH MATERIALIZED VIEW dual_corpus_rankings_cache");
   // Per-contract "how normal is this procurement?" payloads (064, now a TABLE).
   // The cohort build is a deterministic function of `contracts` — which we've
   // just loaded identically on both sides — so we compute it ONCE on the fast

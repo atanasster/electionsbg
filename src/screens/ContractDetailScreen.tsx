@@ -154,9 +154,40 @@ export const ContractDetailScreen: FC = () => {
                 c.currency,
                 i18n.language,
               );
+              // When an annex moved the value, `amountEur` is the CURRENT value
+              // and `signingAmountEur` the at-signing one. Show the signed value
+              // and the Δ% so the header reads as "текуща стойност" with lineage.
+              const signed = c.signingAmountEur;
+              const showDelta =
+                signed != null &&
+                c.amountEur != null &&
+                Math.abs(c.amountEur - signed) >= 0.005 &&
+                signed > 0;
+              const deltaPct = showDelta
+                ? ((c.amountEur! - signed!) / signed!) * 100
+                : 0;
+              const signedFmt = showDelta
+                ? formatAmountEur(signed, undefined, "EUR", i18n.language)
+                    .primary
+                : null;
               return (
                 <p className="text-2xl font-bold tabular-nums">
                   {primary}
+                  {showDelta ? (
+                    <span className="block text-sm font-normal text-muted-foreground">
+                      {t("contract_current_value") || "current value"} ·{" "}
+                      {t("contract_signed_at") || "signed at"} {signedFmt} (
+                      <span
+                        className={
+                          deltaPct >= 0 ? "text-red-600" : "text-emerald-600"
+                        }
+                      >
+                        {deltaPct >= 0 ? "+" : ""}
+                        {deltaPct.toFixed(1)}%
+                      </span>
+                      )
+                    </span>
+                  ) : null}
                   {original ? (
                     <span className="block text-sm font-normal text-muted-foreground">
                       {t("contract_originally") || "originally"} {original}

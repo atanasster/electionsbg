@@ -41,6 +41,7 @@ export const COLUMNS: ColumnDef[] = [
   { field: "amount", col: "amount", kind: "real" },
   { field: "currency", col: "currency", kind: "text" },
   { field: "amountEur", col: "amount_eur", kind: "real" },
+  { field: "signingAmountEur", col: "signing_amount_eur", kind: "real" },
   { field: "title", col: "title", kind: "text" },
   { field: "cpv", col: "cpv", kind: "text" },
   { field: "procurementMethod", col: "procurement_method", kind: "text" },

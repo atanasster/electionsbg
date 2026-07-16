@@ -77,7 +77,14 @@ const migrateShards = (): { files: number; rows: number } => {
       const full = path.join(yearDir, file);
       const shard = JSON.parse(fs.readFileSync(full, "utf8")) as Contract[];
       for (const row of shard) {
-        row.amountEur = toEur(row.amount, row.currency) ?? undefined;
+        const eur = toEur(row.amount, row.currency) ?? undefined;
+        // Flip-aware: on an annexed row `amountEur` is the CURRENT (post-annex)
+        // value (anexi_current_value.ts) and the native `amount` pegs to the
+        // SIGNING value, so refresh `signingAmountEur` from `amount` and LEAVE the
+        // current `amountEur` intact. Overwriting it here silently reverted the
+        // current-value basis on every rebuild.
+        if (row.signingAmountEur != null) row.signingAmountEur = eur;
+        else row.amountEur = eur;
         rows++;
       }
       fs.writeFileSync(full, canonicalJson(shard));

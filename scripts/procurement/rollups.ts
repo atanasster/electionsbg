@@ -69,6 +69,11 @@ const addCurrency = (
 // with no euro peg (foreign USD/GBP/CHF → amountEur null) falls through to its
 // native currency slot, exactly like PG's `others` CTE (amount_eur IS NULL).
 const addRowMoney = (bag: Record<string, number>, row: Contract): void => {
+  // `amountEur` is already the CURRENT-basis value (anexi_current_value.ts flips
+  // it to the post-annex value in place, signing preserved in signingAmountEur),
+  // so summing it directly gives the current-basis total — matching SIGMA and PG's
+  // SUM(amount_eur). A foreign-currency row (amountEur null) falls through to its
+  // native slot exactly as before.
   if (row.amountEur != null && Number.isFinite(row.amountEur)) {
     bag.EUR = (bag.EUR ?? 0) + row.amountEur;
   } else {
@@ -366,6 +371,7 @@ export const buildRollupsFromRows = (
         amount: row.amount,
         currency: row.currency,
         amountEur: row.amountEur,
+        signingAmountEur: row.signingAmountEur,
         partyEik: row.awarderEik,
         partyName: row.awarderName,
         bundleUuid: row.bundleUuid,
@@ -379,6 +385,7 @@ export const buildRollupsFromRows = (
         amount: row.amount,
         currency: row.currency,
         amountEur: row.amountEur,
+        signingAmountEur: row.signingAmountEur,
         partyEik: row.contractorEik,
         partyName: row.contractorName,
         bundleUuid: row.bundleUuid,

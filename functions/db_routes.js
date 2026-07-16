@@ -26,7 +26,8 @@ const CONTRACT_COLS = `
   awarder_region AS "awarderRegion",
   contractor_eik AS "contractorEik", contractor_eik_full AS "contractorEikFull",
   contractor_name AS "contractorName",
-  amount, currency, amount_eur AS "amountEur", title, cpv,
+  amount, currency, amount_eur AS "amountEur",
+  signing_amount_eur AS "signingAmountEur", title, cpv,
   procurement_method AS "procurementMethod",
   procurement_method_rationale AS "procurementMethodRationale",
   number_of_tenderers AS "numberOfTenderers",
@@ -598,6 +599,26 @@ const DB_ROUTES = {
     ]);
     return { body: rows[0]?.r ?? null };
   },
+  // Cross-corpus leaderboard — companies that appear in BOTH the procurement
+  // (ЗОП) and EU-funds (ИСУН) corpora, ranked by combined public money. All-time
+  // only (funds aren't date-windowed); no from/to. Served from the load-time
+  // cache matview (077), falling through to the live function when it is empty
+  // or absent, and to null on a DB predating the migration.
+  "dual-corpus-rankings": async (dbRows) => {
+    try {
+      const c = await dbRows("SELECT r FROM dual_corpus_rankings_cache", []);
+      if (c[0]?.r) return { body: c[0].r };
+    } catch {
+      // matview absent — fall through to the live computation
+    }
+    const rows = await dbRows("SELECT dual_corpus_rankings() AS r", []).catch(
+      (e) =>
+        e?.code === "42883" || e?.code === "42P01"
+          ? [{ r: null }]
+          : Promise.reject(e),
+    );
+    return { body: rows[0]?.r ?? null };
+  },
   // National "recent КЗК appeals" feed — top-N from kzk_recent_appeals (042),
   // each joined to its tender by УНП. ?limit (≤200).
   "kzk-appeals": async (dbRows, q) => {
@@ -655,7 +676,8 @@ const DB_ROUTES = {
       `SELECT key, ocid, tag, date, date_signed AS "dateSigned",
               awarder_eik AS "awarderEik", awarder_name AS "awarderName",
               contractor_eik AS "contractorEik", contractor_name AS "contractorName",
-              amount, currency, amount_eur AS "amountEur", title, cpv,
+              amount, currency, amount_eur AS "amountEur",
+  signing_amount_eur AS "signingAmountEur", title, cpv,
               procurement_method AS "procurementMethod",
               number_of_tenderers AS "numberOfTenderers",
               CASE WHEN eu_funded IS NULL THEN NULL ELSE eu_funded = 1 END AS "euFunded",

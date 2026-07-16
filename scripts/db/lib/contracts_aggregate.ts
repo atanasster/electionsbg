@@ -30,6 +30,10 @@ interface ContractRow {
   amount?: number;
   currency?: string;
   amountEur?: number;
+  /** At-signing euro value; present only when an annex flipped amountEur to the
+   *  current value. The euro-peg canary checks this (it pegs to native `amount`),
+   *  not the annexed amountEur. */
+  signingAmountEur?: number;
   title?: string;
 }
 
@@ -126,23 +130,29 @@ export const aggregateContracts = (): ContractsAggregate => {
           awarderEikNonAmend.add(c.awarderEik);
         }
 
-        // EUR peg spot-check.
+        // EUR peg spot-check. `amount`/`currency` are the native SIGNED figures,
+        // so they peg to the SIGNING euro value — signingAmountEur when an annex
+        // flipped amountEur to the current value, else amountEur itself.
+        const pegBasis =
+          typeof c.signingAmountEur === "number"
+            ? c.signingAmountEur
+            : c.amountEur;
         if (
           pegViolations.length < PEG_CAP &&
           typeof c.amount === "number" &&
-          typeof c.amountEur === "number" &&
+          typeof pegBasis === "number" &&
           c.currency
         ) {
           const code = c.currency.trim().toUpperCase();
           let expected: number | null = null;
           if (code === "EUR") expected = c.amount;
           else if (BGN_CODES.has(code)) expected = c.amount / BGN_PER_EUR;
-          if (expected !== null && Math.abs(c.amountEur - expected) > 0.01) {
+          if (expected !== null && Math.abs(pegBasis - expected) > 0.01) {
             pegViolations.push({
               key: c.key,
               currency: code,
               amount: c.amount,
-              amountEur: c.amountEur,
+              amountEur: pegBasis,
               expected,
             });
           }

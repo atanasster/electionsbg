@@ -1536,9 +1536,13 @@ export type ProcurementContract = {
   contractorName: string;
   amount?: number;
   currency?: string;
-  /** Euro-converted amount (BGN via the locked peg). Undefined for the rare
-   * USD/GBP/CHF rows, which the UI shows natively. See src/lib/currency.ts. */
+  /** Euro-converted CURRENT (post-annex) amount — "текуща стойност" — the basis
+   * for every total. Undefined for the rare USD/GBP/CHF rows, which the UI shows
+   * natively. See src/lib/currency.ts. */
   amountEur?: number;
+  /** At-signing euro value; present ONLY when an annex moved the value (so
+   * `amountEur` now holds the current value). Drives the signed→current Δ. */
+  signingAmountEur?: number;
   title: string;
   /** Fuller per-lot description recovered from the УНП-matched tender's
    *  lots[].name (АОП truncates the lot tail welded into `title`). Present only

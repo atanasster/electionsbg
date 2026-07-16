@@ -30,7 +30,10 @@ CREATE TABLE IF NOT EXISTS contracts (
   contractor_name              text NOT NULL,
   amount                       double precision,
   currency                     text,
+  -- CURRENT (post-annex) value — the headline basis. See 078_contracts_current_value.sql.
   amount_eur                   double precision,
+  -- At-signing value; NULL when no annex moved it (amount_eur is then the signing value).
+  signing_amount_eur           double precision,
   title                        text NOT NULL,
   cpv                          text,
   procurement_method           text,

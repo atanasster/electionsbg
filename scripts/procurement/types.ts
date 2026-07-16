@@ -69,7 +69,20 @@ export interface Contract {
   // which the UI shows natively. See src/lib/currency.ts.
   amount?: number;
   currency?: string;
+  /** The euro value used for EVERY aggregate/headline — the CURRENT (post-annex)
+   *  contract value ("текуща стойност") when an annex changed it, else the
+   *  at-signing value. anexi_current_value.ts flips this to the current value in
+   *  place (folding the ЦАИС ЕОП анекси feed) and stashes the original signing
+   *  value in `signingAmountEur`. So every SUM(amount_eur) is the current basis
+   *  with no COALESCE, matching SIGMA's default list value (verified to the cent).
+   *  For unamended contracts this is simply the at-signing value (`amount` via the
+   *  1.95583 peg); `amount`/`currency` stay the native SIGNED figures. */
   amountEur?: number;
+  /** The at-signing euro value, preserved ONLY when an annex moved the value (so
+   *  `amountEur` now holds the current value). Absent ⇒ `amountEur` IS the signing
+   *  value. Drives the per-contract signed-vs-current Δ, and is the euro-peg
+   *  canary's check target (it, not the annexed `amountEur`, pegs to `amount`). */
+  signingAmountEur?: number;
 
   // Subject.
   title: string;
@@ -142,7 +155,12 @@ export interface RollupContractRow {
   tag?: ContractTag;
   amount?: number;
   currency?: string;
+  /** Current-basis euro value (post-annex when amended, else signing) — same
+   *  basis as the entity totals. */
   amountEur?: number;
+  /** At-signing euro value; present only when an annex moved the value. Lets the
+   *  top-contract tiles render the signed value as a footnote to the current one. */
+  signingAmountEur?: number;
   // The "other side" of the relation — embedded so the tile can render a link.
   // On a ContractorRollup these point to the awarder; on an AwarderRollup
   // these point to the contractor.
