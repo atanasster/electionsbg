@@ -170,10 +170,6 @@ export const IndicatorsLandingScreen: FC = () => {
         className="mt-5"
       />
 
-      <p className="text-sm text-muted-foreground mb-3 max-w-3xl mx-auto text-center">
-        {t("indicators_page_explainer")}
-      </p>
-
       {/* "Values as of" banner — answers "what point in time am I looking
           at?" before the user scans 12 tiles with varying period labels.
           Uses the election date (user-picked) and the resolved quarter

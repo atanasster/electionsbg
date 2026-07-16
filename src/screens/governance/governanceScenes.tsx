@@ -190,6 +190,166 @@ const Overview: FC = () => (
   </SceneFrame>
 );
 
+// ── Индикатори domain scenes (the Показатели cluster) ─────────────────────────
+
+// Икономика — a rising trend line over faint bars (growth, inflation, income).
+const IndEconomy: FC = () => (
+  <SceneFrame>
+    <Bars
+      x={40}
+      baseline={100}
+      heights={[26, 34, 30, 44, 52, 64]}
+      barWidth={12}
+      gap={10}
+    />
+    <TrendLine
+      points={[
+        [46, 80],
+        [104, 72],
+        [150, 76],
+        [206, 52],
+        [264, 36],
+      ]}
+      arrow
+    />
+  </SceneFrame>
+);
+
+// Фискални — columns straddling a zero line: surplus above, deficit below.
+const IndFiscal: FC = () => (
+  <SceneFrame>
+    <line
+      x1={64}
+      y1={58}
+      x2={236}
+      y2={58}
+      stroke="currentColor"
+      strokeWidth="2"
+      opacity=".5"
+    />
+    <g fill="var(--sector)">
+      <rect x={80} y={38} width={16} height={20} rx={2} opacity=".85" />
+      <rect x={104} y={30} width={16} height={28} rx={2} opacity=".9" />
+      <rect x={140} y={58} width={16} height={22} rx={2} opacity=".7" />
+      <rect x={164} y={58} width={16} height={34} rx={2} opacity=".8" />
+      <rect x={188} y={58} width={16} height={26} rx={2} opacity=".75" />
+    </g>
+  </SceneFrame>
+);
+
+// Бюджети по кабинети — spend bars beside a stack of euro coins.
+const IndBudgets: FC = () => (
+  <SceneFrame>
+    <Bars
+      x={38}
+      baseline={100}
+      heights={[34, 46, 40, 56]}
+      barWidth={16}
+      gap={12}
+    />
+    <g>
+      {[0, 1, 2].map((i) => (
+        <ellipse
+          key={i}
+          cx={230}
+          cy={92 - i * 20}
+          rx={26}
+          ry={9}
+          fill="var(--sector)"
+          opacity={0.7 + i * 0.12}
+        />
+      ))}
+      <text
+        x={230}
+        y={57}
+        textAnchor="middle"
+        fontSize="15"
+        fontWeight="700"
+        fill={PAPER}
+      >
+        €
+      </text>
+    </g>
+  </SceneFrame>
+);
+
+// Управление — a quality/trust gauge with a check (CPI, WGI, институции).
+const IndGovernance: FC = () => (
+  <SceneFrame>
+    <Donut cx={150} cy={58} r={30} pct={0.62} thickness={11} />
+    <path
+      d="M137 58 l9 9 l17 -19"
+      fill="none"
+      stroke="var(--sector)"
+      strokeWidth="4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </SceneFrame>
+);
+
+// Общество — a row of figures, opacity ramping (заетост, неравенство, бедност).
+const IndSociety: FC = () => (
+  <SceneFrame>
+    <g fill="var(--sector)">
+      {Array.from({ length: 5 }).map((_, i) => {
+        const x = 78 + i * 38;
+        return (
+          <g key={i} opacity={0.42 + i * 0.12}>
+            <circle cx={x} cy={42} r={10} />
+            <rect x={x - 11} y={58} width={22} height={32} rx={11} />
+          </g>
+        );
+      })}
+    </g>
+  </SceneFrame>
+);
+
+// Сравни — paired bars (BG accent vs EU ink) under a small star cluster.
+const IndCompare: FC = () => (
+  <SceneFrame>
+    {[0, 1, 2].map((g) => {
+      const x = 84 + g * 54;
+      const bg = 30 + g * 8;
+      const eu = 44 - g * 6;
+      return (
+        <g key={g}>
+          <rect
+            x={x}
+            y={100 - bg}
+            width={16}
+            height={bg}
+            rx={2}
+            fill="var(--sector)"
+          />
+          <rect
+            x={x + 20}
+            y={100 - eu}
+            width={16}
+            height={eu}
+            rx={2}
+            fill="currentColor"
+            opacity=".38"
+          />
+        </g>
+      );
+    })}
+    <g fill="var(--sector)">
+      {Array.from({ length: 5 }).map((_, i) => {
+        const a = -Math.PI / 2 + (i - 2) * 0.55;
+        return (
+          <circle
+            key={i}
+            cx={252 + Math.cos(a) * 15}
+            cy={28 + Math.sin(a) * 15}
+            r={2.6}
+          />
+        );
+      })}
+    </g>
+  </SceneFrame>
+);
+
 export const GOV_HUB_SCENES: Record<string, FC> = {
   budget: Budget,
   procurement: Procurement,
@@ -199,4 +359,10 @@ export const GOV_HUB_SCENES: Record<string, FC> = {
   declarations: Declarations,
   indicators: Indicators,
   overview: Overview,
+  ind_economy: IndEconomy,
+  ind_fiscal: IndFiscal,
+  ind_budgets: IndBudgets,
+  ind_governance: IndGovernance,
+  ind_society: IndSociety,
+  ind_compare: IndCompare,
 };

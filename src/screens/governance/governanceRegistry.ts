@@ -72,21 +72,59 @@ export const GOV_HUB_CLUSTERS: { labelKey: string; tiles: GovHubTile[] }[] = [
     ],
   },
   {
-    labelKey: "gov_hub_cluster_context",
+    // Показатели — the indicators feature, surfaced as its six topical domains
+    // directly on the hub (was a single "Показатели" tile → /indicators). Titles
+    // reuse the indicators sub-nav label keys so the pills and these tiles agree.
+    labelKey: "gov_hub_cluster_indicators",
     tiles: [
-      {
-        id: "indicators",
-        titleKey: "gov_hub_indicators_title",
-        descKey: "gov_hub_indicators_desc",
-        to: "/indicators",
-        accent: TILE_ACCENTS.green,
-      },
       {
         id: "overview",
         titleKey: "gov_hub_overview_title",
         descKey: "gov_hub_overview_desc",
         to: "/governance/overview",
         accent: TILE_ACCENTS.slate,
+      },
+      {
+        id: "ind_economy",
+        titleKey: "indicators_nav_economy",
+        descKey: "gov_hub_ind_economy_desc",
+        to: "/indicators/economy",
+        accent: TILE_ACCENTS.green,
+      },
+      {
+        id: "ind_fiscal",
+        titleKey: "indicators_nav_fiscal",
+        descKey: "gov_hub_ind_fiscal_desc",
+        to: "/indicators/fiscal",
+        accent: TILE_ACCENTS.amber,
+      },
+      {
+        id: "ind_budgets",
+        titleKey: "indicators_nav_budgets",
+        descKey: "gov_hub_ind_budgets_desc",
+        to: "/indicators/budgets",
+        accent: TILE_ACCENTS.gold,
+      },
+      {
+        id: "ind_governance",
+        titleKey: "indicators_nav_governance",
+        descKey: "gov_hub_ind_governance_desc",
+        to: "/indicators/governance",
+        accent: TILE_ACCENTS.indigo,
+      },
+      {
+        id: "ind_society",
+        titleKey: "indicators_nav_society",
+        descKey: "gov_hub_ind_society_desc",
+        to: "/indicators/society",
+        accent: TILE_ACCENTS.terracotta,
+      },
+      {
+        id: "ind_compare",
+        titleKey: "indicators_nav_compare",
+        descKey: "gov_hub_ind_compare_desc",
+        to: "/indicators/compare",
+        accent: TILE_ACCENTS.azure,
       },
     ],
   },

@@ -4,12 +4,12 @@
 // truth.
 //
 // Two flavours:
-//   <IndicatorsNav />                — sub-page header (Economy/Fiscal/...
-//                                       + Compare + "back to dashboard")
+//   <IndicatorsNav />                — sub-page header (breadcrumb up to
+//                                       Управление + the domain pills). The
+//                                       breadcrumb's Показатели crumb is the
+//                                       way back to the dashboard.
 //   <IndicatorsNav variant="landing"> — landing-page sub-nav (Economy/
-//                                       Fiscal/.../Compare as siblings;
-//                                       no back-to-dashboard chip because
-//                                       we ARE the dashboard)
+//                                       Fiscal/.../Compare as siblings)
 //
 // Both variants preserve the URL search string (`?elections=...&cabinet=...`)
 // across navigation so the global anchor and the selected election survive
@@ -19,7 +19,6 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink, useLocation } from "react-router-dom";
-import { ChevronLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 
@@ -42,9 +41,9 @@ const pillClass = ({ isActive }: { isActive: boolean }): string =>
 
 export const IndicatorsNav: FC<{
   className?: string;
-  /** "subpage" (default) shows a "back to dashboard" link + the 5 domain
-   *  pills. "landing" omits the back link — used on /indicators itself,
-   *  where the dashboard tiles live below the nav. */
+  /** "subpage" (default) shows the breadcrumb + the domain pills.
+   *  "landing" omits the breadcrumb — used on /indicators itself, where the
+   *  dashboard tiles live below the nav. */
   variant?: "subpage" | "landing";
 }> = ({ className, variant = "subpage" }) => {
   const { t } = useTranslation();
@@ -70,10 +69,11 @@ export const IndicatorsNav: FC<{
   );
 
   if (variant === "landing") {
-    // Centred row, no back-link — the dashboard tiles below are the
-    // landing's main content, not a sibling page to navigate back to.
+    // Right-aligned row (matches the sub-pages), no breadcrumb — the landing
+    // renders its own breadcrumb above, and the dashboard tiles below are the
+    // main content, not a sibling page to navigate back to.
     return (
-      <div className={cn("mb-4 flex justify-center", className)}>
+      <div className={cn("mb-4 flex justify-end", className)}>
         {renderPills}
       </div>
     );
@@ -90,21 +90,9 @@ export const IndicatorsNav: FC<{
         currentKey={activeDomain?.labelKey}
         className="mt-5 mb-3"
       />
-      <div
-        className={cn(
-          "mb-6 flex items-center justify-between gap-3 flex-wrap",
-          className,
-        )}
-      >
-        <NavLink
-          to={{ pathname: "/indicators", search }}
-          className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
-        >
-          <ChevronLeft className="h-3.5 w-3.5" />
-          {t("indicators_nav_back_to_dashboard")}
-        </NavLink>
-        {renderPills}
-      </div>
+      {/* No back-link — the breadcrumb above (Показатели → /indicators) is the
+          way back to the dashboard now. */}
+      <div className={cn("mb-6 flex justify-end", className)}>{renderPills}</div>
     </>
   );
 };
