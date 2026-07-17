@@ -1,8 +1,42 @@
 # Регионално развитие / МРРБ sector view — v1 plan & competitive brainstorm
 
-Status: **NOT BUILT — plan/design only.** All figures below are **MEASURED** from the repo
-(`data/procurement/derived/awarders_index.json`, `data/funds/`, `data/budget/ministries/`,
-`data/cofog.json`, `data/regional.json`) as of 2026-07-16 unless marked EXTERNAL.
+Status: **BUILT (2026-07-17)** — Phases 0-2 shipped; see "Build status" below. All figures are
+**MEASURED** from the repo (`data/procurement/derived/awarders_index.json`, `data/funds/`,
+`data/budget/ministries/`, `data/cofog.json`, `data/regional.json`) as of 2026-07-16 unless
+marked EXTERNAL.
+
+### Build status (2026-07-17)
+
+Shipped across 5 reviewed commits; **full `npm run build` passes** (data:map + `tsc -b` + vite +
+prerender of 62,220 routes), `eslint` clean, **AI regression 871/871**.
+
+| Phase | Commit | Delivered |
+|---|---|---|
+| 0 — config | `53e353001` | `regionalReferenceData.ts` (МРРБ + АГКК + ДНСК + 27 governors), new **`fern`** accent token, `SECTOR_DASHBOARDS`/`sectorRegistry`(infra)/`SECTOR_SCENES`/`SECTOR_BROWSE_PACKS`, **budget-basis** hub headline (C1), bilingual SEO prerender copy, i18n |
+| 1a — pack | `846409501` | `regionalAttributes.ts` (CPV classifier), `useRegional` (+`useRegionalCohesion`), `RegionalPack` + cohesion burn-down (31 Dec 2029 n+3 clock), GF06 EU-peer, budget bridge, category, competition, roads/water cross-link, reused `VikContractorHhiTile` |
+| 2 — differentiators | `70174073e` | **pass-through hero** (`data-og="regional-hero"`), **ИСУН oblast choropleth** (`data-og="regional-oblast-map"`), **convergence scatter** — all static-data (`muni-map.json` folded to 28 oblasts + `regional.json` GDP join), validated against the real files |
+| AI | `1ed6eebcf` | `mrrbSpending` / `cohesionAbsorption` / `regionalInvestment` + registry/router(above the budgetFunction gate, C4)/narrate/links/followups/regression; `src/lib/regionalOblast.ts` extracted so `ai/` avoids the `@/data` ban |
+| docs | `d15885a0f` | data-map FEATURE + 5 edges (**`ds:indicators`**, C2), README sector bullet |
+
+**Deviation from plan (documented):** tile 3's choropleth ships off the **static** `muni-map.json`
+(all-ИСУН, per-municipality → oblast) rather than the §0.4 DB route — no new route/precompute was
+needed. Trade-off disclosed in-tile: it is **all** ИСУН funds (not just the two МРРБ OPs) and Sofia
+city is inflated by HQ-attribution (the Kohesio caveat), so the map labels this, the per-capita view
+is the default, and the convergence scatter drops Sofia from the fit. The two МРРБ OPs specifically
+remain the cohesion burn-down (tile 2). A DB route filtered to `program_code` would sharpen tile 3
+if wanted later.
+
+**Known gaps (need the loaded corpus / a prod run — not code):**
+1. **`public/og/sector-regional.png` not yet captured.** Auto-wired (`screenshot_sectors.ts` derives
+   from `SECTOR_DASHBOARD_IDS`), but the capture needs a server with the DB-loaded pack; the
+   prerendered `og:image` 404s until it runs. A bespoke map-focused capture (§8) is still optional.
+2. **DB-backed tiles not browser-verified locally** (group model / category / HHI / competition) —
+   the local Postgres corpus was not loaded. They are line-for-line ports of the shipped
+   `EnvironmentPack`, type-clean, and `mrrbSpending` shares the same endpoint.
+3. **Mobile 375px + dark verification (§13) outstanding** — needs the rendered pack (DB).
+4. **`db:gen-sector-stats` rerun** (needs PG) so the hub tile picks up the budget-basis headline.
+5. Not built (optional): top-contracts tile (generic awarder tiles cover it), Tier-B АГКК
+   cadastre-coverage ingest (§3/Phase 3).
 
 Closest built siblings to copy: **`transport-view-v1.md`** (an infra-cluster sector that also had
 to carve a sibling — roads — out of its scope, cross-link instead of double-count; the freshest
