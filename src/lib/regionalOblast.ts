@@ -50,10 +50,10 @@ export const oblastToCanon = (code: string): string => {
 
 /** One municipality row from data/funds/projects/muni-map.json. */
 export interface MuniFundRow {
-  oblast?: string;
+  oblast?: string | null;
   totalEur?: number;
   paidEur?: number;
-  population?: number;
+  population?: number | null;
 }
 
 export interface RegionalOblastAgg {

@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import { AlertTriangle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useRiskFeed } from "@/data/procurement/useRiskFeed";
+import { useScopedHref } from "@/data/scope/useScope";
 import { formatEur } from "@/lib/currency";
 
 const PREVIEW = 5;

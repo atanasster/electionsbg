@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren, ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { Link, To } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -11,7 +11,7 @@ type Props = {
   className?: string;
   // When set, the whole card becomes a link to this route (drill-down to a
   // standalone detail page) with a hover affordance + a corner chevron.
-  to?: string;
+  to?: To;
   // Cap the body to this CSS height with internal vertical scroll, so a long
   // list tile doesn't tower over its grid-row neighbour. e.g. "22rem".
   bodyMaxHeight?: string;
@@ -19,7 +19,7 @@ type Props = {
   // the top-N preview pattern that drills down to a full-list page. Unlike
   // `to`, only the link is clickable; the rest of the card stays static (so the
   // body can hold its own row links). Ignored when `to` is also set.
-  seeMoreTo?: string;
+  seeMoreTo?: To;
 };
 
 // Tile titles are sentence case (not an ALL-CAPS eyebrow): forced uppercase
