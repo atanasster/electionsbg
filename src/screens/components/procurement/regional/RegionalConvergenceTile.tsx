@@ -7,8 +7,18 @@
 //
 // Honest framing (§0b): the EU allocates largely by GDP/capita, so poorer regions SHOULD
 // receive more per head — the residual reveals whether BG's INTERNAL distribution follows
-// that logic. Money is all-ИСУН and Sofia city is dropped (HQ-attribution outlier). Adapted
-// from MvrCrimeScatterTile (median lines + mobile-safe outlier labels).
+// that logic. Money is all-ИСУН. Adapted from MvrCrimeScatterTile (median lines +
+// mobile-safe outlier labels).
+//
+// WHY SOFIA IS DROPPED: it is an outlier on the WEALTH axis — €35,400 GDP/capita vs a
+// €9,800 median across the 28 oblasts (3.6×, and 1.6× the next-highest), so as the extreme
+// high-leverage point it would dominate the eye and any fit read off it.
+// NOT because of "HQ attribution": that was the original (wrong) reason given here. The
+// muni map pins each contract to its declared place of implementation and holds
+// nationally-scoped ones out entirely, and Sofia is mid-pack on the money axis — 15th of 28
+// per resident (measured 2026-07-17). Dropping it therefore removes a wealth outlier, and
+// costs the chart a point that (being rich AND mid-pack on money) actually SUPPORTS the
+// convergence read.
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -43,7 +53,7 @@ export const RegionalConvergenceTile: FC<{ oblasts: RegionalOblastAgg[] }> = ({
   const points = useMemo(
     () =>
       oblasts
-        // Drop Sofia city (HQ-attribution outlier) + rows missing either axis.
+        // Drop Sofia city (wealth-axis outlier — see the header) + rows missing either axis.
         .filter(
           (o) =>
             o.canon !== "SOFIA_CITY" &&
@@ -229,8 +239,8 @@ export const RegionalConvergenceTile: FC<{ oblasts: RegionalOblastAgg[] }> = ({
           </div>
           <p className="mt-2 text-[11px] text-muted-foreground/80">
             {bg
-              ? `${points.length} области (столицата отпада — завишена от национални програми). Пунктирът е медианата. Точки горе-вляво = бедни области с много пари на човек (сближаване); долу-вдясно = богати с малко. ЕС разпределя предимно спрямо БВП на човек, така че по-бедните региони би трябвало да получават повече — разсейката показва дали вътрешното разпределение следва тази логика. Всички фондове по ИСУН; контекст, не причинност. Източници: regional.json (БВП), ИСУН (муни-карта).`
-              : `${points.length} oblasts (the capital is dropped — inflated by national programmes). Dashed lines are the medians. Top-left dots = poor oblasts with high € per head (convergence); bottom-right = rich with little. The EU allocates largely by GDP/capita, so poorer regions should receive more — the scatter shows whether the internal distribution follows that logic. All ИСУН funds; context, not causation. Sources: regional.json (GDP), ИСУН (muni-map).`}
+              ? `${points.length} области (столицата отпада — БВП на човек 3,6 пъти над медианата). Пунктирът е медианата. Точки горе-вляво = бедни области с много пари на човек (сближаване); долу-вдясно = богати с малко. ЕС разпределя предимно спрямо БВП на човек, така че по-бедните региони би трябвало да получават повече — разсейката показва дали вътрешното разпределение следва тази логика. Всички фондове по ИСУН; контекст, не причинност. Източници: regional.json (БВП), ИСУН (муни-карта).`
+              : `${points.length} oblasts (the capital is dropped — its GDP/capita is 3.6× the median). Dashed lines are the medians. Top-left dots = poor oblasts with high € per head (convergence); bottom-right = rich with little. The EU allocates largely by GDP/capita, so poorer regions should receive more — the scatter shows whether the internal distribution follows that logic. All ИСУН funds; context, not causation. Sources: regional.json (GDP), ИСУН (muni-map).`}
           </p>
         </CardContent>
       </Card>

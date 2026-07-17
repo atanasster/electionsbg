@@ -26,10 +26,15 @@ const OG_DIR = path.join(REPO_ROOT, "public/og");
 
 const BASE = process.env.OG_BASE_URL ?? "http://localhost:5173";
 
-// Single source of truth — every sector dashboard gets a screenshot, EXCEPT transport:
-// its OG is a hand-framed, map-focused capture (scripts/og/screenshot_transport.ts) that
-// this generic KPI-clip would overwrite. Run that script separately for transport.
-const ALL_SECTOR_IDS = SECTOR_DASHBOARD_IDS.filter((id) => id !== "transport");
+// Single source of truth — every sector dashboard gets a screenshot, EXCEPT the sectors
+// whose OG is a hand-framed, map-focused capture that this generic KPI-clip would
+// overwrite. Run those scripts separately:
+//   transport → scripts/og/screenshot_transport.ts  (Leaflet infrastructure map)
+//   regional  → scripts/og/screenshot_regional.ts   (d3 oblast choropleth + scatter)
+const HAND_FRAMED = ["transport", "regional"];
+const ALL_SECTOR_IDS = SECTOR_DASHBOARD_IDS.filter(
+  (id) => !HAND_FRAMED.includes(id),
+);
 
 // Optional CLI filter: `… screenshot_sectors.ts regional,energy` shoots just those.
 // Unknown ids fail loudly rather than silently shooting nothing.

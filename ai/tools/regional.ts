@@ -189,7 +189,9 @@ interface MuniMapFile {
 }
 
 // "Къде отиват европейските пари по области?" — ИСУН € per oblast (+ per capita), the
-// chat analog of the choropleth. All-ИСУН; Sofia inflated by HQ-attribution (disclosed).
+// chat analog of the choropleth. All-ИСУН. Each contract is pinned to its declared place
+// of implementation (nationally-scoped ones are held out upstream), NOT to the
+// beneficiary's seat — do not reinstate the old "Sofia inflated by HQ-attribution" line.
 export const regionalInvestment = async (
   _args: ToolArgs,
   ctx: ToolContext,
@@ -197,7 +199,8 @@ export const regionalInvestment = async (
   const bg = ctx.lang === "bg";
   const f = await fetchDb<MuniMapFile>("fund-payload", { kind: "muni-map" });
   const oblasts = aggregateRegionalOblasts(f.munis ?? [], {}, bg)
-    // Rank by per-capita (the honest cut), drop Sofia (HQ-attribution outlier).
+    // Rank by per-capita (the honest cut); drop Sofia — a wealth-axis outlier whose
+    // €35,400 GDP/capita is 3.6× the oblast median, not a data artefact.
     .filter((o) => o.canon !== "SOFIA_CITY" && o.population > 0)
     .sort((a, b) => b.perCapitaEur - a.perCapitaEur);
 
@@ -219,8 +222,8 @@ export const regionalInvestment = async (
       ? "Европейски средства (ИСУН) по област"
       : "EU funds (ИСУН) by oblast",
     subtitle: bg
-      ? "На жител, топ 10 области (столицата отпада — завишена от национални програми)"
-      : "Per capita, top 10 oblasts (the capital is dropped — inflated by national programmes)",
+      ? "На жител, топ 10 области (столицата отпада — БВП на човек 3,6 пъти над медианата)"
+      : "Per capita, top 10 oblasts (the capital is dropped — its GDP/capita is 3.6× the median)",
     columns: [
       { key: "oblast", label: bg ? "Област" : "Oblast" },
       { key: "per_capita", label: bg ? "На жител" : "Per capita", numeric: true }, // prettier-ignore
@@ -236,8 +239,8 @@ export const regionalInvestment = async (
         ? `${loPc.name} (${fmtEurCompact(loPc.perCapitaEur, ctx.lang)}/${bg ? "жит." : "cap"})`
         : "—",
       note: bg
-        ? "Всички фондове по ИСУН (вкл. ПВУ), отнесени към бенефициента по общини и обобщени по област. Столицата е завишена от национални програми със седалище там. Двете регионални програми на МРРБ поотделно са в cohesionAbsorption."
-        : "All ИСУН funds (incl. the RRF), attributed to the beneficiary by municipality and aggregated to oblast. The capital is inflated by nationally-run programmes headquartered there. The two МРРБ regional programmes specifically are in cohesionAbsorption.",
+        ? "Всички фондове по ИСУН (вкл. ПВУ), отнесени към декларираното място на изпълнение по общини и обобщени по област; проектите с национален обхват не се разпределят по области. Двете регионални програми на МРРБ поотделно са в cohesionAbsorption."
+        : "All ИСУН funds (incl. the RRF), attributed to the declared place of implementation by municipality and aggregated to oblast; nationally-scoped projects are not apportioned to any oblast. The two МРРБ regional programmes specifically are in cohesionAbsorption.",
     },
     provenance: ["db:fund-payload (ИСУН muni-map)"],
   };

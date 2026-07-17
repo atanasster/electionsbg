@@ -1,9 +1,14 @@
 // „Европейски средства за околна среда (ИСУН)" — the ОП „Околна среда" absorption story,
-// joined by OP CODE (accurate) from the static absorption.json (§0.5). The signature
-// contrast: ОПОС 2014-2020 closed at ~95% while Програма „Околна среда" 2021-2027 sits
-// near ~18% — the absorption-risk of the new period, straight from the ИСУН register.
-// Contracted vs actually paid; the gap is the money signed but not yet drawn. Mirrors
-// the visual of VikEuFundsTile / TransportEuFundsTile but sources from the JSON.
+// joined by OP CODE (accurate) (§0.5). The signature contrast: ОПОС 2014-2020 closed at
+// ~95% while Програма „Околна среда" 2021-2027 sits near ~18% — the absorption-risk of the
+// new period, straight from the ИСУН register. Contracted vs actually paid; the gap is the
+// money signed but not yet drawn. Mirrors the visual of VikEuFundsTile /
+// TransportEuFundsTile.
+//
+// Served from Postgres via useEnvFundProgrammes → useFundsAbsorption
+// (/api/db/fund-payload?kind=absorption). An earlier version of this header said it read
+// "the static absorption.json" — it does not, and must not: bucket:sync excludes
+// ^funds/.* so that copy is unmaintained and goes stale.
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";

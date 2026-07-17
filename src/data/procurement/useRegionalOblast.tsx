@@ -14,10 +14,15 @@
 // the bucket) that many views cache.
 //
 // ⚠ CAVEAT (surfaced in the tiles): the muni map is ALL ИСУН funds (every OP + the RRF),
-// not only the two МРРБ regional OPs. The geo-attribution pins each project to its
-// beneficiary, so Sofia city is inflated by nationally-run programmes headquartered there
-// (the Kohesio caveat, §0b). The tiles label this and the convergence scatter drops Sofia
-// from the fit. The two МРРБ regional OPs specifically are the RegionalCohesionTile.
+// not only the two МРРБ regional OPs — those are the RegionalCohesionTile.
+//
+// The geo-attribution pins each project to its DECLARED PLACE OF IMPLEMENTATION (ИСУН's
+// „Местонахождение"), not to the beneficiary's seat, and national/regional/unresolved
+// contracts are held out of the per-muni shards entirely (projects_ingest.ts →
+// multi_location.json). Do not re-add the old "attributed to the beneficiary, so Sofia is
+// inflated" caveat: measured 2026-07-17 against fund_payloads, Sofia city is 20.2% of the
+// €29.0bn corpus on ~19% of the population and ranks 15/28 per resident (€4,593) — the
+// poorest oblasts (Смолян €7,169, Кюстендил €7,116, Видин €7,027) top the per-capita table.
 
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
