@@ -24,7 +24,11 @@ import {
   Users,
 } from "lucide-react";
 import { Tooltip } from "@/ux/Tooltip";
-import { formatShare } from "@/lib/riskGrade";
+import {
+  formatShare,
+  criColor,
+  RISK_CHIP_BASE as chipBase,
+} from "@/lib/riskGrade";
 import type { ContractRiskResult } from "@/data/procurement/useContractRiskFlags";
 
 type Props = {
@@ -32,14 +36,6 @@ type Props = {
   /** "full" adds the explainable flags-fired meter; used on the detail header. */
   variant?: "chips" | "full";
 };
-
-const chipBase =
-  "inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide";
-
-// CRI band colour — green (low) → amber (mid) → red (high). Inline style so the
-// width-bound meter bar can use the same scale the badge ring implies.
-const criColor = (cri: number): string =>
-  cri >= 67 ? "#dc2626" : cri >= 34 ? "#d97706" : "#16a34a";
 
 export const RiskBadges: FC<Props> = ({ result, variant = "chips" }) => {
   const { t, i18n } = useTranslation();

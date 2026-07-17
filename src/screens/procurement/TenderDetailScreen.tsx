@@ -34,6 +34,7 @@ import { useContractRiskScorer } from "@/data/procurement/useContractRiskFlags";
 import { RiskBadges } from "@/screens/components/procurement/RiskBadges";
 import { ProcurementBreadcrumb } from "@/screens/components/procurement/ProcurementBreadcrumb";
 import { TenderNormalcyPanel } from "@/screens/components/procurement/TenderNormalcyPanel";
+import { TenderRiskPanel } from "@/screens/components/procurement/TenderRiskPanel";
 import { formatAmountEur } from "@/lib/currency";
 import {
   displayProcurementMethod,
@@ -732,6 +733,8 @@ export const TenderDetailScreen: FC = () => {
       <TenderLifecycle tender={tender} awards={awards} />
 
       <TenderNormalcyPanel unp={tender.unp} />
+
+      <TenderRiskPanel tender={tender} awards={awards} />
 
       <div className="grid gap-4 lg:grid-cols-3">
         <section className="lg:col-span-2 rounded-xl border bg-card p-4 shadow-sm space-y-2 text-sm">
