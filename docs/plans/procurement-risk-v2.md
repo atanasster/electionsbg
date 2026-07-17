@@ -567,14 +567,17 @@ Current (`041:144–154`, availability-weighted mean, weights sum to 1.30 when a
 | Romania | 44% | 1% |
 | Poland | 56% | 7% |
 
-- The EU median (28%) is **above the Commission's own red threshold (>20%)**. A flag firing on
-  the typical case is close to uninformative.
-- **Denmark — the least-corrupt country measured — scores "red."**
+⚠️ **The two indicators use DIFFERENT bands (verified) — don't cross-apply them.** Single
+bidder: green ≤10% / red >20%. Direct awards ("no calls for bids"): green ≤5% / red ≥10%.
+
+- The single-bid EU median (28%) is **above that indicator's own red threshold (>20%)**. A flag
+  firing on the typical case is close to uninformative.
+- **Denmark — the least-corrupt country measured — is "red" on single bidding (23%).**
 - **Bulgaria has the *lowest* single-bid rate of the four CEE countries here.** Poland is
   perceived 10 CPI points cleaner with 20pp *more* single bidding.
 - ⭐ **The defensible Bulgarian anomaly is "no calls for bids": 20% vs an EU median of 5%** —
-  4× the norm, double the red threshold. That maps to our `direct` component, currently
-  **.20**.
+  4× the norm, and **2× the direct-award red threshold (≥10%)**. That maps to our `direct`
+  component, currently **.20**.
 - ⚠️ The Commission **explicitly disclaims** that the Scoreboard measures corruption: *"some
   aspects of public procurement have been omitted entirely or covered only indirectly, e.g.
   corruption."* It is filed under competition/market access.
