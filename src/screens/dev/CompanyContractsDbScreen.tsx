@@ -175,11 +175,9 @@ export const CompanyContractsDbScreen: FC<{
       },
       {
         id: "risk",
-        header: t("company_contract_risk") || "Risk",
+        header: t("company_contract_risk") || "Flags",
         enableSorting: false,
-        cell: ({ row }) => (
-          <RiskBadges result={scoreRow(row.original)} showScore />
-        ),
+        cell: ({ row }) => <RiskBadges result={scoreRow(row.original)} />,
       },
       {
         id: "source",

@@ -1,20 +1,20 @@
-// Per-contract corruption-risk scorer. Pure + React-free so it can be shared
-// by the SPA badge UI (useContractRiskFlags), the flow link-colouring, the
-// My-Area alerts builder (Node), and the AI tools — one implementation, never
-// re-derived.
+// Per-contract risk-flag scorer. Pure + React-free so it can be shared by the
+// SPA badge UI (useContractRiskFlags) and the offline harness — one
+// implementation, never re-derived.
 //
 // Two outputs, deliberately:
-//   - `cri` (0..100): a Corruption Risk Index in the Fazekas / Government
-//     Transparency Institute tradition — the share of the red-flag checks we
-//     could actually evaluate that fired. Data-poor rows (legacy contracts with
-//     no bid count / procedure / tender window) aren't penalised: an
-//     unavailable check is excluded from the denominator, not scored 0.
-//   - `score` (0..100): the legacy additive-weight score, kept for sorting and
-//     severity (debarred / MP-tied dominate). The chips + the "N of M checks"
-//     readout are the honest signal; the number is a sort key.
-//
-// The score is blunt by design — meant to drive sorting and a visual badge, not
-// to be legal evidence.
+//   - `cri` (0..100): the share of the risk-flag checks we could actually
+//     evaluate that fired (Fazekas / Government Transparency Institute
+//     tradition). Data-poor rows (legacy contracts with no bid count /
+//     procedure / tender window) aren't penalised: an unavailable check is
+//     excluded from the denominator, not scored 0. The UI renders this as a
+//     "firedCount of availableCount" ratio + a meter, NOT as a bare number.
+//   - `score` (0..100): the legacy additive-weight severity score. It is NOT
+//     rendered anywhere (the UI shows the flags-fired ratio) — it survives only
+//     as a stable internal ordering key and is asserted on by
+//     risk_scorer.harness.ts. Do not surface it without renaming (see
+//     docs/plans/procurement-risk-v2.md §1c C2 — a bare 0..100 severity number
+//     collides with the awarder exposure grade's 0..100).
 
 import type {
   AwarderConcentrationEntry,

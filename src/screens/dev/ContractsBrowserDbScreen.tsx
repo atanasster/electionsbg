@@ -184,11 +184,11 @@ export const ContractsBrowserDbScreen: FC = () => {
       },
       {
         id: "risk",
-        header: t("company_contract_risk") || "Risk",
+        header: t("company_contract_risk") || "Flags",
         enableSorting: false,
         cell: ({ row }) => (
           <div className="flex flex-wrap items-center gap-1">
-            <RiskBadges result={scoreRow(row.original)} showScore />
+            <RiskBadges result={scoreRow(row.original)} />
             {row.original.hasAppeal && !row.original.appealUpheld ? (
               <AppealChip />
             ) : null}

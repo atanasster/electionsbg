@@ -29,9 +29,7 @@ import type { ContractRiskResult } from "@/data/procurement/useContractRiskFlags
 
 type Props = {
   result: ContractRiskResult;
-  /** When true, render the severity score alongside the chips (tables). */
-  showScore?: boolean;
-  /** "full" adds the explainable CRI meter; used on the detail header. */
+  /** "full" adds the explainable flags-fired meter; used on the detail header. */
   variant?: "chips" | "full";
 };
 
@@ -43,14 +41,10 @@ const chipBase =
 const criColor = (cri: number): string =>
   cri >= 67 ? "#dc2626" : cri >= 34 ? "#d97706" : "#16a34a";
 
-export const RiskBadges: FC<Props> = ({
-  result,
-  showScore,
-  variant = "chips",
-}) => {
+export const RiskBadges: FC<Props> = ({ result, variant = "chips" }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
-  const { flags, score, cri, firedCount, availableCount, hasFlag } = result;
+  const { flags, cri, firedCount, availableCount, hasFlag } = result;
 
   if (!hasFlag && variant !== "full") {
     return <span className="text-xs text-muted-foreground">—</span>;
@@ -58,12 +52,6 @@ export const RiskBadges: FC<Props> = ({
 
   const chips = (
     <div className="flex flex-wrap items-center gap-1">
-      {showScore ? (
-        <span className="text-xs font-semibold tabular-nums text-muted-foreground">
-          {score}
-        </span>
-      ) : null}
-
       {flags.debarred ? (
         <Tooltip
           content={
@@ -320,11 +308,12 @@ export const RiskBadges: FC<Props> = ({
       <div className="inline-flex items-center gap-1.5 text-sm text-emerald-700 dark:text-emerald-300">
         <ShieldCheck className="h-4 w-4" />
         <span>
-          {t("risk_cri_clear") || "No red flags"}
+          {t("risk_cri_clear") || "No flags fired"}
           {availableCount > 0 ? (
             <span className="text-muted-foreground">
               {" · "}
-              {availableCount} {t("risk_cri_checks_passed") || "checks passed"}
+              {availableCount}{" "}
+              {t("risk_cri_checks_passed") || "automated checks, none fired"}
             </span>
           ) : null}
         </span>
@@ -336,16 +325,16 @@ export const RiskBadges: FC<Props> = ({
     <div className="space-y-2">
       <div className="flex items-center gap-2 flex-wrap">
         <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-          {t("risk_cri_label") || "Risk index"}
+          {t("risk_cri_label") || "Flags fired"}
         </span>
         <span
           className="text-base font-bold tabular-nums"
           style={{ color: criColor(cri) }}
         >
-          {cri}
+          {firedCount} {t("risk_cri_of") || "of"} {availableCount}
         </span>
-        <span className="text-xs text-muted-foreground tabular-nums">
-          {firedCount}/{availableCount} {t("risk_cri_checks") || "risk checks"}
+        <span className="text-xs text-muted-foreground">
+          {t("risk_cri_checks") || "applicable checks"}
         </span>
       </div>
       <div className="h-1.5 w-full max-w-[240px] overflow-hidden rounded-full bg-muted">
