@@ -11,6 +11,19 @@
 // subset that carries lat/lon — so neither the list nor the map needs the
 // full corpus.
 //
+// IMPORTANT — totalEur here is the FULL per-contract value, NOT even-split.
+// A contract naming N municipalities appears at its whole value in each of
+// those N municipalities' shards. That is correct for this file's only use
+// (a per-contract list/map where each pin legitimately shows its own
+// contract's full value) and matches the per-contract shards elsewhere.
+// But it means these totalEur values MUST NEVER be summed into a "total EU
+// money in this município" figure — doing so double-counts every
+// multi-município contract (the exact bug class fixed by `muniShare` in
+// scripts/funds/projects_share.ts). For any place-level aggregate, use the
+// share-weighted `by-muni` summary rollup instead. Each pin also carries
+// `muniCount` so a future consumer can attribute correctly (value/muniCount)
+// if it ever needs a place total from this file.
+//
 // Run: `npx tsx scripts/funds/build_geo_pins.ts`
 //
 // Outputs are deterministic — re-running over unchanged source produces
@@ -18,6 +31,7 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import { muniCount } from "./projects_share";
 
 type SettlementInfo = {
   ekatte: string;
@@ -34,7 +48,11 @@ type FundsContract = {
   status: string;
   programName?: string;
   beneficiaryName?: string;
-  location?: { kind?: string; ekatte?: string | null } | null;
+  location?: {
+    kind?: string;
+    ekatte?: string | null;
+    munis?: string[];
+  } | null;
 };
 
 type FundsMuniFile = {
@@ -45,7 +63,15 @@ type FundsMuniFile = {
 export type GeoContract = {
   contractNumber: string;
   title: string;
+  // FULL per-contract value — NOT even-split across the municipalities this
+  // contract names. Safe to display per-pin; MUST NOT be summed to a place
+  // total (see the file header). Divide by `muniCount` to attribute a share.
   totalEur: number;
+  // How many distinct municipalities this contract names. 1 for the vast
+  // majority; >1 for multi-município contracts (e.g. RRP grid projects).
+  // Present so a future consumer can compute a share-weighted place total
+  // (totalEur / muniCount) without re-reading the full corpus.
+  muniCount: number;
   status: string;
   programName?: string;
   // Present only when the contract resolved to a settlement centroid —
@@ -150,6 +176,7 @@ const main = () => {
         contractNumber: c.contractNumber,
         title: c.title,
         totalEur: c.totalEur ?? 0,
+        muniCount: muniCount(c),
         status: c.status,
         programName: c.programName,
         ...(ll ? { ekatte, lat: ll[0], lon: ll[1] } : {}),
