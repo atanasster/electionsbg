@@ -10,11 +10,15 @@
 //                         against the 31 Dec 2029 n+3 decommitment deadline.
 //   regionalInvestment  — ИСУН € per oblast (+ per capita), where the EU money lands.
 //
+// ⚠ The ИСУН reads go through fetchDb('fund-payload') — Postgres, NOT the static
+// funds/*.json: bucket:sync EXCLUDES ^funds/.* since the funds PG migration, so the
+// bucket copies are unmaintained and go stale.
+//
 // ⚠ ROADS (АПИ) and WATER (ВиК) are SEPARATE VIEWS — the router routes магистрал|път → roads
 // and ВиК|вод → water before it reaches here. Every fact goes through ctx.lang; the tool
 // never computes prose numbers — narrate() reads env.facts. Mirrors the social/transport tools.
 
-import { fetchDb, fetchData } from "./dataClient";
+import { fetchDb } from "./dataClient";
 import { fmtEurCompact, fmtInt, fmtPct } from "./format";
 import type { Envelope, Row, ToolArgs, ToolContext } from "./types";
 import type { GroupModelPayload } from "@/lib/awarderModel";
@@ -119,7 +123,9 @@ export const cohesionAbsorption = async (
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
-  const f = await fetchData<AbsorptionFile>("/funds/derived/absorption.json");
+  const f = await fetchDb<AbsorptionFile>("fund-payload", {
+    kind: "absorption",
+  });
   const codes = new Set<string>(REGIONAL_COHESION_PROGRAMS);
   const progs = (f.byProgramme ?? [])
     .filter((p) => codes.has(p.programCode))
@@ -163,7 +169,7 @@ export const cohesionAbsorption = async (
         ? `Бенефициентите са общините. „Развитие на регионите“ е усвоена едва ~20% — средствата, останали неусвоени към 31 декември ${DECOMMITMENT_YEAR} г. (правилото n+3), се губят.`
         : `The beneficiaries are the municipalities. „Развитие на регионите“ is only ~20% absorbed — money left unspent by 31 December ${DECOMMITMENT_YEAR} (the n+3 rule) is forfeited.`,
     },
-    provenance: ["funds/derived/absorption.json (ИСУН)"],
+    provenance: ["db:fund-payload (ИСУН absorption)"],
   };
 };
 
@@ -180,7 +186,7 @@ export const regionalInvestment = async (
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
-  const f = await fetchData<MuniMapFile>("/funds/projects/muni-map.json");
+  const f = await fetchDb<MuniMapFile>("fund-payload", { kind: "muni-map" });
   const oblasts = aggregateRegionalOblasts(f.munis ?? [], {}, bg)
     // Rank by per-capita (the honest cut), drop Sofia (HQ-attribution outlier).
     .filter((o) => o.canon !== "SOFIA_CITY" && o.population > 0)
@@ -224,6 +230,6 @@ export const regionalInvestment = async (
         ? "Всички фондове по ИСУН (вкл. ПВУ), отнесени към бенефициента по общини и обобщени по област. Столицата е завишена от национални програми със седалище там. Двете регионални програми на МРРБ поотделно са в cohesionAbsorption."
         : "All ИСУН funds (incl. the RRF), attributed to the beneficiary by municipality and aggregated to oblast. The capital is inflated by nationally-run programmes headquartered there. The two МРРБ regional programmes specifically are in cohesionAbsorption.",
     },
-    provenance: ["funds/projects/muni-map.json (ИСУН)"],
+    provenance: ["db:fund-payload (ИСУН muni-map)"],
   };
 };

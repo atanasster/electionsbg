@@ -22,13 +22,12 @@
 // regionalReferenceData.ts); the pack cross-links to /sector/roads and /water instead.
 
 import { useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { useAwarderGroupModel, type ScopeWindow } from "./useAwarderGroupModel";
 import {
   buildRegionalModelFromAggregates,
   type RegionalModel,
 } from "@/lib/regionalAttributes";
-import { dataUrl } from "@/data/dataUrl";
+import { useFundsAbsorption } from "@/data/funds/useFundsTaxonomy";
 import {
   REGIONAL_EIK,
   REGIONAL_ALIAS_EIKS,
@@ -132,12 +131,17 @@ export const useRegional = (
 
 // --- EU cohesion (ИСУН / ОПРР + „Развитие на регионите") --------------------
 // The МРРБ-managed regional cohesion programmes' absorption — contracted vs actually
-// paid — joined by OP CODE (accurate), read straight from the static
-// data/funds/derived/absorption.json byProgramme[] (mirrors useEnvironmentFunds; there
-// is NO useFundsAbsorption hook), filtered to REGIONAL_COHESION_PROGRAMS. No server
-// call. Not scope-windowed: cohesion figures are programme-period lifetime totals, and
-// the beneficiaries are the municipalities, not the МРРБ group EIKs — so this is NOT an
+// paid — joined by OP CODE (accurate), filtered to REGIONAL_COHESION_PROGRAMS. Not
+// scope-windowed: cohesion figures are programme-period lifetime totals, and the
+// beneficiaries are the municipalities, not the МРРБ group EIKs — so this is NOT an
 // awarder-funds-rollup by our own EIKs, it is the two OP programmes by code.
+//
+// ⚠ SERVED FROM POSTGRES via the canonical `useFundsAbsorption()`
+// (→ /api/db/fund-payload?kind=absorption). NOT the static
+// data/funds/derived/absorption.json: the ИСУН tree was migrated to Cloud SQL and
+// `bucket:sync` now EXCLUDES `^funds/.*`, so the bucket copy is unmaintained and goes
+// stale. (EnvironmentEuFundsTile still reads the static file behind a comment claiming
+// "there is NO useFundsAbsorption hook" — that comment is stale; the hook exists.)
 
 export interface RegionalCohesionProgramme {
   programCode: string;
@@ -149,23 +153,11 @@ export interface RegionalCohesionProgramme {
   contractCount: number;
 }
 
-interface AbsorptionFile {
-  byProgramme?: RegionalCohesionProgramme[];
-}
-
 export const useRegionalCohesion = (): {
   programmes: RegionalCohesionProgramme[];
   isLoading: boolean;
 } => {
-  const { data, isLoading } = useQuery({
-    queryKey: ["funds", "absorption", "regional"] as const,
-    queryFn: async (): Promise<AbsorptionFile> => {
-      const r = await fetch(dataUrl("/funds/derived/absorption.json"));
-      if (!r.ok) return {};
-      return r.json();
-    },
-    staleTime: Infinity,
-  });
+  const { data, isLoading } = useFundsAbsorption();
 
   const programmes = useMemo<RegionalCohesionProgramme[]>(() => {
     const codes = new Set<string>(REGIONAL_COHESION_PROGRAMS);
