@@ -21,6 +21,7 @@ import { formatEurCompact } from "@/lib/currency";
 import { PackSelect } from "../PackSelect";
 import { WARN_CHIP_COLORS } from "../chipStyles";
 import { PackSection } from "../PackSection";
+import { PackFootnote } from "../PackFootnote";
 import { useHashScroll } from "@/ux/useHashScroll";
 import { useMvr, type ScopeWindow } from "@/data/procurement/useMvr";
 import {
@@ -365,30 +366,26 @@ export const MvrPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
         <MvrTransparencyTile groupTotalEur={groupTotalEur} />
       </PackSection>
 
-      <p className="text-[11px] text-muted-foreground/80">
-        {bg ? (
-          <>
-            Консолидиран изглед по 74 структури на Министерството на вътрешните
-            работи ({formatEurCompact(groupTotalEur, lang)}); заглавната карта
-            горе показва само централното МВР. Поръчките са от регистъра
-            (АОП/ЦАИС ЕОП); класифицираните доставки за сигурност не са в него
-            (виж „Какво се вижда и какво — не“ по-долу). Начинът на възлагане
-            липсва за част от договорите, а броят оферти е известен за част от
-            тях — затова делът „с една оферта“ е сред договорите с известни
-            оферти.
-          </>
-        ) : (
-          <>
-            Consolidated across 74 Ministry of Interior units (
-            {formatEurCompact(groupTotalEur, lang)}); the header card above
-            shows only the central МВР. Procurement is from the register
-            (АОП/ЦАИС ЕОП); classified security buys are not in it (see “What is
-            visible, and what is not” below). The procedure is missing for some
-            contracts and the bid count is known for some, so the “single-bid”
-            share is of bid-known contracts only.
-          </>
-        )}
-      </p>
+      <PackFootnote
+        unitCount={74}
+        groupOf={{
+          bg: "Министерството на вътрешните работи",
+          en: "the Ministry of Interior",
+        }}
+        totalEur={groupTotalEur}
+        afterLead={{
+          bg: "; заглавната карта горе показва само централното МВР",
+          en: "; the header card above shows only the central МВР",
+        }}
+        registerNote={{
+          bg: "; класифицираните доставки за сигурност не са в него (виж „Какво се вижда и какво — не“ по-долу)",
+          en: "; classified security buys are not in it (see “What is visible, and what is not” below)",
+        }}
+        bidCaveat={{
+          bg: "Начинът на възлагане липсва за част от договорите, а броят оферти е известен за част от тях — затова делът „с една оферта“ е сред договорите с известни оферти.",
+          en: "The procedure is missing for some contracts and the bid count is known for some, so the “single-bid” share is of bid-known contracts only.",
+        }}
+      />
     </section>
   );
 };

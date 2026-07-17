@@ -22,6 +22,7 @@ import { formatEurCompact } from "@/lib/currency";
 import { PackSelect } from "../PackSelect";
 import { WARN_CHIP_COLORS } from "../chipStyles";
 import { PackSection } from "../PackSection";
+import { PackFootnote } from "../PackFootnote";
 import { useHashScroll } from "@/ux/useHashScroll";
 import {
   useRegional,
@@ -316,28 +317,19 @@ export const RegionalPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
         <RegionalCrossLinkTile />
       </PackSection>
 
-      <p className="text-[11px] text-muted-foreground/80">
-        {bg ? (
-          <>
-            Консолидиран изглед по {units.length} структури на групата на МРРБ (
-            {formatEurCompact(groupTotalEur, lang)}) — министерството, АГКК
-            (кадастър), ДНСК (строителен контрол) и 27-те областни
-            администрации. Поръчките са от регистъра (АОП/ЦАИС ЕОП). Пътищата
-            (АПИ) и ВиК са отделни сектори и не са включени. Начинът на
-            възлагане и броят оферти са известни за част от договорите.
-          </>
-        ) : (
-          <>
-            Consolidated across {units.length} units of the МРРБ group (
-            {formatEurCompact(groupTotalEur, lang)}) — the ministry, АГКК
-            (cadastre), ДНСК (building control) and the 27 regional-governor
-            administrations. Procurement is from the register (АОП/ЦАИС ЕОП).
-            Roads (АПИ) and water (ВиК) are separate sectors and are not
-            included. The procedure and bid count are known for some contracts
-            only.
-          </>
-        )}
-      </p>
+      <PackFootnote
+        unitCount={units.length}
+        groupOf={{ bg: "групата на МРРБ", en: "the МРРБ group" }}
+        totalEur={groupTotalEur}
+        detail={{
+          bg: "министерството, АГКК (кадастър), ДНСК (строителен контрол) и 27-те областни администрации",
+          en: "the ministry, АГКК (cadastre), ДНСК (building control) and the 27 regional-governor administrations",
+        }}
+        excludes={{
+          bg: "Пътищата (АПИ) и ВиК са отделни сектори и не са включени.",
+          en: "Roads (АПИ) and water (ВиК) are separate sectors and are not included.",
+        }}
+      />
     </section>
   );
 };

@@ -21,6 +21,7 @@ import { formatEurCompact } from "@/lib/currency";
 import { PackSelect } from "../PackSelect";
 import { WARN_CHIP_COLORS } from "../chipStyles";
 import { PackSection } from "../PackSection";
+import { PackFootnote } from "../PackFootnote";
 import { useHashScroll } from "@/ux/useHashScroll";
 import {
   useTransport,
@@ -341,29 +342,23 @@ export const TransportPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
         <TransportRoadsLinkTile />
       </PackSection>
 
-      <p className="text-[11px] text-muted-foreground/80">
-        {bg ? (
-          <>
-            Консолидиран изглед по {units.length} структури на държавния
-            транспорт ({formatEurCompact(groupTotalEur, lang)}); заглавната
-            карта горе показва само централното МТС. Поръчките са от регистъра
-            (АОП/ЦАИС ЕОП). Пътната инфраструктура (АПИ) е отделен сектор и не е
-            включена. Начинът на възлагане липсва за част от договорите, а броят
-            оферти е известен за част от тях — затова делът „с една оферта“ е
-            сред договорите с известни оферти.
-          </>
-        ) : (
-          <>
-            Consolidated across {units.length} state-transport units (
-            {formatEurCompact(groupTotalEur, lang)}); the header card above
-            shows only the central МТС. Procurement is from the register
-            (АОП/ЦАИС ЕОП). Road infrastructure (АПИ) is a separate sector and
-            is not included. The procedure is missing for some contracts and the
-            bid count is known for some, so the “single-bid” share is of
-            bid-known contracts only.
-          </>
-        )}
-      </p>
+      <PackFootnote
+        unitCount={units.length}
+        groupOf={{ bg: "държавния транспорт", en: "state transport" }}
+        totalEur={groupTotalEur}
+        afterLead={{
+          bg: "; заглавната карта горе показва само централното МТС",
+          en: "; the header card above shows only the central МТС",
+        }}
+        excludes={{
+          bg: "Пътната инфраструктура (АПИ) е отделен сектор и не е включена.",
+          en: "Road infrastructure (АПИ) is a separate sector and is not included.",
+        }}
+        bidCaveat={{
+          bg: "Начинът на възлагане липсва за част от договорите, а броят оферти е известен за част от тях — затова делът „с една оферта“ е сред договорите с известни оферти.",
+          en: "The procedure is missing for some contracts and the bid count is known for some, so the “single-bid” share is of bid-known contracts only.",
+        }}
+      />
     </section>
   );
 };

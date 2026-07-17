@@ -22,6 +22,7 @@ import { formatEurCompact } from "@/lib/currency";
 import { PackSelect } from "../PackSelect";
 import { WARN_CHIP_COLORS } from "../chipStyles";
 import { PackSection } from "../PackSection";
+import { PackFootnote } from "../PackFootnote";
 import { useHashScroll } from "@/ux/useHashScroll";
 import {
   useEnvironment,
@@ -308,28 +309,19 @@ export const EnvironmentPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
         <EnvironmentCompetitionTile units={units} />
       </PackSection>
 
-      <p className="text-[11px] text-muted-foreground/80">
-        {bg ? (
-          <>
-            Консолидиран изглед по {units.length} структури на системата на МОСВ
-            ({formatEurCompact(groupTotalEur, lang)}) — министерството, ИАОС,
-            ПУДООС, националните паркове, НИМХ, басейновите дирекции и 16-те
-            РИОСВ. Поръчките са от регистъра (АОП/ЦАИС ЕОП). Горите (ИА по
-            горите, под МЗХ) и ВиК са отделни сектори и не са включени. Начинът
-            на възлагане и броят оферти са известни за част от договорите.
-          </>
-        ) : (
-          <>
-            Consolidated across {units.length} units of the МОСВ system (
-            {formatEurCompact(groupTotalEur, lang)}) — the ministry, ИАОС,
-            ПУДООС, the national parks, НИМХ, the river-basin directorates and
-            the 16 РИОСВ. Procurement is from the register (АОП/ЦАИС ЕОП).
-            Forestry (ИА по горите, under МЗХ) and ВиК are separate sectors and
-            are not included. The procedure and bid count are known for some
-            contracts only.
-          </>
-        )}
-      </p>
+      <PackFootnote
+        unitCount={units.length}
+        groupOf={{ bg: "системата на МОСВ", en: "the МОСВ system" }}
+        totalEur={groupTotalEur}
+        detail={{
+          bg: "министерството, ИАОС, ПУДООС, националните паркове, НИМХ, басейновите дирекции и 16-те РИОСВ",
+          en: "the ministry, ИАОС, ПУДООС, the national parks, НИМХ, the river-basin directorates and the 16 РИОСВ",
+        }}
+        excludes={{
+          bg: "Горите (ИА по горите, под МЗХ) и ВиК са отделни сектори и не са включени.",
+          en: "Forestry (ИА по горите, under МЗХ) and ВиК are separate sectors and are not included.",
+        }}
+      />
     </section>
   );
 };

@@ -349,6 +349,12 @@ export const CompanyDbScreen: FC = () => {
 
   const [company, setCompany] = useState<Company | null>(null);
   const [summary, setSummary] = useState<Summary | null>(null);
+  // All-time (UNSCOPED) awarder activity — "does this entity award anything, ever?".
+  // Lets an empty scope say where the data actually is instead of rendering blank.
+  const [awarderAllTime, setAwarderAllTime] = useState<{
+    contracts: number;
+    total_eur: number;
+  } | null>(null);
   const [officers, setOfficers] = useState<Officer[]>([]);
   const [politicians, setPoliticians] = useState<Politician[]>([]);
   const [procurement, setProcurement] = useState<DbRollup | null>(null);
@@ -466,7 +472,12 @@ export const CompanyDbScreen: FC = () => {
           );
           setGeography(j.geography ?? null);
           setAwarderProc(j.awarderProcurement ?? null);
-          if (j.awarderProcurement) setHadAwarder(true);
+          setAwarderAllTime(j.awarderAllTime ?? null);
+          // Latch on EITHER the scoped rollup or the all-time probe: the scoped one
+          // is absent when you LAND on an empty window, which used to hide the scope
+          // control and strand the reader (see the awarderAllTime note in db_routes).
+          if (j.awarderProcurement || (j.awarderAllTime?.contracts ?? 0) > 0)
+            setHadAwarder(true);
           setNgoDetails(j.ngoDetails ?? null);
           setAwarderKindex(j.awarderKindex ?? null);
           setNgoFunding(j.ngoFunding ?? null);
@@ -1103,9 +1114,41 @@ export const CompanyDbScreen: FC = () => {
                 <Landmark className="h-5 w-5 text-muted-foreground" />
                 <h2 className="text-lg font-semibold">Като възложител</h2>
               </div>
+              {/* Don't dead-end on "нищо намерено": say what was searched, and —
+                  when the entity DOES award outside this window — where the data
+                  actually is, with a one-click way to get there. */}
               <p className="text-sm text-muted-foreground">
                 Няма възложени договори за избрания период.
               </p>
+              {(awarderAllTime?.contracts ?? 0) > 0 ? (
+                <p className="text-sm text-muted-foreground">
+                  За всички периоди:{" "}
+                  <span className="font-medium text-foreground tabular-nums">
+                    {(awarderAllTime?.contracts ?? 0).toLocaleString("bg-BG")}
+                  </span>{" "}
+                  договора на стойност{" "}
+                  <span className="font-medium text-foreground tabular-nums">
+                    {formatEurCompact(
+                      awarderAllTime?.total_eur ?? 0,
+                      i18n.language,
+                    )}
+                  </span>
+                  {/* No full stop here: the BG compact format already ends in an
+                      abbreviation dot ("€13,6 млн."), so adding one reads "млн..". */}{" "}
+                  <button
+                    type="button"
+                    onClick={() => setScope("all")}
+                    className="font-medium text-primary underline underline-offset-2 hover:no-underline"
+                  >
+                    Виж всички периоди
+                  </button>
+                </p>
+              ) : (
+                <p className="text-sm text-muted-foreground">
+                  Проверихме договорите, поръчките и връзките — няма намерени
+                  записи за тази институция.
+                </p>
+              )}
             </section>
           )}
           <EntityRiskGradeCard grade={supplierGrade} />

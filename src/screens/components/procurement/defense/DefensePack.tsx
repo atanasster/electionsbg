@@ -33,6 +33,7 @@ import { formatEurCompact } from "@/lib/currency";
 import { PackSelect } from "../PackSelect";
 import { WARN_CHIP_COLORS } from "../chipStyles";
 import { PackSection } from "../PackSection";
+import { PackFootnote } from "../PackFootnote";
 import { useHashScroll } from "@/ux/useHashScroll";
 import { useDefense, type ScopeWindow } from "@/data/procurement/useDefense";
 import {
@@ -340,29 +341,26 @@ export const DefensePack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
         <DefenseTransparencyTile groupTotalEur={groupTotalEur} />
       </PackSection>
 
-      <p className="text-[11px] text-muted-foreground/80">
-        {bg ? (
-          <>
-            Консолидиран изглед по 25 структури на Министерството на отбраната (
-            {formatEurCompact(groupTotalEur, lang)}); заглавната карта горе
-            показва само централното МО. Поръчките са от регистъра (АОП/ЦАИС
-            ЕОП); придобиването на F-16 и Stryker е по US FMS и не е в него (виж
-            „Прозрачност“). Начинът на възлагане липсва за ~половината договори,
-            а броят оферти е известен за ~45% — затова делът „с една оферта“ е
-            сред договорите с известни оферти.
-          </>
-        ) : (
-          <>
-            Consolidated across 25 Ministry of Defence units (
-            {formatEurCompact(groupTotalEur, lang)}); the header card above
-            shows only the central МО. Procurement is from the register
-            (АОП/ЦАИС ЕОП); F-16 and Stryker acquisition runs through US FMS and
-            is not in it (see “Transparency”). The procedure is missing for
-            ~half the contracts and the bid count is known for ~45%, so the
-            “single-bid” share is of bid-known contracts only.
-          </>
-        )}
-      </p>
+      <PackFootnote
+        unitCount={25}
+        groupOf={{
+          bg: "Министерството на отбраната",
+          en: "the Ministry of Defence",
+        }}
+        totalEur={groupTotalEur}
+        afterLead={{
+          bg: "; заглавната карта горе показва само централното МО",
+          en: "; the header card above shows only the central МО",
+        }}
+        registerNote={{
+          bg: "; придобиването на F-16 и Stryker е по US FMS и не е в него (виж „Прозрачност“)",
+          en: "; F-16 and Stryker acquisition runs through US FMS and is not in it (see “Transparency”)",
+        }}
+        bidCaveat={{
+          bg: "Начинът на възлагане липсва за ~половината договори, а броят оферти е известен за ~45% — затова делът „с една оферта“ е сред договорите с известни оферти.",
+          en: "The procedure is missing for ~half the contracts and the bid count is known for ~45%, so the “single-bid” share is of bid-known contracts only.",
+        }}
+      />
     </section>
   );
 };

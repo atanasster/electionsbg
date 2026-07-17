@@ -19,6 +19,7 @@ import { formatEurCompact } from "@/lib/currency";
 import { PackSelect } from "../PackSelect";
 import { WARN_CHIP_COLORS } from "../chipStyles";
 import { PackSection } from "../PackSection";
+import { PackFootnote } from "../PackFootnote";
 import { useHashScroll } from "@/ux/useHashScroll";
 import { useSocial, type ScopeWindow } from "@/data/procurement/useSocial";
 import {
@@ -320,27 +321,23 @@ export const SocialPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
         </>
       )}
 
-      <p className="text-[11px] text-muted-foreground/80">
-        {bg ? (
-          <>
-            Консолидиран изглед по 6 структури на социалната политика (МТСП,
-            АСП, Агенцията по заетостта, ГИТ, АХУ, АКСУ —{" "}
-            {formatEurCompact(groupTotalEur, lang)} договорени). Помощите, които
-            АСП изплаща на домакинствата (~€2–3 млрд./год.), не са обществени
-            поръчки и не са в този регистър — виж бюджета по вид помощ горе.
-            Пенсиите (НОИ) са отделен изглед. Поръчки: АОП/ЦАИС ЕОП.
-          </>
-        ) : (
-          <>
-            Consolidated across 6 social-policy units (МТСП, АСП, the Employment
-            Agency, ГИТ, АХУ, АКСУ — {formatEurCompact(groupTotalEur, lang)}{" "}
-            contracted). The benefits АСП pays households (~€2–3bn/yr) are not
-            public procurement and are not in this register — see the budget by
-            benefit type above. Pensions (НОИ) are a separate view. Procurement:
-            АОП/ЦАИС ЕОП.
-          </>
-        )}
-      </p>
+      {/* No bidCaveat: this pack's story is disbursement, not competition — the
+          register caveat that matters here is that the household benefits aren't in
+          it at all. */}
+      <PackFootnote
+        unitCount={6}
+        groupOf={{ bg: "социалната политика", en: "social policy" }}
+        totalEur={groupTotalEur}
+        detail={{
+          bg: "МТСП, АСП, Агенцията по заетостта, ГИТ, АХУ, АКСУ",
+          en: "МТСП, АСП, the Employment Agency, ГИТ, АХУ, АКСУ",
+        }}
+        excludes={{
+          bg: "Помощите, които АСП изплаща на домакинствата (~€2–3 млрд./год.), не са обществени поръчки и не са в този регистър — виж бюджета по вид помощ горе. Пенсиите (НОИ) са отделен изглед.",
+          en: "The benefits АСП pays households (~€2–3bn/yr) are not public procurement and are not in this register — see the budget by benefit type above. Pensions (НОИ) are a separate view.",
+        }}
+        bidCaveat={{ bg: "", en: "" }}
+      />
     </section>
   );
 };

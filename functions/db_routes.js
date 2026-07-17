@@ -143,6 +143,7 @@ const DB_ROUTES = {
       institution,
       geography,
       awarderProcurement,
+      awarderAllTime,
       fundProjects,
       ngoDetails,
       awarderKindex,
@@ -185,6 +186,19 @@ const DB_ROUTES = {
         orNull(q, "from"),
         orNull(q, "to"),
       ]),
+      // DELIBERATELY UNSCOPED: "is this an awarder at all, in any period?".
+      // Everything else here is windowed by from/to, so an entity whose only
+      // activity sits outside the selected scope looked like a blank page with
+      // no scope control — stranding the reader with no way back to "all"
+      // (exactly what the hadAwarder latch was meant to prevent, but the latch
+      // never fires if you LAND on an empty window). Cheap: bitmap index scan
+      // on idx_contracts_awarder (~cost 338).
+      dbRows(
+        `SELECT count(*)::int AS contracts,
+                COALESCE(SUM(amount_eur), 0)::float8 AS total_eur
+         FROM contracts WHERE awarder_eik = $1 AND tag = 'contract'`,
+        [eik],
+      ),
       dbRows(
         `SELECT contract_number, title, program_name, total_eur, paid_eur, status, duration_months
          FROM fund_projects WHERE beneficiary_eik = $1
@@ -250,6 +264,7 @@ const DB_ROUTES = {
         institution: institution[0]?.r ?? null,
         geography: geography[0]?.r ?? null,
         awarderProcurement: awarderProcurement[0]?.r ?? null,
+        awarderAllTime: awarderAllTime[0] ?? null,
         fundProjects,
         ngoDetails: ngoDetails[0] ?? null,
         awarderKindex: awarderKindex[0]?.r ?? null,
