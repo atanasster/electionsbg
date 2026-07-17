@@ -459,10 +459,14 @@ Two things to carry across:
 
 ### 6b. Calibrate on our own corpus before committing to any threshold
 
-⚠️ **Imported thresholds are noise.** Opentender's country calibrations put the decision-period
-cut at **25 days in Romania and 194 in Italy** — a 7.8× spread on the same indicator. Their
-Appendix Table 3 also shows procedure-type mappings **inverted between countries** ("Outright
-award" = 100 in Italy, 50 in Spain). These are empirical, not normative.
+⚠️ **Imported thresholds are noise — every framework calibrates them per country.** Opentender's
+own methodology (iMonitor D2.2, 2025) states the day-interval and procedure-type cut-points are
+**country-specific and "calculated… provided upon request"** — i.e. deliberately not published
+as universal constants. (⚠️ A specific "25d Romania vs 194d Italy" spread and an "Outright
+award" 100/50 inversion circulated in earlier notes; those figures are **NOT in the current
+D2.2** and could not be verified — do not cite them. The *principle* they illustrated —
+per-country calibration — is confirmed verbatim by D2.2.) Take the lesson, not the numbers: a
+borrowed threshold means nothing here.
 
 So Phase 2 opens with a **base-rate script**, not a migration: per-flag prevalence over our
 `tenders` corpus, by year and by CPV division. Publish it in the plan before writing SQL.
