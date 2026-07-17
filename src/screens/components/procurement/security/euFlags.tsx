@@ -1,9 +1,11 @@
-// Tiny inline SVG flags for the МВР "public order vs the EU" tile. The shared
-// euCompare Flag.tsx only covers the 6 EU-compare-dashboard geos (BG/EU/RO/GR/
-// HU/HR); this tile also charts whichever member state ranks #1 on COFOG GF03,
-// which is dynamic (Latvia in 2024). So we keep a small self-contained set here
-// covering the fixed peers + the likely top spenders, with a 2-letter code badge
-// fallback for anything unmapped — the tile never breaks on a new #1 country.
+// Tiny inline SVG flags for the sector "vs the EU" tiles (МВР public order GF03,
+// social protection GF10, …). The shared euCompare Flag.tsx only covers the 6
+// EU-compare-dashboard geos (BG/EU/RO/GR/HU/HR); these tiles also chart whichever
+// member state ranks #1 on the relevant COFOG function, which is dynamic (Latvia on
+// GF03, Finland on GF10 social spending). So we keep a small self-contained set here
+// covering the fixed peers + the likely top spenders (Nordics, FR/AT/IT/DE), with a
+// 2-letter code badge fallback for anything unmapped — the tile never breaks on a
+// new #1 country.
 
 import { FC } from "react";
 
@@ -106,6 +108,35 @@ const FLAGS: Record<string, FC> = {
       ["#FFFFFF", 5.33],
       ["#0B4EA2", 5.34],
       ["#EE1C25", 5.33],
+    ]),
+  // Nordic-cross flags (white/red field + an off-centre cross toward the hoist).
+  FI: () => (
+    <>
+      <rect x="0" y="0" width="24" height="16" fill="#FFFFFF" />
+      <rect x="0" y="6.25" width="24" height="3.5" fill="#003580" />
+      <rect x="6" y="0" width="3.5" height="16" fill="#003580" />
+    </>
+  ),
+  DK: () => (
+    <>
+      <rect x="0" y="0" width="24" height="16" fill="#C8102E" />
+      <rect x="0" y="6.25" width="24" height="3.5" fill="#FFFFFF" />
+      <rect x="6" y="0" width="3.5" height="16" fill="#FFFFFF" />
+    </>
+  ),
+  FR: () => V(["#002395", "#FFFFFF", "#ED2939"]),
+  IT: () => V(["#008C45", "#F4F5F0", "#CD212A"]),
+  AT: () =>
+    H([
+      ["#ED2939", 5.33],
+      ["#FFFFFF", 5.34],
+      ["#ED2939", 5.33],
+    ]),
+  DE: () =>
+    H([
+      ["#000000", 5.33],
+      ["#DD0000", 5.34],
+      ["#FFCE00", 5.33],
     ]),
   EU27_2020: () => (
     <>
