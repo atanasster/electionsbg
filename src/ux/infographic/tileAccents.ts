@@ -37,9 +37,12 @@ export const TILE_ACCENTS = {
   slate: "#48587a",
   leaf: "#5a9e3d", // nature/environment (МОСВ) — a brighter yellow-green, distinct from
   // edu's `green` (#3a7a5e), defense's `moss` (#6e845d) and water's `teal`.
-  fern: "#5f8a4e", // regional development (МРРБ) — a muted sage-green; the infra cluster
-  // (clay/teal/steel/copper) has no green, so it reads distinctly there; more
-  // muted/blue-green than МОСВ's brighter `leaf` (#5a9e3d).
+  iris: "#6f5a9c", // regional development (МРРБ) — a blue-violet. The infra cluster is
+  // otherwise orange/cyan/green (clay, copper, teal, steel + МОСВ's `leaf`), and
+  // regional sits directly BESIDE environment there, so a green reads as the same
+  // tile at a glance — violet is the only clearly distinct hue left in that grid.
+  // Distinct from justice's `plum` (#7a5a8f, pinker) and `indigo` (#7f85a3, greyer),
+  // which live in other clusters.
 } as const;
 
 export type TileAccent = (typeof TILE_ACCENTS)[keyof typeof TILE_ACCENTS];
