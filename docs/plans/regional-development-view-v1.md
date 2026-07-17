@@ -12,7 +12,7 @@ prerender of 62,220 routes), `eslint` clean, **AI regression 871/871**.
 
 | Phase | Commit | Delivered |
 |---|---|---|
-| 0 — config | `53e353001` | `regionalReferenceData.ts` (МРРБ + АГКК + ДНСК + 27 governors), new **`fern`** accent token, `SECTOR_DASHBOARDS`/`sectorRegistry`(infra)/`SECTOR_SCENES`/`SECTOR_BROWSE_PACKS`, **budget-basis** hub headline (C1), bilingual SEO prerender copy, i18n |
+| 0 — config | `53e353001` | `regionalReferenceData.ts` (МРРБ + АГКК + ДНСК + 27 governors), new **`iris`** accent token (shipped as `iris` — `fern` collided with МОСВ's green, see below), `SECTOR_DASHBOARDS`/`sectorRegistry`(infra)/`SECTOR_SCENES`/`SECTOR_BROWSE_PACKS`, **budget-basis** hub headline (C1), bilingual SEO prerender copy, i18n |
 | 1a — pack | `846409501` | `regionalAttributes.ts` (CPV classifier), `useRegional` (+`useRegionalCohesion`), `RegionalPack` + cohesion burn-down (31 Dec 2029 n+3 clock), GF06 EU-peer, budget bridge, category, competition, roads/water cross-link, reused `VikContractorHhiTile` |
 | 2 — differentiators | `70174073e` | **pass-through hero** (`data-og="regional-hero"`), **ИСУН oblast choropleth** (`data-og="regional-oblast-map"`), **convergence scatter** — all static-data (`muni-map.json` folded to 28 oblasts + `regional.json` GDP join), validated against the real files |
 | AI | `1ed6eebcf` | `mrrbSpending` / `cohesionAbsorption` / `regionalInvestment` + registry/router(above the budgetFunction gate, C4)/narrate/links/followups/regression; `src/lib/regionalOblast.ts` extracted so `ai/` avoids the `@/data` ban |
@@ -101,10 +101,11 @@ stale claims flagged inline below.
 ### Corrections (six) — apply these; the inline text below is superseded where flagged
 1. **Accent token — `brass`/`moss` are NOT free (plan §7 rows 3-4 are WRONG).** All 18 `TILE_ACCENTS`
    tokens are already assigned — `brass`→revenue, `moss`→defense; reusing either collides visually.
-   **Add a NEW token** to `src/ux/infographic/tileAccents.ts`. Recommend **`fern: "#5f8a4e"`** (a
-   fresh regional/land green — the infra cluster currently has no green among clay/teal/steel/copper,
-   so it reads distinctly), or `sienna: "#a26b46"` if a warmer building/благоустройство tone is
-   preferred. Eyeball on both cream `#F1ECE0` and navy `#0B1224` grounds (~48-58% L, moderate chroma).
+   **Add a NEW token** to `src/ux/infographic/tileAccents.ts`. ⚠ **SHIPPED AS `iris: "#6f5a9c"`**
+   (blue-violet), NOT the originally-recommended green `fern`: the infra cluster DOES have a green —
+   **МОСВ's `leaf` (#5a9e3d)** — and regional renders directly beside it, so a green read as the same
+   tile at a glance (caught only by looking at the rendered hub). Violet is the one clearly distinct
+   hue left in that grid. Eyeball any new token on both cream `#F1ECE0` and navy `#0B1224` grounds.
 2. **`PassThroughHero.tsx` DOES NOT EXIST (plan §5 "reuse, don't rebuild" is WRONG).** The
    social-assistance plan intended it but it was never built — zero references in `src/`. The
    inversion hero (tile 1) is a **genuine new build here**, not a reuse. Either build the shared
@@ -583,8 +584,8 @@ Prerequisite: **`src/lib/regionalReferenceData.ts`** (the allowlist — imported
 |---|---|---|
 | 1 | `src/lib/regionalReferenceData.ts` (**new**) | `REGIONAL_EIK`, `MRRB_ENTITIES[]`, `REGIONAL_SECTOR_EIKS`, universe labels, `REGIONAL_BUDGET_NODE` |
 | 2 | `src/screens/sector/sectorDashboards.ts` | add `regional:` to `SECTOR_DASHBOARDS` (`leadEik: REGIONAL_EIK`, `members = MRRB_ENTITIES.map(...)` with `group`, `browsePackId:"regional"`, `agency:"МРРБ"`). Drives sitemap/OG/prerender/hub via `SECTOR_DASHBOARD_IDS` |
-| 3 | `src/screens/governance/sectorRegistry.ts` | add a `Sector` to the **infra** cluster (`to:"/sector/regional"`, `accent: TILE_ACCENTS.fern`) |
-| 4 | `src/ux/infographic/tileAccents.ts` | ⚠ **CORRECTED (audit §0.2):** all 18 tokens are taken (`brass`→revenue, `moss`→defense). **Add a NEW token** — recommend `fern:"#5f8a4e"` (infra has no green) |
+| 3 | `src/screens/governance/sectorRegistry.ts` | add a `Sector` to the **infra** cluster (`to:"/sector/regional"`, `accent: TILE_ACCENTS.iris`) |
+| 4 | `src/ux/infographic/tileAccents.ts` | ⚠ **CORRECTED (audit §0.2):** all 18 tokens are taken (`brass`→revenue, `moss`→defense). **Add a NEW token** — shipped `iris:"#6f5a9c"` (blue-violet; ⚠ NOT a green — МОСВ's `leaf` is in this same cluster, right next to regional) |
 | 5 | `src/screens/governance/sectorScenes.tsx` | new `Regional` SVG scene (map/building motif) + `regional:` in `SECTOR_SCENES` |
 | 6 | `src/screens/components/procurement/sectorPacks.tsx` | `SECTOR_BROWSE_PACKS.regional` (`eiks: REGIONAL_SECTOR_EIKS`); **Phase 2** `[REGIONAL_EIK]: RegionalPack` in `PACKS` (lazy) |
 | 7 | `scripts/db/gen_procurement/sector_stats.ts` | ⚠ **CORRECTED (audit C1):** add `regional: "admin-ministerstvo-na-regionalnoto-razvitie-i-blagoustroystvoto"` to **`BUDGET_SECTOR_NODE`** (budget-basis headline €1.06bn), **NOT** `regional` to `SECTOR_EIKS` — procurement-basis (~€213M) understates the sector ~5× and contradicts both the file's anti-understatement convention and the pass-through thesis. No PG rerun needed for the tile headline (budget node already populated) |
