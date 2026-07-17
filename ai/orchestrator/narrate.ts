@@ -404,8 +404,8 @@ export const narrate = (env: Envelope, lang: Lang): string => {
     case "cohesionAbsorption":
       if (!env.facts.opr_absorption) return env.title;
       return lang === "bg"
-        ? `ОП „Региони в растеж" 2014-2020 е усвоена ${f(env, "opr_absorption")} (затворена), а Програма „Развитие на регионите" 2021-2027 — едва ${f(env, "rr_absorption")}. Около ${f(env, "rr_at_risk")} са договорени, но неизплатени; средствата, неусвоени към ${f(env, "deadline")} г. (правилото n+3), се губят.`
-        : `ОПРР „Региони в растеж" 2014-2020 is ${f(env, "opr_absorption")} absorbed (closed), while Programme „Развитие на регионите" 2021-2027 is only ${f(env, "rr_absorption")}. About ${f(env, "rr_at_risk")} is contracted but unpaid; money left unspent by ${f(env, "deadline")} (the n+3 rule) is forfeited.`;
+        ? `ОП „Региони в растеж" 2014-2020 е усвоена ${f(env, "opr_absorption")} (затворена), а Програма „Развитие на регионите" 2021-2027 — едва ${f(env, "rr_absorption")}. Около ${f(env, "rr_at_risk")} са договорени, но неизплатени. Разходите трябва да са платени до ${f(env, "eligibility_end")} г., за да са допустими; а по правилото n+3 неусвоеното се губи на траншове всяка година (последен транш ${f(env, "n3_last_tranche")} г.).`
+        : `ОПРР „Региони в растеж" 2014-2020 is ${f(env, "opr_absorption")} absorbed (closed), while Programme „Развитие на регионите" 2021-2027 is only ${f(env, "rr_absorption")}. About ${f(env, "rr_at_risk")} is contracted but unpaid. Expenditure must be paid by ${f(env, "eligibility_end")} to be eligible; and under the n+3 rule unspent money is forfeited tranche by tranche each year (last tranche ${f(env, "n3_last_tranche")}).`;
     case "regionalInvestment":
       if (!env.facts.highest_per_capita) return env.title;
       return lang === "bg"

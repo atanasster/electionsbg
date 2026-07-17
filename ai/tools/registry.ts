@@ -2344,8 +2344,8 @@ export const TOOLS: ToolDef[] = [
     name: "cohesionAbsorption",
     domain: "fiscal",
     description: {
-      bg: "Усвояване на кохезионните средства за регионите — ОП „Региони в растеж“ 2014-2020 (затворена, ~96%) срещу Програма „Развитие на регионите“ 2021-2027 (~20%): договорени, изплатени и процент усвояване, спрямо крайния срок 31 декември 2029 г. (правилото n+3).",
-      en: "Absorption of the regional cohesion funds — ОПРР „Региони в растеж“ 2014-2020 (closed, ~96%) vs Programme „Развитие на регионите“ 2021-2027 (~20%): contracted, paid and absorption %, against the 31 December 2029 deadline (the n+3 rule).",
+      bg: "Усвояване на кохезионните средства за регионите — ОП „Региони в растеж“ 2014-2020 (затворена, ~96%) срещу Програма „Развитие на регионите“ 2021-2027 (~20%): договорени, изплатени и процент усвояване. Разходите са допустими до 31 декември 2029 г. (чл. 63, ал. 2 от Регламент (ЕС) 2021/1060), а правилото n+3 (чл. 105) отнема неусвоеното на траншове всяка година за ангажиментите 2021-2026 г.",
+      en: "Absorption of the regional cohesion funds — ОПРР „Региони в растеж“ 2014-2020 (closed, ~96%) vs Programme „Развитие на регионите“ 2021-2027 (~20%): contracted, paid and absorption %. Expenditure is eligible until 31 December 2029 (Art. 63(2) of Reg. (EU) 2021/1060), and the n+3 rule (Art. 105) forfeits unspent money tranche by tranche each year for the 2021-2026 commitments.",
     },
     params: [],
     examples: [

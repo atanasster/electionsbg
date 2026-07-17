@@ -3093,7 +3093,7 @@ const CASES: Case[] = [
     tool: "cohesionAbsorption",
     kind: "table",
     minRows: 2,
-    facts: { opr_absorption: /9[0-9]/, rr_absorption: /(19|20|21)/, deadline: /2029/ }, // prettier-ignore
+    facts: { opr_absorption: /9[0-9]/, rr_absorption: /(19|20|21)/, eligibility_end: /31\.12\.2029/, n3_last_tranche: /2026/ }, // prettier-ignore
   },
   {
     q: "how much of ОПРР is absorbed?",

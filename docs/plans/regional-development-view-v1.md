@@ -260,10 +260,20 @@ KPI+charts+awarders dashboard from config alone (Phase 0 = zero bespoke code, co
   bottom **Kardzhali(KRZ)/Montana(MON)/Vidin(VID)/Silistra(SLS)** ("weak/unsatisfactory"), 9 oblasts
   "unsatisfactory". Convergence tile question: does the cohesion € go to KRZ/MON/VID/SLS, or
   concentrate where absorption capacity already is (Sofia/Varna)?
-- **The n+3 clock is a hard 31 Dec 2029** (final decommitment; commitments still open then are LOST).
-  **Retarget tile 2** from the vague "before the 2027 deadline" to the real **31 Dec 2029**
-  decommitment deadline — Развитие на регионите at ~20% paid must ramp to ~100% or forfeit money;
-  quantify the €-at-risk against that date. Sharper, and correct.
+- **⚠ THE DEADLINE — CORRECTED 2026-07-17 against the primary sources** (Reg. (EU) 2021/1060 +
+  the Commission's decommitment note CPRE_24-0005-01). An earlier draft said "unabsorbed money is
+  lost by 31.12.2029 under the n+3 rule" — that is WRONG and conflates three mechanisms:
+  - **Art. 63(2) — eligibility:** expenditure must be incurred AND paid by **31 December 2029**.
+    This is the real hard end date, and it is NOT "the n+3 rule".
+  - **Art. 105 ¶1 — n+3:** ANNUAL and per-tranche, covering commitment years **2021–2026 only**
+    (2021→2024 … 2026→2029). Money is forfeited **every year**, not once at the end — so a single
+    2029 cliff UNDERSTATES the risk.
+  - **Art. 105 ¶2 — closure:** commitments still open on 31.12.2029 are decommitted **at closure**,
+    and conditionally (if the assurance package + final performance report are not filed per Art.
+    43(1)). Per the Commission note's footnote 3, the **2027 tranche is not covered by n+3 at all**
+    — it settles at closure.
+  Tile 2 must therefore quantify the €-at-risk against the eligibility end AND state that n+3 bites
+  annually. Do not re-introduce the single-cliff wording.
 - **EU allocation logic is largely GDP-per-capita** (poorer regions get more €/capita by design) —
   this **grounds the tile-4 expectation line:** the OLS/median residual reveals whether BG's *internal*
   cohesion distribution follows the EU's own convergence logic (progressive) or is regressive.

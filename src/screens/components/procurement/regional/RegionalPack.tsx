@@ -234,8 +234,8 @@ export const RegionalPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
           to={anchorHref("cohesion")}
           hint={
             bg
-              ? "Изплатени спрямо договорени по текущата програма „Развитие на регионите“ 2021-2027. Неусвоеното към 31.12.2029 г. се губи (n+3). ОПРР 2014-20 е затворена на ~96%. Виж усвояването →"
-              : "Paid vs contracted on the ACTIVE programme „Развитие на регионите“ 2021-2027. What is unabsorbed by 31.12.2029 is forfeited (n+3). ОПРР 2014-20 closed at ~96%. See absorption →"
+              ? "Изплатени спрямо договорени по текущата програма „Развитие на регионите“ 2021-2027. Разходите са допустими до 31.12.2029 г.; по n+3 неусвоеното се губи на траншове всяка година. ОПРР 2014-20 е затворена на ~96%. Виж усвояването →"
+              : "Paid vs contracted on the ACTIVE programme „Развитие на регионите“ 2021-2027. Expenditure is eligible until 31.12.2029; under n+3 unspent money is forfeited tranche by tranche each year. ОПРР 2014-20 closed at ~96%. See absorption →"
           }
         >
           <span

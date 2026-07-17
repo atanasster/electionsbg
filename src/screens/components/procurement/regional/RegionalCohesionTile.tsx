@@ -1,13 +1,25 @@
 // „Усвояване на кохезионните средства за регионите (ИСУН)" — the flagship absorption
-// burn-down. The signature contrast, joined by OP CODE (accurate) from the static
-// absorption.json: ОПРР „Региони в растеж" 2014-2020 closed at ~96%, while Програма
-// „Развитие на регионите" 2021-2027 sits near ~20% — the absorption-risk of the new
-// period against the hard 31 December 2029 n+3 decommitment deadline (commitments still
-// open then are LOST). Contracted vs actually paid; the gap is money signed but not yet
-// drawn. Mirrors EnvironmentEuFundsTile; sources from useRegionalCohesion.
+// burn-down. The signature contrast, joined by OP CODE: ОПРР „Региони в растеж" 2014-2020
+// closed at ~96%, while Програма „Развитие на регионите" 2021-2027 sits near ~20% — the
+// absorption risk. Contracted vs actually paid; the gap is money signed but not yet drawn.
+// Mirrors EnvironmentEuFundsTile; sources from useRegionalCohesion (PG).
 //
 // This is THE differentiator tile — cohesiondata.ec.europa.eu leads with exactly this
 // planned→contracted→paid burn-down; nobody joins it to the per-oblast money map (§2).
+//
+// ⚠ THE DEADLINE WORDING IS LEGALLY LOAD-BEARING — verified against Reg. (EU) 2021/1060
+// and the Commission's decommitment note (CPRE_24-0005-01). Do NOT write "unabsorbed
+// money is lost by 31.12.2029 under n+3" — that conflates three distinct mechanisms:
+//   • Art. 63(2): the ELIGIBILITY period — expenditure must be incurred AND paid by
+//     31 December 2029. This is the real hard end date.
+//   • Art. 105 ¶1: the n+3 rule is ANNUAL and per-tranche, and covers commitment years
+//     2021–2026 only — each year's commitment must be covered by a payment application by
+//     31 Dec of the third following year (2021→2024 … 2026→2029). So money is forfeited
+//     tranche by tranche EVERY year, not once at the end.
+//   • Art. 105 ¶2: commitments still open on 31.12.2029 are decommitted AT CLOSURE, and
+//     conditionally (if the assurance package + final performance report are not filed per
+//     Art. 43(1)). The 2027 tranche is NOT covered by n+3 at all — it settles at closure
+//     (Commission note, footnote 3).
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
@@ -16,9 +28,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import type { RegionalCohesionProgramme } from "@/data/procurement/useRegional";
 
-// The 2021-2027 programmes' final n+3 decommitment deadline — money committed but not
-// spent by then is forfeited. The absorption-risk clock the tile counts down to.
-const DECOMMITMENT_YEAR = 2029;
+/** End of the eligibility period for 2021-2027 spend — Art. 63(2) of Reg. (EU) 2021/1060:
+ *  expenditure must be incurred AND paid by 31 December of this year. (It is also the date
+ *  on which still-open commitments are decommitted at closure — Art. 105 ¶2.) */
+const ELIGIBILITY_END_YEAR = 2029;
+/** The last ANNUAL n+3 tranche deadline: the 2026 commitment must be covered by a payment
+ *  application by 31 Dec 2029 (Art. 105 ¶1 covers commitment years 2021–2026). */
+const LAST_N3_COMMITMENT_YEAR = 2026;
 
 export const RegionalCohesionTile: FC<{
   programmes: RegionalCohesionProgramme[];
@@ -133,12 +149,16 @@ export const RegionalCohesionTile: FC<{
                 <span className="font-semibold tabular-nums">
                   {formatEurCompact(atRisk, lang)}
                 </span>{" "}
-                по „Развитие на регионите“ са договорени, но още неизплатени.
-                Средствата, останали неусвоени към{" "}
+                по „Развитие на регионите“ са договорени, но още неизплатени. За
+                да са допустими, разходите трябва да са извършени и платени до{" "}
                 <span className="font-semibold">
-                  31 декември {DECOMMITMENT_YEAR} г.
+                  31 декември {ELIGIBILITY_END_YEAR} г.
                 </span>{" "}
-                (правилото n+3), се губят.
+                А по правилото n+3 неусвоеното се губи на траншове всяка година:
+                ангажиментът за всяка година трябва да е покрит с искане за
+                плащане до 31 декември на третата следваща година (последният
+                транш — {LAST_N3_COMMITMENT_YEAR} г., до 31.12.
+                {ELIGIBILITY_END_YEAR} г.).
               </>
             ) : (
               <>
@@ -146,12 +166,16 @@ export const RegionalCohesionTile: FC<{
                 <span className="font-semibold tabular-nums">
                   {formatEurCompact(atRisk, lang)}
                 </span>{" "}
-                under „Развитие на регионите“ is contracted but not yet paid.
-                Money left unabsorbed by{" "}
+                under „Развитие на регионите“ is contracted but not yet paid. To
+                be eligible, expenditure must be incurred and paid by{" "}
                 <span className="font-semibold">
-                  31 December {DECOMMITMENT_YEAR}
-                </span>{" "}
-                (the n+3 rule) is forfeited.
+                  31 December {ELIGIBILITY_END_YEAR}
+                </span>
+                . And under the n+3 rule unspent money is forfeited tranche by
+                tranche every year: each year's commitment must be covered by a
+                payment application by 31 December of the third following year
+                (the last tranche — {LAST_N3_COMMITMENT_YEAR}, by 31.12.
+                {ELIGIBILITY_END_YEAR}).
               </>
             )}
           </p>
@@ -159,8 +183,8 @@ export const RegionalCohesionTile: FC<{
 
         <p className="text-[11px] text-muted-foreground/80">
           {bg
-            ? "Договорени и реално изплатени европейски средства по ОП „Региони в растеж“ 2014-2020 и Програма „Развитие на регионите“ 2021-2027, от регистъра ИСУН, свързани по код на програмата. Светлата лента е договореното, тъмната — изплатеното; процентът е усвояването. Бенефициентите са общините; сумите са за целия програмен период, не по избрания парламент."
-            : "EU funds contracted and actually paid under ОП „Региони в растеж“ 2014-2020 and Programme „Развитие на регионите“ 2021-2027, from the ИСУН register, joined by programme code. The light bar is contracted, the dark fill is paid; the percentage is absorption. The beneficiaries are the municipalities; figures are programme-period totals, not scoped to the selected parliament."}
+            ? "Договорени и реално изплатени европейски средства по ОП „Региони в растеж“ 2014-2020 и Програма „Развитие на регионите“ 2021-2027, от регистъра ИСУН, свързани по код на програмата. Светлата лента е договореното, тъмната — изплатеното; процентът е усвояването. Бенефициентите са общините; сумите са за целия програмен период, не по избрания парламент. Сроковете са по Регламент (ЕС) 2021/1060: чл. 63, ал. 2 (допустимост до 31.12.2029 г.) и чл. 105 (правилото n+3 за ангажиментите 2021-2026 г.; траншът за 2027 г. се урежда при закриването)."
+            : "EU funds contracted and actually paid under ОП „Региони в растеж“ 2014-2020 and Programme „Развитие на регионите“ 2021-2027, from the ИСУН register, joined by programme code. The light bar is contracted, the dark fill is paid; the percentage is absorption. The beneficiaries are the municipalities; figures are programme-period totals, not scoped to the selected parliament. Deadlines per Reg. (EU) 2021/1060: Art. 63(2) (eligibility to 31.12.2029) and Art. 105 (the n+3 rule for the 2021-2026 commitments; the 2027 tranche settles at closure)."}
         </p>
       </CardContent>
     </Card>

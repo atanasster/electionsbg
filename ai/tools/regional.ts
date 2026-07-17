@@ -7,7 +7,8 @@
 //                         by function + competition, the chat analog of the pack's tiles.
 //   cohesionAbsorption  — the two МРРБ regional OPs (ОПРР „Региони в растеж“ 2014-20 vs
 //                         „Развитие на регионите“ 2021-27): contracted / paid / absorption %,
-//                         against the 31 Dec 2029 n+3 decommitment deadline.
+//                         against the 31 Dec 2029 eligibility end (Art. 63(2)) + the
+//                         ANNUAL n+3 tranche rule (Art. 105, commitments 2021-2026).
 //   regionalInvestment  — ИСУН € per oblast (+ per capita), where the EU money lands.
 //
 // ⚠ The ИСУН reads go through fetchDb('fund-payload') — Postgres, NOT the static
@@ -114,10 +115,17 @@ interface AbsorptionFile {
   byProgramme?: AbsorptionProgramme[];
 }
 
-const DECOMMITMENT_YEAR = 2029;
+/** End of the eligibility period for 2021-27 spend — Art. 63(2) of Reg. (EU) 2021/1060
+ *  (expenditure incurred AND paid by 31 Dec of this year). NOT "the n+3 deadline": n+3
+ *  (Art. 105 ¶1) is ANNUAL and per-tranche over commitment years 2021-2026, so money is
+ *  forfeited every year, not once at the end; the 2027 tranche settles at closure. */
+const ELIGIBILITY_END_YEAR = 2029;
+/** Last annual n+3 tranche: the 2026 commitment must be covered by a payment application
+ *  by 31 Dec 2029. */
+const LAST_N3_COMMITMENT_YEAR = 2026;
 
 // "Усвоени ли са кохезионните средства за регионите?" — the two МРРБ regional OPs,
-// contracted vs paid vs absorption %, against the 31 Dec 2029 n+3 deadline.
+// contracted vs paid vs absorption %, against the eligibility end + the annual n+3 rule.
 export const cohesionAbsorption = async (
   _args: ToolArgs,
   ctx: ToolContext,
@@ -164,10 +172,11 @@ export const cohesionAbsorption = async (
       opr_absorption: opr ? `${Math.round(opr.absorptionPct)}%` : "—",
       rr_absorption: rr ? `${Math.round(rr.absorptionPct)}%` : "—",
       rr_at_risk: rr ? fmtEurCompact(atRisk, ctx.lang) : "—",
-      deadline: `31.12.${DECOMMITMENT_YEAR}`,
+      eligibility_end: `31.12.${ELIGIBILITY_END_YEAR}`,
+      n3_last_tranche: `${LAST_N3_COMMITMENT_YEAR} → 31.12.${ELIGIBILITY_END_YEAR}`,
       note: bg
-        ? `Бенефициентите са общините. „Развитие на регионите“ е усвоена едва ~20% — средствата, останали неусвоени към 31 декември ${DECOMMITMENT_YEAR} г. (правилото n+3), се губят.`
-        : `The beneficiaries are the municipalities. „Развитие на регионите“ is only ~20% absorbed — money left unspent by 31 December ${DECOMMITMENT_YEAR} (the n+3 rule) is forfeited.`,
+        ? `Бенефициентите са общините. „Развитие на регионите“ е усвоена едва ~20%. Разходите трябва да са извършени и платени до 31 декември ${ELIGIBILITY_END_YEAR} г., за да са допустими (чл. 63, ал. 2 от Регламент (ЕС) 2021/1060). А по правилото n+3 (чл. 105) неусвоеното се губи на траншове всяка година — ангажиментите за 2021-${LAST_N3_COMMITMENT_YEAR} г.; траншът за 2027 г. се урежда при закриването.`
+        : `The beneficiaries are the municipalities. „Развитие на регионите“ is only ~20% absorbed. Expenditure must be incurred and paid by 31 December ${ELIGIBILITY_END_YEAR} to be eligible (Art. 63(2) of Reg. (EU) 2021/1060). And under the n+3 rule (Art. 105) unspent money is forfeited tranche by tranche each year — commitments 2021-${LAST_N3_COMMITMENT_YEAR}; the 2027 tranche settles at closure.`,
     },
     provenance: ["db:fund-payload (ИСУН absorption)"],
   };
