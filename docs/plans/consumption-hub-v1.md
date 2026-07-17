@@ -90,6 +90,12 @@ block into `macro_peers.json` (or a sibling `data/eu_pli.json`): per food catego
 {BG, peer set, EU=100}, latest + short series. No PG payload, no COPY, no `--eu` step, no raw
 archive. This rides the **existing Eurostat watcher → `update-macro`** (see §3).
 
+**This is the one non-PG surface in the plan, and deliberately so** (§9): macro/indicator data
+is tiny and CDN-served as a static asset via `dataUrl` — faster than a DB round-trip and the
+same pattern `/indicators` already uses. Precondition to verify: `macro_peers.json` must be
+**inside `bucket:sync`** (not excluded like `funds/`), or the served copy goes stale — the
+[[reference_funds_pg_only]] trap. Everything grocery-grained stays PG.
+
 ### 1.4 Page `/consumption/eu`
 
 "Българската храна спрямо ЕС (=100)": per-food-category PLI bars (BG vs EU=100 vs a peer
@@ -131,9 +137,10 @@ modeled on `ProcurementSearchTile`: one debounced box, grouped dropdown over
 | Product detail | `/product/:slug` | ladder + history | exists | top ~2–5k only | per-product card |
 | Price map | `/prices` | choropleth | exists | yes | `prices.png` |
 
-Tile numbers overlaid from a new pre-generated **`consumption_hub_stats`** payload (one
-fetch), per procurement's `hub_stats.json`. Move the current national dashboard sections
-(euro verdict, HICP, affordability, map) behind the **Overview** tile.
+Tile numbers overlaid from a new **`consumption_hub_stats`** payload — a new **`price_payloads`
+kind** (key `''`), precomputed in the `npm run prices` build like `index`/`ranking`, served by
+the same index-only PK lookup (one fetch, no live aggregation). Move the current national
+dashboard sections (euro verdict, HICP, affordability, map) behind the **Overview** tile.
 
 ---
 
@@ -206,9 +213,13 @@ never resolve a chain's procurement by name. See [[project_procurement_namesake_
    dual-corpus loop both directions, exactly like [[project_dual_corpus_leaderboard]]
    (ЗОП+ИСУН, EIK-exact).
 
-**New data:** `chain-products` payload (jsonb, keyed by eik) + the `retailChain` block on
-`/api/db/company`. No new external source — pure PG joins over `price_skus`/`price_grid_days`/
-`price_chains` already loaded by `update-prices`.
+**New data (PG-only, precomputed — see §9):** `chain-products` is a new **`price_payloads`
+kind** keyed by eik, built offline in `npm run prices` (aggregate `price_skus.eik→pid` ×
+`price_chain_grid_days(eik,pid,min_eur)` for the cross-chain rank on the latest day) — never a
+live query. The reciprocal `retailChain` block is served **live** by the hot `/api/db/company`
+route, so it must be a cheap `price_chains(eik)` PK `EXISTS` gate + one `chains` payload read,
+`EXPLAIN ANALYZE`d on the worst-case chain (Метро/Кауфланд) before shipping
+([[reference_pg_query_performance]], [[feedback_db_query_perf]]). No new external source.
 
 **Prerender/OG:** `/consumption/chain/:eik` is dynamic → SPA-only except the top ~10 chains
 (sitemap + prerender + a screenshot OG for those). Product-per-chain rank pages stay SPA-only.
@@ -320,3 +331,71 @@ committing (dev server via `preview_start {name}`, screenshot at desktop 1280×8
 - **Basket / alerts** are localStorage only (static SPA, no accounts) — matches Croatia/
   Trolley "favorites", not push notifications; set expectations in copy.
 - **Scope control** deliberately omitted for v1 — revisit only if a time-window need appears.
+
+---
+
+## 9. Data-layer verification & performance (audited 2026-07-18, local PG)
+
+The prices/consumption data was verified end-to-end against the running DB and `src/`. State
+of play, and the performance rules every new surface must follow:
+
+**Verified GOOD (the base is sound):**
+- **PG-only, no stale JSON.** Every price read goes through `/api/db/price-payload` (and the
+  `price-product`/`-history`/`-verdict` siblings). No component reads `data/prices/*.json`, no
+  `dataUrl` price path, no GCS bucket. The one `dataUrl(...prices...)` in the tree is the
+  unrelated **energy/electricity** dataset (`src/data/energy/useEnergyPrices.ts`), not the КЗП
+  basket. Confirms [[reference_funds_pg_only]]-style discipline is already in force here.
+- **Serving is index-only.** `price_payloads` PK = `(kind, key)`; a lookup is a single-row
+  `Index Scan using price_payloads_pkey` (EXPLAIN-verified). 6 kinds today (index, ranking,
+  chains, dict, place×242, chains-muni×159).
+- **Product search is indexed.** `price_products` carries `price_products_trgm` (trigram),
+  `_browse`, `_slug`, `_pid`, `_since` — the `/consumption/products` `DbDataTable` and the new
+  hub search ride these; no new scan needed.
+- **No matviews, by design.** The "materialized" layer is the precomputed `price_payloads`
+  table (rebuilt each `npm run prices`), which is the right choice for jsonb serving blobs —
+  cheaper and more predictable than a live matview. Keep this pattern; do NOT introduce a live
+  matview for the new surfaces.
+
+**Performance rules for the new work (non-negotiable):**
+1. **Every new serving surface is a precomputed `price_payloads` kind**, keyed for an
+   index-only PK read: `consumption_hub_stats` (key `''`), `chain-products` (key = eik),
+   `category:<cat>`, `deals`, `shrinkflation`. Build them offline in `npm run prices`; never
+   compute in the request path.
+2. **The `chain-products` cross-chain rank is a build-time aggregation** over
+   `price_chain_grid_days(eik, pid, min_eur)` + `price_skus(eik→pid)`. Current indexes on that
+   table are PK + `eik` only; if the "latest-day, rank chains per pid" build is slow, add a
+   `(day, pid)` (or `(pid, day)`) index and re-check with EXPLAIN. Build-time only — no serving
+   impact.
+3. **The live `retailChain` block on `/api/db/company` must stay O(1):** a `price_chains(eik)`
+   PK `EXISTS` gate so it runs only for chains, then read the single `chains` payload row. Never
+   add a grocery-grained query to the hot company route. `EXPLAIN ANALYZE` on Метро/Кауфланд.
+4. **EU PLI is the only non-PG piece** and stays macro-JSON (§1.3) — verify `macro_peers.json`
+   is in `bucket:sync`.
+
+## 10. Integration into localities & my-area (audited 2026-07-18)
+
+Current mount points (verified) and how the hub work touches them:
+
+| Surface | Screen | Price tile today | Hub change |
+|---|---|---|---|
+| National localities | `governance/GovernanceCards.tsx` (§`prices`) | `GovernancePricesTile` | **keep** — don't orphan when the dashboard moves to `/consumption/overview` |
+| Oblast localities | `dashboard/RegionGovernanceCards.tsx` | `GovernancePricesTile oblast=` | keep |
+| My-area place dashboard | `myarea/MyAreaScreen.tsx` | **none** (cost-of-living moved to consumption) | keep as-is; ensure the "Виж потреблението" cross-link points at the hub place page |
+| Consumption place | `ConsumptionPlaceScreen.tsx` | `ConsumptionPriceLevelTile` + `MyAreaPricesTile` + `MyAreaLocalTaxesTile` + `ConsumptionAffordabilityTile` | unchanged; gains chain-name links |
+
+**Integration improvements to bake in:**
+- **Chain-name links light up localities for free.** Linkage level 1 (§2A) wraps chain names
+  in `GovernancePricesTile` (national+oblast localities) and `MyAreaPricesTile` (consumption
+  place) — so the chain→company join surfaces on the governance place ladder too, no extra
+  work. Do it in the shared tiles, not per-screen.
+- **De-duplicate the Sofia remap.** The `SOF00/SOF→SOF46`, `ekatte→68134` remap is currently
+  copy-pasted in `MyAreaPricesTile` and `ConsumptionPriceLevelTile` (and referenced from
+  `PriceChoropleth`). Before adding the chain/hub/category surfaces (which all key by
+  ekatte/obshtina), extract one helper in `src/data/prices/` (`resolvePriceKeys(obshtina, ekatte)`)
+  and route every consumption surface through it — one place to keep Sofia keying correct.
+- **All new pages reuse the existing PG hooks** (`usePriceIndex`/`usePriceRanking`/
+  `useNationalChains`/`useMuniChains`/`useProduct`…); new payloads get new hooks in
+  `usePrices.tsx` following the same `fetchPricePayload(kind, key)` pattern — no second fetch
+  surface, so the PG-only guarantee is preserved.
+- **Keep the null-means-uncovered self-hide contract.** Every new place-keyed tile (chain,
+  category) must self-hide on a `null` payload, matching `MyAreaPricesTile`/`GovernancePricesTile`.
