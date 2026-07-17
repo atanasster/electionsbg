@@ -5,8 +5,7 @@
 // rather than the pack's full 25-EIK fan-out. Mirrors VikBrowseSection.
 
 import { FC } from "react";
-import { Link } from "react-router-dom";
-import { useScopedHref } from "@/data/scope/useScope";
+import { AwarderLink } from "@/screens/components/procurement/AwarderLink";
 import { useTranslation } from "react-i18next";
 import { Shield } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -21,9 +20,6 @@ export const DefenseBrowseSection: FC<SectorBrowseSectionProps> = ({
   eiks,
 }) => {
   const { i18n } = useTranslation();
-  // Carry the active scope (pscope/elections) onto the awarder page — a bare
-  // pathname resets it to the default window (see SectorAwardersTile).
-  const scopedHref = useScopedHref();
   const lang = i18n.language;
   const bg = lang === "bg";
   const { units, isLoading } = useDefenseGroupRollup(eiks, scope);
@@ -56,12 +52,12 @@ export const DefenseBrowseSection: FC<SectorBrowseSectionProps> = ({
         {rows.map((u) => (
           <div key={u.eik} className="text-xs">
             <div className="mb-0.5 flex items-baseline justify-between gap-2">
-              <Link
-                to={scopedHref(`/awarder/${u.eik}`)}
+              <AwarderLink
+                eik={u.eik}
                 className="min-w-0 truncate hover:text-primary hover:underline"
               >
                 {u.name}
-              </Link>
+              </AwarderLink>
               <span className="shrink-0 tabular-nums text-muted-foreground">
                 {formatEurCompact(u.totalEur, lang)}
               </span>

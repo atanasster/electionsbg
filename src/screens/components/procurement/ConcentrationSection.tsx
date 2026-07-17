@@ -10,7 +10,7 @@
 import { FC, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useSearchParams } from "react-router-dom";
-import { useScopedHref } from "@/data/scope/useScope";
+import { AwarderLink } from "@/screens/components/procurement/AwarderLink";
 import { useQuery } from "@tanstack/react-query";
 import {
   AlertTriangle,
@@ -81,9 +81,6 @@ const pctFmt = (frac: number, lang: string) =>
   }).format(frac);
 
 export const ConcentrationSection: FC = () => {
-  // Carry the active scope (pscope/elections) onto the awarder page — a bare
-  // pathname resets it to the default window (see SectorAwardersTile).
-  const scopedHref = useScopedHref();
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const { data, isLoading } = useConcentrationFull();
@@ -350,12 +347,12 @@ export const ConcentrationSection: FC = () => {
                         {pageStart + idx + 1}
                       </td>
                       <td className="px-3 py-2">
-                        <Link
-                          to={scopedHref(`/awarder/${r.awarderEik}`)}
+                        <AwarderLink
+                          eik={r.awarderEik}
                           className="hover:underline"
                         >
                           {r.awarderName}
-                        </Link>
+                        </AwarderLink>
                         <span className="text-muted-foreground"> → </span>
                         <Link
                           to={`/company/${r.contractorEik}`}

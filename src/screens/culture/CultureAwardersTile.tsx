@@ -6,8 +6,7 @@
 
 import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
-import { useScopedHref } from "@/data/scope/useScope";
+import { AwarderLink } from "@/screens/components/procurement/AwarderLink";
 import { ArrowRight, Landmark } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import {
@@ -24,9 +23,6 @@ interface RosterRow {
 
 export const CultureAwardersTile: FC = () => {
   const { i18n } = useTranslation();
-  // Carry the active scope (pscope/elections) onto the awarder page — a bare
-  // pathname resets it to the default window (see SectorAwardersTile).
-  const scopedHref = useScopedHref();
   const lang = i18n.language;
   const bg = lang === "bg";
   const [expanded, setExpanded] = useState(false);
@@ -57,8 +53,8 @@ export const CultureAwardersTile: FC = () => {
         <ul className="divide-y divide-border/60">
           {rows.map((b) => (
             <li key={b.eik}>
-              <Link
-                to={scopedHref(`/awarder/${b.eik}`)}
+              <AwarderLink
+                eik={b.eik}
                 className="group flex items-center gap-3 py-2"
               >
                 <div className="min-w-0 flex-1">
@@ -82,7 +78,7 @@ export const CultureAwardersTile: FC = () => {
                   {b.eik}
                 </span>
                 <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground group-hover:text-primary" />
-              </Link>
+              </AwarderLink>
             </li>
           ))}
         </ul>

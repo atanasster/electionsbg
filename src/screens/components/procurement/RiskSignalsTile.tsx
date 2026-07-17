@@ -5,19 +5,16 @@
 
 import { FC } from "react";
 import { Link } from "react-router-dom";
+import { AwarderLink } from "@/screens/components/procurement/AwarderLink";
 import { useTranslation } from "react-i18next";
 import { AlertTriangle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useRiskFeed } from "@/data/procurement/useRiskFeed";
-import { useScopedHref } from "@/data/scope/useScope";
 import { formatEur } from "@/lib/currency";
 
 const PREVIEW = 5;
 
 export const RiskSignalsTile: FC = () => {
-  // Carry the active scope (pscope/elections) onto the awarder page — a bare
-  // pathname resets it to the default window (see SectorAwardersTile).
-  const scopedHref = useScopedHref();
   const { t, i18n } = useTranslation();
   const buildHref = useScopedHref();
   const { data: feed } = useRiskFeed();
@@ -76,12 +73,9 @@ export const RiskSignalsTile: FC = () => {
                 {pctFmt.format(e.sharePct)}
               </span>
               <span className="min-w-0 flex-1 truncate">
-                <Link
-                  to={scopedHref(`/awarder/${e.awarderEik}`)}
-                  className="hover:underline"
-                >
+                <AwarderLink eik={e.awarderEik} className="hover:underline">
                   {e.awarderName}
-                </Link>
+                </AwarderLink>
                 <span className="text-muted-foreground"> → </span>
                 <Link
                   to={`/company/${e.contractorEik}`}

@@ -6,8 +6,7 @@
 // data is already in Postgres. See docs/plans/water-view-v1.md §3 (Tier A).
 
 import { FC } from "react";
-import { Link } from "react-router-dom";
-import { useScopedHref } from "@/data/scope/useScope";
+import { AwarderLink } from "@/screens/components/procurement/AwarderLink";
 import { useTranslation } from "react-i18next";
 import { Landmark } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -18,9 +17,6 @@ const TOP_N = 10;
 
 export const VikEuFundsTile: FC<{ funds: VikFundOp[] }> = ({ funds }) => {
   const { i18n } = useTranslation();
-  // Carry the active scope (pscope/elections) onto the awarder page — a bare
-  // pathname resets it to the default window (see SectorAwardersTile).
-  const scopedHref = useScopedHref();
   const lang = i18n.language;
   const bg = lang === "bg";
   const rows = funds.filter((f) => f.contractedEur > 0);
@@ -78,12 +74,12 @@ export const VikEuFundsTile: FC<{ funds: VikFundOp[] }> = ({ funds }) => {
             return (
               <div key={f.eik} className="text-xs">
                 <div className="flex items-baseline justify-between gap-2">
-                  <Link
-                    to={scopedHref(`/awarder/${f.eik}`)}
+                  <AwarderLink
+                    eik={f.eik}
                     className="min-w-0 truncate hover:text-primary hover:underline"
                   >
                     {f.name}
-                  </Link>
+                  </AwarderLink>
                   <span className="shrink-0 tabular-nums text-muted-foreground">
                     {formatEurCompact(f.contractedEur, lang)}
                     <span

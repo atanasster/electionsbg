@@ -6,7 +6,7 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { useScopedHref } from "@/data/scope/useScope";
+import { AwarderLink } from "@/screens/components/procurement/AwarderLink";
 import { Building2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useSettlementProcurement } from "@/data/procurement/useSettlementProcurement";
@@ -17,9 +17,6 @@ const countFmt = new Intl.NumberFormat("bg-BG");
 export const SettlementProcurementTile: FC<{ ekatte: string }> = ({
   ekatte,
 }) => {
-  // Carry the active scope (pscope/elections) onto the awarder page — a bare
-  // pathname resets it to the default window (see SectorAwardersTile).
-  const scopedHref = useScopedHref();
   const { t } = useTranslation();
   const q = useSettlementProcurement(ekatte);
   if (q.isLoading || !q.data || q.data.awarders.length === 0) return null;
@@ -85,12 +82,9 @@ export const SettlementProcurementTile: FC<{ ekatte: string }> = ({
               {data.awarders.slice(0, 5).map((a) => (
                 <tr key={a.eik}>
                   <td className="px-3 py-1.5">
-                    <Link
-                      to={scopedHref(`/awarder/${a.eik}`)}
-                      className="hover:underline"
-                    >
+                    <AwarderLink eik={a.eik} className="hover:underline">
                       {a.name}
-                    </Link>
+                    </AwarderLink>
                   </td>
                   <td className="px-3 py-1.5 text-right tabular-nums">
                     €{eurFmt.format(Math.round(a.totalEur))}

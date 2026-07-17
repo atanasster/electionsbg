@@ -8,8 +8,7 @@
 // this is a signpost of where competition is thin, not a verdict.
 
 import { FC } from "react";
-import { Link } from "react-router-dom";
-import { useScopedHref } from "@/data/scope/useScope";
+import { AwarderLink } from "@/screens/components/procurement/AwarderLink";
 import { useTranslation } from "react-i18next";
 import { Gauge } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -33,9 +32,6 @@ export const DefenseCompetitionTile: FC<{ units: DefenseUnitAgg[] }> = ({
   units,
 }) => {
   const { i18n } = useTranslation();
-  // Carry the active scope (pscope/elections) onto the awarder page — a bare
-  // pathname resets it to the default window (see SectorAwardersTile).
-  const scopedHref = useScopedHref();
   const lang = i18n.language;
   const bg = lang === "bg";
   const rows = units
@@ -63,12 +59,12 @@ export const DefenseCompetitionTile: FC<{ units: DefenseUnitAgg[] }> = ({
           return (
             <div key={u.eik} className="text-xs">
               <div className="flex items-baseline justify-between gap-2">
-                <Link
-                  to={scopedHref(`/awarder/${u.eik}`)}
+                <AwarderLink
+                  eik={u.eik}
                   className="min-w-0 truncate hover:text-primary hover:underline"
                 >
                   {u.name}
-                </Link>
+                </AwarderLink>
                 <span className="shrink-0 tabular-nums text-muted-foreground">
                   {formatEurCompact(u.totalEur, lang)}
                   <span className={`ml-1 font-medium ${shareText(s)}`}>

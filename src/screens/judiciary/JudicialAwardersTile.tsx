@@ -14,14 +14,10 @@ import { useTranslation } from "react-i18next";
 import { Landmark, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { JUDICIAL_BODIES, COURT_COUNT } from "@/lib/vssReferenceData";
-import { Link } from "react-router-dom";
-import { useScopedHref } from "@/data/scope/useScope";
+import { AwarderLink } from "@/screens/components/procurement/AwarderLink";
 
 export const JudicialAwardersTile: FC = () => {
   const { i18n } = useTranslation();
-  // Carry the active scope (pscope/elections) onto the awarder page — a bare
-  // pathname resets it to the default window (see SectorAwardersTile).
-  const scopedHref = useScopedHref();
   const bg = i18n.language === "bg";
 
   return (
@@ -46,8 +42,8 @@ export const JudicialAwardersTile: FC = () => {
             const note = bg ? b.noteBg : b.noteEn;
             return (
               <li key={b.eik}>
-                <Link
-                  to={scopedHref(`/awarder/${b.eik}`)}
+                <AwarderLink
+                  eik={b.eik}
                   className="group flex items-center justify-between gap-3 py-2"
                 >
                   <span className="min-w-0">
@@ -66,7 +62,7 @@ export const JudicialAwardersTile: FC = () => {
                     </span>
                   </span>
                   <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground group-hover:text-primary" />
-                </Link>
+                </AwarderLink>
               </li>
             );
           })}

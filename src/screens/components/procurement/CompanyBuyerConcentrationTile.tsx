@@ -14,8 +14,7 @@
 // subsumes the old EntityFlowSolo "all from one awarder" case.
 
 import { FC, ReactNode, useMemo } from "react";
-import { Link } from "react-router-dom";
-import { useScopedHref } from "@/data/scope/useScope";
+import { AwarderLink } from "@/screens/components/procurement/AwarderLink";
 import { useTranslation } from "react-i18next";
 import { Layers } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -53,9 +52,6 @@ const Metric: FC<{ label: string; children: ReactNode }> = ({
 export const CompanyBuyerConcentrationTile: FC<{
   rollup: ProcurementContractorRollup;
 }> = ({ rollup }) => {
-  // Carry the active scope (pscope/elections) onto the awarder page — a bare
-  // pathname resets it to the default window (see SectorAwardersTile).
-  const scopedHref = useScopedHref();
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
 
@@ -130,13 +126,13 @@ export const CompanyBuyerConcentrationTile: FC<{
             <span className="text-xl font-bold tabular-nums">
               {fmtPct(top1Share, lang)}
             </span>
-            <Link
-              to={scopedHref(`/awarder/${top1.eik}`)}
+            <AwarderLink
+              eik={top1.eik}
               className="block max-w-[220px] truncate text-xs text-muted-foreground hover:underline"
               title={top1.name}
             >
               {top1.name}
-            </Link>
+            </AwarderLink>
           </Metric>
           <Metric label={t("company_conc_top3") || "Top 3 buyers"}>
             <span className="text-xl font-bold tabular-nums">

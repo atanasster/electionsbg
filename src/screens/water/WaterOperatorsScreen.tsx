@@ -6,8 +6,7 @@
 // §4.1c.
 
 import { FC, useMemo } from "react";
-import { Link } from "react-router-dom";
-import { useScopedHref } from "@/data/scope/useScope";
+import { AwarderLink } from "@/screens/components/procurement/AwarderLink";
 import { useTranslation } from "react-i18next";
 import type { ColumnDef } from "@tanstack/react-table";
 import { Title } from "@/ux/Title";
@@ -30,9 +29,6 @@ interface OpRow {
 }
 
 export const WaterOperatorsScreen: FC = () => {
-  // Carry the active scope (pscope/elections) onto the awarder page — a bare
-  // pathname resets it to the default window (see SectorAwardersTile).
-  const scopedHref = useScopedHref();
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
@@ -82,12 +78,12 @@ export const WaterOperatorsScreen: FC = () => {
         accessorFn: (r) => r.name,
         header: bg ? "Оператор" : "Operator",
         cell: ({ row }) => (
-          <Link
-            to={scopedHref(`/awarder/${row.original.eik}`)}
+          <AwarderLink
+            eik={row.original.eik}
             className="font-medium hover:text-primary hover:underline"
           >
             {row.original.name}
-          </Link>
+          </AwarderLink>
         ),
       },
       {
@@ -161,7 +157,7 @@ export const WaterOperatorsScreen: FC = () => {
         },
       },
     ],
-    [bg, lang, scopedHref],
+    [bg, lang],
   );
 
   return (

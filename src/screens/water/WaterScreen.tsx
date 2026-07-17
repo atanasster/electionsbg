@@ -8,7 +8,7 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { useScopedHref } from "@/data/scope/useScope";
+import { AwarderLink } from "@/screens/components/procurement/AwarderLink";
 import { ArrowRight } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { SectorBreadcrumb } from "@/screens/components/procurement/SectorBreadcrumb";
@@ -26,9 +26,6 @@ import { WaterFloodTile } from "./WaterFloodTile";
 import { WaterStatsTile } from "./WaterStatsTile";
 
 export const WaterScreen: FC = () => {
-  // Carry the active scope (pscope/elections) onto the awarder page — a bare
-  // pathname resets it to the default window (see SectorAwardersTile).
-  const scopedHref = useScopedHref();
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
   const { model, operators, groupEiks, isLoading } = useVik(VIK_HOLDING_EIK);
@@ -105,13 +102,13 @@ export const WaterScreen: FC = () => {
           {bg ? "Всички ВиК оператори" : "All water operators"}
           <ArrowRight className="h-3.5 w-3.5" />
         </Link>
-        <Link
-          to={scopedHref(`/awarder/${VIK_HOLDING_EIK}`)}
+        <AwarderLink
+          eik={VIK_HOLDING_EIK}
           className="inline-flex items-center gap-1 text-primary hover:underline"
         >
           {bg ? "Български ВиК холдинг" : "Bulgarian Water Holding"}
           <ArrowRight className="h-3.5 w-3.5" />
-        </Link>
+        </AwarderLink>
         <Link
           to="/procurement/contracts?sector=water"
           className="inline-flex items-center gap-1 text-primary hover:underline"

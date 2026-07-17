@@ -8,7 +8,7 @@
 
 import { FC, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { useScopedHref } from "@/data/scope/useScope";
+import { AwarderLink } from "@/screens/components/procurement/AwarderLink";
 import { useTranslation } from "react-i18next";
 import { Waves } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -19,9 +19,6 @@ import { buildFloodModel } from "@/lib/floodModel";
 import { WaterFloodMap } from "./WaterFloodMap";
 
 export const WaterFloodTile: FC = () => {
-  // Carry the active scope (pscope/elections) onto the awarder page — a bare
-  // pathname resets it to the default window (see SectorAwardersTile).
-  const scopedHref = useScopedHref();
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
@@ -131,12 +128,12 @@ export const WaterFloodTile: FC = () => {
           {top.map((a) => (
             <div key={a.eik} className="text-xs">
               <div className="flex items-baseline justify-between gap-2">
-                <Link
-                  to={scopedHref(`/awarder/${a.eik}`)}
+                <AwarderLink
+                  eik={a.eik}
                   className="min-w-0 truncate hover:text-primary hover:underline"
                 >
                   {a.name}
-                </Link>
+                </AwarderLink>
                 <span className="shrink-0 tabular-nums text-muted-foreground">
                   {formatEurCompact(a.eur, lang)}{" "}
                   <span className="text-muted-foreground/70">{a.count}</span>

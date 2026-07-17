@@ -5,8 +5,7 @@
 
 import { FC } from "react";
 import { Link } from "react-router-dom";
-import { useScopedHref } from "@/data/scope/useScope";
-import type { To } from "react-router-dom";
+import { AwarderLink } from "@/screens/components/procurement/AwarderLink";
 import { useTranslation } from "react-i18next";
 import { Building2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -21,12 +20,9 @@ const TOP_ROWS = 10;
 
 const formatEur = new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 0 });
 
-// `scopedHref` is threaded in rather than hooked here: this is a plain render
-// helper, not a component.
 const renderAwarders = (
   rows: ProcurementByNsTopAwarder[],
   t: (k: string) => string,
-  scopedHref: (pathname: string) => To,
 ) => (
   <table className="w-full text-sm">
     <thead className="bg-muted/40 text-xs uppercase tracking-wide text-muted-foreground">
@@ -51,12 +47,9 @@ const renderAwarders = (
             {idx + 1}
           </td>
           <td className="px-3 py-2">
-            <Link
-              to={scopedHref(`/awarder/${e.eik}`)}
-              className="font-medium hover:underline"
-            >
+            <AwarderLink eik={e.eik} className="font-medium hover:underline">
               {e.name}
-            </Link>
+            </AwarderLink>
           </td>
           <td className="px-3 py-2 text-right tabular-nums">
             €{formatEur.format(Math.round(e.totalEur))}
@@ -78,9 +71,6 @@ export const TopAwardersTile: FC<{
   // parent already has the per-NS file in hand.
   data?: ProcurementByNsFile | null;
 }> = ({ data: dataProp }) => {
-  // Carry the active scope (pscope/elections) onto the awarder page — a bare
-  // pathname resets it to the default window (see SectorAwardersTile).
-  const scopedHref = useScopedHref();
   const { t } = useTranslation();
   const q = useProcurementByNs(dataProp === undefined);
   const data = dataProp !== undefined ? dataProp : q.data;
@@ -118,7 +108,7 @@ export const TopAwardersTile: FC<{
       </CardHeader>
       <CardContent className="p-3 md:p-4">
         <div className="rounded-md border bg-card overflow-hidden">
-          {renderAwarders(rows, t, scopedHref)}
+          {renderAwarders(rows, t)}
         </div>
       </CardContent>
     </Card>

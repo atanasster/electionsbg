@@ -4,8 +4,7 @@
 // JudicialAwardersTile (one link per body back to /awarder/:eik).
 
 import { FC } from "react";
-import { Link } from "react-router-dom";
-import { useScopedHref } from "@/data/scope/useScope";
+import { AwarderLink } from "@/screens/components/procurement/AwarderLink";
 import { useTranslation } from "react-i18next";
 import { Landmark, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -18,9 +17,6 @@ import {
 
 export const DefenseAwardersTile: FC = () => {
   const { i18n } = useTranslation();
-  // Carry the active scope (pscope/elections) onto the awarder page — a bare
-  // pathname resets it to the default window (see SectorAwardersTile).
-  const scopedHref = useScopedHref();
   const lang = i18n.language;
   const bg = lang === "bg";
 
@@ -33,8 +29,8 @@ export const DefenseAwardersTile: FC = () => {
         </CardTitle>
       </CardHeader>
       <CardContent className="p-3 md:p-4 space-y-3">
-        <Link
-          to={scopedHref(`/awarder/${MOD_EIK}`)}
+        <AwarderLink
+          eik={MOD_EIK}
           className="flex items-center justify-between rounded-lg border bg-muted/20 px-3 py-2.5 text-sm hover:border-primary/50"
         >
           <span className="font-medium">
@@ -43,7 +39,7 @@ export const DefenseAwardersTile: FC = () => {
               : "Public procurement of the whole МО group"}
           </span>
           <ArrowRight className="h-4 w-4 text-muted-foreground" />
-        </Link>
+        </AwarderLink>
 
         <div className="space-y-3">
           {DEFENSE_UNIVERSES.map((u) => {
@@ -56,13 +52,13 @@ export const DefenseAwardersTile: FC = () => {
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {rows.map((e) => (
-                    <Link
+                    <AwarderLink
                       key={e.eik}
-                      to={scopedHref(`/awarder/${e.eik}`)}
+                      eik={e.eik}
                       className="rounded-full border px-2.5 py-1 text-xs hover:border-primary/50 hover:text-primary"
                     >
                       {e.name}
-                    </Link>
+                    </AwarderLink>
                   ))}
                 </div>
               </div>

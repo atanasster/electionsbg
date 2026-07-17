@@ -14,7 +14,7 @@
 
 import { FC, useMemo, useState } from "react";
 import { Link, useSearchParams, useLocation } from "react-router-dom";
-import { useScopedHref } from "@/data/scope/useScope";
+import { useAwarderHref } from "../useAwarderHref";
 import { useTranslation } from "react-i18next";
 import { Shield, Activity, Users } from "lucide-react";
 import { StatCard } from "@/screens/dashboard/StatCard";
@@ -58,7 +58,7 @@ export const MvrPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
 }) => {
   const { i18n } = useTranslation();
   // Carry the active scope onto the awarder page (see SectorAwardersTile).
-  const scopedHref = useScopedHref();
+  const awarderHref = useAwarderHref();
   const lang = i18n.language;
   const bg = lang === "bg";
 
@@ -259,7 +259,7 @@ export const MvrPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
         {healthShare != null && (
           <StatCard
             label={bg ? "От което Мед. институт" : "Of which Medical Institute"}
-            to={scopedHref(`/awarder/${MEDICAL_INSTITUTE_EIK}`)}
+            to={awarderHref(MEDICAL_INSTITUTE_EIK)}
             hint={
               bg
                 ? "Дял на болничното здравеопазване (лекарства, консумативи) в стойността на групата. Използвайте филтъра „без Мед. институт“. Виж институцията →"

@@ -6,7 +6,7 @@
 
 import { FC } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { useScopedHref } from "@/data/scope/useScope";
+import { AwarderLink } from "@/screens/components/procurement/AwarderLink";
 import { useTranslation } from "react-i18next";
 import { Landmark, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -23,7 +23,6 @@ export const SectorAwardersTile: FC<{ config: SectorDashboardConfig }> = ({
   // but these didn't, so clicking a member from a ?pscope=all dashboard silently
   // reset to the default parliament window (and a unit with no awards in it then
   // rendered an empty page).
-  const scopedHref = useScopedHref();
 
   // The "whole group" link goes to the sector-filtered contracts table — the
   // real consolidated view across every member EIK. (It must NOT link to
@@ -89,9 +88,9 @@ export const SectorAwardersTile: FC<{ config: SectorDashboardConfig }> = ({
                 )}
                 <div className="flex flex-wrap gap-1.5">
                   {rows.map((m) => (
-                    <Link
+                    <AwarderLink
                       key={m.eik}
-                      to={scopedHref(`/awarder/${m.eik}`)}
+                      eik={m.eik}
                       className={
                         single
                           ? "flex w-full items-center justify-between rounded-lg border px-3 py-2.5 text-sm hover:border-primary/50 hover:text-primary"
@@ -102,7 +101,7 @@ export const SectorAwardersTile: FC<{ config: SectorDashboardConfig }> = ({
                       {single && (
                         <ArrowRight className="h-4 w-4 text-muted-foreground" />
                       )}
-                    </Link>
+                    </AwarderLink>
                   ))}
                 </div>
               </div>

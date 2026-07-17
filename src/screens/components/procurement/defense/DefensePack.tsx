@@ -19,7 +19,7 @@
 
 import { FC, useMemo, useState } from "react";
 import { Link, useSearchParams, useLocation } from "react-router-dom";
-import { useScopedHref } from "@/data/scope/useScope";
+import { useAwarderHref } from "../useAwarderHref";
 import { useTranslation } from "react-i18next";
 import {
   Shield,
@@ -63,7 +63,7 @@ export const DefensePack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
 }) => {
   const { i18n } = useTranslation();
   // Carry the active scope onto the awarder page (see SectorAwardersTile).
-  const scopedHref = useScopedHref();
+  const awarderHref = useAwarderHref();
   const lang = i18n.language;
   const bg = lang === "bg";
 
@@ -236,7 +236,7 @@ export const DefensePack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
         {vmaShare != null && (
           <StatCard
             label={bg ? "От което ВМА" : "Of which ВМА"}
-            to={scopedHref(`/awarder/${VMA_EIK}`)}
+            to={awarderHref(VMA_EIK)}
             hint={
               bg
                 ? "Дял на военната медицина (лекарства, болнично) в стойността на групата. Използвайте филтъра „без ВМА“. Виж институцията →"
