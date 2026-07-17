@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-17T00:27:11.355Z",
+  "generatedAt": "2026-07-17T00:55:36.040Z",
   "nodes": [
     {
       "id": "src:water",
@@ -1675,6 +1675,12 @@
           "id": "asp_benefits",
           "label": "АСП — отчети и доклади",
           "url": "https://asp.government.bg/bg/za-agentsiyata/misiya-i-tseli/otcheti-i-dokladi/",
+          "cadence": "monthly"
+        },
+        {
+          "id": "git_inspections",
+          "label": "ГИТ — доклади за дейността",
+          "url": "https://www.gli.government.bg/bg/taxonomy/term/370",
           "cadence": "monthly"
         }
       ],

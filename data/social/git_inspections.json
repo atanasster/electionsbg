@@ -1,0 +1,24 @@
+{
+  "fetchedAt": "2026-07-17T00:00:00.000Z",
+  "source": {
+    "publisher": "ИА „Главна инспекция по труда“ (ГИТ)",
+    "description": "Годишен доклад за дейността на ИА ГИТ — national, annual, PDF. Inspections, violations found (incl. wage-related), undeclared-work checks. Curated + verified from the report PDFs. The inspectorate (EIK 831545394) is the `inspection` universe of the social group; this is its outcome tile, paired with its ~€10M procurement.",
+    "reports": {
+      "2023": "https://www.gli.government.bg/sites/default/files/upload/documents/2024-04/Годишен доклад 2023_финал_3_1.pdf",
+      "2024": "https://www.gli.government.bg/sites/default/files/upload/documents/2025-04/Доклад за дейността на ИА ГИТ през 2024 г..pdf",
+      "2025": "https://www.gli.government.bg/sites/default/files/upload/documents/2026-04/Доклад за дейността на ИА ГИТ през 2025 г.pdf"
+    },
+    "landing": "https://www.gli.government.bg/bg/taxonomy/term/370"
+  },
+  "latestYear": 2025,
+  "eik": "831545394",
+  "series": [
+    { "year": 2024, "inspections": 49858, "violations": 202810 },
+    {
+      "year": 2025,
+      "inspections": 49660,
+      "violations": 189576,
+      "wageViolations": 19604
+    }
+  ]
+}

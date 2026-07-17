@@ -43,6 +43,7 @@ import { SocialHeroTile } from "./SocialHeroTile";
 import { SocialBudgetBridgeTile } from "./SocialBudgetBridgeTile";
 import { SocialBenefitsTile } from "./SocialBenefitsTile";
 import { SocialHeatingAidTile } from "./SocialHeatingAidTile";
+import { SocialInspectionTile } from "./SocialInspectionTile";
 import { SocialPovertyImpactTile } from "./SocialPovertyImpactTile";
 import { SocialValueForMoneyTile } from "./SocialValueForMoneyTile";
 import { SocialEuPeerTile } from "./SocialEuPeerTile";
@@ -128,6 +129,13 @@ export const SocialPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
     [model, lang],
   );
 
+  // ГИТ (Главна инспекция по труда, EIK 831545394) procurement € in scope — paired
+  // with its inspection outcome so the reader sees its footprint is inspections.
+  const gitProcEur = useMemo(
+    () => units.find((u) => u.eik === "831545394")?.totalEur,
+    [units],
+  );
+
   useHashScroll([model, units, isLoading]);
 
   if (isLoading)
@@ -192,6 +200,11 @@ export const SocialPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
         <div className="grid gap-4 md:grid-cols-2">
           <SocialBenefitsTile />
           <SocialHeatingAidTile />
+        </div>
+        {/* ГИТ (labour inspectorate) — the inspection universe's outcome, legible
+            through its ~50k inspections/yr rather than its ~€10M procurement. */}
+        <div className="mt-4">
+          <SocialInspectionTile gitProcEur={gitProcEur} />
         </div>
       </PackSection>
 

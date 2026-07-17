@@ -36,6 +36,8 @@ households, child children, disability recipients) and flags drift. There is **n
 | Fresh clone, `data/social/benefits.json` missing | §1 (restore from git or re-curate from the reports) |
 | Eurostat SILC release (the `eurostat` watcher's poverty rows) OR poverty series looks stale | §2 — regenerate `poverty_impact.json` |
 | Fresh clone, `data/social/poverty_impact.json` missing | §2 |
+| Watcher: `git_inspections` describe-line says "нов годишен доклад на ГИТ…" | §3 — verify + update `git_inspections.json` |
+| Fresh clone, `data/social/git_inspections.json` missing | §3 |
 
 ## §1. Verify + update the АСП benefits (`benefits.json`)
 
@@ -69,6 +71,21 @@ Fully automated — fetches Eurostat `ilc_li10` (AROP before transfers, pensions
 after) for BG + EU27 + RO/GR/HU/HR, pinned to the 60%-median headline (`statinfo=MED_EI`, `rskpovth=B_60`),
 and writes the before/after series + the poverty-reduction effect (`pct`). Prints BG vs EU on completion
 (e.g. BG −27% vs EU −33%). No manual step.
+
+## §3. Verify + update the ГИТ inspection stats (`git_inspections.json`)
+
+```bash
+npx tsx scripts/social/fetch_git_inspections.ts            # verify the latest report
+npx tsx scripts/social/fetch_git_inspections.ts --year 2025
+```
+
+Downloads the newest ГИТ „Доклад за дейността" from the Activity-Reports listing
+(`gli.government.bg/bg/taxonomy/term/370`; the site serves an incomplete cert chain, so the fetch uses a
+permissive TLS agent), `pdftotext`-extracts the two headline anchors (**inspections** „извършени общо N бр.",
+**violations** „констатирани общо N") and validates them against `data/social/git_inspections.json`. On
+`✗ drift`, open the report and update the matching `series[]` entry (add a new `{year}` point when a fresh
+report lands; bump `latestYear` + `source.reports`). Feeds the `SocialInspectionTile` (the `inspection`
+universe's outcome) on `/sector/social`. `pdftotext` + Bulgarian egress required.
 
 ## Data shape (both static JSON — no Postgres, no changelog)
 

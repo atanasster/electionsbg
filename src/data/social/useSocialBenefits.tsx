@@ -90,3 +90,34 @@ export const benefitFamily = (
   data: SocialBenefitsPayload | undefined,
   id: BenefitId,
 ): BenefitFamily | undefined => data?.families.find((f) => f.id === id);
+
+// ---- ГИТ labour-inspection statistics ---------------------------------------
+
+/** One year of ГИТ activity — inspections, violations, wage-related violations. */
+export interface GitInspectionPoint {
+  year: number;
+  inspections: number;
+  violations: number;
+  wageViolations?: number;
+}
+
+export interface GitInspectionsPayload {
+  fetchedAt: string;
+  source: { publisher: string; description: string; landing: string };
+  latestYear: number;
+  eik: string;
+  series: GitInspectionPoint[];
+}
+
+/** ГИТ (Главна инспекция по труда) annual inspection/violation statistics — the
+ *  `inspection` universe's outcome tile. National/annual, static JSON. */
+export const useGitInspections = () =>
+  useQuery({
+    queryKey: ["social", "git_inspections"],
+    queryFn: async (): Promise<GitInspectionsPayload | undefined> => {
+      const res = await fetch(dataUrl("/social/git_inspections.json"));
+      if (!res.ok) return undefined;
+      return (await res.json()) as GitInspectionsPayload;
+    },
+    staleTime: Infinity,
+  });

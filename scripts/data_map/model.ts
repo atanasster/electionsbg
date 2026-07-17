@@ -795,7 +795,7 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     },
     url: "https://asp.government.bg/",
     origin: "state",
-    members: ["asp_benefits"],
+    members: ["asp_benefits", "git_inspections"],
     skills: ["update-social"],
     tags: ["fiscal", "indicators"],
   },
