@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-07-17T13:06:09.668Z",
-  "totalContracted": 43931672733.28,
+  "generatedAt": "2026-07-17T14:13:32.337Z",
+  "totalContracted": 43932011944.54,
   "topN": 6,
   "nodes": [
     {
       "id": "fund:RRP",
       "kind": "fund",
       "label": "RRP (ПВУ)",
-      "totalEur": 17754276515.89
+      "totalEur": 17754317833.23
     },
     {
       "id": "prog:2021BG-RRP",
       "kind": "programme",
       "label": "Национален план за възстановяване и устойчивост",
-      "totalEur": 17754276515.89,
+      "totalEur": 17754317833.23,
       "bucket": "RRP (ПВУ) RRP"
     },
     {
@@ -101,7 +101,7 @@
       "id": "fund:ESF",
       "kind": "fund",
       "label": "ESF",
-      "totalEur": 3826889588.13
+      "totalEur": 3827179982.05
     },
     {
       "id": "prog:2014BG05M9OP001",
@@ -114,7 +114,7 @@
       "id": "prog:2021BG05SFPR002",
       "kind": "programme",
       "label": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "totalEur": 1347583484.79,
+      "totalEur": 1347576303.28,
       "bucket": "ESF 2021-27"
     },
     {
@@ -128,7 +128,7 @@
       "id": "prog:2021BG05SFPR003",
       "kind": "programme",
       "label": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "totalEur": 239548668.21,
+      "totalEur": 239846243.64,
       "bucket": "ESF 2021-27"
     },
     {
@@ -204,7 +204,7 @@
     {
       "source": "fund:RRP",
       "target": "prog:2021BG-RRP",
-      "value": 17754276515.89
+      "value": 17754317833.23
     },
     {
       "source": "fund:CF",
@@ -259,7 +259,7 @@
     {
       "source": "fund:ESF",
       "target": "prog:2021BG05SFPR002",
-      "value": 1347583484.79
+      "value": 1347576303.28
     },
     {
       "source": "fund:ESF",
@@ -269,7 +269,7 @@
     {
       "source": "fund:ESF",
       "target": "prog:2021BG05SFPR003",
-      "value": 239548668.21
+      "value": 239846243.64
     },
     {
       "source": "fund:Other",

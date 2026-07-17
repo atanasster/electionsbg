@@ -1,55 +1,41 @@
 {
   "obshtina": "SZR22",
-  "generatedAt": "2026-07-17T13:05:39.989Z",
+  "generatedAt": "2026-07-17T14:13:05.364Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.015-0435",
-      "title": "Изграждане на училищна STEM среда и високотехнологични оборудвани и свързани класни стаи в сградата на Основно Училище „Свети Свети Кирил и Методий“ – с. Ветрен",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 92887.72,
-      "totalEur": 92887.72,
-      "paidEur": 92271.72,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"СВ. СВ. Кирил и Методий\"",
-      "detectedAt": "2026-07-17"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-1534",
-      "title": "Изграждане на училищна STEM среда и високотехнологични оборудвани и свързани класни стаи в сградата на Начално училище \"Св. Паисий Хилендарски\", с. Зимница",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 92887.5,
-      "totalEur": 92887.5,
-      "paidEur": 90937.51,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Начално училище \"СВ. Паисий Хилендарски\"",
-      "detectedAt": "2026-07-17"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1124",
-      "title": "Дигитален клуб - Дъбово",
+      "contractNumber": "BG-RRP-1.024-1261",
+      "title": "Изграждане на мрежа от дигитален клуб в Народно читалище \"Гео Милев-1926 г.\" , село Ягода, община Мъглиж, област Стара Загора",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 14315.67,
-      "totalEur": 14315.66,
-      "paidEur": 13502.93,
+      "prevTotalEur": 16942.58,
+      "totalEur": 33293.92,
+      "paidEur": 15099.42,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Развитие-1921 г.\"",
+      "beneficiaryName": "Народно читалище \"Гео Милев-1926 г.\" , село Ягода, община Мъглиж, област Стара Загора",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0410",
+      "title": "Изграждане на дигитален клуб в НЧ НАУКА - 1905",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 17923.56,
+      "paidEur": 8998.66,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "\"Наука - 1905\" НЧ",
       "detectedAt": "2026-07-17"
     }
   ]

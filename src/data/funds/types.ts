@@ -204,6 +204,11 @@ export interface FundsProjectsMuniMapRow {
 
 export interface FundsProjectsMuniMapFile {
   generatedAt: string;
+  // How the money was attributed to places. "muni-share-even-split": a
+  // contract whose declared location names N общини contributes 1/N of its
+  // value to each, so these are attributed euros rather than raw contract
+  // values. Optional — payloads written before the marker existed lack it.
+  basis?: "muni-share-even-split";
   muniCount: number;
   munis: FundsProjectsMuniMapRow[];
 }
@@ -303,6 +308,9 @@ export interface FundsProjectsRollup {
 export interface FundsProjectsTopContract {
   contractNumber: string;
   title: string;
+  // The contract's full value. On a муни tile this sits next to a
+  // share-weighted rollup, so it can legitimately exceed the муни's own
+  // total — muniCount says why.
   totalEur: number;
   paidEur: number;
   status: string;
@@ -310,6 +318,9 @@ export interface FundsProjectsTopContract {
   programName: string;
   beneficiaryEik: string | null;
   beneficiaryName: string;
+  // Only set when the contract's declared location names several общини and
+  // its money was split evenly between them.
+  muniCount?: number;
 }
 
 export interface FundsProjectsTopProgram {

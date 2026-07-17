@@ -26,7 +26,7 @@ const TOP_N = 10;
 
 // Disbursement rate color buckets — match the policy framing: a programme
 // paying >80 % of contracted is healthy (green), 40-80 % normal (amber),
-// <40 % flag (rose). Matches the same palette EuFundsTile uses for status.
+// <40 % flag (rose). Same rate palette used across the funds tiles.
 const rateBadgeClass = (pct: number): string => {
   if (pct >= 80)
     return "bg-emerald-100 text-emerald-900 dark:bg-emerald-900/40 dark:text-emerald-100";

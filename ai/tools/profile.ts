@@ -638,13 +638,19 @@ export const myAreaAlerts = async (
 // ---- EU-funds projects for a place (incl. new/modified) ---------------------
 
 type FundsMuniSummary = {
+  // Money is attributed per муни: a contract naming N општини contributes 1/N
+  // of its value here, so the rollup can legitimately be smaller than a single
+  // row's totalEur below.
   rollup: { contractCount: number; totalEur: number; paidEur: number };
   topContracts: {
     title: string;
+    // The contract's full value, not this муни's share of it.
     totalEur: number;
     paidEur: number;
     programName: string;
     beneficiaryName: string;
+    // Set only when the contract spans several общини.
+    muniCount?: number;
   }[];
 };
 type FundsChange = {
@@ -697,8 +703,22 @@ export const placeEuProjects = async (
     { key: "value", label: bg ? "Стойност" : "Value", numeric: true },
     { key: "paid", label: bg ? "Изплатено" : "Paid", numeric: true },
   ];
+  // `total` below is this муни's attributed share while a row's value is the
+  // whole contract, so a row can read larger than the total. Say which rows
+  // are shared and what lands here — otherwise the answer contradicts itself.
   const rows: Row[] = top.map((c) => ({
-    project: c.title,
+    project:
+      c.muniCount != null && c.muniCount > 1
+        ? bg
+          ? `${c.title} (проект в ${c.muniCount} общини; ≈${fmtEurCompact(
+              c.totalEur / c.muniCount,
+              ctx.lang,
+            )} за тази община)`
+          : `${c.title} (project across ${c.muniCount} municipalities; ≈${fmtEurCompact(
+              c.totalEur / c.muniCount,
+              ctx.lang,
+            )} for this one)`
+        : c.title,
     value: fmtEurCompact(c.totalEur, ctx.lang),
     paid: fmtEurCompact(c.paidEur, ctx.lang),
   }));

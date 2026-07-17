@@ -175,15 +175,23 @@ evidence. If a later revision wants to reopen this, it has to answer §2 first.
 
 ## 1. What exists today
 
-### 1a. Five 0–100 "risk" numbers
+### 1a. Six 0–100 "risk" numbers
+
+⚠️ **Corrected from "five" after audit — the NZOK hospital risk index was missed.** That only
+sharpens §3: it is another 0–100 rendered under a bare "Риск"/"Risk" column.
 
 | Label (BG / EN) | Grain | What the number actually is | Home |
 |---|---|---|---|
 | Оценка на риска при поръчки / Procurement risk grade | awarder, supplier | value-weighted share of money through risk-carrying channels; A–F banded | `awarder_risk_grade` / `supplier_risk_grade`, `scripts/db/schema/pg/041_procurement_risk_grade.sql` |
-| Индекс на риска / Risk index | contract | fired ÷ available checks | `computeProcurementRisk.ts:263` (`cri`) |
-| *(unlabelled)* | contract | additive weights, capped at 100 | `computeProcurementRisk.ts:249` (`score`) |
+| Индекс на риска / Risk index | contract | fired ÷ available checks | `computeProcurementRisk.ts` (`cri`) |
+| *(unlabelled)* | contract | additive weights, capped at 100 | `computeProcurementRisk.ts` (`score`) |
+| Риск по болници / Risk (hospitals) | hospital | mean of 3 percentile ranks × 100 | `054_nzok_risk.sql:153` (`risk_index`), `NzokHospitalRiskTile.tsx`, `/awarder/121858220` |
 | Скрининг на риска по секции / Section risk screening | polling section | composite of 7 signals, banded | elections |
 | Индекс на изборния риск / Election risk index | election | composite of 5 signals, banded | elections |
+
+(A 7th borderline: `NzokDrugRiskTile` "Риск по лекарства" is a €-overpay *ranking*, not a 0–100
+index — excluded. Funds/ИСУН integrity is correctly NOT a 0–100 — HHI bands + serial-winner/
+debarred flags — so it is not a collision.)
 
 Plus **Колко типична е тази поръчка?** (`063_procurement_normalcy.sql`, `067_tender_normalcy.sql`)
 — a descriptive percentile panel that deliberately carries no risk vocabulary. It is the
@@ -210,15 +218,19 @@ EN diverges and vice versa. Any fix has to be enforced per-key across both.
 
 ### 1c. The collisions that a real user hits
 
-**C1 — two unlabelled 0–100s on the same screen.** `/awarder/:eik` renders the exposure
-grade ("8 / 100 · A", `по 689 договора`) and, directly below it, Топ договори rows whose
-Риск column carries a per-contract number on the same 0–100 scale. Nothing on screen says
-they are different scales measuring different things at different grains.
+**C1 — the same 0–100 scale means different things one click apart (cross-navigation, NOT
+same-screen).** ⚠️ *Corrected after audit.* The awarder overview (`CompanyDbScreen`) renders the
+exposure grade ("8 / 100 · A", `по 689 договора`, `EntityRiskGradeCard`) and a `CompanyTopContractsTile`
+— but that tile shows only title + amount, **no risk column**. So the two 0–100s do **not**
+co-occur on one screen. The collision is by navigation: the grade card is a 0–100 at
+`/awarder/:eik`; click through to `/awarder/:eik/contracts` and every row carries a *different*
+0–100 (the contract `score`) under a "Риск" column, on the same visual scale, with no cue that
+the awarder's 8 and a contract's 20 are unrelated quantities.
 
 **C2 — the table and the detail page show different numbers for the same contract.**
 `ContractsBrowserDbScreen.tsx:191` and `CompanyContractsDbScreen.tsx:181` render
 `<RiskBadges ... showScore />`, which prints **`score`** (the additive legacy key,
-`RiskBadges.tsx:61`). `ContractDetailScreen.tsx:147` renders `variant="full"`, which prints
+`RiskBadges.tsx:61`). `ContractDetailScreen.tsx` renders `variant="full"`, which prints
 **`cri`** (`RiskBadges.tsx:341`). Same contract, one click apart, two bare 0–100 numbers,
 neither labelled in the table.
 
@@ -228,10 +240,18 @@ fired check is `debarred`: table shows **80**, detail shows **13**. The table im
 second is 4× the first; the detail page says they are identical. Both are "true" — they are
 answers to different questions that were never given different names.
 
-> Correction to an earlier read: the Риск column is **not** sortable (`enableSorting: false`,
-> `ContractsBrowserDbScreen.tsx:188`), so there is no sort/display mismatch. The defect is
-> the display/display mismatch above, which is worse — a sort anomaly is invisible, two
-> contradicting numbers are not.
+> The **8** in `round(100 × 1/8)` is the available-check count, and its cause is **not** what an
+> earlier draft said. Of the 9 checks, exactly one — **`shortTenderPeriod`** — is *always*
+> unavailable on every contract, because `contracts.tender_period_*` is **0% populated**
+> (verified: 0 / 357,240). `appealUpheld` is **already selected** by `useContract`
+> (`CONTRACT_SQL`, `db_routes.js:52`, a never-null boolean) and is therefore *available* — so
+> "8 not 9" is the shortTenderPeriod gap, not an appeal-join gap. (The plan's own arithmetic
+> proves it: if appealUpheld were *also* unavailable, availableCount would be 7 and cri would be
+> `round(100/7) = 14 ≠ 13`.)
+
+> The Риск column is **not** sortable (`enableSorting: false`, `ContractsBrowserDbScreen.tsx:188`),
+> so there is no sort/display mismatch — the defect is the display/display mismatch above, which
+> is worse: a sort anomaly is invisible, two contradicting numbers are not.
 
 **C3 — the nouns carry no information.** "Оценка" for the awarder, "Индекс" for both the
 contract CRI and the election composite, "Скрининг" for sections. Picked per-feature, not
@@ -359,9 +379,16 @@ graded composite, and `по N договора` is already on the card.
 - `RiskBadges.tsx:61–65` — **delete the `showScore` branch.** This removes `score` from the UI
   entirely and kills **C2**. Drop the `showScore` prop and its two call sites
   (`ContractsBrowserDbScreen.tsx:191`, `CompanyContractsDbScreen.tsx:181`).
-- `computeProcurementRisk.ts` — keep `score` as an exported sort key (the flow viz and My-Area
-  alerts may order by it), but retag the comment at `:81` from "Sort key only" to "Sort key
-  only — never rendered; see docs/plans/procurement-risk-v2.md §1c."
+- `computeProcurementRisk.ts` — ⚠️ *audit correction:* the module header claims `score` is
+  shared by "the flow link-colouring, the My-Area alerts builder, and the AI tools." **Those
+  importers do not exist.** The only importers of the scorer are `RiskBadges`,
+  `ContractDetailScreen`, `TenderDetailScreen`, the two DB tables above, and two scripts
+  (`cpv_competition.ts`, `risk_scorer.harness.ts`); none order by `score`. So deleting
+  `showScore` removes `score` from its **only two render surfaces and nothing else reads it**.
+  Decision is therefore cleaner than drafted: either (a) delete `score` outright and sort by
+  `cri`, or (b) keep it as an internal sort key and fix the stale header comment. Prefer (a)
+  unless the base-rate work (§6b) turns up a reason to keep an additive ordering. Either way the
+  stale header comment must go.
 
 ### 4c. Flag labels → one BG/EN pair per concept
 
@@ -426,13 +453,17 @@ Ship this before any of §6–§8.
 - **No company to accuse.** At tender stage there is no winner. Flagging a 6-day submission
   window is a statement about the **buyer's conduct in a procedure** — exactly the grain where
   the exposure logic is already legitimate. §2's defamation concern evaporates.
-- **The data exists and is 100% unused.** `tenders` (`009_tenders.sql:23–63`) carries
-  `publication_date`, `submission_deadline`, `procedure_type`, `award_method`, `legal_basis`,
-  `estimated_value_eur`, `is_framework_agreement`, `has_unsecured_funding`,
+- **The data exists and is unused for risk.** `tenders` (126,413 rows, `009_tenders.sql:23–63`)
+  carries `publication_date`, `submission_deadline`, `procedure_type`, `award_method`,
+  `legal_basis`, `estimated_value_eur`, `is_framework_agreement`, `has_unsecured_funding`,
   `change_notice_count`, plus `unp` → `kzk_appeals`. Critically, `publication_date →
-  submission_deadline` is a **real** tender window — unlike `contracts.tender_period_*`, which
-  is 0% populated and is exactly why `063` had to drop the срок-за-оферти metric from normalcy.
-  This is the single richest unscored field set in the corpus.
+  submission_deadline` is a **real** tender window — **both endpoints ~100% populated** (verified:
+  `publication_date` 100%, `submission_deadline` 126,412/126,413) — unlike
+  `contracts.tender_period_*`, which is 0% populated and is exactly why `063` dropped the
+  срок-за-оферти metric from normalcy. ⚠️ **But density is per-field:** `procedure_type` ~100%,
+  `estimated_value_eur` ~100%, `legal_basis` **74%**, `has_unsecured_funding` **34%**. Check
+  each field's fill rate in the §6b base-rate pass before scoring on it — a 34%-populated field
+  scored naively re-imports the missing-data defect (§6c).
 
 ### 6a. Baseline: the Bulgaria-calibrated CRI
 
@@ -526,11 +557,15 @@ as relative ordering only.
    ⭐ **No published empirical distribution of contract-amendment growth exists for EU
    procurement**, and §0b found a **34× cliff at exactly the 50% legal cap — 446 contracts at
    exactly +50.000%, +€909.8M, of which АПИ is €857.5M.** Publishable finding, not just a flag.
-2. **КЗК appeal upheld, made available on the contract page.** The reason the detail page reads
-   "8" and not "9" is that `useContract` does not select the appeal join — only the contracts
-   browser and tender page do, so `computeProcurementRisk.ts:173` marks it unavailable.
-   Complaints from non-winning bidders: PwC **+33.6%, p<0.05**. Close to free.
-   `kzk_appeals.suspension` and `.vm_requested` are also unused.
+2. **КЗК appeal signal — the gap is data sparsity, not a missing join.** ⚠️ *Audit correction:*
+   an earlier draft said `useContract` doesn't select the appeal join so the check is
+   unavailable on the detail page. **Wrong** — `CONTRACT_SQL` (`db_routes.js:52`) already selects
+   `appeal_upheld` (a never-null boolean), so `appealUpheld` *is* available and does fire when
+   true. The real limitation is that **only 106 contracts across the whole corpus carry an
+   upheld appeal** (`contracts_list`), so the check almost never fires — a coverage problem in
+   `kzk_appeals`, not a wiring problem. Complaints from non-winning bidders: PwC **+33.6%,
+   p<0.05**. The genuinely unused fields are `kzk_appeals.suspension` and `.vm_requested`. The
+   real "8 not 9" cause is `shortTenderPeriod` (§1c C2).
 3. **Award value vs estimated value.** PwC **+34.1%**. `tenders.estimated_value_eur` + `unp`
    lineage. Already *rendered* on the contract page (the -43.7% in the прогнозна-vs-текуща bar)
    and unscored. Make it **two-sided** — OCP R016 flags the low side too, on the theory of

@@ -209,6 +209,8 @@ export interface FundsProjectsSummary {
   topContracts: Array<{
     contractNumber: string;
     title: string;
+    // The contract's FULL value, not the place's share of it — see
+    // toTopContract in ./projects_ingest.ts.
     totalEur: number;
     paidEur: number;
     status: string;
@@ -216,6 +218,10 @@ export interface FundsProjectsSummary {
     programName: string;
     beneficiaryEik: string | null;
     beneficiaryName: string;
+    // Present only when the row names more than one муни: the number it names,
+    // so the tile can caption why totalEur can exceed a муни's own rollup.
+    // Absent on every EKATTE summary (a settlement row names exactly one).
+    muniCount?: number;
   }>;
   // Top-3 programmes by total value — programme mix at a glance.
   topPrograms: Array<{

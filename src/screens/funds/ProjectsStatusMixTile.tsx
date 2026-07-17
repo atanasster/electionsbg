@@ -24,7 +24,7 @@ const numFmt = new Intl.NumberFormat("bg-BG");
 
 // Bulgarian-text status → display key + accent color. The raw status string
 // from ИСУН is verbose ("Приключен (към датата на приключване)"); we shorten
-// it for the tile and pin colours to the same palette as EuFundsTile so the
+// it for the tile and pin colours to the shared funds status palette so the
 // status grammar is consistent across the app.
 const STATUS_STYLES: Array<{
   match: (s: string) => boolean;

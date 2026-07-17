@@ -106,7 +106,7 @@ Also writes per-beneficiary contract lists to `data/funds/projects/by-eik/{eik}.
 
 The ingest also emits two slim derivatives for the frontend:
 
-- **Per-place summaries** — `by-ekatte/{ekatte}-summary.json` and `by-muni/{обshtina}-summary.json` (~3-5 KB each), carrying rollup + top-3 contracts + top-3 programmes + per-capita €. Backs the `EuFundsTile` on settlement and муни dashboards (avoids loading the full 18 MB Sofia shard for the tile).
+- **Per-place summaries** — `by-ekatte/{ekatte}-summary.json` and `by-muni/{обshtina}-summary.json` (~3-5 KB each), carrying rollup + top-3 contracts + top-3 programmes + per-capita €. The муни summary backs the My-Area EU-funds tile and the AI `placeEuProjects` tool (avoids loading the full 18 MB Sofia shard). Money for a contract naming several общини is split evenly between them, so a `topContracts` row can exceed the place rollup — it carries `muniCount` so the reader can be told why. (The EKATTE summary currently has no live reader.)
 - **Choropleth map data** — `muni-map.json` (~65 KB) with one denormalised row per муни. Backs the `FundsMuniMapTile` on `/funds`. Includes a synthetic `SOF00` row aggregating S22 + S23xx/S24xx/S25xx so the Sofia districts on the map render as a single Стoлична value.
 
 Per-capita uses **Census 2021** population (`data/census_2021_settlements.json`) — not ГРАО — because the census carries the Sofia city EKATTE (68134 = 1.18M) which ГРАО does not. Re-run this step after `update-census` if NSI ever re-releases the corpus.

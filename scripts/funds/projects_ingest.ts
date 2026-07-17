@@ -145,6 +145,16 @@ const sortByValueDesc = (a: FundsProject, b: FundsProject): number =>
   b.totalEur - a.totalEur ||
   a.contractNumber.localeCompare(b.contractNumber, "en");
 
+// Ranks by the value attributed to THIS муни rather than the contract's
+// headline size, so a €42.5M project split across 39 муни (€1.1M here) can't
+// outrank a wholly-local €5M one in the муни's top-3.
+const sortByMuniValueDesc = (
+  a: ResolvedFundsProject,
+  b: ResolvedFundsProject,
+): number =>
+  b.totalEur * muniShare(b) - a.totalEur * muniShare(a) ||
+  a.contractNumber.localeCompare(b.contractNumber, "en");
+
 // Resets a directory: removes it (if present) then recreates it. Used before
 // writing per-shard files so files for shards no longer produced are not
 // left stale.
@@ -226,6 +236,12 @@ const loadPlaceLookup = (): PlaceLookup => {
 // Slim "top contract" projection for the tile shard. Strips fields that the
 // tile doesn't render (hqAddress, ownCofinanceEur, durationMonths, the
 // location echo — the place context is implicit from the file path).
+//
+// totalEur stays the contract's FULL value: that is the real, checkable figure
+// and the one the /funds/contract page shows. On a муни tile it sits next to a
+// share-weighted rollup, so a row naming several муни also carries muniCount —
+// the tile captions it ("€42.5M across 39 общини") rather than leaving the
+// reader to wonder how a €42.5M contract fits inside a €2.7M total.
 const toTopContract = (
   r: ResolvedFundsProject,
 ): FundsProjectsSummary["topContracts"][number] => ({
@@ -233,6 +249,7 @@ const toTopContract = (
   title: r.title,
   totalEur: r.totalEur,
   paidEur: r.paidEur,
+  ...(muniCount(r) > 1 ? { muniCount: muniCount(r) } : {}),
   status: r.status,
   programCode: r.programCode,
   programName: r.programName,
@@ -679,7 +696,10 @@ const main = async (args: MainArgs): Promise<void> => {
       kind: "muni",
       placeId: muni,
       rollup: rollupFinal,
-      topContracts: dedupedContracts.slice(0, 3).map(toTopContract),
+      topContracts: [...dedupedContracts]
+        .sort(sortByMuniValueDesc)
+        .slice(0, 3)
+        .map(toTopContract),
       topPrograms: buildTopPrograms(dedupedContracts, 3, muniShare),
       perCapitaEur:
         population && rollupFinal.totalEur > 0
@@ -772,10 +792,32 @@ const main = async (args: MainArgs): Promise<void> => {
       population: sofiaTotalPop > 0 ? sofiaTotalPop : null,
     });
   }
+  // Guard the muniShare invariant: the money spread across муни must equal the
+  // mappable corpus exactly — no place may gain or lose spend in the split.
+  // Attributing multi-муни rows at full value once put €7.15 bn of phantom
+  // money on this map, so assert rather than trust. Runs after the SOF00 row
+  // is appended: the Sofia shards are folded into it, not dropped, so the
+  // array still sums to the whole mappable half. Aborts before write, like
+  // the MIN_ROWS floor.
+  const expectedEur = resolved
+    .filter((r) => (r.location.munis?.length ?? 0) > 0)
+    .reduce((a, r) => a + r.totalEur, 0);
+  const actualEur = muniMapRows.reduce((a, m) => a + m.totalEur, 0);
+  if (Math.abs(actualEur - expectedEur) > Math.max(1, expectedEur * 1e-6)) {
+    throw new Error(
+      `ИСУН projects ingest: per-муни money ${eur(actualEur)} != mappable ` +
+        `corpus ${eur(expectedEur)} — the muniShare allocation is unbalanced; ` +
+        `aborting before write`,
+    );
+  }
   fs.writeFileSync(
     MUNI_MAP_FILE,
     canonicalJson({
       generatedAt: new Date().toISOString(),
+      // How the money was attributed. Multi-муни rows are split evenly, so
+      // these are attributed euros, not raw contract values — a later reader
+      // (or a journalist quoting the map) can't tell that from the numbers.
+      basis: "muni-share-even-split",
       muniCount: muniMapRows.length,
       munis: muniMapRows.sort((a, b) => a.muni.localeCompare(b.muni)),
     }),
