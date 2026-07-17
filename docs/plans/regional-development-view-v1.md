@@ -26,17 +26,40 @@ is the default, and the convergence scatter drops Sofia from the fit. The two М
 remain the cohesion burn-down (tile 2). A DB route filtered to `program_code` would sharpen tile 3
 if wanted later.
 
-**Known gaps (need the loaded corpus / a prod run — not code):**
-1. **`public/og/sector-regional.png` not yet captured.** Auto-wired (`screenshot_sectors.ts` derives
-   from `SECTOR_DASHBOARD_IDS`), but the capture needs a server with the DB-loaded pack; the
-   prerendered `og:image` 404s until it runs. A bespoke map-focused capture (§8) is still optional.
-2. **DB-backed tiles not browser-verified locally** (group model / category / HHI / competition) —
-   the local Postgres corpus was not loaded. They are line-for-line ports of the shipped
-   `EnvironmentPack`, type-clean, and `mrrbSpending` shares the same endpoint.
-3. **Mobile 375px + dark verification (§13) outstanding** — needs the rendered pack (DB).
-4. **`db:gen-sector-stats` rerun** (needs PG) so the hub tile picks up the budget-basis headline.
-5. Not built (optional): top-contracts tile (generic awarder tiles cover it), Tier-B АГКК
-   cadastre-coverage ingest (§3/Phase 3).
+**All gaps closed (2026-07-17, verified against the live local corpus — 357k contracts on
+`localhost:5433`; an earlier "no DB" reading was a wrong-port probe of 5432):**
+
+1. ✅ **OG captured** — `public/og/sector-regional.png` (1200×630 @2x). `screenshot_sectors.ts`
+   gained an optional CLI id-filter so adding one sector no longer re-shoots all 12+ cards.
+   A bespoke map-focused capture (§8) remains optional.
+2. ✅ **DB-backed tiles browser-verified.** `awarder_group_model` over the 30-EIK set returns
+   **€215.15M / 1,840 contracts / 30 units / 746 suppliers** (vs the ~€213M estimate). Pack renders
+   end-to-end, console clean.
+3. ✅ **Mobile + dark verified (§13):** 375×812 → **0px horizontal overflow**, no tile exceeds the
+   viewport, the `OblastChoropleth` scales to the column, and the scatter's outlier labels anchor
+   inward (Сливен `start` / Габрово `end`, zero clipped). Dark renders correctly.
+4. ✅ **`db:gen-sector-stats` rerun** → `regional: {basis:"budget", value:1058603611, year:2025}` —
+   the hub tile now carries the €1.06bn budget headline (C1), not a €215M procurement figure.
+5. ⚠ **Perf (`feedback_db_query_perf`):** worst case (whole group, all-time) `EXPLAIN ANALYZE` =
+   **19.95 ms**, 1,883 shared-buffer hits, zero disk reads — well under the <100ms budget. No new index.
+
+**Two real bugs the browser verification caught (both fixed, `a39a81cdc` / `37c327361`):**
+- **Hero basis mismatch.** It compared the ANNUAL budget (€1.06bn) against procurement filtered to
+  the `?pscope` window (~3 months → a fake **0.1%**). It now self-fetches the **same budget year**
+  (half-open `[Y-01-01, Y+1-01-01)`) and ignores `scopeWindow` per §6. True figure: **€25.7M procured
+  in 2025 vs €1,058.6M = 2.4%**.
+- **Blended cohesion KPI.** "Усвоена кохезия" averaged the closed ОПРР (96%) with the active
+  Развитие на регионите (20%) into a comfortable-looking **50%** — averaging the risk away, on the
+  share card. Now shows the **active 2021-27 programme (20%, amber)**.
+
+Not built (optional): top-contracts tile (generic awarder tiles cover it), Tier-B АГКК
+cadastre-coverage ingest (§3/Phase 3).
+
+**Editorial finding from the shipped scatter:** the 27 oblasts show **no strong convergence
+pattern** — Габрово (wealthier, €12.7k GDP/cap) takes the highest €/capita, the poorest (Сливен,
+€6.7k) sits mid-field. The money is not visibly following the deprivation, which is precisely the
+question `regionalprofiles.bg` documents (their 2025 "persistent polarization") but never links to
+the € — the tile's whole reason to exist.
 
 Closest built siblings to copy: **`transport-view-v1.md`** (an infra-cluster sector that also had
 to carve a sibling — roads — out of its scope, cross-link instead of double-count; the freshest
