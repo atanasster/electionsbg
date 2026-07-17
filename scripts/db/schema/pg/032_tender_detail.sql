@@ -73,7 +73,14 @@ SELECT CASE WHEN NOT EXISTS (SELECT 1 FROM t) THEN jsonb_build_object(
         'title', c.title
       ) ORDER BY c.tag, c.date_signed NULLS LAST, c.key), '[]'::jsonb)
       FROM contracts c
-      WHERE t.ocid IS NOT NULL AND c.ocid = t.ocid
+      -- Join on УНП, the canonical procedure↔contract lineage key (see
+      -- reference: contract↔tender lineage). The prior `c.ocid = t.ocid` join
+      -- surfaced awards for only 8.3% of awarded tenders — legacy contracts drop
+      -- ocid, so ~92% showed none. Measured on the full corpus, switching to unp
+      -- GAINS 166,591 award links and LOSES 0 (every ocid match is also a unp
+      -- match — unp is a strict superset). Indexed by idx_contracts_unp
+      -- (partial, WHERE unp IS NOT NULL).
+      WHERE c.unp = t.unp
     )
   ) FROM t
 ) END;
