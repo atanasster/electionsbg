@@ -75,16 +75,53 @@ RETURNS double precision LANGUAGE sql IMMUTABLE AS $$
 $$;
 
 -- ===========================================================================
--- CANONICAL BUYER-GRADE WEIGHTS (single source of truth).
+-- CANONICAL BUYER-GRADE WEIGHTS — the single source of truth, and the ONLY copy.
 --   connection .35 · singleBid .25 · direct .20 · concentration .20 · upheldAppeal .30
--- These exact five numerics + the availability-weighted NULLIF denominator live
--- in TWO SQL bodies below: awarder_risk_grade(text) [per-entity] and
+--
+-- Both consumers call this helper: awarder_risk_grade(text) [per-entity] and
 -- awarder_risk_grade_window(text,text) [the windowed ranking — the matview AND
--- the per-scope table both derive from it, so it's the only ranking copy]. THEY
--- MUST STAY IDENTICAL — change one, change the other (no way to share an
--- expression across a STABLE fn and a set-returning fn). The kzk.harness.ts
--- parity test locks fn==matview. Band cutoffs are centralized in
--- risk_grade_letter().
+-- the per-scope table both derive from it]. Change a weight HERE and both move
+-- together; there is nothing to keep in lockstep by hand.
+--
+-- (An earlier revision inlined these five numerics in both bodies, on the
+-- premise that "no way to share an expression across a STABLE fn and a
+-- set-returning fn" — that was wrong. A scalar SQL function over scalars is
+-- exactly what risk_grade_letter() and upheld_appeal_share() already are, and
+-- both bodies already call those. IMMUTABLE + LANGUAGE sql means PG inlines it,
+-- so the query plans are unchanged.)
+--
+-- Availability-weighted MEAN, not a sum: the denominator only counts weights
+-- whose component is non-NULL, so an unavailable component is DROPPED, not
+-- scored 0. Weights total 1.30 when all five are present. Band cutoffs are
+-- centralized in risk_grade_letter(); the kzk.harness.ts parity test locks
+-- fn==matview.
+--
+-- All five args are double precision — every share is a
+-- double-precision/double-precision ratio (contracts.amount_eur is double
+-- precision, 001) and upheld_appeal_share() returns double precision. The
+-- numeric weight literals promote to double precision in the numerator and stay
+-- numeric in the denominator, exactly as when this was inlined.
+-- ===========================================================================
+CREATE OR REPLACE FUNCTION awarder_risk_grade_frac(
+  p_connection double precision,
+  p_single     double precision,
+  p_direct     double precision,
+  p_conc       double precision,
+  p_upheld     double precision
+) RETURNS double precision LANGUAGE sql IMMUTABLE AS $$
+  SELECT
+    ( 0.35 * COALESCE(p_connection, 0)
+    + 0.25 * COALESCE(p_single, 0)
+    + 0.20 * COALESCE(p_direct, 0)
+    + 0.20 * COALESCE(p_conc, 0)
+    + 0.30 * COALESCE(p_upheld, 0)
+    ) / NULLIF(
+      0.35 * (p_connection IS NOT NULL)::int
+    + 0.25 * (p_single IS NOT NULL)::int
+    + 0.20 * (p_direct IS NOT NULL)::int
+    + 0.20 * (p_conc IS NOT NULL)::int
+    + 0.30 * (p_upheld IS NOT NULL)::int, 0);
+$$;
 -- ===========================================================================
 -- BUYER grade.
 -- ---------------------------------------------------------------------------
@@ -137,21 +174,12 @@ comp AS (
   FROM agg a, conc c, linked l, appeal ap
 ),
 scored AS (
-  SELECT *,
-    -- weighted mean over AVAILABLE components (weights: connection .35,
-    -- singleBid .25, direct .20, concentration .20, КЗК-upheld appeals .30 —
-    -- authoritative but sparse, so it only enters when the buyer has a ruling).
-    ( 0.35 * COALESCE(connection_share, 0)
-    + 0.25 * COALESCE(single_share, 0)
-    + 0.20 * COALESCE(direct_share, 0)
-    + 0.20 * COALESCE(conc_share, 0)
-    + 0.30 * COALESCE(upheld_share, 0)
-    ) / NULLIF(
-      0.35 * (connection_share IS NOT NULL)::int
-    + 0.25 * (single_share IS NOT NULL)::int
-    + 0.20 * (direct_share IS NOT NULL)::int
-    + 0.20 * (conc_share IS NOT NULL)::int
-    + 0.30 * (upheld_share IS NOT NULL)::int, 0) AS frac
+  -- Canonical weights + availability-weighted mean: awarder_risk_grade_frac().
+  -- КЗК-upheld appeals are authoritative but sparse, so that component only
+  -- enters when the buyer has a ruling (NULL ⇒ dropped from the mean).
+  SELECT *, awarder_risk_grade_frac(
+    connection_share, single_share, direct_share, conc_share, upheld_share
+  ) AS frac
   FROM comp
 )
 SELECT CASE WHEN total_eur <= 0 THEN NULL ELSE jsonb_build_object(
@@ -317,19 +345,10 @@ computed AS (
   LEFT JOIN buyer_appeal_stats bs ON bs.buyer_eik = m.awarder_eik
 ),
 scored AS (
-  SELECT *,
-    -- SAME weights as awarder_risk_grade() (lockstep): +0.30 КЗК-upheld appeals.
-    ( 0.35 * COALESCE(connection_share, 0)
-    + 0.25 * COALESCE(single_share, 0)
-    + 0.20 * COALESCE(direct_share, 0)
-    + 0.20 * COALESCE(conc_share, 0)
-    + 0.30 * COALESCE(upheld_share, 0)
-    ) / NULLIF(
-      0.35 * (connection_share IS NOT NULL)::int
-    + 0.25 * (single_share IS NOT NULL)::int
-    + 0.20 * (direct_share IS NOT NULL)::int
-    + 0.20 * (conc_share IS NOT NULL)::int
-    + 0.30 * (upheld_share IS NOT NULL)::int, 0) AS frac
+  -- Same canonical weights as awarder_risk_grade() — literally the same helper.
+  SELECT *, awarder_risk_grade_frac(
+    connection_share, single_share, direct_share, conc_share, upheld_share
+  ) AS frac
   FROM computed
 )
 SELECT eik, name,

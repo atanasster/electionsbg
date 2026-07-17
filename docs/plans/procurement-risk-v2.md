@@ -1,6 +1,113 @@
 # Procurement risk v2 — tender risk signals + the risk vocabulary contract
 
-Status: DRAFT (2026-07-17). Owner: TBD.
+Status: DRAFT (2026-07-17). **Both §9 blockers resolved 2026-07-17 — see §0.** Owner: TBD.
+
+## 0. Blocker resolutions (2026-07-17) — SUPERSEDES the blocker notes in §7.1 and §8
+
+### 0a. Weight duplication — RESOLVED (shipped)
+
+The premise was wrong. `041`'s comment claimed the five buyer weights had to be inlined in
+two SQL bodies because there is *"no way to share an expression across a STABLE fn and a
+set-returning fn."* **The same file already disproves this** — `risk_grade_letter()` and
+`upheld_appeal_share()` are scalar SQL helpers that *both* bodies already call.
+
+Extracted **`awarder_risk_grade_frac(double precision × 5) → double precision`**, IMMUTABLE.
+The weights now live in exactly one place; `awarder_risk_grade()` and
+`awarder_risk_grade_window()` both call it.
+
+Verified:
+- **Byte-identical output** across all four surfaces — `awarder_risk_grade_ranking` (1,149
+  rows), `awarder_risk_grade(eik)` (400 buyers), `supplier_risk_grade(eik)` (400 suppliers),
+  `awarder_risk_grade_window('2024-01-01','2025-01-01')` (546 rows). `diff` clean on all.
+- **Zero plan cost** — PG inlines it. `EXPLAIN (VERBOSE)` on the window fn contains no
+  reference to `awarder_risk_grade_frac`; the `0.35/0.25/0.20/0.30` literals appear expanded
+  in the plan. Worst-case per-entity (`175201304`, 7,538 contracts) 18 ms warm.
+- **`npm run kzk:test` ALL PASS**, including `grade parity fn == matview`.
+- Type parity is exact: every share is a double-precision ratio (`contracts.amount_eur` is
+  `double precision`, 001) and `upheld_appeal_share()` returns double precision, so the
+  numeric weight literals promote in the numerator and stay numeric in the denominator
+  exactly as when inlined.
+
+**§8's reweight is now a one-line change**, not a two-body lockstep edit. The
+`kzk.harness.ts` parity test still guards fn==matview. The supplier weights
+(`.30/.25/.20/.25`) appear only once and were left alone — no duplication to fix.
+
+### 0b. Annex retention — RESOLVED (decision made; the payoff is measured)
+
+**The blocker was based on a wrong belief. The feed is not lost — it is fully retained on
+disk and simply never reaches Postgres.** `raw_data/procurement/anexi/` holds **26,120 annex
+records across 1,546 published days (2020-05-08 → 2026-07-15, 24 MB gzipped)**, cached by
+`ingest_anexi.ts`. Every field Art. 72 needs is **100% populated**: `publicationDate`,
+`lastContractValue`, `currentContractValue`, `contractValueDifference`, plus the join keys.
+**No re-crawl is required.**
+
+**Decision: retain → load to PG as an `annexes` table.** Scope is small (26k rows). The loader
+**must reuse `anexi_current_value.ts`'s identity resolution** rather than reinvent it — K2
+(`УНП|supplier`) tried first, then K1 (`buyer|contractNumber`), behind three guards (supplier
+membership, a ±12% continuity anchor on the signing value, a 15× ratio cap). A second,
+divergent notion of "this contract's annexes" would be worse than none.
+
+**But most of §7.1 is reachable *today*, with no new infrastructure.** `signing_amount_eur IS
+NOT NULL` already marks every contract an annex moved, so the **net-cumulative** Δ is
+queryable right now. Measured on the local corpus:
+
+| | |
+|---|---|
+| Contracts (`tag='contract'`) | 353,741 |
+| …with an annex-moved value | **8,035 (2.27%)** — a healthy base rate, nowhere near OCP's 90% false-positive warning |
+| Value moved up / down | 6,309 up · **1,726 down** (annexes *cut* value 21% of the time) |
+| Net cumulative growth: p25 · **p50** · p75 · p90 · p99 · max | +0.9% · **+14.6%** · +49.2% · +103.1% · +644.0% · +1,366.7% |
+| Over Art. 72 net-cumulative bands: >10% · >15% · >50% | 4,523 · 3,902 · 1,655 |
+| Total extra value | **+€2,461M gross · +€2,132M net** |
+
+⚠️ The **+€2,132M** here supersedes the +€1.75bn figure carried in project memory — a newer
+corpus. Re-check before publishing either number.
+
+**⭐ The finding: threshold-hugging at the 50% legal cap, and it is not subtle.**
+
+The growth distribution decays monotonically — then breaks. Per-1% buckets:
+
+| growth | 43% | 44% | 45% | 46% | 47% | 48% | **49%** | **50%** | 51% | 52% |
+|---|---|---|---|---|---|---|---|---|---|---|
+| contracts | 31 | 26 | 60 | 23 | 48 | 59 | **328** | **271** | **8** | 5 |
+
+**328 contracts at 49% against ~30–60 in every neighbour, then a 34× cliff from 271 to 8 at
+exactly 50%.** And **446 of the 594 contracts in [49%, 50.5%) sit at *exactly* +50.000%** — a
+precise 1.5× multiplier, not a cluster. They span the whole size range, from a €6,257
+kindergarten contract to a **€68,673,830 → €103,010,745 АПИ contract (+€34.3M, +50.000%)**.
+
+The exactly-50.000% cohort: **446 contracts, +€909.8M of extra value.**
+
+| awarder EIK | contracts at exactly +50.000% | extra value |
+|---|---|---|
+| **000695089 — АПИ** | **87** | **€857.5M** |
+| 130823243 — НКЖИ | 7 | €10.7M |
+| 130175000 — Софийска вода | 35 | €4.7M |
+| 120503871 — МБАЛ | 82 | €3.1M |
+| 000695235 — МВР | 2 | €3.0M |
+
+**АПИ is 94% of it.** Cross-reference [[project_api_road_effectiveness]]: €857M of АПИ's €7.5bn
+arrived via annexes priced to the decimal at the legal maximum.
+
+⚠️ **Three honest caveats, all load-bearing:**
+1. **Cumulative ≠ per-modification.** Our Δ is signing → final current, i.e. net cumulative
+   across *all* annexes. Art. 72's 50% limit is **per modification**. A cumulative Δ of exactly
+   50% is consistent with a single annex at the cap (where cumulative *is* per-modification) —
+   but we cannot currently tell one annex at 50% from three summing to it. **That distinction
+   is exactly what the `annexes` table buys, and €857M of АПИ money rides on the answer.**
+   This is now the strongest argument for building it.
+2. **An exact 1.5× could be computed by the form, not the buyer.** "Amended to the legal
+   maximum" is the natural reading, but a source-side formula would look identical. Do not
+   assert intent.
+3. The 50% cap is Art. 72 / its ЗОП transposition — **verify the exact ЗОП article number
+   before it appears in any copy.** Not verified here.
+
+⭐ This upgrades §7.1 from "a flag" to a publishable finding: **no empirical distribution of
+contract-amendment growth exists for EU procurement** (§9), and ours has a 34× cliff at the
+legal cap in it.
+
+**Not an artifact of the matching guards** — they sit at 15× (`MAX_MULTIPLE`) and ±12% on the
+signing anchor (`CONTINUITY_TOL`); neither can manufacture a discontinuity at 50% growth.
 
 Two things that must ship together, in this order:
 
@@ -352,12 +459,15 @@ as relative ordering only.
    display and never score it. Art. 72 gives legally-defensible bands (**50%** per individual
    modification; **10%** supplies/services / **15%** works net cumulative). PwC: substantial
    post-award changes **+35.6%, p<0.05** — among the strongest published weights.
-   ⚠️ **Blocker:** migration 078 flips `amount_eur` in place and keeps no annex count, date, or
-   reason (`scripts/procurement/anexi_current_value.ts`); there is **no `annexes` table**. Scoring
-   the Δ works today; scoring *per-modification* Art. 72 bands needs the feed retained first.
+   ✅ **Unblocked — see §0b.** The feed is fully retained on disk (26,120 records, 100%
+   populated, no re-crawl); it just never reaches PG. The **net-cumulative** band is queryable
+   today off `signing_amount_eur` and is **already measured** (§0b): 8,035 affected contracts,
+   median +14.6%, +€2,132M net. Only the **per-modification** 50% band needs the `annexes`
+   table — which is now well-specified (load 26k rows from cache; reuse
+   `anexi_current_value.ts`'s K2→K1 resolution and its three guards).
    ⭐ **No published empirical distribution of contract-amendment growth exists for EU
-   procurement.** We have the ЦАИС анекси feed and it already produced +€1.75bn of post-annex
-   value. This is a publishable finding, not just a flag.
+   procurement**, and §0b found a **34× cliff at exactly the 50% legal cap — 446 contracts at
+   exactly +50.000%, +€909.8M, of which АПИ is €857.5M.** Publishable finding, not just a flag.
 2. **КЗК appeal upheld, made available on the contract page.** The reason the detail page reads
    "8" and not "9" is that `useContract` does not select the appeal join — only the contracts
    browser and tender page do, so `computeProcurementRisk.ts:173` marks it unavailable.
@@ -418,11 +528,12 @@ on wider scope**. The two families are not comparable — do not mix them in any
 **Proposal:** raise `direct`, lower `singleBid`. Exact numbers pending the §6b base-rate run —
 this plan does not pick them.
 
-⚠️ **Blocker:** the five weights are **duplicated verbatim** in two SQL bodies
-(`041:144` and `041:322`) by documented necessity (`041:77–88` — no way to share an expression
-across a STABLE fn and a set-returning fn). A parity test in
-`scripts/procurement/kzk.harness.ts` locks them. Any reweighting touches both, then re-fans
-`awarder_risk_grade_scoped` via `scripts/db/lib/riskGradeScoped.ts:26`.
+✅ **Unblocked — see §0a.** The weights were extracted into `awarder_risk_grade_frac()` and now
+live in exactly one place; the "can't share an expression" premise was wrong. A reweight is a
+one-line edit, verified byte-identical and plan-neutral, with `kzk.harness.ts` still locking
+fn==matview. After changing it, re-fan `awarder_risk_grade_scoped` via
+`scripts/db/lib/riskGradeScoped.ts:26` (called from `load_pg.ts`, `load_tr_pg.ts`,
+`kzk_appeals.ts`) and REFRESH `awarder_risk_grade_ranking`.
 
 ---
 
@@ -444,8 +555,14 @@ across a STABLE fn and a set-returning fn). A parity test in
   bidding is validated against perception indices; single bidding detected 10–12% of 73 proven
   cartels. GTI states the circularity openly.
 - **Open:** does `flags_nav` collapse into `procurement_section_risk`? (§4c — deferred.)
-- **Open:** the §7.1 annex work needs a decision on retaining the анекси feed before the
-  Art. 72 bands are reachable.
+- **Open:** the `annexes` table (§0b) — the only remaining piece of §7.1. Needs a migration
+  (`080_procurement_annexes.sql`), a loader reusing `anexi_current_value.ts`'s identity
+  resolution, and a `recent_updates` changelog wire-up (house rule: every PG-migrated dataset
+  registers there). It answers the one question the §0b finding cannot: **one annex at the cap,
+  or several summing to it?**
+- **Open:** the exactly-50.000% cohort (§0b) is a story before it is a flag. Decide whether it
+  ships as an article, a tile, or both — and settle caveat (2) (buyer intent vs a source-side
+  1.5× formula) before either. Do not publish the АПИ number without that.
 
 ## 10. Sources
 
