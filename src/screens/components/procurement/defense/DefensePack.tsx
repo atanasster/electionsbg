@@ -62,7 +62,6 @@ export const DefensePack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
   scopeWindow,
 }) => {
   const { i18n } = useTranslation();
-  // Carry the active scope onto the awarder page (see SectorAwardersTile).
   const awarderHref = useAwarderHref();
   const lang = i18n.language;
   const bg = lang === "bg";
