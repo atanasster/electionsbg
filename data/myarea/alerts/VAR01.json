@@ -1,23 +1,32 @@
 {
   "obshtina": "VAR01",
-  "generatedAt": "2026-07-16T14:01:49.220Z",
+  "generatedAt": "2026-07-17T13:37:26.171Z",
   "events": [
     {
-      "date": "2026-07-13",
+      "date": "2026-07-17",
+      "kind": "eu_funds",
+      "changeType": "modified",
+      "headline_bg": "Промяна по проект: „Подкрепа за семейно предприятие\" · €102K",
+      "headline_en": "EU-funds project changed: \"Подкрепа за семейно предприятие\" · €102K",
+      "amountEur": 102253.26,
+      "detail": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027"
+    },
+    {
+      "date": "2026-07-17",
+      "kind": "eu_funds",
+      "changeType": "modified",
+      "headline_bg": "Промяна по проект: „Повишаване на производствения капацитет на Мултимедиа ООД\" · €101K",
+      "headline_en": "EU-funds project changed: \"Повишаване на производствения капацитет на Мултимедиа ООД\" · €101K",
+      "amountEur": 101052.06,
+      "detail": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027"
+    },
+    {
+      "date": "2026-07-17",
       "kind": "eu_funds",
       "changeType": "modified",
       "headline_bg": "Промяна по проект: „Изграждане на училищен STEM център\" · €93K",
       "headline_en": "EU-funds project changed: \"Изграждане на училищен STEM център\" · €93K",
       "amountEur": 92810.53,
-      "detail": "Национален план за възстановяване и устойчивост"
-    },
-    {
-      "date": "2026-07-13",
-      "kind": "eu_funds",
-      "changeType": "modified",
-      "headline_bg": "Промяна по проект: „изграждане на дигитален клуб в Народно читалище ПЕТКО РАЧЕВ СЛАВЕЙКОВ-1928 г - с.Близнаци\" · €14K",
-      "headline_en": "EU-funds project changed: \"изграждане на дигитален клуб в Народно читалище ПЕТКО РАЧЕВ СЛАВЕЙКОВ-1928 г - с.Близнаци\" · €14K",
-      "amountEur": 14316.18,
       "detail": "Национален план за възстановяване и устойчивост"
     },
     {
@@ -35,6 +44,22 @@
       "headline_en": "Tender announced: Община Аврен · „Основен ремонт на Път VAR 2005 (/I-9, Приселци-Старо Оряхово/-Равна г · €4.2M (estimated)",
       "amountEur": 4155530.56,
       "link": "/tenders/00900-2026-0007"
+    },
+    {
+      "date": "2026-06-16",
+      "kind": "procurement",
+      "noticeType": "awarded",
+      "headline_bg": "Възложена поръчка: Община Аврен → Инфра експерт АД · €2.5M",
+      "headline_en": "Contract awarded: Община Аврен → Инфра експерт АД · €2.5M",
+      "amountEur": 2491944.6
+    },
+    {
+      "date": "2026-06-16",
+      "kind": "procurement",
+      "noticeType": "awarded",
+      "headline_bg": "Възложена поръчка: Община Аврен → Битумина ГмбХ - българия ЕООД · €1.2M",
+      "headline_en": "Contract awarded: Община Аврен → Битумина ГмбХ - българия ЕООД · €1.2M",
+      "amountEur": 1188232.31
     },
     {
       "date": "2026-06-12",
@@ -75,22 +100,6 @@
       "headline_en": "Tender announced: Община Аврен · „РЕКОНСТРУКЦИЯ И РЕХАБИЛИТАЦИЯ НА УЛИЧНА ВОДОПРОВОДНА МРЕЖА В СЕЛО ЗДР · €1.2M (estimated)",
       "amountEur": 1194506,
       "link": "/tenders/00900-2026-0005"
-    },
-    {
-      "date": "2025-08-12",
-      "kind": "procurement",
-      "noticeType": "awarded",
-      "headline_bg": "Възложена поръчка: Община Аврен → Стимекс ЕООД · €320K",
-      "headline_en": "Contract awarded: Община Аврен → Стимекс ЕООД · €320K",
-      "amountEur": 320052.61
-    },
-    {
-      "date": "2025-08-12",
-      "kind": "procurement",
-      "noticeType": "awarded",
-      "headline_bg": "Възложена поръчка: Община Аврен → ВИА ПРО Инженеринг ЕООД · €320K",
-      "headline_en": "Contract awarded: Община Аврен → ВИА ПРО Инженеринг ЕООД · €320K",
-      "amountEur": 320052.61
     },
     {
       "date": "2024-01-01",
