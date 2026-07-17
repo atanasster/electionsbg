@@ -14,13 +14,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Network } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { PackSelect } from "../PackSelect";
 import {
   useNzokActivities,
   useNzokActivityByProcedure,
@@ -67,25 +61,17 @@ export const NzokPathwayTreeTile: FC<{ hideTitle?: boolean }> = ({
           <span className="text-xs text-muted-foreground">
             {bg ? "Клинична пътека:" : "Clinical pathway:"}
           </span>
-          <Select
-            value={selected ?? undefined}
-            onValueChange={(v) => setProcedure(v)}
-          >
-            <SelectTrigger className="h-7 w-auto min-w-[240px] max-w-full text-xs">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {options.map((p) => (
-                <SelectItem
-                  key={p.procedure}
-                  value={p.procedure}
-                  className="text-xs"
-                >
-                  {label(p.procedure)}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <PackSelect
+            value={selected ?? ""}
+            onChange={(v) => setProcedure(v)}
+            ariaLabel={bg ? "Клинична пътека" : "Clinical pathway"}
+            className="min-w-[240px] max-w-full"
+            contentClassName="max-w-[min(90vw,26rem)]"
+            options={options.map((p) => ({
+              value: p.procedure,
+              label: label(p.procedure),
+            }))}
+          />
           {selected && (
             <Link
               to={procedureHref(selected)}

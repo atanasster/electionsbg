@@ -13,6 +13,7 @@ import { ScatterChart } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEur } from "@/lib/currency";
 import { dataUrl } from "@/data/dataUrl";
+import { useTooltip } from "@/ux/useTooltip";
 import { fetchPopulation } from "@/data/procurement/useProcurementByOblast";
 import type { MvrUnitAgg } from "@/data/procurement/useMvr";
 import { unitOblastCanon } from "./securityOblast";
@@ -53,6 +54,9 @@ const PAD = { l: 40, r: 12, t: 12, b: 30 };
 export const MvrCrimeScatterTile: FC<{ units: MvrUnitAgg[] }> = ({ units }) => {
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
+  // Shared tooltip, never the native <title> (house rule). {tooltip} renders OUTSIDE
+  // the Card — it positions with page coordinates + position:absolute.
+  const { tooltip, onMouseEnter, onMouseMove, onMouseLeave } = useTooltip();
   const { data: population } = useQuery({
     queryKey: ["population"] as const,
     queryFn: fetchPopulation,
@@ -121,124 +125,156 @@ export const MvrCrimeScatterTile: FC<{ units: MvrUnitAgg[] }> = ({ units }) => {
   const { sx, sy, xMed, yMed, labelled } = geom;
 
   return (
-    <Card id="crime-scatter">
-      <CardHeader className="pb-2">
-        <CardTitle className="text-base flex items-center gap-2">
-          <ScatterChart className="h-4 w-4" />
-          {bg ? "Разход срещу престъпност" : "Spend vs crime"}
-        </CardTitle>
-        <p className="text-xs text-muted-foreground">
-          {bg
-            ? "Всяка точка е област: разход на МВР на жител спрямо регистрирани кражби на 100 000 души."
-            : "Each dot is an oblast: МВР spend per resident vs recorded theft per 100k."}
-        </p>
-      </CardHeader>
-      <CardContent className="p-3 md:p-4">
-        <div className="w-full overflow-x-auto">
-          <svg
-            viewBox={`0 0 ${W} ${H}`}
-            className="w-full"
-            style={{ maxWidth: 480 }}
-            role="img"
-            aria-label={
-              bg
-                ? "Разсейка: разход на МВР на жител спрямо престъпност по области"
-                : "Scatter: МВР spend per resident vs crime by oblast"
-            }
-          >
-            {/* median quadrant lines */}
-            <line
-              x1={sx(xMed)}
-              y1={PAD.t}
-              x2={sx(xMed)}
-              y2={H - PAD.b}
-              stroke="hsl(var(--border))"
-              strokeDasharray="3 3"
-            />
-            <line
-              x1={PAD.l}
-              y1={sy(yMed)}
-              x2={W - PAD.r}
-              y2={sy(yMed)}
-              stroke="hsl(var(--border))"
-              strokeDasharray="3 3"
-            />
-            {/* axes */}
-            <line
-              x1={PAD.l}
-              y1={H - PAD.b}
-              x2={W - PAD.r}
-              y2={H - PAD.b}
-              stroke="hsl(var(--muted-foreground))"
-              strokeWidth="0.75"
-            />
-            <line
-              x1={PAD.l}
-              y1={PAD.t}
-              x2={PAD.l}
-              y2={H - PAD.b}
-              stroke="hsl(var(--muted-foreground))"
-              strokeWidth="0.75"
-            />
-            {/* points */}
-            {points.map((p) => (
-              <g key={p.canon}>
-                <circle
-                  cx={sx(p.perCapita)}
-                  cy={sy(p.theft)}
-                  r={3.4}
-                  fill="hsl(222 32% 46%)"
-                  fillOpacity={0.8}
-                >
-                  <title>{`${p.name}: ${formatEur(p.perCapita, i18n.language)}/${bg ? "жит." : "cap"}, ${Math.round(p.theft)} ${bg ? "кражби/100к" : "theft/100k"}`}</title>
-                </circle>
-                {labelled.has(p.canon) &&
-                  (() => {
-                    // Right-half points anchor their label leftward so it can't
-                    // clip the SVG edge (mobile-narrow safe).
-                    const rightHalf = sx(p.perCapita) > (W - PAD.r + PAD.l) / 2;
-                    return (
-                      <text
-                        x={sx(p.perCapita) + (rightHalf ? -5 : 5)}
-                        y={sy(p.theft) - 4}
-                        textAnchor={rightHalf ? "end" : "start"}
-                        className="fill-muted-foreground"
-                        style={{ fontSize: 9 }}
-                      >
-                        {p.name}
-                      </text>
-                    );
-                  })()}
-              </g>
-            ))}
-            {/* axis labels */}
-            <text
-              x={(PAD.l + W - PAD.r) / 2}
-              y={H - 4}
-              textAnchor="middle"
-              className="fill-muted-foreground"
-              style={{ fontSize: 9 }}
+    <>
+      <Card id="crime-scatter">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-base flex items-center gap-2">
+            <ScatterChart className="h-4 w-4" />
+            {bg ? "Разход срещу престъпност" : "Spend vs crime"}
+          </CardTitle>
+          <p className="text-xs text-muted-foreground">
+            {bg
+              ? "Всяка точка е област: разход на МВР на жител спрямо регистрирани кражби на 100 000 души."
+              : "Each dot is an oblast: МВР spend per resident vs recorded theft per 100k."}
+          </p>
+        </CardHeader>
+        <CardContent className="p-3 md:p-4">
+          <div className="w-full overflow-x-auto">
+            <svg
+              viewBox={`0 0 ${W} ${H}`}
+              className="w-full"
+              style={{ maxWidth: 480 }}
+              role="img"
+              aria-label={
+                bg
+                  ? "Разсейка: разход на МВР на жител спрямо престъпност по области"
+                  : "Scatter: МВР spend per resident vs crime by oblast"
+              }
             >
-              {bg ? "€ на жител →" : "€ per resident →"}
-            </text>
-            <text
-              x={-(PAD.t + H - PAD.b) / 2}
-              y={11}
-              transform="rotate(-90)"
-              textAnchor="middle"
-              className="fill-muted-foreground"
-              style={{ fontSize: 9 }}
-            >
-              {bg ? "кражби / 100к →" : "theft / 100k →"}
-            </text>
-          </svg>
-        </div>
-        <p className="mt-2 text-[11px] text-muted-foreground/80">
-          {bg
-            ? `${points.length} области. Пунктирът е медианата. Разходът и престъпността зависят от много фактори (гъстота, отчетност) — контекст, не причина. Столицата отпада (кражбите ѝ са по райони). Кражби: Eurostat/НСИ (regional.json). Поръчки: АОП/ЦАИС ЕОП.`
-            : `${points.length} oblasts. Dashed lines are the medians. Spend and crime have many confounders (density, reporting) — context, not causation. The capital is dropped (its theft series is district-sharded). Theft: Eurostat/НСИ (regional.json). Procurement: АОП/ЦАИС ЕОП.`}
-        </p>
-      </CardContent>
-    </Card>
+              {/* median quadrant lines */}
+              <line
+                x1={sx(xMed)}
+                y1={PAD.t}
+                x2={sx(xMed)}
+                y2={H - PAD.b}
+                stroke="hsl(var(--border))"
+                strokeDasharray="3 3"
+              />
+              <line
+                x1={PAD.l}
+                y1={sy(yMed)}
+                x2={W - PAD.r}
+                y2={sy(yMed)}
+                stroke="hsl(var(--border))"
+                strokeDasharray="3 3"
+              />
+              {/* axes */}
+              <line
+                x1={PAD.l}
+                y1={H - PAD.b}
+                x2={W - PAD.r}
+                y2={H - PAD.b}
+                stroke="hsl(var(--muted-foreground))"
+                strokeWidth="0.75"
+              />
+              <line
+                x1={PAD.l}
+                y1={PAD.t}
+                x2={PAD.l}
+                y2={H - PAD.b}
+                stroke="hsl(var(--muted-foreground))"
+                strokeWidth="0.75"
+              />
+              {/* points */}
+              {points.map((p) => (
+                <g key={p.canon}>
+                  <circle
+                    cx={sx(p.perCapita)}
+                    cy={sy(p.theft)}
+                    // A bigger invisible hit area than the painted dot — 3.4px is
+                    // hard to hover, especially on touch.
+                    r={9}
+                    fill="transparent"
+                    onMouseEnter={(e) =>
+                      onMouseEnter(
+                        { pageX: e.pageX, pageY: e.pageY },
+                        <span className="block">
+                          <span className="block font-medium">{p.name}</span>
+                          <span className="block tabular-nums">
+                            {bg ? "Разход на жител: " : "Spend per resident: "}
+                            {formatEur(p.perCapita, i18n.language)}
+                          </span>
+                          <span className="block tabular-nums">
+                            {bg ? "Кражби на 100к: " : "Theft per 100k: "}
+                            {Math.round(p.theft)}
+                          </span>
+                        </span>,
+                      )
+                    }
+                    onMouseMove={(e) =>
+                      onMouseMove({ pageX: e.pageX, pageY: e.pageY })
+                    }
+                    onMouseLeave={onMouseLeave}
+                  />
+                  <circle
+                    cx={sx(p.perCapita)}
+                    cy={sy(p.theft)}
+                    r={3.4}
+                    fill="hsl(222 32% 46%)"
+                    fillOpacity={0.8}
+                    className="pointer-events-none"
+                  />
+                  {labelled.has(p.canon) &&
+                    (() => {
+                      // Right-half points anchor their label leftward so it can't
+                      // clip the SVG edge (mobile-narrow safe).
+                      const rightHalf =
+                        sx(p.perCapita) > (W - PAD.r + PAD.l) / 2;
+                      return (
+                        <text
+                          x={sx(p.perCapita) + (rightHalf ? -5 : 5)}
+                          y={sy(p.theft) - 4}
+                          textAnchor={rightHalf ? "end" : "start"}
+                          className="fill-muted-foreground"
+                          style={{ fontSize: 9 }}
+                        >
+                          {p.name}
+                        </text>
+                      );
+                    })()}
+                </g>
+              ))}
+              {/* axis labels */}
+              <text
+                x={(PAD.l + W - PAD.r) / 2}
+                y={H - 4}
+                textAnchor="middle"
+                className="fill-muted-foreground"
+                style={{ fontSize: 9 }}
+              >
+                {bg ? "€ на жител →" : "€ per resident →"}
+              </text>
+              <text
+                x={-(PAD.t + H - PAD.b) / 2}
+                y={11}
+                transform="rotate(-90)"
+                textAnchor="middle"
+                className="fill-muted-foreground"
+                style={{ fontSize: 9 }}
+              >
+                {bg ? "кражби / 100к →" : "theft / 100k →"}
+              </text>
+            </svg>
+          </div>
+          <p className="mt-2 text-[11px] text-muted-foreground/80">
+            {bg
+              ? `${points.length} области. Пунктирът е медианата. Разходът и престъпността зависят от много фактори (гъстота, отчетност) — контекст, не причина. Столицата отпада (кражбите ѝ са по райони). Кражби: Eurostat/НСИ (regional.json). Поръчки: АОП/ЦАИС ЕОП.`
+              : `${points.length} oblasts. Dashed lines are the medians. Spend and crime have many confounders (density, reporting) — context, not causation. The capital is dropped (its theft series is district-sharded). Theft: Eurostat/НСИ (regional.json). Procurement: АОП/ЦАИС ЕОП.`}
+          </p>
+        </CardContent>
+      </Card>
+      {/* OUTSIDE the Card — the shared tooltip uses page coords. */}
+      {tooltip}
+    </>
   );
 };

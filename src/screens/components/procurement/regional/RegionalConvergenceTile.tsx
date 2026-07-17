@@ -165,7 +165,9 @@ export const RegionalConvergenceTile: FC<{ oblasts: RegionalOblastAgg[] }> = ({
                             {formatEur(p.gdp, lang)}
                           </span>
                           <span className="block tabular-nums">
-                            {bg ? "ЕС на жител: " : "EU per resident: "}
+                            {bg
+                              ? "ЕС средства на човек: "
+                              : "EU funds per capita: "}
                             {formatEur(p.perCapita, lang)}
                           </span>
                         </span>,
@@ -221,7 +223,7 @@ export const RegionalConvergenceTile: FC<{ oblasts: RegionalOblastAgg[] }> = ({
                 className="fill-muted-foreground"
                 style={{ fontSize: 9 }}
               >
-                {bg ? "€ ЕС / жител →" : "€ EU / resident →"}
+                {bg ? "ЕС средства на човек →" : "EU funds per capita →"}
               </text>
             </svg>
           </div>

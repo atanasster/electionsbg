@@ -18,13 +18,7 @@ import { useTranslation } from "react-i18next";
 import { TrainFront } from "lucide-react";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatEurCompact } from "@/lib/currency";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { PackSelect } from "../PackSelect";
 import { WARN_CHIP_COLORS } from "../chipStyles";
 import { PackSection } from "../PackSection";
 import { useHashScroll } from "@/ux/useHashScroll";
@@ -183,24 +177,22 @@ export const TransportPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
           {bg ? "Транспорт" : "Transport"}
         </h2>
         {/* Mode segmentation — default whole group; or isolate a single mode. */}
-        <Select
+        <PackSelect
           value={universe}
-          onValueChange={(v) => setUniverse(v as UniverseFilter)}
-        >
-          <SelectTrigger className="ml-auto h-7 w-auto min-w-[150px] text-xs">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all" className="text-xs">
-              {bg ? "Целият транспорт" : "Whole transport group"}
-            </SelectItem>
-            {TRANSPORT_UNIVERSES.map((u) => (
-              <SelectItem key={u} value={u} className="text-xs">
-                {transportUniverseLabel(u, lang)}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+          onChange={setUniverse}
+          ariaLabel={bg ? "Избор на структури" : "Select units"}
+          className="ml-auto"
+          options={[
+            {
+              value: "all" as UniverseFilter,
+              label: bg ? "Целият транспорт" : "Whole transport group",
+            },
+            ...TRANSPORT_UNIVERSES.map((u) => ({
+              value: u as UniverseFilter,
+              label: transportUniverseLabel(u, lang),
+            })),
+          ]}
+        />
       </div>
 
       {/* Domain-only KPIs — the generic per-EIK total/contracts/suppliers KPIs sit in

@@ -16,13 +16,7 @@ import { useTranslation } from "react-i18next";
 import { HeartHandshake, Boxes, Activity, HandCoins } from "lucide-react";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatEurCompact } from "@/lib/currency";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { PackSelect } from "../PackSelect";
 import { WARN_CHIP_COLORS } from "../chipStyles";
 import { PackSection } from "../PackSection";
 import { useHashScroll } from "@/ux/useHashScroll";
@@ -157,24 +151,22 @@ export const SocialPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
         <h2 className="text-lg font-semibold">
           {bg ? "Социално подпомагане" : "Social assistance"}
         </h2>
-        <Select
+        <PackSelect
           value={universe}
-          onValueChange={(v) => setUniverse(v as UniverseFilter)}
-        >
-          <SelectTrigger className="ml-auto h-7 w-auto min-w-[150px] text-xs">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all" className="text-xs">
-              {bg ? "Цялата група" : "Whole group"}
-            </SelectItem>
-            {SOCIAL_UNIVERSES.map((u) => (
-              <SelectItem key={u} value={u} className="text-xs">
-                {socialUniverseLabel(u, lang)}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+          onChange={setUniverse}
+          ariaLabel={bg ? "Избор на структури" : "Select units"}
+          className="ml-auto"
+          options={[
+            {
+              value: "all" as UniverseFilter,
+              label: bg ? "Цялата група" : "Whole group",
+            },
+            ...SOCIAL_UNIVERSES.map((u) => ({
+              value: u as UniverseFilter,
+              label: socialUniverseLabel(u, lang),
+            })),
+          ]}
+        />
       </div>
 
       {/* Disbursement + outcome bands lead (the inversion). */}

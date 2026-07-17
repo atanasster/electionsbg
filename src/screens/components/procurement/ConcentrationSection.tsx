@@ -19,13 +19,7 @@ import {
   Download,
   X,
 } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { PackSelect } from "./PackSelect";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { Button } from "@/components/ui/button";
 import { formatEur } from "@/lib/currency";
@@ -257,27 +251,23 @@ export const ConcentrationSection: FC = () => {
                 }
                 className="min-w-[220px] flex-1 rounded-md border bg-background px-3 py-1.5 text-sm shadow-sm"
               />
-              <Select
+              <PackSelect
                 value={oblast ?? ALL_OBLASTS}
-                onValueChange={(v) => setOblast(v === ALL_OBLASTS ? null : v)}
-              >
-                <SelectTrigger
-                  aria-label={t("concentration_col_oblast") || "Oblast"}
-                  className="w-auto gap-1 rounded-md border-border bg-background px-2 py-1.5 text-sm"
-                >
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value={ALL_OBLASTS}>
-                    {t("concentration_all_oblasts") || "All oblasts"}
-                  </SelectItem>
-                  {oblastOptions.map((o) => (
-                    <SelectItem key={o.value} value={o.value}>
-                      {oblastLabel(o.value)} ({countFmt.format(o.count)})
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                onChange={(v) => setOblast(v === ALL_OBLASTS ? null : v)}
+                ariaLabel={t("concentration_col_oblast") || "Oblast"}
+                align="start"
+                className="h-8 gap-1 rounded-md border-border bg-background px-2 text-sm"
+                options={[
+                  {
+                    value: ALL_OBLASTS,
+                    label: t("concentration_all_oblasts") || "All oblasts",
+                  },
+                  ...oblastOptions.map((o) => ({
+                    value: o.value,
+                    label: `${oblastLabel(o.value)} (${countFmt.format(o.count)})`,
+                  })),
+                ]}
+              />
               <Button
                 variant="outline"
                 size="sm"

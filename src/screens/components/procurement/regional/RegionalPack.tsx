@@ -16,15 +16,10 @@
 import { FC, useMemo, useState } from "react";
 import { Link, useSearchParams, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Building2, Check, ChevronDown } from "lucide-react";
+import { Building2 } from "lucide-react";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatEurCompact } from "@/lib/currency";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { PackSelect } from "../PackSelect";
 import { WARN_CHIP_COLORS } from "../chipStyles";
 import { PackSection } from "../PackSection";
 import { useHashScroll } from "@/ux/useHashScroll";
@@ -70,12 +65,6 @@ export const RegionalPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
   const bg = lang === "bg";
 
   const [universe, setUniverse] = useState<UniverseFilter>("all");
-  const universeLabel =
-    universe === "all"
-      ? bg
-        ? "Цялата група (МРРБ)"
-        : "Whole МРРБ group"
-      : regionalUniverseLabel(universe, lang);
   const { model, units, groupTotalEur, isLoading } = useRegional(
     eik,
     scopeWindow,
@@ -173,40 +162,23 @@ export const RegionalPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
           {bg ? "Регионално развитие" : "Regional development"}
         </h2>
         {/* Universe segmentation — default whole group; or isolate one universe.
-            A DropdownMenu with `modal={false}` rather than a Radix Select: Select
-            always locks body scroll and compensates for the removed scrollbar, which
-            flashes a ghost scrollbar and shifts the page (same reason the header's
-            ElectionsSelect / RenderTopMenu use DropdownMenu). */}
-        <DropdownMenu modal={false}>
-          <DropdownMenuTrigger asChild>
-            <button
-              type="button"
-              aria-label={bg ? "Избор на структури" : "Select units"}
-              className="ml-auto flex h-7 w-auto min-w-[150px] items-center justify-between gap-2 whitespace-nowrap rounded-md border border-input bg-transparent px-2 text-xs text-secondary-foreground shadow-sm ring-offset-background focus:outline-none focus:ring-1 focus:ring-ring [&[data-state=open]>svg]:rotate-180"
-            >
-              <span className="line-clamp-1">{universeLabel}</span>
-              <ChevronDown className="size-4 shrink-0 opacity-50 transition-transform duration-200" />
-            </button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="min-w-[200px]">
-            {UNIVERSE_OPTIONS.map((u) => (
-              <DropdownMenuItem
-                key={u}
-                onSelect={() => setUniverse(u)}
-                className="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-3 pr-9 text-xs"
-              >
-                <span className="absolute right-3 flex size-4 items-center justify-center">
-                  {u === universe && <Check className="size-4" />}
-                </span>
-                {u === "all"
-                  ? bg
-                    ? "Цялата група (МРРБ)"
-                    : "Whole МРРБ group"
-                  : regionalUniverseLabel(u, lang)}
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+            PackSelect (DropdownMenu modal={false}), not a Radix Select: Select locks
+            body scroll and flashes a ghost scrollbar. See PackSelect's header. */}
+        <PackSelect
+          value={universe}
+          onChange={setUniverse}
+          ariaLabel={bg ? "Избор на структури" : "Select units"}
+          className="ml-auto"
+          options={UNIVERSE_OPTIONS.map((u) => ({
+            value: u,
+            label:
+              u === "all"
+                ? bg
+                  ? "Цялата група (МРРБ)"
+                  : "Whole МРРБ group"
+                : regionalUniverseLabel(u, lang),
+          }))}
+        />
       </div>
 
       {/* The pass-through hero — the single killer contrast (OG screenshot target).

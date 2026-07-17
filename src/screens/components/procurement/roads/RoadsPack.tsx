@@ -17,13 +17,7 @@ import { useTranslation } from "react-i18next";
 import { MapPin, Waypoints, X } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { StatCard } from "@/screens/dashboard/StatCard";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { PackSelect } from "../PackSelect";
 import { useRoads, type ScopeWindow } from "@/data/procurement/useRoads";
 import { formatEurCompact } from "@/lib/currency";
 import { ROAD_EUR_PER_KM, eurPerKmMln } from "@/lib/roadBenchmarks";
@@ -183,22 +177,23 @@ export const RoadsPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
                 </button>
               ) : null}
             </CardTitle>
-            <Select
+            <PackSelect
               value={mapMetric}
-              onValueChange={(v) => setMapMetric(v as RoadMetric)}
-            >
-              <SelectTrigger className="h-8 w-auto text-xs">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="singleBid">
-                  {lang === "bg" ? "Една оферта" : "Single bidder"}
-                </SelectItem>
-                <SelectItem value="perKm">
-                  {lang === "bg" ? "Цена на километър" : "Cost per kilometre"}
-                </SelectItem>
-              </SelectContent>
-            </Select>
+              onChange={setMapMetric}
+              ariaLabel={lang === "bg" ? "Показател на картата" : "Map metric"}
+              className="h-8 min-w-0"
+              options={[
+                {
+                  value: "singleBid" as RoadMetric,
+                  label: lang === "bg" ? "Една оферта" : "Single bidder",
+                },
+                {
+                  value: "perKm" as RoadMetric,
+                  label:
+                    lang === "bg" ? "Цена на километър" : "Cost per kilometre",
+                },
+              ]}
+            />
           </div>
         </CardHeader>
         <CardContent className="p-3 md:p-4">

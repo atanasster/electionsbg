@@ -14,13 +14,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { PackSelect } from "../PackSelect";
 import { formatEurCompact } from "@/lib/currency";
 import type { YearAgg, WorkGroup } from "@/lib/roadAttributes";
 import { GROUP_META } from "./roadLabels";
@@ -108,22 +102,26 @@ export const RoadTimeSpineTile: FC<{ years: YearAgg[] }> = ({ years }) => {
             <TrendingUp className="h-4 w-4" />
             {lang === "bg" ? "Разходи във времето" : "Spending over time"}
           </CardTitle>
-          <Select value={mode} onValueChange={(v) => setMode(v as Mode)}>
-            <SelectTrigger className="h-8 w-auto text-xs">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="group">
-                {lang === "bg" ? "По категория" : "By category"}
-              </SelectItem>
-              <SelectItem value="corridor">
-                {lang === "bg" ? "По коридор" : "By corridor"}
-              </SelectItem>
-              <SelectItem value="region">
-                {lang === "bg" ? "По област (ОПУ)" : "By oblast (ОПУ)"}
-              </SelectItem>
-            </SelectContent>
-          </Select>
+          <PackSelect
+            value={mode}
+            onChange={setMode}
+            ariaLabel={lang === "bg" ? "Разбивка" : "Breakdown"}
+            className="h-8 min-w-0"
+            options={[
+              {
+                value: "group" as Mode,
+                label: lang === "bg" ? "По категория" : "By category",
+              },
+              {
+                value: "corridor" as Mode,
+                label: lang === "bg" ? "По коридор" : "By corridor",
+              },
+              {
+                value: "region" as Mode,
+                label: lang === "bg" ? "По област (ОПУ)" : "By oblast (ОПУ)",
+              },
+            ]}
+          />
         </div>
       </CardHeader>
       <CardContent className="p-3 md:p-4">

@@ -26,13 +26,7 @@ import {
 } from "recharts";
 import { ClipboardList } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { PackSelect } from "../PackSelect";
 import {
   useNzokFinancialsMeasuresByEik,
   useNzokFinancialsMeasureFan,
@@ -185,18 +179,16 @@ export const NzokReportCardTile: FC<{ eik: string }> = ({ eik }) => {
             <span className="text-xs text-muted-foreground">
               {bg ? "Разпределение във времето:" : "Distribution over time:"}
             </span>
-            <Select value={measure} onValueChange={setMeasure}>
-              <SelectTrigger className="h-7 w-auto min-w-[200px] text-xs">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {NZOK_MEASURES.map((def) => (
-                  <SelectItem key={def.key} value={def.key} className="text-xs">
-                    {bg ? def.titleBg : def.titleEn}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <PackSelect
+              value={measure}
+              onChange={setMeasure}
+              ariaLabel={bg ? "Показател" : "Measure"}
+              className="min-w-[200px]"
+              options={NZOK_MEASURES.map((def) => ({
+                value: def.key,
+                label: bg ? def.titleBg : def.titleEn,
+              }))}
+            />
           </div>
 
           {fanRows.length > 0 && (
