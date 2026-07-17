@@ -17,13 +17,12 @@
 // call — the same query when universe="all".
 
 import { useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { useAwarderGroupModel, type ScopeWindow } from "./useAwarderGroupModel";
 import {
   buildEnvironmentModelFromAggregates,
   type EnvModel,
 } from "@/lib/environmentAttributes";
-import { dataUrl } from "@/data/dataUrl";
+import { useFundsAbsorption } from "@/data/funds/useFundsTaxonomy";
 import {
   MOSV_EIK,
   ENV_ALIAS_EIKS,
@@ -126,10 +125,14 @@ export const useEnvironment = (
 
 // --- EU funds (ИСУН / ОП „Околна среда") ------------------------------------
 // The environment programmes' absorption — contracted vs actually paid — joined by
-// OP CODE (accurate), NOT the ВиК pack's EIK-sum. Read straight from the static
-// data/funds/derived/absorption.json byProgramme[] (§0.5: there is NO useFundsAbsorption
-// hook), filtered to ENV_FUND_PROGRAM_CODES. No server call. Not scope-windowed:
-// EU-funds figures are programme-period lifetime totals.
+// OP CODE (accurate), NOT the ВиК pack's EIK-sum. Filtered to ENV_FUND_PROGRAM_CODES.
+// Not scope-windowed: EU-funds figures are programme-period lifetime totals.
+//
+// ⚠ SERVED FROM POSTGRES via the canonical `useFundsAbsorption()`
+// (→ /api/db/fund-payload?kind=absorption). NEVER the static
+// data/funds/derived/absorption.json: the ИСУН tree was migrated to Cloud SQL and
+// `bucket:sync` EXCLUDES `^funds/.*`, so the bucket copies are unmaintained and go
+// stale (measured: the bucket's muni-map.json was 15 days behind local).
 
 export interface EnvFundProgramme {
   programCode: string;
@@ -141,23 +144,11 @@ export interface EnvFundProgramme {
   contractCount: number;
 }
 
-interface AbsorptionFile {
-  byProgramme?: EnvFundProgramme[];
-}
-
 export const useEnvironmentFunds = (): {
   funds: EnvFundProgramme[];
   isLoading: boolean;
 } => {
-  const { data, isLoading } = useQuery({
-    queryKey: ["funds", "absorption", "environment"] as const,
-    queryFn: async (): Promise<AbsorptionFile> => {
-      const r = await fetch(dataUrl("/funds/derived/absorption.json"));
-      if (!r.ok) return {};
-      return r.json();
-    },
-    staleTime: Infinity,
-  });
+  const { data, isLoading } = useFundsAbsorption();
 
   const funds = useMemo<EnvFundProgramme[]>(() => {
     const codes = new Set<string>(ENV_FUND_PROGRAM_CODES);

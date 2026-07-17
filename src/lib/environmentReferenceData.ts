@@ -32,7 +32,7 @@ export const PUDOOS_EIK = "131045382"; // ПУДООС — Предприяти�
 export const MOSV_BUDGET_NODE = "admin-ministerstvo-na-okolnata-sreda-i-vodite";
 
 /** The env EU-funds programme codes — join key for the OP absorption tile (from the
- *  static data/funds/derived/absorption.json byProgramme[], §0.5). The two ОП „Околна
+ *  PG fund_payloads kind='absorption' byProgramme[], via useFundsAbsorption). The two ОП „Околна
  *  среда" periods carry ~99% of the money; the three EEA/Norway grants are on-thesis
  *  (MODAIRN = air quality). */
 export const ENV_FUND_PROGRAM_CODES = [

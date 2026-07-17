@@ -37,6 +37,20 @@ const tryFetch = async <T>(path: string): Promise<T | null> => {
   }
 };
 
+// The ИСУН shards are Postgres-served (fund_payloads). NEVER read the funds tree as
+// static JSON: bucket:sync EXCLUDES ^funds/.*, so the bucket copies are unmaintained
+// and go stale. A missing shard resolves to null (the caller renders "no projects").
+const tryFundPayload = async <T>(
+  kind: string,
+  key: string,
+): Promise<T | null> => {
+  try {
+    return await fetchDb<T>("fund-payload", { kind, key });
+  } catch {
+    return null;
+  }
+};
+
 // ---- procurement by settlement (keyed by ekatte) ----------------------------
 
 type SettlementProc = {
@@ -656,12 +670,11 @@ export const placeEuProjects = async (
     place.obshtina === "SOF" || place.obshtina === "SFO_CITY"
       ? "S22"
       : place.obshtina;
-  const summary = await tryFetch<FundsMuniSummary>(
-    `/funds/projects/by-muni/${obshtina}-summary.json`,
+  const summary = await tryFundPayload<FundsMuniSummary>(
+    "muni-summary",
+    obshtina,
   );
-  const changes = await tryFetch<FundsChangesFeed>(
-    `/funds/projects/changes/${obshtina}.json`,
-  );
+  const changes = await tryFundPayload<FundsChangesFeed>("changes", obshtina);
   if (!summary) {
     return {
       tool: "placeEuProjects",
@@ -672,7 +685,7 @@ export const placeEuProjects = async (
         : `No EU-funds projects for ${place.nameEn}`,
       viz: "none",
       facts: { place: place.name },
-      provenance: [`funds/projects/by-muni/${obshtina}-summary.json`],
+      provenance: [`db:fund-payload (ИСУН muni-summary ${obshtina})`],
     };
   }
   const newCount = changes?.changes.filter((c) => c.type === "new").length ?? 0;

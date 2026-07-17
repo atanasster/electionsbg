@@ -133,9 +133,9 @@ export const environmentFunds = async (
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
-  const file = await fetchData<AbsorptionFile>(
-    "/funds/derived/absorption.json",
-  );
+  const file = await fetchDb<AbsorptionFile>("fund-payload", {
+    kind: "absorption",
+  });
   const codes = new Set<string>(ENV_FUND_PROGRAM_CODES);
   const progs = (file.byProgramme ?? [])
     .filter((p) => codes.has(p.programCode) && p.contractedEur > 0)
@@ -196,7 +196,7 @@ export const environmentFunds = async (
         ? "Сумите са за целия програмен период (ОП/Програма „Околна среда“), не по избран парламент. Водният цикъл се брои и в изгледа „Води“."
         : "Figures are programme-period totals (ОП/Programme „Околна среда“), not scoped to a parliament. The water-cycle also appears in the Water view.",
     },
-    provenance: ["funds/derived/absorption.json (ИСУН)"],
+    provenance: ["db:fund-payload (ИСУН absorption)"],
   };
 };
 

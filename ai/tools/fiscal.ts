@@ -660,7 +660,7 @@ export const fundsOverview = async (
   _args: ToolArgs,
   ctx: ToolContext,
 ): Promise<Envelope> => {
-  const f = await fetchData<FundsIndex>("/funds/index.json");
+  const f = await fetchDb<FundsIndex>("fund-payload", { kind: "index" });
   const top = f.topByContracted.slice(0, 8);
   return {
     tool: "fundsOverview",
@@ -689,7 +689,7 @@ export const fundsOverview = async (
       paid: fmtEurCompact(f.totals.paidEur, ctx.lang),
       top: top[0]?.name ?? "—",
     },
-    provenance: ["funds/index.json"],
+    provenance: ["db:fund-payload (ИСУН index)"],
   };
 };
 
@@ -2165,7 +2165,9 @@ export const fundsProjects = async (
   ctx: ToolContext,
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
-  const d = await fetchData<FundsProjIndex>("/funds/projects/index.json");
+  const d = await fetchDb<FundsProjIndex>("fund-payload", {
+    kind: "projects-index",
+  });
   const top = [...d.byProgram]
     .sort((a, b) => b.rollup.totalEur - a.rollup.totalEur)
     .slice(0, 8);
@@ -2204,7 +2206,7 @@ export const fundsProjects = async (
       absorbed: `${pct(d.totals.paidEur, d.totals.totalEur)}%`,
       top_programme: top[0]?.programName ?? "—",
     },
-    provenance: ["funds/projects/index.json"],
+    provenance: ["db:fund-payload (ИСУН projects-index)"],
   };
 };
 

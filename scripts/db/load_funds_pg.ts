@@ -230,6 +230,15 @@ const collectPayloads = (): PayloadRow[] => {
       (f) => f.endsWith(".json"),
       (f) => f.slice(0, -".json".length),
     ],
+    // Per-муни "what changed" feed — the last shard still read as static JSON by
+    // ai/tools/profile.ts (placeEuProjects). Nothing may read the funds tree off the
+    // bucket: bucket:sync EXCLUDES ^funds/.*, so those copies go stale.
+    [
+      "changes",
+      path.join(PROJECTS_DIR, "changes"),
+      (f) => f.endsWith(".json") && f !== "index.json",
+      (f) => f.slice(0, -".json".length),
+    ],
     [
       "integrity-program",
       path.join(DERIVED_DIR, "integrity-by-program"),
