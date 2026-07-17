@@ -1,53 +1,38 @@
 {
   "obshtina": "SML27",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR002-4.006-0004",
-      "title": "Мерки за превенция и управление на риска от наводнения на територията на Община Рудозем – р. Арда, преминаваща в централната градска част на гр. Рудозем",
-      "type": "new",
-      "totalEur": 755680.92,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR002",
-      "programName": "Програма \"Околна среда\" 2021-2027",
-      "beneficiaryName": "Община Рудозем",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2291",
-      "title": "Подобряване на производствения капацитет на \"Сепал\" ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 60230.18,
-      "totalEur": 60163.88,
-      "paidEur": 45122.91,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Сепал ЕООД",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0073",
-      "title": "„Изграждане на дигитален клуб в Народно читалище “Христо Ботев - 2000\", гр. Рудозем",
+      "contractNumber": "BG-RRP-4.023-0901",
+      "title": "„Подкрепа за устойчиво енергийно обновяване на блок \"3\" \"Хан Аспарух\", гр. Рудозем\"",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 17383.92,
-      "totalEur": 17383.92,
-      "paidEur": 16839.23,
+      "prevTotalEur": 295892.18,
+      "totalEur": 295892.18,
+      "paidEur": 294605.76,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище “Христо Ботев - 2000\", гр. Рудозем",
-      "detectedAt": "2026-07-13"
+      "beneficiaryName": "Община Рудозем",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1576",
+      "title": "„Подкрепа за устойчиво енергийно обновяване на блок \"8\", ул.Васил Левски\", гр.Рудозем.",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 193649.54,
+      "totalEur": 193649.54,
+      "paidEur": 192960.88,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Рудозем",
+      "detectedAt": "2026-07-17"
     }
   ]
 }

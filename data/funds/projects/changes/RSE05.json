@@ -1,22 +1,24 @@
 {
   "obshtina": "RSE05",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.015-1990",
-      "title": "„Училищна STEM среда\"",
+      "contractNumber": "BG05SFPR003-1.001-0092",
+      "title": "Топъл обяд в община Ветово",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "durationMonths"
       ],
-      "prevTotalEur": 92665.44,
-      "totalEur": 92665.44,
-      "paidEur": 92459.47,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"СВ.СВ.КИРИЛ и Методий\"",
-      "detectedAt": "2026-07-13"
+      "prevTotalEur": 1624616.31,
+      "totalEur": 2020361.68,
+      "paidEur": 1302826.47,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Ветово",
+      "detectedAt": "2026-07-17"
     }
   ]
 }

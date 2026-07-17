@@ -1,102 +1,212 @@
 {
   "obshtina": "PDV22",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.008-0588",
-      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в СМАРТ ПАУЪР ГРИД ООД",
+      "contractNumber": "BG05SFPR001-3.009-0017",
+      "title": "Център за високи постижения в професионалното образование и обучение -ТЕХ ПАРК ПГЕЕ - Пловдив",
       "type": "new",
-      "totalEur": 833000.32,
+      "totalEur": 289518.77,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Смарт пауър грид ООД",
-      "detectedAt": "2026-07-13"
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Професионална гимназия по електротехника и електроника - ГР. Пловдив",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.010-0222",
+      "title": "Превенция и предотвратяване на тормоза, насилието и намаляване агресията в СУ \"СВ. Климент Охридски\" - гр. Пловдив",
+      "type": "new",
+      "totalEur": 73460.58,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Средно училище \"СВ. Климент Охридски\" - гр. Пловдив",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BNSF-1.010-0003",
+      "title": "Организиране на 13-ти Централно европейски конгрес по храни - CEFood 2026",
+      "type": "new",
+      "totalEur": 9000,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "BNSF",
+      "programName": "Фонд Научни Изследвания",
+      "beneficiaryName": "Университет по хранителни технологии - Пловдив",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG16RFPR002-1.014-0003",
+      "title": "Устойчиво развитие на Център по Растителна Системна Биология и Биотехнология (ЦРСББ) Пловдив",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 7085453.76,
+      "totalEur": 7085453.76,
+      "paidEur": 1314807.51,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR002",
+      "programName": "Програма \"Научни изследвания, иновации и дигитализация за интелигентна трансформация\"",
+      "beneficiaryName": "Център по растителна системна биология и биотехнология Сдружение",
+      "detectedAt": "2026-07-17"
     },
     {
       "contractNumber": "BG16RFPR002-1.001-0003",
       "title": "Киберсигурност за всички заинтересовани страни (CYBER4ALLSTAR)",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
       "prevTotalEur": 3000001.05,
-      "totalEur": 3000001.05,
+      "totalEur": 2444413.78,
       "paidEur": 1222206.87,
-      "status": "В изпълнение (от дата на стартиране)",
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR002",
       "programName": "Програма \"Научни изследвания, иновации и дигитализация за интелигентна трансформация\"",
       "beneficiaryName": "Сдружение \"Съюз за Стопанска инициатива\"",
-      "detectedAt": "2026-07-13"
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG-RRP-1.007-0021",
-      "title": "„Модернизация на образователна среда в СУ \"Пейо Кр. Яворов\" - гр. Пловдив\"",
+      "contractNumber": "BG-RRP-1.007-0020",
+      "title": "„Модернизация на образователната среда в ОУ \"Екзарх Антим I\" - гр. Пловдив\"",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 2296737.76,
-      "totalEur": 2296737.76,
-      "paidEur": 2292114.77,
+      "prevTotalEur": 2296567.57,
+      "totalEur": 2296567.57,
+      "paidEur": 2178476.92,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Пловдив",
-      "detectedAt": "2026-07-13"
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG-RRP-4.023-1158",
-      "title": "Изпълнение на мерки за енергийна ефективност за обект многофамилна жилищна сграда - гр. Пловдив, район \"Тракия\", блок №50",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "durationMonths"
-      ],
-      "prevTotalEur": 1280515.31,
-      "totalEur": 1243981.58,
-      "paidEur": 848087.5,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Пловдив - район \"Тракия\"",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2450",
-      "title": "Въвеждане на мерки за енергийна ефективност в многофамилна жилищна сграда с адрес: гр. Пловдив, район \"Тракия\", блок\" № 208",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "durationMonths"
-      ],
-      "prevTotalEur": 881045.3,
-      "totalEur": 854238.46,
-      "paidEur": 671019.19,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Пловдив - район \"Тракия\"",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG-RRP-4.020-0048",
-      "title": "\"Устойчиво енергийно обновяване на административна сграда на Областна администрация - Пловдив\"",
+      "contractNumber": "BG-RRP-4.023-1901",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда на ул. \"Славянска\" 93, район \"Източен\", гр. Пловдив",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 523910.56,
-      "totalEur": 523910.56,
-      "paidEur": 515122.12,
+      "prevTotalEur": 1576560.39,
+      "totalEur": 1576560.39,
+      "paidEur": 1202958.62,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Областна адмнистрация- Пловдив",
-      "detectedAt": "2026-07-13"
+      "beneficiaryName": "Район \"Източен\" - Община пловдив",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-11.021-0003",
+      "title": "Отново Заедно",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 1533875.14,
+      "totalEur": 1463205.94,
+      "paidEur": 204516.75,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Пловдив",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-2681",
+      "title": "Подкрепа за устойчиво енергийно обновяване на МФЖ с адрес гр. Пловдив, ул. “Калиакра“ № 9,11,13,15",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 1279750.53,
+      "totalEur": 1254781.34,
+      "paidEur": 647982.14,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Район \"Южен\" - Община Пловдив",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-2842",
+      "title": "Подкрепа за устойчиво енергийно обновяване на МФЖ с адрес гр. Пловдив, бул. “Никола Вапцаров“ № 64,66,68",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 993698.33,
+      "totalEur": 948385.32,
+      "paidEur": 754015.78,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Район \"Южен\" - Община Пловдив",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1130",
+      "title": "Въвеждане на мерки за енергийна ефективност в многофамилна жилищна сграда с адрес: гр. Пловдив, район \"Тракия\", блок № 199",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 655040.79,
+      "totalEur": 653401.01,
+      "paidEur": 495212.73,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Пловдив - район \"Тракия\"",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1890",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда на ул. \"Генерал Радко Димитриев\" № 23, 25, район \"Източен\", гр. Пловдив",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 521147.74,
+      "totalEur": 521147.74,
+      "paidEur": 272660.69,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Район \"Източен\" - Община пловдив",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-4.023-1898",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда на ул. \"Ралица\" № 12, 14, 16, район \"Източен\", гр. Пловдив",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 455719.44,
+      "totalEur": 455719.44,
+      "paidEur": 349242.47,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Район \"Източен\" - Община пловдив",
+      "detectedAt": "2026-07-17"
     },
     {
       "contractNumber": "BG16RFOP002-2.001-0471",
@@ -107,48 +217,48 @@
       ],
       "prevTotalEur": 433730.95,
       "totalEur": 433730.95,
-      "paidEur": 344264.07,
+      "paidEur": 326666.17,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2014BG16RFOP002",
       "programName": "Иновации и конкурентоспособност",
       "beneficiaryName": "Самиташ металбау ЕООД",
-      "detectedAt": "2026-07-13"
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-2273",
-      "title": "Адаптирана работна среда в ХЪС ООД",
+      "contractNumber": "BG16RFPR001-1.004-1099",
+      "title": "Подобряване на производствения капацитет на ПРИНТСТУДИО 21 ООД",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 249375.27,
-      "totalEur": 249375.27,
-      "paidEur": 46105.39,
+      "prevTotalEur": 102258.38,
+      "totalEur": 102258.38,
+      "paidEur": 76693.78,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "ХЪС ООД",
-      "detectedAt": "2026-07-13"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Принтстудио 21 ООД",
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG-RRP-2.017-0043",
-      "title": "Субкритична екстракция – зелена технология за извличане на растителни биологично активни вещества",
+      "contractNumber": "BG16RFPR001-1.004-1103",
+      "title": "Подобряване на производствения капацитет на Съксес Ан ЕООД, гр.Пловдив",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 243268.09,
-      "totalEur": 243268.09,
-      "paidEur": 79087.22,
+      "prevTotalEur": 102253.26,
+      "totalEur": 102253.26,
+      "paidEur": 76689.95,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Институт по органична химия с център по фитохимия - Българска Академия на Науките",
-      "detectedAt": "2026-07-13"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Съксес АН ЕООД",
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG16RFPR001-1.003-0345",
-      "title": "Иновативна образователна услуга за деца от предучилищна възраст чрез мобилно приложение с внедрен изкуствен интелект (ИИ) за Android и IOs",
+      "contractNumber": "BG16RFPR001-1.004-0760",
+      "title": "Подобряване на производствения капацитет на КРЕАТИВ КС ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -156,116 +266,50 @@
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 231298.22,
-      "totalEur": 227341.33,
-      "paidEur": 113670.65,
+      "prevTotalEur": 101243.46,
+      "totalEur": 101166.77,
+      "paidEur": 75875.08,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Уеб Сървисис ЕООД",
-      "detectedAt": "2026-07-13"
+      "beneficiaryName": "Креатив КС ЕООД",
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG-RRP-1.015-2173",
-      "title": "Изграждане на училищна STEM среда в ОУ \"Димитър Талев \" гр. Пловдив",
+      "contractNumber": "BG16RFPR001-1.003-0650",
+      "title": "Внедряване на продуктова иновация в предприятието \"АСЕНКО - 04\" ЕООД",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 177028.53,
-      "totalEur": 177028.53,
-      "paidEur": 171922.25,
+      "prevTotalEur": 96731.83,
+      "totalEur": 96731.83,
+      "paidEur": 16666.66,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"Димитър Талев\" - гр. Пловдив",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG05SFPR001-1.004-0005",
-      "title": "Интеграция и приятелство чрез клубни занимания по интереси - \" Заедно можем всичко \"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 155971.83,
-      "totalEur": 155971.83,
-      "paidEur": 55177.55,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Средно училище \"Черноризец храбър\"",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG-RRP-4.021-0043",
-      "title": "\"Повишаване на енергийната ефективност в Радина - М ООД\"",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 153259.74,
-      "totalEur": 153259.74,
-      "paidEur": 97275.44,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Радина - м ООД",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-1648",
-      "title": "Концепция за изграждане на училищна STEM среда в ОУ \"Димитър Димов\", гр. Пловдив",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 129098.66,
-      "totalEur": 129098.66,
-      "paidEur": 128866.12,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"Димитър Димов\"",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG05SFPR001-1.010-0121",
-      "title": "За сигурна, приобщаваща и подкрепяща училищна среда",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 128183.93,
-      "totalEur": 128183.93,
-      "paidEur": 25636,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "Средно училище \"Никола Вапцаров\" - гр. Пловдив",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-0185",
-      "title": "Подобряване на производствения капацитет на А4 Креатив Студио ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 95816.1,
-      "totalEur": 95816.09,
-      "paidEur": 71862.07,
-      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "А4 Креатив Студио ЕООД",
-      "detectedAt": "2026-07-13"
+      "beneficiaryName": "Асенко - 04 ЕООД",
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-0187",
-      "title": "Ново високотехнологично оборудване за дентална амбулатория",
+      "contractNumber": "BG16RFPR001-1.003-0697",
+      "title": "Внедряване на иновации в Лентис Технолоджис ООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 86919.31,
+      "totalEur": 86919.31,
+      "paidEur": 43454.7,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Лентис технолоджис ООД",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1449",
+      "title": "Повишаване на конкурентността на предприятие от творческите индустрии - \"ЕМПАЙРИЪЛ АРТ\" ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -273,121 +317,277 @@
         "paidEur",
         "status"
       ],
-      "prevTotalEur": 87159.93,
-      "totalEur": 85994.18,
-      "paidEur": 64495.63,
+      "prevTotalEur": 82471.38,
+      "totalEur": 82471.33,
+      "paidEur": 61853.51,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Амбулатория за индивидуална практика за първична помощ по дентална Медицина - Д-Р Джилянов ЕООД",
-      "detectedAt": "2026-07-13"
+      "beneficiaryName": "Емпайриъл АРТ ЕООД",
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-2454",
-      "title": "Подобряване на производствения капацитет на „ПВМ ПРОЕКТ ИНЖЕНЕРИНГ ООД",
+      "contractNumber": "BG16RFPR001-1.004-0974",
+      "title": "Повишаване капацитета на предприятието \"САМОСТОЯТЕЛНА МЕДИКО-ДИАГНОСТИЧНА ЛАБОРАТОРИЯ \"МЕДИСКЕН\"\" ЕООД, град Пловдив чрез модернизация и оптимизация на бизнес процесите",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "status"
       ],
-      "prevTotalEur": 76914.64,
-      "totalEur": 76914.64,
-      "paidEur": 17641.48,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 68001.82,
+      "totalEur": 68001.82,
+      "paidEur": 0,
+      "status": "В изпълнение (временно спрян)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ПВМ Проект инженеринг ООД",
-      "detectedAt": "2026-07-13"
+      "beneficiaryName": "\"Самостоятелна МЕДИКО-ДИАГНОСТИЧНА лаборатория \"Медискен\" ЕООД",
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-0287",
-      "title": "АДАПТИРАНЕ НА РАБОТНАТА СРЕДА В МБАЛ „ТРИМОНЦИУМ“ ООД",
+      "contractNumber": "BG-RRP-11.016-0061",
+      "title": "Bulgarian Cartrader на живо в България: Представяне на албум",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 76781.76,
-      "totalEur": 71276.19,
-      "paidEur": 71276.18,
+      "prevTotalEur": 67838.21,
+      "totalEur": 67495.31,
+      "paidEur": 0,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Многопрофилна болница за активно лечение \"Тримонциум\" ООД",
-      "detectedAt": "2026-07-13"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Флат лайн кълектив ЕООД",
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG-RRP-11.016-0062",
-      "title": "Представяне и промотиране пред българска публика на стендъп комедийно шоу \"Нападателно смешно - Безопасно място за шеги\"",
+      "contractNumber": "BG-RRP-11.024-0021",
+      "title": "Истини и въображения: „Пинокио и други фантазии“ – изложба и сценичен диалог, вдъхновени от съвременното европейско изкуство на Франческо Де Франческо.",
       "type": "modified",
       "changedFields": [
         "totalEur",
-        "grantEur"
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 0,
-      "totalEur": 68170.55,
+      "prevTotalEur": 67406.06,
+      "totalEur": 65973.42,
+      "paidEur": 18199.63,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Асоциация докосни дъгата",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-0591",
+      "title": "Подкрепа за семейно предприятие и предприятие от творческите индустрии за подобряване на производствения капацитет на МИРТАНИ ИНВЕСТМЪНТ ГРУП ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 65146.59,
+      "totalEur": 65146.59,
+      "paidEur": 48859.91,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Миртани инвестмънт груп ООД",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-0470",
+      "title": "Подобряване на производствения капацитет на НС Груп ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 65752.14,
+      "totalEur": 64473.91,
+      "paidEur": 48355.44,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "НС Груп ЕООД",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-11.024-0027",
+      "title": "BEST OF THE FEST: Ярките гласове в европейското кино",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 64448.09,
+      "totalEur": 63852.48,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Микс Медия Прадакшънс ООД",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-11.016-0032",
+      "title": "Европейска етно музика идва в България 2025",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 68121.97,
+      "totalEur": 63671.97,
+      "paidEur": 18392.7,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Фондация \"Метаарт\"",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-11.016-0047",
+      "title": "Кино за всички",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 66965.28,
+      "totalEur": 62815.66,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Пърпъл рейн ООД",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-11.016-0024",
+      "title": "Представяне на шест заглавия съвременна европейска детска литература",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 68069.83,
+      "totalEur": 59166.4,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "С.А.Н.-ПРО",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-13.011-0026",
+      "title": "Закупуване на електрическо превозно средство и монтаж на зарядна станция за нуждите по предоставяне на социални услуги в Община Пловдив",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 58082.76,
+      "totalEur": 58082.76,
+      "paidEur": 57929.37,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Пловдив",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-11.016-0067",
+      "title": "Културен маратон „По-близо, по-близки“ е проект за разпространение на 50 документални филми за културното наследство на страните в Европа, адаптирани за хора с увреден слух, над 120 хиляди в България",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 47584.41,
+      "totalEur": 44551.85,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "АРТ Уинар ЕООД",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1304",
+      "title": "Подобряване на производствения капацитет на ХИБРИДНИ СЪБИТИЯ ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 43919.97,
+      "totalEur": 43919.97,
+      "paidEur": 32529,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Хибридни Събития ЕООД",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-1633",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 41275.06,
+      "totalEur": 41275.06,
       "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Комеди БГ ЕООД",
-      "detectedAt": "2026-07-13"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ЕМ ДЖИ ЕМ ЕООД",
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-1694",
-      "title": "За безопасна и устойчива трудова среда",
+      "contractNumber": "BG05SFPR002-1.004-0890",
+      "title": "Адаптиране на работната среда в АИППМП НСМ - Д-Р НАДКА КАРАФЕЗИЕВА ЕООД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 59280.54,
-      "totalEur": 57988.99,
-      "paidEur": 57988.99,
+      "prevTotalEur": 36561.36,
+      "totalEur": 36064.57,
+      "paidEur": 36064.56,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG05SFPR002",
       "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Робуста ООД",
-      "detectedAt": "2026-07-13"
+      "beneficiaryName": "Амбулатория за индивидуална практика за първична Медицинска помощ НСМ - Д-Р надка Карафезиева ЕООД",
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG-RRP-4.021-0322",
-      "title": "Енергийно обновяване на сграда в сферата на търговията и услугите-компонент 2 в в ПИ с идентификатор 56784.383.628.3 находяща се в Област Пловдив, общ. Пловдив, гр. Пловдив, район ул. \"Коматевско шосе\"",
+      "contractNumber": "BG16RFPR001-1.004-1358",
+      "title": "ГАЛИНА-ДИМИТЪР 2 ЕООД с повишен производствен капацитет",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
+        "paidEur",
         "status"
       ],
-      "prevTotalEur": 67224.66,
-      "totalEur": 51349.06,
-      "paidEur": 24166.22,
+      "prevTotalEur": 32109.13,
+      "totalEur": 32109.13,
+      "paidEur": 24081.85,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "НТТ 33 ЕООД",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-2123",
-      "title": "Подобряване на производствения капацитет от услуги на ОНИТЕЛ ЕООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur"
-      ],
-      "prevTotalEur": 43777.83,
-      "totalEur": 43690.59,
-      "paidEur": 0,
-      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Онител ЕООД",
-      "detectedAt": "2026-07-13"
+      "beneficiaryName": "ГАЛИНА-ДИМИТЪР 2 ЕООД",
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0087",
+      "contractNumber": "BG-RRP-1.024-1005",
       "title": "Изграждане на дигитален клуб в гр. Пловдив",
       "type": "modified",
       "changedFields": [
@@ -395,81 +595,78 @@
       ],
       "prevTotalEur": 26587.18,
       "totalEur": 26587.18,
-      "paidEur": 13252.66,
+      "paidEur": 25749.32,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Синдикален регионален съюз на КТ \"Подкрепа\" - Пловдив",
-      "detectedAt": "2026-07-13"
+      "beneficiaryName": "Народно читалище \"Шалом Алейхем-1945г.\"",
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0258",
-      "title": "Изграждане на дигитален клуб в НЧ \"Младост - 1983 г.\", гр.Пловдив",
+      "contractNumber": "BG-RRP-1.024-0863",
+      "title": "Изграждане на дигитален клуб към Национално читалище \"Луи Брайл\" 1928 - филиал Пловдив",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 26576.44,
-      "totalEur": 26576.44,
-      "paidEur": 5168.16,
+      "prevTotalEur": 26453.6,
+      "totalEur": 26453.6,
+      "paidEur": 24016.94,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Младост - 1983 г.\"",
-      "detectedAt": "2026-07-13"
+      "beneficiaryName": "Национално читалище на слепите \"Луи Брайл 1928\"",
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG16RFPR001-1.012-1531",
+      "contractNumber": "BG-RRP-1.024-0919",
+      "title": "Изграждане на мрежа от дигитален клуб в НАРОДНО ЧИТАЛИЩЕ МУСТАФА КЕМАЛ АТАТЮРК-2003 гр. Пловдив, ПК 4000 р-н Централен ул. Д-Р ГЕОРГИ ВЪЖОВИЧ № 3",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 25205.26,
+      "totalEur": 25205.26,
+      "paidEur": 25205.26,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище мустафа кемал АТАТЮРК-2003",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-1116",
       "title": "Дигитализация на предприятията",
       "type": "modified",
       "changedFields": [
-        "paidEur",
-        "status"
+        "durationMonths"
       ],
-      "prevTotalEur": 14519.66,
-      "totalEur": 14519.66,
-      "paidEur": 10163.77,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 13375.39,
+      "totalEur": 13375.39,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ЕТ \"Нилет - елена Бояджиева\"",
-      "detectedAt": "2026-07-13"
+      "beneficiaryName": "Хардтех ООД",
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-0400",
-      "title": "Повишаване капацитета и подобряване услугите на \"МАРИЯБЮТИЛАЙН\" ЕООД, гр.Пловдив, чрез внедряване на дълготрайни материални активи-апарат за оформяне на тяло и апарат за студена атмосферна плазма.",
+      "contractNumber": "BG05SFPR002-1.019-0111",
+      "title": "Подобряване достъпа до заетост и качеството на работните места чрез повишаване квалификацията на заетите лица в ЗБК БАЛКАН АД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 16063.09,
+      "prevTotalEur": 165584.92,
       "totalEur": 0,
       "paidEur": 0,
       "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "\"Мариябютилайн\" ЕООД",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG16RFPR001-1.004-1570",
-      "title": "Подобряване на производствения капацитет на Ватек ООД",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 60997.12,
-      "totalEur": 0,
-      "paidEur": 0,
-      "status": "Прекратен (към дата на прекратяване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Ватек ООД",
-      "detectedAt": "2026-07-13"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "ЗБК Балкан АД",
+      "detectedAt": "2026-07-17"
     }
   ]
 }

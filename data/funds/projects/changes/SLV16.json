@@ -1,39 +1,50 @@
 {
   "obshtina": "SLV16",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.023-2225",
-      "title": "\"Въвеждане на мерки за енергийна ефективност на многофамилна жилищна сграда с адрес: гр. Нова Загора, ул. \"Васил Левски\" бл. 34\"",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur"
-      ],
-      "prevTotalEur": 629725.68,
-      "totalEur": 321973.63,
-      "paidEur": 81619.95,
+      "contractNumber": "BG16FFPR003-4.006-0034",
+      "title": "Жребчево – дом на културата, природата и иновациите",
+      "type": "new",
+      "totalEur": 6007679.6,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Нова Загора",
-      "detectedAt": "2026-07-13"
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "\"Аглика трейд\" ООД",
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG-RRP-1.024-1090",
-      "title": "Изграждане на дигитален клуб в Народно Читалище СВ СВ КИРИЛ И МЕТОДИЙ 1922 г в с. Коньово",
+      "contractNumber": "BG-RRP-4.023-1445",
+      "title": "\"Въвеждане на мерки за енергийна ефективност на многофамилна жилищна сграда с адрес: гр. Нова Загора, ул. \"Васил Левски\" 67",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 9731.04,
+      "prevTotalEur": 428426.74,
+      "totalEur": 428426.74,
+      "paidEur": 100601.46,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище СВ СВ Кирил и Методий 1922 г.",
-      "detectedAt": "2026-07-13"
+      "beneficiaryName": "Община Нова загора",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0951",
+      "title": "Изграждане на дигитален клуб за Народно читалище „Светлина 2000\" в село Кортен.",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 17383.93,
+      "totalEur": 17383.93,
+      "paidEur": 15928.29,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище „Светлина 2000\" в село Кортен.",
+      "detectedAt": "2026-07-17"
     }
   ]
 }

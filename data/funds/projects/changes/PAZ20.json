@@ -1,22 +1,74 @@
 {
   "obshtina": "PAZ20",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.024-0803",
-      "title": "Изграждане на дигитален клуб НЧ Св. Св. Кирил и Методий 1912 - село Оборище",
+      "contractNumber": "BG-RRP-4.023-1716",
+      "title": "ЕНЕРГИЙНО ОБНОВЯВАНЕ НА МНОГОФАМИЛНА ЖИЛИЩНА СГРАДА В ГРАД ПАНАГЮРИЩЕ, ЖК ОПТИКОЕЛЕКТРОН II- БЛ. 11, 12, 14",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 13456.18,
-      "totalEur": 13456.18,
-      "paidEur": 13087.58,
+      "prevTotalEur": 816105.05,
+      "totalEur": 816105.05,
+      "paidEur": 417351.89,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "НЧ \"Св. Св. Кирил и Методий 1912\"",
-      "detectedAt": "2026-07-13"
+      "beneficiaryName": "Община Панагюрище",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG05SFPR003-1.001-0174",
+      "title": "Топъл обяд в община Панагюрище",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 225809.64,
+      "totalEur": 284899.04,
+      "paidEur": 188914.68,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Панагюрище",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0159",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ХРИСТО БОТЕВ-1927\" С. ЛЕВСКИ",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 10446.66,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Христо БОТЕВ-1927\" с. Левски",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-11.017-0071",
+      "title": "\"Аз съм Рей\" - представяне пред българска публика на съвременни културни продукции за деца\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 8431.63,
+      "totalEur": 8233.97,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Живарей ЕООД",
+      "detectedAt": "2026-07-17"
     }
   ]
 }

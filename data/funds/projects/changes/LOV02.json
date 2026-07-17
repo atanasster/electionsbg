@@ -1,88 +1,40 @@
 {
   "obshtina": "LOV02",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
-    {
-      "contractNumber": "BG-RRP-4.020-0070",
-      "title": "\"Устойчиво енергийно обновяване на сградата на НЧ \"Петър Берон - 1927\", кв. Зла река, гр. Априлци\"",
-      "type": "modified",
-      "changedFields": [
-        "status"
-      ],
-      "prevTotalEur": 385965.97,
-      "totalEur": 385965.97,
-      "paidEur": 379830.47,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Априлци",
-      "detectedAt": "2026-07-13"
-    },
     {
       "contractNumber": "BG05SFPR003-1.001-0206",
       "title": "Топъл обяд в Община Априлци",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "durationMonths"
       ],
       "prevTotalEur": 145861.4,
-      "totalEur": 145861.4,
+      "totalEur": 184071.15,
       "paidEur": 114473.14,
       "status": "Сключен",
       "programCode": "2021BG05SFPR003",
       "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
       "beneficiaryName": "Община Априлци",
-      "detectedAt": "2026-07-13"
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-0550",
-      "title": "Адаптирана работна среда 2023",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
-      ],
-      "prevTotalEur": 48279.52,
-      "totalEur": 46980.99,
-      "paidEur": 40850.33,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Мазалат ЕООД",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0511",
-      "title": "Изграждане на дигитален клуб в Народно Читалище \"БЪДЕЩЕ-1894\" в гр./с. Априлци",
+      "contractNumber": "BG-RRP-1.024-0990",
+      "title": "Изграждане на дигитален клуб в Народно читалище \"ПРОСВЕТА - 1927 Г.\" , гр. Априлци , област Ловеч",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 17383.92,
-      "totalEur": 17383.92,
-      "paidEur": 10660.18,
+      "prevTotalEur": 16289.12,
+      "totalEur": 16289.12,
+      "paidEur": 16288.93,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"БЪДЕЩЕ-1894\"",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0952",
-      "title": "Изграждане на дигитален клуб към Читалище Петър Берон 1927 – гр. Априлци",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 17383.92,
-      "totalEur": 17383.92,
-      "paidEur": 17181.55,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Петър берон - 1927 г.\"",
-      "detectedAt": "2026-07-13"
+      "beneficiaryName": "Народно читалище \"Просвета - 1927 г.\" , гр. Априлци , област Ловеч",
+      "detectedAt": "2026-07-17"
     }
   ]
 }

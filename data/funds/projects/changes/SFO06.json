@@ -1,22 +1,39 @@
 {
   "obshtina": "SFO06",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.024-1172",
-      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"ПРОСВЕТА 1925\"",
+      "contractNumber": "BG-RRP-1.007-0171",
+      "title": "Модернизация на образователната среда в СУ \"Летец Христо Топракчиев\", гр. Божурище",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 14316.19,
-      "totalEur": 14316.19,
-      "paidEur": 8679.91,
+      "prevTotalEur": 1510378.79,
+      "totalEur": 1510378.79,
+      "paidEur": 1192880.52,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Просвета 1925\"",
-      "detectedAt": "2026-07-13"
+      "beneficiaryName": "Община Божурище",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0912",
+      "title": "Изграждане на дигитален клуб в село Пролеша",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 27999.2,
+      "totalEur": 14315.76,
+      "paidEur": 1449.53,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Светлина 1924 г.\"",
+      "detectedAt": "2026-07-17"
     }
   ]
 }

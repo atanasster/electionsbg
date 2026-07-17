@@ -1,38 +1,68 @@
 {
   "obshtina": "VAR24",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
     {
-      "contractNumber": "BG16FFPR002-3.011-0013",
-      "title": "Подобряване състоянието на защитени видове птици Черен лешояд (А079 Aegypius monachus), Кръстат орел (А404 Aquila heliaca), Белоглав лешояд (А078 Gyps fulvus), Египетски лешояд (А077 Neophron percnopterus) чрез извършване на подхранвания в площадка в с. Кривня, общ. Провадия",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 142012.96,
-      "totalEur": 142012.96,
-      "paidEur": 41894.92,
+      "contractNumber": "BG05SFPR002-2.015-0002",
+      "title": "Път към заетост, здраве и социално включване",
+      "type": "new",
+      "totalEur": 50283.04,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR002",
-      "programName": "Програма \"Околна среда\" 2021-2027",
-      "beneficiaryName": "Българско екологично дружество Сдружение",
-      "detectedAt": "2026-07-13"
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Фондация \"Аделе\" Фондация",
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG-RRP-1.015-1730",
-      "title": "Изграждане на училищна STEM среда и високотехнологични оборудвани и свързани класни стаи (ВОСКС) в Професионална гимназия по хотелиерство, ресторантьорство и туризъм \"Цар Симеон Велики\"",
+      "contractNumber": "BG05SFPR003-1.001-0003",
+      "title": "Топъл обяд в община Провадия",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 258448.2,
+      "totalEur": 322461.71,
+      "paidEur": 207452.58,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Провадия",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0633",
+      "title": "\"Изграждане на дигитален клуб в Народно читалище \"Илия Добрев -1899“, с.Манастир\"",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 129041.9,
-      "totalEur": 129041.9,
-      "paidEur": 128763.48,
+      "prevTotalEur": 14271.22,
+      "totalEur": 14271.22,
+      "paidEur": 11334.18,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Професионална гимназия по хотелиерство, Ресторантьорство и туризъм \"ЦАР симеон велики\"",
-      "detectedAt": "2026-07-13"
+      "beneficiaryName": "Народно читалище \"Илия Добрев - 1899\" с. Манастир",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0759",
+      "title": "\"Изграждане на дигитален клуб в Народно читалище \"Отец Паисий - 1923\" с.Комарево\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 13489.31,
+      "totalEur": 13489.31,
+      "paidEur": 11021.56,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище „Отец Паисий – 1923“ с комарево",
+      "detectedAt": "2026-07-17"
     }
   ]
 }

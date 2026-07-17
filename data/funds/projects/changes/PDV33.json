@@ -1,24 +1,22 @@
 {
   "obshtina": "PDV33",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0230",
-      "title": "Топъл обяд в община Съдинение",
+      "contractNumber": "BG-RRP-1.024-0764",
+      "title": "Изграждане на дигитален клуб в село Царимир",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "durationMonths"
+        "paidEur"
       ],
-      "prevTotalEur": 294412.2,
-      "totalEur": 373198.06,
-      "paidEur": 231648.37,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Съединение",
-      "detectedAt": "2026-07-13"
+      "prevTotalEur": 12254.64,
+      "totalEur": 12254.64,
+      "paidEur": 11660.1,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Архангел Андонов - 1928 г.",
+      "detectedAt": "2026-07-17"
     }
   ]
 }

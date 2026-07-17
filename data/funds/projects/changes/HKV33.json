@@ -1,24 +1,72 @@
 {
   "obshtina": "HKV33",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0143",
-      "title": "Топъл обяд в Община Харманли",
+      "contractNumber": "BG16FFPR003-4.001-0067",
+      "title": "\"Енергийно обновяване на Многофамилна жилищна сграда, кв. „Изгрев“, бл. 304, вх. А, Б, В, Г, Д, Е, Ж, З, гр. Харманли\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 2903974.02,
+      "totalEur": 2903974.02,
+      "paidEur": 1321405.74,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Харманли",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG16FFPR003-4.001-0063",
+      "title": "\"Енергийно обновяване на Многофамилна жилищна сграда, ж.к. „Тракия“, бл. 5А, вх. А и вх. Б, гр. Харманли\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 706938.12,
+      "totalEur": 706938.12,
+      "paidEur": 318118.49,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR003",
+      "programName": "Програма \"Развитие на регионите\" 2021-2027",
+      "beneficiaryName": "Община Харманли",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-4.020-0164",
+      "title": "Енергийно обновяване на общинска сграда за административно обслужване с идентификатор 77181.11.120.2 по плана на гр. Харманли",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 373749.51,
+      "totalEur": 373749.51,
+      "paidEur": 364321.9,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Харманли",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-11.017-0064",
+      "title": "Представяне и разпространение пред българска публика на четвърти музикален албум \"Един от тях\" на No More Many More и децентрализация на културно съдържание",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "durationMonths"
+        "status"
       ],
-      "prevTotalEur": 399477.8,
-      "totalEur": 497960.12,
-      "paidEur": 346891.87,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Харманли",
-      "detectedAt": "2026-07-13"
+      "prevTotalEur": 8456.77,
+      "totalEur": 8426.06,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Методи Любомиров Кръстев",
+      "detectedAt": "2026-07-17"
     }
   ]
 }

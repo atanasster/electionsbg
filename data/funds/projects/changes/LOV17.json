@@ -1,7 +1,41 @@
 {
   "obshtina": "LOV17",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
+    {
+      "contractNumber": "BG05SFPR003-1.001-0074",
+      "title": "Топъл обяд в Община Летница",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 96794.65,
+      "totalEur": 121343.14,
+      "paidEur": 83584.58,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Летница",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0758",
+      "title": "Изграждане на дигитален клуб в сградата на Народно читалище „Искра – Летница 1997г.”",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 17383.92,
+      "totalEur": 17383.92,
+      "paidEur": 15870.24,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище „Искра – Летница 1997”",
+      "detectedAt": "2026-07-17"
+    },
     {
       "contractNumber": "BG-RRP-1.024-0527",
       "title": "Изграждане на дигитален клуб в с.Горско Сливово , общ.Летница",
@@ -11,12 +45,12 @@
       ],
       "prevTotalEur": 14111.66,
       "totalEur": 14111.66,
-      "paidEur": 11871.71,
+      "paidEur": 12081.99,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Народно читалище Развитие - 1872",
-      "detectedAt": "2026-07-13"
+      "detectedAt": "2026-07-17"
     }
   ]
 }

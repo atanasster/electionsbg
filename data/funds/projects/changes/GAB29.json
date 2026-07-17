@@ -1,25 +1,71 @@
 {
   "obshtina": "GAB29",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.003-0397",
-      "title": "Внедряване на продуктова иновация в \"М-прес\" ООД",
+      "contractNumber": "BG-RRP-8.013-0005",
+      "title": "Екологосъобразна мобилност в община Габрово и община Севлиево чрез мерки за развитие на екологични, безопасни, функционални и енергийно ефективни транспортни системи",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 5256736.2,
+      "totalEur": 5256736.2,
+      "paidEur": 3460684.32,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Габрово",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-11.010-0024",
+      "title": "Извършване на строителни дейности и доставка на оборудване и обзавеждане в Дом за стари хора с. Добромирка, ул. \"Митьо Тодоров\" №16, общ. Севлиево",
       "type": "modified",
       "changedFields": [
         "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
+        "grantEur"
       ],
-      "prevTotalEur": 511291.88,
-      "totalEur": 510320.42,
-      "paidEur": 255160.2,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "М-ПРЕС ООД",
-      "detectedAt": "2026-07-13"
+      "prevTotalEur": 2140737.81,
+      "totalEur": 2691411.32,
+      "paidEur": 1196918.33,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Севлиево",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-1.007-0145",
+      "title": "\"Реконструкция, обновяване, внедряване на енергоспестяващи мерки и модернизация на образователната среда в СУ \"Васил Левски\" - гр. Севлиево\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 2300813.23,
+      "totalEur": 2300813.23,
+      "paidEur": 2133097.17,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Севлиево",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-4.020-0292",
+      "title": "Прилагане на мерки за енергийна ефективност в НЧ \"Развитие -1870, гр. Севлиево\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 696428.44,
+      "totalEur": 696428.44,
+      "paidEur": 340822.04,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Севлиево",
+      "detectedAt": "2026-07-17"
     },
     {
       "contractNumber": "BG-RRP-1.015-1994",
@@ -30,82 +76,101 @@
       ],
       "prevTotalEur": 351022,
       "totalEur": 351022,
-      "paidEur": 273676.3,
+      "paidEur": 324503.5,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Средно училище \"Васил Левски\"",
-      "detectedAt": "2026-07-13"
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG-RRP-1.015-1679",
-      "title": "Изграждане на училищна STEM среда и високотехнологични оборудвани и свързани класни стаи (ВОСКС) в ОУ \"Св. Св. Кирил и Методий\" с. П. Славейков.",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 92782.77,
-      "totalEur": 92782.77,
-      "paidEur": 92446.03,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"СВ.СВ. кирил и Методий\"",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-1477",
-      "title": "Изграждане на училищна STEM среда и високотехнологични оборудвани и свързани класни стаи (ВОСКС).",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 91657.78,
-      "totalEur": 91657.78,
-      "paidEur": 78965.84,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"СВ.СВ. кирил и Методий\"",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG05SFPR002-1.004-0550",
-      "title": "Адаптирана работна среда 2023",
+      "contractNumber": "BG05SFPR003-1.001-0214",
+      "title": "Топъл обяд в община Севлиево",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "status"
+        "durationMonths"
       ],
-      "prevTotalEur": 48279.52,
-      "totalEur": 46980.99,
-      "paidEur": 40850.33,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Мазалат ЕООД",
-      "detectedAt": "2026-07-13"
+      "prevTotalEur": 185533.74,
+      "totalEur": 234774.89,
+      "paidEur": 146306.32,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Севлиево",
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0925",
-      "title": "„Включи се – дигитално и реално. Дигиталният клуб в библиотеката – място за равен достъп до учене без граници\"",
+      "contractNumber": "BG16RFPR001-1.004-1865",
+      "title": "Подобряване на производствения капацитет на ЗЕФИР ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 102002.73,
+      "totalEur": 101900.47,
+      "paidEur": 76425.34,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Зефир ЕООД",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG05SFPR001-1.004-0019",
+      "title": "„Утвърждаване на интеркултурното образование в община Дряново“",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 23509.2,
-      "totalEur": 23509.2,
-      "paidEur": 19022.93,
+      "prevTotalEur": 77085.43,
+      "totalEur": 77085.43,
+      "paidEur": 36593.6,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Община Дряново",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-1364",
+      "title": "Подобряване на производствения капацитет на семейно предприятия от творческите индустрии \"Фотографска къща - Узунов\" ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 60373.35,
+      "totalEur": 60373.35,
+      "paidEur": 42985.05,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Фотографска къща - Узунов ЕООД",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-13.011-0019",
+      "title": "Закупуване на електроавтомобил и монтаж на зарядна станция за нуждите на център за настаняване от семеен тип за деца без увреждания в гр. Севлиево",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 58082.76,
+      "totalEur": 58082.76,
+      "paidEur": 43080,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Градска библиотека - град Севлиево",
-      "detectedAt": "2026-07-13"
+      "beneficiaryName": "Община Севлиево",
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0291",
-      "title": "Изграждане на дигитален клуб в село Кормянско",
+      "contractNumber": "BG-RRP-1.024-0385",
+      "title": "Изграждане на дигитален клуб в село Ряховците",
       "type": "modified",
       "changedFields": [
         "totalEur",
@@ -113,44 +178,44 @@
       ],
       "prevTotalEur": 14316.19,
       "totalEur": 14316.17,
-      "paidEur": 9006.14,
+      "paidEur": 9863.93,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"ПРОБУДА-1907\"",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1366",
+      "title": "Изграждане на дигитален клуб в Народно Читалище \"СПОЛУКА - 1920\" в с. Душево",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 11405.31,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"Сполука - 1920",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0291",
+      "title": "Изграждане на дигитален клуб в село Кормянско",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 10481.24,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Народно читалище Народно читалище \"РАЗВИТИЕ-1937\"",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0910",
-      "title": "Изграждане на Дигитален клуб със свободен и безплатен достъп за приобщаващо обучение в електронна среда",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14315.66,
-      "totalEur": 14315.66,
-      "paidEur": 14299.37,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"СВ. Климент ОХРИДСКИ-1899\"",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0349",
-      "title": "Дигитален клуб- село Добромирка",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14312.08,
-      "totalEur": 14312.08,
-      "paidEur": 13906.67,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Пеньо Пенев- 1895\"",
-      "detectedAt": "2026-07-13"
+      "detectedAt": "2026-07-17"
     }
   ]
 }

@@ -1,38 +1,39 @@
 {
   "obshtina": "KNL48",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.023-1644",
-      "title": "Въвеждане на енергоспестяващи мерки в сграда с адрес: гр. Дупница, ул. \"Николаевска\" № 34, блок 1 и блок 1А.",
+      "contractNumber": "BG-RRP-13.011-0038",
+      "title": "Закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги в община Дупница",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 1184681.02,
-      "totalEur": 1184681.02,
-      "paidEur": 815955.34,
+      "prevTotalEur": 88742.76,
+      "totalEur": 88742.76,
+      "paidEur": 56150.76,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Дупница",
-      "detectedAt": "2026-07-13"
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG05SFPR001-1.010-0133",
-      "title": "Превенция и предотвратяване на тормоза и насилието и намаляване агресията в Професионална гимназия „Акад. Сергей П. Корольов“ гр. Дупница",
+      "contractNumber": "BG16RFPR001-1.004-1001",
+      "title": "Подобряване на производствения капацитет, ефективност и качество на ГРИНА ООД",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur"
       ],
-      "prevTotalEur": 176456.85,
-      "totalEur": 176456.85,
-      "paidEur": 35291.37,
+      "prevTotalEur": 0,
+      "totalEur": 33916.87,
+      "paidEur": 0,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR001",
-      "programName": "Програма \"Образование\" 2021-2027",
-      "beneficiaryName": "ПГ „Акад. Сергей П. Корольов“",
-      "detectedAt": "2026-07-13"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Грина ЕООД",
+      "detectedAt": "2026-07-17"
     },
     {
       "contractNumber": "BG-RRP-1.024-1326",
@@ -43,29 +44,92 @@
       ],
       "prevTotalEur": 23519.43,
       "totalEur": 23519.43,
-      "paidEur": 17748.18,
+      "paidEur": 18473.6,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Народно Читалище Пейо Крачолов Яворов - 1978",
-      "detectedAt": "2026-07-13"
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG16RFPR001-1.004-1001",
-      "title": "Подобряване на производствения капацитет, ефективност и качество на ГРИНА ООД",
+      "contractNumber": "BG-RRP-1.024-1199",
+      "title": "Изграждане на дигитален клуб в народно читалище \"Пробуда - 1926\" с. Джерман",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur"
+        "paidEur"
       ],
-      "prevTotalEur": 33916.87,
-      "totalEur": 0,
-      "paidEur": 0,
+      "prevTotalEur": 14285.5,
+      "totalEur": 14285.5,
+      "paidEur": 13135.05,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Грина ЕООД",
-      "detectedAt": "2026-07-13"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Пробуда 1926\"",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1087",
+      "title": "Изграждане на дигитален клуб в народно читалище \"Развитие - 1910\" с. Крайници",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 13419.85,
+      "totalEur": 13419.85,
+      "paidEur": 12208.1,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "народно читалище \"Развитие - 1910\" с. Крайници",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1099",
+      "title": "Изграждане на дигитален клуб в Народно читалище \"Пробуда 1939\" с. Яхиново",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 10487.7,
+      "totalEur": 10487.7,
+      "paidEur": 9594.27,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Пробуда 1939\"",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1205",
+      "title": "Изграждане на дигитален клуб в народно читалище \"Христо Ботев - 1911\" с. Червен брег",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 10487.7,
+      "totalEur": 10487.7,
+      "paidEur": 7607.75,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Христо Ботев 1911\" с. Червен брег",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1118",
+      "title": "Изграждане на дигитален клуб в народно читалище \"Пробуда-1902\" с. Баланово",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 7772.2,
+      "totalEur": 7772.2,
+      "paidEur": 7438.78,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Пробуда 1902\" село Баланово",
+      "detectedAt": "2026-07-17"
     }
   ]
 }

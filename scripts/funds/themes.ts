@@ -341,13 +341,17 @@ const buildThemeShard = (
     }
 
     if (c.location?.munis && c.location.munis.length > 0) {
-      for (const muni of c.location.munis) {
+      // A row naming N муни is listed under each but carries only 1/N of its
+      // money — the shared even split (see muniShare). Full value per муни
+      // would invent spend.
+      const shareEur = c.totalEur * muniShare(c);
+      for (const muni of new Set(c.location.munis)) {
         const m = byMuni.get(muni);
         if (!m) {
-          byMuni.set(muni, { muni, contractCount: 1, totalEur: c.totalEur });
+          byMuni.set(muni, { muni, contractCount: 1, totalEur: shareEur });
         } else {
           m.contractCount += 1;
-          m.totalEur += c.totalEur;
+          m.totalEur += shareEur;
         }
       }
     }

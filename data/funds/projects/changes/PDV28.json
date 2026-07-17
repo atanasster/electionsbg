@@ -1,6 +1,6 @@
 {
   "obshtina": "PDV28",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
     {
       "contractNumber": "BG-RRP-1.024-0452",
@@ -11,12 +11,28 @@
       ],
       "prevTotalEur": 17383.92,
       "totalEur": 17383.92,
-      "paidEur": 16392.21,
+      "paidEur": 16453.55,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Народно читалище пробуда - 1927 г. с. Болярци",
-      "detectedAt": "2026-07-13"
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0326",
+      "title": "Изграждане дигитален клуб ВИДЕЛИНА 1925г.",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 11092.4,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Виделина 1925г.",
+      "detectedAt": "2026-07-17"
     },
     {
       "contractNumber": "BG-RRP-1.024-0263",
@@ -27,12 +43,12 @@
       ],
       "prevTotalEur": 14316.17,
       "totalEur": 14316.17,
-      "paidEur": 11862.12,
+      "paidEur": 12600.29,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Народно читалище Отец Паисий - 1927г.\" - с.Караджово",
-      "detectedAt": "2026-07-13"
+      "detectedAt": "2026-07-17"
     }
   ]
 }

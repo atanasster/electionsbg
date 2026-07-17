@@ -1,73 +1,84 @@
 {
   "obshtina": "SML31",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.020-0098",
-      "title": "Повишаване на енергийната ефективност на Художествената галерия в град Смолян",
+      "contractNumber": "BG05SFPR001-3.009-0024",
+      "title": "Подкрепа за развитие на Центъра за високи постижения в ПГТТ \"Христо Ботев\" - гр. Смолян",
+      "type": "new",
+      "totalEur": 120453.22,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Професионална гимназия по техника и технологии христо БОТЕВ-СМОЛЯН",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-1.008-0009",
+      "title": "Младежки център - Смолян",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 1891779.93,
+      "totalEur": 1891779.93,
+      "paidEur": 1509685.5,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Смолян",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-1.014-0022",
+      "title": "\"Изграждане на център за високи постижения в професионалното образование и обучение в ПГТТ \"Христо Ботев\"- гр. Смолян\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 1758824.95,
+      "totalEur": 1758824.95,
+      "paidEur": 1653269.32,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Професионална гимназия по техника и технологии христо БОТЕВ-СМОЛЯН",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.003-0229",
+      "title": "Внедряване на иновация в БК Медикъл ЕООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 508735.42,
+      "totalEur": 508735.42,
+      "paidEur": 253983,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "БК Медикал ЕООД",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-11.021-0010",
+      "title": "Местни политики за културно развитие на Община Смолян",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
         "status"
       ],
-      "prevTotalEur": 833059.92,
-      "totalEur": 818349.87,
-      "paidEur": 760795.42,
+      "prevTotalEur": 213280.3,
+      "totalEur": 208868.2,
+      "paidEur": 27538.75,
       "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Смолян",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG-RRP-1.007-0158",
-      "title": "„Модернизация на образователната среда в детска градина \"Дъга\", с. Смилян, Община Смолян”",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 403996.66,
-      "totalEur": 403996.66,
-      "paidEur": 401233.18,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Смолян",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG05SFPR003-1.001-0237",
-      "title": "Топъл обяд в община Смолян",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur"
-      ],
-      "prevTotalEur": 360034,
-      "totalEur": 361098.31,
-      "paidEur": 290060.8,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Смолян",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG-RRP-4.023-2157",
-      "title": "„Подкрепа за устойчиво енергийно обновяване на жилищния сграден фонд на блок Подвис, ул. Братан Шукеров №16, гр. Смолян“",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 215682.38,
-      "totalEur": 215682.38,
-      "paidEur": 215159.07,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Смолян",
-      "detectedAt": "2026-07-13"
+      "detectedAt": "2026-07-17"
     },
     {
       "contractNumber": "BG-RRP-1.015-1928",
@@ -78,28 +89,12 @@
       ],
       "prevTotalEur": 185889.71,
       "totalEur": 185889.71,
-      "paidEur": 14307.49,
+      "paidEur": 22918.97,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Профилирана Природоматематическа гимназия \"Васил Левски\"",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-1645",
-      "title": "Изграждане на училищна STEM среда в Езикова гимназия \"Иван Вазов\" Смолян",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 129099.59,
-      "totalEur": 129099.59,
-      "paidEur": 124876.38,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Езикова гимназия \"Иван Вазов\"",
-      "detectedAt": "2026-07-13"
+      "detectedAt": "2026-07-17"
     },
     {
       "contractNumber": "BG-RRP-1.015-1785",
@@ -110,28 +105,80 @@
       ],
       "prevTotalEur": 69714.64,
       "totalEur": 69714.64,
-      "paidEur": 21542.18,
+      "paidEur": 48768.37,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Основно училище \"СВ.СВ.КИРИЛ и Методий\"",
-      "detectedAt": "2026-07-13"
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0848",
-      "title": "\"Изграждане на Дигитален клуб-гр. Смолян\"",
+      "contractNumber": "BG-RRP-11.016-0037",
+      "title": "Европейски спектакли за деца в Родопите",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 64320.47,
+      "totalEur": 62369.01,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Фондация \"за родопите\" Фондация",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2379",
+      "title": "Подобряване производствения капацитет и пазарното присъствие на \"Нанка криейтив\" ЕООД",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 23519.43,
-      "totalEur": 23519.43,
-      "paidEur": 16085.15,
+      "prevTotalEur": 41700.97,
+      "totalEur": 41700.97,
+      "paidEur": 27930.96,
+      "status": "В изпълнение (временно спрян)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Нанка криейтив ЕООД",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1361",
+      "title": "Изграждане на дигитален клуб в НЧ \" България - 1937\" в с. Могилица",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 13195.8,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Национална федерация \"Металургия\" на КТ \"Подкрепа\"",
-      "detectedAt": "2026-07-13"
+      "beneficiaryName": "НЧ \" България - 1937\"",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.019-0111",
+      "title": "Подобряване достъпа до заетост и качеството на работните места чрез повишаване квалификацията на заетите лица в ЗБК БАЛКАН АД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 165584.92,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "ЗБК Балкан АД",
+      "detectedAt": "2026-07-17"
     }
   ]
 }

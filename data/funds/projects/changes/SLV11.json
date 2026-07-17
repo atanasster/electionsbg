@@ -1,38 +1,56 @@
 {
   "obshtina": "SLV11",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0162",
-      "title": "Топъл обяд в Община Котел",
+      "contractNumber": "BG-RRP-1.024-0121",
+      "title": "Дигитален клуб - Народно Читалище \"Единство 1870\" с. Жеравна",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 3562924.29,
-      "totalEur": 3562924.29,
-      "paidEur": 3071036.92,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Котел",
-      "detectedAt": "2026-07-13"
+      "prevTotalEur": 14295.72,
+      "totalEur": 14295.72,
+      "paidEur": 12189.84,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище \"Единство 1870\" с. Жеравна",
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG16FFPR002-3.011-0014",
-      "title": "Подобряване състоянието на защитени видове птици Черен лешояд (А079 Aegypius monachus), Кръстат орел (А404 Aquila heliaca), Белоглав лешояд (А078 Gyps fulvus), Египетски лешояд (А077 Neophron percnopterus) чрез извършване на подхранвания в площадка в м. \"Коилото\", с. Нейково, общ. Котел",
+      "contractNumber": "BG-RRP-11.017-0073",
+      "title": "Лятно театро - за всички",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "status"
       ],
-      "prevTotalEur": 142012.96,
-      "totalEur": 142012.96,
-      "paidEur": 41894.92,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16FFPR002",
-      "programName": "Програма \"Околна среда\" 2021-2027",
-      "beneficiaryName": "Българско екологично дружество Сдружение",
-      "detectedAt": "2026-07-13"
+      "prevTotalEur": 9089.75,
+      "totalEur": 9089.75,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Малка Театрална Компания",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-11.017-0053",
+      "title": "Звук и цвят",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 9085.66,
+      "totalEur": 9059.77,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Младежко сдружение-България",
+      "detectedAt": "2026-07-17"
     }
   ]
 }

@@ -1,40 +1,34 @@
 {
   "obshtina": "RAZ29",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0084",
-      "title": "Топъл обяд в Община Самуил",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "durationMonths"
-      ],
-      "prevTotalEur": 695746.31,
-      "totalEur": 868090.37,
-      "paidEur": 603720.92,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Самуил",
-      "detectedAt": "2026-07-13"
+      "contractNumber": "BG05SFPR001-1.010-0211",
+      "title": "Без агресия в училище",
+      "type": "new",
+      "totalEur": 31424.07,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR001",
+      "programName": "Програма \"Образование\" 2021-2027",
+      "beneficiaryName": "Основно училище \"Христо Ботев\"",
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG05SFPR002-1.004-1848",
-      "title": "Адаптирана работна среда в Тракция АД, с. Самуил",
+      "contractNumber": "BG-RRP-1.024-0886",
+      "title": "Изграждане на мрежа от дигитален клуб в Народно читалище \"Искра-1928г.\" , село ЦАР САМУИЛ , Област СИЛИСТРА , Община ТУТРАКАН",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 172963.04,
-      "totalEur": 172963.04,
-      "paidEur": 172963.04,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "Тракция АД",
-      "detectedAt": "2026-07-13"
+      "prevTotalEur": 13456.18,
+      "totalEur": 13456.18,
+      "paidEur": 11742.52,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Искра-1928г.\" , село ЦАР Самуил , Област силистра , Община тутракан",
+      "detectedAt": "2026-07-17"
     }
   ]
 }

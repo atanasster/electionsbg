@@ -19,6 +19,7 @@ import { fetchProjectsExport, PROJECTS_EXPORT_URL } from "./projects_fetch";
 import { parseProjects } from "./projects_parse";
 import { applyProjectEikOverrides } from "./eik_overrides";
 import { buildResolver } from "./projects_resolve";
+import { muniShare, muniCount } from "./projects_share";
 import {
   buildAll as buildTaxonomyDerivatives,
   writeAll as writeTaxonomyDerivatives,
@@ -110,14 +111,18 @@ const emptyRollup = (): ProjectsRollup & { _beneficiaries: Set<string> } => ({
   _beneficiaries: new Set<string>(),
 });
 
+// `share` splits a contract's money across the places it is attributed to
+// (see muniShare). Counts are never shared — the contract is one contract
+// wherever it lands.
 const accumulateRollup = (
   rollup: ReturnType<typeof emptyRollup>,
   r: FundsProject,
+  share = 1,
 ): void => {
   rollup.contractCount += 1;
-  rollup.totalEur += r.totalEur;
-  rollup.grantEur += r.grantEur;
-  rollup.paidEur += r.paidEur;
+  rollup.totalEur += r.totalEur * share;
+  rollup.grantEur += r.grantEur * share;
+  rollup.paidEur += r.paidEur * share;
   // Use EIK when present so distinct organisations with similar names don't
   // collapse; fall back to lowercased name (best-effort) for the unlinked
   // tail. Same convention as elsewhere in this codebase.
@@ -339,6 +344,7 @@ const buildProgramTopMunis = (
     const munis = r.location.munis ?? [];
     if (munis.length === 0) continue;
     const oblast = r.location.oblasts?.[0] ?? null;
+    const share = muniShare(r);
     for (const m of munis) {
       const entry = byMuni.get(m) ?? {
         muni: m,
@@ -353,8 +359,8 @@ const buildProgramTopMunis = (
       if (entry.seen.has(r.contractNumber)) continue;
       entry.seen.add(r.contractNumber);
       entry.contractCount += 1;
-      entry.totalEur += r.totalEur;
-      entry.paidEur += r.paidEur;
+      entry.totalEur += r.totalEur * share;
+      entry.paidEur += r.paidEur * share;
       byMuni.set(m, entry);
     }
   }
@@ -384,10 +390,13 @@ const toProgramTopContract = (
   locationMunis: r.location.munis ?? null,
 });
 
-// Build a top-N programme breakdown from a place's contract list.
+// Build a top-N programme breakdown from a place's contract list. `share`
+// weights each row's money — муни callers pass muniShare, EKATTE callers
+// don't (a settlement row names exactly one place).
 const buildTopPrograms = (
   contracts: ResolvedFundsProject[],
   topN: number,
+  share: (r: ResolvedFundsProject) => number = () => 1,
 ): FundsProjectsSummary["topPrograms"] => {
   const byProg = new Map<
     string,
@@ -402,7 +411,7 @@ const buildTopPrograms = (
       entry = { programName: r.programName, rollup: emptyRollup() };
       byProg.set(r.programCode, entry);
     }
-    accumulateRollup(entry.rollup, r);
+    accumulateRollup(entry.rollup, r, share(r));
   }
   return [...byProg.entries()]
     .map(([programCode, { programName, rollup }]) => ({
@@ -624,7 +633,8 @@ const main = async (args: MainArgs): Promise<void> => {
   console.log(`→ wrote ${ekatteShards.length} per-EKATTE shard(s) + summaries`);
 
   // 7. Per-муни shards — settlement rows (collapsed to their муни) AND муни
-  // rows (replicated across every muni named). NOTE: the per-EKATTE file
+  // rows (listed under every muni named, but contributing only their
+  // muniShare of the money to the rollup). NOTE: the per-EKATTE file
   // already covers settlement-level granularity; the per-муни file is the
   // dashboard tile for /municipality/{X}.
   resetDir(BY_MUNI_DIR);
@@ -642,16 +652,15 @@ const main = async (args: MainArgs): Promise<void> => {
   for (const [muni, arr] of [...byMuni.entries()].sort()) {
     const sorted = [...arr].sort(sortByValueDesc);
     const rollup = emptyRollup();
-    // De-dup contracts within the муни file (a settlement row already counts
-    // once; a multi-муни row counts once per muni it lands in). Settlement
-    // rows always have a single muni, so dedup is only needed for multi-loc
-    // rows that named the same muni twice — defensive.
+    // De-dup contracts within the муни file — defensive, for a multi-loc row
+    // that named the same муни twice (the resolver already de-dups munis[]).
+    // The row counts once here and carries its muniShare of the money.
     const seen = new Set<string>();
     const dedupedContracts: ResolvedFundsProject[] = [];
     for (const r of sorted) {
       if (seen.has(r.contractNumber)) continue;
       seen.add(r.contractNumber);
-      accumulateRollup(rollup, r);
+      accumulateRollup(rollup, r, muniShare(r));
       dedupedContracts.push(r);
     }
     const rollupFinal = finalizeRollup(rollup);
@@ -660,7 +669,7 @@ const main = async (args: MainArgs): Promise<void> => {
       canonicalJson({
         muni,
         rollup: rollupFinal,
-        contracts: sorted,
+        contracts: dedupedContracts,
       }),
     );
     muniShards.push(muni);
@@ -671,7 +680,7 @@ const main = async (args: MainArgs): Promise<void> => {
       placeId: muni,
       rollup: rollupFinal,
       topContracts: dedupedContracts.slice(0, 3).map(toTopContract),
-      topPrograms: buildTopPrograms(dedupedContracts, 3),
+      topPrograms: buildTopPrograms(dedupedContracts, 3, muniShare),
       perCapitaEur:
         population && rollupFinal.totalEur > 0
           ? round2(rollupFinal.totalEur / population)

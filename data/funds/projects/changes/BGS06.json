@@ -1,22 +1,24 @@
 {
   "obshtina": "BGS06",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.015-1324",
-      "title": "Изграждане на СТЕМ център",
+      "contractNumber": "BG-RRP-11.017-0071",
+      "title": "\"Аз съм Рей\" - представяне пред българска публика на съвременни културни продукции за деца\"",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 92952.25,
-      "totalEur": 92952.25,
-      "paidEur": 92798.83,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 8431.63,
+      "totalEur": 8233.97,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"Антон Страшимиров\"",
-      "detectedAt": "2026-07-13"
+      "beneficiaryName": "Живарей ЕООД",
+      "detectedAt": "2026-07-17"
     }
   ]
 }

@@ -1,23 +1,56 @@
 {
   "obshtina": "PAZ06",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.004-1071",
-      "title": "\"Подобряване на производствения капацитет и качеството на предоставяните услуги в семейното предприятие “ИН КОЗМЕТИК” ООД\"",
+      "contractNumber": "BG-RRP-1.024-1340",
+      "title": "Изграждане на дигитален клуб в НАРОДНО ЧИТАЛИЩЕ \"СВ.СВ. КИРИЛ И МЕТОДИЙ-1929 ГОД.\"",
       "type": "modified",
       "changedFields": [
-        "paidEur",
+        "paidEur"
+      ],
+      "prevTotalEur": 17383.92,
+      "totalEur": 17383.92,
+      "paidEur": 17325.9,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"СВ.СВ. кирил и МЕТОДИЙ-1929 ГОД.\"",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0244",
+      "title": "Изграждане на дигитален клуб към НЧ „ Никола Йонков Вапцаров-1903г\" с. Бяга за достъп до онлайн обучения",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14193.05,
+      "totalEur": 14193.05,
+      "paidEur": 14184.51,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно Читалище „Никола Йонков Вапцаров-1903г“",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.003-0614",
+      "title": "Внедряване на иновации в “НАТЮРБЕЙС” ЕАД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
         "status"
       ],
-      "prevTotalEur": 101235.79,
-      "totalEur": 101235.79,
-      "paidEur": 75926.84,
-      "status": "Приключен (към датата на приключване)",
+      "prevTotalEur": 189178,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Прекратен (към дата на прекратяване)",
       "programCode": "2021BG16RFPR001",
       "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ИН Козметик ООД",
-      "detectedAt": "2026-07-13"
+      "beneficiaryName": "Натюрбейс ЕАД",
+      "detectedAt": "2026-07-17"
     }
   ]
 }

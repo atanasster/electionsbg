@@ -1,41 +1,54 @@
 {
   "obshtina": "BLG44",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.024-1156",
-      "title": "Изграждане на дигитален клуб в Народно читалище \"Владимир \"Маяковски -1937\" с. Крупник",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "status"
-      ],
-      "prevTotalEur": 11489.93,
-      "totalEur": 21536.24,
-      "paidEur": 10853.61,
-      "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Владимир Маяковски -1937\", село Крупник",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1169",
-      "title": "Изграждане на дигитален клуб в НЧ \"Гоце Делчев 1958\" село Черниче",
+      "contractNumber": "BG-RRP-4.023-3055",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда с местонахождение в град Симитли, кв. Ораново, ул. \"Славянска\" №21, бл.3",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 7669.37,
-      "totalEur": 7669.37,
-      "paidEur": 6917.11,
+      "prevTotalEur": 149680.69,
+      "totalEur": 149680.69,
+      "paidEur": 148966.36,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Гоце Делчев 1958\" село Черниче",
-      "detectedAt": "2026-07-13"
+      "beneficiaryName": "Община Симитли",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-13.011-0041",
+      "title": "Доставка и монтаж на електрическо превозно средство и зарядна станция, за целите на предоставяне на социални услуги на територията на община Симитли\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 88468.03,
+      "totalEur": 88468.03,
+      "paidEur": 39084,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Симитли",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1225",
+      "title": "Изграждане на дигитален клуб в Народно читалище \"ХРИСТО БОТЕВ - 1929\" в с. Брежани",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 14315.77,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "\"Христо Ботев - 1929\"",
+      "detectedAt": "2026-07-17"
     }
   ]
 }

@@ -1,38 +1,24 @@
 {
   "obshtina": "SHU19",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.023-2360",
-      "title": "\"Енергийно обновяване на Жилищен блок на ул. \"Мадарски конник\" № 115 гр. Каспичан\"",
+      "contractNumber": "BG05SFPR003-1.001-0035",
+      "title": "Топъл обяд в Община Каспичан",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "durationMonths"
       ],
-      "prevTotalEur": 612664.96,
-      "totalEur": 612664.96,
-      "paidEur": 608056.37,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
+      "prevTotalEur": 399477.8,
+      "totalEur": 497960.12,
+      "paidEur": 321023,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
       "beneficiaryName": "Община Каспичан",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG-RRP-1.015-1943",
-      "title": "Изграждане на STEM среда в СУ \"Панайот Волов\" град Каспичан, област Шумен",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 129101.19,
-      "totalEur": 129101.19,
-      "paidEur": 128504.97,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Средно училище \"Панайот Волов\"",
-      "detectedAt": "2026-07-13"
+      "detectedAt": "2026-07-17"
     },
     {
       "contractNumber": "BG-RRP-1.024-0953",
@@ -43,28 +29,76 @@
       ],
       "prevTotalEur": 17383.92,
       "totalEur": 17383.92,
-      "paidEur": 14097.26,
+      "paidEur": 16080.02,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Народно читалище \"Освобождение - 1904\"",
-      "detectedAt": "2026-07-13"
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0518",
-      "title": "изграждане на дигитален клуб в Народно читалище Каменен стълб 1888 - с.Кюлевча",
+      "contractNumber": "BG-RRP-1.024-0958",
+      "title": "Изграждане на дигитален клуб в гр. Каспичан, обл. Шумен",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 14316.18,
-      "paidEur": 11547.58,
+      "prevTotalEur": 17383.92,
+      "totalEur": 17383.92,
+      "paidEur": 17032.6,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Каменен стълб 1888 - с.Кюлевча",
-      "detectedAt": "2026-07-13"
+      "beneficiaryName": "Народно читалище „Пробуда - 1928” гр. Каспичан",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0623",
+      "title": "Изграждане на дигитален хъб в НАРОДНО ЧИТАЛИЩЕ \"ХРИСТО БОТЕВ 1896\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 17361.94,
+      "totalEur": 17361.94,
+      "paidEur": 13715.01,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Христо Ботев 1896\"",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0636",
+      "title": "Изграждане на дигитален хъб в НАРОДНО ЧИТАЛИЩЕ \"ХРИСТО БОТЕВ - 1892\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14310.44,
+      "totalEur": 14310.44,
+      "paidEur": 9587,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Христо Ботев - 1892\"",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0626",
+      "title": "Изграждане на дигитален хъб в Народно читалище \" Васил Лeвски - 1927 \"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14295.73,
+      "totalEur": 14295.73,
+      "paidEur": 9714.31,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Васил Левски 1927\"",
+      "detectedAt": "2026-07-17"
     }
   ]
 }

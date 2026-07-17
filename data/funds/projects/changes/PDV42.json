@@ -1,41 +1,22 @@
 {
   "obshtina": "PDV42",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.033-0037",
-      "title": "„Проект Куклен – комбиниран проект за изграждане на ЛСС с инсталирана мощност от 2,5 MW към нова фотоволтаична производствена мощност от 5MW“",
+      "contractNumber": "BG16RFPR001-1.012-0520",
+      "title": "Дигитализация на предприятията",
       "type": "modified",
       "changedFields": [
-        "durationMonths"
+        "paidEur"
       ],
-      "prevTotalEur": 1896892.88,
-      "totalEur": 1896892.88,
-      "paidEur": 0,
+      "prevTotalEur": 9622.51,
+      "totalEur": 9622.51,
+      "paidEur": 6735.76,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "„Солар логистик инвестмънт“ АД",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG05SFPR003-1.001-0132",
-      "title": "Топъл обяд в Община Куклен",
-      "type": "modified",
-      "changedFields": [
-        "totalEur",
-        "grantEur",
-        "paidEur",
-        "durationMonths"
-      ],
-      "prevTotalEur": 339027.53,
-      "totalEur": 422737.5,
-      "paidEur": 294329.44,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Куклен",
-      "detectedAt": "2026-07-13"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Диадоорс ООД",
+      "detectedAt": "2026-07-17"
     }
   ]
 }

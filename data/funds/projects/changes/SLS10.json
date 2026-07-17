@@ -1,85 +1,40 @@
 {
   "obshtina": "SLS10",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.008-0580",
-      "title": "Внедряване на технологии от Индустрия 4.0 в \"ИСО АК ПЛАСТ\" ЕООД",
-      "type": "new",
-      "totalEur": 252996.12,
-      "paidEur": 0,
+      "contractNumber": "BG-RRP-1.024-0218",
+      "title": "изграждане на дигитален клуб за НЧ Стефан Караджа - 1948 - с.Полковник Таслаково",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 14316.18,
+      "paidEur": 12819.92,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "ИСО.АК Пласт ЕООД",
-      "detectedAt": "2026-07-13"
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Стефан Караджа - 1948 - с.Полковник Таслаково",
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG05SFPR003-1.001-0224",
-      "title": "Топъл обяд в община Дулово",
+      "contractNumber": "BG-RRP-11.017-0071",
+      "title": "\"Аз съм Рей\" - представяне пред българска публика на съвременни културни продукции за деца\"",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "paidEur",
-        "durationMonths"
+        "status"
       ],
-      "prevTotalEur": 258859.53,
-      "totalEur": 332721.27,
-      "paidEur": 219420.09,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Дулово",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0229",
-      "title": "изграждане на дигитален клуб в Народно читалище Пробуда-1948 - с.Яребица",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 17383.93,
-      "totalEur": 17383.93,
-      "paidEur": 10477.09,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 8431.63,
+      "totalEur": 8233.97,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Пробуда-1948 - с.Яребица",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-1212",
-      "title": "Изграждане на дигитален клуб в Народно Читалище \"Н. Й. ВАПЦАРОВ - 1895\" в гр. Дулово",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 17383.92,
-      "totalEur": 17383.92,
-      "paidEur": 9940.8,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"Н.Й. Вапцаров - 1895\"",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0412",
-      "title": "изграждане на дигитален клуб в Народно читалище Назъм Хикмет - 1945 - с.Водно",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 14316.19,
-      "totalEur": 14316.19,
-      "paidEur": 8186.74,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Назъм Хикмет - 1945 - с.Водно",
-      "detectedAt": "2026-07-13"
+      "beneficiaryName": "Живарей ЕООД",
+      "detectedAt": "2026-07-17"
     }
   ]
 }

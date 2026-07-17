@@ -1,22 +1,38 @@
 {
   "obshtina": "SFO59",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0062",
-      "title": "Топъл обяд в община Долна баня",
+      "contractNumber": "BG-RRP-13.011-0045",
+      "title": "Закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги на територията на община Долна баня",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 266982.48,
-      "totalEur": 266982.48,
-      "paidEur": 178353.81,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "prevTotalEur": 58082.76,
+      "totalEur": 58082.76,
+      "paidEur": 58082.76,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Долна баня",
-      "detectedAt": "2026-07-13"
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1068",
+      "title": "Изграждане на Дигитален клуб към Народно читалище \"Рила - 1898\" гр. Долна баня",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 17383.93,
+      "totalEur": 17383.93,
+      "paidEur": 15088.3,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Рила - 1898",
+      "detectedAt": "2026-07-17"
     }
   ]
 }

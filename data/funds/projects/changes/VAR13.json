@@ -1,71 +1,38 @@
 {
   "obshtina": "VAR13",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
     {
-      "contractNumber": "BG06RDNP001-4.015-0417",
-      "title": "\"ПОВИШАВАНЕ НА ИКОНОМИЧЕСКАТА И ЕНЕРГИЙНА ЕФЕКТИВНОСТ В \"АР БИ ЕЛ ФУУД БЪЛГАРИЯ\" ООД",
+      "contractNumber": "BG-RRP-13.011-0034",
+      "title": "Закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги в община Долни чифлик.",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur"
+        "paidEur"
       ],
-      "prevTotalEur": 898137.19,
-      "totalEur": 898137.2,
-      "paidEur": 448654.95,
-      "status": "Сключен",
-      "programCode": "2014BG06RDNP001",
-      "programName": "Програма за развитие на селските райони",
-      "beneficiaryName": "\"АР БИ ЕЛ Фууд българия\" ООД",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG05SFPR002-2.012-0173",
-      "title": "Иновативни здравно-социални услуги в община Долни чифлик",
-      "type": "modified",
-      "changedFields": [
-        "durationMonths"
-      ],
-      "prevTotalEur": 235058.16,
-      "totalEur": 235058.16,
-      "paidEur": 139964.17,
+      "prevTotalEur": 58082.76,
+      "totalEur": 58082.76,
+      "paidEur": 58082.76,
       "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Долни чифлик",
-      "detectedAt": "2026-07-13"
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0344",
-      "title": "изграждане на дигитален клуб в Народно читалище Христо Ботев 1928 - с.Детелина",
+      "contractNumber": "BG-RRP-1.024-1157",
+      "title": "„Изграждане на модерен дигитален клуб в Народно Читалище „Хаджи Димитър-1927“, село Рудник",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
       "prevTotalEur": 14316.18,
       "totalEur": 14316.18,
-      "paidEur": 3190.78,
+      "paidEur": 14165.44,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище Христо Ботев - 1928 - с.Детелина",
-      "detectedAt": "2026-07-13"
-    },
-    {
-      "contractNumber": "BG-RRP-1.024-0613",
-      "title": "Изграждане на дигитален клуб в Народно читалище - \"Пробуда-1962\" с. Шкорпиловци, община Долни Чифлик",
-      "type": "modified",
-      "changedFields": [
-        "paidEur"
-      ],
-      "prevTotalEur": 13200.54,
-      "totalEur": 13200.54,
-      "paidEur": 11295.01,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG-RRP",
-      "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище - \"Пробуда-1962\"",
-      "detectedAt": "2026-07-13"
+      "beneficiaryName": "Народно читалище „Хаджи Димитър-1927“, село Рудник",
+      "detectedAt": "2026-07-17"
     }
   ]
 }

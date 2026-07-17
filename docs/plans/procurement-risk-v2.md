@@ -32,6 +32,13 @@ Verified:
 `kzk.harness.ts` parity test still guards fn==matview. The supplier weights
 (`.30/.25/.20/.25`) appear only once and were left alone — no duplication to fix.
 
+⚠️ **Deploy-path gotcha (verified):** `041` is applied ONLY by `load_tr_pg.ts:382` (guarded on
+`to_regclass('public.contracts')`, alongside the K-Index), **not** by `load_pg.ts`. So a weight
+change reaches a running DB via `db:load:tr:pg` / `db:load:tr:pg:cloud`, or a surgical
+`apply_functions.ts 041_procurement_risk_grade.sql` — a plain `db:load:pg` will NOT pick it up.
+After applying, `rebuildRiskGradeScoped()` runs in the same block; a surgical apply must re-fan
+the scoped table itself.
+
 ### 0b. Annex retention — RESOLVED (decision made; the payoff is measured)
 
 **The blocker was based on a wrong belief. The feed is not lost — it is fully retained on
@@ -57,7 +64,7 @@ queryable right now. Measured on the local corpus:
 | …with an annex-moved value | **8,035 (2.27%)** — a healthy base rate, nowhere near OCP's 90% false-positive warning |
 | Value moved up / down | 6,309 up · **1,726 down** (annexes *cut* value 21% of the time) |
 | Net cumulative growth: p25 · **p50** · p75 · p90 · p99 · max | +0.9% · **+14.6%** · +49.2% · +103.1% · +644.0% · +1,366.7% |
-| Over Art. 72 net-cumulative bands: >10% · >15% · >50% | 4,523 · 3,902 · 1,655 |
+| Over illustrative bands: >10% · >15% · >50% | 4,523 · 3,902 · 1,655 | *(only the >50% ЗОП чл. 116 ал. 2 cumulative cap is a legal threshold; 10/15% are the EU Directive's, NOT ЗОП — see caveat 4)* |
 | Total extra value | **+€2,461M gross · +€2,132M net** |
 
 ⚠️ The **+€2,132M** here supersedes the +€1.75bn figure carried in project memory — a newer
@@ -89,22 +96,63 @@ The exactly-50.000% cohort: **446 contracts, +€909.8M of extra value.**
 **АПИ is 94% of it.** Cross-reference [[project_api_road_effectiveness]]: €857M of АПИ's €7.5bn
 arrived via annexes priced to the decimal at the legal maximum.
 
-⚠️ **Three honest caveats, all load-bearing:**
-1. **Cumulative ≠ per-modification.** Our Δ is signing → final current, i.e. net cumulative
-   across *all* annexes. Art. 72's 50% limit is **per modification**. A cumulative Δ of exactly
-   50% is consistent with a single annex at the cap (where cumulative *is* per-modification) —
-   but we cannot currently tell one annex at 50% from three summing to it. **That distinction
-   is exactly what the `annexes` table buys, and €857M of АПИ money rides on the answer.**
-   This is now the strongest argument for building it.
-2. **An exact 1.5× could be computed by the form, not the buyer.** "Amended to the legal
-   maximum" is the natural reading, but a source-side formula would look identical. Do not
-   assert intent.
-3. The 50% cap is Art. 72 / its ЗОП transposition — **verify the exact ЗОП article number
-   before it appears in any copy.** Not verified here.
+**Additional verification (2026-07-17), all strengthening the finding:**
+- **The cliff is in the RAW FEED, per-modification, with no join to our contracts.** Computed
+  `lastContractValue → currentContractValue` straight off the 26,112 usable cache records:
+  49% = 213 · **50% = 391** · 51% = **10** — a 39× cliff in the source data itself. Our fold
+  did not manufacture it.
+- **60 of АПИ's 87 are SINGLE-annex at exactly +50.000%** — one modification, at the cap,
+  unambiguous. 23 are two-annex, 4 are three-annex. (81.5% of *all* annexed contracts have a
+  single annex.) So caveat 1 below is real only for the 27 multi-annex АПИ contracts, not the 60.
+- **АПИ figure re-confirmed independently:** 87 contracts, €1,715.0M → €2,572.5M, **+€857.5M**.
+  Those 87 are **29.5% of АПИ's entire €8,718.8M** contracted value. (⚠️ АПИ total is €8.72bn,
+  not the €7.5bn in [[project_api_road_effectiveness]] — newer corpus; re-check that memo.)
+- **Stable every year 2021–2026** (1.2–2.7% of annexes land at exactly +50%) — not a one-off or
+  a form change.
+- The 8,035/€2,132M headline is a **lower bound**: the cache holds 19,836 annexed contract-keys
+  but only ~8,044 match a PG contract (the fold's precision-over-recall guards). Script's own
+  dry-run: 8,044 matched, net €2,136.4M — agrees with the PG query modulo shard vintage.
+
+⚠️ **Caveats, revised after primary-source legal verification (чл. 116 ЗОП, consolidated text
+to ДВ бр. 11/2024; confirmed unchanged by the 2025 amendments):**
+1. **Cumulative IS the right basis in Bulgaria — this inverts the earlier worry.** EU Art. 72 is
+   per-modification, but **ЗОП чл. 116, ал. 2 transposed it STRICTER: the 50% applies to
+   "общата стойност на измененията" (the TOTAL value of successive modifications).** So our
+   signing→current cumulative Δ is exactly the statutory basis. The 27 multi-annex АПИ
+   contracts summing to 50% are at the cumulative ceiling *by the same rule* as the 60
+   single-annex ones. The `annexes` table is still worth building for per-annex detail, but the
+   headline claim does **not** hinge on it.
+2. **The 50% ceiling is specifically for grounds ал. 1 т. 2 (additional unforeseen
+   works/supplies) and т. 3 (unforeseeable circumstances).** Two ways "amended to the legal
+   maximum" could still mislead, both to CHECK before publishing:
+   - **чл. 116, ал. 3 (in force 22.12.2023): inflation indexation under чл. 117а has its OWN
+     separate 50% ceiling that does NOT count against ал. 2.** Road/строителство contracts are
+     exactly the category that got inflation indexation in 2022–23. So an АПИ contract could sit
+     at +50% inflation (ал. 3) with the ал. 2 headroom *untouched* — meaning its true ceiling is
+     higher, and "the legal maximum" understates it. **Must confirm АПИ's growth is ал. 2, not
+     ал. 3.** (Consistent with our own finding that >50% growth occurs every year — see below.)
+   - **чл. 116, ал. 6: sectoral (utility) awarders are EXEMPT from the ал. 2 cap.** АПИ is a
+     classical public-sector awarder, not секторен, so this should not apply to it — but verify
+     per-awarder before ever calling +50% "the maximum" (Софийска вода, in the same cohort, IS
+     closer to sectoral — check it separately).
+3. **NOT a hard ceiling nobody crosses.** >50% cumulative growth occurs every year (2.0–5.4% of
+   annexes), and there are genuine round-number spikes at +100% (216 annexes) and +150% (28).
+   50% is a value buyers **cluster against**, not a wall — frame it "clustered at the чл. 116
+   ал. 2 cap," never "capped at 50%." The one-sided cliff (8.2× more mass just below 50% than
+   just above, vs 1.6× at the round-number +20%/+25% control points) is what distinguishes a
+   binding constraint from a mere round-number preference.
+4. **The 10%/15% de minimis is NOT Bulgarian law — REMOVE it from §7.1.** ЗОП contains no
+   "15 на сто" anywhere and no numeric de minimis; "non-substantial" changes are handled
+   qualitatively (чл. 116 ал. 1 т. 7 / ал. 5). The 10%/15% figures are the EU Directive's only.
+   Do not attribute them to ЗОП.
+5. **An exact 1.5× could be computed by the form, not chosen by the buyer.** The exact-50.000%
+   clustering is strong evidence a statutory percentage rule was applied, but which ground
+   (ал. 2 vs ал. 3 inflation) it was, and whether the buyer or a source-side formula produced
+   it, are separate questions. Do not assert intent.
 
 ⭐ This upgrades §7.1 from "a flag" to a publishable finding: **no empirical distribution of
 contract-amendment growth exists for EU procurement** (§9), and ours has a 34× cliff at the
-legal cap in it.
+чл. 116 ал. 2 cap in it.
 
 **Not an artifact of the matching guards** — they sit at 15× (`MAX_MULTIPLE`) and ±12% on the
 signing anchor (`CONTINUITY_TOL`); neither can manufacture a discontinuity at 50% growth.
@@ -456,15 +504,21 @@ Ranked by (data we already have × defensibility). Measured weights are from PwC
 as relative ordering only.
 
 1. **Annex value growth.** `signing_amount_eur` vs `amount_eur` — we already compute this Δ for
-   display and never score it. Art. 72 gives legally-defensible bands (**50%** per individual
-   modification; **10%** supplies/services / **15%** works net cumulative). PwC: substantial
+   display and never score it. The legally-defensible band is **ЗОП чл. 116, ал. 2: a 50% cap
+   on the CUMULATIVE value of modifications** on grounds ал. 1 т. 2/т. 3 (primary-source
+   verified, §0b). ⚠️ **Do NOT use the EU Directive's 10%/15% de minimis — ЗОП did not
+   transpose those numbers** (no "15 на сто" appears in the law; non-substantial change is
+   qualitative, чл. 116 ал. 1 т. 7 / ал. 5). And note the separate stacking inflation ceiling
+   (ал. 3 / чл. 117а, since 22.12.2023) — a works contract can carry +50% unforeseen AND +50%
+   inflation, so a single 50% band cannot assume which ground it hit. PwC: substantial
    post-award changes **+35.6%, p<0.05** — among the strongest published weights.
    ✅ **Unblocked — see §0b.** The feed is fully retained on disk (26,120 records, 100%
-   populated, no re-crawl); it just never reaches PG. The **net-cumulative** band is queryable
-   today off `signing_amount_eur` and is **already measured** (§0b): 8,035 affected contracts,
-   median +14.6%, +€2,132M net. Only the **per-modification** 50% band needs the `annexes`
-   table — which is now well-specified (load 26k rows from cache; reuse
-   `anexi_current_value.ts`'s K2→K1 resolution and its three guards).
+   populated, no re-crawl); it just never reaches PG. Because the ЗОП cap is **cumulative**, the
+   scoreable band is queryable today off `signing_amount_eur` and is **already measured** (§0b):
+   8,035 affected contracts, median +14.6%, +€2,132M net. The `annexes` table adds per-annex
+   grounds/dates (which ал. ground; ал. 2 vs ал. 3 inflation) — needed to *label* a breach, not
+   to detect the cumulative one. Well-specified: load 26k rows from cache; reuse
+   `anexi_current_value.ts`'s K2→K1 resolution and its three guards.
    ⭐ **No published empirical distribution of contract-amendment growth exists for EU
    procurement**, and §0b found a **34× cliff at exactly the 50% legal cap — 446 contracts at
    exactly +50.000%, +€909.8M, of which АПИ is €857.5M.** Publishable finding, not just a flag.

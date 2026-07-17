@@ -1,40 +1,57 @@
 {
   "obshtina": "VTR28",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.023-0018",
-      "title": "Устойчиво енергийно обновяване на жилищния сграден фонд на Сдружение на собствениците „Рила 12“ – гр. Свищов.",
+      "contractNumber": "BG16FFPR002-2.004-0009",
+      "title": "Надграждане на системите за разделно събиране на биоразградими отпадъци и модернизация на Регионална инсталация за компостиране за нуждите на Общините Свищов, Павликени, Белене и Никопол.",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 1250697.42,
-      "totalEur": 1250697.42,
-      "paidEur": 1250665.3,
+      "prevTotalEur": 2001269.77,
+      "totalEur": 2001269.77,
+      "paidEur": 579035.24,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16FFPR002",
+      "programName": "Програма \"Околна среда\" 2021-2027",
+      "beneficiaryName": "Община Никопол",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-11.018-0048",
+      "title": "Изграждане и оборудване на нови социални услуги в Община Свищов: -Резидентна грижа за пълнолетни лица с физически увреждания /РГПЛФУ/ -Резидентна грижа за пълнолетни лица с интелектуални затруднения /РГПЛИЗ/ -Център за специализирана подкрепа за лица с увреждания и техните семейства /ЦСПЛУТС/“",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 1988231.09,
+      "totalEur": 1988231.09,
+      "paidEur": 1131557.44,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Свищов",
-      "detectedAt": "2026-07-13"
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG05SFPR003-1.001-0008",
-      "title": "Топъл обяд в Община Свищов",
+      "contractNumber": "BG16RFPR001-1.003-0527",
+      "title": "Внедряване на иновативен продукт във ФАВО АД",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
-        "durationMonths"
+        "paidEur",
+        "status"
       ],
-      "prevTotalEur": 199652.4,
-      "totalEur": 248893.56,
-      "paidEur": 173359.43,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
-      "beneficiaryName": "Община Свищов",
-      "detectedAt": "2026-07-13"
+      "prevTotalEur": 869196.2,
+      "totalEur": 868684.91,
+      "paidEur": 390908.2,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Фаво АД",
+      "detectedAt": "2026-07-17"
     },
     {
       "contractNumber": "BG-RRP-1.015-0798",
@@ -45,44 +62,46 @@
       ],
       "prevTotalEur": 69390.87,
       "totalEur": 69390.87,
-      "paidEur": 61343.36,
+      "paidEur": 66640.74,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Професионална държавна Търговска гимназия \"Димитър Хадживасилев\"",
-      "detectedAt": "2026-07-13"
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0022",
-      "title": "Изграждане на дигитален клуб в Народно читалище \"Заря - 1898\" с. Хаджидимитрово",
+      "contractNumber": "BG-RRP-11.017-0052",
+      "title": "Концерт на група ОРАТНИЦА в гр. Свищов и гр. Полски Тръмбеш",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "status"
       ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 14316.18,
-      "paidEur": 10580.27,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 9026.86,
+      "totalEur": 9026.86,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно читалище \"Заря - 1898\" с. Хаджидимитрово",
-      "detectedAt": "2026-07-13"
+      "beneficiaryName": "Интернешънъл ерандс ЕООД",
+      "detectedAt": "2026-07-17"
     },
     {
-      "contractNumber": "BG-RRP-1.024-0037",
-      "title": "Изграждане на дигитален клуб в НЧ ПРОСВЕТА - ДРАГОМИРОВО 1912 с. Драгомирово",
+      "contractNumber": "BG-RRP-11.017-0050",
+      "title": "МАЛКА ДЕТСКА КЛАСИКА-образователен концерт за децата на гр. Свищов и гр. Kубрат",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "status"
       ],
-      "prevTotalEur": 14316.18,
-      "totalEur": 14316.18,
-      "paidEur": 10609.03,
-      "status": "В изпълнение (от дата на стартиране)",
+      "prevTotalEur": 8479.26,
+      "totalEur": 8451.64,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "НЧ Просвета - драгомирово 1912",
-      "detectedAt": "2026-07-13"
+      "beneficiaryName": "Сдружение Полифония",
+      "detectedAt": "2026-07-17"
     }
   ]
 }

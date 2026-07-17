@@ -1,22 +1,106 @@
 {
   "obshtina": "BGS12",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-13.009-0025",
-      "title": "„Инсталиране на фотоволтаични системи (ФЕЦ) в три социални услуги, функциониращи на територията на Община Малко Търново и закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги“",
+      "contractNumber": "BG-RRP-4.023-2121",
+      "title": "\"Енергийно обновяване на многофалимна жилищна сграда с административен адрес: гр. Малко Търново, к-с \"Майор Вишняев\", бл. 1\"",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 202029.78,
-      "totalEur": 202029.78,
-      "paidEur": 191034.67,
+      "prevTotalEur": 484164.48,
+      "totalEur": 484164.48,
+      "paidEur": 482113.33,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Малко Търново",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-4.028-0020",
+      "title": "ЕНЕРГИЙНО ЕФЕКТИВНИ СИСТЕМИ ЗА УЛИЧНО ОСВЕТЛЕНИЕ В СЕЛАТА НА ТЕРИТОРИЯТА НА ОБЩИНА МАЛКО ТЪРНОВО",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 221872.45,
+      "totalEur": 221872.45,
+      "paidEur": 219730.32,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Малко търново",
-      "detectedAt": "2026-07-13"
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-1644",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "durationMonths"
+      ],
+      "prevTotalEur": 26975.76,
+      "totalEur": 26975.76,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ЕФ ЕН Консулт ЕООД",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-11.017-0073",
+      "title": "Лятно театро - за всички",
+      "type": "modified",
+      "changedFields": [
+        "status"
+      ],
+      "prevTotalEur": 9089.75,
+      "totalEur": 9089.75,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Малка Театрална Компания",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-11.017-0041",
+      "title": "\"Театър за вас\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 9050.92,
+      "totalEur": 9037.02,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "\"Трио Театър\" ООД",
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-11.017-0014",
+      "title": "Неоренесанс",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 9303.69,
+      "totalEur": 8855.68,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Бургаска художествена галерия \"Петко Задгорски\"",
+      "detectedAt": "2026-07-17"
     }
   ]
 }

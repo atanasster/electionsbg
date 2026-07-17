@@ -1,6 +1,6 @@
 {
   "obshtina": "MON04",
-  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "generatedAt": "2026-07-17T13:05:39.989Z",
   "changes": [
     {
       "contractNumber": "BG-RRP-1.024-1187",
@@ -11,12 +11,28 @@
       ],
       "prevTotalEur": 14316.17,
       "totalEur": 14316.17,
-      "paidEur": 13900.2,
+      "paidEur": 13935,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Народно читалище „Светлина-1929“",
-      "detectedAt": "2026-07-13"
+      "detectedAt": "2026-07-17"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0793",
+      "title": "Изграждане на дигитален клуб в с. Портитовци, община Бойчиновци, област Монтана",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14305.96,
+      "totalEur": 14305.96,
+      "paidEur": 13407.77,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Пробуда - 1934\"",
+      "detectedAt": "2026-07-17"
     }
   ]
 }
