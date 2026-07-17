@@ -14,7 +14,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { existsSync, readdirSync } from "node:fs";
 import path from "node:path";
-import { PROC_DIR } from "../lib/paths";
+import { PROC_DIR, isEikRollupFile } from "../lib/paths";
 import { aggregateContracts, centsEqual } from "../lib/contracts_aggregate";
 import { canonicalObject } from "../lib/canonical";
 
@@ -38,9 +38,7 @@ const totals = haveData
   : null;
 
 const eikJsonCount = (dir: string): number =>
-  existsSync(dir)
-    ? readdirSync(dir).filter((f) => /^\d+\.json$/.test(f)).length
-    : 0;
+  existsSync(dir) ? readdirSync(dir).filter(isEikRollupFile).length : 0;
 
 const sampleEiks = (m: Map<string, number>, n: number): string[] => {
   const byEik = [...m.keys()].sort();

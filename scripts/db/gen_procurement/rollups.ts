@@ -15,7 +15,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { isDeepStrictEqual } from "node:util";
-import { PROC_DIR } from "../lib/paths";
+import { PROC_DIR, isEikRollupFile } from "../lib/paths";
 import { readContractsFromPg } from "../lib/rows";
 import { stripVolatile } from "../lib/canonical";
 import { buildRollupsFromRows } from "../../procurement/rollups";
@@ -39,7 +39,7 @@ const compareDir = (kind: string, rollups: RollupOut[]): CompareResult => {
   const liveEiks = new Set(
     fs
       .readdirSync(dir)
-      .filter((f) => /^\d+\.json$/.test(f))
+      .filter(isEikRollupFile)
       .map((f) => f.slice(0, -5)),
   );
   const genEiks = new Set<string>();
@@ -136,7 +136,7 @@ const main = async (): Promise<void> => {
       // stale amendment-only contractors) — the JS writeRollups never pruned
       // these, so a --write flip must, or they linger and re-enter top_contractors.
       for (const f of fs.readdirSync(dir))
-        if (/^\d+\.json$/.test(f) && !keep.has(f))
+        if (isEikRollupFile(f) && !keep.has(f))
           fs.unlinkSync(path.join(dir, f));
     }
     console.log(
