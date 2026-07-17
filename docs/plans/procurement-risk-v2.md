@@ -1,6 +1,35 @@
 # Procurement risk v2 — tender risk signals + the risk vocabulary contract
 
-Status: DRAFT (2026-07-17). **Both §9 blockers resolved 2026-07-17 — see §0.** Owner: TBD.
+Status: DRAFT (2026-07-17). **Both §9 blockers resolved; full adversarial audit folded in
+2026-07-17 — see §0 + §0c.** Owner: TBD.
+
+## 0c. Audit summary (2026-07-17) — what a 5-front adversarial pass changed
+
+Five parallel audits (code-vs-repo, academic literature, ЗОП legal text, EC Scoreboard, OCP +
+Opentender/ARACHNE), each instructed to falsify. **No blocker fell; six claims did.** All fixes
+are inline above/below; this is the index.
+
+| Claim (as originally drafted) | Verdict | Now |
+|---|---|---|
+| "Five 0–100 risk numbers" | **wrong** | **Six** — added NZOK hospital `risk_index` (§1a). Strengthens §3. |
+| C2 "8 not 9 because `appealUpheld` isn't selected" | **wrong (inverted)** | `appealUpheld` IS selected & available; the always-unavailable check is `shortTenderPeriod` (0%-populated `tender_period_*`). Verified. (§1c C2, §7.2) |
+| §7 "make КЗК appeal available on the contract page" | **wrong** | Already available; real limit is sparsity — 106 upheld corpus-wide. (§7.2) |
+| C1 "two 0–100s on the same screen" | **overstated** | Collides by cross-navigation, not same-screen (Топ договори tile has no risk column). (§1c C1) |
+| §4b "keep `score` for flow-viz/My-Area/AI consumers" | **wrong** | Those importers don't exist; `score` has only 2 render surfaces. (§4b) |
+| EU 10%/15% de minimis "is ЗОП law" | **wrong** | Not transposed — no "15 на сто" in ЗОП. (§0b, §7.1) |
+| Opentender "25d/194d, 7.8× spread" | **unverifiable** | Not in cited D2.2; principle (per-country calibration) confirmed, numbers dropped. (§6b) |
+| Decarolis "only study, vs convictions" | **wrong** | Validates vs investigations; not the only one. (§2) |
+
+**What survived, re-confirmed against primary sources:** the weights de-dup (byte-identical,
+plan-neutral); the €857M annex finding (raw-feed per-modification cliff, 60/87 АПИ single-annex,
+re-confirmed independently); the ЗОП 50% cap is **cumulative** (stricter than EU, *helps* us);
+every PRWP 10444 Table 2 band, the Decarolis numbers (F=0.597 etc.), the PwC marginal effects,
+every EC Scoreboard figure + the "median" and corruption-disclaimer quotes; OCP's 73 flags +
+both quotes verbatim.
+
+**The one thing to check before PUBLISHING (not before building):** is АПИ's +50% growth the
+чл. 116 ал. 2 ground, or ал. 3 inflation indexation (which stacks a separate 50%)? Until
+answered, do not call it "the legal maximum." (§0b caveat 2.)
 
 ## 0. Blocker resolutions (2026-07-17) — SUPERSEDES the blocker notes in §7.1 and §8
 
@@ -290,12 +319,18 @@ exposure grade over hundreds of transactions. A contract is n=1.
   high corruption risks practices signals weak institutional control of corruption."*
   Same corpus as ours, World Bank-published. The named alternative to a high single-contract
   score, in Fazekas, Tóth & King (2016) p. 11, is *"random fluctuations in the data."*
-- **Decarolis & Giorgiantonio (2022)**, EPJ Data Science 11:16 — the only study validating red
-  flags against **convictions** (12,786 Italian roadwork contracts; ground truth 15%
-  investigated / 2% convicted / 1% debarred). Verdict negative: *"the most obvious and
-  scrutinized red flags are either uncorrelated with corruption or, even, negatively associated
-  with it"* — urgency procedures and publicity ran **backwards**. Best realistic model
-  F=0.597. Cost overruns do not proxy corruption (r ≈ 0.001).
+- **Decarolis & Giorgiantonio (2022)**, EPJ Data Science 11:16 — a leading study validating red
+  flags against firm-level **police-investigation** data on a near-population of Italian
+  roadwork contracts (12,786 contracts; ground truth 15% investigated, and the authors
+  **explicitly discard convictions as too rare to use** — 2% / 1%). ⚠️ *Corrected from an earlier
+  draft that called this "the only study validating against convictions" — wrong on both counts:
+  it validates against investigations, and PwC/Ecorys 2013 already validates against final
+  rulings.* Verdict negative: *"the most obvious and scrutinized red flags are either
+  uncorrelated with corruption or, even, negatively associated with it"* — urgency procedures
+  and publicity ran **backwards**. Best realistic model F=0.597. Cost overruns do not proxy
+  corruption (r ≈ 0.001). (The one flag that holds up *positively* is MEAT — multi-criteria
+  award — which is the EU's *recommended* practice, a tension worth remembering before we score
+  discretionary criteria.)
 - **OCP (2024) p. 13** — the framing to adopt verbatim: a flag means the behaviour is
   *"a) not at all illicit or suboptimal; b) not illicit, but suboptimal in terms of value for
   money…; or c) illicit."* It names the two innocent explanations before the guilty one.
@@ -484,9 +519,14 @@ Two things to carry across:
 - The bands are **0 / 0.5 / 1**, not binary. Our `shortTenderPeriod` uses a flat 14-day cut
   (`computeProcurementRisk.ts:109`, `SHORT_TENDER_DAYS`) lifted from Directive 2014/24 Art. 27
   — that is a **legal minimum, not a calibrated risk threshold**. Re-cut to 1–6 / 7–11 / 12+.
-- The decision-period flag is **one-sided in Bulgaria** (short = risky). The general GTI
-  framework treats it as two-sided; the Bulgarian calibration dropped the long tail. Follow the
-  Bulgarian calibration.
+- The decision-period flag's *banding* is **one-sided** (only short periods 1–4d score 1).
+  ⚠️ But PRWP 10444's own prose justifies risk via the **opposite** mechanism — *"an overly
+  lengthy decision period gives the opportunity for multiple legal challenges… the issuer wants
+  to award the contract to a specific company."* The calibration penalises short, the narrative
+  worries about long: a documented internal inconsistency in the source. **Do not treat the
+  decision-period flag as settled** — run it two-sided in the §6b base-rate pass and look at
+  where our own mass sits before committing to a direction. (This is a weaker indicator to lead
+  with than submission-period or no-CFT, which are unambiguous.)
 
 ### 6b. Calibrate on our own corpus before committing to any threshold
 
