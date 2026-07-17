@@ -105,6 +105,7 @@ export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
   // mirroring the `/tourism/` → indicators rule.
   { pattern: /^\/environment\//, dataset: "indicators" },
   { pattern: /^\/administration\//, dataset: "administration" },
+  { pattern: /^\/social\//, dataset: "social" }, // АСП benefits + Eurostat poverty (benefits.json, poverty_impact.json)
   { pattern: /^\/water\//, dataset: "water" },
   { pattern: /^\/culture\//, dataset: "culture" },
   { pattern: /^\/tourism\//, dataset: "indicators" }, // Eurostat tourism nights (visitors.json)
@@ -782,6 +783,23 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     tags: ["fiscal", "indicators"],
   },
   {
+    id: "social",
+    label: { bg: "АСП · МТСП · Eurostat", en: "АСП · МТСП · Eurostat" },
+    detail: {
+      bg: "помощи, бюджет по вид, бедност",
+      en: "benefits, budget by type, poverty",
+    },
+    desc: {
+      bg: "Социалното подпомагане: помощите, които Агенцията за социално подпомагане (АСП) плаща на домакинствата — детски надбавки, помощи за хора с увреждания, целева помощ за отопление, ГМД (национално/годишно, от годишния отчет на АСП), бюджетът на МТСП по вид помощ (Закон за държавния бюджет) и ефектът на трансферите върху бедността спрямо ЕС (Eurostat ilc_li10/ilc_li02). Пенсиите (НОИ) са отделен източник.",
+      en: "Social assistance: the benefits the Agency for Social Assistance (АСП) pays households — child allowances, disability support, targeted heating aid, guaranteed minimum income (national/annual, from the АСП annual report), the МТСП budget by benefit type (State Budget Law), and the poverty-reduction effect of transfers vs the EU (Eurostat ilc_li10/ilc_li02). Pensions (НОИ) are a separate source.",
+    },
+    url: "https://asp.government.bg/",
+    origin: "state",
+    members: ["asp_benefits"],
+    skills: ["update-social"],
+    tags: ["fiscal", "indicators"],
+  },
+  {
     id: "culture",
     label: { bg: "НФЦ · филмови субсидии", en: "НФЦ · film subsidies" },
     detail: {
@@ -1103,6 +1121,20 @@ export const DATASETS: DatasetDef[] = [
       en: "The administrative-services register (IISDA, ~2,668), e-government use vs the EU (Eurostat), service quality (signals, satisfaction-measurement — from the annual Report), plus the folded page-context (workforce, structures, cost, population). e-government procurement (МЕУ + ИА ИЕУ + ДАЕУ) comes from the contracts corpus.",
     },
     path: "data/administration/",
+    tags: ["fiscal", "indicators"],
+  },
+  {
+    id: "social",
+    label: { bg: "Социално подпомагане", en: "Social assistance" },
+    detail: {
+      bg: "помощи, бюджет по вид, бедност",
+      en: "benefits, budget by type, poverty",
+    },
+    desc: {
+      bg: "Помощите на АСП по вид (детски надбавки, увреждания, отопление, ГМД — национално/годишно) и ефектът на социалните трансфери върху бедността спрямо ЕС (Eurostat ilc_li10/ilc_li02). Бюджетът на МТСП по вид помощ идва от бюджетното дърво; поръчките на групата — от корпуса на договорите. Пенсиите (НОИ) са отделен изглед.",
+      en: "АСП benefits by type (child allowances, disability, heating aid, GMI — national/annual) and the poverty-reduction effect of social transfers vs the EU (Eurostat ilc_li10/ilc_li02). The МТСП budget by benefit type comes from the budget tree; the group's procurement from the contracts corpus. Pensions (НОИ) are a separate view.",
+    },
+    path: "data/social/",
     tags: ["fiscal", "indicators"],
   },
   {
@@ -1518,6 +1550,20 @@ export const FEATURES: FeatureDef[] = [
     tags: ["fiscal", "indicators"],
   },
   {
+    id: "social",
+    label: { bg: "Социално подпомагане", en: "Social assistance" },
+    detail: {
+      bg: "къде отиват парите и какво постигат",
+      en: "where the money goes and what it achieves",
+    },
+    desc: {
+      bg: "Социалната защита е ~37% от разхода на държавата. /sector/social показва бюджета на МТСП по вид помощ (разходът за хора с увреждания се утрои), помощите на АСП към домакинствата (отопление, детски, ГМД), ефекта на трансферите върху бедността спрямо ЕС и обществените поръчки на групата. Пенсиите (НОИ) са отделен изглед.",
+      en: "Social protection is ~37% of state spending. /sector/social shows the МТСП budget by benefit type (disability spending tripled), the benefits АСП pays households (heating, child, GMI), the poverty-reduction effect of transfers vs the EU, and the group's procurement. Pensions (НОИ) are a separate view.",
+    },
+    route: "/sector/social",
+    tags: ["fiscal", "indicators"],
+  },
+  {
     id: "culture",
     label: { bg: "Култура", en: "Culture" },
     detail: {
@@ -1652,6 +1698,15 @@ export const EDGES: [string, string][] = [
   ["ds:budget", "f:administration"],
   ["ds:macro", "f:administration"],
   ["ds:procurement", "f:administration"],
+  // /sector/social leads with the disbursement iceberg + poverty outcome: its own
+  // dataset (АСП benefits + Eurostat poverty) rides src→ds→f, and it folds the МТСП
+  // budget-by-benefit (budget), the €15bn COFOG split + AROPE (macro) and the 6-EIK
+  // procurement group (procurement) — cross-dataset edges, like administration.
+  ["src:social", "ds:social"],
+  ["ds:social", "f:social"],
+  ["ds:budget", "f:social"],
+  ["ds:macro", "f:social"],
+  ["ds:procurement", "f:social"],
   ["src:water", "ds:water"],
   ["src:egov", "ds:water"],
   ["ds:water", "f:water"],
