@@ -8,7 +8,7 @@
 // themes.ts reads the programme shards back off disk into its own slimmer row
 // type, and both shapes satisfy this.
 export interface MuniAttributable {
-  location?: { munis?: string[] };
+  location?: { munis?: string[] } | null;
 }
 
 // The split denominator — how many distinct муни the row names.
