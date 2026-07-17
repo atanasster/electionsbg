@@ -1,22 +1,24 @@
 {
   "obshtina": "HKV33",
-  "generatedAt": "2026-07-17T14:13:05.364Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG16RFPR001-1.004-0951",
-      "title": "Развитие на потенциала за устойчивост и растеж на \"ПАНАЦЕЯ МЦ\" ООД",
+      "contractNumber": "BG05SFPR003-1.001-0143",
+      "title": "Топъл обяд в Община Харманли",
       "type": "modified",
       "changedFields": [
-        "paidEur"
+        "totalEur",
+        "grantEur",
+        "durationMonths"
       ],
-      "prevTotalEur": 43647.26,
-      "totalEur": 43647.26,
-      "paidEur": 32680.57,
-      "status": "В изпълнение (от дата на стартиране)",
-      "programCode": "2021BG16RFPR001",
-      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
-      "beneficiaryName": "Панацея МЦ ООД",
-      "detectedAt": "2026-07-17"
+      "prevTotalEur": 399477.8,
+      "totalEur": 497960.12,
+      "paidEur": 346891.87,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Харманли",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

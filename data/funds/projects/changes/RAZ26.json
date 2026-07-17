@@ -1,22 +1,72 @@
 {
   "obshtina": "RAZ26",
-  "generatedAt": "2026-07-17T14:13:05.364Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-4.023-2427",
-      "title": "Обновяване на жилищния сграден фонд и подобряване условията на живот чрез въвеждане на мерки за енергийна ефективност в многофамилна жилищна сграда с адрес град Разград, ул. „28-ми януари“ № 36",
+      "contractNumber": "BG-RRP-4.021-0060",
+      "title": "Обновяване на производствена сграда на МАТ ООД, гр. Разград",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 442840.36,
+      "totalEur": 416717.55,
+      "paidEur": 229194.65,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "МАТ ООД",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.015-1891",
+      "title": "Изграждане на училищна STEM среда в Основно училище \"Никола Икономов\" гр. Разград",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 213412.23,
-      "totalEur": 213412.23,
-      "paidEur": 212742.86,
+      "prevTotalEur": 185901.47,
+      "totalEur": 185901.47,
+      "paidEur": 185797.95,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Община Разград",
-      "detectedAt": "2026-07-17"
+      "beneficiaryName": "Основно училище \"Никола Икономов\"",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.015-0799",
+      "title": "\"STEM център за бъдещи иноватори\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 92892.42,
+      "totalEur": 92892.42,
+      "paidEur": 92533,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Основно училище \"СВ.СВ.КИРИЛ и Методий\"",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0748",
+      "title": "Изграждане на дигитален клуб в село Ушинци",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.17,
+      "totalEur": 14316.17,
+      "paidEur": 7955.95,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"НОВ Живот - 1909г\"",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

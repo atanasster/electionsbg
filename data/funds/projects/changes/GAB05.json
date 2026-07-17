@@ -1,22 +1,169 @@
 {
   "obshtina": "GAB05",
-  "generatedAt": "2026-07-17T14:13:05.364Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.015-1924",
-      "title": "Изграждане на училищна STEM среда в ОУ „Св. Св. Кирил и Методий“ – Габрово",
+      "contractNumber": "BG-RRP-4.023-0935",
+      "title": "Енергийно обновяване на многофамилна жилищна сграда - \"гр. Габрово, ул. Младост 1, блок Буря\"",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 185905.72,
-      "totalEur": 185905.72,
-      "paidEur": 182388.24,
+      "prevTotalEur": 1106485.04,
+      "totalEur": 1106485.04,
+      "paidEur": 1104737.15,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Основно училище \"СВ.СВ. кирил и Методий\"",
-      "detectedAt": "2026-07-17"
+      "beneficiaryName": "Община Габрово",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.001-0277",
+      "title": "Разработване на иновация в АДТЕХ ООД",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 313830.96,
+      "totalEur": 313830.96,
+      "paidEur": 146466.98,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Адтех ООД",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.015-1462",
+      "title": "Изграждане на училищна STEM среда и високотехнологични оборудвани и свързани класни стаи (ВОСКС).",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 185594.86,
+      "totalEur": 185594.86,
+      "paidEur": 184891.13,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Средно училище \"Райчо Каролев\"",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.015-1048",
+      "title": "СТЕМ Център по природни науки, изследвания и иновации и високотехнологично оборудвани и свързани класни стаи в ПТГ\"Д-р Никола Василиади\"",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 139429.24,
+      "totalEur": 139429.24,
+      "paidEur": 139006.85,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Професионална Техническа гимназия \"Д-Р Н.ВАСИЛИАДИ\"",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG16RFPR001-2.004-0082",
+      "title": "Енергийна ефективност и ВЕИ в СТС Принт АД",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 77709.14,
+      "totalEur": 42849.64,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "СТС Принт АД",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0516",
+      "title": "Изграждане на дигитален клуб в гр.Габрово",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 26587.18,
+      "totalEur": 26587.18,
+      "paidEur": 25847.79,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище Отец Паисий -1933",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0253",
+      "title": "Изграждане на дигитален клуб към НЧ \"Будителите 2017\"",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 46000,
+      "totalEur": 23519.43,
+      "paidEur": 18112.84,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Будителите 2017\"",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0731",
+      "title": "Изграждане на дигитален клуб в гр. Габрово",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 23519.43,
+      "totalEur": 23519.43,
+      "paidEur": 20479.49,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище “СВ.СВ.КИРИЛ и Методий- 1928“",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0697",
+      "title": "Дигитално читалище",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 19405.06,
+      "totalEur": 19405.06,
+      "paidEur": 19089.07,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Просвета-1951г.-кв. Златари\"",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0402",
+      "title": "Изграждане на дигитален клуб в село Яворец",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 14316.19,
+      "totalEur": 14316.17,
+      "paidEur": 13439.7,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Васил Левски - 1922 \"",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

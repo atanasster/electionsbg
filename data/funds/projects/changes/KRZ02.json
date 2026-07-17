@@ -1,0 +1,41 @@
+{
+  "obshtina": "KRZ02",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "changes": [
+    {
+      "contractNumber": "BG05SFPR003-1.001-0080",
+      "title": "Топъл обяд в община Ардино",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 2594180.91,
+      "totalEur": 2608763.79,
+      "paidEur": 2252372.43,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Ардино",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-4.020-0004",
+      "title": "„Устойчиво енергийно обновяване на публичен сграден фонд за обществено обслужване в областта на спорта – Спортна зала „Юнак“, гр. Ардино, община Ардино“",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 85264.93,
+      "totalEur": 84444.98,
+      "paidEur": 72814.36,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Ардино",
+      "detectedAt": "2026-07-13"
+    }
+  ]
+}

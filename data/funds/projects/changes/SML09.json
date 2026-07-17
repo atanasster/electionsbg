@@ -1,24 +1,54 @@
 {
   "obshtina": "SML09",
-  "generatedAt": "2026-07-17T14:13:05.364Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR003-1.001-0184",
-      "title": "Топъл обяд в Община Девин",
+      "contractNumber": "BG05SFPR002-1.004-2387",
+      "title": "Адаптирана работна среда във \"Възход Манифакчъринг\" ЕООД.",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "durationMonths"
+        "paidEur"
       ],
-      "prevTotalEur": 317016.8,
-      "totalEur": 399636.88,
-      "paidEur": 250330.22,
-      "status": "Сключен",
-      "programCode": "2021BG05SFPR003",
-      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "prevTotalEur": 166620.94,
+      "totalEur": 166620.94,
+      "paidEur": 166620.94,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Възход манифакчъринг ЕООД",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-13.009-0055",
+      "title": "Инсталиране на фотоволтаична система (ФЕЦ) в ЦОП \"Слънчо\" - гр. Девин и закупуване на електрическо превозно средство, включително свързана зарядна станция за предоставяне на социални услуги в Община Девин",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 103417.99,
+      "totalEur": 103417.99,
+      "paidEur": 99496.8,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Община Девин",
-      "detectedAt": "2026-07-17"
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0166",
+      "title": "Изграждане на дигитален клуб НЧ \"Родопска просвета - 1923\" град Девин",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 17383.92,
+      "totalEur": 17383.92,
+      "paidEur": 17343.79,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "НЧ \"Родопска просвета - 1923\" град Девин",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

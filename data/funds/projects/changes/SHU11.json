@@ -1,0 +1,40 @@
+{
+  "obshtina": "SHU11",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "changes": [
+    {
+      "contractNumber": "BG05SFPR003-1.001-0053",
+      "title": "Топъл обяд в община Хитрино",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 998694.47,
+      "totalEur": 1244900.28,
+      "paidEur": 867229.69,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Хитрино",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0628",
+      "title": "Изграждане на мрежа от дигитален клуб в Народно читалище \"Пробуда 1929\" , село Хитрино, община Хитрино, област Шумен",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14231.23,
+      "totalEur": 14231.23,
+      "paidEur": 11740,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Пробуда 1929\" , село Хитрино, община Хитрино, област Шумен",
+      "detectedAt": "2026-07-13"
+    }
+  ]
+}

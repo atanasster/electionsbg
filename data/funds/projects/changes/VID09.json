@@ -1,24 +1,102 @@
 {
   "obshtina": "VID09",
-  "generatedAt": "2026-07-17T14:13:05.364Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG05SFPR002-1.004-0930",
-      "title": "ЕТ ИВИЛ с адаптивна и здравословна работна среда и мотивиран персонал",
+      "contractNumber": "BG05SFPR002-1.013-0135",
+      "title": "Насърчаване заетостта в БДК",
+      "type": "new",
+      "totalEur": 293218.82,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Българска далекосъобщителна компания ЕООД",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG05SFPR003-1.001-0067",
+      "title": "Топъл обяд в Община Видин",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur"
+      ],
+      "prevTotalEur": 998694.48,
+      "totalEur": 1004303.28,
+      "paidEur": 802557.48,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Видин",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.007-0136",
+      "title": "Модернизация на образователна среда в ДГ \"Русалка\", гр. Видин",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 797065.94,
+      "totalEur": 797065.94,
+      "paidEur": 792147.47,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Община Видин",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.015-1844",
+      "title": "СТЕМ Център Дигитални създатели",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 139424.97,
+      "totalEur": 139424.97,
+      "paidEur": 139078.06,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Профилирана ПРИРОДО-МАТЕМАТИЧЕСКА гимназия \"Екзарх антим 1\"",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-2414",
+      "title": "Подобряване на производствения капацитет в ЕТ ЛОГИ - ОГНЯН ЕВГЕНИЕВ",
       "type": "modified",
       "changedFields": [
         "totalEur",
         "grantEur",
+        "paidEur",
         "status"
       ],
-      "prevTotalEur": 63793.27,
-      "totalEur": 56611.76,
-      "paidEur": 56611.76,
+      "prevTotalEur": 102258.38,
+      "totalEur": 102200,
+      "paidEur": 76650,
       "status": "Приключен (към датата на приключване)",
-      "programCode": "2021BG05SFPR002",
-      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
-      "beneficiaryName": "ЕТ Ивил - иван Кръстев",
-      "detectedAt": "2026-07-17"
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ЕТ Логи - огнян Евгениев",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-0986",
+      "title": "Дигитални умения за бъдещето - клуб за обучение и интеграция",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 23422.28,
+      "totalEur": 23422.28,
+      "paidEur": 22057.07,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Регионална библиотека \"Михалаки Георгиев\"",
+      "detectedAt": "2026-07-13"
     }
   ]
 }

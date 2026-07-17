@@ -1,24 +1,38 @@
 {
   "obshtina": "SZR04",
-  "generatedAt": "2026-07-17T14:13:05.364Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
+    {
+      "contractNumber": "BG-RRP-1.024-0313",
+      "title": "Изграждане на дигитален клуб в село Мирово",
+      "type": "modified",
+      "changedFields": [
+        "paidEur"
+      ],
+      "prevTotalEur": 14316.18,
+      "totalEur": 14316.18,
+      "paidEur": 10068.62,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Отец Пайсий - 1928 Година\"",
+      "detectedAt": "2026-07-13"
+    },
     {
       "contractNumber": "BG-RRP-1.024-0126",
       "title": "Изграждане на дигитален клуб в село Плодовитово",
       "type": "modified",
       "changedFields": [
-        "totalEur",
-        "grantEur",
-        "status"
+        "paidEur"
       ],
       "prevTotalEur": 14316.18,
-      "totalEur": 21470.14,
+      "totalEur": 14316.18,
       "paidEur": 10689.06,
-      "status": "Приключен (към датата на приключване)",
+      "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
       "beneficiaryName": "Народно читалище \"Просвета - 1946\"",
-      "detectedAt": "2026-07-17"
+      "detectedAt": "2026-07-13"
     }
   ]
 }

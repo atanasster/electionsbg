@@ -1,0 +1,84 @@
+{
+  "obshtina": "HKV34",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
+  "changes": [
+    {
+      "contractNumber": "BG16RFPR001-1.008-0024",
+      "title": "Въвеждане на технологии от областта на Индустрия 4.0 в \"ПАК Дизайн\" ООД",
+      "type": "new",
+      "totalEur": 867329.98,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ПАК Дизайн ООД",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG05SFPR002-1.030-0002",
+      "title": "Насърчаване на социалното предприемачество по подхода ИТИ",
+      "type": "new",
+      "totalEur": 116984,
+      "paidEur": 0,
+      "status": "В изпълнение (от дата на стартиране)",
+      "programCode": "2021BG05SFPR002",
+      "programName": "Програма \"Развитие на човешките ресурси\" 2021-2027",
+      "beneficiaryName": "Фондация Хало",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG05SFPR003-1.001-0254",
+      "title": "Топъл обяд в Община Хасково",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "durationMonths"
+      ],
+      "prevTotalEur": 1234967.88,
+      "totalEur": 1579656.01,
+      "paidEur": 1050917.19,
+      "status": "Сключен",
+      "programCode": "2021BG05SFPR003",
+      "programName": "Програма \"Храни и основно материално подпомагане\" 2021-2027",
+      "beneficiaryName": "Община Хасково",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.012-1103",
+      "title": "Дигитализация на предприятията",
+      "type": "modified",
+      "changedFields": [
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 9264.1,
+      "totalEur": 9264.1,
+      "paidEur": 6484.87,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "Вега систем 2010 ЕООД",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG16RFPR001-1.004-0053",
+      "title": "Подкрепа за семейно предприятие \"ФормаПро\"ООД, гр.Хасково",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "status"
+      ],
+      "prevTotalEur": 101465.87,
+      "totalEur": 0,
+      "paidEur": 0,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG16RFPR001",
+      "programName": "Програма \"Конкурентоспособност и иновации в предприятията\" 2021-2027",
+      "beneficiaryName": "ФормаПро ООД",
+      "detectedAt": "2026-07-13"
+    }
+  ]
+}

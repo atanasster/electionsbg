@@ -1,22 +1,41 @@
 {
   "obshtina": "BLG44",
-  "generatedAt": "2026-07-17T14:13:05.364Z",
+  "generatedAt": "2026-07-13T07:21:03.488Z",
   "changes": [
     {
-      "contractNumber": "BG-RRP-1.024-1112",
-      "title": "Изграждане на дигитален клуб в Народно Читалище \"НИКОЛА ВАПЦАРОВ-1964\" в с. Полето",
+      "contractNumber": "BG-RRP-1.024-1156",
+      "title": "Изграждане на дигитален клуб в Народно читалище \"Владимир \"Маяковски -1937\" с. Крупник",
+      "type": "modified",
+      "changedFields": [
+        "totalEur",
+        "grantEur",
+        "paidEur",
+        "status"
+      ],
+      "prevTotalEur": 11489.93,
+      "totalEur": 21536.24,
+      "paidEur": 10853.61,
+      "status": "Приключен (към датата на приключване)",
+      "programCode": "2021BG-RRP",
+      "programName": "Национален план за възстановяване и устойчивост",
+      "beneficiaryName": "Народно читалище \"Владимир Маяковски -1937\", село Крупник",
+      "detectedAt": "2026-07-13"
+    },
+    {
+      "contractNumber": "BG-RRP-1.024-1169",
+      "title": "Изграждане на дигитален клуб в НЧ \"Гоце Делчев 1958\" село Черниче",
       "type": "modified",
       "changedFields": [
         "paidEur"
       ],
-      "prevTotalEur": 14316.17,
-      "totalEur": 14316.17,
-      "paidEur": 14315.78,
+      "prevTotalEur": 7669.37,
+      "totalEur": 7669.37,
+      "paidEur": 6917.11,
       "status": "В изпълнение (от дата на стартиране)",
       "programCode": "2021BG-RRP",
       "programName": "Национален план за възстановяване и устойчивост",
-      "beneficiaryName": "Народно Читалище \"Никола ВАПЦАРОВ-1964\"",
-      "detectedAt": "2026-07-17"
+      "beneficiaryName": "Народно читалище \"Гоце Делчев 1958\" село Черниче",
+      "detectedAt": "2026-07-13"
     }
   ]
 }
