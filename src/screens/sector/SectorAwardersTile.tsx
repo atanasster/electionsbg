@@ -6,6 +6,7 @@
 
 import { FC } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { useScopedHref } from "@/data/scope/useScope";
 import { useTranslation } from "react-i18next";
 import { Landmark, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -18,6 +19,11 @@ export const SectorAwardersTile: FC<{ config: SectorDashboardConfig }> = ({
   const bg = i18n.language === "bg";
   const { members } = config;
   const single = members.length === 1;
+  // Member chips must carry the scope too — the group link below already did,
+  // but these didn't, so clicking a member from a ?pscope=all dashboard silently
+  // reset to the default parliament window (and a unit with no awards in it then
+  // rendered an empty page).
+  const scopedHref = useScopedHref();
 
   // The "whole group" link goes to the sector-filtered contracts table — the
   // real consolidated view across every member EIK. (It must NOT link to
@@ -85,7 +91,7 @@ export const SectorAwardersTile: FC<{ config: SectorDashboardConfig }> = ({
                   {rows.map((m) => (
                     <Link
                       key={m.eik}
-                      to={`/awarder/${m.eik}`}
+                      to={scopedHref(`/awarder/${m.eik}`)}
                       className={
                         single
                           ? "flex w-full items-center justify-between rounded-lg border px-3 py-2.5 text-sm hover:border-primary/50 hover:text-primary"

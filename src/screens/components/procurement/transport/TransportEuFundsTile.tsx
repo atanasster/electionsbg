@@ -8,6 +8,7 @@
 
 import { FC } from "react";
 import { Link } from "react-router-dom";
+import { useScopedHref } from "@/data/scope/useScope";
 import { useTranslation } from "react-i18next";
 import { Landmark } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -20,6 +21,9 @@ export const TransportEuFundsTile: FC<{ funds: TransportFundOp[] }> = ({
   funds,
 }) => {
   const { i18n } = useTranslation();
+  // Carry the active scope (pscope/elections) onto the awarder page — a bare
+  // pathname resets it to the default window (see SectorAwardersTile).
+  const scopedHref = useScopedHref();
   const lang = i18n.language;
   const bg = lang === "bg";
   const rows = funds.filter((f) => f.contractedEur > 0);
@@ -78,7 +82,7 @@ export const TransportEuFundsTile: FC<{ funds: TransportFundOp[] }> = ({
               <div key={f.eik} className="text-xs">
                 <div className="flex items-baseline justify-between gap-2">
                   <Link
-                    to={`/awarder/${f.eik}`}
+                    to={scopedHref(`/awarder/${f.eik}`)}
                     className="min-w-0 truncate hover:text-primary hover:underline"
                   >
                     {f.name}

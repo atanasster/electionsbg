@@ -8,6 +8,7 @@
 
 import { FC } from "react";
 import { Link } from "react-router-dom";
+import { useScopedHref } from "@/data/scope/useScope";
 import { useTranslation } from "react-i18next";
 import { Gauge } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -31,6 +32,9 @@ export const SocialCompetitionTile: FC<{ units: SocialUnitAgg[] }> = ({
   units,
 }) => {
   const { i18n } = useTranslation();
+  // Carry the active scope (pscope/elections) onto the awarder page — a bare
+  // pathname resets it to the default window (see SectorAwardersTile).
+  const scopedHref = useScopedHref();
   const lang = i18n.language;
   const bg = lang === "bg";
   const rows = units
@@ -59,7 +63,7 @@ export const SocialCompetitionTile: FC<{ units: SocialUnitAgg[] }> = ({
             <div key={u.eik} className="text-xs">
               <div className="flex items-baseline justify-between gap-2">
                 <Link
-                  to={`/awarder/${u.eik}`}
+                  to={scopedHref(`/awarder/${u.eik}`)}
                   className="min-w-0 truncate hover:text-primary hover:underline"
                 >
                   {u.name}

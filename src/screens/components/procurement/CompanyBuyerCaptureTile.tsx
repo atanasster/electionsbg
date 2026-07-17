@@ -10,6 +10,7 @@
 
 import { FC } from "react";
 import { Link } from "react-router-dom";
+import { useScopedHref } from "@/data/scope/useScope";
 import { useTranslation } from "react-i18next";
 import { Crosshair } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -52,6 +53,9 @@ const bandClass = (s: number): string =>
 export const CompanyBuyerCaptureTile: FC<{ data: BuyerRelationships }> = ({
   data,
 }) => {
+  // Carry the active scope (pscope/elections) onto the awarder page — a bare
+  // pathname resets it to the default window (see SectorAwardersTile).
+  const scopedHref = useScopedHref();
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const fmtPct = (frac: number): string =>
@@ -97,7 +101,7 @@ export const CompanyBuyerCaptureTile: FC<{ data: BuyerRelationships }> = ({
             <div key={r.eik} className="space-y-1">
               <div className="flex items-baseline justify-between gap-2">
                 <Link
-                  to={`/awarder/${r.eik}`}
+                  to={scopedHref(`/awarder/${r.eik}`)}
                   className="text-sm hover:underline truncate max-w-[70%]"
                   title={r.name ?? undefined}
                 >

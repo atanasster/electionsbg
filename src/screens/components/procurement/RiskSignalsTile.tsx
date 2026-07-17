@@ -15,6 +15,9 @@ import { formatEur } from "@/lib/currency";
 const PREVIEW = 5;
 
 export const RiskSignalsTile: FC = () => {
+  // Carry the active scope (pscope/elections) onto the awarder page — a bare
+  // pathname resets it to the default window (see SectorAwardersTile).
+  const scopedHref = useScopedHref();
   const { t, i18n } = useTranslation();
   const buildHref = useScopedHref();
   const { data: feed } = useRiskFeed();
@@ -74,7 +77,7 @@ export const RiskSignalsTile: FC = () => {
               </span>
               <span className="min-w-0 flex-1 truncate">
                 <Link
-                  to={`/awarder/${e.awarderEik}`}
+                  to={scopedHref(`/awarder/${e.awarderEik}`)}
                   className="hover:underline"
                 >
                   {e.awarderName}

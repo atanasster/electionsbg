@@ -6,6 +6,7 @@
 
 import { FC } from "react";
 import { Link } from "react-router-dom";
+import { useScopedHref } from "@/data/scope/useScope";
 import { useTranslation } from "react-i18next";
 import { ShieldAlert } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -20,6 +21,9 @@ export const RISK_GRADE_BOARD_PREVIEW = 8;
 export const RISK_GRADE_BOARD_MIN_SCORE = 55; // E floor (per risk_grade_letter)
 
 export const RiskGradeLeaderboardTile: FC = () => {
+  // Carry the active scope (pscope/elections) onto the awarder page — a bare
+  // pathname resets it to the default window (see SectorAwardersTile).
+  const scopedHref = useScopedHref();
   const { t, i18n } = useTranslation();
   // E and worse — the leaderboard is about the elevated tail.
   const { data } = useAwarderRiskTop(
@@ -59,7 +63,10 @@ export const RiskGradeLeaderboardTile: FC = () => {
                 {e.grade}
               </span>
               <span className="min-w-0 flex-1 truncate">
-                <Link to={`/awarder/${e.eik}`} className="hover:underline">
+                <Link
+                  to={scopedHref(`/awarder/${e.eik}`)}
+                  className="hover:underline"
+                >
                   {decodeEntities(e.name) || e.eik}
                 </Link>
               </span>

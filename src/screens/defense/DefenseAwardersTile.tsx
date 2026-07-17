@@ -5,6 +5,7 @@
 
 import { FC } from "react";
 import { Link } from "react-router-dom";
+import { useScopedHref } from "@/data/scope/useScope";
 import { useTranslation } from "react-i18next";
 import { Landmark, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -17,6 +18,9 @@ import {
 
 export const DefenseAwardersTile: FC = () => {
   const { i18n } = useTranslation();
+  // Carry the active scope (pscope/elections) onto the awarder page — a bare
+  // pathname resets it to the default window (see SectorAwardersTile).
+  const scopedHref = useScopedHref();
   const lang = i18n.language;
   const bg = lang === "bg";
 
@@ -30,7 +34,7 @@ export const DefenseAwardersTile: FC = () => {
       </CardHeader>
       <CardContent className="p-3 md:p-4 space-y-3">
         <Link
-          to={`/awarder/${MOD_EIK}`}
+          to={scopedHref(`/awarder/${MOD_EIK}`)}
           className="flex items-center justify-between rounded-lg border bg-muted/20 px-3 py-2.5 text-sm hover:border-primary/50"
         >
           <span className="font-medium">
@@ -54,7 +58,7 @@ export const DefenseAwardersTile: FC = () => {
                   {rows.map((e) => (
                     <Link
                       key={e.eik}
-                      to={`/awarder/${e.eik}`}
+                      to={scopedHref(`/awarder/${e.eik}`)}
                       className="rounded-full border px-2.5 py-1 text-xs hover:border-primary/50 hover:text-primary"
                     >
                       {e.name}

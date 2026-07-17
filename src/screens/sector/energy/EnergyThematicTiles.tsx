@@ -15,6 +15,7 @@
 
 import { FC, useCallback } from "react";
 import { Link } from "react-router-dom";
+import { useScopedHref } from "@/data/scope/useScope";
 import { useTranslation } from "react-i18next";
 import { Zap } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -146,6 +147,9 @@ const SingleBidTile: FC<{ model: AwarderModel<"all"> }> = ({ model }) => {
 
 // ── 3. Per-unit spend ───────────────────────────────────────────────────────
 const PerUnitSpendTile: FC<{ byUnit: GroupUnitAgg[] }> = ({ byUnit }) => {
+  // Carry the active scope (pscope/elections) onto the awarder page — a bare
+  // pathname resets it to the default window (see SectorAwardersTile).
+  const scopedHref = useScopedHref();
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
   const locale = bg ? "bg-BG" : "en-US";
@@ -171,7 +175,7 @@ const PerUnitSpendTile: FC<{ byUnit: GroupUnitAgg[] }> = ({ byUnit }) => {
           return (
             <div key={u.eik} className="flex items-center gap-2 text-sm">
               <Link
-                to={`/awarder/${u.eik}`}
+                to={scopedHref(`/awarder/${u.eik}`)}
                 className="w-[42%] min-w-0 truncate text-primary hover:underline"
                 title={name}
               >
