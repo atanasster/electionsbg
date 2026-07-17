@@ -80,6 +80,7 @@ import {
 } from "./defense";
 import { securityRoadSafety } from "./security";
 import { transportSpending, transportEuFunds, railSubsidy } from "./transport";
+import { socialSpending, socialBenefits, socialPovertyImpact } from "./social";
 import {
   environmentSpending,
   environmentFunds,
@@ -2255,6 +2256,64 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: railSubsidy,
+  },
+  {
+    name: "socialSpending",
+    domain: "fiscal",
+    description: {
+      bg: "Обществените поръчки на групата за социално подпомагане (МТСП, АСП, Агенцията по заетостта, ГИТ) по функция и конкуренция. Поръчките са ~1% от бюджета — помощите към домакинствата са отделно (socialBenefits). Пенсиите (НОИ) са отделен изглед.",
+      en: "The social-assistance group's procurement (МТСП, АСП, Employment Agency, ГИТ) by function and competition. Procurement is ~1% of the budget — the household benefits are separate (socialBenefits). Pensions (НОИ) are a separate view.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Колко харчи държавата за социално подпомагане?",
+        en: "How much does the state spend on social assistance?",
+      },
+      { bg: "Поръчки на АСП и МТСП", en: "АСП and МТСП procurement" },
+    ],
+    run: socialSpending,
+  },
+  {
+    name: "socialBenefits",
+    domain: "fiscal",
+    description: {
+      bg: "Помощите, които Агенцията за социално подпомагане (АСП) плаща на домакинствата — детски надбавки, помощи за хора с увреждания, целева помощ за отопление, гарантиран минимален доход: сума и брой получатели. Национално/годишно.",
+      en: "The benefits the Agency for Social Assistance (АСП) pays households — child allowances, disability support, targeted heating aid, guaranteed minimum income: amount and number of recipients. National/annual.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Колко домакинства получиха помощ за отопление?",
+        en: "How many households got heating aid?",
+      },
+      {
+        bg: "Колко се дава за детски надбавки и помощи за увреждания?",
+        en: "How much goes to child allowances and disability support?",
+      },
+      { bg: "Какъв е гарантираният минимален доход?", en: "What is the guaranteed minimum income?" }, // prettier-ignore
+    ],
+    run: socialBenefits,
+  },
+  {
+    name: "socialPovertyImpact",
+    domain: "indicators",
+    description: {
+      bg: "Намаляват ли социалните трансфери бедността в България и как се сравнява с ЕС — риск от бедност преди и след трансферите (Eurostat ilc_li10/ilc_li02). България сваля бедността с ~27% срещу ~33% средно за ЕС.",
+      en: "Do social transfers reduce poverty in Bulgaria and how it compares with the EU — at-risk-of-poverty before vs after transfers (Eurostat ilc_li10/ilc_li02). Bulgaria cuts poverty by ~27% vs the EU's ~33%.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Намаляват ли социалните помощи бедността?",
+        en: "Do social benefits reduce poverty?",
+      },
+      {
+        bg: "Как трансферите свалят бедността спрямо ЕС?",
+        en: "How do transfers cut poverty vs the EU?",
+      },
+    ],
+    run: socialPovertyImpact,
   },
   {
     name: "environmentSpending",

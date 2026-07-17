@@ -2404,6 +2404,35 @@ export const route = (question: string, ctx: ToolContext): Route => {
     has(q, "пенси", "pension", "нои", " nssi", "осигурителн", "social security")
   )
     return { tool: "noiFunds", args: {} };
+  // Социална политика (АСП / social assistance) — benefits, spending, poverty impact.
+  // Placed AFTER the NOI/pension block so pensions win the overlap; guarded against
+  // пенси/НОИ/осигурителн. Uses social-ASSISTANCE-specific cues (NOT bare "социал"),
+  // so a COFOG budget-function query like "разходи за социална защита" falls through
+  // to the budget-function view below (that's the expected route for it).
+  if (
+    !has(q, "пенси", "pension", "нои", " nssi", "осигурителн") &&
+    has(q, "социално подпомаг", "социални помощи", "social assist", "мтсп", "асп", "помощ", "надбавк", "обезщет", "benefit", "бедност", "poverty", "гмд", "отоплен", "увреждан", "минимален доход") // prettier-ignore
+  ) {
+    if (has(q, "бедност", "poverty", "трансфер", "неравенств"))
+      return { tool: "socialPovertyImpact", args: {} };
+    if (
+      has(
+        q,
+        "помощ",
+        "надбавк",
+        "обезщет",
+        "benefit",
+        "отоплен",
+        "увреждан",
+        "детск",
+        "гмд",
+        "минимален доход",
+      )
+    )
+      // prettier-ignore
+      return { tool: "socialBenefits", args: {} };
+    return { tool: "socialSpending", args: {} };
+  }
   // Култура — НФЦ film subsidies. Fires on the film-center name, or a film/culture
   // cue paired with a subsidy/funding context. Precedes farm subsidies so a
   // "филм субсидия" question routes here (agri needs земеделск anyway).

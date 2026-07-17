@@ -381,6 +381,21 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `Незаетите щатни бройки в армията са ${f(env, "vacancy")}, а доброволният резерв е запълнен едва ${f(env, "reserve_fill")}. През ${f(env, "budget_year")} г. ${f(env, "personnel_budget")} отиват за личен състав и ${f(env, "capital_budget")} за техника.`
         : `Unfilled army posts stand at ${f(env, "vacancy")}, and the voluntary reserve is only ${f(env, "reserve_fill")} manned. In ${f(env, "budget_year")}, ${f(env, "personnel_budget")} went to personnel and ${f(env, "capital_budget")} to equipment.`;
+    case "socialSpending":
+      if (!env.facts.total_value) return env.title;
+      return lang === "bg"
+        ? `Групата за социално подпомагане (МТСП, АСП, АЗ, ГИТ) е възложила ${f(env, "total_value")} по ${f(env, "contracts")} договора; АСП е ${f(env, "asp_share")} от тях. Водеща функция: ${f(env, "top_function")}. Но това е ~1% от бюджета — помощите към домакинствата са отделно.`
+        : `The social-assistance group (МТСП, АСП, АЗ, ГИТ) has awarded ${f(env, "total_value")} across ${f(env, "contracts")} contracts; АСП is ${f(env, "asp_share")} of that. Top function: ${f(env, "top_function")}. But this is ~1% of the budget — the household benefits are separate.`;
+    case "socialBenefits":
+      if (!env.facts.year) return env.title;
+      return lang === "bg"
+        ? `През ${f(env, "year")} г. АСП плати за помощи за хора с увреждания ${f(env, "disability")}, детски надбавки ${f(env, "child")}, целева помощ за отопление ${f(env, "heating")} и гарантиран минимален доход ${f(env, "gmi")} (сума · получатели). Национално — по области не се публикува.`
+        : `In ${f(env, "year")} АСП paid disability support ${f(env, "disability")}, child allowances ${f(env, "child")}, targeted heating aid ${f(env, "heating")} and guaranteed minimum income ${f(env, "gmi")} (amount · recipients). National — no per-oblast breakdown is published.`;
+    case "socialPovertyImpact":
+      if (!env.facts.bg_reduction) return env.title;
+      return lang === "bg"
+        ? `През ${f(env, "year")} г. социалните трансфери свалят бедността в България с ${f(env, "bg_reduction")} (от ${f(env, "bg_before")} на ${f(env, "bg_after")}) — под средното за ЕС от ${f(env, "eu_reduction")}. България харчи среден дял от БВП, но постига по-малко на евро.`
+        : `In ${f(env, "year")} social transfers cut poverty in Bulgaria by ${f(env, "bg_reduction")} (from ${f(env, "bg_before")} to ${f(env, "bg_after")}) — below the EU average of ${f(env, "eu_reduction")}. Bulgaria spends an average share of GDP but achieves less per euro.`;
     case "generationMix":
       if (!env.facts.latest_year) return env.title;
       return lang === "bg"
