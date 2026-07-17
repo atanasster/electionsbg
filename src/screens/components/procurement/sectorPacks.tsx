@@ -33,7 +33,10 @@ import {
   TRANSPORT_SECTOR_EIKS,
 } from "@/lib/transportReferenceData";
 import { MOSV_EIK, ENV_SECTOR_EIKS } from "@/lib/environmentReferenceData";
-import { REGIONAL_SECTOR_EIKS } from "@/lib/regionalReferenceData";
+import {
+  REGIONAL_EIK,
+  REGIONAL_SECTOR_EIKS,
+} from "@/lib/regionalReferenceData";
 import { ADMIN_SECTOR_EIKS } from "@/lib/administrationReferenceData";
 import { TOURISM_SECTOR_EIKS } from "@/lib/tourismReferenceData";
 import { MVR_EIK, SECURITY_SECTOR_EIKS } from "@/lib/securityReferenceData";
@@ -142,6 +145,13 @@ const CustomsPack = lazy(() =>
 const SocialPack = lazy(() =>
   import("./social/SocialPack").then((m) => ({ default: m.SocialPack })),
 );
+// No REGIONAL awarder-path export (like transport/environment): the regional view's
+// home is the /sector/regional dashboard; the МРРБ awarder page is reached from there.
+// The pack registers by EIK below and leads with the pass-through / cohesion-absorption
+// story off the existing corpus + already-ingested cohesion/budget/COFOG — no new ingest.
+const RegionalPack = lazy(() =>
+  import("./regional/RegionalPack").then((m) => ({ default: m.RegionalPack })),
+);
 
 const PACKS: Record<string, ComponentType<SectorPackProps>> = {
   [API_EIK]: RoadsPack,
@@ -155,6 +165,7 @@ const PACKS: Record<string, ComponentType<SectorPackProps>> = {
   [MVR_EIK]: MvrPack,
   [TRANSPORT_EIK]: TransportPack,
   [MOSV_EIK]: EnvironmentPack,
+  [REGIONAL_EIK]: RegionalPack,
   [SOCIAL_LEAD_EIK]: SocialPack,
   [NAP_EIK]: NapPack,
   [CUSTOMS_EIK]: CustomsPack,
