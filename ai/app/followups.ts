@@ -693,6 +693,33 @@ export const followUps = (env: Envelope): FollowUp[] => {
       });
       out.push({ bg: "Бюджет по функция", en: "Budget by function" });
       break;
+    case "mrrbSpending":
+      out.push({
+        bg: "Усвоени ли са парите по „Развитие на регионите“?",
+        en: "Are the „Развитие на регионите“ funds absorbed?",
+      });
+      out.push({
+        bg: "Европейски средства по области",
+        en: "EU funds by oblast",
+      });
+      break;
+    case "cohesionAbsorption":
+      out.push({
+        bg: "Коя област получава най-много европейски пари на човек?",
+        en: "Which oblast gets the most EU money per capita?",
+      });
+      out.push({ bg: "Поръчки на МРРБ", en: "МРРБ procurement" });
+      break;
+    case "regionalInvestment":
+      out.push({
+        bg: "Усвоени ли са кохезионните средства?",
+        en: "Are the cohesion funds absorbed?",
+      });
+      out.push({
+        bg: "БВП на човек по области",
+        en: "GDP per capita by oblast",
+      });
+      break;
     case "localVoteFlows":
       out.push({
         bg: "Вот за общинските съвети",

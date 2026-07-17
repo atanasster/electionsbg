@@ -3085,6 +3085,33 @@ const CASES: Case[] = [
     minRows: 3,
     facts: { year: { num: 2025 } },
   },
+  // ---- regional development (МРРБ) — static-JSON tools ---------------------
+  // (mrrbSpending is DB-backed via awarder-group-model, like socialSpending, so it
+  //  isn't offline-regressible; the two static-JSON tools are.)
+  {
+    q: "Усвоени ли са парите по „Развитие на регионите“?",
+    tool: "cohesionAbsorption",
+    kind: "table",
+    minRows: 2,
+    facts: { opr_absorption: /9[0-9]/, rr_absorption: /(19|20|21)/, deadline: /2029/ }, // prettier-ignore
+  },
+  {
+    q: "how much of ОПРР is absorbed?",
+    lang: "en",
+    tool: "cohesionAbsorption",
+    kind: "table",
+    minRows: 2,
+    facts: { opr_absorption: /9[0-9]/ },
+  },
+  {
+    // guard: the МРРБ-context per-oblast cut (needs a regional cue; a bare "EU funds
+    // by oblast" without one is the general fundsProjects tool).
+    q: "Регионално развитие — европейски средства по области",
+    tool: "regionalInvestment",
+    kind: "table",
+    minRows: 5,
+    facts: { highest_per_capita: /./ },
+  },
 ];
 
 // Raw-arg cases: the LLM router emits {tool, args} directly and can't know the

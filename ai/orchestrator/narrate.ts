@@ -396,6 +396,21 @@ export const narrate = (env: Envelope, lang: Lang): string => {
       return lang === "bg"
         ? `През ${f(env, "year")} г. социалните трансфери свалят бедността в България с ${f(env, "bg_reduction")} (от ${f(env, "bg_before")} на ${f(env, "bg_after")}) — под средното за ЕС от ${f(env, "eu_reduction")}. България харчи среден дял от БВП, но постига по-малко на евро.`
         : `In ${f(env, "year")} social transfers cut poverty in Bulgaria by ${f(env, "bg_reduction")} (from ${f(env, "bg_before")} to ${f(env, "bg_after")}) — below the EU average of ${f(env, "eu_reduction")}. Bulgaria spends an average share of GDP but achieves less per euro.`;
+    case "mrrbSpending":
+      if (!env.facts.total_value) return env.title;
+      return lang === "bg"
+        ? `Групата на МРРБ (министерство, АГКК, ДНСК, 27 областни администрации) е възложила ${f(env, "total_value")} по ${f(env, "contracts")} договора. Водеща функция: ${f(env, "top_function")}. Но това е тънка част от ~€1,06 млрд. бюджет — останалото са трансфери към общините и кохезия. Пътищата (АПИ) и ВиК са отделни сектори.`
+        : `The МРРБ group (ministry, АГКК, ДНСК, 27 regional governors) has awarded ${f(env, "total_value")} across ${f(env, "contracts")} contracts. Top function: ${f(env, "top_function")}. But this is a thin slice of the ~€1.06bn budget — the rest is transfers to municipalities and cohesion. Roads (АПИ) and water (ВиК) are separate sectors.`;
+    case "cohesionAbsorption":
+      if (!env.facts.opr_absorption) return env.title;
+      return lang === "bg"
+        ? `ОП „Региони в растеж" 2014-2020 е усвоена ${f(env, "opr_absorption")} (затворена), а Програма „Развитие на регионите" 2021-2027 — едва ${f(env, "rr_absorption")}. Около ${f(env, "rr_at_risk")} са договорени, но неизплатени; средствата, неусвоени към ${f(env, "deadline")} г. (правилото n+3), се губят.`
+        : `ОПРР „Региони в растеж" 2014-2020 is ${f(env, "opr_absorption")} absorbed (closed), while Programme „Развитие на регионите" 2021-2027 is only ${f(env, "rr_absorption")}. About ${f(env, "rr_at_risk")} is contracted but unpaid; money left unspent by ${f(env, "deadline")} (the n+3 rule) is forfeited.`;
+    case "regionalInvestment":
+      if (!env.facts.highest_per_capita) return env.title;
+      return lang === "bg"
+        ? `Най-много европейски средства на човек получава ${f(env, "highest_per_capita")}, а най-малко — ${f(env, "lowest_per_capita")}. Това са всички фондове по ИСУН, обобщени по област; столицата отпада, защото е завишена от национални програми със седалище там.`
+        : `The most EU funds per capita go to ${f(env, "highest_per_capita")}, the least to ${f(env, "lowest_per_capita")}. This is all ИСУН funds aggregated by oblast; the capital is dropped as it is inflated by nationally-run programmes headquartered there.`;
     case "generationMix":
       if (!env.facts.latest_year) return env.title;
       return lang === "bg"

@@ -82,6 +82,11 @@ import { securityRoadSafety } from "./security";
 import { transportSpending, transportEuFunds, railSubsidy } from "./transport";
 import { socialSpending, socialBenefits, socialPovertyImpact } from "./social";
 import {
+  mrrbSpending,
+  cohesionAbsorption,
+  regionalInvestment,
+} from "./regional";
+import {
   environmentSpending,
   environmentFunds,
   wasteRecycling,
@@ -2314,6 +2319,66 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: socialPovertyImpact,
+  },
+  {
+    name: "mrrbSpending",
+    domain: "fiscal",
+    description: {
+      bg: "Обществените поръчки на групата на МРРБ (министерството, Агенцията по кадастър АГКК, ДНСК и 27-те областни администрации) по функция и конкуренция. Поръчките са ~€100 млн. — тънка част от ~€1,06 млрд. бюджет; останалото са трансфери и кохезия. Пътищата (АПИ) и ВиК са отделни сектори.",
+      en: "The МРРБ group's procurement (the ministry, the cadastre agency АГКК, ДНСК and the 27 regional governors) by function and competition. Procurement is ~€100M — a thin slice of the ~€1.06bn budget; the rest is transfers and cohesion. Roads (АПИ) and water (ВиК) are separate sectors.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Колко харчи МРРБ за поръчки?",
+        en: "How much does МРРБ spend on procurement?",
+      },
+      {
+        bg: "Поръчки на кадастъра и МРРБ",
+        en: "Cadastre and МРРБ procurement",
+      },
+    ],
+    run: mrrbSpending,
+  },
+  {
+    name: "cohesionAbsorption",
+    domain: "fiscal",
+    description: {
+      bg: "Усвояване на кохезионните средства за регионите — ОП „Региони в растеж“ 2014-2020 (затворена, ~96%) срещу Програма „Развитие на регионите“ 2021-2027 (~20%): договорени, изплатени и процент усвояване, спрямо крайния срок 31 декември 2029 г. (правилото n+3).",
+      en: "Absorption of the regional cohesion funds — ОПРР „Региони в растеж“ 2014-2020 (closed, ~96%) vs Programme „Развитие на регионите“ 2021-2027 (~20%): contracted, paid and absorption %, against the 31 December 2029 deadline (the n+3 rule).",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Усвоени ли са парите по „Развитие на регионите“?",
+        en: "Are the „Развитие на регионите“ funds absorbed?",
+      },
+      {
+        bg: "Колко от ОПРР е усвоено?",
+        en: "How much of ОПРР is absorbed?",
+      },
+    ],
+    run: cohesionAbsorption,
+  },
+  {
+    name: "regionalInvestment",
+    domain: "indicators",
+    description: {
+      bg: "Европейски средства (ИСУН) по област — на човек и общо, къде landят парите за регионите. Всички фондове по ИСУН, отнесени по общини и обобщени по област. Столицата е завишена от национални програми със седалище там.",
+      en: "EU funds (ИСУН) by oblast — per capita and total, where the money for the regions lands. All ИСУН funds, attributed by municipality and aggregated to oblast. The capital is inflated by nationally-run programmes headquartered there.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Коя област получава най-много европейски пари на човек?",
+        en: "Which oblast gets the most EU money per capita?",
+      },
+      {
+        bg: "Европейски средства по области",
+        en: "EU funds by oblast",
+      },
+    ],
+    run: regionalInvestment,
   },
   {
     name: "environmentSpending",

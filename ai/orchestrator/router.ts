@@ -2433,6 +2433,35 @@ export const route = (question: string, ctx: ToolContext): Route => {
       return { tool: "socialBenefits", args: {} };
     return { tool: "socialSpending", args: {} };
   }
+  // Регионално развитие (МРРБ) — cohesion absorption, group procurement, per-oblast
+  // investment. Placed ABOVE the budget-function gate (a кохезия/МРРБ/GF06-housing query
+  // can otherwise be swallowed by resolveBudgetFunction below). Guarded: roads (магистрали
+  // /АПИ) and water (ВиК) are their OWN routes — let them fall through (roadsSpending is
+  // downstream; water has no tool, so it falls to the generic budget/procurement view).
+  // Uses SPECIFIC cues (not bare "регионал", which false-matches РЗИ/РДГ/РИОСВ „регионална
+  // дирекция" — the anti-allowlist, §1).
+  if (
+    !has(q, "магистрал", "вик", "водоснаб", "water") &&
+    has(q, "мррб", "mrrb", "регионално развитие", "регионалното развитие", "благоустройств", "кохези", "cohesion", "региони в растеж", "развитие на регионите", "кадастър", "cadastre", "геодез", "опрр") // prettier-ignore
+  ) {
+    if (
+      has(
+        q,
+        "кохези",
+        "усвоя",
+        "региони в растеж",
+        "развитие на регионите",
+        "опрр",
+        "cohesion",
+        "absorb",
+      )
+    )
+      // prettier-ignore
+      return { tool: "cohesionAbsorption", args: {} };
+    if (has(q, "област", "oblast", "на човек", "per capita"))
+      return { tool: "regionalInvestment", args: {} };
+    return { tool: "mrrbSpending", args: {} };
+  }
   // Култура — НФЦ film subsidies. Fires on the film-center name, or a film/culture
   // cue paired with a subsidy/funding context. Precedes farm subsidies so a
   // "филм субсидия" question routes here (agri needs земеделск anyway).

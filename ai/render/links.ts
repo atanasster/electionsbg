@@ -100,6 +100,10 @@ const SECTION: Record<string, SiteLink> = {
     label: { bg: "Държавна администрация", en: "State administration" },
     href: url("/sector/administration"),
   },
+  regional: {
+    label: { bg: "Регионално развитие", en: "Regional development" },
+    href: url("/sector/regional"),
+  },
   parliament: {
     label: { bg: "Народно събрание", en: "National Assembly" },
     href: url("/parliament"),
@@ -260,6 +264,9 @@ const TOOL_SECTION: Record<string, SiteLink | undefined> = {
   nzokPathwayHospitals: SECTION.nzok,
   govDebt: SECTION.fiscal,
   noiFunds: SECTION.fiscal,
+  mrrbSpending: SECTION.regional,
+  cohesionAbsorption: SECTION.regional,
+  regionalInvestment: SECTION.regional,
   macroIndicator: SECTION.indicators,
   macroOverview: SECTION.indicators,
   macroByCategory: SECTION.indicators,
