@@ -841,7 +841,12 @@ const Regional: FC = () => (
       <path d="M96 34 L104 66 L154 70 M52 74 L104 66 L110 100 M150 40 L154 70" />
     </g>
     {/* capital transfers arrowing down into the regions */}
-    <g stroke="var(--sector)" strokeWidth="2.4" strokeLinecap="round" fill="none">
+    <g
+      stroke="var(--sector)"
+      strokeWidth="2.4"
+      strokeLinecap="round"
+      fill="none"
+    >
       <path d="M232 30 V60" />
       <path d="M224 52 L232 62 L240 52" />
       <path d="M258 26 V52" opacity=".6" />
@@ -849,8 +854,24 @@ const Regional: FC = () => (
     </g>
     {/* building — благоустройство / where the state invests */}
     <g transform="translate(224 66)">
-      <rect x="0" y="6" width="20" height="30" rx="1.5" fill="var(--sector)" opacity=".9" />
-      <rect x="26" y="0" width="24" height="36" rx="1.5" fill="var(--sector)" opacity=".7" />
+      <rect
+        x="0"
+        y="6"
+        width="20"
+        height="30"
+        rx="1.5"
+        fill="var(--sector)"
+        opacity=".9"
+      />
+      <rect
+        x="26"
+        y="0"
+        width="24"
+        height="36"
+        rx="1.5"
+        fill="var(--sector)"
+        opacity=".7"
+      />
       <g fill={PAPER}>
         <rect x="4" y="12" width="5" height="5" />
         <rect x="12" y="12" width="5" height="5" />

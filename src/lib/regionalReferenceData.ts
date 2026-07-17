@@ -126,7 +126,10 @@ export const REGIONAL_UNIVERSE_LABEL: Record<
   { bg: string; en: string }
 > = {
   ministry: { bg: "Министерство (централа)", en: "Ministry (HQ)" },
-  cadastre: { bg: "Кадастър и геодезия (АГКК)", en: "Cadastre & geodesy (АГКК)" },
+  cadastre: {
+    bg: "Кадастър и геодезия (АГКК)",
+    en: "Cadastre & geodesy (АГКК)",
+  },
   control: { bg: "Строителен контрол (ДНСК)", en: "Building control (ДНСК)" },
   governors: { bg: "Областни администрации", en: "Regional governors" },
 };
