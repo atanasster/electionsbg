@@ -294,7 +294,6 @@ export interface FundsProjectsProgramSummaryFile {
 }
 
 // Slim "tile-ready" summary for a single place. Backed by
-// funds/projects/by-ekatte/{ekatte}-summary.json and
 // funds/projects/by-muni/{obshtina}-summary.json — see
 // scripts/funds/projects_types.ts for the source of truth.
 export interface FundsProjectsRollup {

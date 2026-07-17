@@ -207,12 +207,6 @@ const collectPayloads = (): PayloadRow[] => {
     (f: string) => string,
   ][] = [
     [
-      "ekatte-summary",
-      path.join(PROJECTS_DIR, "by-ekatte"),
-      (f) => f.endsWith("-summary.json"),
-      (f) => f.slice(0, -"-summary.json".length),
-    ],
-    [
       "muni-summary",
       path.join(PROJECTS_DIR, "by-muni"),
       (f) => f.endsWith("-summary.json"),

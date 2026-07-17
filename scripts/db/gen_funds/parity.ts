@@ -114,12 +114,6 @@ const main = async () => {
   const stripSummary = (f: string) => f.slice(0, -"-summary.json".length);
   const isSummary = (f: string) => f.endsWith("-summary.json");
   await auditKeyed(
-    "ekatte-summary",
-    path.join(PROJECTS_DIR, "by-ekatte"),
-    isSummary,
-    stripSummary,
-  );
-  await auditKeyed(
     "muni-summary",
     path.join(PROJECTS_DIR, "by-muni"),
     isSummary,

@@ -596,8 +596,8 @@ const main = async (args: MainArgs): Promise<void> => {
   const places = loadPlaceLookup();
 
   // 6. Per-EKATTE shards — single-settlement rows only. One file per EKATTE
-  // (full contract list) plus one `{ekatte}-summary.json` slim shard for the
-  // settlement-page tile.
+  // (full contract list). The slim `{ekatte}-summary.json` shards were dropped
+  // once EuFundsTile / useFundsForEkatte were deleted — nothing reads them.
   resetDir(BY_EKATTE_DIR);
   const byEkatte = new Map<string, ResolvedFundsProject[]>();
   for (const r of resolved) {
@@ -607,7 +607,6 @@ const main = async (args: MainArgs): Promise<void> => {
     byEkatte.set(r.location.ekatte, arr);
   }
   const ekatteShards: string[] = [];
-  const ekatteSummaries: FundsProjectsSummary[] = [];
   for (const [ekatte, arr] of [...byEkatte.entries()].sort()) {
     const sorted = [...arr].sort(sortByValueDesc);
     const rollup = emptyRollup();
@@ -622,35 +621,8 @@ const main = async (args: MainArgs): Promise<void> => {
       }),
     );
     ekatteShards.push(ekatte);
-    const population = places.popByEkatte.get(ekatte) ?? null;
-    const oblastCode = places.oblastByEkatte.get(ekatte) ?? null;
-    ekatteSummaries.push({
-      kind: "ekatte",
-      placeId: ekatte,
-      rollup: rollupFinal,
-      topContracts: sorted.slice(0, 3).map(toTopContract),
-      topPrograms: buildTopPrograms(sorted, 3),
-      perCapitaEur:
-        population && rollupFinal.totalEur > 0
-          ? round2(rollupFinal.totalEur / population)
-          : null,
-      population,
-      perCapitaRank: null,
-      cohortSize: null,
-      oblastCode,
-    });
   }
-  // Assign within-oblast ranks now that all settlements are summarised. A
-  // minimum cohort size guards against trivially-tiny oblasts producing
-  // misleading "1 of 2" ranks.
-  assignWithinOblastRanks(ekatteSummaries, 5);
-  for (const s of ekatteSummaries) {
-    fs.writeFileSync(
-      path.join(BY_EKATTE_DIR, `${s.placeId}-summary.json`),
-      canonicalJson(s),
-    );
-  }
-  console.log(`→ wrote ${ekatteShards.length} per-EKATTE shard(s) + summaries`);
+  console.log(`→ wrote ${ekatteShards.length} per-EKATTE shard(s)`);
 
   // 7. Per-муни shards — settlement rows (collapsed to their муни) AND муни
   // rows (listed under every muni named, but contributing only their
