@@ -16,9 +16,7 @@ import { formatEurCompact } from "@/lib/currency";
 import { useBudgetMinistryRollup } from "@/data/budget/useBudget";
 import { REGIONAL_BUDGET_NODE } from "@/lib/regionalReferenceData";
 
-export const RegionalBudgetTile: FC<{ procEur: number | null }> = ({
-  procEur,
-}) => {
+export const RegionalBudgetTile: FC = () => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
@@ -34,8 +32,6 @@ export const RegionalBudgetTile: FC<{ procEur: number | null }> = ({
   const latest = years[years.length - 1];
   const budget = latest.expenditure.amountEur;
   const maxBudget = Math.max(...years.map((y) => y.expenditure.amountEur), 1);
-  // The visible slice: group procurement as a share of the latest budget year.
-  const procShare = procEur != null && budget > 0 ? procEur / budget : null;
 
   return (
     <Card id="regional-budget">
@@ -58,33 +54,6 @@ export const RegionalBudgetTile: FC<{ procEur: number | null }> = ({
               : `ministry budget, ${latest.fiscalYear}`}
           </span>
         </div>
-
-        {/* The pass-through bar: the thin procurement slice vs the whole envelope. */}
-        {procShare != null && (
-          <div>
-            <div className="mb-1 flex items-baseline justify-between text-[11px] text-muted-foreground">
-              <span>
-                {bg ? "През собствени поръчки" : "Through own procurement"}:{" "}
-                <span className="font-semibold tabular-nums text-foreground">
-                  {formatEurCompact(procEur ?? 0, lang)}
-                </span>{" "}
-                (
-                {(procShare * 100).toLocaleString(lang, {
-                  maximumFractionDigits: procShare < 0.1 ? 1 : 0,
-                })}
-                %)
-              </span>
-            </div>
-            <div className="h-3 w-full overflow-hidden rounded-full bg-muted">
-              <div
-                className="h-full rounded-full bg-primary"
-                style={{
-                  width: `${Math.max(1.5, Math.min(100, procShare * 100))}%`,
-                }}
-              />
-            </div>
-          </div>
-        )}
 
         {/* Budget trend. */}
         <div className="flex items-end gap-1" style={{ height: 44 }}>

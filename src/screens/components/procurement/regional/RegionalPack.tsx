@@ -34,6 +34,7 @@ import {
   useRegionalCohesion,
   type ScopeWindow,
 } from "@/data/procurement/useRegional";
+import { useRegionalOblast } from "@/data/procurement/useRegionalOblast";
 import {
   categoryLabel,
   categoryCpvDivs,
@@ -46,6 +47,9 @@ import {
   type RegionalUniverse,
 } from "@/lib/regionalReferenceData";
 import { VikContractorHhiTile } from "../vik/VikContractorHhiTile";
+import { RegionalPassThroughHero } from "./RegionalPassThroughHero";
+import { RegionalOblastMapTile } from "./RegionalOblastMapTile";
+import { RegionalConvergenceTile } from "./RegionalConvergenceTile";
 import { RegionalCohesionTile } from "./RegionalCohesionTile";
 import { RegionalEuPeerTile } from "./RegionalEuPeerTile";
 import { RegionalBudgetTile } from "./RegionalBudgetTile";
@@ -72,6 +76,8 @@ export const RegionalPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
   // Cohesion absorption is a programme-period figure, independent of the contract window
   // or the universe filter — the two МРРБ-managed OPs (ОПРР + Развитие на регионите).
   const { programmes } = useRegionalCohesion();
+  // Per-oblast ИСУН aggregate (static, no DB) — the choropleth + convergence scatter.
+  const { oblasts } = useRegionalOblast();
 
   // "Per year" divisor = the length of the SCOPE WINDOW (not the contract span).
   const procSpan = useMemo(() => {
@@ -172,6 +178,9 @@ export const RegionalPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
         </Select>
       </div>
 
+      {/* The pass-through hero — the single killer contrast (OG screenshot target). */}
+      <RegionalPassThroughHero procEur={model.totalEur} />
+
       {/* Domain-only KPIs — the generic per-EIK KPIs sit in the awarder header above. */}
       <div className="grid gap-3 grid-cols-2 lg:grid-cols-3">
         <StatCard
@@ -263,12 +272,20 @@ export const RegionalPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
         <RegionalCohesionTile programmes={programmes} />
       </PackSection>
 
+      <PackSection id="regional-oblast-map">
+        <RegionalOblastMapTile oblasts={oblasts} />
+      </PackSection>
+
+      <PackSection id="convergence">
+        <RegionalConvergenceTile oblasts={oblasts} />
+      </PackSection>
+
       <PackSection id="regional-eu-peers">
         <RegionalEuPeerTile />
       </PackSection>
 
       <PackSection id="regional-budget">
-        <RegionalBudgetTile procEur={model.totalEur} />
+        <RegionalBudgetTile />
       </PackSection>
 
       <PackSection id="function">
