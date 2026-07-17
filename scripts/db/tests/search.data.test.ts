@@ -11,7 +11,7 @@
 
 import { test, after } from "node:test";
 import assert from "node:assert/strict";
-import { allRows, end } from "../lib/pg";
+import { allRows, withClient, end } from "../lib/pg";
 
 const rows = async <T = Record<string, unknown>>(
   sql: string,
@@ -263,5 +263,87 @@ test(
       kinds.has("company"),
       "recent_updates includes TR company updates",
     );
+  },
+);
+
+// A loader may force its source to summarise by passing its own threshold
+// (ingest_changelog's `threshold`), independent of the day's row count. TR does:
+// its rows are already itemised per-row by the company/officer branches off the
+// registry's own timestamps, so itemising its ingest delta too would report every
+// new company twice. That rule lives in recent_updates' `summarised` CTE and only
+// bites on a SMALL day — the 500-row threshold masks it on a big one — so it is
+// exercised here on a synthetic source, inside a rolled-back txn.
+test(
+  "recent_updates: a summary-mode batch summarises even below the 500 threshold",
+  { skip },
+  async () => {
+    await withClient(async (c) => {
+      await c.query("BEGIN");
+      try {
+        const src = "__test_mode_src";
+        const b = await c.query(
+          `INSERT INTO ingest_batches (source, rows_total, rows_new, mode)
+           VALUES ($1, 100, 3, 'summary') RETURNING id`,
+          [src],
+        );
+        const batchId = b.rows[0].id as number;
+        // 3 new rows — far below 500, so the day-total rule alone would itemise.
+        await c.query(
+          `INSERT INTO ingest_first_seen (source, key, batch_id)
+           SELECT $1, 'k' || g, $2 FROM generate_series(1, 3) g`,
+          [src, batchId],
+        );
+        await c.query(
+          `INSERT INTO changelog_days (source, day, rows_new, rows_total, load_count)
+           VALUES ($1, current_date, 3, 100, 1)`,
+          [src],
+        );
+
+        // Rows this source contributes: per-row entries (kind = source) vs its
+        // one coalesced summary line (kind = 'dataset', name = source).
+        const shape = async (): Promise<Record<string, number>> => {
+          const r = await c.query(
+            `SELECT kind, count(*)::int AS n FROM recent_updates(1, 1000000)
+             WHERE kind = $1 OR (kind = 'dataset' AND name = $1)
+             GROUP BY kind`,
+            [src],
+          );
+          return Object.fromEntries(
+            r.rows.map((x: { kind: string; n: number }) => [x.kind, x.n]),
+          );
+        };
+
+        const summary = await shape();
+        assert.equal(
+          summary.dataset,
+          1,
+          "a summary-mode batch renders one coalesced dataset line",
+        );
+        assert.equal(
+          summary[src],
+          undefined,
+          "a summary-mode batch is never itemised per-row",
+        );
+
+        // Counterfactual: mode is what drives it, not the row count.
+        await c.query(
+          "UPDATE ingest_batches SET mode = 'detail' WHERE id = $1",
+          [batchId],
+        );
+        const detail = await shape();
+        assert.equal(
+          detail[src],
+          3,
+          "a detail-mode batch itemises its new rows",
+        );
+        assert.equal(
+          detail.dataset,
+          undefined,
+          "a detail-mode batch emits no summary line",
+        );
+      } finally {
+        await c.query("ROLLBACK");
+      }
+    });
   },
 );

@@ -85,7 +85,9 @@ $$;
 -- ingests of a source read as ONE unit (all its per-row entries, or one summary
 -- line if that day's coalesced new-row total is large), and past days persist
 -- (changelog_days is append-only, never erased). 500 mirrors
--- INGEST_SUMMARY_THRESHOLD (scripts/db/lib/ingest_changelog.ts).
+-- INGEST_SUMMARY_THRESHOLD (scripts/db/lib/ingest_changelog.ts); a loader may
+-- also force summary for its source by passing its own threshold, which the
+-- `summarised` CTE below honours via ingest_batches.mode.
 SET check_function_bodies = off;
 -- Return signature changed (added the `id` record-id column), so CREATE OR
 -- REPLACE alone can't alter an already-created function — drop it first.
@@ -105,7 +107,28 @@ RETURNS TABLE (
   amount_eur double precision
 )
 LANGUAGE sql STABLE AS $$
-  WITH cutoff AS (SELECT now() - make_interval(days => days) AS ts)
+  WITH cutoff AS (SELECT now() - make_interval(days => days) AS ts),
+  -- The (source, day) pairs that render as ONE summary line instead of per-row.
+  -- Two ways in:
+  --   • the day's coalesced new-row total crossed the threshold (a cold load, a
+  --     bulk backfill, or several same-day loads that together got large);
+  --   • any of that day's batches was recorded in summary mode — a loader that
+  --     set its own threshold. 'tr_company' does this on every load: TR is
+  --     already itemised per-row by the company/officer branches below (off the
+  --     registry's own timestamps), so its ingest delta must NOT be itemised
+  --     again under a second kind.
+  -- The second rule also keeps a summary batch from ever being itemised: those
+  -- batches deliberately don't snapshot name/detail (005), so per-row output
+  -- would be blank.
+  summarised AS (
+    SELECT d.source, d.day
+    FROM changelog_days d
+    WHERE d.rows_new > 500
+       OR EXISTS (
+            SELECT 1 FROM ingest_batches b
+            WHERE b.source = d.source AND b.loaded_at::date = d.day
+              AND b.mode = 'summary')
+  )
   SELECT * FROM (
     -- Contracts (source 'shards') first seen on a day whose coalesced new-row
     -- total stayed small — itemised per-row. A bulk contract day is summarised
@@ -117,9 +140,11 @@ LANGUAGE sql STABLE AS $$
     FROM contract_first_seen f
     JOIN contracts c USING (key)
     JOIN changelog_days d
-      ON d.source = 'shards' AND d.day = f.first_seen_at::date AND d.rows_new <= 500
+      ON d.source = 'shards' AND d.day = f.first_seen_at::date
     CROSS JOIN cutoff
     WHERE f.first_seen_at >= cutoff.ts
+      AND NOT EXISTS (SELECT 1 FROM summarised s
+                      WHERE s.source = d.source AND s.day = d.day)
     UNION ALL
     -- Per-row detail for every other PG-loaded dataset (tenders, EU fund
     -- projects, NGO funding) on days that stayed small. id = the record key
@@ -133,11 +158,13 @@ LANGUAGE sql STABLE AS $$
            fs.first_seen_at AS changed_at, fs.amount_eur
     FROM ingest_first_seen fs
     JOIN changelog_days d
-      ON d.source = fs.source AND d.day = fs.first_seen_at::date AND d.rows_new <= 500
+      ON d.source = fs.source AND d.day = fs.first_seen_at::date
     LEFT JOIN tenders t        ON fs.source = 'tender'       AND t.unp = fs.key
     LEFT JOIN fund_projects fp ON fs.source = 'fund_project' AND fp.contract_number = fs.key
     CROSS JOIN cutoff
     WHERE fs.first_seen_at >= cutoff.ts
+      AND NOT EXISTS (SELECT 1 FROM summarised s
+                      WHERE s.source = d.source AND s.day = d.day)
     UNION ALL
     -- One coalesced summary line per (source, day) whose day total was large:
     -- a first cold load, a bulk backfill, or several same-day loads that together
@@ -147,8 +174,10 @@ LANGUAGE sql STABLE AS $$
            d.rows_new || ' new · ' || d.rows_total || ' total'
              || CASE WHEN d.load_count > 1 THEN ' (' || d.load_count || ' loads)' ELSE '' END AS detail,
            d.last_loaded_at AS changed_at, NULL::double precision AS amount_eur
-    FROM changelog_days d CROSS JOIN cutoff
-    WHERE d.rows_new > 500 AND d.last_loaded_at >= cutoff.ts
+    FROM changelog_days d
+    JOIN summarised s ON s.source = d.source AND s.day = d.day
+    CROSS JOIN cutoff
+    WHERE d.last_loaded_at >= cutoff.ts AND d.rows_new > 0
     UNION ALL
     -- TR companies whose registry record changed in the window.
     SELECT 'company', NULL::text, co.uic, co.name,

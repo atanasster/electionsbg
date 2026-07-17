@@ -11,8 +11,10 @@ import { readFileSync, existsSync } from "node:fs";
 import { execSync } from "node:child_process";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { DatabaseSync } from "node:sqlite";
+import type { PoolClient } from "pg";
 import { getPool, exec, withClient, withTx, end } from "./lib/pg";
 import { copyRows } from "./lib/copy";
+import { recordIngestBatch } from "./lib/ingest_changelog";
 import { rebuildRiskGradeScoped } from "./lib/riskGradeScoped";
 
 const TR_DB = fileURLToPath(
@@ -23,6 +25,9 @@ const FN_SQL = fileURLToPath(
 );
 const TR_SQL = fileURLToPath(
   new URL("./schema/pg/003_tr_search.sql", import.meta.url),
+);
+const INGEST_SQL = fileURLToPath(
+  new URL("./schema/pg/005_ingest_tracking.sql", import.meta.url),
 );
 const API_SQL = fileURLToPath(
   new URL("./schema/pg/004_search_api.sql", import.meta.url),
@@ -77,23 +82,34 @@ const waitForPg = async (): Promise<void> => {
 //
 // `rows` is an Iterable so the caller can pass a lazy generator and avoid holding
 // a second copy of the corpus beside the SQLite result set.
-const copyTable = async (
+//
+// `after` runs inside the SAME transaction, once the COPY has landed — the table
+// is already fully populated for that txn, so a caller can derive from it (the
+// changelog write below) and have the derivation commit atomically with the data.
+const copyTable = async <T = void>(
   table: string,
   cols: string[],
   rows: Iterable<unknown[]>,
-): Promise<void> => {
-  await withTx(async (c) => {
+  after?: (c: PoolClient) => Promise<T>,
+): Promise<T | undefined> =>
+  withTx(async (c) => {
     await copyRows(c, table, cols, rows);
+    return after ? await after(c) : undefined;
   });
-};
 
 export const loadTrPg = async (): Promise<{
   companies: number;
   officers: number;
+  /** Companies first seen in this load (the changelog delta). */
+  companiesNew: number;
 }> => {
   await waitForPg();
   await exec(readFileSync(FN_SQL, "utf8"));
   await exec(readFileSync(TR_SQL, "utf8"));
+  // ingest_batches / ingest_first_seen / changelog_days — the TR load records its
+  // batch below, and 007 (applied later here) reads them. Idempotent, and safe on
+  // a contracts-less DB (005 defers its function-body validation).
+  await exec(readFileSync(INGEST_SQL, "utf8"));
 
   const tr = new DatabaseSync(TR_DB, { readOnly: true });
 
@@ -102,7 +118,21 @@ export const loadTrPg = async (): Promise<{
       "SELECT uic, name, legal_form, seat, status, funds_amount, funds_currency, last_updated, objectives, means, public_benefit, private_benefit FROM companies WHERE name IS NOT NULL AND name <> ''",
     )
     .all() as Array<Record<string, string | number | null>>;
-  await copyTable(
+  // One changelog row per refresh, covering the whole TR load (companies +
+  // officers + person-roles + ngo_details are one dataset from one source, and
+  // the company corpus is its headline entity — its EIK is the stable key that
+  // survives this loader's DROP+reload, and officers/roles hang off it).
+  //
+  // threshold 0 → this source ALWAYS summarises ("N new · M total"), never
+  // itemises. Deliberate, and not just about volume: recent_updates already
+  // itemises TR per-row from the registry's OWN timestamps (the company/officer
+  // branches, keyed on last_updated/changed_at). A per-row ingest branch here
+  // would report every new company a SECOND time under a different kind and at a
+  // different timestamp (ingest time, ~2 days after the registry date this feed
+  // lags by). The cold load is ~1M new keys, but a daily delta is only a few
+  // hundred — under INGEST_SUMMARY_THRESHOLD — so leaving the default would put
+  // the loader into detail mode every day and duplicate the feed.
+  const ingest = await copyTable(
     "tr_companies",
     [
       "uic",
@@ -127,6 +157,15 @@ export const loadTrPg = async (): Promise<{
           r.last_updated || null, // '' → NULL for the timestamptz column
         ];
     })(),
+    // In-txn: the changelog commits with the companies it describes.
+    (c) =>
+      recordIngestBatch(c, {
+        source: "tr_company",
+        table: "tr_companies",
+        keyExpr: "t.uic", // EIK — stable, survives the DROP+reload.
+        rowsTotal: companies.length,
+        threshold: 0,
+      }),
   );
 
   // ЮЛНЦ metadata sidecar — only rows that actually carry NGO fields.
@@ -363,7 +402,11 @@ export const loadTrPg = async (): Promise<{
       );
   });
 
-  return { companies: companies.length, officers: officers.length };
+  return {
+    companies: companies.length,
+    officers: officers.length,
+    companiesNew: ingest?.rowsNew ?? 0,
+  };
 };
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
@@ -373,9 +416,9 @@ if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
   }
   const t0 = Date.now();
   loadTrPg()
-    .then(async ({ companies, officers }) => {
+    .then(async ({ companies, officers, companiesNew }) => {
       console.log(
-        `loaded ${companies} companies + ${officers} officers → Postgres in ${((Date.now() - t0) / 1000).toFixed(1)}s`,
+        `loaded ${companies} companies (${companiesNew} new) + ${officers} officers → Postgres in ${((Date.now() - t0) / 1000).toFixed(1)}s`,
       );
       await end();
     })
