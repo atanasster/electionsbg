@@ -463,18 +463,18 @@ Both strings also enumerate the checks and must be updated when §7 adds new one
 
 ---
 
-## 5. Phase 1 — the rename (no new data)
+## 5. Phase 1 — the rename (no new data) — ✅ SHIPPED 2026-07-17 (5e30b48a6)
 
-1. Apply §4a–§4d to `src/locales/{bg,en}/translation.json`.
-2. Render changes in `RiskBadges.tsx` per §4b; drop `showScore` + its two call sites.
-3. Delete `procurement_flags_explore` from both locale files.
-4. `npm run lint && npm run build`.
-5. Verify per the house workflow: `/awarder/831661388` (exposure card + Топ договори rows
-   must no longer show two bare 0–100s), `/procurement/contract/dcb1efe57a13` (checklist form,
-   no "преминати проверки"), `/procurement/contracts` (Сигнали column), `/procurement/flags`,
-   `/funds`. Both languages.
-
-Ship this before any of §6–§8.
+1. ✅ Applied §4a–§4d to `src/locales/{bg,en}/translation.json` (+ §4c/§4d, dead key deleted).
+2. ✅ Render changes in `RiskBadges.tsx`; dropped `showScore` + its two call sites. The detail
+   meter now renders "Задействани сигнали N от M приложими проверки" (no bare CRI number).
+3. ✅ Deleted `procurement_flags_explore`; locales key-set-identical (4818 each).
+4. ✅ `npm run build` green (after fixing an unrelated pre-existing break in
+   `scripts/funds/projects_share.ts`, committed separately as 2ab63e4c0).
+5. ✅ Verified in-browser (BG + EN): exposure card reads "Procurement risk exposure"; contract
+   fired meter "2 от 8"; clear state "Няма задействани сигнали · 8 автоматични проверки без
+   сигнал"; contracts table "СИГНАЛИ" column, no bare score. No console errors.
+6. /code-review + /code-repair: 4 stale-fallback fixes applied. `risk_scorer.harness` ALL PASS.
 
 ---
 
@@ -546,6 +546,61 @@ Free calibration reference: `risks.prozorro.gov.ua/api/*` is unauthenticated and
 **Kill rule (OCP 2024 p. 13):** *"if a flag is detected for 90% of the procedures, it's likely
 that there are many false positives."* Any flag firing on a very large share of the corpus does
 not ship. Which brings us to the flag we already over-weight.
+
+### 6b-results. Base rates MEASURED (2026-07-18, 126,413 tenders 2020–2026)
+
+Read-only pass over the `tenders` corpus (script committed at
+`scripts/procurement/tender_base_rates.sql`). Three findings, each a calibration decision:
+
+**1. Non-open procedure — SHIP as the hero flag.** Bucketing `procedure_type` into open (0) /
+restricted-or-negotiated-with-prior-call (0.5) / non-open-no-notice (1):
+
+| bucket | share |
+|---|---|
+| 0 open (Открита, Публично състезание, Събиране на оферти с обява) | 83.9% |
+| 0.5 restricted / negotiated WITH call | 1.8% |
+| **1 non-open** (Пряко договаряне, Договаряне без обявление/покана/публикуване, Покана до определени лица) | **14.3%** |
+
+Stable 12.8–16.0% every year 2020–2026. A 14.3% fire rate is genuinely discriminating (nowhere
+near the 90% kill line), and it *is* the EC-Scoreboard "no calls for bids" story where BG is the
+real outlier (§8). This subsumes the separate "call for tenders not published" flag — in this
+corpus `notice_type` is 100% present (these *are* the notices), so non-publication only shows up
+*as* a no-notice procedure type. **One flag, not two.**
+
+**2. Short submission window — MUST be procedure-tier-conditional; the flat PRWP band fails
+here.** Window = `submission_deadline − publication_date`. Flat over the whole corpus: 1–6d =
+3.1%, **7–11d = 18.5%**. Importing PRWP 10444's flat "7–11d = 0.5 risk" would fire on ~1 in 5
+tenders — straight into the kill rule. The reason is entirely procedure tier:
+
+| procedure | median days | 1–6d | 7–11d |
+|---|---|---|---|
+| Открита процедура (open, high-value) | 30 | 0.0% | **0.3%** |
+| Публично състезание (competition) | 21 | 0.1% | **0.9%** |
+| Събиране на оферти с обява (low-value, advertised) | 12 | 0.1% | **44.1%** |
+| Пряко договаряне / Договаряне без… (already non-open) | 10 | ~20% | ~45% |
+
+The entire 18.5% mass is the low-value tier, where a ~10-day window is the **statutory norm**, not
+a red flag. **Decision: the short-window flag fires ONLY on the competitive tiers (Открита
+процедура + Публично състезание).** There, ≤11d is already <1% and ≤6d ≈ 0.0–0.1% (73 tenders
+corpus-wide) — a rare, meaningful signal. On low-value / already-non-open procedures the window
+is not scored. This is the §6b thesis proven on our own data: the borrowed band was noise; the
+tier-conditional cut is signal.
+
+**3. Short decision period — measurable, defensible, but carry the §6a caveat.** Joining
+`tenders.submission_deadline → min(contracts.date_signed)` on `unp` (93,543 matched): median 46d,
+p10 14d, p90 114d. PRWP's short-risk bands: 1–4d = **3.2%**, 5–8d = 2.6%. A 3.2% fire rate is
+usable. But §6a flagged that PRWP's banding penalises *short* while its prose worries about
+*long* — run it two-sided in the scorer (also surface the extreme-long tail, p90 = 114d ⇒ >365d
+is a candidate) before committing a direction.
+
+**Unusable fields (do not score — §6c):** `change_notice_count` is **0.1%** populated (essentially
+empty); `has_unsecured_funding` is **33.8%** filled (missing-data trap). `is_framework_agreement`
+0.8%, `is_eu_funded` 17.1% — descriptive context, not risk.
+
+**Net Phase-2 flag set to build:** (a) non-open procedure [ship], (b) tier-conditional short
+submission window on competitive procedures [ship], (c) two-sided decision period [ship, verify
+direction], (d) single-bidder + buyer-dependence [award-stage, via the existing
+`awardToContract` path]. Drop `change_notice_count` and `has_unsecured_funding` as scored inputs.
 
 ### 6c. Missing-data handling
 
