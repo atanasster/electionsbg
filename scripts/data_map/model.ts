@@ -1550,6 +1550,20 @@ export const FEATURES: FeatureDef[] = [
     tags: ["fiscal", "indicators"],
   },
   {
+    id: "regional",
+    label: { bg: "Регионално развитие", en: "Regional development" },
+    detail: {
+      bg: "къде отиват парите за регионите",
+      en: "where the money for the regions goes",
+    },
+    desc: {
+      bg: "МРРБ е министерство-разпределител: управлява ~1,06 млрд. €/год., но през собствени поръчки минават само ~100 млн. — останалото са трансфери към общините и европейско съфинансиране. Усвояването на ОПРР и „Развитие на регионите“, кохезията по области, разходът спрямо ЕС (COFOG GF06), кадастърът (АГКК) и стигат ли парите до най-бедните области. Пътищата (АПИ) и ВиК са отделни сектори.",
+      en: "МРРБ is a pass-through ministry: it directs ~€1.06bn/yr but only ~€100M flows through its own procurement — the rest is transfers to municipalities and EU co-financing. ОПРР and „Развитие на регионите“ absorption, cohesion by oblast, spending vs the EU (COFOG GF06), the cadastre (АГКК) and whether the money reaches the poorest oblasts. Roads (АПИ) and water (ВиК) are separate sectors.",
+    },
+    route: "/sector/regional",
+    tags: ["fiscal", "indicators"],
+  },
+  {
     id: "social",
     label: { bg: "Социално подпомагане", en: "Social assistance" },
     detail: {
@@ -1707,6 +1721,16 @@ export const EDGES: [string, string][] = [
   ["ds:budget", "f:social"],
   ["ds:macro", "f:social"],
   ["ds:procurement", "f:social"],
+  // /sector/regional (МРРБ) reuses only EXISTING datasets — no new data/ tree. The
+  // cohesion spine is funds (ИСУН OPs + per-oblast muni-map), the budget node is
+  // budget, COFOG GF06 is macro, the NUTS3 GDP/capita for the convergence scatter is
+  // indicators (⚠ NOT a ds:regional — regional NUTS3 lives in ds:indicators), and the
+  // group procurement is procurement.
+  ["ds:funds", "f:regional"],
+  ["ds:budget", "f:regional"],
+  ["ds:macro", "f:regional"],
+  ["ds:indicators", "f:regional"],
+  ["ds:procurement", "f:regional"],
   ["src:water", "ds:water"],
   ["src:egov", "ds:water"],
   ["ds:water", "f:water"],
