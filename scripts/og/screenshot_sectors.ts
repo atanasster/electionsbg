@@ -6,6 +6,11 @@
 //   npm run dev    # in another shell
 //   npx tsx scripts/og/screenshot_sectors.ts
 //
+// Capture only some sectors (comma-separated ids) — so adding one sector doesn't
+// re-shoot (and risk regressing) every other sector's card:
+//   npx tsx scripts/og/screenshot_sectors.ts regional
+// Point at a non-default dev port with OG_BASE_URL=http://localhost:5174.
+//
 // Output: public/og/sector-<id>.png (1200×630 CSS px @2x → 2400×1260 PNG).
 
 import fs from "fs";
@@ -24,7 +29,20 @@ const BASE = process.env.OG_BASE_URL ?? "http://localhost:5173";
 // Single source of truth — every sector dashboard gets a screenshot, EXCEPT transport:
 // its OG is a hand-framed, map-focused capture (scripts/og/screenshot_transport.ts) that
 // this generic KPI-clip would overwrite. Run that script separately for transport.
-const SECTOR_IDS = SECTOR_DASHBOARD_IDS.filter((id) => id !== "transport");
+const ALL_SECTOR_IDS = SECTOR_DASHBOARD_IDS.filter((id) => id !== "transport");
+
+// Optional CLI filter: `… screenshot_sectors.ts regional,energy` shoots just those.
+// Unknown ids fail loudly rather than silently shooting nothing.
+const only = (process.argv[2] ?? "")
+  .split(",")
+  .map((s) => s.trim())
+  .filter(Boolean);
+const unknown = only.filter((id) => !ALL_SECTOR_IDS.includes(id));
+if (unknown.length)
+  throw new Error(
+    `unknown sector id(s): ${unknown.join(", ")} — known: ${ALL_SECTOR_IDS.join(", ")}`,
+  );
+const SECTOR_IDS = only.length ? only : ALL_SECTOR_IDS;
 
 const run = async (): Promise<void> => {
   fs.mkdirSync(OG_DIR, { recursive: true });

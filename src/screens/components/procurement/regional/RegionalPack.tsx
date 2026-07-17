@@ -141,6 +141,13 @@ export const RegionalPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
     [model, lang],
   );
 
+  // The ACTIVE (2021-27) programme's absorption — the live absorption-risk story.
+  // Blending it with the closed ОПРР (~96%) would average the risk away.
+  const currentAbsorption = useMemo(() => {
+    const cur = programmes.find((p) => p.period.startsWith("2021"));
+    return cur ? Math.round(cur.absorptionPct) : null;
+  }, [programmes]);
+
   useHashScroll([model, units, isLoading]);
 
   if (isLoading)
@@ -223,21 +230,22 @@ export const RegionalPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
             {units.length}
           </span>
         </StatCard>
+        {/* The ACTIVE programme's absorption — not a blend with the closed ОПРР
+            (~96%), which would average the risk away into a comfortable-looking
+            ~50% and bury the actual story. */}
         <StatCard
-          label={bg ? "Усвоена кохезия" : "Cohesion absorbed"}
+          label={bg ? "Усвоена кохезия 2021-27" : "Cohesion absorbed 2021-27"}
           to={anchorHref("cohesion")}
           hint={
             bg
-              ? "Изплатени спрямо договорени по двете регионални програми (ОПРР + Развитие на регионите). Виж усвояването →"
-              : "Paid vs contracted across the two regional programmes (ОПРР + Развитие на регионите). See absorption →"
+              ? "Изплатени спрямо договорени по текущата програма „Развитие на регионите“ 2021-2027. Неусвоеното към 31.12.2029 г. се губи (n+3). ОПРР 2014-20 е затворена на ~96%. Виж усвояването →"
+              : "Paid vs contracted on the ACTIVE programme „Развитие на регионите“ 2021-2027. What is unabsorbed by 31.12.2029 is forfeited (n+3). ОПРР 2014-20 closed at ~96%. See absorption →"
           }
         >
-          <span className="text-2xl font-bold tabular-nums">
-            {(() => {
-              const c = programmes.reduce((s, p) => s + p.contractedEur, 0);
-              const paid = programmes.reduce((s, p) => s + p.paidEur, 0);
-              return c > 0 ? `${Math.round((paid / c) * 100)}%` : "—";
-            })()}
+          <span
+            className={`text-2xl font-bold tabular-nums ${currentAbsorption != null && currentAbsorption < 50 ? "text-amber-600 dark:text-amber-400" : ""}`}
+          >
+            {currentAbsorption != null ? `${currentAbsorption}%` : "—"}
           </span>
         </StatCard>
       </div>
