@@ -464,6 +464,19 @@ export const DataSources = () => {
             </ul>
           </DataGroup>
 
+          <DataGroup title={t("social_section")}>
+            <ul className="space-y-2">
+              <SourceItem
+                href="https://asp.government.bg/bg/za-agentsiyata/misiya-i-tseli/otcheti-i-dokladi/"
+                label={t("social_asp_source")}
+              />
+              <SourceItem
+                href="https://ec.europa.eu/eurostat/databrowser/view/ilc_li10/default/table"
+                label={t("social_poverty_source")}
+              />
+            </ul>
+          </DataGroup>
+
           <DataGroup title={t("prices_section")}>
             <ul className="space-y-2">
               <SourceItem
