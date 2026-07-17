@@ -3052,6 +3052,39 @@ const CASES: Case[] = [
     q: "Каква е Централната избирателна комисия?",
     tool: "nationalResults",
   },
+  // ---- social assistance (МТСП/АСП) — static-JSON tools --------------------
+  // (socialSpending is DB-backed via awarder-group-model, like transportSpending,
+  //  so it isn't offline-regressible; the two static-JSON tools are.)
+  {
+    q: "Намаляват ли социалните трансфери бедността в България?",
+    tool: "socialPovertyImpact",
+    kind: "series",
+    facts: { bg_reduction: /2[67]/, eu_reduction: /33/ },
+  },
+  {
+    q: "do social transfers reduce poverty in Bulgaria?",
+    lang: "en",
+    tool: "socialPovertyImpact",
+    kind: "series",
+    facts: { bg_reduction: /2[67]/ },
+  },
+  {
+    // guard: "бедност" without "пенси" must reach the social block, not the
+    // NOI/pension block (which only claims poverty when paired with пенси).
+    q: "Колко детски надбавки изплаща АСП на домакинствата?",
+    tool: "socialBenefits",
+    kind: "table",
+    minRows: 3,
+    facts: { year: { num: 2025 } },
+  },
+  {
+    q: "what benefits does АСП pay households?",
+    lang: "en",
+    tool: "socialBenefits",
+    kind: "table",
+    minRows: 3,
+    facts: { year: { num: 2025 } },
+  },
 ];
 
 // Raw-arg cases: the LLM router emits {tool, args} directly and can't know the
