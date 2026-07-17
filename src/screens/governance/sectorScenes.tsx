@@ -815,12 +815,63 @@ const Environment: FC = () => (
   </SceneFrame>
 );
 
+// Регионално развитие (МРРБ) — an oblast choropleth (region cells tinted at
+// different depths, the per-oblast money map) with capital transfers arrowing
+// down into the regions: the pass-through thesis (money МРРБ directs, doesn't
+// itself procure) landing per oblast.
+const Regional: FC = () => (
+  <SceneFrame>
+    {/* oblast choropleth cells — varied opacity = the per-oblast money depth */}
+    <g fill="var(--sector)">
+      <path d="M40 40 L96 34 L104 66 L52 74 Z" opacity=".5" />
+      <path d="M96 34 L150 40 L154 70 L104 66 Z" opacity=".82" />
+      <path d="M52 74 L104 66 L110 100 L58 102 Z" opacity=".28" />
+      <path d="M104 66 L154 70 L152 100 L110 100 Z" opacity=".62" />
+      <path d="M150 40 L196 48 L192 78 L154 70 Z" opacity=".38" />
+    </g>
+    {/* region borders */}
+    <g
+      fill="none"
+      stroke={PAPER}
+      strokeWidth="1.4"
+      strokeLinejoin="round"
+      opacity=".55"
+    >
+      <path d="M40 40 L96 34 L150 40 L196 48 L192 78 L152 100 L58 102 L52 74 Z" />
+      <path d="M96 34 L104 66 L154 70 M52 74 L104 66 L110 100 M150 40 L154 70" />
+    </g>
+    {/* capital transfers arrowing down into the regions */}
+    <g stroke="var(--sector)" strokeWidth="2.4" strokeLinecap="round" fill="none">
+      <path d="M232 30 V60" />
+      <path d="M224 52 L232 62 L240 52" />
+      <path d="M258 26 V52" opacity=".6" />
+      <path d="M251 45 L258 54 L265 45" opacity=".6" />
+    </g>
+    {/* building — благоустройство / where the state invests */}
+    <g transform="translate(224 66)">
+      <rect x="0" y="6" width="20" height="30" rx="1.5" fill="var(--sector)" opacity=".9" />
+      <rect x="26" y="0" width="24" height="36" rx="1.5" fill="var(--sector)" opacity=".7" />
+      <g fill={PAPER}>
+        <rect x="4" y="12" width="5" height="5" />
+        <rect x="12" y="12" width="5" height="5" />
+        <rect x="4" y="22" width="5" height="5" />
+        <rect x="12" y="22" width="5" height="5" />
+        <rect x="31" y="6" width="6" height="6" />
+        <rect x="40" y="6" width="6" height="6" />
+        <rect x="31" y="18" width="6" height="6" />
+        <rect x="40" y="18" width="6" height="6" />
+      </g>
+    </g>
+  </SceneFrame>
+);
+
 export const SECTOR_SCENES: Record<string, FC> = {
   roads: Roads,
   water: Water,
   transport: Transport,
   energy: Energy,
   environment: Environment,
+  regional: Regional,
   pension: Pension,
   social: Social,
   health: Health,

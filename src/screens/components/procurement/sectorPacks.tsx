@@ -33,6 +33,7 @@ import {
   TRANSPORT_SECTOR_EIKS,
 } from "@/lib/transportReferenceData";
 import { MOSV_EIK, ENV_SECTOR_EIKS } from "@/lib/environmentReferenceData";
+import { REGIONAL_SECTOR_EIKS } from "@/lib/regionalReferenceData";
 import { ADMIN_SECTOR_EIKS } from "@/lib/administrationReferenceData";
 import { TOURISM_SECTOR_EIKS } from "@/lib/tourismReferenceData";
 import { MVR_EIK, SECURITY_SECTOR_EIKS } from "@/lib/securityReferenceData";
@@ -279,6 +280,14 @@ export const SECTOR_BROWSE_PACKS: Record<string, SectorBrowsePack> = {
     id: "environment",
     label: { bg: "Околна среда (МОСВ)", en: "Environment (МОСВ)" },
     eiks: ENV_SECTOR_EIKS,
+  },
+  regional: {
+    id: "regional",
+    label: {
+      bg: "Регионално развитие (МРРБ)",
+      en: "Regional development (МРРБ)",
+    },
+    eiks: REGIONAL_SECTOR_EIKS,
   },
   administration: {
     id: "administration",

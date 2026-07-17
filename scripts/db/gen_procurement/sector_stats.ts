@@ -100,6 +100,12 @@ const BUDGET_SECTOR_NODE: Record<string, string> = {
   edu: "admin-ministerstvo-na-obrazovanieto-i-naukata",
   tourism: "admin-ministerstvo-na-turizma",
   social: "admin-ministerstvo-na-truda-i-sotsialnata-politika",
+  // Регионално развитие — budget-basis (NOT procurement). МРРБ is a pass-through
+  // ministry: it controls ~€1.06bn/year (2025 ЗДБ) but procures only ~€100M, the
+  // rest leaving as capital transfers + EU-cohesion co-financing. A procurement
+  // headline (~€213M for the whole group) understates the sector and buries its
+  // own thesis — the honest headline is the enacted expenditure of this node.
+  regional: "admin-ministerstvo-na-regionalnoto-razvitie-i-blagoustroystvoto",
 };
 
 // Budget-basis sectors, second-level: id → the agency budget file under

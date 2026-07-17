@@ -35,6 +35,11 @@ import {
   TRANSPORT_UNIVERSE_LABEL,
 } from "@/lib/transportReferenceData";
 import {
+  REGIONAL_EIK,
+  REGIONAL_ENTITIES,
+  REGIONAL_UNIVERSE_LABEL,
+} from "@/lib/regionalReferenceData";
+import {
   SOCIAL_LEAD_EIK,
   SOCIAL_ENTITIES,
   SOCIAL_UNIVERSE_LABEL,
@@ -166,6 +171,29 @@ export const SECTOR_DASHBOARDS: Record<string, SectorDashboardConfig> = {
       eik: e.eik,
       name: { bg: e.name, en: e.name },
       group: TRANSPORT_UNIVERSE_LABEL[e.universe],
+    })),
+  },
+  // Регионално развитие — the МРРБ group: the ministry (pass-through principal —
+  // it controls ~€1.06bn/year but procures only ~€100M; the rest leaves as capital
+  // transfers to municipalities + EU-cohesion co-financing), the cadastre agency
+  // (АГКК), the building-control directorate (ДНСК) and the 27 областни
+  // администрации (regional governors — the per-oblast backbone). МРРБ leads; its
+  // /awarder page renders the RegionalPack (registered under REGIONAL_EIK), and so
+  // does this dashboard. ⚠ ROADS (АПИ) and WATER (ВиК) are SEPARATE sectors
+  // (/sector/roads, /water) — administratively МРРБ's children but excluded here;
+  // the pack cross-links to them. Members from the curated allowlist
+  // (regionalReferenceData.ts).
+  regional: {
+    id: "regional",
+    titleKey: "sector_regional_title",
+    descKey: "sector_regional_desc",
+    agency: "МРРБ",
+    leadEik: REGIONAL_EIK,
+    browsePackId: "regional",
+    members: REGIONAL_ENTITIES.map((e) => ({
+      eik: e.eik,
+      name: { bg: e.name, en: e.name },
+      group: REGIONAL_UNIVERSE_LABEL[e.universe],
     })),
   },
   // Социално подпомагане — the МТСП/АСП state social group: the ministry (policy

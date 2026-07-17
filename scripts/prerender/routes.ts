@@ -632,6 +632,28 @@ const SECTOR_PAGES: SectorPageContent[] = [
     },
   },
   {
+    id: "regional",
+    eik: "831661388",
+    bg: {
+      title: "Регионално развитие — парите за регионите, кохезия и кадастър | electionsbg.com", // prettier-ignore
+      description:
+        "МРРБ управлява ~€1,06 млрд./година, но през собствени поръчки минават само ~€100 млн. — останалото са капиталови трансфери към общините и европейско съфинансиране. Усвояване на ОПРР и „Развитие на регионите“, кохезия по области, кадастър (АГКК) и стигат ли парите до най-бедните области. Пътищата (АПИ) и ВиК са отделни сектори.",
+      breadcrumb: "Регионално развитие",
+      h1: "Регионално развитие — къде отиват парите за регионите",
+      intro:
+        "Министерството на регионалното развитие и благоустройството (МРРБ) е министерство-разпределител: то насочва около €1,06 милиарда годишно, но през собствените си обществени поръчки минават едва ~€100 милиона — останалото напуска като капиталови трансфери към общините и съфинансиране на европейската кохезионна политика. Тази страница следва парите дотам, където реално стигат, по области: усвояването на ОП „Региони в растеж“ 2014-2020 (затворена, ~96%) срещу Програма „Развитие на регионите“ 2021-2027 (~20% — рискът от неусвояване до крайния срок 31 декември 2029 г.), кохезионните пари на човек по области, разходът за жилищно строителство и благоустройство спрямо ЕС (COFOG GF06), Агенцията по геодезия, картография и кадастър (АГКК), Дирекцията за национален строителен контрол (ДНСК) и 27-те областни администрации. Стигат ли парите до най-бедните области (Кърджали, Монтана, Видин, Силистра) или се концентрират там, където вече има капацитет? Пътищата (АПИ) и ВиК са отделни сектори.",
+    },
+    en: {
+      title: "Regional development — the money for the regions, cohesion and cadastre | electionsbg.com", // prettier-ignore
+      description:
+        "МРРБ directs ~€1.06bn/year but procures only ~€100M through its own tenders — the rest leaves as capital transfers to municipalities and EU-cohesion co-financing. ОПРР and „Развитие на регионите“ absorption, cohesion per oblast, cadastre (АГКК) and whether the money reaches the poorest oblasts. Roads (АПИ) and water (ВиК) are separate sectors.",
+      breadcrumb: "Regional development",
+      h1: "Regional development — where the money for the regions goes",
+      intro:
+        "The Ministry of Regional Development and Public Works (МРРБ) is a pass-through ministry: it directs about €1.06 billion a year, but only ~€100 million flows through its own public procurement — the rest leaves as capital transfers to municipalities and co-financing of EU cohesion policy. This page follows the money to where it actually lands, per oblast: the absorption of ОП „Региони в растеж“ 2014-2020 (closed, ~96%) versus Програма „Развитие на регионите“ 2021-2027 (~20% — the risk of losing money to the 31 December 2029 decommitment deadline), cohesion euros per capita by oblast, spending on housing and community amenities versus the EU (COFOG GF06), the Geodesy, Cartography and Cadastre Agency (АГКК), the National Building Control Directorate (ДНСК) and the 27 regional governor administrations. Does the money reach the poorest oblasts (Kardzhali, Montana, Vidin, Silistra) or concentrate where capacity already exists? Roads (АПИ) and water (ВиК) are separate sectors.",
+    },
+  },
+  {
     id: "social",
     eik: "000695395",
     bg: {

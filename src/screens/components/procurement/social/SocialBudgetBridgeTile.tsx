@@ -15,6 +15,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { useBudgetMinistryRollup } from "@/data/budget/useBudget";
 import { SOCIAL_BUDGET_NODE } from "@/lib/socialReferenceData";
+import { useTooltip } from "@/ux/useTooltip";
 
 type Family = "disability" | "inclusion" | "assistance" | "labour" | "other";
 
@@ -57,6 +58,10 @@ export const SocialBudgetBridgeTile: FC = () => {
   const lang = i18n.language;
   const bg = lang === "bg";
   const { data } = useBudgetMinistryRollup(SOCIAL_BUDGET_NODE);
+  const { tooltip, onMouseEnter, onMouseMove, onMouseLeave } = useTooltip({
+    maxHeight: 320,
+    maxWidth: 300,
+  });
 
   const years = useMemo(() => {
     const rows = (data?.years ?? [])
@@ -89,139 +94,203 @@ export const SocialBudgetBridgeTile: FC = () => {
   const disLast = last.byFamily.disability;
   const disGrowth = disFirst > 0 ? disLast / disFirst : null;
 
-  return (
-    <Card id="social-benefit-mix">
-      <CardHeader className="pb-2">
-        <CardTitle className="text-base flex items-center gap-2">
-          <HandCoins className="h-4 w-4" />
-          {bg ? "Разход по вид помощ" : "Spending by benefit type"}
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="p-3 md:p-4 space-y-3">
-        <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-          <span className="text-2xl font-bold tabular-nums">
-            {formatEurCompact(last.total, lang)}
-          </span>
-          <span className="text-xs text-muted-foreground">
-            {bg
-              ? `бюджет на МТСП по политики, ${last.year} г.`
-              : `МТСП budget by policy, ${last.year}`}
-          </span>
-          {totalGrowth != null && totalGrowth >= 1.5 && (
-            <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400">
-              ×{totalGrowth.toLocaleString(lang, { maximumFractionDigits: 1 })}{" "}
-              {bg ? `от ${first.year}` : `since ${first.year}`}
-            </span>
-          )}
-        </div>
+  const pct = (n: number): string =>
+    n.toLocaleString(lang, { maximumFractionDigits: n < 10 ? 1 : 0 });
 
-        {/* Stacked columns per year — fixed family order, disability at the base. */}
-        <div className="flex items-end gap-1.5" style={{ height: 132 }}>
-          {years.map((y) => (
-            <div
-              key={y.year}
-              className="flex flex-1 flex-col justify-end"
-              title={`${y.year}: ${formatEurCompact(y.total, lang)}`}
-            >
-              <div
-                className="flex w-full flex-col-reverse overflow-hidden rounded-t"
-                style={{ height: `${(y.total / maxTotal) * 120}px` }}
-              >
-                {FAMILY_ORDER.map((f) => {
-                  const h = y.total > 0 ? (y.byFamily[f] / y.total) * 100 : 0;
-                  if (h <= 0) return null;
-                  return (
-                    <div
-                      key={f}
-                      className={FAMILY_BAR[f]}
-                      style={{ height: `${h}%` }}
-                    />
-                  );
-                })}
-              </div>
+  // Rich hover card for one year: total, YoY vs the previous year, and every
+  // benefit family's € + share, in the fixed stack order (disability at the base).
+  const yearTooltip = (idx: number) => {
+    const y = years[idx];
+    const prev = idx > 0 ? years[idx - 1] : null;
+    const yoy = prev && prev.total > 0 ? y.total / prev.total - 1 : null;
+    return (
+      <div className="space-y-1">
+        <div className="flex items-baseline justify-between gap-4">
+          <span className="font-semibold">
+            {bg ? `Бюджет ${y.year}` : `${y.year} budget`}
+          </span>
+          <span className="font-semibold tabular-nums">
+            {formatEurCompact(y.total, lang)}
+          </span>
+        </div>
+        {yoy != null && Math.abs(yoy) >= 0.005 && (
+          <div className="text-[11px] text-muted-foreground">
+            {yoy >= 0 ? "+" : "−"}
+            {pct(Math.abs(yoy) * 100)}%{" "}
+            {bg ? `спрямо ${prev!.year}` : `vs ${prev!.year}`}
+          </div>
+        )}
+        <div className="space-y-0.5 pt-1">
+          {FAMILY_ORDER.filter((f) => y.byFamily[f] > 0).map((f) => (
+            <div key={f} className="flex items-center gap-2 text-[11px]">
+              <span
+                className={`h-2 w-2 shrink-0 rounded-sm ${FAMILY_BAR[f]}`}
+              />
+              <span className="min-w-0 flex-1 truncate">
+                {bg ? FAMILY_LABEL[f].bg : FAMILY_LABEL[f].en}
+              </span>
+              <span className="shrink-0 tabular-nums">
+                {formatEurCompact(y.byFamily[f], lang)}
+              </span>
+              <span className="w-9 shrink-0 text-right tabular-nums text-muted-foreground">
+                {pct((y.byFamily[f] / y.total) * 100)}%
+              </span>
             </div>
           ))}
         </div>
-        <div className="flex justify-between text-[10px] tabular-nums text-muted-foreground">
-          <span>{first.year}</span>
-          <span>{last.year}</span>
-        </div>
+      </div>
+    );
+  };
 
-        {/* Legend. */}
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
-          {FAMILY_ORDER.map((f) => (
-            <span key={f} className="inline-flex items-center gap-1.5">
-              <span
-                className={`h-2.5 w-2.5 shrink-0 rounded-sm ${FAMILY_BAR[f]}`}
-              />
-              {bg ? FAMILY_LABEL[f].bg : FAMILY_LABEL[f].en}
+  return (
+    <>
+      <Card id="social-benefit-mix">
+        <CardHeader className="pb-2">
+          <CardTitle className="text-base flex items-center gap-2">
+            <HandCoins className="h-4 w-4" />
+            {bg ? "Разход по вид помощ" : "Spending by benefit type"}
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="p-3 md:p-4 space-y-3">
+          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <span className="text-2xl font-bold tabular-nums">
+              {formatEurCompact(last.total, lang)}
             </span>
-          ))}
-        </div>
+            <span className="text-xs text-muted-foreground">
+              {bg
+                ? `бюджет на МТСП по политики, ${last.year} г.`
+                : `МТСП budget by policy, ${last.year}`}
+            </span>
+            {totalGrowth != null && totalGrowth >= 1.5 && (
+              <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400">
+                ×
+                {totalGrowth.toLocaleString(lang, { maximumFractionDigits: 1 })}{" "}
+                {bg ? `от ${first.year}` : `since ${first.year}`}
+              </span>
+            )}
+          </div>
 
-        <p className="text-sm leading-snug">
-          {bg ? (
-            <>
-              Разходът за{" "}
-              <span className="font-semibold">хората с увреждания</span> скочи
-              от{" "}
-              <span className="font-semibold tabular-nums">
-                {formatEurCompact(disFirst, lang)}
-              </span>{" "}
-              ({first.year}) до{" "}
-              <span className="font-semibold tabular-nums">
-                {formatEurCompact(disLast, lang)}
-              </span>{" "}
-              ({last.year})
-              {disGrowth != null ? (
-                <>
-                  {" "}
-                  — ×
-                  <span className="font-semibold tabular-nums">
-                    {disGrowth.toLocaleString(lang, {
-                      maximumFractionDigits: 1,
-                    })}
-                  </span>
-                </>
-              ) : null}
-              , след Закона за хората с увреждания (2019) и механизма „лична
-              помощ“. Това е най-големият двигател на ръста на социалния бюджет.
-            </>
-          ) : (
-            <>
-              Spending on <span className="font-semibold">disability</span>{" "}
-              jumped from{" "}
-              <span className="font-semibold tabular-nums">
-                {formatEurCompact(disFirst, lang)}
-              </span>{" "}
-              ({first.year}) to{" "}
-              <span className="font-semibold tabular-nums">
-                {formatEurCompact(disLast, lang)}
-              </span>{" "}
-              ({last.year})
-              {disGrowth != null ? (
-                <>
-                  {" "}
-                  — ×
-                  <span className="font-semibold tabular-nums">
-                    {disGrowth.toLocaleString(lang, {
-                      maximumFractionDigits: 1,
-                    })}
-                  </span>
-                </>
-              ) : null}
-              , after the 2019 Disability Act and its personal-assistance
-              mechanism — the single biggest driver of social-budget growth.
-            </>
-          )}
-        </p>
+          {/* Stacked columns per year — fixed family order, disability at the base.
+            Hovering a column opens the shared rich tooltip (year total + YoY +
+            per-family € and share). */}
+          <div className="flex items-end gap-1.5" style={{ height: 132 }}>
+            {years.map((y, idx) => (
+              <div
+                key={y.year}
+                className="flex flex-1 cursor-default flex-col justify-end"
+                onMouseEnter={(e) =>
+                  onMouseEnter(
+                    { pageX: e.pageX, pageY: e.pageY },
+                    yearTooltip(idx),
+                  )
+                }
+                onMouseMove={(e) =>
+                  onMouseMove({ pageX: e.pageX, pageY: e.pageY })
+                }
+                onMouseLeave={onMouseLeave}
+              >
+                <div
+                  className="flex w-full flex-col-reverse overflow-hidden rounded-t transition-opacity hover:opacity-90"
+                  style={{ height: `${(y.total / maxTotal) * 120}px` }}
+                >
+                  {FAMILY_ORDER.map((f) => {
+                    const h = y.total > 0 ? (y.byFamily[f] / y.total) * 100 : 0;
+                    if (h <= 0) return null;
+                    return (
+                      <div
+                        key={f}
+                        className={FAMILY_BAR[f]}
+                        style={{ height: `${h}%` }}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-between text-[10px] tabular-nums text-muted-foreground">
+            <span>{first.year}</span>
+            <span>{last.year}</span>
+          </div>
 
-        <p className="text-[11px] text-muted-foreground/80">
-          {bg
-            ? "Източник: Закон за държавния бюджет — планиран разход на МТСП по политики (не са включени пенсиите на НОИ)."
-            : "Source: State Budget Law — МТСП planned expenditure by policy (excludes НОИ pensions)."}
-        </p>
-      </CardContent>
-    </Card>
+          {/* Legend. */}
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
+            {FAMILY_ORDER.map((f) => (
+              <span key={f} className="inline-flex items-center gap-1.5">
+                <span
+                  className={`h-2.5 w-2.5 shrink-0 rounded-sm ${FAMILY_BAR[f]}`}
+                />
+                {bg ? FAMILY_LABEL[f].bg : FAMILY_LABEL[f].en}
+              </span>
+            ))}
+          </div>
+
+          <p className="text-sm leading-snug">
+            {bg ? (
+              <>
+                Разходът за{" "}
+                <span className="font-semibold">хората с увреждания</span> скочи
+                от{" "}
+                <span className="font-semibold tabular-nums">
+                  {formatEurCompact(disFirst, lang)}
+                </span>{" "}
+                ({first.year}) до{" "}
+                <span className="font-semibold tabular-nums">
+                  {formatEurCompact(disLast, lang)}
+                </span>{" "}
+                ({last.year})
+                {disGrowth != null ? (
+                  <>
+                    {" "}
+                    — ×
+                    <span className="font-semibold tabular-nums">
+                      {disGrowth.toLocaleString(lang, {
+                        maximumFractionDigits: 1,
+                      })}
+                    </span>
+                  </>
+                ) : null}
+                , след Закона за хората с увреждания (2019) и механизма „лична
+                помощ“. Това е най-големият двигател на ръста на социалния
+                бюджет.
+              </>
+            ) : (
+              <>
+                Spending on <span className="font-semibold">disability</span>{" "}
+                jumped from{" "}
+                <span className="font-semibold tabular-nums">
+                  {formatEurCompact(disFirst, lang)}
+                </span>{" "}
+                ({first.year}) to{" "}
+                <span className="font-semibold tabular-nums">
+                  {formatEurCompact(disLast, lang)}
+                </span>{" "}
+                ({last.year})
+                {disGrowth != null ? (
+                  <>
+                    {" "}
+                    — ×
+                    <span className="font-semibold tabular-nums">
+                      {disGrowth.toLocaleString(lang, {
+                        maximumFractionDigits: 1,
+                      })}
+                    </span>
+                  </>
+                ) : null}
+                , after the 2019 Disability Act and its personal-assistance
+                mechanism — the single biggest driver of social-budget growth.
+              </>
+            )}
+          </p>
+
+          <p className="text-[11px] text-muted-foreground/80">
+            {bg
+              ? "Източник: Закон за държавния бюджет — планиран разход на МТСП по политики (не са включени пенсиите на НОИ)."
+              : "Source: State Budget Law — МТСП planned expenditure by policy (excludes НОИ pensions)."}
+          </p>
+        </CardContent>
+      </Card>
+      {tooltip}
+    </>
   );
 };
