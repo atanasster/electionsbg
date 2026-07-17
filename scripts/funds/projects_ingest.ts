@@ -244,18 +244,21 @@ const loadPlaceLookup = (): PlaceLookup => {
 // reader to wonder how a €42.5M contract fits inside a €2.7M total.
 const toTopContract = (
   r: ResolvedFundsProject,
-): FundsProjectsSummary["topContracts"][number] => ({
-  contractNumber: r.contractNumber,
-  title: r.title,
-  totalEur: r.totalEur,
-  paidEur: r.paidEur,
-  ...(muniCount(r) > 1 ? { muniCount: muniCount(r) } : {}),
-  status: r.status,
-  programCode: r.programCode,
-  programName: r.programName,
-  beneficiaryEik: r.beneficiaryEik,
-  beneficiaryName: r.beneficiaryName,
-});
+): FundsProjectsSummary["topContracts"][number] => {
+  const nMuni = muniCount(r);
+  return {
+    contractNumber: r.contractNumber,
+    title: r.title,
+    totalEur: r.totalEur,
+    paidEur: r.paidEur,
+    ...(nMuni > 1 ? { muniCount: nMuni } : {}),
+    status: r.status,
+    programCode: r.programCode,
+    programName: r.programName,
+    beneficiaryEik: r.beneficiaryEik,
+    beneficiaryName: r.beneficiaryName,
+  };
+};
 
 // Collapse the raw ИСУН status strings into the four dashboard buckets
 // (Completed / In progress / Signed / Terminated). Matching predicates mirror
@@ -797,8 +800,10 @@ const main = async (args: MainArgs): Promise<void> => {
   // Attributing multi-муни rows at full value once put €7.15 bn of phantom
   // money on this map, so assert rather than trust. Runs after the SOF00 row
   // is appended: the Sofia shards are folded into it, not dropped, so the
-  // array still sums to the whole mappable half. Aborts before write, like
-  // the MIN_ROWS floor.
+  // array still sums to the whole mappable half. Aborts before the muni-map /
+  // index / derivatives write — the per-shard files (steps 5-7) are already on
+  // disk, so a throw here leaves a partially-updated tree that the next full
+  // ingest overwrites (unlike the MIN_ROWS floor, which precedes every write).
   const expectedEur = resolved
     .filter((r) => (r.location.munis?.length ?? 0) > 0)
     .reduce((a, r) => a + r.totalEur, 0);
