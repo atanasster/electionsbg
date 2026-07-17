@@ -1,35 +1,69 @@
 // „Къде отиват парите на МРРБ" — the pass-through / inverse-iceberg hero (tile 1, the OG
 // screenshot target). The single killer contrast: МРРБ controls the whole ЗДБ envelope
-// (~€1.06bn/year) but only a thin slice (~€100M) passes through its OWN procurement — the
-// rest leaves as capital transfers to municipalities + EU-cohesion co-financing. A
+// (€1.06bn in 2025) but only a thin slice (~€26M, ~2%) passes through its OWN procurement
+// — the rest leaves as capital transfers to municipalities + EU-cohesion co-financing. A
 // part-to-whole bar makes the invisible majority legible. data-og="regional-hero".
+//
+// ⚠ LIKE-FOR-LIKE BASIS (annual, not scoped). The budget is an ANNUAL figure, so the
+// procurement it is compared against MUST be the SAME calendar year — not the ?pscope
+// window (a part-year parliament slice would read as a fake ~0.1%). So this tile runs its
+// own group-model call windowed to the latest budget year and, like the budget/COFOG
+// tiles, IGNORES scopeWindow (plan §6: annual reference tiles pin to the latest year).
+// The window is half-open [Y-01-01, Y+1-01-01) to match awarder_group_model's
+// `date < COALESCE(p_to,…)` (audit C5).
 //
 // The inverse of МВР's iceberg (whose invisible money is payroll): МРРБ's is TRANSFERS —
 // money it directs but does not itself procure.
 
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent } from "@/ux/Card";
 import { formatEurCompact } from "@/lib/currency";
 import { useBudgetMinistryRollup } from "@/data/budget/useBudget";
-import { REGIONAL_BUDGET_NODE } from "@/lib/regionalReferenceData";
+import { useAwarderGroupModel } from "@/data/procurement/useAwarderGroupModel";
+import { buildRegionalModelFromAggregates } from "@/lib/regionalAttributes";
+import {
+  REGIONAL_BUDGET_NODE,
+  REGIONAL_SECTOR_EIKS,
+} from "@/lib/regionalReferenceData";
 
-export const RegionalPassThroughHero: FC<{ procEur: number | null }> = ({
-  procEur,
-}) => {
+export const RegionalPassThroughHero: FC = () => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
+
   const { data } = useBudgetMinistryRollup(REGIONAL_BUDGET_NODE);
-  const years = (data?.years ?? [])
-    .filter(
-      (y): y is typeof y & { expenditure: NonNullable<typeof y.expenditure> } =>
-        y.expenditure != null,
-    )
-    .sort((a, b) => a.fiscalYear - b.fiscalYear);
-  const latest = years[years.length - 1];
+  const latest = useMemo(() => {
+    const years = (data?.years ?? [])
+      .filter(
+        (
+          y,
+        ): y is typeof y & { expenditure: NonNullable<typeof y.expenditure> } =>
+          y.expenditure != null,
+      )
+      .sort((a, b) => a.fiscalYear - b.fiscalYear);
+    return years[years.length - 1] ?? null;
+  }, [data]);
+
+  const year = latest?.fiscalYear ?? null;
+  // Same-year procurement — half-open [Y-01-01, Y+1-01-01).
+  const window = useMemo(
+    () =>
+      year != null
+        ? { from: `${year}-01-01`, to: `${year + 1}-01-01` }
+        : { from: null, to: null },
+    [year],
+  );
+  const { model } = useAwarderGroupModel(
+    REGIONAL_SECTOR_EIKS,
+    buildRegionalModelFromAggregates,
+    window,
+    year != null,
+  );
+
   const budget = latest?.expenditure.amountEur ?? null;
-  if (!budget || budget <= 0 || procEur == null) return null;
+  const procEur = model?.totalEur ?? null;
+  if (!budget || budget <= 0 || procEur == null || year == null) return null;
 
   const procShare = Math.min(1, procEur / budget);
   const procPct = procShare * 100;
@@ -40,11 +74,11 @@ export const RegionalPassThroughHero: FC<{ procEur: number | null }> = ({
         <p className="text-lg font-semibold leading-snug">
           {bg ? (
             <>
-              МРРБ управлява{" "}
+              През {year} г. МРРБ управлява{" "}
               <span className="text-primary">
                 {formatEurCompact(budget, lang)}
-              </span>{" "}
-              годишно, но само{" "}
+              </span>
+              , но само{" "}
               <span className="text-primary">
                 {formatEurCompact(procEur, lang)}
               </span>{" "}
@@ -52,15 +86,15 @@ export const RegionalPassThroughHero: FC<{ procEur: number | null }> = ({
             </>
           ) : (
             <>
-              МРРБ directs{" "}
+              In {year} МРРБ directed{" "}
               <span className="text-primary">
                 {formatEurCompact(budget, lang)}
-              </span>{" "}
-              a year, but only{" "}
+              </span>
+              , but only{" "}
               <span className="text-primary">
                 {formatEurCompact(procEur, lang)}
               </span>{" "}
-              passes through its own procurement.
+              passed through its own procurement.
             </>
           )}
         </p>
@@ -90,16 +124,15 @@ export const RegionalPassThroughHero: FC<{ procEur: number | null }> = ({
             </span>
             <span className="text-muted-foreground">
               {bg ? "целият бюджет" : "the whole budget"}{" "}
-              {formatEurCompact(budget, lang)}
-              {latest ? ` · ${latest.fiscalYear}` : ""}
+              {formatEurCompact(budget, lang)} · {year}
             </span>
           </div>
         </div>
 
         <p className="text-[11px] text-muted-foreground/80">
           {bg
-            ? "МРРБ е министерство-разпределител: „айсбергът“ му е обратен на този на МВР (чиито скрити пари са заплати) — при МРРБ скритото са трансферите, пари които насочва, но не възлага само̀. Бюджет: ЗДБ (разход в евро). Поръчки: цялата група МРРБ от регистъра (АОП/ЦАИС ЕОП)."
-            : "МРРБ is a pass-through ministry: its „iceberg“ is the inverse of МВР's (whose hidden money is payroll) — here the hidden part is transfers, money it directs but does not itself award. Budget: State Budget Law (EUR). Procurement: the whole МРРБ group from the register (АОП/ЦАИС ЕОП)."}
+            ? `МРРБ е министерство-разпределител: „айсбергът“ му е обратен на този на МВР (чиито скрити пари са заплати) — при МРРБ скритото са трансферите, пари които насочва, но не възлага само̀. И двете числа са за ${year} г. (еднаква база, независимо от избрания обхват). Бюджет: ЗДБ (разход в евро). Поръчки: цялата група МРРБ от регистъра (АОП/ЦАИС ЕОП).`
+            : `МРРБ is a pass-through ministry: its „iceberg“ is the inverse of МВР's (whose hidden money is payroll) — here the hidden part is transfers, money it directs but does not itself award. Both figures are for ${year} (a like-for-like basis, independent of the selected scope). Budget: State Budget Law (EUR). Procurement: the whole МРРБ group from the register (АОП/ЦАИС ЕОП).`}
         </p>
       </CardContent>
     </Card>

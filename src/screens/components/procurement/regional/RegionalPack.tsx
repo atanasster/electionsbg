@@ -178,8 +178,10 @@ export const RegionalPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
         </Select>
       </div>
 
-      {/* The pass-through hero — the single killer contrast (OG screenshot target). */}
-      <RegionalPassThroughHero procEur={model.totalEur} />
+      {/* The pass-through hero — the single killer contrast (OG screenshot target).
+          Self-fetches its own same-year procurement so the annual budget is compared
+          like-for-like; deliberately NOT scope-windowed (plan §6). */}
+      <RegionalPassThroughHero />
 
       {/* Domain-only KPIs — the generic per-EIK KPIs sit in the awarder header above. */}
       <div className="grid gap-3 grid-cols-2 lg:grid-cols-3">
