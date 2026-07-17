@@ -614,16 +614,31 @@ score band) rather than ARACHNE's (drop and shrink the denominator). Our CRI's
 available-count denominator (`computeProcurementRisk.ts:263`) already gets this right and is
 worth preserving as the house pattern.
 
-### 6d. Surface
+### 6d. Surface — ✅ detail panel SHIPPED 2026-07-18 (d219013a1)
 
-`Сигнали за риск при процедурата` on `TenderDetailScreen.tsx`, same checklist form as the
-contract (§4b), same OCP a/b/c framing. Plus a flags column on `/procurement/tenders`
-(`TendersBrowserDbScreen`), which today has **no risk surface at all**.
+**Shipped:** `Сигнали за риск при процедурата` on `TenderDetailScreen.tsx` (mounted after the
+normalcy panel), same checklist form as the contract (§4b), same non-verdict framing.
+`computeTenderRisk.ts` (pure scorer) + `TenderRiskPanel.tsx` + `tender_risk.harness.ts` (8
+checks). The shared `criColor` + `RISK_CHIP_BASE` were extracted into `lib/riskGrade.ts` so the
+contract and procedure meters share one source. Verified in-browser (BG + EN) across all states.
 
-⚠️ `TenderDetailScreen.tsx:366` currently scores a tender's **awards** by adapting each into a
-contract shape (`scoreRow(awardToContract(...))`). That is contract-grain scoring wearing a
-tender page's clothes and it must not be confused with §6 — it stays, it is correct, but the
-new procedure-grain signals are a separate block with a separate label.
+⚠️ `TenderDetailScreen.tsx:366` still scores a tender's **awards** by adapting each into a
+contract shape (`scoreRow(awardToContract(...))`) — contract-grain scoring on the tender page. It
+stays, it is correct, and it is a separate block/label from the new procedure-grain panel.
+
+**Two deferred follow-ups (kept out to stay reviewable):**
+- **Step 3b — the `/procurement/tenders` browser column.** Needs `submission_deadline` (and any
+  funding fields) added to the `tenders` table registry `select` + the `tenders_list` view
+  (`functions/db_table.js` L121–177); today the browser rows carry `procedure_type` +
+  `publication_date` but NOT `submission_deadline`, so the tier-conditional window flag can't be
+  computed client-side there. The non-open flag alone *could* ship on procedure_type today.
+- **⭐ `tender_detail()` awards join (032): ocid → unp.** MEASURED: only **8.3%** of tenders that
+  have an award (by unp) are visible via the current `c.ocid = t.ocid` join — so ~92% of awarded
+  tenders show **no awards** on the detail page (this already breaks the existing `TenderAwards`
+  section, not just the new decision-period flag). The canonical lineage key is unp
+  ([[reference_contract_tender_lineage]]); switching the awards subquery to `c.unp = t.unp` fixes
+  the existing section AND lights up `shortDecisionPeriod` corpus-wide. Its own reviewable change
+  (serving-layer fn, needs re-verification of the awards/forecast/lifecycle sections).
 
 ---
 
