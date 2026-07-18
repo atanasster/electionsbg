@@ -52,7 +52,11 @@ export const ConsumptionCategoriesScreen: FC = () => {
       <section aria-label={T("Категории", "Categories")}>
         <DashboardSection
           id="prices"
-          title={T("Категории", "Categories")}
+          title={
+            cats.length
+              ? T(`${cats.length} категории`, `${cats.length} categories`)
+              : T("Категории", "Categories")
+          }
           subtitle={T(
             "Промяна от еврото · мониторингов индекс, не официален ИПЦ",
             "Change since the euro · monitoring index, not official CPI",
