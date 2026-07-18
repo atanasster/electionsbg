@@ -35,6 +35,7 @@ export const buildNgoAiSummary = async (): Promise<{ path: string }> => {
   const hasContracts = await tableExists("contracts");
   const hasFunds = await tableExists("fund_projects");
   const hasKindex = await tableExists("awarder_kindex_ranking");
+  const hasSignals = await tableExists("ngo_signals");
 
   const [ngoCount] = await q<{ ngos: number }>(
     `SELECT count(*)::int AS ngos FROM tr_companies
@@ -116,8 +117,56 @@ export const buildNgoAiSummary = async (): Promise<{ path: string }> => {
         ORDER BY share_pct DESC, linked_eur DESC LIMIT 20`)
     : [];
 
+  // Signal distribution + top NGOs per signal (migration 080). Kept compact:
+  // per-code counts + the top-10 NGOs per code (by valueEur where the signal
+  // carries one). Feeds ngoRiskSignals / ngoBySignal + the ngoOverview strip.
+  const [signalTotals] = hasSignals
+    ? await q<{ with_signal: number; total: number }>(
+        `SELECT count(*) FILTER (WHERE signal_count > 0)::int AS with_signal,
+                count(*)::int AS total FROM ngo_signals`,
+      )
+    : [{ with_signal: 0, total: 0 }];
+  const signalByCode = hasSignals
+    ? await q<{ code: string; count: number }>(
+        `SELECT unnest(string_to_array(signal_codes, ' ')) AS code, count(*)::int AS count
+         FROM ngo_signals WHERE signal_codes <> '' GROUP BY code ORDER BY count DESC`,
+      )
+    : [];
+  const topBySignalRows = hasSignals
+    ? await q<{ code: string; eik: string; name: string; eur: number | null }>(`
+        WITH s AS (
+          SELECT e.eik, sig->>'code' AS code, (sig->>'valueEur')::numeric AS eur
+          FROM ngo_signals e, jsonb_array_elements(e.signals) sig
+        ),
+        ranked AS (
+          SELECT s.code, s.eik, MIN(c.name) AS name, MAX(s.eur) AS eur,
+                 row_number() OVER (PARTITION BY s.code
+                                    ORDER BY MAX(s.eur) DESC NULLS LAST, s.eik) AS rn
+          FROM s JOIN tr_companies c ON c.uic = s.eik
+          GROUP BY s.code, s.eik
+        )
+        SELECT code, eik, name, eur FROM ranked WHERE rn <= 10 ORDER BY code, rn`)
+    : [];
+  const topBySignal: Record<
+    string,
+    { eik: string; name: string; eur: number | null }[]
+  > = {};
+  for (const r of topBySignalRows) {
+    (topBySignal[r.code] ??= []).push({
+      eik: r.eik,
+      name: r.name,
+      eur: r.eur != null ? Number(r.eur) : null,
+    });
+  }
+
   const summary = {
     generatedAt: new Date().toISOString(),
+    signals: {
+      withSignal: signalTotals.with_signal,
+      surface: signalTotals.total,
+      byCode: signalByCode.map((r) => ({ code: r.code, count: r.count })),
+      topByCode: topBySignal,
+    },
     totals: {
       ngos: ngoCount.ngos,
       touchingPublicMoney,

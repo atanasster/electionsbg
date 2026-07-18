@@ -27,6 +27,15 @@ type NgoSummary = {
     linkedEur: number;
     linkedSuppliers: number;
   }[];
+  signals?: {
+    withSignal: number;
+    surface: number;
+    byCode: { code: string; count: number }[];
+    topByCode: Record<
+      string,
+      { eik: string; name: string; eur: number | null }[]
+    >;
+  };
 };
 
 const SUMMARY = "/ngo/ai_summary.json";
@@ -38,6 +47,17 @@ const SOURCE_LABEL: Record<string, { bg: string; en: string }> = {
   abf: { bg: "Америка за България", en: "America for Bulgaria" },
   ned: { bg: "NED", en: "NED" },
 };
+// Public-interest signal codes (migration 080) → labels. Mirrors NGO_SIGNAL_META
+// on the UI side; kept here because the AI bundle reads static JSON, not the app.
+const SIGNAL_LABEL: Record<string, { bg: string; en: string }> = {
+  public_contracts: { bg: "Обществени поръчки", en: "Public contracts" },
+  single_bid: { bg: "Един кандидат", en: "Single bidder" },
+  eu_funds: { bg: "Средства от ЕС", en: "EU funds" },
+  budget_subsidy: { bg: "Държавна субсидия", en: "State subsidy" },
+  foreign_funded: { bg: "Външно финансиране", en: "External funding" },
+  large: { bg: "Голям бюджет", en: "Large budget" },
+};
+
 const NGO_TYPE_LABEL: Record<string, { bg: string; en: string }> = {
   sport: { bg: "спортни клубове", en: "sports clubs" },
   chitalishte: { bg: "читалища", en: "community centres" },
@@ -81,6 +101,14 @@ export const ngoOverview = async (
       value: fmtEurCompact(src.eur, ctx.lang),
     });
   }
+  if (s.signals) {
+    rows.push({
+      metric: bg
+        ? "С публично-значими сигнали"
+        : "With public-interest signals",
+      value: fmtInt(s.signals.withSignal, ctx.lang),
+    });
+  }
   const topTypes = s.byType
     .slice(0, 3)
     .map((x) => {
@@ -109,7 +137,106 @@ export const ngoOverview = async (
       touching_public_money: t.touchingPublicMoney,
       external_funding: fmtEurCompact(t.externalFundingEur, ctx.lang),
       contracts: fmtEurCompact(t.contractsEur, ctx.lang),
+      ...(s.signals ? { with_signal: s.signals.withSignal } : {}),
     },
+    provenance: ["ngo/ai_summary.json"],
+  };
+};
+
+// Signal distribution — how many NGOs carry each public-interest signal
+// (procurement, EU funds, subsidies, external funding, single-bid, large).
+export const ngoRiskSignals = async (
+  _args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const s = await fetchData<NgoSummary>(SUMMARY);
+  const sig = s.signals;
+  const rows: Row[] = (sig?.byCode ?? []).map((c) => {
+    const l = SIGNAL_LABEL[c.code];
+    return {
+      signal: l ? (bg ? l.bg : l.en) : c.code,
+      ngos: fmtInt(c.count, ctx.lang),
+    };
+  });
+  const top = sig?.byCode[0];
+  return {
+    tool: "ngoRiskSignals",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? "НПО по публично-значими сигнали"
+      : "NGOs by public-interest signal",
+    subtitle: bg
+      ? `${fmtInt(sig?.withSignal ?? 0, ctx.lang)} организации с поне един сигнал`
+      : `${fmtInt(sig?.withSignal ?? 0, ctx.lang)} organisations with at least one signal`,
+    columns: [
+      { key: "signal", label: bg ? "Сигнал" : "Signal" },
+      { key: "ngos", label: bg ? "Брой НПО" : "NGOs", numeric: true },
+    ],
+    rows,
+    viz: "none",
+    facts: {
+      with_signal: sig?.withSignal ?? 0,
+      ...(top
+        ? {
+            top_signal: SIGNAL_LABEL[top.code]
+              ? bg
+                ? SIGNAL_LABEL[top.code].bg
+                : SIGNAL_LABEL[top.code].en
+              : top.code,
+            top_signal_count: top.count,
+          }
+        : {}),
+    },
+    provenance: ["ngo/ai_summary.json"],
+  };
+};
+
+// Top NGOs carrying a specific signal. `code` defaults to public_contracts.
+export const ngoBySignal = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const s = await fetchData<NgoSummary>(SUMMARY);
+  const code =
+    typeof args?.code === "string" && SIGNAL_LABEL[args.code]
+      ? args.code
+      : "public_contracts";
+  const list = s.signals?.topByCode[code] ?? [];
+  const rows: Row[] = list.slice(0, 15).map((r) => ({
+    name: clean(r.name),
+    eik: r.eik,
+    amount: r.eur != null ? fmtEurCompact(r.eur, ctx.lang) : "—",
+  }));
+  const label = SIGNAL_LABEL[code];
+  const top = list[0];
+  return {
+    tool: "ngoBySignal",
+    domain: "fiscal",
+    kind: "table",
+    title: bg
+      ? `НПО със сигнал: ${label ? label.bg : code}`
+      : `NGOs with signal: ${label ? label.en : code}`,
+    subtitle: bg
+      ? "Показател за публичен интерес — трейс, не доказателство"
+      : "Public-interest indicator — a trace, not proof",
+    columns: [
+      { key: "name", label: bg ? "Организация" : "Organisation" },
+      { key: "eik", label: "ЕИК" },
+      { key: "amount", label: bg ? "Сума" : "Amount", numeric: true },
+    ],
+    rows,
+    viz: "none",
+    facts: top
+      ? {
+          top_ngo: clean(top.name),
+          ...(top.eur != null
+            ? { top_amount: fmtEurCompact(top.eur, ctx.lang) }
+            : {}),
+        }
+      : {},
     provenance: ["ngo/ai_summary.json"],
   };
 };

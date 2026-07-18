@@ -2780,6 +2780,21 @@ export const route = (question: string, ctx: ToolContext): Route => {
       " npo",
     )
   ) {
+    // Signal intent → the public-interest signal views. A specific signal named
+    // in the query pins ngoBySignal to that code; otherwise the distribution.
+    // Checked BEFORE the funding branch so "НПО със сигнал за средства от ЕС"
+    // routes to the signal view, not the best-funded list.
+    if (has(q, "сигнал", "signal", "флаг", "flag", " риск", " risk")) {
+      if (has(q, "средства от ес", "eu fund", "еврофонд", "исун", "isun"))
+        return { tool: "ngoBySignal", args: { code: "eu_funds" } };
+      if (has(q, "външно", "чуждестранн", "foreign", "external"))
+        return { tool: "ngoBySignal", args: { code: "foreign_funded" } };
+      if (has(q, "субсиди", "subsidy"))
+        return { tool: "ngoBySignal", args: { code: "budget_subsidy" } };
+      if (has(q, "поръчк", "contract"))
+        return { tool: "ngoBySignal", args: { code: "public_contracts" } };
+      return { tool: "ngoRiskSignals", args: {} };
+    }
     if (
       has(
         q,

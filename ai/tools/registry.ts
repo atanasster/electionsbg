@@ -93,7 +93,13 @@ import {
 } from "./environment";
 import { generationMix, electricityPrices, powerPlants } from "./energy";
 import { riverbedCleaning } from "./vik";
-import { ngoOverview, ngoTopFunded, ngoConflictAwarders } from "./ngo";
+import {
+  ngoOverview,
+  ngoTopFunded,
+  ngoConflictAwarders,
+  ngoRiskSignals,
+  ngoBySignal,
+} from "./ngo";
 import { governments } from "./govpeople";
 import {
   localCouncilTrend,
@@ -1810,6 +1816,55 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: ngoConflictAwarders,
+  },
+  {
+    name: "ngoRiskSignals",
+    domain: "fiscal",
+    description: {
+      bg: "НПО по публично-значими сигнали — колко организации печелят поръчки, получават средства от ЕС, субсидии или външно финансиране.",
+      en: "NGOs by public-interest signal — how many win contracts, receive EU funds, subsidies or external funding.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "Колко НПО имат сигнали за публичен интерес?",
+        en: "How many NGOs have public-interest signals?",
+      },
+      {
+        bg: "НПО със сигнали за поръчки и финансиране",
+        en: "NGOs flagged for contracts and funding",
+      },
+    ],
+    run: ngoRiskSignals,
+  },
+  {
+    name: "ngoBySignal",
+    domain: "fiscal",
+    description: {
+      bg: "Топ НПО с конкретен сигнал (обществени поръчки, средства от ЕС, държавна субсидия, външно финансиране, един кандидат, голям бюджет).",
+      en: "Top NGOs carrying a specific signal (public contracts, EU funds, state subsidy, external funding, single bidder, large budget).",
+    },
+    params: [
+      {
+        name: "code",
+        type: "text",
+        description: {
+          bg: "Код на сигнала (напр. eu_funds, public_contracts, foreign_funded).",
+          en: "Signal code (e.g. eu_funds, public_contracts, foreign_funded).",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Кои НПО получават средства от ЕС?",
+        en: "Which NGOs receive EU funds?",
+      },
+      {
+        bg: "НПО с външно финансиране",
+        en: "NGOs with external funding",
+      },
+    ],
+    run: ngoBySignal,
   },
   {
     name: "budgetTrend",
