@@ -32,6 +32,7 @@ import { clarify, matchesLang, stripControl } from "./lang";
 import type {
   ChatResponse,
   LLMProvider,
+  NarrationReject,
   ProviderStatus,
   RespondOpts,
   ResponseMeta,
@@ -265,7 +266,7 @@ export class WebLLMProvider implements LLMProvider {
     usage: Usage,
     onDelta?: (partial: string) => void,
     narrationCtx = "",
-  ): Promise<{ text: string; fromModel: boolean }> {
+  ): Promise<{ text: string; fromModel: boolean; reject?: NarrationReject }> {
     const template = narrate(env, lang);
     if (!this.engine) return { text: template, fromModel: false };
     const maxTokens = 320;
@@ -277,12 +278,21 @@ export class WebLLMProvider implements LLMProvider {
     // the caller (Chat) overwrites the streamed buffer with the returned text
     // once respond() resolves, so a rejected number is corrected on completion.
     const grounded = [env.title, ...env.provenance].join(" ");
-    const accept = (text: string): { text: string; fromModel: boolean } =>
-      text.length > 0 &&
-      matchesLang(text, lang) &&
-      numbersGrounded(text, env.facts, grounded)
-        ? { text, fromModel: true }
-        : { text: template, fromModel: false };
+    const accept = (
+      text: string,
+    ): { text: string; fromModel: boolean; reject?: NarrationReject } => {
+      const reject: NarrationReject | undefined =
+        text.length === 0
+          ? "empty"
+          : !matchesLang(text, lang)
+            ? "language"
+            : !numbersGrounded(text, env.facts, grounded)
+              ? "grounding"
+              : undefined;
+      return reject
+        ? { text: template, fromModel: false, reject }
+        : { text, fromModel: true };
+    };
     // Language guard: small models often answer in English even when asked in
     // Bulgarian. The template narration is always in the right language, so if
     // the model's output isn't predominantly the requested script, use it.
@@ -325,7 +335,7 @@ export class WebLLMProvider implements LLMProvider {
       addUsage(usage, res);
       return accept(stripControl(res.choices?.[0]?.message?.content ?? ""));
     } catch {
-      return { text: template, fromModel: false };
+      return { text: template, fromModel: false, reject: "error" };
     }
   }
 
@@ -368,20 +378,16 @@ export class WebLLMProvider implements LLMProvider {
           args: r.args,
           meta: meta("rules"),
         };
-      const { text, fromModel } = await this.narrateEnv(
+      const { text, fromModel, reject } = await this.narrateEnv(
         env,
         ctx.lang,
         usage,
         onDelta,
         narrationCtx,
       );
-      return {
-        text,
-        env,
-        tool: r.tool,
-        args: r.args,
-        meta: meta(fromModel ? "model" : "rules"),
-      };
+      const m = meta(fromModel ? "model" : "rules");
+      if (reject) m.narrationReject = reject;
+      return { text, env, tool: r.tool, args: r.args, meta: m };
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e);
       return {
@@ -423,19 +429,15 @@ export class WebLLMProvider implements LLMProvider {
           args,
           meta: meta("rules"),
         };
-      const { text, fromModel } = await this.narrateEnv(
+      const { text, fromModel, reject } = await this.narrateEnv(
         env,
         ctx.lang,
         usage,
         onDelta,
       );
-      return {
-        text,
-        env,
-        tool,
-        args,
-        meta: meta(fromModel ? "model" : "rules"),
-      };
+      const m = meta(fromModel ? "model" : "rules");
+      if (reject) m.narrationReject = reject;
+      return { text, env, tool, args, meta: m };
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e);
       return {

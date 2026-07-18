@@ -27,6 +27,7 @@ import type { ModelOption } from "./models";
 import type {
   ChatResponse,
   LLMProvider,
+  NarrationReject,
   ProviderStatus,
   RespondOpts,
   ResponseMeta,
@@ -249,7 +250,7 @@ export class OpenRouterProvider implements LLMProvider {
     usage: Usage,
     narrationCtx: string,
     onDelta?: (partial: string) => void,
-  ): Promise<{ text: string; fromModel: boolean }> {
+  ): Promise<{ text: string; fromModel: boolean; reject?: NarrationReject }> {
     const template = narrate(env, lang);
     try {
       const { system, user } = buildNarrationPrompt(
@@ -281,16 +282,28 @@ export class OpenRouterProvider implements LLMProvider {
       // shown via onDelta before this gate ran. That's safe — the caller (Chat)
       // overwrites the streamed buffer with THIS returned text once respond()
       // resolves, so a rejected number is replaced by the template on completion.
-      const grounded = numbersGrounded(
-        text,
-        env.facts,
-        [env.title, ...env.provenance].join(" "),
-      );
-      if (text.length > 0 && matchesLang(text, lang) && grounded)
-        return { text, fromModel: true };
-      return { text: template, fromModel: false };
+      const reject: NarrationReject | undefined =
+        text.length === 0
+          ? "empty"
+          : !matchesLang(text, lang)
+            ? "language"
+            : !numbersGrounded(
+                  text,
+                  env.facts,
+                  [env.title, ...env.provenance].join(" "),
+                )
+              ? "grounding"
+              : undefined;
+      if (reject) {
+        if (DEV)
+          console.debug(
+            `[chat] narration rejected (${reject}) — using template`,
+          );
+        return { text: template, fromModel: false, reject };
+      }
+      return { text, fromModel: true };
     } catch {
-      return { text: template, fromModel: false };
+      return { text: template, fromModel: false, reject: "error" };
     }
   }
 
@@ -352,23 +365,19 @@ export class OpenRouterProvider implements LLMProvider {
           args: r.args,
           meta: baseMeta("rules", routedByModel),
         };
-      const { text, fromModel } = await this.narrateEnv(
+      const { text, fromModel, reject } = await this.narrateEnv(
         env,
         ctx.lang,
         usage,
         narrationCtx,
         onDelta,
       );
-      return {
-        text,
-        env,
-        tool: r.tool,
-        args: r.args,
-        meta: baseMeta(
-          fromModel ? "model" : "rules",
-          routedByModel || fromModel,
-        ),
-      };
+      const m = baseMeta(
+        fromModel ? "model" : "rules",
+        routedByModel || fromModel,
+      );
+      if (reject) m.narrationReject = reject;
+      return { text, env, tool: r.tool, args: r.args, meta: m };
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e);
       return {
@@ -412,20 +421,16 @@ export class OpenRouterProvider implements LLMProvider {
           args,
           meta: meta("rules", false),
         };
-      const { text, fromModel } = await this.narrateEnv(
+      const { text, fromModel, reject } = await this.narrateEnv(
         env,
         ctx.lang,
         usage,
         "",
         onDelta,
       );
-      return {
-        text,
-        env,
-        tool,
-        args,
-        meta: meta(fromModel ? "model" : "rules", fromModel),
-      };
+      const m = meta(fromModel ? "model" : "rules", fromModel);
+      if (reject) m.narrationReject = reject;
+      return { text, env, tool, args, meta: m };
     } catch (e) {
       const msg = e instanceof Error ? e.message : String(e);
       return {

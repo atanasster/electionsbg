@@ -25,6 +25,13 @@ export type RespondOpts = {
   history?: TurnMemory[];
 };
 
+// Why a model narration was discarded in favour of the template — surfaced for
+// telemetry so we can SEE how often (and why) the model's prose is rejected
+// rather than guessing whether the grounded-number gate ever fires. Absent when
+// the model's prose was accepted, or when no model narration was attempted (the
+// rules engine, or a chooser env). "grounding" is the grounded-number gate.
+export type NarrationReject = "language" | "grounding" | "empty" | "error";
+
 // How a response was produced — surfaced in the answer panel's header band.
 // For the rules engine only `model`/`durationMs`/`narratedBy:"rules"` apply
 // (no LLM, so no token counts). A WebLLM model additionally reports tokens and,
@@ -36,6 +43,7 @@ export type ResponseMeta = {
   outputTokens?: number; // LLM only
   tokPerSec?: number; // LLM only — engine decode rate, when available
   narratedBy: "rules" | "model"; // who wrote the prose (numbers are always computed)
+  narrationReject?: NarrationReject; // set only on a model-narration → template fallback
 };
 
 export type ChatResponse = {

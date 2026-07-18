@@ -44,6 +44,13 @@ const run = () => {
     "grounded number (matches a facts value) → true",
   );
 
+  // 5+ digit fabrication that is a digit-FRAGMENT of a real facts token
+  // ("18206" ⊂ "618206") must be rejected — exact match required at 5+ digits.
+  assert(
+    numbersGrounded("Партията получи 18206 гласа.", facts) === false,
+    "5+ digit substring-of-a-real-token fabrication (18206 ⊂ 618206) → false",
+  );
+
   // localized separators, both forms → accept
   assert(
     numbersGrounded("Партията получи 618 206 гласа.", facts) === true,

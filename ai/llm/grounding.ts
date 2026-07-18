@@ -96,13 +96,18 @@ const stringify = (facts: unknown): string => {
 // Verify every MATERIAL number in `prose` is grounded in the material the model
 // was given (`facts` plus `extra` — the title, and optionally provenance).
 //
-// A prose token `p` (its bare digit run) is GROUNDED iff some facts token `f`
-// contains `p` as a substring. Substring (not equality) is deliberate: a year
-// "2023" grounds against a date label "2023_10_27", and a small ordinal grounds
-// against a longer figure — while an exact euro amount that appears nowhere in
-// facts is a substring of no single facts token, so it's rejected. Rounding is
-// caught the same way: facts 618206, prose 618000 → "618000" is a substring of
-// nothing → rejected.
+// A prose token `p` (its bare digit run) must be GROUNDED in the facts token set,
+// with the match rule keyed on length:
+//   * 5+ digits → must match a facts token EXACTLY. A material figure is quoted
+//     verbatim from facts, never rounded or truncated, so exact (not substring)
+//     closes the one real hole: a fabricated large number that is a digit-FRAGMENT
+//     of a genuine facts figure (facts 618206, prose 18206) passes a substring
+//     test but is rejected here. Dates split into component tokens on their
+//     separators ("2023_10_27" → 2023/10/27), so a year still matches exactly.
+//   * 1-4 digits → may match a facts token as a SUBSTRING. This keeps the natural
+//     short phrasings ("about 25%" for a facts "25,3%", a small ordinal), where a
+//     coincidental short-fragment fabrication is both low-probability and low-harm.
+// Rounding is caught either way: facts 618206, prose 618000 → matches nothing.
 //
 // Trivially-safe tokens are ignored to avoid false rejects: a bare 1-2 digit
 // number (a small count / ordinal) passes unconditionally. Everything 3+ digits,
@@ -125,7 +130,13 @@ export function numbersGrounded(
       PREFIX_MARK.test(norm.slice(Math.max(0, start - 2), start));
     // bare 1-2 digit numbers with no unit are trivially safe (counts/ordinals)
     if (!marked && digits.length <= 2) continue;
-    if (!F.some((f) => f.includes(digits))) return false;
+    // 5+ digits must match a facts token EXACTLY; 1-4 digits may match as a
+    // substring (years / percentages / small approximations). See the note above.
+    const ok =
+      digits.length >= 5
+        ? F.some((f) => f === digits)
+        : F.some((f) => f.includes(digits));
+    if (!ok) return false;
   }
   return true;
 }
