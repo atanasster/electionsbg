@@ -72,6 +72,7 @@ import { gitInspections } from "./git_inspections";
 import { eurostatRoadSafety } from "./eurostat_road_safety";
 import { emberGeneration } from "./ember_generation";
 import { eurostatEnergyPrices } from "./eurostat_energy_prices";
+import { ecOilBulletin } from "./ec_oil_bulletin";
 import { eurostatTourism } from "./eurostat_tourism";
 import { councilMinutes } from "./council_minutes";
 import { ipiLocalTaxes } from "./ipi_local_taxes";
@@ -195,6 +196,7 @@ export const SOURCES: WatchSource[] = [
   ipiLocalTaxes,
   municipalNaredba,
   kzpPrices,
+  ecOilBulletin,
   nzokHospitalBmp,
   nzokDrugUnitPrices,
   mhEeofQuarterly,

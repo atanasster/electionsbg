@@ -256,6 +256,46 @@ const Deals: FC = () => (
   </SceneFrame>
 );
 
+// Горива — a fuel pump.
+const FuelScene: FC = () => (
+  <SceneFrame>
+    <rect
+      x="116"
+      y="30"
+      width="46"
+      height="66"
+      rx="5"
+      fill="var(--sector)"
+      opacity=".85"
+    />
+    <rect
+      x="124"
+      y="40"
+      width="30"
+      height="18"
+      rx="2"
+      fill={PAPER}
+      opacity=".9"
+    />
+    <path
+      d="M162 44 h12 a6 6 0 0 1 6 6 v28 a8 8 0 0 1 -8 8"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.6"
+      strokeLinecap="round"
+    />
+    <rect
+      x="170"
+      y="38"
+      width="10"
+      height="9"
+      rx="2"
+      fill="currentColor"
+      opacity=".5"
+    />
+  </SceneFrame>
+);
+
 // Спрямо ЕС — diverging bars around an EU=100 baseline.
 const EuCompare: FC = () => (
   <SceneFrame>
@@ -313,4 +353,5 @@ export const CONSUMPTION_SCENES: Record<string, FC> = {
   categories: Categories,
   eu: EuCompare,
   deals: Deals,
+  fuel: FuelScene,
 };

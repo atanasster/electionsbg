@@ -1249,6 +1249,11 @@ const ConsumptionEuScreen = lazy(() =>
     default: m.ConsumptionEuScreen,
   })),
 );
+const ConsumptionFuelScreen = lazy(() =>
+  import("./screens/consumption/ConsumptionFuelScreen").then((m) => ({
+    default: m.ConsumptionFuelScreen,
+  })),
+);
 const ChainProfileScreen = lazy(() =>
   import("./screens/consumption/ChainProfileScreen").then((m) => ({
     default: m.ChainProfileScreen,
@@ -3523,6 +3528,16 @@ export const AuthRoutes = () => {
               <LayoutScreen>
                 <Suspense fallback={<RouteFallback />}>
                   <ConsumptionEuScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="consumption/fuel"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <ConsumptionFuelScreen />
                 </Suspense>
               </LayoutScreen>
             }

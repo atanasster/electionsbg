@@ -112,6 +112,13 @@ export const ConsumptionScreen = () => {
       desc: T("Храната у нас спрямо Европа", "Our food vs Europe"),
       accent: TILE_ACCENTS.indigo,
     },
+    {
+      id: "fuel",
+      to: "/consumption/fuel",
+      title: T("Горива", "Fuel"),
+      desc: T("Бензин и дизел спрямо ЕС", "Petrol & diesel vs the EU"),
+      accent: TILE_ACCENTS.slate,
+    },
   ] as const;
 
   const exploreSection: TileHubSection = {

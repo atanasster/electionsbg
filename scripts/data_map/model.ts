@@ -661,6 +661,22 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     tags: ["prices"],
   },
   {
+    id: "oil_bulletin",
+    label: { bg: "ЕК — Седмичен нефтен бюлетин", en: "EC Weekly Oil Bulletin" },
+    detail: {
+      bg: "цени на горивата BG спрямо ЕС",
+      en: "BG vs EU fuel prices",
+    },
+    desc: {
+      bg: "Консолидираната история на потребителските цени на горивата (бензин А95 и дизел, с ДДС) — България спрямо средното за ЕС, седмично от 2005 г. Захранва тайла „Горива“ в изгледа „Потребление“.",
+      en: "The consolidated history of consumer fuel prices (petrol 95 & diesel, incl. VAT) — Bulgaria vs the EU average, weekly since 2005. Powers the Fuel tile in the Consumption view.",
+    },
+    url: "https://energy.ec.europa.eu/data-and-analysis/weekly-oil-bulletin_en",
+    origin: "eu",
+    members: ["ec_oil_bulletin"],
+    tags: ["prices"],
+  },
+  {
     id: "tibg",
     label: {
       bg: "Прозрачност без граници",
@@ -1768,6 +1784,7 @@ export const EDGES: [string, string][] = [
   ["src:bnb", "ds:macro"],
   ["src:bnb", "ds:macro_fdi"],
   ["src:kzp", "ds:prices"],
+  ["src:oil_bulletin", "ds:prices"],
   ["src:tibg", "ds:localgov"],
   ["src:ipi", "ds:localgov"],
   ["src:wiki", "ds:polls"],

@@ -487,6 +487,10 @@ export const DataSources = () => {
                 href="https://ec.europa.eu/eurostat/databrowser/product/view/prc_ppp_ind_1"
                 label={t("prices_eurostat_pli_source")}
               />
+              <SourceItem
+                href="https://energy.ec.europa.eu/data-and-analysis/weekly-oil-bulletin_en"
+                label={t("prices_oil_bulletin_source")}
+              />
             </ul>
           </DataGroup>
 
