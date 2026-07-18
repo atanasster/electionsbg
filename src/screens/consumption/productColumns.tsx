@@ -4,7 +4,7 @@
 
 import { Link } from "react-router-dom";
 import type { DataTableColumnDef } from "@/ux/data_table/utils";
-import { fmtEur } from "@/data/prices/usePrices";
+import { fmtEur, euroPctSafe } from "@/data/prices/usePrices";
 
 export interface ProductRow {
   slug: string;
@@ -66,11 +66,13 @@ export const buildProductColumns = (
     header: T("От еврото", "Since euro"),
     meta: { align: "right" },
     cell: ({ row }) => {
-      const v = row.original.pctSinceEuro;
+      const raw = row.original.pctSinceEuro;
+      const v = euroPctSafe(raw);
       if (v == null)
         return (
           <span className="text-xs text-muted-foreground">
-            {T("нов", "new")}
+            {/* genuinely post-euro product vs a suppressed data artifact */}
+            {raw == null ? T("нов", "new") : "—"}
           </span>
         );
       const cls =

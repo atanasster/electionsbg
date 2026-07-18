@@ -185,24 +185,61 @@ export const PriceHistoryChart: FC<Props> = ({ points, height = 220 }) => {
           />
         ))}
 
-        {hovPt && (
-          <g>
-            <line
-              x1={x(hovPt.day)}
-              x2={x(hovPt.day)}
-              y1={padY}
-              y2={H - padY}
-              className="stroke-border"
-              strokeWidth={1}
-            />
-            <circle
-              cx={x(hovPt.day)}
-              cy={y(hovPt.min_eur)}
-              r={3.5}
-              className="fill-primary"
-            />
-          </g>
-        )}
+        {hovPt &&
+          (() => {
+            const px = x(hovPt.day);
+            const py = y(hovPt.min_eur);
+            const boxW = 104;
+            const boxH = 36;
+            // Clamp the box inside the viewBox; flip below the point if it would
+            // clip the top edge.
+            const bx = Math.min(Math.max(px - boxW / 2, 2), W - boxW - 2);
+            const by = py - boxH - 10 < padY ? py + 10 : py - boxH - 10;
+            return (
+              <g>
+                <line
+                  x1={px}
+                  x2={px}
+                  y1={padY}
+                  y2={H - padY}
+                  className="stroke-border"
+                  strokeWidth={1}
+                />
+                <circle cx={px} cy={py} r={3.5} className="fill-primary" />
+                <g pointerEvents="none">
+                  <rect
+                    x={bx}
+                    y={by}
+                    width={boxW}
+                    height={boxH}
+                    rx={5}
+                    className="fill-card stroke-border"
+                    strokeWidth={1}
+                  />
+                  <text
+                    x={bx + boxW / 2}
+                    y={by + 15}
+                    textAnchor="middle"
+                    fontSize={12}
+                    fontWeight={700}
+                    className="fill-foreground tabular-nums"
+                  >
+                    {fmtEur(hovPt.min_eur, lang)}
+                  </text>
+                  <text
+                    x={bx + boxW / 2}
+                    y={by + 29}
+                    textAnchor="middle"
+                    fontSize={10}
+                    className="fill-muted-foreground"
+                  >
+                    {fmtPriceDate(hovPt.day, lang)} · {hovPt.chains}{" "}
+                    {T("вериги", "chains")}
+                  </text>
+                </g>
+              </g>
+            );
+          })()}
       </svg>
 
       <div className="mt-1 flex items-center justify-between text-xs text-muted-foreground">

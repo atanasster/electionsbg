@@ -384,7 +384,14 @@ export const rebuildCatalog = async (): Promise<void> => {
             WHERE k.product_id IS NOT NULL
             GROUP BY k.product_id)
          UPDATE price_products p
-            SET pct_since_euro = round((now.m / base.m - 1)::numeric * 100, 3)
+            -- A move >100% since euro-day is a data artifact (thin euro-day
+            -- baseline, per-piece↔per-kg unit change, or identity drift under one
+            -- canon_key), not real inflation — store NULL ("no reliable baseline")
+            -- so no consumer (UI, AI) reports a "+429%".
+            SET pct_since_euro = CASE
+                  WHEN abs(now.m / base.m - 1) > 1 THEN NULL
+                  ELSE round((now.m / base.m - 1)::numeric * 100, 3)
+                END
            FROM base JOIN now USING (product_id)
           WHERE base.product_id = p.product_id AND base.m > 0`,
         [euroDay],

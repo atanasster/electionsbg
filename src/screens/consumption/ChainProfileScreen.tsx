@@ -142,7 +142,7 @@ export const ChainProfileScreen: FC = () => {
                       {numFmt.format(info.row.products)}
                     </div>
                     <div className="text-xs text-muted-foreground">
-                      {T("проследени продукта", "tracked products")}
+                      {T("продукта от кошницата", "basket products priced")}
                     </div>
                   </div>
                 ) : null}

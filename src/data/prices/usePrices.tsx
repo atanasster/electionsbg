@@ -311,6 +311,15 @@ export const fmtPct = (frac: number, dp = 1): string => {
   return `${sign}${Math.abs(pct).toFixed(dp)}%`;
 };
 
+// A grocery item cannot credibly move more than ~100% since euro-day (Jan 2026);
+// values beyond that are data artifacts — a thin/glitchy euro-day baseline, a
+// per-piece↔per-kg unit change, or product-identity drift under one canon_key.
+// Treat them as "no reliable baseline" so the UI never shows a "+429%".
+export const EURO_PCT_ARTIFACT = 100;
+/** pct_since_euro (a PERCENT), or null when it's an implausible artifact. */
+export const euroPctSafe = (pct: number | null | undefined): number | null =>
+  pct == null || Math.abs(pct) > EURO_PCT_ARTIFACT ? null : pct;
+
 /** Tailwind text class for a price change: red up, green down, muted flat. */
 export const priceChangeColor = (frac: number): string =>
   frac > 0.001
