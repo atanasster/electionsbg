@@ -50,6 +50,14 @@ const SOURCE_LABEL: Record<string, { bg: string; en: string }> = {
 // Public-interest signal codes (migration 080) → labels. Mirrors NGO_SIGNAL_META
 // on the UI side; kept here because the AI bundle reads static JSON, not the app.
 const SIGNAL_LABEL: Record<string, { bg: string; en: string }> = {
+  politician_board: {
+    bg: "Политик в ръководството",
+    en: "Politician on board",
+  },
+  magistrate_board: {
+    bg: "Магистрат в ръководството",
+    en: "Magistrate on board",
+  },
   public_contracts: { bg: "Обществени поръчки", en: "Public contracts" },
   single_bid: { bg: "Един кандидат", en: "Single bidder" },
   eu_funds: { bg: "Средства от ЕС", en: "EU funds" },

@@ -14,8 +14,11 @@ import {
   HandCoins,
   Globe,
   TrendingUp,
+  Users,
+  Scale,
 } from "lucide-react";
 import { formatEurCompact } from "@/lib/currency";
+import { decodeEntities } from "@/lib/decodeEntities";
 import { type SignalTone } from "@/screens/components/procurement/SignalPill";
 import {
   SignalPillStrip,
@@ -30,6 +33,8 @@ export type NgoSignal = {
   count?: number | null;
   share?: number | null;
   asOf?: string | number | null;
+  detail?: string | null; // e.g. the connected person's name
+  confidence?: string | null;
 };
 
 type Meta = {
@@ -43,7 +48,10 @@ type Meta = {
 const ICON = "h-3 w-3";
 
 // Ordered, so the strip renders deterministically regardless of payload order.
+// Connection signals first (the differentiator), then the public-money class.
 export const NGO_SIGNAL_ORDER = [
+  "politician_board",
+  "magistrate_board",
   "public_contracts",
   "single_bid",
   "eu_funds",
@@ -53,6 +61,29 @@ export const NGO_SIGNAL_ORDER = [
 ] as const;
 
 export const NGO_SIGNAL_META: Record<string, Meta> = {
+  politician_board: {
+    tone: "violet",
+    icon: <Users className={ICON} />,
+    short: ["ngo_signal_politician_short", "Политик в ръководството"],
+    long: [
+      "ngo_signal_politician_long",
+      "Политик или служител в ръководството",
+    ],
+    hint: [
+      "ngo_signal_politician_hint",
+      "Политически изложено лице (PEP) е в управата — рискова категория, не обвинение.",
+    ],
+  },
+  magistrate_board: {
+    tone: "fuchsia",
+    icon: <Scale className={ICON} />,
+    short: ["ngo_signal_magistrate_short", "Магистрат в ръководството"],
+    long: ["ngo_signal_magistrate_long", "Магистрат в ръководството"],
+    hint: [
+      "ngo_signal_magistrate_hint",
+      "Съдия или прокурор фигурира в управата на организацията — трейс, не доказателство.",
+    ],
+  },
   public_contracts: {
     tone: "teal",
     icon: <Landmark className={ICON} />,
@@ -151,6 +182,12 @@ export const NgoSignalPills: FC<{
           <div className="text-xs text-muted-foreground">
             {t(m.hint[0]) || m.hint[1]}
           </div>
+          {sig.detail ? (
+            <div className="text-xs">
+              {decodeEntities(sig.detail)}
+              {sig.count != null && sig.count > 1 ? ` +${sig.count - 1}` : ""}
+            </div>
+          ) : null}
           {value ? (
             <div className="text-xs tabular-nums">
               {value}

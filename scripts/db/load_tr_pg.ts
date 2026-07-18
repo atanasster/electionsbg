@@ -400,6 +400,16 @@ export const loadTrPg = async (): Promise<{
       .catch(() => false);
     if (hasNgoDeps) {
       await exec(readFileSync(NGO_SIGNALS_SQL, "utf8"));
+      // Connection signals: rebuild ngo_board_links from the fresh officers +
+      // the magistrate roster + the persisted official_roster. Guarded on the
+      // magistrate table (the rebuild fn joins it; may not be loaded on a TR-only
+      // DB). The official leg needs official_roster, populated by
+      // db:load:ngo-board-links; empty here just yields no official links.
+      const hasMagistrate = await getPool()
+        .query("SELECT to_regclass('public.magistrate') AS t")
+        .then((r) => r.rows[0]?.t != null)
+        .catch(() => false);
+      if (hasMagistrate) await exec("SELECT rebuild_ngo_board_links()");
       // Matview is created WITH NO DATA; a plain REFRESH populates it (~2s over
       // ~31k NGOs). Not CONCURRENTLY — it may be unpopulated on the first run.
       await exec("REFRESH MATERIALIZED VIEW ngo_signals");

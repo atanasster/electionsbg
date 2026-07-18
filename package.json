@@ -43,6 +43,8 @@
     "db:load:tr:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:tr:pg",
     "db:load:ngo-funding:pg": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/ngo/load_ngo_funding_pg.ts",
     "db:load:ngo-funding:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:ngo-funding:pg",
+    "db:load:ngo-board-links": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/ngo/load_ngo_board_links_pg.ts",
+    "db:load:ngo-board-links:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:ngo-board-links",
     "ngo:ai-summary": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/ngo/build_ai_summary.ts",
     "db:load:tenders:pg": "NODE_OPTIONS=--max-old-space-size=4096 tsx scripts/db/load_tenders_pg.ts",
     "db:load:tenders:pg:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run db:load:tenders:pg",

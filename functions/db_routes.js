@@ -214,6 +214,7 @@ const DB_ROUTES = {
       subsidies,
       retailChain,
       ngoSignals,
+      ngoBoardLinks,
     ] = await Promise.all([
       dbRows(
         "SELECT uic, name, legal_form, seat, status, funds_amount, funds_currency, entity_class, ngo_type FROM tr_companies WHERE uic = $1",
@@ -340,6 +341,13 @@ const DB_ROUTES = {
       dbRows("SELECT ngo_signals_for($1) AS r", [eik]).catch((e) =>
         e?.code === "42883" ? [] : Promise.reject(e),
       ),
+      // Politicians / officials / magistrates on this NGO's governing body
+      // (migration 080). High-confidence first. Empty for non-NGOs / pre-080.
+      dbRows(
+        `SELECT person, ref, kind, role, confidence FROM ngo_board_links
+         WHERE eik = $1 ORDER BY (confidence = 'high') DESC, person LIMIT 50`,
+        [eik],
+      ).catch((e) => (e?.code === "42P01" ? [] : Promise.reject(e))),
     ]);
     return {
       body: {
@@ -369,6 +377,7 @@ const DB_ROUTES = {
         subsidies: subsidies[0]?.payload ?? null,
         retailChain: retailChain[0] ?? null,
         ngoSignals: ngoSignals[0]?.r ?? null,
+        ngoBoardLinks,
       },
     };
   },

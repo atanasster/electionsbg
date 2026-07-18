@@ -35,6 +35,82 @@ RETURNS boolean LANGUAGE sql IMMUTABLE AS $$
   SELECT p_class IN ('ngo_assoc', 'ngo_found', 'chitalishte');
 $$;
 
+-- ── Phase 2: connection signals ─────────────────────────────────────────────
+-- ngo_board_links — a politician / official / magistrate who sits on an NGO's
+-- governing body, found by matching the person's name against the NGO's board
+-- officers (tr_officers roles ngo_board/representative/trustee/verifier), NOT via
+-- the contract-gated company_politicians (which starves NGO boards — see the audit
+-- in docs/plans/ngo-risk-signals-v1.md). High-confidence, namesake-guarded via
+-- officer_name_counts. Populated by rebuild_ngo_board_links() (below).
+--
+-- official_roster is a build-time lookup loaded from data/officials/derived/
+-- company_links.json by scripts/ngo/load_ngo_board_links_pg.ts (names + person
+-- refs only — NOT served; the served artifact is ngo_board_links). Magistrates
+-- come from the `magistrate` table (070); MPs from companies-index.json when the
+-- connections graph has been rebuilt (the loader adds them if present).
+CREATE TABLE IF NOT EXISTS official_roster (
+  name text NOT NULL,
+  slug text NOT NULL,
+  role text,
+  tier text
+);
+CREATE INDEX IF NOT EXISTS idx_official_roster_fold
+  ON official_roster (translit_bg_latin(name));
+
+CREATE TABLE IF NOT EXISTS ngo_board_links (
+  eik            text NOT NULL,
+  person         text NOT NULL,
+  ref            text NOT NULL,   -- /officials/<slug> | /person/<name> | /candidate/mp-<id>
+  kind           text NOT NULL,   -- 'mp' | 'official' | 'magistrate'
+  role           text,            -- the NGO board role (ngo_board/representative/…)
+  confidence     text NOT NULL,   -- 'high' (namesake company_count ≤2) | 'medium' (≤5)
+  namesake_count int
+);
+CREATE INDEX IF NOT EXISTS idx_ngo_board_links_eik ON ngo_board_links (eik);
+
+-- Rebuild the whole table from the current officers + rosters. TRUNCATE+INSERT so
+-- it's deterministic and idempotent. Namesake guard: company_count ≤2 → high, ≤5
+-- → medium; anything more common is dropped (defamation guard on a public site).
+CREATE OR REPLACE FUNCTION rebuild_ngo_board_links()
+RETURNS int LANGUAGE plpgsql AS $$
+DECLARE n int;
+BEGIN
+  TRUNCATE ngo_board_links;
+  INSERT INTO ngo_board_links (eik, person, ref, kind, role, confidence, namesake_count)
+  WITH ngo_off AS (
+    SELECT o.uic AS eik, o.name_fold,
+           CASE WHEN o.roles LIKE '%ngo_board%'          THEN 'ngo_board'
+                WHEN o.roles LIKE '%ngo_representative%'  THEN 'ngo_representative'
+                WHEN o.roles LIKE '%trustee%'            THEN 'trustee'
+                WHEN o.roles LIKE '%verifier%'           THEN 'verifier' END AS board_role
+    FROM tr_officers o JOIN tr_companies c ON c.uic = o.uic
+    WHERE is_ngo_class(c.entity_class)
+      AND (o.roles LIKE '%ngo_board%' OR o.roles LIKE '%ngo_representative%'
+           OR o.roles LIKE '%trustee%' OR o.roles LIKE '%verifier%')
+  ),
+  matched AS (
+    SELECT n.eik, m.name AS person, '/person/' || m.name AS ref, 'magistrate' AS kind,
+           n.board_role AS role, nc.company_count AS cc
+    FROM ngo_off n
+    JOIN magistrate m ON translit_bg_latin(m.name) = n.name_fold
+    JOIN officer_name_counts nc ON nc.name_fold = n.name_fold
+    WHERE nc.company_count <= 5
+    UNION ALL
+    SELECT n.eik, r.name, '/officials/' || r.slug, 'official', n.board_role, nc.company_count
+    FROM ngo_off n
+    JOIN official_roster r ON translit_bg_latin(r.name) = n.name_fold
+    JOIN officer_name_counts nc ON nc.name_fold = n.name_fold
+    WHERE nc.company_count <= 5
+  )
+  SELECT DISTINCT ON (eik, ref)
+         eik, person, ref, kind, role,
+         CASE WHEN cc <= 2 THEN 'high' ELSE 'medium' END, cc
+  FROM matched
+  ORDER BY eik, ref, cc;  -- keep the lowest-namesake (highest-confidence) per link
+  GET DIAGNOSTICS n = ROW_COUNT;
+  RETURN n;
+END $$;
+
 -- Single computation, reused by the matview and the page endpoint. Returns the
 -- ordered signal array plus the derived list columns (count / money / codes) so
 -- everything is computed once per EIK.
@@ -73,35 +149,59 @@ sb AS (  -- single-bid share — only compute when the NGO actually won contract
 money AS (  -- BG/EU public money touched (foreign grants excluded from the total)
   SELECT (SELECT eur FROM ctr) + (SELECT eur FROM eu) + (SELECT subsidy_eur FROM nf) AS eur
 ),
+board AS (  -- high-confidence politician / magistrate board members (Phase 2)
+  SELECT
+    count(*) FILTER (WHERE kind IN ('mp','official') AND confidence = 'high') AS pol,
+    count(*) FILTER (WHERE kind = 'magistrate' AND confidence = 'high')       AS mag,
+    (array_agg(person ORDER BY person)
+       FILTER (WHERE kind IN ('mp','official') AND confidence = 'high'))[1]   AS pol_name,
+    (array_agg(person ORDER BY person)
+       FILTER (WHERE kind = 'magistrate' AND confidence = 'high'))[1]         AS mag_name
+  FROM ngo_board_links WHERE eik = p_eik
+),
 sig AS (
   SELECT ord, code, obj FROM (
-    SELECT 1 AS ord, 'public_contracts' AS code,
+    -- Connection signals (Phase 2) — shown first; each carries the (single) top
+    -- person name + confidence. "трейс, не доказателство" / PEP-risk-category.
+    SELECT 1 AS ord, 'politician_board' AS code,
+           jsonb_build_object('code','politician_board','class','connection','tone','violet',
+             'count', (SELECT pol FROM board), 'detail', (SELECT pol_name FROM board),
+             'confidence','high') AS obj
+    WHERE (SELECT pol FROM board) > 0
+    UNION ALL
+    SELECT 2, 'magistrate_board',
+           jsonb_build_object('code','magistrate_board','class','connection','tone','fuchsia',
+             'count', (SELECT mag FROM board), 'detail', (SELECT mag_name FROM board),
+             'confidence','high')
+    WHERE (SELECT mag FROM board) > 0
+    UNION ALL
+    SELECT 3, 'public_contracts',
            jsonb_build_object('code','public_contracts','class','public_money','tone','teal',
              'valueEur', ROUND((SELECT eur FROM ctr)), 'count', (SELECT n FROM ctr),
-             'asOf', left((SELECT last_date FROM ctr), 4)) AS obj
+             'asOf', left((SELECT last_date FROM ctr), 4))
     WHERE (SELECT n FROM ctr) > 0
     UNION ALL
-    SELECT 2, 'single_bid',
+    SELECT 4, 'single_bid',
            jsonb_build_object('code','single_bid','class','public_money','tone','amber',
              'share', ROUND((SELECT single_share FROM sb), 4))
     WHERE (SELECT single_share FROM sb) >= 0.5
     UNION ALL
-    SELECT 3, 'eu_funds',
+    SELECT 5, 'eu_funds',
            jsonb_build_object('code','eu_funds','class','public_money','tone','emerald',
              'valueEur', ROUND((SELECT eur FROM eu)), 'count', (SELECT n FROM eu))
     WHERE (SELECT n FROM eu) > 0
     UNION ALL
-    SELECT 4, 'budget_subsidy',
+    SELECT 6, 'budget_subsidy',
            jsonb_build_object('code','budget_subsidy','class','public_money','tone','emerald',
              'valueEur', ROUND((SELECT subsidy_eur FROM nf)), 'asOf', (SELECT subsidy_year FROM nf))
     WHERE (SELECT subsidy_eur FROM nf) > 0
     UNION ALL
-    SELECT 5, 'foreign_funded',
+    SELECT 7, 'foreign_funded',
            jsonb_build_object('code','foreign_funded','class','disclosure','tone','slate',
              'valueEur', ROUND((SELECT foreign_eur FROM nf)), 'asOf', (SELECT foreign_year FROM nf))
     WHERE (SELECT foreign_eur FROM nf) > 0
     UNION ALL
-    SELECT 6, 'large',
+    SELECT 8, 'large',
            jsonb_build_object('code','large','class','public_money','tone','yellow',
              'valueEur', ROUND((SELECT eur FROM money)))
     WHERE (SELECT eur FROM money) >= 1000000

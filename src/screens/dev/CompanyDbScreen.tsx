@@ -83,6 +83,14 @@ import {
   NgoSignalPills,
   type NgoSignal,
 } from "@/screens/components/procurement/NgoSignalPills";
+
+interface NgoBoardLink {
+  person: string;
+  ref: string;
+  kind: string;
+  role: string | null;
+  confidence: string;
+}
 import { SchoolIdentityTile } from "../components/procurement/mon/SchoolIdentityTile";
 import {
   CabinetTimelineTile,
@@ -387,6 +395,9 @@ export const CompanyDbScreen: FC = () => {
   );
   const [ngoFunding, setNgoFunding] = useState<NgoFunding | null>(null);
   const [ngoSignals, setNgoSignals] = useState<NgoSignal[] | null>(null);
+  const [ngoBoardLinks, setNgoBoardLinks] = useState<NgoBoardLink[] | null>(
+    null,
+  );
   const [subsidies, setSubsidies] = useState<AgriRecipientFile | null>(null);
   const [retailChain, setRetailChain] = useState<RetailChainInfo | null>(null);
   const [awarderGrade, setAwarderGrade] = useState<EntityRiskGrade | null>(
@@ -495,6 +506,7 @@ export const CompanyDbScreen: FC = () => {
           setAwarderKindex(j.awarderKindex ?? null);
           setNgoFunding(j.ngoFunding ?? null);
           setNgoSignals(j.ngoSignals ?? null);
+          setNgoBoardLinks(j.ngoBoardLinks ?? null);
           setSubsidies(j.subsidies ?? null);
           setRetailChain(j.retailChain ?? null);
           setAwarderGrade(j.awarderRiskGrade ?? null);
@@ -803,6 +815,46 @@ export const CompanyDbScreen: FC = () => {
                 </CardHeader>
                 <CardContent className="space-y-2">
                   <NgoSignalPills signals={ngoSignals} />
+                  {ngoBoardLinks && ngoBoardLinks.length > 0 && (
+                    <div className="space-y-1 border-t pt-2">
+                      <div className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                        {i18n.language === "bg"
+                          ? "Свързани лица в ръководството"
+                          : "Connected people on the board"}
+                      </div>
+                      <ul className="space-y-1">
+                        {ngoBoardLinks.map((l, i) => (
+                          <li key={`${l.ref}-${i}`} className="text-sm">
+                            <Link
+                              to={l.ref}
+                              className="font-medium text-accent hover:underline"
+                            >
+                              {decodeEntities(l.person)}
+                            </Link>
+                            <span className="text-muted-foreground">
+                              {" · "}
+                              {l.kind === "magistrate"
+                                ? i18n.language === "bg"
+                                  ? "магистрат"
+                                  : "magistrate"
+                                : l.kind === "mp"
+                                  ? i18n.language === "bg"
+                                    ? "депутат"
+                                    : "MP"
+                                  : i18n.language === "bg"
+                                    ? "служител"
+                                    : "official"}
+                              {l.confidence !== "high"
+                                ? i18n.language === "bg"
+                                  ? " · вероятно"
+                                  : " · likely"
+                                : ""}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                   <p className="text-xs text-muted-foreground">
                     {i18n.language === "bg"
                       ? "Показателите са индикатори за публичен интерес, трейс, не доказателство за нарушение."

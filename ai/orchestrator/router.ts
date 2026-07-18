@@ -2784,7 +2784,17 @@ export const route = (question: string, ctx: ToolContext): Route => {
     // in the query pins ngoBySignal to that code; otherwise the distribution.
     // Checked BEFORE the funding branch so "НПО със сигнал за средства от ЕС"
     // routes to the signal view, not the best-funded list.
-    if (has(q, "сигнал", "signal", "флаг", "flag", " риск", " risk")) {
+    if (
+      has(q, "сигнал", "signal", "флаг", "flag", " риск", " risk") ||
+      has(q, "магистрат", "magistrate", "съдия", "прокурор", "judge")
+    ) {
+      if (has(q, "магистрат", "magistrate", "съдия", "прокурор", "judge"))
+        return { tool: "ngoBySignal", args: { code: "magistrate_board" } };
+      if (
+        has(q, "политик", "politician") &&
+        has(q, "ръководств", "управа", "борд", "board", "съвет")
+      )
+        return { tool: "ngoBySignal", args: { code: "politician_board" } };
       if (has(q, "средства от ес", "eu fund", "еврофонд", "исун", "isun"))
         return { tool: "ngoBySignal", args: { code: "eu_funds" } };
       if (has(q, "външно", "чуждестранн", "foreign", "external"))
