@@ -179,12 +179,25 @@ into `raw_data/ngo_funding/fts/` (added to the pre-existing 2023–2025) and re-
 structured leg). This is a **one-off backfill** (raw xlsx are gitignored staging); prod
 gets it by downloading the years on the load host + `db:load:ngo-funding:pg:cloud`.
 
-**BLOCKED — ABF (America for Bulgaria Fdn, EIN 20-8076166):** per-grantee amounts are NOT
-machine-extractable. Its grants to BG NGOs are *foreign* grants → US 990 **Schedule F**,
-which aggregates by region ("Europe") without naming grantees; ProPublica's structured API
-returns only financial summaries; the ABF site (us4bg.org/grantees) 403s and the other ABF
-domains are unreachable; Candid's Foundation Directory has the data but is paywalled. →
-**deferred**, documented as a foreign-funder-data gap.
+**ABF (America for Bulgaria Fdn) — access CRACKED, scraper + matcher remain (deferred):**
+The 990 path is a dead end (grants to BG NGOs are *foreign* grants → US 990 Schedule F,
+region-aggregated, no grantee names; ProPublica gives only financial summaries). But ABF's
+own **Project Database at `us4bg.org/our-projects/`** lists named grantees + amounts. It is
+Cloudflare + Elementor-AJAX walled (curl/WebFetch 403; the automated in-app browser renders
+only the shell). **Proven reachable via headed Playwright** (the repo's cik_fetch pattern):
+load `/our-projects/?project_year=all&project_area=all`, wait ~6s for CF, click
+`button.elementor-button` → the WP `admin-ajax.php` proxy returns `{data:{data:{Page,
+TotalPages,html,fields:{url}}}}`. Measured: **TotalPages=129** (~1290 projects). The `html`
+carries clean rows — `span.us4bg-project-name`, `span.us4bg-grantee-name`, the EUR/BGN
+amount, area, date range, and a `project_id`. The response also exposes a backend
+`https://api.us4bg.org/api/Projects?PageSize=N&Page=n&Year=all&Area=all&Lang=en` (CF-walled
+to direct curl; a headed browser may pass it for a single big-PageSize bulk pull — probe
+inconclusive). **Remaining to ship (a scoped follow-up):** (1) a paginating Playwright
+scraper over the 129 pages (or the bulk API) → `raw_data/ngo_funding/abf/projects.json`;
+(2) parse → `ngo_funding` source=`abf`; (3) **an English→Bulgarian name-matcher** — the
+grantee names are English ("Bulgarian Center for Non-for-profit Law"), which the Cyrillic
+`translit_bg_latin` fold cannot join to `tr_companies`; needs an alias map or an EN↔BG fuzzy
+layer, else rows stay `unmatched` (eik NULL) and don't feed `foreign_funded`.
 
 **DEFERRED — NED:** ned.org publishes annual grant listings + a grant search, but grantee
 records are name-only (no VAT/EIK — weak match to the BG register), BG grants are few
