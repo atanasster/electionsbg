@@ -10,7 +10,10 @@ reconciliation, §7 testing gates, §8 Connections component (the primary consum
 citations (§1/§3) to the mechanism, since those thresholds are being tuned. **2026-07-18 (later
 still):** audited the AI-chat tool changes (§4b) against the worked donor→procurement→related-persons
 query — 7 new tools incl. the `donorProcurementLinks` compound tool, server-composed (not chained),
-+ retriever/router/grounding/defamation plumbing. Owner: TBD.
++ retriever/router/grounding/defamation plumbing. **2026-07-18 (later still):** added §7d — extensive
+tests for the two highest-risk AI surfaces (retriever recall gate + the narration defamation gate,
+incl. a NEW claims/disclaimer gate since the number gate is numbers-only) + the `ai/**` vitest-config
+coverage gap. Owner: TBD.
 
 Goal: give every natural person in the site a single stable `person_id` in Postgres, so that
 candidates, MPs, mayors, councillors, executive & municipal officials, TR company officers/owners,
@@ -329,7 +332,10 @@ out to `partyDonors`/`personDonations`.
 - **Defamation/confidence (NEW for AI output):** `personConnections` + `donorProcurementLinks` narrate
   person↔person inferences, so their `narrate.ts` templates MUST carry confidence + append the
   "трейс, не доказателство" disclaimer, and only `active`/high-confidence links may narrate — the
-  same public-surface rule as §3/§8, enforced in the narration layer.
+  same public-surface rule as §3/§8, enforced in the narration layer. **Gap: the grounded gate is
+  numbers-only** (`numbersGrounded`) — it does nothing to stop the model stating an unverified link
+  as fact or dropping the disclaimer. §4b therefore requires a NEW gate dimension (a
+  claims/disclaimer check alongside `numbersGrounded`), extensively tested in §7d.
 
 ### 4c. URL consolidation & SEO — DECISION DEFERRED to Phase 6
 
@@ -476,8 +482,10 @@ Testing runs on the **repo-wide Vitest standard** (see
 the resolver tests under `scripts/person/**` as co-located `*.test.ts` and run them with
 `npm run test:person` (already wired to `vitest run --passWithNoTests scripts/person`). They land in
 the `node` Vitest project, use committed `__fixtures__/`, and — like the rest of the pipeline's
-pure-logic tests — never touch Postgres. Two test bodies: (7a) resolver correctness, (7b) migration
-safety. Both must be green before any page flips its hook to `/api/db`.
+pure-logic tests — never touch Postgres. Three test bodies: (7a) resolver correctness, (7b) migration
+safety, (7d) AI-chat tool safety — the two highest-risk surfaces (the retriever ceiling and the AI
+defamation gate) get their own extensive coverage. All must be green before any page flips its hook
+to `/api/db` or a new AI tool ships.
 
 ### 7a. Name-matching / person-finding tests (the "expensive" ones — the core)
 
@@ -546,11 +554,67 @@ are green. Because raw JSON is retained as input, a flip is reversible — point
 ### 7c. What runs when
 
 - Every commit: `npm run test:unit` — 7a pure-matcher/resolver Vitest tests + gold-set metrics gate,
-  plus the 7b gate-3 component tests (fast, hermetic; PG gates auto-skip).
-- With Postgres up (`npm run test:data`): 7b gates 1–2 + the idempotency + namesake-collapse audit on
-  the real corpus.
+  the 7b gate-3 component tests, AND the 7d hermetic AI tests (retriever recall, router precedence,
+  narration defamation gate, grounding) — all fast, hermetic; PG gates auto-skip.
+- With Postgres up (`npm run test:data`): 7b gates 1–2, the idempotency + namesake-collapse audit,
+  and the 7d compound-tool join correctness — on the real corpus.
 - Pre-deploy: `npm test` (Playwright route smoke, incl. 7b gate-3 routes) + the full
   `parity_check.ts` (person rollup vs `person_profile()`).
+
+### 7d. AI-chat tool tests (highest-risk surface — §4b)
+
+**Prerequisite (config gap): `ai/**` is tested by NOBODY today.** There are zero `ai/` tests and
+`vitest.config.ts`'s two projects only glob `src/**` and `scripts/**`. First change: add
+`ai/**/*.test.ts` to the `node` project's `include` (one line). Then co-locate AI tests as
+`ai/**/*.test.ts`. The router/retriever/narrate/grounding tests are pure and hermetic (no DB, every
+commit); the compound-tool join correctness is a `scripts/db/tests/*.data.test.ts` PG gate.
+
+**1. Retriever recall gate [RISK #1 — the ceiling]** — `ai/llm/retrieve.test.ts` (+ the semantic
+variant). A new tool that isn't retrieved is dead code, so this is a hard gate:
+- Gold set `ai/llm/__fixtures__/tool_retrieval_gold.json` — labelled `{utterance_bg, utterance_en,
+  expectedTool}`, every new §4b tool × several paraphrases, including the exact worked query and its
+  BG/EN variants. `donorProcurementLinks` (the compound) needs ≥5 distinct phrasings.
+- Assert **recall@k = 1.0** for every new tool on its seeded utterances at the retriever's padded `k`
+  (the value that feeds the small-model grammar enum). A tool that misses its own utterance fails.
+- **No-regression on existing tools:** run the pre-existing tool utterances too and assert none are
+  evicted from their own top-k by the new descriptions — adding tools must not lower incumbent recall.
+- Regression rule: any `description`/`examples` edit that drops a tool below recall@k fails the gate.
+
+**2. Router precedence [RISK #1b]** — `ai/orchestrator/router.test.ts`:
+- Positive: each donor/connections utterance → the intended `{tool, args}` (entity + year extracted).
+- **No-hijack (the risk):** a frozen corpus of existing-intent utterances (procurement, health,
+  defense, elections, place) must still route to the SAME tool as before — the new `has(q,…)`
+  branches must not steal them. Snapshot the mapping so a precedence regression is loud.
+- Follow-on: `resolveFollowOn` reuses the right tool for "а при X?" after a connections/donor turn.
+
+**3. Narration defamation gate [RISK #2 — legally the riskiest]** — `ai/orchestrator/narrate.test.ts`
++ a NEW `ai/llm/claimsGrounded.test.ts` (the number gate is numbers-only; person↔person inference
+needs a new dimension — see §4b):
+- For `personConnections`/`donorProcurementLinks` envelopes, `narrate()` output ALWAYS contains the
+  "трейс, не доказателство" disclaimer (BG) / equivalent (EN) whenever an inferred person↔person link
+  is present. Snapshot the exact bilingual disclaimer strings so they can't silently drift.
+- **Never narrates below `active`/high:** given an envelope whose `facts` include a `medium`/`review`
+  link, the narrated sentence must NOT state it as an established connection (assert the name-pair is
+  absent from any assertive clause).
+- **Adversarial model-prose:** feed the new claims/disclaimer gate model sentences that (a) assert an
+  inferred connection without the disclaimer, or (b) state a `review`-confidence link as fact — both
+  must FAIL and force the safe-template fallback. Include Cyrillic + Latin phrasings and paraphrases
+  ("свързан с", "притежава", "получава пари от") so the check isn't keyword-brittle.
+- Property-style sweep: for every fixture connections envelope, no generated narration may name a
+  person-pair that isn't `active`+high in `facts`.
+
+**4. Grounded-number gate for cross-corpus figures** — `ai/llm/grounding.test.ts`:
+- Every € figure `donorProcurementLinks` narrates is verbatim in `facts` (Σ-per-row EUR basis,
+  `reference_procurement_eur_sum_basis`); a prose with a chained or rounded total fails
+  `numbersGrounded` and falls back to the template.
+
+**5. Compound-tool correctness** — `scripts/db/tests/donor_procurement_links.data.test.ts` (PG gate,
+auto-skips when DB down):
+- Fixture corpus: a donor who won procurement through a related company surfaces with the right
+  amount; a donor with no procurement does not; a `review`/`medium` related-person link is EXCLUDED
+  from the public envelope; provenance lists ЕРИК + ЦАИС + ТР.
+- Envelope/`facts` contract: `facts` contains exactly the strings `narrate` reads (no number the
+  template needs is missing), for every new tool.
 
 ---
 
