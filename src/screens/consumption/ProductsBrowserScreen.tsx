@@ -8,7 +8,6 @@
 
 import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ShoppingBasket } from "lucide-react";
 import { SEO } from "@/ux/SEO";
 import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrumb";
 import { Title } from "@/ux/Title";
@@ -30,7 +29,7 @@ import {
 const ALL = "__all__";
 
 export const ProductsBrowserScreen: FC = () => {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
   const lang = bg ? "bg" : "en";
   const T = (b: string, e: string) => (bg ? b : e);
@@ -75,12 +74,7 @@ export const ProductsBrowserScreen: FC = () => {
       <Title>{T("Продукти", "Products")}</Title>
 
       <section aria-label={T("Продукти", "Products")}>
-        <DashboardSection
-          id="products"
-          title={T("Всички продукти", "All products")}
-          subtitle={t("prices_not_cpi")}
-          icon={ShoppingBasket}
-        >
+        <DashboardSection id="products">
           <DbDataTable<ProductRow>
             resource="price_products"
             columns={columns}
