@@ -476,8 +476,23 @@ renders.
 - **Phase 5 — discovery + finish.** `ngoTopFunded` foreign/domestic split (after A1),
   changelog, data_map, SEO/OG top-N, harness cases. (Core AI tools already shipped in
   Phases 1–2 alongside their data.)
-- **Phase 6 (v2) — depth.** Indirect + historical (5-yr) ties (Hlídač); alert-on-new-
-  connection watchlist (OpenScreening); sanctions signal; БУЛНАО donor leg.
+- **Phase 6 (v2) — depth.** *ABF alias expansion* — DONE (9→20 aliases, €60M→€81M / 20
+  NGOs matched). The rest are **data-limited, not effort-limited** (measured 2026-07-18):
+  - *`related_party`* (board member's own firm is a counterparty): **structurally empty
+    under the defamation guard** — 'high' confidence = `officer_name_counts.company_count=1`
+    (the name is in exactly ONE company), so a high-conf board member cannot also be an
+    officer of a contracting firm; medium-conf (cc 2–3) is namesake-risky. 0 clean matches
+    → cut.
+  - *historical / divest-then-resume ties* (Hlídač): **not feasible** — the TR feed records
+    only **14 erased NGO-board-role records** total (vs ~143k current), so board-departure
+    history essentially doesn't exist in our data. 0 magistrate matches.
+  - *MP-on-board leg*: still needs `companies-index.json` rebuilt via `update-connections`
+    (a scrape); the loader lights it up automatically when present.
+  - *sanctions signal*: near-zero BG-NGO yield + needs external data (OpenSanctions) — defer.
+  - *БУЛНАО donor leg*: `data/financing` is filing-status only (no donations in PG) — needs
+    a new ЕРИК donations ingest (per `update-financing`), then an NGO-board-member ↔ donor
+    join. A separate ingest project.
+  - *alert-on-new-connection watchlist* (OpenScreening): future.
 
 ---
 
