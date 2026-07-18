@@ -648,7 +648,14 @@ Ranked by (data we already have × defensibility). Measured weights are from PwC
 ⚠️ conditional on a **50/50 case-control sample**, so they are *not* precision estimates; treat
 as relative ordering only.
 
-1. **Annex value growth.** `signing_amount_eur` vs `amount_eur` — we already compute this Δ for
+1. **Annex value growth — ✅ SHIPPED 2026-07-18 (1d4edac11).** Added the `annexGrowth` check to
+   `computeProcurementRisk`: fires at ≥50% signed→current growth (the чл.116 ал.2 cumulative
+   cap), available only when an annex moved the value (so no CRI dilution for un-amended rows).
+   Surfaced `signing_amount_eur` through the contracts registry so the chip renders in the table
+   too. harness +3 cases. Verified on the АПИ €68.7M→€103M contract ("1 от 8 · +50%"). Framed as
+   a signal (ал.3 inflation carries its own cap). The `annexes` table (per-annex ground/dates) is
+   still the follow-up that would let us *label* ал.2-vs-ал.3, not just detect the cumulative Δ.
+   `signing_amount_eur` vs `amount_eur` — we already compute this Δ for
    display and never score it. The legally-defensible band is **ЗОП чл. 116, ал. 2: a 50% cap
    on the CUMULATIVE value of modifications** on grounds ал. 1 т. 2/т. 3 (primary-source
    verified, §0b). ⚠️ **Do NOT use the EU Directive's 10%/15% de minimis — ЗОП did not
