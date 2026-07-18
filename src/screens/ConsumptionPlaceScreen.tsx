@@ -12,7 +12,7 @@
 import { FC } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ShoppingBasket, ArrowRight, Coins, Scale } from "lucide-react";
+import { ShoppingBasket, ArrowRight, Coins, Scale, Tag } from "lucide-react";
 import { SEO } from "@/ux/SEO";
 import { H1 } from "@/ux/H1";
 import { Card } from "@/components/ui/card";
@@ -22,6 +22,8 @@ import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { MyAreaPricesTile } from "@/screens/myarea/MyAreaPricesTile";
 import { PlaceBasketTile } from "@/screens/myarea/PlaceBasketTile";
+import { PlaceDealsTile } from "@/screens/myarea/PlaceDealsTile";
+import { useMuniDeals } from "@/data/prices/usePrices";
 import { MyAreaLocalTaxesTile } from "@/screens/myarea/MyAreaLocalTaxesTile";
 import { ConsumptionPriceLevelTile } from "@/screens/consumption/ConsumptionPriceLevelTile";
 import { ConsumptionAffordabilityTile } from "@/screens/consumption/ConsumptionAffordabilityTile";
@@ -34,6 +36,13 @@ export const ConsumptionPlaceScreen: FC = () => {
   const T = (bg: string, en: string) => (lang === "bg" ? bg : en);
   const { id } = useParams<{ id: string }>();
   const area = useAreaResolver(id);
+  // Promotions are município-grain; gate the whole section on coverage here so
+  // an obshtina with no promos doesn't leave an empty "Промоции" header (the
+  // tile self-hides, but DashboardSection still renders a header for a child
+  // element that merely renders null). React Query dedupes with the tile's own
+  // fetch. Called before the early returns to keep hook order stable.
+  const dealsObshtina = area && area.kind !== "unknown" ? area.obshtina : null;
+  const { data: muniDeals } = useMuniDeals(dealsObshtina);
 
   if (!id) {
     return (
@@ -157,6 +166,23 @@ export const ConsumptionPlaceScreen: FC = () => {
             icon={ShoppingBasket}
           >
             <PlaceBasketTile ekatte={area.ekatte} obshtina={area.obshtina} />
+          </DashboardSection>
+        ) : null}
+
+        {/* Промоции край вас — biggest promo cuts among this município's stores
+            (deals-muni payload). Gated on coverage so it never shows an empty
+            header for an obshtina with no current promos. */}
+        {muniDeals && muniDeals.deals.length > 0 ? (
+          <DashboardSection
+            id="deals"
+            title={T("Промоции край вас", "Promotions near you")}
+            subtitle={T(
+              "Най-големи намаления в общината",
+              "Biggest cuts in the municipality",
+            )}
+            icon={Tag}
+          >
+            <PlaceDealsTile obshtina={area.obshtina} />
           </DashboardSection>
         ) : null}
 

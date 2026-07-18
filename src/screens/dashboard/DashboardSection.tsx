@@ -18,6 +18,7 @@ type Props = {
     | "articles"
     | "macro"
     | "prices"
+    | "deals"
     | "products"
     | "chains"
     | "euro"

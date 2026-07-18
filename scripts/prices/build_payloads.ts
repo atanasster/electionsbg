@@ -9,7 +9,8 @@
 //
 // kinds: index | ranking | chains | dict | deals | verdict | hub-stats |
 //        chain-map | unit-prices |
-//        place:<ekatte> | chains-muni:<obshtina> | chain-products:<eik>
+//        place:<ekatte> | chains-muni:<obshtina> | chain-products:<eik> |
+//        deals-muni:<obshtina>
 
 import fs from "node:fs";
 import path from "node:path";
@@ -38,7 +39,16 @@ export const buildPayloads = async (): Promise<void> => {
   // `deals` — the biggest current promo discount per product. Precomputed here
   // because the live query (SKU×store promo in price_current, joined to the
   // canonical catalogue) is ~600ms — too slow for a per-request fetch. Excludes
-  // ≥95% "discounts" (data errors) and retired products (chain_count = 0).
+  // retired products (chain_count = 0).
+  //
+  // Quality gate (audit 2026-07: the raw feed is dominated by single-store data
+  // errors and inflated "redovna цена" reference prices — see PROMO_QUALITY_SQL).
+  // Every deal must be corroborated across ≥MIN_PROMO_STORES store listings, must
+  // not be a low-promo outlier vs the product's own median promo, must not sit on
+  // an inflated regular price vs the product's median regular, and its discount
+  // is capped at MAX_DISC — supermarket promos above that are, empirically, source
+  // errors (a €15 coffee reported at €2 across all stores; a shared-wholesaler
+  // 90 g Milka at €0.69). Thresholds are conservative and easy to tune.
   const deals = await allRows<{
     slug: string;
     title: string;
@@ -48,22 +58,11 @@ export const buildPayloads = async (): Promise<void> => {
     eik: string;
     chain: string;
   }>(
-    `WITH promos AS (
-       SELECT pp.slug, pp.title, pc.promo_eur, pc.price_eur,
-              (pc.price_eur - pc.promo_eur) / NULLIF(pc.price_eur, 0) AS disc,
-              st.eik
-         FROM price_current pc
-         JOIN price_skus ps ON ps.sku_id = pc.sku_id
-         JOIN price_products pp ON pp.product_id = ps.product_id
-         JOIN price_stores st ON st.store_id = pc.store_id
-        WHERE pc.promo_eur IS NOT NULL
-          AND pc.promo_eur < pc.price_eur
-          AND pp.chain_count > 0
-     ),
+    `WITH ${PROMO_QUALITY_SQL},
      best AS (
        SELECT DISTINCT ON (slug) slug, title, promo_eur, price_eur, disc, eik
          FROM promos
-        WHERE disc >= 0.15 AND disc < 0.95
+        WHERE disc >= ${MIN_DISC} AND disc <= ${MAX_DISC}
         ORDER BY slug, disc DESC
      )
      SELECT b.slug, b.title,
@@ -80,6 +79,74 @@ export const buildPayloads = async (): Promise<void> => {
     "SELECT max(day)::text AS latest FROM price_grid_days",
   );
   emit("deals", "", { latestDate: latest ?? "", deals });
+
+  // `deals-muni:<obshtina>` — the same promo feed scoped to one município, so
+  // the place dashboard can show "промоции край вас". Município (not settlement)
+  // grain: a single settlement often has ≤2 stores, too sparse for a usable
+  // list; the obshtina aggregates its stores. Reads price_current (today's
+  // truth: TRUNCATE+reload of the latest ingested day), so this MUST run after
+  // the day is loaded — an ended promo drops out on the next ingest. Top 24 per
+  // obshtina by discount; eik/slug tiebreaks keep it deterministic for the
+  // parity gate. `latestDate` is carried so the UI shows an as-of date, exactly
+  // like the national `deals` blob.
+  const muniDeals = await allRows<{
+    obshtina: string;
+    slug: string;
+    title: string;
+    promo: number;
+    reg: number;
+    discPct: number;
+    eik: string;
+    chain: string;
+  }>(
+    `WITH promos AS (
+       SELECT st.obshtina, pp.slug, pp.title, pc.promo_eur, pc.price_eur,
+              (pc.price_eur - pc.promo_eur) / NULLIF(pc.price_eur, 0) AS disc,
+              st.eik
+         FROM price_current pc
+         JOIN price_skus ps ON ps.sku_id = pc.sku_id
+         JOIN price_products pp ON pp.product_id = ps.product_id
+         JOIN price_stores st ON st.store_id = pc.store_id
+        WHERE pc.promo_eur IS NOT NULL
+          AND pc.promo_eur < pc.price_eur
+          AND pp.chain_count > 0
+     ),
+     best AS (
+       SELECT DISTINCT ON (obshtina, slug)
+              obshtina, slug, title, promo_eur, price_eur, disc, eik
+         FROM promos
+        WHERE disc >= 0.15 AND disc < 0.95
+        ORDER BY obshtina, slug, disc DESC, eik
+     ),
+     ranked AS (
+       SELECT b.*,
+              row_number() OVER (
+                PARTITION BY obshtina ORDER BY disc DESC, slug
+              ) AS rn
+         FROM best b
+     )
+     SELECT r.obshtina, r.slug, r.title,
+            round(r.promo_eur::numeric, 2)::float8 AS promo,
+            round(r.price_eur::numeric, 2)::float8 AS reg,
+            round((r.disc * 100)::numeric, 0)::int AS "discPct",
+            r.eik, COALESCE(ch.name, '') AS chain
+       FROM ranked r
+       LEFT JOIN price_chains ch ON ch.eik = r.eik
+      WHERE r.rn <= 24
+      ORDER BY r.obshtina, r.disc DESC, r.slug`,
+  );
+  const dealsByMuni = new Map<
+    string,
+    Omit<(typeof muniDeals)[number], "obshtina">[]
+  >();
+  for (const { obshtina, ...d } of muniDeals) {
+    (
+      dealsByMuni.get(obshtina) ?? dealsByMuni.set(obshtina, []).get(obshtina)!
+    ).push(d);
+  }
+  for (const [obshtina, list] of dealsByMuni) {
+    emit("deals-muni", obshtina, { latestDate: latest ?? "", deals: list });
+  }
 
   // `verdict` — the "did the euro raise prices?" 5-bucket split. Precomputed
   // here because the live query is a full-table aggregate over the whole ~118k

@@ -227,6 +227,17 @@ export const useDeals = () =>
     staleTime: Infinity,
   });
 
+/** Promotions scoped to one município ("промоции край вас"). Returns null for
+ *  an obshtina with no covered stores/promos — callers fall back to the
+ *  national feed. Shares the DealsFile shape with the national blob. */
+export const useMuniDeals = (obshtina?: string | null) =>
+  useQuery({
+    queryKey: ["prices", "deals", obshtina],
+    queryFn: () => fetchPricePayload<DealsFile>("deals-muni", obshtina),
+    enabled: !!obshtina,
+    staleTime: Infinity,
+  });
+
 /** Per-tile headline numbers for the /consumption hub (mirrors the sectors
  *  hub's sector_stats.json) — a single precomputed hub-stats blob, one PK seek.
  *  Nulls where a stat is unavailable. */

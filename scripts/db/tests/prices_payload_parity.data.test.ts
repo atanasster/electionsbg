@@ -133,6 +133,37 @@ test.skipIf(!RUN)(
   },
 );
 
+test.skipIf(!RUN)(
+  "deals-muni payloads are discount-ordered and carry latestDate (determinism)",
+  async () => {
+    const rows = await allRows<{
+      key: string;
+      payload: {
+        latestDate: string;
+        deals: { discPct: number; slug: string }[];
+      };
+    }>("SELECT key, payload FROM price_payloads WHERE kind = 'deals-muni'");
+    // Vacuous-safe: a DB with no promos in the latest day yields no rows.
+    for (const r of rows) {
+      assert.ok(r.key.length > 0, "deals-muni key must be an obshtina code");
+      assert.ok(
+        typeof r.payload.latestDate === "string",
+        `deals-muni/${r.key} missing latestDate`,
+      );
+      assert.ok(r.payload.deals.length <= 24, `deals-muni/${r.key} over cap`);
+      // Sorted by discPct desc, slug asc as a tiebreak — the build's ORDER BY.
+      const sorted = [...r.payload.deals].sort(
+        (a, b) => b.discPct - a.discPct || (a.slug < b.slug ? -1 : 1),
+      );
+      assert.deepEqual(
+        r.payload.deals.map((d) => d.slug),
+        sorted.map((d) => d.slug),
+        `deals-muni/${r.key} not deterministically ordered`,
+      );
+    }
+  },
+);
+
 test.skipIf(!RUN)("every covered settlement has a place payload", async () => {
   const [{ n }] = await allRows<{ n: string }>(
     "SELECT count(*) AS n FROM price_payloads WHERE kind = 'place'",
