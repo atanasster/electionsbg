@@ -79,6 +79,66 @@ const missingMigrationEmpty = (e) =>
 const missingMigrationRows = (e) =>
   e?.code === "42883" || e?.code === "42P01" ? [] : Promise.reject(e);
 
+// "Шльокавица" — best-effort Latin→Cyrillic phonetic transliteration so a user
+// typing on a Latin keyboard ("kafe", "sirene", "mlyako") matches the Cyrillic
+// product titles. Greedy digraph pass (sht/sh/ch/zh/ts/yu/ya/yo) then single
+// letters; Cyrillic and unmapped characters pass through unchanged, so a query
+// already in Cyrillic comes back identical. Ambiguous by nature (c→ц, y→й) — the
+// trigram similarity ranking downstream absorbs the imperfection.
+const LAT2CYR_DIGRAPHS = [
+  ["sht", "щ"],
+  ["sh", "ш"],
+  ["ch", "ч"],
+  ["zh", "ж"],
+  ["ts", "ц"],
+  ["yu", "ю"],
+  ["ya", "я"],
+  ["yo", "йо"],
+];
+const LAT2CYR = {
+  a: "а",
+  b: "б",
+  v: "в",
+  g: "г",
+  d: "д",
+  e: "е",
+  z: "з",
+  i: "и",
+  j: "ж",
+  k: "к",
+  l: "л",
+  m: "м",
+  n: "н",
+  o: "о",
+  p: "п",
+  r: "р",
+  s: "с",
+  t: "т",
+  u: "у",
+  f: "ф",
+  h: "х",
+  c: "ц",
+  y: "й",
+  w: "в",
+  x: "кс",
+  q: "к",
+};
+const latinToCyrillic = (str) => {
+  const lower = String(str).toLowerCase();
+  let out = "";
+  for (let i = 0; i < lower.length; ) {
+    const digraph = LAT2CYR_DIGRAPHS.find(([lat]) => lower.startsWith(lat, i));
+    if (digraph) {
+      out += digraph[1];
+      i += digraph[0].length;
+      continue;
+    }
+    out += LAT2CYR[lower[i]] ?? lower[i];
+    i += 1;
+  }
+  return out;
+};
+
 const DB_ROUTES = {
   async person(dbRows, q) {
     const name = s(q, "name");
@@ -1327,10 +1387,14 @@ const DB_ROUTES = {
   "price-search": async (dbRows, q) => {
     const term = s(q, "q");
     if (term.length < 2) return { body: [] };
+    // Also search a Latin→Cyrillic ("шльокавица") transliteration so "kafe"
+    // finds "кафе". `cyr` equals `term` when the query is already Cyrillic, so
+    // the extra ILIKE/similarity is a no-op there.
+    const cyr = latinToCyrillic(term);
     // Escape LIKE metacharacters (%, _, \) so a stray `%` in the term doesn't
     // match everything — the ILIKE is a prefilter, not a wildcard search.
-    // $1 stays the RAW term for similarity() (trigram treats them as literals).
-    const like = "%" + term.replace(/[\\%_]/g, "\\$&") + "%";
+    // $1/$4 stay the RAW terms for similarity() (trigram treats them as literals).
+    const esc = (t) => "%" + t.replace(/[\\%_]/g, "\\$&") + "%";
     const rows = await dbRows(
       // Blend match quality with popularity: a term like "лаваца" matches a
       // one-chain "КАФЕ ЛАВАЦА КГ" and the 7-chain "КАФЕ ЛАВАЦА 1КГ КУАЛИТА
@@ -1341,11 +1405,13 @@ const DB_ROUTES = {
       `SELECT slug, title, pid, brand, net_qty, net_unit, chain_count,
               current_min_eur, pct_since_euro
          FROM price_products
-        WHERE chain_count > 0 AND title ILIKE $2 ESCAPE '\\'
-        ORDER BY similarity(title, $1) * ln(chain_count + 2) DESC,
+        WHERE chain_count > 0
+          AND (title ILIKE $2 ESCAPE '\\' OR title ILIKE $3 ESCAPE '\\')
+        ORDER BY GREATEST(similarity(title, $1), similarity(title, $4))
+                   * ln(chain_count + 2) DESC,
                  chain_count DESC, slug COLLATE "C"
         LIMIT 20`,
-      [term, like],
+      [term, esc(term), esc(cyr), cyr],
     ).catch(missingMigrationRows);
     return { body: rows };
   },
