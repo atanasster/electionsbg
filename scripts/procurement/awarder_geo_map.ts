@@ -14,8 +14,12 @@
 //      Tier-D modal oblast pins it to a single settlement (a shared school name
 //      like „Св. св. Кирил и Методий" exists in dozens of villages). Needs
 //      data.egov.bg reachable; skipped gracefully when the host blocks us.
-//   A. Name-suffix parse ("- гр.X" / "- с.X" in the awarder name) → EKATTE via
-//      the shared resolver. Low confidence; fully local.
+//   A. Settlement embedded in the awarder name — a "гр.X" / "с.X" token or a
+//      bare "- X" tail (e.g. "ДГС - Симитли", "Окръжен съд - варна"), in any
+//      case. Resolved via the shared resolver (globally-unique or Tier-D
+//      oblast-confirmed only); fully local. Also exercised: exact-EIK tiers
+//      (TR registered seat, our schools register) and the OCDS/tenders
+//      address maps — see the per-tier comments in main().
 //
 // Output: data/procurement/awarder_geo_overrides.json
 //   { generatedAt, count, sources: {mon,name,unresolved}, awarders: { <eik>: {ekatte,source,confidence} } }
@@ -112,12 +116,57 @@ const oblastToNuts = (raw: string): string | undefined => {
   return undefined;
 };
 
-// Tier-A: a "- гр.X" / "- с.X" settlement suffix (NOT the "градина" substring —
-// require a separator + the гр./с. token). Returns the captured settlement name.
-const NAME_SUFFIX =
-  /(?:[-,/]\s*|\s{2,})(?:гр|с)\.\s*([А-ЯЁ][а-яё]+(?:[ -][А-ЯЁ][а-яё]+)?)/;
-const parseSettlement = (name: string): string | undefined =>
-  name.match(NAME_SUFFIX)?.[1]?.trim();
+// Tier-A extracts settlement candidates embedded in the awarder name. Buyers
+// frequently carry their own town — "ДГ „Пламъче" гр. Варна", "ДГС - Симитли",
+// "Окръжен съд - варна", "… - ГР.ВИДИН", "ОУ „Христо Ботев" с.ЗИДАРОВО" — but in
+// wildly inconsistent forms (all-caps / lowercase, with or without a гр./с.
+// prefix, after a dash or a closing quote). We return an ordered candidate list;
+// the caller resolves each through the shared EKATTE resolver, which only
+// accepts a globally-unique (or oblast-confirmed) settlement, so junk tails and
+// ambiguous names simply don't resolve.
+//
+// A settlement token: 3+ letters, any case on the first word (the raw data has
+// "гр. гоце Делчев"), Title-case on any following word ("Стара Загора"). One
+// optional following word covers the two-word oikonyms.
+const SETTL_TOKEN = "[А-Яа-яЁё][А-Яа-яЁё]{2,}(?:[ -][А-ЯЁ][А-Яа-яЁё]+)?";
+// гр./с./град/село prefix. The single-letter forms REQUIRE the dot so the
+// preposition "с" ("СУ с изучаване на …") can't be read as "село".
+const GS_PREFIX_RE = new RegExp(
+  `(?:гр\\.|с\\.|град\\s|село\\s)\\s*(${SETTL_TOKEN})`,
+  "gi",
+);
+// A bare "- Settlement" / "– Settlement" / ", Settlement" tail at the very end.
+// Capital-initial only here (no гр./с. anchor to lean on), to avoid grabbing a
+// trailing lowercase common word.
+const BARE_TAIL_RE = new RegExp(
+  `[-–,]\\s*([А-ЯЁ][А-Яа-яЁё]{2,}(?:[ -][А-ЯЁ][А-Яа-яЁё]+)?)\\s*$`,
+);
+// Legal-form / status tails that are never settlements.
+const LEGAL_TAIL_RE =
+  /^(ЕООД|ООД|АД|ЕАД|ДЗЗД|ЕТ|СД|КД|ДП|СНЦ|ЮЛНЦ|ЕИК|БУЛСТАТ|ликвидация|несъстоятелност)$/i;
+
+// Drop quoted segments first so a personal name inside quotes ("… „Георги с.
+// Раковски"") can never be mistaken for a "с. <settlement>" tail.
+const stripQuoted = (s: string): string =>
+  s
+    .replace(/["„“”»«][^"„“”»«]*["„“”»«]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+const settlementCandidates = (rawName: string): string[] => {
+  const s = stripQuoted(rawName);
+  const cands: string[] = [];
+  // (a) the LAST гр./с./град/село-prefixed token (the buyer's own town usually
+  // trails the institution name).
+  const gs = [...s.matchAll(GS_PREFIX_RE)];
+  if (gs.length) cands.push(gs[gs.length - 1][1]);
+  // (b) a bare capital-initial tail after the final separator.
+  const bare = s.match(BARE_TAIL_RE);
+  if (bare) cands.push(bare[1]);
+  return [...new Set(cands.map((c) => c.trim()))].filter(
+    (c) => c.length >= 3 && !LEGAL_TAIL_RE.test(c),
+  );
+};
 
 interface AwarderFile {
   eik: string;
@@ -418,15 +467,16 @@ const main = async (): Promise<void> => {
       }
     }
 
-    const settlement = parseSettlement(a.name);
-    if (settlement) {
-      // Tier D disambiguation: feed the buyer's modal oblast (from the tenders
-      // feed) as the resolver's `region` hint. For a settlement name that's
-      // unique it's a no-op; for one that exists in several oblasti it picks the
-      // EKATTE in the buyer's oblast and the resolver returns a higher
-      // confidence. Re-resolve without the hint when the hint yields nothing
-      // (e.g. a wrong/edge oblast) so the bare-name path still applies.
-      const oblastNuts = oblastMap[a.eik]?.nuts;
+    // Tier A — settlement embedded in the awarder name. Try each candidate; for
+    // each, Tier D disambiguation feeds the buyer's modal oblast (from the
+    // tenders feed) as the resolver's `region` hint. For a unique settlement
+    // that's a no-op; for one shared across oblasti it picks the EKATTE in the
+    // buyer's oblast (higher confidence). We re-resolve without the hint when
+    // the hint yields nothing so the bare-name path still applies. First
+    // candidate that resolves wins.
+    const oblastNuts = oblastMap[a.eik]?.nuts;
+    let matched = false;
+    for (const settlement of settlementCandidates(a.name)) {
       const hinted = oblastNuts
         ? resolver.resolve({ locality: settlement, region: oblastNuts })
         : undefined;
@@ -443,9 +493,11 @@ const main = async (): Promise<void> => {
         };
         if (oblastConfirmed) counts.nameOblast++;
         else counts.name++;
-        continue;
+        matched = true;
+        break;
       }
     }
+    if (matched) continue;
     counts.unresolved++;
   }
 
