@@ -1219,6 +1219,16 @@ const ProductsBrowserScreen = lazy(() =>
     default: m.ProductsBrowserScreen,
   })),
 );
+const ConsumptionChainsScreen = lazy(() =>
+  import("./screens/consumption/ConsumptionChainsScreen").then((m) => ({
+    default: m.ConsumptionChainsScreen,
+  })),
+);
+const ChainProfileScreen = lazy(() =>
+  import("./screens/consumption/ChainProfileScreen").then((m) => ({
+    default: m.ChainProfileScreen,
+  })),
+);
 const ProductScreen = lazy(() =>
   import("./screens/product/ProductScreen").then((m) => ({
     default: m.ProductScreen,
@@ -3418,6 +3428,26 @@ export const AuthRoutes = () => {
               <LayoutScreen>
                 <Suspense fallback={<RouteFallback />}>
                   <ProductsBrowserScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="consumption/chains"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <ConsumptionChainsScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="consumption/chain/:eik"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <ChainProfileScreen />
                 </Suspense>
               </LayoutScreen>
             }

@@ -44,6 +44,13 @@ export const ConsumptionScreen = () => {
       accent: TILE_ACCENTS.clay,
     },
     {
+      id: "chains",
+      to: "/consumption/chains",
+      title: T("Вериги", "Chains"),
+      desc: T("Коя верига е най-евтина", "Which chain is cheapest"),
+      accent: TILE_ACCENTS.copper,
+    },
+    {
       id: "map",
       to: "/prices",
       title: T("Карта на цените", "Price map"),

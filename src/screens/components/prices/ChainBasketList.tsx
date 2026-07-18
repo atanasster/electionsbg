@@ -7,6 +7,7 @@
 // once for every surface that lists chains.
 
 import { FC } from "react";
+import { Link } from "@/ux/Link";
 import { fmtEur, type ChainRow } from "@/data/prices/usePrices";
 
 interface Props {
@@ -30,7 +31,12 @@ export const ChainBasketList: FC<Props> = ({
     <ul className="space-y-0.5">
       {rows.map((c) => (
         <li key={c.eik} className="flex justify-between gap-2">
-          <span className="truncate min-w-0">{c.chain}</span>
+          <Link
+            to={`/consumption/chain/${c.eik}`}
+            className="truncate min-w-0 hover:underline"
+          >
+            {c.chain}
+          </Link>
           <span className="tabular-nums shrink-0 text-muted-foreground whitespace-nowrap">
             {fmtEur(c.basket, lang)}
             <span className="opacity-60">

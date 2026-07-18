@@ -139,6 +139,52 @@ const Inflation: FC = () => (
   </SceneFrame>
 );
 
+// Вериги — a storefront with a price tag, the retail chains.
+const Chains: FC = () => (
+  <SceneFrame>
+    <rect
+      x="112"
+      y="40"
+      width="84"
+      height="52"
+      rx="3"
+      fill="var(--sector)"
+      opacity=".85"
+    />
+    <path d="M104 40 h100 l-8 -16 h-84 Z" fill="currentColor" opacity=".3" />
+    <rect
+      x="128"
+      y="60"
+      width="20"
+      height="32"
+      rx="2"
+      fill={PAPER}
+      opacity=".9"
+    />
+    <rect
+      x="160"
+      y="60"
+      width="24"
+      height="18"
+      rx="2"
+      fill={PAPER}
+      opacity=".55"
+    />
+    <circle cx="196" cy="30" r="9" fill="var(--sector)" />
+    <text
+      x="196"
+      y="34"
+      textAnchor="middle"
+      fill={PAPER}
+      fontSize="10"
+      fontWeight="700"
+      fontFamily="Georgia, serif"
+    >
+      €
+    </text>
+  </SceneFrame>
+);
+
 // Достъпност — a balance scale (basket vs income).
 const Affordability: FC = () => (
   <SceneFrame>
@@ -173,4 +219,5 @@ export const CONSUMPTION_SCENES: Record<string, FC> = {
   euro: EuroCoin,
   inflation: Inflation,
   affordability: Affordability,
+  chains: Chains,
 };
