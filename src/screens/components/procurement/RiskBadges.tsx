@@ -28,11 +28,8 @@ import {
 } from "lucide-react";
 import { Tooltip } from "@/ux/Tooltip";
 import { formatEurCompact } from "@/lib/currency";
-import {
-  formatShare,
-  criColor,
-  RISK_CHIP_BASE as chipBase,
-} from "@/lib/riskGrade";
+import { formatShare, criColor } from "@/lib/riskGrade";
+import { SignalPill } from "@/screens/components/procurement/SignalPill";
 import type { ContractRiskResult } from "@/data/procurement/useContractRiskFlags";
 
 type Props = {
@@ -82,12 +79,9 @@ export const RiskBadges: FC<Props> = ({ result, variant = "chips" }) => {
             </div>
           }
         >
-          <span
-            className={`${chipBase} border-red-300 bg-red-100 text-red-900 dark:border-red-900 dark:bg-red-900/40 dark:text-red-100`}
-          >
-            <Ban className="h-3 w-3" />
+          <SignalPill tone="red" icon={<Ban className="h-3 w-3" />}>
             {t("risk_flag_debarred") || "Debarred"}
-          </span>
+          </SignalPill>
         </Tooltip>
       ) : null}
 
@@ -106,12 +100,9 @@ export const RiskBadges: FC<Props> = ({ result, variant = "chips" }) => {
             </div>
           }
         >
-          <span
-            className={`${chipBase} border-amber-300 bg-amber-100 text-amber-900 dark:border-amber-900 dark:bg-amber-900/40 dark:text-amber-100`}
-          >
-            <LinkIcon className="h-3 w-3" />
+          <SignalPill tone="amber" icon={<LinkIcon className="h-3 w-3" />}>
             {t("risk_flag_mp_connected") || "MP-tied"}
-          </span>
+          </SignalPill>
         </Tooltip>
       ) : null}
 
@@ -130,12 +121,9 @@ export const RiskBadges: FC<Props> = ({ result, variant = "chips" }) => {
             </div>
           }
         >
-          <span
-            className={`${chipBase} border-teal-300 bg-teal-100 text-teal-900 dark:border-teal-900 dark:bg-teal-900/40 dark:text-teal-100`}
-          >
-            <Landmark className="h-3 w-3" />
+          <SignalPill tone="teal" icon={<Landmark className="h-3 w-3" />}>
             {t("risk_flag_pep_connected") || "Official-tied"}
-          </span>
+          </SignalPill>
         </Tooltip>
       ) : null}
 
@@ -153,10 +141,7 @@ export const RiskBadges: FC<Props> = ({ result, variant = "chips" }) => {
             </div>
           }
         >
-          <span
-            className={`${chipBase} border-rose-300 bg-rose-100 text-rose-900 dark:border-rose-900 dark:bg-rose-900/40 dark:text-rose-100`}
-          >
-            <Users className="h-3 w-3" />
+          <SignalPill tone="rose" icon={<Users className="h-3 w-3" />}>
             {flags.bidCount != null
               ? `${flags.bidCount} ${
                   flags.bidCount === 1
@@ -168,7 +153,7 @@ export const RiskBadges: FC<Props> = ({ result, variant = "chips" }) => {
                       : "bids"
                 }`
               : t("risk_flag_weak_competition") || "Weak competition"}
-          </span>
+          </SignalPill>
         </Tooltip>
       ) : null}
 
@@ -186,12 +171,9 @@ export const RiskBadges: FC<Props> = ({ result, variant = "chips" }) => {
             </div>
           }
         >
-          <span
-            className={`${chipBase} border-violet-300 bg-violet-100 text-violet-900 dark:border-violet-900 dark:bg-violet-900/40 dark:text-violet-100`}
-          >
-            <Gavel className="h-3 w-3" />
+          <SignalPill tone="violet" icon={<Gavel className="h-3 w-3" />}>
             {t("risk_flag_direct_award") || "Direct award"}
-          </span>
+          </SignalPill>
         </Tooltip>
       ) : null}
 
@@ -210,12 +192,9 @@ export const RiskBadges: FC<Props> = ({ result, variant = "chips" }) => {
             </div>
           }
         >
-          <span
-            className={`${chipBase} border-red-300 bg-red-100 text-red-900 dark:border-red-900 dark:bg-red-900/40 dark:text-red-100`}
-          >
-            <Gavel className="h-3 w-3" />
+          <SignalPill tone="red" icon={<Gavel className="h-3 w-3" />}>
             {t("risk_flag_appeal_upheld") || "Appeal upheld"}
-          </span>
+          </SignalPill>
         </Tooltip>
       ) : null}
 
@@ -236,14 +215,11 @@ export const RiskBadges: FC<Props> = ({ result, variant = "chips" }) => {
             </div>
           }
         >
-          <span
-            className={`${chipBase} border-yellow-300 bg-yellow-100 text-yellow-900 dark:border-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-100`}
-          >
-            <Timer className="h-3 w-3" />
+          <SignalPill tone="yellow" icon={<Timer className="h-3 w-3" />}>
             {flags.tenderPeriodDays != null
               ? `${flags.tenderPeriodDays}${t("risk_flag_short_period_days_abbr") || "d"}`
               : t("risk_flag_short_period") || "Rushed"}
-          </span>
+          </SignalPill>
         </Tooltip>
       ) : null}
 
@@ -266,12 +242,9 @@ export const RiskBadges: FC<Props> = ({ result, variant = "chips" }) => {
             </div>
           }
         >
-          <span
-            className={`${chipBase} border-orange-300 bg-orange-100 text-orange-900 dark:border-orange-900 dark:bg-orange-900/40 dark:text-orange-100`}
-          >
-            <AlertTriangle className="h-3 w-3" />
+          <SignalPill tone="orange" icon={<AlertTriangle className="h-3 w-3" />}>
             {formatShare(flags.awarderConcentration.sharePct, lang)}
-          </span>
+          </SignalPill>
         </Tooltip>
       ) : null}
 
@@ -289,12 +262,9 @@ export const RiskBadges: FC<Props> = ({ result, variant = "chips" }) => {
             </div>
           }
         >
-          <span
-            className={`${chipBase} border-slate-300 bg-slate-100 text-slate-900 dark:border-slate-700 dark:bg-slate-800/60 dark:text-slate-100`}
-          >
-            <Repeat className="h-3 w-3" />
+          <SignalPill tone="slate" icon={<Repeat className="h-3 w-3" />}>
             {t("risk_flag_amendment") || "Amend"}
-          </span>
+          </SignalPill>
         </Tooltip>
       ) : null}
 
@@ -319,12 +289,9 @@ export const RiskBadges: FC<Props> = ({ result, variant = "chips" }) => {
             </div>
           }
         >
-          <span
-            className={`${chipBase} border-red-300 bg-red-100 text-red-900 dark:border-red-900 dark:bg-red-900/40 dark:text-red-100`}
-          >
-            <TrendingUp className="h-3 w-3" />+
-            {formatShare(flags.annexGrowthPct ?? 0, lang)}
-          </span>
+          <SignalPill tone="red" icon={<TrendingUp className="h-3 w-3" />}>
+            +{formatShare(flags.annexGrowthPct ?? 0, lang)}
+          </SignalPill>
         </Tooltip>
       ) : null}
 
@@ -349,12 +316,9 @@ export const RiskBadges: FC<Props> = ({ result, variant = "chips" }) => {
             </div>
           }
         >
-          <span
-            className={`${chipBase} border-fuchsia-300 bg-fuchsia-100 text-fuchsia-900 dark:border-fuchsia-900 dark:bg-fuchsia-900/40 dark:text-fuchsia-100`}
-          >
-            <Sparkles className="h-3 w-3" />
+          <SignalPill tone="fuchsia" icon={<Sparkles className="h-3 w-3" />}>
             {t("risk_flag_new_firm") || "New firm"}
-          </span>
+          </SignalPill>
         </Tooltip>
       ) : null}
 
@@ -380,12 +344,9 @@ export const RiskBadges: FC<Props> = ({ result, variant = "chips" }) => {
             </div>
           }
         >
-          <span
-            className={`${chipBase} border-amber-300 bg-amber-100 text-amber-900 dark:border-amber-900 dark:bg-amber-900/40 dark:text-amber-100`}
-          >
-            <Scissors className="h-3 w-3" />
+          <SignalPill tone="amber" icon={<Scissors className="h-3 w-3" />}>
             {t("risk_flag_split") || "Split?"}
-          </span>
+          </SignalPill>
         </Tooltip>
       ) : null}
     </div>

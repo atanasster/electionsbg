@@ -62,10 +62,6 @@ export const GRADE_TONE: Record<RiskGradeLetter, GradeTone> = {
 export const criColor = (cri: number): string =>
   cri >= 67 ? "#dc2626" : cri >= 34 ? "#d97706" : "#16a34a";
 
-/** Base class for a risk-flag pill (colour classes are appended per flag). */
-export const RISK_CHIP_BASE =
-  "inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide";
-
 /** Share (0..1 fraction → "42%"), locale-aware, no decimals. Named `formatShare`
  *  (not `formatPct`) to avoid colliding with `@/data/utils`'s `formatPct`, which
  *  takes a 0–100 value + decimals. */

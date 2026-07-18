@@ -16,7 +16,11 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { Tooltip } from "@/ux/Tooltip";
-import { criColor, RISK_CHIP_BASE } from "@/lib/riskGrade";
+import { criColor } from "@/lib/riskGrade";
+import {
+  SignalPill,
+  type SignalTone,
+} from "@/screens/components/procurement/SignalPill";
 import {
   computeTenderRisk,
   type TenderRiskKey,
@@ -28,21 +32,16 @@ import type { TenderAward } from "@/data/procurement/useTender";
 
 type FlagMeta = {
   icon: ReactNode;
-  cls: string;
+  tone: SignalTone;
   short: [string, string]; // [key, fallback]
   long: [string, string];
   hint: [string, string];
 };
 
-const RED =
-  "border-red-300 bg-red-100 text-red-900 dark:border-red-900 dark:bg-red-900/40 dark:text-red-100";
-const AMBER =
-  "border-amber-300 bg-amber-100 text-amber-900 dark:border-amber-900 dark:bg-amber-900/40 dark:text-amber-100";
-
 const FLAG_META: Record<TenderRiskKey, FlagMeta> = {
   nonOpenProcedure: {
     icon: <Gavel className="h-3 w-3" />,
-    cls: RED,
+    tone: "red",
     short: ["risk_flag_non_open", "Non-open"],
     long: ["risk_flag_non_open_long", "Non-open procedure"],
     hint: [
@@ -52,7 +51,7 @@ const FLAG_META: Record<TenderRiskKey, FlagMeta> = {
   },
   rushedDeadline: {
     icon: <Timer className="h-3 w-3" />,
-    cls: AMBER,
+    tone: "amber",
     short: ["risk_flag_rushed_deadline", "Rushed window"],
     long: ["risk_flag_rushed_deadline_long", "Rushed submission window"],
     hint: [
@@ -62,7 +61,7 @@ const FLAG_META: Record<TenderRiskKey, FlagMeta> = {
   },
   shortDecisionPeriod: {
     icon: <CalendarClock className="h-3 w-3" />,
-    cls: AMBER,
+    tone: "amber",
     short: ["risk_flag_short_decision", "Fast decision"],
     long: ["risk_flag_short_decision_long", "Rushed award decision"],
     hint: [
@@ -72,7 +71,7 @@ const FLAG_META: Record<TenderRiskKey, FlagMeta> = {
   },
   awardOverEstimate: {
     icon: <TrendingUp className="h-3 w-3" />,
-    cls: RED,
+    tone: "red",
     short: ["risk_flag_award_over_estimate", "Over estimate"],
     long: ["risk_flag_award_over_estimate_long", "Awards exceed the estimate"],
     hint: [
@@ -182,10 +181,9 @@ const FlagChips: FC<{ result: TenderRiskResult }> = ({ result }) => {
               </div>
             }
           >
-            <span className={`${RISK_CHIP_BASE} ${m.cls}`}>
-              {m.icon}
+            <SignalPill tone={m.tone} icon={m.icon}>
               {t(m.short[0]) || m.short[1]}
-            </span>
+            </SignalPill>
           </Tooltip>
         );
       })}

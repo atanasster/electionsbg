@@ -17,6 +17,7 @@ import { ProcurementSectionHeader } from "@/screens/components/procurement/Procu
 import { getSectorBrowsePack } from "@/screens/components/procurement/sectorPacks";
 import { SectorBrowseSlot } from "@/screens/components/procurement/SectorBrowseSlot";
 import { AppealChip } from "@/screens/components/procurement/AppealChip";
+import { SignalPill } from "@/screens/components/procurement/SignalPill";
 import { TenderRiskChips } from "@/screens/components/procurement/TenderRiskPanel";
 import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import { topicBySlug } from "@/lib/tenderTopics";
@@ -202,19 +203,19 @@ export const TendersBrowserDbScreen: FC = () => {
               <AppealChip />
             ) : null}
             {row.original.isCancelled ? (
-              <span className="rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-medium text-amber-800 dark:bg-amber-900/30 dark:text-amber-300">
+              <SignalPill tone="amber">
                 {t("tender_status_cancelled") || "Cancelled"}
-              </span>
+              </SignalPill>
             ) : null}
             {row.original.isFrameworkAgreement ? (
-              <span className="rounded bg-muted px-1.5 py-0.5 text-[10px] text-muted-foreground">
+              <SignalPill tone="muted">
                 {t("tender_framework") || "Framework"}
-              </span>
+              </SignalPill>
             ) : null}
             {row.original.isEuFunded ? (
-              <span className="rounded bg-emerald-100 px-1.5 py-0.5 text-[10px] text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300">
-                {t("contract_eu_funding") || "EU"}
-              </span>
+              <SignalPill tone="emerald">
+                {t("signal_eu_short") || "EU"}
+              </SignalPill>
             ) : null}
             {row.original.linkToOjEu ? (
               <a
