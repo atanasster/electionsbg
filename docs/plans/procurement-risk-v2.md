@@ -683,10 +683,15 @@ as relative ordering only.
    `kzk_appeals`, not a wiring problem. Complaints from non-winning bidders: PwC **+33.6%,
    p<0.05**. The genuinely unused fields are `kzk_appeals.suspension` and `.vm_requested`. The
    real "8 not 9" cause is `shortTenderPeriod` (§1c C2).
-3. **Award value vs estimated value.** PwC **+34.1%**. `tenders.estimated_value_eur` + `unp`
-   lineage. Already *rendered* on the contract page (the -43.7% in the прогнозна-vs-текуща bar)
-   and unscored. Make it **two-sided** — OCP R016 flags the low side too, on the theory of
-   deliberate under-valuation to duck a competitive threshold.
+3. **Award value vs estimated value — ✅ SHIPPED 2026-07-18 (f34a859fa).** Added
+   `awardOverEstimate` to `computeTenderRisk` (TENDER grain — the estimate is per-procedure, so
+   contract-grain is confounded by multi-lot). Fires when awards sum to **>110%** of the
+   procedure estimate. Calibrated: awarded/estimated median 99%, p95 105%, >110% = 4.06% base
+   rate. PwC **+34.1%**. Detail-page-only (browser rows carry no awards). Verified on a
+   €39.4M→€78.7M procedure. ⚠️ **The plan's "make it two-sided" note was reconsidered and
+   dropped:** award ≪ estimate is usually competition savings, not a signal — and OCP R016's
+   under-valuation is a *different* comparison (estimate vs the peer-CPV norm, which the normalcy
+   panel already surfaces), not award-vs-estimate. One-sided (over) is the clean, PwC-backed side.
 4. **Threshold-hugging / CPV-splitting.** Contracts clustered just below the ЗОП competitive
    threshold; repeated same-CPV awards to the same buyer↔supplier pair within a year. Portable
    to `contracts` today (amount, CPV, EIK, date). Reference impls: ProZorro RISK-2-5/2-6, OCP
