@@ -18,7 +18,7 @@ import {
 } from "recharts";
 import { SEO } from "@/ux/SEO";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
-import { PlaceHeader } from "@/screens/components/PlaceHeader";
+import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrumb";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { Card } from "@/components/ui/card";
 import { useFuel } from "@/data/prices/useFuel";
@@ -110,7 +110,7 @@ export const ConsumptionFuelScreen: FC = () => {
           "Fuel prices in Bulgaria vs the EU average — petrol 95 and diesel (EUR/L, incl. VAT), EU Weekly Oil Bulletin.",
         )}
       />
-      <PlaceHeader active="consumption" level="country" className="my-4" />
+      <ConsumptionBreadcrumb section={T("Горива", "Fuel")} className="my-4" />
 
       <section aria-label={T("Горива", "Fuel")}>
         <DashboardSection

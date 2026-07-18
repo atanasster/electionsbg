@@ -9,7 +9,7 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Landmark } from "lucide-react";
 import { SEO } from "@/ux/SEO";
-import { PlaceHeader } from "@/screens/components/PlaceHeader";
+import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrumb";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { Card } from "@/components/ui/card";
 import { useFoodPli, type PeerGeo } from "@/data/macro/useMacroPeers";
@@ -59,7 +59,10 @@ export const ConsumptionEuScreen: FC = () => {
           "Bulgarian food prices vs the EU average (Eurostat, EU=100).",
         )}
       />
-      <PlaceHeader active="consumption" level="country" className="my-4" />
+      <ConsumptionBreadcrumb
+        section={T("Спрямо ЕС", "vs the EU")}
+        className="my-4"
+      />
 
       <section aria-label={T("Храната спрямо ЕС", "Food vs the EU")}>
         <DashboardSection

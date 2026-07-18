@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import { ShoppingBasket, TrendingUp, TrendingDown, Minus } from "lucide-react";
 import { SEO } from "@/ux/SEO";
 import { H1 } from "@/ux/H1";
+import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrumb";
 import { Card } from "@/components/ui/card";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { useProduct, useProductHistory } from "@/data/prices/useProducts";
@@ -115,6 +116,13 @@ export const ProductScreen: FC = () => {
           `Price of ${p.title} across retail chains in Bulgaria since the euro. CPC monitoring data.`,
         )}
         canonical={`https://naiasno.bg/product/${slug}`}
+      />
+
+      <ConsumptionBreadcrumb
+        section={T("Продукти", "Products")}
+        sectionTo="/consumption/products"
+        current={p.title}
+        className="mt-4"
       />
 
       <section className="my-4 space-y-4">

@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { LayoutGrid } from "lucide-react";
 import { Link } from "@/ux/Link";
 import { SEO } from "@/ux/SEO";
-import { PlaceHeader } from "@/screens/components/PlaceHeader";
+import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrumb";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { Card } from "@/components/ui/card";
 import {
@@ -42,7 +42,10 @@ export const ConsumptionCategoriesScreen: FC = () => {
           "Food-category prices in Bulgaria since the euro.",
         )}
       />
-      <PlaceHeader active="consumption" level="country" className="my-4" />
+      <ConsumptionBreadcrumb
+        section={T("Категории", "Categories")}
+        className="my-4"
+      />
 
       <section aria-label={T("Категории", "Categories")}>
         <DashboardSection

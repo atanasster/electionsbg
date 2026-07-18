@@ -10,7 +10,7 @@ import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ShoppingBasket } from "lucide-react";
 import { SEO } from "@/ux/SEO";
-import { PlaceHeader } from "@/screens/components/PlaceHeader";
+import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrumb";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { DbDataTable, type DbColumnFilter } from "@/ux/data_table/DbDataTable";
 import { usePriceDict } from "@/data/prices/usePrices";
@@ -67,7 +67,10 @@ export const ProductsBrowserScreen: FC = () => {
           "Search and compare prices of thousands of products across chains in Bulgaria since the euro.",
         )}
       />
-      <PlaceHeader active="consumption" level="country" className="my-4" />
+      <ConsumptionBreadcrumb
+        section={T("Продукти", "Products")}
+        className="my-4"
+      />
 
       <section aria-label={T("Продукти", "Products")}>
         <DashboardSection

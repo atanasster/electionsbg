@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 import { Store, Building2, ArrowRight } from "lucide-react";
 import { Link } from "@/ux/Link";
 import { SEO } from "@/ux/SEO";
-import { PlaceHeader } from "@/screens/components/PlaceHeader";
+import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrumb";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { Card } from "@/components/ui/card";
 import { useNationalChains, fmtEur } from "@/data/prices/usePrices";
@@ -83,7 +83,12 @@ export const ChainProfileScreen: FC = () => {
           `Prices and profile for the ${name} retail chain.`,
         )}
       />
-      <PlaceHeader active="consumption" level="country" className="my-4" />
+      <ConsumptionBreadcrumb
+        section={T("Вериги", "Chains")}
+        sectionTo="/consumption/chains"
+        current={name}
+        className="my-4"
+      />
 
       <section aria-label={name}>
         <div className="my-4 flex items-center gap-2">

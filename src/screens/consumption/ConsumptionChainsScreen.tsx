@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 import { Store } from "lucide-react";
 import { Link } from "@/ux/Link";
 import { SEO } from "@/ux/SEO";
-import { PlaceHeader } from "@/screens/components/PlaceHeader";
+import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrumb";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { Card } from "@/components/ui/card";
 import { useNationalChains, fmtEur } from "@/data/prices/usePrices";
@@ -36,7 +36,7 @@ export const ConsumptionChainsScreen: FC = () => {
           "Which retail chain has the cheapest basket in Bulgaria.",
         )}
       />
-      <PlaceHeader active="consumption" level="country" className="my-4" />
+      <ConsumptionBreadcrumb section={T("Вериги", "Chains")} className="my-4" />
 
       <section aria-label={T("Вериги", "Chains")}>
         <DashboardSection

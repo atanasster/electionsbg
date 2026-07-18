@@ -18,7 +18,7 @@ import { SEO } from "@/ux/SEO";
 import { useHashScroll } from "@/ux/useHashScroll";
 import { usePriceIndex, usePriceRanking } from "@/data/prices/usePrices";
 import { useEuroVerdict } from "@/data/prices/useProducts";
-import { PlaceHeader } from "@/screens/components/PlaceHeader";
+import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrumb";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { GovernancePricesTile } from "@/screens/governance/GovernancePricesTile";
 import { ConsumptionInflationTile } from "@/screens/consumption/ConsumptionInflationTile";
@@ -48,7 +48,10 @@ export const ConsumptionOverviewScreen = () => {
   return (
     <>
       <SEO title={title} description={description} />
-      <PlaceHeader active="consumption" level="country" className="my-4" />
+      <ConsumptionBreadcrumb
+        section={bg ? "Обзор" : "Overview"}
+        className="my-4"
+      />
 
       <section aria-label={title}>
         <DashboardSection

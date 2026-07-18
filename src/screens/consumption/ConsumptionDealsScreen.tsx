@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import { Tag } from "lucide-react";
 import { Link } from "@/ux/Link";
 import { SEO } from "@/ux/SEO";
-import { PlaceHeader } from "@/screens/components/PlaceHeader";
+import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrumb";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { Card } from "@/components/ui/card";
 import { useDeals, fmtEur, fmtPriceDate } from "@/data/prices/usePrices";
@@ -29,7 +29,10 @@ export const ConsumptionDealsScreen: FC = () => {
           "The biggest per-product price cuts in Bulgaria — promo vs regular price from the daily CPC feed.",
         )}
       />
-      <PlaceHeader active="consumption" level="country" className="my-4" />
+      <ConsumptionBreadcrumb
+        section={T("Промоции", "Deals")}
+        className="my-4"
+      />
 
       <section aria-label={T("Промоции", "Deals")}>
         <DashboardSection

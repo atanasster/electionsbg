@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 import { ShoppingBasket, Plus, X, Search } from "lucide-react";
 import { Link } from "@/ux/Link";
 import { SEO } from "@/ux/SEO";
-import { PlaceHeader } from "@/screens/components/PlaceHeader";
+import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrumb";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { Card } from "@/components/ui/card";
 import { fetchProduct, type ProductHit } from "@/data/prices/fetchPricePayload";
@@ -156,7 +156,10 @@ export const ConsumptionBasketScreen: FC = () => {
           "Build your basket and see the total price and its change since the euro.",
         )}
       />
-      <PlaceHeader active="consumption" level="country" className="my-4" />
+      <ConsumptionBreadcrumb
+        section={T("Моята кошница", "My basket")}
+        className="my-4"
+      />
 
       <section aria-label={T("Моята кошница", "My basket")}>
         <DashboardSection
