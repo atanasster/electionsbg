@@ -32,6 +32,13 @@ const BUDGET_JSON = fileURLToPath(
 const FOREIGN_JSON = fileURLToPath(
   new URL("../../data/ngo/foreign_grants.json", import.meta.url),
 );
+const ABF_PROJECTS = fileURLToPath(
+  new URL("../../data/ngo/abf/projects.json", import.meta.url),
+);
+const ABF_ALIASES = fileURLToPath(
+  new URL("../../data/ngo/abf_aliases.json", import.meta.url),
+);
+const BGN_PER_EUR = 1.95583;
 const SCHEMA_SQL = fileURLToPath(
   new URL("../db/schema/pg/040_ngo_funding.sql", import.meta.url),
 );
@@ -47,6 +54,9 @@ type RawRow = {
   amount_eur: number | null;
   programme: string | null;
   vat: string | null;
+  // Pre-resolved EIK (ABF grantees are English → matched via a curated alias map,
+  // not the Cyrillic fold matcher). When set, it wins over VAT/fold/fuzzy.
+  eik?: string | null;
 };
 
 // Robust column pick — FTS headers carry stray double-spaces / smart chars.
@@ -115,6 +125,52 @@ const parseCurated = (path: string, defaultSource: string): RawRow[] => {
   }));
 };
 
+// ABF (America for Bulgaria Fdn) Project Database — scraped English-named grantees
+// (data/ngo/abf/projects.json, via scripts/ngo/abf_fetch.ts). English names can't
+// join the Cyrillic register via the fold matcher, so a curated alias map
+// (data/ngo/abf_aliases.json) resolves the top recipients → EIK; the rest stay
+// unmatched (stored, but don't feed foreign_funded). BGN amounts → EUR.
+const parseAbf = (): RawRow[] => {
+  if (!existsSync(ABF_PROJECTS)) return [];
+  const projects = JSON.parse(readFileSync(ABF_PROJECTS, "utf8")) as Array<{
+    grantee?: string;
+    name?: string;
+    amount?: number | null;
+    currency?: string | null;
+    year?: number | null;
+  }>;
+  const aliases: Array<{ eik: string; en: string[] }> = existsSync(ABF_ALIASES)
+    ? (JSON.parse(readFileSync(ABF_ALIASES, "utf8")).aliases ?? [])
+    : [];
+  const findEik = (grantee: string): string | null => {
+    const g = grantee.toLowerCase();
+    for (const a of aliases)
+      if (a.en.some((s) => g.includes(s.toLowerCase()))) return a.eik;
+    return null;
+  };
+  const out: RawRow[] = [];
+  for (const p of projects) {
+    if (!p.grantee || p.amount == null) continue;
+    const eur =
+      p.currency === "EUR"
+        ? p.amount
+        : p.currency === "BGN"
+          ? p.amount / BGN_PER_EUR
+          : null;
+    out.push({
+      name_raw: p.grantee,
+      source: "abf",
+      funder: "America for Bulgaria Foundation",
+      year: p.year ?? null,
+      amount_eur: eur != null ? Math.round(eur) : null,
+      programme: p.name ?? null,
+      vat: null,
+      eik: findEik(p.grantee),
+    });
+  }
+  return out;
+};
+
 export const loadNgoFundingPg = async (): Promise<{
   rows: number;
   matched: number;
@@ -126,6 +182,7 @@ export const loadNgoFundingPg = async (): Promise<{
     ...parseFts(),
     ...parseCurated(BUDGET_JSON, "budget_subsidy"),
     ...parseCurated(FOREIGN_JSON, "abf"),
+    ...parseAbf(),
   ];
   if (!rows.length) {
     console.warn("[ngo-funding] no source rows found — nothing to load.");
@@ -138,12 +195,12 @@ export const loadNgoFundingPg = async (): Promise<{
   await exec("DROP TABLE IF EXISTS ngo_funding_stage");
   await exec(`CREATE TABLE ngo_funding_stage (
     name_raw text, source text, funder text, year int,
-    amount_eur numeric, programme text, vat text
+    amount_eur numeric, programme text, vat text, eik text
   )`);
 
   await withClient(async (c) => {
     await c.query("BEGIN");
-    const cols = 7;
+    const cols = 8;
     const batch = Math.floor(60000 / cols);
     for (let i = 0; i < rows.length; i += batch) {
       const slice = rows.slice(i, i + batch);
@@ -154,7 +211,7 @@ export const loadNgoFundingPg = async (): Promise<{
         )
         .join(",");
       await c.query(
-        `INSERT INTO ngo_funding_stage (name_raw, source, funder, year, amount_eur, programme, vat) VALUES ${values}`,
+        `INSERT INTO ngo_funding_stage (name_raw, source, funder, year, amount_eur, programme, vat, eik) VALUES ${values}`,
         slice.flatMap((r) => [
           r.name_raw,
           r.source,
@@ -163,6 +220,7 @@ export const loadNgoFundingPg = async (): Promise<{
           r.amount_eur,
           r.programme,
           r.vat,
+          r.eik ?? null,
         ]),
       );
     }
@@ -201,9 +259,10 @@ export const loadNgoFundingPg = async (): Promise<{
     )
     INSERT INTO ngo_funding (eik, name_raw, source, funder, year, amount_eur, programme, match_method)
     SELECT
-      COALESCE(vh.uic, uf.uic, fz.uic) AS eik,
+      COALESCE(m.eik, vh.uic, uf.uic, fz.uic) AS eik,
       m.name_raw, m.source, m.funder, m.year, m.amount_eur, m.programme,
       CASE
+        WHEN m.eik IS NOT NULL THEN 'manual'
         WHEN vh.uic IS NOT NULL THEN 'vat'
         WHEN uf.uic IS NOT NULL THEN 'name_exact'
         WHEN fz.uic IS NOT NULL THEN 'name_fuzzy'

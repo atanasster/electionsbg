@@ -1,0 +1,54 @@
+{
+  "_comment": "Curated America for Bulgaria Foundation grantee (English name) → BG EIK map. ABF publishes grantees in English, which translit_bg_latin cannot join to the Cyrillic TR register, so the top recipients by value are hand-mapped here. Each `en` substring is matched case-insensitively against the ABF grantee name (data/ngo/abf/projects.json). Extend as more grantees are resolved. Verified against tr_companies.",
+  "aliases": [
+    {
+      "eik": "175935973",
+      "name": "ЗАЕДНО В ЧАС",
+      "en": ["each for bulgaria", "zaedno v chas"]
+    },
+    {
+      "eik": "176356758",
+      "name": "ТРЪСТ ЗА СОЦИАЛНА АЛТЕРНАТИВА",
+      "en": ["trust for social achievement"]
+    },
+    {
+      "eik": "130570377",
+      "name": "БЪЛГАРСКИ ЦЕНТЪР ЗА НЕСТОПАНСКО ПРАВО",
+      "en": [
+        "center for non-for-profit law",
+        "center for not-for-profit law",
+        "centre for non-for-profit law"
+      ]
+    },
+    {
+      "eik": "176535405",
+      "name": "СОФИЙСКА ПЛАТФОРМА",
+      "en": ["sofia platform"]
+    },
+    {
+      "eik": "177101397",
+      "name": "АНТИКОРУПЦИОНЕН ФОНД",
+      "en": ["anti-corruption fund"]
+    },
+    {
+      "eik": "121347628",
+      "name": "ПРОГРАМА ДОСТЪП ДО ИНФОРМАЦИЯ",
+      "en": ["access to information program"]
+    },
+    {
+      "eik": "177228100",
+      "name": "ТЕЛЕРИК АКАДЕМИЯ",
+      "en": ["telerik academy"]
+    },
+    {
+      "eik": "175054881",
+      "name": "БЪЛГАРСКИ ИНСТИТУТ ЗА ПРАВНИ ИНИЦИАТИВИ",
+      "en": ["bulgarian institute for legal initiatives"]
+    },
+    {
+      "eik": "176007906",
+      "name": "АСОЦИАЦИЯ НА ЕВРОПЕЙСКИТЕ ЖУРНАЛИСТИ-БЪЛГАРИЯ",
+      "en": ["association of european journalists"]
+    }
+  ]
+}
