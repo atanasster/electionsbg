@@ -11,7 +11,7 @@
 // columns, single spaces only inside a thousands group. Expected values are the
 // current reconciliation-verified behaviour — a change here is a real regression.
 
-import { test } from "node:test";
+import { test } from "vitest";
 import assert from "node:assert/strict";
 import { extractAmounts } from "./parse_hospital_payments";
 

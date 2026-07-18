@@ -9,7 +9,7 @@
 //
 // See docs/plans/sql-migration-v1.md (Phase 1).
 
-import { test } from "node:test";
+import { test } from "vitest";
 import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
@@ -28,7 +28,7 @@ const skip = !verify
       ? "no golden fixtures — run npm run db:goldens"
       : false;
 
-test("live procurement files match golden fixtures", { skip }, () => {
+test.skipIf(skip)("live procurement files match golden fixtures", () => {
   const goldens = haveGoldens ? walkJsonFiles(GOLDEN_DIR) : [];
   assert.ok(goldens.length > 0, "no golden fixtures found");
   const missing: string[] = [];

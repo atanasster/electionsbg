@@ -2,14 +2,14 @@
  * Unit tests for resolveOffice(). Run with:
  *   npx tsx --test scripts/declarations/parse_registered_office.test.ts
  *
- * Uses Node's built-in test runner (node:test) — no extra deps. Loads the
+ * Runs under Vitest (see docs/testing-standards.md). Loads the
  * real data/settlements.json + data/postcode_ekatte.json so the matcher is
  * exercised against production reference data.
  */
 
 import fs from "fs";
 import path from "path";
-import { test } from "node:test";
+import { test } from "vitest";
 import assert from "node:assert/strict";
 import {
   buildSettlementIndex,

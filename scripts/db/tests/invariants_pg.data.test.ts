@@ -15,7 +15,7 @@
 // The headline Σ(amount_eur) ↔ index.json reconciliation lives in
 // pg_roundtrip.data.test.ts; this file owns the internal-consistency invariants.
 
-import { test, after } from "node:test";
+import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
 
@@ -38,11 +38,11 @@ const reachable = async (): Promise<boolean> => {
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / contracts table absent";
 
-after(async () => {
+afterAll(async () => {
   await end();
 });
 
-test("contract keys are globally unique", { skip }, async () => {
+test.skipIf(skip)("contract keys are globally unique", async () => {
   const [r] = await allRows<{ dup: string }>(
     "SELECT (count(*) - count(DISTINCT key))::text AS dup FROM contracts",
   );
@@ -59,7 +59,7 @@ test("contract keys are globally unique", { skip }, async () => {
   );
 });
 
-test("EUR peg (1.95583) holds on convertible rows", { skip }, async () => {
+test.skipIf(skip)("EUR peg (1.95583) holds on convertible rows", async () => {
   const rows = await allRows<{
     key: string;
     currency: string;
@@ -94,7 +94,7 @@ test("EUR peg (1.95583) holds on convertible rows", { skip }, async () => {
   );
 });
 
-test("no synthetic legacy -x twin survivors", { skip }, async () => {
+test.skipIf(skip)("no synthetic legacy -x twin survivors", async () => {
   // A row whose ocid ends in "-x" (synthetic legacy twin) must NOT share its
   // (date, awarder, contractor, amount, title) identity with a real (non-x) row
   // — that would double-count the spend. Same twin key as contracts_aggregate.ts.

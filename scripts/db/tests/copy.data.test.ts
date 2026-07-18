@@ -12,7 +12,7 @@
 //   · int 0/1 → boolean — the ngo_details.public_benefit path in load_tr_pg
 //   · typed arrays — must THROW rather than serialize to {"0":1,…}
 
-import { test } from "node:test";
+import { test } from "vitest";
 import assert from "node:assert/strict";
 import { withClient } from "../lib/pg";
 import { copyRows } from "../lib/copy";

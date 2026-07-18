@@ -8,7 +8,7 @@
 // parses free-text sheet names; `parseActivities` folds the (facility × procedure
 // × ICD × ICD) grain up to (facility, procedure), summing cases + ЗОЛ.
 
-import { test } from "node:test";
+import { test } from "vitest";
 import assert from "node:assert/strict";
 import * as xlsx from "xlsx";
 import { num, derivePeriod, parseActivities } from "./parse_activities";

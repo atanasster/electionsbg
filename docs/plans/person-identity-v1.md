@@ -417,13 +417,13 @@ page — a real feature, not just internal plumbing.
 
 ## 7. Testing & verification
 
-Testing runs on the **repo-wide test framework** being introduced by the separate test-infra
-workstream (task: "Add repo-wide test framework + standards" — likely Vitest, since the repo is
-Vite 6). Person tests live under `scripts/person/**` and run via `npm run test:person`; follow that
-workstream's `docs/testing-standards.md` for fixture/mocking conventions. (If that framework has not
-landed when person work starts, a scoped `node --test` runner is the interim.) Two test bodies: (7a)
-resolver correctness, (7b) migration safety. Both must be green before any page flips its hook to
-`/api/db`.
+Testing runs on the **repo-wide Vitest standard** (see
+[docs/testing-standards.md](../testing-standards.md); Playwright keeps the E2E/SEO/perf layer). Put
+the resolver tests under `scripts/person/**` as co-located `*.test.ts` and run them with
+`npm run test:person` (already wired to `vitest run --passWithNoTests scripts/person`). They land in
+the `node` Vitest project, use committed `__fixtures__/`, and — like the rest of the pipeline's
+pure-logic tests — never touch Postgres. Two test bodies: (7a) resolver correctness, (7b) migration
+safety. Both must be green before any page flips its hook to `/api/db`.
 
 ### 7a. Name-matching / person-finding tests (the "expensive" ones — the core)
 

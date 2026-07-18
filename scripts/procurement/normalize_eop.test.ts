@@ -8,7 +8,7 @@
 //
 //   npx tsx --test scripts/procurement/normalize_eop.test.ts
 
-import { test } from "node:test";
+import { test } from "vitest";
 import assert from "node:assert/strict";
 import {
   parseBgNumber,

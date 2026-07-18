@@ -13,7 +13,7 @@
 //
 // Requires DB_VERIFY=1, a loaded local Postgres, and the _cache fixture.
 
-import test, { after } from "node:test";
+import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import { allRows, end } from "../lib/pg";
@@ -21,7 +21,7 @@ import type { DailyGrid } from "../../prices/types";
 
 // lib/pg holds a module-level singleton Pool with keepalive; without this the
 // db:verify runner hangs at completion (matches the sibling DB tests).
-after(async () => {
+afterAll(async () => {
   await end();
 });
 
@@ -48,9 +48,8 @@ interface GridRow {
   cheapest_eik: string | null;
 }
 
-test(
+test.skipIf(!RUN)(
   "price_grid_days reproduces the shipped daily grid",
-  { skip: !RUN },
   async () => {
     if (!fs.existsSync(FIXTURE)) {
       assert.fail(
@@ -126,7 +125,7 @@ test(
   },
 );
 
-test("price_chain_grid_days cell count matches", { skip: !RUN }, async () => {
+test.skipIf(!RUN)("price_chain_grid_days cell count matches", async () => {
   if (!fs.existsSync(FIXTURE)) assert.fail(`missing fixture ${FIXTURE}`);
   const grid: DailyGrid = JSON.parse(fs.readFileSync(FIXTURE, "utf8"));
   const jsonCC = Object.values(grid.chainCells).reduce(
@@ -142,9 +141,8 @@ test("price_chain_grid_days cell count matches", { skip: !RUN }, async () => {
   assert.equal(Number(n), jsonCC);
 });
 
-test(
+test.skipIf(!RUN)(
   "price_facts must NOT be used to reconstruct a day",
-  { skip: !RUN },
   async () => {
     // Once data is loaded, open runs must STRICTLY exceed today's observations
     // (the 36% phantom over-count). `>=` alone is satisfied by 0 >= 0 on an

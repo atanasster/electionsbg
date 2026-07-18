@@ -6,7 +6,7 @@
 //
 //   npx tsx --test scripts/administration/parse_service_quality.test.ts
 
-import { test } from "node:test";
+import { test } from "vitest";
 import assert from "node:assert/strict";
 import { parseYear } from "./parse_service_quality";
 

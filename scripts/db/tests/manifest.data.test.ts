@@ -8,7 +8,7 @@
 //
 // See docs/plans/sql-migration-v1.md (Phase 1).
 
-import { test } from "node:test";
+import { test } from "vitest";
 import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
@@ -27,7 +27,7 @@ const skip = !verify
       ? "no committed manifest — run npm run db:manifest"
       : false;
 
-test("live corpus matches the committed manifest", { skip }, () => {
+test.skipIf(skip)("live corpus matches the committed manifest", () => {
   const baseline = JSON.parse(
     readFileSync(MANIFEST_FILE, "utf8"),
   ) as ProcurementManifest;

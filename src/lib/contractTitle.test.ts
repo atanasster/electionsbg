@@ -1,6 +1,6 @@
 // Unit tests for splitContractTitle — run with `npm run test:lib`
-// (node:test via tsx, the same runner used for scripts/db/tests).
-import { test } from "node:test";
+// (Vitest; see docs/testing-standards.md).
+import { test } from "vitest";
 import assert from "node:assert/strict";
 import { splitContractTitle } from "./contractTitle";
 

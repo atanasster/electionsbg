@@ -27,14 +27,14 @@
 // Requires DB_VERIFY=1, a fully backfilled local Postgres, and the _cache tree.
 // Delete this test when data/prices/_cache/ is deleted.
 
-import test, { after } from "node:test";
+import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import { allRows, end } from "../lib/pg";
 import { buildPriceIndex, type Emit } from "../../prices/build_index";
 
 // Close the singleton pool so the db:verify runner doesn't hang (FINDING-008).
-after(async () => {
+afterAll(async () => {
   await end();
 });
 
@@ -90,9 +90,8 @@ const avgWithinTolerance = (a: unknown, b: unknown): boolean => {
   return true;
 };
 
-test(
+test.skipIf(!RUN || !HAVE_CACHE)(
   "price_payloads reproduces the cache-built artifacts",
-  { skip: !RUN || !HAVE_CACHE },
   async () => {
     const cache = new Map<string, unknown>();
     const emit: Emit = (kind, key, obj) => cache.set(`${kind}|${key}`, obj);
@@ -122,9 +121,8 @@ test(
   },
 );
 
-test(
+test.skipIf(!RUN)(
   "ranking.places is ordered by code (determinism)",
-  { skip: !RUN },
   async () => {
     const [r] = await allRows<{ payload: { places: { code: string }[] } }>(
       "SELECT payload FROM price_payloads WHERE kind = 'ranking'",
@@ -135,18 +133,14 @@ test(
   },
 );
 
-test(
-  "every covered settlement has a place payload",
-  { skip: !RUN },
-  async () => {
-    const [{ n }] = await allRows<{ n: string }>(
-      "SELECT count(*) AS n FROM price_payloads WHERE kind = 'place'",
-    );
-    const [{ s }] = await allRows<{ s: string }>(
-      `SELECT count(DISTINCT ekatte) AS s FROM price_grid_days
+test.skipIf(!RUN)("every covered settlement has a place payload", async () => {
+  const [{ n }] = await allRows<{ n: string }>(
+    "SELECT count(*) AS n FROM price_payloads WHERE kind = 'place'",
+  );
+  const [{ s }] = await allRows<{ s: string }>(
+    `SELECT count(DISTINCT ekatte) AS s FROM price_grid_days
       WHERE day = (SELECT max(day) FROM price_grid_days)`,
-    );
-    assert.ok(Number(s) > 0, "no settlements loaded — vacuous"); // FINDING-015
-    assert.equal(Number(n), Number(s));
-  },
-);
+  );
+  assert.ok(Number(s) > 0, "no settlements loaded — vacuous"); // FINDING-015
+  assert.equal(Number(n), Number(s));
+});

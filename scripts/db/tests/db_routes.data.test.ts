@@ -5,7 +5,7 @@
 // string — only the bound-parameter array. Pure JS over a mock dbRows; no
 // Postgres needed, so it always runs (unlike the PG-probed suites).
 
-import { test } from "node:test";
+import { test } from "vitest";
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
 

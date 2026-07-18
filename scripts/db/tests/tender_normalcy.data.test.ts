@@ -10,7 +10,7 @@
 // applies 066). Auto-skips when Postgres or the tenders table is unreachable, so
 // CI without a container/corpus skips it, exactly like invariants_pg.
 
-import { test, after } from "node:test";
+import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
 
@@ -30,15 +30,14 @@ const skip = haveDb
   ? false
   : "Postgres unreachable / tender_normalcy_cache absent";
 
-after(async () => {
+afterAll(async () => {
   if (haveDb) await end();
 });
 
 // A representative УНП sample: cpv-bearing, cpv-less, short-window (deviation),
 // and cancelled — the shapes most likely to diverge between the two builds.
-test(
+test.skipIf(skip)(
   "tender_normalcy() == tender_normalcy_cache (byte parity)",
-  { skip },
   async () => {
     const [r] = await allRows<{ checked: number; mismatch: number }>(`
     WITH samp AS (
@@ -63,7 +62,7 @@ test(
 
 // Percentiles are shares in [0,1]; the window signal must actually be present and
 // fire on some tenders (else the panel would be a dead tile).
-test("tender_normalcy payloads are well-formed", { skip }, async () => {
+test.skipIf(skip)("tender_normalcy payloads are well-formed", async () => {
   const [r] = await allRows<{
     bad_pct: number;
     with_window: number;

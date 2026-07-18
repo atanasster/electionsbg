@@ -5,7 +5,7 @@
 // guard, and the ±0.5·SD verdict banding — a silent off-by-one in any of these
 // would otherwise pass every DB-level assertion.
 
-import { test } from "node:test";
+import { test } from "vitest";
 import assert from "node:assert/strict";
 import {
   ols,

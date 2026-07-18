@@ -5,7 +5,7 @@
 //
 // Run: npm run test:nzok
 
-import { test } from "node:test";
+import { test } from "vitest";
 import assert from "node:assert/strict";
 import { buildEeofOwnershipIndex, classifyOwnership } from "./ownership";
 

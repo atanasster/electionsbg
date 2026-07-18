@@ -9,7 +9,7 @@
 //
 // See docs/plans/postgres-migration-v1.md (Features 1 + 2).
 
-import { test, after } from "node:test";
+import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, withClient, end } from "../lib/pg";
 
@@ -20,7 +20,7 @@ const rows = async <T = Record<string, unknown>>(
 const scalar = async <T>(sql: string, params: unknown[] = []): Promise<T> =>
   Object.values((await rows(sql, params))[0] ?? {})[0] as T;
 
-// Probe once, synchronously enough for node:test's skip (top-level await).
+// Probe once at load, feeding test.skipIf (top-level await).
 const probe = async (): Promise<string | false> => {
   try {
     await allRows("SELECT 1");
@@ -37,13 +37,12 @@ const probe = async (): Promise<string | false> => {
 };
 
 const skip = await probe();
-after(async () => {
+afterAll(async () => {
   await end();
 });
 
-test(
+test.skipIf(skip)(
   "translit_bg_latin folds Cyrillic → Latin, case + diacritics",
-  { skip },
   async () => {
     const f = async (s: string) =>
       scalar<string>("SELECT translit_bg_latin($1)", [s]);
@@ -58,9 +57,8 @@ test(
   },
 );
 
-test(
+test.skipIf(skip)(
   "search_companies: partial, Latin→Cyrillic, procurement summary",
-  { skip },
   async () => {
     interface Co {
       uic: string;
@@ -85,9 +83,8 @@ test(
   },
 );
 
-test(
+test.skipIf(skip)(
   "search_officers: any-order tokens, Latin query, officer→company",
-  { skip },
   async () => {
     interface Off {
       officer: string;
@@ -114,9 +111,8 @@ test(
   },
 );
 
-test(
+test.skipIf(skip)(
   "last_ingested_contracts = the latest batch's first-seen delta",
-  { skip },
   async () => {
     const maxBatch = await scalar<number>(
       "SELECT max(id) FROM ingest_batches WHERE source = 'shards'",
@@ -151,9 +147,8 @@ test(
   },
 );
 
-test(
+test.skipIf(skip)(
   "search_contractors: finds contractors absent from TR (foreign firms)",
-  { skip },
   async () => {
     interface Ct {
       eik: string;
@@ -188,9 +183,8 @@ test(
   },
 );
 
-test(
+test.skipIf(skip)(
   "search_all: one ranked feed spanning companies + officers + contractors",
-  { skip },
   async () => {
     interface Hit {
       kind: string;
@@ -219,9 +213,8 @@ test(
   },
 );
 
-test(
+test.skipIf(skip)(
   "recent_updates: multi-table window, newest first, respects the day arg",
-  { skip },
   async () => {
     interface Upd {
       kind: string;
@@ -273,9 +266,8 @@ test(
 // new company twice. That rule lives in recent_updates' `summarised` CTE and only
 // bites on a SMALL day — the 500-row threshold masks it on a big one — so it is
 // exercised here on a synthetic source, inside a rolled-back txn.
-test(
+test.skipIf(skip)(
   "recent_updates: a summary-mode batch summarises even below the 500 threshold",
-  { skip },
   async () => {
     await withClient(async (c) => {
       await c.query("BEGIN");

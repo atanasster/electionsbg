@@ -20,7 +20,7 @@
 // Requires the Postgres store (`db:pg:up` + `db:load:pg`); auto-skips when
 // Postgres is unreachable, exactly like the other *.data.test.ts files.
 
-import { test, after } from "node:test";
+import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { allRows, end } from "../lib/pg";
 
@@ -39,7 +39,7 @@ const skip = (await reachable())
   ? false
   : "Postgres unreachable / contracts table absent";
 
-after(async () => {
+afterAll(async () => {
   await end();
 });
 
@@ -81,9 +81,8 @@ async function agg(unp: string): Promise<{
 // 1. STRUCTURAL INVARIANTS
 // ============================================================================
 
-test(
+test.skipIf(skip)(
   "corpus size + value are within sane bounds (catches a half-loaded / doubled ingest)",
-  { skip },
   async () => {
     const [r] = await allRows<{ n: string; eur: string }>(
       `SELECT count(*) FILTER (WHERE tag = 'contract')::text            AS n,
@@ -105,9 +104,8 @@ test(
   },
 );
 
-test(
+test.skipIf(skip)(
   "cais_id derivation holds (= unp when present, else the T-id from ocid)",
-  { skip },
   async () => {
     // (a) never disagrees with a present УНП (its whole point is to mirror it)
     const [mismatch] = await allRows<{ n: string }>(
@@ -142,9 +140,8 @@ test(
   },
 );
 
-test(
+test.skipIf(skip)(
   "foreign-supplier contracts are kept, not dropped by the BG-EIK guard",
-  { skip },
   async () => {
     // Foreign vendors keyed by a non-numeric registration id (Stadler `U…`,
     // `HRB…`, etc.). normalize_eop used to drop every non-BG-EIK supplier.
@@ -163,9 +160,8 @@ test(
 // 2. ANCHOR CANARIES — one verified contract per fix. Bounds, not exact.
 // ============================================================================
 
-test(
+test.skipIf(skip)(
   "coverage recovery: АПИ consortium road present (00044-2020-0085)",
-  { skip },
   async () => {
     const a = await agg("00044-2020-0085"); // Русе–Бяла, split across the consortium
     assert.ok(
@@ -179,9 +175,8 @@ test(
   },
 );
 
-test(
+test.skipIf(skip)(
   "foreign supplier kept: Stadler Polska ≈ €153.65M (00042-2024-0003)",
-  { skip },
   async () => {
     const a = await agg("00042-2024-0003");
     assert.equal(
@@ -200,9 +195,8 @@ test(
   },
 );
 
-test(
+test.skipIf(skip)(
   "duplicate-supplier under-count fix: 00308-2020-0013 carries its full value",
-  { skip },
   async () => {
     const a = await agg("00308-2020-0013"); // 183 000 BGN ≈ €93 566; the old ÷4 bug gave ~€23 391
     assert.ok(
@@ -212,9 +206,8 @@ test(
   },
 );
 
-test(
+test.skipIf(skip)(
   "joint-procurement recovery: 00143-2024-0081 attributed to its primary buyer",
-  { skip },
   async () => {
     const a = await agg("00143-2024-0081");
     assert.ok(
@@ -232,9 +225,8 @@ test(
   },
 );
 
-test(
+test.skipIf(skip)(
   "placeholder→estimate fallback: 00120-2021-0004 is not €0",
-  { skip },
   async () => {
     const a = await agg("00120-2021-0004"); // source contractValue was a "0,01" stub
     assert.ok(
@@ -244,9 +236,8 @@ test(
   },
 );
 
-test(
+test.skipIf(skip)(
   "amount overrides applied: stotinki ×100 errors corrected, not booked at face",
-  { skip },
   async () => {
     const a = await agg("00105-2025-0026"); // raw 102 258 376 → corrected ~€1.02M
     assert.ok(
@@ -261,9 +252,8 @@ test(
   },
 );
 
-test(
+test.skipIf(skip)(
   "current-value fold intact: 00044-2024-0047 current > signing, both present",
-  { skip },
   async () => {
     const a = await agg("00044-2024-0047"); // +50% annex: signing €69.83M → current €104.75M
     assert.ok(
@@ -281,9 +271,8 @@ test(
   },
 );
 
-test(
+test.skipIf(skip)(
   "plausibility guard rejects a garbage annex: 00747-2024-0003 stays ~signing",
-  { skip },
   async () => {
     const a = await agg("00747-2024-0003"); // source annex jumps ×48 to €105.2M (a data error)
     assert.ok(
@@ -297,9 +286,8 @@ test(
 // 3. FEATURE CANARY — consortium participation exposed to the company page
 // ============================================================================
 
-test(
+test.skipIf(skip)(
   "company_procurement exposes consortium participation (МЕДЕКС ООД)",
-  { skip },
   async () => {
     const [r] = await allRows<{
       ceur: string | null;

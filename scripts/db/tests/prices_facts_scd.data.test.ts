@@ -10,12 +10,12 @@
 // inside a transaction that is ALWAYS rolled back — so it never touches the
 // backfilled data. Requires DB_VERIFY=1 and a running local Postgres.
 
-import test, { after } from "node:test";
+import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { withClient, end } from "../lib/pg";
 import { applyPriceFactsDelta } from "../../prices/load_day";
 
-after(async () => {
+afterAll(async () => {
   await end();
 });
 
@@ -34,11 +34,8 @@ interface Run {
   price_eur: number;
 }
 
-test(
+test.skipIf(!RUN)(
   "SCD-2 fact transitions: change, re-publish correction, delist",
-  {
-    skip: !RUN,
-  },
   async () => {
     await withClient(async (c) => {
       await c.query("BEGIN");

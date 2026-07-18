@@ -7,7 +7,7 @@
 // Every case below traces to a defect found by running the algorithm against
 // the real 2026-07-08 corpus. See consumption-pg-v1-implementation.md §3.0.
 
-import test from "node:test";
+import { test } from "vitest";
 import assert from "node:assert/strict";
 import { canonicalize, mayMergeAcrossChains } from "../../prices/lib/canon";
 

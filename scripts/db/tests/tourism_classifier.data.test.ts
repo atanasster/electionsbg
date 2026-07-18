@@ -7,7 +7,7 @@
 // Pure logic, no DB. Run: npm run test:data (tsx --test), or standalone:
 //   npx tsx --test scripts/db/tests/tourism_classifier.data.test.ts
 
-import { test } from "node:test";
+import { test } from "vitest";
 import assert from "node:assert/strict";
 import { tourismClassifier } from "../../../src/screens/sector/tourism/tourismCategories";
 import type { ProcurementContract } from "../../../src/data/dataTypes";

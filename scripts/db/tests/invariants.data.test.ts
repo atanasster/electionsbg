@@ -10,7 +10,7 @@
 // Auto-skips when no procurement data is on disk (e.g. a fresh CI checkout that
 // hasn't restored the corpus). See docs/plans/sql-migration-v1.md (Phase 1).
 
-import { test } from "node:test";
+import { test } from "vitest";
 import assert from "node:assert/strict";
 import { existsSync, readdirSync } from "node:fs";
 import path from "node:path";
@@ -51,7 +51,7 @@ const sampleEiks = (m: Map<string, number>, n: number): string[] => {
   return [...new Set([...byVal, ...strided])];
 };
 
-test("index totals reconcile with the month shards", { skip }, () => {
+test.skipIf(skip)("index totals reconcile with the month shards", () => {
   assert.equal(agg!.byTag.contract ?? 0, totals!.contracts, "contract count");
   assert.equal(
     agg!.byTag.contractAmendment ?? 0,
@@ -65,7 +65,7 @@ test("index totals reconcile with the month shards", { skip }, () => {
   );
 });
 
-test("contract keys are globally unique", { skip }, () => {
+test.skipIf(skip)("contract keys are globally unique", () => {
   assert.equal(
     agg!.distinctKeyCount,
     agg!.rows,
@@ -75,7 +75,7 @@ test("contract keys are globally unique", { skip }, () => {
   );
 });
 
-test("no synthetic legacy -x twin survivors", { skip }, () => {
+test.skipIf(skip)("no synthetic legacy -x twin survivors", () => {
   assert.equal(
     agg!.xTwinSurvivors,
     0,
@@ -84,7 +84,7 @@ test("no synthetic legacy -x twin survivors", { skip }, () => {
   );
 });
 
-test("EUR peg (1.95583) holds on convertible rows", { skip }, () => {
+test.skipIf(skip)("EUR peg (1.95583) holds on convertible rows", () => {
   assert.equal(
     agg!.pegViolations.length,
     0,
@@ -101,7 +101,7 @@ test("EUR peg (1.95583) holds on convertible rows", { skip }, () => {
 // while index counts include it.
 const nonBlank = (s: Set<string>): number => s.size - (s.has("") ? 1 : 0);
 
-test("contractor/awarder file counts match distinct EIKs", { skip }, () => {
+test.skipIf(skip)("contractor/awarder file counts match distinct EIKs", () => {
   assert.equal(
     eikJsonCount(path.join(PROC_DIR, "contractors")),
     nonBlank(agg!.contractorEikAll),
@@ -124,9 +124,8 @@ test("contractor/awarder file counts match distinct EIKs", { skip }, () => {
   );
 });
 
-test(
+test.skipIf(skip)(
   "sampled contractor rollups reconcile (contract-only totalEur)",
-  { skip },
   () => {
     const dir = path.join(PROC_DIR, "contractors");
     const mismatches: string[] = [];
@@ -148,9 +147,8 @@ test(
   },
 );
 
-test(
+test.skipIf(skip)(
   "sampled awarder rollups reconcile (contract-only totalEur)",
-  { skip },
   () => {
     const dir = path.join(PROC_DIR, "awarders");
     const mismatches: string[] = [];

@@ -10,7 +10,7 @@
 // auto-skips when Postgres is unreachable or the schools table is absent — so CI
 // (no container, no corpus) skips it, like the other *_pg.data.test.ts files.
 
-import { test, after } from "node:test";
+import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import path from "node:path";
@@ -69,11 +69,11 @@ const reachable = async (): Promise<boolean> => {
 const haveDb = await reachable();
 const skip = haveDb ? false : "Postgres unreachable / schools table absent";
 
-after(async () => {
+afterAll(async () => {
   await end();
 });
 
-test("directory payload exists and is non-empty", { skip }, async () => {
+test.skipIf(skip)("directory payload exists and is non-empty", async () => {
   const [r] = await allRows<{ n: number }>(
     `SELECT jsonb_array_length(payload -> 'schools')::int AS n
        FROM school_payloads WHERE kind = 'directory' AND key = ''`,
@@ -85,9 +85,8 @@ test("directory payload exists and is non-empty", { skip }, async () => {
   );
 });
 
-test(
+test.skipIf(skip)(
   "schools table row count matches the directory payload",
-  { skip },
   async () => {
     const [tbl] = await allRows<{ n: number }>(
       "SELECT count(*)::int AS n FROM schools",
@@ -105,9 +104,8 @@ test(
   },
 );
 
-test(
+test.skipIf(skip)(
   "school_scores row count matches the index (no silent ON CONFLICT drops)",
-  { skip },
   async () => {
     const [db] = await allRows<{ n: number }>(
       "SELECT count(*)::int AS n FROM school_scores",
@@ -123,19 +121,22 @@ test(
   },
 );
 
-test("no orphan score rows (every fact has a school)", { skip }, async () => {
-  const [r] = await allRows<{ n: number }>(
-    `SELECT count(*)::int AS n FROM school_scores f
+test.skipIf(skip)(
+  "no orphan score rows (every fact has a school)",
+  async () => {
+    const [r] = await allRows<{ n: number }>(
+      `SELECT count(*)::int AS n FROM school_scores f
        WHERE NOT EXISTS (SELECT 1 FROM schools s WHERE s.id = f.school_id)`,
-  );
-  assert.equal(
-    r.n,
-    0,
-    `${r.n} school_scores rows reference a missing school id`,
-  );
-});
+    );
+    assert.equal(
+      r.n,
+      0,
+      `${r.n} school_scores rows reference a missing school id`,
+    );
+  },
+);
 
-test("the SES + value-added regressions ran", { skip }, async () => {
+test.skipIf(skip)("the SES + value-added regressions ran", async () => {
   // A verdict distribution proves the loader's OLS fits produced bands rather
   // than silently null-ing out (e.g. too few rows, or a shape change upstream).
   const [r] = await allRows<{ ses: number; va: number }>(
@@ -156,7 +157,7 @@ test("the SES + value-added regressions ran", { skip }, async () => {
   );
 });
 
-test("matched ЕИК is resolvable and non-blank", { skip }, async () => {
+test.skipIf(skip)("matched ЕИК is resolvable and non-blank", async () => {
   const [r] = await allRows<{ blank: number }>(
     "SELECT count(*)::int AS blank FROM schools WHERE eik IS NOT NULL AND btrim(eik) = ''",
   );

@@ -16,6 +16,11 @@ npm run build        # TypeScript check + production Vite build
 npm run lint         # ESLint + Prettier check
 npm run preview      # Preview the production build locally
 
+# Tests
+npm run test:unit    # Vitest — unit + component tests (src/** jsdom, scripts/** node)
+npm test             # Playwright — E2E / SEO / perf / UI smoke (needs a built dist/)
+npm run test:coverage # Vitest v8 coverage report
+
 # Data pipeline (offline processing)
 npm run data         # Process election data (tsx ./scripts/main.ts)
 npm run prod         # Full pipeline with --all --prod flags
@@ -28,7 +33,9 @@ npm run staging      # Deploy to Firebase staging (electionsbg-staging)
 
 The data pipeline CLI (`scripts/main.ts`) accepts flags: `--all`, `--prod`, `--date`, `--election`, `--reports`, `--stats`, `--search`, `--financing`, `--parties`, `--machines`, `--candidates`.
 
-There are no tests configured.
+## Testing
+
+Two layers: **Vitest** for unit + component tests (`npm run test:unit`), **Playwright** for E2E/SEO/perf smoke (`npm test`). Co-locate tests as `*.test.ts(x)` next to the module. Unit tests never touch the network (an unstubbed `fetch` throws in jsdom) or a live DB; the `scripts/db/tests/*.data.test.ts` Postgres gates are the exception and auto-skip when Postgres is down. The `functions/` package keeps its own `node --test` gate (`npm run functions:test`). Full convention — what to unit- vs component-test, fixtures, determinism, coverage, CI placement — is in [docs/testing-standards.md](docs/testing-standards.md).
 
 ## Architecture
 
