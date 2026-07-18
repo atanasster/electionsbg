@@ -182,6 +182,7 @@ import {
 import {
   basketAffordability,
   basketVsInflation,
+  chainProfile,
   cheapestChains,
   euFoodPriceLevels,
   priceIndex,
@@ -4383,6 +4384,36 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: euFoodPriceLevels,
+  },
+  {
+    name: "chainProfile",
+    domain: "indicators",
+    description: {
+      bg: "Профил на търговска верига — цената на кошницата ѝ и мястото ѝ сред веригите плюс обществените поръчки, които печели като изпълнител (комбинира данните за цените и за поръчките по ЕИК).",
+      en: "A retail chain's profile — its basket cost and rank among chains plus the public contracts it wins as a supplier (joins the price and procurement corpora by EIK).",
+    },
+    params: [
+      {
+        name: "chain",
+        type: "text",
+        required: true,
+        description: {
+          bg: "Име на търговската верига (напр. Кауфланд, Метро, Билла).",
+          en: "The retail chain name (e.g. Kaufland, Metro, Billa).",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Какви обществени поръчки печели Кауфланд?",
+        en: "What public contracts does Kaufland win?",
+      },
+      {
+        bg: "Профил на веригата Метро",
+        en: "Profile of the Metro chain",
+      },
+    ],
+    run: chainProfile,
   },
   // ---- place ("about my area") ----------------------------------------------
   {

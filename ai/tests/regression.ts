@@ -2749,6 +2749,22 @@ const CASES: Case[] = [
     tool: "euFoodPriceLevels",
     kind: "table",
   },
+  {
+    q: "Какви обществени поръчки печели Метро?",
+    tool: "chainProfile",
+    kind: "table",
+    facts: { chain: /./, basket: /€|\d/ },
+  },
+  // Kaufland isn't in the comparable-basket set — resolves by EIK to a table anyway.
+  { q: "Профил на веригата Кауфланд", tool: "chainProfile", kind: "table" },
+  {
+    q: "Profile of the Metro chain",
+    lang: "en",
+    tool: "chainProfile",
+    kind: "table",
+  },
+  // guard: a subway question must NOT hit chainProfile (метро namesake).
+  { q: "Колко струва билет за метрото?", tool: "settlementPrices" },
   // guard: a bare inflation question still routes to the macro read, not the
   // basket-vs-inflation comparison (which needs an explicit basket cue).
   { q: "Каква е инфлацията?", tool: "macroIndicator" },

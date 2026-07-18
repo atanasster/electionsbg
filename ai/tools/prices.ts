@@ -1204,3 +1204,141 @@ export const productPrice = async (
     provenance: ["price_payloads (PG)", PROV],
   };
 };
+
+// =============================================================================
+// 8. chainProfile — a retail chain's retail position + money-flows footprint
+// =============================================================================
+// Resolves a big-chain name to its EIK via the `chains` payload, then joins the
+// company rollup (/api/db/company) — so "какви поръчки печели Кауфланд" is answered
+// with both the retail basket rank AND the public-procurement footprint. Big
+// chains only (the router gate excludes the метро=subway namesake).
+
+// The big, unambiguous chains, each with its Commerce-Register EIK so a query
+// resolves to the company regardless of language AND regardless of whether the
+// chain prices the comparable basket (not all do — Kaufland/Sopharmacy aren't in
+// the fairness-filtered `chains` set, but they DO have a company footprint). Long
+// alias stems keep false matches out; the метро=subway case is filtered in the
+// router by requiring a chain/retail/procurement context.
+const CHAIN_MATCH: { re: RegExp; eik: string }[] = [
+  { re: /кауфланд|kaufland/i, eik: "131129282" },
+  { re: /билла|billa/i, eik: "130007884" },
+  { re: /лидл|lidl/i, eik: "131071587" },
+  { re: /фантастико|fantastico/i, eik: "206255903" },
+  { re: /метро|metro/i, eik: "121644736" },
+  { re: /софармаси|sopharmacy/i, eik: "175334310" },
+];
+
+export const detectChain = (q: string): boolean =>
+  CHAIN_MATCH.some((m) => m.re.test(q));
+
+interface CompanyLite {
+  company?: { name: string } | null;
+  procurement?: { totalEur: number; contractCount: number } | null;
+}
+
+export const chainProfile = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const lang = ctx.lang;
+  const T = (b: string, e: string) => (lang === "bg" ? b : e);
+  const q = typeof args.chain === "string" ? args.chain.trim() : "";
+  const hit = CHAIN_MATCH.find((m) => m.re.test(q));
+  if (!hit)
+    return noData(
+      "chainProfile",
+      lang === "bg" ? `Няма верига „${q}"` : `No chain "${q}"`,
+      { query: q, note: notCpi(lang) },
+    );
+  const eik = hit.eik;
+
+  // Retail basket + rank IF the chain prices the comparable basket (not all do).
+  const chains = await pricePayload<ChainsFile>("chains");
+  let basketInfo: {
+    chain: string;
+    basket: number;
+    rank: number;
+    total: number;
+  } | null = null;
+  if (chains) {
+    const sorted = [...chains.national].sort((a, b) => a.basket - b.basket);
+    const idx = sorted.findIndex((c) => c.eik === eik);
+    if (idx >= 0)
+      basketInfo = {
+        chain: sorted[idx].chain,
+        basket: sorted[idx].basket,
+        rank: idx + 1,
+        total: sorted.length,
+      };
+  }
+
+  // Money-flows footprint by EIK (procurement won as a state supplier).
+  const company = await fetchDb<CompanyLite | null>("company", { eik });
+  const proc = company?.procurement;
+  const name = basketInfo?.chain ?? company?.company?.name ?? q;
+
+  const rows: Row[] = [];
+  if (basketInfo) {
+    rows.push({
+      metric: T("Кошница", "Basket"),
+      value: eur(basketInfo.basket, lang),
+    });
+    rows.push({
+      metric: T("Място по цена", "Rank by price"),
+      value: `${basketInfo.rank}/${basketInfo.total}`,
+    });
+  }
+  if (proc && proc.contractCount > 0)
+    rows.push({
+      metric: T(
+        "Обществени поръчки (изпълнител)",
+        "Public contracts (supplier)",
+      ),
+      value: `${proc.contractCount} · ${eur(proc.totalEur, lang)}`,
+    });
+  if (rows.length === 0)
+    rows.push({
+      metric: T("Профил", "Profile"),
+      value: T(
+        "няма съпоставима кошница · не печели поръчки",
+        "not in the comparable basket · wins no contracts",
+      ),
+    });
+
+  return {
+    tool: "chainProfile",
+    domain: "indicators",
+    kind: "table",
+    title: name,
+    subtitle: basketInfo
+      ? T(
+          `Търговска верига · кошница ${eur(basketInfo.basket, lang)} · ${basketInfo.rank}-о от ${basketInfo.total}`,
+          `Retail chain · basket ${eur(basketInfo.basket, lang)} · #${basketInfo.rank} of ${basketInfo.total}`,
+        )
+      : T("Търговска верига", "Retail chain"),
+    columns: [
+      { key: "metric", label: T("Показател", "Metric") },
+      { key: "value", label: T("Стойност", "Value"), numeric: true },
+    ],
+    rows,
+    viz: "none",
+    facts: {
+      chain: name,
+      eik,
+      ...(basketInfo
+        ? {
+            basket: eur(basketInfo.basket, lang),
+            rank_by_price: `${basketInfo.rank}/${basketInfo.total}`,
+          }
+        : {}),
+      ...(proc && proc.contractCount > 0
+        ? {
+            as_supplier_contracts: proc.contractCount,
+            as_supplier_eur: eur(proc.totalEur, lang),
+          }
+        : {}),
+      note: notCpi(lang),
+    },
+    provenance: ["price_payloads (PG)", "contracts (PG)", PROV],
+  };
+};

@@ -617,6 +617,16 @@ export const followUps = (env: Envelope): FollowUp[] => {
         en: "Where is the basket most affordable relative to income?",
       });
       break;
+    case "chainProfile":
+      out.push({
+        bg: "Коя верига е с най-евтина кошница?",
+        en: "Which chain has the cheapest basket?",
+      });
+      out.push({
+        bg: "Какви обществени поръчки печели Метро?",
+        en: "What public contracts does Metro win?",
+      });
+      break;
     case "partyFinance":
       if (party) {
         out.push({

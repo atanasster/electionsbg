@@ -191,6 +191,10 @@ export const STARTERS: Starter[] = [
     bg: "По-скъпа ли е храната у нас от ЕС?",
     en: "Is food here more expensive than the EU?",
   },
+  {
+    bg: "Какви обществени поръчки печели Кауфланд?",
+    en: "What public contracts does Kaufland win?",
+  },
   // money & influence + EU comparison drill-downs (added 2026-06-16)
   {
     bg: "Как е инфлацията в България спрямо ЕС?",

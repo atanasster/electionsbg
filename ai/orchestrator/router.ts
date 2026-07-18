@@ -11,7 +11,7 @@ import { resolveMacroKey } from "../tools/macro";
 import { SOFIA_CITY } from "../tools/areaResults";
 import { findOblastInText } from "../tools/place";
 import { resolveRegionKey, resolveSubnatKey } from "../tools/placesGov";
-import { detectPriceProduct } from "../tools/prices";
+import { detectPriceProduct, detectChain } from "../tools/prices";
 import { detectTaxChange } from "../tools/taxPolicy";
 import { TOOLS_BY_NAME } from "../tools/registry";
 import { detectTopic } from "@/lib/tenderTopics";
@@ -971,6 +971,39 @@ export const route = (question: string, ctx: ToolContext): Route => {
     )
   ) {
     return { tool: "euFoodPriceLevels", args: {} };
+  }
+
+  // 0a3. chain profile — a named retail chain's retail + procurement footprint.
+  // Requires a known big-chain name AND a chain/retail/procurement context, and
+  // excludes the метро=subway namesake (no ticket/station/line cues). Placed
+  // before the procurement + generic price blocks so a chain name + "поръчки"
+  // resolves here, not into the procurement router.
+  if (
+    detectChain(q) &&
+    (has(q, "верига", "вериги", "chain", "retail", "supermarket", "магазин") ||
+      has(
+        q,
+        "поръчки",
+        "поръчка",
+        "договор",
+        "печели",
+        "procurement",
+        "contract",
+        "профил",
+        "profile",
+      )) &&
+    !has(
+      q,
+      "билет",
+      "станция",
+      "метростанция",
+      "линия",
+      "subway",
+      "ticket",
+      "station",
+    )
+  ) {
+    return { tool: "chainProfile", args: { chain: q } };
   }
 
   // 0b. basket affordability — basket cost relative to regional income

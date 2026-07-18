@@ -1293,6 +1293,17 @@ const run = async () => {
     "euFoodPriceLevels has category rows + the BG food total PLI",
   );
 
+  const cprof = (await runTool(
+    "chainProfile",
+    { chain: "какви поръчки печели Метро" },
+    ctxEn,
+  )) as Envelope;
+  printEnvelope(cprof);
+  assert(
+    !!cprof.facts.chain && !!cprof.facts.basket,
+    "chainProfile resolves a chain and returns its basket + rank",
+  );
+
   console.log("\n=== [router] consumption questions ===");
   const cases10: [string, string | null][] = [
     ["Къде е най-достъпна кошницата спрямо доходите?", "basketAffordability"],
@@ -1305,6 +1316,11 @@ const run = async () => {
     ["Кошницата спрямо ХИПЦ инфлацията", "basketVsInflation"],
     ["По-скъпа ли е храната у нас от ЕС?", "euFoodPriceLevels"],
     ["Is food more expensive here than the EU?", "euFoodPriceLevels"],
+    ["Какви обществени поръчки печели Кауфланд?", "chainProfile"],
+    ["Профил на веригата Метро", "chainProfile"],
+    // guard: a subway question must NOT hit chainProfile (метро namesake) — the
+    // chain gate excludes ticket/station cues, so it falls to the price read.
+    ["Колко струва билет за метрото?", "settlementPrices"],
     // guard: a bare inflation question still routes to the macro read
     ["Каква е инфлацията?", "macroIndicator"],
   ];
