@@ -191,6 +191,7 @@ import {
   chainProfile,
   cheapestChains,
   euFoodPriceLevels,
+  localDeals,
   priceIndex,
   priceRanking,
   productPrice,
@@ -4287,6 +4288,38 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: settlementPrices,
+  },
+  {
+    name: "localDeals",
+    domain: "indicators",
+    description: {
+      bg: "Текущи промоции (най-големи намаления по продукти) — национално или в една община. Промоционална спрямо редовна цена от дневния фийд на КЗП.",
+      en: "Current promotions (biggest per-product price cuts) — national or in one município. Promo vs regular price from the daily CPC feed.",
+    },
+    params: [
+      {
+        name: "place",
+        type: "place",
+        description: {
+          bg: "Община/населено място (по избор); празно = национално",
+          en: "Município/settlement (optional); empty = national",
+        },
+      },
+      {
+        name: "product",
+        type: "metric",
+        description: {
+          bg: "Конкретен продукт (по избор), напр. кафе, олио",
+          en: "A specific product (optional), e.g. coffee, oil",
+        },
+      },
+    ],
+    examples: [
+      { bg: "Какви промоции има в Пловдив?", en: "What deals are in Plovdiv?" },
+      { bg: "Промоции край мен", en: "Promotions near me" },
+      { bg: "Има ли намаления на кафе?", en: "Any discounts on coffee?" },
+    ],
+    run: localDeals,
   },
   {
     name: "productPrice",

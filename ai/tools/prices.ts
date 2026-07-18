@@ -456,6 +456,14 @@ export const settlementPrices = async (
   if (up) facts.biggest_riser = `${prodName.get(up.id)}: ${pct(up.change)}`;
   if (down)
     facts.biggest_faller = `${prodName.get(down.id)}: ${pct(down.change)}`;
+  // Products on promotion right now (promoMin below the regular min) — the
+  // local promo signal, so "цените в X" answers surface active offers.
+  const onPromo = sett.products
+    .filter((p) => p.promoMin != null && p.promoMin < p.min)
+    .sort((a, b) => a.promoMin! / a.min - b.promoMin! / b.min)
+    .slice(0, 3)
+    .map((p) => `${prodName.get(p.id)} (${eur(p.promoMin!, lang)})`);
+  if (onPromo.length) facts.on_promo = onPromo.join(", ");
 
   return {
     tool: "settlementPrices",
@@ -573,6 +581,161 @@ export const cheapestChains = async (
       note: notCpi(lang),
     },
     provenance: [prov, PROV],
+  };
+};
+
+// =============================================================================
+// 3b. localDeals — biggest current promos, national or scoped to one município
+// =============================================================================
+
+interface DealRow {
+  slug: string;
+  title: string;
+  promo: number;
+  reg: number;
+  discPct: number;
+  eik: string;
+  chain: string;
+}
+interface DealsFile {
+  latestDate: string;
+  deals: DealRow[];
+}
+
+const DEAL =
+  /промоц|намален|оферт|отстъпк|deal|discount|on sale|sale|намалени|-\d+ ?%/i;
+
+/** Detect a promotions/deals query (router-side, sync). */
+export const detectPriceDeal = (q: string): boolean => DEAL.test(q);
+
+/** Resolve the ambient ?area= anchor (ekatte or obshtina id) to an obshtina
+ *  key for the deals-muni / chains-muni payloads. An ekatte is mapped via its
+ *  place shard; Sofia's aggregate codes fold to SOF46. */
+const areaToObshtina = async (area: string): Promise<string | ""> => {
+  if (/^SOF/i.test(area)) return "SOF46";
+  if (/^\d/.test(area)) {
+    const s = await pricePayload<SettFile>("place", area).catch(
+      () => undefined,
+    );
+    return s?.obshtina ?? "";
+  }
+  return area;
+};
+
+export const localDeals = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const lang = ctx.lang;
+  const query = String(args.place ?? "").trim();
+  const productQ = String(args.product ?? "").trim();
+
+  let obshtina = "";
+  let scope = lang === "bg" ? "национално" : "national";
+  const lc = query.toLowerCase();
+  if (query && Sofia.test(lc)) {
+    obshtina = "SOF46";
+    scope = lang === "bg" ? "София" : "Sofia";
+  } else if (query) {
+    const muni = await resolveMunicipality(query).catch(() => undefined);
+    if (muni) {
+      obshtina = muni.obshtina;
+      scope = lang === "bg" ? muni.name : muni.nameEn;
+    } else {
+      const s = await resolveSettlement(query).catch(() => undefined);
+      if (s) {
+        obshtina = s.obshtina;
+        scope = lang === "bg" ? s.name : s.nameEn;
+      }
+    }
+  }
+  // Ambient location: a place-less "промоции край мен" uses the anchored area.
+  if (!obshtina && ctx.area) {
+    obshtina = await areaToObshtina(ctx.area);
+    if (obshtina) scope = lang === "bg" ? "вашия район" : "your area";
+  }
+
+  let deals: DealRow[] = [];
+  let latestDate = "";
+  if (obshtina) {
+    const f = await pricePayload<DealsFile>("deals-muni", obshtina).catch(
+      () => undefined,
+    );
+    if (f && f.deals.length) {
+      deals = f.deals;
+      latestDate = f.latestDate;
+    } else {
+      // covered obshtina with no promos → fall through to the national feed
+      scope = lang === "bg" ? "национално" : "national";
+    }
+  }
+  if (!deals.length) {
+    const f = await pricePayload<DealsFile>("deals");
+    if (f) {
+      deals = f.deals;
+      latestDate = f.latestDate;
+      scope = lang === "bg" ? "национално" : "national";
+    }
+  }
+  if (productQ) {
+    const pq = productQ.toLowerCase();
+    deals = deals.filter((d) => d.title.toLowerCase().includes(pq));
+  }
+  if (!deals.length)
+    return noData(
+      "localDeals",
+      lang === "bg"
+        ? productQ
+          ? `Няма текуща промоция за „${productQ}“ (${scope})`
+          : `Няма текущи промоции (${scope})`
+        : productQ
+          ? `No current promotion for "${productQ}" (${scope})`
+          : `No current promotions (${scope})`,
+      { scope },
+    );
+
+  const top = deals.slice(0, 12);
+  const columns: Column[] = [
+    { key: "product", label: lang === "bg" ? "Продукт" : "Product" },
+    { key: "chain", label: lang === "bg" ? "Верига" : "Chain" },
+    { key: "promo", label: lang === "bg" ? "Промо" : "Promo", numeric: true },
+    {
+      key: "reg",
+      label: lang === "bg" ? "Редовна" : "Regular",
+      numeric: true,
+    },
+    { key: "off", label: lang === "bg" ? "Отстъпка" : "Off", numeric: true },
+  ];
+  const rows: Row[] = top.map((d) => ({
+    product: d.title,
+    chain: d.chain || "—",
+    promo: eur(d.promo, lang),
+    reg: eur(d.reg, lang),
+    off: `−${d.discPct}%`,
+  }));
+  const best = top[0];
+  return {
+    tool: "localDeals",
+    domain: "indicators",
+    kind: "table",
+    title: lang === "bg" ? `Промоции (${scope})` : `Promotions (${scope})`,
+    subtitle:
+      lang === "bg"
+        ? `Промоционална спрямо редовна цена · ${notCpi(lang)}`
+        : `Promo vs regular price · ${notCpi(lang)}`,
+    columns,
+    rows,
+    viz: "none",
+    facts: {
+      scope,
+      biggest_discount: best
+        ? `${best.title}: −${best.discPct}% (${eur(best.promo, lang)})`
+        : "—",
+      deals_shown: top.length,
+      as_of: latestDate,
+      note: notCpi(lang),
+    },
+    provenance: ["price_payloads (PG)", PROV],
   };
 };
 

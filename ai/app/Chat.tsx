@@ -341,6 +341,12 @@ const AssistantMessage = ({
   );
 };
 
+/** The host app's active area anchor (?area=<id>), read fresh at send-time so a
+ *  place-less "промоции край мен" resolves to the user's pinned location. The
+ *  host appends ?area= when it links into the chat; absent → national. */
+const readArea = (): string | undefined =>
+  new URLSearchParams(window.location.search).get("area") || undefined;
+
 export const Chat = ({
   engine,
   lang,
@@ -489,7 +495,7 @@ export const Chat = ({
     // (chart/table) is attached when the answer is finalized
     const res = await engine.provider.respond(
       q,
-      { lang, election },
+      { lang, election, area: readArea() },
       (partial) =>
         setMessages((m) =>
           m.map((x) => (x.id === aId ? { ...x, text: partial } : x)),
@@ -544,14 +550,14 @@ export const Chat = ({
       ? await provider.runChoice(
           opt.tool,
           opt.args,
-          { lang, election },
+          { lang, election, area: readArea() },
           onDelta,
         )
       : await runToolChoice(
           { bg: "Без AI (офлайн)", en: "Basic (offline)" },
           opt.tool,
           opt.args,
-          { lang, election },
+          { lang, election, area: readArea() },
         );
     setMessages((m) =>
       m.map((x) =>

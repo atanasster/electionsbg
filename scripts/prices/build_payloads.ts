@@ -23,60 +23,84 @@ import { loadGridsFromPg } from "./lib/grids_pg";
 // --- Deals quality gate (national + per-município) -------------------------
 // The КЗП feed carries both a "redovna цена" (regular) and a promo price per
 // store listing. A 2026-07 accuracy audit found the raw biggest-discount board
-// was dominated by artefacts, in two modes: (1) a single store mis-keys the
+// was dominated by artefacts, in three modes: (1) a single store mis-keys the
 // promo (0.55 € for a 260 g salami whose 10 sibling stores show 1.20 €) and,
 // because we picked the deepest discount per product, that outlier became the
-// headline; (2) a chain declares an inflated regular (fresh potatoes at 3.55 €
-// when Билла sells them at 1.19 € across 166 stores), so a normal promo reads
-// as −75%. A third mode is a chain-wide source error (a 15 € coffee reported at
-// 2 € across every Kaufland store). The gate below removes all three.
+// headline; (2) a chain declares an inflated "regular" (Roshen Lacmi 90 g at
+// 2.40 € when Фантастико + retail sell it at 1.69 €), so a normal promo reads as
+// −63% not its true −53%; (3) a chain-wide source error (a 15 € coffee reported
+// at 2 € across every Kaufland store).
+//
+// The gate below removes all three. Its core move: the discount is measured
+// NOT against the store's own declared regular (the manipulable field) but
+// against a chain-deduped BASELINE regular — the median of one-regular-per-chain,
+// so a chain padding its reference across 35 stores counts once, not 35×. That
+// makes the headline % faithful to the cross-chain typical price, and the board
+// shows that baseline as the struck-through "regular".
 const MIN_PROMO_STORES = 3; // promo must be corroborated across ≥N store listings
-const PROMO_OUTLIER_FLOOR = 0.7; // drop promos below 70% of the product's median promo
-const REG_INFLATION_CAP = 1.25; // drop regulars above 125% of the product's median regular
+const MIN_PROMO_CHAINS = 2; // …and across ≥N distinct chains (a one-chain quirk is not a "deal")
+const PROMO_OUTLIER_FLOOR = 0.7; // drop promos below 70% of the product's median (chain-deduped) promo
 const MIN_PROMO_EUR = 0.1; // absolute floor — guards near-zero broken prices
-const MIN_DISC = 0.15; // at least 15% off to count as a deal
+const MIN_DISC = 0.15; // at least 15% off the baseline to count as a deal
 const MAX_DISC = 0.7; // above 70% off is, empirically, a source error not a promo
 
 // The stats + `promos` CTE block shared by the national and per-município deals
 // queries. `withObshtina` adds the município column the muni board partitions on.
 // Product-level stats are national (a row that is a national data artefact must
-// not surface on a local board either).
+// not surface on a local board either). `promos.base_reg` is the chain-deduped
+// baseline regular and `promos.disc` is computed against it — both outer queries
+// select/display `base_reg` as the regular price.
 const promoQualityCte = (withObshtina: boolean): string => `
-  promo_stats AS (
-    SELECT pp.product_id, count(*) AS n_promo,
-           percentile_cont(0.5) WITHIN GROUP (ORDER BY pc.promo_eur) AS med_promo
+  chain_stats AS (
+    -- collapse to one regular + one promo per (product, chain): a chain that
+    -- inflates its "regular" across 35 stores must count once, not 35×.
+    SELECT pp.product_id, st.eik,
+           percentile_cont(0.5) WITHIN GROUP (ORDER BY pc.price_eur) AS chain_reg,
+           percentile_cont(0.5) WITHIN GROUP (ORDER BY pc.promo_eur)
+             FILTER (WHERE pc.promo_eur IS NOT NULL) AS chain_promo
+      FROM price_current pc
+      JOIN price_skus ps ON ps.sku_id = pc.sku_id
+      JOIN price_products pp ON pp.product_id = ps.product_id
+      JOIN price_stores st ON st.store_id = pc.store_id
+     GROUP BY pp.product_id, st.eik
+  ),
+  prod AS (
+    -- chain-deduped baseline regular (the metric's denominator), median promo,
+    -- and how many distinct chains actually run a promo (corroboration).
+    SELECT product_id,
+           percentile_cont(0.5) WITHIN GROUP (ORDER BY chain_reg) AS base_reg,
+           percentile_cont(0.5) WITHIN GROUP (ORDER BY chain_promo)
+             FILTER (WHERE chain_promo IS NOT NULL) AS med_promo,
+           count(*) FILTER (WHERE chain_promo IS NOT NULL) AS n_promo_chains
+      FROM chain_stats
+     GROUP BY product_id
+  ),
+  promo_store_n AS (
+    SELECT pp.product_id, count(*) AS n_promo_stores
       FROM price_current pc
       JOIN price_skus ps ON ps.sku_id = pc.sku_id
       JOIN price_products pp ON pp.product_id = ps.product_id
      WHERE pc.promo_eur IS NOT NULL
      GROUP BY pp.product_id
   ),
-  reg_stats AS (
-    SELECT pp.product_id,
-           percentile_cont(0.5) WITHIN GROUP (ORDER BY pc.price_eur) AS med_reg
-      FROM price_current pc
-      JOIN price_skus ps ON ps.sku_id = pc.sku_id
-      JOIN price_products pp ON pp.product_id = ps.product_id
-     GROUP BY pp.product_id
-  ),
   promos AS (
     SELECT ${withObshtina ? "st.obshtina, " : ""}pp.slug, pp.title,
-           pc.promo_eur, pc.price_eur,
-           (pc.price_eur - pc.promo_eur) / NULLIF(pc.price_eur, 0) AS disc,
+           pc.promo_eur, d.base_reg,
+           (d.base_reg - pc.promo_eur) / NULLIF(d.base_reg, 0) AS disc,
            st.eik
       FROM price_current pc
       JOIN price_skus ps ON ps.sku_id = pc.sku_id
       JOIN price_products pp ON pp.product_id = ps.product_id
       JOIN price_stores st ON st.store_id = pc.store_id
-      JOIN promo_stats mp ON mp.product_id = pp.product_id
-      JOIN reg_stats mr ON mr.product_id = pp.product_id
+      JOIN prod d ON d.product_id = pp.product_id
+      JOIN promo_store_n n ON n.product_id = pp.product_id
      WHERE pc.promo_eur IS NOT NULL
-       AND pc.promo_eur < pc.price_eur
        AND pp.chain_count > 0
        AND pc.promo_eur >= ${MIN_PROMO_EUR}
-       AND mp.n_promo >= ${MIN_PROMO_STORES}
-       AND pc.promo_eur >= mp.med_promo * ${PROMO_OUTLIER_FLOOR}
-       AND pc.price_eur <= mr.med_reg * ${REG_INFLATION_CAP}
+       AND pc.promo_eur < d.base_reg
+       AND n.n_promo_stores >= ${MIN_PROMO_STORES}
+       AND d.n_promo_chains >= ${MIN_PROMO_CHAINS}
+       AND pc.promo_eur >= d.med_promo * ${PROMO_OUTLIER_FLOOR}
   )`;
 
 export const buildPayloads = async (): Promise<void> => {
@@ -101,13 +125,11 @@ export const buildPayloads = async (): Promise<void> => {
   // retired products (chain_count = 0).
   //
   // Quality gate (audit 2026-07: the raw feed is dominated by single-store data
-  // errors and inflated "redovna цена" reference prices — see PROMO_QUALITY_SQL).
-  // Every deal must be corroborated across ≥MIN_PROMO_STORES store listings, must
-  // not be a low-promo outlier vs the product's own median promo, must not sit on
-  // an inflated regular price vs the product's median regular, and its discount
-  // is capped at MAX_DISC — supermarket promos above that are, empirically, source
-  // errors (a €15 coffee reported at €2 across all stores; a shared-wholesaler
-  // 90 g Milka at €0.69). Thresholds are conservative and easy to tune.
+  // errors and inflated "redovna цена" reference prices — see promoQualityCte).
+  // Every deal is corroborated across ≥MIN_PROMO_STORES store listings and
+  // ≥MIN_PROMO_CHAINS distinct chains, is not a low-promo outlier, and its
+  // discount — measured against the chain-deduped BASELINE regular, not the
+  // store's declared one — sits in [MIN_DISC, MAX_DISC]. `reg` is the baseline.
   const deals = await allRows<{
     slug: string;
     title: string;
@@ -119,14 +141,14 @@ export const buildPayloads = async (): Promise<void> => {
   }>(
     `WITH ${promoQualityCte(false)},
      best AS (
-       SELECT DISTINCT ON (slug) slug, title, promo_eur, price_eur, disc, eik
+       SELECT DISTINCT ON (slug) slug, title, promo_eur, base_reg, disc, eik
          FROM promos
         WHERE disc >= ${MIN_DISC} AND disc <= ${MAX_DISC}
         ORDER BY slug, disc DESC
      )
      SELECT b.slug, b.title,
             round(b.promo_eur::numeric, 2)::float8 AS promo,
-            round(b.price_eur::numeric, 2)::float8 AS reg,
+            round(b.base_reg::numeric, 2)::float8 AS reg,
             round((b.disc * 100)::numeric, 0)::int AS "discPct",
             b.eik, COALESCE(ch.name, '') AS chain
        FROM best b
@@ -161,7 +183,7 @@ export const buildPayloads = async (): Promise<void> => {
     `WITH ${promoQualityCte(true)},
      best AS (
        SELECT DISTINCT ON (obshtina, slug)
-              obshtina, slug, title, promo_eur, price_eur, disc, eik
+              obshtina, slug, title, promo_eur, base_reg, disc, eik
          FROM promos
         WHERE disc >= ${MIN_DISC} AND disc <= ${MAX_DISC}
         ORDER BY obshtina, slug, disc DESC, eik
@@ -175,7 +197,7 @@ export const buildPayloads = async (): Promise<void> => {
      )
      SELECT r.obshtina, r.slug, r.title,
             round(r.promo_eur::numeric, 2)::float8 AS promo,
-            round(r.price_eur::numeric, 2)::float8 AS reg,
+            round(r.base_reg::numeric, 2)::float8 AS reg,
             round((r.disc * 100)::numeric, 0)::int AS "discPct",
             r.eik, COALESCE(ch.name, '') AS chain
        FROM ranked r

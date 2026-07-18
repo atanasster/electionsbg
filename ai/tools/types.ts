@@ -173,6 +173,10 @@ export type ToolContext = {
   // default election when a tool's `election` arg is omitted (the selected one;
   // defaults to the latest election).
   election: string;
+  // The host app's active area anchor (?area=<id>), an EKATTE or obshtina id.
+  // Lets place-less queries ("промоции край мен") resolve to the user's pinned
+  // location. Undefined when no area is anchored.
+  area?: string;
 };
 
 export type ToolArgs = Record<string, string | number | string[] | undefined>;

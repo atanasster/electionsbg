@@ -11,7 +11,11 @@ import { resolveMacroKey } from "../tools/macro";
 import { SOFIA_CITY } from "../tools/areaResults";
 import { findOblastInText } from "../tools/place";
 import { resolveRegionKey, resolveSubnatKey } from "../tools/placesGov";
-import { detectPriceProduct, detectChain } from "../tools/prices";
+import {
+  detectPriceProduct,
+  detectChain,
+  detectPriceDeal,
+} from "../tools/prices";
 import { detectTaxChange } from "../tools/taxPolicy";
 import { TOOLS_BY_NAME } from "../tools/registry";
 import { detectTopic } from "@/lib/tenderTopics";
@@ -3690,8 +3694,11 @@ export const route = (question: string, ctx: ToolContext): Route => {
         "place",
         "municipalit",
       );
+    // Promotions/deals cue ("промоции", "намаления", "оферти", "on sale") — a
+    // price context on its own, so "промоции в Пловдив" (no price word) routes.
+    const dealWord = detectPriceDeal(q);
     const priceCtx =
-      (priceWord || chainWord || costPhrase || cheapPlace) &&
+      (priceWord || chainWord || costPhrase || cheapPlace || dealWord) &&
       !has(
         q,
         "инфлация",
@@ -3717,7 +3724,26 @@ export const route = (question: string, ctx: ToolContext): Route => {
       // and mis-match a town (e.g. "Ботевград" contains "от").
       const PRICE_STRIP =
         /от въвеждането на еврото|от еврото|since the euro|въвеждането[а-яё]*|еврото|колко|струва[а-яё]*|цен[аи][а-яё]*|кошниц[а-яё]*|най-евтин[а-яё]*|евтин[а-яё]*|най-скъп[а-яё]*|скъп[а-яё]*|поскъп[а-яё]*|верига|вериги|магазин[а-яё]*|супермаркет[а-яё]*|пазарув[а-яё]*|how much|how|much|price[a-z]*|prices|basket|cheap[a-z]*|expensive|supermarket[a-z]*|chain[a-z]*|store|shop[a-z]*|мляко[а-яё]*|хляб[а-яё]*|яйца|олио|зехтин|кашкавал|сирене|масло|брашно|захар|ориз|пилешк[а-яё]*|пиле|свинск[а-яё]*|телешк[а-яё]*|кайма|банан[а-яё]*|ябълк[а-яё]*|домат[а-яё]*|картоф[а-яё]*|краставиц[а-яё]*|кафе|чай|бира|вино|ракия|цигари|тютюн|шампоан|сапун|лютеница|milk|bread|eggs|oil|cheese|butter|flour|sugar|rice|chicken|pork|beef|banana[a-z]*|apple[a-z]*|tomato[a-z]*|potato[a-z]*|onion[a-z]*|cucumber[a-z]*|coffee|tea|beer|wine|soap|shampoo|toothpaste/gi;
-      const place = extractPlace(q.replace(PRICE_STRIP, " "));
+      const place = extractPlace(
+        q
+          .replace(PRICE_STRIP, " ")
+          .replace(
+            /промоц[а-яё]*|намален[а-яё]*|оферт[а-яё]*|отстъпк[а-яё]*|край мен|около мен|near me|deal[a-z]*|discount[a-z]*| sale|on sale/gi,
+            " ",
+          ),
+      );
+      // promotions/deals — before the chain/ranking/place branches so a
+      // deal query with a place ("промоции в Пловдив") routes to localDeals
+      // and not settlementPrices. Place-less ("промоции край мен") relies on
+      // the tool's ambient-area fallback (ctx.area).
+      if (dealWord)
+        return {
+          tool: "localDeals",
+          args: {
+            ...(place ? { place } : {}),
+            ...(priceProduct ? { product: q } : {}),
+          },
+        };
       // chain comparison
       if (
         has(
