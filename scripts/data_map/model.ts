@@ -1449,8 +1449,8 @@ export const FEATURES: FeatureDef[] = [
       en: "NPOs, governing bodies, conflicts of interest",
     },
     desc: {
-      bg: "Профилите на сдруженията, фондациите и читалищата — управителни органи, публично и външно финансиране, и сигнали за конфликт на интереси, когато член на властта е в управата на НПО, което печели обществени поръчки или субсидии.",
-      en: "Profiles of associations, foundations and community centres — governing bodies, public and external funding, and conflict-of-interest flags when a person in power sits on the board of an NGO that wins public contracts or subsidies.",
+      bg: "Профилите на сдруженията, фондациите и читалищата — управителни органи, публично финансиране (обществени поръчки, ИСУН, държавни субсидии) и външно финансиране (ЕС FTS, Фондация „Америка за България“), плюс сигнали за публичен интерес, когато политик или магистрат е в управата на НПО, което получава публични средства.",
+      en: "Profiles of associations, foundations and community centres — governing bodies, public funding (procurement, ISUN, state subsidies) and external funding (EU FTS, America for Bulgaria Foundation), plus public-interest signals when a politician or magistrate sits on the board of an NGO that receives public money.",
     },
     route: "/procurement/ngos",
     tags: ["fiscal", "parliament"],
@@ -1767,6 +1767,10 @@ export const EDGES: [string, string][] = [
   ["src:dfz", "ds:agri"],
   ["src:egov", "ds:ngo"],
   ["src:ec_fts", "ds:ngo"],
+  // Connection signals: officials (Сметна палата declarations) + magistrates (ИВСС)
+  // on NGO governing bodies → ngo_board_links (migration 080).
+  ["src:sp", "ds:ngo"],
+  ["src:vss", "ds:ngo"],
   ["src:dv", "ds:budget"],
   ["src:ministries", "ds:budget"],
   ["src:ministries", "ds:macro"],
