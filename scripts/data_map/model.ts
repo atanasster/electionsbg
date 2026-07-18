@@ -546,8 +546,8 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       en: "macro, regional and EU series",
     },
     desc: {
-      bg: "Тримесечни и годишни серии: БВП, инфлация, СИЛК неравенство, COFOG разходи, COICOP потребление, NUTS 3 регионални данни и бюджетът на ЕС по държави.",
-      en: "Quarterly and annual series: GDP, inflation, SILC inequality, COFOG spending, COICOP consumption, NUTS 3 regional data and the EU budget per member state.",
+      bg: "Тримесечни и годишни серии: БВП, инфлация, СИЛК неравенство, COFOG разходи, COICOP потребление, ценови равнища на храните (PLI, за /consumption/eu), NUTS 3 регионални данни и бюджетът на ЕС по държави.",
+      en: "Quarterly and annual series: GDP, inflation, SILC inequality, COFOG spending, COICOP consumption, food price level indices (PLI, for /consumption/eu), NUTS 3 regional data and the EU budget per member state.",
     },
     url: "https://ec.europa.eu/eurostat/",
     origin: "eu",

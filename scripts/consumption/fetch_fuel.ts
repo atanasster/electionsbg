@@ -17,6 +17,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import * as XLSX from "xlsx";
+import { appendDataChange } from "../lib/data-changes";
 
 const OUT = path.resolve("data/fuel.json");
 const PAGE =
@@ -136,6 +137,19 @@ const main = async () => {
   console.log(
     `fuel.json: ${trimmed.length} weeks, latest ${latest?.date} · BG95 €${latest?.bg95}/L diesel €${latest?.bgDiesel}/L · EU95 €${latest?.eu95}/L`,
   );
+
+  // Self-report the /data/updates row (this ingest writes only data/fuel.json,
+  // so the orchestrator's generic changelog gate would miss it — mirror the
+  // update-prices pattern). dedupeSameDay keeps a re-run idempotent.
+  appendDataChange({
+    skill: "update-fuel",
+    source: "EC Weekly Oil Bulletin",
+    summary: `fuel.json: ${trimmed.length} weeks, latest ${latest?.date} · BG95 €${latest?.bg95}/L · diesel €${latest?.bgDiesel}/L`,
+    links: [
+      { to: "/consumption/fuel", labelKey: "data_changes_link_consumption" },
+    ],
+    dedupeSameDay: true,
+  });
 };
 
 main().catch((e) => {
