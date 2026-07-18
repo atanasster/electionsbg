@@ -21,6 +21,7 @@ import {
   fmtEur,
   type PriceRankPlace,
 } from "@/data/prices/usePrices";
+import { resolvePriceKeys } from "@/data/prices/pricePlaceKeys";
 
 interface Props {
   ekatte?: string;
@@ -40,15 +41,11 @@ export const ConsumptionPriceLevelTile: FC<Props> = ({ ekatte, obshtina }) => {
   const T = (bg: string, en: string) => (lang === "bg" ? bg : en);
   const { data: ranking } = usePriceRanking();
 
-  // Sofia remap (mirrors MyAreaPricesTile): a Sofia район (S2xxx) / SOF00 / SOF
-  // carries no basket of its own — fall back to the Sofia city codes so the
-  // район page compares the capital rather than 404'ing.
-  const isSofiaRayon = /^S2\d{3}$/.test(obshtina);
-  const muniCode =
-    isSofiaRayon || obshtina === "SOF00" || obshtina === "SOF"
-      ? "SOF46"
-      : obshtina;
-  const settCode = isSofiaRayon && !ekatte ? "68134" : ekatte;
+  // Resolve to the price tree's keys (Sofia район → city aggregate, SOF→SOF46).
+  const { priceObshtina: muniCode, priceEkatte: settCode } = resolvePriceKeys(
+    obshtina,
+    ekatte,
+  );
 
   const resolved = useMemo(() => {
     if (!ranking) return null;

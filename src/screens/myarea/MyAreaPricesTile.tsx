@@ -19,7 +19,8 @@ import {
 import { Card } from "@/components/ui/card";
 import { Link } from "@/ux/Link";
 import { PriceSparkline } from "@/screens/components/prices/PriceSparkline";
-import { consumptionUrl, isSofiaRayonObshtina } from "@/data/local/placeViews";
+import { consumptionUrl } from "@/data/local/placeViews";
+import { resolvePriceKeys } from "@/data/prices/pricePlaceKeys";
 import {
   usePriceDict,
   useSettlementPrices,
@@ -50,22 +51,11 @@ export const MyAreaPricesTile: FC<Props> = ({
 }) => {
   const { i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
-  // Sofia районы (S2xxx) carry no KZP basket of their own — the feed is
-  // city-grain, so a район has no settlement shard (`68134-2309`) and usually
-  // no chains shard (`S2309`). Fall back to the Sofia city aggregate
-  // (settlement EKATTE 68134 / chains SOF46) so a район page shows the
-  // capital's prices, labelled "· София", rather than an empty tile.
-  const sofiaRayon = isSofiaRayonObshtina(obshtina);
-  // Sharded loads only — the small dictionary + the place's own shard. The
-  // place's rank is embedded in its shard, so no 128 KB ranking.json here.
-  // Sofia city is keyed SOF46 in the price tree but SOF00/SOF everywhere else
-  // (governance / area resolver) — remap so the capital's chains resolve
-  // instead of 404'ing (matches the SOF46↔SOF00 convention in PriceChoropleth).
-  const priceObshtina =
-    sofiaRayon || obshtina === "SOF00" || obshtina === "SOF"
-      ? "SOF46"
-      : obshtina;
-  const priceEkatte = sofiaRayon ? "68134" : ekatte;
+  // Resolve to the keys the КЗП price tree is stored under: a Sofia район
+  // (S2xxx) falls back to the Sofia city aggregate, and Sofia city is keyed
+  // SOF46 in the price tree but SOF00/SOF everywhere else. Sharded loads only —
+  // the small dictionary + the place's own shard (its rank is embedded there).
+  const { priceObshtina, priceEkatte } = resolvePriceKeys(obshtina, ekatte);
   const { data: dict } = usePriceDict();
   const { data: sett } = useSettlementPrices(priceEkatte);
   const { data: muniChains } = useMuniChains(priceObshtina);
