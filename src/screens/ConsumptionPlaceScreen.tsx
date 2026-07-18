@@ -23,7 +23,8 @@ import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { MyAreaPricesTile } from "@/screens/myarea/MyAreaPricesTile";
 import { PlaceBasketTile } from "@/screens/myarea/PlaceBasketTile";
 import { PlaceDealsTile } from "@/screens/myarea/PlaceDealsTile";
-import { useMuniDeals } from "@/data/prices/usePrices";
+import { useMuniDeals, useSettlementPrices } from "@/data/prices/usePrices";
+import { resolvePriceKeys } from "@/data/prices/pricePlaceKeys";
 import { MyAreaLocalTaxesTile } from "@/screens/myarea/MyAreaLocalTaxesTile";
 import { ConsumptionPriceLevelTile } from "@/screens/consumption/ConsumptionPriceLevelTile";
 import { ConsumptionAffordabilityTile } from "@/screens/consumption/ConsumptionAffordabilityTile";
@@ -36,13 +37,22 @@ export const ConsumptionPlaceScreen: FC = () => {
   const T = (bg: string, en: string) => (lang === "bg" ? bg : en);
   const { id } = useParams<{ id: string }>();
   const area = useAreaResolver(id);
-  // Promotions are município-grain; gate the whole section on coverage here so
-  // an obshtina with no promos doesn't leave an empty "Промоции" header (the
-  // tile self-hides, but DashboardSection still renders a header for a child
-  // element that merely renders null). React Query dedupes with the tile's own
-  // fetch. Called before the early returns to keep hook order stable.
-  const dealsObshtina = area && area.kind !== "unknown" ? area.obshtina : null;
-  const { data: muniDeals } = useMuniDeals(dealsObshtina);
+  // Resolve to the КЗП price keys once (Sofia район/city → 68134 / SOF46), and
+  // gate the full-basket + promos sections on real data here — DashboardSection
+  // still renders a header for a child that merely returns null, so a place
+  // with no shard would otherwise show an empty "Пълна кошница" / "Промоции"
+  // header (as a Sofia район did). React Query dedupes with the tiles' own
+  // fetches. Called before the early returns to keep hook order stable.
+  const keys =
+    area && area.kind !== "unknown"
+      ? resolvePriceKeys(
+          area.obshtina,
+          area.kind === "settlement" ? area.ekatte : undefined,
+        )
+      : { priceObshtina: "", priceEkatte: undefined };
+  const { data: basketData } = useSettlementPrices(keys.priceEkatte);
+  const { data: muniDeals } = useMuniDeals(keys.priceObshtina || null);
+  const hasBasket = !!basketData && basketData.products.length > 0;
 
   if (!id) {
     return (
@@ -152,10 +162,11 @@ export const ConsumptionPlaceScreen: FC = () => {
         </DashboardSection>
 
         {/* The full local basket — every monitored product with its cheapest
-            store + promo badge. Settlement-grain (needs the place shard), so it
-            renders only for settlement nodes; the tile itself self-hides for an
-            uncovered settlement (the summary above still shows the headline). */}
-        {area.kind === "settlement" ? (
+            store + promo badge. Needs a place shard, so it's gated on real data
+            (hasBasket) rather than the node kind: a covered settlement, or Sofia
+            city/район (mapped to the 68134 city panel) shows it; an uncovered
+            place hides it entirely instead of leaving an empty header. */}
+        {hasBasket ? (
           <DashboardSection
             id="basket"
             title={T("Пълна кошница", "Full basket")}
@@ -165,7 +176,10 @@ export const ConsumptionPlaceScreen: FC = () => {
             )}
             icon={ShoppingBasket}
           >
-            <PlaceBasketTile ekatte={area.ekatte} obshtina={area.obshtina} />
+            <PlaceBasketTile
+              ekatte={keys.priceEkatte}
+              obshtina={area.obshtina}
+            />
           </DashboardSection>
         ) : null}
 
@@ -182,7 +196,7 @@ export const ConsumptionPlaceScreen: FC = () => {
             )}
             icon={Tag}
           >
-            <PlaceDealsTile obshtina={area.obshtina} />
+            <PlaceDealsTile obshtina={keys.priceObshtina} />
           </DashboardSection>
         ) : null}
 

@@ -31,12 +31,19 @@ export const resolvePriceKeys = (
   ekatte?: string,
 ): PriceKeys => {
   const sofiaRayon = isSofiaRayonObshtina(obshtina);
-  const priceObshtina =
-    sofiaRayon || isSofiaCityObshtina(obshtina)
-      ? SOFIA_CITY_PRICE_OBSHTINA
-      : obshtina;
-  // A Sofia район has no settlement shard → fall back to the city EKATTE, but
-  // only when the caller didn't pass an explicit settlement ekatte.
-  const priceEkatte = sofiaRayon && !ekatte ? SOFIA_CITY_EKATTE : ekatte;
+  const sofia = sofiaRayon || isSofiaCityObshtina(obshtina);
+  const priceObshtina = sofia ? SOFIA_CITY_PRICE_OBSHTINA : obshtina;
+  // Sofia is monitored as ONE city-wide panel keyed 68134 — there is no
+  // per-район or per-district shard. So map any Sofia settlement EKATTE (the
+  // city 68134 itself OR a район composite 68134-<xxxx>) to the city shard,
+  // and also fall back for an ekatte-less Sofia obshtina (SOF00/район). This
+  // is why a район page previously showed an EMPTY basket: it passed the район
+  // ekatte 68134-2401, which has no shard, so the `&& !ekatte` guard was
+  // skipped. Non-Sofia ekattes are 5-digit and never collide with 68134.
+  const isSofiaEkatte =
+    ekatte === SOFIA_CITY_EKATTE ||
+    (ekatte?.startsWith(`${SOFIA_CITY_EKATTE}-`) ?? false);
+  const priceEkatte =
+    isSofiaEkatte || (sofia && !ekatte) ? SOFIA_CITY_EKATTE : ekatte;
   return { priceObshtina, priceEkatte };
 };
