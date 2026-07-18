@@ -250,6 +250,28 @@ export const useHubStats = () =>
     staleTime: Infinity,
   });
 
+/** One product a chain sells: the chain's own min price + the market min. */
+export interface ChainProduct {
+  slug: string;
+  title: string;
+  netQty: number | null;
+  netUnit: string | null;
+  price: number;
+  marketMin: number | null;
+  pctSinceEuro: number | null;
+}
+export interface ChainProductsFile {
+  products: ChainProduct[];
+}
+/** A retail chain's own products (top 100 by popularity), precomputed per EIK. */
+export const useChainProducts = (eik: string | undefined) =>
+  useQuery({
+    queryKey: ["prices", "chain-products", eik],
+    queryFn: () => fetchPricePayload<ChainProductsFile>("chain-products", eik),
+    enabled: !!eik,
+    staleTime: Infinity,
+  });
+
 /** Look up a place's ranking row by its code (ekatte / obshtina / oblast). */
 export const findRankPlace = (
   ranking: PriceRankingFile | null | undefined,

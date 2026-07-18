@@ -8,7 +8,7 @@
 // regression and not an artefact of a second implementation.
 //
 // kinds: index | ranking | chains | dict | deals | verdict | hub-stats |
-//        place:<ekatte> | chains-muni:<obshtina>
+//        place:<ekatte> | chains-muni:<obshtina> | chain-products:<eik>
 
 import fs from "node:fs";
 import path from "node:path";
@@ -180,6 +180,58 @@ export const buildPayloads = async (): Promise<void> => {
     euFoodPli,
     foodInflationPct,
   });
+
+  // `chain-products:<eik>` — a retail chain's OWN products (top 100 by product
+  // popularity) with the chain's min current price alongside the market min, for
+  // the /consumption/chain/:eik profile. Precomputed because the live per-store
+  // aggregation is ~0.8s on the biggest chain (10k SKUs) — too slow per request.
+  // One windowed pass covers every chain; grouped into a blob per EIK.
+  const chainProductRows = await allRows<{
+    eik: string;
+    slug: string;
+    title: string;
+    netQty: number | null;
+    netUnit: string | null;
+    price: number;
+    marketMin: number | null;
+    pctSinceEuro: number | null;
+  }>(
+    `WITH cp AS (
+       SELECT ps.eik, pp.slug, pp.title, pp.net_qty, pp.net_unit, pp.chain_count,
+              round(MIN(COALESCE(pc.promo_eur, pc.price_eur))::numeric, 2)::float8 AS price,
+              pp.current_min_eur, pp.pct_since_euro
+         FROM price_skus ps
+         JOIN price_current pc ON pc.sku_id = ps.sku_id
+         JOIN price_products pp ON pp.product_id = ps.product_id
+        WHERE pp.chain_count > 0
+        GROUP BY ps.eik, pp.slug, pp.title, pp.net_qty, pp.net_unit,
+                 pp.chain_count, pp.current_min_eur, pp.pct_since_euro
+     ),
+     r AS (
+       SELECT *, ROW_NUMBER() OVER (
+                   PARTITION BY eik
+                   ORDER BY chain_count DESC, price ASC, title
+                 ) AS rn
+         FROM cp
+     )
+     SELECT eik, slug, title,
+            net_qty AS "netQty", net_unit AS "netUnit", price,
+            current_min_eur AS "marketMin", pct_since_euro AS "pctSinceEuro"
+       FROM r
+      WHERE rn <= 100
+      ORDER BY eik, rn`,
+  );
+  const byChain = new Map<
+    string,
+    Omit<(typeof chainProductRows)[number], "eik">[]
+  >();
+  for (const { eik, ...p } of chainProductRows) {
+    if (!byChain.has(eik)) byChain.set(eik, []);
+    byChain.get(eik)!.push(p);
+  }
+  for (const [eik, products] of byChain) {
+    emit("chain-products", eik, { products });
+  }
 
   await withClient(async (c: PoolClient) => {
     await c.query("BEGIN");

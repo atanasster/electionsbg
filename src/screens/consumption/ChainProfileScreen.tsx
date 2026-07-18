@@ -2,19 +2,24 @@
 // cost + rank among chains, from the national `chains` payload) plus the bridge
 // to the company's money-flows profile: a chain has a real EIK, so /company/:eik
 // already aggregates its public procurement, EU funds, ownership and connections.
-// The embedded company tiles + the chain's product-price ranking land in a
-// follow-on (they need the chain-products payload + the company rollup adapter).
+// It also lists the chain's own products with the chain's price vs the market
+// min (the precomputed `chain-products:<eik>` payload), each linking to the
+// per-product cross-chain ladder.
 
 import { FC, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Store, Building2, ArrowRight } from "lucide-react";
+import { Store, Building2, ArrowRight, ShoppingBasket } from "lucide-react";
 import { Link } from "@/ux/Link";
 import { SEO } from "@/ux/SEO";
 import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrumb";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { Card } from "@/components/ui/card";
-import { useNationalChains, fmtEur } from "@/data/prices/usePrices";
+import {
+  useNationalChains,
+  useChainProducts,
+  fmtEur,
+} from "@/data/prices/usePrices";
 import { useCompanyProfile } from "@/data/procurement/useCompanyProfile";
 import { formatEurCompact } from "@/lib/currency";
 
@@ -26,6 +31,7 @@ export const ChainProfileScreen: FC = () => {
   const T = (b: string, e: string) => (bg ? b : e);
   const numFmt = new Intl.NumberFormat(bg ? "bg-BG" : "en-US");
   const { data } = useNationalChains();
+  const { data: chainProducts } = useChainProducts(eik);
 
   const info = useMemo(() => {
     if (!data) return null;
@@ -151,6 +157,55 @@ export const ChainProfileScreen: FC = () => {
             )}
           </Card>
         </DashboardSection>
+
+        {chainProducts?.products?.length ? (
+          <DashboardSection
+            id="products"
+            title={T("Продукти на веригата", "Chain products")}
+            subtitle={T(
+              "Цена в тази верига спрямо най-ниската на пазара",
+              "Price at this chain vs the cheapest on the market",
+            )}
+            icon={ShoppingBasket}
+          >
+            <Card className="p-3 sm:p-4">
+              <ul className="divide-y">
+                {chainProducts.products.map((p) => {
+                  const cheapest =
+                    p.marketMin != null && p.price <= p.marketMin + 0.001;
+                  return (
+                    <li
+                      key={p.slug}
+                      className="flex items-center gap-3 py-2 text-sm"
+                    >
+                      <Link
+                        to={`/product/${p.slug}`}
+                        className="min-w-0 flex-1 truncate font-medium hover:underline"
+                      >
+                        {p.title}
+                      </Link>
+                      {!cheapest && p.marketMin != null ? (
+                        <span className="hidden shrink-0 text-xs tabular-nums text-muted-foreground line-through sm:inline">
+                          {fmtEur(p.marketMin, lang)}
+                        </span>
+                      ) : null}
+                      <span className="w-20 shrink-0 text-right font-semibold tabular-nums">
+                        {fmtEur(p.price, lang)}
+                      </span>
+                      {cheapest ? (
+                        <span className="hidden w-16 shrink-0 text-right text-[11px] font-semibold uppercase tracking-wide text-emerald-600 dark:text-emerald-400 sm:inline">
+                          {T("най-евтина", "cheapest")}
+                        </span>
+                      ) : (
+                        <span className="hidden w-16 shrink-0 sm:inline" />
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            </Card>
+          </DashboardSection>
+        ) : null}
 
         <DashboardSection
           id="sources"
