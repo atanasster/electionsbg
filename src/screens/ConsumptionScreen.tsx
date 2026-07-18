@@ -98,6 +98,13 @@ export const ConsumptionScreen = () => {
       ),
       accent: TILE_ACCENTS.green,
     },
+    {
+      id: "eu",
+      to: "/consumption/eu",
+      title: T("Спрямо ЕС", "vs the EU"),
+      desc: T("Храната у нас спрямо Европа", "Our food vs Europe"),
+      accent: TILE_ACCENTS.indigo,
+    },
   ] as const;
 
   const exploreSection: TileHubSection = {

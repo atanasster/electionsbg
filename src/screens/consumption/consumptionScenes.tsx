@@ -225,6 +225,24 @@ const Categories: FC = () => (
   </SceneFrame>
 );
 
+// Спрямо ЕС — diverging bars around an EU=100 baseline.
+const EuCompare: FC = () => (
+  <SceneFrame>
+    <path
+      d="M150 20 v78"
+      stroke="currentColor"
+      strokeWidth="1.4"
+      opacity=".35"
+    />
+    <g fill="var(--sector)" opacity=".85">
+      <rect x="150" y="30" width="34" height="10" rx="2" />
+      <rect x="118" y="46" width="32" height="10" rx="2" opacity=".6" />
+      <rect x="150" y="62" width="20" height="10" rx="2" />
+      <rect x="104" y="78" width="46" height="10" rx="2" opacity=".6" />
+    </g>
+  </SceneFrame>
+);
+
 // Достъпност — a balance scale (basket vs income).
 const Affordability: FC = () => (
   <SceneFrame>
@@ -262,4 +280,5 @@ export const CONSUMPTION_SCENES: Record<string, FC> = {
   chains: Chains,
   basket: MyBasket,
   categories: Categories,
+  eu: EuCompare,
 };
