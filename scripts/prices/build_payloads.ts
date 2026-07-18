@@ -278,12 +278,16 @@ export const buildPayloads = async (): Promise<void> => {
   emit("chain-map", "", { latestDate: latest ?? "", munis: chainMap });
 
   // `unit-prices` — normalized €/kg (from g) and €/L (from ml) per KZP category,
-  // for the /consumption/unit-prices value explorer. `brand` is empty and pack
-  // size is frozen into product identity, so true downsizing isn't derivable;
-  // per-unit price IS (net_qty/net_unit cover ~52% of live products). Per
-  // category: the median plus the best-value (lowest €/unit) and priciest
-  // products. A unit basis is emitted only with ≥30 products (a 12-item median
-  // is noise). `pc` (per-piece) products have no kg/L basis and are excluded.
+  // for the /consumption/unit-prices FOOD-value explorer. `brand` is empty and
+  // pack size is frozen into product identity, so true downsizing isn't
+  // derivable; per-unit price IS (net_qty/net_unit cover ~52% of live products).
+  // Per category: the median plus the best-value (lowest €/unit) products.
+  // Guards: a basis is emitted only with ≥30 products (a small median is noise),
+  // `pc` (per-piece) products are excluded (no kg/L basis), and cats 12/13/14
+  // (alcohol&tobacco, hygiene/cosmetics, medicines) are dropped — they are not a
+  // "food per kg" signal and their net_qty is unreliable (spirits tagged "10Г",
+  // a rug mis-filed under alcohol, medicines priced per dose), which even poisons
+  // the category median so the half-median leader guard can't rescue it.
   const unitMed = await allRows<{
     cat: number;
     bg: string;
@@ -305,6 +309,7 @@ export const buildPayloads = async (): Promise<void> => {
       JOIN price_kzp_cats kc ON kc.cat = kp.cat
      WHERE pp.chain_count > 0 AND pp.current_min_eur IS NOT NULL
        AND pp.net_qty > 0 AND pp.net_unit IN ('g','ml')
+       AND kp.cat NOT IN (12, 13, 14)
      GROUP BY kc.cat, kc.bg, kc.en ORDER BY kc.cat`,
   );
   const unitLeaders = await allRows<{
@@ -328,6 +333,7 @@ export const buildPayloads = async (): Promise<void> => {
          JOIN price_kzp_products kp ON kp.pid = pp.pid
         WHERE pp.chain_count > 0 AND pp.current_min_eur IS NOT NULL
           AND pp.net_qty > 0 AND pp.net_unit IN ('g','ml')
+          AND kp.cat NOT IN (12, 13, 14)
      ),
      med AS (
        SELECT cat, unit, percentile_cont(0.5) WITHIN GROUP (ORDER BY eu) AS m
