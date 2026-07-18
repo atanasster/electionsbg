@@ -844,15 +844,15 @@ export const CompanyDbScreen: FC = () => {
                                   : i18n.language === "bg"
                                     ? "служител"
                                     : "official"}
-                              {l.confidence !== "high"
-                                ? i18n.language === "bg"
-                                  ? " · вероятно"
-                                  : " · likely"
-                                : ""}
                             </span>
                           </li>
                         ))}
                       </ul>
+                      <p className="text-xs text-muted-foreground">
+                        {i18n.language === "bg"
+                          ? "Съвпадение по име с рядко срещано име (непотвърдено). Проверете лицето за детайли."
+                          : "Matched on a rare exact name (unverified). Open the person for details."}
+                      </p>
                     </div>
                   )}
                   <p className="text-xs text-muted-foreground">

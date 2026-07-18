@@ -342,10 +342,12 @@ const DB_ROUTES = {
         e?.code === "42883" ? [] : Promise.reject(e),
       ),
       // Politicians / officials / magistrates on this NGO's governing body
-      // (migration 080). High-confidence first. Empty for non-NGOs / pre-080.
+      // (migration 080). HIGH-confidence ONLY — medium (namesake company_count
+      // 2–3) is deliberately withheld from the public page (a name coincidence is
+      // too likely to name a real person). Empty for non-NGOs / pre-080.
       dbRows(
         `SELECT person, ref, kind, role, confidence FROM ngo_board_links
-         WHERE eik = $1 ORDER BY (confidence = 'high') DESC, person LIMIT 50`,
+         WHERE eik = $1 AND confidence = 'high' ORDER BY person LIMIT 50`,
         [eik],
       ).catch((e) => (e?.code === "42P01" ? [] : Promise.reject(e))),
     ]);

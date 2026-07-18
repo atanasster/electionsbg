@@ -74,6 +74,21 @@ export const loadNgoBoardLinksPg = async (): Promise<{
   // rebuilds the MP-companies graph. When present, add MPs to the roster with a
   // /candidate/mp-<id> ref (TODO once the graph is regenerated on this checkout).
 
+  // The rebuild joins `magistrate` (070) + `officer_name_counts` (008). On a DB
+  // where those haven't been applied/refreshed the function would raise — guard
+  // like load_tr_pg.ts does rather than abort the whole load.
+  const ready = await getPool()
+    .query(
+      "SELECT to_regclass('public.magistrate') AS m, to_regclass('public.officer_name_counts') AS n",
+    )
+    .then((r) => r.rows[0]?.m != null && r.rows[0]?.n != null)
+    .catch(() => false);
+  if (!ready) {
+    console.warn(
+      "[ngo-board-links] magistrate / officer_name_counts not present — run db:load:tr:pg first; skipping rebuild",
+    );
+    return { roster, links: 0 };
+  }
   const links = await getPool()
     .query("SELECT rebuild_ngo_board_links() AS n")
     .then((r) => Number(r.rows[0].n));

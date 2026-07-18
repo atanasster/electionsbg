@@ -69,8 +69,13 @@ CREATE TABLE IF NOT EXISTS ngo_board_links (
 CREATE INDEX IF NOT EXISTS idx_ngo_board_links_eik ON ngo_board_links (eik);
 
 -- Rebuild the whole table from the current officers + rosters. TRUNCATE+INSERT so
--- it's deterministic and idempotent. Namesake guard: company_count ≤2 → high, ≤5
--- → medium; anything more common is dropped (defamation guard on a public site).
+-- it's deterministic and idempotent. Namesake guard (defamation guard on a PUBLIC
+-- page): company_count = 1 → 'high' (the officer name is GLOBALLY UNIQUE across the
+-- register, so the magistrate/official↔board-member match is very unlikely to be a
+-- coincidence — and since magistrates are barred from commercial management, a real
+-- magistrate on an NGO board naturally has cc=1); 2–3 → 'medium' (stored for review
+-- but NEVER surfaced publicly); more common names are dropped entirely. Only 'high'
+-- fires a signal / renders — see ngo_signal_row + the company endpoint.
 CREATE OR REPLACE FUNCTION rebuild_ngo_board_links()
 RETURNS int LANGUAGE plpgsql AS $$
 DECLARE n int;
@@ -94,17 +99,17 @@ BEGIN
     FROM ngo_off n
     JOIN magistrate m ON translit_bg_latin(m.name) = n.name_fold
     JOIN officer_name_counts nc ON nc.name_fold = n.name_fold
-    WHERE nc.company_count <= 5
+    WHERE nc.company_count <= 3
     UNION ALL
     SELECT n.eik, r.name, '/officials/' || r.slug, 'official', n.board_role, nc.company_count
     FROM ngo_off n
     JOIN official_roster r ON translit_bg_latin(r.name) = n.name_fold
     JOIN officer_name_counts nc ON nc.name_fold = n.name_fold
-    WHERE nc.company_count <= 5
+    WHERE nc.company_count <= 3
   )
   SELECT DISTINCT ON (eik, ref)
          eik, person, ref, kind, role,
-         CASE WHEN cc <= 2 THEN 'high' ELSE 'medium' END, cc
+         CASE WHEN cc = 1 THEN 'high' ELSE 'medium' END, cc
   FROM matched
   ORDER BY eik, ref, cc;  -- keep the lowest-namesake (highest-confidence) per link
   GET DIAGNOSTICS n = ROW_COUNT;

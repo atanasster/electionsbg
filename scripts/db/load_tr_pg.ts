@@ -403,8 +403,10 @@ export const loadTrPg = async (): Promise<{
       // Connection signals: rebuild ngo_board_links from the fresh officers +
       // the magistrate roster + the persisted official_roster. Guarded on the
       // magistrate table (the rebuild fn joins it; may not be loaded on a TR-only
-      // DB). The official leg needs official_roster, populated by
-      // db:load:ngo-board-links; empty here just yields no official links.
+      // DB). NOTE: the official leg matches against whatever official_roster was
+      // last loaded by db:load:ngo-board-links — on a routine TR refresh that
+      // roster may be older than the current officials dataset (officials change
+      // slowly, so acceptable; re-run db:load:ngo-board-links to refresh it).
       const hasMagistrate = await getPool()
         .query("SELECT to_regclass('public.magistrate') AS t")
         .then((r) => r.rows[0]?.t != null)

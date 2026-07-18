@@ -71,7 +71,7 @@ export const NGO_SIGNAL_META: Record<string, Meta> = {
     ],
     hint: [
       "ngo_signal_politician_hint",
-      "Политически изложено лице (PEP) е в управата — рискова категория, не обвинение.",
+      "Политически изложено лице (PEP) с това име е в управата — рискова категория по съвпадение на име, не обвинение.",
     ],
   },
   magistrate_board: {
@@ -81,7 +81,7 @@ export const NGO_SIGNAL_META: Record<string, Meta> = {
     long: ["ngo_signal_magistrate_long", "Магистрат в ръководството"],
     hint: [
       "ngo_signal_magistrate_hint",
-      "Съдия или прокурор фигурира в управата на организацията — трейс, не доказателство.",
+      "Магистрат с това име фигурира в управата — възможно съвпадение на име, трейс, не доказателство.",
     ],
   },
   public_contracts: {
