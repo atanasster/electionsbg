@@ -333,9 +333,10 @@ const DB_ROUTES = {
          SELECT chain, basket, n_priced, rank::int, total::int FROM ranked WHERE eik = $1`,
         [eik],
       ).catch((e) => (e?.code === "42P01" ? [] : Promise.reject(e))),
-      // Per-NGO public-interest signal set (migration 080). Returns [] for a
-      // non-NGO or an NGO with no signals. Guarded on the missing-migration case
-      // (42883 = undefined_function) so the company page still renders pre-080.
+      // Per-NGO public-interest signal set (migration 080). ngo_signal_row is
+      // entity-class-agnostic, so a commercial EIK with contracts/funds also gets
+      // a non-empty array — the NGO page only RENDERS it for NGO classes. Guarded
+      // on the missing-migration case (42883) so the page still renders pre-080.
       dbRows("SELECT ngo_signals_for($1) AS r", [eik]).catch((e) =>
         e?.code === "42883" ? [] : Promise.reject(e),
       ),
@@ -394,23 +395,34 @@ const DB_ROUTES = {
   // reltuples estimate (exact enough for a headline, no 1M-row scan), and the
   // state-awarder count reads the awarder_totals matview (one row per awarder).
   "ngo-stats": async (dbRows) => {
-    const rows = await dbRows(
-      `SELECT
-         (SELECT count(*)::int FROM tr_companies WHERE entity_class = 'ngo_assoc')      AS assoc,
-         (SELECT count(*)::int FROM tr_companies WHERE entity_class = 'ngo_found')      AS found,
-         (SELECT count(*)::int FROM tr_companies WHERE entity_class = 'chitalishte')    AS chitalishte,
-         (SELECT count(*)::int FROM tr_companies WHERE entity_class = 'foreign_branch') AS foreign_branch,
-         (SELECT reltuples::bigint FROM pg_class WHERE relname = 'tr_companies')        AS tr_companies,
-         (SELECT count(*)::int FROM awarder_totals)                                     AS state_awarders,
-         (SELECT count(DISTINCT eik)::int FROM ngo_funding WHERE eik IS NOT NULL)       AS ngos_funded,
-         (SELECT COALESCE(ROUND(SUM(amount_eur)), 0) FROM ngo_funding WHERE eik IS NOT NULL) AS external_eur,
-         -- NGOs carrying ≥1 public-interest signal (migration 080). to_regclass
-         -- guard → 0 before the matview exists, so the card degrades cleanly.
-         (SELECT CASE WHEN to_regclass('public.ngo_signals') IS NULL THEN 0
-                 ELSE (SELECT count(*)::int FROM ngo_signals WHERE signal_count > 0) END) AS ngos_with_signal
-       `,
-    );
-    return { body: rows[0] ?? {} };
+    // NGOs carrying ≥1 signal runs as its OWN guarded query: a `FROM ngo_signals`
+    // reference is resolved at parse time, so an in-SQL to_regclass CASE can't
+    // gate it — a missing (42P01) or unpopulated (55000) matview would 500 the
+    // whole card. Mirror the company route's per-source .catch degradation.
+    const [rows, signalRows] = await Promise.all([
+      dbRows(
+        `SELECT
+           (SELECT count(*)::int FROM tr_companies WHERE entity_class = 'ngo_assoc')      AS assoc,
+           (SELECT count(*)::int FROM tr_companies WHERE entity_class = 'ngo_found')      AS found,
+           (SELECT count(*)::int FROM tr_companies WHERE entity_class = 'chitalishte')    AS chitalishte,
+           (SELECT count(*)::int FROM tr_companies WHERE entity_class = 'foreign_branch') AS foreign_branch,
+           (SELECT reltuples::bigint FROM pg_class WHERE relname = 'tr_companies')        AS tr_companies,
+           (SELECT count(*)::int FROM awarder_totals)                                     AS state_awarders,
+           (SELECT count(DISTINCT eik)::int FROM ngo_funding WHERE eik IS NOT NULL)       AS ngos_funded,
+           (SELECT COALESCE(ROUND(SUM(amount_eur)), 0) FROM ngo_funding WHERE eik IS NOT NULL) AS external_eur
+         `,
+      ),
+      dbRows(
+        "SELECT count(*)::int AS n FROM ngo_signals WHERE signal_count > 0",
+      ).catch((e) =>
+        ["42P01", "55000"].includes(e?.code)
+          ? [{ n: 0 }]
+          : Promise.reject(e),
+      ),
+    ]);
+    return {
+      body: { ...(rows[0] ?? {}), ngos_with_signal: signalRows[0]?.n ?? 0 },
+    };
   },
   async tenders(dbRows, q) {
     const eik = s(q, "eik");

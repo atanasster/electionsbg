@@ -1856,12 +1856,12 @@ export const TOOLS: ToolDef[] = [
     ],
     examples: [
       {
-        bg: "Кои НПО получават средства от ЕС?",
-        en: "Which NGOs receive EU funds?",
+        bg: "Кои НПО имат сигнал за средства от ЕС?",
+        en: "Which NGOs are flagged for EU funds?",
       },
       {
-        bg: "НПО с външно финансиране",
-        en: "NGOs with external funding",
+        bg: "НПО със сигнал за външно финансиране",
+        en: "NGOs flagged for external funding",
       },
     ],
     run: ngoBySignal,
