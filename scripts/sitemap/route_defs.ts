@@ -71,6 +71,8 @@ export const ENGLISH_STATIC_PAGES = [
   "consumption",
   "consumption/overview",
   "consumption/eu",
+  "consumption/chains",
+  "consumption/categories",
   "risk-analysis",
   "risk-analysis/methodology",
   "risk-score",
@@ -162,6 +164,14 @@ export const routeDefs = (year: string): RouteDefs => [
   {
     path: "consumption/eu",
     file: `src/screens/consumption/ConsumptionEuScreen.tsx`,
+  },
+  {
+    path: "consumption/chains",
+    file: `src/screens/consumption/ConsumptionChainsScreen.tsx`,
+  },
+  {
+    path: "consumption/categories",
+    file: `src/screens/consumption/ConsumptionCategoriesScreen.tsx`,
   },
   { path: "simulator", file: `src/screens/SimulatorScreen.tsx` },
   { path: "compare", file: `src/screens/CompareScreen.tsx` },

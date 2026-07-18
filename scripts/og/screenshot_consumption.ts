@@ -37,14 +37,18 @@ const TARGETS: Target[] = [
     scrollTo: "macro",
     wait: "#macro .tabular-nums",
   },
-  // The municipality price choropleth (the map is the hero).
+  // The municipality price choropleth (the map is the hero). Wait for a LOADED
+  // Leaflet tile so the map isn't captured blank.
   {
     path: "/consumption/overview",
     out: "consumption-overview.png",
     scrollTo: "map",
-    wait: "#map svg path, #map .leaflet-container",
+    wait: "#map .leaflet-tile-loaded, #map svg path",
   },
 ];
+// Note: the chains leaderboard + category list pages are list-shaped (no chart /
+// map hero), so they reuse the branded hub OG (/og/consumption.png) via their
+// prerender node rather than a bespoke screenshot.
 
 const run = async (): Promise<void> => {
   fs.mkdirSync(OG_DIR, { recursive: true });
@@ -58,26 +62,34 @@ const run = async (): Promise<void> => {
     for (const t of TARGETS) {
       const url = `${BASE}${t.path}`;
       console.log(`→ ${url}`);
-      await page.goto(url, { waitUntil: "networkidle", timeout: 30_000 });
-      await page
-        .waitForSelector(t.wait, { timeout: 20_000 })
-        .catch(() =>
-          console.log("  ⚠ hero didn't resolve — capturing anyway"),
-        );
-      await page.waitForTimeout(1500);
-      await page.evaluate((id) => {
-        document
-          .getElementById(id)
-          ?.scrollIntoView({ block: "start", behavior: "instant" });
-      }, t.scrollTo);
-      await page.waitForTimeout(800);
-      const outPath = path.join(OG_DIR, t.out);
-      await page.screenshot({
-        path: outPath,
-        clip: { x: 0, y: 0, width: 1200, height: 630 },
-      });
-      const stat = fs.statSync(outPath);
-      console.log(`  ✓ ${t.out} (${Math.round(stat.size / 1024)} KB)`);
+      try {
+        // networkidle lets the SPA hydrate + the map load its Leaflet tiles
+        // (a `load`-only wait captures the map blank and scrolls before the
+        // section mounts). Per-target try/catch so a slow page can't abort the
+        // rest of the run.
+        await page.goto(url, { waitUntil: "networkidle", timeout: 45_000 });
+        await page
+          .waitForSelector(t.wait, { timeout: 20_000 })
+          .catch(() =>
+            console.log("  ⚠ hero didn't resolve — capturing anyway"),
+          );
+        await page.waitForTimeout(2000);
+        await page.evaluate((id) => {
+          document
+            .getElementById(id)
+            ?.scrollIntoView({ block: "start", behavior: "instant" });
+        }, t.scrollTo);
+        await page.waitForTimeout(800);
+        const outPath = path.join(OG_DIR, t.out);
+        await page.screenshot({
+          path: outPath,
+          clip: { x: 0, y: 0, width: 1200, height: 630 },
+        });
+        const stat = fs.statSync(outPath);
+        console.log(`  ✓ ${t.out} (${Math.round(stat.size / 1024)} KB)`);
+      } catch (err) {
+        console.log(`  ✗ ${t.out} failed: ${(err as Error).message}`);
+      }
     }
   } finally {
     await browser.close();

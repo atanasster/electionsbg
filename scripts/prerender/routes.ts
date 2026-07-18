@@ -1735,6 +1735,56 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "consumption/chains",
+    title: "Най-евтини вериги в България — кошница по вериги | electionsbg.com",
+    description:
+      "Класация на търговските вериги в България по цена на съпоставима кошница от въвеждането на еврото. Всяка верига води към профила на фирмата — обществени поръчки, връзки, собственост.",
+    breadcrumbName: "Вериги",
+    ogImage: "/og/consumption.png",
+    bodyHtml: `
+<h1>Най-евтини търговски вериги в България</h1>
+<p>Класация на веригите, които предлагат съпоставима потребителска кошница, подредени по цена от въвеждането на еврото на 1 януари 2026 г. Данните са от ежедневния портал на КЗП „Колко струва".</p>
+<p>Всяка верига е и фирма с ЕИК, затова от профила ѝ може да се стигне до <strong>обществените поръчки</strong>, които печели като изпълнител, връзките и собствеността ѝ. <strong>Мониторингов индекс на КЗП, не официален ИПЦ.</strong></p>
+<p>Източник: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">КЗП — „Колко струва" (отворени данни)</a>.</p>`.trim(),
+    english: {
+      title:
+        "Cheapest retail chains in Bulgaria — basket by chain | electionsbg.com",
+      description:
+        "A ranking of Bulgaria's retail chains by comparable-basket cost since the euro. Each chain links to its company profile — public procurement, connections, ownership.",
+      breadcrumbName: "Chains",
+      bodyHtml: `
+<h1>Cheapest retail chains in Bulgaria</h1>
+<p>A ranking of the chains that price a comparable consumer basket, cheapest-first since the euro changeover on 1 January 2026, from the CPC "How Much Does It Cost" daily portal.</p>
+<p>Each chain is also a company with an EIK, so its profile bridges to the <strong>public contracts</strong> it wins as a supplier, its connections and ownership. <strong>CPC monitoring index, not official CPI.</strong></p>
+<p>Source: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">CPC — "How Much Does It Cost" (open data)</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "consumption/categories",
+    title: "Цени по категории храни в България — от еврото | electionsbg.com",
+    description:
+      "Промяната в цените по 14-те категории храни в България от въвеждането на еврото — мониторинговата кошница на КЗП. Плодове и риба нагоре, масла и захар надолу.",
+    breadcrumbName: "Категории",
+    ogImage: "/og/consumption.png",
+    bodyHtml: `
+<h1>Цени по категории храни в България</h1>
+<p>Промяната в цените по 14-те категории от голямата потребителска кошница (хляб и зърнени, мляко и млечни, месо, риба, плодове, зеленчуци, масла, захар и др.) от въвеждането на еврото на 1 януари 2026 г., по данни на КЗП „Колко струва".</p>
+<p><strong>Мониторингов индекс на КЗП, не официален ИПЦ.</strong> За всяка категория има отделна страница с тренда и продуктите в нея.</p>
+<p>Източник: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">КЗП — „Колко струва" (отворени данни)</a>.</p>`.trim(),
+    english: {
+      title:
+        "Food-category prices in Bulgaria — since the euro | electionsbg.com",
+      description:
+        "Price change across Bulgaria's 14 food categories since the euro — the CPC monitoring basket. Fruit and fish up, oils and sugar down.",
+      breadcrumbName: "Categories",
+      bodyHtml: `
+<h1>Food-category prices in Bulgaria</h1>
+<p>The price change across the 14 categories of the large consumer basket (bread and cereals, milk and dairy, meat, fish, fruit, vegetables, oils, sugar and more) since the euro changeover on 1 January 2026, from the CPC "How Much Does It Cost" data.</p>
+<p><strong>CPC monitoring index, not official CPI.</strong> Each category has its own page with the trend and the products in it.</p>
+<p>Source: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">CPC — "How Much Does It Cost" (open data)</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "indicators/economy",
     title: "Икономика — БВП, инфлация, безработица, нагласи | electionsbg.com",
     description:
