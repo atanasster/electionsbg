@@ -9,16 +9,12 @@
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  TrendingUp,
-  TrendingDown,
-  Tag,
-  ArrowRight,
-  MapPin,
-} from "lucide-react";
+import { Tag, ArrowRight, MapPin } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Link } from "@/ux/Link";
 import { PriceSparkline } from "@/screens/components/prices/PriceSparkline";
+import { ChainBasketList } from "@/screens/components/prices/ChainBasketList";
+import { MoversSplit } from "@/screens/components/prices/PriceMovers";
 import { consumptionUrl } from "@/data/local/placeViews";
 import { resolvePriceKeys } from "@/data/prices/pricePlaceKeys";
 import {
@@ -216,44 +212,15 @@ export const MyAreaPricesTile: FC<Props> = ({
       ) : null}
 
       {/* Biggest movers since euro (settlement). 1 column on phones so product
-          names get full width; 2 columns from sm up. */}
-      {movers && (movers.up.length || movers.down.length) ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-xs">
-          <div>
-            <div className="flex items-center gap-1 text-red-600 dark:text-red-400 font-medium mb-1">
-              <TrendingUp className="size-3.5" /> {T("Поскъпнаха", "Rose")}
-            </div>
-            <ul className="space-y-0.5">
-              {movers.up.slice(0, 3).map((m) => (
-                <li key={m.id} className="flex justify-between gap-2">
-                  <span className="truncate min-w-0">
-                    {prodName.get(m.id) ?? m.id}
-                  </span>
-                  <span className="tabular-nums shrink-0 text-red-600 dark:text-red-400">
-                    {fmtPct(m.change)}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <div className="flex items-center gap-1 text-green-600 dark:text-green-400 font-medium mb-1">
-              <TrendingDown className="size-3.5" /> {T("Поевтиняха", "Fell")}
-            </div>
-            <ul className="space-y-0.5">
-              {movers.down.slice(0, 3).map((m) => (
-                <li key={m.id} className="flex justify-between gap-2">
-                  <span className="truncate min-w-0">
-                    {prodName.get(m.id) ?? m.id}
-                  </span>
-                  <span className="tabular-nums shrink-0 text-green-600 dark:text-green-400">
-                    {fmtPct(m.change)}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+          names get full width; 2 columns from sm up. Self-hides when empty. */}
+      {movers ? (
+        <MoversSplit
+          up={movers.up}
+          down={movers.down}
+          nameFor={(id) => prodName.get(id) ?? String(id)}
+          risersLabel={T("Поскъпнаха", "Rose")}
+          fallersLabel={T("Поевтиняха", "Fell")}
+        />
       ) : null}
 
       {/* Cheapest chains here */}
@@ -262,20 +229,7 @@ export const MyAreaPricesTile: FC<Props> = ({
           <div className="font-medium mb-1">
             {T("Най-евтини вериги (кошница)", "Cheapest chains (basket)")}
           </div>
-          <ul className="space-y-0.5">
-            {chains.map((c) => (
-              <li key={c.eik} className="flex justify-between gap-2">
-                <span className="truncate min-w-0">{c.chain}</span>
-                <span className="tabular-nums shrink-0 text-muted-foreground whitespace-nowrap">
-                  {fmtEur(c.basket, lang)}
-                  <span className="opacity-60">
-                    {" "}
-                    · {c.nPriced}/{coreSize}
-                  </span>
-                </span>
-              </li>
-            ))}
-          </ul>
+          <ChainBasketList chains={chains} basketSize={coreSize} lang={lang} />
         </div>
       ) : null}
 

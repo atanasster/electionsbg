@@ -8,6 +8,8 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Tag, ArrowRight } from "lucide-react";
 import { PriceSparkline } from "@/screens/components/prices/PriceSparkline";
+import { ChainBasketList } from "@/screens/components/prices/ChainBasketList";
+import { MoversInline } from "@/screens/components/prices/PriceMovers";
 import {
   usePriceIndex,
   usePriceRanking,
@@ -110,40 +112,13 @@ export const GovernancePricesTile: FC<Props> = ({ oblast }) => {
       </div>
 
       <div className="grid gap-3 grid-cols-1 sm:grid-cols-2">
-        {/* category movers (national) */}
-        {up.length ? (
-          <div className="text-xs">
-            <div className="font-medium mb-1">
-              {T("По категории", "By category")}
-            </div>
-            <ul className="space-y-0.5">
-              {up.map((m) => (
-                <li key={m.id} className="flex justify-between gap-2">
-                  <span className="truncate min-w-0">
-                    {catName.get(m.id) ?? m.id}
-                  </span>
-                  <span
-                    className={`tabular-nums shrink-0 ${changeColor(m.change)}`}
-                  >
-                    {fmtPct(m.change)}
-                  </span>
-                </li>
-              ))}
-              {down.map((m) => (
-                <li key={m.id} className="flex justify-between gap-2">
-                  <span className="truncate min-w-0">
-                    {catName.get(m.id) ?? m.id}
-                  </span>
-                  <span
-                    className={`tabular-nums shrink-0 ${changeColor(m.change)}`}
-                  >
-                    {fmtPct(m.change)}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
+        {/* category movers (national) — self-hides when empty */}
+        <MoversInline
+          up={up}
+          down={down}
+          nameFor={(id) => catName.get(id) ?? String(id)}
+          title={T("По категории", "By category")}
+        />
 
         {/* cheapest chains nationally */}
         {!oblast && chains?.national?.length ? (
@@ -151,20 +126,12 @@ export const GovernancePricesTile: FC<Props> = ({ oblast }) => {
             <div className="font-medium mb-1">
               {T("Най-евтини вериги", "Cheapest chains")}
             </div>
-            <ul className="space-y-0.5">
-              {chains.national.slice(0, 4).map((c) => (
-                <li key={c.eik} className="flex justify-between gap-2">
-                  <span className="truncate min-w-0">{c.chain}</span>
-                  <span className="tabular-nums shrink-0 text-muted-foreground whitespace-nowrap">
-                    {fmtEur(c.basket, lang)}
-                    <span className="opacity-60">
-                      {" "}
-                      · {c.nPriced}/{chains.commonBasketSize}
-                    </span>
-                  </span>
-                </li>
-              ))}
-            </ul>
+            <ChainBasketList
+              chains={chains.national}
+              basketSize={chains.commonBasketSize}
+              lang={lang}
+              limit={4}
+            />
           </div>
         ) : null}
 
