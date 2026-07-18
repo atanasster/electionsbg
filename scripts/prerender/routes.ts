@@ -1896,7 +1896,8 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p><strong>Мониторингов индекс на КЗП, не официален ИПЦ.</strong> Виж целия <a href="${SITE_URL}/consumption">изглед „Потребление"</a>.</p>
 <p>Източник: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">КЗП — „Колко струва" (отворени данни)</a>.</p>`.trim(),
     english: {
-      title: "€ per kilo — price per kg and litre by food category | electionsbg.com",
+      title:
+        "€ per kilo — price per kg and litre by food category | electionsbg.com",
       description:
         "Price normalized to 1 kg and 1 L by food category in Bulgaria — so packs of different sizes are comparable and you can see which products give the most for your money. CPC monitoring index, not official CPI.",
       breadcrumbName: "€ per kilo",

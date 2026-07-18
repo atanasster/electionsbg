@@ -16,7 +16,12 @@ export const UnitPriceTile: FC<{ limit?: number }> = ({ limit = 4 }) => {
 
   // Lowest €/kg across every kg-basis category — the "most food per euro" items.
   const best = (data.categories ?? [])
-    .flatMap((c) => (c.kg?.best ?? []).map((p) => ({ ...p, cat: lang === "bg" ? c.bg : c.en })))
+    .flatMap((c) =>
+      (c.kg?.best ?? []).map((p) => ({
+        ...p,
+        cat: lang === "bg" ? c.bg : c.en,
+      })),
+    )
     .sort((a, b) => a.eurPerUnit - b.eurPerUnit)
     .slice(0, limit);
   if (!best.length) return null;

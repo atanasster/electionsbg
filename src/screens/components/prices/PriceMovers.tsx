@@ -62,15 +62,7 @@ const Row: FC<{
 
 export const MoversSplit: FC<
   Common & { risersLabel: string; fallersLabel: string }
-> = ({
-  up,
-  down,
-  nameFor,
-  limit = 3,
-  hrefFor,
-  risersLabel,
-  fallersLabel,
-}) => {
+> = ({ up, down, nameFor, limit = 3, hrefFor, risersLabel, fallersLabel }) => {
   if (!up.length && !down.length) return null;
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-xs">
@@ -80,7 +72,13 @@ export const MoversSplit: FC<
         </div>
         <ul className="space-y-0.5">
           {up.slice(0, limit).map((m) => (
-            <Row key={m.id} m={m} nameFor={nameFor} color={RED} hrefFor={hrefFor} />
+            <Row
+              key={m.id}
+              m={m}
+              nameFor={nameFor}
+              color={RED}
+              hrefFor={hrefFor}
+            />
           ))}
         </ul>
       </div>

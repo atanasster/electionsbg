@@ -13,7 +13,10 @@ import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrum
 import { Card } from "@/components/ui/card";
 import { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { usePriceIndex } from "@/data/prices/usePrices";
-import { PriceChoropleth, type PriceMetric } from "@/screens/components/prices/PriceChoropleth";
+import {
+  PriceChoropleth,
+  type PriceMetric,
+} from "@/screens/components/prices/PriceChoropleth";
 
 export const PricesMapScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -49,7 +52,10 @@ export const PricesMapScreen: FC = () => {
 
   return (
     <>
-      <SEO title={`${title} · ${T("Потребление", "Consumption")}`} description={description} />
+      <SEO
+        title={`${title} · ${T("Потребление", "Consumption")}`}
+        description={description}
+      />
       <ConsumptionBreadcrumb
         section={T("Цени", "Prices")}
         sectionTo="/prices"

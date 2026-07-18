@@ -82,7 +82,10 @@ export const PricesScreen: FC = () => {
   const catName = useMemo(
     () =>
       new Map(
-        (index?.categories ?? []).map((c) => [c.id, lang === "bg" ? c.bg : c.en]),
+        (index?.categories ?? []).map((c) => [
+          c.id,
+          lang === "bg" ? c.bg : c.en,
+        ]),
       ),
     [index, lang],
   );

@@ -242,7 +242,10 @@ export const RiskBadges: FC<Props> = ({ result, variant = "chips" }) => {
             </div>
           }
         >
-          <SignalPill tone="orange" icon={<AlertTriangle className="h-3 w-3" />}>
+          <SignalPill
+            tone="orange"
+            icon={<AlertTriangle className="h-3 w-3" />}
+          >
             {formatShare(flags.awarderConcentration.sharePct, lang)}
           </SignalPill>
         </Tooltip>

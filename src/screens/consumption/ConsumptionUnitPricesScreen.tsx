@@ -89,7 +89,9 @@ export const ConsumptionUnitPricesScreen: FC = () => {
           <Card key={c.cat} className="flex flex-col gap-3 p-4">
             <div className="flex items-center gap-2">
               <Scale className="size-4 text-muted-foreground" />
-              <span className="font-semibold">{lang === "bg" ? c.bg : c.en}</span>
+              <span className="font-semibold">
+                {lang === "bg" ? c.bg : c.en}
+              </span>
             </div>
             {c.kg ? basisBlock(c.kg, "kg") : null}
             {c.l ? basisBlock(c.l, "l") : null}

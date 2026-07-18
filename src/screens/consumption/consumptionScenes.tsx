@@ -357,7 +357,12 @@ const PriceReceipt: FC = () => (
     <g stroke="var(--sector)" strokeWidth="3" strokeLinecap="round">
       <path d="M130 36 h48 M130 50 h48 M130 64 h32" />
     </g>
-    <path d="M130 82 h48" stroke="currentColor" strokeWidth="1.4" opacity=".4" />
+    <path
+      d="M130 82 h48"
+      stroke="currentColor"
+      strokeWidth="1.4"
+      opacity=".4"
+    />
     <text
       x="178"
       y="97"
