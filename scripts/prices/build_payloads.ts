@@ -77,6 +77,21 @@ export const buildPayloads = async (): Promise<void> => {
   );
   emit("deals", "", { latestDate: latest ?? "", deals });
 
+  // `verdict` — the "did the euro raise prices?" 5-bucket split. Precomputed
+  // here because the live query is a full-table aggregate over the whole ~118k
+  // catalogue (Parallel Seq Scan, ~50ms local / worse on the shared-core prod
+  // instance) and it drives the hot /consumption/overview tile. Same shape the
+  // old live price-verdict route returned (counts kept as-is for parity).
+  const [verdict] = await allRows<Record<string, string>>(
+    `SELECT count(*) FILTER (WHERE pct_since_euro < -0.1)      AS cheaper,
+            count(*) FILTER (WHERE pct_since_euro >  0.1)      AS dearer,
+            count(*) FILTER (WHERE abs(pct_since_euro) <= 0.1) AS unchanged,
+            count(*) FILTER (WHERE pct_since_euro IS NULL)     AS no_baseline,
+            count(*)                                           AS total
+       FROM price_products WHERE chain_count > 0`,
+  );
+  emit("verdict", "", verdict ?? {});
+
   await withClient(async (c: PoolClient) => {
     await c.query("BEGIN");
     try {

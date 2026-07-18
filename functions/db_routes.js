@@ -1467,6 +1467,14 @@ const DB_ROUTES = {
   // are products with no observation on the baseline day. Dropping them
   // understates the denominator; calling them unchanged fabricates a result.
   "price-verdict": async (dbRows) => {
+    // Precomputed by build_payloads (kind='verdict') — an index-only PK seek,
+    // not the full-table Parallel Seq Scan the live aggregate would run on
+    // every /consumption/overview load. Falls back to the live aggregate if the
+    // payload hasn't been built yet (e.g. between a schema change and a reload).
+    const cached = await dbRows(
+      `SELECT payload FROM price_payloads WHERE kind = 'verdict' AND key = ''`,
+    ).catch(missingMigrationRows);
+    if (cached[0]?.payload) return { body: cached[0].payload };
     const rows = await dbRows(
       `SELECT count(*) FILTER (WHERE pct_since_euro < -0.1)      AS cheaper,
               count(*) FILTER (WHERE pct_since_euro >  0.1)      AS dearer,
