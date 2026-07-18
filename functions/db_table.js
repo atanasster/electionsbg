@@ -134,8 +134,25 @@ const REGISTRY = {
       // (...)) as a fixedFilter — same as contracts.awarder_eik. Scalar callers
       // are unaffected (the builder wraps a scalar in an array).
       buyer_eik: { type: "text", filter: "in" },
-      buyer_name: { type: "text", sort: true, filter: "text", search: true },
-      subject: { type: "text", filter: "text", search: true },
+      // Global search hits the transliterated fold columns (gin_trgm-indexed);
+      // the raw buyer_name/subject have no trigram index, so a raw ILIKE '%q%'
+      // seq-scans the ~125k-row corpus (~350ms) — the fold path is ~2-20ms for
+      // identical results. See idx_tenders_{buyer,subj}_fold (009_tenders.sql).
+      buyer_name: {
+        type: "text",
+        sort: true,
+        filter: "text",
+        search: true,
+        searchCol: "buyer_fold",
+        searchFold: true,
+      },
+      subject: {
+        type: "text",
+        filter: "text",
+        search: true,
+        searchCol: "subject_fold",
+        searchFold: true,
+      },
       procedure_type: { type: "text", sort: true, filter: "in" },
       // Exact-code `in` (not division prefix) so a curated topic deep-link can
       // filter by its precise CPV set (e.g. guardrails → 45233292, 34928…).
@@ -562,13 +579,37 @@ const buildWhere = (r, req) => {
 
   const g = (req.filters?.global ?? "").trim();
   if (g) {
-    const cols = Object.entries(r.columns)
-      .filter(([, d]) => d.search)
-      .map(([id]) => id);
-    if (cols.length) {
-      params.push(`%${g}%`);
-      const n = params.length;
-      where.push(`(${cols.map((c) => `${c} ILIKE $${n}`).join(" OR ")})`);
+    // Each searchable column ORs one ILIKE. A column may redirect the match to a
+    // physical `searchCol` and/or fold it: `searchFold` searches the transliter-
+    // ated column via translit_bg_latin($term) so the gin_trgm index on that fold
+    // is usable (tenders' buyer_fold/subject_fold — the raw columns have no
+    // trigram index, so a raw ILIKE '%q%' seq-scans the whole corpus). Columns
+    // without these flags keep the plain raw-column ILIKE, so other resources
+    // (contracts, whose raw columns ARE trigram-indexed) are unchanged. The raw
+    // `%g%` and the folded `g` are each pushed at most once and shared across the
+    // OR arms.
+    const searchDefs = Object.entries(r.columns).filter(([, d]) => d.search);
+    if (searchDefs.length) {
+      const ors = [];
+      let rawIdx = null;
+      let foldIdx = null;
+      for (const [id, d] of searchDefs) {
+        const target = d.searchCol || id;
+        if (d.searchFold) {
+          if (foldIdx == null) {
+            params.push(g);
+            foldIdx = params.length;
+          }
+          ors.push(`${target} ILIKE '%' || translit_bg_latin($${foldIdx}) || '%'`);
+        } else {
+          if (rawIdx == null) {
+            params.push(`%${g}%`);
+            rawIdx = params.length;
+          }
+          ors.push(`${target} ILIKE $${rawIdx}`);
+        }
+      }
+      where.push(`(${ors.join(" OR ")})`);
     }
   }
 
