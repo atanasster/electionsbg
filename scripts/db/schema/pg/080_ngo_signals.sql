@@ -14,7 +14,7 @@
 -- single-bid share). One computation function — `ngo_signal_row(eik)` — is reused
 -- by BOTH the matview (list) and `ngo_signals_for(eik)` (the page endpoint).
 --
--- FRAMING: every signal is a public-interest INDICATOR ("трейс, не доказателство"),
+-- FRAMING: every signal is a public-interest INDICATOR ("следа, не доказателство"),
 -- never proof. `foreign_funded` is a NEUTRAL disclosure (absolute €, slate tone),
 -- not a red flag. See docs/plans/ngo-risk-signals-v1.md.
 --
@@ -167,7 +167,7 @@ board AS (  -- high-confidence politician / magistrate board members (Phase 2)
 sig AS (
   SELECT ord, code, obj FROM (
     -- Connection signals (Phase 2) — shown first; each carries the (single) top
-    -- person name + confidence. "трейс, не доказателство" / PEP-risk-category.
+    -- person name + confidence. "следа, не доказателство" / PEP-risk-category.
     SELECT 1 AS ord, 'politician_board' AS code,
            jsonb_build_object('code','politician_board','class','connection','tone','violet',
              'count', (SELECT pol FROM board), 'detail', (SELECT pol_name FROM board),

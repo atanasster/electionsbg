@@ -81,7 +81,7 @@ export const NGO_SIGNAL_META: Record<string, Meta> = {
     long: ["ngo_signal_magistrate_long", "Магистрат в ръководството"],
     hint: [
       "ngo_signal_magistrate_hint",
-      "Магистрат с това име фигурира в управата — възможно съвпадение на име, трейс, не доказателство.",
+      "Магистрат с това име фигурира в управата — възможно съвпадение на име, следа, не доказателство.",
     ],
   },
   public_contracts: {

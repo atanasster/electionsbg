@@ -865,7 +865,7 @@ export const CompanyDbScreen: FC = () => {
                   )}
                   <p className="text-xs text-muted-foreground">
                     {i18n.language === "bg"
-                      ? "Показателите са индикатори за публичен интерес, трейс, не доказателство за нарушение."
+                      ? "Показателите са индикатори за публичен интерес, следа, не доказателство за нарушение."
                       : "Public-interest indicators — a trace, not proof of wrongdoing."}
                   </p>
                 </CardContent>

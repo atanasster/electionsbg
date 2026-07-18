@@ -228,7 +228,7 @@ export const ngoBySignal = async (
       ? `НПО със сигнал: ${label ? label.bg : code}`
       : `NGOs with signal: ${label ? label.en : code}`,
     subtitle: bg
-      ? "Показател за публичен интерес — трейс, не доказателство"
+      ? "Показател за публичен интерес — следа, не доказателство"
       : "Public-interest indicator — a trace, not proof",
     columns: [
       { key: "name", label: bg ? "Организация" : "Organisation" },
