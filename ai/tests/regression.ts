@@ -16,6 +16,7 @@ import { route } from "../orchestrator/router";
 import { siteLinks } from "../render/links";
 import { setFetcher, setDbFetcher } from "../tools/dataClient";
 import { nodeDbFetcher } from "../tools/dbFetcherNode";
+import { allRows } from "../../scripts/db/lib/pg";
 import { runTool } from "../tools/registry";
 import type {
   Envelope,
@@ -39,7 +40,15 @@ setDbFetcher(nodeDbFetcher);
 const LATEST = "2026_04_19";
 const SITE = "https://electionsbg.com";
 
-type FactExp = string | RegExp | { num: number };
+// A thunk lets a case defer its expected value to a live query (see kzk* below),
+// so DB-derived facts are cross-checked against Postgres at run time instead of
+// frozen as magic numbers that drift with every ingest. Resolved (awaited) once
+// per case before matchFact runs.
+type FactExp =
+  | string
+  | RegExp
+  | { num: number }
+  | (() => Promise<string | number | { num: number }>);
 // Expected map overlay on a response. `false` asserts there is NO map. The deep
 // "do the area codes join to the geojson" check lives in ai/tools/geo.harness.ts;
 // here we lock that the PROMPT routes to a map of the right shape.
@@ -73,11 +82,60 @@ type Case = {
 const digits = (v: unknown): string => String(v).replace(/[^\d]/g, "");
 const norm = (v: unknown): string => String(v).replace(/[\s ]/g, "");
 
-const matchFact = (actual: unknown, exp: FactExp): boolean => {
+const matchFact = (
+  actual: unknown,
+  exp: Exclude<FactExp, () => unknown>,
+): boolean => {
   if (exp instanceof RegExp) return exp.test(String(actual));
   if (typeof exp === "object") return digits(actual) === String(exp.num);
   return norm(actual).toLowerCase().includes(norm(exp).toLowerCase());
 };
+
+// Resolve a deferred (thunk) expectation to a concrete one; a bare number
+// becomes an exact digit-compare. Non-thunks pass through unchanged.
+const resolveExp = async (
+  exp: FactExp,
+): Promise<Exclude<FactExp, () => unknown>> => {
+  const v = typeof exp === "function" ? await exp() : exp;
+  return typeof v === "number" ? { num: v } : v;
+};
+
+// Live cross-check against local Postgres for the buyer-scoped КЗК cases: rather
+// than freeze a per-buyer appeal count that grows with every kzk:summary regen,
+// read the TRUE counts straight from the raw kzk_appeals table (keyed by the
+// buyer's stable EIK) and assert the tool — which serves them via the
+// kzk_appeals_summary() route — returns exactly those. This mirrors that fn's
+// per-buyer arithmetic (count over kzk_appeals ⟕ tenders, grouped by buyer_eik,
+// upheld = outcome 'уважена'), so it guards the route's field mapping + counting
+// (a count↔upheld swap still fails loudly) without ever going stale.
+const KZK_EIK = {
+  api: "000695089", // Агенция „Пътна инфраструктура" (folds its regional ОПУ units)
+  sofia: "000696327", // Столична община (folds its district sub-buyers)
+  kozloduy: "106513772", // АЕЦ Козлодуй ЕАД
+} as const;
+const kzkByEik = new Map<
+  string,
+  Promise<{ appeals: number; upheld: number }>
+>();
+const kzkCounts = (eik: string) => {
+  if (!kzkByEik.has(eik))
+    kzkByEik.set(
+      eik,
+      allRows<{ appeals: string; upheld: string }>(
+        `SELECT count(*) AS appeals,
+                count(*) FILTER (WHERE a.outcome = 'уважена') AS upheld
+           FROM kzk_appeals a LEFT JOIN tenders t ON t.unp = a.unp
+          WHERE a.buyer_eik = $1`,
+        [eik],
+      ).then((r) => ({
+        appeals: Number(r[0].appeals),
+        upheld: Number(r[0].upheld),
+      })),
+    );
+  return kzkByEik.get(eik)!;
+};
+const kzkAppeals = (eik: string) => async () => (await kzkCounts(eik)).appeals;
+const kzkUpheld = (eik: string) => async () => (await kzkCounts(eik)).upheld;
 
 const CASES: Case[] = [
   // ---- parliamentary elections ----------------------------------------------
@@ -2891,34 +2949,43 @@ const CASES: Case[] = [
     q: "Обжалваните поръчки на Столична община",
     tool: "procurementAppeals",
     kind: "scalar",
-    // Assert the buyer resolved + that counts are surfaced (any digit), NOT their
-    // exact values — those grow with every kzk:summary regen and would break the
-    // suite with numbers that are merely newer.
+    // Assert the buyer resolved AND the counts equal what the raw kzk_appeals
+    // table holds for its EIK right now (queried live — see kzk* above), so the
+    // check stays exact without going stale as the corpus grows.
     facts: {
       buyer: "СТОЛИЧНА ОБЩИНА",
-      appeals: /\d/,
-      upheld: /\d/,
+      appeals: kzkAppeals(KZK_EIK.sofia),
+      upheld: kzkUpheld(KZK_EIK.sofia),
     },
   },
   {
     // EN half: an English-typed proper noun ("Kozloduy") must resolve against the
-    // Cyrillic-only summary via transliteration. Counts asserted as present-only
-    // (see the Столична case above).
+    // Cyrillic-only summary via transliteration. Counts checked live against the
+    // raw table for АЕЦ Козлодуй's EIK (see the Столична case above).
     q: "How many procurement appeals against AEC Kozloduy?",
     lang: "en",
     tool: "procurementAppeals",
     kind: "scalar",
-    facts: { buyer: "КОЗЛОДУЙ", appeals: /\d/, upheld: /\d/ },
+    facts: {
+      buyer: "КОЗЛОДУЙ",
+      appeals: kzkAppeals(KZK_EIK.kozloduy),
+      upheld: kzkUpheld(KZK_EIK.kozloduy),
+    },
   },
   {
-    // Exact-number guard on the buyer-scoped path: pin ONE stable buyer's counts
-    // (АПИ, the corpus #1 by a wide margin) so a count↔upheld field-swap — which
-    // the /\d/ checks above would miss — fails loudly. Re-pin after a kzk:summary
-    // regen if these move.
+    // Exact-count + field-swap guard on the buyer-scoped path, pinned to the
+    // corpus #1 buyer (АПИ). Its appeal/upheld counts are read live from the raw
+    // kzk_appeals table (see kzk* above) and asserted exactly, so the route's
+    // per-buyer arithmetic is verified — a count↔upheld swap fails loudly — while
+    // the values self-update on every kzk:summary regen.
     q: "Обжалваните поръчки на Агенция Пътна инфраструктура",
     tool: "procurementAppeals",
     kind: "scalar",
-    facts: { buyer: /Пътна инфраструктура/, appeals: "349", upheld: "14" },
+    facts: {
+      buyer: /Пътна инфраструктура/,
+      appeals: kzkAppeals(KZK_EIK.api),
+      upheld: kzkUpheld(KZK_EIK.api),
+    },
   },
   {
     // A bare place token must NOT pin a longer buyer name — "изток" alone (1 of
@@ -3295,11 +3362,12 @@ const run = async () => {
         );
       continue;
     }
-    for (const [k, exp] of Object.entries(c.facts ?? {})) {
+    for (const [k, rawExp] of Object.entries(c.facts ?? {})) {
+      const exp = await resolveExp(rawExp);
       if (!(k in env.facts) || !matchFact(env.facts[k], exp)) {
         fail(
           c.q,
-          `fact "${k}"=${JSON.stringify(env.facts[k])} did not match ${exp}`,
+          `fact "${k}"=${JSON.stringify(env.facts[k])} did not match ${JSON.stringify(exp)}`,
         );
       }
     }
@@ -3354,11 +3422,12 @@ const run = async () => {
       );
       continue;
     }
-    for (const [k, exp] of Object.entries(c.facts)) {
+    for (const [k, rawExp] of Object.entries(c.facts)) {
+      const exp = await resolveExp(rawExp);
       if (!(k in env.facts) || !matchFact(env.facts[k], exp)) {
         fail(
           c.label,
-          `fact "${k}"=${JSON.stringify(env.facts[k])} did not match ${exp}`,
+          `fact "${k}"=${JSON.stringify(env.facts[k])} did not match ${JSON.stringify(exp)}`,
         );
       }
     }
