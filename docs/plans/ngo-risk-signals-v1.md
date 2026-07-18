@@ -459,8 +459,20 @@ renders.
   the competitive edge lives — but it is real ingest work.*
 - **Phase 3 — external-funder ingest (A1).** ABF/NED fetchers + FTS multi-year → richer
   `foreign_funded`. Watchers + process-watch-report + egov-roadmap gaps (principles 2, 4).
-- **Phase 4 — derived + polish.** A3 `registered_at` → `new_winner`; mobile overflow;
-  freshness stamps; SEO/OG top-N.
+- **Phase 4 — derived + polish.** *Mobile overflow* — DONE & VERIFIED (2026-07-18): the
+  list signals cell caps at `maxVisible=4` + a "+N" chip; a 5-signal NGO (БЧК) shows 4
+  pills + "+1" at 375px with **no horizontal page overflow** (the table scrolls in its own
+  container). *`new_winner`* — **CUT** for now: it needs a real incorporation date, which
+  is only in the raw filings' `FieldEntryDate`. `state.sqlite`'s `companies.last_updated`
+  is the LATEST filing (not incorporation) and `min(tr_person_roles.added_at)` is the
+  re-registration / feed-start date for old NGOs (false-positive "new" flags), so neither
+  is usable. A correct date needs a **16 GB TR reconstruct** (track `min(FieldEntryDate)`
+  in `sqlite_writer.ts`/`state_replay.ts` → new `companies.registered_at` col →
+  `load_tr_pg` → `tr_companies.registered_at` → a `new_winner` branch in `ngo_signal_row`).
+  Deferred rather than proxied off a wrong date (open-decision 3). *Freshness stamps* —
+  signals already carry per-source `asOf` in the tooltips. *SEO/OG top-N* — per-EIK
+  prerendering is separate SPA infra (sitemap locs need real `dist/company/<eik>/
+  index.html`); deferred.
 - **Phase 5 — discovery + finish.** `ngoTopFunded` foreign/domestic split (after A1),
   changelog, data_map, SEO/OG top-N, harness cases. (Core AI tools already shipped in
   Phases 1–2 alongside their data.)
