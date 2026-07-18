@@ -1478,7 +1478,7 @@ const DB_ROUTES = {
 
     // Fast path: the prerendered head is materialized by `prices:product-days`.
     const hot = await dbRows(
-      `SELECT d.day::text AS day, d.min_eur, d.chains
+      `SELECT d.day::text AS day, d.min_eur, d.min_promo_eur, d.chains
          FROM price_product_days d
          JOIN price_products p ON p.product_id = d.product_id
         WHERE p.slug = $1
@@ -1501,7 +1501,7 @@ const DB_ROUTES = {
       `WITH p AS (SELECT product_id, unit_priced FROM price_products WHERE slug = $1),
             span AS (SELECT min(day) AS d0, max(day) AS d1 FROM price_grid_days),
             pd AS (
-              SELECT d.day::date AS day, k.eik, f.price_eur,
+              SELECT d.day::date AS day, k.eik, f.price_eur, f.promo_eur,
                      (SELECT unit_priced FROM p) AS unit_priced
                 FROM span
                 CROSS JOIN generate_series(span.d0, span.d1, interval '1 day') AS d(day)
@@ -1518,6 +1518,7 @@ const DB_ROUTES = {
             )
        SELECT pd.day::text AS day,
               MIN(pd.price_eur)      AS min_eur,
+              MIN(LEAST(pd.price_eur, COALESCE(pd.promo_eur, pd.price_eur))) AS min_promo_eur,
               COUNT(DISTINCT pd.eik) AS chains
          FROM pd JOIN med USING (day)
         WHERE NOT pd.unit_priced OR pd.price_eur >= 0.5 * med.m

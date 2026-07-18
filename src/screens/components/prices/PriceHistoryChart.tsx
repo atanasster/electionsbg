@@ -24,6 +24,14 @@ type Range = "1m" | "3m" | "all";
 
 const DAY = 86400_000;
 
+// The price actually payable that day: the effective (promo-inclusive) min when
+// present, else the regular min. This is the line the reader cares about — it
+// dips on a real promo. `min_eur` (regular) is drawn as a reference alongside it
+// only when the two diverge, so a genuine price cut is visible vs a flat list
+// price that never moved.
+const effOf = (p: HistoryPoint): number =>
+  p.min_promo_eur != null ? Math.min(p.min_promo_eur, p.min_eur) : p.min_eur;
+
 export const PriceHistoryChart: FC<Props> = ({ points, height = 220 }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language === "bg" ? "bg" : "en";
@@ -42,7 +50,7 @@ export const PriceHistoryChart: FC<Props> = ({ points, height = 220 }) => {
     const pts = points.filter((p) => Date.parse(p.day) >= cutoff);
     if (pts.length < 2) return null;
 
-    const vs = pts.map((p) => p.min_eur);
+    const vs = pts.map(effOf);
     let loI = 0;
     let hiI = 0;
     for (let i = 1; i < vs.length; i++) {
@@ -50,7 +58,10 @@ export const PriceHistoryChart: FC<Props> = ({ points, height = 220 }) => {
       if (vs[i] > vs[hiI]) hiI = i;
     }
     const avg = vs.reduce((s, v) => s + v, 0) / vs.length;
-    return { pts, lo: pts[loI], hi: pts[hiI], avg };
+    // Show the regular-price reference line only when a promo actually pulled the
+    // effective price below the list price somewhere in the window.
+    const hasPromo = pts.some((p) => effOf(p) < p.min_eur - 0.001);
+    return { pts, lo: pts[loI], hi: pts[hiI], avg, hasPromo };
   }, [points, range]);
 
   if (!view) return null;
@@ -63,7 +74,8 @@ export const PriceHistoryChart: FC<Props> = ({ points, height = 220 }) => {
   const t0 = Date.parse(pts[0].day);
   const t1 = Date.parse(pts[pts.length - 1].day);
   const span = t1 - t0 || 1;
-  const vals = pts.map((p) => p.min_eur);
+  // y-scale spans both series so the regular reference line fits too.
+  const vals = pts.flatMap((p) => [effOf(p), p.min_eur]);
   const vmin = Math.min(...vals);
   const vmax = Math.max(...vals);
   const vspan = vmax - vmin || 1;
@@ -144,8 +156,8 @@ export const PriceHistoryChart: FC<Props> = ({ points, height = 220 }) => {
           ))}
         </div>
         <div className="text-xs text-muted-foreground tabular-nums">
-          {T("макс", "high")} {fmtEur(view.hi.min_eur, lang)} ·{" "}
-          {T("мин", "low")} {fmtEur(view.lo.min_eur, lang)} · {T("ср.", "avg")}{" "}
+          {T("макс", "high")} {fmtEur(effOf(view.hi), lang)} · {T("мин", "low")}{" "}
+          {fmtEur(effOf(view.lo), lang)} · {T("ср.", "avg")}{" "}
           {fmtEur(view.avg, lang)}
         </div>
       </div>
@@ -155,24 +167,40 @@ export const PriceHistoryChart: FC<Props> = ({ points, height = 220 }) => {
         className="w-full"
         style={{ height }}
         role="img"
-        aria-label={`${T("Цена във времето", "Price over time")}: ${T("макс", "high")} ${fmtEur(view.hi.min_eur, lang)}, ${T("мин", "low")} ${fmtEur(view.lo.min_eur, lang)}, ${T("средно", "average")} ${fmtEur(view.avg, lang)}`}
+        aria-label={`${T("Цена във времето", "Price over time")}: ${T("макс", "high")} ${fmtEur(effOf(view.hi), lang)}, ${T("мин", "low")} ${fmtEur(effOf(view.lo), lang)}, ${T("средно", "average")} ${fmtEur(view.avg, lang)}`}
         onMouseMove={(e) => setHover(nearestIndex(e.currentTarget, e.clientX))}
         onMouseLeave={() => setHover(null)}
       >
         {/* min/max annotation dots, labelled with their date */}
         <circle
           cx={x(view.lo.day)}
-          cy={y(view.lo.min_eur)}
+          cy={y(effOf(view.lo))}
           r={3}
           className="fill-green-600 dark:fill-green-400"
         />
         <circle
           cx={x(view.hi.day)}
-          cy={y(view.hi.min_eur)}
+          cy={y(effOf(view.hi))}
           r={3}
           className="fill-red-600 dark:fill-red-400"
         />
 
+        {/* Regular (list) price — dashed reference, only when a promo pulled the
+            effective line below it. The gap between the two IS the promo. */}
+        {view.hasPromo &&
+          segments.map((seg, si) => (
+            <polyline
+              key={`reg-${si}`}
+              fill="none"
+              strokeWidth={1.25}
+              strokeLinejoin="round"
+              strokeLinecap="round"
+              strokeDasharray="4 3"
+              className="stroke-muted-foreground/60"
+              points={seg.map((p) => `${x(p.day)},${y(p.min_eur)}`).join(" ")}
+            />
+          ))}
+        {/* Effective (payable) price — the primary line. */}
         {segments.map((seg, si) => (
           <polyline
             key={si}
@@ -181,20 +209,22 @@ export const PriceHistoryChart: FC<Props> = ({ points, height = 220 }) => {
             strokeLinejoin="round"
             strokeLinecap="round"
             className="stroke-primary"
-            points={seg.map((p) => `${x(p.day)},${y(p.min_eur)}`).join(" ")}
+            points={seg.map((p) => `${x(p.day)},${y(effOf(p))}`).join(" ")}
           />
         ))}
 
         {hovPt &&
           (() => {
             const px = x(hovPt.day);
-            const py = y(hovPt.min_eur);
-            const boxW = 104;
-            const boxH = 36;
+            const py = y(effOf(hovPt));
+            const onPromo = effOf(hovPt) < hovPt.min_eur - 0.001;
+            const boxW = 116;
+            const boxH = onPromo ? 50 : 36;
             // Clamp the box inside the viewBox; flip below the point if it would
             // clip the top edge.
             const bx = Math.min(Math.max(px - boxW / 2, 2), W - boxW - 2);
             const by = py - boxH - 10 < padY ? py + 10 : py - boxH - 10;
+            const cx = bx + boxW / 2;
             return (
               <g>
                 <line
@@ -217,18 +247,30 @@ export const PriceHistoryChart: FC<Props> = ({ points, height = 220 }) => {
                     strokeWidth={1}
                   />
                   <text
-                    x={bx + boxW / 2}
+                    x={cx}
                     y={by + 15}
                     textAnchor="middle"
                     fontSize={12}
                     fontWeight={700}
                     className="fill-foreground tabular-nums"
                   >
-                    {fmtEur(hovPt.min_eur, lang)}
+                    {fmtEur(effOf(hovPt), lang)}
+                    {onPromo ? ` ${T("промо", "promo")}` : ""}
                   </text>
+                  {onPromo ? (
+                    <text
+                      x={cx}
+                      y={by + 29}
+                      textAnchor="middle"
+                      fontSize={10}
+                      className="fill-muted-foreground tabular-nums"
+                    >
+                      {T("редовна", "regular")} {fmtEur(hovPt.min_eur, lang)}
+                    </text>
+                  ) : null}
                   <text
-                    x={bx + boxW / 2}
-                    y={by + 29}
+                    x={cx}
+                    y={by + (onPromo ? 43 : 29)}
                     textAnchor="middle"
                     fontSize={10}
                     className="fill-muted-foreground"
@@ -246,7 +288,7 @@ export const PriceHistoryChart: FC<Props> = ({ points, height = 220 }) => {
         <span>{fmtPriceDate(pts[0].day, lang)}</span>
         {hovPt ? (
           <span className="tabular-nums text-foreground">
-            {fmtPriceDate(hovPt.day, lang)}: {fmtEur(hovPt.min_eur, lang)}
+            {fmtPriceDate(hovPt.day, lang)}: {fmtEur(effOf(hovPt), lang)}
             {" · "}
             {hovPt.chains} {T("вериги", "chains")}
           </span>

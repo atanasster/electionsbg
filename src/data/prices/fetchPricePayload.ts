@@ -62,7 +62,10 @@ export interface ProductDetail {
 /** A day with no row is a REPORTING GAP, not a flat line — never interpolate. */
 export interface HistoryPoint {
   day: string;
-  min_eur: number;
+  min_eur: number; // regular (list) price min that day
+  /** effective min incl. promos — dips below min_eur on a real promo. May be
+   *  absent for rows built before the promo series was added. */
+  min_promo_eur?: number | null;
   chains: number;
 }
 

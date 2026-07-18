@@ -120,7 +120,7 @@ export const buildProductDays = async (
          -- fact, so this is the full cross-store panel the median is taken over.
          pd AS (
            SELECT k.product_id, d.day::date AS day, k.eik,
-                  f.price_eur, pr.unit_priced
+                  f.price_eur, f.promo_eur, pr.unit_priced
              FROM span
              CROSS JOIN generate_series(span.d0, span.d1, interval '1 day') AS d(day)
              JOIN price_products pr ON pr.product_id IN (SELECT product_id FROM head)
@@ -138,9 +138,14 @@ export const buildProductDays = async (
                   percentile_cont(0.5) WITHIN GROUP (ORDER BY price_eur) AS m
              FROM pd GROUP BY product_id, day
          )
-         INSERT INTO price_product_days (product_id, day, min_eur, chains)
+         INSERT INTO price_product_days (product_id, day, min_eur, min_promo_eur, chains)
          SELECT pd.product_id, pd.day,
-                MIN(pd.price_eur), COUNT(DISTINCT pd.eik)
+                MIN(pd.price_eur),
+                -- effective min = min over LEAST(regular, promo); dips below
+                -- min_eur exactly when a real promo is active. Same fact panel /
+                -- outlier guard, so a per-piece glitch can't fake a promo either.
+                MIN(LEAST(pd.price_eur, COALESCE(pd.promo_eur, pd.price_eur))),
+                COUNT(DISTINCT pd.eik)
            FROM pd JOIN med USING (product_id, day)
           -- unit-outlier guard: per-kg products drop facts below half the daily
           -- cross-store median; packaged goods keep the raw min (see header).

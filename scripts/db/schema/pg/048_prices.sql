@@ -174,12 +174,16 @@ CREATE TABLE IF NOT EXISTS price_chain_days (
 -- is precomputed, and the long tail falls back to the live query, which is fast
 -- there precisely because those products have one or two SKUs.
 CREATE TABLE IF NOT EXISTS price_product_days (
-  product_id bigint NOT NULL REFERENCES price_products(product_id),
-  day        date   NOT NULL,
-  min_eur    double precision NOT NULL,
-  chains     int    NOT NULL,
+  product_id    bigint NOT NULL REFERENCES price_products(product_id),
+  day           date   NOT NULL,
+  min_eur       double precision NOT NULL,  -- regular (list) price min that day
+  min_promo_eur double precision,           -- effective min incl. promos (dips on a real promo)
+  chains        int    NOT NULL,
   PRIMARY KEY (product_id, day)
 );
+-- Backfill column for DBs created before the promo series was added.
+ALTER TABLE price_product_days
+  ADD COLUMN IF NOT EXISTS min_promo_eur double precision;
 
 -- Hand-authored merge/split corrections, mirrored from
 -- data/prices/product_overrides.json. Human review beats a better regex.
