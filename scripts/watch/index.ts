@@ -70,8 +70,8 @@ const main = async (): Promise<void> => {
       const fingerprintP = src.fingerprint();
       const timeoutP = new Promise<never>((_, reject) =>
         setTimeout(
-          () => reject(new Error(`source timed out after 90s`)),
-          90_000,
+          () => reject(new Error(`source timed out after 300s`)),
+          300_000,
         ),
       );
       const curr = await Promise.race([fingerprintP, timeoutP]);
