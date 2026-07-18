@@ -11,6 +11,7 @@ import { egovProcurement } from "./egov_procurement";
 import { eopProcurement } from "./eop_procurement";
 import { aopDebarred } from "./aop_debarred";
 import { kzkAppeals } from "./kzk_appeals";
+import { monRiRegister } from "./mon_ri_register";
 import { isunEuFunds } from "./isun_eu_funds";
 import { isunEuFundsProjects } from "./isun_eu_funds_projects";
 import { dfzSubsidies } from "./dfz_subsidies";
@@ -129,6 +130,7 @@ export const SOURCES: WatchSource[] = [
   eopProcurement,
   aopDebarred,
   kzkAppeals,
+  monRiRegister,
   isunEuFunds,
   isunEuFundsProjects,
   dfzSubsidies,

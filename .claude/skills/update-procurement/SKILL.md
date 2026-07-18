@@ -99,13 +99,18 @@ npx tsx scripts/procurement/awarder_geo_map.ts           # combines tiers → da
 npm run procurement:ingest                                # rebuild applies the overrides to by_settlement
 ```
 
-Tiers, in resolution order (see `docs/plans/procurement-awarder-geo-v2.md`):
-- **Tier B — МОН school register** (data.egov.bg open-data resource `cac4d569-…`, via the egov `getResourceData` POST). Authoritative school/kindergarten EIK→settlement (~58% of the no-geo set). Degrades gracefully — when data.egov.bg blocks the host the script logs `Tier B skipped`; re-run from a reachable environment to land it.
-- **Tier E — OCDS party addresses** (`build_ocds_party_geo.ts` → `derived/ocds_party_geo_map.json`). Harvests `parties[].address.locality`+NUTS from the OCDS обявления file by EIK across ALL parties → settlement. **High confidence; the biggest reachable lever — recovered ~1,232 buyers.** 2026+ only.
-- **Tier D — tenders oblast** (`build_tender_oblast_map.ts` → `derived/buyer_oblast_map.json`). `executionPlaceNuts` modal oblast per buyer; not a settlement on its own — used to **disambiguate** the Tier-A name parse (`name+oblast`).
-- **Tier A — name-suffix parse** ("- гр.X" / "- с.X" in the awarder name → resolver). Fully local; unique-match only.
+Tiers, in resolution order (most authoritative first; see `docs/plans/procurement-awarder-geo-v2.md`). `awarder_geo_map.ts` reads them all and the first that resolves wins:
+- **Tier R — МОН institution register crosswalk** (`derived/mon_ri_eik_crosswalk.json`, built by the SEPARATE headed-Playwright crawl `scripts/procurement/mon_ri_crawl.ts` — see below). Exact ЕИК→EKATTE from each institution's own registry card; **the top lever for schools/kindergartens — resolves ~1,285 buyers**, incl. the ambiguous shared-name schools (Паисий Хилендарски, Св. св. Кирил и Методий) no other tier can pin. Optional; skipped if the crosswalk file is absent.
+- **Tier F — TR registered seat** (`raw_data/tr/state.sqlite`, `companies.seat`). Exact ЕИК → registered settlement; recovers читалища/companies (NOT schools — those are БУЛСТАТ budget entities, not in ТР). Optional; skipped if the sqlite is absent.
+- **Tier S — our schools register** (`data/schools/index.json`, eik→address from `match_eik.ts`). Exact but secondary-schools-only and name-matched (fuzzier than Tier R, which corrects it). ~5% of its EIKs were wrong; Tier R above supersedes it.
+- **Tier E — OCDS party addresses** (`build_ocds_party_geo.ts` → `derived/ocds_party_geo_map.json`). `parties[].address.locality`+NUTS by EIK. 2026+ only.
+- **Tier B — МОН open-data register name-match** (resource `cac4d569-…` via egov `getResourceData`). The register **dropped its ЕИК column** (now only НЕИСПУО + place), so Tier B can no longer key by EIK — it now matches the awarder NAME by legal-form-stripped name-core → settlement, accepted only on a globally-unique name or a Tier-D oblast pin. Degrades gracefully (`Tier B skipped` when egov blocks the host).
+- **Tier D — tenders oblast** (`build_tender_oblast_map.ts` → `derived/buyer_oblast_map.json`). Modal oblast per buyer; not a settlement — **disambiguates** Tier B and the Tier-A name parse (`name+oblast`).
+- **Tier A — name-embedded settlement** (a "гр.X"/"с.X" token or a bare "- City" tail in the awarder name → resolver, any case; unique-match or Tier-D-confirmed). Fully local.
 
-Reachable tiers (A+D+E) resolve ~1,490 of the 3,533 no-geo buyers → `by_settlement` local-tier pinned 712 → 1,836. Tier B (МОН) adds the schools on top once reachable. The storage.eop.bg crawls cache to `raw_data/procurement/eop_ocds/` + `eop_tenders/`.
+Full stack resolves ~2,109 of the 2,753 no-geo buyers → `by_settlement` local-tier pinned to ~3,074, only 644 dropped. The storage.eop.bg crawls cache to `raw_data/procurement/eop_ocds/` + `eop_tenders/`.
+
+**Refreshing Tier R (the RI crosswalk).** `mon_ri_crawl.ts` is NOT part of the normal ingest — it drives a **headed Playwright** browser (ri.mon.bg is an Angular SPA behind Cloudflare; the JSON API 403s a plain fetch, so we clear CF once with the `cik_fetch.ts` stealth pattern and call `ri-api.mon.bg` via `page.evaluate`). Reachable from any egress (no BG requirement). ЕИК↔EKATTE is stable, so it only needs re-running when schools open/close — the `mon_ri_register` watch source flags this, and process-watch-report re-runs the crawl + `awarder_geo_map.ts` + `procurement:ingest`. See [[reference_mon_ri_register]].
 
 ## Step 1d — Derived risk + feed indices (automatic)
 
