@@ -7,7 +7,10 @@ reconciliation, §7 testing gates, §8 Connections component (the primary consum
 (§4c) DEFERRED to Phase 6. **2026-07-18 (later):** aligned §7 to the shipped Vitest standard
 (`docs/testing-standards.md` — `npm run test:unit`, co-located `*.test.ts(x)`, PG gates as
 `*.data.test.ts`, Playwright for routes) and softened the `ngo_board_links` namesake-threshold
-citations (§1/§3) to the mechanism, since those thresholds are being tuned. Owner: TBD.
+citations (§1/§3) to the mechanism, since those thresholds are being tuned. **2026-07-18 (later
+still):** audited the AI-chat tool changes (§4b) against the worked donor→procurement→related-persons
+query — 7 new tools incl. the `donorProcurementLinks` compound tool, server-composed (not chained),
++ retriever/router/grounding/defamation plumbing. Owner: TBD.
 
 Goal: give every natural person in the site a single stable `person_id` in Postgres, so that
 candidates, MPs, mayors, councillors, executive & municipal officials, TR company officers/owners,
@@ -274,14 +277,59 @@ passes; (4) the now-dead JSON is removed from git tracking (or gitignored → GC
 3,401-file-commit churn the umbrella plan targets. Never delete a JSON that is still a raw INGEST
 input — only the derived/serving shards retire.
 
-### 4b. AI tools (the second-consumer rule)
+### 4b. AI chat tools (the second-consumer rule) — audited 2026-07-18
 
-`direct-db-ingest-v1.md` mandates AI as a second consumer of every PG domain. A `person_id` changes
-the resolve layer (`ai/tools/resolve.ts`, `candidate.ts`). Add/rework: `personSearch` (name → ranked
-persons, honoring the §2a blocking + namesake risk), `personById` (the unified rollup), and
-`personConnections` (edges, active-confidence only). These replace the name-string fan-out the
-current person/candidate/magistrate tools do (`project_ai_chat_tools`), and inherit the
-grounded-number gate (`project_ai_chat_grounding_gate`).
+`direct-db-ingest-v1.md` mandates AI as a second consumer of every PG domain. Audited the current
+tool layer (`ai/`, 208 tools, `ToolDef`→`Envelope`→`runTool`; `project_ai_chat_tools`) against the
+worked query *"търсене на тези които дават пари на партиите и връзката с обществени поръчки и
+свързани лица"* (party donors ↔ procurement ↔ related persons).
+
+**Why that query fails today** (three hard limits):
+1. **No per-donor tool.** `partyFinance` exposes only the *aggregate* donations sum; individual ЕРИК
+   donors are ingested (`update-financing`) but no tool surfaces them.
+2. **No person-id at the tool layer.** Resolution is per-tool by name/EIK/slug. The DB graph
+   (`person_associates`, `company_person_path` ≤3 degrees, `company-counterparties.mpTied`) already
+   exists but is **unexposed** — only `mpProcurement` touches the `person` route.
+3. **One tool per turn, no chaining.** Both router paths run exactly one `{tool,args}`; there is no
+   compound/planner tool.
+
+**Composition decision — server-composed compound tools, NOT client chaining.** The grounded-number
+gate (`project_ai_chat_grounding_gate`) requires every narrated figure to be verbatim in `env.facts`,
+so chaining intermediate tool results fights the architecture. High-value compound patterns ship as
+ONE PG function that does the cross-corpus join and returns one grounded Envelope (the way
+`person_procurement`/`company_person_path` already work). The dormant LLM multi-step path
+(`project_ai_chat_tool_calling_training`) stays the longer-term general option.
+
+**New tools** (each backed by a PG function, each returns one grounded Envelope):
+
+| Tool | Purpose | Backing |
+|---|---|---|
+| `personSearch` | name → ranked persons (§2a blocking + namesake) | `person-search` + new `person_search` fn |
+| `personProfile` | unified rollup across all sources incl. ДС facet | `person` route (`person_roles`…) |
+| `personConnections` | **свързани лица** — related persons/companies, confidence-gated | exposes `person_associates` + `company_person_path` |
+| `personDonations` | one person's ЕРИК donations (party, amount, year) | new `person_role(source='donor')` rollup |
+| `partyDonors` | **тези които дават пари** — top donors to a party/election | new `party_donors` fn |
+| `donorProcurementLinks` ⭐ | the compound query: party donors whose own or related companies won procurement, + related persons | new PG fn joining donor → `person_procurement` + `company_politicians`/`company_person_path` → `person_associates` |
+| `contractPeople` | a contract/awarder's connected people-in-power (contract host, §8) | `company-connection` |
+
+**Existing-tool changes:** migrate `companyConnections` off the static
+`parliament/company-connections/{eik}.json` onto the DB `company-connection` route (adds the 3-degree
+paths + confidence); generalize `mpProcurement` from MP-only to any `person_id`; `partyFinance` links
+out to `partyDonors`/`personDonations`.
+
+**Plumbing (easy to under-scope):**
+- **Retriever is the real ceiling** (`project_ai_chat_retriever_ceiling` — recall@5 bottleneck). New
+  tools are discoverable ONLY via `description.{bg,en}` + `examples`; the worked query above must be
+  a seeded example utterance, and `donorProcurementLinks` needs several phrasings.
+- **Router** (`ai/orchestrator/router.ts`) needs new `has(q,…)` branches ("дарител", "кой дава пари",
+  "свързан с", "връзки", "поръчки на дарители") with precedence guards so procurement-phrased
+  questions aren't hijacked.
+- **Grounded-number gate:** every cross-corpus figure precomputed server-side on the Σ-per-row EUR
+  basis (`reference_procurement_eur_sum_basis`), no client sums/rounding, exact `facts` strings.
+- **Defamation/confidence (NEW for AI output):** `personConnections` + `donorProcurementLinks` narrate
+  person↔person inferences, so their `narrate.ts` templates MUST carry confidence + append the
+  "трейс, не доказателство" disclaimer, and only `active`/high-confidence links may narrate — the
+  same public-surface rule as §3/§8, enforced in the narration layer.
 
 ### 4c. URL consolidation & SEO — DECISION DEFERRED to Phase 6
 
