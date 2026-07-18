@@ -5,10 +5,13 @@
 
 import { FC } from "react";
 import { InfographicTile, InfographicTileProps } from "./InfographicTile";
+import { SectionHeading, SectionAction } from "./SectionHeading";
 
 export interface TileHubSection {
   /** Section heading, already localized — rendered as an <h2> landmark. */
   heading: string;
+  /** optional trailing "see all →" link in the section header. */
+  action?: SectionAction;
   tiles: InfographicTileProps[];
 }
 
@@ -22,18 +25,11 @@ export const TileHubGrid: FC<{
         const headingId = `tilehub-section-${i}`;
         return (
           <section key={headingId} aria-labelledby={headingId}>
-            <div className="mb-3 flex items-center gap-3 sm:mb-4">
-              <h2
-                id={headingId}
-                className="text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground"
-              >
-                {section.heading}
-              </h2>
-              <span
-                aria-hidden
-                className="h-px flex-1 bg-gradient-to-r from-border to-transparent"
-              />
-            </div>
+            <SectionHeading
+              id={headingId}
+              heading={section.heading}
+              action={section.action}
+            />
             <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4">
               {section.tiles.map((tile) => (
                 <InfographicTile key={tile.to} {...tile} />

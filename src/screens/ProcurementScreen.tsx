@@ -7,14 +7,13 @@
 // /procurement/overview (reached via the "Обзор" tile). Reuses the tile-hub kit.
 
 import { FC } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
 import {
   TileHubGrid,
   TileHubSection,
-  InfographicTile,
   InfographicTileProps,
+  FeaturedStrip,
   TILE_ACCENTS,
 } from "@/ux/infographic";
 import { ScopeControl } from "./components/ScopeControl";
@@ -193,43 +192,29 @@ export const ProcurementScreen: FC = () => {
 
       {/* Featured sectors — the highest-spend entities surfaced directly, with a
           link to the full 15-sector hub for the rest. */}
-      <div className="mt-8">
-        <div className="mb-3 flex items-center gap-3 sm:mb-4">
-          <h2 className="text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground">
-            {t("procurement_hub_sectors") || "Sectors"}
-          </h2>
-          <span
-            aria-hidden
-            className="h-px flex-1 bg-gradient-to-r from-border to-transparent"
-          />
-          <Link
-            to="/governance/sectors"
-            className="whitespace-nowrap text-xs font-semibold text-primary hover:underline"
-          >
-            {t("procurement_hub_all_sectors") || "All sectors →"}
-          </Link>
-        </div>
-        <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
-          {FEATURED_SECTORS.map((s) => (
-            <InfographicTile
-              key={s.id}
-              to={s.to}
-              title={t(s.titleKey)}
-              badge={s.agency}
-              desc={t(s.descKey)}
-              accent={s.accent}
-              scene={SECTOR_SCENES[s.id]}
-              cta={t("sectors_hub_view") || "виж сектора"}
-              metric={formatSectorMetric(sectorStats?.[s.id], i18n.language)}
-              metricCaption={sectorMetricCaption(
-                sectorStats?.[s.id],
-                t,
-                sectorPeriod,
-              )}
-            />
-          ))}
-        </div>
-      </div>
+      <FeaturedStrip
+        className="mt-8"
+        heading={t("procurement_hub_sectors") || "Sectors"}
+        action={{
+          to: "/governance/sectors",
+          label: t("procurement_hub_all_sectors") || "All sectors →",
+        }}
+        tiles={FEATURED_SECTORS.map((s) => ({
+          to: s.to,
+          title: t(s.titleKey),
+          badge: s.agency,
+          desc: t(s.descKey),
+          accent: s.accent,
+          scene: SECTOR_SCENES[s.id],
+          cta: t("sectors_hub_view") || "виж сектора",
+          metric: formatSectorMetric(sectorStats?.[s.id], i18n.language),
+          metricCaption: sectorMetricCaption(
+            sectorStats?.[s.id],
+            t,
+            sectorPeriod,
+          ),
+        }))}
+      />
     </>
   );
 };
