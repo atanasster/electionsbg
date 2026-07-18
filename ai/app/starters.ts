@@ -187,6 +187,10 @@ export const STARTERS: Starter[] = [
     bg: "Изпреварва ли кошницата официалната инфлация?",
     en: "Is the basket outpacing official inflation?",
   },
+  {
+    bg: "По-скъпа ли е храната у нас от ЕС?",
+    en: "Is food here more expensive than the EU?",
+  },
   // money & influence + EU comparison drill-downs (added 2026-06-16)
   {
     bg: "Как е инфлацията в България спрямо ЕС?",

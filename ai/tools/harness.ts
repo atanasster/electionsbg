@@ -1286,6 +1286,13 @@ const run = async () => {
     "basketVsInflation has HICP rows + the basket change",
   );
 
+  const efpl = (await runTool("euFoodPriceLevels", {}, ctxEn)) as Envelope;
+  printEnvelope(efpl);
+  assert(
+    (efpl.rows?.length ?? 0) > 0 && !!efpl.facts.bg_food_total_pli,
+    "euFoodPriceLevels has category rows + the BG food total PLI",
+  );
+
   console.log("\n=== [router] consumption questions ===");
   const cases10: [string, string | null][] = [
     ["Къде е най-достъпна кошницата спрямо доходите?", "basketAffordability"],
@@ -1296,6 +1303,8 @@ const run = async () => {
     ],
     ["Изпреварва ли кошницата официалната инфлация?", "basketVsInflation"],
     ["Кошницата спрямо ХИПЦ инфлацията", "basketVsInflation"],
+    ["По-скъпа ли е храната у нас от ЕС?", "euFoodPriceLevels"],
+    ["Is food more expensive here than the EU?", "euFoodPriceLevels"],
     // guard: a bare inflation question still routes to the macro read
     ["Каква е инфлацията?", "macroIndicator"],
   ];

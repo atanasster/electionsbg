@@ -607,6 +607,16 @@ export const followUps = (env: Envelope): FollowUp[] => {
         en: "How much has the basket risen since the euro?",
       });
       break;
+    case "euFoodPriceLevels":
+      out.push({
+        bg: "Изпреварва ли кошницата официалната инфлация?",
+        en: "Is the basket outpacing official inflation?",
+      });
+      out.push({
+        bg: "Къде е най-достъпна кошницата спрямо доходите?",
+        en: "Where is the basket most affordable relative to income?",
+      });
+      break;
     case "partyFinance":
       if (party) {
         out.push({

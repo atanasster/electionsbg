@@ -2736,6 +2736,19 @@ const CASES: Case[] = [
     tool: "basketVsInflation",
     kind: "table",
   },
+  {
+    q: "По-скъпа ли е храната у нас от ЕС?",
+    tool: "euFoodPriceLevels",
+    kind: "table",
+    minRows: 5,
+    facts: { bg_food_total_pli: /\d/ },
+  },
+  {
+    q: "Food prices vs Europe",
+    lang: "en",
+    tool: "euFoodPriceLevels",
+    kind: "table",
+  },
   // guard: a bare inflation question still routes to the macro read, not the
   // basket-vs-inflation comparison (which needs an explicit basket cue).
   { q: "Каква е инфлацията?", tool: "macroIndicator" },

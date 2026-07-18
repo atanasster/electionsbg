@@ -994,6 +994,120 @@ export const basketVsInflation = async (
 };
 
 // =============================================================================
+// 6b. euFoodPriceLevels — BG food prices vs the EU (Eurostat PLI, EU27=100)
+// =============================================================================
+// Official Eurostat–OECD PPP-programme price level indices (prc_ppp_ind_1),
+// merged into macro_peers.json as `foodPli`. Answers "по-скъпа ли е храната у нас
+// от ЕС" with the per-category picture (dairy & oils above, meat/bread below).
+
+interface FoodPliLite {
+  foodPli?: {
+    source: string;
+    sourceUrl: string;
+    year: number;
+    categories: { code: string; bg: string; en: string; agg?: boolean }[];
+    values: Record<string, Record<string, number>>;
+  };
+}
+
+export const euFoodPriceLevels = async (
+  _args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const lang = ctx.lang;
+  const peers = await fetchData<FoodPliLite>("/macro_peers.json");
+  const fp = peers?.foodPli;
+  const title =
+    lang === "bg"
+      ? "Храната у нас спрямо ЕС (Евростат, ЕС=100)"
+      : "Food here vs the EU (Eurostat, EU=100)";
+  if (!fp || !fp.values.BG)
+    return noData(
+      "euFoodPriceLevels",
+      title,
+      { note: lang === "bg" ? "Няма данни." : "No data." },
+      "Eurostat prc_ppp_ind_1",
+    );
+
+  const bgVals = fp.values.BG;
+  const totalPli = bgVals["A010101"];
+  const subs = fp.categories.filter((c) => !c.agg);
+  const rows: Row[] = [];
+  let dearest: { label: string; v: number } | null = null;
+  let cheapest: { label: string; v: number } | null = null;
+  for (const c of subs) {
+    const v = bgVals[c.code];
+    if (v == null) continue;
+    const label = lang === "bg" ? c.bg : c.en;
+    rows.push({
+      category: label,
+      pli: Math.round(v),
+      vs:
+        v > 100
+          ? lang === "bg"
+            ? "по-скъпо"
+            : "dearer"
+          : lang === "bg"
+            ? "по-евтино"
+            : "cheaper",
+    });
+    if (!dearest || v > dearest.v) dearest = { label, v };
+    if (!cheapest || v < cheapest.v) cheapest = { label, v };
+  }
+  rows.sort((a, b) => (b.pli as number) - (a.pli as number));
+
+  const delta = totalPli != null ? Math.round(Math.abs(totalPli - 100)) : null;
+  const cheaperTotal = totalPli != null && totalPli < 100;
+
+  return {
+    tool: "euFoodPriceLevels",
+    domain: "indicators",
+    kind: "table",
+    title,
+    subtitle:
+      totalPli != null
+        ? lang === "bg"
+          ? `Храна общо: ${Math.round(totalPli)} · ${delta}% ${cheaperTotal ? "под" : "над"} средното за ЕС · ${fp.year}`
+          : `Food total: ${Math.round(totalPli)} · ${delta}% ${cheaperTotal ? "below" : "above"} the EU average · ${fp.year}`
+        : undefined,
+    columns: [
+      { key: "category", label: lang === "bg" ? "Категория" : "Category" },
+      {
+        key: "pli",
+        label: lang === "bg" ? "Индекс (ЕС=100)" : "Index (EU=100)",
+        numeric: true,
+      },
+      { key: "vs", label: lang === "bg" ? "Спрямо ЕС" : "vs EU" },
+    ],
+    rows,
+    viz: "none",
+    facts: {
+      ...(totalPli != null ? { bg_food_total_pli: Math.round(totalPli) } : {}),
+      ...(delta != null
+        ? {
+            vs_eu_average:
+              lang === "bg"
+                ? `${delta}% ${cheaperTotal ? "под" : "над"} ЕС`
+                : `${delta}% ${cheaperTotal ? "below" : "above"} the EU`,
+          }
+        : {}),
+      ...(dearest
+        ? { dearest: `${dearest.label} (${Math.round(dearest.v)})` }
+        : {}),
+      ...(cheapest
+        ? { cheapest: `${cheapest.label} (${Math.round(cheapest.v)})` }
+        : {}),
+      year: fp.year,
+      note:
+        lang === "bg"
+          ? "Официална статистика на Евростат (програма PPP), ЕС=100. Отчита ДДС и качеството; не отразява доходите."
+          : "Official Eurostat statistics (PPP programme), EU=100. VAT- and quality-adjusted; does not reflect incomes.",
+    },
+    provenance: ["macro_peers.json", "Eurostat prc_ppp_ind_1"],
+  };
+};
+
+// =============================================================================
 // 7. productPrice — one specific product across chains (the browser, for chat)
 // =============================================================================
 // Resolves a free-text product to a canonical product via trigram search

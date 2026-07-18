@@ -930,6 +930,49 @@ export const route = (question: string, ctx: ToolContext): Route => {
     return { tool: "basketVsInflation", args: {} };
   }
 
+  // 0a2. EU food price levels — Eurostat PLI (EU=100). Needs an EU-comparison cue
+  // AND a food/price cue. Before the compare block because "спрямо ЕС"/"vs the EU"
+  // carry compare triggers; the food/price cue keeps a bare "спрямо ЕС" governance
+  // question out.
+  if (
+    has(
+      q,
+      "спрямо ес",
+      "спрямо европа",
+      "спрямо съюза",
+      "в сравнение с ес",
+      "в сравнение с европа",
+      "от ес",
+      "от европа",
+      "vs the eu",
+      "vs eu",
+      "vs europe",
+      "than the eu",
+      "compared to the eu",
+      "eurostat",
+      "ценово равнище",
+    ) &&
+    has(
+      q,
+      "храна",
+      "храни",
+      "хранит",
+      "food",
+      "цени",
+      "price",
+      "евтин",
+      "скъп",
+      "cheap",
+      "dear",
+      "мляко",
+      "месо",
+      "milk",
+      "meat",
+    )
+  ) {
+    return { tool: "euFoodPriceLevels", args: {} };
+  }
+
   // 0b. basket affordability — basket cost relative to regional income
   // (GDP/capita). "Покупателна способност"/"издръжка на живота"/"cost of living"
   // are sufficient on their own; "достъпн"/"affordable" needs a basket/income

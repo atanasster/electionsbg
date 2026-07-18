@@ -183,6 +183,7 @@ import {
   basketAffordability,
   basketVsInflation,
   cheapestChains,
+  euFoodPriceLevels,
   priceIndex,
   priceRanking,
   productPrice,
@@ -4362,6 +4363,26 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: basketVsInflation,
+  },
+  {
+    name: "euFoodPriceLevels",
+    domain: "indicators",
+    description: {
+      bg: "Цените на храните в България спрямо средното за ЕС — официалните индекси на ценовото равнище на Евростат (ЕС=100) по категории. Млечни и олио над средното, месо/хляб/плодове под него.",
+      en: "Bulgarian food prices vs the EU average — official Eurostat price level indices (EU=100) by category. Dairy & oils above the average, meat/bread/produce below.",
+    },
+    params: [],
+    examples: [
+      {
+        bg: "По-скъпа ли е храната у нас от ЕС?",
+        en: "Is food here more expensive than the EU?",
+      },
+      {
+        bg: "Цените на храните спрямо Европа",
+        en: "Food prices vs Europe",
+      },
+    ],
+    run: euFoodPriceLevels,
   },
   // ---- place ("about my area") ----------------------------------------------
   {
