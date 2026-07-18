@@ -213,6 +213,7 @@ const DB_ROUTES = {
       corpusName,
       subsidies,
       retailChain,
+      ngoSignals,
     ] = await Promise.all([
       dbRows(
         "SELECT uic, name, legal_form, seat, status, funds_amount, funds_currency, entity_class, ngo_type FROM tr_companies WHERE uic = $1",
@@ -332,6 +333,12 @@ const DB_ROUTES = {
          SELECT chain, basket, n_priced, rank::int, total::int FROM ranked WHERE eik = $1`,
         [eik],
       ).catch((e) => (e?.code === "42P01" ? [] : Promise.reject(e))),
+      // Per-NGO public-interest signal set (migration 080). Returns [] for a
+      // non-NGO or an NGO with no signals. Guarded on the missing-migration case
+      // (42883 = undefined_function) so the company page still renders pre-080.
+      dbRows("SELECT ngo_signals_for($1) AS r", [eik]).catch((e) =>
+        e?.code === "42883" ? [] : Promise.reject(e),
+      ),
     ]);
     return {
       body: {
@@ -360,6 +367,7 @@ const DB_ROUTES = {
         corpusName: corpusName[0]?.name ?? null,
         subsidies: subsidies[0]?.payload ?? null,
         retailChain: retailChain[0] ?? null,
+        ngoSignals: ngoSignals[0]?.r ?? null,
       },
     };
   },
@@ -395,7 +403,11 @@ const DB_ROUTES = {
          (SELECT reltuples::bigint FROM pg_class WHERE relname = 'tr_companies')        AS tr_companies,
          (SELECT count(*)::int FROM awarder_totals)                                     AS state_awarders,
          (SELECT count(DISTINCT eik)::int FROM ngo_funding WHERE eik IS NOT NULL)       AS ngos_funded,
-         (SELECT COALESCE(ROUND(SUM(amount_eur)), 0) FROM ngo_funding WHERE eik IS NOT NULL) AS external_eur
+         (SELECT COALESCE(ROUND(SUM(amount_eur)), 0) FROM ngo_funding WHERE eik IS NOT NULL) AS external_eur,
+         -- NGOs carrying ≥1 public-interest signal (migration 080). to_regclass
+         -- guard → 0 before the matview exists, so the card degrades cleanly.
+         (SELECT CASE WHEN to_regclass('public.ngo_signals') IS NULL THEN 0
+                 ELSE (SELECT count(*)::int FROM ngo_signals WHERE signal_count > 0) END) AS ngos_with_signal
        `,
     );
     return { body: rows[0] ?? {} };

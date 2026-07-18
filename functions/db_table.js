@@ -343,8 +343,13 @@ const REGISTRY = {
   // NGO (ЮЛНЦ) browse — сдружения/фондации/читалища + foreign branches. The
   // client sends a fixed `entity_class in (...)` filter to scope to the NGO
   // surface; entity_class/ngo_type are also user-facing facets.
+  // Base is the `ngos_list` view (migration 080) = the ngo_signals matview joined
+  // to tr_companies, so each row carries its precomputed public-interest signals.
+  // Default sort surfaces the biggest public-money NGOs first; the client applies
+  // a `has_signal` filter by default (with a "show all" toggle) so the ~28k
+  // signal-less NGOs don't strand the browse in EIK order.
   ngos: {
-    base: "tr_companies",
+    base: "ngos_list",
     scopeCols: [],
     columns: {
       uic: { type: "text" },
@@ -353,9 +358,30 @@ const REGISTRY = {
       ngo_type: { type: "text", sort: true, filter: "in" },
       seat: { type: "text", sort: true, filter: "text" },
       status: { type: "text", filter: "in" },
+      signal_count: { type: "int", sort: true },
+      public_money_eur: { type: "int", sort: true },
+      has_signal: { type: "bool", filter: "eq" },
+      // Space-joined signal codes — a `text` (ILIKE) filter backs the signal-code
+      // picker ("show me foreign_funded"); the matview seq-scan is ~8ms.
+      signal_codes: { type: "text", filter: "text" },
     },
-    select: ["uic", "name", "entity_class", "ngo_type", "seat", "status"],
-    defaultSort: [["name", "asc"]],
+    select: [
+      "uic",
+      "name",
+      "entity_class",
+      "ngo_type",
+      "seat",
+      "status",
+      "signals",
+      "signal_count",
+      "public_money_eur",
+      "has_signal",
+      "signal_codes",
+    ],
+    defaultSort: [
+      ["public_money_eur", "desc"],
+      ["name", "asc"],
+    ],
     aggregates: [{ fn: "count" }],
     maxPageSize: 100,
   },

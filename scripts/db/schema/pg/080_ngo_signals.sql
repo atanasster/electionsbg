@@ -25,13 +25,14 @@
 
 SET check_function_bodies = off;
 
--- The NGO entity-class surface — mirrors the `ngos` db_table registry scope and
--- NgoBrowseDbScreen.NGO_ENTITY_CLASSES (сдружения / фондации / читалища + foreign
--- branches).  Kept as an IMMUTABLE helper so the matview WHERE and the view WHERE
--- can never drift apart.
+-- The NGO entity-class surface — the three genuine ЮЛНЦ classes (сдружения /
+-- фондации / читалища). foreign_branch is DELIBERATELY excluded: it is mostly
+-- commercial foreign branches (banks — ИНГ, Ситибанк, Уестингхаус) that would
+-- otherwise dominate the public-money ranking and misrepresent an "NGO" list.
+-- Kept as an IMMUTABLE helper so the matview WHERE never drifts.
 CREATE OR REPLACE FUNCTION is_ngo_class(p_class text)
 RETURNS boolean LANGUAGE sql IMMUTABLE AS $$
-  SELECT p_class IN ('ngo_assoc', 'ngo_found', 'chitalishte', 'foreign_branch');
+  SELECT p_class IN ('ngo_assoc', 'ngo_found', 'chitalishte');
 $$;
 
 -- Single computation, reused by the matview and the page endpoint. Returns the
