@@ -214,6 +214,13 @@ const run = async () => {
     "settlementPrices: milk on promo",
   );
 
+  // single-product path surfaces the live promo price too
+  const s2 = await settlementPrices(
+    { place: "София", product: "мляко" },
+    ctx(undefined),
+  );
+  assert(!!factsOf(s2).on_promo, "settlementPrices(product): on_promo present");
+
   console.log(failures === 0 ? "\nALL PASS" : `\n${failures} FAILURE(S)`);
   if (failures) process.exit(1);
 };

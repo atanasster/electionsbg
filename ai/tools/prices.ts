@@ -408,6 +408,11 @@ export const settlementPrices = async (
         median_price: eur(row.median, lang),
         highest_price: eur(row.max, lang),
         stores: row.stores,
+        // Surface a live promo when it beats the regular min (the promo store
+        // isn't in the shard, so it's reported without a chain claim).
+        ...(row.promoMin != null && row.promoMin < row.min
+          ? { on_promo: eur(row.promoMin, lang) }
+          : {}),
         as_of: sett.latestDate,
         note: notCpi(lang),
       },
