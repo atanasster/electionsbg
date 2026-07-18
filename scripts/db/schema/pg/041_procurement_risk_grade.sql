@@ -76,7 +76,17 @@ $$;
 
 -- ===========================================================================
 -- CANONICAL BUYER-GRADE WEIGHTS — the single source of truth, and the ONLY copy.
---   connection .35 · singleBid .25 · direct .20 · concentration .20 · upheldAppeal .30
+--   connection .35 · singleBid .15 · direct .30 · concentration .20 · upheldAppeal .30
+--
+-- Rebalance (§8, 2026-07-18): direct 0.20→0.30, singleBid 0.25→0.15 (total still
+-- 1.30, so the score scale is unchanged). Bulgaria's genuine outlier is "no calls
+-- for bids" (~20% vs an EU median of 5% — 4× the norm; maps to `direct`), while
+-- single-bidding (36%) sits BELOW its CEE peers and even below Denmark's "red"
+-- band, i.e. it does not discriminate — so it was over-weighted. Measured effect:
+-- of 1,149 ranked buyers 234 change grade (226 better, 8 worse); the buyers who
+-- worsen are direct-award-heavy (e.g. 91–99% direct share), the buyers who
+-- improve were penalised mainly for single-bidding. The 2 worst (F) buyers are
+-- unchanged. See docs/plans/procurement-risk-v2.md §8.
 --
 -- Both consumers call this helper: awarder_risk_grade(text) [per-entity] and
 -- awarder_risk_grade_window(text,text) [the windowed ranking — the matview AND
@@ -111,14 +121,14 @@ CREATE OR REPLACE FUNCTION awarder_risk_grade_frac(
 ) RETURNS double precision LANGUAGE sql IMMUTABLE AS $$
   SELECT
     ( 0.35 * COALESCE(p_connection, 0)
-    + 0.25 * COALESCE(p_single, 0)
-    + 0.20 * COALESCE(p_direct, 0)
+    + 0.15 * COALESCE(p_single, 0)
+    + 0.30 * COALESCE(p_direct, 0)
     + 0.20 * COALESCE(p_conc, 0)
     + 0.30 * COALESCE(p_upheld, 0)
     ) / NULLIF(
       0.35 * (p_connection IS NOT NULL)::int
-    + 0.25 * (p_single IS NOT NULL)::int
-    + 0.20 * (p_direct IS NOT NULL)::int
+    + 0.15 * (p_single IS NOT NULL)::int
+    + 0.30 * (p_direct IS NOT NULL)::int
     + 0.20 * (p_conc IS NOT NULL)::int
     + 0.30 * (p_upheld IS NOT NULL)::int, 0);
 $$;
