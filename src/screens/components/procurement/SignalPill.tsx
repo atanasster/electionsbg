@@ -47,7 +47,7 @@ const TONE: Record<SignalTone, string> = {
 /** Base class for every signal pill (tone colours are appended). Exported for
  *  the rare caller that needs the raw classes; prefer the component. */
 export const SIGNAL_PILL_BASE =
-  "inline-flex items-center gap-1 whitespace-nowrap rounded-sm border px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wide";
+  "inline-flex items-center gap-1 whitespace-nowrap rounded-sm border px-1.5 py-px text-[9px] font-medium uppercase tracking-wide leading-tight";
 
 export const SignalPill: FC<{
   tone: SignalTone;
