@@ -15,6 +15,8 @@ import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { Card } from "@/components/ui/card";
 import { useNationalChains, fmtEur } from "@/data/prices/usePrices";
+import { useCompanyProfile } from "@/data/procurement/useCompanyProfile";
+import { formatEurCompact } from "@/lib/currency";
 
 export const ChainProfileScreen: FC = () => {
   const { eik = "" } = useParams();
@@ -36,6 +38,41 @@ export const ChainProfileScreen: FC = () => {
 
   const name = info?.row?.chain ?? T("Верига", "Chain");
   const title = `${name} · ${T("Потребление", "Consumption")}`;
+
+  // The company behind the chain — a compact cross-corpus summary (money-flows),
+  // with the full profile one click away at /company/:eik.
+  const { data: profile } = useCompanyProfile(eik);
+  const chips: string[] = [];
+  if (profile) {
+    const p = profile.procurement;
+    if (p && p.contractCount > 0)
+      chips.push(
+        T(
+          `изпълнител · ${p.contractCount} договора · ${formatEurCompact(p.totalEur, i18n.language)}`,
+          `supplier · ${p.contractCount} contracts · ${formatEurCompact(p.totalEur, i18n.language)}`,
+        ),
+      );
+    if (profile.officers.length > 0)
+      chips.push(
+        T(
+          `${profile.officers.length} собственици/органи`,
+          `${profile.officers.length} officers/owners`,
+        ),
+      );
+    if (profile.politicians.length > 0)
+      chips.push(
+        T(
+          `${profile.politicians.length} политически връзки`,
+          `${profile.politicians.length} political links`,
+        ),
+      );
+    if (profile.funds) chips.push(T("еврофондове", "EU funds"));
+    if (profile.subsidies) chips.push(T("субсидии ДФЗ", "farm subsidies"));
+  }
+  const trName =
+    profile?.company?.name && profile.company.name !== name
+      ? profile.company.name
+      : null;
 
   return (
     <>
@@ -120,19 +157,31 @@ export const ChainProfileScreen: FC = () => {
           icon={Building2}
         >
           <Link to={`/company/${eik}`} className="block">
-            <Card className="flex items-center justify-between gap-3 p-4 transition-colors hover:bg-muted/50">
-              <div className="min-w-0">
-                <div className="font-medium">
-                  {T("Пълен профил на фирмата", "Full company profile")}
+            <Card className="p-4 transition-colors hover:bg-muted/50">
+              <div className="flex items-center justify-between gap-3">
+                <div className="min-w-0">
+                  <div className="font-medium">
+                    {T("Пълен профил на фирмата", "Full company profile")}
+                  </div>
+                  <div className="truncate text-xs text-muted-foreground">
+                    {trName ? `${trName} · ` : ""}
+                    {T(`ЕИК ${eik}`, `EIK ${eik}`)}
+                  </div>
                 </div>
-                <div className="text-xs text-muted-foreground">
-                  {T(
-                    `ЕИК ${eik} · обществени поръчки, еврофондове, свързани лица`,
-                    `EIK ${eik} · public procurement, EU funds, connected people`,
-                  )}
-                </div>
+                <ArrowRight className="size-5 shrink-0 text-primary" />
               </div>
-              <ArrowRight className="size-5 shrink-0 text-primary" />
+              {chips.length > 0 ? (
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {chips.map((c) => (
+                    <span
+                      key={c}
+                      className="rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground"
+                    >
+                      {c}
+                    </span>
+                  ))}
+                </div>
+              ) : null}
             </Card>
           </Link>
         </DashboardSection>
