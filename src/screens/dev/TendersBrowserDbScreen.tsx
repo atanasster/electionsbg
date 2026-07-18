@@ -17,6 +17,7 @@ import { ProcurementSectionHeader } from "@/screens/components/procurement/Procu
 import { getSectorBrowsePack } from "@/screens/components/procurement/sectorPacks";
 import { SectorBrowseSlot } from "@/screens/components/procurement/SectorBrowseSlot";
 import { AppealChip } from "@/screens/components/procurement/AppealChip";
+import { TenderRiskChips } from "@/screens/components/procurement/TenderRiskPanel";
 import { useScopeWindow } from "@/data/scope/useScopeWindow";
 import { topicBySlug } from "@/lib/tenderTopics";
 import { formatEurCompact } from "@/lib/currency";
@@ -42,6 +43,7 @@ interface TenderRow {
   buyerName: string;
   subject: string;
   procedureType: string | null;
+  submissionDeadline: string | null;
   estimatedValueEur: number | null;
   currency: string | null;
   lotsCount: number | null;
@@ -227,6 +229,15 @@ export const TendersBrowserDbScreen: FC = () => {
             ) : null}
           </div>
         ),
+      },
+      {
+        id: "risk",
+        header: t("company_contract_risk") || "Flags",
+        enableSorting: false,
+        // Ex-ante procedure-grain flags (non-open, tier-conditional rushed
+        // window). Awards aren't loaded per browser row, so the decision-period
+        // check is unavailable here — by design.
+        cell: ({ row }) => <TenderRiskChips tender={row.original} />,
       },
     ],
     [t, i18n.language],

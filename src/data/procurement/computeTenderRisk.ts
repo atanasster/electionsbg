@@ -28,8 +28,16 @@
 // hasUnsecuredFunding (33.8% populated — a missing-data trap); the latter is
 // shown as header context on the detail page instead.
 
-import type { Tender } from "@/lib/tenderTypes";
 import type { TenderAward } from "@/data/procurement/useTender";
+
+// The structural minimum the scorer reads — satisfied by the full `Tender`
+// (detail page) AND by the slimmer browser row (`TenderRow`), so the same
+// scorer drives the /tenders/:unp panel and the /procurement/tenders column.
+export type TenderRiskInput = {
+  procedureType?: string | null;
+  publicationDate?: string | null;
+  submissionDeadline?: string | null;
+};
 
 export type TenderRiskKey =
   | "nonOpenProcedure"
@@ -86,7 +94,7 @@ const dayDiff = (
 };
 
 export const computeTenderRisk = (
-  tender: Tender,
+  tender: TenderRiskInput,
   awards: TenderAward[] = [],
 ): TenderRiskResult => {
   const components: TenderRiskComponent[] = [];

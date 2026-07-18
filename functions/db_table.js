@@ -149,6 +149,9 @@ const REGISTRY = {
         agg: "sum",
       },
       currency: { type: "text" },
+      // Surfaced (not filterable) so the browser can compute the ex-ante
+      // rushed-window risk flag client-side (publication_date → deadline).
+      submission_deadline: { type: "text" },
       lots_count: { type: "int", sort: true, filter: "range" },
       is_cancelled: { type: "bool", filter: "eq" },
       is_framework_agreement: { type: "bool", filter: "eq" },
@@ -167,6 +170,7 @@ const REGISTRY = {
       "cpv_desc",
       "estimated_value_eur",
       "currency",
+      "submission_deadline",
       "lots_count",
       "is_cancelled",
       "is_framework_agreement",

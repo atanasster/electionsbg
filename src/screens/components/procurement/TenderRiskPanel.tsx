@@ -19,6 +19,8 @@ import { criColor, RISK_CHIP_BASE } from "@/lib/riskGrade";
 import {
   computeTenderRisk,
   type TenderRiskKey,
+  type TenderRiskInput,
+  type TenderRiskResult,
 } from "@/data/procurement/computeTenderRisk";
 import type { Tender } from "@/lib/tenderTypes";
 import type { TenderAward } from "@/data/procurement/useTender";
@@ -80,17 +82,6 @@ export const TenderRiskPanel: FC<{ tender: Tender; awards: TenderAward[] }> = ({
   // nothing rather than render an empty shell.
   if (r.availableCount === 0) return null;
 
-  const fired = r.components.filter((c) => c.fired);
-
-  // Per-flag supporting detail line (the calibrated number behind the chip).
-  const detailFor = (key: TenderRiskKey): ReactNode => {
-    if (key === "rushedDeadline" && r.submissionDays != null)
-      return `${t("risk_cri_days_label") || "Window"}: ${r.submissionDays} ${t("risk_flag_short_period_days_abbr") || "d"}`;
-    if (key === "shortDecisionPeriod" && r.decisionDays != null)
-      return `${t("risk_cri_decision_label") || "Decision"}: ${r.decisionDays} ${t("risk_flag_short_period_days_abbr") || "d"}`;
-    return null;
-  };
-
   return (
     <section className="rounded-xl border bg-card p-4 shadow-sm space-y-2">
       <h2 className="flex items-center gap-2 text-sm font-semibold">
@@ -132,35 +123,7 @@ export const TenderRiskPanel: FC<{ tender: Tender; awards: TenderAward[] }> = ({
               style={{ width: `${r.cri}%`, backgroundColor: criColor(r.cri) }}
             />
           </div>
-          <div className="flex flex-wrap items-center gap-1">
-            {fired.map((c) => {
-              const m = FLAG_META[c.key];
-              const detail = detailFor(c.key);
-              return (
-                <Tooltip
-                  key={c.key}
-                  content={
-                    <div className="space-y-1">
-                      <div className="font-medium">
-                        {t(m.long[0]) || m.long[1]}
-                      </div>
-                      <div className="text-xs text-muted-foreground">
-                        {t(m.hint[0]) || m.hint[1]}
-                      </div>
-                      {detail ? (
-                        <div className="text-xs tabular-nums">{detail}</div>
-                      ) : null}
-                    </div>
-                  }
-                >
-                  <span className={`${RISK_CHIP_BASE} ${m.cls}`}>
-                    {m.icon}
-                    {t(m.short[0]) || m.short[1]}
-                  </span>
-                </Tooltip>
-              );
-            })}
-          </div>
+          <FlagChips result={r} />
         </div>
       )}
 
@@ -170,4 +133,62 @@ export const TenderRiskPanel: FC<{ tender: Tender; awards: TenderAward[] }> = ({
       </p>
     </section>
   );
+};
+
+// The fired-flag chip strip, shared by the detail panel and the browser column.
+const FlagChips: FC<{ result: TenderRiskResult }> = ({ result }) => {
+  const { t } = useTranslation();
+  const fired = result.components.filter((c) => c.fired);
+
+  // Per-flag supporting detail line (the calibrated number behind the chip).
+  const detailFor = (key: TenderRiskKey): ReactNode => {
+    if (key === "rushedDeadline" && result.submissionDays != null)
+      return `${t("risk_cri_days_label") || "Window"}: ${result.submissionDays} ${t("risk_flag_short_period_days_abbr") || "d"}`;
+    if (key === "shortDecisionPeriod" && result.decisionDays != null)
+      return `${t("risk_cri_decision_label") || "Decision"}: ${result.decisionDays} ${t("risk_flag_short_period_days_abbr") || "d"}`;
+    return null;
+  };
+
+  return (
+    <div className="flex flex-wrap items-center gap-1">
+      {fired.map((c) => {
+        const m = FLAG_META[c.key];
+        const detail = detailFor(c.key);
+        return (
+          <Tooltip
+            key={c.key}
+            content={
+              <div className="space-y-1">
+                <div className="font-medium">{t(m.long[0]) || m.long[1]}</div>
+                <div className="text-xs text-muted-foreground">
+                  {t(m.hint[0]) || m.hint[1]}
+                </div>
+                {detail ? (
+                  <div className="text-xs tabular-nums">{detail}</div>
+                ) : null}
+              </div>
+            }
+          >
+            <span className={`${RISK_CHIP_BASE} ${m.cls}`}>
+              {m.icon}
+              {t(m.short[0]) || m.short[1]}
+            </span>
+          </Tooltip>
+        );
+      })}
+    </div>
+  );
+};
+
+// Compact chips-only variant for a table cell (e.g. the /procurement/tenders
+// browser). No meter/panel chrome; a dash when nothing fired. Awards are absent
+// in the browser, so the decision-period check is simply unavailable there.
+export const TenderRiskChips: FC<{
+  tender: TenderRiskInput;
+  awards?: TenderAward[];
+}> = ({ tender, awards = [] }) => {
+  const r = computeTenderRisk(tender, awards);
+  if (!r.hasFlag)
+    return <span className="text-xs text-muted-foreground">—</span>;
+  return <FlagChips result={r} />;
 };
