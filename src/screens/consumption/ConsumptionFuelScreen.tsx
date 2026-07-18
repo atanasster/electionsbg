@@ -33,7 +33,7 @@ export const ConsumptionFuelScreen: FC = () => {
   const T = (b: string, e: string) => (bg ? b : e);
   const { data } = useFuel();
 
-  const series = data?.series ?? [];
+  const series = useMemo(() => data?.series ?? [], [data]);
   const latest = series[series.length - 1];
   // BG vs EU average gap (negative = BG cheaper).
   const gap = (bgV: number | null, euV: number | null): number | null =>
@@ -41,8 +41,21 @@ export const ConsumptionFuelScreen: FC = () => {
   const gap95 = latest ? gap(latest.bg95, latest.eu95) : null;
   const gapDsl = latest ? gap(latest.bgDiesel, latest.euDiesel) : null;
 
-  const monthTick = (d: string) =>
-    /-(01|04|07|10)-/.test(d) ? d.slice(0, 7) : "";
+  // Explicit yearly ticks (first data point of each year) — dense quarterly
+  // labels overlap into an unreadable smear at mobile chart widths, so we label
+  // years only and let each tick render its 4-char year.
+  const yearTicks = useMemo(() => {
+    const seen = new Set<string>();
+    const ticks: string[] = [];
+    for (const p of series) {
+      const y = p.date.slice(0, 4);
+      if (!seen.has(y)) {
+        seen.add(y);
+        ticks.push(p.date);
+      }
+    }
+    return ticks;
+  }, [series]);
 
   const stat = (label: string, price: number | null, g: number | null) => (
     <div>
@@ -131,12 +144,11 @@ export const ConsumptionFuelScreen: FC = () => {
                     />
                     <XAxis
                       dataKey="date"
+                      ticks={yearTicks}
+                      tickFormatter={(d: string) => d.slice(0, 4)}
                       tick={{ fontSize: 10 }}
                       tickLine={false}
                       axisLine={false}
-                      tickFormatter={monthTick}
-                      interval={0}
-                      minTickGap={20}
                     />
                     <YAxis
                       tick={{ fontSize: 10 }}
