@@ -14,6 +14,8 @@ import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { HistoryPoint } from "@/data/prices/fetchPricePayload";
 import { fmtEur, fmtPriceDate } from "@/data/prices/usePrices";
+import { cn } from "@/lib/utils";
+import { tooltipSurfaceCompactClass } from "@/components/ui/tooltipSurface";
 
 interface Props {
   points: HistoryPoint[];
@@ -36,7 +38,15 @@ export const PriceHistoryChart: FC<Props> = ({ points, height = 220 }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language === "bg" ? "bg" : "en";
   const [range, setRange] = useState<Range>("all");
-  const [hover, setHover] = useState<number | null>(null);
+  // Hover carries the nearest data-point index PLUS the cursor's pixel offset
+  // inside the chart box, so the (HTML) tooltip can follow the cursor without
+  // re-deriving screen coords from the letterboxed viewBox.
+  const [hover, setHover] = useState<{
+    i: number;
+    mx: number;
+    my: number;
+    cw: number;
+  } | null>(null);
 
   const view = useMemo(() => {
     if (points.length === 0) return null;
@@ -101,7 +111,7 @@ export const PriceHistoryChart: FC<Props> = ({ points, height = 220 }) => {
   if (cur.length) segments.push(cur);
 
   const T = (bg: string, en: string) => (lang === "bg" ? bg : en);
-  const hovPt = hover != null ? pts[hover] : null;
+  const hovPt = hover ? pts[hover.i] : null;
 
   // Map the pointer's screen X onto the CURRENT nearest data point. The SVG uses
   // the default `xMidYMid meet`, so on a wide container the viewBox is scaled to
@@ -162,13 +172,22 @@ export const PriceHistoryChart: FC<Props> = ({ points, height = 220 }) => {
         </div>
       </div>
 
+      <div className="relative">
       <svg
         viewBox={`0 0 ${W} ${H}`}
         className="w-full"
         style={{ height }}
         role="img"
         aria-label={`${T("Цена във времето", "Price over time")}: ${T("макс", "high")} ${fmtEur(effOf(view.hi), lang)}, ${T("мин", "low")} ${fmtEur(effOf(view.lo), lang)}, ${T("средно", "average")} ${fmtEur(view.avg, lang)}`}
-        onMouseMove={(e) => setHover(nearestIndex(e.currentTarget, e.clientX))}
+        onMouseMove={(e) => {
+          const rect = e.currentTarget.getBoundingClientRect();
+          setHover({
+            i: nearestIndex(e.currentTarget, e.clientX),
+            mx: e.clientX - rect.left,
+            my: e.clientY - rect.top,
+            cw: rect.width,
+          });
+        }}
         onMouseLeave={() => setHover(null)}
       >
         {/* min/max annotation dots, labelled with their date */}
@@ -213,76 +232,72 @@ export const PriceHistoryChart: FC<Props> = ({ points, height = 220 }) => {
           />
         ))}
 
-        {hovPt &&
-          (() => {
-            const px = x(hovPt.day);
-            const py = y(effOf(hovPt));
-            const onPromo = effOf(hovPt) < hovPt.min_eur - 0.001;
-            const boxW = 116;
-            const boxH = onPromo ? 50 : 36;
-            // Clamp the box inside the viewBox; flip below the point if it would
-            // clip the top edge.
-            const bx = Math.min(Math.max(px - boxW / 2, 2), W - boxW - 2);
-            const by = py - boxH - 10 < padY ? py + 10 : py - boxH - 10;
-            const cx = bx + boxW / 2;
-            return (
-              <g>
-                <line
-                  x1={px}
-                  x2={px}
-                  y1={padY}
-                  y2={H - padY}
-                  className="stroke-border"
-                  strokeWidth={1}
-                />
-                <circle cx={px} cy={py} r={3.5} className="fill-primary" />
-                <g pointerEvents="none">
-                  <rect
-                    x={bx}
-                    y={by}
-                    width={boxW}
-                    height={boxH}
-                    rx={5}
-                    className="fill-card stroke-border"
-                    strokeWidth={1}
-                  />
-                  <text
-                    x={cx}
-                    y={by + 15}
-                    textAnchor="middle"
-                    fontSize={12}
-                    fontWeight={700}
-                    className="fill-foreground tabular-nums"
-                  >
-                    {fmtEur(effOf(hovPt), lang)}
-                    {onPromo ? ` ${T("промо", "promo")}` : ""}
-                  </text>
-                  {onPromo ? (
-                    <text
-                      x={cx}
-                      y={by + 29}
-                      textAnchor="middle"
-                      fontSize={10}
-                      className="fill-muted-foreground tabular-nums"
-                    >
-                      {T("редовна", "regular")} {fmtEur(hovPt.min_eur, lang)}
-                    </text>
-                  ) : null}
-                  <text
-                    x={cx}
-                    y={by + (onPromo ? 43 : 29)}
-                    textAnchor="middle"
-                    fontSize={10}
-                    className="fill-muted-foreground"
-                  >
-                    {fmtPriceDate(hovPt.day, lang)} · {hovPt.chains}{" "}
-                    {T("вериги", "chains")}
-                  </text>
-                </g>
-              </g>
-            );
-          })()}
+        {/* Crosshair (line + point). The floating readout is an HTML overlay
+            below, so it shares the app's tooltip surface (bg-popover, shadow,
+            left-aligned) instead of hand-drawn SVG text. */}
+        {hovPt && (
+          <g pointerEvents="none">
+            <line
+              x1={x(hovPt.day)}
+              x2={x(hovPt.day)}
+              y1={padY}
+              y2={H - padY}
+              className="stroke-border"
+              strokeWidth={1}
+            />
+            <circle
+              cx={x(hovPt.day)}
+              cy={y(effOf(hovPt))}
+              r={3.5}
+              className="fill-primary"
+            />
+          </g>
+        )}
       </svg>
+
+      {hover &&
+        hovPt &&
+        (() => {
+          const onPromo = effOf(hovPt) < hovPt.min_eur - 0.001;
+          // Flip left near the right edge; flip below if it would clip the top.
+          const TIP_W = 150;
+          const tipH = onPromo ? 82 : 64;
+          const left =
+            hover.mx > hover.cw - TIP_W - 12
+              ? hover.mx - TIP_W - 12
+              : hover.mx + 12;
+          const top = hover.my - tipH - 8 >= 0 ? hover.my - tipH - 8 : hover.my + 14;
+          return (
+            <div
+              className={cn(
+                "pointer-events-none absolute z-10 space-y-0.5 whitespace-nowrap",
+                tooltipSurfaceCompactClass,
+              )}
+              style={{ left, top }}
+            >
+              <div className="font-semibold">
+                {fmtPriceDate(hovPt.day, lang)}
+              </div>
+              <div className="tabular-nums">
+                {fmtEur(effOf(hovPt), lang)}
+                {onPromo && (
+                  <span className="ml-1 text-green-600 dark:text-green-400">
+                    {T("промо", "promo")}
+                  </span>
+                )}
+              </div>
+              {onPromo && (
+                <div className="tabular-nums text-muted-foreground">
+                  {T("редовна", "regular")} {fmtEur(hovPt.min_eur, lang)}
+                </div>
+              )}
+              <div className="text-muted-foreground">
+                {hovPt.chains} {T("вериги", "chains")}
+              </div>
+            </div>
+          );
+        })()}
+      </div>
 
       <div className="mt-1 flex items-center justify-between text-xs text-muted-foreground">
         <span>{fmtPriceDate(pts[0].day, lang)}</span>

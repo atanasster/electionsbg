@@ -25,6 +25,8 @@ import { Card } from "@/components/ui/card";
 import { useFuel } from "@/data/prices/useFuel";
 import { fmtEur, fmtPct, priceChangeColor } from "@/data/prices/usePrices";
 import { ChartCabinetStrip } from "@/screens/components/governments/ChartCabinetStrip";
+import { tooltipSurfaceClass } from "@/components/ui/tooltipSurface";
+import { cn } from "@/lib/utils";
 
 const AMBER = "#b07d2f";
 const STEEL = "#4a7a8f";
@@ -102,6 +104,38 @@ export const ConsumptionFuelScreen: FC = () => {
     [bg], // eslint-disable-line react-hooks/exhaustive-deps
   );
 
+  // Shared tooltip surface (bg-popover + shadow, left-aligned) — the same look
+  // as PriceIndexTrendChart and the elections charts, not Recharts' default box.
+  const FuelTooltip: FC<{
+    active?: boolean;
+    label?: string;
+    payload?: Array<{ dataKey: string; value: number; color: string }>;
+  }> = ({ active, label, payload }) => {
+    if (!active || !payload?.length) return null;
+    return (
+      <div className={cn(tooltipSurfaceClass, "space-y-1 px-2 py-1.5 text-xs")}>
+        <div className="font-semibold">{label}</div>
+        {payload.map((p) => (
+          <div
+            key={p.dataKey}
+            className="flex items-center gap-1.5 tabular-nums"
+          >
+            <span
+              className="inline-block h-2 w-2 rounded-full"
+              style={{ background: p.color }}
+            />
+            <span className="text-muted-foreground">
+              {legend.find((l) => l.key === p.dataKey)?.name ?? p.dataKey}
+            </span>
+            <span className="ml-auto font-medium">
+              {fmtEur(p.value, lang)}/{T("л", "L")}
+            </span>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <>
       <SEO
@@ -170,12 +204,8 @@ export const ConsumptionFuelScreen: FC = () => {
                       tickFormatter={(v: number) => `${v.toFixed(1)}`}
                     />
                     <Tooltip
-                      formatter={(v: number, name: string) => [
-                        `${fmtEur(v, lang)}/${T("л", "L")}`,
-                        legend.find((l) => l.key === name)?.name ?? name,
-                      ]}
-                      labelStyle={{ fontSize: 11 }}
-                      contentStyle={{ fontSize: 11 }}
+                      content={<FuelTooltip />}
+                      cursor={{ stroke: "var(--border)" }}
                     />
                     <Legend
                       wrapperStyle={{ fontSize: 11 }}
