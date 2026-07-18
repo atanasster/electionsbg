@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-18T06:38:04.278Z",
+  "generatedAt": "2026-07-18T06:57:46.130Z",
   "nodes": [
     {
       "id": "src:water",
@@ -106,7 +106,7 @@
       "url": "https://www.parliament.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-16T08:56:02.091Z",
+      "freshness": "2026-07-18T06:46:43.565Z",
       "skills": [
         "update-rollcall",
         "parliament-scrape"
@@ -117,7 +117,7 @@
           "label": "Parliament roll-call votes",
           "url": "https://www.parliament.bg/api/v1/pl-sten/{id}",
           "cadence": "daily",
-          "freshness": "2026-07-16T08:56:02.091Z"
+          "freshness": "2026-07-18T06:46:43.565Z"
         },
         {
           "id": "parliament_mps",

@@ -1,8 +1,15 @@
 {
-  "updatedAt": "2026-07-18T06:16:15.792Z",
+  "updatedAt": "2026-07-18T10:37:21.237Z",
   "entries": [
     {
-      "timestamp": "2026-07-18T06:16:15.792Z",
+      "timestamp": "2026-07-18T10:37:21.237Z",
+      "date": "2026-07-18",
+      "skill": "update-council-minutes",
+      "summary": "Столичен общински съвет: +57 нови решения (протокол 65, 2026 г.)",
+      "source": "Общински съвет — протоколи"
+    },
+    {
+      "timestamp": "2026-07-18T10:35:56.333Z",
       "date": "2026-07-18",
       "skill": "update-fuel",
       "summary": "fuel.json: 682 weeks, latest 2026-07-12 · BG95 €1.46/L · diesel €1.498/L",
@@ -11,6 +18,54 @@
         {
           "to": "/consumption/fuel",
           "labelKey": "data_changes_link_consumption"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-07-18T10:32:35.289Z",
+      "date": "2026-07-18",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-07-17 (+1 daily archive; 1,570,398 store rows, 241 settlements, 207 chains)",
+      "source": "КЗП Колко струва (retail prices)"
+    },
+    {
+      "timestamp": "2026-07-18T10:29:04.434Z",
+      "date": "2026-07-18",
+      "skill": "kzk_appeals",
+      "summary": "Регистър на жалбите по ЗОП (КЗК): +31 нови жалби (727 за 2026 г.)",
+      "source": "КЗК (reg.cpc.bg)"
+    },
+    {
+      "timestamp": "2026-07-18T10:27:51.288Z",
+      "date": "2026-07-18",
+      "skill": "update-funds",
+      "summary": "Еврофондове (ИСУН): 53,064 бенефициенти, 81,739 договора, €43,9 млрд. договорени",
+      "source": "ИСУН 2020 (2020.eufunds.bg)"
+    },
+    {
+      "timestamp": "2026-07-18T10:25:48.992Z",
+      "date": "2026-07-18",
+      "skill": "update-procurement",
+      "summary": "Обществени поръчки: обновени договори и процедури (ЦАИС ЕОП до 2026-07-17); 353,756 договора, 126,469 процедури",
+      "source": "ЦАИС ЕОП / АОП (storage.eop.bg)"
+    },
+    {
+      "timestamp": "2026-07-18T10:14:30.807Z",
+      "date": "2026-07-18",
+      "skill": "tr-daily-refresh",
+      "summary": "Търговски регистър daily refresh: 160 new companies (1,018,451 total)",
+      "source": "data.egov.bg Търговски регистър (ТРРЮЛНЦ)"
+    },
+    {
+      "timestamp": "2026-07-18T10:01:10.585Z",
+      "date": "2026-07-18",
+      "skill": "update-rollcall",
+      "summary": "1 new session (2026-07-16, id 11152): 14 items, 3360 rows through 2026-07-16",
+      "source": "Parliament roll-call votes (parliament.bg)",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
         }
       ]
     },
