@@ -22,6 +22,7 @@ import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { Card } from "@/components/ui/card";
 import { useFuel } from "@/data/prices/useFuel";
 import { fmtEur, fmtPct, priceChangeColor } from "@/data/prices/usePrices";
+import { ChartCabinetStrip } from "@/screens/components/governments/ChartCabinetStrip";
 
 const AMBER = "#b07d2f";
 const STEEL = "#4a7a8f";
@@ -188,6 +189,23 @@ export const ConsumptionFuelScreen: FC = () => {
                   </LineChart>
                 </ResponsiveContainer>
               </div>
+
+              {series.length > 0 ? (
+                <div>
+                  <div
+                    className="mb-1 text-[10px] uppercase tracking-wide text-muted-foreground"
+                    style={{ paddingLeft: 44 }}
+                  >
+                    {T("Правителства", "Governments")}
+                  </div>
+                  <ChartCabinetStrip
+                    fromDate={series[0].date}
+                    toDate={series[series.length - 1].date}
+                    padLeft={44}
+                    padRight={8}
+                  />
+                </div>
+              ) : null}
 
               <p className="text-xs text-muted-foreground">
                 {T(

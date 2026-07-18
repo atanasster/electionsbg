@@ -555,9 +555,12 @@ export const CabinetStrip: FC<{
   if (isSmall && mobileScrollable) {
     const span = xDomain[1] - xDomain[0];
     const pillWidthsPx = governments.map((g) => {
-      const start = toFractionalYear(g.startDate);
-      const end = toFractionalYear(g.endDate ?? new Date().toISOString());
-      const pct = (end - start) / span;
+      const start = Math.max(xDomain[0], toFractionalYear(g.startDate));
+      const end = Math.min(
+        xDomain[1],
+        toFractionalYear(g.endDate ?? new Date().toISOString()),
+      );
+      const pct = Math.max(0, (end - start) / span);
       return Math.max(
         MOBILE_SCROLL_MIN_PILL_PX,
         Math.round(pct * MOBILE_SCROLL_TARGET_TOTAL_PX),
@@ -668,9 +671,18 @@ export const CabinetStrip: FC<{
       }}
     >
       {governments.map((g) => {
-        const start = toFractionalYear(g.startDate);
-        const end = toFractionalYear(g.endDate ?? new Date().toISOString());
-        const widthPct = ((end - start) / (xDomain[1] - xDomain[0])) * 100;
+        // Clamp tenure to the visible domain so a cabinet extending past either
+        // edge (charts that show only a recent window) still tiles edge-to-edge.
+        // A no-op when xDomain is the full span (the tooltip keeps real dates).
+        const start = Math.max(xDomain[0], toFractionalYear(g.startDate));
+        const end = Math.min(
+          xDomain[1],
+          toFractionalYear(g.endDate ?? new Date().toISOString()),
+        );
+        const widthPct = Math.max(
+          0,
+          ((end - start) / (xDomain[1] - xDomain[0])) * 100,
+        );
         const surname = cabinetShortLabel(g, governments, lang);
         const horizontal = widthPct >= horizontalThreshold;
         const showLabel = widthPct >= labelThreshold;
