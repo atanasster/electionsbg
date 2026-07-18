@@ -268,6 +268,14 @@ export const loadTrPg = async (): Promise<{
   await exec(
     "CREATE INDEX idx_tr_companies_class_name ON tr_companies (entity_class, name)",
   );
+  // Partial trigram index over the NGO surface only — serves the fuzzy name
+  // match in load_ngo_funding_pg.ts. Scoped so the `%` operator prunes to the
+  // ~31k NGO rows via the index instead of an O(staged × NGO) similarity() seq
+  // scan (which took ~1hr on Cloud SQL's shared core).
+  await exec(
+    `CREATE INDEX idx_tr_companies_ngo_fold ON tr_companies USING gin (name_fold gin_trgm_ops)
+     WHERE entity_class IN ('ngo_assoc','ngo_found','chitalishte','foreign_branch')`,
+  );
   // Btree for exact-fold person lookup (person_profile / connection_between).
   await exec("CREATE INDEX idx_tr_officers_fold_eq ON tr_officers (name_fold)");
   await exec(

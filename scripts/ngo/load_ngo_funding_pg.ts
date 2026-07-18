@@ -239,10 +239,21 @@ export const loadNgoFundingPg = async (): Promise<{
     await c.query("COMMIT");
   });
 
-  // Match. `nf` = the NGO surface with a folded name for comparison. FTS names
-  // are already romanized, so translit_bg_latin(name_raw) lines up with our
-  // name_fold. VAT "BG#########" → eik (verified to exist). Fuzzy uses pg_trgm
-  // similarity, top-1, and only when comfortably above the ambiguity floor.
+  // The fuzzy leg matches staged names against the NGO surface via pg_trgm
+  // similarity. Without a trigram index that is O(staged × NGO) similarity()
+  // calls (~60M → an hour on Cloud SQL's shared core). A partial GIN index
+  // scoped to the NGO surface lets the `%` operator prune candidates through the
+  // index instead of a full seq scan. Canonical home is load_tr_pg.ts; this
+  // IF-NOT-EXISTS is the safety net for a DB whose TR load predates the index.
+  await exec(`CREATE INDEX IF NOT EXISTS idx_tr_companies_ngo_fold
+    ON tr_companies USING gin (name_fold gin_trgm_ops)
+    WHERE entity_class IN ('ngo_assoc','ngo_found','chitalishte','foreign_branch')`);
+
+  // Match against the NGO surface (tr_companies WHERE entity_class IN (...)) via
+  // its folded name. FTS names are already romanized, so translit_bg_latin(
+  // name_raw) lines up with our name_fold. VAT "BG#########" → eik (verified to
+  // exist). Fuzzy uses pg_trgm similarity, top-1, and only when comfortably above
+  // the ambiguity floor — indexed through idx_tr_companies_ngo_fold.
   // TRUNCATE + repopulate + changelog in ONE transaction so a mid-load failure
   // can't leave ngo_funding empty (orphan-free), and the changelog commits with
   // the data. ngo_funding's PK is a serial, so the changelog keys on an md5 of
@@ -252,15 +263,17 @@ export const loadNgoFundingPg = async (): Promise<{
   await withClient(async (c) => {
     await c.query("BEGIN");
     await c.query("TRUNCATE ngo_funding");
+    // The `%` operator in the fuzzy leg uses pg_trgm.similarity_threshold to
+    // decide index-match candidates — pin it to the fuzzy floor so the trigram
+    // index (idx_tr_companies_ngo_fold) prunes to similarity ≥ 0.55. SET LOCAL:
+    // scoped to this transaction, reverts on COMMIT.
+    await c.query("SET LOCAL pg_trgm.similarity_threshold = 0.55");
     await c.query(`
-    WITH nf AS (
-      SELECT uic, name_fold FROM tr_companies
-      WHERE entity_class IN ('ngo_assoc','ngo_found','chitalishte','foreign_branch')
-    ),
     -- Only folds that map to exactly ONE NGO are safe for an exact match; an
     -- ambiguous fold falls through to fuzzy/unmatched (equi-join, no row blow-up).
-    uniq_fold AS (
-      SELECT name_fold, MIN(uic) AS uic FROM nf
+    WITH uniq_fold AS (
+      SELECT name_fold, MIN(uic) AS uic FROM tr_companies
+      WHERE entity_class IN ('ngo_assoc','ngo_found','chitalishte','foreign_branch')
       GROUP BY name_fold HAVING count(*) = 1
     ),
     m AS (
@@ -284,7 +297,13 @@ export const loadNgoFundingPg = async (): Promise<{
     LEFT JOIN tr_companies vh ON vh.uic = m.vat_eik
     LEFT JOIN uniq_fold uf ON uf.name_fold = m.fold
     LEFT JOIN LATERAL (
-      SELECT nf.uic FROM nf
+      -- Fuzzy fallback: trigram top-1 over the NGO surface, above the ambiguity
+      -- floor. Hits tr_companies DIRECTLY (not a materialized CTE) so the pct-sim
+      -- operator can use the partial GIN index idx_tr_companies_ngo_fold —
+      -- index-pruned candidates instead of an O(staged × NGO) seq scan (minutes
+      -- vs an hour on Cloud SQL). That operator does the indexed prune (>=
+      -- threshold, set above); the explicit similarity() > 0.55 keeps the strict floor.
+      SELECT c.uic FROM tr_companies c
       WHERE m.vat_eik IS NULL AND uf.uic IS NULL AND length(m.fold) > 4
         -- ABF grantee names are ENGLISH; translit_bg_latin can't fold them to
         -- Cyrillic, so fuzzy similarity there mis-attributes funding to
@@ -292,8 +311,13 @@ export const loadNgoFundingPg = async (): Promise<{
         -- Travel Ltd." → "Балкан Травел СК". ABF matches via the curated alias
         -- map (m.eik) or exact fold only; never fuzzy.
         AND m.source <> 'abf'
-        AND similarity(nf.name_fold, m.fold) > 0.55
-      ORDER BY similarity(nf.name_fold, m.fold) DESC
+        AND c.entity_class IN ('ngo_assoc','ngo_found','chitalishte','foreign_branch')
+        AND c.name_fold % m.fold
+        AND similarity(c.name_fold, m.fold) > 0.55
+      -- uic tiebreak: two NGOs can share an identical fold (e.g. "poday raka"),
+      -- both similarity 1.0. Without it LIMIT 1 picks arbitrarily and the served
+      -- eik flips between reloads — pin it for deterministic output.
+      ORDER BY similarity(c.name_fold, m.fold) DESC, c.uic
       LIMIT 1
     ) fz ON true
   `);
