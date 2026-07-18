@@ -35,9 +35,13 @@ npx tsx scripts/schools/fetch_nvo.ts
 #    Reads raw_data/indicators/mon/*.csv (ДЗИ) + raw_data/indicators/mon_nvo/*.csv.
 npx tsx scripts/schools/build_index.ts
 
-# 2b. Resolve school → ЕИК from the procurement awarder corpus (needs local PG
-#     up: contracts + awarder_seats). High-precision; unmatched schools stay
-#     eik-less. Run AFTER build_index (it edits the index in place).
+# 2b. Resolve school → ЕИК. Primary source: the МОН institution-register
+#     crosswalk (data/procurement/derived/mon_ri_eik_crosswalk.json) joined on
+#     the school's НЕИСПУО id — authoritative, ~989/994. For full coverage run
+#     scripts/procurement/mon_ri_crawl.ts first (headed Playwright; see
+#     [[reference_mon_ri_register]]); if the crosswalk is absent it falls back to
+#     name-matching the procurement awarder corpus (needs local PG). Run AFTER
+#     build_index (it edits the index in place).
 npx tsx scripts/schools/match_eik.ts
 
 # 3. Socioeconomic context index (deterministic; only re-run when census changes).
