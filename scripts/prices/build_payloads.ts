@@ -20,6 +20,65 @@ import { copyRows } from "../db/lib/copy";
 import { buildPriceIndex, type Emit } from "./build_index";
 import { loadGridsFromPg } from "./lib/grids_pg";
 
+// --- Deals quality gate (national + per-município) -------------------------
+// The КЗП feed carries both a "redovna цена" (regular) and a promo price per
+// store listing. A 2026-07 accuracy audit found the raw biggest-discount board
+// was dominated by artefacts, in two modes: (1) a single store mis-keys the
+// promo (0.55 € for a 260 g salami whose 10 sibling stores show 1.20 €) and,
+// because we picked the deepest discount per product, that outlier became the
+// headline; (2) a chain declares an inflated regular (fresh potatoes at 3.55 €
+// when Билла sells them at 1.19 € across 166 stores), so a normal promo reads
+// as −75%. A third mode is a chain-wide source error (a 15 € coffee reported at
+// 2 € across every Kaufland store). The gate below removes all three.
+const MIN_PROMO_STORES = 3; // promo must be corroborated across ≥N store listings
+const PROMO_OUTLIER_FLOOR = 0.7; // drop promos below 70% of the product's median promo
+const REG_INFLATION_CAP = 1.25; // drop regulars above 125% of the product's median regular
+const MIN_PROMO_EUR = 0.1; // absolute floor — guards near-zero broken prices
+const MIN_DISC = 0.15; // at least 15% off to count as a deal
+const MAX_DISC = 0.7; // above 70% off is, empirically, a source error not a promo
+
+// The stats + `promos` CTE block shared by the national and per-município deals
+// queries. `withObshtina` adds the município column the muni board partitions on.
+// Product-level stats are national (a row that is a national data artefact must
+// not surface on a local board either).
+const promoQualityCte = (withObshtina: boolean): string => `
+  promo_stats AS (
+    SELECT pp.product_id, count(*) AS n_promo,
+           percentile_cont(0.5) WITHIN GROUP (ORDER BY pc.promo_eur) AS med_promo
+      FROM price_current pc
+      JOIN price_skus ps ON ps.sku_id = pc.sku_id
+      JOIN price_products pp ON pp.product_id = ps.product_id
+     WHERE pc.promo_eur IS NOT NULL
+     GROUP BY pp.product_id
+  ),
+  reg_stats AS (
+    SELECT pp.product_id,
+           percentile_cont(0.5) WITHIN GROUP (ORDER BY pc.price_eur) AS med_reg
+      FROM price_current pc
+      JOIN price_skus ps ON ps.sku_id = pc.sku_id
+      JOIN price_products pp ON pp.product_id = ps.product_id
+     GROUP BY pp.product_id
+  ),
+  promos AS (
+    SELECT ${withObshtina ? "st.obshtina, " : ""}pp.slug, pp.title,
+           pc.promo_eur, pc.price_eur,
+           (pc.price_eur - pc.promo_eur) / NULLIF(pc.price_eur, 0) AS disc,
+           st.eik
+      FROM price_current pc
+      JOIN price_skus ps ON ps.sku_id = pc.sku_id
+      JOIN price_products pp ON pp.product_id = ps.product_id
+      JOIN price_stores st ON st.store_id = pc.store_id
+      JOIN promo_stats mp ON mp.product_id = pp.product_id
+      JOIN reg_stats mr ON mr.product_id = pp.product_id
+     WHERE pc.promo_eur IS NOT NULL
+       AND pc.promo_eur < pc.price_eur
+       AND pp.chain_count > 0
+       AND pc.promo_eur >= ${MIN_PROMO_EUR}
+       AND mp.n_promo >= ${MIN_PROMO_STORES}
+       AND pc.promo_eur >= mp.med_promo * ${PROMO_OUTLIER_FLOOR}
+       AND pc.price_eur <= mr.med_reg * ${REG_INFLATION_CAP}
+  )`;
+
 export const buildPayloads = async (): Promise<void> => {
   const grids = await loadGridsFromPg();
   if (!grids.length) {
@@ -58,7 +117,7 @@ export const buildPayloads = async (): Promise<void> => {
     eik: string;
     chain: string;
   }>(
-    `WITH ${PROMO_QUALITY_SQL},
+    `WITH ${promoQualityCte(false)},
      best AS (
        SELECT DISTINCT ON (slug) slug, title, promo_eur, price_eur, disc, eik
          FROM promos
@@ -99,23 +158,12 @@ export const buildPayloads = async (): Promise<void> => {
     eik: string;
     chain: string;
   }>(
-    `WITH promos AS (
-       SELECT st.obshtina, pp.slug, pp.title, pc.promo_eur, pc.price_eur,
-              (pc.price_eur - pc.promo_eur) / NULLIF(pc.price_eur, 0) AS disc,
-              st.eik
-         FROM price_current pc
-         JOIN price_skus ps ON ps.sku_id = pc.sku_id
-         JOIN price_products pp ON pp.product_id = ps.product_id
-         JOIN price_stores st ON st.store_id = pc.store_id
-        WHERE pc.promo_eur IS NOT NULL
-          AND pc.promo_eur < pc.price_eur
-          AND pp.chain_count > 0
-     ),
+    `WITH ${promoQualityCte(true)},
      best AS (
        SELECT DISTINCT ON (obshtina, slug)
               obshtina, slug, title, promo_eur, price_eur, disc, eik
          FROM promos
-        WHERE disc >= 0.15 AND disc < 0.95
+        WHERE disc >= ${MIN_DISC} AND disc <= ${MAX_DISC}
         ORDER BY obshtina, slug, disc DESC, eik
      ),
      ranked AS (
