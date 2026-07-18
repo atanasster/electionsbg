@@ -1229,6 +1229,16 @@ const ConsumptionChainsScreen = lazy(() =>
     default: m.ConsumptionChainsScreen,
   })),
 );
+const ConsumptionCategoriesScreen = lazy(() =>
+  import("./screens/consumption/ConsumptionCategoriesScreen").then((m) => ({
+    default: m.ConsumptionCategoriesScreen,
+  })),
+);
+const ConsumptionCategoryScreen = lazy(() =>
+  import("./screens/consumption/ConsumptionCategoryScreen").then((m) => ({
+    default: m.ConsumptionCategoryScreen,
+  })),
+);
 const ChainProfileScreen = lazy(() =>
   import("./screens/consumption/ChainProfileScreen").then((m) => ({
     default: m.ChainProfileScreen,
@@ -3463,6 +3473,26 @@ export const AuthRoutes = () => {
               <LayoutScreen>
                 <Suspense fallback={<RouteFallback />}>
                   <ChainProfileScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="consumption/categories"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <ConsumptionCategoriesScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="consumption/category/:cat"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <ConsumptionCategoryScreen />
                 </Suspense>
               </LayoutScreen>
             }

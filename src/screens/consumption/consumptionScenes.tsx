@@ -213,6 +213,18 @@ const Chains: FC = () => (
   </SceneFrame>
 );
 
+// Категории — a grid of category tags.
+const Categories: FC = () => (
+  <SceneFrame>
+    <g fill="var(--sector)">
+      <rect x="112" y="30" width="34" height="26" rx="4" opacity=".85" />
+      <rect x="156" y="30" width="34" height="26" rx="4" opacity=".55" />
+      <rect x="112" y="64" width="34" height="26" rx="4" opacity=".55" />
+      <rect x="156" y="64" width="34" height="26" rx="4" opacity=".85" />
+    </g>
+  </SceneFrame>
+);
+
 // Достъпност — a balance scale (basket vs income).
 const Affordability: FC = () => (
   <SceneFrame>
@@ -249,4 +261,5 @@ export const CONSUMPTION_SCENES: Record<string, FC> = {
   affordability: Affordability,
   chains: Chains,
   basket: MyBasket,
+  categories: Categories,
 };

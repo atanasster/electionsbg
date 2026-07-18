@@ -61,6 +61,13 @@ export const ConsumptionScreen = () => {
       accent: TILE_ACCENTS.copper,
     },
     {
+      id: "categories",
+      to: "/consumption/categories",
+      title: T("Категории", "Categories"),
+      desc: T("Цените по категории храни", "Prices by food category"),
+      accent: TILE_ACCENTS.olive,
+    },
+    {
       id: "map",
       to: "/prices",
       title: T("Карта на цените", "Price map"),
