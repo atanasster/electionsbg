@@ -18,6 +18,7 @@ import {
   Ban,
   Target,
   Sprout,
+  Sparkles,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { type AgriRecipientFile } from "@/data/agri/types";
@@ -78,6 +79,10 @@ import { NzokActivityByEikTile } from "../components/procurement/nzok/NzokActivi
 import { NzokReportCardTile } from "../components/procurement/nzok/NzokReportCardTile";
 import { NzokDrugOverpayByEikTile } from "../components/procurement/nzok/NzokDrugOverpayByEikTile";
 import { NzokFinancialHealthStrip } from "@/screens/components/procurement/nzok/NzokFinancialHealthStrip";
+import {
+  NgoSignalPills,
+  type NgoSignal,
+} from "@/screens/components/procurement/NgoSignalPills";
 import { SchoolIdentityTile } from "../components/procurement/mon/SchoolIdentityTile";
 import {
   CabinetTimelineTile,
@@ -381,6 +386,7 @@ export const CompanyDbScreen: FC = () => {
     null,
   );
   const [ngoFunding, setNgoFunding] = useState<NgoFunding | null>(null);
+  const [ngoSignals, setNgoSignals] = useState<NgoSignal[] | null>(null);
   const [subsidies, setSubsidies] = useState<AgriRecipientFile | null>(null);
   const [retailChain, setRetailChain] = useState<RetailChainInfo | null>(null);
   const [awarderGrade, setAwarderGrade] = useState<EntityRiskGrade | null>(
@@ -488,6 +494,7 @@ export const CompanyDbScreen: FC = () => {
           setNgoDetails(j.ngoDetails ?? null);
           setAwarderKindex(j.awarderKindex ?? null);
           setNgoFunding(j.ngoFunding ?? null);
+          setNgoSignals(j.ngoSignals ?? null);
           setSubsidies(j.subsidies ?? null);
           setRetailChain(j.retailChain ?? null);
           setAwarderGrade(j.awarderRiskGrade ?? null);
@@ -780,6 +787,30 @@ export const CompanyDbScreen: FC = () => {
               measure badged vs the national median (CMS Care Compare) + a decile
               fan over time (OpenPrescribing). Self-hides unless matched. */}
           <NzokReportCardTile eik={eik} />
+          {company &&
+            company.entity_class &&
+            NGO_CLASSES.has(company.entity_class) &&
+            ngoSignals &&
+            ngoSignals.length > 0 && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-base">
+                    <Sparkles className="h-4 w-4" />
+                    {i18n.language === "bg"
+                      ? "Сигнали за публичен интерес"
+                      : "Public-interest signals"}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <NgoSignalPills signals={ngoSignals} />
+                  <p className="text-xs text-muted-foreground">
+                    {i18n.language === "bg"
+                      ? "Показателите са индикатори за публичен интерес, трейс, не доказателство за нарушение."
+                      : "Public-interest indicators — a trace, not proof of wrongdoing."}
+                  </p>
+                </CardContent>
+              </Card>
+            )}
           {company &&
             company.entity_class &&
             NGO_CLASSES.has(company.entity_class) &&

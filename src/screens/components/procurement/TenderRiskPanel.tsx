@@ -15,12 +15,12 @@ import {
   ShieldAlert,
   ShieldCheck,
 } from "lucide-react";
-import { Tooltip } from "@/ux/Tooltip";
 import { criColor } from "@/lib/riskGrade";
+import { type SignalTone } from "@/screens/components/procurement/SignalPill";
 import {
-  SignalPill,
-  type SignalTone,
-} from "@/screens/components/procurement/SignalPill";
+  SignalPillStrip,
+  type SignalPillItem,
+} from "@/screens/components/procurement/SignalPillStrip";
 import {
   computeTenderRisk,
   type TenderRiskKey,
@@ -161,34 +161,28 @@ const FlagChips: FC<{ result: TenderRiskResult }> = ({ result }) => {
     return null;
   };
 
-  return (
-    <div className="flex flex-wrap items-center gap-1">
-      {fired.map((c) => {
-        const m = FLAG_META[c.key];
-        const detail = detailFor(c.key);
-        return (
-          <Tooltip
-            key={c.key}
-            content={
-              <div className="space-y-1">
-                <div className="font-medium">{t(m.long[0]) || m.long[1]}</div>
-                <div className="text-xs text-muted-foreground">
-                  {t(m.hint[0]) || m.hint[1]}
-                </div>
-                {detail ? (
-                  <div className="text-xs tabular-nums">{detail}</div>
-                ) : null}
-              </div>
-            }
-          >
-            <SignalPill tone={m.tone} icon={m.icon}>
-              {t(m.short[0]) || m.short[1]}
-            </SignalPill>
-          </Tooltip>
-        );
-      })}
-    </div>
-  );
+  const items: SignalPillItem[] = fired.map((c) => {
+    const m = FLAG_META[c.key];
+    const detail = detailFor(c.key);
+    return {
+      key: c.key,
+      tone: m.tone,
+      icon: m.icon,
+      label: t(m.short[0]) || m.short[1],
+      tooltip: (
+        <div className="space-y-1">
+          <div className="font-medium">{t(m.long[0]) || m.long[1]}</div>
+          <div className="text-xs text-muted-foreground">
+            {t(m.hint[0]) || m.hint[1]}
+          </div>
+          {detail ? <div className="text-xs tabular-nums">{detail}</div> : null}
+        </div>
+      ),
+    };
+  });
+  // emptyDash=false: callers (TenderRiskChips) already render the dash upstream,
+  // and the detail panel wants nothing when no flag fired.
+  return <SignalPillStrip items={items} emptyDash={false} />;
 };
 
 // Compact chips-only variant for a table cell (e.g. the /procurement/tenders

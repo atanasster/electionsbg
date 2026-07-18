@@ -17,6 +17,12 @@ import { ProcurementSectionHeader } from "@/screens/components/procurement/Procu
 import { formatEurCompact } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
 import {
+  NgoSignalPills,
+  NGO_SIGNAL_ORDER,
+  NGO_SIGNAL_META,
+  type NgoSignal,
+} from "@/screens/components/procurement/NgoSignalPills";
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -25,14 +31,10 @@ import {
 } from "@/components/ui/select";
 
 const ALL = "__all__";
-// The NGO surface: сдружения, фондации, читалища + foreign branches. Coops and
-// state enterprises are their own classes and excluded here.
-const NGO_ENTITY_CLASSES = [
-  "ngo_assoc",
-  "ngo_found",
-  "chitalishte",
-  "foreign_branch",
-];
+// The NGO surface: сдружения, фондации, читалища. foreign_branch is excluded —
+// the `ngos_list` view (migration 080) already drops it (mostly commercial bank
+// branches that would dominate the public-money ranking).
+const NGO_ENTITY_CLASSES = ["ngo_assoc", "ngo_found", "chitalishte"];
 
 interface NgoRow {
   uic: string;
@@ -41,6 +43,9 @@ interface NgoRow {
   ngoType: string | null;
   seat: string | null;
   status: string | null;
+  signals: NgoSignal[] | null;
+  signalCount: number | null;
+  publicMoneyEur: number | string | null;
 }
 interface NgoStats {
   assoc: number;
@@ -66,14 +71,28 @@ export const NgoBrowseDbScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const bg = i18n.language === "bg";
   const [ngoType, setNgoType] = useState<string>(ALL);
+  const [signalCode, setSignalCode] = useState<string>(ALL);
+  // Default view = only NGOs with ≥1 signal (the 8.5% that touch public/external
+  // money); the tail would otherwise fill the browse in EIK order. Toggle to all.
+  const [showAll, setShowAll] = useState(false);
 
   const fixedFilters = useMemo<DbColumnFilter[]>(
     () => [{ id: "entity_class", value: NGO_ENTITY_CLASSES }],
     [],
   );
   const extraFilters = useMemo<DbColumnFilter[]>(
-    () => (ngoType !== ALL ? [{ id: "ngo_type", value: [ngoType] }] : []),
-    [ngoType],
+    () => [
+      ...(!showAll && signalCode === ALL
+        ? [{ id: "has_signal", value: true } as DbColumnFilter]
+        : []),
+      ...(ngoType !== ALL
+        ? [{ id: "ngo_type", value: [ngoType] } as DbColumnFilter]
+        : []),
+      ...(signalCode !== ALL
+        ? [{ id: "signal_codes", value: signalCode } as DbColumnFilter]
+        : []),
+    ],
+    [showAll, ngoType, signalCode],
   );
 
   // Registry-scale stat cards (one round-trip, ~14ms).
@@ -124,6 +143,29 @@ export const NgoBrowseDbScreen: FC = () => {
         ),
       },
       {
+        id: "signals",
+        accessorFn: (r) => r.signalCount,
+        header: bg ? "Сигнали" : "Signals",
+        enableSorting: false,
+        cell: ({ row }) => (
+          <NgoSignalPills signals={row.original.signals} maxVisible={4} />
+        ),
+      },
+      {
+        id: "public_money_eur",
+        accessorFn: (r) => r.publicMoneyEur,
+        header: bg ? "Публични средства" : "Public money",
+        meta: { align: "right" },
+        cell: ({ row }) => {
+          const v = Number(row.original.publicMoneyEur ?? 0);
+          return (
+            <span className="text-sm tabular-nums text-muted-foreground">
+              {v > 0 ? formatEurCompact(v, i18n.language) : "—"}
+            </span>
+          );
+        },
+      },
+      {
         id: "entity_class",
         accessorFn: (r) => r.entityClass,
         header: bg ? "Вид" : "Type",
@@ -163,7 +205,7 @@ export const NgoBrowseDbScreen: FC = () => {
         ),
       },
     ],
-    [t, bg],
+    [t, bg, i18n.language],
   );
 
   return (
@@ -248,27 +290,64 @@ export const NgoBrowseDbScreen: FC = () => {
           fixedFilters={fixedFilters}
           extraFilters={extraFilters}
           columns={columns}
-          defaultSort={[{ id: "name", desc: false }]}
+          defaultSort={[{ id: "public_money_eur", desc: true }]}
           pageSize={25}
           searchPlaceholder={bg ? "Търси организация…" : "Search organisation…"}
           toolbar={
-            typeOptions.length > 0 ? (
-              <Select value={ngoType} onValueChange={setNgoType}>
-                <SelectTrigger className="w-auto h-9 max-w-[220px]">
+            <div className="flex flex-wrap items-center gap-2">
+              {/* Signal-code filter — reuses the ngos_list signal_codes column. */}
+              <Select value={signalCode} onValueChange={setSignalCode}>
+                <SelectTrigger className="h-9 w-auto max-w-[220px]">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value={ALL}>
-                    {bg ? "Всички категории" : "All categories"}
+                    {bg ? "Всички сигнали" : "All signals"}
                   </SelectItem>
-                  {typeOptions.map((o) => (
-                    <SelectItem key={o.value} value={o.value}>
-                      {t(`ngo_type_${o.value}`, o.value)} ({o.count})
+                  {NGO_SIGNAL_ORDER.map((code) => (
+                    <SelectItem key={code} value={code}>
+                      {t(
+                        NGO_SIGNAL_META[code].short[0],
+                        NGO_SIGNAL_META[code].short[1],
+                      )}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
-            ) : null
+              {typeOptions.length > 0 && (
+                <Select value={ngoType} onValueChange={setNgoType}>
+                  <SelectTrigger className="h-9 w-auto max-w-[220px]">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value={ALL}>
+                      {bg ? "Всички категории" : "All categories"}
+                    </SelectItem>
+                    {typeOptions.map((o) => (
+                      <SelectItem key={o.value} value={o.value}>
+                        {t(`ngo_type_${o.value}`, o.value)} ({o.count})
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+              {/* Show-all toggle — the default view hides the signal-less tail. */}
+              {signalCode === ALL && (
+                <button
+                  type="button"
+                  onClick={() => setShowAll((v) => !v)}
+                  className="h-9 rounded-md border px-3 text-sm text-muted-foreground hover:bg-muted"
+                >
+                  {showAll
+                    ? bg
+                      ? "Само със сигнали"
+                      : "Only with signals"
+                    : bg
+                      ? "Покажи всички"
+                      : "Show all"}
+                </button>
+              )}
+            </div>
           }
         />
       </section>
