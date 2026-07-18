@@ -483,6 +483,10 @@ export const DataSources = () => {
                 href="https://kolkostruva.bg/opendata"
                 label={t("prices_kzp_source")}
               />
+              <SourceItem
+                href="https://ec.europa.eu/eurostat/databrowser/product/view/prc_ppp_ind_1"
+                label={t("prices_eurostat_pli_source")}
+              />
             </ul>
           </DataGroup>
 

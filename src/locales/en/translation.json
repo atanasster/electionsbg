@@ -1890,6 +1890,7 @@
   "social_poverty_source": "Eurostat ilc_li10 / ilc_li02 — at-risk-of-poverty before and after social transfers (pensions excluded). Shows how much poverty transfers remove — in Bulgaria ~27% vs ~33% EU average. Powers the “Social transfers and poverty” tile on /sector/social. data/social/poverty_impact.json",
   "prices_section": "Consumer prices (euro monitoring)",
   "prices_kzp_source": "CPC «How much does it cost» — daily retail price open data (101-product basket, per settlement; kolkostruva.bg). Powers the Consumption (cost-of-living) view and the price tiles on the place dashboards",
+  "prices_eurostat_pli_source": "Eurostat — food price level indices (prc_ppp_ind_1, EU=100). The official Bulgaria-vs-EU food price comparison on /consumption/eu",
   "sovereign_debt_section": "Sovereign debt emissions",
   "sovereign_debt_bnb_source": "Bulgarian National Bank — Fiscal Agent auction archive (domestic ДЦК, 2019+)",
   "sovereign_debt_luxse_source": "Luxembourg Stock Exchange — Republic of Bulgaria Eurobond listings (since 2002)",
