@@ -57,6 +57,18 @@ const SCHOOLS_INDEX_FILE = path.resolve(
   __dirname,
   "../../data/schools/index.json",
 );
+// Tier R — the МОН institution register crosswalk (ri.mon.bg), eik → EKATTE
+// taken from each institution's OWN registry card (the `bulstat` field). The
+// most authoritative source for schools / kindergartens / ЦПЛР — an exact EIK
+// join to an already-validated EKATTE, so it needs no name-matching and even
+// corrects the fuzzy schools-register (Tier S) where they disagree. Built by
+// scripts/procurement/mon_ri_crawl.ts (headed Playwright; ri.mon.bg is behind
+// Cloudflare). Optional; skipped if the crosswalk file is absent.
+const RI_CROSSWALK_FILE = path.join(
+  PROCUREMENT_DIR,
+  "derived",
+  "mon_ri_eik_crosswalk.json",
+);
 // Tier D — buyer-EIK → modal oblast (NUTS3) from the tenders feed, built by
 // build_tender_oblast_map.ts. Optional: present only after that crawl has run.
 const OBLAST_MAP_FILE = path.join(
@@ -305,6 +317,27 @@ const fetchSchoolSeatMap = (): Map<string, string> => {
   return out;
 };
 
+// The ri.mon.bg crosswalk → eik → EKATTE (already a validated registry code,
+// so no resolver step). Defensive: empty map when the file is absent.
+const fetchRiCrosswalk = (): Map<string, string> => {
+  const out = new Map<string, string>();
+  if (!fs.existsSync(RI_CROSSWALK_FILE)) {
+    console.warn(
+      `  Tier R skipped — no RI crosswalk at ${path.relative(process.cwd(), RI_CROSSWALK_FILE)}`,
+    );
+    return out;
+  }
+  const j = JSON.parse(fs.readFileSync(RI_CROSSWALK_FILE, "utf8")) as {
+    awarders?: Record<string, { ekatte?: string }>;
+  };
+  for (const [eik, rec] of Object.entries(j.awarders ?? {}))
+    if (rec.ekatte) out.set(eik, rec.ekatte);
+  console.log(
+    `  Tier R: RI register crosswalk supplied ${out.size} eik→EKATTE`,
+  );
+  return out;
+};
+
 const main = async (): Promise<void> => {
   if (!fs.existsSync(AWARDERS_DIR)) {
     console.error(`no awarders dir at ${AWARDERS_DIR} — run the ingest first`);
@@ -329,6 +362,8 @@ const main = async (): Promise<void> => {
   const trSeatMap = fetchTrSeatMap(candidates.map((c) => c.eik));
   // Tier S — exact-EIK settlements from our own schools register.
   const schoolSeatMap = fetchSchoolSeatMap();
+  // Tier R — exact-EIK EKATTE from the МОН institution register crosswalk.
+  const riCrosswalk = fetchRiCrosswalk();
 
   // Tier D — optional buyer→oblast map (disambiguates the Tier-A name parse).
   const oblastMap: Record<string, { nuts: string }> = fs.existsSync(
@@ -357,6 +392,7 @@ const main = async (): Promise<void> => {
     { ekatte: string; source: string; confidence: string }
   > = {};
   const counts = {
+    ri: 0,
     tr: 0,
     school: 0,
     ocds: 0,
@@ -368,6 +404,16 @@ const main = async (): Promise<void> => {
   };
 
   for (const a of candidates) {
+    // Tier R — МОН institution register crosswalk (exact EIK → validated
+    // EKATTE from the institution's own registry card). The single most
+    // authoritative source; wins over everything below.
+    const riEkatte = riCrosswalk.get(a.eik);
+    if (riEkatte) {
+      awarders[a.eik] = { ekatte: riEkatte, source: "ri", confidence: "exact" };
+      counts.ri++;
+      continue;
+    }
+
     // Tier F — TR registered seat (exact EIK). The most authoritative source:
     // an official registry address keyed by the entity's own БУЛСТАТ, so it
     // ranks above the name-matched / declared-address tiers below.
@@ -502,6 +548,7 @@ const main = async (): Promise<void> => {
   }
 
   const resolved =
+    counts.ri +
     counts.tr +
     counts.school +
     counts.mon +
@@ -521,7 +568,7 @@ const main = async (): Promise<void> => {
   console.log(
     `✓ wrote ${OUT_FILE}\n` +
       `  resolved ${resolved}/${candidates.length} ` +
-      `(TR ${counts.tr}, school ${counts.school}, МОН ${counts.mon}, МОН+oblast ${counts.monOblast}, OCDS ${counts.ocds}, name ${counts.name}, name+oblast ${counts.nameOblast}); ${counts.unresolved} unresolved`,
+      `(RI ${counts.ri}, TR ${counts.tr}, school ${counts.school}, МОН ${counts.mon}, МОН+oblast ${counts.monOblast}, OCDS ${counts.ocds}, name ${counts.name}, name+oblast ${counts.nameOblast}); ${counts.unresolved} unresolved`,
   );
   console.log(`→ now rebuild: npm run procurement:ingest (applies overrides)`);
 };
