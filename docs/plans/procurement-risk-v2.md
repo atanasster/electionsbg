@@ -708,10 +708,16 @@ as relative ordering only.
 
 ---
 
-## 8. Phase 4 — rebalance the awarder weights
+## 8. Phase 4 — rebalance the awarder weights — ✅ SHIPPED 2026-07-18 (fbdd962d4)
 
-Current (`041:144–154`, availability-weighted mean, weights sum to 1.30 when all present):
-`connection .35 · singleBid .25 · direct .20 · concentration .20 · upheldAppeal .30`.
+**Done:** `direct .20→.30`, `singleBid .25→.15` in `awarder_risk_grade_frac` (single source, §0a);
+total stays 1.30. Measured before/after over 1,149 ranked buyers: **234 change grade (226 better,
+8 worse)** — the worseners are direct-award-heavy (91–99% direct; e.g. Овергаз мрежи B→C), the
+improvers were penalised mainly for single-bidding. Distribution A 128→214, C 250→153, D 34→18;
+the 2 worst (F) unchanged. Parity harness (fn==matview) passes; verified in-browser.
+
+Was — `connection .35 · singleBid .25 · direct .20 · concentration .20 · upheldAppeal .30`
+(availability-weighted mean, sum 1.30). The evidence: 👇
 
 **Single-bid is the wrong hero metric.** EC Single Market Scoreboard 2024:
 
