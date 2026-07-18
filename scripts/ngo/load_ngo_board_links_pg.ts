@@ -21,6 +21,7 @@ import { readFileSync, existsSync } from "node:fs";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { exec, withClient, getPool, end } from "../db/lib/pg";
 import { copyRows } from "../db/lib/copy";
+import { recordIngestBatch } from "../db/lib/ingest_changelog";
 
 const SCHEMA_SQL = fileURLToPath(
   new URL("../db/schema/pg/080_ngo_signals.sql", import.meta.url),
@@ -89,9 +90,26 @@ export const loadNgoBoardLinksPg = async (): Promise<{
     );
     return { roster, links: 0 };
   }
-  const links = await getPool()
-    .query("SELECT rebuild_ngo_board_links() AS n")
-    .then((r) => Number(r.rows[0].n));
+  // Rebuild + the "what changed" changelog atomically, so a newly-appeared board
+  // link surfaces in recent_updates (the PG-changelog rule). ingest_first_seen
+  // survives the rebuild's TRUNCATE, so only genuinely-new links are itemised.
+  let links = 0;
+  await withClient(async (c) => {
+    await c.query("BEGIN");
+    links = Number(
+      (await c.query("SELECT rebuild_ngo_board_links() AS n")).rows[0].n,
+    );
+    await recordIngestBatch(c, {
+      source: "ngo_board_links",
+      table: "ngo_board_links",
+      keyExpr:
+        "md5(concat_ws('|', t.eik, t.person, t.ref, t.kind, t.confidence))",
+      nameExpr: "t.person",
+      detailExpr: "concat_ws(' · ', t.kind, t.role, t.confidence)",
+      rowsTotal: links,
+    });
+    await c.query("COMMIT");
+  });
 
   // The signals matview reads ngo_board_links for the connection signals.
   const hasSignals = await getPool()
