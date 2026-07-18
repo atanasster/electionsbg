@@ -270,10 +270,7 @@ dash when none. `variant="full"` = the page header signal strip.
 ## Part D — cross-cutting
 
 - **i18n** bg/en for every label/tooltip/heading + the disclaimer + right-of-reply copy.
-- **AI** (`ai/tools/ngo.ts`): `ngoRiskSignals(eik)` + `ngoBySignal(code)`; extend
-  `ai_summary.json` (`build_ai_summary.ts`) with per-signal top-NGO lists; register +
-  router keyword block; `bucket:sync` after reload. **Set expectations:** until A2 ships,
-  connection-signal tools return ~5/0 rows — gate or omit those tools in the interim.
+- **AI chat tools** — see the dedicated subsection below.
 - **Watchers + process-watch-report** (principle 2): `abf`/`ned` sources →
   `db:load:ngo-funding:pg` (+ `:cloud`); `ngo_board_links` refresh rides `egov_commerce` →
   `tr-daily-refresh` (chained after `company_politicians`); a new
@@ -285,6 +282,58 @@ dash when none. `variant="full"` = the page header signal strip.
 - **SEO/OG**: prerender only the top-N signal-bearing NGOs (the 91% tail stays no-index).
   Refresh `public/og/procurement-ngos.png` if the header changes.
 - **Freshness stamps**: every dataset surfaces its as-of date (ProPublica convention).
+
+### AI chat tools — new + updated (do not skip; ships with the data)
+
+The browser AI reads **static JSON only** (no `/api/db` from the AI host), so every number
+the assistant can cite must live in `data/ngo/ai_summary.json` — the one sanctioned
+JSON, built *from* PG by `scripts/ngo/build_ai_summary.ts` (principle 1). The chat path is
+route → `runTool` → narrate over ~155 typed tools with a heuristic router and a
+**grounded-number gate** that rejects any inline figure not present in the tool's `facts`.
+Three things must move together: the summary blob, the tools, and the router/harness.
+
+**1. Extend `ai_summary.json`** (`build_ai_summary.ts`) with a compact `signals` block —
+keep the ~13 KB budget (top-N per signal, not full lists):
+```
+signals: {
+  totals: { withSignal, byClass:{publicMoney,connection}, byCode:{<code>:count} },
+  topByCode: { <code>: [{eik,name,valueEur?,count?,confidence?,asOf}] (≤15) }
+}
+```
+Add `asOf` per source (freshness). Regenerate via `npm run ngo:ai-summary` + `bucket:sync`
+after every NGO reload.
+
+**2. New tools** (`ai/tools/ngo.ts`, register in `registry.ts`, cases in `harness.ts`):
+- `ngoRiskSignals(args)` — national signal distribution (counts by code + by class, top
+  signal); with an `eik`/name arg, that NGO's own signal set. `kind:"table"`, `facts`
+  carry every count verbatim so the grounding gate passes.
+- `ngoBySignal({ code })` — top NGOs carrying one signal (`politician_board`,
+  `related_party`, `foreign_funded`, `public_contracts`, …) with €/count + confidence.
+- `ngoBoardConnections({ eik|name })` **(Phase 2)** — politicians / magistrates / PEPs on
+  an NGO's board from `ngo_board_links`, with confidence + as-of; points to `/company/:eik`
+  and `/person/:name` for detail.
+
+**3. Update existing tools** for the changed data:
+- `ngoOverview` — add a signals summary row group (NGOs with signals, public-money vs
+  connection split, most common signal); extend `facts` accordingly.
+- `ngoConflictAwarders` — its "governed via an NGO board" leg becomes **real** once A2/
+  Phase 2 lands (today it rests on the sparse actual_owner/liquidator roles); refresh the
+  subtitle + keep the K-Index framing. No signature change.
+- `ngoTopFunded` — split domestic vs foreign funders and pick up ABF/NED after A1; keep the
+  **neutral** foreign framing (absolute €, not a ratio, not "agent").
+
+**4. Router + harness** (`registry.ts` keyword block + `harness.ts` cases): extend the NGO
+block — `сигнал / риск / флаг + нпо` → `ngoRiskSignals`; `свързан|политик|магистрат +
+нпо/юлнц` → `ngoBoardConnections`; a specific signal word → `ngoBySignal`. Add one harness
+router case per new tool + intent (mirrors the existing lines 288–290).
+
+**5. Grounding + gating.** Every new tool exposes its inline numbers in `facts` (connection
+counts are *small* — keep them exact, never rounded, or the grounding gate flags them).
+**Gate the connection tools** (`ngoBoardConnections`, and `ngoBySignal` for connection
+codes) behind Phase 2 — before `ngo_board_links` exists they return ~5/0 rows; ship them
+only when the data is real. Public-money signal tools ship in Phase 1.
+
+Provenance for all: `["ngo/ai_summary.json"]`, plus the source's as-of date.
 
 ---
 
@@ -314,16 +363,22 @@ renders.
 
 - **Phase 1 — public-money signals (ship the working 8.5% now).** B1 (public-money class
   only) + B2 + B3 over data already in PG (contracts/ИСУН/ngo_funding). SignalPill column +
-  page strip + `has_signal` list default. Zero new ingest, immediate value, low risk.
+  page strip + `has_signal` list default. **AI**: extend `ai_summary.json` signals block +
+  ship the public-money AI tools (`ngoRiskSignals`, `ngoBySignal` for public-money codes) +
+  update `ngoOverview`. Zero new ingest, immediate value, low risk.
 - **Phase 2 — connection signals (the differentiator, needs A2).** Build `ngo_board_links`
   (politician/official/magistrate name-match, namesake-guarded, confidence-tiered) + the
   `related_party` signal + the connections tile with `MpAvatar` rows + disclaimers +
-  right-of-reply. *This is where the competitive edge lives — but it is real ingest work.*
+  right-of-reply. **AI**: ship the connection tools (`ngoBoardConnections`, `ngoBySignal`
+  for connection codes) + refresh `ngoConflictAwarders`'s now-real board leg. *This is where
+  the competitive edge lives — but it is real ingest work.*
 - **Phase 3 — external-funder ingest (A1).** ABF/NED fetchers + FTS multi-year → richer
   `foreign_funded`. Watchers + process-watch-report + egov-roadmap gaps (principles 2, 4).
 - **Phase 4 — derived + polish.** A3 `registered_at` → `new_winner`; mobile overflow;
   freshness stamps; SEO/OG top-N.
-- **Phase 5 — AI + discovery.** AI tools (gated on Phase 2), changelog, data_map.
+- **Phase 5 — discovery + finish.** `ngoTopFunded` foreign/domestic split (after A1),
+  changelog, data_map, SEO/OG top-N, harness cases. (Core AI tools already shipped in
+  Phases 1–2 alongside their data.)
 - **Phase 6 (v2) — depth.** Indirect + historical (5-yr) ties (Hlídač); alert-on-new-
   connection watchlist (OpenScreening); sanctions signal; БУЛНАО donor leg.
 
