@@ -74,6 +74,12 @@ CREATE INDEX IF NOT EXISTS idx_tenders_ocid       ON tenders(ocid);
 CREATE INDEX IF NOT EXISTS idx_tenders_buyer      ON tenders(buyer_eik);
 CREATE INDEX IF NOT EXISTS idx_tenders_order      ON tenders(publication_date, unp);
 CREATE INDEX IF NOT EXISTS idx_tenders_cancelled  ON tenders(is_cancelled);
+-- Backs the tenders browser's procedure filter (procedure_type IN (...)) AND the
+-- global procedure_type facet GROUP BY that feeds the toolbar dropdown. Without
+-- it both seq-scan the ~126k-row corpus (MEASURED: facet GROUP BY ~151ms,
+-- IN-filter ~39ms); the index turns the facet into a grouped index scan and the
+-- filter into an index range.
+CREATE INDEX IF NOT EXISTS idx_tenders_procedure  ON tenders(procedure_type);
 -- Backs the /procurement/tenders browse "sort by lots" path (a whitelisted
 -- DbDataTable sort over tenders_list): without it the unscoped sort seq-scans +
 -- heapsorts all ~125k rows (~280ms measured); the index makes it a top-N index
