@@ -227,6 +227,29 @@ export const useDeals = () =>
     staleTime: Infinity,
   });
 
+/** Per-tile headline numbers for the /consumption hub (mirrors the sectors
+ *  hub's sector_stats.json) — a single precomputed hub-stats blob, one PK seek.
+ *  Nulls where a stat is unavailable. */
+export interface HubStats {
+  products: number | null;
+  dearerPct: number | null;
+  cheaperPct: number | null;
+  chains: number | null;
+  settlements: number | null;
+  categories: number | null;
+  basketChangePct: number | null;
+  biggestDealPct: number | null;
+  fuelGapPct: number | null;
+  euFoodPli: number | null;
+  foodInflationPct: number | null;
+}
+export const useHubStats = () =>
+  useQuery({
+    queryKey: ["prices", "hub-stats"],
+    queryFn: () => fetchPricePayload<HubStats>("hub-stats"),
+    staleTime: Infinity,
+  });
+
 /** Look up a place's ranking row by its code (ekatte / obshtina / oblast). */
 export const findRankPlace = (
   ranking: PriceRankingFile | null | undefined,

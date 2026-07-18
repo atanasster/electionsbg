@@ -7,8 +7,11 @@
 // something: if the payloads diverge from the shipped JSON, it is a real
 // regression and not an artefact of a second implementation.
 //
-// kinds: index | ranking | chains | dict | deals | place:<ekatte> | chains-muni:<obshtina>
+// kinds: index | ranking | chains | dict | deals | verdict | hub-stats |
+//        place:<ekatte> | chains-muni:<obshtina>
 
+import fs from "node:fs";
+import path from "node:path";
 import type { PoolClient } from "pg";
 import { withClient, allRows } from "../db/lib/pg";
 import { copyRows } from "../db/lib/copy";
@@ -91,6 +94,92 @@ export const buildPayloads = async (): Promise<void> => {
        FROM price_products WHERE chain_count > 0`,
   );
   emit("verdict", "", verdict ?? {});
+
+  // `hub-stats` — the per-tile headline numbers on the /consumption hub (mirrors
+  // the sectors hub's sector_stats.json). One tiny PK-seek blob: the price-side
+  // counts come from the payloads just built (index/verdict/deals), the three
+  // macro/fuel numbers are folded in from the small committed reference JSONs at
+  // build time (read best-effort so a missing file just omits that stat).
+  const idxPayload = rows.find((r) => r[0] === "index");
+  const idx = idxPayload
+    ? (JSON.parse(idxPayload[2]) as {
+        coverage?: { settlements?: number; chains?: number };
+        categories?: unknown[];
+        national?: { index?: { v: number }[] };
+      })
+    : null;
+  const natIndex = idx?.national?.index ?? [];
+  const basketLast = natIndex.length ? natIndex[natIndex.length - 1].v : null;
+  const num = (v: unknown): number | null => {
+    const n = typeof v === "number" ? v : parseFloat(String(v));
+    return Number.isFinite(n) ? n : null;
+  };
+  const readJson = <T>(rel: string): T | null => {
+    try {
+      return JSON.parse(fs.readFileSync(path.resolve(rel), "utf8")) as T;
+    } catch {
+      return null;
+    }
+  };
+  const total = num(verdict?.total);
+  const dearer = num(verdict?.dearer);
+  const cheaper = num(verdict?.cheaper);
+  const unchanged = num(verdict?.unchanged);
+  // Largest-remainder split over {cheaper, unchanged, dearer} so the three sum
+  // to exactly 100 — identical to the EuroVerdictTile, so the euro tile's
+  // headline matches the page it links to.
+  const verdictPct = (() => {
+    if (cheaper == null || unchanged == null || dearer == null) return null;
+    const cmp = cheaper + unchanged + dearer || 1;
+    const raw = [cheaper, unchanged, dearer].map((n) => (n / cmp) * 100);
+    const floors = raw.map(Math.floor);
+    let rem = 100 - floors.reduce((s, v) => s + v, 0);
+    const order = raw
+      .map((v, i) => ({ i, frac: v - Math.floor(v) }))
+      .sort((a, b) => b.frac - a.frac);
+    const out = [...floors];
+    for (const { i } of order) {
+      if (rem <= 0) break;
+      out[i] += 1;
+      rem -= 1;
+    }
+    return { cheaper: out[0], unchanged: out[1], dearer: out[2] };
+  })();
+
+  const fuel = readJson<{
+    series?: { bg95: number | null; eu95: number | null }[];
+  }>("data/fuel.json");
+  const fLast = fuel?.series?.[fuel.series.length - 1];
+  const fuelGapPct =
+    fLast?.bg95 != null && fLast.eu95
+      ? Math.round((fLast.bg95 / fLast.eu95 - 1) * 1000) / 10
+      : null;
+
+  const peers = readJson<{
+    foodPli?: { values?: Record<string, Record<string, number>> };
+  }>("data/macro_peers.json");
+  const euFoodPli = peers?.foodPli?.values?.BG?.A010101 ?? null;
+
+  const macro = readJson<{
+    series?: { inflationFood?: { value: number }[] };
+  }>("data/macro.json");
+  const infF = macro?.series?.inflationFood;
+  const foodInflationPct = infF?.length ? infF[infF.length - 1].value : null;
+
+  emit("hub-stats", "", {
+    products: total,
+    dearerPct: verdictPct?.dearer ?? null,
+    cheaperPct: verdictPct?.cheaper ?? null,
+    chains: idx?.coverage?.chains ?? null,
+    settlements: idx?.coverage?.settlements ?? null,
+    categories: idx?.categories?.length ?? null,
+    basketChangePct:
+      basketLast != null ? Math.round((basketLast - 100) * 10) / 10 : null,
+    biggestDealPct: deals[0]?.discPct ?? null,
+    fuelGapPct,
+    euFoodPli,
+    foodInflationPct,
+  });
 
   await withClient(async (c: PoolClient) => {
     await c.query("BEGIN");
