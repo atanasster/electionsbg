@@ -225,8 +225,11 @@ const DB_ROUTES = {
       // Bounded: a few pathological holdings have thousands of officer rows —
       // the page previews a handful and links to the paginated officers table.
       dbRows("SELECT * FROM company_officers($1) LIMIT 500", [eik]),
+      // `relations` (the full connections jsonb) rides along so the shared
+      // political-links tile can render "(former)" / "declared stake N%" /
+      // role labels without a second round-trip to the company-politicians route.
       dbRows(
-        "SELECT politician, ref, kind, role, total_eur FROM company_politicians WHERE eik = $1 ORDER BY total_eur DESC NULLS LAST LIMIT 200",
+        "SELECT politician, ref, kind, role, relations, total_eur FROM company_politicians WHERE eik = $1 ORDER BY total_eur DESC NULLS LAST LIMIT 200",
         [eik],
       ),
       dbRows("SELECT company_procurement($1, $2, $3) AS r", [

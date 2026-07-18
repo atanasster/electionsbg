@@ -22,6 +22,14 @@ const KEY: Record<string, { en: string; bgKey: string }> = {
   liquidator: { en: "liquidator", bgKey: "procurement_rel_liquidator" },
   procurator: { en: "procurator", bgKey: "procurement_rel_procurator" },
   stake: { en: "declared stake", bgKey: "procurement_rel_stake" },
+  sole_owner: { en: "sole owner", bgKey: "procurement_rel_sole_owner" },
+  trustee: { en: "trustee", bgKey: "procurement_rel_trustee" },
+  verifier: { en: "audit commission", bgKey: "procurement_rel_verifier" },
+  ngo_board: { en: "NGO board member", bgKey: "procurement_rel_ngo_board" },
+  ngo_representative: {
+    en: "NGO representative",
+    bgKey: "procurement_rel_ngo_representative",
+  },
 };
 
 const relationLabel = (t: TFunction, rel: FundsMpRelation): string => {

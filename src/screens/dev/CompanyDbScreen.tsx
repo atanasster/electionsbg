@@ -71,6 +71,7 @@ import {
   type FundProjectRow,
 } from "../components/procurement/CompanyFundsTile";
 import { CompanyConnectionCheck } from "../components/procurement/CompanyConnectionCheck";
+import { CompanyPoliticalLinks } from "../components/CompanyPoliticalLinks";
 import { CompanyMagistratesTile } from "../components/procurement/CompanyMagistratesTile";
 import { NzokHospitalReimbursementTile } from "../components/procurement/nzok/NzokHospitalReimbursementTile";
 import { NzokActivityByEikTile } from "../components/procurement/nzok/NzokActivityByEikTile";
@@ -171,6 +172,7 @@ interface Politician {
   kind: string;
   role: string | null;
   total_eur: number | null;
+  relations?: unknown;
 }
 interface Debarred {
   name: string;
@@ -1510,40 +1512,7 @@ export const CompanyDbScreen: FC = () => {
           )}
 
           {company && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-base">
-                  <Landmark className="h-4 w-4" /> Политически връзки (
-                  {num.format(politicians.length)})
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {politicians.length === 0 ? (
-                  <div className="text-sm text-muted-foreground">
-                    Няма установени връзки с политици.
-                  </div>
-                ) : (
-                  <ul className="space-y-2">
-                    {politicians.map((p, i) => (
-                      <li key={`${p.ref}-${i}`} className="text-sm">
-                        <Link
-                          to={p.ref}
-                          className="font-medium text-accent hover:underline"
-                        >
-                          {p.politician}
-                        </Link>
-                        <span className="text-muted-foreground">
-                          {" "}
-                          · {p.kind === "mp" ? "депутат" : "служител"}
-                          {p.role ? ` · ${p.role}` : ""}
-                          {p.total_eur ? ` · ${formatEur(p.total_eur)}` : ""}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </CardContent>
-            </Card>
+            <CompanyPoliticalLinks eik={eik} politicians={politicians} />
           )}
 
           {company && <CompanyConnectionCheck eik={eik} />}

@@ -243,6 +243,16 @@ export const loadNgoFundingPg = async (): Promise<{
     });
     await c.query("COMMIT");
   });
+  // Funding feeds the NGO signals matview (foreign_funded / budget_subsidy).
+  // Refresh it if it exists (created by load_tr_pg.ts / migration 080); a DB that
+  // hasn't run the TR load yet simply has no matview to refresh — skip cleanly.
+  await withClient(async (c) => {
+    const present = await c
+      .query("SELECT to_regclass('public.ngo_signals') AS t")
+      .then((r) => r.rows[0]?.t != null)
+      .catch(() => false);
+    if (present) await c.query("REFRESH MATERIALIZED VIEW ngo_signals");
+  });
   return { rows: total, matched };
 };
 

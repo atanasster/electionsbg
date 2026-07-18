@@ -373,6 +373,12 @@ export const loadTrPg = async (): Promise<{
   const RISK_GRADE_SQL = fileURLToPath(
     new URL("./schema/pg/041_procurement_risk_grade.sql", import.meta.url),
   );
+  // Per-NGO public-interest signals (Phase 1: public-money) + the list matview.
+  // Composes contracts + fund_projects + ngo_funding + supplier_risk_grade, so
+  // applied only when ALL of those are present (guarded below).
+  const NGO_SIGNALS_SQL = fileURLToPath(
+    new URL("./schema/pg/080_ngo_signals.sql", import.meta.url),
+  );
   const hasContracts = await getPool()
     .query("SELECT to_regclass('public.contracts') AS t")
     .then((r) => r.rows[0]?.t != null)
@@ -383,6 +389,21 @@ export const loadTrPg = async (): Promise<{
     // 041 rebuilt the ranking matview from fresh company_politicians; repopulate
     // the per-scope serving table so the leaderboard doesn't go stale (F-007).
     await withClient((c) => rebuildRiskGradeScoped(c));
+    // NGO signals (080) also need fund_projects + ngo_funding. Apply + REFRESH
+    // only when both are present too — a TR-only DB (before an ИСУН / funding
+    // load) skips it cleanly. load_ngo_funding_pg.ts re-refreshes after funding.
+    const hasNgoDeps = await getPool()
+      .query(
+        "SELECT to_regclass('public.fund_projects') AS f, to_regclass('public.ngo_funding') AS n",
+      )
+      .then((r) => r.rows[0]?.f != null && r.rows[0]?.n != null)
+      .catch(() => false);
+    if (hasNgoDeps) {
+      await exec(readFileSync(NGO_SIGNALS_SQL, "utf8"));
+      // Matview is created WITH NO DATA; a plain REFRESH populates it (~2s over
+      // ~31k NGOs). Not CONCURRENTLY — it may be unpopulated on the first run.
+      await exec("REFRESH MATERIALIZED VIEW ngo_signals");
+    }
   }
 
   await exec(
