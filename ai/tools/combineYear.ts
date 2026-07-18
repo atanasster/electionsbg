@@ -17,6 +17,7 @@
 
 import type { ElectionInfo } from "../../src/data/dataTypes";
 import { electionsChrono } from "./dataset";
+import { factLabel } from "../render/factLabels";
 import { electionShortLabel, fmtInt, fmtPct } from "./format";
 import type {
   Column,
@@ -68,21 +69,6 @@ export const yearScope = (
 // per-row render hint (the hemicycle's party colour), never a value to compare.
 const DROP_KEYS = new Set(["election", "party", "query", "name", "color"]);
 
-// Friendlier labels for the common scalar fact keys (others fall back to the raw
-// key — acceptable for the rarer tools).
-const FACT_LABELS: Record<string, { bg: string; en: string }> = {
-  votes: { bg: "Гласове", en: "Votes" },
-  pct: { bg: "%", en: "%" },
-  seats: { bg: "Мандати", en: "Seats" },
-  passed_threshold: { bg: "Над прага", en: "Over threshold" },
-  turnout: { bg: "Активност", en: "Turnout" },
-  voters: { bg: "Гласували", en: "Voters" },
-  registered: { bg: "Регистрирани", en: "Registered" },
-  machine_share: { bg: "Машинно", en: "Machine" },
-  machine_votes: { bg: "Машинни гласове", en: "Machine votes" },
-  paper_votes: { bg: "Хартиени гласове", en: "Paper votes" },
-};
-
 export const combineByElection = async (
   tool: ToolDef,
   args: ToolArgs,
@@ -92,7 +78,7 @@ export const combineByElection = async (
 ): Promise<Envelope> => {
   const t = (bg: string, en: string) => (ctx.lang === "bg" ? bg : en);
   const labelOf = (e: ElectionInfo) => electionShortLabel(e.name, ctx.lang);
-  const factLabel = (k: string) => FACT_LABELS[k]?.[ctx.lang] ?? k;
+  const labelFor = (k: string) => factLabel(k, ctx.lang);
 
   // Run the tool for each ballot (chronological); drop any that error or 404 —
   // the combine should survive a single missing data file.
@@ -248,7 +234,7 @@ export const combineByElection = async (
     );
     const columns: Column[] = [
       { key: "k", label: t("Избор", "Election") },
-      ...keys.map((k) => ({ key: k, label: factLabel(k) })),
+      ...keys.map((k) => ({ key: k, label: labelFor(k) })),
     ];
     const rows: Row[] = got.map((g) => {
       const row: Row = { k: labelOf(g.e) };

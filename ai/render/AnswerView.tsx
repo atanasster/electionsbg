@@ -40,6 +40,7 @@ import type {
   Lang,
   SeriesPoint,
 } from "../tools/types";
+import { factLabel } from "./factLabels";
 import { siteLinks } from "./links";
 
 // Lazy so leaflet (and the geojson fetch) only ship when an answer has a map.
@@ -413,7 +414,7 @@ const DataTable = ({ env }: { env: Envelope }) => {
   );
 };
 
-const Scalar = ({ env }: { env: Envelope }) => (
+const Scalar = ({ env, lang }: { env: Envelope; lang: Lang }) => (
   <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-sm">
     {Object.entries(env.facts)
       // keys ending in _id are internal deep-link ids (see ai/render/links.ts),
@@ -421,7 +422,7 @@ const Scalar = ({ env }: { env: Envelope }) => (
       .filter(([k]) => !k.endsWith("_id"))
       .map(([k, v]) => (
         <div key={k} className="contents">
-          <dt className="text-muted-foreground">{k}</dt>
+          <dt className="text-muted-foreground">{factLabel(k, lang)}</dt>
           <dd className="font-medium">{String(v)}</dd>
         </div>
       ))}
@@ -604,7 +605,7 @@ export const AnswerView = ({
             <>
               {env.kind === "series" && <SeriesChart env={env} lang={lang} />}
               {env.kind === "table" && <DataTable env={env} />}
-              {env.kind === "scalar" && <Scalar env={env} />}
+              {env.kind === "scalar" && <Scalar env={env} lang={lang} />}
             </>
           )}
 
