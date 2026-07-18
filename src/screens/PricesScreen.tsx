@@ -148,7 +148,7 @@ export const PricesScreen: FC = () => {
             <div className="text-xs text-muted-foreground">
               {T("спрямо", "vs")} {baselineLabel}
               {index
-                ? ` · ${index.coverage.settlements} ${T("места", "places")} · ${index.coverage.chains} ${T("вериги", "chains")}`
+                ? ` · ${index.coverage.settlements} ${T("локации", "locations")} · ${index.coverage.chains} ${T("вериги", "chains")}`
                 : ""}
               {chainLo != null && chainHi != null
                 ? ` · ${T("кошница", "basket")} ${fmtEur(chainLo, lang)}–${fmtEur(chainHi, lang)}`
@@ -170,6 +170,7 @@ export const PricesScreen: FC = () => {
             up={up}
             down={down}
             nameFor={(id) => catName.get(id) ?? String(id)}
+            hrefFor={(id) => `/consumption/category/${id}`}
             title=""
           />
         </DashTile>
@@ -199,7 +200,12 @@ export const PricesScreen: FC = () => {
           <ul className="space-y-0.5 text-xs">
             {cheapestOblasts.map((p) => (
               <li key={p.code} className="flex justify-between gap-2">
-                <span className="min-w-0 truncate">{p.name}</span>
+                <Link
+                  to={`/consumption/region/${p.code}`}
+                  className="min-w-0 truncate hover:underline"
+                >
+                  {p.name}
+                </Link>
                 <span className="shrink-0 tabular-nums text-muted-foreground">
                   {fmtEur(p.basketLevel!, lang)}
                 </span>
@@ -217,7 +223,12 @@ export const PricesScreen: FC = () => {
           <ul className="space-y-0.5 text-xs">
             {(deals?.deals ?? []).slice(0, 4).map((d) => (
               <li key={d.slug} className="flex justify-between gap-2">
-                <span className="min-w-0 truncate">{d.title}</span>
+                <Link
+                  to={`/product/${d.slug}`}
+                  className="min-w-0 truncate hover:underline"
+                >
+                  {d.title}
+                </Link>
                 <span className="shrink-0 tabular-nums text-green-700 dark:text-green-400">
                   −{d.discPct}%
                 </span>

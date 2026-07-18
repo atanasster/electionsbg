@@ -15,6 +15,7 @@
 
 import { FC } from "react";
 import { TrendingUp, TrendingDown } from "lucide-react";
+import { Link } from "@/ux/Link";
 import { fmtPct, priceChangeColor } from "@/data/prices/usePrices";
 
 export interface MoverItem {
@@ -32,22 +33,44 @@ interface Common {
   nameFor: (id: number) => string;
   /** rows per direction (default 3). */
   limit?: number;
+  /** when set, each row's label links here — e.g. a category page. */
+  hrefFor?: (id: number) => string;
 }
 
 const Row: FC<{
   m: MoverItem;
   nameFor: (id: number) => string;
   color: string;
-}> = ({ m, nameFor, color }) => (
-  <li className="flex justify-between gap-2">
-    <span className="truncate min-w-0">{nameFor(m.id)}</span>
-    <span className={`tabular-nums shrink-0 ${color}`}>{fmtPct(m.change)}</span>
-  </li>
-);
+  hrefFor?: (id: number) => string;
+}> = ({ m, nameFor, color, hrefFor }) => {
+  const href = hrefFor?.(m.id);
+  return (
+    <li className="flex justify-between gap-2">
+      {href ? (
+        <Link to={href} className="truncate min-w-0 hover:underline">
+          {nameFor(m.id)}
+        </Link>
+      ) : (
+        <span className="truncate min-w-0">{nameFor(m.id)}</span>
+      )}
+      <span className={`tabular-nums shrink-0 ${color}`}>
+        {fmtPct(m.change)}
+      </span>
+    </li>
+  );
+};
 
 export const MoversSplit: FC<
   Common & { risersLabel: string; fallersLabel: string }
-> = ({ up, down, nameFor, limit = 3, risersLabel, fallersLabel }) => {
+> = ({
+  up,
+  down,
+  nameFor,
+  limit = 3,
+  hrefFor,
+  risersLabel,
+  fallersLabel,
+}) => {
   if (!up.length && !down.length) return null;
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-xs">
@@ -57,7 +80,7 @@ export const MoversSplit: FC<
         </div>
         <ul className="space-y-0.5">
           {up.slice(0, limit).map((m) => (
-            <Row key={m.id} m={m} nameFor={nameFor} color={RED} />
+            <Row key={m.id} m={m} nameFor={nameFor} color={RED} hrefFor={hrefFor} />
           ))}
         </ul>
       </div>
@@ -67,7 +90,13 @@ export const MoversSplit: FC<
         </div>
         <ul className="space-y-0.5">
           {down.slice(0, limit).map((m) => (
-            <Row key={m.id} m={m} nameFor={nameFor} color={GREEN} />
+            <Row
+              key={m.id}
+              m={m}
+              nameFor={nameFor}
+              color={GREEN}
+              hrefFor={hrefFor}
+            />
           ))}
         </ul>
       </div>
@@ -80,13 +109,14 @@ export const MoversInline: FC<Common & { title: string }> = ({
   down,
   nameFor,
   limit = 3,
+  hrefFor,
   title,
 }) => {
   const rows = [...up.slice(0, limit), ...down.slice(0, limit)];
   if (!rows.length) return null;
   return (
     <div className="text-xs">
-      <div className="font-medium mb-1">{title}</div>
+      {title ? <div className="font-medium mb-1">{title}</div> : null}
       <ul className="space-y-0.5">
         {rows.map((m) => (
           <Row
@@ -94,6 +124,7 @@ export const MoversInline: FC<Common & { title: string }> = ({
             m={m}
             nameFor={nameFor}
             color={priceChangeColor(m.change)}
+            hrefFor={hrefFor}
           />
         ))}
       </ul>

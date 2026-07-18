@@ -4,6 +4,7 @@
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "@/ux/Link";
 import { useUnitPrices, fmtEur } from "@/data/prices/usePrices";
 
 export const UnitPriceTile: FC<{ limit?: number }> = ({ limit = 4 }) => {
@@ -28,7 +29,12 @@ export const UnitPriceTile: FC<{ limit?: number }> = ({ limit = 4 }) => {
       <ul className="space-y-0.5">
         {best.map((p) => (
           <li key={p.slug} className="flex justify-between gap-2">
-            <span className="min-w-0 truncate">{p.title}</span>
+            <Link
+              to={`/product/${p.slug}`}
+              className="min-w-0 truncate hover:underline"
+            >
+              {p.title}
+            </Link>
             <span className="shrink-0 tabular-nums text-green-700 dark:text-green-400">
               {fmtEur(p.eurPerUnit, lang)}
             </span>
