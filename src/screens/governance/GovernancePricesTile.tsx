@@ -88,14 +88,27 @@ export const GovernancePricesTile: FC<Props> = ({
     .sort((a, b) => b.indexSinceEuro - a.indexSinceEuro)
     .slice(0, 3);
 
+  // Drill-down target: settlement rows open their per-place consumption
+  // dashboard (/consumption/<ekatte>); oblast rows open the region node. `code`
+  // is the EKATTE (settlement tier) or oblast code — both resolver-safe.
+  const placeHref = (p: PriceRankPlace) =>
+    p.tier === "oblast"
+      ? `/consumption/region/${p.code}`
+      : `/consumption/${p.code}`;
+
   const placeRow = (p: PriceRankPlace, showLevel: boolean) => (
-    <li key={p.code} className="flex justify-between gap-2">
-      <span className="truncate min-w-0">{p.name}</span>
-      <span className="tabular-nums shrink-0 text-muted-foreground">
-        {showLevel && p.basketLevel != null
-          ? fmtEur(p.basketLevel, lang)
-          : fmtPct(p.indexSinceEuro / 100 - 1)}
-      </span>
+    <li key={p.code}>
+      <Link
+        to={placeHref(p)}
+        className="flex justify-between gap-2 hover:text-primary hover:underline"
+      >
+        <span className="truncate min-w-0">{p.name}</span>
+        <span className="tabular-nums shrink-0 text-muted-foreground">
+          {showLevel && p.basketLevel != null
+            ? fmtEur(p.basketLevel, lang)
+            : fmtPct(p.indexSinceEuro / 100 - 1)}
+        </span>
+      </Link>
     </li>
   );
 

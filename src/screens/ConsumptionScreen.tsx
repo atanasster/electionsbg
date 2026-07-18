@@ -9,6 +9,7 @@ import { SEO } from "@/ux/SEO";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { TileHubGrid, TileHubSection, TILE_ACCENTS } from "@/ux/infographic";
 import { ConsumptionSearchTile } from "@/screens/components/consumption/ConsumptionSearchTile";
+import { ConsumptionAreaBanner } from "@/screens/components/consumption/ConsumptionAreaBanner";
 import { CONSUMPTION_SCENES } from "@/screens/consumption/consumptionScenes";
 import { useHubStats } from "@/data/prices/usePrices";
 
@@ -235,6 +236,8 @@ export const ConsumptionScreen = () => {
       <PlaceHeader active="consumption" level="country" className="my-4" />
 
       <ConsumptionSearchTile />
+
+      <ConsumptionAreaBanner />
 
       <div data-og="consumption-hub">
         <TileHubGrid sections={sections} className="mt-6" />

@@ -45,7 +45,15 @@ type GeoState =
   | { kind: "timeout" } // GPS fix didn't return in 10 s
   | { kind: "no-match" }; // got coords but no settlement within range
 
-export const AreaSniperButton: FC = () => {
+interface Props {
+  /** Where choosing an area navigates. Defaults to the Governance dashboard;
+   *  the Consumption hub passes "/consumption" so the picker opens the
+   *  per-place consumption dashboard instead. The anchor (?area=) is set the
+   *  same way regardless. */
+  basePath?: string;
+}
+
+export const AreaSniperButton: FC<Props> = ({ basePath = "/governance" }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === "bg" ? "bg" : "en";
   const navigate = useNavigate();
@@ -84,11 +92,11 @@ export const AreaSniperButton: FC = () => {
       // chosen area. A separate "open dashboard" link in the popover offers
       // the explicit navigation. (Behaviour decision: choosing an area is a
       // context act, not a navigation act.)
-      navigate(`/governance/${id}`);
+      navigate(`${basePath}/${id}`);
       setOpen(false);
       setQuery("");
     },
-    [setAnchor, navigate],
+    [setAnchor, navigate, basePath],
   );
 
   const requestLocation = useCallback(() => {
@@ -214,7 +222,7 @@ export const AreaSniperButton: FC = () => {
                   size="sm"
                   className="flex-1"
                   onClick={() => {
-                    navigate(`/governance/${anchor.id}`);
+                    navigate(`${basePath}/${anchor.id}`);
                     setOpen(false);
                   }}
                 >
