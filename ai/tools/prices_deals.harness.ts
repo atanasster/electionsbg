@@ -185,6 +185,19 @@ const run = async () => {
     "localDeals(area=68134 ekatte): resolves to muni deals",
   );
 
+  // Sofia район forms fold to SOF46 WITHOUT a place-shard round-trip (the район
+  // composite has no shard) — the gap the frontend fix also closed.
+  const dRayonEkatte = await localDeals({}, ctx("68134-2401"));
+  assert(
+    (dRayonEkatte.rows?.length ?? 0) === 2,
+    "localDeals(area=68134-2401 район composite): folds to SOF46",
+  );
+  const dRayonObshtina = await localDeals({}, ctx("S2401"));
+  assert(
+    (dRayonObshtina.rows?.length ?? 0) === 2,
+    "localDeals(area=S2401 район obshtina): folds to SOF46",
+  );
+
   // uncovered obshtina → national fallback
   const d3 = await localDeals({}, ctx("EMPTY"));
   assert(

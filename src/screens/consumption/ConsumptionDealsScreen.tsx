@@ -20,6 +20,7 @@ import { DealsList } from "@/screens/components/consumption/DealsList";
 import { MethodologyCallout } from "@/screens/components/MethodologyCallout";
 import { useAreaAnchor } from "@/data/area/areaAnchor";
 import { useAreaResolver } from "@/data/area/useAreaResolver";
+import { resolvePriceKeys } from "@/data/prices/pricePlaceKeys";
 import { useDeals, useMuniDeals, fmtPriceDate } from "@/data/prices/usePrices";
 
 export const ConsumptionDealsScreen: FC = () => {
@@ -34,7 +35,16 @@ export const ConsumptionDealsScreen: FC = () => {
   const forceAll = params.get("all") === "1";
   const anchor = useAreaAnchor();
   const area = useAreaResolver(anchor?.id);
-  const obshtina = area && area.kind !== "unknown" ? area.obshtina : null;
+  // Route through resolvePriceKeys so Sofia (city SOF00 / a район) maps to the
+  // SOF46 deals-muni key — matching the place dashboard. Using the raw
+  // area.obshtina here would miss every Sofia anchor.
+  const obshtina =
+    area && area.kind !== "unknown"
+      ? resolvePriceKeys(
+          area.obshtina,
+          area.kind === "settlement" ? area.ekatte : undefined,
+        ).priceObshtina
+      : null;
   const placeName =
     area?.kind === "settlement"
       ? bg

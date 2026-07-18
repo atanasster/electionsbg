@@ -617,7 +617,11 @@ export const detectPriceDeal = (q: string): boolean => DEAL.test(q);
  *  key for the deals-muni / chains-muni payloads. An ekatte is mapped via its
  *  place shard; Sofia's aggregate codes fold to SOF46. */
 const areaToObshtina = async (area: string): Promise<string | ""> => {
-  if (/^SOF/i.test(area)) return "SOF46";
+  // Sofia is one city-wide panel keyed SOF46 — no per-район shard. Fold every
+  // Sofia form (SOF00/SOF, a район obshtina S2xxx, the city ekatte 68134 or a
+  // район composite 68134-xxxx) to SOF46, mirroring the frontend resolvePriceKeys.
+  if (/^SOF/i.test(area) || /^S2\d{3}$/.test(area) || /^68134(-|$)/.test(area))
+    return "SOF46";
   if (/^\d/.test(area)) {
     const s = await pricePayload<SettFile>("place", area).catch(
       () => undefined,
