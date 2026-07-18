@@ -71,8 +71,11 @@ export const ENGLISH_STATIC_PAGES = [
   "consumption",
   "consumption/overview",
   "consumption/eu",
+  "consumption/fuel",
   "consumption/chains",
   "consumption/categories",
+  "consumption/products",
+  "consumption/deals",
   "risk-analysis",
   "risk-analysis/methodology",
   "risk-score",
@@ -166,6 +169,10 @@ export const routeDefs = (year: string): RouteDefs => [
     file: `src/screens/consumption/ConsumptionEuScreen.tsx`,
   },
   {
+    path: "consumption/fuel",
+    file: `src/screens/consumption/ConsumptionFuelScreen.tsx`,
+  },
+  {
     path: "consumption/chains",
     file: `src/screens/consumption/ConsumptionChainsScreen.tsx`,
   },
@@ -173,6 +180,17 @@ export const routeDefs = (year: string): RouteDefs => [
     path: "consumption/categories",
     file: `src/screens/consumption/ConsumptionCategoriesScreen.tsx`,
   },
+  {
+    path: "consumption/products",
+    file: `src/screens/consumption/ProductsBrowserScreen.tsx`,
+  },
+  {
+    path: "consumption/deals",
+    file: `src/screens/consumption/ConsumptionDealsScreen.tsx`,
+  },
+  // consumption/basket is intentionally NOT prerendered/sitemapped — it is a
+  // personal, localStorage-backed page that renders empty by default, so it has
+  // no stable indexable content (unlike the data pages above).
   { path: "simulator", file: `src/screens/SimulatorScreen.tsx` },
   { path: "compare", file: `src/screens/CompareScreen.tsx` },
   { path: "governance", file: `src/screens/GovernanceScreen.tsx` },

@@ -45,10 +45,17 @@ const TARGETS: Target[] = [
     scrollTo: "map",
     wait: "#map .leaflet-tile-loaded, #map svg path",
   },
+  // The BG-vs-EU fuel-price trend (4-line Recharts chart + the vs-EU stat pair).
+  {
+    path: "/consumption/fuel",
+    out: "consumption-fuel.png",
+    scrollTo: "prices",
+    wait: "#prices .recharts-line, #prices .tabular-nums",
+  },
 ];
-// Note: the chains leaderboard + category list pages are list-shaped (no chart /
-// map hero), so they reuse the branded hub OG (/og/consumption.png) via their
-// prerender node rather than a bespoke screenshot.
+// Note: the chains leaderboard, category and product list pages plus the deals
+// page are list-shaped (no chart / map hero), so they reuse the branded hub OG
+// (/og/consumption.png) via their prerender node rather than a bespoke screenshot.
 
 const run = async (): Promise<void> => {
   fs.mkdirSync(OG_DIR, { recursive: true });
@@ -59,7 +66,13 @@ const run = async (): Promise<void> => {
       deviceScaleFactor: 2, // existing og images are 2400x1260 — 2x retina
     });
     const page = await context.newPage();
-    for (const t of TARGETS) {
+    // Optional path filter (e.g. `... screenshot_consumption.ts fuel`) so a
+    // single OG can be regenerated without rewriting the others' bytes.
+    const only = process.argv[2];
+    const targets = only
+      ? TARGETS.filter((t) => t.path.includes(only))
+      : TARGETS;
+    for (const t of targets) {
       const url = `${BASE}${t.path}`;
       console.log(`→ ${url}`);
       try {

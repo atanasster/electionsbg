@@ -1785,6 +1785,78 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "consumption/fuel",
+    title: "Цени на горивата в България спрямо ЕС | electionsbg.com",
+    description:
+      "Цените на бензин А95 и дизел в България спрямо средното за ЕС — потребителски цени с ДДС от Седмичния нефтен бюлетин на Европейската комисия. Българските горива са трайно под средното за ЕС.",
+    breadcrumbName: "Горива",
+    ogImage: "/og/consumption-fuel.png",
+    bodyHtml: `
+<h1>Цени на горивата в България спрямо ЕС</h1>
+<p>Цените на бензин А95 и автомобилен дизел в България, сравнени със средното за Европейския съюз — потребителски цени с всички данъци, седмично. Българските горива са трайно под средното за ЕС (бензинът с около 20-24%).</p>
+<p>Това е единственият чист показател за издръжката на живота извън хранителната кошница. Виж и целия <a href="${SITE_URL}/consumption">изглед „Потребление"</a>.</p>
+<p>Източник: <a href="https://energy.ec.europa.eu/data-and-analysis/weekly-oil-bulletin_en" rel="nofollow noopener">Европейска комисия — Седмичен нефтен бюлетин</a>.</p>`.trim(),
+    english: {
+      title: "Fuel prices in Bulgaria vs the EU | electionsbg.com",
+      description:
+        "Petrol 95 and diesel prices in Bulgaria against the EU average — consumer prices incl. VAT from the European Commission Weekly Oil Bulletin. Bulgarian fuel is consistently below the EU average.",
+      breadcrumbName: "Fuel",
+      bodyHtml: `
+<h1>Fuel prices in Bulgaria vs the EU</h1>
+<p>The price of petrol 95 and automotive diesel in Bulgaria compared with the European Union average — consumer prices including all taxes, weekly. Bulgarian fuel is consistently below the EU average (petrol by roughly 20-24%).</p>
+<p>It is the one clean cost-of-living indicator beyond the grocery basket. See also the full <a href="${SITE_URL}/en/consumption">Consumption view</a>.</p>
+<p>Source: <a href="https://energy.ec.europa.eu/data-and-analysis/weekly-oil-bulletin_en" rel="nofollow noopener">European Commission — Weekly Oil Bulletin</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "consumption/products",
+    title: "Продукти и цени в България — каталог от еврото | electionsbg.com",
+    description:
+      "Търси и сравни цените на хиляди продукти в България от въвеждането на еврото — по вериги и населени места, с история на цените. Мониторингова кошница на КЗП.",
+    breadcrumbName: "Продукти",
+    ogImage: "/og/consumption.png",
+    bodyHtml: `
+<h1>Продукти и цени в България</h1>
+<p>Каталог от над 118 000 продукта, извлечени от ежедневния портал на КЗП „Колко струва" от въвеждането на еврото на 1 януари 2026 г. За всеки продукт има сравнение по вериги и история на цената.</p>
+<p><strong>Мониторингов индекс на КЗП, не официален ИПЦ.</strong> Виж целия <a href="${SITE_URL}/consumption">изглед „Потребление"</a>.</p>
+<p>Източник: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">КЗП — „Колко струва" (отворени данни)</a>.</p>`.trim(),
+    english: {
+      title: "Products and prices in Bulgaria — catalogue | electionsbg.com",
+      description:
+        "Search and compare the prices of thousands of products in Bulgaria since the euro — by chain and settlement, with price history. The CPC monitoring basket.",
+      breadcrumbName: "Products",
+      bodyHtml: `
+<h1>Products and prices in Bulgaria</h1>
+<p>A catalogue of over 118,000 products derived from the CPC "How Much Does It Cost" daily portal since the euro changeover on 1 January 2026. Each product has a cross-chain price comparison and a price history.</p>
+<p><strong>CPC monitoring index, not official CPI.</strong> See the full <a href="${SITE_URL}/en/consumption">Consumption view</a>.</p>
+<p>Source: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">CPC — "How Much Does It Cost" (open data)</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "consumption/deals",
+    title: "Най-големите намаления на цени в България | electionsbg.com",
+    description:
+      "Най-големите текущи намаления в потребителската кошница в България — по вериги и продукти, от ежедневния портал на КЗП „Колко струва“.",
+    breadcrumbName: "Промоции",
+    ogImage: "/og/consumption.png",
+    bodyHtml: `
+<h1>Най-големите намаления на цени в България</h1>
+<p>Продуктите с най-голям спад в цената в момента, по данни на ежедневния портал на КЗП „Колко струва" — по вериги и населени места, от въвеждането на еврото.</p>
+<p><strong>Мониторингов индекс на КЗП, не официален ИПЦ.</strong> Виж целия <a href="${SITE_URL}/consumption">изглед „Потребление"</a>.</p>
+<p>Източник: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">КЗП — „Колко струва" (отворени данни)</a>.</p>`.trim(),
+    english: {
+      title: "The biggest price cuts in Bulgaria | electionsbg.com",
+      description:
+        'The biggest current price cuts in the Bulgarian consumer basket — by chain and product, from the CPC "How Much Does It Cost" daily portal.',
+      breadcrumbName: "Deals",
+      bodyHtml: `
+<h1>The biggest price cuts in Bulgaria</h1>
+<p>The products with the largest current price drop, from the CPC "How Much Does It Cost" daily portal — by chain and settlement, since the euro changeover.</p>
+<p><strong>CPC monitoring index, not official CPI.</strong> See the full <a href="${SITE_URL}/en/consumption">Consumption view</a>.</p>
+<p>Source: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">CPC — "How Much Does It Cost" (open data)</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "indicators/economy",
     title: "Икономика — БВП, инфлация, безработица, нагласи | electionsbg.com",
     description:
