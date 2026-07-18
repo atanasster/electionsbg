@@ -165,9 +165,10 @@ export const ConsumptionFuelScreen: FC = () => {
                       tickFormatter={(v: number) => `${v.toFixed(1)}`}
                     />
                     <Tooltip
-                      formatter={(v: number) =>
-                        `${fmtEur(v, lang)}/${T("л", "L")}`
-                      }
+                      formatter={(v: number, name: string) => [
+                        `${fmtEur(v, lang)}/${T("л", "L")}`,
+                        legend.find((l) => l.key === name)?.name ?? name,
+                      ]}
                       labelStyle={{ fontSize: 11 }}
                       contentStyle={{ fontSize: 11 }}
                     />
