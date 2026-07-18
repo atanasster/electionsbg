@@ -11,6 +11,7 @@ import {
   Gavel,
   Timer,
   CalendarClock,
+  TrendingUp,
   ShieldAlert,
   ShieldCheck,
 } from "lucide-react";
@@ -67,6 +68,16 @@ const FLAG_META: Record<TenderRiskKey, FlagMeta> = {
     hint: [
       "risk_flag_short_decision_hint",
       "The contract was signed only days after the submission deadline.",
+    ],
+  },
+  awardOverEstimate: {
+    icon: <TrendingUp className="h-3 w-3" />,
+    cls: RED,
+    short: ["risk_flag_award_over_estimate", "Over estimate"],
+    long: ["risk_flag_award_over_estimate_long", "Awards exceed the estimate"],
+    hint: [
+      "risk_flag_award_over_estimate_hint",
+      "The awarded contracts sum to more than the procedure's forecast value — the estimate was overshot.",
     ],
   },
 };
@@ -146,6 +157,8 @@ const FlagChips: FC<{ result: TenderRiskResult }> = ({ result }) => {
       return `${t("risk_cri_days_label") || "Window"}: ${result.submissionDays} ${t("risk_flag_short_period_days_abbr") || "d"}`;
     if (key === "shortDecisionPeriod" && result.decisionDays != null)
       return `${t("risk_cri_decision_label") || "Decision"}: ${result.decisionDays} ${t("risk_flag_short_period_days_abbr") || "d"}`;
+    if (key === "awardOverEstimate" && result.overrunPct != null)
+      return `${t("risk_flag_annex_growth_delta") || "Growth"}: +${Math.round(result.overrunPct * 100)}%`;
     return null;
   };
 

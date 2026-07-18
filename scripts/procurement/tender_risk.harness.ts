@@ -138,7 +138,48 @@ console.log(
   );
 }
 
-// 8. cri = round(100 * fired / available), excluding unavailable checks.
+// 8. Award over estimate — awards sum to >110% of the procedure estimate.
+{
+  // Two awards of 60 = 120 vs estimate 100 → ratio 1.20 > 1.10 → fires.
+  const r = computeTenderRisk(
+    base({ procedureType: "Открита процедура", estimatedValueEur: 100 }),
+    [
+      { ...award("2024-01-10"), amountEur: 60 },
+      { ...award("2024-01-10"), amountEur: 60 },
+    ],
+  );
+  const c = r.components.find((x) => x.key === "awardOverEstimate");
+  check(
+    "awards 120 vs estimate 100 → awardOverEstimate fires (+20%)",
+    c?.fired === true && Math.abs((r.overrunPct ?? 0) - 0.2) < 1e-9,
+    JSON.stringify({ c, overrun: r.overrunPct }),
+  );
+}
+{
+  // awards at 105% of estimate → within the 10% buffer, not fired.
+  const r = computeTenderRisk(
+    base({ procedureType: "Открита процедура", estimatedValueEur: 100 }),
+    [{ ...award("2024-01-10"), amountEur: 105 }],
+  );
+  const c = r.components.find((x) => x.key === "awardOverEstimate");
+  check(
+    "awards 105 vs estimate 100 → available but NOT fired (10% buffer)",
+    c?.available === true && c?.fired === false,
+  );
+}
+{
+  // no estimate → unavailable.
+  const r = computeTenderRisk(base({ procedureType: "Открита процедура" }), [
+    award("2024-01-10"),
+  ]);
+  check(
+    "no estimate → awardOverEstimate UNAVAILABLE",
+    r.components.find((x) => x.key === "awardOverEstimate")?.available ===
+      false,
+  );
+}
+
+// 9. cri = round(100 * fired / available), excluding unavailable checks.
 {
   const { r } = comp(
     base({

@@ -37,12 +37,14 @@ export type TenderRiskInput = {
   procedureType?: string | null;
   publicationDate?: string | null;
   submissionDeadline?: string | null;
+  estimatedValueEur?: number | null;
 };
 
 export type TenderRiskKey =
   | "nonOpenProcedure"
   | "rushedDeadline"
-  | "shortDecisionPeriod";
+  | "shortDecisionPeriod"
+  | "awardOverEstimate";
 
 export type TenderRiskComponent = {
   key: TenderRiskKey;
@@ -61,6 +63,9 @@ export type TenderRiskResult = {
   /** Supporting detail for tooltips (null when the check was unavailable). */
   submissionDays: number | null;
   decisionDays: number | null;
+  /** Awarded-over-estimate overrun fraction (0.15 = awards 15% over the
+   *  procedure estimate); null when unavailable. */
+  overrunPct: number | null;
 };
 
 // The competitive tiers — the only procedures where a short submission window is
@@ -78,6 +83,14 @@ const NON_OPEN =
 const RUSHED_SUBMISSION_DAYS = 12;
 // Award decided within this many days of the deadline (PRWP 10444 short band).
 const SHORT_DECISION_DAYS = 4;
+// Awards summing to more than this × the procedure estimate — the forecast was
+// overshot. Base rate 4.1% at 1.10 (median awarded/estimated = 99%, p95 = 105%);
+// the 10% buffer absorbs rounding/minor scope tweaks. PwC/Ecorys flag 18
+// (+34.1%). One-sided by design: awards UNDER the estimate are usually
+// competition savings, not a signal — and OCP R016's under-valuation is a
+// different comparison (estimate vs the peer-CPV norm, already on the normalcy
+// panel). See scripts/procurement/tender_base_rates.sql / plan §7.3.
+const AWARD_OVER_ESTIMATE_RATIO = 1.1;
 
 const MS_PER_DAY = 86_400_000;
 
@@ -127,13 +140,11 @@ export const computeTenderRisk = (
 
   // 3. Short decision period — award decided just days after the deadline.
   //    Available only once the procedure is awarded (earliest signed contract).
-  //    ⚠️ Currently data-limited: tender_detail() (032) joins awards on ocid, but
-  //    the canonical lineage key is unp (legacy contracts drop ocid), so `awards`
-  //    is populated for only ~8% of awarded tenders. This check is therefore
-  //    unavailable (never false-positive) for the rest; it lights up corpus-wide
-  //    the moment that join is switched to unp. See docs/plans §6d.
-  const earliestSigned = awards
-    .filter((a) => a.tag === "contract" && a.dateSigned)
+  //    `awards` is populated via tender_detail()'s unp join (032, fixed in
+  //    30aaf2558), so it now resolves corpus-wide, not just for ocid-linked rows.
+  const signedAwards = awards.filter((a) => a.tag === "contract");
+  const earliestSigned = signedAwards
+    .filter((a) => a.dateSigned)
     .map((a) => a.dateSigned as string)
     .sort()[0];
   const rawDecisionDays = dayDiff(tender.submissionDeadline, earliestSigned);
@@ -145,6 +156,24 @@ export const computeTenderRisk = (
     scoredDecision !== null &&
       scoredDecision >= 1 &&
       scoredDecision <= SHORT_DECISION_DAYS,
+  );
+
+  // 4. Award over estimate — the awards sum to more than 110% of the procedure
+  //    forecast. Available only once awarded (needs an awarded sum) and the
+  //    estimate is published. estimatedValueEur is a FORECAST — this is a
+  //    forecast-vs-actual overshoot, not a spend total.
+  const awardedSum = signedAwards.reduce(
+    (s, a) => s + (typeof a.amountEur === "number" ? a.amountEur : 0),
+    0,
+  );
+  const est = tender.estimatedValueEur;
+  const overEstimateScorable =
+    typeof est === "number" && est > 0 && awardedSum > 0;
+  const overrunPct = overEstimateScorable ? awardedSum / est - 1 : null;
+  add(
+    "awardOverEstimate",
+    overEstimateScorable,
+    overEstimateScorable && awardedSum / est > AWARD_OVER_ESTIMATE_RATIO,
   );
 
   const availableCount = components.filter((c) => c.available).length;
@@ -160,5 +189,6 @@ export const computeTenderRisk = (
     hasFlag: firedCount > 0,
     submissionDays: scoredWindow,
     decisionDays: scoredDecision,
+    overrunPct,
   };
 };
