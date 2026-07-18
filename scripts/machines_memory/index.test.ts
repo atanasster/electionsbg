@@ -3,19 +3,29 @@ import {
   parseSectionRows,
   mergeSectionVotes,
   partyNumColumn,
+  PARLIAMENT_BLOCK,
   type MachineVotes,
 } from "./index";
 
-// A post-2021 suemg row: `section;<code>;partyNum;votes;<pref>`.
-// pCol = 2, so votes live at row[3] (pCol+1). The neighbouring row[5] (pCol+3)
-// does not exist in this format — guarding it would drop (or NaN) every row.
+// A post-2021 parliamentary suemg row: `section;64;partyNum;votes;<pref>`.
+// row[1] = election-type block (64 = parliament); pCol = 2, so party is row[2]
+// and votes live at row[3] (pCol+1).
 const row = (section: string, partyNum: number, votes: string | number) => [
   section,
-  "256",
+  PARLIAMENT_BLOCK,
   String(partyNum),
   String(votes),
   "0",
 ];
+
+// A row from a DIFFERENT ballot held the same day (president=256 / EU=128),
+// which must be excluded from the parliamentary tally.
+const otherBlockRow = (
+  section: string,
+  block: string,
+  partyNum: number,
+  votes: string | number,
+) => [section, block, String(partyNum), String(votes), "0"];
 
 describe("partyNumColumn", () => {
   it("uses column 1 up to and including the 2021-07-11 cycle", () => {
@@ -63,13 +73,41 @@ describe("parseSectionRows — column & validity (FINDING-003)", () => {
     const res = parseSectionRows(
       [
         row(SECTION, 99, 500),
-        ["010100001-1", "256", "x", "9", "0"],
+        [SECTION, PARLIAMENT_BLOCK, "x", "9", "0"],
         row(SECTION, 3, 8),
       ],
       SECTION,
       "2021_11_14",
     );
     expect(res.votes).toEqual([{ partyNum: 3, votes: 8 }]);
+  });
+
+  it("counts ONLY the parliamentary block (64), excluding president/EU rows", () => {
+    const res = parseSectionRows(
+      [
+        row(SECTION, 1, 10), // parliament
+        otherBlockRow(SECTION, "256", 2, 999), // president — must be ignored
+        otherBlockRow(SECTION, "128", 3, 888), // EU parliament — must be ignored
+        row(SECTION, 4, 20), // parliament
+      ],
+      SECTION,
+      "2021_11_14",
+    );
+    expect(res.votes).toEqual([
+      { partyNum: 1, votes: 10 },
+      { partyNum: 4, votes: 20 },
+    ]);
+  });
+
+  it("does not let a same-partyNum president row shadow the parliament vote", () => {
+    // President block appears FIRST for partyNum 5 — it must not be the value
+    // stored, nor block the later parliament row from counting.
+    const res = parseSectionRows(
+      [otherBlockRow(SECTION, "256", 5, 999), row(SECTION, 5, 12)],
+      SECTION,
+      "2021_11_14",
+    );
+    expect(res.votes).toEqual([{ partyNum: 5, votes: 12 }]);
   });
 
   it("keeps the first occurrence of a duplicated party within one section", () => {
