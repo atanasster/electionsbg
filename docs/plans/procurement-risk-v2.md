@@ -692,9 +692,15 @@ as relative ordering only.
    dropped:** award ≪ estimate is usually competition savings, not a signal — and OCP R016's
    under-valuation is a *different* comparison (estimate vs the peer-CPV norm, which the normalcy
    panel already surfaces), not award-vs-estimate. One-sided (over) is the clean, PwC-backed side.
-4. **Threshold-hugging / CPV-splitting — RESEARCHED + MEASURED 2026-07-18; build deferred, see
-   below.** The ЗОП чл. 20 ал. 4 **direct-award ceiling** (below which a buyer may contract with
-   NO procedure) is now pinned by primary-source research — **date- and category-dependent**:
+4. **Threshold-hugging / CPV-splitting — ✅ SHIPPED 2026-07-18 (386871d92), with editorial
+   sign-off + strict framing.** `splitPurchase` flag: 033 precomputes 208 split pair-years (all
+   direct, each ≤ the чл.20 ал.4 ceiling, Σ over it, same buyer+supplier+CPV-div+year) → scorer
+   flag keyed `buyer|supplier|cpvDiv|year`. **Framing is load-bearing** — chip "Разделяне?" /
+   "Split?" (a question, amber not red), tooltip "чл.20 ал.4 permits separate recurring needs —
+   signal for review, not a proven breach"; weighted 25 for the irreducible FP floor. Verified:
+   Български пощи → Престиж БИЗНЕС-93 (6 direct works awards, Σ €204,517) fires — and it's a 6-lot
+   procedure, the exact false-positive the framing guards. Synced to cloud (208/208). The ЗОП
+   чл. 20 ал. 4 ceilings (primary-source, **date/category-dependent**):
 
    | category | ≤2023 (30k/50k лв) | 2024+ (50k/80k лв) |
    |---|---|---|
