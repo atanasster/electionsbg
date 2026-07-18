@@ -230,7 +230,7 @@ never an O(n²) all-pairs pass. Within a block, tiers highest confidence first:
 
 Public-surface rule: a page renders a person or an edge only when the underlying rows are
 `status='active'` AND `confidence IN ('exact_id','high','manual')`. `review`/`medium` are internal.
-The existing "трейс, не доказателство / name match — identity not verified" disclaimer stays on
+The existing "следа, не доказателство / name match — identity not verified" disclaimer stays on
 every inferred edge.
 
 ---
@@ -331,7 +331,7 @@ out to `partyDonors`/`personDonations`.
   basis (`reference_procurement_eur_sum_basis`), no client sums/rounding, exact `facts` strings.
 - **Defamation/confidence (NEW for AI output):** `personConnections` + `donorProcurementLinks` narrate
   person↔person inferences, so their `narrate.ts` templates MUST carry confidence + append the
-  "трейс, не доказателство" disclaimer, and only `active`/high-confidence links may narrate — the
+  "следа, не доказателство" disclaimer, and only `active`/high-confidence links may narrate — the
   same public-surface rule as §3/§8, enforced in the narration layer. **Gap: the grounded gate is
   numbers-only** (`numbersGrounded`) — it does nothing to stop the model stating an unverified link
   as fact or dropping the disclaimer. §4b therefore requires a NEW gate dimension (a
@@ -437,7 +437,7 @@ that returns citations for a human to confirm. It NEVER auto-promotes.
   claim to store with its URL, not an action to take. No auto-merge from page content.
 - **Articles are a LEAD, not proof.** Evidence raises a link's *reviewability*, not its truth. The
   person page shows confirmed evidence as **cited sources** (outlet + link) beside the existing
-  "трейс, не доказателство" disclaimer — journalism-grade sourcing, not an accusation by the site.
+  "следа, не доказателство" disclaimer — journalism-grade sourcing, not an accusation by the site.
 - **Provenance is mandatory** — every row carries `url` + `retrieved_at` + `outlet`; no naked claims.
 - **Deterministic identity still wins.** The LLM never sets `confidence`/`status` directly; it only
   produces `person_link_evidence` that a human weighs. The resolver stays deterministic.
@@ -591,7 +591,7 @@ variant). A new tool that isn't retrieved is dead code, so this is a hard gate:
 + a NEW `ai/llm/claimsGrounded.test.ts` (the number gate is numbers-only; person↔person inference
 needs a new dimension — see §4b):
 - For `personConnections`/`donorProcurementLinks` envelopes, `narrate()` output ALWAYS contains the
-  "трейс, не доказателство" disclaimer (BG) / equivalent (EN) whenever an inferred person↔person link
+  "следа, не доказателство" disclaimer (BG) / equivalent (EN) whenever an inferred person↔person link
   is present. Snapshot the exact bilingual disclaimer strings so they can't silently drift.
 - **Never narrates below `active`/high:** given an envelope whose `facts` include a `medium`/`review`
   link, the narrated sentence must NOT state it as an established connection (assert the name-pair is
@@ -646,8 +646,8 @@ chip; `ДС` is always shown when present ("just ДС" is one click).
 
 **Confidence encoding** maps the `person_role.confidence` enum to visuals: `exact_id`/`high` →
 solid line + "потвърдена" chip; `medium` (the review-promoted / bridged tier) → dashed line +
-"трейс" chip. `review`/unpromoted never render (public-surface rule, §3). ДС-flagged nodes carry a
-red ring + badge regardless of tier. Every inferred edge keeps the "трейс, не доказателство"
+"следа" chip. `review`/unpromoted never render (public-surface rule, §3). ДС-flagged nodes carry a
+red ring + badge regardless of tier. Every inferred edge keeps the "следа, не доказателство"
 disclaimer.
 
 **Evidence** — an edge's `evidenceCount` comes from confirmed `person_link_evidence` rows (§5a); the
