@@ -627,18 +627,18 @@ contract shape (`scoreRow(awardToContract(...))`) — contract-grain scoring on 
 stays, it is correct, and it is a separate block/label from the new procedure-grain panel.
 
 **Two deferred follow-ups (kept out to stay reviewable):**
-- **Step 3b — the `/procurement/tenders` browser column.** Needs `submission_deadline` (and any
-  funding fields) added to the `tenders` table registry `select` + the `tenders_list` view
-  (`functions/db_table.js` L121–177); today the browser rows carry `procedure_type` +
-  `publication_date` but NOT `submission_deadline`, so the tier-conditional window flag can't be
-  computed client-side there. The non-open flag alone *could* ship on procedure_type today.
-- **⭐ `tender_detail()` awards join (032): ocid → unp.** MEASURED: only **8.3%** of tenders that
-  have an award (by unp) are visible via the current `c.ocid = t.ocid` join — so ~92% of awarded
-  tenders show **no awards** on the detail page (this already breaks the existing `TenderAwards`
-  section, not just the new decision-period flag). The canonical lineage key is unp
-  ([[reference_contract_tender_lineage]]); switching the awards subquery to `c.unp = t.unp` fixes
-  the existing section AND lights up `shortDecisionPeriod` corpus-wide. Its own reviewable change
-  (serving-layer fn, needs re-verification of the awards/forecast/lifecycle sections).
+- **Step 3b — the `/procurement/tenders` browser column — ✅ SHIPPED 2026-07-18 (0593032ca).**
+  Added `submission_deadline` to the `tenders` registry (columns + select; `tenders_list` already
+  exposed it). `computeTenderRisk` now takes a structural `TenderRiskInput` so the same scorer
+  drives the detail panel and the row; `TenderRiskChips` (compact, extracted `FlagChips`) renders
+  the column. Awards aren't per-row, so shortDecisionPeriod is unavailable there by design.
+  Verified: non-open rows flag, restricted "с предварителна покана" rows correctly don't.
+- **⭐ `tender_detail()` awards join (032): ocid → unp — ✅ FIXED 2026-07-18 (30aaf2558).**
+  Switched the awards subquery to `c.unp = t.unp`. Measured on the full corpus: **+166,591 award
+  links, −0** (every ocid match is also a unp match; unp is a strict superset), Index Only Scan
+  on `idx_contracts_unp` (0.365ms; worst-case 212-award tender = 11.6ms). Verified in-browser: an
+  awarded tender that showed "Очаква изход · 1 от 2" now shows "Възложени договори (1)" and the
+  risk panel "2 от 3 · КРАТЪК СРОК ЗА ОФЕРТИ · БЪРЗО РЕШЕНИЕ" — `shortDecisionPeriod` now fires.
 
 ---
 
