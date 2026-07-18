@@ -684,11 +684,23 @@ const runDbTable = async (q, reqRaw) => {
   // Pin both queries to one snapshot when the caller supports it (see docstring).
   const run = typeof q.tx === "function" ? q.tx : (cb) => cb(q);
 
+  // Optimization fence for free-text search. With a global search AND an
+  // ORDER BY on an indexed column + LIMIT, the planner otherwise walks the
+  // ordered index (e.g. idx_tenders_value) applying the search ILIKE — which it
+  // can't estimate through a parameterized/opaque pattern — as a row filter,
+  // scanning deep for selective terms (MEASURED: 34s / statement_timeout in the
+  // cross-region Cloud Run function, though fast with a constant-folded literal
+  // locally). Wrapping the filtered set in `(… OFFSET 0)` forces the trigram/
+  // text filter to run first (bitmap index scan → all matches), then the outer
+  // sort+limit. Only for search: a plain filtered/scoped page keeps its optimal
+  // direct index walk (the fence would needlessly materialize the whole set).
+  const hasGlobal = !!(req.filters?.global ?? "").trim();
+  const pageSql = hasGlobal
+    ? `SELECT ${projection} FROM (SELECT * FROM ${r.base} ${whereSql} OFFSET 0) s ${orderSql} LIMIT ${pageSize} OFFSET ${offset}`
+    : `SELECT ${projection} FROM ${r.base} ${whereSql} ${orderSql} LIMIT ${pageSize} OFFSET ${offset}`;
+
   return run(async (qq) => {
-    const rows = await qq(
-      `SELECT ${projection} FROM ${r.base} ${whereSql} ${orderSql} LIMIT ${pageSize} OFFSET ${offset}`,
-      params,
-    );
+    const rows = await qq(pageSql, params);
 
     let total;
     let totalExact;
