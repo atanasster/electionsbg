@@ -161,7 +161,7 @@ export const PlaceBasketTile: FC<Props> = ({ ekatte, obshtina }) => {
               ? g.items
               : g.items.slice(0, COLLAPSE_AT);
           return (
-            <div key={g.id} className="text-xs">
+            <div key={g.id} className="text-xs min-w-0">
               <div className="font-medium mb-1.5 text-muted-foreground uppercase tracking-wide text-[11px]">
                 {g.name}
               </div>

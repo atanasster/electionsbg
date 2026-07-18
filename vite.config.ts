@@ -160,6 +160,15 @@ export default defineConfig(({ mode }) => {
           target: env.VITE_SCENARIOS_PROXY || "https://electionsbg.com",
           changeOrigin: true,
         },
+        // The Postgres-backed /api/db/* routes (procurement, prices, funds,
+        // subsidies, …) are served same-origin in prod via a hosting rewrite,
+        // but the Vite dev server has no such function locally. Proxy them to
+        // the deployed backend (or a functions emulator via VITE_DB_API_PROXY)
+        // so data-driven screens render in `npm run dev` without a local PG.
+        "/api/db": {
+          target: env.VITE_DB_API_PROXY || "https://electionsbg.com",
+          changeOrigin: true,
+        },
       },
       // dist/ and dist.old-* are build artifacts. The dev server never serves
       // from them, but chokidar (Vite's file watcher) sees them by default
