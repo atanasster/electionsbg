@@ -58,7 +58,7 @@ export const RegionGovernanceCards: FC<Props> = ({ regionCode }) => {
           title={t("governance_section_prices") || "Цени / Prices"}
           icon={ShoppingBasket}
         >
-          <GovernancePricesTile oblast={regionCode} />
+          <GovernancePricesTile oblast={regionCode} showConsumptionLink />
         </DashboardSection>
       )}
 

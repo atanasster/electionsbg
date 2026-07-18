@@ -7,6 +7,7 @@
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Tag, ArrowRight } from "lucide-react";
+import { Link } from "@/ux/Link";
 import { PriceSparkline } from "@/screens/components/prices/PriceSparkline";
 import { ChainBasketList } from "@/screens/components/prices/ChainBasketList";
 import { MoversInline } from "@/screens/components/prices/PriceMovers";
@@ -24,9 +25,15 @@ import {
 interface Props {
   // When set, render the oblast view (its index series + settlements within).
   oblast?: string;
+  // On the Governance dashboards, link out to the full Consumption view. Off by
+  // default so the tile stays link-free when it is itself inside /consumption.
+  showConsumptionLink?: boolean;
 }
 
-export const GovernancePricesTile: FC<Props> = ({ oblast }) => {
+export const GovernancePricesTile: FC<Props> = ({
+  oblast,
+  showConsumptionLink = false,
+}) => {
   const { i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
   const { data: index } = usePriceIndex();
@@ -179,6 +186,17 @@ export const GovernancePricesTile: FC<Props> = ({ oblast }) => {
           kolkostruva.bg
           <ArrowRight className="size-3" />
         </a>
+        {showConsumptionLink ? (
+          <Link
+            to={
+              oblast ? `/consumption/region/${oblast}` : "/consumption/overview"
+            }
+            className="ml-auto inline-flex items-center gap-1 font-medium text-primary hover:underline"
+          >
+            {T("Виж потреблението подробно", "See full consumption view")}
+            <ArrowRight className="size-3" />
+          </Link>
+        ) : null}
       </div>
     </div>
   );

@@ -184,7 +184,7 @@ export const GovernanceCards: FC = () => {
           title={t("governance_section_prices") || "Цени / Prices"}
           icon={ShoppingBasket}
         >
-          <GovernancePricesTile />
+          <GovernancePricesTile showConsumptionLink />
         </DashboardSection>
 
         <DashboardSection
