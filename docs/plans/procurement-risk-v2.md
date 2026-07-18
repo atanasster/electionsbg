@@ -720,12 +720,27 @@ as relative ordering only.
    flag keyed on `buyer|supplier|cpvdiv|year`, the `awarderConcentration` architecture). The
    ЗОП-threshold research above is the durable output; the scored flag is a deliberate hold.
    Reference impls: ProZorro RISK-2-5/2-6, OCP R049, K-Index P3.
-5. **New-firm winners — ⛔ BLOCKED (no data).** `tr_companies` carries no incorporation/founding
-   date (only our `last_updated` ingest stamp); `tr_person_roles.added_at`/`erased_at` are
-   officer-change timestamps, not company age. Needs a TR-ingest change to parse the founding
-   date from the deed sections — a data-pipeline task, not a scoring one. K-Index P4. One of the
-   few flags a lay
-   reader instantly understands.
+5. **New-firm winners — ⛔ BLOCKED on data acquisition; unblock is a bounded scrape (analysed
+   2026-07-18).** K-Index P4; one of the most legible red flags a lay reader grasps ("company
+   formed weeks before winning"). Full feasibility analysis:
+   - **No founding date in PG.** `tr_companies` has none (only our `last_updated` ingest stamp).
+   - **The earliest-filing proxy is UNUSABLE — measured, not assumed.** `tr_person_roles.added_at`
+     is the feed's *filing date* (load_tr_pg:246), but our TR ingest holds only **daily filings
+     from ~2021** (added_at clusters 2021–2026), not full deed history. Using `min(added_at)` per
+     contractor as a founding proxy: **60% of contracts (103,221/170,685) show the firm "founded"
+     AFTER the contract was signed** — impossible for a real founding date. It is just "earliest
+     officer-change we ingested," left-censored at 2021 and polluted by later changes. Dead end.
+   - **The real founding date IS in the TR** (the initial вписване deed; the parser already reads
+     `FieldEntryDate`/`earliestFilingDate`, parse_daily_filing.ts:119–121,375) — but only for
+     companies **registered within our 2021+ window**; pre-2021 incorporations aren't in the feed.
+   - **EIK-era proxy:** 9-digit EIKs are issued sequentially but not month-mappable — too coarse.
+   - **⭐ Unblock = a bounded, one-time Registry-Agency scrape.** Only **27,667 distinct contractor
+     EIKs** exist (13,898 active since 2022); fetch "Дата на първоначално вписване" from
+     portal.registryagency.bg per EIK into a `company_founded(eik, founded_date)` table (memory
+     [[reference_tr_gfo_documents]]: the portal has a no-CAPTCHA Documents API — confirm a clean
+     profile/date fetch). Then the flag is TRIVIAL: a `foundedByEik` map in `RiskScoreArgs` + a
+     `date_signed − founded < N months` check, exactly the debarred/concentration pattern. **This
+     is the recommended unblock — a discrete ~28k-EIK ingest, not a full TR backfill.**
 6. **Political donors.** We have ЕРИК. Extends `mpConnected`/`pepConnected` into campaign
    finance. Per GTI's own taxonomy, political-connection indicators systematically
    *under*estimate risk — additive, not double-counting.
