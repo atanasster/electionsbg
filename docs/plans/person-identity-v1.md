@@ -1,15 +1,18 @@
 # Unified Person Identity — implementation plan v1
 
-Status: DRAFT (2026-07-18), **gap-audit + testing revision 2026-07-18** — added §1a prior-art
-reconciliation, §2a name-structure matching, §4a JSON→PG migration, §4b AI tools, §4d serving, §5a
-LLM-assisted reconciliation, §7 testing & verification (gold-set metrics gate + migration
-no-data-loss/no-UI-break gates), expanded §6. SEO/URL consolidation (§4c) DEFERRED to a final Phase 6
-once the true public-page count is known. Owner: TBD.
+Status: DRAFT (2026-07-18), **gap-audit + testing + connections revision 2026-07-18** — added §1a
+prior-art reconciliation, §2a name-structure matching, §4a JSON→PG migration, §4b AI tools, §4d
+serving, §5 source catalog (all current + planned sources, each a filter facet), §5a LLM-assisted
+reconciliation, §7 testing gates, §8 Connections component (the primary consumer; prototyped). SEO
+(§4c) DEFERRED to Phase 6. Test runner now defers to the repo-wide framework workstream (§7). Owner: TBD.
 
 Goal: give every natural person in the site a single stable `person_id` in Postgres, so that
 candidates, MPs, mayors, councillors, executive & municipal officials, TR company officers/owners,
 magistrates, NGO board members and campaign-finance donors all resolve to **one profile** and can
-carry rich person↔person edges — regardless of how each dataset was ingested.
+carry rich person↔person edges — regardless of how each dataset was ingested. The model is
+**source-extensible**: every dataset (current or future — §5) is just another `person_role` source
+and, on the Connections component (§8), another filter facet — so adding ДС, sanctions, regulators,
+etc. widens coverage without schema change.
 
 Decisions locked with the owner (2026-07-18):
 - **Merge policy = aggressive + review queue.** Fold-match merges even when the name is ambiguous,
@@ -100,12 +103,12 @@ person_alias                 -- every surface form that maps to this person
   person_id  bigint REFERENCES person
   alias_raw  text
   alias_fold text                        -- translit_bg_latin(alias_raw)
-  source     text                        -- 'mp'|'candidate'|'official'|'tr'|'magistrate'|'donor'|'local'|'manual'
+  source     text                        -- a §5 source-catalog key (mp|candidate|official_*|tr|magistrate|donor|local|ds|...|manual)
   PRIMARY KEY (person_id, alias_fold, source)
 
 person_role                  -- typed, dated links from a person to a source record
   person_id  bigint REFERENCES person
-  source     text                        -- which of the 9 datasets
+  source     text                        -- a §5 source-catalog key (extensible; not a fixed enum)
   ref        text                        -- source native key: mp id, official slug, uic, obshtina+listpos, ...
   role       text                        -- 'mp'|'mayor'|'councillor'|'cabinet_min'|'tr_manager'|'ngo_board'|'magistrate'|'donor'|...
   party      text
@@ -124,7 +127,7 @@ person_link_override         -- human adjudication, audited (replaces scattered 
 person_link_evidence         -- external corroboration for a person↔company/person link (see §5a)
   evidence_id bigserial PRIMARY KEY
   person_id   bigint REFERENCES person
-  subject     text                       -- what the evidence is about: 'company:{eik}' | 'person:{id}' | 'role:{...}'
+  subject     text                       -- what the evidence is about: 'company:{eik}' | 'person:{id}' | 'contract:{unp}' | 'role:{...}'
   claim       text                       -- one-line extracted claim, e.g. "депутат X е собственик на фирма Y"
   url         text NOT NULL              -- the article/source URL
   outlet      text                       -- publication name/domain
@@ -299,30 +302,55 @@ EXPLAIN ANALYZE both on the worst-case entity (a common-name person with many ro
 
 ---
 
-## 5. New people datasets to ingest (once the model exists, each is a new `person_role` source)
+## 5. Source catalog — every people dataset, current and planned
 
-Ranked by value-to-effort for a political-accountability product.
+Every dataset is one `person_role` source with a stable `source` key and a **facet** (the grouping
+the Connections component §8 filters by). This catalog IS the single registry — a small
+`person_source` constant (TS + optional lookup table) of `{key, label_bg, facet, tier, public_policy}`
+that drives BOTH the resolver (which sources to ingest) AND the UI (which filter chips to show).
+Adding a row here is the entire "add a data source" surface: new `source` → new facet chip lights up
+automatically once any entity has an edge to it.
 
-**Tier 1 — high signal, feasible:**
-- **ДС / COMDOS (Комисия по досиетата, dossier.bg)** — official verdicts naming people who
-  collaborated with the former State Security while holding public office (MPs, mayors, magistrates,
-  bankers, media, university heads). Semi-structured HTML/PDF решения. Matches existing people by
-  name+role. Defamation posture is EASIER than inference elsewhere — these are official state
-  findings. Highest-value new dataset. (Candidate for a standalone ingest spike.)
-- **Sanctions lists** — US Magnitsky/OFAC (BG designees) + EU sanctions. Small, authoritative,
-  name+DOB keyed, high relevance to the graph.
-- **Independent bodies & regulators' members** — ВСС, Конституционен съд, БНБ УС, КЕВР, КФН, СЕМ,
-  КЗК, Сметна палата одитори, Омбудсман. Small curated rosters (the "кой решава" layer).
+**Facets** (filter chips): `politician` (elected: MP, candidate, mayor, councillor, MEP, president),
+`executive` (cabinet, dep-minister, agency head, governor, ambassador), `magistrate`, `ngo`,
+`donor`, `company` (TR officer/owner — the neighbour type on a person host), `ds`, `sanctions`,
+`regulator`, `media`, `professional`, `other`.
 
-**Tier 2 — natural extensions:**
-- **MEPs, Presidents/VPs, pre-2005 MPs** — completes the elected-office spine.
-- **Media-ownership declarations** (чл.7а ЗЗДПДП, Министерство на културата register) — persons →
-  outlets; pairs with the ДС/media angle.
-- **Public-trust professional registers** — нотариуси, ЧСИ, синдици. Official registers, EIK/name
-  keyed, frequent TR-graph co-appearances.
+| source key | facet | dataset | state | tier |
+|---|---|---|---|---|
+| `mp` | politician | MPs (parliament.bg) | LIVE | core |
+| `candidate` | politician | NS candidates (CIK) | LIVE | core |
+| `local` | politician | local mayors & councillors | LIVE | core |
+| `official_exec` | executive | officials — cabinet/dep-min/agency/governor | LIVE | core |
+| `official_muni` | politician | officials — municipal (mayor/dep-mayor/chair/councillor/architect) | LIVE | core |
+| `tr` | company | TR company officers/owners | LIVE | core |
+| `magistrate` | magistrate | magistrates (ИВСС чл.175а) | LIVE | core |
+| `ngo` | ngo | NGO board members | LIVE | core |
+| `donor` | donor | ЕРИК campaign-finance donors | LIVE | core |
+| `ds` | ds | **ДС / COMDOS** (Комисия по досиетата, dossier.bg) | NEW | T1 |
+| `sanctions` | sanctions | US Magnitsky/OFAC + EU sanctions (BG designees) | NEW | T1 |
+| `regulator` | regulator | ВСС, Конституционен съд, БНБ УС, КЕВР, КФН, СЕМ, КЗК, Сметна палата одитори, Омбудсман | NEW | T1 |
+| `mep` | politician | MEPs (Bulgarian members of the EP) | NEW | T2 |
+| `president` | politician | Presidents / Vice-presidents | NEW | T2 |
+| `historic_mp` | politician | pre-2005 MPs (completes the elected spine) | NEW | T2 |
+| `media` | media | media-ownership declarations (чл.7а ЗЗДПДП, Мин. на културата) | NEW | T2 |
+| `professional` | professional | нотариуси, ЧСИ, синдици (public-trust registers) | NEW | T2 |
+| `diplomat` | executive | ambassadors / heads of mission | NEW | T3 |
+| `academic` | other | БАН / university rectors | NEW | T3 |
+| `honours` | other | state-honours recipients | NEW | T3 |
+| `concession` | company | concession holders | NEW | T3 |
 
-**Tier 3 — situational:** ambassadors/diplomats, БАН/university rectors, state-honours recipients,
-concession holders. Each a clean `person_role` source later.
+**Why the Tier-1 new sources first** (value-to-effort for a political-accountability product):
+- **ДС / COMDOS** is the single highest-signal new dataset — official state verdicts naming State
+  Security collaborators who held public office (MPs, mayors, magistrates, bankers, media, rectors).
+  Semi-structured HTML/PDF решения, matched to existing people by name+role. Defamation posture is
+  EASIER than inference elsewhere: these are official findings, not our guess. Candidate for a
+  standalone ingest spike. Its facet (`ds`) is the "just ДС" filter the owner called out for §8.
+- **Sanctions** — small, authoritative, name+DOB keyed; high graph relevance.
+- **Regulators / independent bodies** — small curated rosters; the "кой решава" layer.
+
+`public_policy` per source feeds the §6 privacy gate (e.g. `donor` = no public page for private
+small donors; `ds`/`mp`/`official_*` = public figure).
 
 ### 5a. LLM-assisted reconciliation skill (the review queue's force multiplier)
 
@@ -389,10 +417,13 @@ page — a real feature, not just internal plumbing.
 
 ## 7. Testing & verification
 
-The repo has no test framework today (CLAUDE.md). Introduce ONE scoped runner — `node --test` (built
-in, no dep) over `scripts/person/**` behind `npm run test:person` — and do NOT impose it on the rest
-of the repo. Two test bodies: (7a) resolver correctness, (7b) migration safety. Both must be green
-before any page flips its hook to `/api/db`.
+Testing runs on the **repo-wide test framework** being introduced by the separate test-infra
+workstream (task: "Add repo-wide test framework + standards" — likely Vitest, since the repo is
+Vite 6). Person tests live under `scripts/person/**` and run via `npm run test:person`; follow that
+workstream's `docs/testing-standards.md` for fixture/mocking conventions. (If that framework has not
+landed when person work starts, a scoped `node --test` runner is the interim.) Two test bodies: (7a)
+resolver correctness, (7b) migration safety. Both must be green before any page flips its hook to
+`/api/db`.
 
 ### 7a. Name-matching / person-finding tests (the "expensive" ones — the core)
 
@@ -465,3 +496,59 @@ Flip rule (strengthens §4a): a hook moves from `/public/*.json` to `/api/db/*` 
 - Each resolver run (offline): idempotency check + namesake-collapse audit on real data.
 - Each dataset migration: 7b gates 1–3 before the corresponding page flip.
 - Pre-deploy: the full `parity_check.ts` (person rollup vs `person_profile()`).
+
+---
+
+## 8. Connections component — the primary consumer (prototyped 2026-07-18)
+
+A single reusable `<Connections>` surface that mounts on any entity and renders the identity+edge
+layer. Prototyped in three host variants (person, company, contract) plus the interaction model; this
+section captures the contract so it can be built (a fuller spec can later split into its own
+`connections-component-v1.md`).
+
+**Props / data contract:**
+```
+<Connections host={{ type, id }} />
+  host.type: 'person' | 'company' | 'contract' | 'awarder'
+  host.id:   person_id (slug) | eik | unp | eik
+```
+It calls one endpoint — `/api/db/connections?type=&id=` — returning a **typed graph**:
+`{ subject, nodes[], edges[] }` where a node is `{ nodeType: 'person'|'company'|'contract'|'awarder',
+key, label, facet, ds, namesakeRisk }` and an edge is `{ to, rel, confidence, path, sourceRefs[],
+evidenceCount }`. The graph is entity-typed, NOT person-only: `person_id` identifies person nodes,
+`eik` companies, `unp`/`ocid` contracts — so the same component serves all hosts.
+
+**Filters are source-driven and auto-expanding (the owner's ask).** The chip row is generated from
+the DISTINCT facets present in the subject's edges, ordered by the §5 catalog: `Всички` + each
+populated facet (`Политици`, `Магистрати`, `НПО`, `Дарители`, `ДС`, `Санкции`, `Регулатори`, …).
+Because ДС / sanctions / regulators are just `person_role` sources with a facet, **the moment those
+datasets land, their chip appears** with no component change. Overflow facets collapse behind a "още"
+chip; `ДС` is always shown when present ("just ДС" is one click).
+
+**Confidence encoding** maps the `person_role.confidence` enum to visuals: `exact_id`/`high` →
+solid line + "потвърдена" chip; `medium` (the review-promoted / bridged tier) → dashed line +
+"трейс" chip. `review`/unpromoted never render (public-surface rule, §3). ДС-flagged nodes carry a
+red ring + badge regardless of tier. Every inferred edge keeps the "трейс, не доказателство"
+disclaimer.
+
+**Evidence** — an edge's `evidenceCount` comes from confirmed `person_link_evidence` rows (§5a); the
+row surfaces "N източника" linking to the cited outlets. This is the journalism-grade differentiator.
+
+**Interaction model (prototyped):**
+- **Graph cap + покажи още** — graph shows the top ~6–8 nodes by confidence; the remainder park
+  behind a "+N" node (expands the graph) and the list caps at 5 with a "покажи още / свий" toggle.
+  No entity, however connected, renders an unreadable hairball.
+- **Click-to-expand-one-hop** — nodes with their own edges carry a `+` badge; clicking fans out that
+  node's next hop as dashed satellites (capped at ONE hop so it can't run away). Guarded by the
+  namesake cap so a common-name node doesn't explode.
+- **Mobile collapse** — below a `useMediaQuery` breakpoint the radial graph is hidden and only the
+  ranked list renders (a graph is unusable at 375px). The list is also the screen-reader equivalent,
+  so this doubles as the a11y fallback.
+
+**Mount points:** `/person/{slug}` (Phase 3), `/company/{eik}` (replaces `CompanyConnectionsSection`),
+`/awarder/{eik}`, and contract rows on `/procurement/contracts` (the "why is this flagged" panel).
+The existing `CompanyConnectionsSection.tsx` + `company-connections-stats.json` path is the thing this
+generalizes and eventually retires.
+
+**a11y:** the graph gets a visually-hidden list mirror (the mobile list serves double duty); nodes are
+focusable/tabbable; the disclaimer is in the accessible name of the region.
