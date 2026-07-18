@@ -178,7 +178,7 @@ export const ConsumptionScreen = () => {
         tile(
           "overview",
           "/consumption/overview",
-          T("Обзор", "Overview"),
+          T("Анализ", "Analysis"),
           T("Инфлация, еврото и достъпност", "Inflation, the euro & incomes"),
           TILE_ACCENTS.brass,
         ),

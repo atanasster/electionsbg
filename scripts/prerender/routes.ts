@@ -1711,26 +1711,26 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "consumption/overview",
     title:
-      "Потребление — обзор: кошница, инфлация и достъпност | electionsbg.com",
+      "Потребление — анализ: еврото, инфлацията и достъпността | electionsbg.com",
     description:
-      "Обзор на потреблението в България — кошницата на цените от въвеждането на еврото, поскъпна ли храната заради еврото, официалната инфлация (ХИПЦ) и достъпността по области.",
-    breadcrumbName: "Потребление — обзор",
+      "Аналитичният изглед на потреблението в България — поскъпна ли храната заради еврото, официалната инфлация (ХИПЦ на Евростат) спрямо кошницата, и достъпността на кошницата спрямо доходите по области.",
+    breadcrumbName: "Потребление — анализ",
     ogImage: "/og/consumption-overview.png",
     bodyHtml: `
-<h1>Потребление — обзор</h1>
-<p>Аналитичният обзор на изгледа „Потребление“ събира на едно място кошницата на цените от въвеждането на еврото, отговора на въпроса <strong>поскъпна ли храната заради еврото</strong>, официалната инфлация (ХИПЦ на Евростат) и достъпността на кошницата спрямо доходите по области, плюс картата на цените по общини.</p>
-<p><strong>Кошницата е мониторингов индекс на КЗП, не официален ИПЦ.</strong> Виж целия <a href="${SITE_URL}/consumption">изглед „Потребление“</a>.</p>
+<h1>Потребление — анализ</h1>
+<p>Аналитичният изглед на „Потребление“ отговаря на три въпроса: <strong>поскъпна ли храната заради еврото</strong> (разбивка на кошницата на поевтинели, непроменени и поскъпнали продукти), как кошницата се движи спрямо <strong>официалната инфлация</strong> (ХИПЦ на Евростат — храни, енергия, базова) и колко <strong>достъпна</strong> е кошницата спрямо доходите по области.</p>
+<p><strong>Кошницата е мониторингов индекс на КЗП, не официален ИПЦ.</strong> За цените, веригите и картата виж <a href="${SITE_URL}/prices">изгледа на цените</a>; за целия раздел — <a href="${SITE_URL}/consumption">„Потребление“</a>.</p>
 <p>Източник: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">КЗП — „Колко струва“ (отворени данни)</a>.</p>`.trim(),
     english: {
       title:
-        "Consumption overview — basket, inflation and affordability | electionsbg.com",
+        "Consumption analysis — the euro, inflation and affordability | electionsbg.com",
       description:
-        "A consumption overview for Bulgaria — the price basket since the euro, whether the euro raised food prices, official inflation (HICP) and affordability by oblast.",
-      breadcrumbName: "Consumption overview",
+        "The analytical view of Bulgarian consumption — whether the euro raised food prices, official inflation (Eurostat HICP) vs the basket, and the basket's affordability by oblast.",
+      breadcrumbName: "Consumption analysis",
       bodyHtml: `
-<h1>Consumption — overview</h1>
-<p>The analytics overview of the Consumption view brings together the price basket since the euro, whether the <strong>euro raised food prices</strong>, official inflation (Eurostat HICP), the basket's affordability relative to regional income, and the municipality price map.</p>
-<p><strong>The basket is a CPC monitoring index, not the official CPI.</strong> See the full <a href="${SITE_URL}/en/consumption">Consumption view</a>.</p>
+<h1>Consumption — analysis</h1>
+<p>The analytical view of Consumption answers three questions: whether the <strong>euro raised food prices</strong> (the basket split into cheaper, unchanged and dearer products), how the basket moves against <strong>official inflation</strong> (Eurostat HICP — food, energy, core), and how <strong>affordable</strong> the basket is relative to regional income.</p>
+<p><strong>The basket is a CPC monitoring index, not the official CPI.</strong> For prices, chains and the map see the <a href="${SITE_URL}/en/prices">price view</a>; for the whole section, <a href="${SITE_URL}/en/consumption">Consumption</a>.</p>
 <p>Source: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">CPC — "How Much Does It Cost" (open data)</a>.</p>`.trim(),
     },
   }),

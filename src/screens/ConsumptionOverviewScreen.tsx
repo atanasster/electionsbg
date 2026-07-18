@@ -1,19 +1,12 @@
-// /consumption/overview — the Consumption analytics dashboard. This is the
-// deep-dive that used to be the /consumption landing; /consumption is now a
-// navigation-first hub (ConsumptionScreen) that fronts this via the "Обзор"
-// tile. The КЗП "Колко струва" basket layer (national index + cheapest
-// chains/places + the municipality price map) plus the euro verdict, official
-// inflation and regional affordability. Section ids (euro / macro / finances /
-// map) are the anchors the hub tiles deep-link to.
+// /consumption/analysis (path kept as /consumption/overview) — the Consumption
+// ANALYSIS deep-dive: the euro verdict, official inflation vs the basket, and
+// regional affordability. The basket summary and the price map that used to lead
+// this page now live on the /prices dashboard and /prices/map, so this page is
+// purely the analytical trio (no duplication). Section ids (euro / macro /
+// finances) are the anchors the hub tiles deep-link to.
 
 import { useTranslation } from "react-i18next";
-import {
-  Map as MapIcon,
-  ShoppingBasket,
-  LineChart,
-  Scale,
-  Euro,
-} from "lucide-react";
+import { LineChart, Scale, Euro } from "lucide-react";
 import { SEO } from "@/ux/SEO";
 import { useHashScroll } from "@/ux/useHashScroll";
 import { usePriceIndex, usePriceRanking } from "@/data/prices/usePrices";
@@ -21,27 +14,24 @@ import { useEuroVerdict } from "@/data/prices/useProducts";
 import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrumb";
 import { Title } from "@/ux/Title";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
-import { GovernancePricesTile } from "@/screens/governance/GovernancePricesTile";
 import { ConsumptionInflationTile } from "@/screens/consumption/ConsumptionInflationTile";
 import { ConsumptionAffordabilityTile } from "@/screens/consumption/ConsumptionAffordabilityTile";
 import { EuroVerdictTile } from "@/screens/consumption/EuroVerdictTile";
-import { PriceHeatmapTile } from "@/screens/components/prices/PriceHeatmapTile";
 
 export const ConsumptionOverviewScreen = () => {
   const { t, i18n } = useTranslation();
   const bg = i18n.language === "bg";
   // Deep-link anchors (`/consumption/overview#macro`, `#euro`, `#finances`).
-  // The price + euro sections above the fold settle late, so a cold deep-link
-  // to a lower section would otherwise scroll before their heights land. Pass
-  // those payloads as settle sentinels (React Query dedupes — the tiles below
-  // fetch the same queries) so the scroll re-runs once layout settles.
+  // The sections settle late (charts/aggregates), so a cold deep-link to a lower
+  // section would otherwise scroll before their heights land. Pass those payloads
+  // as settle sentinels (React Query dedupes — the tiles below fetch the same
+  // queries) so the scroll re-runs once layout settles.
   const { data: priceIndex } = usePriceIndex();
   const { data: priceRanking } = usePriceRanking();
   const { data: euroVerdict } = useEuroVerdict();
   useHashScroll([priceIndex, priceRanking, euroVerdict]);
-  const title = `${t("consumption_title") || "Потребление"} · ${
-    bg ? "Обзор" : "Overview"
-  }`;
+  const heading = bg ? "Анализ" : "Analysis";
+  const title = `${t("consumption_title") || "Потребление"} · ${heading}`;
   const description =
     t("consumption_seo_description") ||
     "Цени, потребление и издръжка на живота в България.";
@@ -49,22 +39,10 @@ export const ConsumptionOverviewScreen = () => {
   return (
     <>
       <SEO title={title} description={description} />
-      <ConsumptionBreadcrumb
-        section={bg ? "Обзор" : "Overview"}
-        className="mt-4 mb-2"
-      />
-      <Title>{bg ? "Обзор" : "Overview"}</Title>
+      <ConsumptionBreadcrumb section={heading} className="mt-4 mb-2" />
+      <Title>{heading}</Title>
 
       <section aria-label={title}>
-        <DashboardSection
-          id="prices"
-          title={t("prices_section_overview") || "Кошница на цените"}
-          subtitle={t("prices_not_cpi")}
-          icon={ShoppingBasket}
-        >
-          <GovernancePricesTile />
-        </DashboardSection>
-
         <DashboardSection
           id="euro"
           title={
@@ -92,14 +70,6 @@ export const ConsumptionOverviewScreen = () => {
           icon={Scale}
         >
           <ConsumptionAffordabilityTile />
-        </DashboardSection>
-
-        <DashboardSection
-          id="map"
-          title={t("prices_section_map") || "Карта на цените"}
-          icon={MapIcon}
-        >
-          <PriceHeatmapTile />
         </DashboardSection>
       </section>
     </>
