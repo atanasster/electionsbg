@@ -1199,6 +1199,11 @@ const ConsumptionScreen = lazy(() =>
     default: m.ConsumptionScreen,
   })),
 );
+const ConsumptionOverviewScreen = lazy(() =>
+  import("./screens/ConsumptionOverviewScreen").then((m) => ({
+    default: m.ConsumptionOverviewScreen,
+  })),
+);
 const RegionConsumptionScreen = lazy(() =>
   import("./screens/RegionConsumptionScreen").then((m) => ({
     default: m.RegionConsumptionScreen,
@@ -3395,8 +3400,18 @@ export const AuthRoutes = () => {
               </LayoutScreen>
             }
           />
-          {/* Static segment must precede consumption/:id so "products" is not
+          {/* Static segments must precede consumption/:id so they are not
               swallowed by the settlement resolver. */}
+          <Route
+            path="consumption/overview"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <ConsumptionOverviewScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
           <Route
             path="consumption/products"
             element={

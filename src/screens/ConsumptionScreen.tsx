@@ -1,95 +1,105 @@
-// Country node of the Consumption (Потребление) view — the cost-of-living
-// dashboard. Phase 1 ships the КЗП "Колко струва" basket layer (national index
-// + cheapest chains/places + the municipality price map); fuel, wages and
-// property tiles land in later phases. Mirrors GovernanceScreen's shell so the
-// place header + the four-way view switcher read identically across views.
+// /consumption — the Потребление (Consumption) HUB. A navigation-first landing:
+// a product search up top, then a tile grid fronting the sub-pages (the Обзор
+// analytics dashboard, the product browser, the price map, and shortcuts into
+// the euro / inflation / affordability sections). The deep analytics that used
+// to live here moved to /consumption/overview (the "Обзор" tile). Reuses the
+// tile-hub kit; mirrors ProcurementScreen.
 
 import { useTranslation } from "react-i18next";
-import {
-  Map as MapIcon,
-  ShoppingBasket,
-  LineChart,
-  Scale,
-  Euro,
-} from "lucide-react";
 import { SEO } from "@/ux/SEO";
-import { useHashScroll } from "@/ux/useHashScroll";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
-import { DashboardSection } from "@/screens/dashboard/DashboardSection";
-import { GovernancePricesTile } from "@/screens/governance/GovernancePricesTile";
-import { ConsumptionInflationTile } from "@/screens/consumption/ConsumptionInflationTile";
-import { ConsumptionAffordabilityTile } from "@/screens/consumption/ConsumptionAffordabilityTile";
-import { EuroVerdictTile } from "@/screens/consumption/EuroVerdictTile";
-import { PriceHeatmapTile } from "@/screens/components/prices/PriceHeatmapTile";
+import { TileHubGrid, TileHubSection, TILE_ACCENTS } from "@/ux/infographic";
+import { ConsumptionSearchTile } from "@/screens/components/consumption/ConsumptionSearchTile";
+import { CONSUMPTION_SCENES } from "@/screens/consumption/consumptionScenes";
 
 export const ConsumptionScreen = () => {
-  const { t } = useTranslation();
-  // Deep-link anchors (`/consumption#map`, `#euro`). Fires on hash change; the
-  // hook's rAF gives freshly-mounted sections a tick to lay out. `[]` matches
-  // GovernanceScreen — the tiles own their data, so the screen has no payload
-  // sentinel to thread. A cold link to a section far below the fold can still
-  // land slightly short until the async tiles grow the page; acceptable here.
-  useHashScroll([]);
+  const { t, i18n } = useTranslation();
+  const bg = i18n.language === "bg";
+  const T = (b: string, e: string) => (bg ? b : e);
+
   const title = t("consumption_title") || "Потребление";
   const description =
     t("consumption_seo_description") ||
     "Цени, потребление и издръжка на живота в България.";
 
+  const tiles = [
+    {
+      id: "overview",
+      to: "/consumption/overview",
+      title: T("Обзор", "Overview"),
+      desc: T(
+        "Инфлация, еврото и достъпност",
+        "Inflation, the euro & affordability",
+      ),
+      accent: TILE_ACCENTS.brass,
+    },
+    {
+      id: "products",
+      to: "/consumption/products",
+      title: T("Продукти", "Products"),
+      desc: T(
+        "Търси и сравни хиляди продукти",
+        "Search & compare thousands of products",
+      ),
+      accent: TILE_ACCENTS.clay,
+    },
+    {
+      id: "map",
+      to: "/prices",
+      title: T("Карта на цените", "Price map"),
+      desc: T("Кошницата по общини", "The basket by municipality"),
+      accent: TILE_ACCENTS.teal,
+    },
+    {
+      id: "euro",
+      to: "/consumption/overview#euro",
+      title: T("Виновно ли е еврото?", "Is the euro to blame?"),
+      desc: T("Цените спрямо 2 януари", "Prices vs 2 January"),
+      accent: TILE_ACCENTS.amber,
+    },
+    {
+      id: "inflation",
+      to: "/consumption/overview#macro",
+      title: T("Инфлация", "Inflation"),
+      desc: T("Кошница спрямо официалния ИПЦ", "Basket vs the official CPI"),
+      accent: TILE_ACCENTS.azure,
+    },
+    {
+      id: "affordability",
+      to: "/consumption/overview#finances",
+      title: T("Достъпност", "Affordability"),
+      desc: T(
+        "Кошница спрямо доходите по региони",
+        "Basket vs regional incomes",
+      ),
+      accent: TILE_ACCENTS.green,
+    },
+  ] as const;
+
+  const exploreSection: TileHubSection = {
+    heading: T("Разгледай", "Explore"),
+    tiles: tiles.map((p) => ({
+      to: p.to,
+      title: p.title,
+      desc: p.desc,
+      accent: p.accent,
+      scene: CONSUMPTION_SCENES[p.id],
+    })),
+  };
+
   return (
     <>
       <SEO title={title} description={description} />
-      {/* Country node of the Consumption view — the unified place header
-          carries the Consumption eyebrow + the switcher across to the
-          Governance / parliamentary / local views of Bulgaria. */}
+      {/* Country node of the Consumption view — the unified place header carries
+          the Consumption eyebrow + the switcher across to the Governance /
+          parliamentary / local views. */}
       <PlaceHeader active="consumption" level="country" className="my-4" />
 
-      <section aria-label={title}>
-        <DashboardSection
-          id="prices"
-          title={t("prices_section_overview") || "Кошница на цените"}
-          subtitle={t("prices_not_cpi")}
-          icon={ShoppingBasket}
-        >
-          <GovernancePricesTile />
-        </DashboardSection>
+      <ConsumptionSearchTile />
 
-        <DashboardSection
-          id="euro"
-          title={
-            t("consumption_section_euro") ||
-            "Поскъпна ли храната заради еврото?"
-          }
-          icon={Euro}
-        >
-          <EuroVerdictTile />
-        </DashboardSection>
-
-        <DashboardSection
-          id="macro"
-          title={t("consumption_section_inflation") || "Официална инфлация"}
-          icon={LineChart}
-        >
-          <ConsumptionInflationTile />
-        </DashboardSection>
-
-        <DashboardSection
-          id="finances"
-          title={
-            t("consumption_section_affordability") || "Достъпност по региони"
-          }
-          icon={Scale}
-        >
-          <ConsumptionAffordabilityTile />
-        </DashboardSection>
-
-        <DashboardSection
-          id="map"
-          title={t("prices_section_map") || "Карта на цените"}
-          icon={MapIcon}
-        >
-          <PriceHeatmapTile />
-        </DashboardSection>
-      </section>
+      <div data-og="consumption-hub">
+        <TileHubGrid sections={[exploreSection]} className="mt-6" />
+      </div>
     </>
   );
 };
