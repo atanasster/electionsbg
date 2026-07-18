@@ -21,6 +21,7 @@ import { useAreaResolver } from "@/data/area/useAreaResolver";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { MyAreaPricesTile } from "@/screens/myarea/MyAreaPricesTile";
+import { PlaceBasketTile } from "@/screens/myarea/PlaceBasketTile";
 import { MyAreaLocalTaxesTile } from "@/screens/myarea/MyAreaLocalTaxesTile";
 import { ConsumptionPriceLevelTile } from "@/screens/consumption/ConsumptionPriceLevelTile";
 import { ConsumptionAffordabilityTile } from "@/screens/consumption/ConsumptionAffordabilityTile";
@@ -140,6 +141,24 @@ export const ConsumptionPlaceScreen: FC = () => {
             showConsumptionLink={false}
           />
         </DashboardSection>
+
+        {/* The full local basket — every monitored product with its cheapest
+            store + promo badge. Settlement-grain (needs the place shard), so it
+            renders only for settlement nodes; the tile itself self-hides for an
+            uncovered settlement (the summary above still shows the headline). */}
+        {area.kind === "settlement" ? (
+          <DashboardSection
+            id="basket"
+            title={T("Пълна кошница", "Full basket")}
+            subtitle={T(
+              "Цени по продукти във вашето населено място",
+              "Per-product prices in your settlement",
+            )}
+            icon={ShoppingBasket}
+          >
+            <PlaceBasketTile ekatte={area.ekatte} obshtina={area.obshtina} />
+          </DashboardSection>
+        ) : null}
 
         {/* What the município charges — the BG-specific cost-of-living lever
             (property / vehicle / garbage / patent taxes). Moved here from the
