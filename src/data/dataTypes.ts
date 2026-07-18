@@ -1493,6 +1493,21 @@ export type AwarderConcentrationEntry = {
   pairTotalEur: number;
   contractCount: number;
 };
+
+/** A (buyer, supplier, 2-digit CPV, year) group matching the split-purchase
+ *  pattern: every contract a direct award, each ≤ the ЗОП чл.20 ал.4 ceiling,
+ *  together over it. Keyed `awarderEik|contractorEik|cpvDiv|year` in the scorer. */
+export type SplitPurchaseEntry = {
+  awarderEik: string;
+  awarderName: string;
+  contractorEik: string;
+  contractorName: string;
+  cpvDiv: string;
+  year: string;
+  contractCount: number;
+  totalEur: number;
+  ceilingEur: number;
+};
 export type AwarderConcentrationFile = {
   generatedAt: string;
   thresholdPct: number;

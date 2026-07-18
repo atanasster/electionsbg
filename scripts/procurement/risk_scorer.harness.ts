@@ -239,6 +239,41 @@ check(
     unknownFirm.components.find((c) => c.key === "newFirmWinner")?.available ===
       false,
   );
+
+  // Split-purchase — a contract whose buyer|supplier|cpvDiv|year is a split.
+  const splitEntry = {
+    awarderEik: "AW",
+    awarderName: "Awarder",
+    contractorEik: "CT",
+    contractorName: "Contractor",
+    cpvDiv: "45",
+    year: "2024",
+    contractCount: 4,
+    totalEur: 120000,
+    ceilingEur: 40903,
+  };
+  const withSplit = {
+    ...args,
+    splitPurchaseByKey: new Map([["AW|CT|45|2024", splitEntry]]),
+  };
+  const split = computeProcurementRisk(
+    base({ cpv: "45000000", date: "2024-05-01" }),
+    withSplit,
+  );
+  check(
+    "contract in a split (AW|CT|45|2024) → splitPurchase fires",
+    split.flags.splitPurchase?.contractCount === 4,
+  );
+  const notSplit = computeProcurementRisk(
+    base({ cpv: "45000000", date: "2024-05-01" }), // different key not in map
+    { ...args, splitPurchaseByKey: new Map() },
+  );
+  check(
+    "contract not in the split map → available but NOT fired",
+    notSplit.flags.splitPurchase === null &&
+      notSplit.components.find((c) => c.key === "splitPurchase")?.available ===
+        true,
+  );
 }
 
 console.log(

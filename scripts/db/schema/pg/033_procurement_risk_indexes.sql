@@ -88,6 +88,49 @@ cpv5med AS (
   GROUP BY left(cpv, 5)
   HAVING COUNT(*) >= 30
      AND percentile_cont(0.5) WITHIN GROUP (ORDER BY number_of_tenderers) >= 3
+),
+-- Split-purchase PATTERN (threshold-hugging). A (buyer, supplier, 2-digit CPV,
+-- calendar year) group where EVERY contract is a direct award (no competition),
+-- EACH is at/under the ЗОП чл.20 ал.4 direct-award ceiling, and together they
+-- sum OVER it — i.e. money that, aggregated, would have required a competitive
+-- procedure was instead placed as ≥2 sub-threshold direct awards.
+-- ⚠️ FRAMING: this is a PATTERN CONSISTENT WITH splitting, NOT a proven breach —
+-- чл.20 ал.4 permits repeated direct awards for genuinely separate recurring
+-- needs; only чл.21 bars slicing ONE need, which the data cannot distinguish.
+-- Ceilings are date+category dependent (EUR, ÷1.95583; ДВ 88/2023 raised them
+-- 2024-01-01): works (CPV 45) 25 565 ≤2023 / 40 903 2024+; goods & services
+-- 15 339 ≤2023 / 25 565 2024+. See scripts/procurement/tender_base_rates.sql
+-- and docs/plans/procurement-risk-v2.md §7.4.
+split_src AS (
+  SELECT awarder_eik, awarder_name, contractor_eik, contractor_name,
+         left(cpv, 2) AS cpv_div,
+         substr(date, 1, 4) AS yr,
+         amount_eur,
+         is_direct_award(procurement_method, procurement_method_rationale) AS is_direct,
+         CASE
+           WHEN left(cpv, 2) = '45' AND date < '2024-01-01' THEN 25565
+           WHEN left(cpv, 2) = '45'                         THEN 40903
+           WHEN date < '2024-01-01'                        THEN 15339
+           ELSE 25565
+         END AS ceiling
+  FROM contracts
+  WHERE tag = 'contract'
+    AND contractor_eik IS NOT NULL AND contractor_eik <> ''
+    AND awarder_eik IS NOT NULL AND amount_eur > 0
+    AND cpv IS NOT NULL AND left(cpv, 2) ~ '^\d{2}$'
+    AND date ~ '^\d{4}-\d\d-\d\d'
+),
+splits AS (
+  SELECT awarder_eik, MIN(awarder_name COLLATE "C") AS awarder_name,
+         contractor_eik, MIN(contractor_name COLLATE "C") AS contractor_name,
+         cpv_div, yr,
+         COUNT(*)::int AS n, SUM(amount_eur) AS total, MIN(ceiling) AS ceiling
+  FROM split_src
+  GROUP BY awarder_eik, contractor_eik, cpv_div, yr
+  HAVING COUNT(*) >= 2
+     AND bool_and(is_direct)                 -- every award is direct (no competition)
+     AND bool_and(amount_eur <= ceiling)     -- each individually sub-threshold
+     AND SUM(amount_eur) > MIN(ceiling)      -- but together over the ceiling
 )
 SELECT jsonb_build_object(
   'debarred', jsonb_build_object(
@@ -169,6 +212,17 @@ SELECT jsonb_build_object(
     WHERE f.founded_date >= '2018-01-01'
       AND EXISTS (SELECT 1 FROM contracts ct
                   WHERE ct.tag='contract' AND ct.contractor_eik = f.eik)
+  ),
+  -- Split-purchase pair-years — keyed by buyer|supplier|cpvDiv|year in the
+  -- scorer. "For review", not proof (see the split_src comment above).
+  'splitPurchase', (
+    SELECT COALESCE(jsonb_agg(jsonb_build_object(
+      'awarderEik', awarder_eik, 'awarderName', awarder_name,
+      'contractorEik', contractor_eik, 'contractorName', contractor_name,
+      'cpvDiv', cpv_div, 'year', yr,
+      'contractCount', n, 'totalEur', ROUND(total), 'ceilingEur', ceiling
+    ) ORDER BY ROUND(total) DESC, awarder_eik, contractor_eik, cpv_div, yr), '[]'::jsonb)
+    FROM splits
   )
 );
 $$;

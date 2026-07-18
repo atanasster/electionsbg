@@ -12,6 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 import type {
   AwarderConcentrationEntry,
   CpvCompetitionDivision,
+  SplitPurchaseEntry,
 } from "@/data/dataTypes";
 
 export type RiskIndexesPayload = {
@@ -40,6 +41,9 @@ export type RiskIndexesPayload = {
   /** Contractor EIK → incorporation date (ISO), for firms founded 2018+ that
    *  appear as a contractor. Backs the newFirmWinner flag. */
   foundedByEik?: Record<string, string>;
+  /** (buyer, supplier, CPV-div, year) groups matching the split-purchase
+   *  pattern. Backs the splitPurchase flag. */
+  splitPurchase?: SplitPurchaseEntry[];
 };
 
 const fetchRiskIndexes = async (): Promise<RiskIndexesPayload | null> => {

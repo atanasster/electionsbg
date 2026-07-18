@@ -17,6 +17,7 @@ import { useMpConnectedContractors } from "./useMpConnectedContractors";
 import { useCpvCompetition } from "./useCpvCompetition";
 import { usePepConnectedEikSet } from "./usePepConnectedByEik";
 import { useCompanyFoundedByEik } from "./useCompanyFoundedByEik";
+import { useSplitPurchase } from "./useSplitPurchase";
 
 // Re-export the scorer types + function so existing import sites
 // (`@/data/procurement/useContractRiskFlags`) keep resolving.
@@ -45,6 +46,7 @@ export const useContractRiskFlags = (
   const { set: pepSet, isLoaded: pepLoaded } = usePepConnectedEikSet();
   const { byEik: foundedByEik, isLoaded: foundedLoaded } =
     useCompanyFoundedByEik();
+  const { byKey: splitPurchaseByKey } = useSplitPurchase();
 
   const result = useMemo(() => {
     if (!contract) return null;
@@ -57,6 +59,7 @@ export const useContractRiskFlags = (
       structuralSingleBidShare: cpv.structuralSingleBidShare,
       cpvBidderMedian: cpv.bidderMedianByCpv5,
       foundedByEik: foundedLoaded ? foundedByEik : undefined,
+      splitPurchaseByKey,
       normalizeName: normalizeContractorName,
     });
   }, [
@@ -71,6 +74,7 @@ export const useContractRiskFlags = (
     cpv.structuralSingleBidShare,
     foundedByEik,
     foundedLoaded,
+    splitPurchaseByKey,
   ]);
 
   return {
@@ -94,6 +98,7 @@ export const useContractRiskScorer = (): {
   const { set: pepSet, isLoaded: pepLoaded } = usePepConnectedEikSet();
   const { byEik: foundedByEik, isLoaded: foundedLoaded } =
     useCompanyFoundedByEik();
+  const { byKey: splitPurchaseByKey } = useSplitPurchase();
 
   const scoreRow = useMemo(() => {
     return (contract: ProcurementContract) =>
@@ -106,6 +111,7 @@ export const useContractRiskScorer = (): {
         structuralSingleBidShare: cpv.structuralSingleBidShare,
         cpvBidderMedian: cpv.bidderMedianByCpv5,
         foundedByEik: foundedLoaded ? foundedByEik : undefined,
+        splitPurchaseByKey,
         normalizeName: normalizeContractorName,
       });
   }, [
@@ -119,6 +125,7 @@ export const useContractRiskScorer = (): {
     cpv.structuralSingleBidShare,
     foundedByEik,
     foundedLoaded,
+    splitPurchaseByKey,
   ]);
 
   return {

@@ -19,6 +19,7 @@ import {
   Landmark,
   Link as LinkIcon,
   Repeat,
+  Scissors,
   ShieldCheck,
   Sparkles,
   Timer,
@@ -26,6 +27,7 @@ import {
   Users,
 } from "lucide-react";
 import { Tooltip } from "@/ux/Tooltip";
+import { formatEurCompact } from "@/lib/currency";
 import {
   formatShare,
   criColor,
@@ -352,6 +354,37 @@ export const RiskBadges: FC<Props> = ({ result, variant = "chips" }) => {
           >
             <Sparkles className="h-3 w-3" />
             {t("risk_flag_new_firm") || "New firm"}
+          </span>
+        </Tooltip>
+      ) : null}
+
+      {flags.splitPurchase ? (
+        <Tooltip
+          content={
+            <div className="space-y-1">
+              <div className="font-medium">
+                {t("risk_flag_split_long") ||
+                  "Pattern consistent with split purchasing"}
+              </div>
+              <div className="text-xs text-muted-foreground">
+                {t("risk_flag_split_hint") ||
+                  "Several direct awards to this supplier in the same CPV class and year, each under the direct-award ceiling but together over it. чл. 20 ал. 4 permits separate recurring needs — this is a signal for review, not a proven breach."}
+              </div>
+              <div className="text-xs tabular-nums">
+                {flags.splitPurchase.contractCount}{" "}
+                {t("risk_flag_split_contracts") || "direct awards"} ·{" "}
+                {formatEurCompact(flags.splitPurchase.totalEur, lang)} ·{" "}
+                {t("risk_flag_split_ceiling") || "ceiling"}{" "}
+                {formatEurCompact(flags.splitPurchase.ceilingEur, lang)}
+              </div>
+            </div>
+          }
+        >
+          <span
+            className={`${chipBase} border-amber-300 bg-amber-100 text-amber-900 dark:border-amber-900 dark:bg-amber-900/40 dark:text-amber-100`}
+          >
+            <Scissors className="h-3 w-3" />
+            {t("risk_flag_split") || "Split?"}
           </span>
         </Tooltip>
       ) : null}

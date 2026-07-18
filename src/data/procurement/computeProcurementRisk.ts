@@ -20,6 +20,7 @@ import type {
   AwarderConcentrationEntry,
   DebarredEntry,
   ProcurementContract,
+  SplitPurchaseEntry,
 } from "@/data/dataTypes";
 import { procedureBucket } from "@/lib/cpvSectors";
 
@@ -36,6 +37,7 @@ export type RiskComponentKey =
   | "amendment"
   | "annexGrowth"
   | "newFirmWinner"
+  | "splitPurchase"
   | "appealUpheld";
 
 export type RiskComponent = {
@@ -67,6 +69,10 @@ export type ContractRiskFlags = {
   newFirmWinner: boolean;
   /** Months between the contractor's incorporation and the award (tooltip). */
   newFirmMonths: number | null;
+  /** This contract is part of a split-purchase pattern (all-direct, each ≤ the
+   *  ЗОП чл.20 ал.4 ceiling, together over it, same buyer+supplier+CPV+year).
+   *  Carries the group detail for the tooltip; "for review", not proof. */
+  splitPurchase: SplitPurchaseEntry | null;
   /** Weak competition: a single bidder in a normally-competitive market, OR
    *  materially fewer bidders than the sector norm (below the division median in
    *  a division whose median is ≥3). Validated against the single-bidding price
@@ -117,6 +123,10 @@ const WEIGHT_ANNEX_GROWTH = 30;
 // New-firm winner — a company barely older than the contract it won. Structural,
 // editorially legible (K-Index P4).
 const WEIGHT_NEW_FIRM = 30;
+// Split-purchase pattern — a "for review" structural signal, weighted below the
+// authoritative flags (debarred/appeal) and concentration given its
+// irreducible false-positive floor (a legal recurring-need pattern looks the same).
+const WEIGHT_SPLIT_PURCHASE = 25;
 /** A contractor incorporated fewer than this many months before the award is a
  *  "new firm" for the newFirmWinner flag. */
 const NEW_FIRM_MONTHS = 12;
@@ -163,6 +173,10 @@ export type RiskScoreArgs = {
    *  contractor is missing from it, newFirmWinner is unavailable (excluded from
    *  the CRI denominator, not scored 0). */
   foundedByEik?: Map<string, string>;
+  /** `awarderEik|contractorEik|cpvDiv|year` → split-purchase group. From the
+   *  served risk-indexes `splitPurchase` list. Always present (empty when the
+   *  payload is absent), like `concentrationByPair`. */
+  splitPurchaseByKey?: Map<string, SplitPurchaseEntry>;
   /** Folded-name normaliser, shared with the debarred index (passed in to keep
    *  this module React-free). */
   normalizeName: (raw: string) => string;
@@ -241,6 +255,18 @@ export const computeProcurementRisk = (
   } else {
     add("newFirmWinner", false, false);
   }
+
+  // Split-purchase pattern — this contract's (buyer, supplier, CPV-div, year)
+  // group is an all-direct, each-sub-threshold, sum-over-ceiling split. Always
+  // available (like concentration); a contract not in a split is available-and-
+  // not-fired. Keyed to match 033's splitPurchase emit.
+  const splitKey =
+    contract.cpv && contract.date
+      ? `${contract.awarderEik}|${contract.contractorEik}|${contract.cpv.slice(0, 2)}|${contract.date.slice(0, 4)}`
+      : "";
+  const splitPurchase =
+    (splitKey && args.splitPurchaseByKey?.get(splitKey)) || null;
+  add("splitPurchase", true, !!splitPurchase);
 
   // КЗК-upheld appeal — checkable only where the appeal join was loaded
   // (contracts browser + tender page); undefined elsewhere → unavailable. Where
@@ -334,6 +360,7 @@ export const computeProcurementRisk = (
   if (isAmendment) score += WEIGHT_AMENDMENT;
   if (annexGrowth) score += WEIGHT_ANNEX_GROWTH;
   if (newFirmWinner) score += WEIGHT_NEW_FIRM;
+  if (splitPurchase) score += WEIGHT_SPLIT_PURCHASE;
   if (appealUpheld) score += WEIGHT_APPEAL_UPHELD;
   score = Math.min(100, score);
 
@@ -353,6 +380,7 @@ export const computeProcurementRisk = (
       annexGrowthPct,
       newFirmWinner,
       newFirmMonths,
+      splitPurchase,
       weakCompetition,
       directAward,
       appealUpheld,
