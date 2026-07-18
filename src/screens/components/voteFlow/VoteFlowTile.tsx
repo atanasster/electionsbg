@@ -65,6 +65,7 @@ export const VoteFlowTile: FC<Props> = ({ regionCode, regionCodes }) => {
       for (const ent of entries) setWidth(ent.contentRect.width);
     });
     ro.observe(el);
+    return () => ro.disconnect();
   }, []);
 
   // Switching cycles or scope clears any pinned overlay so the user doesn't

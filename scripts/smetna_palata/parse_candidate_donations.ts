@@ -106,7 +106,7 @@ export const parseCandidateDonations = async ({
                 throw new Error("Could not find party name: " + sp_PartyName);
               }
               const date = row[2];
-              const kind = row[4];
+              const kind = row[3];
               allCandidates.push({
                 candidate_name,
                 cik_party_name: party.name,

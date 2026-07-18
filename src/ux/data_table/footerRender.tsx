@@ -33,7 +33,7 @@ export function footerRender<TData, TValue>(
     const { sum, count } = rows.reduce(
       (acc: { sum: number; count: number }, row) => {
         const val = row.getValue(header.column.id) as number;
-        if (val) {
+        if (typeof val === "number" && Number.isFinite(val)) {
           return {
             sum: acc.sum + val,
             count: acc.count + 1,

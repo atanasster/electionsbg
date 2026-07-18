@@ -89,8 +89,16 @@ const parseAmount = (v: unknown): number => {
   if (v == null) return 0;
   let s = String(v).replace(/[\s\u00a0\u2007\u202f]/g, "");
   if (!s) return 0;
-  if (s.includes(",") && s.includes(".")) s = s.replace(/,/g, "");
-  else if (s.includes(",")) s = s.replace(",", ".");
+  if (s.includes(",") && s.includes(".")) {
+    // Both separators present: whichever appears LAST is the decimal separator,
+    // the other is the thousands grouping. Handles US "1,234.56" and BG/EU
+    // "1.234,56" (which previously parsed to NaN \u2192 0).
+    if (s.lastIndexOf(",") > s.lastIndexOf(".")) {
+      s = s.replace(/\./g, "").replace(",", ".");
+    } else {
+      s = s.replace(/,/g, "");
+    }
+  } else if (s.includes(",")) s = s.replace(",", ".");
   const n = Number(s);
   return Number.isFinite(n) ? n : 0;
 };

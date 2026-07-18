@@ -14,6 +14,18 @@ import { scopeYear, type Scope } from "./useScope";
 const elections = allElections as Array<{ name: string }>;
 const dash = (d: string): string => d.replace(/_/g, "-");
 
+// One calendar day before a YYYY-MM-DD date (UTC, so no timezone drift). The
+// date-scoped DB endpoints filter `date <= to` (inclusive), so the "ns" window's
+// upper bound must be the day *before* the next election to keep the parliament
+// windows half-open — a contract dated exactly on the next election day belongs
+// to that next parliament only. Mirrors the half-open [from, to) of
+// useScopeWindow.
+const dayBefore = (isoDash: string): string => {
+  const d = new Date(`${isoDash}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() - 1);
+  return d.toISOString().slice(0, 10);
+};
+
 export const scopeRange = (
   scope: Scope,
   selected: string,
@@ -24,5 +36,8 @@ export const scopeRange = (
   // "ns": elections.json is newest-first, so the next election sits one index
   // earlier; the last (most recent) parliament is open-ended (to = null).
   const idx = elections.findIndex((e) => e.name === selected);
-  return [dash(selected), idx > 0 ? dash(elections[idx - 1].name) : null];
+  return [
+    dash(selected),
+    idx > 0 ? dayBefore(dash(elections[idx - 1].name)) : null,
+  ];
 };

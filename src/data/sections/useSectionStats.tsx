@@ -3,6 +3,7 @@ import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useElectionContext } from "../ElectionContext";
 import { useMemo } from "react";
 import { dataUrl } from "@/data/dataUrl";
+import { fetchJsonSoft } from "../fetchJson";
 
 const queryFn = async ({
   queryKey,
@@ -12,9 +13,10 @@ const queryFn = async ({
   if (!queryKey[1]) {
     return [];
   }
-  const response = await fetch(dataUrl(`/sections/${queryKey[1]}_stats.json`));
-  const data = await response.json();
-  return data;
+  const data = await fetchJsonSoft<ElectionInfo[]>(
+    dataUrl(`/sections/${queryKey[1]}_stats.json`),
+  );
+  return data ?? [];
 };
 export const useSectionStats = (section?: string | null) => {
   const { priorElections } = useElectionContext();

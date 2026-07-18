@@ -14,6 +14,9 @@ export const PercentChange = ({
   if (pctChange !== undefined && pctChange !== null) {
     const pctFloat =
       typeof pctChange === "string" ? parseFloat(pctChange) : pctChange;
+    if (Number.isNaN(pctFloat)) {
+      return null;
+    }
     return (
       <div
         className={cn(

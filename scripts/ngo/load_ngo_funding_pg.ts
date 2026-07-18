@@ -157,12 +157,21 @@ const parseAbf = (): RawRow[] => {
         : p.currency === "BGN"
           ? p.amount / BGN_PER_EUR
           : null;
+    // No trustworthy EUR conversion for other currencies (ABF grants are often
+    // USD, whose rate is not pegged): skip rather than store a null amount that
+    // silently zeroes the grant. Log so the drop is visible.
+    if (eur == null) {
+      console.warn(
+        `ngo: skipping grant with unconvertible currency ${p.currency ?? "?"} (${p.grantee}, ${p.amount})`,
+      );
+      continue;
+    }
     out.push({
       name_raw: p.grantee,
       source: "abf",
       funder: "America for Bulgaria Foundation",
       year: p.year ?? null,
-      amount_eur: eur != null ? Math.round(eur) : null,
+      amount_eur: Math.round(eur),
       programme: p.name ?? null,
       vat: null,
       eik: findEik(p.grantee),

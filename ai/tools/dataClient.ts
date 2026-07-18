@@ -32,6 +32,9 @@ export const fetchData = <T>(path: string): Promise<T> => {
   let p = cache.get(path);
   if (!p) {
     p = fetcher(path);
+    // Don't negatively-cache a failed fetch: evict on rejection so the next
+    // call retries instead of re-returning the rejected promise.
+    p.catch(() => cache.delete(path));
     cache.set(path, p);
   }
   return p as Promise<T>;
@@ -84,6 +87,8 @@ export const fetchDb = <T>(
   let p = dbCache.get(key);
   if (!p) {
     p = dbFetcher(route, params);
+    // Evict on rejection so a transient failure doesn't poison the session.
+    p.catch(() => dbCache.delete(key));
     dbCache.set(key, p);
   }
   return p as Promise<T>;

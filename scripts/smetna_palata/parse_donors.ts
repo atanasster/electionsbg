@@ -30,13 +30,17 @@ export const parseDonors = async ({
 
           const name = row[0];
           const date = row[1];
-          const monetary = parseFloat(row[2]);
-          const nonMonetary = parseFloat(row[3]);
+          const monetaryRaw = parseFloat(row[2]);
+          const nonMonetaryRaw = parseFloat(row[3]);
           if (
             name &&
             name !== "Сума:" &&
-            (!isNaN(monetary) || !isNaN(nonMonetary))
+            (!isNaN(monetaryRaw) || !isNaN(nonMonetaryRaw))
           ) {
+            const monetary = Number.isFinite(monetaryRaw) ? monetaryRaw : 0;
+            const nonMonetary = Number.isFinite(nonMonetaryRaw)
+              ? nonMonetaryRaw
+              : 0;
             const goal = row[4];
             const coalition = row[5];
             const party = row[6];

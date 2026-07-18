@@ -528,6 +528,7 @@ const REGISTRY = {
 };
 
 const MAX_OFFSET = 100000; // deep-paging guard (use search/filters instead)
+const MAX_IN_VALUES = 1000; // cap on `in`-filter array length (bind-param guard)
 const clampInt = (v, def, lo, hi) => {
   const n = Number(v);
   return Number.isFinite(n) ? Math.min(Math.max(Math.trunc(n), lo), hi) : def;
@@ -545,7 +546,10 @@ const buildFilter = (col, def, f, p0) => {
   const t = def.filter;
   if (t === "eq") return { sql: `${col} = ${push(f.value)}`, params };
   if (t === "in") {
-    const arr = Array.isArray(f.value) ? f.value : [f.value];
+    // Cap the array so a pathological client can't blow past Postgres's 65,535
+    // bind-parameter limit (or seq-scan a giant IN) and 500 the route.
+    const raw = Array.isArray(f.value) ? f.value : [f.value];
+    const arr = raw.slice(0, MAX_IN_VALUES);
     if (arr.length === 0) return null;
     // Expand to individual params (col IN ($a,$b,…)) so PG infers each value's
     // type from the column — avoids "could not determine data type" on ANY().
@@ -773,23 +777,27 @@ const runDbFacets = async (q, reqRaw) => {
   const limit = clampInt(req.limit, 100, 1, 500);
   const cols = (req.columns ?? []).filter((c) => r.columns[c]?.filter);
 
+  // Each facet is an independent query — run them concurrently rather than
+  // awaiting one column at a time.
   const facets = {};
-  for (const c of cols) {
-    const expr = r.columns[c].facetExpr || c; // registry-sourced, safe
-    // `<> ''` is an empty-STRING guard; on non-text columns comparing to '' errors
-    // (bool: "invalid input syntax for type boolean", int/number: "...for type
-    // integer/numeric"), so drop it for any non-text facet.
-    const ftype = r.columns[c].type;
-    const guard =
-      ftype === "bool" || ftype === "int" || ftype === "number"
-        ? `${expr} IS NOT NULL`
-        : `${expr} IS NOT NULL AND ${expr} <> ''`;
-    const where = whereSql ? `${whereSql} AND (${guard})` : `WHERE ${guard}`;
-    facets[c] = await q(
-      `SELECT ${expr} AS value, count(*)::int AS count FROM ${r.base} ${where} GROUP BY ${expr} ORDER BY count DESC LIMIT ${limit}`,
-      params,
-    );
-  }
+  await Promise.all(
+    cols.map(async (c) => {
+      const expr = r.columns[c].facetExpr || c; // registry-sourced, safe
+      // `<> ''` is an empty-STRING guard; on non-text columns comparing to ''
+      // errors (bool: "invalid input syntax for type boolean", int/number:
+      // "...for type integer/numeric"), so drop it for any non-text facet.
+      const ftype = r.columns[c].type;
+      const guard =
+        ftype === "bool" || ftype === "int" || ftype === "number"
+          ? `${expr} IS NOT NULL`
+          : `${expr} IS NOT NULL AND ${expr} <> ''`;
+      const where = whereSql ? `${whereSql} AND (${guard})` : `WHERE ${guard}`;
+      facets[c] = await q(
+        `SELECT ${expr} AS value, count(*)::int AS count FROM ${r.base} ${where} GROUP BY ${expr} ORDER BY count DESC LIMIT ${limit}`,
+        params,
+      );
+    }),
+  );
   return { facets };
 };
 

@@ -82,10 +82,10 @@ export const reportValues: ReportValue[] = [
       return {
         ...topPartyValues(votes, protocol),
         value: protocol?.totalActualVoters
-          ? 100 *
-            round(
-              ((protocol.numValidNoOnePaperVotes || 0) +
-                (protocol.numValidNoOneMachineVotes || 0)) /
+          ? round(
+              (100 *
+                ((protocol.numValidNoOnePaperVotes || 0) +
+                  (protocol.numValidNoOneMachineVotes || 0))) /
                 protocol.totalActualVoters,
             )
           : undefined,

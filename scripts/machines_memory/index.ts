@@ -40,7 +40,7 @@ const parseSectionFile = async (
           const partyNum = parseInt(row[pCol]);
           if (
             !isNaN(partyNum) &&
-            !isNaN(parseInt(row[pCol + 3])) &&
+            !isNaN(parseInt(row[pCol + 1])) &&
             partyNum !== 99 &&
             sectionVotes.votes.find((v) => v.partyNum === partyNum) ===
               undefined
@@ -111,8 +111,9 @@ export const parseMachinesFlashMemory = async (
                   existing.votes.push(vote);
                 }
               });
+            } else {
+              allSections.push(sectionVotes);
             }
-            allSections.push(sectionVotes);
           }
         }
       }

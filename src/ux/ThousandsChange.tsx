@@ -14,6 +14,9 @@ export const ThousandsChange = ({
 }) => {
   if (number !== undefined && number !== null) {
     const numFloat = typeof number === "string" ? parseFloat(number) : number;
+    if (Number.isNaN(numFloat)) {
+      return null;
+    }
     return (
       <div
         className={cn(

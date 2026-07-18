@@ -108,7 +108,9 @@ async function runQuery(pool, sql, limit, opts) {
   const t0 = Date.now();
   try {
     await client.query("BEGIN TRANSACTION READ ONLY");
-    await client.query(`SET LOCAL statement_timeout = '${timeout}'`);
+    await client.query("SELECT set_config('statement_timeout', $1, true)", [
+      String(timeout),
+    ]);
     let rows, columns, truncated;
     if (cursorable(s)) {
       await client.query(`DECLARE _b NO SCROLL CURSOR FOR ${s}`);

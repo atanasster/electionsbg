@@ -11,7 +11,8 @@ export const useTopParties = (
   const topParties = useMemo(() => {
     const totalVotes = totalAllVotes(votes);
     return votes
-      ?.sort((a, b) => b.totalVotes - a.totalVotes)
+      ?.slice()
+      .sort((a, b) => b.totalVotes - a.totalVotes)
       .filter((v, idx) => {
         if (!findParty(v.partyNum)) {
           return false;

@@ -88,8 +88,14 @@ const makeLlm = () => {
     const payload = {
       model: body.model,
       messages: body.messages.slice(0, MAX_MESSAGES),
-      temperature: typeof body.temperature === "number" ? body.temperature : 0,
-      max_tokens: Math.min(Number(body.max_tokens) || 256, MAX_TOKENS),
+      temperature:
+        typeof body.temperature === "number"
+          ? Math.min(Math.max(0, body.temperature), 2)
+          : 0,
+      max_tokens: Math.min(
+        Math.max(1, Number(body.max_tokens) || 256),
+        MAX_TOKENS,
+      ),
     };
     if (body.response_format) payload.response_format = body.response_format;
     if (body.tools) payload.tools = body.tools;

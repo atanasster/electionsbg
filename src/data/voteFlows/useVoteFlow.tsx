@@ -74,15 +74,28 @@ export type VoteFlowScope =
 const sumMatrices = (mats: VoteFlowMatrix[]): VoteFlowMatrix | undefined => {
   if (!mats.length) return undefined;
   if (mats.length === 1) return mats[0];
-  const first = mats[0];
+  // Node metadata keyed by id, first occurrence wins — built from the UNION of
+  // every matrix so a party present only in a later oblast isn't dropped from
+  // the node lists while its flows survive (which would orphan a Sankey
+  // endpoint). Insertion order is preserved for a stable node ordering.
+  const fromNodeById = new Map<
+    string,
+    (typeof mats)[number]["fromNodes"][number]
+  >();
+  const toNodeById = new Map<
+    string,
+    (typeof mats)[number]["toNodes"][number]
+  >();
   const fromVotesById = new Map<string, number>();
   const toVotesById = new Map<string, number>();
   const flowMap = new Map<string, number>();
   for (const m of mats) {
     for (const n of m.fromNodes) {
+      if (!fromNodeById.has(n.id)) fromNodeById.set(n.id, n);
       fromVotesById.set(n.id, (fromVotesById.get(n.id) ?? 0) + n.votes);
     }
     for (const n of m.toNodes) {
+      if (!toNodeById.has(n.id)) toNodeById.set(n.id, n);
       toVotesById.set(n.id, (toVotesById.get(n.id) ?? 0) + n.votes);
     }
     for (const f of m.flows) {
@@ -91,11 +104,11 @@ const sumMatrices = (mats: VoteFlowMatrix[]): VoteFlowMatrix | undefined => {
     }
   }
   return {
-    fromNodes: first.fromNodes.map((n) => ({
+    fromNodes: Array.from(fromNodeById.values()).map((n) => ({
       ...n,
       votes: fromVotesById.get(n.id) ?? 0,
     })),
-    toNodes: first.toNodes.map((n) => ({
+    toNodes: Array.from(toNodeById.values()).map((n) => ({
       ...n,
       votes: toVotesById.get(n.id) ?? 0,
     })),

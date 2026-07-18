@@ -398,16 +398,15 @@ export const partyVotesPosition = (
   if (!votes) {
     return undefined;
   }
-  const idx = votes
-    ? votes
-        .sort((a, b) => b.totalVotes - a.totalVotes)
-        .findIndex((v) => v.partyNum === partyNum)
-    : -1;
+  const sorted = votes
+    ? [...votes].sort((a, b) => b.totalVotes - a.totalVotes)
+    : [];
+  const idx = sorted.findIndex((v) => v.partyNum === partyNum);
 
   return idx >= 0
     ? {
         position: idx + 1,
-        votes: votes[idx],
+        votes: sorted[idx],
       }
     : undefined;
 };
@@ -454,17 +453,20 @@ export const capitalizeSentence = (sentence: string) => {
 
   const capitalized = words
     .map((word) => {
+      if (!word) return word;
       return word[0].toUpperCase() + word.substring(1).toLowerCase();
     })
     .join(" ");
   const hyphenated = capitalized.split("-");
   return hyphenated
     .map((word) => {
+      if (!word) return word;
       return word[0].toUpperCase() + word.substring(1);
     })
     .join("-");
 };
 export const capitalizeFirstLetter = (sentence: string) => {
+  if (!sentence) return sentence;
   return sentence[0].toUpperCase() + sentence.substring(1).toLowerCase();
 };
 export const mediaExpenseFiling = (services?: MediaServices) =>

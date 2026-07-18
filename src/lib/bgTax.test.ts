@@ -128,8 +128,14 @@ describe("computeLabourTax — employee below the МОД cap", () => {
   });
 
   it("splits the pension contribution between employee and employer", () => {
-    expect(r.pensionContribEmployee).toBeCloseTo(1100 * PENSION_EMPLOYEE_RATE, 6);
-    expect(r.pensionContribEmployer).toBeCloseTo(1100 * PENSION_EMPLOYER_RATE, 6);
+    expect(r.pensionContribEmployee).toBeCloseTo(
+      1100 * PENSION_EMPLOYEE_RATE,
+      6,
+    );
+    expect(r.pensionContribEmployer).toBeCloseTo(
+      1100 * PENSION_EMPLOYER_RATE,
+      6,
+    );
   });
 });
 
@@ -160,8 +166,14 @@ describe("computeLabourTax — employee above the МОД cap", () => {
   });
 
   it("computes pension contributions on the capped base, not the salary", () => {
-    expect(r.pensionContribEmployee).toBeCloseTo(mod * PENSION_EMPLOYEE_RATE, 6);
-    expect(r.pensionContribEmployer).toBeCloseTo(mod * PENSION_EMPLOYER_RATE, 6);
+    expect(r.pensionContribEmployee).toBeCloseTo(
+      mod * PENSION_EMPLOYEE_RATE,
+      6,
+    );
+    expect(r.pensionContribEmployer).toBeCloseTo(
+      mod * PENSION_EMPLOYER_RATE,
+      6,
+    );
   });
 });
 
@@ -187,7 +199,10 @@ describe("computeLabourTax — self-insured", () => {
       children: 0,
     });
     expect(r.insurableBase).toBe(MIN_SELF_INSURED_INCOME);
-    expect(r.ssc).toBeCloseTo(MIN_SELF_INSURED_INCOME * SSC_SELF_INSURED_RATE, 6);
+    expect(r.ssc).toBeCloseTo(
+      MIN_SELF_INSURED_INCOME * SSC_SELF_INSURED_RATE,
+      6,
+    );
   });
 
   it("still caps the insurable base at the МОД for high earners", () => {
@@ -301,17 +316,16 @@ describe("computeVat", () => {
   it("extracts the embedded 20% VAT from consumption at the default share", () => {
     const vat = computeVat(853.578);
     expect(vat).toBeCloseTo(
-      853.578 * VAT_CONSUMPTION_SHARE * (VAT_STANDARD_RATE / (1 + VAT_STANDARD_RATE)),
+      853.578 *
+        VAT_CONSUMPTION_SHARE *
+        (VAT_STANDARD_RATE / (1 + VAT_STANDARD_RATE)),
       6,
     );
     expect(vat).toBeCloseTo(106.7, 1);
   });
 
   it("scales linearly with a custom consumption share", () => {
-    expect(computeVat(1000, 0.5)).toBeCloseTo(
-      2 * computeVat(1000, 0.25),
-      6,
-    );
+    expect(computeVat(1000, 0.5)).toBeCloseTo(2 * computeVat(1000, 0.25), 6);
     expect(computeVat(1000, 0)).toBe(0);
   });
 
@@ -325,7 +339,10 @@ describe("computeCompanyTax", () => {
   it("applies 10% corporate then 5% dividend withholding", () => {
     const r = computeCompanyTax(5000);
     expect(r.corpTax).toBeCloseTo(5000 * CORP_TAX_RATE, 6);
-    expect(r.dividendTax).toBeCloseTo((5000 - r.corpTax) * DIVIDEND_TAX_RATE, 6);
+    expect(r.dividendTax).toBeCloseTo(
+      (5000 - r.corpTax) * DIVIDEND_TAX_RATE,
+      6,
+    );
     expect(r.totalTax).toBeCloseTo(r.corpTax + r.dividendTax, 6);
     expect(r.totalTax).toBeCloseTo(725, 6);
     expect(r.net).toBeCloseTo(5000 - r.totalTax, 6);

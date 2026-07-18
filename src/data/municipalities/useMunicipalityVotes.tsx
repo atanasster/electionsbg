@@ -2,6 +2,7 @@ import { ElectionMunicipality } from "../dataTypes";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useElectionContext } from "../ElectionContext";
 import { dataUrl } from "@/data/dataUrl";
+import { fetchJsonSoft } from "../fetchJson";
 
 const queryFn = async ({
   queryKey,
@@ -11,11 +12,10 @@ const queryFn = async ({
   if (!queryKey[1]) {
     return undefined;
   }
-  const response = await fetch(
+  const data = await fetchJsonSoft<ElectionMunicipality>(
     dataUrl(`/${queryKey[1]}/municipalities/${queryKey[2]}.json`),
   );
-  const data = await response.json();
-  return data;
+  return data ?? undefined;
 };
 
 export const useMunicipalityVotes = (obshtina?: string | null) => {
