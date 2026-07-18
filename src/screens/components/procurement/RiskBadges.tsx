@@ -21,6 +21,7 @@ import {
   Repeat,
   ShieldCheck,
   Timer,
+  TrendingUp,
   Users,
 } from "lucide-react";
 import { Tooltip } from "@/ux/Tooltip";
@@ -290,6 +291,36 @@ export const RiskBadges: FC<Props> = ({ result, variant = "chips" }) => {
           >
             <Repeat className="h-3 w-3" />
             {t("risk_flag_amendment") || "Amend"}
+          </span>
+        </Tooltip>
+      ) : null}
+
+      {flags.annexGrowth ? (
+        <Tooltip
+          content={
+            <div className="space-y-1">
+              <div className="font-medium">
+                {t("risk_flag_annex_growth_long") ||
+                  "Value grew to the annex cap"}
+              </div>
+              <div className="text-xs text-muted-foreground">
+                {t("risk_flag_annex_growth_hint") ||
+                  "Signed value grew by ≥50% via annexes — at or over the ЗОП чл.116 ал.2 cumulative cap. A permitted inflation indexation carries its own cap, so this is a signal for review, not a proven breach."}
+              </div>
+              {flags.annexGrowthPct != null ? (
+                <div className="text-xs tabular-nums">
+                  {t("risk_flag_annex_growth_delta") || "Growth"}: +
+                  {formatShare(flags.annexGrowthPct, lang)}
+                </div>
+              ) : null}
+            </div>
+          }
+        >
+          <span
+            className={`${chipBase} border-red-300 bg-red-100 text-red-900 dark:border-red-900 dark:bg-red-900/40 dark:text-red-100`}
+          >
+            <TrendingUp className="h-3 w-3" />+
+            {formatShare(flags.annexGrowthPct ?? 0, lang)}
           </span>
         </Tooltip>
       ) : null}

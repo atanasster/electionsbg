@@ -34,6 +34,7 @@ export type RiskComponentKey =
   | "directAward"
   | "shortTenderPeriod"
   | "amendment"
+  | "annexGrowth"
   | "appealUpheld";
 
 export type RiskComponent = {
@@ -56,6 +57,11 @@ export type ContractRiskFlags = {
   awarderConcentration: AwarderConcentrationEntry | null;
   /** Row is a post-award contract amendment. */
   isAmendment: boolean;
+  /** Contract value grew to/past the ЗОП чл.116 ал.2 cumulative cap (≥50% of the
+   *  signing value) via annexes. Only meaningful when an annex moved the value. */
+  annexGrowth: boolean;
+  /** Signed→current growth fraction when an annex moved the value (tooltip). */
+  annexGrowthPct: number | null;
   /** Weak competition: a single bidder in a normally-competitive market, OR
    *  materially fewer bidders than the sector norm (below the division median in
    *  a division whose median is ≥3). Validated against the single-bidding price
@@ -100,9 +106,20 @@ const WEIGHT_HIGH_CONCENTRATION = 30;
 const WEIGHT_DIRECT_AWARD = 20;
 const WEIGHT_SHORT_PERIOD = 15;
 const WEIGHT_AMENDMENT = 10;
+// Annex value growth to/past the legal cap — a structural signal (money added
+// after the competition), on par with concentration.
+const WEIGHT_ANNEX_GROWTH = 30;
 // КЗК-upheld appeal — authoritative (a regulator annulled the award), so heavy,
 // just below debarment (80). Only fires where the appeal outcome is known.
 const WEIGHT_APPEAL_UPHELD = 70;
+
+/** ЗОП чл.116 ал.2 caps the CUMULATIVE value of annex modifications at 50% of
+ *  the signing value (stricter than the EU per-modification rule). A contract
+ *  whose signed→current growth reaches this is at/over the statutory ceiling for
+ *  the ал.1 т.2/т.3 grounds. ⚠️ A permitted inflation indexation (ал.3 / чл.117а)
+ *  carries its OWN separate 50% ceiling, so ≥50% is a signal for review, not a
+ *  proven breach. See docs/plans/procurement-risk-v2.md §0b. */
+const ANNEX_GROWTH_CAP = 0.5;
 
 /** EU Directive 2014/24/EU Art. 27 reference open-procedure minimum. A tender
  *  window below this is the conventional "rushed deadline" red flag. */
@@ -164,6 +181,27 @@ export const computeProcurementRisk = (
 
   const isAmendment = contract.tag === "contractAmendment";
   add("amendment", true, isAmendment);
+
+  // Annex value growth — signed→current, scored against the ЗОП чл.116 ал.2
+  // cumulative cap. Available only when an annex actually moved the value
+  // (signingAmountEur present; NULL ⇒ amount_eur IS the signing value, no
+  // growth), so the check doesn't dilute the CRI for un-amended contracts.
+  // The €-Δ is already computed for the contract page's signed-vs-current bar;
+  // here it becomes a flag. See docs/plans §0b (the АПИ +50% finding).
+  const signedEur = contract.signingAmountEur;
+  let annexGrowth = false;
+  let annexGrowthPct: number | null = null;
+  if (
+    typeof signedEur === "number" &&
+    signedEur > 0 &&
+    typeof contract.amountEur === "number"
+  ) {
+    annexGrowthPct = (contract.amountEur - signedEur) / signedEur;
+    annexGrowth = annexGrowthPct >= ANNEX_GROWTH_CAP;
+    add("annexGrowth", true, annexGrowth);
+  } else {
+    add("annexGrowth", false, false);
+  }
 
   // КЗК-upheld appeal — checkable only where the appeal join was loaded
   // (contracts browser + tender page); undefined elsewhere → unavailable. Where
@@ -255,6 +293,7 @@ export const computeProcurementRisk = (
   if (directAward) score += WEIGHT_DIRECT_AWARD;
   if (shortTenderPeriod) score += WEIGHT_SHORT_PERIOD;
   if (isAmendment) score += WEIGHT_AMENDMENT;
+  if (annexGrowth) score += WEIGHT_ANNEX_GROWTH;
   if (appealUpheld) score += WEIGHT_APPEAL_UPHELD;
   score = Math.min(100, score);
 
@@ -270,6 +309,8 @@ export const computeProcurementRisk = (
       debarred,
       awarderConcentration: concentration,
       isAmendment,
+      annexGrowth,
+      annexGrowthPct,
       weakCompetition,
       directAward,
       appealUpheld,

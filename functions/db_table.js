@@ -58,6 +58,9 @@ const REGISTRY = {
       amount: { type: "number" },
       currency: { type: "text" },
       amount_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
+      // At-signing value (present only when an annex moved it) — surfaced so the
+      // annex value-growth risk flag is computable on browser rows too.
+      signing_amount_eur: { type: "number" },
       // facetExpr groups the facet dropdown by CPV DIVISION (2-digit prefix)
       // instead of the full code; selecting one sends a prefix filter (cpv LIKE
       // '45%'). The client maps the division code → name via cpvDivisionName.
@@ -93,6 +96,7 @@ const REGISTRY = {
       "amount",
       "currency",
       "amount_eur",
+      "signing_amount_eur",
       "cpv",
       "procurement_method",
       "procurement_method_rationale",

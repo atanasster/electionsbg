@@ -185,6 +185,29 @@ check(
     direct.score === 20,
     `score=${direct.score}`,
   );
+
+  // Annex value growth (ЗОП чл.116 ал.2 cap = 50% cumulative).
+  const grewToCap = flags(base({ signingAmountEur: 100, amountEur: 150 }));
+  check(
+    "signed 100 → current 150 (+50%) → annexGrowth fires",
+    grewToCap.annexGrowth === true && grewToCap.annexGrowthPct === 0.5,
+  );
+  const grewBelowCap = computeProcurementRisk(
+    base({ signingAmountEur: 100, amountEur: 120 }),
+    args,
+  );
+  check(
+    "signed 100 → current 120 (+20%) → annexGrowth available but NOT fired",
+    grewBelowCap.flags.annexGrowth === false &&
+      grewBelowCap.components.find((c) => c.key === "annexGrowth")
+        ?.available === true,
+  );
+  const noAnnex = computeProcurementRisk(base({ amountEur: 100 }), args);
+  check(
+    "no signingAmountEur → annexGrowth UNAVAILABLE",
+    noAnnex.components.find((c) => c.key === "annexGrowth")?.available ===
+      false,
+  );
 }
 
 console.log(
