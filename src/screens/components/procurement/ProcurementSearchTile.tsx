@@ -7,23 +7,27 @@
 // matched client-side against the full-corpus scanner roster so the bilingual
 // (Cyrillic + transliterated Latin) token matching stays in one place, and its
 // richer candidate/official links win over the generic /person/:name link when
-// a name is both (dedup by folded name). Replaces the contractors-only
-// CompanySearchTile.
+// a name is both (dedup by folded name).
+//
+// This is a thin adapter: it owns the data (fetch + rosters + group building)
+// and hands the built groups to the generic EntitySearchTile shell, which owns
+// the box, the grouped dropdown, keyboard nav and highlight.
 
-import { FC, useEffect, useMemo, useRef, useState, KeyboardEvent } from "react";
-import { Link, To, useNavigate, useSearchParams } from "react-router-dom";
+import { FC, useEffect, useMemo, useState } from "react";
+import { To, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
-  Search,
   Briefcase,
   Landmark,
   Receipt,
   ClipboardList,
   Users,
   Scale,
-  ArrowRight,
 } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
+import {
+  EntitySearchTile,
+  type SearchGroup,
+} from "@/ux/search/EntitySearchTile";
 import {
   useCorpusPersonIndex,
   type PersonProcurementRow,
@@ -31,7 +35,6 @@ import {
 import { useMagistrateSearchRoster } from "@/data/judiciary/useMagistrateHoldings";
 import { normalizeMpName } from "@/lib/utils";
 import { transliterateName } from "@/data/candidates/transliterateName";
-import { formatEurCompact } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
 
 interface EntityRow {
@@ -77,36 +80,16 @@ const EMPTY: DbResults = {
   tenders: [],
 };
 
-/** One selectable dropdown row, whatever the entity. */
-interface Item {
-  id: string;
-  to: string;
-  primary: string;
-  secondary?: string;
-  amountEur?: number | null;
-  icon: FC<{ className?: string }>;
-}
-interface Group {
-  key: string;
-  label: string;
-  items: Item[];
-  /** Optional "see all" target carrying the query forward. */
-  seeAll?: { label: string; to: To };
-}
-
 const MAX_PERSONS = 5;
 
 export const ProcurementSearchTile: FC = () => {
   const { t, i18n } = useTranslation();
-  const navigate = useNavigate();
   const [params] = useSearchParams();
   const [q, setQ] = useState("");
   const [touched, setTouched] = useState(false);
   const [db, setDb] = useState<DbResults>(EMPTY);
   const [trPeople, setTrPeople] = useState<TrPersonRow[]>([]);
   const [loading, setLoading] = useState(false);
-  const [highlight, setHighlight] = useState(-1);
-  const listRef = useRef<HTMLDivElement>(null);
 
   const term = q.trim();
   const hasQuery = term.length >= 2;
@@ -170,7 +153,6 @@ export const ProcurementSearchTile: FC = () => {
         if (ctl.signal.aborted) return;
         setDb({ ...EMPTY, ...search });
         setTrPeople(ppl.people ?? []);
-        setHighlight(-1);
         setLoading(false);
       });
     }, 200);
@@ -227,7 +209,7 @@ export const ProcurementSearchTile: FC = () => {
     return out;
   }, [trPeople, persons, magistrates, term, hasQuery]);
 
-  const groups = useMemo((): Group[] => {
+  const groups = useMemo((): SearchGroup[] => {
     // "See all" links keep the section state (?pscope, elections) AND carry
     // the query into the browser's search box (?q=, read by DbDataTable).
     const seeAllTo = (pathname: string): To => {
@@ -235,7 +217,7 @@ export const ProcurementSearchTile: FC = () => {
       p.set("q", term);
       return { pathname, search: `?${p.toString()}` };
     };
-    const g: Group[] = [];
+    const g: SearchGroup[] = [];
     if (persons.length > 0)
       g.push({
         key: "persons",
@@ -358,167 +340,29 @@ export const ProcurementSearchTile: FC = () => {
     params,
   ]);
 
-  const flat = useMemo(() => groups.flatMap((g) => g.items), [groups]);
-  // Stable id → flat-highlight-index lookup, so the grouped render never has
-  // to recover positions with a render-time counter.
-  const flatIndexById = useMemo(
-    () => new Map(flat.map((item, i) => [item.id, i])),
-    [flat],
-  );
-  const empty = flat.length === 0;
-
-  // Keep the highlighted row scrolled into view as the user arrows through.
-  useEffect(() => {
-    if (highlight < 0 || !listRef.current) return;
-    listRef.current
-      .querySelector<HTMLElement>(`[data-idx="${highlight}"]`)
-      ?.scrollIntoView({ block: "nearest" });
-  }, [highlight]);
-
-  const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Escape") {
-      e.preventDefault();
-      setQ("");
-      setHighlight(-1);
-      return;
-    }
-    if (flat.length === 0) return;
-    switch (e.key) {
-      case "ArrowDown":
-        e.preventDefault();
-        setHighlight((h) => (h + 1) % flat.length);
-        break;
-      case "ArrowUp":
-        e.preventDefault();
-        setHighlight((h) => (h <= 0 ? flat.length - 1 : h - 1));
-        break;
-      case "Enter": {
-        e.preventDefault();
-        const pick = flat[highlight >= 0 ? highlight : 0];
-        if (pick) navigate(pick.to);
-        break;
-      }
-    }
-  };
-
   return (
-    <Card className="my-4">
-      <CardHeader className="pb-2">
-        <CardTitle className="text-base flex items-center gap-2">
-          <Search className="h-4 w-4 text-muted-foreground" />
-          {t("procurement_search_title") || "Search procurement"}
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="p-3 md:p-4 pt-0">
-        <label className="relative block">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <input
-            type="search"
-            value={q}
-            role="combobox"
-            aria-expanded={hasQuery}
-            aria-controls="procurement-search-results"
-            aria-activedescendant={
-              highlight >= 0 && flat[highlight]
-                ? `psearch-opt-${flat[highlight].id}`
-                : undefined
-            }
-            aria-autocomplete="list"
-            onFocus={() => setTouched(true)}
-            onChange={(e) => {
-              setTouched(true);
-              setQ(e.target.value);
-              setHighlight(-1);
-            }}
-            onKeyDown={onKeyDown}
-            placeholder={
-              t("procurement_search_ph") ||
-              "Search a company, awarder, politician, contract or tender…"
-            }
-            aria-label={t("procurement_search_title") || "Search procurement"}
-            className="w-full rounded-md border bg-background pl-9 pr-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40"
-          />
-        </label>
-
-        {hasQuery ? (
-          <div
-            id="procurement-search-results"
-            ref={listRef}
-            role="listbox"
-            className="mt-2 max-h-96 overflow-auto rounded-md border"
-          >
-            {loading && empty ? (
-              <div className="px-3 py-3 text-sm text-muted-foreground">
-                {t("loading") || "Loading…"}
-              </div>
-            ) : empty ? (
-              <div className="px-3 py-3 text-sm text-muted-foreground">
-                {t("no_results") || "No results"}
-              </div>
-            ) : (
-              groups.map((g) => (
-                // role="group": the listbox's children are labelled groups of
-                // options, so AT doesn't announce the visual header (hidden —
-                // the group label carries it) as a stray non-option node.
-                <div key={g.key} role="group" aria-label={g.label}>
-                  <div
-                    aria-hidden="true"
-                    className="sticky top-0 bg-muted/80 backdrop-blur-sm px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground border-b"
-                  >
-                    {g.label}
-                  </div>
-                  {g.items.map((item) => {
-                    const i = flatIndexById.get(item.id) ?? -1;
-                    return (
-                      <Link
-                        key={item.id}
-                        id={`psearch-opt-${item.id}`}
-                        data-idx={i}
-                        to={item.to}
-                        role="option"
-                        aria-selected={i === highlight}
-                        onMouseEnter={() => setHighlight(i)}
-                        className={`flex items-center gap-2.5 px-3 py-2 text-sm border-b border-border/40 last:border-b-0 ${
-                          i === highlight ? "bg-muted" : "hover:bg-muted"
-                        }`}
-                      >
-                        <item.icon className="h-4 w-4 shrink-0 text-muted-foreground" />
-                        <span className="min-w-0 flex-1">
-                          <span className="block truncate">{item.primary}</span>
-                          {item.secondary ? (
-                            <span className="block truncate text-[11px] text-muted-foreground">
-                              {item.secondary}
-                            </span>
-                          ) : null}
-                        </span>
-                        {item.amountEur != null && item.amountEur > 0 ? (
-                          <span className="shrink-0 text-xs text-muted-foreground tabular-nums">
-                            {formatEurCompact(item.amountEur, i18n.language)}
-                          </span>
-                        ) : null}
-                      </Link>
-                    );
-                  })}
-                  {g.seeAll ? (
-                    <Link
-                      to={g.seeAll.to}
-                      className="flex items-center justify-end gap-1 px-3 py-1.5 text-xs text-primary hover:underline border-b border-border/40"
-                    >
-                      {g.seeAll.label}
-                      <ArrowRight className="h-3 w-3" />
-                    </Link>
-                  ) : null}
-                </div>
-              ))
-            )}
-          </div>
-        ) : (
-          <p className="mt-2 text-[11px] text-muted-foreground">
-            {t("procurement_search_hint") ||
-              "One search across companies, state buyers, politicians, contract subjects and tender procedures."}
-          </p>
-        )}
-      </CardContent>
-    </Card>
+    <EntitySearchTile
+      idPrefix="psearch"
+      title={t("procurement_search_title") || "Search procurement"}
+      placeholder={
+        t("procurement_search_ph") ||
+        "Search a company, awarder, politician, contract or tender…"
+      }
+      hint={
+        t("procurement_search_hint") ||
+        "One search across companies, state buyers, politicians, contract subjects and tender procedures."
+      }
+      loadingLabel={t("loading") || "Loading…"}
+      noResultsLabel={t("no_results") || "No results"}
+      lang={i18n.language}
+      value={q}
+      onChange={(v) => {
+        setTouched(true);
+        setQ(v);
+      }}
+      onFocus={() => setTouched(true)}
+      loading={loading}
+      groups={groups}
+    />
   );
 };
