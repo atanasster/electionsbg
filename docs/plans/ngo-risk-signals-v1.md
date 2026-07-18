@@ -172,10 +172,26 @@ different data paths — a candidate for later consolidation onto the PG-backed 
 ## Part A — ingest (three items; all land in PG)
 
 ### A1. External funders → `ngo_funding` (extend existing loader)
-Fetchers write raw to `raw_data/ngo_funding/{abf,ned}/`; loader parses → `ngo_funding`
-(source `abf`/`ned`). FTS extended to loop years 2016–2025. **All name-matched → VAT →
-exact-fold → fuzzy, and gated through the namesake/high-confidence guard** (Part B4). Feeds
-`foreign_funded`. Retires the curated `foreign_grants.json` for fetched sources;
+
+**SHIPPED (Phase 3, 2026-07-18) — FTS multi-year:** downloaded `{2019..2022}_FTS_dataset_en.xlsx`
+into `raw_data/ngo_funding/fts/` (added to the pre-existing 2023–2025) and re-ran
+`db:load:ngo-funding:pg` → 7 FTS years now feed `foreign_funded` (VAT→EIK, the reliable
+structured leg). This is a **one-off backfill** (raw xlsx are gitignored staging); prod
+gets it by downloading the years on the load host + `db:load:ngo-funding:pg:cloud`.
+
+**BLOCKED — ABF (America for Bulgaria Fdn, EIN 20-8076166):** per-grantee amounts are NOT
+machine-extractable. Its grants to BG NGOs are *foreign* grants → US 990 **Schedule F**,
+which aggregates by region ("Europe") without naming grantees; ProPublica's structured API
+returns only financial summaries; the ABF site (us4bg.org/grantees) 403s and the other ABF
+domains are unreachable; Candid's Foundation Directory has the data but is paywalled. →
+**deferred**, documented as a foreign-funder-data gap.
+
+**DEFERRED — NED:** ned.org publishes annual grant listings + a grant search, but grantee
+records are name-only (no VAT/EIK — weak match to the BG register), BG grants are few
+(~$50k avg), and sensitive-source name withholding is possible. A fragile scraper for
+marginal, hard-to-match data — not worth building now.
+
+Framing: `foreign_funded` stays a NEUTRAL disclosure (absolute €, slate tone).
 `budget_subsidies.json` stays a small manual seed.
 
 ### A2. NGO board ↔ politician/PEP links → new PG table `ngo_board_links` **(the critical build)**
