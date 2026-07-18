@@ -19,6 +19,7 @@ import { useHashScroll } from "@/ux/useHashScroll";
 import { usePriceIndex, usePriceRanking } from "@/data/prices/usePrices";
 import { useEuroVerdict } from "@/data/prices/useProducts";
 import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrumb";
+import { Title } from "@/ux/Title";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { GovernancePricesTile } from "@/screens/governance/GovernancePricesTile";
 import { ConsumptionInflationTile } from "@/screens/consumption/ConsumptionInflationTile";
@@ -50,8 +51,9 @@ export const ConsumptionOverviewScreen = () => {
       <SEO title={title} description={description} />
       <ConsumptionBreadcrumb
         section={bg ? "Обзор" : "Overview"}
-        className="my-4"
+        className="mt-4 mb-2"
       />
+      <Title>{bg ? "Обзор" : "Overview"}</Title>
 
       <section aria-label={title}>
         <DashboardSection

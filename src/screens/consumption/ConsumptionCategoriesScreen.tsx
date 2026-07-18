@@ -8,6 +8,7 @@ import { LayoutGrid } from "lucide-react";
 import { Link } from "@/ux/Link";
 import { SEO } from "@/ux/SEO";
 import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrumb";
+import { Title } from "@/ux/Title";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { Card } from "@/components/ui/card";
 import {
@@ -44,8 +45,9 @@ export const ConsumptionCategoriesScreen: FC = () => {
       />
       <ConsumptionBreadcrumb
         section={T("Категории", "Categories")}
-        className="my-4"
+        className="mt-4 mb-2"
       />
+      <Title>{T("Категории", "Categories")}</Title>
 
       <section aria-label={T("Категории", "Categories")}>
         <DashboardSection

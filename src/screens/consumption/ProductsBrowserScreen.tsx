@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import { ShoppingBasket } from "lucide-react";
 import { SEO } from "@/ux/SEO";
 import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrumb";
+import { Title } from "@/ux/Title";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { DbDataTable, type DbColumnFilter } from "@/ux/data_table/DbDataTable";
 import { usePriceDict } from "@/data/prices/usePrices";
@@ -69,8 +70,9 @@ export const ProductsBrowserScreen: FC = () => {
       />
       <ConsumptionBreadcrumb
         section={T("Продукти", "Products")}
-        className="my-4"
+        className="mt-4 mb-2"
       />
+      <Title>{T("Продукти", "Products")}</Title>
 
       <section aria-label={T("Продукти", "Products")}>
         <DashboardSection

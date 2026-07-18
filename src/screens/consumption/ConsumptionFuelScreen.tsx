@@ -19,6 +19,7 @@ import {
 import { SEO } from "@/ux/SEO";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrumb";
+import { Title } from "@/ux/Title";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { Card } from "@/components/ui/card";
 import { useFuel } from "@/data/prices/useFuel";
@@ -110,7 +111,11 @@ export const ConsumptionFuelScreen: FC = () => {
           "Fuel prices in Bulgaria vs the EU average — petrol 95 and diesel (EUR/L, incl. VAT), EU Weekly Oil Bulletin.",
         )}
       />
-      <ConsumptionBreadcrumb section={T("Горива", "Fuel")} className="my-4" />
+      <ConsumptionBreadcrumb
+        section={T("Горива", "Fuel")}
+        className="mt-4 mb-2"
+      />
+      <Title>{T("Горива", "Fuel")}</Title>
 
       <section aria-label={T("Горива", "Fuel")}>
         <DashboardSection

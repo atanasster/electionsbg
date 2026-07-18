@@ -8,6 +8,7 @@ import { Tag } from "lucide-react";
 import { Link } from "@/ux/Link";
 import { SEO } from "@/ux/SEO";
 import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrumb";
+import { Title } from "@/ux/Title";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { Card } from "@/components/ui/card";
 import { useDeals, fmtEur, fmtPriceDate } from "@/data/prices/usePrices";
@@ -31,8 +32,9 @@ export const ConsumptionDealsScreen: FC = () => {
       />
       <ConsumptionBreadcrumb
         section={T("Промоции", "Deals")}
-        className="my-4"
+        className="mt-4 mb-2"
       />
+      <Title>{T("Промоции", "Deals")}</Title>
 
       <section aria-label={T("Промоции", "Deals")}>
         <DashboardSection

@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import { Landmark } from "lucide-react";
 import { SEO } from "@/ux/SEO";
 import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrumb";
+import { Title } from "@/ux/Title";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { Card } from "@/components/ui/card";
 import { useFoodPli, type PeerGeo } from "@/data/macro/useMacroPeers";
@@ -61,8 +62,9 @@ export const ConsumptionEuScreen: FC = () => {
       />
       <ConsumptionBreadcrumb
         section={T("Спрямо ЕС", "vs the EU")}
-        className="my-4"
+        className="mt-4 mb-2"
       />
+      <Title>{T("Храната спрямо ЕС", "Food vs the EU")}</Title>
 
       <section aria-label={T("Храната спрямо ЕС", "Food vs the EU")}>
         <DashboardSection

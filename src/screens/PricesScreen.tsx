@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Map as MapIcon, ShoppingBasket } from "lucide-react";
 import { SEO } from "@/ux/SEO";
 import { Title } from "@/ux/Title";
+import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrumb";
 import { useHashScroll } from "@/ux/useHashScroll";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { GovernancePricesTile } from "@/screens/governance/GovernancePricesTile";
@@ -22,6 +23,10 @@ export const PricesScreen = () => {
   return (
     <>
       <SEO title={title} description={description} />
+      <ConsumptionBreadcrumb
+        section={t("prices_section_map") || "Карта на цените"}
+        className="mt-4 mb-2"
+      />
       <Title description={description}>{title}</Title>
 
       <section aria-label={title} className="my-4">

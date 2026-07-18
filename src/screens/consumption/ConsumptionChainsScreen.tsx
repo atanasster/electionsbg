@@ -10,6 +10,7 @@ import { Store } from "lucide-react";
 import { Link } from "@/ux/Link";
 import { SEO } from "@/ux/SEO";
 import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrumb";
+import { Title } from "@/ux/Title";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { Card } from "@/components/ui/card";
 import { useNationalChains, fmtEur } from "@/data/prices/usePrices";
@@ -36,7 +37,11 @@ export const ConsumptionChainsScreen: FC = () => {
           "Which retail chain has the cheapest basket in Bulgaria.",
         )}
       />
-      <ConsumptionBreadcrumb section={T("Вериги", "Chains")} className="my-4" />
+      <ConsumptionBreadcrumb
+        section={T("Вериги", "Chains")}
+        className="mt-4 mb-2"
+      />
+      <Title>{T("Вериги", "Chains")}</Title>
 
       <section aria-label={T("Вериги", "Chains")}>
         <DashboardSection

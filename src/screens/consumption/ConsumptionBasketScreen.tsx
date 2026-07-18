@@ -11,6 +11,7 @@ import { ShoppingBasket, Plus, X, Search } from "lucide-react";
 import { Link } from "@/ux/Link";
 import { SEO } from "@/ux/SEO";
 import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrumb";
+import { Title } from "@/ux/Title";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { Card } from "@/components/ui/card";
 import { fetchProduct, type ProductHit } from "@/data/prices/fetchPricePayload";
@@ -158,8 +159,9 @@ export const ConsumptionBasketScreen: FC = () => {
       />
       <ConsumptionBreadcrumb
         section={T("Моята кошница", "My basket")}
-        className="my-4"
+        className="mt-4 mb-2"
       />
+      <Title>{T("Моята кошница", "My basket")}</Title>
 
       <section aria-label={T("Моята кошница", "My basket")}>
         <DashboardSection
