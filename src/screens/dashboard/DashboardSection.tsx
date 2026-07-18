@@ -20,6 +20,7 @@ type Props = {
     | "prices"
     | "deals"
     | "products"
+    | "basket"
     | "chains"
     | "euro"
     | "map"

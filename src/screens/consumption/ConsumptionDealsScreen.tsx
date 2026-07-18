@@ -63,11 +63,9 @@ export const ConsumptionDealsScreen: FC = () => {
   // otherwise fall through to the national feed (an obshtina with no covered
   // stores returns null).
   const scoped = !forceAll && !!(local && local.deals.length > 0);
-  const allSearch = (() => {
-    const p = new URLSearchParams(params);
-    p.set("all", "1");
-    return `?${p.toString()}`;
-  })();
+  // `@/ux/Link` keeps the global params (elections, area); layer `all=1` on top
+  // to force the national feed.
+  const allTo = { pathname: "/consumption/deals", search: { all: "1" } };
   const data = scoped ? local : national;
   const deals = data?.deals ?? [];
 
@@ -108,7 +106,7 @@ export const ConsumptionDealsScreen: FC = () => {
                 `Showing promotions in ${placeName} municipality. `,
               )}
               <Link
-                to={{ search: allSearch }}
+                to={allTo}
                 className="text-primary hover:underline inline-flex items-center gap-1"
               >
                 {T("Виж всички", "See all")}

@@ -83,11 +83,12 @@ export const ProductScreen: FC = () => {
           ? area.municipality.name
           : area.municipality.name_en
         : null;
-  const allSearch = useMemo(() => {
-    const p = new URLSearchParams(params);
-    p.set("all", "1");
-    return `?${p.toString()}`;
-  }, [params]);
+  // `@/ux/Link` already carries the global params (elections, area) forward;
+  // we only need to layer `all=1` on top to force the national ladder.
+  const allTo = useMemo(
+    () => ({ pathname: `/product/${slug}`, search: { all: "1" } }),
+    [slug],
+  );
 
   const { data, isLoading } = useProduct(slug, localEkatte);
   const { data: history } = useProductHistory(slug);
@@ -199,7 +200,7 @@ export const ProductScreen: FC = () => {
               <span className="font-semibold">{placeName}</span>
             </span>
             <Link
-              to={{ search: allSearch }}
+              to={allTo}
               className="ml-auto inline-flex items-center gap-1 text-xs text-primary hover:underline"
             >
               {T("За цялата страна", "Nationwide")}
@@ -220,7 +221,7 @@ export const ProductScreen: FC = () => {
                 `This product isn't listed in the monitored stores in ${placeName}. `,
               )}
               <Link
-                to={{ search: allSearch }}
+                to={allTo}
                 className="text-primary hover:underline inline-flex items-center gap-1"
               >
                 {T("Виж цените за страната", "See nationwide prices")}

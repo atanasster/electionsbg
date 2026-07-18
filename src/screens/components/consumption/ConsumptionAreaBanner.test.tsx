@@ -4,6 +4,7 @@
 // Guards the picker-flash regression: an anchor must show the drill-down link
 // even before its name resolves — never the picker.
 
+import "@testing-library/jest-dom/vitest";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
