@@ -729,11 +729,14 @@ as relative ordering only.
    (award − founded < 12 months). ⚠️ **Remaining operational step: the full ~28k-EIK backfill.**
    Only a ~75-EIK sample is loaded locally; the flag lights up corpus-wide once
    `tsx scripts/procurement/fetch_company_founded.ts` (no args, resumable) finishes the ~39h run
-   — locally, then against cloud PG. ⚠️ **Not yet wired to a refresh cadence** (the default
-   fetch mode already picks up only new contractors — a periodic run keeps it current) and **not
-   yet in `recent_updates`** — decide if this internal enrichment table warrants a changelog
-   entry ([[feedback_pg_changelog_required]]). Original feasibility analysis (why the proxy failed
-   and the scrape was needed) below:
+   — locally, then against cloud PG (26,626 contractors remain unfetched). ⚠️ **Not yet wired to
+   a refresh cadence** — the default fetch mode already picks up only new contractors
+   (contractor_eik NOT IN company_founded), so a periodic no-args run keeps it current; formal
+   watcher integration is a later step. **No `recent_updates` entry — deliberate:** that feed
+   tracks user-facing *datasets* (tender, tr_company, nzok_*…); enrichment indexes (`debarred`,
+   `company_politicians`) are absent by design and `company_founded` is the same kind of derived
+   table ([[feedback_pg_changelog_required]] is for datasets, not indexes). Original feasibility
+   analysis (why the proxy failed and the scrape was needed) below:
    - **No founding date in PG.** `tr_companies` has none (only our `last_updated` ingest stamp).
    - **The earliest-filing proxy is UNUSABLE — measured, not assumed.** `tr_person_roles.added_at`
      is the feed's *filing date* (load_tr_pg:246), but our TR ingest holds only **daily filings
