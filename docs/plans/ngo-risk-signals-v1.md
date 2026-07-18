@@ -1,332 +1,366 @@
-# NGO risk-signals v1 — plan
+# NGO risk-signals v1 — plan (rev 2: competitive benchmark + gap audit folded in)
 
 Turn the ЮЛНЦ surface (`/procurement/ngos` list + the per-NGO `/company/:eik` page)
 from a plain directory into a **signals product**: every NGO carries computed
-public-interest signals — political/magistrate connections, public procurement won,
-EU-fund and state-subsidy money, foreign funding — surfaced as `SignalPill`s in the
-browse list and as a risk-signal dashboard block on the NGO page.
+public-interest signals — political/PEP connections on its board, public procurement
+won, EU-fund and state-subsidy money, foreign funding — surfaced as `SignalPill`s in the
+browse list and a signal dashboard on the NGO page.
 
-Builds directly on the shipped NGO backend (commit `a95a3eba3`) and the procurement
-risk-v2 infrastructure. **Reuse, don't reinvent.**
+Builds on the shipped NGO backend (commit `a95a3eba3`) and the procurement risk-v2
+infrastructure. **Reuse, don't reinvent.**
 
-## Framing guardrails (carry over from the NGO ingest work)
-
-- Public-money **accountability** is the thesis — not donor/ideology exposure.
-- Foreign funding shown as **absolute €**, never a "% foreign" ratio; the word is
-  **exposure**, never "foreign agent". (2020 НПО-portal debate.)
-- Every signal is **"трейс, не доказателство"** — a documentation/pattern flag,
-  footnoted as such (mirrors the risk-grade "EXPOSURE, not proof" footnote).
-- NGOs are **not** buyers; the procurement risk-GRADE (buyer/supplier A–F) is a
-  secondary lens, not the headline. The headline is the **signal set**.
-
-## Non-negotiable operating principles (apply to every phase)
-
-1. **All new data lands in Postgres — no new served JSON.** Serving is PG-only,
-   local Docker == Cloud SQL (postgres-migration rule; funds-pg-only rule). Fetchers
-   write *raw* payloads under `raw_data/…` (staging only, like the FTS xlsx); loaders
-   parse raw → `ngo_funding` / new PG tables via `COPY`/staging-table upsert. **No**
-   `data/ngo/*.json` serving tree, **no** JSON shards read at request time. The single
-   sanctioned exception is `data/ngo/ai_summary.json` — it is *generated FROM* PG
-   (`scripts/ngo/build_ai_summary.ts`) solely because the AI hosting target cannot hit
-   `/api/db`; it is a projection, never a source of truth. (Retire the hand-curated
-   `data/ngo/foreign_grants.json` intermediate for the *fetched* ABF/NED sources — the
-   fetcher writes raw JSON to `raw_data/ngo_funding/{abf,ned}/` and the loader parses
-   that straight into `ngo_funding`. `budget_subsidies.json` may stay a small **manual
-   seed** — it isn't fetched.)
-2. **Every new ingest is wired into the watcher + process-watch-report** before it's
-   "done" — a source in `scripts/watch/sources/`, a row in the process-watch-report
-   `SKILL.md` source→skill table, and a `db:load:*:pg:cloud` row in its Cloud-SQL
-   sync section. An ingest with no watcher row is incomplete (Part D).
-3. **Every new / changed PG query is performance-tested** with `EXPLAIN ANALYZE` on the
-   worst-case entity before it ships; add the matview/index it needs (Performance
-   section). Index both sides of every join key (PG perf playbook).
-4. **Blocked or missing public data → log it in the egov roadmap.** If an ingest hits a
-   source that is PDF-only, paywalled, or nonexistent, record it in
-   `docs/egov-single-source-roadmap.md` (the МИДТ feedback doc) in the matching section
-   — §1B broken-on-portal, §2 exists-publicly-not-on-portal, §3 locked, §4 nonexistent
-   — rather than silently working around it. Known NGO gaps to file there (below).
+> **Rev 2 changes** (this revision): folds in an adversarial gap audit (verified against
+> the live DB) and a competitive-research sweep. The headline correction: the
+> *connection* signals — the whole differentiator — do **not** work as a free join and
+> require a new ingest; the *public-money* signals do work today. Signals are now split
+> into those two classes, thresholds are pinned, the matview/registry/sort hazards are
+> resolved, and framing/legal conventions are adopted from OpenSanctions / GlassPockets /
+> EU Transparency Register / ProPublica. See the **Gap-audit resolutions** table at the
+> end for the finding-by-finding trace.
 
 ---
 
-## What already exists (reuse map)
+## Competitive benchmark (what peers do; what to adopt)
 
-### Data in Postgres (all keyed to the NGO's EIK = `tr_companies.uic`)
-- `company_politicians` (008) — politician↔company links; **already includes NGO
-  board roles** (ngo_board/ngo_representative flow into `tr_officers` → cross_reference).
-- `magistrate_company` (070) — magistrate→company declared holdings/participation.
-- Officials/PEP cross-reference (`scripts/procurement/pep_connected.ts`,
-  `data/officials/derived/company_links.json`) — cabinet, governors, mayors, councillors.
-- `contracts.contractor_eik` (001) — NGO as public-contract winner.
-- `supplier_risk_grade(eik)` / `awarder_risk_grade(eik)` + `risk_grade_letter()` (041)
-  — A–F composite with singleBid/direct/buyerConcentration/connectedSelf components.
-- `awarder_kindex(eik)` (039) — political-connection share for buyers.
-- `fund_projects` / `fund_beneficiaries` (ИСУН EU funds) — via the company endpoint.
-- `ngo_funding` (040) + `ngo_funding_for(eik)` — eu_fts / budget_subsidy / abf / ned.
-- `ngo_details`, generated cols `entity_class` + `ngo_type` (003).
+The landscape splits into three archetypes — **none combines all our signals**, which is
+the differentiation opportunity, confirmed by the fact that the nearest Bulgarian peer
+(ngobg.info) is a self-publishing directory with no scoring at all (first-of-kind
+domestically).
 
-### UI components
-- `SignalPill` (`src/screens/components/procurement/SignalPill.tsx`) — 11 tones, icon,
-  single-line chip. Wrap in `@/ux/Tooltip` for detail.
-- The `computeXRisk → {key, available, fired}` + `criColor` meter model
-  (`computeProcurementRisk.ts` / `computeTenderRisk.ts`) — the per-row chips pattern.
-- `RiskBadges` / `TenderRiskChips` — table-cell chip strips (the exact thing to mirror).
-- `EntityRiskGradeCard` (+ `EntityRiskGrade` type, `riskGrade.ts` `GRADE_TONE` A–F,
-  `criColor`, `formatShare`) — the reusable entity 0–100 / A–F grade card.
-- `CompanyRiskChips` — the hero boolean-flag chip row (debarred / political-links /
-  EU-beneficiary …) already rendered in the CompanyDbScreen hero (line ~696).
-- `DbDataTable` custom cell — see `TendersBrowserDbScreen.tsx` status/risk columns
-  (a `flex flex-wrap gap-1` of conditional `SignalPill`s in a `cell` accessor).
+1. **US 990-based transparency** (ProPublica Nonprofit Explorer, Candid/GuideStar,
+   Charity Navigator, GlassPockets) — frame accountability as *disclosure completeness*,
+   not risk. Adoptable:
+   - **Person-name search as a first-class entry point** (ProPublica indexes
+     officers/directors) — we already have `/person/:name`; make sure NGO board rows link
+     there.
+   - **Explicit data-freshness / provenance stamp** per dataset (ProPublica states the
+     exact processing + fiscal years covered) → put a per-signal **as-of date**.
+   - **Related-party-transaction check** (Charity Navigator flags loans to/from
+     "disqualified persons") → a concrete new signal: **board member's own company is a
+     counterparty** of the NGO's contracts.
+   - **Board-affiliations framed constructively** (GlassPockets: publishing board
+     affiliations reveals the org's "network and sphere of influence") — a
+     non-accusatory framing for our connection tile.
+   - **Self-disclosure ≠ verified** caution (Candid seals are self-reported).
 
-### Serving
-- `ngos` registry in `functions/db_table.js` (base `tr_companies`, entity_class filter).
-- `/api/db/ngo-stats`, `/api/db/facets`, `/api/db/company` (`functions/db_routes.js`)
-  — the company endpoint already returns `politicians`, `ngoFunding`, `ngoDetails`,
-  `awarderKindex`, `funds`, contract rollups.
+2. **Entity/relationship + PEP tools** (OpenSanctions, OCCRP Aleph, OpenScreening,
+   Sayari). Adoptable:
+   - **The PEP-as-risk-category disclaimer, near-verbatim**: *"being classified as a PEP
+     is not an allegation … a risk category that exists because senior public office
+     creates a specific kind of exposure to corruption … not because the individual is
+     suspected of anything."* This is the single most important framing lift.
+   - **Broad PEP scope** (FATF): office-holders **plus close family + associates**.
+   - **Multi-property matcher**, not a bare name string (we must reuse the namesake
+     guard for exactly this reason).
+   - **Alert-on-new-connection** monitoring (OpenScreening saved queries → alerts when a
+     new tie to a flagged entity appears) → a future NGO **watchlist/alerts** feature
+     (aligns with the procurement-expansion alerts phase).
+
+3. **Political-connection scoring (CEE) — the closest single analog: Czech Hlídač státu
+   K-Index.** A multi-parameter procurement risk index (10 core + 1 bonus) mapped to an
+   **A–F "energy label"**, *explicitly an indicator of risk factors, not proof of
+   corruption*. Adoptable:
+   - **Broad political-connection definition**: not just office-holders but **relatives,
+     lobbyists, advisors, party sponsors**.
+   - **Direct AND indirect ties** (through other firms the person owns), and **current
+     AND historical (≈5-year) ties** — designed to catch the *divest-then-resume*
+     pattern (transfer to a relative before office, resume after).
+   - **Caveat (research):** K-Index scores *buyers*, not suppliers; inverting it to score
+     NGOs as *recipients* "is an inversion, not a direct lift." → **We do not force a
+     single A–F NGO grade** (see Part B); the headline is the signal set. The buyer/
+     supplier `EntityRiskGradeCard` stays only for the rare NGO that awards contracts.
+
+**Bulgarian legal context (load-bearing for the `foreign_funded` signal):** BG's
+proposed "foreign-agent" bill would tag any CSO receiving > BGN 1,000 (~€580)/yr from
+foreign sources. This makes foreign-funding the **most legally sensitive** signal. No
+peer surfaces a dedicated "foreign-funding *risk*" flag; the defensible model is the **EU
+Transparency Register**'s neutral **self-declaration + right-of-reply**. → Treat
+`foreign_funded` as **neutral public-interest disclosure** (absolute €, distinct
+non-red tone, explicitly *not* a risk/red flag), never a ratio, never "agent".
+
+**Right-of-reply (EU Transparency Register):** anyone may trigger an inquiry into a
+listed entity; the entity has review/appeal rights. → Add a per-entity **"обжалване /
+поправка"** contact path for NGOs to contest a signal.
+
+Sources: hlidacstatu.cz/osoby + texty.hlidacstatu.cz/co-je-to-k-index; opensanctions.org
+(/api, /faq/policy/missing-peps, /docs/pep/methodology); projects.propublica.org/
+nonprofits; charitynavigator.org methodology; glasspockets.org indicators;
+transparency-register.europa.eu; ngobg.info; bcnl.org; civicus foreign-agents report.
 
 ---
 
-## Part A — Ingest new data (fill the real gaps)
+## Framing guardrails
 
-Only three signals need data we don't already have. Everything else is a join.
+- **Public-money accountability** is the thesis — not donor/ideology exposure.
+- **PEP/connection = risk *category*, not allegation** (OpenSanctions wording, adopted
+  verbatim in the tooltip/footnote). Board affiliations framed as "network and sphere of
+  influence" (GlassPockets), not wrongdoing.
+- **Foreign funding** = neutral disclosure, **absolute €**, non-red tone, never a "%
+  foreign" ratio, never "foreign agent". (BG foreign-agent debate; 2020 НПО-portal.)
+- Every signal is **"трейс, не доказателство"**, carries an **as-of date** (ProPublica
+  provenance convention), and a **right-of-reply** path (EU Transparency Register).
+- **Name-matched signals show a confidence tier** and pass the existing namesake guard —
+  a public site naming NGOs + people cannot ship silent false positives.
 
-All rows land in the existing `ngo_funding` PG table (source column) — **no served
-JSON**. Fetchers write raw payloads to `raw_data/ngo_funding/{abf,ned}/`; the loader
-parses raw → PG (extend `scripts/ngo/load_ngo_funding_pg.ts`).
+## Non-negotiable operating principles (every phase)
 
-| Source | Feeds signal | Effort | PG landing / notes |
+1. **All new data in Postgres — no new served JSON.** Serving is PG-only (postgres-
+   migration / funds-pg-only rules). Fetchers write *raw* to `raw_data/…`; loaders parse
+   → PG via `COPY`/staging upsert. The one sanctioned JSON is `data/ngo/ai_summary.json`
+   — a projection *from* PG for the AI host (can't hit `/api/db`), never a source of
+   truth. Retire the hand-curated `data/ngo/foreign_grants.json` for fetched sources.
+2. **Every new ingest is wired into the watcher + process-watch-report** (source module +
+   source→skill row + `db:load:*:pg:cloud` sync row) before it's "done".
+3. **Every new/changed PG query is `EXPLAIN ANALYZE`-tested on its worst-case entity** and
+   gets the matview/index it needs; index both sides of every join key.
+4. **Blocked / missing public data → log it in `docs/egov-single-source-roadmap.md`** in
+   the matching §1B/§2/§3/§4 section.
+
+---
+
+## Reality check — measured signal coverage (audit, live DB, ~30,170 NGO-class rows)
+
+| signal | class | as-planned source | **actual NGO coverage** | status |
+|---|---|---|---|---|
+| `eu_funds` (ИСУН) | public-money | `fund_projects` | **2,297** | works now |
+| `foreign_funded` | public-money | `ngo_funding` (fts/abf/ned) | **193** (FTS only) | works, grows w/ Part A |
+| `public_contracts` | public-money | `contracts.contractor_eik` | **192** | works now |
+| `budget_subsidy` | public-money | `ngo_funding` (subsidy) | **3** | works (thin seed) |
+| `politician_board` | connection | `company_politicians` join | **5** ⚠ | **broken — needs new ingest** |
+| `magistrate_board` | connection | `magistrate_company` join | **0** ⚠ | **wrong table — rescope** |
+| `new_winner` | derived | `tr_companies.registered_at` | **column absent** ⚠ | **needs loader change** |
+| **any signal** | — | — | **2,554 (8.5%)** | — |
+
+**Root cause of the connection gap:** `company_politicians` is built *only from
+procurement winners* — `cross_reference.ts:226` and `pep_connected.ts:125` both `continue`
+past any EIK with no contract. So a politician on an NGO board only appears if that NGO
+*also* won a public contract (→ 5 NGOs). The differentiator signal is **not a free join**;
+it is the core new build (Part A2).
+
+---
+
+## Part A — ingest (three items; all land in PG)
+
+### A1. External funders → `ngo_funding` (extend existing loader)
+Fetchers write raw to `raw_data/ngo_funding/{abf,ned}/`; loader parses → `ngo_funding`
+(source `abf`/`ned`). FTS extended to loop years 2016–2025. **All name-matched → VAT →
+exact-fold → fuzzy, and gated through the namesake/high-confidence guard** (Part B4). Feeds
+`foreign_funded`. Retires the curated `foreign_grants.json` for fetched sources;
+`budget_subsidies.json` stays a small manual seed.
+
+### A2. NGO board ↔ politician/PEP links → new PG table `ngo_board_links` **(the critical build)**
+Run the officials/MP company-link join against **`tr_officers` for NGO EIKs, WITHOUT the
+`getContractor` gate**. For each NGO board member (`ngo_board` / `ngo_representative` /
+`trustee` / `verifier` roles), match the folded name against:
+- the MP roster (`mp_connected` name set),
+- the officials/PEP roster (`pep_connected` / `data/officials`), covering cabinet,
+  deputy-ministers, agency heads, governors, mayors, councillors,
+- the **magistrate** roster (names from the `magistrate` table).
+
+Emit rows `(eik, person_ref, person_kind, role, confidence, namesake_count, as_of)` into a
+new PG table, **high-confidence only** (declared/unique-name), each carrying a
+`namesake_count` from `officer_name_counts` so common names are suppressed exactly as the
+graph does elsewhere. This is a new loader (`scripts/ngo/load_ngo_board_links_pg.ts`), not
+a schema tweak — the plan's rev-1 "just a join" claim was wrong.
+- Feeds `politician_board` (MP/official) and `magistrate_board` (magistrate-roster match —
+  **rescoped**: "магистрат в ръководството по име, висока увереност", not the commercial
+  `magistrate_company` holdings which have 0 NGO coverage).
+- **Adopt the broad definition** (Hlídač): include family/associate matches only at a
+  clearly-lower confidence tier, labelled as such; **defer indirect + historical ties to
+  v2** (note them, don't build).
+
+### A3. NGO incorporation date → new `tr_companies.registered_at` column
+The parser already reads `FieldEntryDate` ("дата на вписване", `parse_daily_filing.ts:120`)
+but does not persist an incorporation date. Store the **earliest** `FieldEntryDate` per
+UIC as `registered_at` in the loader. Feeds `new_winner`. If deferred, **cut `new_winner`
+from v1** rather than proxy off `last_updated` (a scrape timestamp) — do not ship a wrong
+date.
+
+**Missing-data to file in `docs/egov-single-source-roadmap.md`** (principle 4): NGO
+financial reports (ГФО/ГФД, PDF-only → §3); no foreign-donor register (2020 bill 054-01-60
+never adopted → §4); БУЛНАО party-donations non-machine-readable (blocks K-Index donor
+leg → §1B/§3).
+
+---
+
+## Part B — compute the signal set (backend core)
+
+### B1. `ngo_signals_for(eik)` — `scripts/db/schema/pg/0XX_ngo_signals.sql`
+Returns an ordered array of `{ code, class, tone, confidence?, valueEur?, count?, asOf, detail }`
+— rendered identically on the list cell and the page. Two classes:
+
+**Public-money signals (work today):**
+| code | tone | fires when | threshold / source |
 |---|---|---|---|
-| **America for Bulgaria Fdn** (IRS 990 Sch.I via ProPublica JSON) | `foreign_funded` | M | New fetcher → `raw_data/ngo_funding/abf/`; loader parses → `ngo_funding` source=`abf`. Name-only → VAT→exact-fold→fuzzy match scoped to NGO entity_classes. Drops the hand-curated `foreign_grants.json`. |
-| **NED** (grants search, light scraper) | `foreign_funded` | M | New fetcher → `raw_data/ngo_funding/ned/`; loader → source=`ned`. |
-| **EU FTS multi-year** (2016–2025 xlsx) | `foreign_funded` | S | Extend the existing FTS ingest to loop years; watcher `ec_fts` already exists. Raw xlsx already lands in `raw_data/ngo_funding/fts/`. |
-| *(optional)* **EU/OFAC + national sanctions/debarment for ЮЛНЦ** | `sanctioned` | M | New fetcher → PG table `ngo_sanctions` (not JSON). High-value red flag but sparse. Defer to Phase 6. |
-| *(optional)* **БУЛНАО donations by/NGOs** | `party_donor` | L | Unblocks K-Index donor leg; needs a new PG donations ingest (party-donation data not yet in PG). Defer to Phase 6. |
+| `public_contracts` | teal | won ≥1 public contract | `contracts.contractor_eik`; €+count |
+| `single_bid` | amber | ≥50% of *bid-known* won value on 1-bidder awards | `supplier_risk_grade.components.singleBid`; "unavailable" when <2 bid-known contracts |
+| `eu_funds` | emerald | ИСУН beneficiary | `fund_projects` (€); name-fallback for null-EIK (~9%) |
+| `budget_subsidy` | emerald | state subsidy | `ngo_funding` source=budget_subsidy |
+| `foreign_funded` | **slate (non-red, neutral)** | FTS/ABF/NED grant | `ngo_funding`; absolute €, as-of year |
+| `large` | yellow | public money ≥ €1M (Σ) | tunable const |
 
-**Deliverable A:** ABF+NED fetchers land raw under `raw_data/`, FTS backfilled;
-`npm run db:load:ngo-funding:pg` re-run → rows in `ngo_funding` (PG). New watcher rows
-`abf`/`ned` → `db:load:ngo-funding:pg` (Part D). This is the only genuinely-new ingest
-on the critical path — magistrate/PEP/procurement/ИСУН are all already in PG.
-
-**Missing-data to file in `docs/egov-single-source-roadmap.md`** (per principle 4):
-- **NGO annual financial reports (ГФО/ГФД)** — PDF-only in the ТР register (Г2 filing,
-  30 Sep deadline), no structured/EIK-keyed source → §3 (locked behind a PDF wall).
-  This is why funding is shown as absolute € with no revenue denominator.
-- **Foreign-donor register** — the 2020 bill (054-01-60) was never adopted, so there is
-  no BG register of foreign funding to NGOs → §4 (nonexistent-but-useful). We
-  reconstruct it fuzzily from funder-side sources (FTS/ABF/NED) instead.
-- **Party-donation data (БУЛНАО)** — published only as non-machine-readable filings,
-  blocking the K-Index donor leg → §1B or §3.
-
----
-
-## Part B — Compute the NGO signal set (backend, the core of this feature)
-
-### B1. `scripts/db/schema/pg/0XX_ngo_signals.sql`
-
-A single canonical function + a matview, following the 041 pattern.
-
-```
-ngo_signals_for(p_eik text) RETURNS jsonb
-```
-Returns an ordered array of signal objects — the same shape the UI renders on both the
-list cell and the page:
-```
-{ code, tone, valueEur?, count?, detail? }[]
-```
-
-Signal vocabulary (code → tone → source):
-
+**Connection signals (need Part A2; each carries `confidence` + `as_of`):**
 | code | tone | fires when | source |
 |---|---|---|---|
-| `politician_board` | violet | ≥1 sitting/former politician on board/representing | `company_politicians` (eik) |
-| `magistrate_board` | fuchsia | ≥1 magistrate declared a link | `magistrate_company` (eik) |
-| `public_contracts` | teal | won ≥1 public contract | `contracts.contractor_eik` (€, count) |
-| `single_bid` | amber | high share of won value on 1-bidder awards | `supplier_risk_grade(eik).components.singleBid` |
-| `eu_funds` | emerald | ИСУН beneficiary | `fund_projects` (€) |
-| `budget_subsidy` | emerald | state-budget subsidy | `ngo_funding` source=budget_subsidy |
-| `foreign_funded` | slate | FTS/ABF/NED grant | `ngo_funding` source in (eu_fts,abf,ned) |
-| `new_winner` | orange | first public money within N months of registration | `tr_companies.registered_at` vs first contract/fund |
-| `debarred` | red | on АОП debarred register | debarred set (shared with risk scorer) |
-| `sanctioned` | red | *(optional, Part A)* | sanctions ingest |
+| `politician_board` | violet | MP/official on board, high-conf | `ngo_board_links` |
+| `magistrate_board` | fuchsia | magistrate name on board, high-conf | `ngo_board_links` |
+| `related_party` | red | a board member's *own company* is a counterparty of the NGO's contracts (Charity-Navigator pattern) | `ngo_board_links` × `company_persons` × `contracts` |
+| `debarred` | red | on АОП debarred register (⚠ **name match — no EIK**) | debarred set, **through namesake guard**, confidence-labelled |
+| `new_winner` | orange | first public money within **12 months** of `registered_at` | A3; omit if A3 deferred |
 
-Design notes:
-- Each signal carries its own `valueEur`/`count`/`detail` so the tooltip needs no
-  extra fetch.
-- **No forced A–F "corruption grade"** for the headline (NGOs aren't buyers). Instead
-  expose a `signal_count` + a headline `public_money_eur` (Σ contracts + ИСУН +
-  subsidies) as the sort/interest key. The buyer/supplier `EntityRiskGradeCard` stays
-  available on the page for the rare NGO that awards contracts, unchanged.
+Design: no forced A–F headline grade (K-Index caveat). Sort/interest key = `signal_count`
++ `public_money_eur`. Each signal self-carries its detail so tooltips need no extra fetch.
 
-### B2. `ngo_signals` matview (for the list)
-
-```
-CREATE MATERIALIZED VIEW ngo_signals AS
-SELECT uic AS eik,
-       ngo_signals_for(uic)                       AS signals,
-       jsonb_array_length(...)                     AS signal_count,
-       <public_money_eur>                          AS public_money_eur,
-       (has politician_board OR magistrate_board)  AS has_connection
-FROM tr_companies WHERE entity_class IN (<ngo classes>);
-```
-- Only NGO rows (~30k) → cheap. Index on `(public_money_eur DESC)`, `(signal_count)`,
-  GIN on `signals` for code-filtering. Refresh in `load_tr_pg.ts` after
-  `company_politicians` + after `db:load:ngo-funding:pg` (both feed it).
-- Follows the "compute the interesting flag, drive product off it, boring 92% stay in
-  DB" strategy from the ingest plan.
+### B2. `ngo_signals` matview + `ngos_list` view
+- `ngo_signals` matview: `eik, signals jsonb, signal_count, public_money_eur,
+  has_connection, has_signal`. Built `WITH NO DATA`, then a first non-concurrent populate;
+  **UNIQUE index on `eik`** (enables `REFRESH … CONCURRENTLY`), btree on
+  `public_money_eur DESC` and `signal_count DESC`, **GIN** `jsonb_path_ops` on `signals`.
+- The registry **cannot LEFT-JOIN** (the `/api/db/table` engine is single-relation,
+  `db_table.js:689`). Point the `ngos` registry `base` at a new **`ngos_list` view** =
+  `tr_companies ⋈ ngo_signals` (mirrors `contracts_list` / `tenders_list`).
 
 ### B3. Serving
+- **List:** `ngos_list` view exposes `signals`, `signal_count`, `public_money_eur`; add a
+  `signal`-code facet (`filter:"in"`) + a **`has_signal` default filter** (see C2).
+- **Page:** add `ngoSignals: ngo_signals_for($1)` to `/api/db/company` (NGO-class gated).
+- **Stats:** add "NGOs with signals" card to `/api/db/ngo-stats` (`count WHERE signal_count>0`).
 
-- **List:** extend the `ngos` registry (`db_table.js`) to LEFT JOIN `ngo_signals` and
-  `select` `signals`, `signal_count`, `public_money_eur`; add a `signal` facet filter
-  (`filter:"in"` over signal codes) and allow sort by `public_money_eur`.
-  Change the default sort from alphabetical → `public_money_eur DESC` so interesting
-  NGOs surface first.
-- **Page:** add `ngoSignals: ngo_signals_for($1)` to the `/api/db/company` response
-  (one more `ngo_funding_for`-style call, gated on `entity_class` being an NGO class).
-- **Stats strip:** add a "NGOs with signals" card to `/api/db/ngo-stats`.
-
-**Perf:** see the Performance section — `ngo_signals_for` and the list browse are both
-gated on `EXPLAIN ANALYZE` before ship; the matview keeps per-row list cost at a lookup.
+### B4. Namesake / confidence guard (mandatory, all name-matched signals)
+`politician_board`, `magistrate_board`, `debarred`, and the ABF/NED matches all run through
+the existing high-confidence rule (`pep_connected.ts:26`) + `officer_name_counts` frequency
+suppression (`008_connections.sql:238`) + `COMMON_NAME_TR_ROWS` (`integrate.ts:628`). Pills
+render a **confidence tier**; low-confidence never fires a red/violet pill unaided.
 
 ---
 
 ## Part C — UI
 
-### C1. Shared signal meta + pill component
+### C1. `NgoSignalPills.tsx` (mirrors `TenderRiskChips`)
+`NGO_SIGNAL_META: Record<code,{tone,icon,shortKey,longKey,hintKey}>` — one source of truth
+for list + page. `variant="chips"` = `<Tooltip><SignalPill/></Tooltip>` per signal (tooltip
+carries detail + **as-of date** + **confidence tier** + the PEP-risk-category disclaimer for
+connection signals); **`maxVisible=4` then a "+N" overflow chip** (mobile row-height guard);
+dash when none. `variant="full"` = the page header signal strip.
 
-`src/screens/components/procurement/NgoSignalPills.tsx` (mirrors `TenderRiskChips`):
-- `NGO_SIGNAL_META: Record<code, { tone, icon, shortKey, longKey, hintKey }>` — one
-  source of truth for both the list cell and the page.
-- `NgoSignalPills({ signals, variant })` — `variant="chips"` renders
-  `<Tooltip><SignalPill tone icon>{short}</SignalPill></Tooltip>` per signal (dash when
-  none); `variant="full"` adds the "N signals" count line for the page header.
-- Labels short & bilingual (`Политик в УС`, `Магистрат`, `Обществени поръчки`,
-  `ЕС фондове`, `Субсидия`, `Външно финансиране`, `Един кандидат`, `Нова, но печели`…).
+### C2. Browse list (`NgoBrowseDbScreen.tsx`)
+- **Signals** column (`cell → <NgoSignalPills variant="chips">`), non-sortable.
+- **Public-money €** column, right-aligned, sortable.
+- **Default view = `has_signal` filter ON** with a one-click "покажи всички / show all"
+  toggle — do **not** default-sort 27,600 signal-less NGOs by EIK-number (audit P1 #8).
+  Within the filtered set, sort `public_money_eur DESC`, **tiebreak by name** (keep the
+  alphabetical expectation for the tail).
+- Signal-code filter via the shared Radix `Select` (never native).
+- Stats strip 4th card → "NGOs with signals".
 
-### C2. NGO browse list (`NgoBrowseDbScreen.tsx`)
-
-- Add a **Сигнали / Signals** column: `cell: ({row}) => <NgoSignalPills signals={row.original.signals} />`.
-  Non-sortable, wraps in a flex container (mirror TendersBrowser lines 194–233).
-- Add a **public-money €** column (right-aligned, sortable), default sort DESC.
-- Add a signal-code **filter** to the toolbar (reuse the shared Radix `Select` /
-  `PackSelect`, never native — per the no-native-select rule) alongside the existing
-  `ngo_type` facet.
-- Stat strip: 4th card → "NGOs with signals" count.
-
-### C3. NGO page dashboard (`CompanyDbScreen.tsx`, NGO branch)
-
-Insert a **risk-signal block** in the existing NGO tile zone (between the hero and the
-awarder section, ~lines 781–899). No tabs — stacked dashboard tiles (dashboard-layout /
-no-tabs conventions). Order:
-
-1. **Signal summary strip** — `<NgoSignalPills signals={ngoSignals} variant="full" />`
-   right under `CompanyRiskChips` in the hero (or as the first NGO card).
-2. **Connections tile** — "Свързани лица" — list of politicians (from `politicians`),
-   magistrates (new: fold `magistrate_company`), and officials/PEPs on the board, each
-   row prepended with the shared **`MpAvatar`** (photo + party colour) and linking to
-   `/person/:name` (MP-row convention). This makes the political-proximity signal
-   legible, not just a pill.
-3. **Public money tile** — reuse the existing procurement rollup + `ngoFunding`
-   "Външно финансиране" tile (already shipped) + an ИСУН line from `funds`. Group them
-   under one "Публични пари" heading with a Σ headline €.
-4. **Procurement behaviour** (only if the NGO won contracts) — keep the existing
-   `EntityRiskGradeCard grade={supplierGrade}` unchanged.
-
-Footnote every signal block: *"Сигналите са индикатори за публичен интерес, не
-доказателство за нарушение."*
+### C3. NGO page dashboard (`CompanyDbScreen.tsx`, NGO branch, ~L781–899; no tabs)
+1. **Signal strip** — `<NgoSignalPills variant="full">` under `CompanyRiskChips`.
+2. **Connections tile** — "Свързани лица (мрежа и влияние)" — politicians / magistrates /
+   PEPs on the board from `ngoSignals`, each an **`MpAvatar`** row → `/person/:name`, with
+   confidence + as-of. Footnote = the OpenSanctions risk-category disclaimer.
+3. **Public money tile** — group procurement rollup + existing `ngoFunding` "Външно
+   финансиране" tile + ИСУН (`funds`) under one "Публични пари" heading with a Σ headline €.
+   `foreign_funded` visually distinct (neutral), not a red flag.
+4. **Right-of-reply** line — "Смятате сигнал за грешен? Подайте поправка." (EU-register
+   convention).
+5. Existing `EntityRiskGradeCard supplierGrade` unchanged (rare contract-winning NGO).
 
 ---
 
-## Part D — Cross-cutting (don't ship without)
+## Part D — cross-cutting
 
-- **i18n** — bg/en keys for every signal short/long/hint label + tile headings.
-- **AI chat** (`ai/tools/ngo.ts`) — add `ngoRiskSignals(eik)` and `ngoBySignal(code)`
-  tools; extend `data/ngo/ai_summary.json` (`scripts/ngo/build_ai_summary.ts`) with a
-  signal rollup (top NGOs per signal); register in `registry.ts`; add router keyword
-  block (сигнал / свързан / политик + нпо). AI reads static JSON only → the summary
-  must carry the precomputed lists. `bucket:sync` after reload.
-- **Changelog** — new/refreshed datasets MUST wire `recent_updates` (PG changelog) per
-  the PG-changelog rule; the ABF/NED ingest also gets a `data-changes.json` row for
-  `/data/updates`. (Two changelogs — don't conflate.)
-- **data_map** — add `abf`/`ned` sources into a SOURCE_GROUP (build_manifest throws on
-  unplaced source, like `ec_fts` did) + edges to `ds:ngo`.
-- **Watchers + process-watch-report (principle 2)** — for each new ingest:
-  - a source module in `scripts/watch/sources/` (`abf`, `ned`) registered in
-    `sources/index.ts` and placed in a data_map SOURCE_GROUP (build_manifest throws on
-    an unplaced source, as `ec_fts` did);
-  - a row in `.claude/skills/process-watch-report/SKILL.md`'s source→skill table:
-    `abf` / `ned` → `db:load:ngo-funding:pg` (mirroring the existing `ec_fts` row —
-    "download raw → load into `ngo_funding`; DB-only, no JSON"), sharing the
-    `db-load-ngo-funding` ingest marker;
-  - a row in that skill's Cloud-SQL sync section → `db:load:ngo-funding:pg:cloud`
-    (already present for `ec_fts`; ABF/NED ride it).
-  The register/signals path needs **no new watcher** — it rides `egov_commerce` →
-  `tr-daily-refresh` (which already reloads `tr_*` + rebuilds the K-Index); the
-  `ngo_signals` matview refresh is chained into `db:load:tr:pg` **and**
-  `db:load:ngo-funding:pg` (both feed it).
-- **SEO/OG** — high-signal NGOs are the pages worth prerendering; consider adding the
-  top-N connected/funded NGOs to the sitemap route_defs (the boring 92% stay
-  no-index, per strategy). Refresh `public/og/procurement-ngos.png` if the list header
-  changes.
-- **Perf/deploy** — matview refresh in `load_tr_pg.ts`; deploy path =
-  `db:load:tr:pg:cloud` + `db:load:ngo-funding:pg:cloud` + functions redeploy
-  (+ `bucket:sync` for ai_summary). No `db:dump`.
+- **i18n** bg/en for every label/tooltip/heading + the disclaimer + right-of-reply copy.
+- **AI** (`ai/tools/ngo.ts`): `ngoRiskSignals(eik)` + `ngoBySignal(code)`; extend
+  `ai_summary.json` (`build_ai_summary.ts`) with per-signal top-NGO lists; register +
+  router keyword block; `bucket:sync` after reload. **Set expectations:** until A2 ships,
+  connection-signal tools return ~5/0 rows — gate or omit those tools in the interim.
+- **Watchers + process-watch-report** (principle 2): `abf`/`ned` sources →
+  `db:load:ngo-funding:pg` (+ `:cloud`); `ngo_board_links` refresh rides `egov_commerce` →
+  `tr-daily-refresh` (chained after `company_politicians`); a new
+  `db:load:ngo-board-links:pg` step + marker + cloud row.
+- **data_map**: place `abf`/`ned` in a SOURCE_GROUP (build_manifest throws on unplaced
+  source); edges to `ds:ngo`.
+- **Changelog**: `recent_updates` (PG) for every new/refreshed dataset; `data-changes.json`
+  for the ABF/NED ingest (two changelogs — don't conflate).
+- **SEO/OG**: prerender only the top-N signal-bearing NGOs (the 91% tail stays no-index).
+  Refresh `public/og/procurement-ngos.png` if the header changes.
+- **Freshness stamps**: every dataset surfaces its as-of date (ProPublica convention).
 
 ---
 
-## Performance, matviews & indexes (principle 3 — gate before each ship)
+## Performance, matviews & indexes (gate before each ship)
 
-Every new/changed query gets `EXPLAIN ANALYZE (BUFFERS)` on its **worst-case entity**,
-run against local Docker PG (`:5433`), and again post-deploy on Cloud SQL (db-g1-small,
-shared-core — the prod bottleneck). Target: list browse < ~5 ms server, company
-endpoint's added call < ~2 ms.
+`EXPLAIN ANALYZE (BUFFERS)` on the **worst-case entity**, local Docker (`:5433`) then Cloud
+SQL (db-g1-small shared-core — the prod bottleneck). Targets: list browse <~5ms server;
+company endpoint's added call <~2ms.
 
-| Object | Worst case to test | Index / matview |
+| Object | Worst case | Index / matview |
 |---|---|---|
-| `ngo_signals_for(eik)` (page) | the NGO with the most contracts + funding rows (large читалище / sports federation) | relies on existing FK indexes: `idx_ngo_funding_eik`, `idx_company_politicians_eik`, `contracts(contractor_eik)`, `magistrate_company(eik)`, `fund_projects(beneficiary eik)`. **Add any missing** (`magistrate_company` eik, fund_projects beneficiary) — both sides of each join. |
-| `ngo_signals` matview | full build over ~30k NGO rows | `CREATE UNIQUE INDEX … (eik)` (enables `REFRESH … CONCURRENTLY`); `idx_ngo_signals_money (public_money_eur DESC)`; `idx_ngo_signals_count (signal_count DESC)`; **GIN** `idx_ngo_signals_gin (signals jsonb_path_ops)` for code-filtering. |
-| List browse (`ngos` registry + join) | single signal-code filter + default money sort, page 1 & deep page | composite `idx_tr_companies_class_name` already exists; verify the LEFT JOIN to `ngo_signals` uses the unique eik index and the sort uses `idx_ngo_signals_money` (no seq scan / no sort node on 30k). |
-| `/api/db/ngo-stats` "with signals" card | count over matview | `count(*) WHERE signal_count > 0` off the matview — cheap; avoid `count(*)` over `tr_companies` (use reltuples, as the endpoint already does). |
+| `ngo_signals_for(eik)` | NGO with most contracts + funds | reuse existing FK idxs: `idx_ngo_funding_eik`, `idx_fund_projects_eik` (016:30, **already exists**), `contracts(contractor_eik)`, `idx_magistrate_company_eik` (070:35, **already exists**), `ngo_board_links(eik)` (**add**). Verify, don't blind-add (audit P2 #10). |
+| `ngo_signals` matview | full build over ~30k | UNIQUE `(eik)`; btree `public_money_eur DESC`, `signal_count`; GIN `signals jsonb_path_ops`. `WITH NO DATA` → populate → `REFRESH … CONCURRENTLY`. |
+| **Daily refresh cost** | 30k rows × ~6 correlated lookups **every day** via `tr-daily-refresh` | **Guard on feeding-table existence** (like `load_tr_pg.ts:376`); **refresh only when a feeding load ran**; measure the full rebuild on db-g1-small, not just one entity (audit P1 #7). If too slow, make `ngo_signals_for` set-based (single pass) rather than per-row. |
+| List browse (`ngos_list`) | signal-code filter + money sort, deep page | verify the view uses the unique-eik + money indexes (no seq scan / no sort node on 30k). |
+| `ngo_board_links` build | name-match over all NGO officers | index the fold key both sides; reuse `officer_name_counts`. |
 
-Rules: matview `REFRESH … CONCURRENTLY` (needs the unique index) so the list never
-serves an empty table mid-refresh; refresh chained into `db:load:tr:pg` +
-`db:load:ngo-funding:pg`. Determinism: `ROUND` money sums, rounded sort keys + eik
-tiebreak (PG payload-determinism rule). Sargable date windows if `new_winner` compares
-registration dates (COALESCE bounds, not OR-NULL guards).
-
-**Feature perf test (before each phase ships):** drive the real flow in the preview —
-load `/procurement/ngos` (sort + a signal filter), open a high-signal NGO page — and
-check server timing via `read_network_requests` / `preview_logs`, not just that it
-renders (verify skill).
-
-## Phasing (each phase independently shippable)
-
-- **Phase 1 — signals backend (no new ingest).** B1+B2+B3 over data already in PG
-  (politician/magistrate/PEP/contracts/ИСУН/existing ngo_funding). PG-only; matview +
-  indexes + `EXPLAIN ANALYZE` gate (Performance section). Ships the pills on list +
-  page immediately. *Highest value / lowest risk — do first.*
-- **Phase 2 — list UX.** C1+C2: SignalPill column, public-money sort, signal filter,
-  stats card.
-- **Phase 3 — page dashboard.** C3: connections tile (MpAvatar rows) + grouped public-
-  money tile + footnotes.
-- **Phase 4 — new ingest.** Part A: ABF/NED fetchers (raw→PG) + FTS multi-year → richer
-  `foreign_funded` signal. Wire watchers + process-watch-report rows (principle 2); file
-  the ГФО / foreign-donor-register / БУЛНАО gaps in the egov roadmap (principle 4).
-  Independent of 1–3 (the signal just lights up for more NGOs).
-- **Phase 5 — AI + discovery.** Part D: AI tools, changelog, data_map, watchers, SEO/OG.
-- **Phase 6 (optional) — sanctions + БУЛНАО donor leg.** New red-flag signals.
-
-Suggested first commit: Phase 1 SQL migration + Phase 2 list column — visible, testable
-in the preview, zero new ingest.
+Determinism: `ROUND` sums, rounded sort keys + eik tiebreak. Sargable date window for
+`new_winner` (COALESCE bounds). **Feature perf test each phase:** drive the real flow in
+the preview (`/procurement/ngos` sort + filter; a high-signal NGO page) and read server
+timing via `read_network_requests` / `preview_logs` (verify skill) — not just that it
+renders.
 
 ---
 
-## Open decisions (recommendations in bold)
+## Phasing (each independently shippable)
 
-1. **Composite grade vs. signal set for the headline?** → **Signal set + public-money €
-   sort.** A forced A–F grade misframes NGOs as buyers; keep `EntityRiskGradeCard` only
-   for the rare NGO that awards contracts.
-2. **`new_winner` window N?** → **12 months** between registration and first public money.
-3. **Dedicated `/ngo/:eik` page?** → **No.** Reuse `/company/:eik` (the ingest audit
-   explicitly rejected a parallel /ngo universe). Enhance the NGO branch only.
-4. **Sanctions / БУЛНАО donations now or later?** → **Later (Phase 6).** Sparse, and the
-   donor leg needs a new PG ingest.
+- **Phase 1 — public-money signals (ship the working 8.5% now).** B1 (public-money class
+  only) + B2 + B3 over data already in PG (contracts/ИСУН/ngo_funding). SignalPill column +
+  page strip + `has_signal` list default. Zero new ingest, immediate value, low risk.
+- **Phase 2 — connection signals (the differentiator, needs A2).** Build `ngo_board_links`
+  (politician/official/magistrate name-match, namesake-guarded, confidence-tiered) + the
+  `related_party` signal + the connections tile with `MpAvatar` rows + disclaimers +
+  right-of-reply. *This is where the competitive edge lives — but it is real ingest work.*
+- **Phase 3 — external-funder ingest (A1).** ABF/NED fetchers + FTS multi-year → richer
+  `foreign_funded`. Watchers + process-watch-report + egov-roadmap gaps (principles 2, 4).
+- **Phase 4 — derived + polish.** A3 `registered_at` → `new_winner`; mobile overflow;
+  freshness stamps; SEO/OG top-N.
+- **Phase 5 — AI + discovery.** AI tools (gated on Phase 2), changelog, data_map.
+- **Phase 6 (v2) — depth.** Indirect + historical (5-yr) ties (Hlídač); alert-on-new-
+  connection watchlist (OpenScreening); sanctions signal; БУЛНАО donor leg.
+
+---
+
+## Open decisions (recommendations **bold**)
+
+1. **Headline = signal set, not a forced A–F grade.** K-Index scores buyers; inverting to
+   an NGO "corruption grade" is defamatory-adjacent and unsupported by peers. Keep the
+   supplier grade only for contract-winning NGOs.
+2. **Ship Phase 1 (public-money) before Phase 2 (connections)?** → **Yes** — the working
+   signals ship value immediately while the `ngo_board_links` build (the risky part) is
+   done properly.
+3. **`new_winner` — build A3 now or defer?** → **Defer to Phase 4**; cut the signal from v1
+   if `registered_at` isn't populated (never proxy off `last_updated`).
+4. **`foreign_funded` — risk pill or neutral disclosure?** → **Neutral** (non-red tone,
+   absolute €), given the BG foreign-agent legal sensitivity.
+5. **List default — `has_signal` filter vs money sort?** → **`has_signal` filter ON** with a
+   "show all" toggle; name tiebreak preserves the alphabetical tail.
+
+---
+
+## Gap-audit resolutions (finding → resolution)
+
+| # | Audit finding (P) | Resolution in this plan |
+|---|---|---|
+| 1 | `politician_board` fires for 5 NGOs — `getContractor` gate starves it (P0) | New ingest **A2 `ngo_board_links`** (no gate); moved to **Phase 2**, not a free join |
+| 2 | `magistrate_board` = 0; `magistrate_company` is commercial holdings (P0) | **Rescoped** to a magistrate-roster *name match* on NGO board members via A2; honest label + confidence tier |
+| 3 | `new_winner` — `registered_at` absent (P0) | **A3** stores earliest `FieldEntryDate`; else **cut** (open-decision 3) |
+| 4 | Registry can't LEFT-JOIN (P1) | **B2 `ngos_list` view** as the registry base |
+| 5 | Namesake/defamation on name-matched signals; `debarred` has no EIK (P1) | **B4** mandatory guard + confidence tiers on every name-matched signal |
+| 6 | Thresholds undefined (P1) | Pinned in **B1** (single_bid ≥50% bid-known; large ≥€1M; new_winner 12mo) |
+| 7 | Daily matview refresh cost / first-build / ordering (P1) | **Performance** row: existence guard, `WITH NO DATA`+unique idx, refresh-only-if-fed, set-based fallback |
+| 8 | Money-sort strands 91% of list (P1) | **C2** `has_signal` default filter + name tiebreak |
+| 9 | `fund_projects` ~9% null-EIK (P2) | **B1** `eu_funds` name-fallback |
+| 10 | Perf indexes already exist (P2) | **Performance** table: verify, don't add |
+| 11 | Mobile pill overflow (P2) | **C1** `maxVisible=4` + "+N" chip |
+| 12 | As-of dates / right-of-reply missing (P2) | **Framing** + C1 as-of + C3 right-of-reply |
+| 13 | Colour-only a11y (P2) | Mitigated — `SignalPill` always has text + icon (noted) |
+| 14 | AI grounding near-empty pre-A2 (P2) | **Part D**: gate connection-signal AI tools until Phase 2 |
