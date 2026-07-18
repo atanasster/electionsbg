@@ -21,6 +21,10 @@ export interface ProductRow {
 export const buildProductColumns = (
   T: (b: string, e: string) => string,
   lang: "bg" | "en",
+  // The active ?area= anchor id, carried onto each product link so the product
+  // page opens with the user's pinned place (local pricing) instead of dropping
+  // the anchor on navigation. Undefined → plain national links.
+  area?: string | null,
 ): DataTableColumnDef<ProductRow, unknown>[] => [
   {
     id: "title",
@@ -29,7 +33,14 @@ export const buildProductColumns = (
     enableSorting: false,
     cell: ({ row }) => (
       <Link
-        to={`/product/${row.original.slug}`}
+        to={
+          area
+            ? {
+                pathname: `/product/${row.original.slug}`,
+                search: `?area=${encodeURIComponent(area)}`,
+              }
+            : `/product/${row.original.slug}`
+        }
         className="text-sm font-medium hover:underline"
       >
         {row.original.title}

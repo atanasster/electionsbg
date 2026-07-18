@@ -7,18 +7,29 @@
 // single-chain or low-confidence product is shown honestly as one chain's price,
 // never dressed up as a like-for-like comparison. See design §4.3.
 
-import { FC } from "react";
-import { useParams } from "react-router-dom";
+import { FC, useMemo } from "react";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ShoppingBasket, TrendingUp, TrendingDown, Minus } from "lucide-react";
+import {
+  ShoppingBasket,
+  TrendingUp,
+  TrendingDown,
+  Minus,
+  MapPin,
+  ArrowRight,
+} from "lucide-react";
 import { SEO } from "@/ux/SEO";
 import { H1 } from "@/ux/H1";
+import { Link } from "@/ux/Link";
 import { ConsumptionBreadcrumb } from "@/screens/components/ConsumptionBreadcrumb";
 import { Card } from "@/components/ui/card";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { useProduct, useProductHistory } from "@/data/prices/useProducts";
 import { usePriceDict } from "@/data/prices/usePrices";
 import { fmtEur, fmtPriceDate } from "@/data/prices/usePrices";
+import { useAreaAnchor } from "@/data/area/areaAnchor";
+import { useAreaResolver } from "@/data/area/useAreaResolver";
+import { resolvePriceKeys } from "@/data/prices/pricePlaceKeys";
 import { PriceHistoryChart } from "@/screens/components/prices/PriceHistoryChart";
 import type { ChainLadderRow } from "@/data/prices/fetchPricePayload";
 
@@ -45,7 +56,40 @@ export const ProductScreen: FC = () => {
   const lang = i18n.language === "bg" ? "bg" : "en";
   const T = (bg: string, en: string) => (lang === "bg" ? bg : en);
 
-  const { data, isLoading } = useProduct(slug);
+  // Location-aware pricing: when the global ?area= anchor resolves to a
+  // settlement (or Sofia city), narrow the cross-chain ladder to that place's
+  // stores. `?all=1` forces the national ladder while keeping the anchor intact
+  // (so the user's pinned place survives leaving this page). A plain município
+  // anchor has no single settlement ekatte → national (honest; product-level
+  // local price is settlement-grain).
+  const [params] = useSearchParams();
+  const forceAll = params.get("all") === "1";
+  const anchor = useAreaAnchor();
+  const area = useAreaResolver(anchor?.id);
+  const localEkatte = useMemo(() => {
+    if (forceAll || !area || area.kind === "unknown") return undefined;
+    return resolvePriceKeys(
+      area.obshtina,
+      area.kind === "settlement" ? area.ekatte : undefined,
+    ).priceEkatte;
+  }, [forceAll, area]);
+  const placeName =
+    area?.kind === "settlement"
+      ? lang === "bg"
+        ? area.settlement.name
+        : area.settlement.name_en
+      : area?.kind === "municipality"
+        ? lang === "bg"
+          ? area.municipality.name
+          : area.municipality.name_en
+        : null;
+  const allSearch = useMemo(() => {
+    const p = new URLSearchParams(params);
+    p.set("all", "1");
+    return `?${p.toString()}`;
+  }, [params]);
+
+  const { data, isLoading } = useProduct(slug, localEkatte);
   const { data: history } = useProductHistory(slug);
   const { data: dict } = usePriceDict();
 
@@ -78,7 +122,12 @@ export const ProductScreen: FC = () => {
   const dearest = chains[chains.length - 1];
   const catName =
     dict?.products.find((x) => x.id === p.pid)?.[lang] ?? `№${p.pid}`;
-  const comparable = p.chain_count > 1 && p.confidence >= CONFIDENCE_MIN;
+  // Gate on the ACTUAL ladder length, not the national chain_count: a local
+  // (?area=) filter can narrow the ladder to zero or one store even for a
+  // product sold in many chains nationally, so p.chain_count would wrongly keep
+  // the comparable branch on and dereference an empty ladder.
+  const noLocalChains = localEkatte != null && chains.length === 0;
+  const comparable = chains.length > 1 && p.confidence >= CONFIDENCE_MIN;
 
   const pct = p.pct_since_euro;
   const verdict =
@@ -142,12 +191,43 @@ export const ProductScreen: FC = () => {
           </div>
         </div>
 
+        {localEkatte && placeName ? (
+          <div className="rounded-lg border bg-card px-3 py-2 flex items-center gap-2 text-sm flex-wrap">
+            <MapPin className="size-4 shrink-0 text-primary" />
+            <span className="min-w-0">
+              {T("Цени за", "Prices for")}{" "}
+              <span className="font-semibold">{placeName}</span>
+            </span>
+            <Link
+              to={{ search: allSearch }}
+              className="ml-auto inline-flex items-center gap-1 text-xs text-primary hover:underline"
+            >
+              {T("За цялата страна", "Nationwide")}
+              <ArrowRight className="size-3" />
+            </Link>
+          </div>
+        ) : null}
+
         <DashboardSection
           id="chains"
           title={T("Цени по вериги", "Prices by chain")}
           icon={ShoppingBasket}
         >
-          {comparable ? (
+          {noLocalChains ? (
+            <Card className="p-4 text-sm text-muted-foreground">
+              {T(
+                `Този продукт не се предлага в наблюдаваните магазини в ${placeName}. `,
+                `This product isn't listed in the monitored stores in ${placeName}. `,
+              )}
+              <Link
+                to={{ search: allSearch }}
+                className="text-primary hover:underline inline-flex items-center gap-1"
+              >
+                {T("Виж цените за страната", "See nationwide prices")}
+                <ArrowRight className="size-3" />
+              </Link>
+            </Card>
+          ) : comparable ? (
             <Card className="divide-y">
               {chains.map((c) => (
                 <LadderRow
