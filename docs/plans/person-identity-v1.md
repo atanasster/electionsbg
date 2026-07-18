@@ -4,7 +4,10 @@ Status: DRAFT (2026-07-18), **gap-audit + testing + connections revision 2026-07
 prior-art reconciliation, §2a name-structure matching, §4a JSON→PG migration, §4b AI tools, §4d
 serving, §5 source catalog (all current + planned sources, each a filter facet), §5a LLM-assisted
 reconciliation, §7 testing gates, §8 Connections component (the primary consumer; prototyped). SEO
-(§4c) DEFERRED to Phase 6. Test runner now defers to the repo-wide framework workstream (§7). Owner: TBD.
+(§4c) DEFERRED to Phase 6. **2026-07-18 (later):** aligned §7 to the shipped Vitest standard
+(`docs/testing-standards.md` — `npm run test:unit`, co-located `*.test.ts(x)`, PG gates as
+`*.data.test.ts`, Playwright for routes) and softened the `ngo_board_links` namesake-threshold
+citations (§1/§3) to the mechanism, since those thresholds are being tuned. Owner: TBD.
 
 Goal: give every natural person in the site a single stable `person_id` in Postgres, so that
 candidates, MPs, mayors, councillors, executive & municipal officials, TR company officers/owners,
@@ -50,8 +53,10 @@ Three structural constraints:
    `normKey()` (`scripts/smetna_palata/donor_summary.ts`), plus `normalizeMpName`, `slugify`,
    `nameSlug/transliterate`. They do not agree byte-for-byte.
 3. **Namesake collapse is a legal risk, not just data quality.** The `ngo_board_links` defamation
-   guard (`080_ngo_signals.sql`) only surfaces a link when `officer_name_counts.company_count = 1`.
-   A wrong merge on a public page is an accusation.
+   guard (`080_ngo_signals.sql`) only surfaces a link inside a tight namesake bound on
+   `officer_name_counts` (currently `company_count = 1` → `high`; looser counts → `medium`, stored
+   but never rendered) — the exact thresholds are being tuned, so treat the *mechanism* as the
+   precedent, not a fixed number. A wrong merge on a public page is an accusation.
 
 What already exists (the natural consumers of a real person id):
 - `scripts/officials/decorate_candidate_links.ts` — official ↔ local slate ↔ MP, by normalized name.
@@ -207,8 +212,9 @@ never an O(n²) all-pairs pass. Within a block, tiers highest confidence first:
 1. **Name + corroborant.** Same block PLUS a shared discriminator (matching patronymic, same party,
    same municipality, same declared company `uic`, or same `birth_date`). Generalizes
    `decorate_candidate_links.ts` (name+party). `confidence='high'`, `status='active'`.
-2. **Unique fold.** Same block, `name_parts=3`, AND `namesake_risk = 1`. `confidence='high'`,
-   `status='active'`. (The `ngo_board_links` "high" bar. Note: excludes 2-part names by §2a rule 4.)
+2. **Unique fold.** Same block, `name_parts=3`, AND `namesake_risk` within the tight guard bound
+   (the same namesake gate `ngo_board_links` uses for its "high" tier — currently a globally unique
+   officer name). `confidence='high'`, `status='active'`. Note: excludes 2-part names by §2a rule 4.
 3. **Ambiguous (AGGRESSIVE MERGE → REVIEW).** Block collides with `namesake_risk > 1` and no
    corroborant, OR any 2-part↔3-part pairing without a corroborant. Per the locked decision: **still
    merge**, but `confidence='review'`, `status='review'` — held off public pages, surfaced only in
@@ -461,41 +467,42 @@ gate**, not just spot checks.
 
 Every JSON→PG migration (§4a) passes three gates, per dataset, before the page flips:
 
-1. **Coverage / no-data-loss reconciliation.** Assert every source JSON record produced a
-   `person_role` row: `count(candidates.json rows) == count(person_role where source='candidate')`,
-   zero orphans, zero silent drops. Per-dataset row-count + a content checksum (e.g. set of
-   `(name, party, oblast)` tuples in == out). A drop fails the gate.
-2. **Serving parity diff.** For each page that will flip, generate the page's data payload the OLD
-   way (from JSON) and the NEW way (from `/api/db` / `person_payloads`) for a sample of entities
-   (all MPs + a random N of candidates/officials/local), and assert a field-level diff of ONLY the
-   intended additions — everything the page already showed must be byte-identical. Precedent: the
-   awarder group-model parity script (`reference_awarder_group_model`).
-3. **UI smoke via the browser preview** (the explicit ask — candidate page, tiles, tables). Using the
-   dev-server preview tools, render BEFORE and AFTER the flip and assert equality on the at-risk
-   surfaces:
-   - **Candidates list screen** — same number of tiles; a sampled candidate's tile shows the same
-     name / party / photo (MpAvatar).
-   - **Candidates table** — same row count, same pagination, sort/filter still work; spot-check a
-     row's fields.
-   - **`/candidate/:slug` page** — resolves for `mp-{id}`, `c-{n}-{slug}`, and a bare-name legacy
-     link (the namesake chooser still fires); preference numbers, oblasts, MP linkage unchanged.
-   - **Officials** — list + `by_obshtina` shard counts unchanged; a councillor's `candidateLink`
-     still renders.
-   - **Local election tiles** — mayor/council tiles show the same elected names.
-   - **Connections / person edges** — the same edges render, disclaimer intact, no new false edge
-     appears at `active` confidence.
-   Capture screenshots + console/network error checks as proof (zero new console errors, no failed
-   `/api/db` request).
+These map onto the layers `docs/testing-standards.md` already defines — do NOT invent a fourth. Gates
+1–2 are the doc's "byte-level serving parity … `*.data.test.ts` invariant against the real corpus"
+bucket; gate 3 is Playwright (whole-page/route) plus Vitest+Testing Library (single tile). Postgres
+gates auto-skip when the DB is down, so `npm run test:unit` stays green without a database.
 
-Flip rule (strengthens §4a): a hook moves from `/public/*.json` to `/api/db/*` ONLY when 7b gates
-1–3 are all green. Because raw JSON is retained as input, a flip is reversible — point the hook back.
+1. **Coverage / no-data-loss reconciliation** — a `scripts/db/tests/person_migration.data.test.ts`
+   PG invariant: every source JSON record produced a `person_role` row
+   (`count(candidates.json rows) == count(person_role where source='candidate')`), zero orphans, zero
+   silent drops, per-dataset row-count + a content checksum (set of `(name, party, oblast)` tuples
+   in == out). Lives beside the existing `scripts/db/tests/*.data.test.ts` gates.
+2. **Serving parity** — same `*.data.test.ts` layer: for each page that will flip, build the payload
+   the OLD way (from JSON) and the NEW way (`/api/db` / `person_payloads`) for a sample (all MPs + a
+   random N of candidates/officials/local) and assert a field-level diff of ONLY the intended
+   additions. Precedent: the awarder group-model parity gate (`reference_awarder_group_model`).
+3. **UI — no break** (the explicit ask — candidate page, tiles, tables), split by the standards:
+   - **Route/whole-page smoke → Playwright** (`tests/`): candidates list shows the same tile count;
+     the candidates table paginates/sorts/filters; `/candidate/:slug` resolves for `mp-{id}`,
+     `c-{n}-{slug}`, and a bare-name legacy link (namesake chooser still fires); officials list +
+     `by_obshtina` shards, local mayor/council tiles, and connections edges all render with the
+     disclaimer intact and no new `active`-confidence edge. Assert zero new console errors / no
+     failed `/api/db` request.
+   - **Single tile/hook → Vitest + Testing Library** (jsdom, `fetch` stubbed): a candidate tile
+     renders the same name/party/photo (MpAvatar) from PG-shaped props; the resolved-candidate hook
+     resolves the three slug forms.
+
+Flip rule (strengthens §4a): a hook moves from `/public/*.json` to `/api/db/*` ONLY when gates 1–3
+are green. Because raw JSON is retained as input, a flip is reversible — point the hook back.
 
 ### 7c. What runs when
 
-- Every commit: 7a pure-matcher unit tests + gold-set metrics gate (fast, hermetic).
-- Each resolver run (offline): idempotency check + namesake-collapse audit on real data.
-- Each dataset migration: 7b gates 1–3 before the corresponding page flip.
-- Pre-deploy: the full `parity_check.ts` (person rollup vs `person_profile()`).
+- Every commit: `npm run test:unit` — 7a pure-matcher/resolver Vitest tests + gold-set metrics gate,
+  plus the 7b gate-3 component tests (fast, hermetic; PG gates auto-skip).
+- With Postgres up (`npm run test:data`): 7b gates 1–2 + the idempotency + namesake-collapse audit on
+  the real corpus.
+- Pre-deploy: `npm test` (Playwright route smoke, incl. 7b gate-3 routes) + the full
+  `parity_check.ts` (person rollup vs `person_profile()`).
 
 ---
 
