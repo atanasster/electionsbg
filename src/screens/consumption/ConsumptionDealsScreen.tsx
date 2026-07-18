@@ -17,6 +17,7 @@ import { Title } from "@/ux/Title";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { Card } from "@/components/ui/card";
 import { DealsList } from "@/screens/components/consumption/DealsList";
+import { MethodologyCallout } from "@/screens/components/MethodologyCallout";
 import { useAreaAnchor } from "@/data/area/areaAnchor";
 import { useAreaResolver } from "@/data/area/useAreaResolver";
 import { useDeals, useMuniDeals, fmtPriceDate } from "@/data/prices/usePrices";
@@ -109,6 +110,21 @@ export const ConsumptionDealsScreen: FC = () => {
             <Card className="p-3 sm:p-4">
               <DealsList deals={deals} lang={lang} />
             </Card>
+          )}
+          {deals.length === 0 ? null : (
+            <MethodologyCallout
+              variant="info"
+              title={T(
+                "Как смятаме намалението",
+                "How we calculate the discount",
+              )}
+              className="mt-3"
+            >
+              {T(
+                'Данните са от дневния фийд на КЗП „Колко струва". За всеки продукт показваме най-голямото текущо намаление в страната. Процентът се смята спрямо типичната редовна цена за продукта при всички вериги (една верига — един глас), а не спрямо обявената от конкретния магазин „редовна" цена, която понякога е завишена. Показваме само намаления, потвърдени в поне 2 вериги и 3 обекта; изключваме над 70% и явно грешни цени. Мониторингов индекс, не официален ИПЦ.',
+                'Data comes from the КЗП „Колко струва" daily price feed. For each product we show the biggest current discount nationwide. The percentage is measured against the product’s typical regular price across every chain that sells it (one vote per chain), not against an individual store’s declared “regular” price, which is sometimes inflated. We show only discounts corroborated at ≥2 chains and ≥3 stores, and drop anything above 70% off or with obviously erroneous prices. A monitoring index, not official CPI.',
+              )}
+            </MethodologyCallout>
           )}
         </DashboardSection>
       </section>
