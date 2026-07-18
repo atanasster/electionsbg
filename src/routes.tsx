@@ -1219,6 +1219,11 @@ const ProductsBrowserScreen = lazy(() =>
     default: m.ProductsBrowserScreen,
   })),
 );
+const ConsumptionBasketScreen = lazy(() =>
+  import("./screens/consumption/ConsumptionBasketScreen").then((m) => ({
+    default: m.ConsumptionBasketScreen,
+  })),
+);
 const ConsumptionChainsScreen = lazy(() =>
   import("./screens/consumption/ConsumptionChainsScreen").then((m) => ({
     default: m.ConsumptionChainsScreen,
@@ -3428,6 +3433,16 @@ export const AuthRoutes = () => {
               <LayoutScreen>
                 <Suspense fallback={<RouteFallback />}>
                   <ProductsBrowserScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="consumption/basket"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <ConsumptionBasketScreen />
                 </Suspense>
               </LayoutScreen>
             }

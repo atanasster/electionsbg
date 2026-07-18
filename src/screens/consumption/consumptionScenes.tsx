@@ -139,6 +139,34 @@ const Inflation: FC = () => (
   </SceneFrame>
 );
 
+// Моята кошница — a checked shopping list, the personal basket.
+const MyBasket: FC = () => (
+  <SceneFrame>
+    <rect
+      x="116"
+      y="20"
+      width="72"
+      height="76"
+      rx="4"
+      fill={PAPER}
+      stroke="currentColor"
+      strokeWidth="1.6"
+    />
+    <g stroke="var(--sector)" strokeWidth="3" strokeLinecap="round">
+      <path d="M128 38 h44 M128 52 h44 M128 66 h30" />
+    </g>
+    <circle cx="182" cy="82" r="14" fill="var(--sector)" />
+    <path
+      d="M176 82 l4 4 l8 -9"
+      fill="none"
+      stroke={PAPER}
+      strokeWidth="2.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </SceneFrame>
+);
+
 // Вериги — a storefront with a price tag, the retail chains.
 const Chains: FC = () => (
   <SceneFrame>
@@ -220,4 +248,5 @@ export const CONSUMPTION_SCENES: Record<string, FC> = {
   inflation: Inflation,
   affordability: Affordability,
   chains: Chains,
+  basket: MyBasket,
 };

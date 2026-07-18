@@ -44,6 +44,16 @@ export const ConsumptionScreen = () => {
       accent: TILE_ACCENTS.clay,
     },
     {
+      id: "basket",
+      to: "/consumption/basket",
+      title: T("Моята кошница", "My basket"),
+      desc: T(
+        "Състави своя кошница и следи цената",
+        "Build your basket, track its price",
+      ),
+      accent: TILE_ACCENTS.rose,
+    },
+    {
       id: "chains",
       to: "/consumption/chains",
       title: T("Вериги", "Chains"),
