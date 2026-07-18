@@ -59,6 +59,10 @@ import { ProcurementBenchmarksTile } from "../components/procurement/Procurement
 import { type ProcurementBenchmarksFile } from "@/data/procurement/useProcurementBenchmarks";
 import { CompanyRiskChips } from "../components/procurement/CompanyRiskChips";
 import {
+  CompanyRetailChainTile,
+  type RetailChainInfo,
+} from "../components/procurement/CompanyRetailChainTile";
+import {
   EntityRiskGradeCard,
   type EntityRiskGrade,
 } from "../components/procurement/EntityRiskGradeCard";
@@ -376,6 +380,7 @@ export const CompanyDbScreen: FC = () => {
   );
   const [ngoFunding, setNgoFunding] = useState<NgoFunding | null>(null);
   const [subsidies, setSubsidies] = useState<AgriRecipientFile | null>(null);
+  const [retailChain, setRetailChain] = useState<RetailChainInfo | null>(null);
   const [awarderGrade, setAwarderGrade] = useState<EntityRiskGrade | null>(
     null,
   );
@@ -482,6 +487,7 @@ export const CompanyDbScreen: FC = () => {
           setAwarderKindex(j.awarderKindex ?? null);
           setNgoFunding(j.ngoFunding ?? null);
           setSubsidies(j.subsidies ?? null);
+          setRetailChain(j.retailChain ?? null);
           setAwarderGrade(j.awarderRiskGrade ?? null);
           setSupplierGrade(j.supplierRiskGrade ?? null);
           setCorpusName(j.corpusName ? decodeEntities(j.corpusName) : null);
@@ -694,6 +700,11 @@ export const CompanyDbScreen: FC = () => {
             politicianCount={politicians.length}
             fundsContractedEur={Number(funds?.contracted_eur ?? 0)}
           />
+        )}
+        {!loading && !error && retailChain && (
+          <div className="mt-3">
+            <CompanyRetailChainTile eik={eik} info={retailChain} />
+          </div>
         )}
       </div>
 

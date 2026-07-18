@@ -152,6 +152,7 @@ const DB_ROUTES = {
       supplierRiskGrade,
       corpusName,
       subsidies,
+      retailChain,
     ] = await Promise.all([
       dbRows(
         "SELECT uic, name, legal_form, seat, status, funds_amount, funds_currency, entity_class, ngo_type FROM tr_companies WHERE uic = $1",
@@ -246,6 +247,28 @@ const DB_ROUTES = {
         "SELECT payload FROM agri_payloads WHERE kind = 'recipient' AND key = $1",
         [eik],
       ).catch((e) => (e?.code === "42P01" ? [] : Promise.reject(e))),
+      // Retail-chain block: if this EIK is a КЗП price-monitored chain, its
+      // comparable-basket cost + rank among chains (from the precomputed `chains`
+      // payload, ~110 rows). Returns no row for a non-chain. Drives the reciprocal
+      // "this company is a retail chain" tile → /consumption/chain/:eik. Guarded on
+      // the missing-migration case (price_payloads absent pre-048).
+      dbRows(
+        `WITH arr AS (
+           SELECT payload->'national' AS n FROM price_payloads
+            WHERE kind = 'chains' AND key = ''
+         ),
+         ranked AS (
+           SELECT (e->>'eik') AS eik,
+                  (e->>'chain') AS chain,
+                  (e->>'basket')::float8 AS basket,
+                  (e->>'nPriced')::int AS n_priced,
+                  row_number() OVER (ORDER BY (e->>'basket')::float8 ASC) AS rank,
+                  count(*) OVER () AS total
+             FROM arr, jsonb_array_elements(arr.n) e
+         )
+         SELECT chain, basket, n_priced, rank::int, total::int FROM ranked WHERE eik = $1`,
+        [eik],
+      ).catch((e) => (e?.code === "42P01" ? [] : Promise.reject(e))),
     ]);
     return {
       body: {
@@ -273,6 +296,7 @@ const DB_ROUTES = {
         supplierRiskGrade: supplierRiskGrade[0]?.r ?? null,
         corpusName: corpusName[0]?.name ?? null,
         subsidies: subsidies[0]?.payload ?? null,
+        retailChain: retailChain[0] ?? null,
       },
     };
   },
