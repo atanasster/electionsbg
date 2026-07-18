@@ -799,6 +799,14 @@ export const CompanyDbScreen: FC = () => {
               measure badged vs the national median (CMS Care Compare) + a decile
               fan over time (OpenPrescribing). Self-hides unless matched. */}
           <NzokReportCardTile eik={eik} />
+          {/* Procurement risk exposure — hoisted here (below the page controls +
+              identity tiles, above the money-detail tiles) so the buyer/supplier
+              risk grade is prominent instead of buried under funding/subsidies.
+              Each card self-hides when the entity has no contracts in that role;
+              the awarder grade is all-time, so it now shows regardless of the
+              selected scope (previously it was gated by the scoped awarder rollup). */}
+          <EntityRiskGradeCard grade={awarderGrade} />
+          <EntityRiskGradeCard grade={supplierGrade} />
           {company &&
             company.entity_class &&
             NGO_CLASSES.has(company.entity_class) &&
@@ -1105,10 +1113,8 @@ export const CompanyDbScreen: FC = () => {
                   </div>
                 </StatCard>
               </div>
-              {/* Risk scorecard sits directly under the KPIs so it stays near the
-                  top of the section — otherwise a sector pack's hero + tiles push
-                  it far below the fold (unlike plain awarder pages). */}
-              <EntityRiskGradeCard grade={awarderGrade} />
+              {/* (Risk scorecard hoisted to the top of the page — see the
+                  EntityRiskGradeCard block above the money-detail tiles.) */}
               {/* Domain pack hero (roads for АПИ …) — kept the focus of the page
                   for the buyers that have one; renders nothing for the rest.
                   Sector-lead awarders (НЗОК/НАП/…) instead cross-link to their
@@ -1247,7 +1253,7 @@ export const CompanyDbScreen: FC = () => {
               )}
             </section>
           )}
-          <EntityRiskGradeCard grade={supplierGrade} />
+          {/* (Supplier risk scorecard hoisted to the top of the page.) */}
           {awarderKindex &&
             awarderKindex.linkedSupplierCount > 0 &&
             awarderKindex.totalEur > 0 && (
