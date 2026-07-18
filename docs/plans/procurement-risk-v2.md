@@ -692,19 +692,47 @@ as relative ordering only.
    dropped:** award ≪ estimate is usually competition savings, not a signal — and OCP R016's
    under-valuation is a *different* comparison (estimate vs the peer-CPV norm, which the normalcy
    panel already surfaces), not award-vs-estimate. One-sided (over) is the clean, PwC-backed side.
-4. **Threshold-hugging / CPV-splitting.** Contracts clustered just below the ЗОП competitive
-   threshold; repeated same-CPV awards to the same buyer↔supplier pair within a year. Portable
-   to `contracts` today (amount, CPV, EIK, date). Reference impls: ProZorro RISK-2-5/2-6, OCP
-   R049 (suggests a 1–2% distance band, ~3-month window), K-Index P3.
-   ⚠️ Needs the ЗОП threshold as an external input — OLAF's entire split-purchase section
-   defers to "the threshold" without ever stating a number.
-5. **New-firm winners.** We have TR registration dates. K-Index P4. One of the few flags a lay
+4. **Threshold-hugging / CPV-splitting — RESEARCHED + MEASURED 2026-07-18; build deferred, see
+   below.** The ЗОП чл. 20 ал. 4 **direct-award ceiling** (below which a buyer may contract with
+   NO procedure) is now pinned by primary-source research — **date- and category-dependent**:
+
+   | category | ≤2023 (30k/50k лв) | 2024+ (50k/80k лв) |
+   |---|---|---|
+   | goods/services (чл.20 ал.4 т.3) | €15,339 | €25,565 |
+   | works, CPV 45 (ал.4 т.1) | €25,565 | €40,903 |
+
+   (Amendment ДВ бр.88/2023 raised them 2024-01-01; euro re-denomination 2026-01-01 keeps the
+   same EUR value. ал.1 EU-level thresholds are biennial — irrelevant to this low-value zone.)
+
+   Measured genuine-split signature — same buyer+supplier+CPV-division within a calendar year,
+   **all contracts direct-awarded, each ≤ the (date/category) ceiling but summing OVER it**:
+   **216 pairs (0.09%)**, 105 with ≥3 contracts. Rare and discriminating.
+
+   ⚠️ **Build deferred — the honest reason.** This flag has an **irreducible false-positive
+   floor the other flags don't**: чл. 20 ал. 4 permits repeated direct awards for *genuinely
+   separate* recurring needs (a school buying food monthly, each < €25k). Only чл. 21's
+   anti-splitting rule bars slicing *one* need — and the data cannot distinguish a split need
+   from legitimate recurring buying. So the pattern is *consistent with* splitting but is also
+   fully legal behaviour; unlike single-bid / annex-cap / over-estimate (each a clean per-record
+   property), this one flags a legal pattern. It also overlaps `awarderConcentration`. If built,
+   it must be framed "pattern consistent with split purchasing — for review", and it is a bigger
+   build than the others (a date/category matview in `033_procurement_risk_indexes` + a scorer
+   flag keyed on `buyer|supplier|cpvdiv|year`, the `awarderConcentration` architecture). The
+   ЗОП-threshold research above is the durable output; the scored flag is a deliberate hold.
+   Reference impls: ProZorro RISK-2-5/2-6, OCP R049, K-Index P3.
+5. **New-firm winners — ⛔ BLOCKED (no data).** `tr_companies` carries no incorporation/founding
+   date (only our `last_updated` ingest stamp); `tr_person_roles.added_at`/`erased_at` are
+   officer-change timestamps, not company age. Needs a TR-ingest change to parse the founding
+   date from the deed sections — a data-pipeline task, not a scoring one. K-Index P4. One of the
+   few flags a lay
    reader instantly understands.
 6. **Political donors.** We have ЕРИК. Extends `mpConnected`/`pepConnected` into campaign
    finance. Per GTI's own taxonomy, political-connection indicators systematically
    *under*estimate risk — additive, not double-counting.
-7. **Missing bidders.** Strongest published single cartel screen (75%/65% detection) and
-   essentially undeployed anywhere. Needs only bidder × buyer × CPV participation history.
+7. **Missing bidders — ⛔ BLOCKED (no data).** Strongest published single cartel screen
+   (75%/65% detection), but needs bidder × buyer × CPV *participation* history — and we hold
+   only WINNERS (the contracts corpus), not the full bid set (tender bids are count-only). Not
+   buildable without bid-level ingest.
 
 ---
 
