@@ -16,6 +16,8 @@ import {
 } from "lucide-react";
 import { SEO } from "@/ux/SEO";
 import { useHashScroll } from "@/ux/useHashScroll";
+import { usePriceIndex, usePriceRanking } from "@/data/prices/usePrices";
+import { useEuroVerdict } from "@/data/prices/useProducts";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { GovernancePricesTile } from "@/screens/governance/GovernancePricesTile";
@@ -27,9 +29,15 @@ import { PriceHeatmapTile } from "@/screens/components/prices/PriceHeatmapTile";
 export const ConsumptionOverviewScreen = () => {
   const { t, i18n } = useTranslation();
   const bg = i18n.language === "bg";
-  // Deep-link anchors (`/consumption/overview#map`, `#euro`). The hook's rAF
-  // gives freshly-mounted sections a tick to lay out before scrolling.
-  useHashScroll([]);
+  // Deep-link anchors (`/consumption/overview#macro`, `#euro`, `#finances`).
+  // The price + euro sections above the fold settle late, so a cold deep-link
+  // to a lower section would otherwise scroll before their heights land. Pass
+  // those payloads as settle sentinels (React Query dedupes — the tiles below
+  // fetch the same queries) so the scroll re-runs once layout settles.
+  const { data: priceIndex } = usePriceIndex();
+  const { data: priceRanking } = usePriceRanking();
+  const { data: euroVerdict } = useEuroVerdict();
+  useHashScroll([priceIndex, priceRanking, euroVerdict]);
   const title = `${t("consumption_title") || "Потребление"} · ${
     bg ? "Обзор" : "Overview"
   }`;
