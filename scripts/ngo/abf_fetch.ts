@@ -164,6 +164,18 @@ if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
   const t0 = Date.now();
   fetchAbfProjects()
     .then((rows) => {
+      // Refuse to overwrite the committed snapshot with a near-empty scrape: if
+      // us4bg changes its markup, parseAbfHtml silently returns [] and we'd wipe
+      // ~1286 projects / ~€81M of foreign-funding disclosure with no error. The
+      // DB is ~1286 projects; a floor of 500 catches a broken parse without
+      // tripping on a genuine (large) shrink.
+      const FLOOR = 500;
+      if (rows.length < FLOOR) {
+        console.error(
+          `[abf] only ${rows.length} projects parsed (floor ${FLOOR}) — the site markup likely changed. NOT overwriting data/ngo/abf/projects.json; fix parseAbfHtml first.`,
+        );
+        process.exit(1);
+      }
       mkdirSync(OUT_DIR, { recursive: true });
       writeFileSync(`${OUT_DIR}/projects.json`, JSON.stringify(rows, null, 1));
       const eur = rows

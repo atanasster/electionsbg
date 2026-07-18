@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-07-18T17:35:42.988Z",
+  "generatedAt": "2026-07-18T20:29:37.329Z",
   "signals": {
-    "withSignal": 2744,
+    "withSignal": 2739,
     "surface": 30170,
     "byCode": [
       {
@@ -10,7 +10,7 @@
       },
       {
         "code": "foreign_funded",
-        "count": 332
+        "count": 327
       },
       {
         "code": "public_contracts",
@@ -424,7 +424,7 @@
   "totals": {
     "ngos": 30170,
     "touchingPublicMoney": 2420,
-    "externalFundingEur": 1583352158,
+    "externalFundingEur": 1583095448,
     "contractsEur": 21499698
   },
   "byType": [
@@ -487,8 +487,8 @@
     },
     {
       "source": "abf",
-      "eur": 81926810,
-      "ngos": 34
+      "eur": 81670100,
+      "ngos": 28
     },
     {
       "source": "budget_subsidy",

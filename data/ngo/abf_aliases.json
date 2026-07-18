@@ -1,25 +1,125 @@
 {
   "_comment": "Curated America for Bulgaria Foundation grantee (English name) → BG EIK map. ABF publishes grantees in English, which translit_bg_latin cannot join to the Cyrillic TR register, so the top recipients by value are hand-mapped here. Each `en` substring is matched case-insensitively (as a substring) against the ABF grantee name (data/ngo/abf/projects.json). Extend as more grantees are resolved. All EIKs verified against tr_companies. Note: some big ABF recipients are NOT ЮЛНЦ (e.g. Economedia AD, Sofia University) and are deliberately omitted.",
   "aliases": [
-    { "eik": "175935973", "name": "ЗАЕДНО В ЧАС", "en": ["each for bulgaria", "zaedno v chas"] },
-    { "eik": "176356758", "name": "ТРЪСТ ЗА СОЦИАЛНА АЛТЕРНАТИВА", "en": ["trust for social achievement"] },
-    { "eik": "130570377", "name": "БЪЛГАРСКИ ЦЕНТЪР ЗА НЕСТОПАНСКО ПРАВО", "en": ["center for non-for-profit law", "center for not-for-profit law", "centre for non-for-profit law"] },
-    { "eik": "176535405", "name": "СОФИЙСКА ПЛАТФОРМА", "en": ["sofia platform"] },
-    { "eik": "177101397", "name": "АНТИКОРУПЦИОНЕН ФОНД", "en": ["anti-corruption fund", "anti corruption fund"] },
-    { "eik": "121347628", "name": "ПРОГРАМА ДОСТЪП ДО ИНФОРМАЦИЯ", "en": ["access to information program"] },
-    { "eik": "177228100", "name": "ТЕЛЕРИК АКАДЕМИЯ", "en": ["telerik academy"] },
-    { "eik": "175054881", "name": "БЪЛГАРСКИ ИНСТИТУТ ЗА ПРАВНИ ИНИЦИАТИВИ", "en": ["bulgarian institute for legal initiatives"] },
-    { "eik": "176007906", "name": "АСОЦИАЦИЯ НА ЕВРОПЕЙСКИТЕ ЖУРНАЛИСТИ-БЪЛГАРИЯ", "en": ["association of european journalists"] },
-    { "eik": "175673264", "name": "НАЦИОНАЛНА АКАДЕМИЧНА БИБЛИОТЕЧНО-ИНФОРМАЦИОННА СИСТЕМА", "en": ["national academic library", "nalis"] },
-    { "eik": "176119022", "name": "АСОЦИАЦИЯ НА БЪЛГАРСКИТЕ ЛИДЕРИ И ПРЕДПРИЕМАЧИ", "en": ["bulgarian leaders and entrepreneurs"] },
-    { "eik": "831344929", "name": "ИНСТИТУТ ЗА ПАЗАРНА ИКОНОМИКА", "en": ["institute for market economics"] },
-    { "eik": "121752288", "name": "АСОЦИАЦИЯ ПРОЗРАЧНОСТ БЕЗ ГРАНИЦИ", "en": ["transparency international bulgaria"] },
-    { "eik": "131087043", "name": "ИНСТИТУТ ЗА РАЗВИТИЕ НА ПУБЛИЧНАТА СРЕДА", "en": ["institute for public environment development"] },
-    { "eik": "121514988", "name": "БЪЛГАРСКА БИБЛИОТЕЧНО-ИНФОРМАЦИОННА АСОЦИАЦИЯ", "en": ["bulgarian library and information association"] },
+    {
+      "eik": "175935973",
+      "name": "ЗАЕДНО В ЧАС",
+      "en": ["each for bulgaria", "zaedno v chas"]
+    },
+    {
+      "eik": "176356758",
+      "name": "ТРЪСТ ЗА СОЦИАЛНА АЛТЕРНАТИВА",
+      "en": ["trust for social achievement"]
+    },
+    {
+      "eik": "130570377",
+      "name": "БЪЛГАРСКИ ЦЕНТЪР ЗА НЕСТОПАНСКО ПРАВО",
+      "en": [
+        "center for non-for-profit law",
+        "center for not-for-profit law",
+        "centre for non-for-profit law"
+      ]
+    },
+    {
+      "eik": "176535405",
+      "name": "СОФИЙСКА ПЛАТФОРМА",
+      "en": ["sofia platform"]
+    },
+    {
+      "eik": "177101397",
+      "name": "АНТИКОРУПЦИОНЕН ФОНД",
+      "en": ["anti-corruption fund", "anti corruption fund"]
+    },
+    {
+      "eik": "121347628",
+      "name": "ПРОГРАМА ДОСТЪП ДО ИНФОРМАЦИЯ",
+      "en": ["access to information program"]
+    },
+    {
+      "eik": "177228100",
+      "name": "ТЕЛЕРИК АКАДЕМИЯ",
+      "en": ["telerik academy"]
+    },
+    {
+      "eik": "175054881",
+      "name": "БЪЛГАРСКИ ИНСТИТУТ ЗА ПРАВНИ ИНИЦИАТИВИ",
+      "en": ["bulgarian institute for legal initiatives"]
+    },
+    {
+      "eik": "176007906",
+      "name": "АСОЦИАЦИЯ НА ЕВРОПЕЙСКИТЕ ЖУРНАЛИСТИ-БЪЛГАРИЯ",
+      "en": ["association of european journalists"]
+    },
+    {
+      "eik": "175673264",
+      "name": "НАЦИОНАЛНА АКАДЕМИЧНА БИБЛИОТЕЧНО-ИНФОРМАЦИОННА СИСТЕМА",
+      "en": ["national academic library"]
+    },
+    {
+      "eik": "176119022",
+      "name": "АСОЦИАЦИЯ НА БЪЛГАРСКИТЕ ЛИДЕРИ И ПРЕДПРИЕМАЧИ",
+      "en": ["bulgarian leaders and entrepreneurs"]
+    },
+    {
+      "eik": "831344929",
+      "name": "ИНСТИТУТ ЗА ПАЗАРНА ИКОНОМИКА",
+      "en": ["institute for market economics"]
+    },
+    {
+      "eik": "121752288",
+      "name": "АСОЦИАЦИЯ ПРОЗРАЧНОСТ БЕЗ ГРАНИЦИ",
+      "en": ["transparency international bulgaria"]
+    },
+    {
+      "eik": "131087043",
+      "name": "ИНСТИТУТ ЗА РАЗВИТИЕ НА ПУБЛИЧНАТА СРЕДА",
+      "en": ["institute for public environment development"]
+    },
+    {
+      "eik": "121514988",
+      "name": "БЪЛГАРСКА БИБЛИОТЕЧНО-ИНФОРМАЦИОННА АСОЦИАЦИЯ",
+      "en": ["bulgarian library and information association"]
+    },
     { "eik": "176216788", "name": "ГЕРОИ НА ВРЕМЕТО", "en": ["time heroes"] },
-    { "eik": "176246361", "name": "ИНСТИТУТ ЗА ПРОГРЕСИВНО ОБРАЗОВАНИЕ", "en": ["institute for progressive education"] },
-    { "eik": "175213045", "name": "БЪЛГАРСКА СЪДИЙСКА АСОЦИАЦИЯ", "en": ["bulgarian judges association"] },
-    { "eik": "130629854", "name": "ИНФОСПЕЙС", "en": ["info space foundation", "infospace"] },
-    { "eik": "207560555", "name": "ДЪ КОНВО", "en": ["convo foundation", "the convo"] }
+    {
+      "eik": "176246361",
+      "name": "ИНСТИТУТ ЗА ПРОГРЕСИВНО ОБРАЗОВАНИЕ",
+      "en": ["institute for progressive education"]
+    },
+    {
+      "eik": "175213045",
+      "name": "БЪЛГАРСКА СЪДИЙСКА АСОЦИАЦИЯ",
+      "en": ["bulgarian judges association"]
+    },
+    {
+      "eik": "130629854",
+      "name": "ИНФОСПЕЙС",
+      "en": ["info space foundation", "infospace"]
+    },
+    {
+      "eik": "207560555",
+      "name": "ДЪ КОНВО",
+      "en": ["convo foundation", "the convo"]
+    },
+    { "eik": "206368363", "name": "АСТРА ФОРУМ", "en": ["astra forum"] },
+    { "eik": "131125259", "name": "ФОРМАТ СФФ", "en": ["format sff"] },
+    { "eik": "205143716", "name": "ГУТЕНБЕРГ 3.0", "en": ["gutenberg 3.0"] },
+    {
+      "eik": "176957584",
+      "name": "ФОНДАЦИЯ МАСТЕР ОФ АРТ",
+      "en": ["master of art"]
+    },
+    { "eik": "177047711", "name": "НИКИФОРОВ АРТ", "en": ["nikiforov art"] },
+    { "eik": "130340134", "name": "ЦАНКО ЛАВРЕНОВ", "en": ["tsanko lavrenov"] },
+    {
+      "eik": "176985998",
+      "name": "СТУДЕНТСКИ ДИПЛОМАТИЧЕСКИ КЛУБ",
+      "en": ["student diplomatic club"]
+    },
+    {
+      "eik": "105032024",
+      "name": "ОРГАНИЗАЦИЯ ДРОМ",
+      "en": ["organization “drom”", "organization \"drom\""]
+    }
   ]
 }

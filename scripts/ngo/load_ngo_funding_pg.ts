@@ -190,7 +190,10 @@ export const loadNgoFundingPg = async (): Promise<{
   const rows = [
     ...parseFts(),
     ...parseCurated(BUDGET_JSON, "budget_subsidy"),
-    ...parseCurated(FOREIGN_JSON, "abf"),
+    // ABF now has its own scraped path (parseAbf); the curated foreign-grants file
+    // is for OTHER funders (e.g. NED), so it must NOT default to 'abf' — two 'abf'
+    // sources over the same grantees would double-count into foreign_eur.
+    ...parseCurated(FOREIGN_JSON, "ned"),
     ...parseAbf(),
   ];
   if (!rows.length) {
@@ -283,6 +286,12 @@ export const loadNgoFundingPg = async (): Promise<{
     LEFT JOIN LATERAL (
       SELECT nf.uic FROM nf
       WHERE m.vat_eik IS NULL AND uf.uic IS NULL AND length(m.fold) > 4
+        -- ABF grantee names are ENGLISH; translit_bg_latin can't fold them to
+        -- Cyrillic, so fuzzy similarity there mis-attributes funding to
+        -- similarly-named (often commercial EOOD/Ltd) NGOs — e.g. "Balkan Pro
+        -- Travel Ltd." → "Балкан Травел СК". ABF matches via the curated alias
+        -- map (m.eik) or exact fold only; never fuzzy.
+        AND m.source <> 'abf'
         AND similarity(nf.name_fold, m.fold) > 0.55
       ORDER BY similarity(nf.name_fold, m.fold) DESC
       LIMIT 1
