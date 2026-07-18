@@ -1683,6 +1683,58 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "consumption/eu",
+    title: "Храната в България спрямо ЕС — цени по категории | electionsbg.com",
+    description:
+      "Цените на храните в България спрямо средното за ЕС по официалните индекси на ценовото равнище на Евростат (ЕС=100). Млечни продукти и олио над средното, месо, хляб и плодове под него.",
+    breadcrumbName: "Храната спрямо ЕС",
+    ogImage: "/og/consumption-eu.png",
+    bodyHtml: `
+<h1>Храната в България спрямо средното за ЕС</h1>
+<p>Тази страница сравнява цените на храните в България със средните за Европейския съюз по официалните <strong>индекси на ценовото равнище</strong> (Price Level Indices) на Евростат, при които ЕС = 100. Стойност под 100 означава по-евтино от средното за ЕС, над 100 — по-скъпо.</p>
+<p>Като цяло храната у нас е под средното за ЕС, но картината е разнопосочна по категории: <strong>млечните продукти и яйцата</strong>, както и <strong>маслата и мазнините</strong>, са над средното за ЕС, докато <strong>месото, хлябът, плодовете и зеленчуците</strong> са осезаемо по-евтини.</p>
+<p>Това е официална статистика от програмата за паритети на покупателната способност (PPP) на Евростат и ОИСР — отчита ДДС и качеството и не зависи от отделни магазини. Виж и <a href="${SITE_URL}/consumption">изгледа „Потребление“</a>.</p>
+<p>Източник: <a href="https://ec.europa.eu/eurostat/databrowser/product/view/prc_ppp_ind_1" rel="nofollow noopener">Евростат — prc_ppp_ind_1</a>.</p>`.trim(),
+    english: {
+      title: "Bulgarian food prices vs the EU — by category | electionsbg.com",
+      description:
+        "Bulgarian food prices vs the EU average by official Eurostat price level indices (EU=100). Dairy and oils above the average; meat, bread and produce below.",
+      breadcrumbName: "Food vs the EU",
+      bodyHtml: `
+<h1>Bulgarian food prices vs the EU average</h1>
+<p>This page compares food prices in Bulgaria with the EU average using official Eurostat <strong>Price Level Indices</strong>, where EU = 100. Below 100 means cheaper than the EU average; above 100 means dearer.</p>
+<p>Food is below the EU average overall, but the picture varies by category: <strong>dairy and eggs</strong> and <strong>oils and fats</strong> sit above the EU average, while <strong>meat, bread, fruit and vegetables</strong> are markedly cheaper.</p>
+<p>This is official statistics from the Eurostat–OECD Purchasing Power Parities programme — VAT- and quality-adjusted, independent of any single store. See also the <a href="${SITE_URL}/en/consumption">Consumption view</a>.</p>
+<p>Source: <a href="https://ec.europa.eu/eurostat/databrowser/product/view/prc_ppp_ind_1" rel="nofollow noopener">Eurostat — prc_ppp_ind_1</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "consumption/overview",
+    title:
+      "Потребление — обзор: кошница, инфлация и достъпност | electionsbg.com",
+    description:
+      "Обзор на потреблението в България — кошницата на цените от въвеждането на еврото, поскъпна ли храната заради еврото, официалната инфлация (ХИПЦ) и достъпността по области.",
+    breadcrumbName: "Потребление — обзор",
+    ogImage: "/og/consumption-overview.png",
+    bodyHtml: `
+<h1>Потребление — обзор</h1>
+<p>Аналитичният обзор на изгледа „Потребление“ събира на едно място кошницата на цените от въвеждането на еврото, отговора на въпроса <strong>поскъпна ли храната заради еврото</strong>, официалната инфлация (ХИПЦ на Евростат) и достъпността на кошницата спрямо доходите по области, плюс картата на цените по общини.</p>
+<p><strong>Кошницата е мониторингов индекс на КЗП, не официален ИПЦ.</strong> Виж целия <a href="${SITE_URL}/consumption">изглед „Потребление“</a>.</p>
+<p>Източник: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">КЗП — „Колко струва“ (отворени данни)</a>.</p>`.trim(),
+    english: {
+      title:
+        "Consumption overview — basket, inflation and affordability | electionsbg.com",
+      description:
+        "A consumption overview for Bulgaria — the price basket since the euro, whether the euro raised food prices, official inflation (HICP) and affordability by oblast.",
+      breadcrumbName: "Consumption overview",
+      bodyHtml: `
+<h1>Consumption — overview</h1>
+<p>The analytics overview of the Consumption view brings together the price basket since the euro, whether the <strong>euro raised food prices</strong>, official inflation (Eurostat HICP), the basket's affordability relative to regional income, and the municipality price map.</p>
+<p><strong>The basket is a CPC monitoring index, not the official CPI.</strong> See the full <a href="${SITE_URL}/en/consumption">Consumption view</a>.</p>
+<p>Source: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">CPC — "How Much Does It Cost" (open data)</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "indicators/economy",
     title: "Икономика — БВП, инфлация, безработица, нагласи | electionsbg.com",
     description:

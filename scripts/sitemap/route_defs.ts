@@ -69,6 +69,8 @@ export const ENGLISH_STATIC_PAGES = [
   "education",
   ...SECTOR_SLUGS,
   "consumption",
+  "consumption/overview",
+  "consumption/eu",
   "risk-analysis",
   "risk-analysis/methodology",
   "risk-score",
@@ -153,6 +155,14 @@ export const routeDefs = (year: string): RouteDefs => [
   // now (most settlements have no price data; the place pages still resolve in
   // the SPA), matching the bounded-URL discipline used elsewhere.
   { path: "consumption", file: `src/screens/ConsumptionScreen.tsx` },
+  {
+    path: "consumption/overview",
+    file: `src/screens/ConsumptionOverviewScreen.tsx`,
+  },
+  {
+    path: "consumption/eu",
+    file: `src/screens/consumption/ConsumptionEuScreen.tsx`,
+  },
   { path: "simulator", file: `src/screens/SimulatorScreen.tsx` },
   { path: "compare", file: `src/screens/CompareScreen.tsx` },
   { path: "governance", file: `src/screens/GovernanceScreen.tsx` },
