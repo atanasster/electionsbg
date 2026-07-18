@@ -7,7 +7,7 @@
 ## 1. What already exists (reuse, don't rebuild)
 
 ### Location backbone — already global
-- **`?area=<id>` anchor** — `AreaAnchorProvider` mounted at the root, id = settlement EKATTE / obshtina / raion. Read via `useAreaAnchor()`, set via `useSetAreaAnchor()` (`src/data/area/areaAnchor.tsx`, `AreaAnchorProvider.tsx`).
+- **`?area=<id>` anchor** — `AreaAnchorProvider` mounted at the root, id = settlement EKATTE / obshtina / raion. Read via `useAreaAnchor()`, set via `useSetAreaAnchor()` (`src/data/area/areaAnchor.tsx`, `AreaAnchorProvider.tsx`). ⚠️ **URL-only — NOT persisted** (no localStorage; `setParams(..., {replace:true})`). A fresh load / bookmark / new session with no `?area=` starts anchorless — the anchor only survives navigation when links carry the search string forward (see §Audit A2).
 - **Geolocation** — `AreaSniperButton` crosshair in the header → `useNearestSettlement` (`src/data/area/useNearestSettlement.ts`) auto-picks a settlement within 1.5 km or shows `AmbiguitySettlementChooser`. Persistent `AreaPill` chip.
 - **`useAreaResolver(id)`** — O(1) resolve of an anchor id to `{kind: settlement|municipality|raion, ekatte, obshtina, oblast}`. Sofia handled (`SOF00` / EKATTE 68134).
 - **`resolvePriceKeys`** (`src/data/prices/pricePlaceKeys.ts`) — maps a resolved area to the right price-payload keys (place ekatte + chains-muni obshtina; Sofia районы → city).
@@ -52,8 +52,9 @@ Per-**place** prices exist only for the **~100-product monitored basket** across
 
 ### Phase 0 — Wire location into the Consumption view (foundation, ~small)
 - **Region drill-down:** in `GovernancePricesTile.placeRow`, wrap the settlement name in `<Link to={/consumption/${p.code}}>` (settlement `code` = EKATTE, resolver-safe). One-liner, unlocks data already built.
-- **Anchor-aware hub:** on `/consumption` (`ConsumptionScreen`), if `useAreaAnchor()` is set, show a prominent "Вашето място: {name}" CTA linking to `/consumption/<anchor.id>`; if not set, surface the `AreaSniperButton` inline ("Вижте цените край вас" → detect/pick → route to `/consumption/<ekatte>`).
-- **Scoped nav:** add a `useConsumptionScopedHref` helper (mirror the procurement `useScopedHref` pattern) so links within the view carry `?area=` forward. Keeps the pinned place sticky across products/deals/category sub-pages.
+- **Anchor-aware hub:** on `/consumption` (`ConsumptionScreen`), slot a banner between `<ConsumptionSearchTile>` and the `<TileHubGrid>` (`ConsumptionScreen.tsx:237-239`). If `useAreaAnchor()` is set → "Вашето място: {name}" CTA to `/consumption/<anchor.id>`; if not → the location picker.
+  ⚠️ **`AreaSniperButton` is NOT free reuse** — its `goTo` hardcodes `navigate('/governance/'+id)` (`AreaSniperButton.tsx:80-92,105,216`). Fix path: **parameterize the sniper's destination** (prop `basePath="/governance" | "/consumption"`) rather than fork it — reusing its GPS + `useNearestSettlement` + autocomplete (all gated on `open`, so no ~980 KB payload on an idle hub). Do NOT build a parallel inline detector.
+- **Scoped nav — reuse, don't add a helper:** `useScopedHref` (`src/data/scope/useScope.ts:63`) already forwards the **entire** search string, so it carries `?area=` for free. Route consumption links through it (they currently emit bare pathnames and drop all query params). No new `useConsumptionScopedHref` needed.
 
 ### Phase 1 — Full local basket on the place page (no new ingest)
 - Extend `MyAreaPricesTile` (or a new `PlaceBasketTile`) from FEATURED-only to the **full basket**: all products present in `place:<ekatte>`, grouped by `dict` category, each row = name · local min · cheapest chain+store (Maps link) · **promo badge** when `promoMin != null` (strikethrough min → promoMin).
@@ -62,6 +63,9 @@ Per-**place** prices exist only for the **~100-product monitored basket** across
 
 ### Phase 2 — Promotions near you (new scoped payload)
 - **Serving:** add `deals-muni:<obshtina>` to `scripts/prices/build_payloads.ts` — same promo CTE as `deals` but `GROUP BY st.obshtina`, top-N per obshtina (mirror `chains-muni` keying). Obshtina (not settlement) chosen: a settlement often has ≤2 stores, obshtina gives a usable feed; still local. (`price_stores.obshtina` already indexed for `chains-muni`.)
+  - **Carry `latestDate`** in the blob (mirror `deals` at `build_payloads.ts:79-82`) so the UI shows an as-of date — otherwise the local feed loses the freshness affordance the national feed has.
+  - **No promo expiry dates exist** — `promo_eur` is a snapshot column, not a validity window. Staleness is safe *only* because `price_current` is TRUNCATE+reload of the latest ingested day (`load_day.ts:322`), so an ended promo drops out next ingest. **Pipeline dependency:** `deals-muni` must be built *after* `price_current` reloads (same ordering the `deals` build already relies on) — note it in the build step.
+  - Obshtini with 0 covered stores emit no key → `useMuniDeals` must treat a null/404 payload as "fall back to national", not an error.
 - **Hook:** `useMuniDeals(obshtina)` → `fetchPricePayload('deals-muni', obshtina)`.
 - **UI:** new "Промоции край вас" section on the place dashboard + make `/consumption/deals` anchor-aware — when `?area=` is set, show local deals with a "показва промоции в {obshtina}" caption and a "виж всички" link to the national feed; no anchor → national as today.
 - Changelog: wire the new payload into `recent_updates` per the PG-changelog rule.
@@ -71,8 +75,8 @@ Per-**place** prices exist only for the **~100-product monitored basket** across
 - Optional stretch: for rows whose slug is in the monitored basket, show a local-price chip (join to the anchored `place` shard client-side — only ~100 slugs, cheap).
 
 ### Phase 4 — Unified place consumption dashboard + polish
-- Restructure `/consumption/:id` into a proper dashboard shell (copy homepage shell per the dashboard-layout convention): header (place · basket % · rank) → sections: **Basket (full)** · **Промоции край вас** · **Cheapest chains** · **Biggest movers** · **Compare to oblast/neighbours**.
-- Coverage/empty states across the ladder (settlement→obshtina→oblast→national); Sofia районы → city aggregate.
+- Restructure `/consumption/:id` into a proper dashboard shell (copy homepage shell per the dashboard-layout convention): header (place · basket % · rank) → sections: **Basket (full)** · **Промоции край вас** · **Cheapest chains** · **Biggest movers** · **Compare to peer group** (size-class / oblast — the `ranking` payload's `RankTriple`; there is **no geographic-adjacency / "neighbours"** data, don't imply it).
+- **Coverage ladder is NET-NEW work, not reuse.** Today only **settlement→obshtina** exists (`MyAreaPricesTile` hides when both miss, `MyAreaPricesTile.tsx:74`) plus the Sofia-район→city rekey (`pricePlaceKeys.ts:38`). The **oblast and national rungs don't exist anywhere** — building them (fall back to `index.regions[oblast]` / national basket when a place has no shard) is new. Sofia районы → city aggregate.
 - SEO: keep place/region consumption nodes SPA-only, canonical → governance region (matches the current `RegionConsumptionScreen` decision).
 
 ### Phase 6 — AI chat tools (location-aware consumption)
@@ -80,7 +84,7 @@ The chat (`ai/`) already ships a price-tool family in `ai/tools/prices.ts` — `
 - **New tool `localDeals`** (promotions near a place) backed by the Phase-2 `deals-muni:<obshtina>` payload: args `{ place?, product? }` → resolve place to an obshtina (settlement→its obshtina), fetch `deals-muni`, narrate the top current promos (product · was→promo · disc% · chain). `.catch(() => undefined)` on uncovered places like the other place tools. Register in `ai/tools/registry.ts`; parity with the `/consumption/deals` UI.
 - **Extend `settlementPrices` narration** to expose the **full local basket + promo flags** (`promoMin`) it already fetches from the `place` shard — today it summarizes; surface per-category cheapest + "на промоция сега" so "цените в {place}" answers match the new dashboard.
 - **Router intents:** detect promotions/deals queries ("промоции / намаления / оферти / deals / on sale в {place}" and bare "промоции край мен") → `localDeals`; keep the existing price intents. Add a `detectPriceDeal(q)` sync predicate mirroring `detectPriceProduct` / `detectChain`.
-- **Ambient location.** Pass the app's active `?area=` anchor into the chat context (ambient place) so a place-less query — "какви са цените край мен", "има ли промоции наблизо" — resolves to the pinned location instead of asking. Falls back to `clarify` when no anchor and no place in the query.
+- **Ambient location — mechanism is net-new.** The chat is a **standalone app** (`ai/App.tsx`) that reads its own URL (`ai/app/Chat.tsx:637` reads `?q=`) and has **no `?area=` awareness today**. So "pass the anchor in" needs a concrete channel — choose one: (a) the host app appends `?area=<id>` when it links into `/ai`, and the chat reads it alongside `?q=`; or (b) if we add localStorage persistence for the anchor (see Audit A2), the chat reads that shared key. Without one of these, a place-less "цените край мен" cannot resolve. Fall back to `clarify` when no anchor and no place in the query.
 - **Grounding + narration gates.** All new numbers go through the deterministic grounded-number gate (reject ungrounded/rounded figures in prose); EUR basis = Σ per-row (never re-summed); BG narration natural, not word-for-word; keep answers grounded to real fetched values.
 - **Tests.** Add live-PG tool tests (mirror the existing price-tool tests under `ai/tests/`) for `localDeals` + the extended `settlementPrices`, asserting a covered obshtina returns promos and an uncovered place resolves to `undefined` (no throw).
 
@@ -101,12 +105,29 @@ Applies to every new/changed DB query and payload build — do not ship a phase 
 
 ## Cross-cutting: mobile / responsive QA (every UI phase, before shipping)
 Naясно is FB-first / mobile-first — every new or changed surface must be verified on a phone viewport, not just desktop.
+- **Prerequisite (Audit A1):** dev has no `/api/db` proxy, so the price screens render empty under `npm run dev`. Add a `/api/db` proxy to `vite.config.ts` (target prod or the functions emulator) *before* QA, or the preview shows blank tiles.
 - **Drive it in the preview at mobile width** (375×812) via the Browser pane `resize_window` preset `mobile`, for each new/changed route: `/consumption`, `/consumption/region/:oblast`, the new `/consumption/:id` place dashboard, `/consumption/deals` (anchor-aware), `/consumption/products`.
 - **Per-surface checks:** no horizontal body scroll; the full-basket table/rows reflow to a single column on phones (movers grid already does — match it); promo badges + cheapest-store + Maps link don't overflow the row; the `AreaSniperButton` / area pill and the "detect my location" CTA are tappable (≥44 px targets) and don't collide with the header search; sticky section headers behave; dark mode holds.
 - **Interaction pass:** GPS-detect flow, settlement/município autocomplete, "show all" category expand/collapse, and every drill-down link all work by tap.
 - **Proof:** capture a mobile screenshot of each changed surface and confirm no console errors (`read_console_messages`) before marking the phase done. Re-check desktop (1280) for the same routes so the wider layout isn't regressed.
 
 ---
+
+## Audit findings (verified against code, 2026-07-18)
+
+Corrections already folded inline above; these are the cross-cutting gaps the first draft missed:
+
+**A1 — Dev has no `/api/db` proxy → the mobile-QA loop can't render data screens.** `vite.config.ts` proxies only `/api/scenarios` (`:158-163`). The consumption screens fetch price payloads from `/api/db/price-payload`, which 404s under `npm run dev`. **Fix:** add a dev proxy for `/api/db` (target prod `https://electionsbg.com` or the functions emulator) before the mobile/responsive QA step, else "drive it in the preview" is a no-op. Add to the mobile-QA cross-cutting section as a prerequisite.
+
+**A2 — Anchor is URL-only, not persisted.** (See §1 note.) Decide explicitly: keep URL-only (matches the app's existing convention; returning users must re-detect) **or** add localStorage persistence (a returning user keeps their place, and it gives the chat's ambient-area channel for free — Phase 6). Small change, product call — raise before Phase 0.
+
+**A3 — `/consumption/deals` & `/consumption/products` are prerendered + in the sitemap** (`scripts/prerender/routes.ts:1812,1836`; `scripts/sitemap/route_defs.ts:78-79`). Making them anchor-aware (Phases 2–3) must stay **client-only**: the prerendered HTML and canonical must remain the **national** version, `?area=` refines after hydration. Don't emit area-specific prerender variants. (Settlement/region consumption nodes are correctly SPA-only already — `route_defs.ts:162`.)
+
+**A4 — i18n keys.** New consumption strings use inline `T(bg,en)`, but reused area/sniper copy uses `t()` keys (`my_area_*`, `area_sniper_*`). Any anchor-aware CTA reusing that copy needs matching keys in both locale files; new bespoke strings can stay inline `T()`. Enumerate the new keys per phase.
+
+**A5 — Catch-all route is safe (note only).** `consumption/:id` is last (`routes.tsx:3576`) but React Router v6 ranks by specificity, so static segments win regardless. `:id` is always EKATTE/obshtina (digit/alnum dispatch, `useAreaResolver.ts:44`) — no collision with word segments. Just don't add a new bare `/consumption/<word>` without registering it as a static route.
+
+**A6 — Under-addressed non-functionals.** No analytics events for the detect/drill CTAs; no frontend/route tests for the new `/consumption/:id` dashboard or the area-threaded links (repo has no FE test harness, so at least a manual checklist); promo-badge a11y (strikethrough → `promoMin` must not be conveyed by styling alone — add an sr-only "на промоция"). Add the `deals-muni` case to the payload parity test.
 
 ## 4. Decisions (locked)
 1. **Deals scope granularity** — ✅ **`deals-muni:<obshtina>`** (per-município: usable store density, mirrors `chains-muni` keying).
