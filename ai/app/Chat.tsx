@@ -952,10 +952,7 @@ export const Chat = ({
               ref={taRef}
               rows={1}
               className="max-h-40 min-h-[2.25rem] min-w-0 flex-1 resize-none bg-transparent px-2 py-2 text-sm leading-relaxed placeholder:text-muted-foreground focus:outline-none"
-              placeholder={t(
-                "Попитайте за данните…",
-                "Ask about the data…",
-              )}
+              placeholder={t("Попитайте за данните…", "Ask about the data…")}
               value={input}
               onChange={(e) => {
                 // typing leaves history-browsing; the edit becomes the new draft

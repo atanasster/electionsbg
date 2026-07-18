@@ -173,130 +173,131 @@ export const PriceHistoryChart: FC<Props> = ({ points, height = 220 }) => {
       </div>
 
       <div className="relative">
-      <svg
-        viewBox={`0 0 ${W} ${H}`}
-        className="w-full"
-        style={{ height }}
-        role="img"
-        aria-label={`${T("Цена във времето", "Price over time")}: ${T("макс", "high")} ${fmtEur(effOf(view.hi), lang)}, ${T("мин", "low")} ${fmtEur(effOf(view.lo), lang)}, ${T("средно", "average")} ${fmtEur(view.avg, lang)}`}
-        onMouseMove={(e) => {
-          const rect = e.currentTarget.getBoundingClientRect();
-          setHover({
-            i: nearestIndex(e.currentTarget, e.clientX),
-            mx: e.clientX - rect.left,
-            my: e.clientY - rect.top,
-            cw: rect.width,
-          });
-        }}
-        onMouseLeave={() => setHover(null)}
-      >
-        {/* min/max annotation dots, labelled with their date */}
-        <circle
-          cx={x(view.lo.day)}
-          cy={y(effOf(view.lo))}
-          r={3}
-          className="fill-green-600 dark:fill-green-400"
-        />
-        <circle
-          cx={x(view.hi.day)}
-          cy={y(effOf(view.hi))}
-          r={3}
-          className="fill-red-600 dark:fill-red-400"
-        />
+        <svg
+          viewBox={`0 0 ${W} ${H}`}
+          className="w-full"
+          style={{ height }}
+          role="img"
+          aria-label={`${T("Цена във времето", "Price over time")}: ${T("макс", "high")} ${fmtEur(effOf(view.hi), lang)}, ${T("мин", "low")} ${fmtEur(effOf(view.lo), lang)}, ${T("средно", "average")} ${fmtEur(view.avg, lang)}`}
+          onMouseMove={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            setHover({
+              i: nearestIndex(e.currentTarget, e.clientX),
+              mx: e.clientX - rect.left,
+              my: e.clientY - rect.top,
+              cw: rect.width,
+            });
+          }}
+          onMouseLeave={() => setHover(null)}
+        >
+          {/* min/max annotation dots, labelled with their date */}
+          <circle
+            cx={x(view.lo.day)}
+            cy={y(effOf(view.lo))}
+            r={3}
+            className="fill-green-600 dark:fill-green-400"
+          />
+          <circle
+            cx={x(view.hi.day)}
+            cy={y(effOf(view.hi))}
+            r={3}
+            className="fill-red-600 dark:fill-red-400"
+          />
 
-        {/* Regular (list) price — dashed reference, only when a promo pulled the
+          {/* Regular (list) price — dashed reference, only when a promo pulled the
             effective line below it. The gap between the two IS the promo. */}
-        {view.hasPromo &&
-          segments.map((seg, si) => (
+          {view.hasPromo &&
+            segments.map((seg, si) => (
+              <polyline
+                key={`reg-${si}`}
+                fill="none"
+                strokeWidth={1.25}
+                strokeLinejoin="round"
+                strokeLinecap="round"
+                strokeDasharray="4 3"
+                className="stroke-muted-foreground/60"
+                points={seg.map((p) => `${x(p.day)},${y(p.min_eur)}`).join(" ")}
+              />
+            ))}
+          {/* Effective (payable) price — the primary line. */}
+          {segments.map((seg, si) => (
             <polyline
-              key={`reg-${si}`}
+              key={si}
               fill="none"
-              strokeWidth={1.25}
+              strokeWidth={1.75}
               strokeLinejoin="round"
               strokeLinecap="round"
-              strokeDasharray="4 3"
-              className="stroke-muted-foreground/60"
-              points={seg.map((p) => `${x(p.day)},${y(p.min_eur)}`).join(" ")}
+              className="stroke-primary"
+              points={seg.map((p) => `${x(p.day)},${y(effOf(p))}`).join(" ")}
             />
           ))}
-        {/* Effective (payable) price — the primary line. */}
-        {segments.map((seg, si) => (
-          <polyline
-            key={si}
-            fill="none"
-            strokeWidth={1.75}
-            strokeLinejoin="round"
-            strokeLinecap="round"
-            className="stroke-primary"
-            points={seg.map((p) => `${x(p.day)},${y(effOf(p))}`).join(" ")}
-          />
-        ))}
 
-        {/* Crosshair (line + point). The floating readout is an HTML overlay
+          {/* Crosshair (line + point). The floating readout is an HTML overlay
             below, so it shares the app's tooltip surface (bg-popover, shadow,
             left-aligned) instead of hand-drawn SVG text. */}
-        {hovPt && (
-          <g pointerEvents="none">
-            <line
-              x1={x(hovPt.day)}
-              x2={x(hovPt.day)}
-              y1={padY}
-              y2={H - padY}
-              className="stroke-border"
-              strokeWidth={1}
-            />
-            <circle
-              cx={x(hovPt.day)}
-              cy={y(effOf(hovPt))}
-              r={3.5}
-              className="fill-primary"
-            />
-          </g>
-        )}
-      </svg>
+          {hovPt && (
+            <g pointerEvents="none">
+              <line
+                x1={x(hovPt.day)}
+                x2={x(hovPt.day)}
+                y1={padY}
+                y2={H - padY}
+                className="stroke-border"
+                strokeWidth={1}
+              />
+              <circle
+                cx={x(hovPt.day)}
+                cy={y(effOf(hovPt))}
+                r={3.5}
+                className="fill-primary"
+              />
+            </g>
+          )}
+        </svg>
 
-      {hover &&
-        hovPt &&
-        (() => {
-          const onPromo = effOf(hovPt) < hovPt.min_eur - 0.001;
-          // Flip left near the right edge; flip below if it would clip the top.
-          const TIP_W = 150;
-          const tipH = onPromo ? 82 : 64;
-          const left =
-            hover.mx > hover.cw - TIP_W - 12
-              ? hover.mx - TIP_W - 12
-              : hover.mx + 12;
-          const top = hover.my - tipH - 8 >= 0 ? hover.my - tipH - 8 : hover.my + 14;
-          return (
-            <div
-              className={cn(
-                "pointer-events-none absolute z-10 space-y-0.5 whitespace-nowrap",
-                tooltipSurfaceCompactClass,
-              )}
-              style={{ left, top }}
-            >
-              <div className="font-semibold">
-                {fmtPriceDate(hovPt.day, lang)}
-              </div>
-              <div className="tabular-nums">
-                {fmtEur(effOf(hovPt), lang)}
-                {onPromo && (
-                  <span className="ml-1 text-green-600 dark:text-green-400">
-                    {T("промо", "promo")}
-                  </span>
+        {hover &&
+          hovPt &&
+          (() => {
+            const onPromo = effOf(hovPt) < hovPt.min_eur - 0.001;
+            // Flip left near the right edge; flip below if it would clip the top.
+            const TIP_W = 150;
+            const tipH = onPromo ? 82 : 64;
+            const left =
+              hover.mx > hover.cw - TIP_W - 12
+                ? hover.mx - TIP_W - 12
+                : hover.mx + 12;
+            const top =
+              hover.my - tipH - 8 >= 0 ? hover.my - tipH - 8 : hover.my + 14;
+            return (
+              <div
+                className={cn(
+                  "pointer-events-none absolute z-10 space-y-0.5 whitespace-nowrap",
+                  tooltipSurfaceCompactClass,
                 )}
-              </div>
-              {onPromo && (
-                <div className="tabular-nums text-muted-foreground">
-                  {T("редовна", "regular")} {fmtEur(hovPt.min_eur, lang)}
+                style={{ left, top }}
+              >
+                <div className="font-semibold">
+                  {fmtPriceDate(hovPt.day, lang)}
                 </div>
-              )}
-              <div className="text-muted-foreground">
-                {hovPt.chains} {T("вериги", "chains")}
+                <div className="tabular-nums">
+                  {fmtEur(effOf(hovPt), lang)}
+                  {onPromo && (
+                    <span className="ml-1 text-green-600 dark:text-green-400">
+                      {T("промо", "promo")}
+                    </span>
+                  )}
+                </div>
+                {onPromo && (
+                  <div className="tabular-nums text-muted-foreground">
+                    {T("редовна", "regular")} {fmtEur(hovPt.min_eur, lang)}
+                  </div>
+                )}
+                <div className="text-muted-foreground">
+                  {hovPt.chains} {T("вериги", "chains")}
+                </div>
               </div>
-            </div>
-          );
-        })()}
+            );
+          })()}
       </div>
 
       <div className="mt-1 flex items-center justify-between text-xs text-muted-foreground">
