@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-17T13:14:13.974Z",
+  "generatedAt": "2026-07-18T10:19:06.538Z",
   "total": 27837,
   "entries": [
     {
@@ -372,6 +372,16 @@
       "totalEur": 242965533.95,
       "totalOther": {},
       "contractCount": 1,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "00401990585",
+      "name": "Leonardo S.p.А.",
+      "totalEur": 233774432.74,
+      "totalOther": {},
+      "contractCount": 5,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -794,16 +804,6 @@
       "mpIds": []
     },
     {
-      "eik": "00401990585",
-      "name": "Leonardo S.p.А.",
-      "totalEur": 157004891.87,
-      "totalOther": {},
-      "contractCount": 5,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
       "eik": "103533691",
       "name": "ЕНЕРГО-ПРО Продажби АД",
       "totalEur": 155287620.68,
@@ -1024,21 +1024,21 @@
       "mpIds": []
     },
     {
-      "eik": "040336507",
-      "name": "ТОМБОУ-БЪЛГАРИЯ ЕООД",
-      "totalEur": 132859283.11,
+      "eik": "000670919",
+      "name": "Национален Археологически институт с музей на БАН",
+      "totalEur": 133229643.7,
       "totalOther": {},
-      "contractCount": 433,
+      "contractCount": 226,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
     },
     {
-      "eik": "000670919",
-      "name": "Национален Археологически институт с музей на БАН",
-      "totalEur": 132786935.7,
+      "eik": "040336507",
+      "name": "ТОМБОУ-БЪЛГАРИЯ ЕООД",
+      "totalEur": 132859283.11,
       "totalOther": {},
-      "contractCount": 224,
+      "contractCount": 433,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -1342,7 +1342,7 @@
     {
       "eik": "030215702",
       "name": "Медикард ООД",
-      "totalEur": 103878316.41,
+      "totalEur": 103873609.75,
       "totalOther": {},
       "contractCount": 225,
       "awardCount": 0,
@@ -1952,7 +1952,7 @@
     {
       "eik": "175219757",
       "name": "Копекс и КО. ООД",
-      "totalEur": 78863065.71,
+      "totalEur": 78756522.9,
       "totalOther": {},
       "contractCount": 118,
       "awardCount": 0,
@@ -2312,7 +2312,7 @@
     {
       "eik": "833067427",
       "name": "Металик АД",
-      "totalEur": 68155806.69,
+      "totalEur": 68151044.69,
       "totalOther": {},
       "contractCount": 289,
       "awardCount": 0,
@@ -2622,7 +2622,7 @@
     {
       "eik": "121600953",
       "name": "Медилон ЕООД",
-      "totalEur": 58478430.66,
+      "totalEur": 58517819.06,
       "totalOther": {},
       "contractCount": 394,
       "awardCount": 0,
@@ -2782,7 +2782,7 @@
     {
       "eik": "103591328",
       "name": "Одесосстрой ООД",
-      "totalEur": 56706695.85,
+      "totalEur": 56706498.43,
       "totalOther": {},
       "contractCount": 186,
       "awardCount": 0,
@@ -3396,7 +3396,7 @@
     {
       "eik": "811130355",
       "name": "Престиж БИЗНЕС-93 ООД",
-      "totalEur": 44806346.82,
+      "totalEur": 44817273.82,
       "totalOther": {},
       "contractCount": 207,
       "awardCount": 0,
@@ -3758,7 +3758,7 @@
     {
       "eik": "030269049",
       "name": "Дженерали застраховане АД",
-      "totalEur": 40299599.43,
+      "totalEur": 40295535.92,
       "totalOther": {
         "USD": 470602.51
       },
@@ -4460,7 +4460,7 @@
     {
       "eik": "130015233",
       "name": "ЛФС ЕООД",
-      "totalEur": 34513857.35,
+      "totalEur": 34513857.34,
       "totalOther": {},
       "contractCount": 130,
       "awardCount": 0,
@@ -4663,6 +4663,18 @@
       "totalEur": 32755383.42,
       "totalOther": {},
       "contractCount": 135,
+      "awardCount": 0,
+      "mpTied": false,
+      "mpIds": []
+    },
+    {
+      "eik": "121076907",
+      "name": "Застрахователно акционерно дружество армеец АД",
+      "totalEur": 32748871.02,
+      "totalOther": {
+        "USD": 1444710.29
+      },
+      "contractCount": 327,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -4947,18 +4959,6 @@
       "totalEur": 31352240.01,
       "totalOther": {},
       "contractCount": 2,
-      "awardCount": 0,
-      "mpTied": false,
-      "mpIds": []
-    },
-    {
-      "eik": "121076907",
-      "name": "Застрахователно акционерно дружество армеец АД",
-      "totalEur": 31347278.99,
-      "totalOther": {
-        "USD": 1444710.29
-      },
-      "contractCount": 327,
       "awardCount": 0,
       "mpTied": false,
       "mpIds": []
@@ -5616,7 +5616,7 @@
     {
       "eik": "113546751",
       "name": "Саламандър - АСО ООД",
-      "totalEur": 27533738.23,
+      "totalEur": 27538326.59,
       "totalOther": {},
       "contractCount": 320,
       "awardCount": 0,
