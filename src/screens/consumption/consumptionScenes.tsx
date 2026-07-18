@@ -225,6 +225,37 @@ const Categories: FC = () => (
   </SceneFrame>
 );
 
+// Промоции — a price tag with a percent cut.
+const Deals: FC = () => (
+  <SceneFrame>
+    <path
+      d="M118 30 h52 l30 30 -46 46 -36 -36 v-40 a10 10 0 0 1 10 -10 Z"
+      fill="var(--sector)"
+      opacity=".85"
+    />
+    <circle cx="134" cy="46" r="7" fill={PAPER} />
+    <g stroke={PAPER} strokeWidth="3.4" strokeLinecap="round">
+      <path d="M150 78 l24 -24" />
+    </g>
+    <circle
+      cx="153"
+      cy="57"
+      r="4.5"
+      fill="none"
+      stroke={PAPER}
+      strokeWidth="2.6"
+    />
+    <circle
+      cx="171"
+      cy="75"
+      r="4.5"
+      fill="none"
+      stroke={PAPER}
+      strokeWidth="2.6"
+    />
+  </SceneFrame>
+);
+
 // Спрямо ЕС — diverging bars around an EU=100 baseline.
 const EuCompare: FC = () => (
   <SceneFrame>
@@ -281,4 +312,5 @@ export const CONSUMPTION_SCENES: Record<string, FC> = {
   basket: MyBasket,
   categories: Categories,
   eu: EuCompare,
+  deals: Deals,
 };

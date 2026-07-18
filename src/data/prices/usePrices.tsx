@@ -130,6 +130,23 @@ export interface PriceRankingFile {
   places: PriceRankPlace[];
 }
 
+export interface DealRow {
+  slug: string;
+  title: string;
+  /** current promo price (EUR). */
+  promo: number;
+  /** regular price it's discounted from (EUR). */
+  reg: number;
+  /** discount as a whole-number percent. */
+  discPct: number;
+  eik: string;
+  chain: string;
+}
+export interface DealsFile {
+  latestDate: string;
+  deals: DealRow[];
+}
+
 export interface ChainRow {
   eik: string;
   chain: string;
@@ -200,6 +217,13 @@ export const useMuniChains = (obshtina?: string | null) =>
     queryKey: ["prices", "chains", obshtina],
     queryFn: () => fetchPricePayload<MuniChainsFile>("chains-muni", obshtina),
     enabled: !!obshtina,
+    staleTime: Infinity,
+  });
+
+export const useDeals = () =>
+  useQuery({
+    queryKey: ["prices", "deals"],
+    queryFn: () => fetchPricePayload<DealsFile>("deals"),
     staleTime: Infinity,
   });
 

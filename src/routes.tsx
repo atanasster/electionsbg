@@ -1224,6 +1224,11 @@ const ConsumptionBasketScreen = lazy(() =>
     default: m.ConsumptionBasketScreen,
   })),
 );
+const ConsumptionDealsScreen = lazy(() =>
+  import("./screens/consumption/ConsumptionDealsScreen").then((m) => ({
+    default: m.ConsumptionDealsScreen,
+  })),
+);
 const ConsumptionChainsScreen = lazy(() =>
   import("./screens/consumption/ConsumptionChainsScreen").then((m) => ({
     default: m.ConsumptionChainsScreen,
@@ -3458,6 +3463,16 @@ export const AuthRoutes = () => {
               <LayoutScreen>
                 <Suspense fallback={<RouteFallback />}>
                   <ConsumptionBasketScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="consumption/deals"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <ConsumptionDealsScreen />
                 </Suspense>
               </LayoutScreen>
             }

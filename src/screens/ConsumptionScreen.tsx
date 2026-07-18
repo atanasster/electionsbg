@@ -54,6 +54,13 @@ export const ConsumptionScreen = () => {
       accent: TILE_ACCENTS.rose,
     },
     {
+      id: "deals",
+      to: "/consumption/deals",
+      title: T("Промоции", "Deals"),
+      desc: T("Най-големите намаления днес", "The biggest cuts today"),
+      accent: TILE_ACCENTS.terracotta,
+    },
+    {
       id: "chains",
       to: "/consumption/chains",
       title: T("Вериги", "Chains"),
