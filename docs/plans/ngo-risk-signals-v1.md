@@ -139,6 +139,36 @@ it is the core new build (Part A2).
 
 ---
 
+## DRY / reuse audit (verified against the codebase)
+
+The rule: **reuse first, extract a shared piece only when the same code would otherwise be
+written twice, never fork.** What each new artifact reuses or replaces:
+
+| New in plan | Verdict | Reuse / extraction |
+|---|---|---|
+| `SignalPill` atom | ✅ reuse | already the shared chip (`SignalPill.tsx`) |
+| NGO signal chip strip | 🔨 **extract shared** | `RiskBadges` + `TenderRiskChips` each roll their own map today → extract **`SignalPillStrip`** (+ `SignalMeta` type), refactor all three onto it (removes existing dup) — C1 |
+| NGO connections tile | ✅ reuse existing | extend the existing **"Политически връзки" tile** + `company.politicians`; add `MpAvatar` from `PoliticalLinksCard`. **No 4th political-links renderer** (already 3) — C3 |
+| Board rows / officers | ✅ reuse | NGO board members are `tr_officers` → already in the officers preview + `/company/:eik/officers` |
+| Public-money tile | ✅ reuse | group the existing `ngoFunding` tile + `CompanyFundsTile` + `StatCard`s under one heading — C3 |
+| Entity grade card | ✅ reuse | `EntityRiskGradeCard` unchanged (contract-winning NGOs) |
+| Tone / grade scale | ✅ reuse | `riskGrade.ts` `GRADE_TONE` / `criColor` |
+| `ngo_board_links` matcher | ✅ reuse, don't fork | reuse `buildMpConnectedFrom` / `EikLinkageMap` (source-agnostic; param the `getContractor` gate) — A2 |
+| `ngo_signals_for()` aggregation | ✅ compose | call `procurement_overview()` + `ngo_funding_for()` + `supplier_risk_grade()` + the `fund_projects` query, not bespoke sums — B1 |
+| `ngos_list` registry base | ✅ reuse pattern | same view-as-base pattern as `contracts_list` / `tenders_list` |
+| Namesake guard | ✅ reuse | `officer_name_counts` + `COMMON_NAME_TR_ROWS` + `pep_connected` high-conf rule — B4 |
+
+Net *genuinely* new surface: `SignalPillStrip` (shared, dedups existing), the thin
+`NgoSignalPills` wrapper, `ngo_signals_for()` + `ngo_signals` matview + `ngos_list` view,
+the `ngo_board_links` table + loader, and the AI tools. Everything else extends existing
+components/functions.
+
+**Follow-on cleanup (out of scope, worth a task):** three political-link renderers already
+coexist (inline tile, `funds/PoliticalLinksCard`, `OfficialConnectionsSection`) reading two
+different data paths — a candidate for later consolidation onto the PG-backed tile.
+
+---
+
 ## Part A — ingest (three items; all land in PG)
 
 ### A1. External funders → `ngo_funding` (extend existing loader)
@@ -162,6 +192,15 @@ new PG table, **high-confidence only** (declared/unique-name), each carrying a
 `namesake_count` from `officer_name_counts` so common names are suppressed exactly as the
 graph does elsewhere. This is a new loader (`scripts/ngo/load_ngo_board_links_pg.ts`), not
 a schema tweak — the plan's rev-1 "just a join" claim was wrong.
+
+**DRY: reuse the existing matcher, don't re-implement it.** The name-match + namesake guard
+already lives in `buildMpConnectedFrom(getContractor, linkageMap)` / the `EikLinkageMap`
+build (`cross_reference.ts:219`) — and it is explicitly **"source-agnostic"**, taking
+`getContractor` as a parameter. The *only* thing starving NGOs is the `if (!contractor)
+continue` gate (`:226`). So: reuse the same `EikLinkageMap` (the expensive matched part) and
+either (a) pass a `getContractor` that returns a stub rollup for NGO EIKs, or (b) add an
+opt-in `requireContractor=false` so the linkage is emitted without contract stats. Do **not**
+fork the matcher. Same for the officials/magistrate rosters via the `pep_connected` path.
 - Feeds `politician_board` (MP/official) and `magistrate_board` (magistrate-roster match —
   **rescoped**: "магистрат в ръководството по име, висока увереност", not the commercial
   `magistrate_company` holdings which have 0 NGO coverage).
@@ -211,6 +250,12 @@ Returns an ordered array of `{ code, class, tone, confidence?, valueEur?, count?
 Design: no forced A–F headline grade (K-Index caveat). Sort/interest key = `signal_count`
 + `public_money_eur`. Each signal self-carries its detail so tooltips need no extra fetch.
 
+**DRY: `ngo_signals_for` composes existing per-EIK functions, it does not re-aggregate.**
+Call `procurement_overview()` (025) for the contracts leg, `ngo_funding_for()` (040) for
+funding, `supplier_risk_grade()` (041) for `single_bid`, and the existing `fund_projects`
+query for ИСУН — the company endpoint already assembles all of these per EIK
+(`db_routes.js:199–354`). Reuse `risk_grade_letter()` if any composite band is ever shown.
+
 ### B2. `ngo_signals` matview + `ngos_list` view
 - `ngo_signals` matview: `eik, signals jsonb, signal_count, public_money_eur,
   has_connection, has_signal`. Built `WITH NO DATA`, then a first non-concurrent populate;
@@ -236,12 +281,17 @@ render a **confidence tier**; low-confidence never fires a red/violet pill unaid
 
 ## Part C — UI
 
-### C1. `NgoSignalPills.tsx` (mirrors `TenderRiskChips`)
-`NGO_SIGNAL_META: Record<code,{tone,icon,shortKey,longKey,hintKey}>` — one source of truth
-for list + page. `variant="chips"` = `<Tooltip><SignalPill/></Tooltip>` per signal (tooltip
-carries detail + **as-of date** + **confidence tier** + the PEP-risk-category disclaimer for
-connection signals); **`maxVisible=4` then a "+N" overflow chip** (mobile row-height guard);
-dash when none. `variant="full"` = the page header signal strip.
+### C1. Signal pills — extract a shared strip, don't fork a third copy
+**Extract `SignalPillStrip.tsx`** (new shared component) that maps a list of
+`{tone, icon, short, tooltip}` items → `<Tooltip><SignalPill/></Tooltip>`, with
+`maxVisible=4` + a "+N" overflow chip (mobile guard) and dash-when-empty. Today
+`RiskBadges` and `TenderRiskChips` each roll their own copy of this map — so the extraction
+**removes existing duplication**, it isn't net-new surface. Refactor both onto
+`SignalPillStrip` as part of this work (leave their meta maps in place).
+- `NgoSignalPills.tsx` becomes a **thin** wrapper: `NGO_SIGNAL_META: Record<code,SignalMeta>`
+  (shared `SignalMeta = {tone,icon,shortKey,longKey,hintKey}` type, also new) → items →
+  `SignalPillStrip`. Tooltip carries detail + **as-of** + **confidence tier** + the PEP
+  risk-category disclaimer for connection signals. `variant="full"` = the page header strip.
 
 ### C2. Browse list (`NgoBrowseDbScreen.tsx`)
 - **Signals** column (`cell → <NgoSignalPills variant="chips">`), non-sortable.
@@ -255,9 +305,16 @@ dash when none. `variant="full"` = the page header signal strip.
 
 ### C3. NGO page dashboard (`CompanyDbScreen.tsx`, NGO branch, ~L781–899; no tabs)
 1. **Signal strip** — `<NgoSignalPills variant="full">` under `CompanyRiskChips`.
-2. **Connections tile** — "Свързани лица (мрежа и влияние)" — politicians / magistrates /
-   PEPs on the board from `ngoSignals`, each an **`MpAvatar`** row → `/person/:name`, with
-   confidence + as-of. Footnote = the OpenSanctions risk-category disclaimer.
+2. **Connections tile — REUSE the existing "Политически връзки" tile** (CompanyDbScreen
+   ~L1511, driven by `company.politicians`); do **not** build a new tile. Extend the
+   endpoint's `politicians[]` to carry NGO board members from `ngo_board_links`
+   (`kind: mp|official|magistrate`, `role`, `confidence`, `asOf`) so the existing tile
+   renders them. Add **`MpAvatar`** rows (borrow the pattern + label helpers already used by
+   `PoliticalLinksCard`) and a confidence/as-of line. Footnote = the OpenSanctions
+   risk-category disclaimer. **Do not add a 4th political-links renderer** — the repo
+   already has three (this inline tile, `funds/PoliticalLinksCard`,
+   `OfficialConnectionsSection`); consolidating toward the PG-backed inline tile is the
+   direction, not another parallel.
 3. **Public money tile** — group procurement rollup + existing `ngoFunding` "Външно
    финансиране" tile + ИСУН (`funds`) under one "Публични пари" heading with a Σ headline €.
    `foreign_funded` visually distinct (neutral), not a red flag.
