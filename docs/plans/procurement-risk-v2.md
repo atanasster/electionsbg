@@ -720,9 +720,20 @@ as relative ordering only.
    flag keyed on `buyer|supplier|cpvdiv|year`, the `awarderConcentration` architecture). The
    ЗОП-threshold research above is the durable output; the scored flag is a deliberate hold.
    Reference impls: ProZorro RISK-2-5/2-6, OCP R049, K-Index P3.
-5. **New-firm winners — ⛔ BLOCKED on data acquisition; unblock is a bounded scrape (analysed
-   2026-07-18).** K-Index P4; one of the most legible red flags a lay reader grasps ("company
-   formed weeks before winning"). Full feasibility analysis:
+5. **New-firm winners — ✅ SHIPPED 2026-07-18 (53f54521a); full backfill pending.** The flag +
+   its ingest are built and verified end-to-end; a real hit (Инвест ИН 99 ЕООД, founded
+   2024-04-29, won a 2024-11 construction contract) renders "НОВА ФИРМА" / "New firm". Pipeline:
+   `company_founded(eik, founded_date)` table (033) ← `scripts/procurement/fetch_company_founded.ts`
+   (curl → `portal.registryagency.bg/CR/api/Deeds/{eik}`, founding = min(fieldEntryDate));
+   `foundedByEik` payload slice → `useCompanyFoundedByEik` → the `newFirmWinner` scorer flag
+   (award − founded < 12 months). ⚠️ **Remaining operational step: the full ~28k-EIK backfill.**
+   Only a ~75-EIK sample is loaded locally; the flag lights up corpus-wide once
+   `tsx scripts/procurement/fetch_company_founded.ts` (no args, resumable) finishes the ~39h run
+   — locally, then against cloud PG. ⚠️ **Not yet wired to a refresh cadence** (the default
+   fetch mode already picks up only new contractors — a periodic run keeps it current) and **not
+   yet in `recent_updates`** — decide if this internal enrichment table warrants a changelog
+   entry ([[feedback_pg_changelog_required]]). Original feasibility analysis (why the proxy failed
+   and the scrape was needed) below:
    - **No founding date in PG.** `tr_companies` has none (only our `last_updated` ingest stamp).
    - **The earliest-filing proxy is UNUSABLE — measured, not assumed.** `tr_person_roles.added_at`
      is the feed's *filing date* (load_tr_pg:246), but our TR ingest holds only **daily filings
