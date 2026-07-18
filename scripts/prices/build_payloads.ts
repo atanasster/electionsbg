@@ -170,6 +170,16 @@ export const buildPayloads = async (): Promise<void> => {
   // obshtina by discount; eik/slug tiebreaks keep it deterministic for the
   // parity gate. `latestDate` is carried so the UI shows an as-of date, exactly
   // like the national `deals` blob.
+  //
+  // PERF (measured on local PG, 1.57M price_current rows, 146 obshtini): ~444ms
+  // build-time, dominated by the promo Parallel Seq Scan + a DISTINCT-ON sort.
+  // Serving is untouched — every place-dashboard fetch is an O(1) PK seek on
+  // price_payloads (~0.1ms). All join keys are indexed both sides, so nothing is
+  // missing. A partial promo index on price_current is deliberately NOT added:
+  // it costs ~89ms to rebuild on the daily TRUNCATE+reload and saves only ~40ms
+  // per deal query (~break-even). The remaining win is the sort's disk spill
+  // (7MB external merge), which a build-session work_mem bump removes (~444→
+  // ~311ms) at zero recurring cost — left to the DB config, not forced here.
   const muniDeals = await allRows<{
     obshtina: string;
     slug: string;
