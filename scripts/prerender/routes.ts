@@ -1857,6 +1857,57 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "prices/map",
+    title:
+      "Карта на цените в България — кошница по общини, най-евтина верига | electionsbg.com",
+    description:
+      "Карта на потребителската кошница по общини — цена на кошницата, промяна от въвеждането на еврото и коя търговска верига е най-евтина във всяка община. Мониторингов индекс на КЗП, не официален ИПЦ.",
+    breadcrumbName: "Карта на цените",
+    ogImage: "/og/prices.png",
+    bodyHtml: `
+<h1>Карта на цените в България по общини</h1>
+<p>Картата оцветява всяка община по цената на потребителската кошница, по промяната от въвеждането на еврото на 1 януари 2026 г., и показва коя търговска верига предлага най-евтината кошница във всяка община. По данни на ежедневния портал на КЗП „Колко струва".</p>
+<p><strong>Мониторингов индекс на КЗП, не официален ИПЦ.</strong> Виж целия <a href="${SITE_URL}/prices">изглед на цените</a>.</p>
+<p>Източник: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">КЗП — „Колко струва" (отворени данни)</a>.</p>`.trim(),
+    english: {
+      title:
+        "Price map of Bulgaria — the basket by municipality, cheapest chain | electionsbg.com",
+      description:
+        "A map of the consumer basket by municipality — basket cost, change since the euro, and which retail chain is cheapest in each municipality. CPC monitoring index, not official CPI.",
+      breadcrumbName: "Price map",
+      bodyHtml: `
+<h1>The price map of Bulgaria by municipality</h1>
+<p>The map colours each municipality by the cost of the consumer basket, by the change since the euro changeover on 1 January 2026, and shows which retail chain offers the cheapest basket in each municipality. From the CPC "How Much Does It Cost" daily portal.</p>
+<p><strong>CPC monitoring index, not official CPI.</strong> See the full <a href="${SITE_URL}/en/prices">price view</a>.</p>
+<p>Source: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">CPC — "How Much Does It Cost" (open data)</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "consumption/unit-prices",
+    title:
+      "€ на килограм — цена на кг и литър по категории храни | electionsbg.com",
+    description:
+      "Нормализирана цена на 1 кг и 1 л по категории храни в България — за да сравниш опаковки с различен грамаж и да видиш кои продукти дават най-много за парите. Мониторингов индекс на КЗП, не официален ИПЦ.",
+    breadcrumbName: "€ на килограм",
+    ogImage: "/og/consumption.png",
+    bodyHtml: `
+<h1>€ на килограм — цена на кг и литър по категории</h1>
+<p>Тъй като разфасовката е част от идентичността на продукта, единственият честен начин да сравниш кутия от 400 г и от 800 г е да приведеш цената към 1 кг (от грамове) и 1 л (от милилитри). За всяка категория от кошницата показваме средната цена на кг/л и продуктите с най-добра стойност, които можеш да купиш. По данни на ежедневния портал на КЗП „Колко струва".</p>
+<p><strong>Мониторингов индекс на КЗП, не официален ИПЦ.</strong> Виж целия <a href="${SITE_URL}/consumption">изглед „Потребление"</a>.</p>
+<p>Източник: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">КЗП — „Колко струва" (отворени данни)</a>.</p>`.trim(),
+    english: {
+      title: "€ per kilo — price per kg and litre by food category | electionsbg.com",
+      description:
+        "Price normalized to 1 kg and 1 L by food category in Bulgaria — so packs of different sizes are comparable and you can see which products give the most for your money. CPC monitoring index, not official CPI.",
+      breadcrumbName: "€ per kilo",
+      bodyHtml: `
+<h1>€ per kilo — price per kg and litre by category</h1>
+<p>Because pack size is part of a product's identity, the only fair way to compare a 400 g and an 800 g tin is to normalize the price to 1 kg (from grams) and 1 L (from millilitres). For each basket category we show the median €/kg·€/L and the best-value products you can actually buy. From the CPC "How Much Does It Cost" daily portal.</p>
+<p><strong>CPC monitoring index, not official CPI.</strong> See the full <a href="${SITE_URL}/en/consumption">Consumption view</a>.</p>
+<p>Source: <a href="https://kolkostruva.bg/opendata" rel="nofollow noopener">CPC — "How Much Does It Cost" (open data)</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "indicators/economy",
     title: "Икономика — БВП, инфлация, безработица, нагласи | electionsbg.com",
     description:

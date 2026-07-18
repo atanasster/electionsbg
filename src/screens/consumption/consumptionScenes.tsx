@@ -341,8 +341,78 @@ const Affordability: FC = () => (
   </SceneFrame>
 );
 
+// Кошница на цените — a receipt with a € total, the basket dashboard.
+const PriceReceipt: FC = () => (
+  <SceneFrame>
+    <rect
+      x="118"
+      y="18"
+      width="72"
+      height="84"
+      rx="4"
+      fill={PAPER}
+      stroke="currentColor"
+      strokeWidth="1.6"
+    />
+    <g stroke="var(--sector)" strokeWidth="3" strokeLinecap="round">
+      <path d="M130 36 h48 M130 50 h48 M130 64 h32" />
+    </g>
+    <path d="M130 82 h48" stroke="currentColor" strokeWidth="1.4" opacity=".4" />
+    <text
+      x="178"
+      y="97"
+      textAnchor="end"
+      fill="var(--sector)"
+      fontSize="15"
+      fontWeight="700"
+      fontFamily="Georgia, serif"
+    >
+      €
+    </text>
+  </SceneFrame>
+);
+
+// € на килограм — a weight with a kg label, the unit-price explorer.
+const UnitPrice: FC = () => (
+  <SceneFrame>
+    <path
+      d="M138 42 q12 -16 24 0"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="3"
+      strokeLinecap="round"
+    />
+    <circle cx="150" cy="64" r="30" fill="var(--sector)" opacity=".9" />
+    <text
+      x="150"
+      y="70"
+      textAnchor="middle"
+      fill={PAPER}
+      fontSize="16"
+      fontWeight="700"
+      fontFamily="Georgia, serif"
+    >
+      kg
+    </text>
+    <circle cx="192" cy="34" r="11" fill="var(--sector)" />
+    <text
+      x="192"
+      y="38"
+      textAnchor="middle"
+      fill={PAPER}
+      fontSize="11"
+      fontWeight="700"
+      fontFamily="Georgia, serif"
+    >
+      €
+    </text>
+  </SceneFrame>
+);
+
 export const CONSUMPTION_SCENES: Record<string, FC> = {
   overview: Overview,
+  prices: PriceReceipt,
+  unit: UnitPrice,
   products: Products,
   map: PriceMap,
   euro: EuroCoin,

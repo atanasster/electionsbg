@@ -145,6 +145,11 @@ const PricesScreen = lazy(() =>
     default: m.PricesScreen,
   })),
 );
+const PricesMapScreen = lazy(() =>
+  import("./screens/PricesMapScreen").then((m) => ({
+    default: m.PricesMapScreen,
+  })),
+);
 const JudiciaryScreen = lazy(() =>
   import("./screens/judiciary/JudiciaryScreen").then((m) => ({
     default: m.JudiciaryScreen,
@@ -1254,6 +1259,11 @@ const ConsumptionFuelScreen = lazy(() =>
     default: m.ConsumptionFuelScreen,
   })),
 );
+const ConsumptionUnitPricesScreen = lazy(() =>
+  import("./screens/consumption/ConsumptionUnitPricesScreen").then((m) => ({
+    default: m.ConsumptionUnitPricesScreen,
+  })),
+);
 const ChainProfileScreen = lazy(() =>
   import("./screens/consumption/ChainProfileScreen").then((m) => ({
     default: m.ChainProfileScreen,
@@ -1505,6 +1515,16 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <PricesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="prices/map"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <PricesMapScreen />
+                </Suspense>
               </LayoutScreen>
             }
           />
@@ -3538,6 +3558,16 @@ export const AuthRoutes = () => {
               <LayoutScreen>
                 <Suspense fallback={<RouteFallback />}>
                   <ConsumptionFuelScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="consumption/unit-prices"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <ConsumptionUnitPricesScreen />
                 </Suspense>
               </LayoutScreen>
             }

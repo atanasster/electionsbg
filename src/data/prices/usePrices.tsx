@@ -272,6 +272,60 @@ export const useChainProducts = (eik: string | undefined) =>
     staleTime: Infinity,
   });
 
+/** The cheapest chain in each município (over the common basket) — the source
+ *  for the categorical "who wins where" choropleth on /prices/map. `code` is the
+ *  ranking muni code (Sofia = SOF46; the map remaps to SOF00). */
+export interface ChainMapMuni {
+  code: string;
+  eik: string;
+  chain: string;
+  basket: number;
+  nPriced: number;
+}
+export interface ChainMapFile {
+  latestDate: string;
+  munis: ChainMapMuni[];
+}
+export const useChainMap = () =>
+  useQuery({
+    queryKey: ["prices", "chain-map"],
+    queryFn: () => fetchPricePayload<ChainMapFile>("chain-map"),
+    staleTime: Infinity,
+  });
+
+/** Normalized €/kg (from g) and €/L (from ml) per KZP category — the value
+ *  explorer. `eurPerUnit` is €/kg or €/L; a basis is present only with enough
+ *  products to make the median meaningful. */
+export interface UnitPriceLeader {
+  slug: string;
+  title: string;
+  netQty: number;
+  eurPerUnit: number;
+}
+export interface UnitPriceBasis {
+  median: number;
+  n: number;
+  best: UnitPriceLeader[];
+  worst: UnitPriceLeader[];
+}
+export interface UnitPriceCategory {
+  cat: number;
+  bg: string;
+  en: string;
+  kg: UnitPriceBasis | null;
+  l: UnitPriceBasis | null;
+}
+export interface UnitPricesFile {
+  latestDate: string;
+  categories: UnitPriceCategory[];
+}
+export const useUnitPrices = () =>
+  useQuery({
+    queryKey: ["prices", "unit-prices"],
+    queryFn: () => fetchPricePayload<UnitPricesFile>("unit-prices"),
+    staleTime: Infinity,
+  });
+
 /** Look up a place's ranking row by its code (ekatte / obshtina / oblast). */
 export const findRankPlace = (
   ranking: PriceRankingFile | null | undefined,

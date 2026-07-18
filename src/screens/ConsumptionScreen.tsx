@@ -50,6 +50,10 @@ export const ConsumptionScreen = () => {
 
   // id -> {metric, caption}. Missing entries render a plain (metric-less) tile.
   const stat: Record<string, { metric?: string; caption: string }> = {
+    prices: {
+      metric: signedPct(s?.basketChangePct),
+      caption: T("спрямо еврото", "vs the euro"),
+    },
     products: {
       metric: compact(s?.products),
       caption: T("продукта", "products"),
@@ -106,6 +110,13 @@ export const ConsumptionScreen = () => {
       heading: T("Разгледай цените", "Explore prices"),
       tiles: [
         tile(
+          "prices",
+          "/prices",
+          T("Кошница на цените", "Price basket"),
+          T("Обзор на цените от еврото", "The basket since the euro"),
+          TILE_ACCENTS.clay,
+        ),
+        tile(
           "products",
           "/consumption/products",
           T("Продукти", "Products"),
@@ -128,10 +139,17 @@ export const ConsumptionScreen = () => {
         ),
         tile(
           "map",
-          "/prices",
+          "/prices/map",
           T("Карта на цените", "Price map"),
           T("Кошницата по общини", "The basket by municipality"),
           TILE_ACCENTS.teal,
+        ),
+        tile(
+          "unit",
+          "/consumption/unit-prices",
+          T("€ на килограм", "€ per kilo"),
+          T("Най-много храна за парите", "Most food per euro"),
+          TILE_ACCENTS.brass,
         ),
       ],
     },

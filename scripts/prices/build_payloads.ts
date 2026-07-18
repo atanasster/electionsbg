@@ -8,6 +8,7 @@
 // regression and not an artefact of a second implementation.
 //
 // kinds: index | ranking | chains | dict | deals | verdict | hub-stats |
+//        chain-map | unit-prices |
 //        place:<ekatte> | chains-muni:<obshtina> | chain-products:<eik>
 
 import fs from "node:fs";
@@ -232,6 +233,167 @@ export const buildPayloads = async (): Promise<void> => {
   for (const [eik, products] of byChain) {
     emit("chain-products", eik, { products });
   }
+
+  // `chain-map` — the CHEAPEST chain in each município, for the categorical
+  // "who wins where" choropleth on /prices/map. Fairness: a chain counts for a
+  // município only if it prices ALL of the common basket there (same 12-product
+  // core basket build_index uses for the muni rank), so a corner-shop that lists
+  // two cheap items can't "win". Keyed by obshtina, aligned to the ranking muni
+  // `code` (Sofia = SOF46; the map remaps SOF46→SOF00 client-side). Regular
+  // price (price_eur), matching the basket-cost map.
+  const COMMON_BASKET = [1, 6, 9, 11, 35, 38, 40, 42, 52, 54, 55, 61];
+  const chainMap = await allRows<{
+    code: string;
+    eik: string;
+    chain: string;
+    basket: number;
+    nPriced: number;
+  }>(
+    `WITH cur AS (
+       SELECT st.obshtina, st.eik, sk.pid, MIN(pc.price_eur) AS p
+         FROM price_current pc
+         JOIN price_skus sk ON sk.sku_id = pc.sku_id
+         JOIN price_stores st ON st.store_id = pc.store_id
+        WHERE sk.pid = ANY($1::int[])
+        GROUP BY st.obshtina, st.eik, sk.pid
+     ),
+     basket AS (
+       SELECT obshtina, eik, SUM(p) AS basket, COUNT(*) AS npriced
+         FROM cur GROUP BY obshtina, eik
+        HAVING COUNT(*) = $2
+     ),
+     ranked AS (
+       SELECT *, ROW_NUMBER() OVER (
+                   PARTITION BY obshtina ORDER BY basket ASC, eik
+                 ) AS rn FROM basket
+     )
+     SELECT r.obshtina AS code, r.eik, ch.name AS chain,
+            round(r.basket::numeric, 2)::float8 AS basket,
+            r.npriced AS "nPriced"
+       FROM ranked r JOIN price_chains ch ON ch.eik = r.eik
+      WHERE rn = 1
+      ORDER BY code`,
+    [COMMON_BASKET, COMMON_BASKET.length],
+  );
+  emit("chain-map", "", { latestDate: latest ?? "", munis: chainMap });
+
+  // `unit-prices` — normalized €/kg (from g) and €/L (from ml) per KZP category,
+  // for the /consumption/unit-prices value explorer. `brand` is empty and pack
+  // size is frozen into product identity, so true downsizing isn't derivable;
+  // per-unit price IS (net_qty/net_unit cover ~52% of live products). Per
+  // category: the median plus the best-value (lowest €/unit) and priciest
+  // products. A unit basis is emitted only with ≥30 products (a 12-item median
+  // is noise). `pc` (per-piece) products have no kg/L basis and are excluded.
+  const unitMed = await allRows<{
+    cat: number;
+    bg: string;
+    en: string;
+    medKg: number | null;
+    medL: number | null;
+    nKg: number;
+    nL: number;
+  }>(
+    `SELECT kc.cat, kc.bg, kc.en,
+       round((percentile_cont(0.5) WITHIN GROUP (ORDER BY pp.current_min_eur*1000.0/pp.net_qty)
+              FILTER (WHERE pp.net_unit='g'))::numeric, 2)::float8 AS "medKg",
+       round((percentile_cont(0.5) WITHIN GROUP (ORDER BY pp.current_min_eur*1000.0/pp.net_qty)
+              FILTER (WHERE pp.net_unit='ml'))::numeric, 2)::float8 AS "medL",
+       count(*) FILTER (WHERE pp.net_unit='g')  AS "nKg",
+       count(*) FILTER (WHERE pp.net_unit='ml') AS "nL"
+      FROM price_products pp
+      JOIN price_kzp_products kp ON kp.pid = pp.pid
+      JOIN price_kzp_cats kc ON kc.cat = kp.cat
+     WHERE pp.chain_count > 0 AND pp.current_min_eur IS NOT NULL
+       AND pp.net_qty > 0 AND pp.net_unit IN ('g','ml')
+     GROUP BY kc.cat, kc.bg, kc.en ORDER BY kc.cat`,
+  );
+  const unitLeaders = await allRows<{
+    cat: number;
+    unit: string;
+    slug: string;
+    title: string;
+    netQty: number;
+    eurPerUnit: number;
+    rnBest: number;
+    rnWorst: number;
+  }>(
+    // Unit-outlier guard (mirrors build_product_days' half-median rule): a few
+    // SKUs enter grams as kg ("500КГ" → net_qty 500000 → €/kg ≈ 0) or a count as
+    // litres (eggs "10 L"), which would otherwise pin the best/worst leaders.
+    // Rank only rows within [0.25×, 20×] the per-(cat,unit) median €/unit.
+    `WITH up AS (
+       SELECT pp.slug, pp.title, pp.net_qty, pp.net_unit AS unit, kp.cat,
+              pp.current_min_eur * 1000.0 / pp.net_qty AS eu
+         FROM price_products pp
+         JOIN price_kzp_products kp ON kp.pid = pp.pid
+        WHERE pp.chain_count > 0 AND pp.current_min_eur IS NOT NULL
+          AND pp.net_qty > 0 AND pp.net_unit IN ('g','ml')
+     ),
+     med AS (
+       SELECT cat, unit, percentile_cont(0.5) WITHIN GROUP (ORDER BY eu) AS m
+         FROM up GROUP BY cat, unit
+     ),
+     filt AS (
+       SELECT up.* FROM up JOIN med USING (cat, unit)
+        WHERE up.eu >= 0.25 * med.m AND up.eu <= 20 * med.m
+     ),
+     ranked AS (
+       SELECT *,
+         ROW_NUMBER() OVER (PARTITION BY cat, unit ORDER BY eu ASC,  slug) AS "rnBest",
+         ROW_NUMBER() OVER (PARTITION BY cat, unit ORDER BY eu DESC, slug) AS "rnWorst"
+         FROM filt
+     )
+     SELECT cat, unit, slug, title, net_qty AS "netQty",
+            round(eu::numeric, 2)::float8 AS "eurPerUnit", "rnBest", "rnWorst"
+       FROM ranked WHERE "rnBest" <= 8 OR "rnWorst" <= 8
+      ORDER BY cat, unit, eu`,
+  );
+  const MIN_N = 30;
+  type Leader = {
+    slug: string;
+    title: string;
+    netQty: number;
+    eurPerUnit: number;
+  };
+  const basisFor = (cat: number, unit: "g" | "ml") => {
+    const rows = unitLeaders.filter((r) => r.cat === cat && r.unit === unit);
+    const best: Leader[] = rows
+      .filter((r) => r.rnBest <= 8)
+      .sort((a, b) => a.rnBest - b.rnBest)
+      .map(({ slug, title, netQty, eurPerUnit }) => ({
+        slug,
+        title,
+        netQty,
+        eurPerUnit,
+      }));
+    const worst: Leader[] = rows
+      .filter((r) => r.rnWorst <= 8)
+      .sort((a, b) => a.rnWorst - b.rnWorst)
+      .map(({ slug, title, netQty, eurPerUnit }) => ({
+        slug,
+        title,
+        netQty,
+        eurPerUnit,
+      }));
+    return { best, worst };
+  };
+  const unitCategories = unitMed.map((m) => ({
+    cat: m.cat,
+    bg: m.bg,
+    en: m.en,
+    kg:
+      m.medKg != null && Number(m.nKg) >= MIN_N
+        ? { median: m.medKg, n: Number(m.nKg), ...basisFor(m.cat, "g") }
+        : null,
+    l:
+      m.medL != null && Number(m.nL) >= MIN_N
+        ? { median: m.medL, n: Number(m.nL), ...basisFor(m.cat, "ml") }
+        : null,
+  }));
+  emit("unit-prices", "", {
+    latestDate: latest ?? "",
+    categories: unitCategories,
+  });
 
   await withClient(async (c: PoolClient) => {
     await c.query("BEGIN");

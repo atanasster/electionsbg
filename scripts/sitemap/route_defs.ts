@@ -57,6 +57,7 @@ export const ENGLISH_STATIC_PAGES = [
   "observations",
   "demographics",
   "prices",
+  "prices/map",
   "judiciary",
   "judiciary/magistrates",
   "defense",
@@ -76,6 +77,7 @@ export const ENGLISH_STATIC_PAGES = [
   "consumption/categories",
   "consumption/products",
   "consumption/deals",
+  "consumption/unit-prices",
   "risk-analysis",
   "risk-analysis/methodology",
   "risk-score",
@@ -119,6 +121,7 @@ export const routeDefs = (year: string): RouteDefs => [
   { path: "data/sources", file: `src/screens/DataSourcesScreen.tsx` },
   { path: "data/updates", file: `src/screens/DataUpdatesScreen.tsx` },
   { path: "prices", file: `src/screens/PricesScreen.tsx` },
+  { path: "prices/map", file: `src/screens/PricesMapScreen.tsx` },
   {
     path: "judiciary",
     file: `src/screens/judiciary/JudiciaryScreen.tsx`,
@@ -187,6 +190,10 @@ export const routeDefs = (year: string): RouteDefs => [
   {
     path: "consumption/deals",
     file: `src/screens/consumption/ConsumptionDealsScreen.tsx`,
+  },
+  {
+    path: "consumption/unit-prices",
+    file: `src/screens/consumption/ConsumptionUnitPricesScreen.tsx`,
   },
   // consumption/basket is intentionally NOT prerendered/sitemapped — it is a
   // personal, localStorage-backed page that renders empty by default, so it has
