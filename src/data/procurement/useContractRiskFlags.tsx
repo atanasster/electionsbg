@@ -16,6 +16,7 @@ import { useAwarderConcentration } from "./useAwarderConcentration";
 import { useMpConnectedContractors } from "./useMpConnectedContractors";
 import { useCpvCompetition } from "./useCpvCompetition";
 import { usePepConnectedEikSet } from "./usePepConnectedByEik";
+import { useCompanyFoundedByEik } from "./useCompanyFoundedByEik";
 
 // Re-export the scorer types + function so existing import sites
 // (`@/data/procurement/useContractRiskFlags`) keep resolving.
@@ -42,6 +43,8 @@ export const useContractRiskFlags = (
   const { index: mpConn, isLoading: mpLoading } = useMpConnectedContractors();
   const { index: cpv, isLoading: cpvLoading } = useCpvCompetition();
   const { set: pepSet, isLoaded: pepLoaded } = usePepConnectedEikSet();
+  const { byEik: foundedByEik, isLoaded: foundedLoaded } =
+    useCompanyFoundedByEik();
 
   const result = useMemo(() => {
     if (!contract) return null;
@@ -53,6 +56,7 @@ export const useContractRiskFlags = (
       cpvSingleBidShare: cpv.byDivision,
       structuralSingleBidShare: cpv.structuralSingleBidShare,
       cpvBidderMedian: cpv.bidderMedianByCpv5,
+      foundedByEik: foundedLoaded ? foundedByEik : undefined,
       normalizeName: normalizeContractorName,
     });
   }, [
@@ -65,6 +69,8 @@ export const useContractRiskFlags = (
     cpv.byDivision,
     cpv.bidderMedianByCpv5,
     cpv.structuralSingleBidShare,
+    foundedByEik,
+    foundedLoaded,
   ]);
 
   return {
@@ -86,6 +92,8 @@ export const useContractRiskScorer = (): {
   const { index: mpConn, isLoading: mpLoading } = useMpConnectedContractors();
   const { index: cpv, isLoading: cpvLoading } = useCpvCompetition();
   const { set: pepSet, isLoaded: pepLoaded } = usePepConnectedEikSet();
+  const { byEik: foundedByEik, isLoaded: foundedLoaded } =
+    useCompanyFoundedByEik();
 
   const scoreRow = useMemo(() => {
     return (contract: ProcurementContract) =>
@@ -97,6 +105,7 @@ export const useContractRiskScorer = (): {
         cpvSingleBidShare: cpv.byDivision,
         structuralSingleBidShare: cpv.structuralSingleBidShare,
         cpvBidderMedian: cpv.bidderMedianByCpv5,
+        foundedByEik: foundedLoaded ? foundedByEik : undefined,
         normalizeName: normalizeContractorName,
       });
   }, [
@@ -108,6 +117,8 @@ export const useContractRiskScorer = (): {
     cpv.byDivision,
     cpv.bidderMedianByCpv5,
     cpv.structuralSingleBidShare,
+    foundedByEik,
+    foundedLoaded,
   ]);
 
   return {

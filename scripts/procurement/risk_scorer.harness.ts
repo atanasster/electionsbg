@@ -208,6 +208,37 @@ check(
     noAnnex.components.find((c) => c.key === "annexGrowth")?.available ===
       false,
   );
+
+  // New-firm winner (contractor founded < 12 months before the award).
+  const founded = { ...args, foundedByEik: new Map([["CT", "2024-01-01"]]) };
+  const newFirm = computeProcurementRisk(
+    base({ contractorEik: "CT", dateSigned: "2024-04-01" }),
+    founded,
+  );
+  check(
+    "founded 2024-01, award 2024-04 (~3mo) → newFirmWinner fires",
+    newFirm.flags.newFirmWinner === true && newFirm.flags.newFirmMonths === 2,
+    `months=${newFirm.flags.newFirmMonths}`,
+  );
+  const oldFirm = computeProcurementRisk(
+    base({ contractorEik: "CT", dateSigned: "2028-01-01" }),
+    founded,
+  );
+  check(
+    "founded 2024-01, award 2028-01 (48mo) → available but NOT fired",
+    oldFirm.flags.newFirmWinner === false &&
+      oldFirm.components.find((c) => c.key === "newFirmWinner")?.available ===
+        true,
+  );
+  const unknownFirm = computeProcurementRisk(
+    base({ contractorEik: "OTHER", dateSigned: "2024-04-01" }),
+    founded,
+  );
+  check(
+    "contractor not in foundedByEik → newFirmWinner UNAVAILABLE",
+    unknownFirm.components.find((c) => c.key === "newFirmWinner")?.available ===
+      false,
+  );
 }
 
 console.log(

@@ -35,6 +35,7 @@ export type RiskComponentKey =
   | "shortTenderPeriod"
   | "amendment"
   | "annexGrowth"
+  | "newFirmWinner"
   | "appealUpheld";
 
 export type RiskComponent = {
@@ -62,6 +63,10 @@ export type ContractRiskFlags = {
   annexGrowth: boolean;
   /** Signed→current growth fraction when an annex moved the value (tooltip). */
   annexGrowthPct: number | null;
+  /** Contractor incorporated shortly (< NEW_FIRM_MONTHS) before this award. */
+  newFirmWinner: boolean;
+  /** Months between the contractor's incorporation and the award (tooltip). */
+  newFirmMonths: number | null;
   /** Weak competition: a single bidder in a normally-competitive market, OR
    *  materially fewer bidders than the sector norm (below the division median in
    *  a division whose median is ≥3). Validated against the single-bidding price
@@ -109,6 +114,13 @@ const WEIGHT_AMENDMENT = 10;
 // Annex value growth to/past the legal cap — a structural signal (money added
 // after the competition), on par with concentration.
 const WEIGHT_ANNEX_GROWTH = 30;
+// New-firm winner — a company barely older than the contract it won. Structural,
+// editorially legible (K-Index P4).
+const WEIGHT_NEW_FIRM = 30;
+/** A contractor incorporated fewer than this many months before the award is a
+ *  "new firm" for the newFirmWinner flag. */
+const NEW_FIRM_MONTHS = 12;
+const MS_PER_MONTH = 2_629_800_000; // 30.44 days
 // КЗК-upheld appeal — authoritative (a regulator annulled the award), so heavy,
 // just below debarment (80). Only fires where the appeal outcome is known.
 const WEIGHT_APPEAL_UPHELD = 70;
@@ -146,6 +158,11 @@ export type RiskScoreArgs = {
    *  bidders than this market's norm"). Optional — without it, weakCompetition
    *  degrades to the single-bidder case only. */
   cpvBidderMedian?: Map<string, number>;
+  /** Contractor EIK → incorporation date (ISO). From the served risk-indexes
+   *  `foundedByEik` map (Registry Agency backfill). Optional — when absent, or a
+   *  contractor is missing from it, newFirmWinner is unavailable (excluded from
+   *  the CRI denominator, not scored 0). */
+  foundedByEik?: Map<string, string>;
   /** Folded-name normaliser, shared with the debarred index (passed in to keep
    *  this module React-free). */
   normalizeName: (raw: string) => string;
@@ -201,6 +218,28 @@ export const computeProcurementRisk = (
     add("annexGrowth", true, annexGrowth);
   } else {
     add("annexGrowth", false, false);
+  }
+
+  // New-firm winner — the contractor was incorporated < NEW_FIRM_MONTHS before
+  // this award. Available only when the served founding date exists for this
+  // contractor AND the award date is known (mirrors appealUpheld's "checkable
+  // only where the datum is present"); missing ⇒ excluded from the CRI, not 0.
+  const foundedIso = args.foundedByEik?.get(contract.contractorEik);
+  const awardDate = contract.dateSigned || contract.date;
+  let newFirmWinner = false;
+  let newFirmMonths: number | null = null;
+  if (foundedIso && awardDate) {
+    const f = Date.parse(foundedIso);
+    const a = Date.parse(awardDate);
+    if (Number.isFinite(f) && Number.isFinite(a) && a >= f) {
+      newFirmMonths = Math.floor((a - f) / MS_PER_MONTH);
+      newFirmWinner = newFirmMonths < NEW_FIRM_MONTHS;
+      add("newFirmWinner", true, newFirmWinner);
+    } else {
+      add("newFirmWinner", false, false);
+    }
+  } else {
+    add("newFirmWinner", false, false);
   }
 
   // КЗК-upheld appeal — checkable only where the appeal join was loaded
@@ -294,6 +333,7 @@ export const computeProcurementRisk = (
   if (shortTenderPeriod) score += WEIGHT_SHORT_PERIOD;
   if (isAmendment) score += WEIGHT_AMENDMENT;
   if (annexGrowth) score += WEIGHT_ANNEX_GROWTH;
+  if (newFirmWinner) score += WEIGHT_NEW_FIRM;
   if (appealUpheld) score += WEIGHT_APPEAL_UPHELD;
   score = Math.min(100, score);
 
@@ -311,6 +351,8 @@ export const computeProcurementRisk = (
       isAmendment,
       annexGrowth,
       annexGrowthPct,
+      newFirmWinner,
+      newFirmMonths,
       weakCompetition,
       directAward,
       appealUpheld,

@@ -37,6 +37,9 @@ export type RiskIndexesPayload = {
   /** 5-digit CPV prefix → median bidder count, competitive markets only
    *  (median ≥ 3). Baseline for the graded weak-competition flag. */
   cpvBidderMedians?: Record<string, number>;
+  /** Contractor EIK → incorporation date (ISO), for firms founded 2018+ that
+   *  appear as a contractor. Backs the newFirmWinner flag. */
+  foundedByEik?: Record<string, string>;
 };
 
 const fetchRiskIndexes = async (): Promise<RiskIndexesPayload | null> => {

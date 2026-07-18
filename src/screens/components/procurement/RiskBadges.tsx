@@ -20,6 +20,7 @@ import {
   Link as LinkIcon,
   Repeat,
   ShieldCheck,
+  Sparkles,
   Timer,
   TrendingUp,
   Users,
@@ -321,6 +322,36 @@ export const RiskBadges: FC<Props> = ({ result, variant = "chips" }) => {
           >
             <TrendingUp className="h-3 w-3" />+
             {formatShare(flags.annexGrowthPct ?? 0, lang)}
+          </span>
+        </Tooltip>
+      ) : null}
+
+      {flags.newFirmWinner ? (
+        <Tooltip
+          content={
+            <div className="space-y-1">
+              <div className="font-medium">
+                {t("risk_flag_new_firm_long") ||
+                  "Contractor formed just before winning"}
+              </div>
+              <div className="text-xs text-muted-foreground">
+                {t("risk_flag_new_firm_hint") ||
+                  "The company was incorporated less than a year before this award — a newly-formed firm winning public money."}
+              </div>
+              {flags.newFirmMonths != null ? (
+                <div className="text-xs tabular-nums">
+                  {t("risk_flag_new_firm_age") || "Age at award"}:{" "}
+                  {flags.newFirmMonths} {t("risk_flag_new_firm_months") || "mo"}
+                </div>
+              ) : null}
+            </div>
+          }
+        >
+          <span
+            className={`${chipBase} border-fuchsia-300 bg-fuchsia-100 text-fuchsia-900 dark:border-fuchsia-900 dark:bg-fuchsia-900/40 dark:text-fuchsia-100`}
+          >
+            <Sparkles className="h-3 w-3" />
+            {t("risk_flag_new_firm") || "New firm"}
           </span>
         </Tooltip>
       ) : null}

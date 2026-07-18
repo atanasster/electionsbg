@@ -15,6 +15,24 @@
 
 SET check_function_bodies = off;
 
+-- Company incorporation dates, EIK → first-entry date, from the Registry Agency
+-- CR API (portal.registryagency.bg/CR/api/Deeds/{eik}, min fieldEntryDate).
+-- Populated by scripts/procurement/fetch_company_founded.ts (a bounded ~28k-EIK
+-- backfill over the contractor set). Feeds the newFirmWinner flag: a contractor
+-- that won a contract shortly after being incorporated. Created here (empty by
+-- default → the flag is simply unavailable) so procurement_risk_indexes() can
+-- reference it without a cross-loader ordering hazard.
+-- ⚠️ Dates == 2008 are the ТР re-registration date (the register launched
+-- 2008-01-01), NOT true founding — harmless here: such firms are old and never
+-- fire a "new firm" check.
+CREATE TABLE IF NOT EXISTS company_founded (
+  eik          text PRIMARY KEY,
+  founded_date date,
+  source       text,
+  fetched_at   timestamptz NOT NULL DEFAULT now()
+);
+GRANT SELECT ON company_founded TO app_readonly;
+
 -- The cache matview depends on the function — drop it first so the
 -- DROP FUNCTION below doesn't fail on the dependency.
 DROP MATERIALIZED VIEW IF EXISTS procurement_risk_indexes_cache;
@@ -140,6 +158,17 @@ SELECT jsonb_build_object(
   -- a multi-bidder award below its market's norm. Keyed by 5-digit prefix.
   'cpvBidderMedians', (
     SELECT COALESCE(jsonb_object_agg(cpv5, med), '{}'::jsonb) FROM cpv5med
+  ),
+  -- EIK → incorporation date, for the newFirmWinner flag. Bounded to firms
+  -- founded 2018+ (a 2020–2026 contract can only be "shortly after founding" for
+  -- a firm younger than that) and to EIKs that actually appear as a contractor,
+  -- so the map stays small (a few thousand, not the whole register).
+  'foundedByEik', (
+    SELECT COALESCE(jsonb_object_agg(f.eik, f.founded_date::text), '{}'::jsonb)
+    FROM company_founded f
+    WHERE f.founded_date >= '2018-01-01'
+      AND EXISTS (SELECT 1 FROM contracts ct
+                  WHERE ct.tag='contract' AND ct.contractor_eik = f.eik)
   )
 );
 $$;
