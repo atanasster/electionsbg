@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-18T06:57:46.130Z",
+  "generatedAt": "2026-07-18T14:16:00.935Z",
   "nodes": [
     {
       "id": "src:water",
@@ -268,8 +268,8 @@
         "en": "the national open-data portal"
       },
       "desc": {
-        "bg": "Националният портал за отворени данни: обществени поръчки (АОП), Търговски регистър, касово изпълнение на бюджета, общински бюджети, резултати от матурите (ДЗИ) и от НВО в 7. клас (по училища — захранват /education и картоните /school), качество на въздуха (ИАОС) и пощенски кодове.",
-        "en": "The national open-data portal: public procurement (OCDS), the Commerce Registry, budget cash execution, municipal budgets, matura (ДЗИ) and 7th-grade НВО exam results by school (feeding /education and the /school report cards), air quality and postcodes."
+        "bg": "Националният портал за отворени данни: обществени поръчки (АОП), Търговски регистър, касово изпълнение на бюджета, общински бюджети, резултати от матурите (ДЗИ) и от НВО в 7. клас (по училища — захранват /education и картоните /school), регистърът на институциите на МОН (ЕИК→EKATTE връзка, която локализира училищата и детските градини като възложители на поръчки), качество на въздуха (ИАОС) и пощенски кодове.",
+        "en": "The national open-data portal: public procurement (OCDS), the Commerce Registry, budget cash execution, municipal budgets, matura (ДЗИ) and 7th-grade НВО exam results by school (feeding /education and the /school report cards), the МОН institution register (the ЕИК→EKATTE crosswalk that geo-locates schools and kindergartens as procurement buyers), air quality and postcodes."
       },
       "tags": [
         "fiscal",
@@ -338,6 +338,12 @@
           "url": "https://data.egov.bg/data/view/b56288b6-25aa-4049-9aa6-de2cd4cdabf8",
           "cadence": "daily",
           "freshness": "2026-07-11T06:08:58.769Z"
+        },
+        {
+          "id": "mon_ri_register",
+          "label": "МОН регистър на институциите (schools/kindergartens)",
+          "url": "https://ri.mon.bg",
+          "cadence": "weekly"
         },
         {
           "id": "iaos_air_quality",

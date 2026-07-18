@@ -266,8 +266,8 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       en: "the national open-data portal",
     },
     desc: {
-      bg: "Националният портал за отворени данни: обществени поръчки (АОП), Търговски регистър, касово изпълнение на бюджета, общински бюджети, резултати от матурите (ДЗИ) и от НВО в 7. клас (по училища — захранват /education и картоните /school), качество на въздуха (ИАОС) и пощенски кодове.",
-      en: "The national open-data portal: public procurement (OCDS), the Commerce Registry, budget cash execution, municipal budgets, matura (ДЗИ) and 7th-grade НВО exam results by school (feeding /education and the /school report cards), air quality and postcodes.",
+      bg: "Националният портал за отворени данни: обществени поръчки (АОП), Търговски регистър, касово изпълнение на бюджета, общински бюджети, резултати от матурите (ДЗИ) и от НВО в 7. клас (по училища — захранват /education и картоните /school), регистърът на институциите на МОН (ЕИК→EKATTE връзка, която локализира училищата и детските градини като възложители на поръчки), качество на въздуха (ИАОС) и пощенски кодове.",
+      en: "The national open-data portal: public procurement (OCDS), the Commerce Registry, budget cash execution, municipal budgets, matura (ДЗИ) and 7th-grade НВО exam results by school (feeding /education and the /school report cards), the МОН institution register (the ЕИК→EKATTE crosswalk that geo-locates schools and kindergartens as procurement buyers), air quality and postcodes.",
     },
     url: "https://data.egov.bg/",
     origin: "state",
@@ -279,6 +279,7 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       "bgpost_postcodes",
       "indicators_mon_dzi",
       "indicators_mon_nvo",
+      "mon_ri_register",
       "iaos_air_quality",
     ],
     skills: [
