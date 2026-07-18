@@ -107,7 +107,10 @@ PPS-adjusted note for honesty. Sourced entirely from Eurostat — zero republica
 
 ## 2. Hub structure & pages (revised)
 
-`/consumption` becomes navigation-first, copying `ProcurementScreen.tsx`:
+`/consumption` becomes navigation-first. **Not by copying `ProcurementScreen.tsx`** — by reusing
+the already-shared **`src/ux/infographic/*`** tile-hub kit (`TileHubGrid`, `InfographicTile`,
+`TILE_ACCENTS`) unchanged and writing a thin per-hub shell. Consumption only authors its own
+`SUBPAGES` array + `CONSUMPTION_SCENES`. See §11 for the full DRY plan.
 
 ```
 Title + GovernanceBreadcrumb
@@ -117,10 +120,11 @@ TileHubGrid (InfographicTile per sub-page, metric overlaid via consumption_hub_s
 Featured categories strip (meat / bread / dairy / fuel …)
 ```
 
-**Search control** — `src/screens/components/consumption/ConsumptionSearchTile.tsx`,
-modeled on `ProcurementSearchTile`: one debounced box, grouped dropdown over
+**Search control** — a thin **adapter over a shared `EntitySearchTile`** (extracted from
+`ProcurementSearchTile`, see §11): `ConsumptionSearchTile` just supplies its groups —
 **products** (trigram on `price_products` → `/product/:slug`, reuse the existing endpoint),
-**places** (→ `/consumption/:id`), **chains**, **categories**.
+**places** (→ `/consumption/:id`), **chains** (→ `/consumption/chain/:eik`), **categories**.
+The debounce/abort, grouped dropdown, keyboard nav and ARIA come from the shared component.
 
 | Page | Route | Data | New? | Prerender | OG |
 |---|---|---|---|---|---|
@@ -200,11 +204,11 @@ never resolve a chain's procurement by name. See [[project_procurement_namesake_
    - **Retail (new `chain-products` payload)**: the products this chain carries, each with its
      **price rank vs other chains stocking the same product** (from `price_skus` / `price_grid_days`),
      basket position, `nPriced` coverage, promo intensity, cheapest-vs-dearest markers.
-   - **Отвъд щанда ("beyond the shelf")**: embed a subset of the reusable company tiles
-     (`CompanyTopContractsTile`, `CompanyFundsTile`, `CompanyRelatedTile`, `CompanyRiskChips`)
-     by reusing the existing `fetch('/api/db/company?eik=')` call, plus a prominent
-     "пълен профил на фирмата → /company/:eik" cross-link. Tiles are standalone components
-     under `src/screens/components/procurement/` — not bound to the company screen.
+   - **Отвъд щанда ("beyond the shelf")**: drop in a shared **`CompanyProfileStrip eik=`**
+     (extracted from `CompanyDbScreen`'s fetch+rollup adapter, see §11) that renders the reusable
+     company tiles (`CompanyTopContractsTile`, `CompanyFundsTile`, `CompanyRelatedTile`,
+     `CompanyRiskChips`), plus a "пълен профил на фирмата → /company/:eik" cross-link. The tiles
+     are already standalone; the strip saves re-deriving the `/api/db/company` rollup props.
 
 3. **Reciprocal tile on the company page** (P3) — inject a **retail-prices tile** into
    `CompanyDbScreen` when `eik ∈ price_chains`: basket position, product count, cheapest-chain
@@ -399,3 +403,76 @@ Current mount points (verified) and how the hub work touches them:
   surface, so the PG-only guarantee is preserved.
 - **Keep the null-means-uncovered self-hide contract.** Every new place-keyed tile (chain,
   category) must self-hide on a `null` payload, matching `MyAreaPricesTile`/`GovernancePricesTile`.
+
+---
+
+## 11. DRY / shared-component plan (analyzed 2026-07-18)
+
+"Copy `ProcurementScreen`" is rejected. Most of the hub is **already a shared kit**; the real
+work is a few small extractions. Split by payoff:
+
+### Reuse UNCHANGED (rebuild nothing)
+- **`src/ux/infographic/*`** — the tile-hub kit (`TileHubGrid`, `TileHubSection`,
+  `InfographicTile`, `TILE_ACCENTS`, scene primitives `Bars`/`TrendLine`/`Donut`). It's
+  presentation-only and knows nothing about procurement. Consumption authors its own `SUBPAGES`
+  array + a `CONSUMPTION_SCENES` set (mirroring `procurementScenes`) and, if wanted, a couple of
+  new `TILE_ACCENTS` hues. **Zero kit changes.**
+- **Shared price helpers already extracted** in `src/data/prices/usePrices.tsx` — `fmtEur`,
+  `fmtPct`, `fmtPriceDate`, `priceChangeColor`, `mapsDirectionsUrl` — and
+  **`PriceSparkline`** (`src/screens/components/prices/`). Both already imported by
+  `MyAreaPricesTile` + `GovernancePricesTile`. Keep using; don't fork.
+- **General primitives**: `DbDataTable` (`src/ux/data_table/`), `DashboardSection`,
+  `PlaceHeader` (`active="consumption"` supported), `GovernanceBreadcrumb` (prop-driven),
+  `useTooltip`, `Flag` (`src/screens/components/euCompare/`), `currency.ts`
+  (`formatEurCompact`). Reuse for every new page.
+
+### Extract NOW — cheap, high clarity (P1/P2, do as we touch these files)
+1. **`resolvePriceKeys(obshtina, ekatte)`** → `{ priceObshtina, priceEkatte }` in
+   `src/data/prices/` — the Sofia remap (`SOF00/SOF/район → SOF46`, `ekatte → 68134`) is
+   copy-pasted in `MyAreaPricesTile` (58–68) and re-implemented (own `/^S2\d{3}$/` regex, not
+   even importing `isSofiaRayonObshtina`) in `ConsumptionPriceLevelTile` (43–51). One helper;
+   route the chain/hub/category surfaces through it. Same item as §10. **Very low effort.**
+2. **`<DistributionBand>` + `computePriceLevelBand(levels, level)`** →
+   `src/screens/components/prices/` — the MAD-based price-level band + под/около/над-средното
+   label now living only in `ConsumptionPriceLevelTile` (84–122, 184–207). Extract proactively:
+   the hub and chain pages will both want "where this sits vs peers." **Low effort.**
+3. **`<ChainBasketList>`** → `src/screens/components/prices/` — the cheapest-chains
+   `chain · €basket · nPriced/core` list duplicated in `MyAreaPricesTile` (270–290) and
+   `GovernancePricesTile` (149–169). Wrapping the chain-name in the `/consumption/chain/:eik`
+   `<Link>` (linkage level 1) then happens in **one** place. **Low effort.**
+4. **`<MoversList up down nameFor lang />`** → `src/screens/components/prices/` — the
+   up-red/down-green mover rows duplicated in `MyAreaPricesTile` (230–267, product movers) and
+   `GovernancePricesTile` (113–146, category movers). **Low effort.**
+5. **`FeaturedStrip`** → fold into `src/ux/infographic/` — `ProcurementScreen`'s featured-sectors
+   header (197–211) is a near-verbatim copy of `TileHubGrid`'s own section header (25–36). Give
+   `TileHubGrid` an optional per-section "see all →" link, or a small `FeaturedStrip`; the
+   consumption featured-categories strip then reuses it. **Low effort, benefits procurement too.**
+
+### Extract as a FOLLOW-ON — medium effort, real DRY win (once the entity set is settled)
+6. **`EntitySearchTile` / `CombinedSearchBox`** → `src/ux/search/` — ~60–65% of
+   `ProcurementSearchTile` (525 lines) is generic: debounce+`AbortController`, the grouped
+   `role=listbox` render, keyboard nav, `aria-activedescendant`, the `Item`/`Group` contracts
+   (80–95). Extract the shell taking `groups: Group[]`; leave `ProcurementSearchTile` as a thin
+   adapter that builds its 6 procurement groups, and add `ConsumptionSearchTile` as a second
+   adapter. **Risk: medium** — the ARIA + abort-race wiring is subtle; extract the shell first,
+   keep behavior identical, verify procurement search unchanged before adding consumption groups.
+7. **`CompanyProfileStrip eik=` / `useCompanyProfile(eik)`** →
+   `src/screens/components/procurement/` — lift the single `/api/db/company` fetch + the
+   rollup/awarderRollup/funds/projects adapter (buried in `CompanyDbScreen` 441–559) into a hook
+   + a composite that renders the four already-standalone tiles. The chain page drops
+   `<CompanyProfileStrip eik={chainEik} />` instead of re-deriving props; `CompanyDbScreen` can
+   later adopt it too. **Risk: medium** — untangling the scoped-vs-all-time rollup latching.
+
+### Deliberately NOT extracted (over-abstraction, low payoff)
+- **A generic `<HubScreen>` outer shell.** It's mostly slot wiring (title/breadcrumb/search/
+  digest/grid); a shared component saves ~30 lines while coupling every hub's scope/search/digest
+  model. Keep a thin per-hub screen; only `FeaturedStrip` (item 5) is worth lifting.
+- **A generic `useHubStats`.** `useProcurementHubStats` is 39 lines and its only non-trivial part
+  (the `?pscope` scope key) is procurement-specific; consumption's hub has no scope toggle.
+  Write a ~30-line `useConsumptionHubStats` against its own precomputed `consumption_hub_stats`
+  payload; keep each hub's `metricFor` switch local. **Copy the pattern, not the code.**
+
+**Sequencing:** items 1–5 land inside P1/P2 as we create the tiles anyway (net **less** code than
+today). Items 6–7 are their own small refactors — schedule 6 before/with P1's search control and 7
+before P2's chain page, each as an isolated "extract + prove parity" commit so a regression in the
+shared component is caught against the existing procurement surface first.
