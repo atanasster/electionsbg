@@ -557,6 +557,7 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       "eurostat_regional",
       "eurostat_tourism",
       "eurostat_env",
+      "eurostat_food_pli",
       "ec_budget_per_ms",
     ],
     skills: ["update-macro", "update-regional", "update-budget"],

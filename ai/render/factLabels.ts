@@ -169,7 +169,8 @@ const humanize = (key: string, lang: Lang): string => {
   return words
     .map((w, i) => {
       const lower = w.toLowerCase();
-      if (ACRONYMS[lower]) return lang === "bg" ? ACRONYMS[lower] : lower.toUpperCase();
+      if (ACRONYMS[lower])
+        return lang === "bg" ? ACRONYMS[lower] : lower.toUpperCase();
       const t = lower;
       return i === 0 ? t.charAt(0).toUpperCase() + t.slice(1) : t;
     })
