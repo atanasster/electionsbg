@@ -75,6 +75,15 @@ Per-**place** prices exist only for the **~100-product monitored basket** across
 - Coverage/empty states across the ladder (settlement→obshtina→oblast→national); Sofia районы → city aggregate.
 - SEO: keep place/region consumption nodes SPA-only, canonical → governance region (matches the current `RegionConsumptionScreen` decision).
 
+### Phase 6 — AI chat tools (location-aware consumption)
+The chat (`ai/`) already ships a price-tool family in `ai/tools/prices.ts` — `priceIndex`, `settlementPrices`, `cheapestChains`, `priceRanking`, `basketAffordability`, `basketVsInflation`, `euFoodPriceLevels`, `productPrice`, `chainProfile` — routed from `ai/orchestrator/router.ts`, which resolves a place from the query via the settlement/oblast locators. Gaps: no **promotions** tool, and no use of the app's active `?area=` anchor. Extend, don't fork (per the tools-architecture note).
+- **New tool `localDeals`** (promotions near a place) backed by the Phase-2 `deals-muni:<obshtina>` payload: args `{ place?, product? }` → resolve place to an obshtina (settlement→its obshtina), fetch `deals-muni`, narrate the top current promos (product · was→promo · disc% · chain). `.catch(() => undefined)` on uncovered places like the other place tools. Register in `ai/tools/registry.ts`; parity with the `/consumption/deals` UI.
+- **Extend `settlementPrices` narration** to expose the **full local basket + promo flags** (`promoMin`) it already fetches from the `place` shard — today it summarizes; surface per-category cheapest + "на промоция сега" so "цените в {place}" answers match the new dashboard.
+- **Router intents:** detect promotions/deals queries ("промоции / намаления / оферти / deals / on sale в {place}" and bare "промоции край мен") → `localDeals`; keep the existing price intents. Add a `detectPriceDeal(q)` sync predicate mirroring `detectPriceProduct` / `detectChain`.
+- **Ambient location.** Pass the app's active `?area=` anchor into the chat context (ambient place) so a place-less query — "какви са цените край мен", "има ли промоции наблизо" — resolves to the pinned location instead of asking. Falls back to `clarify` when no anchor and no place in the query.
+- **Grounding + narration gates.** All new numbers go through the deterministic grounded-number gate (reject ungrounded/rounded figures in prose); EUR basis = Σ per-row (never re-summed); BG narration natural, not word-for-word; keep answers grounded to real fetched values.
+- **Tests.** Add live-PG tool tests (mirror the existing price-tool tests under `ai/tests/`) for `localDeals` + the extended `settlementPrices`, asserting a covered obshtina returns promos and an uncovered place resolves to `undefined` (no throw).
+
 ### Phase 5 — Future (out of v1 scope, note only)
 - Price-drop **alerts / watchlist** for a pinned place + product (reuse the `MyAreaAlertsTile` pattern).
 - Per-store detail pages (raw `price_stores` exists; likely noise for a public dashboard — defer).
@@ -110,4 +119,5 @@ Naясно is FB-first / mobile-first — every new or changed surface must be v
 3. **Phase 1** — fill the **Basket (full local)** section: whole basket grouped by category, cheapest store + Maps link + promo badge (from the `place` shard, no ingest).
 4. **Phase 2** — **Промоции край вас** section + `deals-muni:<obshtina>` payload + anchor-aware `/consumption/deals`; wire `recent_updates`.
 5. **Phase 3** — location-aware catalogue browser (thread `?area=` into product links).
-6. **Phase 5** — alerts/watchlist (later).
+6. **Phase 6** — AI chat tools: `localDeals` + ambient `?area=` + extended `settlementPrices` narration (after Phase 2 lands the `deals-muni` payload).
+7. **Phase 5** — alerts/watchlist (later).
