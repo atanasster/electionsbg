@@ -17,6 +17,7 @@ import {
   Legend,
 } from "recharts";
 import { SEO } from "@/ux/SEO";
+import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { PlaceHeader } from "@/screens/components/PlaceHeader";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { Card } from "@/components/ui/card";
@@ -43,20 +44,24 @@ export const ConsumptionFuelScreen: FC = () => {
   const gapDsl = latest ? gap(latest.bgDiesel, latest.euDiesel) : null;
 
   // Explicit yearly ticks (first data point of each year) — dense quarterly
-  // labels overlap into an unreadable smear at mobile chart widths, so we label
-  // years only and let each tick render its 4-char year.
+  // labels smear at chart width, so we label years only. With a long history
+  // (14 years) even the year labels crowd on a phone, so thin them to ~7 on
+  // small screens.
+  const isSmall = useMediaQueryMatch("sm");
   const yearTicks = useMemo(() => {
     const seen = new Set<string>();
-    const ticks: string[] = [];
+    const firstOfYear: string[] = [];
     for (const p of series) {
       const y = p.date.slice(0, 4);
       if (!seen.has(y)) {
         seen.add(y);
-        ticks.push(p.date);
+        firstOfYear.push(p.date);
       }
     }
-    return ticks;
-  }, [series]);
+    const maxLabels = isSmall ? 7 : 16;
+    const step = Math.max(1, Math.ceil(firstOfYear.length / maxLabels));
+    return firstOfYear.filter((_, i) => i % step === 0);
+  }, [series, isSmall]);
 
   const stat = (label: string, price: number | null, g: number | null) => (
     <div>

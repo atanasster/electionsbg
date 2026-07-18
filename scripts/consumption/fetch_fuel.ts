@@ -24,8 +24,11 @@ const PAGE =
   "https://energy.ec.europa.eu/data-and-analysis/weekly-oil-bulletin_en";
 const KNOWN_URL =
   "https://energy.ec.europa.eu/document/download/906e60ca-8b6a-44e7-8589-652854d2fd3f_en?filename=Weekly_Oil_Bulletin_Prices_History_maticni_4web.xlsx";
-// keep ~3 years of weekly points for the trend.
-const WEEKS = 160;
+// Keep the weekly points from this date on. The EU Oil Bulletin carries BG from
+// its EU accession; a long window shows the 2022 energy-crisis spike and the
+// COVID dip as context, and lines up with the governments strip (cabinets since
+// 2005). Older-than-this points are dropped to keep the committed JSON small.
+const SINCE = "2013-01-01";
 
 const resolveUrl = async (): Promise<string> => {
   try {
@@ -120,9 +123,9 @@ const main = async () => {
       euDiesel: perL(num(r[cols.euDsl])),
     });
   }
-  // rows are newest-first; keep the last WEEKS, ascending for the chart.
+  // rows are newest-first; sort ascending and keep from SINCE for the chart.
   series.sort((a, b) => a.date.localeCompare(b.date));
-  const trimmed = series.slice(-WEEKS);
+  const trimmed = series.filter((s) => s.date >= SINCE);
   const latest = trimmed[trimmed.length - 1];
 
   const payload = {

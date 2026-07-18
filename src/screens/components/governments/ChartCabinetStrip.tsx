@@ -26,8 +26,18 @@ export const ChartCabinetStrip: FC<{
   padLeft?: number;
   /** Right inset px = chart right margin. */
   padRight?: number;
+  /** Slim band with sparse horizontal labels (default). Set false for the full
+   *  tall strip with a rotated label on every pill. */
+  compact?: boolean;
   className?: string;
-}> = ({ fromDate, toDate, padLeft = 0, padRight = 0, className }) => {
+}> = ({
+  fromDate,
+  toDate,
+  padLeft = 0,
+  padRight = 0,
+  compact = true,
+  className,
+}) => {
   const { i18n } = useTranslation();
   const lang: "en" | "bg" = i18n.language === "bg" ? "bg" : "en";
   const { data: governments } = useGovernments();
@@ -55,6 +65,7 @@ export const ChartCabinetStrip: FC<{
         xDomain={[x0, x1]}
         lang={lang}
         fullWidth
+        compact={compact}
       />
     </div>
   );

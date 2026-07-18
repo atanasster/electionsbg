@@ -508,6 +508,11 @@ export const CabinetStrip: FC<{
   // Id of the currently anchored cabinet — gets an amber inset border on top
   // of the selected-pill treatment so anchor and selection read as distinct.
   anchoredId?: string | null;
+  // Slim variant for use as a context strip under a chart (not the primary
+  // interactive timeline): a short band with horizontal-only labels shown on
+  // the wider pills, the rest carried by colour + tooltip. Keeps a long,
+  // many-cabinet window elegant instead of a tall block of rotated text.
+  compact?: boolean;
 }> = ({
   governments,
   xDomain,
@@ -518,6 +523,7 @@ export const CabinetStrip: FC<{
   onToggle,
   onAnchor,
   anchoredId,
+  compact = false,
 }) => {
   const { colorFor } = useCanonicalParties();
   const insets = useChartInsets();
@@ -653,17 +659,24 @@ export const CabinetStrip: FC<{
     );
   }
 
-  const horizontalThreshold = isSmall
-    ? PILL_HORIZONTAL_THRESHOLD_MOBILE
-    : PILL_HORIZONTAL_THRESHOLD_DESKTOP;
-  const labelThreshold = isSmall
-    ? PILL_LABEL_THRESHOLD_MOBILE
-    : PILL_LABEL_THRESHOLD;
+  // Compact context strip: a slim band with horizontal-only labels, shown only
+  // on pills wide enough to read (≥8% of the span) so a long, many-cabinet
+  // window stays elegant. Otherwise the standard tall/rotated behaviour.
+  const horizontalThreshold = compact
+    ? 0
+    : isSmall
+      ? PILL_HORIZONTAL_THRESHOLD_MOBILE
+      : PILL_HORIZONTAL_THRESHOLD_DESKTOP;
+  const labelThreshold = compact
+    ? 8
+    : isSmall
+      ? PILL_LABEL_THRESHOLD_MOBILE
+      : PILL_LABEL_THRESHOLD;
   return (
     <div
       className={cn(
         "flex mb-1 rounded overflow-hidden",
-        isSmall ? "h-24" : "h-14",
+        compact ? "h-7" : isSmall ? "h-24" : "h-14",
       )}
       style={{
         paddingLeft: fullWidth ? 0 : insets.paddingLeft,
