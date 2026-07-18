@@ -265,15 +265,25 @@ export const governanceMenu: MenuItem[] = [
 // Consumption (Потребление) — the cost-of-living dashboard. Phase 1 surfaces
 // the КЗП basket views (overview + price map + the per-product/place explorer);
 // fuel, wages and property land in later phases.
+// Curated flat list of the Consumption sub-pages — same pattern as
+// governanceMenu: one link per sub-page, each a hub/browser that carries its own
+// depth (the /consumption tiles + the breadcrumbs do the rest). Order mirrors
+// the hub sections (browse the prices · personal tools · analysis · vs Europe).
 export const consumptionMenu: MenuItem[] = [
   {
     title: "nav_consumption",
     link: "/consumption",
     subMenu: [
       { title: "menu_overview", link: "/consumption", mobileOnly: true },
-      { title: "prices_section_overview", link: "/consumption" },
-      { title: "prices_section_map", link: "/consumption#map" },
-      { title: "prices_page_title", link: "/prices" },
+      { title: "consumption_menu_products", link: "/consumption/products" },
+      { title: "consumption_menu_categories", link: "/consumption/categories" },
+      { title: "consumption_menu_chains", link: "/consumption/chains" },
+      { title: "prices_section_map", link: "/prices" },
+      { title: "consumption_menu_basket", link: "/consumption/basket" },
+      { title: "consumption_menu_deals", link: "/consumption/deals" },
+      { title: "consumption_menu_overview", link: "/consumption/overview" },
+      { title: "consumption_menu_eu", link: "/consumption/eu" },
+      { title: "consumption_menu_fuel", link: "/consumption/fuel" },
     ],
   },
 ];
