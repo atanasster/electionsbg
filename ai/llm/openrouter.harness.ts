@@ -148,6 +148,21 @@ const run = async () => {
     "wrong-script prose -> falls back to the template narrator",
   );
 
+  // 2b. RIGHT-script prose but an UNGROUNDED number (a fabricated 9-digit vote
+  // count that appears in no facts value) -> the grounded-number gate rejects it
+  // and falls back to the template, so a hallucinated figure never surfaces.
+  setFetch(
+    mockFetch({
+      routeContent: '{"tool":"partyResult","args":{"party":"ГЕРБ"}}',
+      narrationContent: "ГЕРБ получи 987 654 321 гласа на този избор.",
+    }),
+  );
+  const r2b = await p.respond("кой спечели", ctx);
+  assert(
+    r2b.tool === "partyResult" && r2b.meta?.narratedBy === "rules",
+    "ungrounded number in prose -> grounded-number gate falls back to the template",
+  );
+
   // 3. proxy/network down -> deterministic router still answers, never throws
   setFetch(mockFetch({ throwIt: true }));
   const r3 = await p.respond("Колко гласа взе ГЕРБ?", ctx);

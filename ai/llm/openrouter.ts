@@ -21,6 +21,7 @@ import { resolveFollowOn, route, type Route } from "../orchestrator/router";
 import { parseToolCall } from "../orchestrator/toolSchema";
 import { runTool } from "../tools/registry";
 import type { Lang, ToolArgs, ToolContext } from "../tools/types";
+import { numbersGrounded } from "./grounding";
 import { clarify, matchesLang, stripControl } from "./lang";
 import type { ModelOption } from "./models";
 import type {
@@ -271,8 +272,21 @@ export class OpenRouterProvider implements LLMProvider {
         usage,
       );
       const text = stripControl(raw);
-      // language guard — never surface wrong-script model prose
-      if (text.length > 0 && matchesLang(text, lang))
+      // Two deterministic post-checks before the model's prose is trusted:
+      //  - language guard — never surface wrong-script prose;
+      //  - grounded-number gate — every material number in the prose must trace
+      //    to a facts value (title/provenance the model saw). A hallucinated OR
+      //    rounded figure fails this and we fall back to the template narrator.
+      // Streaming note: narrateEnv runs with stream:true, so partial prose was
+      // shown via onDelta before this gate ran. That's safe — the caller (Chat)
+      // overwrites the streamed buffer with THIS returned text once respond()
+      // resolves, so a rejected number is replaced by the template on completion.
+      const grounded = numbersGrounded(
+        text,
+        env.facts,
+        [env.title, ...env.provenance].join(" "),
+      );
+      if (text.length > 0 && matchesLang(text, lang) && grounded)
         return { text, fromModel: true };
       return { text: template, fromModel: false };
     } catch {

@@ -27,6 +27,7 @@ import type { Lang, ToolArgs, ToolContext } from "../tools/types";
 import { retrieveTools } from "./retrieve";
 import { retrieveToolsSemantic } from "./semanticRetrieve";
 import { buildAppConfig } from "./cache";
+import { numbersGrounded } from "./grounding";
 import { clarify, matchesLang, stripControl } from "./lang";
 import type {
   ChatResponse,
@@ -268,6 +269,20 @@ export class WebLLMProvider implements LLMProvider {
     const template = narrate(env, lang);
     if (!this.engine) return { text: template, fromModel: false };
     const maxTokens = 320;
+    // Accept the model's prose only when it clears BOTH deterministic gates:
+    //  - language guard — never surface wrong-script prose;
+    //  - grounded-number gate — every material number must trace to a facts
+    //    value (a hallucinated or rounded figure fails and we use the template).
+    // For a streamed answer the partial prose was already shown via onDelta, but
+    // the caller (Chat) overwrites the streamed buffer with the returned text
+    // once respond() resolves, so a rejected number is corrected on completion.
+    const grounded = [env.title, ...env.provenance].join(" ");
+    const accept = (text: string): { text: string; fromModel: boolean } =>
+      text.length > 0 &&
+      matchesLang(text, lang) &&
+      numbersGrounded(text, env.facts, grounded)
+        ? { text, fromModel: true }
+        : { text: template, fromModel: false };
     // Language guard: small models often answer in English even when asked in
     // Bulgarian. The template narration is always in the right language, so if
     // the model's output isn't predominantly the requested script, use it.
@@ -300,10 +315,7 @@ export class WebLLMProvider implements LLMProvider {
           // strip control tokens so ChatML/Gemma markers never reach the UI.
           if (matchesLang(acc, lang)) onDelta(stripControl(acc));
         }
-        const text = stripControl(acc);
-        return text.length > 0 && matchesLang(text, lang)
-          ? { text, fromModel: true }
-          : { text: template, fromModel: false };
+        return accept(stripControl(acc));
       }
       const res = await this.engine.chat.completions.create({
         messages,
@@ -311,10 +323,7 @@ export class WebLLMProvider implements LLMProvider {
         max_tokens: maxTokens,
       });
       addUsage(usage, res);
-      const text = stripControl(res.choices?.[0]?.message?.content ?? "");
-      if (text.length > 0 && matchesLang(text, lang))
-        return { text, fromModel: true };
-      return { text: template, fromModel: false };
+      return accept(stripControl(res.choices?.[0]?.message?.content ?? ""));
     } catch {
       return { text: template, fromModel: false };
     }
