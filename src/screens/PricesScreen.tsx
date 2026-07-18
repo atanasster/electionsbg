@@ -182,12 +182,14 @@ export const PricesScreen: FC = () => {
           icon={Store}
         >
           {chains?.national?.length ? (
-            <ChainBasketList
-              chains={chains.national}
-              basketSize={chains.commonBasketSize}
-              lang={lang}
-              limit={4}
-            />
+            <div className="text-xs">
+              <ChainBasketList
+                chains={chains.national}
+                basketSize={chains.commonBasketSize}
+                lang={lang}
+                limit={4}
+              />
+            </div>
           ) : null}
         </DashTile>
 
