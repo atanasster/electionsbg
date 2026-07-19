@@ -138,7 +138,13 @@ export const PersonElectoralSection: FC<Props> = ({
             <CandidateRegionsTile data={summary} linkSlug={candidateSlug} />
             <CandidateTrajectoryTile data={summary} />
           </>
-        ) : null}
+        ) : (
+          // Keep the section (and its cycle selector) visible even when the picked cycle has
+          // no stats row, so the chips don't vanish while the KPI still shows a candidacy count.
+          <p className="text-sm text-muted-foreground">
+            {t("pp_no_election_data")}
+          </p>
+        )}
       </DashboardSection>
 
       {summary &&

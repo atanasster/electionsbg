@@ -124,18 +124,22 @@ const run = async (): Promise<void> => {
 
       // The candidacy's party: from the c-{party}-… slug (authoritative), else the folder's
       // sole party for an mp-{id} candidacy in a clean folder. An mp candidacy landing in a
-      // collision folder can't be party-disambiguated from the slug — rare; take all rows
-      // and count it.
+      // collision folder can't be party-disambiguated from the slug — rare; count it.
       const effectiveParty =
         c.partyNum ??
         (distinctParties.size === 1 ? [...distinctParties][0]! : null);
       if (effectiveParty == null && isCollision) mpCollision++;
       if (isCollision) collisions++;
 
+      // Party-filter to keep namesakes split. When the party is known → filter to it. When it
+      // ISN'T (an mp candidacy in a multi-party collision folder) → empty, an honest absence,
+      // NEVER the mixed-party rows (which would re-conflate the namesakes we just separated).
       const regions =
         effectiveParty != null
           ? regionsAll.filter((r) => r.partyNum === effectiveParty)
-          : regionsAll;
+          : isCollision
+            ? []
+            : regionsAll;
       const totalVotes = regions.reduce((s, r) => s + (r.totalVotes ?? 0), 0);
 
       // preferences_stats (history + geography tiles) is name-folder-keyed and thus
@@ -233,7 +237,7 @@ const run = async (): Promise<void> => {
     `person_elections: ${candidatePersonRows.length} candidate_person rows, ` +
       `${statsRows.length} person_election_stats rows over ${shards} shard(s); ` +
       `${unresolved} unresolved, ${collisions} collision folder(s)` +
-      (mpCollision ? `, ${mpCollision} mp-in-collision (unfiltered)` : ""),
+      (mpCollision ? `, ${mpCollision} mp-in-collision (empty regions)` : ""),
   );
   await end();
 };

@@ -30,7 +30,10 @@ export const CandidateSettlementsScreen: FC = () => {
         subtitle={t("votes_by_settlement")}
       />
       <div className="w-full max-w-7xl mx-auto px-4 pb-12">
-        <CandidateBySettlements name={lookupName} />
+        <CandidateBySettlements
+          name={lookupName}
+          partyNum={canonical?.partyNum}
+        />
       </div>
     </>
   );

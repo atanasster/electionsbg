@@ -21,15 +21,22 @@ const queryFn = async ({
 };
 export const CandidateByRegions: FC<{
   name: string;
-}> = ({ name }) => {
+  /** The resolved candidate's party. Same-name candidates share one name folder, so the
+   * shard holds every party's rows — filter to this one to avoid conflating namesakes. */
+  partyNum?: number | null;
+}> = ({ name, partyNum }) => {
   const { selected } = useElectionContext();
   const { data: preferences } = useQuery({
     queryKey: ["candidate_preferences_by_regions", selected, name],
     queryFn,
   });
-  return preferences ? (
+  const rows =
+    partyNum != null && preferences
+      ? preferences.filter((p) => p.partyNum === partyNum)
+      : preferences;
+  return rows ? (
     <PreferencesTable
-      preferences={preferences}
+      preferences={rows}
       region=""
       visibleColumns={["oblast"]}
     />

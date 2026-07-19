@@ -14,6 +14,7 @@ import { PersonProfile, usePersonProfile } from "./usePersonProfile";
 import { PersonElectoralSection } from "./PersonElectoralSection";
 import { PersonMpSections } from "./PersonMpSections";
 import { PersonOfficialAssets } from "./PersonOfficialAssets";
+import { PersonMoneyTimeline } from "./PersonMoneyTimeline";
 import { useTranslation } from "react-i18next";
 import {
   Briefcase,
@@ -454,6 +455,13 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
                           {formatEurCompact(c.fundsEur)}
                           <span className="ml-1 text-muted-foreground">
                             {t("pp_funds_total")}
+                            {c.fundProjects
+                              ? ` · ${t("pp_fund_projects", { count: c.fundProjects })}`
+                              : ""}
+                            {c.fundsPaidEur != null &&
+                            c.fundsPaidEur < c.fundsEur
+                              ? ` · ${formatEurCompact(c.fundsPaidEur)} ${t("pp_funds_paid")}`
+                              : ""}
                           </span>
                         </span>
                       )}
@@ -473,6 +481,9 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
           </Card>
         </DashboardSection>
       )}
+
+      {/* Money vs power — the person's company procurement bucketed by cabinet (lazy). */}
+      {p.procuredEur > 0 && <PersonMoneyTimeline slug={p.slug} />}
 
       {/* NGO board seats (ЮЛНЦ) — the civic-board facet, distinct from business companies */}
       {p.ngos.length > 0 && (

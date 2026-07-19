@@ -32,6 +32,8 @@ type PersonProfilePayload = {
   companies: ProfileCompany[];
   ngos: { eik: string; name: string | null }[];
   procuredEur: number;
+  fundsEur: number;
+  subsidiesEur: number;
   sanctions: { program: string; authority: string; date: string }[];
   ds: {
     decisionNo: string;
@@ -175,6 +177,13 @@ export const personProfile = async (
   if (p.procuredEur > 0)
     facts[bg ? "обществени поръчки (EUR)" : "public contracts (EUR)"] =
       Math.round(p.procuredEur);
+  if (p.fundsEur > 0)
+    facts[bg ? "средства от ЕС (EUR)" : "EU funds (EUR)"] = Math.round(
+      p.fundsEur,
+    );
+  if (p.subsidiesEur > 0)
+    facts[bg ? "земеделски субсидии (EUR)" : "farm subsidies (EUR)"] =
+      Math.round(p.subsidiesEur);
   // The identity disclaimer travels with every profile so the narration can't drop it.
   facts[bg ? "бележка" : "note"] = bg
     ? "Връзките са по съвпадение на име — насока, не категорично доказателство."

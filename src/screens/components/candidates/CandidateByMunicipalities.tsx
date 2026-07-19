@@ -21,15 +21,21 @@ const queryFn = async ({
 };
 export const CandidateByMunicipalities: FC<{
   name: string;
-}> = ({ name }) => {
+  /** Filter to the resolved candidate's party — the name folder holds every namesake's rows. */
+  partyNum?: number | null;
+}> = ({ name, partyNum }) => {
   const { selected } = useElectionContext();
   const { data: preferences } = useQuery({
     queryKey: ["candidate_preferences_by_municipalities", selected, name],
     queryFn,
   });
-  return preferences ? (
+  const rows =
+    partyNum != null && preferences
+      ? preferences.filter((p) => p.partyNum === partyNum)
+      : preferences;
+  return rows ? (
     <PreferencesTable
-      preferences={preferences}
+      preferences={rows}
       region=""
       visibleColumns={["oblast", "obshtina"]}
     />
