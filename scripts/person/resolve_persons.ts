@@ -252,6 +252,7 @@ async function collect(): Promise<Raw[]> {
       designees: {
         name: string;
         mpId?: number;
+        resolved?: boolean;
         program: string;
         authority: string;
         date: string;
@@ -260,7 +261,9 @@ async function collect(): Promise<Raw[]> {
     };
     let heldSanctions = 0;
     for (const d of sx.designees) {
-      if (d.mpId == null) {
+      // Strictest gate on the most defamation-sensitive source: attach ONLY via the mpId
+      // gold key, and never if the entry is explicitly held (resolved:false).
+      if (d.mpId == null || d.resolved === false) {
         heldSanctions++;
         continue;
       }
@@ -305,6 +308,7 @@ async function collect(): Promise<Raw[]> {
       affiliations: {
         name: string;
         mpId?: number;
+        resolved?: boolean;
         decisionNo: string;
         decisionDate: string;
         category?: string;
@@ -315,7 +319,9 @@ async function collect(): Promise<Raw[]> {
     };
     let heldDs = 0;
     for (const d of dx.affiliations) {
-      if (d.mpId == null) {
+      // Strictest gate: attach a State-Security finding ONLY via the mpId gold key, and
+      // never if the entry is explicitly held (resolved:false).
+      if (d.mpId == null || d.resolved === false) {
         heldDs++;
         continue;
       }

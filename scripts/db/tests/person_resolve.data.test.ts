@@ -99,6 +99,40 @@ test.skipIf(skip)(
   },
 );
 
+// The two defamation-sensitive curated sources carry the STRICTEST attach rule, and it must
+// be enforced, not just intended:
+//   ds (State Security findings) — attach ONLY via the mpId gold key, so every role is
+//     exact_id; a name-ambiguous designee is held, never publicly attributed.
+//   regulator — attach via the mpId gold key OR a globally-unique name, so every role is
+//     exact_id OR sits on a namesake_risk<=1 person; a common name is never pinned to one seat.
+test.skipIf(skip)("every ds role is gold-key licensed (exact_id)", async () => {
+  const [r] = await allRows<{ bad: string }>(
+    `SELECT count(*) bad FROM person_role WHERE source = 'ds' AND confidence <> 'exact_id'`,
+  );
+  assert.equal(
+    Number(r.bad),
+    0,
+    "found a ds role not attached via the mpId gold key",
+  );
+});
+test.skipIf(skip)(
+  "every regulator role is gold-key OR globally-unique",
+  async () => {
+    const [r] = await allRows<{ bad: string }>(
+      `SELECT count(*) bad
+         FROM person_role rr JOIN person p USING (person_id)
+        WHERE rr.source = 'regulator'
+          AND rr.confidence <> 'exact_id'
+          AND p.namesake_risk > 1`,
+    );
+    assert.equal(
+      Number(r.bad),
+      0,
+      "found a regulator seat pinned to a common namesake",
+    );
+  },
+);
+
 test.skipIf(skip)(
   "every person has a non-null fold and a blocking key",
   async () => {

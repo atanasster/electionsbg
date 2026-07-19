@@ -27,8 +27,21 @@ export const regulatorRosters: WatchSource = {
   url: PAGE,
   cadence: "monthly",
   async fingerprint(): Promise<Fingerprint> {
-    const html = await fetchText(PAGE);
-    if (!html) throw new Error("empty Constitutional Court composition page");
+    let html: string;
+    try {
+      html = await fetchText(PAGE);
+    } catch {
+      html = "";
+    }
+    if (!html) {
+      // Upstream transiently unreachable — the register is curated manually anyway, so a
+      // stable sentinel avoids a false "changed" flip (mirrors comdos_ds).
+      return {
+        value: "manual",
+        detail:
+          "constcourt.bg unreachable — data/person/regulators.json curated manually",
+      };
+    }
     // Strip volatile chrome (scripts / inline styles) and hash the remaining markup — flips
     // when the composition block (the judges image + captions) is republished.
     const body = html
