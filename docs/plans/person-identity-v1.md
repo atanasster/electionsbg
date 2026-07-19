@@ -140,6 +140,15 @@ end-to-end: resolver (6 sources + dual TR bridges + review queue) → serving �
 broaden the edge model (co-board / donor→party→candidate / magistrate→politician); the §8 radial graph
 visual; Phase 5 new sources (ДС/sanctions/regulators); Phase 6 URL/SEO consolidation.
 
+**IMPLEMENTATION LOG (2026-07-19, money thesis).** Tied the identity layer to the site's core
+follow-the-money thesis: `person_by_slug` now carries each company's public-contract take (Σ
+`current_amount_eur`, post-annex basis) + count, plus a person-level EIK-deduped `procuredEur` total
+(companies ordered money-first). Surfaced on /person (a "Обществени поръчки: €X" headline + per-company
+"€X от N договора") and narrated by the `personProfile` AI tool as a grounded fact. Worst-case EXPLAIN
+4.2ms (contractor_eik indexed); data test asserts the EIK-deduped total. Browser-verified: `mp-3271`
+Георги Попов → director of АВТОМАГИСТРАЛИ ЕАД → **€390.3M across 26 contracts**, connected to co-director
+Гено Георгиев — a politician, their company, the public money, and their business peer on ONE page.
+
 Goal: give every natural person in the site a single stable `person_id` in Postgres, so that
 candidates, MPs, mayors, councillors, executive & municipal officials, TR company officers/owners,
 magistrates, NGO board members and campaign-finance donors all resolve to **one profile** and can
