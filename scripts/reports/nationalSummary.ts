@@ -24,6 +24,77 @@ const round = (n: number, digits = 2) => {
   return Math.round(n * f) / f;
 };
 
+// Neutral slate for independent-candidate ballot lines that have no party in the
+// catalog and therefore no brand colour.
+const INDEPENDENT_COLOR = "rgb(148, 163, 184)";
+
+type PartyMeta = Pick<
+  NationalPartyResult,
+  "nickName" | "name" | "name_en" | "color"
+>;
+
+/**
+ * Ballot numbers that appear in the votes but not in the party catalog belong to
+ * INDEPENDENT candidates (независими кандидати), whose number is assigned
+ * per-МИР after the national party lists — so `cik_parties.json` never lists
+ * them and their national_summary row would otherwise be blank (no name/colour).
+ *
+ * Recover a label from candidates.json: when a single independent carries the
+ * number the row is named after them; when several МИР each ran a different
+ * independent under the same next-free number (e.g. #26 in 2014), the number is
+ * a national aggregate of distinct people, so it gets the generic plural label.
+ * Returns partyNum → {nickName, name, name_en, color}.
+ */
+const buildIndependentMeta = (
+  publicFolder: string,
+  year: string,
+  parties: PartyInfo[],
+): Map<number, PartyMeta> => {
+  const meta = new Map<number, PartyMeta>();
+  const catalog = new Set(parties.map((p) => p.number));
+  const file = `${publicFolder}/${year}/candidates.json`;
+  if (!fs.existsSync(file)) return meta;
+  let candidates: Array<{ partyNum?: number; name?: string; name_en?: string }>;
+  try {
+    const raw = JSON.parse(fs.readFileSync(file, "utf-8"));
+    candidates = Array.isArray(raw) ? raw : Object.values(raw);
+  } catch {
+    return meta;
+  }
+  // partyNum → distinct candidate {name, name_en} (dedup by bg name).
+  const byNum = new Map<
+    number,
+    Map<string, { name: string; name_en?: string }>
+  >();
+  for (const c of candidates) {
+    if (c.partyNum == null || catalog.has(c.partyNum) || !c.name) continue;
+    const m = byNum.get(c.partyNum) ?? new Map();
+    if (!m.has(c.name)) m.set(c.name, { name: c.name, name_en: c.name_en });
+    byNum.set(c.partyNum, m);
+  }
+  for (const [num, people] of byNum) {
+    const list = [...people.values()];
+    if (list.length === 1) {
+      meta.set(num, {
+        nickName: "Независим",
+        name: `Независим кандидат (${list[0].name})`,
+        name_en: list[0].name_en
+          ? `Independent (${list[0].name_en})`
+          : "Independent candidate",
+        color: INDEPENDENT_COLOR,
+      });
+    } else {
+      meta.set(num, {
+        nickName: "Независими",
+        name: "Независими кандидати",
+        name_en: "Independent candidates",
+        color: INDEPENDENT_COLOR,
+      });
+    }
+  }
+  return meta;
+};
+
 const readSectionIds = (path: string): string[] => {
   if (!fs.existsSync(path)) return [];
   try {
@@ -464,17 +535,22 @@ export const generateNationalSummary = ({
     totalPrior,
   );
 
+  const independentMeta = buildIndependentMeta(publicFolder, year, parties);
+
   const partyResults: NationalPartyResult[] = currentVotes
     .map((v) => {
       const partyInfo = parties.find((p) => p.number === v.partyNum);
+      // Independents aren't in the catalog — recover a name/colour so the row
+      // isn't a blank, colourless entry.
+      const indep = partyInfo ? undefined : independentMeta.get(v.partyNum);
       const pct = totalCurrent ? (100 * v.totalVotes) / totalCurrent : 0;
       const change = changes.get(v.partyNum);
       return {
         partyNum: v.partyNum,
-        nickName: v.nickName,
-        name: partyInfo?.name,
-        name_en: partyInfo?.name_en,
-        color: partyInfo?.color,
+        nickName: v.nickName || indep?.nickName || `№${v.partyNum}`,
+        name: partyInfo?.name ?? indep?.name,
+        name_en: partyInfo?.name_en ?? indep?.name_en,
+        color: partyInfo?.color ?? indep?.color,
         totalVotes: v.totalVotes,
         pct: round(pct),
         priorPct: change?.priorPct,

@@ -251,6 +251,22 @@ suite("election shards", () => {
           expect(bad.slice(0, 8), `${bad.length} party mismatches`).toEqual([]);
         });
 
+        test("every vote-receiving party has a nickName + colour (independents enriched)", () => {
+          // Independents (ballot numbers past the party catalog) are enriched
+          // from candidates.json so no row ships blank/colourless — see
+          // buildIndependentMeta in nationalSummary.ts.
+          const bad = ns.parties
+            .filter(
+              (p: { totalVotes: number; nickName?: string; color?: string }) =>
+                p.totalVotes > 0 && (!p.nickName || !p.color),
+            )
+            .map(
+              (p: { partyNum: number }) =>
+                `p${p.partyNum} missing nickName/color`,
+            );
+          expect(bad.slice(0, 8), `${bad.length} blank party rows`).toEqual([]);
+        });
+
         test("turnout actual/registered == Σ region protocol", () => {
           expect(ns.turnout.actual).toBe(sumActual);
           expect(ns.turnout.registered).toBe(sumRegistered);
