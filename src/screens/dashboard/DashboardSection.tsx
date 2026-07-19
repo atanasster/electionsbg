@@ -59,7 +59,9 @@ type Props = {
     | "molecule-hospitals"
     | "pack-hospitals"
     | "pack-trend"
-    | "procedure-hospitals";
+    | "procedure-hospitals"
+    | "person-electoral"
+    | "person-geography";
   title?: ReactNode;
   subtitle?: ReactNode;
   icon?: LucideIcon;

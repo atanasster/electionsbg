@@ -11,6 +11,7 @@
 import { FC, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { PersonProfile, usePersonProfile } from "./usePersonProfile";
+import { PersonElectoralSection } from "./PersonElectoralSection";
 import { useTranslation } from "react-i18next";
 import {
   Briefcase,
@@ -23,7 +24,6 @@ import {
   Scale,
   ShieldAlert,
   Users,
-  Vote,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { StatCard } from "@/screens/dashboard/StatCard";
@@ -127,6 +127,13 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
   }, [p.roles]);
   const candidacies = p.roles.filter((r) => r.source === "candidate");
   const donations = p.roles.filter((r) => r.source === "donor");
+
+  // Candidacy cycles → { election, candidate slug } for the electoral block's cycle selector
+  // + its /candidate/:slug/* deep-links. ref is "{election}:{slug}".
+  const candidacyCycles = candidacies.map((r) => {
+    const i = r.ref.indexOf(":");
+    return { election: r.ref.slice(0, i), slug: r.ref.slice(i + 1) };
+  });
 
   // Local office role → localized heading; unknown role codes pass through.
   const roleLabel = (role: string): string => {
@@ -331,6 +338,14 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
         </Card>
       )}
 
+      {/* Electoral performance (politician) — PG-fed stat cards, regions, trajectory, with a
+          cycle selector; leads the record for a candidate/MP. */}
+      <PersonElectoralSection
+        slug={p.slug}
+        name={p.name}
+        candidacies={candidacyCycles}
+      />
+
       {/* Offices held */}
       {offices.length > 0 && (
         <Card>
@@ -496,37 +511,6 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
                 </span>
               </div>
             ))}
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Candidacies */}
-      {candidacies.length > 0 && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-base">
-              <Vote className="h-4 w-4" /> {t("pp_candidacies")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="flex flex-wrap gap-1.5">
-            {candidacies
-              .map((r) => {
-                const idx = r.ref.indexOf(":");
-                return {
-                  election: r.ref.slice(0, idx),
-                  slug: r.ref.slice(idx + 1),
-                };
-              })
-              .sort((a, b) => b.election.localeCompare(a.election))
-              .map((c) => (
-                <Link
-                  key={`${c.election}:${c.slug}`}
-                  to={`/candidate/${c.slug}`}
-                  className="rounded-full border border-border px-2.5 py-0.5 text-xs text-primary hover:bg-muted"
-                >
-                  {fmtElection(c.election)}
-                </Link>
-              ))}
           </CardContent>
         </Card>
       )}
