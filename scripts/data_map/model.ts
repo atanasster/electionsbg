@@ -260,6 +260,23 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     tags: ["parliament", "elections", "local"],
   },
   {
+    id: "ofac",
+    label: { bg: "OFAC (санкции)", en: "OFAC (sanctions)" },
+    detail: {
+      bg: "санкции срещу български лица",
+      en: "sanctions on Bulgarian individuals",
+    },
+    desc: {
+      bg: "Списъкът на санкционираните лица (SDN) на Министерството на финансите на САЩ — българските физически лица под Global Magnitsky, отразени като официален източник в обединения профил на лицето (/person).",
+      en: "The U.S. Treasury OFAC Specially Designated Nationals (SDN) list — Bulgarian individuals under Global Magnitsky, cited on the unified person profile (/person).",
+    },
+    url: "https://sanctionssearch.ofac.treas.gov/",
+    origin: "intl",
+    members: ["ofac_sanctions"],
+    skills: ["update-persons"],
+    tags: ["parliament", "elections", "local"],
+  },
+  {
     id: "egov",
     label: { bg: "data.egov.bg", en: "data.egov.bg" },
     detail: {
@@ -1704,6 +1721,9 @@ export const EDGES: [string, string][] = [
   ["src:sp", "ds:officials"],
   ["src:sp", "ds:financing"],
   ["src:sp", "ds:funds"],
+  // OFAC sanctions feed the unified person / business-connections layer (the /person
+  // profile cites them) — same downstream dataset as the Сметна палата declarations.
+  ["src:ofac", "ds:connections"],
   ["src:egov", "ds:connections"],
   ["src:egov", "ds:procurement"],
   ["src:vss", "ds:judiciary"],
