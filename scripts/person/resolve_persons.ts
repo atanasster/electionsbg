@@ -24,7 +24,7 @@
 import fs, { globSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { allRows, withTx, end } from "../db/lib/pg";
+import { allRows, withTx, end, exec } from "../db/lib/pg";
 import { copyRows } from "../db/lib/copy";
 import { parseName } from "./nameParts";
 import { clusterBlock, type Mention } from "./cluster";
@@ -369,10 +369,25 @@ async function foldAndScore(
 
 type M = Mention & { raw: Raw };
 
+// The person-layer schema files, applied (idempotent CREATE … IF NOT EXISTS) before every
+// resolve so `db:refresh` / a fresh clone can rebuild from an empty DB — nothing else wires
+// these in. Order matters: core tables → serving fns → review queue.
+const SCHEMA_DIR = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "../db/schema/pg",
+);
+const SCHEMA_FILES = [
+  "081_person_identity.sql",
+  "082_person_api.sql",
+  "083_person_review.sql",
+];
+
 async function main(): Promise<void> {
   console.log(
     "resolving persons (magistrate + officials + MPs + candidates + donors + tr-bridge)…",
   );
+  for (const f of SCHEMA_FILES)
+    await exec(fs.readFileSync(path.join(SCHEMA_DIR, f), "utf8"));
   const raw = await collect();
   const { fold, namesake } = await foldAndScore(raw);
 

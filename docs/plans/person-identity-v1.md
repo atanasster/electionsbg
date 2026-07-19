@@ -53,9 +53,21 @@ existing persons, 0 new persons** (reads ~1.5k rows on ~360 linked EIKs, not the
 The data-test invariant is widened to the name-independent-link rule — a cross-source common-name merge
 needs a gold key OR a shared-company (tr) bridge (a `tr` role at namesake>1 PROVES a uic-backed merge,
 since TR mentions have no other merge path there) — plus a new licensing invariant (every `tr` role's
-EIK is a curated company link). NEXT: broad name-based TR discovery (Bridge B, over the full officer
-set, namesake-gated) + review-candidate persistence; then person↔company edges (Phase 4); then the
-frontend `/person/{slug}` + AI tools.
+EIK is a curated company link).
+
+**IMPLEMENTATION LOG (2026-07-19, later⁴).** Persisted the **review queue** (§3 tier 3) — migration
+`083_person_review.sql` adds `person_review_candidate`, the aggressive-merge holding area the plan
+required but never had. The resolver computed 1,881 ambiguous same-block groups every run and threw
+them away; they now persist (derived, rebuilt each run), each keyed by a deterministic `group_key`
+(hash of member slugs) so an adjudication UI addresses a stable group. A group is emitted only when it
+spans ≥2 DISTINCT persons; nothing is merged (each stays its own active person, off public surfaces)
+until a human writes a `person_link_override`. `cluster.ts` now tags each `ReviewCandidate` with a
+`reason` (`twopart_block` | `identical_fullname`). Result: **1,881 groups over 6,826 persons** (1,329
+identical-fullname, 552 two-part), idempotent group_keys, +1 data invariant. Also **closed a
+fresh-clone gap**: nothing applied `081/082/083`, so `db:resolve:persons` (wired into `db:refresh`)
+would fail on an empty DB — the resolver now applies its own idempotent schema at startup. NEXT: broad
+name-based TR discovery (Bridge B, over the full officer set, namesake-gated); then person↔company
+edges (Phase 4); then the frontend `/person/{slug}` + AI tools.
 
 Goal: give every natural person in the site a single stable `person_id` in Postgres, so that
 candidates, MPs, mayors, councillors, executive & municipal officials, TR company officers/owners,
