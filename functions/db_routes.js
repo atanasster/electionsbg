@@ -2076,6 +2076,38 @@ const DB_ROUTES = {
     ]).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? null };
   },
+  // Every election's re-keyed electoral summary for one person (newest first) → the electoral
+  // block on the merged person dashboard (person-candidate-merge-v1). The caller runs the
+  // existing candidate reducer over each cycle's raw `regions` + preferences_stats fields.
+  "person-elections": async (dbRows, q) => {
+    const slug = s(q, "slug");
+    if (!slug) return { body: [] };
+    const rows = await dbRows("SELECT person_elections($1) AS r", [
+      slug,
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? [] };
+  },
+  // Resolve a candidate URL to its owning person's slug so /candidate/{id} can render the
+  // shared person dashboard. `slug` = a candidate slug (c-{party}-… | mp-{id}); or `name`
+  // (+ optional `party`) for the legacy bare-name candidate URLs. Returns null for an
+  // unknown / private / >1-namesake match, and the caller falls through to the legacy render.
+  "candidate-person": async (dbRows, q) => {
+    const slug = s(q, "slug");
+    if (slug) {
+      const rows = await dbRows("SELECT candidate_person_slug($1) AS r", [
+        slug,
+      ]).catch(missingMigrationEmpty);
+      return { body: { personSlug: rows[0]?.r ?? null } };
+    }
+    const name = s(q, "name");
+    if (!name) return { body: { personSlug: null } };
+    const party = q.party != null ? clampInt(q.party, null, 1, 99) : null;
+    const rows = await dbRows(
+      "SELECT candidate_person_by_name($1, $2) AS r",
+      [name, party],
+    ).catch(missingMigrationEmpty);
+    return { body: { personSlug: rows[0]?.r ?? null } };
+  },
 };
 
 module.exports = { DB_ROUTES };
