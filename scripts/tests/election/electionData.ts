@@ -123,6 +123,45 @@ export const readReport = <T>(election: string, ...parts: string[]): T =>
 export const dashboardPath = (election: string, file: string): string =>
   path.join(DATA_DIR, election, "dashboard", file);
 
+/** Absolute path to a file/dir under the top-level (non-dated) data tree. */
+export const dataPath = (...parts: string[]): string =>
+  path.join(DATA_DIR, ...parts);
+
+/** Files in a top-level data subfolder matching an optional suffix. */
+export const listDataFiles = (sub: string, suffix = ".json"): string[] => {
+  const dir = path.join(DATA_DIR, sub);
+  if (!fs.existsSync(dir)) return [];
+  return fs
+    .readdirSync(dir)
+    .filter(
+      (f) => f.endsWith(suffix) && fs.statSync(path.join(dir, f)).isFile(),
+    );
+};
+
+/**
+ * A cross-election `*_stats.json` / time-series entry: one election's rolled-up
+ * result, tagged by its date in `name`.
+ */
+export interface StatsEntry {
+  name: string;
+  results: {
+    votes: { partyNum: number; totalVotes: number; [k: string]: unknown }[];
+    protocol?: Record<string, number>;
+  };
+}
+
+/** partyNum → totalVotes map for one election's region_votes entry. */
+export const regionVotesMap = (
+  election: string,
+  regionKey: string,
+): Record<number, number> | null => {
+  const region = loadRegions(election).find((r) => r.key === regionKey);
+  if (!region) return null;
+  const map: Record<number, number> = {};
+  addPartyVotes(map, region.results.votes);
+  return map;
+};
+
 /**
  * Deterministic sample of an array: keeps the first `n` by a fixed stride so the
  * same rows are checked on every run (no Math.random, which is banned in this
