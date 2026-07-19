@@ -24,6 +24,7 @@ export const TYPE_ORDER: SearchIndexType["type"][] = [
   "c",
   "a",
   "o",
+  "p",
   "b",
   "v",
 ];

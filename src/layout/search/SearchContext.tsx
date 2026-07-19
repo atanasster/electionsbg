@@ -7,10 +7,30 @@ import {
   PropsWithChildren,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
 import { trackSearch } from "@/lib/analytics";
+
+const norm = (s: string): string => s.trim().toLowerCase();
+
+// Live people from the unified person layer (/api/db/person-lookup) — everyone with a
+// /person/<slug> page, incl. the former MPs / magistrates / NGO boards / DS people the
+// static per-election candidate index can't hold. Rendered as `p` rows.
+type PersonHit = { slug: string; name: string; score?: number };
+const fetchPersons = async (q: string): Promise<PersonHit[]> => {
+  try {
+    const res = await fetch(
+      `/api/db/person-lookup?q=${encodeURIComponent(q)}&limit=6`,
+    );
+    if (!res.ok) return [];
+    const j = (await res.json()) as PersonHit[];
+    return Array.isArray(j) ? j : [];
+  } catch {
+    return [];
+  }
+};
 
 export type SearchItemType = FuseResult<SearchIndexType>;
 
@@ -76,7 +96,51 @@ export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const [term, setTerm] = useState("");
   const [searchItems, setSearchItems] = useState<SearchItemType[]>([]);
+  const [personHits, setPersonHits] = useState<PersonHit[]>([]);
   const [selected, setSelected] = useState<number>(-1);
+
+  // Debounced live person lookup — runs in parallel with the static Fuse search, so the
+  // dropdown shows the (fast) static rows first and the person rows land ~200ms later.
+  useEffect(() => {
+    if (!term || term.length < 2) {
+      setPersonHits([]);
+      return;
+    }
+    let live = true;
+    const h = setTimeout(() => {
+      fetchPersons(term).then((hits) => live && setPersonHits(hits));
+    }, 180);
+    return () => {
+      live = false;
+      clearTimeout(h);
+    };
+  }, [term]);
+
+  // Merge Fuse rows + person rows into ONE flat, group-sorted list (the whole pipeline —
+  // render, arrow-nav, selection — runs off this). Person rows are deduped by name against
+  // the static candidate/official rows so a CURRENT candidate isn't shown twice; the person
+  // rows are exactly the gap the static index can't hold (former MPs, magistrates, …).
+  const items = useMemo<SearchItemType[]>(() => {
+    const staticNames = new Set(
+      searchItems
+        .filter((r) => r.item.type === "a" || r.item.type === "o")
+        .map((r) => norm(r.item.name)),
+    );
+    const personItems: SearchItemType[] = personHits
+      .filter((p) => !staticNames.has(norm(p.name)))
+      .map((p) => ({
+        item: { type: "p", key: p.slug, name: p.name },
+        refIndex: -1,
+        score: 0,
+      }));
+    return [...searchItems, ...personItems]
+      .map((r, i) => ({ r, i }))
+      .sort((a, b) => {
+        const g = GROUP_ORDER[a.r.item.type] - GROUP_ORDER[b.r.item.type];
+        return g !== 0 ? g : a.i - b.i;
+      })
+      .map(({ r }, i) => ({ ...r, refIndex: i }));
+  }, [searchItems, personHits]);
 
   const runSearch = useCallback(
     (searchTerm: string) => {
@@ -155,19 +219,19 @@ export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [searchReady]);
 
   const arrowDown = () => {
-    const newIndex = selected < searchItems.length - 1 ? selected + 1 : 0;
+    const newIndex = selected < items.length - 1 ? selected + 1 : 0;
     setSelected(newIndex);
   };
   const arrowUp = () => {
-    const newIndex = selected > 0 ? selected - 1 : searchItems.length - 1;
+    const newIndex = selected > 0 ? selected - 1 : items.length - 1;
     setSelected(newIndex);
   };
 
   const getSelectedItem = useCallback(() => {
-    return selected >= 0 && selected < searchItems.length
-      ? searchItems[selected]
+    return selected >= 0 && selected < items.length
+      ? items[selected]
       : undefined;
-  }, [searchItems, selected]);
+  }, [items, selected]);
 
   return (
     <SearchContext.Provider
@@ -175,7 +239,7 @@ export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
         arrowDown,
         arrowUp,
         setSearchTerm,
-        items: searchItems,
+        items,
         selected: getSelectedItem(),
         setSelected,
         searchTerm: term,

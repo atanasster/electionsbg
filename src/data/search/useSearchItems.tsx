@@ -130,7 +130,10 @@ export type SearchIndexType = {
   // o=municipal official (mayor / chair / deputy mayor / councillor /
   //   chief architect — from data/officials/municipal/. Key is the slug
   //   used at /officials/<slug>.)
-  type: "s" | "m" | "d" | "r" | "c" | "a" | "b" | "v" | "o";
+  // p=unified person (live /api/db/person-lookup — covers everyone with a
+  //   /person/<slug> page: former MPs, magistrates, NGO boards, DS, etc. that
+  //   the static per-election candidate index can't hold). Key = person slug.
+  type: "s" | "m" | "d" | "r" | "c" | "a" | "b" | "v" | "o" | "p";
   key: string;
   name: string;
   name_en?: string;

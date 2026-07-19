@@ -15,6 +15,7 @@ import {
   Landmark,
   Gavel,
   Users,
+  User,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
@@ -29,6 +30,7 @@ const TYPE_ICON: Record<Exclude<ItemType, "a">, FC<{ className?: string }>> = {
   b: Landmark,
   v: Gavel,
   o: Users,
+  p: User,
 };
 
 const Highlight: FC<{
@@ -78,6 +80,8 @@ export const SearchItems: FC<{
         return t("candidate");
       case "o":
         return t("search_group_municipal_officials") || "Municipal officials";
+      case "p":
+        return t("search_group_persons") || "People";
       case "b":
         return t("budget_search_ministries") || "Ministries";
       case "v":

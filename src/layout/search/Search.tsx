@@ -106,6 +106,10 @@ const SearchInternal: FC = () => {
           // Municipal official — keyed by the cacbg slug.
           navigate({ pathname: `/officials/${selectedOption.item.key}` });
           break;
+        case "p":
+          // Unified person (live person-lookup) — keyed by the person slug.
+          navigate({ pathname: `/person/${selectedOption.item.key}` });
+          break;
         case "b":
           navigate({ pathname: `/budget/ministry/${selectedOption.item.key}` });
           break;
