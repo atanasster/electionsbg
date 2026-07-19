@@ -12,6 +12,8 @@ import { ConsumptionSearchTile } from "@/screens/components/consumption/Consumpt
 import { ConsumptionAreaBanner } from "@/screens/components/consumption/ConsumptionAreaBanner";
 import { CONSUMPTION_SCENES } from "@/screens/consumption/consumptionScenes";
 import { useHubStats } from "@/data/prices/usePrices";
+import { useEnergyPrices, useGasPrices } from "@/data/energy/useEnergyPrices";
+import { latestCommonPrice, type EnergyPrices } from "@/data/energy/types";
 
 export const ConsumptionScreen = () => {
   const { t, i18n } = useTranslation();
@@ -25,6 +27,18 @@ export const ConsumptionScreen = () => {
     "Цени, потребление и издръжка на живота в България.";
 
   const { data: s } = useHubStats();
+
+  // Household electricity + gas gap vs the EU average (BG's % of the EU minus
+  // 100 → a signed gap, e.g. 47% of EU → −53%), for the hub tiles. Anchored to
+  // the latest period present in both BG and EU27.
+  const { data: elec } = useEnergyPrices();
+  const { data: gas } = useGasPrices();
+  const gapVsEuPct = (d: EnergyPrices | undefined): number | null => {
+    const cmp = d ? latestCommonPrice(d) : null;
+    return cmp ? cmp.pctOfEu - 100 : null;
+  };
+  const electricityGapPct = gapVsEuPct(elec);
+  const gasGapPct = gapVsEuPct(gas);
 
   // Metric formatters — a headline number is shown only when its stat is present.
   const int = (n: number | null | undefined) =>
@@ -85,6 +99,14 @@ export const ConsumptionScreen = () => {
     },
     fuel: {
       metric: signedPct(s?.fuelGapPct, 0),
+      caption: T("спрямо ЕС", "vs the EU"),
+    },
+    electricity: {
+      metric: signedPct(electricityGapPct, 0),
+      caption: T("спрямо ЕС", "vs the EU"),
+    },
+    gas: {
+      metric: signedPct(gasGapPct, 0),
       caption: T("спрямо ЕС", "vs the EU"),
     },
   };
