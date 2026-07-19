@@ -29,7 +29,7 @@ export const regulatorRosters: WatchSource = {
   async fingerprint(): Promise<Fingerprint> {
     let html: string;
     try {
-      html = await fetchText(PAGE);
+      html = (await fetchText(PAGE)) ?? "";
     } catch {
       html = "";
     }

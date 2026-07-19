@@ -29,6 +29,12 @@ export const ofacSanctions: WatchSource = {
   cadence: "weekly",
   async fingerprint(): Promise<Fingerprint> {
     const csv = await fetchText(SDN_CSV);
+    if (!csv)
+      return {
+        value: "missing",
+        detail: "OFAC SDN fetch failed",
+        meta: { count: 0 },
+      };
     const bgRows = csv
       .split(/\r?\n/)
       .filter(isBgRow)

@@ -3781,7 +3781,7 @@ export const TOOLS: ToolDef[] = [
     params: [
       {
         name: "name",
-        type: "string",
+        type: "person",
         description: {
           bg: "Пълно име на лицето (публична личност).",
           en: "Full name of the person (a public figure).",
@@ -3812,6 +3812,8 @@ export const TOOLS: ToolDef[] = [
       {
         bg: "Има ли досие в Държавна сигурност Георги Първанов?",
         en: "Does Georgi Parvanov have a State Security dossier?",
+      },
+      {
         bg: "В кой независим орган или регулатор членува това лице?",
         en: "Which independent body or regulator does this person sit on?",
       },
@@ -3828,7 +3830,7 @@ export const TOOLS: ToolDef[] = [
     params: [
       {
         name: "name",
-        type: "string",
+        type: "person",
         description: {
           bg: "Пълно име на лицето (публична личност).",
           en: "Full name of the person (a public figure).",

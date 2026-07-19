@@ -36,7 +36,7 @@ export const comdosDs: WatchSource = {
   async fingerprint(): Promise<Fingerprint> {
     let html: string;
     try {
-      html = await fetchText(ARCHIVE);
+      html = (await fetchText(ARCHIVE)) ?? "";
     } catch {
       // Unreachable from this egress (Cloudflare / geo) — stay quiet, the register is
       // manually curated anyway. A stable sentinel avoids false "changed" flips.

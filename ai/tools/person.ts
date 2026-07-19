@@ -140,13 +140,14 @@ export const personProfile = async (
   // ДС / COMDOS affiliation — an official Комисия по досиетата verdict, cited to the
   // решение № + date, verbatim from the government finding (a public act, not our claim).
   if (p.ds?.length)
-    facts[bg ? "принадлежност към ДС" : "State Security affiliation"] =
-      p.ds.map(
+    facts[bg ? "принадлежност към ДС" : "State Security affiliation"] = p.ds
+      .map(
         (d) =>
           `${d.category ?? d.body}${
             d.pseudonyms.length ? ` „${d.pseudonyms.join("“, „")}“` : ""
           } (Комисия по досиетата, реш. № ${d.decisionNo}/${d.decisionDate})`,
-      );
+      )
+      .join("; ");
   // Seats on the independent / regulatory bodies (the `regulator` "кой решава" facet) —
   // verbatim body + seat, a neutral civic office, never computed prose.
   if (p.regulators?.length)
@@ -259,7 +260,7 @@ export const personConnections = async (
     tool: "personConnections",
     domain: "people",
     kind: "table",
-    viz: "table",
+    viz: "none",
     title: bg
       ? `${prof.name} — ${related.length} свързани лица`
       : `${prof.name} — ${related.length} connected people`,
