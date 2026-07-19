@@ -269,6 +269,19 @@ const hasPriceCue = (q: string): boolean =>
     "expensive",
   );
 
+// Natural-gas cue for the household gas-price tool. "газ" also appears in gas-fired
+// power plants (газова централа) and gasification, so the caller pairs it with a
+// price cue before routing to gasPrices.
+const hasGasCue = (q: string): boolean =>
+  has(q, "природен газ", "natural gas") ||
+  (has(q, "газ", "gas") && !has(q, "газьол"));
+
+// Consumer-fuel cue for the fuelPrices tool (petrol 95 & diesel). Bare бензин/дизел
+// is fuel-price by itself; "гориво/fuel" is paired with a price cue by the caller
+// so the excise levers ("акциз върху горивата") don't get hijacked.
+const hasFuelNameCue = (q: string): boolean =>
+  has(q, "бензин", "дизел", "petrol", "diesel", "gasoline");
+
 // Strip the tender filler so the residue is the subject keyword to search:
 // "покажи всички търгове за асфалт през 2024" → "асфалт". Token-set filtering,
 // NOT a \b regex — word boundaries are unreliable around Cyrillic, so a
@@ -1172,11 +1185,13 @@ export const route = (question: string, ctx: ToolContext): Route => {
   // comparison — "спрямо" is a compare trigger, but here it belongs to the
   // pension-series tool below, so skip the compare block for pension context.
   if (isCompare && !has(q, "пенси", "pension")) {
-    // Electricity-price-vs-EU is served by the dedicated electricityPrices tool
-    // (it already carries the EU line), not the generic euComparison — let it
-    // fall through to the energy block below.
+    // Household energy / fuel prices vs the EU are served by their dedicated tools
+    // (each already carries the EU line + peers), not the generic euComparison.
     if (hasElectricityCue(q) && hasPriceCue(q))
       return { tool: "electricityPrices", args: {} };
+    if (hasGasCue(q) && hasPriceCue(q)) return { tool: "gasPrices", args: {} };
+    if (hasFuelNameCue(q) || (has(q, "горив", "fuel") && hasPriceCue(q)))
+      return { tool: "fuelPrices", args: {} };
     // an indicator framed against the EU / peers -> the peer comparison (before
     // the election-vs-election default below swallows "сравни безработицата…").
     if (
@@ -2399,6 +2414,13 @@ export const route = (question: string, ctx: ToolContext): Route => {
       return { tool: "defenseSpending", args: {} };
     }
   }
+  // consumer fuel prices (petrol 95 & diesel, BG vs EU) — before the energy
+  // physics/plant blocks so "цена на бензина/дизела" doesn't fall through.
+  if (hasFuelNameCue(q) || (has(q, "горив", "fuel") && hasPriceCue(q)))
+    return { tool: "fuelPrices", args: {} };
+  // household natural-gas price (BG vs EU) — a gas + price question. Checked before
+  // powerPlants so "цена на газа" isn't read as a gas-fired plant query.
+  if (hasGasCue(q) && hasPriceCue(q)) return { tool: "gasPrices", args: {} };
   // power-plant fleet (asset-level) — "which plants exist / who owns them". Bare
   // "централ" also matches Централна избирателна комисия, so require a plant/fuel
   // qualifier alongside it.

@@ -99,6 +99,7 @@ export const AI_PATH_RULES: { pattern: RegExp; dataset: string | null }[] = [
   { pattern: /^\/security\//, dataset: "security" },
   { pattern: /^\/transport\//, dataset: "transport" },
   { pattern: /^\/energy\//, dataset: "energy" },
+  { pattern: /^\/fuel\.json/, dataset: "prices" }, // fuelPrices tool → consumption cost-of-living (EC Weekly Oil Bulletin)
   // /sector/environment reads waste.json (Eurostat recycling/per-capita indicators);
   // its other data rides existing datasets (air→localgov, funds→funds, procurement→
   // procurement, cofog→macro). Attribute the env indicator series to `indicators`,
@@ -666,12 +667,12 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     id: "oil_bulletin",
     label: { bg: "ЕК — Седмичен нефтен бюлетин", en: "EC Weekly Oil Bulletin" },
     detail: {
-      bg: "цени на горивата BG спрямо ЕС",
-      en: "BG vs EU fuel prices",
+      bg: "цени на горивата BG спрямо ЕС и съседите",
+      en: "BG vs EU & neighbour fuel prices",
     },
     desc: {
-      bg: "Консолидираната история на потребителските цени на горивата (бензин А95 и дизел, с ДДС) — България спрямо средното за ЕС, седмично от 2005 г. Захранва тайла „Горива“ в изгледа „Потребление“.",
-      en: "The consolidated history of consumer fuel prices (petrol 95 & diesel, incl. VAT) — Bulgaria vs the EU average, weekly since 2005. Powers the Fuel tile in the Consumption view.",
+      bg: "Консолидираната история на потребителските цени на горивата (бензин А95 и дизел, с ДДС) — България спрямо средното за ЕС и съседните държави (Румъния, Гърция, Унгария, Хърватия), седмично от 2005 г. Захранва страницата „Горива“ (/consumption/fuel) в изгледа „Потребление“.",
+      en: "The consolidated history of consumer fuel prices (petrol 95 & diesel, incl. VAT) — Bulgaria vs the EU average and its neighbours (Romania, Greece, Hungary, Croatia), weekly since 2005. Powers the Fuel page (/consumption/fuel) in the Consumption view.",
     },
     url: "https://energy.ec.europa.eu/data-and-analysis/weekly-oil-bulletin_en",
     origin: "eu",
@@ -740,8 +741,8 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       en: "generation, prices, plants",
     },
     desc: {
-      bg: "Физическата картина на енергетиката до парите: производственият микс на тока (ядрена, въглища, ВЕИ), нетният износ и въглеродният интензитет от Ember (Yearly Electricity Data, CC BY 4.0), цената на тока за домакинствата спрямо ЕС от Eurostat (nrg_pc_204), и регистър на електроцентралите (мощност и собственост) — куриран от Global Energy Monitor. Поддържат се като .json в data/energy/. Обществените поръчки на групата на БЕХ идват от корпуса на договорите, не оттук.",
-      en: "The physical picture of energy beside the money: the electricity generation mix (nuclear, coal, renewables), net exports and carbon intensity from Ember (Yearly Electricity Data, CC BY 4.0), the household electricity price vs the EU from Eurostat (nrg_pc_204), and a power-plant registry (capacity and ownership) curated from Global Energy Monitor. Maintained as .json under data/energy/. The БЕХ group's procurement comes from the contracts corpus, not here.",
+      bg: "Физическата картина на енергетиката до парите: производственият микс на тока (ядрена, въглища, ВЕИ), нетният износ и въглеродният интензитет от Ember (Yearly Electricity Data, CC BY 4.0), цените на тока и природния газ за домакинствата спрямо ЕС и съседите от Eurostat (nrg_pc_204 и nrg_pc_202 — за страниците /consumption/electricity и /consumption/gas), и регистър на електроцентралите (мощност и собственост) — куриран от Global Energy Monitor. Поддържат се като .json в data/energy/. Обществените поръчки на групата на БЕХ идват от корпуса на договорите, не оттук.",
+      en: "The physical picture of energy beside the money: the electricity generation mix (nuclear, coal, renewables), net exports and carbon intensity from Ember (Yearly Electricity Data, CC BY 4.0), the household electricity AND natural-gas prices vs the EU and neighbours from Eurostat (nrg_pc_204 and nrg_pc_202 — powering /consumption/electricity and /consumption/gas), and a power-plant registry (capacity and ownership) curated from Global Energy Monitor. Maintained as .json under data/energy/. The БЕХ group's procurement comes from the contracts corpus, not here.",
     },
     url: "https://ember-energy.org/data/",
     origin: "intl",

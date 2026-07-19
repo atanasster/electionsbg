@@ -4,7 +4,9 @@
 //   generationMix     /energy/generation.json — the electricity generation mix
 //                     by fuel, net electricity trade and CO2 intensity
 //   electricityPrices /energy/prices.json      — household electricity price,
-//                     Bulgaria vs the EU average
+//                     Bulgaria vs the EU average + RO/GR/HU/HR peers
+//   gasPrices         /energy/gas_prices.json  — household natural-gas price,
+//                     Bulgaria vs the EU average + RO/GR/HU/HR peers
 //
 // Mirrors the defense/culture tools' Envelope shape; every fact goes through
 // ctx.lang and the tool never computes prose numbers — narrate() reads env.facts.
@@ -89,43 +91,60 @@ export const generationMix = async (
   };
 };
 
-// "Колко струва токът в България спрямо ЕС?" — the household electricity price
-// path, BG vs the EU average. BG is among the LOWEST in the EU.
-export const electricityPrices = async (
-  _args: ToolArgs,
-  ctx: ToolContext,
-): Promise<Envelope> => {
-  const bg = ctx.lang === "bg";
-  const data = await fetchData<EnergyPrices>("/energy/prices.json");
-  const bgS = data.series.BG;
-  const euS = data.series.EU27;
+// Neighbour peers shown alongside BG + the EU average on the price charts.
+const PEER_META = [
+  { key: "RO", bg: "Румъния", en: "Romania" },
+  { key: "GR", bg: "Гърция", en: "Greece" },
+  { key: "HU", bg: "Унгария", en: "Hungary" },
+  { key: "HR", bg: "Хърватия", en: "Croatia" },
+] as const;
+
+// Shared builder for the two bi-annual household-price series (electricity, gas).
+// BG + the EU average anchor the grounded facts; the RO/GR/HU/HR peers ride along
+// as extra chart lines (present-only). The facts are BG-vs-EU so the assistant
+// never narrates an ungrounded peer number.
+const energyPriceEnvelope = (
+  data: EnergyPrices,
+  bg: boolean,
+  cfg: {
+    tool: string;
+    titleBg: string;
+    titleEn: string;
+    subBg: string;
+    subEn: string;
+    provenance: string;
+  },
+): Envelope => {
   // Compare on the latest period present in BOTH series (EU27 can lag BG).
   const cmp = latestCommonPrice(data);
   const eur = (v: number) => `€${v.toFixed(3)}/kWh`;
+  const lines = [
+    { key: "bg", label: bg ? "България" : "Bulgaria", pts: data.series.BG },
+    {
+      key: "eu",
+      label: bg ? "ЕС (средно)" : "EU average",
+      pts: data.series.EU27,
+    },
+    ...PEER_META.flatMap((p) => {
+      const pts = data.series[p.key];
+      return pts && pts.length
+        ? [{ key: p.key.toLowerCase(), label: bg ? p.bg : p.en, pts }]
+        : [];
+    }),
+  ];
 
   return {
-    tool: "electricityPrices",
+    tool: cfg.tool,
     domain: "indicators",
     kind: "series",
-    title: bg
-      ? "Цена на тока за домакинствата — България и ЕС"
-      : "Household electricity price — Bulgaria vs the EU",
-    subtitle: bg
-      ? "С всички данъци, EUR/kWh · източник: Eurostat (nrg_pc_204)"
-      : "All taxes, EUR/kWh · source: Eurostat (nrg_pc_204)",
-    categories: bgS.map((p) => p.period),
-    series: [
-      {
-        key: "bg",
-        label: bg ? "България" : "Bulgaria",
-        points: bgS.map((p) => ({ x: p.period, y: p.value })),
-      },
-      {
-        key: "eu",
-        label: bg ? "ЕС (средно)" : "EU average",
-        points: euS.map((p) => ({ x: p.period, y: p.value })),
-      },
-    ],
+    title: bg ? cfg.titleBg : cfg.titleEn,
+    subtitle: bg ? cfg.subBg : cfg.subEn,
+    categories: data.series.BG.map((p) => p.period),
+    series: lines.map((l) => ({
+      key: l.key,
+      label: l.label,
+      points: l.pts.map((p) => ({ x: p.period, y: p.value })),
+    })),
     viz: "line",
     facts: {
       period: cmp?.period ?? "—",
@@ -133,8 +152,43 @@ export const electricityPrices = async (
       eu_price: cmp ? eur(cmp.eu) : "—",
       pct_of_eu: cmp ? `${cmp.pctOfEu}%` : "—",
     },
-    provenance: ["energy/prices.json"],
+    provenance: [cfg.provenance],
   };
+};
+
+// "Колко струва токът в България спрямо ЕС?" — the household electricity price
+// path, BG vs the EU average + peers. BG is among the LOWEST in the EU.
+export const electricityPrices = async (
+  _args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const data = await fetchData<EnergyPrices>("/energy/prices.json");
+  return energyPriceEnvelope(data, ctx.lang === "bg", {
+    tool: "electricityPrices",
+    titleBg: "Цена на тока за домакинствата — България и ЕС",
+    titleEn: "Household electricity price — Bulgaria vs the EU",
+    subBg: "С всички данъци, EUR/kWh · източник: Eurostat (nrg_pc_204)",
+    subEn: "All taxes, EUR/kWh · source: Eurostat (nrg_pc_204)",
+    provenance: "energy/prices.json",
+  });
+};
+
+// "Колко струва природният газ за домакинствата?" — the household natural-gas
+// price path, BG vs the EU average + peers. Like electricity, BG gas is ~half the
+// EU average (though few BG households are on piped gas).
+export const gasPrices = async (
+  _args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const data = await fetchData<EnergyPrices>("/energy/gas_prices.json");
+  return energyPriceEnvelope(data, ctx.lang === "bg", {
+    tool: "gasPrices",
+    titleBg: "Цена на природния газ за домакинствата — България и ЕС",
+    titleEn: "Household natural-gas price — Bulgaria vs the EU",
+    subBg: "С всички данъци, EUR/kWh · източник: Eurostat (nrg_pc_202)",
+    subEn: "All taxes, EUR/kWh · source: Eurostat (nrg_pc_202)",
+    provenance: "energy/gas_prices.json",
+  });
 };
 
 // "Кои електроцентрали има в България?" — the plant fleet, foregrounding the coal

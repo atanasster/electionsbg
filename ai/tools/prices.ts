@@ -23,6 +23,8 @@ import type {
   ToolArgs,
   ToolContext,
 } from "./types";
+// Types only (erased at build) — the fuel tool reads data/fuel.json's shape.
+import type { FuelFile, FuelPoint } from "../../src/data/prices/useFuel";
 
 // ---- shared shapes ----------------------------------------------------------
 
@@ -1512,5 +1514,66 @@ export const chainProfile = async (
       note: notCpi(lang),
     },
     provenance: ["price_payloads (PG)", "contracts (PG)", PROV],
+  };
+};
+
+// =============================================================================
+// fuelPrices — consumer fuel (petrol 95 & diesel) BG vs the EU average, weekly
+// from the EC Weekly Oil Bulletin. The one clean cost-of-living indicator beyond
+// groceries; BG fuel runs ~20% below the EU average. Chart carries both fuels'
+// BG + EU lines; facts stay BG-vs-EU (grounded).
+// =============================================================================
+
+export const fuelPrices = async (
+  _args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const data = await fetchData<FuelFile>("/fuel.json");
+  const series = data.series ?? [];
+  const latest = series[series.length - 1];
+  const perL = (v?: number | null) => (v != null ? `€${v.toFixed(2)}/L` : "—");
+  const gap = (b?: number | null, e?: number | null) =>
+    b != null && e != null && e !== 0
+      ? `${Math.round((b / e - 1) * 1000) / 10}%`
+      : "—";
+  const line = (
+    key: string,
+    label: string,
+    pick: (p: FuelPoint) => number | null | undefined,
+  ) => ({
+    key,
+    label,
+    points: series.map((p) => ({ x: p.date, y: pick(p) ?? null })),
+  });
+
+  return {
+    tool: "fuelPrices",
+    domain: "indicators",
+    kind: "series",
+    title: bg
+      ? "Цени на горивата — България и ЕС"
+      : "Fuel prices — Bulgaria vs the EU",
+    subtitle: bg
+      ? "Бензин А95 и дизел, с ДДС, EUR/л · Седмичен нефтен бюлетин на ЕК"
+      : "Petrol 95 & diesel, incl. VAT, EUR/L · EC Weekly Oil Bulletin",
+    categories: series.map((p) => p.date),
+    series: [
+      line("petrol_bg", bg ? "Бензин А95 (BG)" : "Petrol 95 (BG)", (p) => p.petrol.BG), // prettier-ignore
+      line("petrol_eu", bg ? "Бензин А95 (ЕС)" : "Petrol 95 (EU)", (p) => p.petrol.EU27_2020), // prettier-ignore
+      line("diesel_bg", bg ? "Дизел (BG)" : "Diesel (BG)", (p) => p.diesel.BG), // prettier-ignore
+      line("diesel_eu", bg ? "Дизел (ЕС)" : "Diesel (EU)", (p) => p.diesel.EU27_2020), // prettier-ignore
+    ],
+    viz: "line",
+    facts: {
+      latest_date: data.latestDate ?? "—",
+      petrol_bg: perL(latest?.petrol.BG),
+      petrol_eu: perL(latest?.petrol.EU27_2020),
+      petrol_vs_eu: gap(latest?.petrol.BG, latest?.petrol.EU27_2020),
+      diesel_bg: perL(latest?.diesel.BG),
+      diesel_eu: perL(latest?.diesel.EU27_2020),
+      diesel_vs_eu: gap(latest?.diesel.BG, latest?.diesel.EU27_2020),
+    },
+    provenance: ["fuel.json"],
   };
 };

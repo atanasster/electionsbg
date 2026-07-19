@@ -91,7 +91,12 @@ import {
   environmentFunds,
   wasteRecycling,
 } from "./environment";
-import { generationMix, electricityPrices, powerPlants } from "./energy";
+import {
+  generationMix,
+  electricityPrices,
+  gasPrices,
+  powerPlants,
+} from "./energy";
 import { riverbedCleaning } from "./vik";
 import {
   ngoOverview,
@@ -191,6 +196,7 @@ import {
   chainProfile,
   cheapestChains,
   euFoodPriceLevels,
+  fuelPrices,
   localDeals,
   priceIndex,
   priceRanking,
@@ -2551,6 +2557,21 @@ export const TOOLS: ToolDef[] = [
     run: electricityPrices,
   },
   {
+    name: "gasPrices",
+    domain: "indicators",
+    description: {
+      bg: "Цената на природния газ за домакинствата в България спрямо средното за ЕС и съседните държави (с всички данъци, EUR/kWh) — по данни на Евростат (nrg_pc_202).",
+      en: "The household natural-gas price in Bulgaria vs the EU average and neighbours (all taxes, EUR/kWh) — from Eurostat (nrg_pc_202).",
+    },
+    params: [],
+    examples: [
+      { bg: "Колко струва природният газ в България спрямо ЕС?", en: "How expensive is natural gas in Bulgaria vs the EU?" }, // prettier-ignore
+      { bg: "Скъп ли е газът за домакинствата?", en: "Is household gas expensive?" }, // prettier-ignore
+      { bg: "Каква е цената на газа?", en: "What is the gas price?" }, // prettier-ignore
+    ],
+    run: gasPrices,
+  },
+  {
     name: "powerPlants",
     domain: "indicators",
     description: {
@@ -4551,6 +4572,21 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: euFoodPriceLevels,
+  },
+  {
+    name: "fuelPrices",
+    domain: "indicators",
+    description: {
+      bg: "Цените на горивата в България спрямо средното за ЕС — бензин А95 и дизел (с ДДС, EUR/л), седмично от Седмичния нефтен бюлетин на ЕК. Българските горива са трайно под средното за ЕС.",
+      en: "Fuel prices in Bulgaria vs the EU average — petrol 95 and diesel (incl. VAT, EUR/L), weekly from the EC Weekly Oil Bulletin. Bulgarian fuel is consistently below the EU average.",
+    },
+    params: [],
+    examples: [
+      { bg: "Колко струва бензинът в България спрямо ЕС?", en: "How expensive is petrol in Bulgaria vs the EU?" }, // prettier-ignore
+      { bg: "Каква е цената на дизела?", en: "What is the diesel price?" }, // prettier-ignore
+      { bg: "Скъпи ли са горивата у нас?", en: "Is fuel expensive here?" }, // prettier-ignore
+    ],
+    run: fuelPrices,
   },
   {
     name: "chainProfile",
