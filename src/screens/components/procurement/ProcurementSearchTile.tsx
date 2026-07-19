@@ -63,6 +63,10 @@ interface DbResults {
   awarders: EntityRow[];
   contracts: ContractRow[];
   tenders: TenderRow[];
+  // Total matches (bounded to 100 server-side; equals the shown length when the
+  // preview isn't capped) — drives the "6 of N" hint on the "see all" links.
+  contractsTotal: number;
+  tendersTotal: number;
 }
 /** Any Commerce-Registry officer matching the name — not just the political
  *  class. Lets a company owner / board member who isn't a politician still be
@@ -78,7 +82,14 @@ const EMPTY: DbResults = {
   awarders: [],
   contracts: [],
   tenders: [],
+  contractsTotal: 0,
+  tendersTotal: 0,
 };
+
+/** "6 of 12" suffix for a capped preview: the bounded total (100 → "99+") when
+ *  there's more than shown, else nothing. */
+const moreCount = (shown: number, total: number): string =>
+  total > shown ? ` (${total >= 100 ? "99+" : total})` : "";
 
 const MAX_PERSONS = 5;
 
@@ -210,11 +221,16 @@ export const ProcurementSearchTile: FC = () => {
   }, [trPeople, persons, magistrates, term, hasQuery]);
 
   const groups = useMemo((): SearchGroup[] => {
-    // "See all" links keep the section state (?pscope, elections) AND carry
-    // the query into the browser's search box (?q=, read by DbDataTable).
+    // "See all" links carry the query into the browser's search box (?q=, read
+    // by DbDataTable) and pivot to the FULL corpus (?pscope=all). A search can
+    // match contracts/procedures from any year, but the browse tables default to
+    // the selected parliament's window — which would land on 0 rows for an older
+    // topic (e.g. every Sofia-ring-road contract predates the 2026 parliament).
+    // "See all" must mean all-time.
     const seeAllTo = (pathname: string): To => {
       const p = new URLSearchParams(params);
       p.set("q", term);
+      p.set("pscope", "all");
       return { pathname, search: `?${p.toString()}` };
     };
     const g: SearchGroup[] = [];
@@ -298,7 +314,9 @@ export const ProcurementSearchTile: FC = () => {
         label: t("procurement_search_group_contracts") || "Contracts",
         seeAll: {
           label:
-            t("procurement_search_see_all_contracts") || "See all in Contracts",
+            (t("procurement_search_see_all_contracts") ||
+              "See all in Contracts") +
+            moreCount(db.contracts.length, db.contractsTotal),
           to: seeAllTo("/procurement/contracts"),
         },
         items: db.contracts.map((c) => ({
@@ -316,7 +334,8 @@ export const ProcurementSearchTile: FC = () => {
         label: t("procurement_search_group_tenders") || "Tenders",
         seeAll: {
           label:
-            t("procurement_search_see_all_tenders") || "See all in Tenders",
+            (t("procurement_search_see_all_tenders") || "See all in Tenders") +
+            moreCount(db.tenders.length, db.tendersTotal),
           to: seeAllTo("/procurement/tenders"),
         },
         items: db.tenders.map((td) => ({

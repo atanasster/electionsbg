@@ -54,7 +54,18 @@ const REGISTRY = {
         filter: "text",
         search: true,
       },
-      title: { type: "text", filter: "text", search: true },
+      // Free-text subject: global search matches it the way the combined-search
+      // dropdown does — prefix-AND FTS + trigram fallback over title_fold
+      // (searchText), not a raw contiguous substring (which returned 0 for any
+      // multi-word / punctuated "see all" deep link). idx_contracts_title_fts +
+      // idx_contracts_title_fold_trgm back both passes.
+      title: {
+        type: "text",
+        filter: "text",
+        search: true,
+        searchCol: "title_fold",
+        searchText: true,
+      },
       amount: { type: "number" },
       currency: { type: "text" },
       amount_eur: { type: "number", sort: true, filter: "range", agg: "sum" },
@@ -151,7 +162,7 @@ const REGISTRY = {
         filter: "text",
         search: true,
         searchCol: "subject_fold",
-        searchFold: true,
+        searchText: true,
       },
       procedure_type: { type: "text", sort: true, filter: "in" },
       // Exact-code `in` (not division prefix) so a curated topic deep-link can
@@ -621,22 +632,49 @@ const buildWhere = (r, req) => {
     const searchDefs = Object.entries(r.columns).filter(([, d]) => d.search);
     if (searchDefs.length) {
       const ors = [];
-      let rawIdx = null;
-      let foldIdx = null;
+      let rawIdx = null; // "%g%" for the plain contiguous-substring arms
+      let gIdx = null; // raw g, shared by the fold + FTS arms
+      const rawParam = () => {
+        if (rawIdx == null) {
+          params.push(`%${g}%`);
+          rawIdx = params.length;
+        }
+        return rawIdx;
+      };
+      const gParam = () => {
+        if (gIdx == null) {
+          params.push(g);
+          gIdx = params.length;
+        }
+        return gIdx;
+      };
       for (const [id, d] of searchDefs) {
         const target = d.searchCol || id;
-        if (d.searchFold) {
-          if (foldIdx == null) {
-            params.push(g);
-            foldIdx = params.length;
-          }
-          ors.push(`${target} ILIKE '%' || translit_bg_latin($${foldIdx}) || '%'`);
+        if (d.searchText) {
+          // Long free-text field (contract title / tender subject). Match it the
+          // way the combined-search dropdown does: prefix-AND FTS over the
+          // Cyrillic→Latin fold, OR a trigram word-similarity fallback for
+          // mid-word / near-spelling hits (e.g. the article's "Югозападна" vs the
+          // corpus's "Западна дъга"). Keeps the "see all" table consistent with
+          // the dropdown instead of a raw contiguous substring, which returned
+          // nothing for any multi-word or punctuated query. Both passes ride the
+          // fold's gin indexes (to_tsvector FTS + gin_trgm); `%>` uses the default
+          // pg_trgm.word_similarity_threshold (0.6), same as the dropdown.
+          const i = gParam();
+          ors.push(
+            `(to_tsvector('simple', ${target}) @@ fold_prefix_tsquery($${i})` +
+              ` OR ${target} %> translit_bg_latin($${i}))`,
+          );
+        } else if (d.searchFold) {
+          // Transliterated contiguous substring — entity-name columns whose fold
+          // is gin_trgm-indexed (buyer_fold). ILIKE '%q%' stays simple + precise
+          // for names.
+          ors.push(
+            `${target} ILIKE '%' || translit_bg_latin($${gParam()}) || '%'`,
+          );
         } else {
-          if (rawIdx == null) {
-            params.push(`%${g}%`);
-            rawIdx = params.length;
-          }
-          ors.push(`${target} ILIKE $${rawIdx}`);
+          // Plain raw-column contiguous substring (trigram-indexed raw columns).
+          ors.push(`${target} ILIKE $${rawParam()}`);
         }
       }
       where.push(`(${ors.join(" OR ")})`);

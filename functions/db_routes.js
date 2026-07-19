@@ -426,9 +426,7 @@ const DB_ROUTES = {
       dbRows(
         "SELECT count(*)::int AS n FROM ngo_signals WHERE signal_count > 0",
       ).catch((e) =>
-        ["42P01", "55000"].includes(e?.code)
-          ? [{ n: 0 }]
-          : Promise.reject(e),
+        ["42P01", "55000"].includes(e?.code) ? [{ n: 0 }] : Promise.reject(e),
       ),
     ]);
     return {
@@ -1219,7 +1217,49 @@ const DB_ROUTES = {
     const [companies, awarders, contracts, tenders] = settled.map((r) =>
       r.status === "fulfilled" ? r.value : [],
     );
-    return { body: { companies, awarders, contracts, tenders } };
+    // Total matches per "see all" group, so the dropdown can show "6 of N" and
+    // the preview cap reads as a preview, not the whole result. Only paid when
+    // the preview is actually capped (length === lim ⇒ there may be more), and
+    // bounded to 100 so a very common word ("ремонт", ~35k hits) stays cheap —
+    // the UI renders 100 as "99+". Mirrors the search fns' predicate (title/
+    // subject FTS prefix-AND OR trigram fallback over the fold).
+    const boundedTotal = async (table, foldCol, extra, shown) => {
+      if (shown < lim) return shown; // preview wasn't capped → we have them all
+      const rows = await dbRows(
+        `SELECT count(*)::int AS n FROM (
+           SELECT 1 FROM ${table}
+           WHERE ${extra}
+             AND (to_tsvector('simple', ${foldCol}) @@ fold_prefix_tsquery($1)
+                  OR ${foldCol} %> translit_bg_latin($1))
+           LIMIT 100) x`,
+        [term],
+      );
+      return Number(rows[0]?.n ?? shown);
+    };
+    const [contractsTotal, tendersTotal] = await Promise.all([
+      boundedTotal(
+        "contracts",
+        "title_fold",
+        "tag = 'contract' AND title IS NOT NULL AND title <> ''",
+        contracts.length,
+      ),
+      boundedTotal(
+        "tenders",
+        "subject_fold",
+        "subject IS NOT NULL AND subject <> ''",
+        tenders.length,
+      ),
+    ]);
+    return {
+      body: {
+        companies,
+        awarders,
+        contracts,
+        tenders,
+        contractsTotal,
+        tendersTotal,
+      },
+    };
   },
   // openTenders corpus path (topic / free-keyword / bare-year) → matched top-N
   // rows + full-set aggregates (count, Σ estimate, cancelled, biggest). Topic
