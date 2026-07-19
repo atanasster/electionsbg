@@ -143,14 +143,34 @@ const Profile: FC<{ p: PersonProfile }> = ({ p }) => {
     return null;
   }, [p.roles]);
 
-  const offices = p.roles.filter(
-    (r) =>
-      r.source === "mp" ||
-      r.source.startsWith("official") ||
-      r.source === "magistrate",
-  );
+  // Held offices — mp / officials / magistrate / local mayor+councillor. A person can hold
+  // the same office across many cycles (e.g. councillor ×5), so dedupe by (source, role,
+  // place) to one row.
+  const offices = useMemo(() => {
+    const held = p.roles.filter(
+      (r) =>
+        r.source === "mp" ||
+        r.source.startsWith("official") ||
+        r.source === "magistrate" ||
+        r.source === "local",
+    );
+    const seen = new Set<string>();
+    return held.filter((r) => {
+      const k = `${r.source}\t${r.role}\t${r.place ?? ""}`;
+      if (seen.has(k)) return false;
+      seen.add(k);
+      return true;
+    });
+  }, [p.roles]);
   const candidacies = p.roles.filter((r) => r.source === "candidate");
   const donations = p.roles.filter((r) => r.source === "donor");
+
+  // Local office role → localized heading; unknown role codes pass through.
+  const roleLabel = (role: string): string => {
+    const k = `pp_role_${role}`;
+    const s = t(k);
+    return s === k ? role : s;
+  };
 
   const facetLabel = (f: string): string => {
     const k = `pp_facet_${f}`;
@@ -238,9 +258,12 @@ const Profile: FC<{ p: PersonProfile }> = ({ p }) => {
                 className="flex items-baseline justify-between gap-3 border-b border-border/50 pb-2 last:border-0 last:pb-0"
               >
                 <span className="text-sm">
-                  <span className="font-medium">{r.sourceLabel}</span>
-                  {/* The role code only adds signal for officials (councillor / mayor /
-                      chair); for mp & magistrate the source label already says it. */}
+                  <span className="font-medium">
+                    {r.source === "local" ? roleLabel(r.role) : r.sourceLabel}
+                  </span>
+                  {/* The role code adds signal for officials (councillor / mayor / chair);
+                      for mp & magistrate the source label already says it; local shows the
+                      role AS the heading (Кмет / Общински съветник). */}
                   {r.source.startsWith("official") &&
                     r.role &&
                     r.role !== "official" && (

@@ -6,7 +6,8 @@
 // slug persistence (never renumber an active person) is a follow-up once it's served.
 //
 // Scope so far: magistrate + officials (executive + municipal) + MPs + candidates (CIK,
-// per-election by-slug shards) + donors (ЕРИК campaign finance). The mp id is the
+// per-election by-slug shards) + donors (ЕРИК campaign finance) + local mayors/councillors
+// (mi/chmi elected office holders) + sanctions (OFAC/EU, curated). The mp id is the
 // cross-source GOLD KEY — Tier 0 — carried by MPs and by any candidacy resolved to a seat
 // (mpId), and is unioned across blocks so a name variant can't scatter one MP. Cross-source
 // merges are the safe ones: same mp id (Tier 0), a name-independent corroborant (Tier 1:
@@ -368,6 +369,62 @@ async function collect(): Promise<Raw[]> {
     }
   }
 
+  // Local mayors & councillors (data/<cycle>/municipalities/<code>.json → the ELECTED
+  // office holders: `mayor.elected` + each council party's `candidates[isElected]`). The
+  // canonical party (`primaryCanonicalId`) + obshtina are corroborants — so a councillor
+  // re-elected across cycles merges, and a councillor who later became an MP links by name.
+  // Regular (mi) and partial (chmi) cycles share this structure.
+  for (const file of globSync(
+    path.join(REPO_ROOT, "data/*mi*/municipalities/*.json"),
+  )) {
+    const d = JSON.parse(fs.readFileSync(file, "utf8")) as {
+      cycle: string;
+      obshtinaCode: string;
+      obshtinaName: string | null;
+      mayor?: {
+        elected?: {
+          candidateName?: string;
+          primaryCanonicalId?: string | null;
+        };
+      };
+      council?: {
+        localPartyNum: number;
+        primaryCanonicalId: string | null;
+        candidates?: { listPos: number; name: string; isElected?: boolean }[];
+      }[];
+    };
+    const place = d.obshtinaName ?? d.obshtinaCode;
+    const mayor = d.mayor?.elected;
+    if (mayor?.candidateName)
+      add(
+        mayor.candidateName,
+        {
+          id: `local:${d.cycle}:${d.obshtinaCode}:mayor`,
+          source: "local",
+          ref: `${d.cycle}:${d.obshtinaCode}:mayor`,
+          role: "mayor",
+        },
+        { place, cParty: mayor.primaryCanonicalId ?? null, cPlace: place },
+      );
+    for (const party of Array.isArray(d.council) ? d.council : [])
+      for (const c of party.candidates ?? [])
+        if (c.isElected && c.name)
+          add(
+            c.name,
+            {
+              id: `local:${d.cycle}:${d.obshtinaCode}:${party.localPartyNum}:${c.listPos}`,
+              source: "local",
+              ref: `${d.cycle}:${d.obshtinaCode}:${party.localPartyNum}:${c.listPos}`,
+              role: "councillor",
+            },
+            {
+              place,
+              cParty: party.primaryCanonicalId ?? null,
+              cPlace: place,
+            },
+          );
+  }
+
   // TR-officer BRIDGE (Bridge A, plan §3 "share a company"). For every EIK a person is
   // linked to, pull the TR officer/owner rows on that company and keep only those whose
   // name matches the linked person's (given, family) — that is the person's own
@@ -453,7 +510,7 @@ const SCHEMA_FILES = [
 
 async function main(): Promise<void> {
   console.log(
-    "resolving persons (magistrate + officials + MPs + candidates + donors + tr-bridge)…",
+    "resolving persons (magistrate + officials + MPs + candidates + donors + local + tr-bridge)…",
   );
   for (const f of SCHEMA_FILES)
     await exec(fs.readFileSync(path.join(SCHEMA_DIR, f), "utf8"));

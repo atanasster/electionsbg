@@ -26,7 +26,8 @@ go stale:
 | `ivss_declarations` | `update-judiciary` | magistrates + magistrate_company (Bridge A) |
 | `cacbg_officials` / `cacbg_local` | `update-officials` | executive + municipal officials |
 | `egov_commerce` | `tr-daily-refresh` | TR officers/owners (Bridge A + B) + company names + procurement join |
-| `cik_results` | `update-local-elections` / election ingest | NS candidates (by-slug shards) |
+| `cik_results` | election ingest | NS candidates (by-slug shards) |
+| `cik_local` / `CIK local-elections bundles` | `update-local-elections` | local mayors + councillors (elected office holders) |
 | `erik_campaign_financing` | `update-financing` | ЕРИК donors |
 | `parliament_mps` | `parliament-scrape` | the MP gold key (Tier 0) |
 | `ofac_sanctions` | **this skill (curated)** | the OFAC/EU sanctions facet |

@@ -83,7 +83,8 @@ export const personProfile = async (
     (r) =>
       r.source === "mp" ||
       r.source.startsWith("official") ||
-      r.source === "magistrate",
+      r.source === "magistrate" ||
+      r.source === "local",
   );
   const candidacies = p.roles.filter((r) => r.source === "candidate").length;
   const donations = new Set(
