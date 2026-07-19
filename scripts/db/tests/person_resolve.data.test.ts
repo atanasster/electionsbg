@@ -68,20 +68,30 @@ test.skipIf(skip)(
   },
 );
 
-// Every TR bridge is LICENSED: a `tr` role's ref (the company EIK) must be a company the
-// person is genuinely linked to via a curated source (magistrate holdings or
-// company_politicians). This guards the shared-uic bridge from ever attaching a TR footprint
-// to a person who is not actually tied to that company.
-test.skipIf(skip)("every tr role bridges a curated company link", async () => {
+// Every TR bridge is LICENSED by exactly one of the two safe mechanisms, never a bare
+// name guess:
+//   Bridge A (shared company) — the EIK is one the person is genuinely linked to via a
+//     curated source (magistrate holdings / company_politicians); the match is the strong
+//     shared-uic corroborant.
+//   Bridge B (unique full name) — the person is globally unique (namesake_risk<=1) and
+//     their full-name fold matches a TR officer/owner ON THAT EXACT company; the company
+//     appears once for that name, so it is unambiguously them.
+// A tr role satisfying NEITHER is an unlicensed attribution and must never exist.
+test.skipIf(skip)("every tr role is a licensed bridge (A or B)", async () => {
   const [r] = await allRows<{ bad: string }>(
     `SELECT count(*) bad
-       FROM person_role r
+       FROM person_role r JOIN person p USING (person_id)
       WHERE r.source = 'tr'
-        AND r.ref NOT IN (
+        AND r.ref NOT IN (   -- Bridge A: curated company link
           SELECT eik FROM magistrate_company WHERE eik IS NOT NULL AND NOT eik_ambiguous
-          UNION SELECT eik FROM company_politicians)`,
+          UNION SELECT eik FROM company_politicians)
+        AND NOT (            -- Bridge B: unique full-name match on that exact company
+          p.namesake_risk <= 1
+          AND EXISTS (
+            SELECT 1 FROM tr_person_roles t
+             WHERE t.uic = r.ref AND t.name_fold = p.name_fold))`,
   );
-  assert.equal(Number(r.bad), 0, "found a tr role on an unlinked company");
+  assert.equal(Number(r.bad), 0, "found an unlicensed tr role");
 });
 
 test.skipIf(skip)(

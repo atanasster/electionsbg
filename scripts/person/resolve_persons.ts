@@ -12,11 +12,12 @@
 // merges are the safe ones: same mp id (Tier 0), a name-independent corroborant (Tier 1:
 // shared company / birth date / party+place, VETOED by a conflicting patronymic), or a
 // globally-unique full name (Tier 2). Donors are 2-part and never auto-merge (privacy:
-// public_default=false → internal-only). TR officers are BRIDGED (Bridge A): a person's own
-// authoritative TR footprint on a company they already declare/link to (magistrate_company
-// + company_politicians) attaches via the strong shared-uic corroborant — non-bridging
-// officers are never materialized. Broad name-based TR discovery + review-candidate
-// persistence land in later steps.
+// public_default=false → internal-only). TR officers are BRIDGED two ways, never materialized
+// on their own: Bridge A (shared company) attaches a person's TR footprint on a company they
+// already declare/link to (magistrate_company + company_politicians) via the strong shared-uic
+// corroborant; Bridge B (unique full name) discovers the footprint of a globally-unique-named
+// public person on the one company their exact name appears on (Tier-2, double-gated). Review
+// candidates (§3 tier 3) persist to person_review_candidate.
 //
 //   npx tsx scripts/person/resolve_persons.ts
 //   DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/person/resolve_persons.ts
@@ -632,6 +633,7 @@ async function main(): Promise<void> {
     }
   }
 
+  let bridgeBRoles = 0;
   await withTx(async (c) => {
     // Rebuild only the derived tables. CASCADE clears the FK-linked person_link_evidence
     // and person_review_candidate; person_link_override is human-authored (fold-keyed, no
@@ -685,14 +687,40 @@ async function main(): Promise<void> {
       ["group_key", "person_id", "block_key", "namesake_risk", "reason"],
       reviewRows,
     );
+
+    // Bridge B (name-based TR discovery). A public person with a globally-unique 3-part
+    // name whose full-name fold matches a TR officer/owner appearing on exactly ONE
+    // company is unambiguously that person on that company — Tier-2 (unique fold),
+    // name-independent of any block co-collision. Discovers the TR footprint BEYOND
+    // Bridge A's curated links. DOUBLE-gated: unique in tr_officers (namesake_risk<=1)
+    // AND unique in tr_person_roles (cc=1). Only touches namesake<=1 persons, so it can
+    // never form a common-name collapse. Runs in SQL (the folds live in PG); the ON
+    // CONFLICT dedups against Bridge-A rows on the same (person, company, role).
+    const bridgeB = await c.query(
+      `INSERT INTO person_role (person_id, source, ref, role, confidence)
+       SELECT DISTINCT p.person_id, 'tr', t.uic, t.role, 'high'
+         FROM person p
+         JOIN (
+           SELECT name_fold, count(DISTINCT uic) cc FROM tr_person_roles
+            WHERE name_fold IN (
+                    SELECT name_fold FROM person
+                     WHERE name_parts = 3 AND namesake_risk <= 1 AND is_public_figure)
+            GROUP BY name_fold HAVING count(DISTINCT uic) = 1
+         ) u ON u.name_fold = p.name_fold
+         JOIN tr_person_roles t ON t.name_fold = p.name_fold
+        WHERE p.name_parts = 3 AND p.namesake_risk <= 1 AND p.is_public_figure
+       ON CONFLICT (person_id, source, ref, role) DO NOTHING`,
+    );
+    bridgeBRoles = bridgeB.rowCount ?? 0;
+
     await c.query(
       `SELECT setval(pg_get_serial_sequence('person','person_id'), (SELECT COALESCE(max(person_id),1) FROM person))`,
     );
   });
 
   console.log(
-    `  ${personRows.length} persons, ${roleRows.length} roles, ${aliasRows.length} aliases; ` +
-      `${reviewGroups.size} review group(s) over ${reviewRows.length} person(s)`,
+    `  ${personRows.length} persons, ${roleRows.length} roles (+${bridgeBRoles} tr bridge-B), ` +
+      `${aliasRows.length} aliases; ${reviewGroups.size} review group(s) over ${reviewRows.length} person(s)`,
   );
   await end();
 }
