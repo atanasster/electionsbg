@@ -10,6 +10,7 @@ import { egovCommerce } from "./egov_commerce";
 import { egovProcurement } from "./egov_procurement";
 import { eopProcurement } from "./eop_procurement";
 import { aopDebarred } from "./aop_debarred";
+import { ofacSanctions } from "./ofac_sanctions";
 import { kzkAppeals } from "./kzk_appeals";
 import { monRiRegister } from "./mon_ri_register";
 import { isunEuFunds } from "./isun_eu_funds";
@@ -113,6 +114,7 @@ import {
 export const SOURCES: WatchSource[] = [
   parliamentVotes, // listed first — primary deliverable per PRD
   parliamentMps,
+  ofacSanctions, // person-layer sanctions facet (→ update-persons)
   nfcFilmRegister,
   ncfGrantResults,
   nfcCommissions,

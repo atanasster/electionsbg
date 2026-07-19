@@ -3784,6 +3784,10 @@ export const TOOLS: ToolDef[] = [
         bg: "В кои дружества е собственик или управител даден магистрат?",
         en: "Which companies is a given magistrate an owner or manager of?",
       },
+      {
+        bg: "Санкциониран ли е Делян Пеевски и от кого?",
+        en: "Is Delyan Peevski under sanctions and by whom?",
+      },
     ],
     run: personProfile,
   },

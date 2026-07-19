@@ -257,6 +257,10 @@ export const DataSources = () => {
                 href="https://www.osce.org/odihr/elections/bulgaria"
                 label={t("integrity_osce_source")}
               />
+              <SourceItem
+                href="https://sanctionssearch.ofac.treas.gov/"
+                label={t("integrity_sanctions_source")}
+              />
             </ul>
           </DataGroup>
         </div>

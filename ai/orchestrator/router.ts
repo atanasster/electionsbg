@@ -1357,6 +1357,11 @@ export const route = (question: string, ctx: ToolContext): Route => {
       "бизнеса на",
       "companies of",
       "притежава",
+      "санкц", // санкции / санкциониран — the profile carries the OFAC/EU sanctions facet
+      "sanction",
+      "magnitsky",
+      "магнитски",
+      "ofac",
     )
   )
     return { tool: "personProfile", args: { name: personName } };
