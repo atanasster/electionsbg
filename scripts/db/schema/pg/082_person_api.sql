@@ -1,0 +1,63 @@
+-- 082_person_api.sql — read-only serving functions over the resolved person tables
+-- (081_person_identity.sql, populated by scripts/person/resolve_persons.ts). STABLE
+-- jsonb functions, EXECUTE auto-granted to app_readonly via ALTER DEFAULT PRIVILEGES.
+-- These back the future /api/db/person + personSearch AI tool (plan §4b, §4d). Idempotent.
+
+-- One person's unified profile for /person/{slug}: identity + every role, each tagged
+-- with its source facet + Bulgarian label (person_source, plan §5) so the Connections
+-- component (§8) can drive its filter chips straight off `facets`. PUBLIC-SAFE: only
+-- active, non-review-confidence roles are exposed (plan §3 public-surface rule).
+DROP FUNCTION IF EXISTS person_by_slug(text);
+CREATE OR REPLACE FUNCTION person_by_slug(p_slug text)
+RETURNS jsonb LANGUAGE sql STABLE AS $$
+  WITH pick AS (
+    SELECT * FROM person WHERE slug = p_slug AND status = 'active' LIMIT 1
+  )
+  SELECT jsonb_build_object(
+    'slug', pick.slug,
+    'name', pick.display_name,
+    'namesakeRisk', pick.namesake_risk,
+    'isPublicFigure', pick.is_public_figure,
+    'facets', COALESCE((
+      SELECT jsonb_agg(DISTINCT s.facet)
+      FROM person_role r JOIN person_source s ON s.key = r.source
+      WHERE r.person_id = pick.person_id
+        AND r.confidence IN ('exact_id', 'high', 'manual')
+    ), '[]'::jsonb),
+    'roles', COALESCE((
+      SELECT jsonb_agg(jsonb_build_object(
+        'source', r.source, 'facet', s.facet, 'sourceLabel', s.label_bg,
+        'role', r.role, 'ref', r.ref, 'place', r.place, 'confidence', r.confidence
+      ) ORDER BY s.facet, r.role)
+      FROM person_role r JOIN person_source s ON s.key = r.source
+      WHERE r.person_id = pick.person_id
+        AND r.confidence IN ('exact_id', 'high', 'manual')
+    ), '[]'::jsonb)
+  )
+  FROM pick;
+$$;
+
+-- Name search for personSearch / the arbitrary-person lookup. Folds the query with the
+-- ONE normalizer and ranks by trigram similarity over name_fold (GIN gin_trgm_ops index,
+-- 081). Returns the namesake_risk so the caller can show the "name match — identity not
+-- verified" weighting. Only active persons; review-status persons stay internal.
+DROP FUNCTION IF EXISTS person_search(text, int);
+CREATE OR REPLACE FUNCTION person_search(p_q text, p_limit int DEFAULT 20)
+RETURNS jsonb LANGUAGE sql STABLE AS $$
+  WITH q AS (SELECT translit_bg_latin(p_q) AS f)
+  SELECT COALESCE(jsonb_agg(row ORDER BY (row->>'score')::float DESC, row->>'name'), '[]'::jsonb)
+  FROM (
+    SELECT jsonb_build_object(
+      'slug', p.slug, 'name', p.display_name,
+      'namesakeRisk', p.namesake_risk,
+      'roles', (SELECT count(*) FROM person_role r WHERE r.person_id = p.person_id),
+      'score', round(similarity(p.name_fold, q.f)::numeric, 3)
+    ) AS row
+    FROM person p, q
+    WHERE p.status = 'active'
+      AND length(q.f) >= 2
+      AND (p.name_fold % q.f OR p.name_fold LIKE '%' || q.f || '%')
+    ORDER BY similarity(p.name_fold, q.f) DESC, p.slug
+    LIMIT GREATEST(p_limit, 1)
+  ) ranked;
+$$;
