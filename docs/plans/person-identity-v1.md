@@ -24,8 +24,22 @@ resolves magistrate + official + MP sources = **6,680 persons**, 2,122 mp-slug a
 `scripts/db/tests/person_resolve.data.test.ts` (0 common-name merges). **KEY CORRECTION vs the plan:**
 real-data verification showed §2a rule 3 was too optimistic — a matching patronymic is NOT a
 name-independent corroborant (148 people share "Димитър Георгиев Димитров"); the resolver treats
-full-name identity as a namesake≤1-gated Tier-2 merge only. NEXT: candidates + donors + TR-officer
-bridging sources; then person↔company edges (Phase 4); then the frontend `/person/{slug}` + AI tools.
+full-name identity as a namesake≤1-gated Tier-2 merge only.
+
+**IMPLEMENTATION LOG (2026-07-19, later).** Added the two file-based political sources — `candidate`
+(CIK per-election `by-slug` shards; a candidacy's `mpId` is the Tier-0 gold link into its MP, unioned
+ACROSS blocks so a name variant can't scatter one MP) and `donor` (ЕРИК; 2-part names,
+`public_default=false` → donor-only persons stay internal per the §6 privacy gate, and never
+auto-merge). Party corroborant is now stable across cycles via a `(election,partyNum)→canonicalId`
+map from `canonical_parties.json`. **KEY CORRECTION (a real latent false-merge candidates exposed):**
+"Теньо Динев Тенев" and "Теньо Желязков Тенев" (same GERB/SZR) had collapsed via the party+place
+weak-both corroborant — so a **present-on-both DIFFERING patronymic is now a hard-negative VETO** on
+any name-based corroborant merge (Tier-0 gold key exempt; Tier-2 already matched patronymic). Live
+layer: **35,272 persons / 75,061 roles** (candidate 67,065, donor 1,283); idempotent + determinism
+verified. The `person_resolve.data.test.ts` headline invariant is reframed to the defamation-critical
+rule — **no CROSS-SOURCE common-name merge without a gold key (=0)**; same-source candidacy merges are
+allowed and patronymic-guarded. NEXT: TR-officer bridging (promote officers that share a company with
+an existing person); then person↔company edges (Phase 4); then the frontend `/person/{slug}` + AI tools.
 
 Goal: give every natural person in the site a single stable `person_id` in Postgres, so that
 candidates, MPs, mayors, councillors, executive & municipal officials, TR company officers/owners,
