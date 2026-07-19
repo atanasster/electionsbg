@@ -381,6 +381,7 @@ const SCHEMA_FILES = [
   "081_person_identity.sql",
   "082_person_api.sql",
   "083_person_review.sql",
+  "084_person_connections.sql",
 ];
 
 async function main(): Promise<void> {

@@ -174,3 +174,67 @@ test.skipIf(skip)("person_by_slug resolves the full tr footprint", async () => {
     "profile exposes only public-safe roles",
   );
 });
+
+// person_connections (084): every related person must be a PUBLIC figure (§6 — never a
+// private co-owner), the payload always carries the disclaimer, and the association-noise
+// guard holds — no edge may run through a company with > 6 public officers.
+test.skipIf(skip)(
+  "person_connections is public-safe + noise-guarded",
+  async () => {
+    const [pick] = await allRows<{ slug: string }>(
+      `WITH tr AS (
+       SELECT DISTINCT r.person_id, r.ref eik FROM person_role r
+        JOIN person p USING (person_id)
+       WHERE r.source='tr' AND p.is_public_figure AND p.status='active'),
+     co AS (SELECT eik FROM tr GROUP BY eik HAVING count(*) BETWEEN 2 AND 6)
+     SELECT pp.slug FROM tr JOIN co USING (eik) JOIN person pp USING (person_id) LIMIT 1`,
+    );
+    if (!pick) return; // no public shared-company edges in this corpus
+    const [{ conn }] = await allRows<{
+      conn: {
+        related: { slug: string; companies: { eik: string }[] }[];
+        disclaimer: string;
+      };
+    }>(`SELECT person_connections($1) AS conn`, [pick.slug]);
+
+    assert.ok(
+      conn.disclaimer && conn.disclaimer.length > 0,
+      "disclaimer present",
+    );
+
+    // Every related person resolves to an active public figure.
+    const relSlugs = conn.related.map((r) => r.slug);
+    if (relSlugs.length) {
+      const [{ bad }] = await allRows<{ bad: string }>(
+        `SELECT count(*) bad FROM unnest($1::text[]) s
+        WHERE NOT EXISTS (
+          SELECT 1 FROM person p
+           WHERE p.slug = s AND p.is_public_figure AND p.status='active')`,
+        [relSlugs],
+      );
+      assert.equal(
+        Number(bad),
+        0,
+        "a related person is not an active public figure",
+      );
+
+      // No edge runs through an association (> 6 public officers).
+      const eiks = [
+        ...new Set(conn.related.flatMap((r) => r.companies.map((c) => c.eik))),
+      ];
+      const [{ noisy }] = await allRows<{ noisy: string }>(
+        `SELECT count(*) noisy FROM (
+         SELECT r.ref FROM person_role r JOIN person p USING (person_id)
+          WHERE r.source='tr' AND p.is_public_figure AND p.status='active'
+            AND r.ref = ANY($1::text[])
+          GROUP BY r.ref HAVING count(DISTINCT r.person_id) > 6) x`,
+        [eiks],
+      );
+      assert.equal(
+        Number(noisy),
+        0,
+        "an edge runs through an association (noise guard failed)",
+      );
+    }
+  },
+);

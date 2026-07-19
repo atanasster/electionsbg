@@ -2065,6 +2065,17 @@ const DB_ROUTES = {
     ]).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? [] };
   },
+  // Person↔person edges (shared company, association-noise-guarded) → the Connections
+  // component (§8) + the future personConnections AI tool. Public-safe endpoints only;
+  // the payload carries its own "лид, не доказателство" disclaimer.
+  "person-connections": async (dbRows, q) => {
+    const slug = s(q, "slug");
+    if (!slug) return { body: null };
+    const rows = await dbRows("SELECT person_connections($1) AS r", [
+      slug,
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? null };
+  },
 };
 
 module.exports = { DB_ROUTES };
