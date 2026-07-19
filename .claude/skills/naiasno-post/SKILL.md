@@ -155,9 +155,37 @@ and tell the user — do not draft an unverifiable claim.
   non-partisan, natural readable Bulgarian (not a word-for-word EN translation).
 - **EN body (optional):** same, concise, ending with "Share it so Наясно reaches
   more people."
-- **Card spec:** `value` (e.g. "2,4 млрд. лв."), `label` (1–2 short plain-language
-  lines, `\n` separated), `source` (e.g. "Източник: АОП"), optional `kicker`,
-  `cta` (default "виж разбивката"), `theme` ("dark" default; "light" = cream).
+
+### Card spec — prefer the infographic
+
+**Default to the infographic (bar) card.** Whenever the story has more than one
+comparable value — a ranking, a breakdown, EU peers side by side, top gainers/
+losers, before/after, a few categories — render the `renderBarCard` infographic
+by giving the card a `bars` array. This is the preferred image style. Only fall
+back to the single-number stat card when the post genuinely IS one number with
+nothing to compare it against (e.g. "2,4 млрд. лв. поръчки без конкуренция").
+When a claim is nominally a single figure but naturally decomposes (by year, by
+party, by region, vs a benchmark), pull out 3–6 components and make it an
+infographic instead.
+
+The tool picks the renderer from the spec shape: a card with `bars` →
+infographic; otherwise stat-card (data) / announce-card (feature/dataset). Pick
+the shape deliberately per the rule above.
+
+- **Infographic card (preferred) — `bars`:** `title` (the claim, 1–2 lines,
+  auto-wrapped), `bars` (3–6 rows of `{ label, value, note? }` where `value` is
+  a signed number; positive renders in accent, negative in cool, with an explicit
+  +/− so direction survives greyscale), `unit` (appended to each value, default
+  `"%"`), optional `legend` (`[positive, negative]`, e.g.
+  `["поскъпва","поевтинява"]`), `kicker`, `footnote` (methodology caveat),
+  `source`, `cta`, `theme`. Keep it to ≤6 bars — the renderer throws if the rows
+  don't fit, so shorten the title/footnote or drop a bar rather than overloading.
+  For non-percentage magnitudes (money, counts) set `unit` accordingly (e.g.
+  `" млн. лв."`) and use positive values with no `legend`.
+- **Single-number stat card (only when there's nothing to compare):** `value`
+  (e.g. "2,4 млрд. лв."), `label` (1–2 short plain-language lines, `\n`
+  separated), `source` (e.g. "Източник: АОП"), optional `kicker`, `cta` (default
+  "виж разбивката"), `theme` ("dark" default; "light" = cream).
 
 ## Step 6 — Save the draft
 
@@ -183,6 +211,32 @@ Spec shape:
 ```
 `save` re-runs the dup guard, renders `brand/posts/<slug>.png`, writes
 `brand/posts/drafts/<slug>.md`, and appends to `brand/posts/index.json`.
+
+**Infographic-card example** (preferred shape — a `bars` array is what triggers
+the `renderBarCard` renderer):
+```json
+{
+  "slug": "2026-06-01-eu-prices-vs-peers",
+  "date": "<today YYYY-MM-DD>",
+  "title": "…",
+  "link": "https://electionsbg.com/indicators/compare",
+  "sources": ["data/macro_peers.json", "https://ec.europa.eu/eurostat/..."],
+  "bg": "…", "en": "…",
+  "card": {
+    "kicker": "Храни спрямо ЕС",
+    "title": "Колко поскъпнаха храните за година",
+    "bars": [
+      { "label": "България", "value": 10.4 },
+      { "label": "Румъния", "value": 7.2 },
+      { "label": "Гърция", "value": 3.1 },
+      { "label": "ЕС средно", "value": 2.8 }
+    ],
+    "legend": ["поскъпва", "поевтинява"],
+    "source": "Източник: Eurostat",
+    "theme": "dark"
+  }
+}
+```
 
 **Extra spec fields (optional):** `kind` (`data`|`feature`|`dataset`, default
 `data`), `pin`/`pinUntil` (override the 14-day default), `image` (reference an
