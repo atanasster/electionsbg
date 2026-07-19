@@ -1991,6 +1991,33 @@ const DB_ROUTES = {
     ).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? [] };
   },
+
+  // Unified person identity (migration 082, resolved by scripts/person/resolve_persons.ts).
+  // Distinct from the legacy name-keyed `person`/`person-search` above (the tr_officer
+  // graph): these serve the new person_id layer by stable slug + a folded name search.
+  //
+  // One person's unified cross-source profile → /person/{slug}. Only active + public-safe
+  // roles (person_by_slug enforces it); returns null for an unknown or review-status slug.
+  "person-profile": async (dbRows, q) => {
+    const slug = s(q, "slug");
+    if (!slug) return { body: null };
+    const rows = await dbRows("SELECT person_by_slug($1) AS r", [slug]).catch(
+      missingMigrationEmpty,
+    );
+    return { body: rows[0]?.r ?? null };
+  },
+  // Folded name search over the resolved person table → the personSearch AI tool /
+  // arbitrary-person lookup. Latin queries match Cyrillic (one normalizer).
+  "person-lookup": async (dbRows, q) => {
+    const term = s(q, "q");
+    if (!term) return { body: [] };
+    const lim = clampInt(q.limit, 20, 1, 100);
+    const rows = await dbRows("SELECT person_search($1, $2) AS r", [
+      term,
+      lim,
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? [] };
+  },
 };
 
 module.exports = { DB_ROUTES };
