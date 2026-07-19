@@ -26,10 +26,13 @@ import {
   partyUniverse,
   listShardFiles,
   readShard,
+  readJson,
+  electionPath,
   sample,
   addPartyVotes,
   addProtocol,
 } from "./electionData";
+import fs from "node:fs";
 
 const elections = listParliamentaryElections();
 const suite = elections.length ? describe : describe.skip;
@@ -406,6 +409,79 @@ suite("election shards", () => {
             bad.slice(0, 8),
             `${bad.length} municipality rollup mismatches`,
           ).toEqual([]);
+        });
+      });
+
+      // ── sections_index.json ↔ the section corpus ─────────────────────────
+      describe("sections_index", () => {
+        test("index is a 1:1 map of the section set", () => {
+          const idx = readJson<{ section: string; settlement: string }[]>(
+            electionPath(election, "sections_index.json"),
+          );
+          const idxIds = new Set(idx.map((r) => r.section));
+          const secIds = new Set(sections.map((s) => s.section));
+          expect(idx.length, "index length == section count").toBe(secIds.size);
+          const dangling = [...idxIds].filter((id) => !secIds.has(id));
+          const missing = [...secIds].filter((id) => !idxIds.has(id));
+          expect(
+            dangling.slice(0, 5),
+            `${dangling.length} index rows reference a missing section`,
+          ).toEqual([]);
+          expect(
+            missing.slice(0, 5),
+            `${missing.length} sections absent from the index`,
+          ).toEqual([]);
+          // Domestic sections always carry a settlement label; a few 2009
+          // abroad sections (oblast 32) legitimately have an empty one.
+          const missingLabel = idx.filter(
+            (r) => !r.settlement && !r.section.startsWith(ABROAD_OBLAST),
+          );
+          expect(
+            missingLabel.slice(0, 5).map((r) => r.section),
+            `${missingLabel.length} domestic index rows missing a settlement label`,
+          ).toEqual([]);
+        });
+      });
+
+      // ── rayon/<muni>.json (Plovdiv/Varna район split) ────────────────────
+      describe("rayon aggregates", () => {
+        const rayonFiles = listShardFiles(election, "rayon");
+        test("Σ rayons == the municipality aggregate; internal arithmetic", () => {
+          const bad: string[] = [];
+          for (const f of rayonFiles) {
+            const key = f.replace(".json", "");
+            const rayon = readShard<{
+              municipality: string;
+              rayons: { key: string; results: { votes: Votes[] } }[];
+            }>(election, "rayon", f);
+            const sum: Record<number, number> = {};
+            for (const ry of rayon.rayons) {
+              for (const v of ry.results.votes) {
+                if (negativeVoteField(v) || !voteArithmeticOk(v))
+                  bad.push(`${key}/${ry.key} p${v.partyNum} bad arithmetic`);
+              }
+              addPartyVotes(sum, ry.results.votes);
+            }
+            const muniFile = electionPath(
+              election,
+              "municipalities",
+              `${key}.json`,
+            );
+            if (!fs.existsSync(muniFile)) continue;
+            // Varna (VAR06) is the one município whose район split doesn't
+            // perfectly re-sum to its stored aggregate (a ~25-vote upstream
+            // quirk, same as in the municipality suite) — exempt the total but
+            // still assert its internal arithmetic above.
+            if (key === "VAR06") continue;
+            const muni = readJson<{ results: { votes: Votes[] } }>(muniFile);
+            for (const v of muni.results.votes) {
+              if ((sum[v.partyNum] ?? 0) !== v.totalVotes)
+                bad.push(
+                  `${key} p${v.partyNum}: Σrayons ${sum[v.partyNum] ?? 0} vs muni ${v.totalVotes}`,
+                );
+            }
+          }
+          expect(bad.slice(0, 8), `${bad.length} rayon violations`).toEqual([]);
         });
       });
     });

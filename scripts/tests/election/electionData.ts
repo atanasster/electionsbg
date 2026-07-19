@@ -127,6 +127,20 @@ export const dashboardPath = (election: string, file: string): string =>
 export const dataPath = (...parts: string[]): string =>
   path.join(DATA_DIR, ...parts);
 
+/** Absolute path to a file/dir inside a dated election folder. */
+export const electionPath = (election: string, ...parts: string[]): string =>
+  path.join(DATA_DIR, election, ...parts);
+
+/** JSON file names directly inside an absolute directory (skips subdirs). */
+export const listJsonFiles = (dir: string): string[] => {
+  if (!fs.existsSync(dir)) return [];
+  return fs
+    .readdirSync(dir)
+    .filter(
+      (f) => f.endsWith(".json") && fs.statSync(path.join(dir, f)).isFile(),
+    );
+};
+
 /** Files in a top-level data subfolder matching an optional suffix. */
 export const listDataFiles = (sub: string, suffix = ".json"): string[] => {
   const dir = path.join(DATA_DIR, sub);
