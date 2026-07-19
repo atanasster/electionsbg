@@ -1809,6 +1809,58 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "consumption/electricity",
+    title:
+      "Цена на тока за домакинствата в България спрямо ЕС | electionsbg.com",
+    description:
+      "Цената на електроенергията за домакинствата в България спрямо средното за ЕС и съседните държави (Румъния, Гърция, Унгария, Хърватия) — с всички данъци (EUR/kWh) по данни на Евростат. България е сред най-ниските в съюза (около половината от средното за ЕС).",
+    breadcrumbName: "Ток",
+    ogImage: "/og/consumption-electricity.png",
+    bodyHtml: `
+<h1>Цена на тока за домакинствата в България спрямо ЕС</h1>
+<p>Цената на електроенергията за българските домакинства, сравнена със средното за Европейския съюз и със съседните държави (Румъния, Гърция, Унгария, Хърватия) — потребителски цени с всички данъци, полугодишно от 2007 г. България е сред най-ниските в съюза, около половината от средното за ЕС.</p>
+<p>Виж и <a href="${SITE_URL}/consumption/gas">цената на природния газ</a> и целия <a href="${SITE_URL}/consumption">изглед „Потребление"</a>.</p>
+<p>Източник: <a href="https://ec.europa.eu/eurostat/databrowser/view/nrg_pc_204/default/table" rel="nofollow noopener">Евростат — nrg_pc_204</a>.</p>`.trim(),
+    english: {
+      title:
+        "Household electricity prices in Bulgaria vs the EU | electionsbg.com",
+      description:
+        "Household electricity prices in Bulgaria against the EU average and its neighbours (Romania, Greece, Hungary, Croatia) — all taxes (EUR/kWh) from Eurostat. Bulgaria is among the lowest in the union (about half the EU average).",
+      breadcrumbName: "Electricity",
+      bodyHtml: `
+<h1>Household electricity prices in Bulgaria vs the EU</h1>
+<p>The household electricity price in Bulgaria compared with the European Union average and its neighbours (Romania, Greece, Hungary, Croatia) — consumer prices including all taxes, bi-annually since 2007. Bulgaria is among the lowest in the union, about half the EU average.</p>
+<p>See also <a href="${SITE_URL}/en/consumption/gas">natural-gas prices</a> and the full <a href="${SITE_URL}/en/consumption">Consumption view</a>.</p>
+<p>Source: <a href="https://ec.europa.eu/eurostat/databrowser/view/nrg_pc_204/default/table" rel="nofollow noopener">Eurostat — nrg_pc_204</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "consumption/gas",
+    title:
+      "Цена на природния газ за домакинствата в България спрямо ЕС | electionsbg.com",
+    description:
+      "Цената на природния газ за домакинствата в България спрямо средното за ЕС и съседните държави (Румъния, Гърция, Унгария, Хърватия) — с всички данъци (EUR/kWh) по данни на Евростат. България е сред най-ниските в съюза.",
+    breadcrumbName: "Природен газ",
+    ogImage: "/og/consumption-gas.png",
+    bodyHtml: `
+<h1>Цена на природния газ за домакинствата в България спрямо ЕС</h1>
+<p>Цената на природния газ за българските домакинства, сравнена със средното за Европейския съюз и със съседните държави (Румъния, Гърция, Унгария, Хърватия) — потребителски цени с всички данъци, полугодишно от 2007 г. Малка част от домакинствата у нас ползват мрежов газ, но цената е сред най-ниските в ЕС — около половината от средното.</p>
+<p>Виж и <a href="${SITE_URL}/consumption/electricity">цената на тока</a> и целия <a href="${SITE_URL}/consumption">изглед „Потребление"</a>.</p>
+<p>Източник: <a href="https://ec.europa.eu/eurostat/databrowser/view/nrg_pc_202/default/table" rel="nofollow noopener">Евростат — nrg_pc_202</a>.</p>`.trim(),
+    english: {
+      title:
+        "Household natural-gas prices in Bulgaria vs the EU | electionsbg.com",
+      description:
+        "Household natural-gas prices in Bulgaria against the EU average and its neighbours (Romania, Greece, Hungary, Croatia) — all taxes (EUR/kWh) from Eurostat. Bulgaria is among the lowest in the union.",
+      breadcrumbName: "Natural gas",
+      bodyHtml: `
+<h1>Household natural-gas prices in Bulgaria vs the EU</h1>
+<p>The household natural-gas price in Bulgaria compared with the European Union average and its neighbours (Romania, Greece, Hungary, Croatia) — consumer prices including all taxes, bi-annually since 2007. Only a small share of Bulgarian households use piped gas, but the price is among the lowest in the EU — about half the average.</p>
+<p>See also <a href="${SITE_URL}/en/consumption/electricity">electricity prices</a> and the full <a href="${SITE_URL}/en/consumption">Consumption view</a>.</p>
+<p>Source: <a href="https://ec.europa.eu/eurostat/databrowser/view/nrg_pc_202/default/table" rel="nofollow noopener">Eurostat — nrg_pc_202</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "consumption/products",
     title: "Продукти и цени в България — каталог от еврото | electionsbg.com",
     description:

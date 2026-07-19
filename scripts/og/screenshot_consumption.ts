@@ -6,7 +6,7 @@
 //   npm run dev
 //   OG_BASE_URL=http://localhost:5173 npx tsx scripts/og/screenshot_consumption.ts
 //
-// Output: public/og/consumption-eu.png, public/og/consumption-overview.png
+// Output: public/og/consumption-{eu,overview,fuel,electricity,gas}.png
 
 import fs from "fs";
 import path from "path";
@@ -45,10 +45,25 @@ const TARGETS: Target[] = [
     scrollTo: "map",
     wait: "#map .leaflet-tile-loaded, #map svg path",
   },
-  // The BG-vs-EU fuel-price trend (4-line Recharts chart + the vs-EU stat pair).
+  // The BG-vs-EU fuel-price trend (petrol + diesel charts, BG/EU/peer lines + the
+  // vs-EU stat pair).
   {
     path: "/consumption/fuel",
     out: "consumption-fuel.png",
+    scrollTo: "prices",
+    wait: "#prices .recharts-line, #prices .tabular-nums",
+  },
+  // Household electricity price BG vs EU + peers (line chart + the vs-EU stat).
+  {
+    path: "/consumption/electricity",
+    out: "consumption-electricity.png",
+    scrollTo: "prices",
+    wait: "#prices .recharts-line, #prices .tabular-nums",
+  },
+  // Household natural-gas price BG vs EU + peers (line chart + the vs-EU stat).
+  {
+    path: "/consumption/gas",
+    out: "consumption-gas.png",
     scrollTo: "prices",
     wait: "#prices .recharts-line, #prices .tabular-nums",
   },

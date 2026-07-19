@@ -73,6 +73,8 @@ export const ENGLISH_STATIC_PAGES = [
   "consumption/overview",
   "consumption/eu",
   "consumption/fuel",
+  "consumption/electricity",
+  "consumption/gas",
   "consumption/chains",
   "consumption/categories",
   "consumption/products",
