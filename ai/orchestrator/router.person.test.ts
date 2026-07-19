@@ -29,6 +29,9 @@ describe("person-tool routing", () => {
     "Кои дружества притежава Корнелия Нинова?",
     "Санкциониран ли е Делян Пеевски?",
     "Is Boyko Borisov under sanctions?",
+    "Има ли досие Георги Първанов?",
+    "Бил ли е агент на ДС Ахмед Доган?",
+    "Was Georgi Parvanov an agent of State Security?",
   ])("routes to personProfile: %s", (q) => {
     const r = route(q, ctx);
     expect(r?.tool).toBe("personProfile");

@@ -114,6 +114,15 @@ describe("personProfile run()", () => {
         date: "2021-06-02",
       },
     ],
+    ds: [
+      {
+        decisionNo: "14",
+        decisionDate: "2007-09-04",
+        body: "Народен представител (37, 39–40 НС)",
+        category: "агент",
+        pseudonyms: ["Стоев"],
+      },
+    ],
   };
 
   it("builds a grounded profile envelope", async () => {
@@ -128,6 +137,12 @@ describe("personProfile run()", () => {
     expect(env.facts["обществени поръчки (EUR)"]).toBe(1234567);
     // The official sanction is surfaced verbatim.
     expect(String(env.facts["санкции"])).toContain("US Global Magnitsky");
+    // The ДС/COMDOS finding is surfaced verbatim, cited to its решение № + date.
+    expect(String(env.facts["принадлежност към ДС"])).toContain("агент");
+    expect(String(env.facts["принадлежност към ДС"])).toContain("Стоев");
+    expect(String(env.facts["принадлежност към ДС"])).toContain(
+      "реш. № 14/2007-09-04",
+    );
     expect(String(env.facts["фирми"])).toContain("СПАК ИНВЕСТ");
     // Office labels use the ROLE for local (Кмет), not the generic source label.
     expect(String(env.facts["длъжности"])).toContain("Народни представители");

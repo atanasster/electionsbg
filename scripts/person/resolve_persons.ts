@@ -289,6 +289,63 @@ async function collect(): Promise<Raw[]> {
       );
   }
 
+  // ДС / COMDOS (data/person/ds.json) — OFFICIAL findings of the Комисия по досиетата
+  // (comdos.bg) naming public-office holders established affiliated to State Security /
+  // БНА intelligence (public record, §5 T1 `ds` facet). These are government verdicts,
+  // not our claim. SAME defamation posture as sanctions: comdos.bg has no bulk feed, so
+  // the register is HAND-CURATED from the published решения, and an entry attaches ONLY
+  // via the parliament MP id (Tier-0 gold key) AND with an exact birth-date match against
+  // the решение — a name-ambiguous namesake (`resolved:false`, no mpId; e.g. a решение-14
+  // person whose birth date differs from the current same-named MP) is documented in the
+  // file but NOT emitted, so no ambiguous public accusation is minted.
+  const dsPath = path.join(REPO_ROOT, "data/person/ds.json");
+  if (fs.existsSync(dsPath)) {
+    const dx = JSON.parse(fs.readFileSync(dsPath, "utf8")) as {
+      affiliations: {
+        name: string;
+        mpId?: number;
+        decisionNo: string;
+        decisionDate: string;
+        category?: string;
+        pseudonyms?: string[];
+        bodyContext: string;
+        url: string;
+      }[];
+    };
+    let heldDs = 0;
+    for (const d of dx.affiliations) {
+      if (d.mpId == null) {
+        heldDs++;
+        continue;
+      }
+      add(
+        d.name,
+        {
+          id: `ds:mp:${d.mpId}`,
+          source: "ds",
+          ref: `mp:${d.mpId}`,
+          role: "ds_affiliation",
+        },
+        {
+          hardId: `mp:${d.mpId}`,
+          place: d.bodyContext,
+          sourceRow: {
+            decisionNo: d.decisionNo,
+            decisionDate: d.decisionDate,
+            bodyContext: d.bodyContext,
+            category: d.category ?? null,
+            pseudonyms: d.pseudonyms ?? [],
+            url: d.url,
+          },
+        },
+      );
+    }
+    if (heldDs)
+      console.log(
+        `  held ${heldDs} name-ambiguous ДС affiliation(s) for manual disambiguation`,
+      );
+  }
+
   const partyMap = buildPartyMap();
 
   // Candidates (data/{election}/candidates/by-slug/*.json). Each file is one candidacy in

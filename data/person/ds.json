@@ -1,0 +1,179 @@
+{
+  "_comment": "Curated register of Bulgarian public-office holders OFFICIALLY established as affiliated to the Communist-era State Security (ДС) / БНА intelligence services by the Комисия по досиетата (Комисия за разкриване на документите и обявяване на принадлежност на български граждани към Държавна сигурност и разузнавателните служби на БНА; comdos.bg). These are official state findings (публичен акт), not our claim. SOURCING: comdos.bg has no bulk export / API — only a per-person search form and per-organisation решения — so this register is HAND-CURATED from the published решения (primary text mirrored on Wikisource). DEFAMATION RULE (identical to sanctions.json): an entry attaches ONLY via a stable disambiguator — the parliament.bg MP `mpId` (→ Tier-0 gold merge) — AND is verified by an exact birth-date match against the решение, so a name-ambiguous namesake is documented (`resolved:false`) but NEVER publicly attached. Wrongly naming someone a State Security collaborator is a severe accusation; when the решение's birth date does not match the current MP of the same name, the MP is a DIFFERENT person and is held. Verify any finding at comdos.bg (Проверени лица).",
+  "affiliations": [
+    {
+      "name": "Ахмед Демир Доган",
+      "mpId": 902,
+      "birthDate": "1954-03-29",
+      "decisionNo": "14",
+      "decisionDate": "2007-09-04",
+      "category": "агент",
+      "pseudonyms": ["Ангелов", "Сергей", "Сава"],
+      "bodyContext": "Народен представител (VII ВНС, 36–40 НС)",
+      "url": "https://bg.wikisource.org/wiki/Решение_№_14_на_КРДОПБГДСРСБНА",
+      "resolved": true
+    },
+    {
+      "name": "Георги Седефчов Първанов",
+      "mpId": 2250,
+      "birthDate": "1957-06-28",
+      "decisionNo": "14",
+      "decisionDate": "2007-09-04",
+      "category": "секретен сътрудник",
+      "pseudonyms": ["Гоце"],
+      "bodyContext": "Народен представител (37–39 НС)",
+      "url": "https://bg.wikisource.org/wiki/Решение_№_14_на_КРДОПБГДСРСБНА",
+      "resolved": true
+    },
+    {
+      "name": "Георги Владимиров Юруков",
+      "mpId": 2258,
+      "birthDate": "1955-06-11",
+      "decisionNo": "14",
+      "decisionDate": "2007-09-04",
+      "category": "агент",
+      "pseudonyms": ["Стоев"],
+      "bodyContext": "Народен представител (37, 39–40 НС)",
+      "url": "https://bg.wikisource.org/wiki/Решение_№_14_на_КРДОПБГДСРСБНА",
+      "resolved": true
+    },
+    {
+      "name": "Евгени Захариев Кирилов",
+      "mpId": 1803,
+      "birthDate": "1945-01-26",
+      "decisionNo": "14",
+      "decisionDate": "2007-09-04",
+      "category": "секретен сътрудник",
+      "pseudonyms": ["Манчев"],
+      "bodyContext": "Народен представител (37–40 НС)",
+      "url": "https://bg.wikisource.org/wiki/Решение_№_14_на_КРДОПБГДСРСБНА",
+      "resolved": true
+    },
+    {
+      "name": "Бриго Христофоров Аспарухов",
+      "mpId": 594,
+      "birthDate": "1945-07-15",
+      "decisionNo": "14",
+      "decisionDate": "2007-09-04",
+      "category": "щатен служител",
+      "pseudonyms": [],
+      "bodyContext": "Народен представител (39 НС)",
+      "url": "https://bg.wikisource.org/wiki/Решение_№_14_на_КРДОПБГДСРСБНА",
+      "resolved": true
+    },
+    {
+      "name": "Бойко Иванов Ватев",
+      "mpId": 94,
+      "birthDate": "1950-06-21",
+      "decisionNo": "14",
+      "decisionDate": "2007-09-04",
+      "category": "агент",
+      "pseudonyms": ["Георгиев"],
+      "bodyContext": "Народен представител (40 НС)",
+      "url": "https://bg.wikisource.org/wiki/Решение_№_14_на_КРДОПБГДСРСБНА",
+      "resolved": true
+    },
+    {
+      "name": "Ваню Стефанов Хърков",
+      "mpId": 12,
+      "birthDate": "1953-09-11",
+      "decisionNo": "14",
+      "decisionDate": "2007-09-04",
+      "category": "агент",
+      "pseudonyms": ["Никола"],
+      "bodyContext": "Народен представител (40 НС)",
+      "url": "https://bg.wikisource.org/wiki/Решение_№_14_на_КРДОПБГДСРСБНА",
+      "resolved": true
+    },
+    {
+      "name": "Георги Миланов Георгиев",
+      "mpId": 105,
+      "birthDate": "1955-11-20",
+      "decisionNo": "14",
+      "decisionDate": "2007-09-04",
+      "category": "агент",
+      "pseudonyms": ["Огнян"],
+      "bodyContext": "Народен представител (40 НС)",
+      "url": "https://bg.wikisource.org/wiki/Решение_№_14_на_КРДОПБГДСРСБНА",
+      "resolved": true
+    },
+    {
+      "name": "Джеват Яшар Мехмед",
+      "mpId": 1957,
+      "birthDate": "1965-03-05",
+      "decisionNo": "14",
+      "decisionDate": "2007-09-04",
+      "category": "агент",
+      "pseudonyms": ["Емилов"],
+      "bodyContext": "Народен представител (39 НС)",
+      "url": "https://bg.wikisource.org/wiki/Решение_№_14_на_КРДОПБГДСРСБНА",
+      "resolved": true
+    },
+    {
+      "name": "Димитър Борисов Маринчешки",
+      "mpId": 1958,
+      "birthDate": "1946-06-14",
+      "decisionNo": "14",
+      "decisionDate": "2007-09-04",
+      "category": "щатен служител",
+      "pseudonyms": [],
+      "bodyContext": "Народен представител (39 НС)",
+      "url": "https://bg.wikisource.org/wiki/Решение_№_14_на_КРДОПБГДСРСБНА",
+      "resolved": true
+    },
+    {
+      "name": "Добромир Мартинов Задгорски",
+      "mpId": 2229,
+      "birthDate": "1955-11-15",
+      "decisionNo": "14",
+      "decisionDate": "2007-09-04",
+      "category": "агент",
+      "pseudonyms": ["Роман"],
+      "bodyContext": "Народен представител (37, 40 НС)",
+      "url": "https://bg.wikisource.org/wiki/Решение_№_14_на_КРДОПБГДСРСБНА",
+      "resolved": true
+    },
+    {
+      "name": "Александър Иванов Маринов",
+      "mpId": 2275,
+      "birthDate": "1957-05-12",
+      "decisionNo": "14",
+      "decisionDate": "2007-09-04",
+      "category": "съдържател на явочна квартира",
+      "pseudonyms": ["Майстора"],
+      "bodyContext": "Народен представител (36–37 НС)",
+      "url": "https://bg.wikisource.org/wiki/Решение_№_14_на_КРДОПБГДСРСБНА",
+      "resolved": true
+    },
+    {
+      "name": "Красимир Дончев Каракачанов",
+      "decisionNo": "14",
+      "decisionDate": "2007-09-04",
+      "category": "щатен служител",
+      "bodyContext": "Народен представител (39 НС), роден 1937",
+      "url": "https://bg.wikisource.org/wiki/Решение_№_14_на_КРДОПБГДСРСБНА",
+      "resolved": false,
+      "note": "Установеното от Решение №14 лице е родено 11.11.1937 г. — РАЗЛИЧНО от съименника, настоящ депутат (ВМРО, роден 1965). Не се свързва публично."
+    },
+    {
+      "name": "Лютви Ахмед Местан",
+      "decisionNo": "14",
+      "decisionDate": "2007-09-04",
+      "category": "щатен служител",
+      "bodyContext": "Народен представител (37–39 НС), роден 1956",
+      "url": "https://bg.wikisource.org/wiki/Решение_№_14_на_КРДОПБГДСРСБНА",
+      "resolved": false,
+      "note": "Установеното от Решение №14 лице е родено 31.07.1956 г. — не съвпада с рождената дата на депутата съименник в нашите данни (24.12.1960). Изисква ръчно уточняване — не се свързва публично."
+    },
+    {
+      "name": "Кемал Еюп Адил",
+      "decisionNo": "14",
+      "decisionDate": "2007-09-04",
+      "category": "агент",
+      "bodyContext": "Народен представител (37–39 НС)",
+      "url": "https://bg.wikisource.org/wiki/Решение_№_14_на_КРДОПБГДСРСБНА",
+      "resolved": false,
+      "note": "Решение №14 не посочва рождена дата за това лице — без надеждна разграничаваща стойност не се свързва публично."
+    }
+  ]
+}

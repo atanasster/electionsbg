@@ -1,6 +1,6 @@
 ---
 name: update-persons
-description: Rebuild the unified person-identity layer (Postgres `person`/`person_role`/`person_alias`/`person_review_candidate` + the serving fns in 082/084) that powers the `/person/{slug}` profile page and the `personProfile`/`personConnections` AI tools. It resolves EVERY people dataset — MPs, CIK candidates, ЕРИК donors, executive & municipal officials, magistrates (ИВСС), TR company officers/owners (bridged), and the curated OFAC/EU sanctions register (data/person/sanctions.json) — to ONE stable person_id via `scripts/person/resolve_persons.ts`. Use when the daily watch report flags any of its UPSTREAM sources as changed (`ivss_declarations`, `cacbg_officials`, `cacbg_local`, `egov_commerce`, `cik_results`, `erik_campaign_financing`, or `ofac_sanctions`), when the user asks to refresh person profiles / свързани лица / sanctions, to add a newly-verified sanctions designee, or after a fresh git clone if the `person` table is empty. Read-only re-derivation — it never mutates its source datasets, only the person_* tables.
+description: Rebuild the unified person-identity layer (Postgres `person`/`person_role`/`person_alias`/`person_review_candidate` + the serving fns in 082/084) that powers the `/person/{slug}` profile page and the `personProfile`/`personConnections` AI tools. It resolves EVERY people dataset — MPs, CIK candidates, ЕРИК donors, executive & municipal officials, magistrates (ИВСС), TR company officers/owners (bridged), the curated OFAC/EU sanctions register (data/person/sanctions.json), and the curated ДС/COMDOS affiliation register (data/person/ds.json, Комисия по досиетата) — to ONE stable person_id via `scripts/person/resolve_persons.ts`. Use when the daily watch report flags any of its UPSTREAM sources as changed (`ivss_declarations`, `cacbg_officials`, `cacbg_local`, `egov_commerce`, `cik_results`, `erik_campaign_financing`, `ofac_sanctions`, or `comdos_ds`), when the user asks to refresh person profiles / свързани лица / sanctions / ДС досиета, to add a newly-verified sanctions designee or ДС affiliation, or after a fresh git clone if the `person` table is empty. Read-only re-derivation — it never mutates its source datasets, only the person_* tables.
 allowed-tools:
   - Read
   - Bash
@@ -31,6 +31,7 @@ go stale:
 | `erik_campaign_financing` | `update-financing` | ЕРИК donors |
 | `parliament_mps` | `parliament-scrape` | the MP gold key (Tier 0) |
 | `ofac_sanctions` | **this skill (curated)** | the OFAC/EU sanctions facet |
+| `comdos_ds` | **this skill (curated)** | the ДС/COMDOS affiliation facet |
 
 It is safe (and cheap, ~10s) to re-run after ANY of these; a rebuild yields identical
 person_ids/slugs when nothing changed (verified idempotent).
@@ -66,6 +67,33 @@ attached) so no wrong same-named person is ever publicly accused. To add a desig
 3. `npm run db:resolve:persons` and confirm the profile shows the red "Санкции" tile
    (e.g. `/person/mp-5100` for Delyan Peevski → US Global Magnitsky, OFAC, 2021-06-02).
 
+## The ДС/COMDOS register (data/person/ds.json) — manually curated
+
+`comdos_ds` (comdos.bg — Комисия по досиетата) has NO bulk export or API — only a
+per-person search FORM and a per-organisation решения archive — so, exactly like the
+sanctions register, `data/person/ds.json` is HAND-CURATED from the published решения
+(the primary text of the political решения, e.g. решение № 14 / 04.09.2007, is mirrored on
+Wikisource). Each entry is an OFFICIAL state finding of established affiliation to State
+Security / БНА intelligence (a публичен акт, not our claim).
+
+DEFAMATION RULE (non-negotiable, identical to sanctions): an entry attaches ONLY via a
+stable disambiguator — the parliament `mpId` (→ Tier-0 gold merge) — AND is verified by an
+**exact birth-date match** against the решение. This double gate is what defeats the
+namesake trap: e.g. решение № 14 names a "Красимир Дончев Каракачанов" born **1937**
+(щатен служител), who is a DIFFERENT person from the current ВМРО MP of the same name born
+**1965**; a бирth-date mismatch → the entry stays `resolved:false` (documented, HELD, never
+attached). To add an affiliation:
+
+1. Find the решение naming the person on comdos.bg (Проверени лица) / the published решения;
+   record the решение № + date + collaborator category (агент/сътрудник/…) + псевдоним.
+2. Find the MP: `psql … -c "SELECT id, name, birthDate FROM …"` (or grep
+   `data/parliament/index.json`) and CONFIRM the решение's birth date matches the MP's.
+   - Match → add `"mpId": <id>`, `"birthDate": "<YYYY-MM-DD>"`, `"resolved": true`.
+   - Mismatch / no birth date in the решение / not an MP → add with `"resolved": false` and
+     a `note`; it is HELD (the resolver logs `held N name-ambiguous ДС affiliation(s)`).
+3. `npm run db:resolve:persons` and confirm the profile shows the amber "Досие ДС" tile
+   (e.g. `/person/mp-902` for Ahmed Dogan → агент „Сергей", реш. № 14/2007-09-04).
+
 ## Publishing to production (Cloud SQL)
 
 The `person_*` tables are Postgres-only, so `db:resolve:persons` above updates only LOCAL
@@ -96,5 +124,6 @@ Record the ingest marker for the orchestrator:
 node -e 'const fs=require("fs");fs.writeFileSync("state/ingest/persons.json",JSON.stringify({lastSuccessfulIngest:new Date().toISOString(),skill:"update-persons",summary:"<one line>"},null,2))'
 ```
 
-Then commit the changed `data/person/sanctions.json` (if edited) — the person_* tables are
-Postgres-only (no serving JSON, no `recordIngestBatch`), so there is nothing else to commit.
+Then commit the changed `data/person/sanctions.json` / `data/person/ds.json` (if edited) —
+the person_* tables are Postgres-only (no serving JSON, no `recordIngestBatch`), so there is
+nothing else to commit.

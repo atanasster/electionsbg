@@ -16,6 +16,7 @@ import {
   Building2,
   Coins,
   ExternalLink,
+  FileWarning,
   HeartHandshake,
   Landmark,
   ShieldAlert,
@@ -54,6 +55,14 @@ type Sanction = {
   date: string;
   url: string;
 };
+type DsFinding = {
+  decisionNo: string;
+  decisionDate: string;
+  body: string;
+  category: string | null;
+  pseudonyms: string[];
+  url: string;
+};
 type NgoSeat = {
   eik: string;
   name: string | null;
@@ -72,6 +81,7 @@ export type PersonProfile = {
   ngos: NgoSeat[];
   procuredEur: number;
   sanctions: Sanction[];
+  ds: DsFinding[];
   aliases: string[];
 };
 
@@ -98,6 +108,7 @@ const FACET_ICON: Record<string, typeof Landmark> = {
   company: Building2,
   donor: Coins,
   sanctions: ShieldAlert,
+  ds: FileWarning,
 };
 
 const Chip: FC<{ children: React.ReactNode; danger?: boolean }> = ({
@@ -235,6 +246,43 @@ const Profile: FC<{ p: PersonProfile }> = ({ p }) => {
                   className="ml-2 inline-flex items-center gap-0.5 text-primary hover:underline"
                 >
                   {t("pp_sanctions_source")}
+                  <ExternalLink className="h-3 w-3" />
+                </a>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      )}
+
+      {/* ДС / COMDOS — a prominent, CITED badge (official Комисия по досиетата finding,
+          not our claim), keyed on the решение № + date. Amber accent, distinct from the
+          red sanctions tile. */}
+      {(p.ds ?? []).length > 0 && (
+        <Card className="border-amber-500/40 bg-amber-500/5">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base text-amber-700 dark:text-amber-400">
+              <FileWarning className="h-4 w-4" /> {t("pp_ds")}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            {(p.ds ?? []).map((d, i) => (
+              <div key={i} className="text-sm">
+                <span className="font-medium">
+                  {d.category
+                    ? `${d.category}${d.pseudonyms.length ? ` „${d.pseudonyms.join("“, „")}“` : ""}`
+                    : d.body}
+                </span>
+                <span className="text-muted-foreground">
+                  {d.category ? ` · ${d.body}` : ""} · {t("pp_ds_decision")} №{" "}
+                  {d.decisionNo} / {d.decisionDate}
+                </span>
+                <a
+                  href={d.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ml-2 inline-flex items-center gap-0.5 text-primary hover:underline"
+                >
+                  {t("pp_ds_source")}
                   <ExternalLink className="h-3 w-3" />
                 </a>
               </div>

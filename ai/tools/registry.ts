@@ -3775,8 +3775,8 @@ export const TOOLS: ToolDef[] = [
     name: "personProfile",
     domain: "people",
     description: {
-      bg: "Обединен профил на едно лице по име: длъжности (депутат, кмет, съветник, магистрат), фирми в Търговския регистър (собственик/управител), кандидатури и дарения — всичко събрано в един човек.",
-      en: "One person's unified profile by name: offices (MP, mayor, councillor, magistrate), Commerce-Registry companies (owner/manager), candidacies and donations — all resolved to one individual.",
+      bg: "Обединен профил на едно лице по име: длъжности (депутат, кмет, съветник, магистрат), фирми в Търговския регистър (собственик/управител), кандидатури, дарения, санкции и досие в Държавна сигурност (Комисия по досиетата) — всичко събрано в един човек.",
+      en: "One person's unified profile by name: offices (MP, mayor, councillor, magistrate), Commerce-Registry companies (owner/manager), candidacies, donations, sanctions and State Security dossier (Dossier Commission) — all resolved to one individual.",
     },
     params: [
       {
@@ -3808,6 +3808,10 @@ export const TOOLS: ToolDef[] = [
       {
         bg: "Санкциониран ли е Делян Пеевски и от кого?",
         en: "Is Delyan Peevski under sanctions and by whom?",
+      },
+      {
+        bg: "Има ли досие в Държавна сигурност Георги Първанов?",
+        en: "Does Georgi Parvanov have a State Security dossier?",
       },
     ],
     run: personProfile,
