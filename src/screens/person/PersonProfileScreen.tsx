@@ -11,7 +11,14 @@
 import { FC, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Briefcase, Building2, Coins, Landmark, Vote } from "lucide-react";
+import {
+  Briefcase,
+  Building2,
+  Coins,
+  Landmark,
+  Users,
+  Vote,
+} from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { trRoleLabel } from "@/lib/trRole";
@@ -46,6 +53,16 @@ export type PersonProfile = {
   aliases: string[];
 };
 
+type Connections = {
+  related: {
+    slug: string;
+    name: string;
+    sharedCount: number;
+    companies: { eik: string; name: string | null }[];
+  }[];
+  disclaimer: string;
+};
+
 // "2021_11_14" -> "14.11.2021"; anything else passes through.
 const fmtElection = (d: string): string => {
   const m = /^(\d{4})_(\d{2})_(\d{2})$/.exec(d);
@@ -68,6 +85,20 @@ const Chip: FC<{ children: React.ReactNode }> = ({ children }) => (
 
 const Profile: FC<{ p: PersonProfile }> = ({ p }) => {
   const { t } = useTranslation();
+
+  // Person↔person edges (shared company, association-noise-guarded, public-safe) — the
+  // §8 Connections surface. Loaded lazily; absent for most people.
+  const [conn, setConn] = useState<Connections | null>(null);
+  useEffect(() => {
+    let live = true;
+    fetch(`/api/db/person-connections?slug=${encodeURIComponent(p.slug)}`)
+      .then((r) => r.json())
+      .then((j: Connections | null) => live && setConn(j))
+      .catch(() => {});
+    return () => {
+      live = false;
+    };
+  }, [p.slug]);
 
   // The MP id (for the avatar photo + party ring) from an mp role, else a mp-{id} candidacy.
   const mpId = useMemo(() => {
@@ -185,6 +216,39 @@ const Profile: FC<{ p: PersonProfile }> = ({ p }) => {
                   )}
                   <span className="block text-xs text-muted-foreground">
                     {c.roles.map((r) => trRoleLabel(r, t)).join(", ")}
+                  </span>
+                </span>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Connected people (§8) — public co-officers via a shared company */}
+      {conn && conn.related.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Users className="h-4 w-4" /> {t("pp_connections")}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            {conn.related.map((r) => (
+              <div
+                key={r.slug}
+                className="flex items-baseline justify-between gap-3 border-b border-border/50 pb-2 last:border-0 last:pb-0"
+              >
+                <span className="min-w-0 text-sm">
+                  <Link
+                    to={`/person/${r.slug}`}
+                    className="font-medium text-primary hover:underline"
+                  >
+                    {r.name}
+                  </Link>
+                  <span className="block text-xs text-muted-foreground">
+                    {r.companies
+                      .map((c) => (c.name ? decodeEntities(c.name) : c.eik))
+                      .join(", ")}
                   </span>
                 </span>
               </div>
