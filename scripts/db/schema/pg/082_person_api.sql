@@ -83,6 +83,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
         SELECT (SELECT sum(current_amount_eur) FROM contracts WHERE contractor_eik = r.ref) AS eur
         FROM person_role r
         WHERE r.person_id = pick.person_id AND r.source = 'tr'
+          AND r.confidence IN ('exact_id', 'high', 'manual')  -- match the companies filter
         GROUP BY r.ref
       ) x
     ), 0),
@@ -114,13 +115,23 @@ $$;
 -- active person (no namesake ambiguity). Lets the legacy /person/{name} links (magistrate
 -- holdings, associates, connection checks) land on the unified profile; a 0- or >1-match
 -- name returns NULL so the caller falls back to the legacy portfolio / a chooser.
+-- A fuzzy index over the alternate name forms so name-resolution + search can match a
+-- variant spelling (marriage / transliteration) that only appears in person_alias.
+CREATE INDEX IF NOT EXISTS idx_person_alias_fold_trgm
+  ON person_alias USING gin (alias_fold gin_trgm_ops);
+
 DROP FUNCTION IF EXISTS person_by_name(text);
 CREATE OR REPLACE FUNCTION person_by_name(p_name text)
 RETURNS jsonb LANGUAGE sql STABLE AS $$
-  WITH m AS (
-    SELECT slug FROM person
-     WHERE name_fold = translit_bg_latin(p_name) AND status = 'active'
-       AND is_public_figure   -- §6 privacy gate: never resolve a name to a private person
+  WITH f AS (SELECT translit_bg_latin(p_name) AS fold),
+  m AS (
+    -- Match the display name OR any alias fold, so a person known under a variant spelling
+    -- still resolves (idx_person_alias_fold is exact-keyed → fast).
+    SELECT DISTINCT p.slug FROM person p, f
+     WHERE p.status = 'active' AND p.is_public_figure   -- §6 privacy gate
+       AND (p.name_fold = f.fold
+            OR EXISTS (SELECT 1 FROM person_alias a
+                        WHERE a.person_id = p.person_id AND a.alias_fold = f.fold))
      LIMIT 2
   )
   SELECT CASE WHEN (SELECT count(*) FROM m) = 1
@@ -134,21 +145,37 @@ $$;
 DROP FUNCTION IF EXISTS person_search(text, int);
 CREATE OR REPLACE FUNCTION person_search(p_q text, p_limit int DEFAULT 20)
 RETURNS jsonb LANGUAGE sql STABLE AS $$
-  WITH q AS (SELECT translit_bg_latin(p_q) AS f)
-  SELECT COALESCE(jsonb_agg(row ORDER BY (row->>'score')::float DESC, row->>'name'), '[]'::jsonb)
-  FROM (
-    SELECT jsonb_build_object(
-      'slug', p.slug, 'name', p.display_name,
-      'namesakeRisk', p.namesake_risk,
-      'roles', (SELECT count(*) FROM person_role r WHERE r.person_id = p.person_id),
-      'score', round(similarity(p.name_fold, q.f)::numeric, 3)
-    ) AS row
+  WITH q AS (SELECT translit_bg_latin(p_q) AS f),
+  -- Candidate persons: a trigram/substring hit on the display name OR any ALIAS (variant
+  -- spelling). Both sides ride a GIN trigram index (name_fold + idx_person_alias_fold_trgm),
+  -- so this stays fast even on a common surname.
+  cand AS (
+    SELECT DISTINCT p.person_id
     FROM person p, q
-    WHERE p.status = 'active'
-      AND p.is_public_figure   -- §6 privacy gate: search never surfaces a private person
+    WHERE p.status = 'active' AND p.is_public_figure   -- §6 privacy gate
       AND length(q.f) >= 2
       AND (p.name_fold % q.f OR p.name_fold LIKE '%' || q.f || '%')
-    ORDER BY similarity(p.name_fold, q.f) DESC, p.slug
+    UNION
+    SELECT DISTINCT a.person_id
+    FROM person_alias a
+    JOIN person p2 ON p2.person_id = a.person_id
+    CROSS JOIN q
+    WHERE p2.status = 'active' AND p2.is_public_figure
+      AND length(q.f) >= 2 AND a.alias_fold % q.f
+  ),
+  scored AS (
+    -- Aliased persons SURFACE (via `cand`); ranking is by display-name closeness (an
+    -- alias-only hit scores low but still appears — enough for the lookup, and cheap).
+    SELECT p.person_id, p.slug, p.display_name, p.namesake_risk,
+           similarity(p.name_fold, q.f) AS score
+    FROM cand JOIN person p USING (person_id), q
+    ORDER BY score DESC, p.slug
     LIMIT GREATEST(p_limit, 1)
-  ) ranked;
+  )
+  SELECT COALESCE(jsonb_agg(jsonb_build_object(
+    'slug', s.slug, 'name', s.display_name, 'namesakeRisk', s.namesake_risk,
+    'roles', (SELECT count(*) FROM person_role r WHERE r.person_id = s.person_id),
+    'score', round(s.score::numeric, 3)
+  ) ORDER BY s.score DESC, s.display_name), '[]'::jsonb)
+  FROM scored s;
 $$;

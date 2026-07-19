@@ -93,10 +93,19 @@ describe("personProfile run()", () => {
         ref: "207747409",
         place: null,
       },
+      {
+        source: "local",
+        facet: "politician",
+        sourceLabel: "Местни кандидати и съветници",
+        role: "mayor",
+        ref: "2023_10_29_mi:BGS01:mayor",
+        place: "Бургас",
+      },
     ],
     companies: [
       { eik: "207747409", name: "СПАК ИНВЕСТ", roles: ["sole_owner"] },
     ],
+    ngos: [{ eik: "130161380", name: "СЪЮЗ НА ВЕТЕРАНИТЕ" }],
     procuredEur: 1234567,
     sanctions: [
       {
@@ -120,7 +129,13 @@ describe("personProfile run()", () => {
     // The official sanction is surfaced verbatim.
     expect(String(env.facts["санкции"])).toContain("US Global Magnitsky");
     expect(String(env.facts["фирми"])).toContain("СПАК ИНВЕСТ");
+    // Office labels use the ROLE for local (Кмет), not the generic source label.
     expect(String(env.facts["длъжности"])).toContain("Народни представители");
+    expect(String(env.facts["длъжности"])).toContain("Кмет");
+    // NGO board seats are narrated (were previously dropped by the tool).
+    expect(String(env.facts["управа на ЮЛНЦ (НПО)"])).toContain(
+      "СЪЮЗ НА ВЕТЕРАНИТЕ",
+    );
     // The identity disclaimer must always travel with the profile.
     expect(String(env.facts["бележка"])).toMatch(/насока/);
   });

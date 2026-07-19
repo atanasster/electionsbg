@@ -430,11 +430,10 @@ const Profile: FC<{ p: PersonProfile }> = ({ p }) => {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-1">
-            {donations
-              .map((r) => r.ref.split(":")[0])
+            {[...new Set(donations.map((r) => r.ref.split(":")[0]))]
               .sort((a, b) => b.localeCompare(a))
-              .map((election, i) => (
-                <div key={`${election}:${i}`} className="text-sm">
+              .map((election) => (
+                <div key={election} className="text-sm">
                   {t("pp_donated")} · {fmtElection(election)}
                 </div>
               ))}

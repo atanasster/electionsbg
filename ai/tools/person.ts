@@ -30,6 +30,7 @@ type PersonProfilePayload = {
   facets: string[];
   roles: ProfileRole[];
   companies: ProfileCompany[];
+  ngos: { eik: string; name: string | null }[];
   procuredEur: number;
   sanctions: { program: string; authority: string; date: string }[];
 } | null;
@@ -45,8 +46,19 @@ type ConnectionsPayload = {
   disclaimer: string;
 } | null;
 
-const notFound = (query: string, bg: boolean): Envelope => ({
-  tool: "personProfile",
+// Localized labels for the office ROLE (not just the source) so a mayor doesn't narrate as
+// the generic "Местни кандидати и съветници". Unknown roles fall back to the source label.
+const ROLE_LABEL: Record<string, { bg: string; en: string }> = {
+  mayor: { bg: "Кмет", en: "Mayor" },
+  councillor: { bg: "Общински съветник", en: "Municipal councillor" },
+};
+
+const notFound = (
+  query: string,
+  bg: boolean,
+  tool: "personProfile" | "personConnections" = "personProfile",
+): Envelope => ({
+  tool,
   kind: "scalar",
   viz: "none",
   title: bg
@@ -91,9 +103,20 @@ export const personProfile = async (
     p.roles.filter((r) => r.source === "donor").map((r) => r.ref.split(":")[0]),
   ).size;
 
-  // Distinct office labels (e.g. "Народни представители", "Общинска администрация"),
-  // exactly as person_source labels them — no free text.
-  const officeLabels = [...new Set(offices.map((r) => r.sourceLabel))];
+  // Distinct office labels — for local (mayor/councillor) the ROLE carries the signal, so
+  // use it; other offices fall back to the person_source label. Verbatim, no free text.
+  const officeLabels = [
+    ...new Set(
+      offices.map((r) => {
+        const rl = ROLE_LABEL[r.role];
+        return r.source === "local" && rl
+          ? bg
+            ? rl.bg
+            : rl.en
+          : r.sourceLabel;
+      }),
+    ),
+  ];
   const companyNames = p.companies
     .map((c) => c.name ?? c.eik)
     .filter(Boolean) as string[];
@@ -112,6 +135,13 @@ export const personProfile = async (
     facts[bg ? "фирми (брой)" : "companies"] = companyNames.length;
     facts[bg ? "фирми" : "company names"] = companyNames.slice(0, 8).join(", ");
   }
+  const ngoNames = (p.ngos ?? [])
+    .map((n) => n.name ?? n.eik)
+    .filter(Boolean) as string[];
+  if (ngoNames.length)
+    facts[bg ? "управа на ЮЛНЦ (НПО)" : "NGO board seats"] = ngoNames
+      .slice(0, 6)
+      .join(", ");
   if (candidacies)
     facts[bg ? "кандидатури (брой)" : "candidacies"] = candidacies;
   if (donations)
@@ -161,14 +191,14 @@ export const personConnections = async (
 ): Promise<Envelope> => {
   const bg = ctx.lang === "bg";
   const query = String(args.name ?? args.person ?? "").trim();
-  if (!query) return notFound(query, bg);
+  if (!query) return notFound(query, bg, "personConnections");
 
   // Resolve the name → the person's stable slug (person-profile does slug-or-name), then
   // pull their edges by slug.
   const prof = await fetchDb<PersonProfilePayload>("person-profile", {
     name: query,
   });
-  if (!prof || !prof.slug) return notFound(query, bg);
+  if (!prof || !prof.slug) return notFound(query, bg, "personConnections");
 
   const conn = await fetchDb<ConnectionsPayload>("person-connections", {
     slug: prof.slug,
