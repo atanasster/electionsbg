@@ -12,6 +12,7 @@ import { FC, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { PersonProfile, usePersonProfile } from "./usePersonProfile";
 import { PersonElectoralSection } from "./PersonElectoralSection";
+import { PersonMpSections } from "./PersonMpSections";
 import { useTranslation } from "react-i18next";
 import {
   Briefcase,
@@ -345,6 +346,9 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
         name={p.name}
         candidacies={candidacyCycles}
       />
+
+      {/* MP-only: voting scorecard + roll-call + declared assets (no PG equivalent). */}
+      {mpId != null && <PersonMpSections name={p.name} mpId={mpId} />}
 
       {/* Offices held */}
       {offices.length > 0 && (
