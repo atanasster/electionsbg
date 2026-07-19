@@ -72,6 +72,21 @@ const shareCorroborant = (a: Mention, b: Mention): boolean => {
   return strong || weakBoth;
 };
 
+// A DIFFERING patronymic that is present on BOTH records is disconfirming: "Иван Петров
+// Х" and "Иван Стоянов Х" are different people, so no name-based corroborant (party+place
+// or even a shared company) may merge them. The patronymic is the clearest same-name
+// disambiguator — and the namesake machinery exists precisely because a bare given+family
+// collides — so a real conflict VETOES a corroborant merge. Real data proves it: "Теньо
+// Динев Тенев" and "Теньо Желязков Тенев" (same party/oblast) are NOT one candidate.
+// Tier 0 (a shared MP id) is exempt — a gold key is the same person despite a spelling
+// variance — and Tier 2 already unions only matching patronymics, so this guards Tier 1.
+const patronymicConflict = (a: Mention, b: Mention): boolean =>
+  a.nameParts === 3 &&
+  b.nameParts === 3 &&
+  !!a.patronymicFold &&
+  !!b.patronymicFold &&
+  a.patronymicFold !== b.patronymicFold;
+
 /**
  * Decide merges + review-candidates for one block of same-fold mentions.
  *
@@ -104,10 +119,15 @@ export function clusterBlock(mentions: Mention[]): ClusterResult {
     else union(seen, i);
   });
 
-  // Tier 1 — a shared corroborant (pairwise; a block is small).
+  // Tier 1 — a shared corroborant (pairwise; a block is small), UNLESS a present-on-both
+  // patronymic conflicts (a hard negative that overrides any corroboration).
   for (let i = 0; i < n; i++)
     for (let j = i + 1; j < n; j++)
-      if (shareCorroborant(mentions[i], mentions[j])) union(i, j);
+      if (
+        !patronymicConflict(mentions[i], mentions[j]) &&
+        shareCorroborant(mentions[i], mentions[j])
+      )
+        union(i, j);
 
   // Tier 2 — same UNIQUE full name. given+family are equal across the whole block, so
   // the full name is fixed by the patronymic. Merge mentions that share a patronymic

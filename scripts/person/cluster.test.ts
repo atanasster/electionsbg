@@ -44,6 +44,9 @@ describe("clusterBlock", () => {
   });
 
   it("Tier 1 — party AND place together corroborate a colliding fold (high)", () => {
+    // The §2a 2-part↔3-part case: a bare given+family (no patronymic to conflict) merges
+    // with the full-name record when party AND place both agree — the corroborant that
+    // decorate_candidate_links relies on. namesakeRisk 9 excludes the Tier-2 path.
     const r = clusterBlock([
       base({
         id: "mp:2",
@@ -56,14 +59,67 @@ describe("clusterBlock", () => {
       base({
         id: "off:2",
         source: "official_exec",
-        nameParts: 3,
-        patronymicFold: "q",
+        nameParts: 2,
+        patronymicFold: null,
         namesakeRisk: 9,
         corroborants: { party: "ГЕРБ", place: "Пловдив" },
       }),
     ]);
     expect(r.merges).toEqual([
       { memberIds: ["mp:2", "off:2"], confidence: "high" },
+    ]);
+  });
+
+  it("hard negative — a CONFLICTING patronymic vetoes a party+place corroborant merge", () => {
+    // Real data: "Теньо Динев Тенев" vs "Теньо Желязков Тенев", both GERB, both SZR — a
+    // present-on-both differing patronymic means DIFFERENT people; party+place must NOT
+    // merge them. They stay separate and surface as a same-block review candidate.
+    const r = clusterBlock([
+      base({
+        id: "cand:dinev",
+        source: "candidate",
+        nameParts: 3,
+        patronymicFold: "dinev",
+        namesakeRisk: 2,
+        corroborants: { party: "gerb", place: "SZR" },
+      }),
+      base({
+        id: "cand:zhelyazkov",
+        source: "candidate",
+        nameParts: 3,
+        patronymicFold: "zhelyazkov",
+        namesakeRisk: 2,
+        corroborants: { party: "gerb", place: "SZR" },
+      }),
+    ]);
+    expect(r.merges).toHaveLength(0);
+    // Different full names (not a same-name ambiguity) → kept separate, not even review.
+    expect(r.reviewCandidates).toHaveLength(0);
+  });
+
+  it("Tier 0 — a shared MP id overrides even a patronymic variance (gold key)", () => {
+    // A candidacy resolved to an MP id is the same person despite a spelling variance in
+    // the middle name — the gold key wins over the patronymic-conflict veto.
+    const r = clusterBlock([
+      base({
+        id: "mp:7",
+        source: "mp",
+        hardId: "7",
+        nameParts: 3,
+        patronymicFold: "metodiev",
+        namesakeRisk: 5,
+      }),
+      base({
+        id: "cand:7",
+        source: "candidate",
+        hardId: "7",
+        nameParts: 3,
+        patronymicFold: "metodievv",
+        namesakeRisk: 5,
+      }),
+    ]);
+    expect(r.merges).toEqual([
+      { memberIds: ["mp:7", "cand:7"], confidence: "exact_id" },
     ]);
   });
 

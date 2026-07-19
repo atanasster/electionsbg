@@ -34,22 +34,32 @@ afterAll(async () => {
   await end();
 });
 
-// The headline invariant: a person merged across sources (>1 role) must NEVER carry a
-// common name (namesake_risk > 1). A merge on a common name is the namesake collapse —
-// a wrong public accusation. Only globally-unique names / hard ids / corroborants merge.
+// The headline invariant: a person that merges roles from DIFFERENT sources on a common
+// name (namesake_risk > 1) must carry a GOLD KEY (some role confidence='exact_id', i.e. a
+// shared parliament MP id). A cross-source merge is the defamation-critical one — it
+// claims "this donor IS this magistrate", "this candidate IS this official" — so on a
+// common name only a hard id may license it; a name-based corroborant (party+place) never
+// crosses facets on a colliding fold. (A SAME-source common-name merge — one candidate
+// with several candidacies for the same party+oblast, patronymic-consistent — is allowed:
+// it only asserts "ran more than once", and the patronymic-conflict veto keeps genuinely
+// different people apart. See scripts/person/cluster.ts.)
 test.skipIf(skip)(
-  "no cross-source merge on a common name (namesake_risk > 1)",
+  "no cross-source merge on a common name without a gold key",
   async () => {
     const [r] = await allRows<{ bad: string }>(
       `SELECT count(*) bad
-         FROM (SELECT person_id FROM person_role GROUP BY 1 HAVING count(*) > 1) m
+         FROM (SELECT person_id FROM person_role GROUP BY 1
+                HAVING count(DISTINCT source) > 1) m
          JOIN person p USING (person_id)
-        WHERE p.namesake_risk > 1`,
+        WHERE p.namesake_risk > 1
+          AND NOT EXISTS (
+            SELECT 1 FROM person_role r
+             WHERE r.person_id = p.person_id AND r.confidence = 'exact_id')`,
     );
     assert.equal(
       Number(r.bad),
       0,
-      "found a cross-source merge on a common name",
+      "found a cross-source common-name merge with no gold key (potential namesake collapse)",
     );
   },
 );

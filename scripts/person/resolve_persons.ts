@@ -5,17 +5,20 @@
 // rebuild_ngo_board_links). Nothing consumes person_id yet, so a rebuild is safe;
 // slug persistence (never renumber an active person) is a follow-up once it's served.
 //
-// Scope so far: magistrate + officials (executive + municipal) + MPs (the mp id is the
-// cross-source GOLD KEY — Tier 0 — and gives person slugs the stable mp-{id} lineage).
-// Cross-source merges are the safe ones: same mp id (Tier 0), a name-independent
-// corroborant (Tier 1: shared company / birth date / party+place), or a globally-unique
-// full name (Tier 2). TR-officer bridging, candidates, donors and review-candidate
+// Scope so far: magistrate + officials (executive + municipal) + MPs + candidates (CIK,
+// per-election by-slug shards) + donors (ЕРИК campaign finance). The mp id is the
+// cross-source GOLD KEY — Tier 0 — carried by MPs and by any candidacy resolved to a seat
+// (mpId), and is unioned across blocks so a name variant can't scatter one MP. Cross-source
+// merges are the safe ones: same mp id (Tier 0), a name-independent corroborant (Tier 1:
+// shared company / birth date / party+place, VETOED by a conflicting patronymic), or a
+// globally-unique full name (Tier 2). Donors are 2-part and never auto-merge (privacy:
+// public_default=false → internal-only). TR-officer bridging and review-candidate
 // persistence land in later steps.
 //
 //   npx tsx scripts/person/resolve_persons.ts
 //   DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/person/resolve_persons.ts
 
-import fs from "node:fs";
+import fs, { globSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { allRows, withTx, end } from "../db/lib/pg";
@@ -56,6 +59,26 @@ const hash6 = (s: string): string => {
 };
 const kebab = (s: string): string =>
   s.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+
+// (election, partyNum) -> canonicalId — a party corroborant that is STABLE across
+// elections (partyNum is re-assigned every cycle). Lets a person's candidacies for the
+// same party in the same oblast merge across elections (weak-both corroboration, §3
+// Tier 1). Degrades to no-party when data/canonical_parties.json is absent.
+function buildPartyMap(): Map<string, string> {
+  const m = new Map<string, string>();
+  const p = path.join(REPO_ROOT, "data/canonical_parties.json");
+  if (!fs.existsSync(p)) return m;
+  const cp = JSON.parse(fs.readFileSync(p, "utf8")) as {
+    parties: {
+      id: string;
+      history: { election: string; partyNum: number }[];
+    }[];
+  };
+  for (const party of cp.parties)
+    for (const h of party.history)
+      m.set(`${h.election}#${h.partyNum}`, party.id);
+  return m;
+}
 
 // Build the parse-derived + defaulted fields shared by every source, so each source
 // only spells out what differs (id/source/ref/role + any hardId/corroborants).
@@ -150,6 +173,86 @@ async function collect(): Promise<Raw[]> {
       );
   }
 
+  const partyMap = buildPartyMap();
+
+  // Candidates (data/{election}/candidates/by-slug/*.json). Each file is one candidacy in
+  // one election, already resolved to an MP id when the candidate was seated (`mpId`) —
+  // the Tier-0 GOLD link into the MP person. Non-MP candidacies (c-*) carry party+oblast,
+  // the cross-election corroborant. ~67k files across ~10 elections; skipped on a fresh
+  // clone without the candidate shards.
+  for (const dir of globSync(
+    path.join(REPO_ROOT, "data/2*/candidates/by-slug"),
+  )) {
+    const election = path.basename(path.dirname(path.dirname(dir)));
+    for (const file of fs.readdirSync(dir)) {
+      if (!file.endsWith(".json")) continue;
+      const c = JSON.parse(fs.readFileSync(path.join(dir, file), "utf8")) as {
+        slug: string;
+        name: string;
+        partyNum: number | null;
+        oblasts: string[];
+        mpId: number | null;
+      };
+      const canon =
+        c.partyNum != null
+          ? (partyMap.get(`${election}#${c.partyNum}`) ?? null)
+          : null;
+      const oblast = c.oblasts[0] ?? null;
+      add(
+        c.name,
+        {
+          id: `candidate:${election}:${c.slug}`,
+          source: "candidate",
+          ref: `${election}:${c.slug}`,
+          role: "candidate",
+        },
+        {
+          hardId: c.mpId != null ? `mp:${c.mpId}` : null,
+          place: oblast,
+          cParty: canon,
+          cPlace: oblast,
+        },
+      );
+    }
+  }
+
+  // Donors (data/{election}/parties/financing/{partyNum}/filing.json → data.fromDonors[]).
+  // ЕРИК campaign-finance donors are 2-part names (§2a) with no place, so they never
+  // auto-merge (Tier-2 needs a 3-part name; weak-both needs a place) — same-name donors
+  // surface only as review candidates, exactly as the plan expects. public_default=false
+  // (person_source), so a donor-only person is NOT public. One role per (donor, party,
+  // election): a donor giving multiple times folds to one row.
+  for (const fin of globSync(
+    path.join(REPO_ROOT, "data/2*/parties/financing"),
+  )) {
+    const election = path.basename(path.dirname(path.dirname(fin)));
+    for (const partyNum of fs.readdirSync(fin)) {
+      const filing = path.join(fin, partyNum, "filing.json");
+      if (!fs.existsSync(filing)) continue;
+      const f = JSON.parse(fs.readFileSync(filing, "utf8")) as {
+        data?: { fromDonors?: { name: string }[] };
+      };
+      const canon = partyMap.get(`${election}#${partyNum}`) ?? null;
+      const seenDonor = new Set<string>();
+      for (const d of f.data?.fromDonors ?? []) {
+        const p = parseName(d.name);
+        if (!p) {
+          skipped++;
+          continue;
+        }
+        if (seenDonor.has(p.displayName)) continue; // one role per distinct donor
+        seenDonor.add(p.displayName);
+        out.push({
+          id: `donor:${election}:${partyNum}:${p.displayName}`,
+          source: "donor",
+          ref: `${election}:${partyNum}:${p.displayName}`,
+          role: "donor",
+          ...fields(p, { cParty: canon }),
+        });
+      }
+    }
+  }
+
   if (skipped) console.log(`  skipped ${skipped} un-parseable name(s)`);
   return out;
 }
@@ -186,7 +289,9 @@ async function foldAndScore(
 type M = Mention & { raw: Raw };
 
 async function main(): Promise<void> {
-  console.log("resolving persons (magistrate + officials + MPs)…");
+  console.log(
+    "resolving persons (magistrate + officials + MPs + candidates + donors)…",
+  );
   const raw = await collect();
   const { fold, namesake } = await foldAndScore(raw);
 
@@ -244,6 +349,48 @@ async function main(): Promise<void> {
 
   const byId = new Map(mentions.map((m) => [m.id, m]));
 
+  // Global GOLD-KEY union (Tier 0, cross-block). A parliament MP id is the same person
+  // under ANY name spelling, but blocking is on (given_fold, family_fold) — so a name
+  // variant (marriage, transliteration) can scatter one MP's candidacies across blocks.
+  // Merge any groups that share a hardId, regardless of block; a shared gold key ⇒
+  // exact_id. (Within-block same-hardId mentions already merged in clusterBlock; this
+  // only stitches the cross-block remainder.)
+  const gp = groups.map((_, i) => i);
+  const gfind = (x: number): number =>
+    gp[x] === x ? x : (gp[x] = gfind(gp[x]));
+  const firstByHard = new Map<string, number>();
+  groups.forEach((g, i) => {
+    const hard = new Set<string>();
+    for (const id of g.ids) {
+      const h = byId.get(id)!.hardId;
+      if (h) hard.add(h);
+    }
+    for (const h of hard) {
+      const seen = firstByHard.get(h);
+      if (seen === undefined) firstByHard.set(h, i);
+      else {
+        const a = gfind(seen);
+        const b = gfind(i);
+        if (a !== b) gp[a] = b;
+      }
+    }
+  });
+  const unionComps = new Map<number, string[]>();
+  groups.forEach((g, i) => {
+    const r = gfind(i);
+    (unionComps.get(r) ?? unionComps.set(r, []).get(r)!).push(...g.ids);
+  });
+  const mergedGroups: Group[] = [...unionComps.values()].map((ids) => {
+    // exact_id iff a gold key is shared by >=2 members of the final group.
+    const hs = ids
+      .map((id) => byId.get(id)!.hardId)
+      .filter((h): h is string => h != null);
+    return {
+      ids,
+      confidence: new Set(hs).size < hs.length ? "exact_id" : "high",
+    };
+  });
+
   // Build person rows with deterministic slugs, then sort by slug and assign ids so a
   // rebuild is stable.
   type Built = {
@@ -258,7 +405,7 @@ async function main(): Promise<void> {
     isPublic: boolean;
     members: M[];
   };
-  const built: Built[] = groups.map((g) => {
+  const built: Built[] = mergedGroups.map((g) => {
     const members = g.ids.map((id) => byId.get(id)!);
     // Slug priority: the mp id gold key (stable, /candidate/mp-{id} lineage) > an
     // official's existing slug > a derived name+hash. Deterministic across runs.
