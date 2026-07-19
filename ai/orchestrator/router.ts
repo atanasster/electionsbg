@@ -1305,6 +1305,61 @@ export const route = (question: string, ctx: ToolContext): Route => {
     )
   )
     return { tool: "mpVotingProfile", args: { name: personName } };
+  // A named public person + a "connected people" cue -> their свързани лица (person↔person
+  // shared-company edges, personConnections). Guarded so it can't steal the EIK
+  // company-connections branch (needs a 9+ digit EIK) or the procurement political-links
+  // branch (needs a procurement word); a bare "свързан" with a person name and neither is
+  // a person-graph question. Placed after the roll-call branch so voting cues win first.
+  if (
+    personName &&
+    !/\b\d{9,13}\b/.test(q) &&
+    !has(q, "поръчк", "възложи", "procurement", "contract", "договор") &&
+    has(
+      q,
+      "свързани лиц",
+      "свързаните лиц",
+      "свързан с",
+      "с кого е свързан",
+      "връзки на",
+      "връзките на",
+      "connected",
+      "connections",
+      "associates",
+    )
+  )
+    return { tool: "personConnections", args: { name: personName } };
+  // A named public person + a profile / business-footprint cue -> their unified profile
+  // (offices + companies + candidacies). The 2-3-word personName gate excludes one-word
+  // pollster/party names; guarded off the roll-call and pollster "профил" senses (those
+  // route to mpVotingProfile above / agencyProfile below).
+  if (
+    personName &&
+    !has(
+      q,
+      "социолог",
+      "анкет",
+      "проучван",
+      "pollster",
+      " poll",
+      "как гласува",
+      "roll call",
+      "roll-call",
+    ) &&
+    has(
+      q,
+      "профил", // профил / профилът / профила (Bulgarian definite article)
+      "profile",
+      "фирми на",
+      "фирмите на",
+      "дружества на",
+      "дружества притежава",
+      "бизнес на",
+      "бизнеса на",
+      "companies of",
+      "притежава",
+    )
+  )
+    return { tool: "personProfile", args: { name: personName } };
   if (
     has(
       q,
