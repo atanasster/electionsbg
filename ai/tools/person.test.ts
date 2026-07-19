@@ -123,6 +123,13 @@ describe("personProfile run()", () => {
         pseudonyms: ["Стоев"],
       },
     ],
+    regulators: [
+      {
+        body: "Конституционен съд",
+        seat: "constitutional_judge",
+        termStart: "2021",
+      },
+    ],
   };
 
   it("builds a grounded profile envelope", async () => {
@@ -142,6 +149,10 @@ describe("personProfile run()", () => {
     expect(String(env.facts["принадлежност към ДС"])).toContain("Стоев");
     expect(String(env.facts["принадлежност към ДС"])).toContain(
       "реш. № 14/2007-09-04",
+    );
+    // The regulatory-body seat is surfaced verbatim (the `regulator` "кой решава" facet).
+    expect(String(env.facts["регулаторни органи"])).toContain(
+      "Конституционен съд",
     );
     expect(String(env.facts["фирми"])).toContain("СПАК ИНВЕСТ");
     // Office labels use the ROLE for local (Кмет), not the generic source label.

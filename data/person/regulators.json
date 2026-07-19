@@ -1,0 +1,289 @@
+{
+  "_comment": "Curated ROSTERS of Bulgaria's independent / regulatory bodies — the 'кой решава' layer (plan §5, the T1 `regulator` facet). Each entry is a PUBLIC-RECORD seat on a constitutional / regulatory body, attached to the unified person layer so the /person profile lights up the `regulator` facet. ACCURACY RULE (mirrors data/person/sanctions.json): an entry attaches ONLY via a stable disambiguator — a parliament `mpId` (→ Tier-0 gold merge) OR a name the resolver confirms globally-unique (namesake_risk<=1). A name-ambiguous member stays `resolved:false` (documented here, NOT emitted) so we never attach a seat to the wrong same-named person. Sourced from each body's OFFICIAL register (see per-body `url`); verify a seat there before relying on it. Bodies covered: Конституционен съд, Сметна палата, КФН, БНБ УС, СЕМ, КЗК, Омбудсман. Not an accusation — these are civic offices.",
+  "members": [
+    {
+      "name": "Павлина Панова",
+      "body": "Конституционен съд",
+      "seat": "constitutional_court_chair",
+      "termStart": "2018",
+      "url": "https://www.constcourt.bg/bg/composition",
+      "resolved": true
+    },
+    {
+      "name": "Атанас Семов",
+      "body": "Конституционен съд",
+      "seat": "constitutional_judge",
+      "termStart": "2018",
+      "url": "https://www.constcourt.bg/bg/composition",
+      "resolved": true
+    },
+    {
+      "name": "Красимир Влахов",
+      "body": "Конституционен съд",
+      "seat": "constitutional_judge",
+      "termStart": "2018",
+      "url": "https://www.constcourt.bg/bg/composition",
+      "resolved": true
+    },
+    {
+      "name": "Надежда Джелепова",
+      "body": "Конституционен съд",
+      "seat": "constitutional_judge",
+      "termStart": "2018",
+      "url": "https://www.constcourt.bg/bg/composition",
+      "resolved": true
+    },
+    {
+      "name": "Янаки Боянов Стоилов",
+      "mpId": 2498,
+      "body": "Конституционен съд",
+      "seat": "constitutional_judge",
+      "termStart": "2021",
+      "url": "https://www.constcourt.bg/bg/composition",
+      "resolved": true
+    },
+    {
+      "name": "Соня Янкулова",
+      "body": "Конституционен съд",
+      "seat": "constitutional_judge",
+      "termStart": "2021",
+      "url": "https://www.constcourt.bg/bg/composition",
+      "resolved": true
+    },
+    {
+      "name": "Десислава Вълчева Атанасова",
+      "mpId": 4267,
+      "body": "Конституционен съд",
+      "seat": "constitutional_judge",
+      "termStart": "2024",
+      "url": "https://www.constcourt.bg/bg/composition",
+      "resolved": true
+    },
+    {
+      "name": "Борислав Белазелков",
+      "body": "Конституционен съд",
+      "seat": "constitutional_judge",
+      "termStart": "2024",
+      "url": "https://www.constcourt.bg/bg/composition",
+      "resolved": true
+    },
+    {
+      "name": "Сашо Пенов",
+      "body": "Конституционен съд",
+      "seat": "constitutional_judge",
+      "termStart": "2024",
+      "url": "https://www.constcourt.bg/bg/composition",
+      "resolved": true
+    },
+    {
+      "name": "Невин Фети",
+      "body": "Конституционен съд",
+      "seat": "constitutional_judge",
+      "termStart": "2024",
+      "url": "https://www.constcourt.bg/bg/composition",
+      "resolved": true
+    },
+    {
+      "name": "Галина Тонева",
+      "body": "Конституционен съд",
+      "seat": "constitutional_judge",
+      "termStart": "2024",
+      "url": "https://www.constcourt.bg/bg/composition",
+      "resolved": true
+    },
+    {
+      "name": "Орлин Колев",
+      "body": "Конституционен съд",
+      "seat": "constitutional_judge",
+      "termStart": "2025",
+      "url": "https://www.constcourt.bg/bg/composition",
+      "resolved": true
+    },
+
+    {
+      "name": "Димитър Борисов Главчев",
+      "mpId": 3463,
+      "body": "Сметна палата",
+      "seat": "audit_office_chair",
+      "termStart": "2023",
+      "url": "https://www.bulnao.government.bg/bg/za-nas/struktura/",
+      "resolved": true
+    },
+    {
+      "name": "Маргарита Николова",
+      "body": "Сметна палата",
+      "seat": "audit_office_deputy",
+      "termStart": "2025",
+      "url": "https://www.bulnao.government.bg/bg/za-nas/struktura/",
+      "resolved": true
+    },
+    {
+      "name": "Силвия Къдрева",
+      "body": "Сметна палата",
+      "seat": "audit_office_deputy",
+      "termStart": "2025",
+      "url": "https://www.bulnao.government.bg/bg/za-nas/struktura/",
+      "resolved": true
+    },
+    {
+      "name": "Даниела Въткова-Милушева",
+      "body": "Сметна палата",
+      "seat": "audit_office_member",
+      "termStart": "2025",
+      "url": "https://www.bulnao.government.bg/bg/za-nas/struktura/",
+      "resolved": true
+    },
+    {
+      "name": "Мария Илиева",
+      "body": "Сметна палата",
+      "seat": "audit_office_member",
+      "termStart": "2025",
+      "url": "https://www.bulnao.government.bg/bg/za-nas/struktura/",
+      "resolved": false,
+      "note": "Често срещано име (Мария Илиева) — държи се до потвърждаване на уникалност в слоя на лицата"
+    },
+
+    {
+      "name": "Васил Големански",
+      "body": "Комисия за финансов надзор",
+      "seat": "kfn_chair",
+      "termStart": "2025",
+      "url": "https://www.fsc.bg/en/about-fsc/fsc-board/",
+      "resolved": true
+    },
+    {
+      "name": "Деница Величкова",
+      "body": "Комисия за финансов надзор",
+      "seat": "kfn_deputy",
+      "termStart": "2025",
+      "url": "https://www.fsc.bg/en/about-fsc/fsc-board/",
+      "resolved": true
+    },
+    {
+      "name": "Пламен Данаилов",
+      "body": "Комисия за финансов надзор",
+      "seat": "kfn_deputy",
+      "termStart": "2025",
+      "url": "https://www.fsc.bg/en/about-fsc/fsc-board/",
+      "resolved": true
+    },
+    {
+      "name": "Диана Иванова Йорданова",
+      "mpId": 2744,
+      "body": "Комисия за финансов надзор",
+      "seat": "kfn_deputy",
+      "termStart": "2025",
+      "url": "https://www.fsc.bg/en/about-fsc/fsc-board/",
+      "resolved": true
+    },
+    {
+      "name": "Петър Джелепов",
+      "body": "Комисия за финансов надзор",
+      "seat": "kfn_member",
+      "termStart": "2020",
+      "url": "https://www.fsc.bg/en/about-fsc/fsc-board/",
+      "resolved": true
+    },
+
+    {
+      "name": "Димитър Радев",
+      "body": "БНБ — Управителен съвет",
+      "seat": "bnb_governor",
+      "termStart": "2015",
+      "url": "https://www.bnb.bg/AboutUs/AUBNBGovernment/AUSMembersGCN/index.htm",
+      "resolved": true
+    },
+    {
+      "name": "Николай Неновски",
+      "body": "БНБ — Управителен съвет",
+      "seat": "bnb_board",
+      "termStart": "2020",
+      "url": "https://www.bnb.bg/AboutUs/AUBNBGovernment/AUSMembersGCN/index.htm",
+      "resolved": true
+    },
+    {
+      "name": "Илия Лингорски",
+      "body": "БНБ — Управителен съвет",
+      "seat": "bnb_board",
+      "termStart": "2022",
+      "url": "https://www.bnb.bg/AboutUs/AUBNBGovernment/AUSMembersGCN/index.htm",
+      "resolved": true
+    },
+    {
+      "name": "Любомир Антонов Каримански",
+      "mpId": 3720,
+      "body": "БНБ — Управителен съвет",
+      "seat": "bnb_board",
+      "termStart": "2024",
+      "url": "https://www.bnb.bg/AboutUs/AUBNBGovernment/AUSMembersGCN/index.htm",
+      "resolved": true
+    },
+
+    {
+      "name": "Росен Карадимов",
+      "body": "Комисия за защита на конкуренцията",
+      "seat": "kzk_chair",
+      "termStart": "2025",
+      "url": "https://www.cpc.bg/structure",
+      "resolved": true
+    },
+    {
+      "name": "Радомир Петров Чолаков",
+      "mpId": 4249,
+      "body": "Комисия за защита на конкуренцията",
+      "seat": "kzk_deputy",
+      "termStart": "2025",
+      "url": "https://www.cpc.bg/structure",
+      "resolved": true
+    },
+
+    {
+      "name": "Габриела Наплатанова",
+      "body": "Съвет за електронни медии",
+      "seat": "sem_chair",
+      "termStart": "2022",
+      "url": "https://www.cem.bg/infobg/2",
+      "resolved": true
+    },
+    {
+      "name": "Кадринка Кадринова",
+      "body": "Съвет за електронни медии",
+      "seat": "sem_member",
+      "url": "https://www.cem.bg/infobg/2",
+      "resolved": true
+    },
+    {
+      "name": "Симона Велева",
+      "body": "Съвет за електронни медии",
+      "seat": "sem_member",
+      "termStart": "2022",
+      "url": "https://www.cem.bg/infobg/2",
+      "resolved": true
+    },
+    {
+      "name": "Пролет Велкова",
+      "body": "Съвет за електронни медии",
+      "seat": "sem_member",
+      "url": "https://www.cem.bg/infobg/2",
+      "resolved": true
+    },
+    {
+      "name": "Галина Георгиева",
+      "body": "Съвет за електронни медии",
+      "seat": "sem_member",
+      "termStart": "2019",
+      "url": "https://www.cem.bg/infobg/2",
+      "resolved": false,
+      "note": "Често срещано име (Галина Георгиева) — държи се до потвърждаване на уникалност в слоя на лицата"
+    },
+
+    {
+      "name": "Велислава Делчева",
+      "body": "Омбудсман на Република България",
+      "seat": "ombudsman",
+      "termStart": "2024",
+      "url": "https://www.ombudsman.bg/",
+      "resolved": true
+    }
+  ]
+}

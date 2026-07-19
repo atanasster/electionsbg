@@ -12,6 +12,7 @@ import { eopProcurement } from "./eop_procurement";
 import { aopDebarred } from "./aop_debarred";
 import { ofacSanctions } from "./ofac_sanctions";
 import { comdosDs } from "./comdos_ds";
+import { regulatorRosters } from "./regulator_rosters";
 import { kzkAppeals } from "./kzk_appeals";
 import { monRiRegister } from "./mon_ri_register";
 import { isunEuFunds } from "./isun_eu_funds";
@@ -117,6 +118,7 @@ export const SOURCES: WatchSource[] = [
   parliamentMps,
   ofacSanctions, // person-layer sanctions facet (→ update-persons)
   comdosDs, // person-layer ДС/COMDOS facet (→ update-persons)
+  regulatorRosters, // person-layer regulator facet (→ update-persons)
   nfcFilmRegister,
   ncfGrantResults,
   nfcCommissions,

@@ -116,6 +116,19 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       WHERE r.person_id = pick.person_id AND r.source = 'ds'
         AND r.confidence IN ('exact_id', 'high', 'manual')
     ), '[]'::jsonb),
+    -- Regulator / independent-body seats (the `regulator` facet, "кой решава"). Public
+    -- record — the body + seat + term + official source.
+    'regulators', COALESCE((
+      SELECT jsonb_agg(jsonb_build_object(
+        'body', r.source_row->>'body',
+        'seat', r.source_row->>'seat',
+        'termStart', r.source_row->>'termStart',
+        'url', r.source_row->>'url'
+      ) ORDER BY r.source_row->>'body', r.source_row->>'seat')
+      FROM person_role r
+      WHERE r.person_id = pick.person_id AND r.source = 'regulator'
+        AND r.confidence IN ('exact_id', 'high', 'manual')
+    ), '[]'::jsonb),
     -- Alternate surface forms that fold to this person (spelling / transliteration
     -- variants across sources), for display + so a search hit on any of them makes sense.
     'aliases', COALESCE((

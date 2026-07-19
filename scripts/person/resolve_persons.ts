@@ -7,7 +7,8 @@
 //
 // Scope so far: magistrate + officials (executive + municipal) + MPs + candidates (CIK,
 // per-election by-slug shards) + donors (ЕРИК campaign finance) + local mayors/councillors
-// (mi/chmi elected office holders) + sanctions (OFAC/EU, curated). The mp id is the
+// (mi/chmi elected office holders) + sanctions (OFAC/EU, curated)
+// + regulators (curated rosters of independent bodies). The mp id is the
 // cross-source GOLD KEY — Tier 0 — carried by MPs and by any candidacy resolved to a seat
 // (mpId), and is unioned across blocks so a name variant can't scatter one MP. Cross-source
 // merges are the safe ones: same mp id (Tier 0), a name-independent corroborant (Tier 1:
@@ -343,6 +344,68 @@ async function collect(): Promise<Raw[]> {
     if (heldDs)
       console.log(
         `  held ${heldDs} name-ambiguous ДС affiliation(s) for manual disambiguation`,
+      );
+  }
+
+  // Regulators (data/person/regulators.json) — curated ROSTERS of the independent /
+  // regulatory bodies (Конституционен съд, Сметна палата, КФН, БНБ УС, СЕМ, КЗК,
+  // Омбудсман…), the §5 T1 `regulator` "кой решава" facet. Same accuracy discipline as
+  // sanctions: an entry attaches ONLY via a stable disambiguator — a parliament `mpId`
+  // (Tier-0 gold merge) OR a name the register author has confirmed globally-unique — so
+  // a seat is never pinned to the WRONG same-named person. An entry with `resolved:false`
+  // (name-ambiguous, no mpId) is documented in the file but NOT emitted. The seat name is
+  // the `role`, the body the display `place`, and {body, seat, termStart, url} the
+  // provenance jsonb. Most regulators are NOT MPs, so most attach by unique name (the
+  // resolver's Tier-2, namesake-gated) or mint their own regulator-only person — either
+  // way clustering (cluster.ts) can never false-merge them onto a common namesake.
+  const regulatorsPath = path.join(REPO_ROOT, "data/person/regulators.json");
+  if (fs.existsSync(regulatorsPath)) {
+    const rg = JSON.parse(fs.readFileSync(regulatorsPath, "utf8")) as {
+      members: {
+        name: string;
+        mpId?: number;
+        body: string;
+        seat: string;
+        termStart?: string;
+        url: string;
+        resolved?: boolean;
+      }[];
+    };
+    let heldReg = 0;
+    for (const m of rg.members) {
+      // Emit only stable-disambiguator entries: an mpId (gold key) OR resolved:true (a
+      // name the author verified unique). Everything else is held for review.
+      if (m.mpId == null && m.resolved !== true) {
+        heldReg++;
+        continue;
+      }
+      add(
+        m.name,
+        {
+          id:
+            m.mpId != null
+              ? `regulator:mp:${m.mpId}:${m.seat}`
+              : `regulator:${m.seat}:${m.name}`,
+          source: "regulator",
+          ref:
+            m.mpId != null ? `mp:${m.mpId}:${m.seat}` : `${m.seat}:${m.name}`,
+          role: m.seat,
+        },
+        {
+          hardId: m.mpId != null ? `mp:${m.mpId}` : null,
+          place: m.body,
+          sourceRow: {
+            body: m.body,
+            seat: m.seat,
+            termStart: m.termStart ?? null,
+            url: m.url,
+          },
+        },
+      );
+    }
+    if (heldReg)
+      console.log(
+        `  held ${heldReg} name-ambiguous regulator seat(s) for manual disambiguation`,
       );
   }
 

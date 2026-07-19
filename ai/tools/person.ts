@@ -40,6 +40,7 @@ type PersonProfilePayload = {
     category: string | null;
     pseudonyms: string[];
   }[];
+  regulators: { body: string; seat: string; termStart: string | null }[];
 } | null;
 
 type ConnectionsPayload = {
@@ -139,13 +140,18 @@ export const personProfile = async (
   // ДС / COMDOS affiliation — an official Комисия по досиетата verdict, cited to the
   // решение № + date, verbatim from the government finding (a public act, not our claim).
   if (p.ds?.length)
-    facts[bg ? "принадлежност към ДС" : "State Security affiliation"] = p.ds
-      .map(
+    facts[bg ? "принадлежност към ДС" : "State Security affiliation"] =
+      p.ds.map(
         (d) =>
           `${d.category ?? d.body}${
             d.pseudonyms.length ? ` „${d.pseudonyms.join("“, „")}“` : ""
           } (Комисия по досиетата, реш. № ${d.decisionNo}/${d.decisionDate})`,
-      )
+      );
+  // Seats on the independent / regulatory bodies (the `regulator` "кой решава" facet) —
+  // verbatim body + seat, a neutral civic office, never computed prose.
+  if (p.regulators?.length)
+    facts[bg ? "регулаторни органи" : "regulatory bodies"] = p.regulators
+      .map((r) => `${r.body}${r.seat ? ` (${r.seat})` : ""}`)
       .join("; ");
   if (officeLabels.length)
     facts[bg ? "длъжности" : "positions"] = officeLabels.join(", ");

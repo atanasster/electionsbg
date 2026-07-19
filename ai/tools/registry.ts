@@ -3812,6 +3812,8 @@ export const TOOLS: ToolDef[] = [
       {
         bg: "Има ли досие в Държавна сигурност Георги Първанов?",
         en: "Does Georgi Parvanov have a State Security dossier?",
+        bg: "В кой независим орган или регулатор членува това лице?",
+        en: "Which independent body or regulator does this person sit on?",
       },
     ],
     run: personProfile,

@@ -294,6 +294,26 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     tags: ["parliament", "elections", "local"],
   },
   {
+    id: "regulators",
+    label: {
+      bg: "Регулаторни / независими органи",
+      en: "Regulatory / independent bodies",
+    },
+    detail: {
+      bg: "състави на независимите органи",
+      en: "rosters of the independent bodies",
+    },
+    desc: {
+      bg: "Курирани състави на независимите / регулаторни органи — Конституционен съд, Сметна палата, КФН, БНБ (Управителен съвет), СЕМ, КЗК и Омбудсман — слоят „кой решава“. Всяко място е публичен запис, свързан с обединения профил на лицето (/person) чрез депутатски идентификатор или потвърдено уникално име.",
+      en: "Curated rosters of the independent / regulatory bodies — the Constitutional Court, Court of Audit, Financial Supervision Commission, BNB Governing Council, Council for Electronic Media, Competition Protection Commission and the Ombudsman — the 'who decides' layer, each seat a public record cited on the unified person profile (/person).",
+    },
+    url: "https://www.constcourt.bg/bg/composition",
+    origin: "state",
+    members: ["regulator_rosters"],
+    skills: ["update-persons"],
+    tags: ["parliament", "elections", "local"],
+  },
+  {
     id: "egov",
     label: { bg: "data.egov.bg", en: "data.egov.bg" },
     detail: {
@@ -1744,6 +1764,9 @@ export const EDGES: [string, string][] = [
   // ДС/COMDOS findings feed the same unified person / business-connections layer (the
   // /person profile cites them) — the ДС facet alongside sanctions.
   ["src:comdos", "ds:connections"],
+  // Curated regulatory-body rosters feed the same unified person / connections layer (the
+  // /person profile lights up the `regulator` facet) — like OFAC + the Сметна палата decls.
+  ["src:regulators", "ds:connections"],
   ["src:egov", "ds:connections"],
   ["src:egov", "ds:procurement"],
   ["src:vss", "ds:judiciary"],

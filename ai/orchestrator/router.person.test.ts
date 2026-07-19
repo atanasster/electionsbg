@@ -32,6 +32,8 @@ describe("person-tool routing", () => {
     "Има ли досие Георги Първанов?",
     "Бил ли е агент на ДС Ахмед Доган?",
     "Was Georgi Parvanov an agent of State Security?",
+    "В кой независим орган е Павлина Панова?",
+    "Член ли е на регулатор Димитър Радев?",
   ])("routes to personProfile: %s", (q) => {
     const r = route(q, ctx);
     expect(r?.tool).toBe("personProfile");

@@ -264,6 +264,8 @@ export const DataSources = () => {
               <SourceItem
                 href="https://comdos.bg/"
                 label={t("integrity_ds_source")}
+                href="https://www.constcourt.bg/bg/composition"
+                label={t("integrity_regulators_source")}
               />
             </ul>
           </DataGroup>
