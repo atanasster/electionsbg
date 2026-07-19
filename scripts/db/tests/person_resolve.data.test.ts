@@ -138,3 +138,39 @@ test.skipIf(skip)("every review group spans >= 2 persons", async () => {
   );
   assert.equal(Number(r.bad), 0, "found a review group with < 2 persons");
 });
+
+// person_by_slug (082) is the /person/{slug} payload. For any bridged person it must
+// resolve EVERY distinct tr EIK to one `companies` entry, and expose only public-safe
+// roles — a page must never render a bare EIK or a review-confidence role.
+test.skipIf(skip)("person_by_slug resolves the full tr footprint", async () => {
+  const [pick] = await allRows<{ slug: string }>(
+    `SELECT p.slug FROM person p JOIN person_role r USING (person_id)
+      WHERE r.source = 'tr' GROUP BY p.slug
+      ORDER BY count(DISTINCT r.ref) DESC LIMIT 1`,
+  );
+  if (!pick) return; // no tr bridges in this corpus
+  const [{ profile }] = await allRows<{ profile: Record<string, unknown> }>(
+    `SELECT person_by_slug($1) AS profile`,
+    [pick.slug],
+  );
+  const [{ eiks }] = await allRows<{ eiks: string }>(
+    `SELECT count(DISTINCT ref) eiks FROM person_role
+      WHERE source = 'tr' AND person_id = (SELECT person_id FROM person WHERE slug = $1)`,
+    [pick.slug],
+  );
+  const companies = profile.companies as { eik: string; roles: string[] }[];
+  assert.equal(
+    companies.length,
+    Number(eiks),
+    "companies must cover every distinct tr EIK",
+  );
+  assert.ok(
+    companies.every((c) => c.eik && Array.isArray(c.roles) && c.roles.length),
+    "each company carries an eik and >=1 role",
+  );
+  const roles = profile.roles as { confidence: string }[];
+  assert.ok(
+    roles.every((r) => ["exact_id", "high", "manual"].includes(r.confidence)),
+    "profile exposes only public-safe roles",
+  );
+});

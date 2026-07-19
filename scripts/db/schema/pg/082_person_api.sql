@@ -32,6 +32,29 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       FROM person_role r JOIN person_source s ON s.key = r.source
       WHERE r.person_id = pick.person_id
         AND r.confidence IN ('exact_id', 'high', 'manual')
+    ), '[]'::jsonb),
+    -- TR footprint resolved to NAMED companies (the bare EIK in `roles` is useless on a
+    -- page). Each company carries every role the person holds there. Bridged only — Bridge
+    -- A (shared company) / Bridge B (unique full name) — so it is public-safe by §3/§6.
+    'companies', COALESCE((
+      SELECT jsonb_agg(jsonb_build_object(
+        'eik', tr.ref, 'name', c.name, 'legalForm', c.legal_form,
+        'seat', c.seat, 'status', c.status, 'roles', tr.roles
+      ) ORDER BY c.name NULLS LAST, tr.ref)
+      FROM (
+        SELECT r.ref, jsonb_agg(DISTINCT r.role ORDER BY r.role) AS roles
+        FROM person_role r
+        WHERE r.person_id = pick.person_id AND r.source = 'tr'
+          AND r.confidence IN ('exact_id', 'high', 'manual')
+        GROUP BY r.ref
+      ) tr LEFT JOIN tr_companies c ON c.uic = tr.ref
+    ), '[]'::jsonb),
+    -- Alternate surface forms that fold to this person (spelling / transliteration
+    -- variants across sources), for display + so a search hit on any of them makes sense.
+    'aliases', COALESCE((
+      SELECT jsonb_agg(DISTINCT a.alias_raw)
+      FROM person_alias a
+      WHERE a.person_id = pick.person_id AND a.alias_raw <> pick.display_name
     ), '[]'::jsonb)
   )
   FROM pick;
