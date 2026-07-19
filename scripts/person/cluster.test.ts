@@ -67,7 +67,7 @@ describe("clusterBlock", () => {
     ]);
   });
 
-  it("INVARIANT — party ALONE never merges a colliding fold (same-party namesakes)", () => {
+  it("INVARIANT — party ALONE never merges; an identical common full name flags review", () => {
     const r = clusterBlock([
       base({
         id: "a",
@@ -79,42 +79,52 @@ describe("clusterBlock", () => {
       base({
         id: "b",
         nameParts: 3,
-        patronymicFold: "q",
+        patronymicFold: "p",
         namesakeRisk: 9,
         corroborants: { party: "ГЕРБ" },
       }),
     ]);
-    expect(r.merges).toHaveLength(0);
+    expect(r.merges).toHaveLength(0); // party alone is too weak
+    // identical full name (same patronymic), common (namesake 9) -> review, not merge
     expect(r.reviewCandidates).toEqual([{ memberIds: ["a", "b"] }]);
   });
 
-  it("Tier 1 — matching patronymic corroborates only when both are 3-part", () => {
-    const merged = clusterBlock([
+  it("INVARIANT — an identical full name merges ONLY when globally unique (namesake<=1)", () => {
+    const unique = clusterBlock([
       base({
         id: "a",
         nameParts: 3,
         patronymicFold: "petrov",
-        namesakeRisk: 5,
+        namesakeRisk: 1,
       }),
       base({
         id: "b",
         nameParts: 3,
         patronymicFold: "petrov",
-        namesakeRisk: 5,
+        namesakeRisk: 1,
       }),
     ]);
-    expect(merged.merges).toHaveLength(1);
-    // A 2-part name has no patronymic to agree on -> not a corroborant.
-    const notMerged = clusterBlock([
-      base({ id: "a", nameParts: 2, patronymicFold: null, namesakeRisk: 5 }),
+    expect(unique.merges).toEqual([
+      { memberIds: ["a", "b"], confidence: "high" },
+    ]);
+
+    // Same identical full name but COMMON (148 namesakes) -> never merged on name alone.
+    const common = clusterBlock([
+      base({
+        id: "a",
+        nameParts: 3,
+        patronymicFold: "petrov",
+        namesakeRisk: 148,
+      }),
       base({
         id: "b",
         nameParts: 3,
         patronymicFold: "petrov",
-        namesakeRisk: 5,
+        namesakeRisk: 148,
       }),
     ]);
-    expect(notMerged.merges).toHaveLength(0);
+    expect(common.merges).toHaveLength(0);
+    expect(common.reviewCandidates).toEqual([{ memberIds: ["a", "b"] }]);
   });
 
   it("Tier 2 — a globally-unique clean 3-part fold merges the whole block as high", () => {
@@ -149,7 +159,9 @@ describe("clusterBlock", () => {
     expect(r.reviewCandidates).toEqual([{ memberIds: ["don:1", "tr:1"] }]);
   });
 
-  it("INVARIANT — an ambiguous (4+ token) name never merges without a corroborant", () => {
+  it("INVARIANT — an ambiguous (4+ token) name never merges on the name alone", () => {
+    // Identical full name, globally unique (namesake 1), but AMBIGUOUS (guessed family
+    // boundary) — excluded from the Tier-2 unique-name merge, so it stays for review.
     const r = clusterBlock([
       base({
         id: "a",
@@ -166,10 +178,8 @@ describe("clusterBlock", () => {
         namesakeRisk: 1,
       }),
     ]);
-    // patronymic still corroborates, so this pair DOES merge (high) — ambiguity only
-    // blocks the Tier-2 unique-fold shortcut, not a real corroborant.
-    expect(r.merges).toHaveLength(1);
-    // …but with NO corroborant, ambiguous names must not merge:
+    expect(r.merges).toHaveLength(0);
+    // …but a STRONG corroborant (shared company) still merges it:
     const r2 = clusterBlock([
       base({
         id: "a",
@@ -177,16 +187,18 @@ describe("clusterBlock", () => {
         ambiguous: true,
         patronymicFold: "z",
         namesakeRisk: 1,
+        corroborants: { uic: "123" },
       }),
       base({
         id: "b",
         nameParts: 3,
         ambiguous: true,
-        patronymicFold: "y",
+        patronymicFold: "z",
         namesakeRisk: 1,
+        corroborants: { uic: "123" },
       }),
     ]);
-    expect(r2.merges).toHaveLength(0);
+    expect(r2.merges).toHaveLength(1);
   });
 
   it("hard negative — two distinct hard-keyed people stay separate; a floating singleton flags review", () => {

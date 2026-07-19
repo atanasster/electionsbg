@@ -51,22 +51,22 @@ export type ClusterResult = {
 };
 
 // Corroborants have two strengths (the zero-false-public-merge invariant). STRONG
-// evidence identifies a person on its own: a shared declared company (uic), a shared
-// birth date, or a matching patronymic (only when BOTH names are 3-part — a 2-part
-// name has no patronymic to agree on, §2a rule 3). WEAK evidence (party, place) does
-// NOT: two different "Георги Иванов" in the same party is common, so party alone would
-// false-merge. Weak signals corroborate only IN COMBINATION (party AND place) — the
-// scoped name+party+place context decorate_candidate_links actually relies on.
+// evidence identifies a person INDEPENDENTLY of the name: a shared declared company
+// (uic) or a shared birth date. WEAK evidence (party, place) does not — two different
+// "Георги Иванов" in the same party is common — so it corroborates only IN COMBINATION
+// (party AND place), the scoped context decorate_candidate_links actually relies on.
+//
+// Note: a matching PATRONYMIC is deliberately NOT here. It is part of the name, not
+// independent of it, so on a common name it just re-states the collision (148 people
+// share "Димитър Георгиев Димитров"). Full-name identity is handled by the
+// namesake-gated Tier 2 below, which merges identical full names ONLY when they are
+// globally unique — never on a common name.
 const shareCorroborant = (a: Mention, b: Mention): boolean => {
   const ca = a.corroborants;
   const cb = b.corroborants;
   const strong =
     (!!ca.uic && ca.uic === cb.uic) ||
-    (!!ca.birthDate && ca.birthDate === cb.birthDate) ||
-    (a.nameParts === 3 &&
-      b.nameParts === 3 &&
-      !!a.patronymicFold &&
-      a.patronymicFold === b.patronymicFold);
+    (!!ca.birthDate && ca.birthDate === cb.birthDate);
   const weakBoth =
     !!ca.party && ca.party === cb.party && !!ca.place && ca.place === cb.place;
   return strong || weakBoth;
@@ -109,12 +109,27 @@ export function clusterBlock(mentions: Mention[]): ClusterResult {
     for (let j = i + 1; j < n; j++)
       if (shareCorroborant(mentions[i], mentions[j])) union(i, j);
 
-  // Tier 2 — unique clean fold: a globally-unique 3-part non-ambiguous name is one
-  // person, so the whole block merges safely.
-  const uniqueFoldClean = mentions.every(
-    (m) => m.namesakeRisk <= 1 && m.nameParts === 3 && !m.ambiguous,
-  );
-  if (uniqueFoldClean) for (let i = 1; i < n; i++) union(0, i);
+  // Tier 2 — same UNIQUE full name. given+family are equal across the whole block, so
+  // the full name is fixed by the patronymic. Merge mentions that share a patronymic
+  // ONLY when that full name is globally unique (namesakeRisk <= 1), 3-part, and not an
+  // ambiguous (4+ token) guess. A common full name (namesakeRisk > 1) is NOT safe to
+  // merge on the name alone — many people share it — so it stays separate for review.
+  const byPatronymic = new Map<string, number[]>();
+  mentions.forEach((m, i) => {
+    if (
+      m.nameParts !== 3 ||
+      m.ambiguous ||
+      m.namesakeRisk > 1 ||
+      !m.patronymicFold
+    )
+      return;
+    const arr =
+      byPatronymic.get(m.patronymicFold) ??
+      byPatronymic.set(m.patronymicFold, []).get(m.patronymicFold)!;
+    arr.push(i);
+  });
+  for (const idxs of byPatronymic.values())
+    for (let j = 1; j < idxs.length; j++) union(idxs[0], idxs[j]);
 
   // Collect components.
   const comps = new Map<number, number[]>();
@@ -124,8 +139,7 @@ export function clusterBlock(mentions: Mention[]): ClusterResult {
   }
 
   const merges: MergeGroup[] = [];
-  const singletonRoots: number[] = [];
-  for (const [root, members] of comps) {
+  for (const members of comps.values()) {
     if (members.length > 1) {
       // exact_id iff some hardId is shared by >=2 members (i.e. a Tier-0 edge formed
       // this component) — recomputed from the FINAL members, immune to root changes.
@@ -137,25 +151,33 @@ export function clusterBlock(mentions: Mention[]): ClusterResult {
         memberIds: members.map((i) => mentions[i].id),
         confidence: exact ? "exact_id" : "high",
       });
-    } else {
-      singletonRoots.push(root);
     }
   }
 
-  // Tier 3 — aggressive review candidate. Only when the block genuinely collides
-  // (NOT unique-fold-clean), there is at least one un-merged (ambiguous) mention, and
-  // 2+ distinct persons exist. Flags "these same-fold persons might be one"; merges
-  // nothing. Lists one representative per distinct component.
+  // Tier 3 — aggressive review candidates: same-name mentions that did NOT merge, for a
+  // human. Nothing is merged here. Two shapes:
+  //  - A 2-part name is ambiguous against the WHOLE colliding block (it could be any of
+  //    the full names present), so when a 2-part mention sits in a block of >=2 distinct
+  //    persons, flag the whole block.
+  //  - Otherwise flag only IDENTICAL full names (same patronymic) that stayed split —
+  //    the genuine "same name, can't confirm same person" case — not people who merely
+  //    share a given+family but differ in patronymic (those are clearly different).
   const reviewCandidates: ReviewCandidate[] = [];
-  const distinctRoots = [...comps.keys()];
-  if (
-    !uniqueFoldClean &&
-    singletonRoots.length >= 1 &&
-    distinctRoots.length >= 2
-  ) {
-    reviewCandidates.push({
-      memberIds: distinctRoots.map((r) => mentions[comps.get(r)![0]].id),
+  const distinctRoots = new Set(mentions.map((_, i) => find(i)));
+  if (distinctRoots.size >= 2 && mentions.some((m) => m.nameParts === 2)) {
+    reviewCandidates.push({ memberIds: mentions.map((m) => m.id) });
+  } else {
+    const byFullName = new Map<string, { ids: string[]; roots: Set<number> }>();
+    mentions.forEach((m, i) => {
+      const key = m.nameParts === 3 ? (m.patronymicFold ?? "") : "";
+      const g =
+        byFullName.get(key) ??
+        byFullName.set(key, { ids: [], roots: new Set() }).get(key)!;
+      g.ids.push(m.id);
+      g.roots.add(find(i));
     });
+    for (const g of byFullName.values())
+      if (g.roots.size >= 2) reviewCandidates.push({ memberIds: g.ids });
   }
 
   return { merges, reviewCandidates };
