@@ -60,6 +60,22 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
   FROM pick;
 $$;
 
+-- Resolve a bare NAME to its profile — but only when the folded name maps to exactly ONE
+-- active person (no namesake ambiguity). Lets the legacy /person/{name} links (magistrate
+-- holdings, associates, connection checks) land on the unified profile; a 0- or >1-match
+-- name returns NULL so the caller falls back to the legacy portfolio / a chooser.
+DROP FUNCTION IF EXISTS person_by_name(text);
+CREATE OR REPLACE FUNCTION person_by_name(p_name text)
+RETURNS jsonb LANGUAGE sql STABLE AS $$
+  WITH m AS (
+    SELECT slug FROM person
+     WHERE name_fold = translit_bg_latin(p_name) AND status = 'active'
+     LIMIT 2
+  )
+  SELECT CASE WHEN (SELECT count(*) FROM m) = 1
+    THEN person_by_slug((SELECT slug FROM m LIMIT 1)) END;
+$$;
+
 -- Name search for personSearch / the arbitrary-person lookup. Folds the query with the
 -- ONE normalizer and ranks by trigram similarity over name_fold (GIN gin_trgm_ops index,
 -- 081). Returns the namesake_risk so the caller can show the "name match — identity not

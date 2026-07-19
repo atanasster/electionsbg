@@ -2039,11 +2039,18 @@ const DB_ROUTES = {
   // One person's unified cross-source profile → /person/{slug}. Only active + public-safe
   // roles (person_by_slug enforces it); returns null for an unknown or review-status slug.
   "person-profile": async (dbRows, q) => {
-    const slug = s(q, "slug");
-    if (!slug) return { body: null };
-    const rows = await dbRows("SELECT person_by_slug($1) AS r", [slug]).catch(
+    const key = s(q, "slug") || s(q, "name");
+    if (!key) return { body: null };
+    // Try the stable slug first; fall back to a UNIQUE folded-name match so the legacy
+    // /person/{name} links resolve to the unified profile too (person_by_name returns null
+    // on a 0- or >1-match name, and the caller then shows the legacy portfolio).
+    let rows = await dbRows("SELECT person_by_slug($1) AS r", [key]).catch(
       missingMigrationEmpty,
     );
+    if (!rows[0]?.r)
+      rows = await dbRows("SELECT person_by_name($1) AS r", [key]).catch(
+        missingMigrationEmpty,
+      );
     return { body: rows[0]?.r ?? null };
   },
   // Folded name search over the resolved person table → the personSearch AI tool /

@@ -59,11 +59,14 @@ const SqlBrowserScreen = lazy(() =>
   })),
 );
 
-// DB-backed person page (/person/:name) — served in prod by the `db` Cloud
-// Function via the /api/db/** rewrite (dev: the Vite plugin), so it ships.
+// DB-backed person page (/person/:key) — the unified person-identity profile over the
+// resolved person layer (082 person_by_slug). Resolves a stable slug first and falls back
+// to the legacy name-keyed TR/procurement portfolio for unresolved names, so both the new
+// slug links and the legacy /person/:name links work. Served in prod by the `db` Cloud
+// Function via the /api/db/** rewrite (dev: the Vite plugin).
 const PersonScreen = lazy(() =>
-  import("@/screens/dev/PersonScreen").then((m) => ({
-    default: m.PersonScreen,
+  import("@/screens/person/PersonProfileScreen").then((m) => ({
+    default: m.PersonProfileScreen,
   })),
 );
 
