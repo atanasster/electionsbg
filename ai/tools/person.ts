@@ -31,6 +31,17 @@ type PersonProfilePayload = {
   companies: ProfileCompany[];
 } | null;
 
+type ConnectionsPayload = {
+  subject: { slug: string; name: string };
+  related: {
+    slug: string;
+    name: string;
+    sharedCount: number;
+    companies: { eik: string; name: string | null }[];
+  }[];
+  disclaimer: string;
+} | null;
+
 const notFound = (query: string, bg: boolean): Envelope => ({
   tool: "personProfile",
   kind: "scalar",
@@ -120,5 +131,98 @@ export const personProfile = async (
       : p.name,
     facts,
     provenance: ["person_by_slug (082_person_api.sql)"],
+  };
+};
+
+/**
+ * A public person's "свързани лица" — OTHER public figures who are officers/owners of the
+ * same company (Търговски регистър). SAFE BY CONSTRUCTION: person_connections (084) only
+ * ever returns public-figure, active endpoints and drops association-noise companies (a
+ * board / professional association is not a business tie), and the identity disclaimer
+ * rides IN the payload — so the tool never surfaces a private co-owner or a review-status
+ * link, and the disclaimer is always a narratable fact. No numbers are computed here.
+ */
+export const personConnections = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const query = String(args.name ?? args.person ?? "").trim();
+  if (!query) return notFound(query, bg);
+
+  // Resolve the name → the person's stable slug (person-profile does slug-or-name), then
+  // pull their edges by slug.
+  const prof = await fetchDb<PersonProfilePayload>("person-profile", {
+    name: query,
+  });
+  if (!prof || !prof.slug) return notFound(query, bg);
+
+  const conn = await fetchDb<ConnectionsPayload>("person-connections", {
+    slug: prof.slug,
+  });
+  const related = conn?.related ?? [];
+
+  if (!related.length) {
+    return {
+      tool: "personConnections",
+      domain: "people",
+      kind: "scalar",
+      viz: "none",
+      title: bg
+        ? `Няма намерени публични връзки за ${prof.name}`
+        : `No public connections found for ${prof.name}`,
+      facts: {
+        [bg ? "име" : "name"]: prof.name,
+        [bg ? "свързани лица (брой)" : "connected people"]: 0,
+      },
+      provenance: ["person_connections (084_person_connections.sql)"],
+    };
+  }
+
+  const names = related.slice(0, 10).map((r) => r.name);
+  const companies = [
+    ...new Set(
+      related.flatMap((r) =>
+        r.companies.map((c) => c.name).filter(Boolean),
+      ) as string[],
+    ),
+  ];
+
+  return {
+    tool: "personConnections",
+    domain: "people",
+    kind: "table",
+    viz: "table",
+    title: bg
+      ? `${prof.name} — ${related.length} свързани лица`
+      : `${prof.name} — ${related.length} connected people`,
+    columns: [
+      { key: "person", label: bg ? "Лице" : "Person" },
+      {
+        key: "shared",
+        label: bg ? "Общи фирми" : "Shared companies",
+        numeric: true,
+        format: "int",
+      },
+      { key: "via", label: bg ? "Чрез" : "Via" },
+    ],
+    rows: related.map((r) => ({
+      person: r.name,
+      shared: r.sharedCount,
+      via: r.companies.map((c) => c.name ?? c.eik).join(", "),
+    })),
+    facts: {
+      [bg ? "име" : "name"]: prof.name,
+      [bg ? "свързани лица (брой)" : "connected people"]: related.length,
+      [bg ? "лица" : "people"]: names.join(", "),
+      [bg ? "чрез фирми" : "via companies"]: companies.slice(0, 8).join(", "),
+      // The disclaimer travels FROM the grounded payload — never dropped, never our claim.
+      [bg ? "бележка" : "note"]:
+        conn?.disclaimer ??
+        (bg
+          ? "Връзките са по съвпадение на име и обща фирма — насока, не доказателство."
+          : "Links are by name + shared company — a lead, not proof."),
+    },
+    provenance: ["person_connections (084_person_connections.sql)"],
   };
 };

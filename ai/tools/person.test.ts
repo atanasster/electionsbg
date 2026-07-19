@@ -5,7 +5,7 @@
 
 import { describe, it, expect, afterEach } from "vitest";
 import { retrieveToolNames } from "../llm/retrieve";
-import { personProfile } from "./person";
+import { personProfile, personConnections } from "./person";
 import { setDbFetcher, clearDataCache } from "./dataClient";
 import type { ToolContext } from "./types";
 
@@ -35,6 +35,19 @@ describe("personProfile retrieval", () => {
   ];
   it.each(incumbents)("incumbent survives: %s -> %s", (q, tool) => {
     expect(retrieveToolNames(q, K)).toContain(tool);
+  });
+});
+
+describe("personConnections retrieval", () => {
+  const utterances = [
+    "С кого е свързан Бойко Борисов?",
+    "Who is Boyko Borisov connected to?",
+    "Кои са свързаните лица на този депутат?",
+    "С кои други политици има обща фирма?",
+    "Покажи връзките на едно лице по обща фирма",
+  ];
+  it.each(utterances)("retrieves personConnections for: %s", (q) => {
+    expect(retrieveToolNames(q, K)).toContain("personConnections");
   });
 });
 
@@ -105,5 +118,52 @@ describe("personProfile run()", () => {
     const env = await personProfile({ name: "Няма Такъв" }, ctx);
     expect(env.title).toContain("Не е намерено лице");
     expect(env.facts).not.toHaveProperty("фирми (брой)");
+  });
+});
+
+describe("personConnections run()", () => {
+  afterEach(() => clearDataCache());
+  const ctx = { lang: "bg" } as ToolContext;
+
+  const profile = { slug: "mp-2258", name: "Георги Юруков" };
+  const connections = {
+    subject: profile,
+    related: [
+      {
+        slug: "petya-genan-139btl",
+        name: "Петя Генън",
+        sharedCount: 1,
+        companies: [{ eik: "207741840", name: "ОБЩЕСТВЕН СЪВЕТ СОФИЯ" }],
+      },
+    ],
+    disclaimer:
+      "Връзките са по съвпадение на име и обща фирма — насока, не категорично доказателство.",
+  };
+  // Route the two fetchDb calls the tool makes (person-profile then person-connections).
+  const fetcher = async (route: string) =>
+    route === "person-profile" ? profile : connections;
+
+  it("narrates only the payload's public-safe links, disclaimer always in facts", async () => {
+    setDbFetcher(fetcher as never);
+    const env = await personConnections({ name: "Юруков" }, ctx);
+    expect(env.tool).toBe("personConnections");
+    expect(env.facts["свързани лица (брой)"]).toBe(1);
+    expect(String(env.facts["лица"])).toContain("Петя Генън");
+    // The disclaimer rides FROM the grounded payload — it must always be present.
+    expect(String(env.facts["бележка"])).toMatch(
+      /не категорично доказателство/,
+    );
+    // The row set equals the payload — the tool never invents a link.
+    expect(env.rows).toHaveLength(1);
+  });
+
+  it("says 'no public connections' when the payload has none", async () => {
+    setDbFetcher((async (route: string) =>
+      route === "person-profile"
+        ? profile
+        : { subject: profile, related: [], disclaimer: "x" }) as never);
+    const env = await personConnections({ name: "Юруков" }, ctx);
+    expect(env.title).toContain("Няма намерени публични връзки");
+    expect(env.facts["свързани лица (брой)"]).toBe(0);
   });
 });

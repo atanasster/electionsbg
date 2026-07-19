@@ -200,7 +200,7 @@ import {
 import { compareElections, machineVoteShare, turnout } from "./metrics";
 import { simulateTaxChange } from "./taxPolicy";
 import { candidateResult } from "./candidate";
-import { personProfile } from "./person";
+import { personProfile, personConnections } from "./person";
 import {
   nationalResults,
   parliamentSeats,
@@ -3786,6 +3786,43 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: personProfile,
+  },
+  {
+    name: "personConnections",
+    domain: "people",
+    description: {
+      bg: "Свързани лица на един човек: други публични личности, които са съсобственици или управители в обща фирма (Търговски регистър). Насока по съвпадение на име, не доказателство.",
+      en: "A person's connected people: other public figures who co-own or co-manage a company with them (Commerce Registry). A name-match lead, not proof.",
+    },
+    params: [
+      {
+        name: "name",
+        type: "string",
+        description: {
+          bg: "Пълно име на лицето (публична личност).",
+          en: "Full name of the person (a public figure).",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "С кого е свързан Бойко Борисов?",
+        en: "Who is Boyko Borisov connected to?",
+      },
+      {
+        bg: "Кои са свързаните лица на този депутат?",
+        en: "Who are this MP's connected people?",
+      },
+      {
+        bg: "С кои други политици има обща фирма?",
+        en: "Which other politicians share a company with them?",
+      },
+      {
+        bg: "Покажи връзките на едно лице по обща фирма.",
+        en: "Show a person's links through a shared company.",
+      },
+    ],
+    run: personConnections,
   },
   {
     name: "governments",
