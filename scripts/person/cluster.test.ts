@@ -123,6 +123,53 @@ describe("clusterBlock", () => {
     ]);
   });
 
+  it("Tier 1 — a shared company (uic) bridges a TR officer to a person on a common name", () => {
+    // Bridge A: a councillor linked to company 123 + the TR sole-owner record for company
+    // 123 with the same name = the councillor's own footprint. The shared uic is a STRONG,
+    // name-independent corroborant, so it merges even at namesakeRisk 4.
+    const r = clusterBlock([
+      base({
+        id: "off:c",
+        source: "official_muni",
+        nameParts: 3,
+        patronymicFold: "koichev",
+        namesakeRisk: 4,
+        corroborants: { uics: ["123"] },
+      }),
+      base({
+        id: "tr:123",
+        source: "tr",
+        nameParts: 3,
+        patronymicFold: "koichev",
+        namesakeRisk: 4,
+        corroborants: { uics: ["123"] },
+      }),
+    ]);
+    expect(r.merges).toEqual([
+      { memberIds: ["off:c", "tr:123"], confidence: "high" },
+    ]);
+    // A DIFFERENT company (no shared uic) does NOT bridge on the common name:
+    const noShare = clusterBlock([
+      base({
+        id: "off:c",
+        source: "official_muni",
+        nameParts: 3,
+        patronymicFold: "koichev",
+        namesakeRisk: 4,
+        corroborants: { uics: ["123"] },
+      }),
+      base({
+        id: "tr:999",
+        source: "tr",
+        nameParts: 3,
+        patronymicFold: "koichev",
+        namesakeRisk: 4,
+        corroborants: { uics: ["999"] },
+      }),
+    ]);
+    expect(noShare.merges).toHaveLength(0);
+  });
+
   it("INVARIANT — party ALONE never merges; an identical common full name flags review", () => {
     const r = clusterBlock([
       base({
@@ -243,7 +290,7 @@ describe("clusterBlock", () => {
         ambiguous: true,
         patronymicFold: "z",
         namesakeRisk: 1,
-        corroborants: { uic: "123" },
+        corroborants: { uics: ["123"] },
       }),
       base({
         id: "b",
@@ -251,7 +298,7 @@ describe("clusterBlock", () => {
         ambiguous: true,
         patronymicFold: "z",
         namesakeRisk: 1,
-        corroborants: { uic: "123" },
+        corroborants: { uics: ["123"] },
       }),
     ]);
     expect(r2.merges).toHaveLength(1);

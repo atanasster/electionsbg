@@ -18,7 +18,7 @@
 export type Corroborants = {
   party?: string | null;
   place?: string | null; // municipality / oblast
-  uic?: string | null; // shared declared company
+  uics?: string[] | null; // shared declared/linked company EIKs (a person can hold many)
   birthDate?: string | null;
 };
 
@@ -64,9 +64,11 @@ export type ClusterResult = {
 const shareCorroborant = (a: Mention, b: Mention): boolean => {
   const ca = a.corroborants;
   const cb = b.corroborants;
-  const strong =
-    (!!ca.uic && ca.uic === cb.uic) ||
-    (!!ca.birthDate && ca.birthDate === cb.birthDate);
+  const shareUic =
+    !!ca.uics &&
+    !!cb.uics &&
+    ca.uics.some((u) => u !== "" && cb.uics!.includes(u));
+  const strong = shareUic || (!!ca.birthDate && ca.birthDate === cb.birthDate);
   const weakBoth =
     !!ca.party && ca.party === cb.party && !!ca.place && ca.place === cb.place;
   return strong || weakBoth;

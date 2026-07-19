@@ -12,7 +12,10 @@
 // merges are the safe ones: same mp id (Tier 0), a name-independent corroborant (Tier 1:
 // shared company / birth date / party+place, VETOED by a conflicting patronymic), or a
 // globally-unique full name (Tier 2). Donors are 2-part and never auto-merge (privacy:
-// public_default=false → internal-only). TR-officer bridging and review-candidate
+// public_default=false → internal-only). TR officers are BRIDGED (Bridge A): a person's own
+// authoritative TR footprint on a company they already declare/link to (magistrate_company
+// + company_politicians) attaches via the strong shared-uic corroborant — non-bridging
+// officers are never materialized. Broad name-based TR discovery + review-candidate
 // persistence land in later steps.
 //
 //   npx tsx scripts/person/resolve_persons.ts
@@ -49,6 +52,7 @@ type Raw = {
   cParty: string | null;
   cPlace: string | null;
   cBirth: string | null;
+  uics: string[]; // declared/linked company EIKs — the strong shared-company corroborant
 };
 
 // djb2 → 6 base36 chars. Deterministic disambiguator for magistrate-only slugs.
@@ -97,6 +101,7 @@ const fields = (
   cParty: null,
   cPlace: null,
   cBirth: null,
+  uics: [],
   ...over,
 });
 
@@ -116,6 +121,44 @@ async function collect(): Promise<Raw[]> {
     out.push({ ...r, ...fields(p, over) });
   };
 
+  // Person → linked-company (EIK) maps, for the TR-officer bridge (Bridge A). These are
+  // the authoritative person↔company links already in PG: magistrate holdings
+  // (ИВСС чл.175а) + the curated company_politicians (MP/official). A TR officer on one
+  // of these EIKs whose name matches the linked person is that person's own TR footprint,
+  // bridged via the STRONG shared-uic corroborant. eikExpected caps the bridge to the
+  // linked person's (given, family) so co-owners of the same company are NOT swept in.
+  const push = (m: Map<string, string[]>, k: string, v: string): void => {
+    (m.get(k) ?? m.set(k, []).get(k)!).push(v);
+  };
+  const magEik = new Map<string, string[]>(); // magistrate name -> eik[]
+  const refEik = new Map<string, string[]>(); // 'mp:{id}' | 'off:{slug}' -> eik[]
+  const eikExpected = new Map<string, Set<string>>(); // eik -> {givenLc\tfamilyLc}
+  const expect = (eik: string, name: string): void => {
+    const p = parseName(name);
+    if (!p) return;
+    const k = `${p.given.toLowerCase()}\t${p.family.toLowerCase()}`;
+    (eikExpected.get(eik) ?? eikExpected.set(eik, new Set()).get(eik)!).add(k);
+  };
+  for (const r of await allRows<{ magistrate_name: string; eik: string }>(
+    `SELECT magistrate_name, eik FROM magistrate_company
+      WHERE eik IS NOT NULL AND NOT eik_ambiguous`,
+  )) {
+    push(magEik, r.magistrate_name, r.eik);
+    expect(r.eik, r.magistrate_name);
+  }
+  for (const r of await allRows<{
+    eik: string;
+    politician: string;
+    ref: string;
+  }>(`SELECT eik, politician, ref FROM company_politicians`)) {
+    const mp = /\/candidate\/mp-(\d+)/.exec(r.ref);
+    const off = /\/officials\/(.+)$/.exec(r.ref);
+    if (mp) push(refEik, `mp:${mp[1]}`, r.eik);
+    else if (off) push(refEik, `off:${off[1]}`, r.eik);
+    else continue;
+    expect(r.eik, r.politician);
+  }
+
   const mags = await allRows<{ name: string; court: string | null }>(
     `SELECT name, court FROM magistrate`,
   );
@@ -128,7 +171,7 @@ async function collect(): Promise<Raw[]> {
         ref: m.name,
         role: "magistrate",
       },
-      { place: m.court },
+      { place: m.court, uics: magEik.get(m.name) ?? [] },
     );
 
   const offs = await allRows<{
@@ -138,12 +181,16 @@ async function collect(): Promise<Raw[]> {
     tier: string | null;
   }>(`SELECT name, slug, role, tier FROM official_roster`);
   for (const o of offs)
-    add(o.name, {
-      id: `official:${o.slug}`,
-      source: o.tier === "municipal" ? "official_muni" : "official_exec",
-      ref: o.slug,
-      role: o.role ?? "official",
-    });
+    add(
+      o.name,
+      {
+        id: `official:${o.slug}`,
+        source: o.tier === "municipal" ? "official_muni" : "official_exec",
+        ref: o.slug,
+        role: o.role ?? "official",
+      },
+      { uics: refEik.get(`off:${o.slug}`) ?? [] },
+    );
 
   // MPs (data/parliament/index.json) — the mp id is the cross-source GOLD KEY (Tier 0),
   // and birthDate is a strong name-independent corroborant. Degrades gracefully if the
@@ -169,6 +216,7 @@ async function collect(): Promise<Raw[]> {
           cParty: mp.currentPartyGroupShort,
           cPlace: mp.currentRegion,
           cBirth: mp.birthDate,
+          uics: refEik.get(`mp:${mp.id}`) ?? [],
         },
       );
   }
@@ -253,6 +301,39 @@ async function collect(): Promise<Raw[]> {
     }
   }
 
+  // TR-officer BRIDGE (Bridge A, plan §3 "share a company"). For every EIK a person is
+  // linked to, pull the TR officer/owner rows on that company and keep only those whose
+  // name matches the linked person's (given, family) — that is the person's own
+  // authoritative TR footprint. These mentions carry the EIK as a strong `uics`
+  // corroborant, so they merge into the linked person (Tier 1 strong), patronymic-guarded.
+  // We do NOT materialize a person per TR officer: a TR mention that fails to bridge
+  // (patronymic conflict, or an unrelated same-EIK co-owner) forms a tr-only group that is
+  // dropped in main(). ~1.5k rows on ~360 linked EIKs — bounded, not the 748k-officer set.
+  const linkedEiks = [...eikExpected.keys()];
+  if (linkedEiks.length) {
+    const trRows = await allRows<{ uic: string; name: string; role: string }>(
+      `SELECT uic, name, role FROM tr_person_roles WHERE uic = ANY($1::text[])`,
+      [linkedEiks],
+    );
+    const seenTr = new Set<string>();
+    for (const t of trRows) {
+      const p = parseName(t.name);
+      if (!p) continue;
+      const key = `${p.given.toLowerCase()}\t${p.family.toLowerCase()}`;
+      if (!eikExpected.get(t.uic)?.has(key)) continue; // only the linked person's name
+      const dedup = `${t.uic}\t${key}\t${t.role}`;
+      if (seenTr.has(dedup)) continue;
+      seenTr.add(dedup);
+      out.push({
+        id: `tr:${t.uic}:${p.displayName}:${t.role}`,
+        source: "tr",
+        ref: t.uic, // the company EIK
+        role: t.role,
+        ...fields(p, { uics: [t.uic] }),
+      });
+    }
+  }
+
   if (skipped) console.log(`  skipped ${skipped} un-parseable name(s)`);
   return out;
 }
@@ -290,7 +371,7 @@ type M = Mention & { raw: Raw };
 
 async function main(): Promise<void> {
   console.log(
-    "resolving persons (magistrate + officials + MPs + candidates + donors)…",
+    "resolving persons (magistrate + officials + MPs + candidates + donors + tr-bridge)…",
   );
   const raw = await collect();
   const { fold, namesake } = await foldAndScore(raw);
@@ -320,6 +401,7 @@ async function main(): Promise<void> {
       party: r.cParty,
       place: r.cPlace,
       birthDate: r.cBirth,
+      uics: r.uics,
     },
     raw: r,
   }));
@@ -405,43 +487,47 @@ async function main(): Promise<void> {
     isPublic: boolean;
     members: M[];
   };
-  const built: Built[] = mergedGroups.map((g) => {
-    const members = g.ids.map((id) => byId.get(id)!);
-    // Slug priority: the mp id gold key (stable, /candidate/mp-{id} lineage) > an
-    // official's existing slug > a derived name+hash. Deterministic across runs.
-    const mpMember = members
-      .filter((m) => m.source === "mp")
-      .sort((a, b) => Number(a.raw.ref) - Number(b.raw.ref))[0];
-    const officialMember = members
-      .filter((m) => m.source.startsWith("official"))
-      .sort((a, b) => a.raw.ref.localeCompare(b.raw.ref))[0];
-    const key = members[0];
-    const best = members
-      .map((m) => m.raw)
-      .sort(
-        (a, b) =>
-          b.nameParts - a.nameParts || b.display.length - a.display.length,
-      )[0];
-    const slug = mpMember
-      ? `mp-${mpMember.raw.ref}`
-      : officialMember
-        ? officialMember.raw.ref
-        : `${kebab(`${key.givenFold}-${key.familyFold}`)}-${hash6(
-            g.ids.slice().sort().join("|"),
-          )}`;
-    return {
-      slug,
-      display: best.display,
-      given: key.givenFold,
-      patr: members.find((m) => m.patronymicFold)?.patronymicFold ?? null,
-      family: key.familyFold,
-      nameParts: members.some((m) => m.nameParts === 3) ? 3 : 2,
-      namesake: Math.max(...members.map((m) => m.namesakeRisk)),
-      confidence: g.confidence,
-      isPublic: members.some((m) => publicDefault.get(m.source) ?? false),
-      members,
-    };
-  });
+  const built: Built[] = mergedGroups
+    // Drop tr-only groups: a TR officer that failed to bridge to a real person (a same-EIK
+    // co-owner, or a patronymic conflict) is NOT materialized (plan §3 bounded universe).
+    .filter((g) => g.ids.some((id) => byId.get(id)!.source !== "tr"))
+    .map((g) => {
+      const members = g.ids.map((id) => byId.get(id)!);
+      // Slug priority: the mp id gold key (stable, /candidate/mp-{id} lineage) > an
+      // official's existing slug > a derived name+hash. Deterministic across runs.
+      const mpMember = members
+        .filter((m) => m.source === "mp")
+        .sort((a, b) => Number(a.raw.ref) - Number(b.raw.ref))[0];
+      const officialMember = members
+        .filter((m) => m.source.startsWith("official"))
+        .sort((a, b) => a.raw.ref.localeCompare(b.raw.ref))[0];
+      const key = members[0];
+      const best = members
+        .map((m) => m.raw)
+        .sort(
+          (a, b) =>
+            b.nameParts - a.nameParts || b.display.length - a.display.length,
+        )[0];
+      const slug = mpMember
+        ? `mp-${mpMember.raw.ref}`
+        : officialMember
+          ? officialMember.raw.ref
+          : `${kebab(`${key.givenFold}-${key.familyFold}`)}-${hash6(
+              g.ids.slice().sort().join("|"),
+            )}`;
+      return {
+        slug,
+        display: best.display,
+        given: key.givenFold,
+        patr: members.find((m) => m.patronymicFold)?.patronymicFold ?? null,
+        family: key.familyFold,
+        nameParts: members.some((m) => m.nameParts === 3) ? 3 : 2,
+        namesake: Math.max(...members.map((m) => m.namesakeRisk)),
+        confidence: g.confidence,
+        isPublic: members.some((m) => publicDefault.get(m.source) ?? false),
+        members,
+      };
+    });
 
   // Guarantee slug uniqueness (belt-and-suspenders — a magistrate slug could in theory
   // collide with an official slug).

@@ -35,16 +35,19 @@ afterAll(async () => {
 });
 
 // The headline invariant: a person that merges roles from DIFFERENT sources on a common
-// name (namesake_risk > 1) must carry a GOLD KEY (some role confidence='exact_id', i.e. a
-// shared parliament MP id). A cross-source merge is the defamation-critical one — it
-// claims "this donor IS this magistrate", "this candidate IS this official" — so on a
-// common name only a hard id may license it; a name-based corroborant (party+place) never
-// crosses facets on a colliding fold. (A SAME-source common-name merge — one candidate
-// with several candidacies for the same party+oblast, patronymic-consistent — is allowed:
-// it only asserts "ran more than once", and the patronymic-conflict veto keeps genuinely
-// different people apart. See scripts/person/cluster.ts.)
+// name (namesake_risk > 1) must be licensed by a NAME-INDEPENDENT link — either a GOLD KEY
+// (some role confidence='exact_id', a shared parliament MP id) or a SHARED-COMPANY bridge
+// (a `tr` role). A cross-source merge is the defamation-critical one — it claims "this
+// donor IS this magistrate", "this candidate IS this official" — so on a colliding fold a
+// name-based corroborant (party+place) never licenses it; only the name-independent ones
+// do. A `tr` role is such a proof: a TR mention has no hardId, no party/place, and Tier-2
+// needs namesake<=1, so at namesake>1 it could ONLY have merged via the strong shared-uic
+// corroborant (see scripts/person/cluster.ts). (A SAME-source common-name merge — one
+// candidate with several candidacies for the same party+oblast, patronymic-consistent — is
+// allowed: it only asserts "ran more than once", and the patronymic-conflict veto keeps
+// genuinely different people apart.)
 test.skipIf(skip)(
-  "no cross-source merge on a common name without a gold key",
+  "no cross-source merge on a common name without a name-independent link",
   async () => {
     const [r] = await allRows<{ bad: string }>(
       `SELECT count(*) bad
@@ -54,15 +57,32 @@ test.skipIf(skip)(
         WHERE p.namesake_risk > 1
           AND NOT EXISTS (
             SELECT 1 FROM person_role r
-             WHERE r.person_id = p.person_id AND r.confidence = 'exact_id')`,
+             WHERE r.person_id = p.person_id
+               AND (r.confidence = 'exact_id' OR r.source = 'tr'))`,
     );
     assert.equal(
       Number(r.bad),
       0,
-      "found a cross-source common-name merge with no gold key (potential namesake collapse)",
+      "found a cross-source common-name merge with no gold key or shared-company bridge (potential namesake collapse)",
     );
   },
 );
+
+// Every TR bridge is LICENSED: a `tr` role's ref (the company EIK) must be a company the
+// person is genuinely linked to via a curated source (magistrate holdings or
+// company_politicians). This guards the shared-uic bridge from ever attaching a TR footprint
+// to a person who is not actually tied to that company.
+test.skipIf(skip)("every tr role bridges a curated company link", async () => {
+  const [r] = await allRows<{ bad: string }>(
+    `SELECT count(*) bad
+       FROM person_role r
+      WHERE r.source = 'tr'
+        AND r.ref NOT IN (
+          SELECT eik FROM magistrate_company WHERE eik IS NOT NULL AND NOT eik_ambiguous
+          UNION SELECT eik FROM company_politicians)`,
+  );
+  assert.equal(Number(r.bad), 0, "found a tr role on an unlinked company");
+});
 
 test.skipIf(skip)(
   "every person has a non-null fold and a blocking key",
