@@ -15,13 +15,21 @@ const round = (n: number, digits = 2): number => {
   return Math.round(n * f) / f;
 };
 
-type PartyLike = { nickName?: string; name?: string; color?: string } | null;
-type RegionLike = {
-  name?: string;
-  name_en?: string;
-  long_name?: string;
-  long_name_en?: string;
-} | null;
+// Widened to include undefined so the real usePartyInfo/useRegions finders (which return
+// `T | undefined`) are assignable — the body only reads via optional chaining.
+type PartyLike =
+  | { nickName?: string; name?: string; color?: string }
+  | null
+  | undefined;
+type RegionLike =
+  | {
+      name?: string;
+      name_en?: string;
+      long_name?: string;
+      long_name_en?: string;
+    }
+  | null
+  | undefined;
 
 export type ComputeCandidateSummaryArgs = {
   name: string;
@@ -30,7 +38,7 @@ export type ComputeCandidateSummaryArgs = {
   regionRows: PreferencesInfo[];
   stats: CandidateStats | null;
   findParty: (partyNum: number) => PartyLike;
-  findRegion: (oblast: string) => RegionLike;
+  findRegion: (oblast?: string) => RegionLike;
 };
 
 export const computeCandidateSummary = ({
