@@ -6,9 +6,10 @@
 // the §3/§6 public-surface + privacy rules), so a tool answer can never assert a
 // review-status link.
 //
-// Scope here is the FACTUAL profile only. The person↔person "свързани лица" tool
-// (personConnections) is deliberately NOT here: it narrates inferred links and needs the
-// dedicated claims/disclaimer gate (§4b/§7d) before it can ship.
+// personConnections narrates person↔person links, but its defamation gate is DATA-level:
+// person_connections (084) only ever returns public/active endpoints and drops
+// association-noise companies, and the disclaimer rides IN the payload — so the tool can't
+// surface a private co-owner or a review-status link and never invents an edge.
 
 import { fetchDb } from "./dataClient";
 import type { Envelope, ToolArgs, ToolContext } from "./types";
@@ -29,6 +30,7 @@ type PersonProfilePayload = {
   facets: string[];
   roles: ProfileRole[];
   companies: ProfileCompany[];
+  procuredEur: number;
 } | null;
 
 type ConnectionsPayload = {
@@ -107,6 +109,10 @@ export const personProfile = async (
     facts[bg ? "кандидатури (брой)" : "candidacies"] = candidacies;
   if (donations)
     facts[bg ? "дарения към партии (брой)" : "party donations"] = donations;
+  // Public money won by the person's companies (post-annex EUR basis) — grounded verbatim.
+  if (p.procuredEur > 0)
+    facts[bg ? "обществени поръчки (EUR)" : "public contracts (EUR)"] =
+      Math.round(p.procuredEur);
   // The identity disclaimer travels with every profile so the narration can't drop it.
   facts[bg ? "бележка" : "note"] = bg
     ? "Връзките са по съвпадение на име — насока, не категорично доказателство."

@@ -34,21 +34,39 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
         AND r.confidence IN ('exact_id', 'high', 'manual')
     ), '[]'::jsonb),
     -- TR footprint resolved to NAMED companies (the bare EIK in `roles` is useless on a
-    -- page). Each company carries every role the person holds there. Bridged only — Bridge
-    -- A (shared company) / Bridge B (unique full name) — so it is public-safe by §3/§6.
+    -- page). Each company carries every role the person holds there + its PUBLIC-CONTRACT
+    -- take (Σ current_amount_eur, the post-annex basis, reference_procurement_eur_sum_basis)
+    -- — the money thesis on the identity page. Bridged only — Bridge A (shared company) /
+    -- Bridge B (unique full name) — so it is public-safe by §3/§6. Ordered money-first.
     'companies', COALESCE((
       SELECT jsonb_agg(jsonb_build_object(
         'eik', tr.ref, 'name', c.name, 'legalForm', c.legal_form,
-        'seat', c.seat, 'status', c.status, 'roles', tr.roles
-      ) ORDER BY c.name NULLS LAST, tr.ref)
+        'seat', c.seat, 'status', c.status, 'roles', tr.roles,
+        'procuredEur', pr.eur, 'contracts', pr.n
+      ) ORDER BY pr.eur DESC NULLS LAST, c.name NULLS LAST, tr.ref)
       FROM (
         SELECT r.ref, jsonb_agg(DISTINCT r.role ORDER BY r.role) AS roles
         FROM person_role r
         WHERE r.person_id = pick.person_id AND r.source = 'tr'
           AND r.confidence IN ('exact_id', 'high', 'manual')
         GROUP BY r.ref
-      ) tr LEFT JOIN tr_companies c ON c.uic = tr.ref
+      ) tr
+      LEFT JOIN tr_companies c ON c.uic = tr.ref
+      LEFT JOIN LATERAL (
+        SELECT round(sum(ct.current_amount_eur)::numeric, 2) AS eur, count(*) AS n
+        FROM contracts ct WHERE ct.contractor_eik = tr.ref
+      ) pr ON pr.n > 0
     ), '[]'::jsonb),
+    -- The person's total public-contract take across ALL their companies (EIK-deduped so a
+    -- manager+owner double role can't double-count).
+    'procuredEur', COALESCE((
+      SELECT round(sum(x.eur)::numeric, 2) FROM (
+        SELECT (SELECT sum(current_amount_eur) FROM contracts WHERE contractor_eik = r.ref) AS eur
+        FROM person_role r
+        WHERE r.person_id = pick.person_id AND r.source = 'tr'
+        GROUP BY r.ref
+      ) x
+    ), 0),
     -- Alternate surface forms that fold to this person (spelling / transliteration
     -- variants across sources), for display + so a search hit on any of them makes sense.
     'aliases', COALESCE((

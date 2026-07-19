@@ -22,6 +22,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { trRoleLabel } from "@/lib/trRole";
+import { formatEurCompact } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { PersonScreen } from "@/screens/dev/PersonScreen";
 
@@ -41,6 +42,8 @@ type ProfileCompany = {
   seat: string | null;
   status: string | null;
   roles: string[];
+  procuredEur: number | null;
+  contracts: number | null;
 };
 export type PersonProfile = {
   slug: string;
@@ -50,6 +53,7 @@ export type PersonProfile = {
   facets: string[];
   roles: ProfileRole[];
   companies: ProfileCompany[];
+  procuredEur: number;
   aliases: string[];
 };
 
@@ -133,6 +137,14 @@ const Profile: FC<{ p: PersonProfile }> = ({ p }) => {
         <MpAvatar name={p.name} mpId={mpId} className="h-16 w-16 shrink-0" />
         <div className="min-w-0">
           <h1 className="text-2xl font-bold leading-tight">{p.name}</h1>
+          {p.procuredEur > 0 && (
+            <p className="mt-1 text-sm text-muted-foreground">
+              {t("pp_procured_total")}:{" "}
+              <span className="font-semibold text-foreground">
+                {formatEurCompact(p.procuredEur)}
+              </span>
+            </p>
+          )}
           <div className="mt-2 flex flex-wrap gap-1.5">
             {p.facets.map((f) => {
               const Icon = FACET_ICON[f];
@@ -218,6 +230,14 @@ const Profile: FC<{ p: PersonProfile }> = ({ p }) => {
                     {c.roles.map((r) => trRoleLabel(r, t)).join(", ")}
                   </span>
                 </span>
+                {c.procuredEur != null && c.procuredEur > 0 && (
+                  <span className="shrink-0 whitespace-nowrap text-xs font-medium text-foreground">
+                    {formatEurCompact(c.procuredEur)}
+                    <span className="ml-1 font-normal text-muted-foreground">
+                      {t("pp_in_contracts", { count: c.contracts ?? 0 })}
+                    </span>
+                  </span>
+                )}
               </div>
             ))}
           </CardContent>

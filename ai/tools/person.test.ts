@@ -97,6 +97,7 @@ describe("personProfile run()", () => {
     companies: [
       { eik: "207747409", name: "СПАК ИНВЕСТ", roles: ["sole_owner"] },
     ],
+    procuredEur: 1234567,
   };
 
   it("builds a grounded profile envelope", async () => {
@@ -107,6 +108,8 @@ describe("personProfile run()", () => {
     // Grounded facts: exact counts + the named company, never computed prose.
     expect(env.facts["фирми (брой)"]).toBe(1);
     expect(env.facts["кандидатури (брой)"]).toBe(2);
+    // Procurement take is grounded verbatim (rounded integer), never computed in prose.
+    expect(env.facts["обществени поръчки (EUR)"]).toBe(1234567);
     expect(String(env.facts["фирми"])).toContain("СПАК ИНВЕСТ");
     expect(String(env.facts["длъжности"])).toContain("Народни представители");
     // The identity disclaimer must always travel with the profile.

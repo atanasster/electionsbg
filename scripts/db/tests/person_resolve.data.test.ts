@@ -175,6 +175,37 @@ test.skipIf(skip)("person_by_slug resolves the full tr footprint", async () => {
   );
 });
 
+// The profile's procuredEur must equal Σ current_amount_eur over the person's DISTINCT
+// company EIKs — a manager+owner double role on one company must not double-count.
+test.skipIf(skip)("person_by_slug procuredEur is EIK-deduped", async () => {
+  const [pick] = await allRows<{ slug: string }>(
+    `SELECT p.slug FROM person p
+       JOIN person_role r USING (person_id)
+       JOIN contracts c ON c.contractor_eik = r.ref
+      WHERE r.source = 'tr' AND p.is_public_figure
+      GROUP BY p.slug ORDER BY sum(c.current_amount_eur) DESC NULLS LAST LIMIT 1`,
+  );
+  if (!pick) return; // no procuring companies in this corpus
+  const [{ profile }] = await allRows<{ profile: { procuredEur: number } }>(
+    `SELECT person_by_slug($1) AS profile`,
+    [pick.slug],
+  );
+  const [{ expected }] = await allRows<{ expected: string }>(
+    `SELECT COALESCE(round(sum(e.eur)::numeric, 2), 0) expected FROM (
+       SELECT (SELECT sum(current_amount_eur) FROM contracts WHERE contractor_eik = r.ref) eur
+       FROM person_role r
+       WHERE r.source = 'tr'
+         AND r.person_id = (SELECT person_id FROM person WHERE slug = $1)
+       GROUP BY r.ref) e`,
+    [pick.slug],
+  );
+  assert.equal(
+    Number(profile.procuredEur),
+    Number(expected),
+    "procuredEur must be the EIK-deduped sum",
+  );
+});
+
 // person_connections (084): every related person must be a PUBLIC figure (§6 — never a
 // private co-owner), the payload always carries the disclaimer, and the association-noise
 // guard holds — no edge may run through a company with > 6 public officers.
