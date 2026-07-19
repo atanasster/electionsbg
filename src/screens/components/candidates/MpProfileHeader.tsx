@@ -27,19 +27,30 @@ const formatDate = (iso: string | null, lang: string) => {
   }
 };
 
-export const MpProfileHeader: FC<{ name: string }> = ({ name }) => {
+export const MpProfileHeader: FC<{ name: string; compact?: boolean }> = ({
+  name,
+  compact,
+}) => {
   const { t, i18n } = useTranslation();
   const isEn = i18n.language === "en";
   const { profile, indexEntry, ns, isLoading } = useMpProfile(name);
   const { mpName } = useCandidateName();
   const { partyGroupShortLabel } = useCanonicalParties();
 
+  // i18next returns the KEY on a miss (no returnEmptyString override), so a real fallback needs
+  // the `s === k` check — the idiom used across the person pages — not a dead `|| "…"`.
+  const tf = (k: string, fallback: string): string => {
+    const s = t(k);
+    return s === k ? fallback : s;
+  };
+
   // Reserve the card's height while the parliament index resolves so the
   // candidate page doesn't shift down when the avatar + meta row drops in.
   // Once we know there's no MP for this name, render nothing.
   if (!indexEntry) {
+    // compact = a bio line inside an existing header (person page); no skeleton card.
     if (isLoading) {
-      return (
+      return compact ? null : (
         <Card className="my-3" aria-hidden>
           <CardContent className="p-3 md:p-4">
             <div className="min-h-[120px] md:min-h-[112px]" />
@@ -80,6 +91,35 @@ export const MpProfileHeader: FC<{ name: string }> = ({ name }) => {
       : []),
   ];
 
+  // Compact: a single wrapped bio line to slot UNDER the person-page header (no card, no
+  // avatar, no name — those are already shown). Same data + formatting as the full card.
+  if (compact) {
+    const bits = [
+      isCurrent && nsDisplay
+        ? `${nsDisplay}${positionDisplay ? ` · ${positionDisplay}` : ""}`
+        : tf("former_mp", "Former MP"),
+      partyGroupDisplay || null,
+      birthLine || null,
+      allTerms.length
+        ? `${tf("terms_served", "Terms")}: ${allTerms.join(", ")}`
+        : null,
+    ].filter(Boolean);
+    return (
+      <div className="mt-1.5 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-xs text-muted-foreground">
+        <span>{bits.join(" · ")}</span>
+        <a
+          href={`https://www.parliament.bg/bg/MP/${indexEntry.id}`}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-0.5 text-primary hover:underline"
+        >
+          parliament.bg
+          <ExternalLink className="h-3 w-3" />
+        </a>
+      </div>
+    );
+  }
+
   return (
     <Card className="my-3">
       <CardContent className="p-3 md:p-4">
@@ -104,7 +144,7 @@ export const MpProfileHeader: FC<{ name: string }> = ({ name }) => {
                 </div>
               ) : (
                 <div className="text-sm text-muted-foreground">
-                  {t("former_mp") || "Former MP"}
+                  {tf("former_mp", "Former MP")}
                 </div>
               )}
               {partyGroupDisplay && (
@@ -136,7 +176,7 @@ export const MpProfileHeader: FC<{ name: string }> = ({ name }) => {
             {profile?.specialization && (
               <div className="text-sm text-muted-foreground">
                 <span className="font-medium text-foreground/80">
-                  {t("specialization") || "Specialization"}:
+                  {tf("specialization", "Specialization")}:
                 </span>{" "}
                 {profile.specialization}
               </div>
@@ -145,7 +185,7 @@ export const MpProfileHeader: FC<{ name: string }> = ({ name }) => {
             {allTerms.length > 0 && (
               <div className="text-xs text-muted-foreground">
                 <span className="font-medium text-foreground/70">
-                  {t("terms_served") || "Terms"}:
+                  {tf("terms_served", "Terms")}:
                 </span>{" "}
                 {allTerms.join(", ")}
               </div>

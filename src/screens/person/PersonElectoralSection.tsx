@@ -11,10 +11,11 @@ import { Gauge, Map } from "lucide-react";
 import { useElectionContext } from "@/data/ElectionContext";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useRegions } from "@/data/regions/useRegions";
-import { usePersonElections } from "@/data/dashboard/usePersonElections";
+import { usePersonDataCycles } from "@/data/dashboard/usePersonElections";
 import { computeCandidateSummary } from "@/data/dashboard/computeCandidateSummary";
 import { useSearchParam } from "@/screens/utils/useSearchParam";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
+import { PartyBadge } from "@/screens/components/PartyBadge";
 import { CandidatePreferencesCard } from "@/screens/dashboard/cards/CandidatePreferencesCard";
 import { CandidatePaperMachineCard } from "@/screens/dashboard/cards/CandidatePaperMachineCard";
 import { CandidateBallotCard } from "@/screens/dashboard/cards/CandidateBallotCard";
@@ -42,18 +43,9 @@ export const PersonElectoralSection: FC<Props> = ({
   const { t } = useTranslation();
   const { selected: globalSelected, prevElections } = useElectionContext();
   const { findRegion } = useRegions();
-  const { data: rows } = usePersonElections(slug);
-
   // Only cycles the person ACTUALLY ran with results — a candidacy ROLE with no preference
   // data (e.g. a roster-only entry) shouldn't be a selectable year. Newest first.
-  const dataCycles = useMemo(
-    () =>
-      (rows ?? [])
-        .filter((r) => (r.regions?.length ?? 0) > 0 || r.totalVotes > 0)
-        .map((r) => r.election)
-        .sort((a, b) => b.localeCompare(a)),
-    [rows],
-  );
+  const { rows, dataCycles } = usePersonDataCycles(slug);
 
   // Selected cycle: ?pelect when it's a real (data-bearing) cycle, else the global election
   // when they ran it, else their LAST election with results.
@@ -68,7 +60,7 @@ export const PersonElectoralSection: FC<Props> = ({
   // Party colours/names must resolve for the SELECTED cycle's ballot, not the global one.
   const { findParty } = usePartyInfo(selectedCycle);
 
-  const row = rows?.find((r) => r.election === selectedCycle);
+  const row = rows.find((r) => r.election === selectedCycle);
   const candidateSlug = candidacies.find(
     (c) => c.election === selectedCycle,
   )?.slug;
@@ -126,11 +118,27 @@ export const PersonElectoralSection: FC<Props> = ({
         icon={Gauge}
         subtitle={selector}
       >
-        {/* Which election these cards are for — a prominent heading, since the cycle chips
-            above are small. Replaces the old redundant summary sentence. */}
-        <h3 className="text-lg font-bold text-foreground">
-          {t("pp_election_heading", { date: fmtElection(selectedCycle) })}
-        </h3>
+        {/* Which election these cards are for + which list(s) they ran on — a prominent
+            heading with the cycle's party badge + list positions (folds in the old cikRows). */}
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+          <h3 className="text-lg font-bold text-foreground">
+            {t("pp_election_heading", { date: fmtElection(selectedCycle) })}
+          </h3>
+          {summary.partyNickName && (
+            <PartyBadge
+              label={summary.partyNickName}
+              color={summary.partyColor}
+            />
+          )}
+          {summary.regions.length > 0 && (
+            <span className="text-sm text-muted-foreground">
+              {summary.regions
+                .slice(0, 3)
+                .map((r) => `#${r.pref} ${r.long_name ?? r.name ?? r.oblast}`)
+                .join(" · ")}
+            </span>
+          )}
+        </div>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           <CandidatePreferencesCard data={summary} />
           <CandidatePaperMachineCard

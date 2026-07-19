@@ -11,13 +11,13 @@
 import { FC, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { PersonProfile, usePersonProfile } from "./usePersonProfile";
+import { PersonHeader } from "./PersonHeader";
 import { PersonElectoralSection } from "./PersonElectoralSection";
 import { PersonMpSections } from "./PersonMpSections";
 import { PersonOfficialAssets } from "./PersonOfficialAssets";
 import { PersonMoneyTimeline } from "./PersonMoneyTimeline";
 import { useTranslation } from "react-i18next";
 import {
-  Briefcase,
   Building2,
   Coins,
   ExternalLink,
@@ -31,7 +31,6 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
-import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { trRoleLabel } from "@/lib/trRole";
 import { formatEurCompact } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
@@ -52,32 +51,6 @@ const fmtElection = (d: string): string => {
   const m = /^(\d{4})_(\d{2})_(\d{2})$/.exec(d);
   return m ? `${m[3]}.${m[2]}.${m[1]}` : d;
 };
-
-const FACET_ICON: Record<string, typeof Landmark> = {
-  politician: Landmark,
-  executive: Briefcase,
-  magistrate: Landmark,
-  company: Building2,
-  donor: Coins,
-  sanctions: ShieldAlert,
-  ds: FileWarning,
-  regulator: Scale,
-};
-
-const Chip: FC<{ children: React.ReactNode; danger?: boolean }> = ({
-  children,
-  danger,
-}) => (
-  <span
-    className={
-      danger
-        ? "inline-flex items-center gap-1 rounded-full border border-red-500/40 bg-red-500/10 px-2.5 py-0.5 text-xs font-semibold text-red-600 dark:text-red-400"
-        : "inline-flex items-center gap-1 rounded-full border border-border bg-muted/50 px-2.5 py-0.5 text-xs font-medium text-muted-foreground"
-    }
-  >
-    {children}
-  </span>
-);
 
 // The shared person dashboard body — rendered by /person/:slug and (Phase 5) /candidate/:id.
 // Pure render over an already-fetched profile; fetching lives in usePersonProfile so both
@@ -152,12 +125,6 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
     return s === k ? role : s;
   };
 
-  const facetLabel = (f: string): string => {
-    const k = `pp_facet_${f}`;
-    const s = t(k);
-    return s === k ? f : s;
-  };
-
   // Regulator seat code → localized label; unknown codes pass through.
   const seatLabel = (seat: string): string => {
     const k = `pp_reg_seat_${seat}`;
@@ -195,29 +162,8 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
 
   return (
     <div className="mx-auto w-full max-w-6xl px-3 py-3 space-y-4">
-      {/* Header */}
-      <div className="flex items-start gap-4">
-        <MpAvatar name={p.name} mpId={mpId} className="h-16 w-16 shrink-0" />
-        <div className="min-w-0">
-          <h1 className="text-2xl font-bold leading-tight">{p.name}</h1>
-          <div className="mt-2 flex flex-wrap gap-1.5">
-            {p.facets.map((f) => {
-              const Icon = FACET_ICON[f];
-              return (
-                <Chip key={f} danger={f === "sanctions" || f === "ds"}>
-                  {Icon && <Icon className="h-3 w-3" />}
-                  {facetLabel(f)}
-                </Chip>
-              );
-            })}
-          </div>
-          {p.aliases.length > 0 && (
-            <p className="mt-2 text-sm text-muted-foreground">
-              {t("pp_also_known")}: {p.aliases.join(", ")}
-            </p>
-          )}
-        </div>
-      </div>
+      {/* Header — identity, party badge, compact MP bio */}
+      <PersonHeader p={p} mpId={mpId} />
 
       {/* Money-footprint + presence KPI row */}
       {kpis.length > 0 && (

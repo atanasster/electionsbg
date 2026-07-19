@@ -18,6 +18,7 @@ import {
   User,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { PartyBadge } from "@/screens/components/PartyBadge";
 
 type ItemType = SearchIndexType["type"];
 
@@ -182,16 +183,11 @@ export const SearchItems: FC<{
                         municipal official's location is shown below. */}
                     {r.item.type === "a" && r.item.party && (
                       <div>
-                        <span
-                          className="inline-block rounded px-1.5 py-0.5 text-[10px] leading-none text-white"
-                          style={{
-                            backgroundColor:
-                              r.item.partyColor ??
-                              "hsl(var(--muted-foreground))",
-                          }}
-                        >
-                          {r.item.party}
-                        </span>
+                        <PartyBadge
+                          label={r.item.party}
+                          color={r.item.partyColor}
+                          className="px-1.5 text-[10px] font-medium"
+                        />
                       </div>
                     )}
                     {parent && r.item.type !== "c" && (
