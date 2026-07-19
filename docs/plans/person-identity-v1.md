@@ -116,6 +116,17 @@ magistrate→politician, Phase 4 cont.); the `personConnections` AI tool now has
 (the data-level gate replaces most of the §7d prose-gate burden — a disclaimer-presence check on
 narration is the remaining piece).
 
+**IMPLEMENTATION LOG (2026-07-19, §4b cont.).** Shipped the **`personConnections` AI tool** over
+`person_connections` (084) — a grounded table of the subject's public co-officers + the shared company,
+with the identity disclaimer carried FROM the payload into `facts` (never dropped, never our claim);
+resolves name→slug via `person-profile` first. **This is why it ships where §4b deferred it:** the
+defamation gate is DATA-level (the function only returns public/active endpoints, drops association
+noise), so the tool can't surface a private co-owner or review-status link and the row set exactly
+equals the payload — no prose gate required for the risky surface. Registry-only integration (fuse
+retriever auto-includes it; incumbents survive; heuristic router untouched). 18 hermetic person-tool
+tests. NEXT: broaden the edge model (co-board / donor→party→candidate / magistrate→politician); a
+heuristic-router branch for the person tools (with §7d no-hijack precedence tests); the §8 graph visual.
+
 Goal: give every natural person in the site a single stable `person_id` in Postgres, so that
 candidates, MPs, mayors, councillors, executive & municipal officials, TR company officers/owners,
 magistrates, NGO board members and campaign-finance donors all resolve to **one profile** and can
