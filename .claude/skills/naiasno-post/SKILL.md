@@ -181,7 +181,10 @@ the shape deliberately per the rule above.
   `source`, `cta`, `theme`. Keep it to ≤6 bars — the renderer throws if the rows
   don't fit, so shorten the title/footnote or drop a bar rather than overloading.
   For non-percentage magnitudes (money, counts) set `unit` accordingly (e.g.
-  `" млн. лв."`) and use positive values with no `legend`.
+  `" млн. лв."`) and use positive values with no `legend`. For a
+  magnitude/distribution chart (shares, money, counts — anything that isn't a
+  signed change) also set `signed: false` so values render as plain magnitudes
+  (`30,1%`) instead of gaining a misleading `+` prefix.
 - **Single-number stat card (only when there's nothing to compare):** `value`
   (e.g. "2,4 млрд. лв."), `label` (1–2 short plain-language lines, `\n`
   separated), `source` (e.g. "Източник: АОП"), optional `kicker`, `cta` (default

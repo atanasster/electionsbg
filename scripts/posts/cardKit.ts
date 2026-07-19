@@ -194,6 +194,12 @@ export type BarCardSpec = {
   source: string;
   cta?: string;
   theme?: Theme;
+  /**
+   * Prefix each value with its sign (+/−). Default true — right for signed
+   * change data (gainers/losers). Set false for magnitude/distribution bars
+   * (shares, money, counts), where a leading "+" reads as a spurious increase.
+   */
+  signed?: boolean;
 };
 
 /**
@@ -305,7 +311,10 @@ export const renderBarCard = (spec: BarCardSpec): Buffer => {
 
     ctx.textAlign = "left";
     ctx.font = `700 34px ${FONT}`;
-    const sign = up ? "+" : "−"; // real minus sign, not a hyphen
+    // Signed by default (change data); magnitude/distribution bars pass
+    // signed:false so a share like 30,1% doesn't read as "+30,1%".
+    const signed = spec.signed ?? true;
+    const sign = !signed ? "" : up ? "+" : "−"; // real minus sign, not a hyphen
     const num = Math.abs(row.value).toFixed(1).replace(".", ",");
     ctx.fillText(`${sign}${num}${unit}`, X0 + w + 18, by);
 
