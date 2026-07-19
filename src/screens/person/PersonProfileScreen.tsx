@@ -49,6 +49,10 @@ type ProfileCompany = {
   roles: string[];
   procuredEur: number | null;
   contracts: number | null;
+  fundsEur: number | null;
+  fundsPaidEur: number | null;
+  fundProjects: number | null;
+  subsidiesEur: number | null;
 };
 type Sanction = {
   program: string;
@@ -87,6 +91,8 @@ export type PersonProfile = {
   companies: ProfileCompany[];
   ngos: NgoSeat[];
   procuredEur: number;
+  fundsEur: number;
+  subsidiesEur: number;
   sanctions: Sanction[];
   ds: DsFinding[];
   regulators: RegulatorSeat[];
@@ -212,14 +218,32 @@ const Profile: FC<{ p: PersonProfile }> = ({ p }) => {
         <MpAvatar name={p.name} mpId={mpId} className="h-16 w-16 shrink-0" />
         <div className="min-w-0">
           <h1 className="text-2xl font-bold leading-tight">{p.name}</h1>
-          {p.procuredEur > 0 && (
-            <p className="mt-1 text-sm text-muted-foreground">
-              {t("pp_procured_total")}:{" "}
-              <span className="font-semibold text-foreground">
-                {formatEurCompact(p.procuredEur)}
+          <div className="mt-1 flex flex-wrap gap-x-4 gap-y-0.5 text-sm text-muted-foreground">
+            {p.procuredEur > 0 && (
+              <span>
+                {t("pp_procured_total")}:{" "}
+                <span className="font-semibold text-foreground">
+                  {formatEurCompact(p.procuredEur)}
+                </span>
               </span>
-            </p>
-          )}
+            )}
+            {p.fundsEur > 0 && (
+              <span>
+                {t("pp_funds_total")}:{" "}
+                <span className="font-semibold text-foreground">
+                  {formatEurCompact(p.fundsEur)}
+                </span>
+              </span>
+            )}
+            {p.subsidiesEur > 0 && (
+              <span>
+                {t("pp_subsidies_total")}:{" "}
+                <span className="font-semibold text-foreground">
+                  {formatEurCompact(p.subsidiesEur)}
+                </span>
+              </span>
+            )}
+          </div>
           <div className="mt-2 flex flex-wrap gap-1.5">
             {p.facets.map((f) => {
               const Icon = FACET_ICON[f];
@@ -418,12 +442,34 @@ const Profile: FC<{ p: PersonProfile }> = ({ p }) => {
                     {c.roles.map((r) => trRoleLabel(r, t)).join(", ")}
                   </span>
                 </span>
-                {c.procuredEur != null && c.procuredEur > 0 && (
-                  <span className="shrink-0 whitespace-nowrap text-xs font-medium text-foreground">
-                    {formatEurCompact(c.procuredEur)}
-                    <span className="ml-1 font-normal text-muted-foreground">
-                      {t("pp_in_contracts", { count: c.contracts ?? 0 })}
-                    </span>
+                {((c.procuredEur ?? 0) > 0 ||
+                  (c.fundsEur ?? 0) > 0 ||
+                  (c.subsidiesEur ?? 0) > 0) && (
+                  <span className="shrink-0 space-y-0.5 text-right text-xs font-medium text-foreground">
+                    {c.procuredEur != null && c.procuredEur > 0 && (
+                      <span className="block whitespace-nowrap">
+                        {formatEurCompact(c.procuredEur)}
+                        <span className="ml-1 font-normal text-muted-foreground">
+                          {t("pp_in_contracts", { count: c.contracts ?? 0 })}
+                        </span>
+                      </span>
+                    )}
+                    {c.fundsEur != null && c.fundsEur > 0 && (
+                      <span className="block whitespace-nowrap font-normal">
+                        {formatEurCompact(c.fundsEur)}
+                        <span className="ml-1 text-muted-foreground">
+                          {t("pp_funds_total")}
+                        </span>
+                      </span>
+                    )}
+                    {c.subsidiesEur != null && c.subsidiesEur > 0 && (
+                      <span className="block whitespace-nowrap font-normal">
+                        {formatEurCompact(c.subsidiesEur)}
+                        <span className="ml-1 text-muted-foreground">
+                          {t("pp_subsidies_total")}
+                        </span>
+                      </span>
+                    )}
                   </span>
                 )}
               </div>

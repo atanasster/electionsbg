@@ -38,15 +38,22 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     ), '[]'::jsonb),
     -- TR footprint resolved to NAMED companies (the bare EIK in `roles` is useless on a
     -- page). Each company carries every role the person holds there + its PUBLIC-CONTRACT
-    -- take (Σ current_amount_eur, the post-annex basis, reference_procurement_eur_sum_basis)
+    -- take (Σ amount_eur WHERE tag='contract' — the current post-annex basis matching SIGMA,
+    -- reference_procurement_eur_sum_basis / 078; NOT the 2%-populated current_amount_eur)
     -- — the money thesis on the identity page. Bridged only — Bridge A (shared company) /
     -- Bridge B (unique full name) — so it is public-safe by §3/§6. Ordered money-first.
     'companies', COALESCE((
       SELECT jsonb_agg(jsonb_build_object(
         'eik', tr.ref, 'name', c.name, 'legalForm', c.legal_form,
         'seat', c.seat, 'status', c.status, 'roles', tr.roles,
-        'procuredEur', pr.eur, 'contracts', pr.n
-      ) ORDER BY pr.eur DESC NULLS LAST, c.name NULLS LAST, tr.ref)
+        'procuredEur', pr.eur, 'contracts', pr.n,
+        -- every public-money stream this company touches, keyed on the same EIK
+        -- (person-candidate-merge-v1): ЗОП contracts (above), ИСУН EU funds, ДФЗ subsidies.
+        'fundsEur', fn.contracted, 'fundsPaidEur', fn.paid, 'fundProjects', fn.n,
+        'subsidiesEur', ag.total
+      ) ORDER BY
+        COALESCE(pr.eur, 0) + COALESCE(fn.contracted, 0) + COALESCE(ag.total, 0)
+          DESC NULLS LAST, c.name NULLS LAST, tr.ref)
       FROM (
         SELECT r.ref, jsonb_agg(DISTINCT r.role ORDER BY r.role) AS roles
         FROM person_role r
@@ -56,9 +63,21 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       ) tr
       LEFT JOIN tr_companies c ON c.uic = tr.ref
       LEFT JOIN LATERAL (
-        SELECT round(sum(ct.current_amount_eur)::numeric, 2) AS eur, count(*) AS n
-        FROM contracts ct WHERE ct.contractor_eik = tr.ref
+        SELECT round(sum(ct.amount_eur)::numeric, 2) AS eur, count(*) AS n
+        FROM contracts ct WHERE ct.contractor_eik = tr.ref AND ct.tag = 'contract'
       ) pr ON pr.n > 0
+      -- ИСУН beneficiary row (one per EIK) + its project count.
+      LEFT JOIN LATERAL (
+        SELECT round(fb.contracted_eur::numeric, 2) AS contracted,
+               round(fb.paid_eur::numeric, 2) AS paid,
+               (SELECT count(*) FROM fund_projects fp WHERE fp.beneficiary_eik = tr.ref) AS n
+        FROM fund_beneficiaries fb WHERE fb.eik = tr.ref
+      ) fn ON true
+      -- ДФЗ agri subsidies (sum across CAP years) — legal entities only (individuals have no EIK).
+      LEFT JOIN LATERAL (
+        SELECT round(sum(a.total_eur)::numeric, 2) AS total
+        FROM agri_subsidies a WHERE a.eik = tr.ref
+      ) ag ON true
     ), '[]'::jsonb),
     -- NGO board seats (ЮЛНЦ — associations / foundations / читалища), the `ngo` facet.
     -- Same bridge + public-safe rules as `companies`, but a civic board seat, not a
@@ -80,10 +99,31 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     -- manager+owner double role can't double-count).
     'procuredEur', COALESCE((
       SELECT round(sum(x.eur)::numeric, 2) FROM (
-        SELECT (SELECT sum(current_amount_eur) FROM contracts WHERE contractor_eik = r.ref) AS eur
+        SELECT (SELECT sum(amount_eur) FROM contracts
+                 WHERE contractor_eik = r.ref AND tag = 'contract') AS eur
         FROM person_role r
         WHERE r.person_id = pick.person_id AND r.source = 'tr'
           AND r.confidence IN ('exact_id', 'high', 'manual')  -- match the companies filter
+        GROUP BY r.ref
+      ) x
+    ), 0),
+    -- Total ИСУН EU-funds contracted across the person's companies (EIK-deduped, same gate).
+    'fundsEur', COALESCE((
+      SELECT round(sum(x.eur)::numeric, 2) FROM (
+        SELECT (SELECT fb.contracted_eur FROM fund_beneficiaries fb WHERE fb.eik = r.ref) AS eur
+        FROM person_role r
+        WHERE r.person_id = pick.person_id AND r.source = 'tr'
+          AND r.confidence IN ('exact_id', 'high', 'manual')
+        GROUP BY r.ref
+      ) x
+    ), 0),
+    -- Total ДФЗ agri subsidies across the person's companies (EIK-deduped, same gate).
+    'subsidiesEur', COALESCE((
+      SELECT round(sum(x.eur)::numeric, 2) FROM (
+        SELECT (SELECT sum(a.total_eur) FROM agri_subsidies a WHERE a.eik = r.ref) AS eur
+        FROM person_role r
+        WHERE r.person_id = pick.person_id AND r.source = 'tr'
+          AND r.confidence IN ('exact_id', 'high', 'manual')
         GROUP BY r.ref
       ) x
     ), 0),
@@ -207,4 +247,46 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     'score', round(s.score::numeric, 3)
   ) ORDER BY s.score DESC, s.display_name), '[]'::jsonb)
   FROM scored s;
+$$;
+
+-- The person's public-contract take bucketed by CABINET tenure (the "money vs power"
+-- timeline on the merged dashboard, person-candidate-merge-v1). EIK-EXACT — driven from the
+-- person's resolved `tr` company set, not a name fold (person_by_cabinet(text) is the legacy
+-- name-keyed twin). Served lazily via /api/db/person-money, NOT folded into person_by_slug:
+-- the contracts range-join over a hub person's EIKs is heavier than the profile's point
+-- lookups, so it stays off the hot path (plan: split to person-money if over budget). Only
+-- cabinets under which the person's companies actually won anything are returned.
+DROP FUNCTION IF EXISTS person_money(text);
+CREATE OR REPLACE FUNCTION person_money(p_slug text)
+RETURNS jsonb LANGUAGE sql STABLE AS $$
+  WITH pick AS (
+    SELECT person_id FROM person
+     WHERE slug = p_slug AND status = 'active' AND is_public_figure LIMIT 1
+  ),
+  eiks AS (
+    SELECT DISTINCT r.ref AS uic
+    FROM person_role r, pick
+    WHERE r.person_id = pick.person_id AND r.source = 'tr'
+      AND r.confidence IN ('exact_id', 'high', 'manual')
+  ),
+  -- MATERIALIZED + indexed JOIN (contractor_eik) so the range-join below probes contracts
+  -- instead of seq-scanning. amount_eur = the current post-annex basis matching SIGMA and
+  -- the profile's procuredEur (reference_procurement_eur_sum_basis / 078).
+  mine AS MATERIALIZED (
+    SELECT ct.date, ct.amount_eur
+    FROM eiks co JOIN contracts ct ON ct.contractor_eik = co.uic
+    WHERE ct.tag = 'contract'
+  )
+  SELECT COALESCE(jsonb_agg(jsonb_build_object(
+    'id', cab.id, 'pm', cab.pm_bg, 'parties', cab.parties,
+    'start', cab.start_date, 'end', cab.end_date, 'type', cab.type,
+    'contracts', c.n, 'eur', c.eur
+  ) ORDER BY cab.start_date), '[]'::jsonb)
+  FROM cabinets cab
+  JOIN LATERAL (
+    SELECT count(*) AS n, round(coalesce(sum(mc.amount_eur), 0)::numeric, 2) AS eur
+    FROM mine mc
+    WHERE mc.date >= cab.start_date
+      AND (cab.end_date IS NULL OR mc.date < cab.end_date)
+  ) c ON c.n > 0;
 $$;

@@ -2087,6 +2087,17 @@ const DB_ROUTES = {
     ]).catch(missingMigrationEmpty);
     return { body: rows[0]?.r ?? [] };
   },
+  // The person's public-contract take bucketed by cabinet tenure (the "money vs power"
+  // timeline) → lazily loaded by the money section, kept off person_by_slug's hot path
+  // (person-candidate-merge-v1). EIK-exact.
+  "person-money": async (dbRows, q) => {
+    const slug = s(q, "slug");
+    if (!slug) return { body: [] };
+    const rows = await dbRows("SELECT person_money($1) AS r", [slug]).catch(
+      missingMigrationEmpty,
+    );
+    return { body: rows[0]?.r ?? [] };
+  },
   // Resolve a candidate URL to its owning person's slug so /candidate/{id} can render the
   // shared person dashboard. `slug` = a candidate slug (c-{party}-… | mp-{id}); or `name`
   // (+ optional `party`) for the legacy bare-name candidate URLs. Returns null for an
