@@ -100,8 +100,21 @@ top-k). The 4.2k-line heuristic router is deliberately NOT touched (no hijack ri
 person↔person `personConnections` tool is deferred until its claims/disclaimer narration gate exists
 (§4b/§7d). Also closed the §7d prerequisite: `ai/**/*.test.ts` now runs in the node vitest project
 (was globbed by nobody) — 11 hermetic tests (retriever recall + no-regression, run() envelope +
-grounding). NEXT: `personConnections` + its narration gate (the risky §7d surface), and/or person↔person
-edges (Phase 4 — connections graph on `person_id`, the Connections component §8).
+grounding).
+
+**IMPLEMENTATION LOG (2026-07-19, Phase 4 START).** Built the first **person↔person edge** —
+`person_connections(slug)` (migration 084): two PUBLIC persons who are officers/owners of the same
+company. Defamation/privacy safety is DATA-level, not prose-level: both endpoints must be
+`is_public_figure`+active (§6/§3), and an **association-noise guard** drops any company with >6 public
+officers (the judges'/prosecutors' associations, Русофили, …) — measured: keeps 308 real ties, excludes
+7 mass-membership orgs — with the disclaimer baked into the payload. Worst-case EXPLAIN 18ms (live
+STABLE fn, no precompute). Wired a `person-connections` route + a **"Свързани лица" tile on the /person
+page** (each related person links to their own profile), browser-verified. Data test asserts every
+related person is an active public figure, the disclaimer is present, and no edge runs through a
+>6-officer company. NEXT: broaden the edge model (co-board / donor→party→candidate /
+magistrate→politician, Phase 4 cont.); the `personConnections` AI tool now has a safe grounded backing
+(the data-level gate replaces most of the §7d prose-gate burden — a disclaimer-presence check on
+narration is the remaining piece).
 
 Goal: give every natural person in the site a single stable `person_id` in Postgres, so that
 candidates, MPs, mayors, councillors, executive & municipal officials, TR company officers/owners,
