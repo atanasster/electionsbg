@@ -124,8 +124,21 @@ defamation gate is DATA-level (the function only returns public/active endpoints
 noise), so the tool can't surface a private co-owner or review-status link and the row set exactly
 equals the payload — no prose gate required for the risky surface. Registry-only integration (fuse
 retriever auto-includes it; incumbents survive; heuristic router untouched). 18 hermetic person-tool
-tests. NEXT: broaden the edge model (co-board / donor→party→candidate / magistrate→politician); a
-heuristic-router branch for the person tools (with §7d no-hijack precedence tests); the §8 graph visual.
+tests.
+
+**IMPLEMENTATION LOG (2026-07-19, §7d router).** Wired both person tools into the LIVE heuristic
+router (`route()`) so they fire on the primary path (not just the dormant LLM/retriever path). Both
+gate on a 2-3-word person name (excludes one-word pollster/party names) + a specific cue —
+`personConnections` on a "connected people" cue, guarded OFF the EIK company-connections path and the
+procurement political-links path; `personProfile` on a profile/business cue, guarded OFF the roll-call
+and pollster "профил" senses — placed right after `mpVotingProfile` so voting cues win first. Added a
+router precedence test (§7d risk #1b): positive routing for both + a **no-hijack corpus** (EIK
+connections, procurement+person, roll-call профил, "гласува като", and lookalikes with no person name)
+all still reach their incumbent tool. 32 ai tests green. **The person-identity build is now complete
+end-to-end: resolver (6 sources + dual TR bridges + review queue) → serving → /person page + Свързани
+лица → personProfile/personConnections chat tools reachable on the live router.** NEXT (optional):
+broaden the edge model (co-board / donor→party→candidate / magistrate→politician); the §8 radial graph
+visual; Phase 5 new sources (ДС/sanctions/regulators); Phase 6 URL/SEO consolidation.
 
 Goal: give every natural person in the site a single stable `person_id` in Postgres, so that
 candidates, MPs, mayors, councillors, executive & municipal officials, TR company officers/owners,
