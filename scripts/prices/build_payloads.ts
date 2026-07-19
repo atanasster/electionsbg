@@ -305,6 +305,30 @@ export const buildPayloads = async (): Promise<void> => {
       ? Math.round((fLast.petrol.BG / fLast.petrol.EU27_2020 - 1) * 1000) / 10
       : null;
 
+  // Household electricity + natural-gas price gap vs the EU average, from the
+  // committed Eurostat energy JSONs. Same formula + latest-common-period anchoring
+  // as the fuel gap (EU27 can lag BG), so all three hub tiles are computed alike.
+  const energyGapPct = (rel: string): number | null => {
+    const d = readJson<{
+      series?: {
+        BG?: { period: string; value: number }[];
+        EU27?: { period: string; value: number }[];
+      };
+    }>(rel);
+    const bgS = d?.series?.BG ?? [];
+    const euByPeriod = new Map(
+      (d?.series?.EU27 ?? []).map((p) => [p.period, p.value]),
+    );
+    for (let i = bgS.length - 1; i >= 0; i--) {
+      const eu = euByPeriod.get(bgS[i].period);
+      if (eu != null && eu > 0)
+        return Math.round((bgS[i].value / eu - 1) * 1000) / 10;
+    }
+    return null;
+  };
+  const electricityGapPct = energyGapPct("data/energy/prices.json");
+  const gasGapPct = energyGapPct("data/energy/gas_prices.json");
+
   const peers = readJson<{
     foodPli?: { values?: Record<string, Record<string, number>> };
   }>("data/macro_peers.json");
@@ -327,6 +351,8 @@ export const buildPayloads = async (): Promise<void> => {
       basketLast != null ? Math.round((basketLast - 100) * 10) / 10 : null,
     biggestDealPct: deals[0]?.discPct ?? null,
     fuelGapPct,
+    electricityGapPct,
+    gasGapPct,
     euFoodPli,
     foodInflationPct,
   });

@@ -251,6 +251,8 @@ export interface HubStats {
   basketChangePct: number | null;
   biggestDealPct: number | null;
   fuelGapPct: number | null;
+  electricityGapPct: number | null;
+  gasGapPct: number | null;
   euFoodPli: number | null;
   foodInflationPct: number | null;
 }
