@@ -89,9 +89,19 @@ first, then as a UNIQUE folded name (new `person_by_name` fn) so the legacy `/pe
 (magistrate holdings, associates, connection checks) land on the unified profile — a 0/>1-match name
 falls back to the legacy TR/procurement portfolio. Browser-verified end-to-end: `mp-2258` (offices +
 СПАК ИНВЕСТ ownership + 10 candidacies) and a magistrate reached BY NAME (court + NGO board seat), no
-console errors. NEXT (Phase 3 cont.): AI tools (`personSearch`/`personProfile`/`personConnections`,
-§4b); then person↔company edges (Phase 4 — connections graph on `person_id`, the Connections component
-§8).
+console errors.
+
+**IMPLEMENTATION LOG (2026-07-19, Phase 3 cont.).** Shipped the **`personProfile` AI tool** (§4b) over
+the resolved layer, backed by the `person-profile` route — a grounded Envelope (office labels, named
+companies, exact candidacy/donation counts, all verbatim from the payload; identity disclaimer always
+in `facts`; public-safe roles only). **Safe integration:** registry entry ONLY — the fuse retriever
+auto-includes it (verified retrieved for its BG/EN utterances, no incumbent evicted from its own
+top-k). The 4.2k-line heuristic router is deliberately NOT touched (no hijack risk), and the
+person↔person `personConnections` tool is deferred until its claims/disclaimer narration gate exists
+(§4b/§7d). Also closed the §7d prerequisite: `ai/**/*.test.ts` now runs in the node vitest project
+(was globbed by nobody) — 11 hermetic tests (retriever recall + no-regression, run() envelope +
+grounding). NEXT: `personConnections` + its narration gate (the risky §7d surface), and/or person↔person
+edges (Phase 4 — connections graph on `person_id`, the Connections component §8).
 
 Goal: give every natural person in the site a single stable `person_id` in Postgres, so that
 candidates, MPs, mayors, councillors, executive & municipal officials, TR company officers/owners,
