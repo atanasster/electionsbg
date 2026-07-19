@@ -183,6 +183,22 @@ registered under Integrity (browser-verified); (5) **README** — a unified-pers
 sanctions cues (санкц/sanction/magnitsky/ofac), no-hijack test extended. 62 person/ai tests green. The
 person-identity build is now END-TO-END and fully integrated into the site's data lifecycle.
 
+**IMPLEMENTATION LOG (2026-07-19, coverage audit + gap closure).** Audited every source vs the catalog.
+COMPLETE: candidates (all 10 elections with data; 2005/09/13 have none), magistrates (3,113 = full
+table), officers/PEP (TR bridged A+B by design; company_politicians fully used). Donors are complete
+for the 3 elections with ЕРИК per-donor data — older elections lack it UPSTREAM (an `update-financing
+--erik` backfill, not a resolver gap). Two real gaps found + FIXED: (1) **NGO board members** were
+mislabeled `tr` — split `ngo_board`/`ngo_representative` (2,310→3,083 after local) to the `ngo` facet in
+both bridges, a new `ngos` array + "Управа на ЮЛНЦ" page section, and co-board membership now counts as
+a connection; (2) **`local` mayors & councillors** (dataset 3) was at ZERO — now resolves every mi/chmi
+cycle's ELECTED holders (**+21,304 roles**: 1,440 mayors + 19,864 councillors), with canonical-party +
+obshtina corroborants that link a councillor-turned-MP. Person universe 35,272 → **46,947**. Wiring:
+`ofac_sanctions` watcher + `update-persons` skill + orchestrator row cover the whole layer; README +
+/data/sources updated; verified responsive on mobile (375px, no overflow) + perf (`person_by_slug`
+3.2ms, `person_connections` 12.8ms — existing index, NO matview needed). Idempotent; 62 person/ai + 9
+data tests green. Remaining upstream (not resolver) gaps: older-election ЕРИК donor backfill; ds/
+regulator T1 sources.
+
 Goal: give every natural person in the site a single stable `person_id` in Postgres, so that
 candidates, MPs, mayors, councillors, executive & municipal officials, TR company officers/owners,
 magistrates, NGO board members and campaign-finance donors all resolve to **one profile** and can
