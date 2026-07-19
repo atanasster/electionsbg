@@ -67,6 +67,19 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
         GROUP BY r.ref
       ) x
     ), 0),
+    -- Official sanctions designations (OFAC/EU), with their provenance from source_row —
+    -- rendered as a prominent, CITED badge (these are government findings, not our claim).
+    'sanctions', COALESCE((
+      SELECT jsonb_agg(jsonb_build_object(
+        'program', r.source_row->>'program',
+        'authority', r.source_row->>'authority',
+        'date', r.source_row->>'date',
+        'url', r.source_row->>'url'
+      ) ORDER BY r.source_row->>'date' DESC)
+      FROM person_role r
+      WHERE r.person_id = pick.person_id AND r.source = 'sanctions'
+        AND r.confidence IN ('exact_id', 'high', 'manual')
+    ), '[]'::jsonb),
     -- Alternate surface forms that fold to this person (spelling / transliteration
     -- variants across sources), for display + so a search hit on any of them makes sense.
     'aliases', COALESCE((

@@ -54,6 +54,7 @@ type Raw = {
   cPlace: string | null;
   cBirth: string | null;
   uics: string[]; // declared/linked company EIKs — the strong shared-company corroborant
+  sourceRow: unknown | null; // provenance jsonb for the role (e.g. a sanctions designation)
 };
 
 // djb2 → 6 base36 chars. Deterministic disambiguator for magistrate-only slugs.
@@ -103,6 +104,7 @@ const fields = (
   cPlace: null,
   cBirth: null,
   uics: [],
+  sourceRow: null,
   ...over,
 });
 
@@ -202,23 +204,79 @@ async function collect(): Promise<Raw[]> {
       mps: {
         id: number;
         name: string;
-        currentRegion: string | null;
+        // currentRegion is a bare region NAME on most rows but a {code,name} object on
+        // some — normalize to the name string so it never renders as raw JSON.
+        currentRegion: string | { code?: string; name?: string } | null;
         currentPartyGroupShort: string | null;
         birthDate: string | null;
       }[];
     };
-    for (const mp of idx.mps)
+    for (const mp of idx.mps) {
+      const region =
+        typeof mp.currentRegion === "object" && mp.currentRegion !== null
+          ? (mp.currentRegion.name ?? null)
+          : (mp.currentRegion ?? null);
       add(
         mp.name,
         { id: `mp:${mp.id}`, source: "mp", ref: String(mp.id), role: "mp" },
         {
           hardId: `mp:${mp.id}`,
-          place: mp.currentRegion,
+          place: region,
           cParty: mp.currentPartyGroupShort,
-          cPlace: mp.currentRegion,
+          cPlace: region,
           cBirth: mp.birthDate,
           uics: refEik.get(`mp:${mp.id}`) ?? [],
         },
+      );
+    }
+  }
+
+  // Sanctions (data/person/sanctions.json) — OFFICIAL OFAC/EU designations of Bulgarian
+  // individuals (public record, §5 T1 `sanctions` facet). To never implicate the WRONG
+  // same-named person, an entry attaches ONLY via a stable disambiguator (mpId → Tier-0
+  // gold key); a name-ambiguous designee (`resolved:false`, no mpId) is documented in the
+  // file but NOT emitted, so no ambiguous public accusation is minted.
+  const sanctionsPath = path.join(REPO_ROOT, "data/person/sanctions.json");
+  if (fs.existsSync(sanctionsPath)) {
+    const sx = JSON.parse(fs.readFileSync(sanctionsPath, "utf8")) as {
+      designees: {
+        name: string;
+        mpId?: number;
+        program: string;
+        authority: string;
+        date: string;
+        url: string;
+      }[];
+    };
+    let heldSanctions = 0;
+    for (const d of sx.designees) {
+      if (d.mpId == null) {
+        heldSanctions++;
+        continue;
+      }
+      add(
+        d.name,
+        {
+          id: `sanctions:mp:${d.mpId}`,
+          source: "sanctions",
+          ref: `mp:${d.mpId}`,
+          role: "sanctioned",
+        },
+        {
+          hardId: `mp:${d.mpId}`,
+          place: d.program,
+          sourceRow: {
+            program: d.program,
+            authority: d.authority,
+            date: d.date,
+            url: d.url,
+          },
+        },
+      );
+    }
+    if (heldSanctions)
+      console.log(
+        `  held ${heldSanctions} name-ambiguous sanction(s) for manual disambiguation`,
       );
   }
 
@@ -595,7 +653,7 @@ async function main(): Promise<void> {
         null, // start_date
         null, // end_date
         b.confidence,
-        null, // source_row
+        m.raw.sourceRow == null ? null : JSON.stringify(m.raw.sourceRow),
       ]);
       const ak = `${pid}\t${m.raw.display}\t${m.source}`;
       if (!aliasSeen.has(ak)) {

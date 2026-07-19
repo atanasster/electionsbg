@@ -31,6 +31,7 @@ type PersonProfilePayload = {
   roles: ProfileRole[];
   companies: ProfileCompany[];
   procuredEur: number;
+  sanctions: { program: string; authority: string; date: string }[];
 } | null;
 
 type ConnectionsPayload = {
@@ -99,6 +100,11 @@ export const personProfile = async (
   const facts: Record<string, string | number> = {
     [bg ? "име" : "name"]: p.name,
   };
+  // Official sanctions FIRST — the highest-stakes fact, verbatim from the government finding.
+  if (p.sanctions?.length)
+    facts[bg ? "санкции" : "sanctions"] = p.sanctions
+      .map((s) => `${s.program} (${s.authority}, ${s.date})`)
+      .join("; ");
   if (officeLabels.length)
     facts[bg ? "длъжности" : "positions"] = officeLabels.join(", ");
   if (companyNames.length) {

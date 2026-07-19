@@ -98,6 +98,13 @@ describe("personProfile run()", () => {
       { eik: "207747409", name: "СПАК ИНВЕСТ", roles: ["sole_owner"] },
     ],
     procuredEur: 1234567,
+    sanctions: [
+      {
+        program: "US Global Magnitsky",
+        authority: "OFAC",
+        date: "2021-06-02",
+      },
+    ],
   };
 
   it("builds a grounded profile envelope", async () => {
@@ -110,6 +117,8 @@ describe("personProfile run()", () => {
     expect(env.facts["кандидатури (брой)"]).toBe(2);
     // Procurement take is grounded verbatim (rounded integer), never computed in prose.
     expect(env.facts["обществени поръчки (EUR)"]).toBe(1234567);
+    // The official sanction is surfaced verbatim.
+    expect(String(env.facts["санкции"])).toContain("US Global Magnitsky");
     expect(String(env.facts["фирми"])).toContain("СПАК ИНВЕСТ");
     expect(String(env.facts["длъжности"])).toContain("Народни представители");
     // The identity disclaimer must always travel with the profile.

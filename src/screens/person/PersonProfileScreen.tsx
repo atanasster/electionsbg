@@ -15,7 +15,9 @@ import {
   Briefcase,
   Building2,
   Coins,
+  ExternalLink,
   Landmark,
+  ShieldAlert,
   Users,
   Vote,
 } from "lucide-react";
@@ -45,6 +47,12 @@ type ProfileCompany = {
   procuredEur: number | null;
   contracts: number | null;
 };
+type Sanction = {
+  program: string;
+  authority: string;
+  date: string;
+  url: string;
+};
 export type PersonProfile = {
   slug: string;
   name: string;
@@ -54,6 +62,7 @@ export type PersonProfile = {
   roles: ProfileRole[];
   companies: ProfileCompany[];
   procuredEur: number;
+  sanctions: Sanction[];
   aliases: string[];
 };
 
@@ -79,10 +88,20 @@ const FACET_ICON: Record<string, typeof Landmark> = {
   magistrate: Landmark,
   company: Building2,
   donor: Coins,
+  sanctions: ShieldAlert,
 };
 
-const Chip: FC<{ children: React.ReactNode }> = ({ children }) => (
-  <span className="inline-flex items-center gap-1 rounded-full border border-border bg-muted/50 px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
+const Chip: FC<{ children: React.ReactNode; danger?: boolean }> = ({
+  children,
+  danger,
+}) => (
+  <span
+    className={
+      danger
+        ? "inline-flex items-center gap-1 rounded-full border border-red-500/40 bg-red-500/10 px-2.5 py-0.5 text-xs font-semibold text-red-600 dark:text-red-400"
+        : "inline-flex items-center gap-1 rounded-full border border-border bg-muted/50 px-2.5 py-0.5 text-xs font-medium text-muted-foreground"
+    }
+  >
     {children}
   </span>
 );
@@ -149,7 +168,7 @@ const Profile: FC<{ p: PersonProfile }> = ({ p }) => {
             {p.facets.map((f) => {
               const Icon = FACET_ICON[f];
               return (
-                <Chip key={f}>
+                <Chip key={f} danger={f === "sanctions" || f === "ds"}>
                   {Icon && <Icon className="h-3 w-3" />}
                   {facetLabel(f)}
                 </Chip>
@@ -163,6 +182,37 @@ const Profile: FC<{ p: PersonProfile }> = ({ p }) => {
           )}
         </div>
       </div>
+
+      {/* Sanctions — a prominent, CITED badge (official government finding, not our claim) */}
+      {p.sanctions.length > 0 && (
+        <Card className="border-red-500/40 bg-red-500/5">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base text-red-600 dark:text-red-400">
+              <ShieldAlert className="h-4 w-4" /> {t("pp_sanctions")}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            {p.sanctions.map((sx, i) => (
+              <div key={i} className="text-sm">
+                <span className="font-medium">{sx.program}</span>
+                <span className="text-muted-foreground">
+                  {" "}
+                  · {sx.authority} · {sx.date}
+                </span>
+                <a
+                  href={sx.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ml-2 inline-flex items-center gap-0.5 text-primary hover:underline"
+                >
+                  {t("pp_sanctions_source")}
+                  <ExternalLink className="h-3 w-3" />
+                </a>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      )}
 
       {/* Offices held */}
       {offices.length > 0 && (

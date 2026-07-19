@@ -1,0 +1,32 @@
+{
+  "_comment": "Curated register of Bulgarian individuals under US (OFAC Global Magnitsky) / EU sanctions. These are OFFICIAL government designations (public record), matched to the resolved person layer. To avoid implicating the WRONG same-named person, an entry attaches ONLY when it carries a stable disambiguator (`mpId`); name-ambiguous designees stay `resolved:false` (documented, not published) until a person is confirmed. Verify any designation at the official OFAC SDN search: https://sanctionssearch.ofac.treas.gov/",
+  "designees": [
+    {
+      "name": "Делян Славчев Пеевски",
+      "mpId": 5100,
+      "program": "US Global Magnitsky",
+      "authority": "OFAC (U.S. Department of the Treasury)",
+      "date": "2021-06-02",
+      "url": "https://sanctionssearch.ofac.treas.gov/",
+      "resolved": true
+    },
+    {
+      "name": "Васил Крумов Божков",
+      "program": "US Global Magnitsky",
+      "authority": "OFAC (U.S. Department of the Treasury)",
+      "date": "2021-06-02",
+      "url": "https://sanctionssearch.ofac.treas.gov/",
+      "resolved": false,
+      "note": "Омоними в регистъра — изисква ръчно уточняване на конкретното лице"
+    },
+    {
+      "name": "Илко Димитров Желязков",
+      "program": "US Global Magnitsky",
+      "authority": "OFAC (U.S. Department of the Treasury)",
+      "date": "2021-06-02",
+      "url": "https://sanctionssearch.ofac.treas.gov/",
+      "resolved": false,
+      "note": "Не е публична изборна личност — изисква ръчно уточняване"
+    }
+  ]
+}
