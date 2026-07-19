@@ -42,7 +42,9 @@ export default defineConfig({
           // without a database (see docs/testing-standards.md). When Postgres
           // IS up they run for real and pull large tables, so this project gets
           // a generous timeout (node:test, the previous runner, had none).
-          include: ["scripts/**/*.test.ts"],
+          // ai/** carries the AI-chat tool tests (retriever recall, router
+          // precedence, narration gates — plan §7d); hermetic, no DB.
+          include: ["scripts/**/*.test.ts", "ai/**/*.test.ts"],
           testTimeout: 120_000,
           hookTimeout: 120_000,
         },

@@ -200,6 +200,7 @@ import {
 import { compareElections, machineVoteShare, turnout } from "./metrics";
 import { simulateTaxChange } from "./taxPolicy";
 import { candidateResult } from "./candidate";
+import { personProfile } from "./person";
 import {
   nationalResults,
   parliamentSeats,
@@ -3749,6 +3750,43 @@ export const TOOLS: ToolDef[] = [
     run: investmentProjects,
   },
   // ---- people ---------------------------------------------------------------
+  {
+    name: "personProfile",
+    domain: "people",
+    description: {
+      bg: "Обединен профил на едно лице по име: длъжности (депутат, кмет, съветник, магистрат), фирми в Търговския регистър (собственик/управител), кандидатури и дарения — всичко събрано в един човек.",
+      en: "One person's unified profile by name: offices (MP, mayor, councillor, magistrate), Commerce-Registry companies (owner/manager), candidacies and donations — all resolved to one individual.",
+    },
+    params: [
+      {
+        name: "name",
+        type: "string",
+        description: {
+          bg: "Пълно име на лицето (публична личност).",
+          en: "Full name of the person (a public figure).",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Какъв е профилът на Бойко Борисов?",
+        en: "What is the profile of Boyko Borisov?",
+      },
+      {
+        bg: "Какви фирми притежава този депутат?",
+        en: "What companies does this MP own?",
+      },
+      {
+        bg: "Покажи всичко за едно лице — длъжности и фирми.",
+        en: "Show everything about a person — offices and companies.",
+      },
+      {
+        bg: "В кои дружества е собственик или управител даден магистрат?",
+        en: "Which companies is a given magistrate an owner or manager of?",
+      },
+    ],
+    run: personProfile,
+  },
   {
     name: "governments",
     domain: "people",
