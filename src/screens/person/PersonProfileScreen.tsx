@@ -192,15 +192,9 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
       label: t("pp_companies"),
       value: String(p.companies.length),
     });
-  if (candidacies.length > 0)
-    kpis.push({
-      key: "candidacies",
-      label: t("pp_candidacies"),
-      value: String(candidacies.length),
-    });
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-6 space-y-6">
+    <div className="mx-auto w-full max-w-6xl px-3 py-3 space-y-4">
       {/* Header */}
       <div className="flex items-start gap-4">
         <MpAvatar name={p.name} mpId={mpId} className="h-16 w-16 shrink-0" />

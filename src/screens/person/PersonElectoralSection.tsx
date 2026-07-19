@@ -15,7 +15,6 @@ import { usePersonElections } from "@/data/dashboard/usePersonElections";
 import { computeCandidateSummary } from "@/data/dashboard/computeCandidateSummary";
 import { useSearchParam } from "@/screens/utils/useSearchParam";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
-import { CandidateSummaryLine } from "@/screens/components/candidates/CandidateSummaryLine";
 import { CandidatePreferencesCard } from "@/screens/dashboard/cards/CandidatePreferencesCard";
 import { CandidatePaperMachineCard } from "@/screens/dashboard/cards/CandidatePaperMachineCard";
 import { CandidateBallotCard } from "@/screens/dashboard/cards/CandidateBallotCard";
@@ -45,28 +44,34 @@ export const PersonElectoralSection: FC<Props> = ({
   const { findRegion } = useRegions();
   const { data: rows } = usePersonElections(slug);
 
-  // The person's candidacy cycles, newest first, each with its /candidate slug.
-  const cycles = useMemo(
-    () => [...candidacies].sort((a, b) => b.election.localeCompare(a.election)),
-    [candidacies],
+  // Only cycles the person ACTUALLY ran with results — a candidacy ROLE with no preference
+  // data (e.g. a roster-only entry) shouldn't be a selectable year. Newest first.
+  const dataCycles = useMemo(
+    () =>
+      (rows ?? [])
+        .filter((r) => (r.regions?.length ?? 0) > 0 || r.totalVotes > 0)
+        .map((r) => r.election)
+        .sort((a, b) => b.localeCompare(a)),
+    [rows],
   );
-  const cycleDates = useMemo(() => cycles.map((c) => c.election), [cycles]);
 
-  // Selected cycle: ?pelect if it's one the person contested, else the global election when
-  // they ran that cycle, else their newest candidacy.
+  // Selected cycle: ?pelect when it's a real (data-bearing) cycle, else the global election
+  // when they ran it, else their LAST election with results.
   const [pelect, setPelect] = useSearchParam("pelect");
   const selectedCycle =
-    pelect && cycleDates.includes(pelect)
+    pelect && dataCycles.includes(pelect)
       ? pelect
-      : cycleDates.includes(globalSelected)
+      : dataCycles.includes(globalSelected)
         ? globalSelected
-        : cycleDates[0];
+        : dataCycles[0];
 
   // Party colours/names must resolve for the SELECTED cycle's ballot, not the global one.
   const { findParty } = usePartyInfo(selectedCycle);
 
   const row = rows?.find((r) => r.election === selectedCycle);
-  const candidateSlug = cycles.find((c) => c.election === selectedCycle)?.slug;
+  const candidateSlug = candidacies.find(
+    (c) => c.election === selectedCycle,
+  )?.slug;
 
   const summary = useMemo(() => {
     if (!row) return null;
@@ -85,22 +90,20 @@ export const PersonElectoralSection: FC<Props> = ({
     });
   }, [row, name, selectedCycle, prevElections, findParty, findRegion]);
 
-  if (cycles.length === 0) return null;
+  // No election with actual results → no electoral section (a candidacy role alone isn't
+  // enough to show a dashboard of empty cards).
+  if (dataCycles.length === 0 || !summary) return null;
 
   const selector =
-    cycles.length > 1 ? (
+    dataCycles.length > 1 ? (
       <div className="flex flex-wrap gap-1.5">
-        {cycles.map((c) => {
-          const active = c.election === selectedCycle;
+        {dataCycles.map((el) => {
+          const active = el === selectedCycle;
           return (
             <button
-              key={c.election}
+              key={el}
               type="button"
-              onClick={() =>
-                setPelect(
-                  c.election === globalSelected ? undefined : c.election,
-                )
-              }
+              onClick={() => setPelect(el === globalSelected ? undefined : el)}
               aria-pressed={active}
               className={
                 active
@@ -108,7 +111,7 @@ export const PersonElectoralSection: FC<Props> = ({
                   : "rounded-full border border-border px-2.5 py-0.5 text-xs text-primary hover:bg-muted"
               }
             >
-              {fmtElection(c.election)}
+              {fmtElection(el)}
             </button>
           );
         })}
@@ -123,28 +126,22 @@ export const PersonElectoralSection: FC<Props> = ({
         icon={Gauge}
         subtitle={selector}
       >
-        {summary ? (
-          <>
-            <CandidateSummaryLine data={summary} />
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              <CandidatePreferencesCard data={summary} />
-              <CandidatePaperMachineCard
-                paperMachine={summary.paperMachine}
-                priorElection={summary.priorElection}
-              />
-              <CandidateBallotCard data={summary} />
-              <CandidateTopRegionCard data={summary} />
-            </div>
-            <CandidateRegionsTile data={summary} linkSlug={candidateSlug} />
-            <CandidateTrajectoryTile data={summary} />
-          </>
-        ) : (
-          // Keep the section (and its cycle selector) visible even when the picked cycle has
-          // no stats row, so the chips don't vanish while the KPI still shows a candidacy count.
-          <p className="text-sm text-muted-foreground">
-            {t("pp_no_election_data")}
-          </p>
-        )}
+        {/* Which election these cards are for — a prominent heading, since the cycle chips
+            above are small. Replaces the old redundant summary sentence. */}
+        <h3 className="text-lg font-bold text-foreground">
+          {t("pp_election_heading", { date: fmtElection(selectedCycle) })}
+        </h3>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <CandidatePreferencesCard data={summary} />
+          <CandidatePaperMachineCard
+            paperMachine={summary.paperMachine}
+            priorElection={summary.priorElection}
+          />
+          <CandidateBallotCard data={summary} />
+          <CandidateTopRegionCard data={summary} />
+        </div>
+        <CandidateRegionsTile data={summary} linkSlug={candidateSlug} />
+        <CandidateTrajectoryTile data={summary} />
       </DashboardSection>
 
       {summary &&
