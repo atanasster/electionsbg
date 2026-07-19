@@ -5,12 +5,16 @@
 import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
 
+// Canonical geo code shared with the macro peer set (BG anchor, EU27 benchmark,
+// four neighbour peers). Greece is Eurostat's EL → GR here.
+export type FuelGeo = "BG" | "EU27_2020" | "RO" | "GR" | "HU" | "HR";
+
+// One weekly row: the €/L price of each fuel per geo. Values are sparse — a peer
+// can be missing for a given week (e.g. Croatia before its 2013 accession).
 export interface FuelPoint {
   date: string;
-  bg95: number | null;
-  bgDiesel: number | null;
-  eu95: number | null;
-  euDiesel: number | null;
+  petrol: Partial<Record<FuelGeo, number | null>>;
+  diesel: Partial<Record<FuelGeo, number | null>>;
 }
 export interface FuelFile {
   source: string;

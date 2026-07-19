@@ -296,6 +296,25 @@ const FuelScene: FC = () => (
   </SceneFrame>
 );
 
+// Ток — a lightning bolt.
+const ElectricityScene: FC = () => (
+  <SceneFrame>
+    <path
+      d="M164 24 L142 62 L156 62 L140 96 L182 54 L164 54 Z"
+      fill="var(--sector)"
+      opacity=".85"
+    />
+    <path
+      d="M196 34 a30 30 0 0 1 0 52"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.4"
+      strokeLinecap="round"
+      opacity=".45"
+    />
+  </SceneFrame>
+);
+
 // Спрямо ЕС — diverging bars around an EU=100 baseline.
 const EuCompare: FC = () => (
   <SceneFrame>
@@ -429,4 +448,5 @@ export const CONSUMPTION_SCENES: Record<string, FC> = {
   eu: EuCompare,
   deals: Deals,
   fuel: FuelScene,
+  electricity: ElectricityScene,
 };

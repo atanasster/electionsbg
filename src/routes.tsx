@@ -1267,6 +1267,11 @@ const ConsumptionUnitPricesScreen = lazy(() =>
     default: m.ConsumptionUnitPricesScreen,
   })),
 );
+const ConsumptionElectricityScreen = lazy(() =>
+  import("./screens/consumption/ConsumptionElectricityScreen").then((m) => ({
+    default: m.ConsumptionElectricityScreen,
+  })),
+);
 const ChainProfileScreen = lazy(() =>
   import("./screens/consumption/ChainProfileScreen").then((m) => ({
     default: m.ChainProfileScreen,
@@ -3571,6 +3576,16 @@ export const AuthRoutes = () => {
               <LayoutScreen>
                 <Suspense fallback={<RouteFallback />}>
                   <ConsumptionUnitPricesScreen />
+                </Suspense>
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="consumption/electricity"
+            element={
+              <LayoutScreen>
+                <Suspense fallback={<RouteFallback />}>
+                  <ConsumptionElectricityScreen />
                 </Suspense>
               </LayoutScreen>
             }

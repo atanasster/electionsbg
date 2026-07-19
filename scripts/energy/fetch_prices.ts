@@ -46,8 +46,21 @@ const fetchSeries = async (geo: string): Promise<Point[]> => {
     .sort((a, b) => a.period.localeCompare(b.period));
 };
 
+// Neighbour peers for the trend chart. Keyed by our canonical geo code, valued by
+// the Eurostat geo (Greece is EL upstream, GR in our peer set). BG + EU27 stay
+// separate (they anchor the KPI + `latest`); peers are best-effort (an upstream
+// gap for one country must not fail the whole ingest).
+const PEERS: { key: "RO" | "GR" | "HU" | "HR"; geo: string }[] = [
+  { key: "RO", geo: "RO" },
+  { key: "GR", geo: "EL" },
+  { key: "HU", geo: "HU" },
+  { key: "HR", geo: "HR" },
+];
+
 const main = async (): Promise<void> => {
-  console.log("energy/prices: fetching Eurostat nrg_pc_204 (BG + EU27)…");
+  console.log(
+    "energy/prices: fetching Eurostat nrg_pc_204 (BG + EU27 + peers)…",
+  );
   const [bg, eu] = await Promise.all([
     fetchSeries("BG"),
     fetchSeries("EU27_2020"),
@@ -56,6 +69,20 @@ const main = async (): Promise<void> => {
     throw new Error(
       `energy/prices: thin series (BG ${bg.length}, EU ${eu.length}) — upstream query likely rejected`,
     );
+
+  const peerSeries: Record<string, Point[]> = {};
+  await Promise.all(
+    PEERS.map(async ({ key, geo }) => {
+      try {
+        const s = await fetchSeries(geo);
+        if (s.length) peerSeries[key] = s;
+      } catch (e) {
+        console.warn(
+          `energy/prices: peer ${key} (${geo}) skipped — ${e instanceof Error ? e.message : e}`,
+        );
+      }
+    }),
+  );
 
   // `latest` = the newest period present in BOTH series (EU27 aggregates can lag
   // BG), so consumers that compare BG vs EU never straddle two half-years.
@@ -72,7 +99,7 @@ const main = async (): Promise<void> => {
       "https://ec.europa.eu/eurostat/databrowser/view/nrg_pc_204/default/table",
     unit: "EUR/kWh",
     latest: commonLatest,
-    series: { BG: bg, EU27: eu },
+    series: { BG: bg, EU27: eu, ...peerSeries },
   };
   fs.mkdirSync(path.dirname(OUT), { recursive: true });
   fs.writeFileSync(OUT, JSON.stringify(out) + "\n");

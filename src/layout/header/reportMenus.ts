@@ -284,6 +284,10 @@ export const consumptionMenu: MenuItem[] = [
       { title: "consumption_menu_overview", link: "/consumption/overview" },
       { title: "consumption_menu_eu", link: "/consumption/eu" },
       { title: "consumption_menu_fuel", link: "/consumption/fuel" },
+      {
+        title: "consumption_menu_electricity",
+        link: "/consumption/electricity",
+      },
     ],
   },
 ];

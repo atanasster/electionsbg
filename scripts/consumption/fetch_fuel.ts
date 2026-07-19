@@ -86,42 +86,57 @@ const main = async () => {
         typeof fuelRow[i] === "string" &&
         (fuelRow[i] as string).toLowerCase().includes(fuelSub),
     );
-  const cols = {
-    bg95: col("BG_price_with", "euro-super 95"),
-    bgDsl: col("BG_price_with", "gas oil auto"),
-    eu95: col("EUR_price_with", "euro-super 95"),
-    euDsl: col("EUR_price_with", "gas oil auto"),
-  };
-  for (const [k, c] of Object.entries(cols))
-    if (c < 0) throw new Error(`could not locate column ${k}`);
 
-  // The price columns are already in EUR per 1000 L (the sibling exchange_rate
-  // column is reference metadata for reconstructing the pre-euro national price,
-  // NOT a factor to apply). So €/L is just value / 1000.
+  // Our canonical geo code → the Oil Bulletin column prefix. BG anchors, EUR is
+  // the EU average benchmark, and RO/GR/HU/HR are the neighbour peers. Every
+  // per-country column is ALREADY in EUR per 1000 L (verified: BG 1460 → €1.46,
+  // matching the served KPI), so no currency conversion is needed — the same
+  // value/1000 applies to every geo.
+  const GEOS: { key: string; prefix: string }[] = [
+    { key: "BG", prefix: "BG_price_with" },
+    { key: "EU27_2020", prefix: "EUR_price_with" },
+    { key: "RO", prefix: "RO_price_with" },
+    { key: "GR", prefix: "GR_price_with" },
+    { key: "HU", prefix: "HU_price_with" },
+    { key: "HR", prefix: "HR_price_with" },
+  ];
+  const cols = GEOS.map(({ key, prefix }) => ({
+    key,
+    petrol: col(prefix, "euro-super 95"),
+    diesel: col(prefix, "gas oil auto"),
+  }));
+  // BG + the EU average are load-bearing (KPI + gap); peers are best-effort so a
+  // reshuffled/absent peer column never fails the whole ingest.
+  for (const c of cols)
+    if (
+      (c.key === "BG" || c.key === "EU27_2020") &&
+      (c.petrol < 0 || c.diesel < 0)
+    )
+      throw new Error(`could not locate ${c.key} columns`);
+
   const perL = (v: number | null): number | null =>
     v == null ? null : Math.round(v) / 1000;
 
-  const series: {
-    date: string;
-    bg95: number | null;
-    bgDiesel: number | null;
-    eu95: number | null;
-    euDiesel: number | null;
-  }[] = [];
+  type GeoMap = Record<string, number | null>;
+  const series: { date: string; petrol: GeoMap; diesel: GeoMap }[] = [];
   for (let i = 3; i < rows.length; i++) {
     const r = rows[i] as unknown[];
     const date = isoDate(r[0]);
     if (!date) continue;
-    const bg95 = perL(num(r[cols.bg95]));
-    const eu95 = perL(num(r[cols.eu95]));
-    if (bg95 == null && eu95 == null) continue;
-    series.push({
-      date,
-      bg95,
-      bgDiesel: perL(num(r[cols.bgDsl])),
-      eu95,
-      euDiesel: perL(num(r[cols.euDsl])),
-    });
+    const petrol: GeoMap = {};
+    const diesel: GeoMap = {};
+    for (const c of cols) {
+      if (c.petrol >= 0) {
+        const v = perL(num(r[c.petrol]));
+        if (v != null) petrol[c.key] = v;
+      }
+      if (c.diesel >= 0) {
+        const v = perL(num(r[c.diesel]));
+        if (v != null) diesel[c.key] = v;
+      }
+    }
+    if (petrol.BG == null && petrol.EU27_2020 == null) continue;
+    series.push({ date, petrol, diesel });
   }
   // rows are newest-first; sort ascending and keep from SINCE for the chart.
   series.sort((a, b) => a.date.localeCompare(b.date));
@@ -132,13 +147,13 @@ const main = async () => {
     source: "European Commission — Weekly Oil Bulletin",
     sourceUrl: PAGE,
     unit: "EUR/L",
-    note: "Prices with taxes (VAT-inclusive). Euro-super 95 & automotive diesel.",
+    note: "Prices with taxes (VAT-inclusive). Euro-super 95 & automotive diesel. BG, the EU average and the RO/GR/HU/HR neighbour peers.",
     latestDate: latest?.date ?? "",
     series: trimmed,
   };
   fs.writeFileSync(OUT, JSON.stringify(payload, null, 2));
   console.log(
-    `fuel.json: ${trimmed.length} weeks, latest ${latest?.date} · BG95 €${latest?.bg95}/L diesel €${latest?.bgDiesel}/L · EU95 €${latest?.eu95}/L`,
+    `fuel.json: ${trimmed.length} weeks, latest ${latest?.date} · BG95 €${latest?.petrol.BG}/L diesel €${latest?.diesel.BG}/L · EU95 €${latest?.petrol.EU27_2020}/L · peers ${["RO", "GR", "HU", "HR"].filter((g) => latest?.petrol[g] != null).join("/")}`,
   );
 
   // Self-report the /data/updates row (this ingest writes only data/fuel.json,
@@ -147,7 +162,7 @@ const main = async () => {
   appendDataChange({
     skill: "update-fuel",
     source: "EC Weekly Oil Bulletin",
-    summary: `fuel.json: ${trimmed.length} weeks, latest ${latest?.date} · BG95 €${latest?.bg95}/L · diesel €${latest?.bgDiesel}/L`,
+    summary: `fuel.json: ${trimmed.length} weeks, latest ${latest?.date} · BG95 €${latest?.petrol.BG}/L · diesel €${latest?.diesel.BG}/L`,
     links: [
       { to: "/consumption/fuel", labelKey: "data_changes_link_consumption" },
     ],

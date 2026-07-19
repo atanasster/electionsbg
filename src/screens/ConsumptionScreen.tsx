@@ -223,6 +223,13 @@ export const ConsumptionScreen = () => {
           T("Бензин и дизел спрямо ЕС", "Petrol & diesel vs the EU"),
           TILE_ACCENTS.slate,
         ),
+        tile(
+          "electricity",
+          "/consumption/electricity",
+          T("Ток", "Electricity"),
+          T("Цената на тока спрямо ЕС", "Power prices vs the EU"),
+          TILE_ACCENTS.gold,
+        ),
       ],
     },
   ];

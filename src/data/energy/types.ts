@@ -35,7 +35,16 @@ export interface EnergyPrices {
   sourceUrl: string;
   unit: string;
   latest: string;
-  series: { BG: PricePoint[]; EU27: PricePoint[] };
+  // BG + the EU27 benchmark are always present; the four neighbour peers
+  // (RO/GR/HU/HR — GR is Eurostat's EL remapped) are added for the trend chart.
+  series: {
+    BG: PricePoint[];
+    EU27: PricePoint[];
+    RO?: PricePoint[];
+    GR?: PricePoint[];
+    HU?: PricePoint[];
+    HR?: PricePoint[];
+  };
 }
 
 // Canonical fuel key + bilingual label, in the fixed display order (the eye

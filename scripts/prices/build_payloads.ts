@@ -295,12 +295,14 @@ export const buildPayloads = async (): Promise<void> => {
   })();
 
   const fuel = readJson<{
-    series?: { bg95: number | null; eu95: number | null }[];
+    series?: {
+      petrol?: { BG?: number | null; EU27_2020?: number | null };
+    }[];
   }>("data/fuel.json");
   const fLast = fuel?.series?.[fuel.series.length - 1];
   const fuelGapPct =
-    fLast?.bg95 != null && fLast.eu95
-      ? Math.round((fLast.bg95 / fLast.eu95 - 1) * 1000) / 10
+    fLast?.petrol?.BG != null && fLast.petrol.EU27_2020
+      ? Math.round((fLast.petrol.BG / fLast.petrol.EU27_2020 - 1) * 1000) / 10
       : null;
 
   const peers = readJson<{
