@@ -5,32 +5,47 @@
 // rebuild_ngo_board_links). Nothing consumes person_id yet, so a rebuild is safe;
 // slug persistence (never renumber an active person) is a follow-up once it's served.
 //
-// Scope of THIS step: magistrate + officials (executive + municipal) — the clean,
-// bounded, authoritative office-holder sources. Cross-source merges happen only via
-// the safe Tier-2 unique-fold bridge (a globally-unique 3-part name shared by a
-// magistrate and an official). TR-officer bridging, candidates, MPs, donors and the
-// review-candidate persistence land in later steps.
+// Scope so far: magistrate + officials (executive + municipal) + MPs (the mp id is the
+// cross-source GOLD KEY — Tier 0 — and gives person slugs the stable mp-{id} lineage).
+// Cross-source merges are the safe ones: same mp id (Tier 0), a name-independent
+// corroborant (Tier 1: shared company / birth date / party+place), or a globally-unique
+// full name (Tier 2). TR-officer bridging, candidates, donors and review-candidate
+// persistence land in later steps.
 //
 //   npx tsx scripts/person/resolve_persons.ts
 //   DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npx tsx scripts/person/resolve_persons.ts
 
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { allRows, withTx, end } from "../db/lib/pg";
 import { copyRows } from "../db/lib/copy";
 import { parseName } from "./nameParts";
 import { clusterBlock, type Mention } from "./cluster";
+
+const REPO_ROOT = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "../..",
+);
 
 type Raw = {
   id: string;
   source: string;
   ref: string;
   role: string;
+  hardId: string | null; // cross-source gold key (parliament MP id) — Tier 0
   display: string;
   given: string;
   patr: string | null;
   family: string;
   nameParts: 2 | 3;
   ambiguous: boolean;
-  place: string | null; // for person_role display (NOT a matching corroborant)
+  place: string | null; // for person_role display
+  // Matching corroborants (kept SEPARATE from `place` display — a magistrate's court
+  // is a display place but not a reliable cross-person corroborant).
+  cParty: string | null;
+  cPlace: string | null;
+  cBirth: string | null;
 };
 
 // djb2 → 6 base36 chars. Deterministic disambiguator for magistrate-only slugs.
@@ -42,33 +57,56 @@ const hash6 = (s: string): string => {
 const kebab = (s: string): string =>
   s.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
+// Build the parse-derived + defaulted fields shared by every source, so each source
+// only spells out what differs (id/source/ref/role + any hardId/corroborants).
+const fields = (
+  p: NonNullable<ReturnType<typeof parseName>>,
+  over: Partial<Raw>,
+): Omit<Raw, "id" | "source" | "ref" | "role"> => ({
+  hardId: null,
+  display: p.displayName,
+  given: p.given,
+  patr: p.patronymic,
+  family: p.family,
+  nameParts: p.nameParts,
+  ambiguous: p.ambiguous,
+  place: null,
+  cParty: null,
+  cPlace: null,
+  cBirth: null,
+  ...over,
+});
+
 async function collect(): Promise<Raw[]> {
   const out: Raw[] = [];
   let skipped = 0;
+  const add = (
+    name: string,
+    r: Omit<Raw, keyof ReturnType<typeof fields>>,
+    over: Partial<Raw> = {},
+  ) => {
+    const p = parseName(name);
+    if (!p) {
+      skipped++;
+      return;
+    }
+    out.push({ ...r, ...fields(p, over) });
+  };
 
   const mags = await allRows<{ name: string; court: string | null }>(
     `SELECT name, court FROM magistrate`,
   );
-  for (const m of mags) {
-    const p = parseName(m.name);
-    if (!p) {
-      skipped++;
-      continue;
-    }
-    out.push({
-      id: `magistrate:${m.name}`,
-      source: "magistrate",
-      ref: m.name,
-      role: "magistrate",
-      display: p.displayName,
-      given: p.given,
-      patr: p.patronymic,
-      family: p.family,
-      nameParts: p.nameParts,
-      ambiguous: p.ambiguous,
-      place: m.court,
-    });
-  }
+  for (const m of mags)
+    add(
+      m.name,
+      {
+        id: `magistrate:${m.name}`,
+        source: "magistrate",
+        ref: m.name,
+        role: "magistrate",
+      },
+      { place: m.court },
+    );
 
   const offs = await allRows<{
     name: string;
@@ -76,25 +114,40 @@ async function collect(): Promise<Raw[]> {
     role: string | null;
     tier: string | null;
   }>(`SELECT name, slug, role, tier FROM official_roster`);
-  for (const o of offs) {
-    const p = parseName(o.name);
-    if (!p) {
-      skipped++;
-      continue;
-    }
-    out.push({
+  for (const o of offs)
+    add(o.name, {
       id: `official:${o.slug}`,
       source: o.tier === "municipal" ? "official_muni" : "official_exec",
       ref: o.slug,
       role: o.role ?? "official",
-      display: p.displayName,
-      given: p.given,
-      patr: p.patronymic,
-      family: p.family,
-      nameParts: p.nameParts,
-      ambiguous: p.ambiguous,
-      place: null,
     });
+
+  // MPs (data/parliament/index.json) — the mp id is the cross-source GOLD KEY (Tier 0),
+  // and birthDate is a strong name-independent corroborant. Degrades gracefully if the
+  // file is absent (fresh clone without the parliament data).
+  const mpPath = path.join(REPO_ROOT, "data/parliament/index.json");
+  if (fs.existsSync(mpPath)) {
+    const idx = JSON.parse(fs.readFileSync(mpPath, "utf8")) as {
+      mps: {
+        id: number;
+        name: string;
+        currentRegion: string | null;
+        currentPartyGroupShort: string | null;
+        birthDate: string | null;
+      }[];
+    };
+    for (const mp of idx.mps)
+      add(
+        mp.name,
+        { id: `mp:${mp.id}`, source: "mp", ref: String(mp.id), role: "mp" },
+        {
+          hardId: `mp:${mp.id}`,
+          place: mp.currentRegion,
+          cParty: mp.currentPartyGroupShort,
+          cPlace: mp.currentRegion,
+          cBirth: mp.birthDate,
+        },
+      );
   }
 
   if (skipped) console.log(`  skipped ${skipped} un-parseable name(s)`);
@@ -133,21 +186,36 @@ async function foldAndScore(
 type M = Mention & { raw: Raw };
 
 async function main(): Promise<void> {
-  console.log("resolving persons (magistrate + officials)…");
+  console.log("resolving persons (magistrate + officials + MPs)…");
   const raw = await collect();
   const { fold, namesake } = await foldAndScore(raw);
+
+  // §6 privacy gate: a person is public only if some source they hold defaults public
+  // (person_source.public_default). All current sources are public, but tr/donor/ngo
+  // (public_default=false) must NOT mint a public page for a private individual.
+  const publicDefault = new Map(
+    (
+      await allRows<{ key: string; public_default: boolean }>(
+        `SELECT key, public_default FROM person_source`,
+      )
+    ).map((r) => [r.key, r.public_default]),
+  );
 
   const mentions: M[] = raw.map((r) => ({
     id: r.id,
     source: r.source,
-    hardId: null,
+    hardId: r.hardId,
     givenFold: fold.get(r.given)!,
     familyFold: fold.get(r.family)!,
     patronymicFold: r.patr ? fold.get(r.patr)! : null,
     nameParts: r.nameParts,
     ambiguous: r.ambiguous,
     namesakeRisk: namesake.get(fold.get(r.display)!) ?? 0,
-    corroborants: {}, // no reliable cross-source corroborant in these two sources
+    corroborants: {
+      party: r.cParty,
+      place: r.cPlace,
+      birthDate: r.cBirth,
+    },
     raw: r,
   }));
 
@@ -187,10 +255,16 @@ async function main(): Promise<void> {
     nameParts: number;
     namesake: number;
     confidence: "exact_id" | "high";
+    isPublic: boolean;
     members: M[];
   };
   const built: Built[] = groups.map((g) => {
     const members = g.ids.map((id) => byId.get(id)!);
+    // Slug priority: the mp id gold key (stable, /candidate/mp-{id} lineage) > an
+    // official's existing slug > a derived name+hash. Deterministic across runs.
+    const mpMember = members
+      .filter((m) => m.source === "mp")
+      .sort((a, b) => Number(a.raw.ref) - Number(b.raw.ref))[0];
     const officialMember = members
       .filter((m) => m.source.startsWith("official"))
       .sort((a, b) => a.raw.ref.localeCompare(b.raw.ref))[0];
@@ -201,11 +275,13 @@ async function main(): Promise<void> {
         (a, b) =>
           b.nameParts - a.nameParts || b.display.length - a.display.length,
       )[0];
-    const slug = officialMember
-      ? officialMember.raw.ref
-      : `${kebab(`${key.givenFold}-${key.familyFold}`)}-${hash6(
-          g.ids.slice().sort().join("|"),
-        )}`;
+    const slug = mpMember
+      ? `mp-${mpMember.raw.ref}`
+      : officialMember
+        ? officialMember.raw.ref
+        : `${kebab(`${key.givenFold}-${key.familyFold}`)}-${hash6(
+            g.ids.slice().sort().join("|"),
+          )}`;
     return {
       slug,
       display: best.display,
@@ -215,6 +291,7 @@ async function main(): Promise<void> {
       nameParts: members.some((m) => m.nameParts === 3) ? 3 : 2,
       namesake: Math.max(...members.map((m) => m.namesakeRisk)),
       confidence: g.confidence,
+      isPublic: members.some((m) => publicDefault.get(m.source) ?? false),
       members,
     };
   });
@@ -245,7 +322,7 @@ async function main(): Promise<void> {
       b.family,
       b.nameParts,
       b.slug,
-      true, // is_public_figure — these are office-holder sources
+      b.isPublic, // §6 privacy gate — derived from person_source.public_default
       b.namesake,
       "active",
     ]);
