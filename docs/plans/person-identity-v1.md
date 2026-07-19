@@ -76,8 +76,22 @@ folds live in PG), **double-gated** — unique in `tr_officers` (`namesake_risk<
 collapse; `ON CONFLICT` dedups vs Bridge-A. Result: **+9,040 tr roles; TR footprint 88 → 5,985 bridged
 persons** (9,160 roles). Spot-check: `mp-2258` Георги Юруков now carries actual_owner/director/sole_owner
 on his company. The licensing invariant is widened to accept EITHER bridge (curated link, or unique
-full-name match on that exact company). NEXT: person↔company edges (Phase 4 — rebuild the connections
-graph on `person_id`); then the frontend `/person/{slug}` + AI tools (Phase 3).
+full-name match on that exact company).
+
+**IMPLEMENTATION LOG (2026-07-19, Phase 3 START).** Shipped the unified **`/person/{slug}` profile
+page** + its serving. `person_by_slug` (082) is enriched to a page-ready payload — the TR footprint
+resolves to NAMED companies (via `tr_companies`) + an `aliases` array; worst-case EXPLAIN ANALYZE 1.6ms
+so no `person_payloads` precompute is warranted (§4d). New `PersonProfileScreen` leads with the
+cross-source identity spine (offices, companies, candidacies, donations, facet chips), reusing
+Card/MpAvatar, public-safe roles only. **Replaces the legacy /person page** (confirmed NOT in the
+sitemap → no SEO loss) WITHOUT breaking it: the route is a dispatcher that resolves the param as a slug
+first, then as a UNIQUE folded name (new `person_by_name` fn) so the legacy `/person/{name}` links
+(magistrate holdings, associates, connection checks) land on the unified profile — a 0/>1-match name
+falls back to the legacy TR/procurement portfolio. Browser-verified end-to-end: `mp-2258` (offices +
+СПАК ИНВЕСТ ownership + 10 candidacies) and a magistrate reached BY NAME (court + NGO board seat), no
+console errors. NEXT (Phase 3 cont.): AI tools (`personSearch`/`personProfile`/`personConnections`,
+§4b); then person↔company edges (Phase 4 — connections graph on `person_id`, the Connections component
+§8).
 
 Goal: give every natural person in the site a single stable `person_id` in Postgres, so that
 candidates, MPs, mayors, councillors, executive & municipal officials, TR company officers/owners,
