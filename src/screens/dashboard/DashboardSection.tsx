@@ -61,7 +61,13 @@ type Props = {
     | "pack-trend"
     | "procedure-hospitals"
     | "person-electoral"
-    | "person-geography";
+    | "person-geography"
+    | "person-offices"
+    | "person-regulators"
+    | "person-business"
+    | "person-ngos"
+    | "person-connections"
+    | "person-donations";
   title?: ReactNode;
   subtitle?: ReactNode;
   icon?: LucideIcon;

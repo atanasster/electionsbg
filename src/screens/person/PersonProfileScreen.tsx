@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { StatCard } from "@/screens/dashboard/StatCard";
+import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { trRoleLabel } from "@/lib/trRole";
 import { formatEurCompact } from "@/lib/currency";
@@ -300,43 +301,44 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
       {/* Regulators / independent bodies — the `regulator` "кой решава" facet. A NEUTRAL
           civic-office tile (not an accusation), each seat cited to the body's official page. */}
       {p.regulators.length > 0 && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-base">
-              <Scale className="h-4 w-4" /> {t("pp_regulators")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            {p.regulators.map((rg, i) => (
-              <div
-                key={`${rg.body}:${rg.seat}:${i}`}
-                className="flex items-baseline justify-between gap-3 border-b border-border/50 pb-2 last:border-0 last:pb-0"
-              >
-                <span className="min-w-0 text-sm">
-                  <span className="font-medium">{rg.body}</span>
-                  <span className="text-muted-foreground">
-                    {" "}
-                    · {seatLabel(rg.seat)}
-                  </span>
-                  {rg.termStart && (
-                    <span className="block text-xs text-muted-foreground">
-                      {t("pp_reg_since")} {rg.termStart}
-                    </span>
-                  )}
-                </span>
-                <a
-                  href={rg.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex shrink-0 items-center gap-0.5 text-xs text-primary hover:underline"
+        <DashboardSection
+          id="person-regulators"
+          title={t("pp_regulators")}
+          icon={Scale}
+        >
+          <Card>
+            <CardContent className="space-y-2 pt-6">
+              {p.regulators.map((rg, i) => (
+                <div
+                  key={`${rg.body}:${rg.seat}:${i}`}
+                  className="flex items-baseline justify-between gap-3 border-b border-border/50 pb-2 last:border-0 last:pb-0"
                 >
-                  {t("pp_reg_source")}
-                  <ExternalLink className="h-3 w-3" />
-                </a>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
+                  <span className="min-w-0 text-sm">
+                    <span className="font-medium">{rg.body}</span>
+                    <span className="text-muted-foreground">
+                      {" "}
+                      · {seatLabel(rg.seat)}
+                    </span>
+                    {rg.termStart && (
+                      <span className="block text-xs text-muted-foreground">
+                        {t("pp_reg_since")} {rg.termStart}
+                      </span>
+                    )}
+                  </span>
+                  <a
+                    href={rg.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex shrink-0 items-center gap-0.5 text-xs text-primary hover:underline"
+                  >
+                    {t("pp_reg_source")}
+                    <ExternalLink className="h-3 w-3" />
+                  </a>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        </DashboardSection>
       )}
 
       {/* Electoral performance (politician) — PG-fed stat cards, regions, trajectory, with a
@@ -352,191 +354,199 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
 
       {/* Offices held */}
       {offices.length > 0 && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-base">
-              <Landmark className="h-4 w-4" /> {t("pp_offices")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            {offices.map((r) => (
-              <div
-                key={`${r.source}:${r.ref}:${r.role}`}
-                className="flex items-baseline justify-between gap-3 border-b border-border/50 pb-2 last:border-0 last:pb-0"
-              >
-                <span className="text-sm">
-                  <span className="font-medium">
-                    {r.source === "local" ? roleLabel(r.role) : r.sourceLabel}
-                  </span>
-                  {/* The role code adds signal for officials (councillor / mayor / chair);
+        <DashboardSection
+          id="person-offices"
+          title={t("pp_offices")}
+          icon={Landmark}
+        >
+          <Card>
+            <CardContent className="space-y-2 pt-6">
+              {offices.map((r) => (
+                <div
+                  key={`${r.source}:${r.ref}:${r.role}`}
+                  className="flex items-baseline justify-between gap-3 border-b border-border/50 pb-2 last:border-0 last:pb-0"
+                >
+                  <span className="text-sm">
+                    <span className="font-medium">
+                      {r.source === "local" ? roleLabel(r.role) : r.sourceLabel}
+                    </span>
+                    {/* The role code adds signal for officials (councillor / mayor / chair);
                       for mp & magistrate the source label already says it; local shows the
                       role AS the heading (Кмет / Общински съветник). */}
-                  {r.source.startsWith("official") &&
-                    r.role &&
-                    r.role !== "official" && (
-                      <span className="text-muted-foreground"> · {r.role}</span>
-                    )}
-                </span>
-                {r.place && (
-                  <span className="shrink-0 text-xs text-muted-foreground">
-                    {r.place}
+                    {r.source.startsWith("official") &&
+                      r.role &&
+                      r.role !== "official" && (
+                        <span className="text-muted-foreground">
+                          {" "}
+                          · {r.role}
+                        </span>
+                      )}
                   </span>
-                )}
-              </div>
-            ))}
-          </CardContent>
-        </Card>
+                  {r.place && (
+                    <span className="shrink-0 text-xs text-muted-foreground">
+                      {r.place}
+                    </span>
+                  )}
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        </DashboardSection>
       )}
 
       {/* Companies (TR footprint) */}
       {p.companies.length > 0 && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-base">
-              <Building2 className="h-4 w-4" /> {t("pp_companies")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            {p.companies.map((c) => (
-              <div
-                key={c.eik}
-                className="flex items-baseline justify-between gap-3 border-b border-border/50 pb-2 last:border-0 last:pb-0"
-              >
-                <span className="min-w-0 text-sm">
-                  <Link
-                    to={`/company/${c.eik}`}
-                    className="font-medium text-primary hover:underline"
-                  >
-                    {c.name ? decodeEntities(c.name) : c.eik}
-                  </Link>
-                  {c.legalForm && (
-                    <span className="text-muted-foreground">
-                      {" "}
-                      {c.legalForm}
+        <DashboardSection
+          id="person-business"
+          title={t("pp_companies")}
+          icon={Building2}
+        >
+          <Card>
+            <CardContent className="space-y-2 pt-6">
+              {p.companies.map((c) => (
+                <div
+                  key={c.eik}
+                  className="flex items-baseline justify-between gap-3 border-b border-border/50 pb-2 last:border-0 last:pb-0"
+                >
+                  <span className="min-w-0 text-sm">
+                    <Link
+                      to={`/company/${c.eik}`}
+                      className="font-medium text-primary hover:underline"
+                    >
+                      {c.name ? decodeEntities(c.name) : c.eik}
+                    </Link>
+                    {c.legalForm && (
+                      <span className="text-muted-foreground">
+                        {" "}
+                        {c.legalForm}
+                      </span>
+                    )}
+                    <span className="block text-xs text-muted-foreground">
+                      {c.roles.map((r) => trRoleLabel(r, t)).join(", ")}
+                    </span>
+                  </span>
+                  {((c.procuredEur ?? 0) > 0 ||
+                    (c.fundsEur ?? 0) > 0 ||
+                    (c.subsidiesEur ?? 0) > 0) && (
+                    <span className="shrink-0 space-y-0.5 text-right text-xs font-medium text-foreground">
+                      {c.procuredEur != null && c.procuredEur > 0 && (
+                        <span className="block whitespace-nowrap">
+                          {formatEurCompact(c.procuredEur)}
+                          <span className="ml-1 font-normal text-muted-foreground">
+                            {t("pp_in_contracts", { count: c.contracts ?? 0 })}
+                          </span>
+                        </span>
+                      )}
+                      {c.fundsEur != null && c.fundsEur > 0 && (
+                        <span className="block whitespace-nowrap font-normal">
+                          {formatEurCompact(c.fundsEur)}
+                          <span className="ml-1 text-muted-foreground">
+                            {t("pp_funds_total")}
+                          </span>
+                        </span>
+                      )}
+                      {c.subsidiesEur != null && c.subsidiesEur > 0 && (
+                        <span className="block whitespace-nowrap font-normal">
+                          {formatEurCompact(c.subsidiesEur)}
+                          <span className="ml-1 text-muted-foreground">
+                            {t("pp_subsidies_total")}
+                          </span>
+                        </span>
+                      )}
                     </span>
                   )}
-                  <span className="block text-xs text-muted-foreground">
-                    {c.roles.map((r) => trRoleLabel(r, t)).join(", ")}
-                  </span>
-                </span>
-                {((c.procuredEur ?? 0) > 0 ||
-                  (c.fundsEur ?? 0) > 0 ||
-                  (c.subsidiesEur ?? 0) > 0) && (
-                  <span className="shrink-0 space-y-0.5 text-right text-xs font-medium text-foreground">
-                    {c.procuredEur != null && c.procuredEur > 0 && (
-                      <span className="block whitespace-nowrap">
-                        {formatEurCompact(c.procuredEur)}
-                        <span className="ml-1 font-normal text-muted-foreground">
-                          {t("pp_in_contracts", { count: c.contracts ?? 0 })}
-                        </span>
-                      </span>
-                    )}
-                    {c.fundsEur != null && c.fundsEur > 0 && (
-                      <span className="block whitespace-nowrap font-normal">
-                        {formatEurCompact(c.fundsEur)}
-                        <span className="ml-1 text-muted-foreground">
-                          {t("pp_funds_total")}
-                        </span>
-                      </span>
-                    )}
-                    {c.subsidiesEur != null && c.subsidiesEur > 0 && (
-                      <span className="block whitespace-nowrap font-normal">
-                        {formatEurCompact(c.subsidiesEur)}
-                        <span className="ml-1 text-muted-foreground">
-                          {t("pp_subsidies_total")}
-                        </span>
-                      </span>
-                    )}
-                  </span>
-                )}
-              </div>
-            ))}
-          </CardContent>
-        </Card>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        </DashboardSection>
       )}
 
       {/* NGO board seats (ЮЛНЦ) — the civic-board facet, distinct from business companies */}
       {p.ngos.length > 0 && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-base">
-              <HeartHandshake className="h-4 w-4" /> {t("pp_ngos")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            {p.ngos.map((n) => (
-              <div
-                key={n.eik}
-                className="border-b border-border/50 pb-2 last:border-0 last:pb-0"
-              >
-                <span className="text-sm">
-                  <Link
-                    to={`/company/${n.eik}`}
-                    className="font-medium text-primary hover:underline"
-                  >
-                    {n.name ? decodeEntities(n.name) : n.eik}
-                  </Link>
-                  <span className="block text-xs text-muted-foreground">
-                    {n.roles.map((r) => trRoleLabel(r, t)).join(", ")}
+        <DashboardSection
+          id="person-ngos"
+          title={t("pp_ngos")}
+          icon={HeartHandshake}
+        >
+          <Card>
+            <CardContent className="space-y-2 pt-6">
+              {p.ngos.map((n) => (
+                <div
+                  key={n.eik}
+                  className="border-b border-border/50 pb-2 last:border-0 last:pb-0"
+                >
+                  <span className="text-sm">
+                    <Link
+                      to={`/company/${n.eik}`}
+                      className="font-medium text-primary hover:underline"
+                    >
+                      {n.name ? decodeEntities(n.name) : n.eik}
+                    </Link>
+                    <span className="block text-xs text-muted-foreground">
+                      {n.roles.map((r) => trRoleLabel(r, t)).join(", ")}
+                    </span>
                   </span>
-                </span>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        </DashboardSection>
       )}
 
       {/* Connected people (§8) — public co-officers via a shared company */}
       {conn && conn.related.length > 0 && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-base">
-              <Users className="h-4 w-4" /> {t("pp_connections")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            {conn.related.map((r) => (
-              <div
-                key={r.slug}
-                className="flex items-baseline justify-between gap-3 border-b border-border/50 pb-2 last:border-0 last:pb-0"
-              >
-                <span className="min-w-0 text-sm">
-                  <Link
-                    to={`/person/${r.slug}`}
-                    className="font-medium text-primary hover:underline"
-                  >
-                    {r.name}
-                  </Link>
-                  <span className="block text-xs text-muted-foreground">
-                    {r.companies
-                      .map((c) => (c.name ? decodeEntities(c.name) : c.eik))
-                      .join(", ")}
+        <DashboardSection
+          id="person-connections"
+          title={t("pp_connections")}
+          icon={Users}
+        >
+          <Card>
+            <CardContent className="space-y-2 pt-6">
+              {conn.related.map((r) => (
+                <div
+                  key={r.slug}
+                  className="flex items-baseline justify-between gap-3 border-b border-border/50 pb-2 last:border-0 last:pb-0"
+                >
+                  <span className="min-w-0 text-sm">
+                    <Link
+                      to={`/person/${r.slug}`}
+                      className="font-medium text-primary hover:underline"
+                    >
+                      {r.name}
+                    </Link>
+                    <span className="block text-xs text-muted-foreground">
+                      {r.companies
+                        .map((c) => (c.name ? decodeEntities(c.name) : c.eik))
+                        .join(", ")}
+                    </span>
                   </span>
-                </span>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
+                </div>
+              ))}
+            </CardContent>
+          </Card>
+        </DashboardSection>
       )}
 
       {/* Donations */}
       {donations.length > 0 && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-base">
-              <Coins className="h-4 w-4" /> {t("pp_donations")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-1">
-            {[...new Set(donations.map((r) => r.ref.split(":")[0]))]
-              .sort((a, b) => b.localeCompare(a))
-              .map((election) => (
-                <div key={election} className="text-sm">
-                  {t("pp_donated")} · {fmtElection(election)}
-                </div>
-              ))}
-          </CardContent>
-        </Card>
+        <DashboardSection
+          id="person-donations"
+          title={t("pp_donations")}
+          icon={Coins}
+        >
+          <Card>
+            <CardContent className="space-y-1 pt-6">
+              {[...new Set(donations.map((r) => r.ref.split(":")[0]))]
+                .sort((a, b) => b.localeCompare(a))
+                .map((election) => (
+                  <div key={election} className="text-sm">
+                    {t("pp_donated")} · {fmtElection(election)}
+                  </div>
+                ))}
+            </CardContent>
+          </Card>
+        </DashboardSection>
       )}
 
       <p className="text-xs text-muted-foreground">
