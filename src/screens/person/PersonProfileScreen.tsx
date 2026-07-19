@@ -13,6 +13,7 @@ import { Link, useParams } from "react-router-dom";
 import { PersonProfile, usePersonProfile } from "./usePersonProfile";
 import { PersonElectoralSection } from "./PersonElectoralSection";
 import { PersonMpSections } from "./PersonMpSections";
+import { PersonOfficialAssets } from "./PersonOfficialAssets";
 import { useTranslation } from "react-i18next";
 import {
   Briefcase,
@@ -136,6 +137,12 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
     const i = r.ref.indexOf(":");
     return { election: r.ref.slice(0, i), slug: r.ref.slice(i + 1) };
   });
+
+  // An official's declaration slug = person_role.ref (Court-of-Audit roster slug). Used for
+  // the non-MP declared-wealth block (MPs get their assets via PersonMpSections instead).
+  const officialSlug = p.roles.find(
+    (r) => r.source === "official_exec" || r.source === "official_muni",
+  )?.ref;
 
   // Local office role → localized heading; unknown role codes pass through.
   const roleLabel = (role: string): string => {
@@ -351,6 +358,11 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
 
       {/* MP-only: voting scorecard + roll-call + declared assets (no PG equivalent). */}
       {mpId != null && <PersonMpSections name={p.name} mpId={mpId} />}
+
+      {/* Non-MP official: declared assets (Court of Audit). MPs get theirs above. */}
+      {mpId == null && officialSlug && (
+        <PersonOfficialAssets slug={officialSlug} />
+      )}
 
       {/* Offices held */}
       {offices.length > 0 && (
