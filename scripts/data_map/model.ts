@@ -277,6 +277,23 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     tags: ["parliament", "elections", "local"],
   },
   {
+    id: "comdos",
+    label: { bg: "Комисия по досиетата", en: "Dossier Commission" },
+    detail: {
+      bg: "принадлежност към Държавна сигурност",
+      en: "affiliation to State Security",
+    },
+    desc: {
+      bg: "Официалните решения на Комисията за разкриване на документите и обявяване на принадлежност на български граждани към Държавна сигурност и разузнавателните служби на БНА (comdos.bg) — установена принадлежност на заемали публична длъжност лица (народни представители, кметове, магистрати, банкери, медии). comdos.bg няма насипна емисия — само търсене по лице и решения; затова регистърът се курира ръчно от публикуваните решения и всяко лице се свързва само по стабилен идентификатор (депутатски mpId + рождена дата), за да не се посочи погрешно съименник. Отразени в обединения профил на лицето (/person).",
+      en: "The official decisions of the Commission for Disclosure of Documents and Declaration of Affiliation of Bulgarian Citizens to State Security and the Intelligence Services of the BNA (comdos.bg) — established affiliation of public-office holders (MPs, mayors, magistrates, bankers, media). comdos.bg has no bulk feed — only a per-person search and решения — so the register is hand-curated from the published decisions, and every person attaches only via a stable disambiguator (the MP mpId + birth date) so no same-named person is wrongly implicated. Cited on the unified person profile (/person).",
+    },
+    url: "https://comdos.bg/",
+    origin: "state",
+    members: ["comdos_ds"],
+    skills: ["update-persons"],
+    tags: ["parliament", "elections", "local"],
+  },
+  {
     id: "egov",
     label: { bg: "data.egov.bg", en: "data.egov.bg" },
     detail: {
@@ -1724,6 +1741,9 @@ export const EDGES: [string, string][] = [
   // OFAC sanctions feed the unified person / business-connections layer (the /person
   // profile cites them) — same downstream dataset as the Сметна палата declarations.
   ["src:ofac", "ds:connections"],
+  // ДС/COMDOS findings feed the same unified person / business-connections layer (the
+  // /person profile cites them) — the ДС facet alongside sanctions.
+  ["src:comdos", "ds:connections"],
   ["src:egov", "ds:connections"],
   ["src:egov", "ds:procurement"],
   ["src:vss", "ds:judiciary"],

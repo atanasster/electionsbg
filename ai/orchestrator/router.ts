@@ -1379,6 +1379,13 @@ export const route = (question: string, ctx: ToolContext): Route => {
       "magnitsky",
       "магнитски",
       "ofac",
+      "досие", // досие / досието — the profile carries the ДС/COMDOS affiliation facet
+      " дс", // "агент на дс" / "към дс" — space-bounded so it can't match председател/средства
+      "държавна сигурност",
+      "агент на",
+      "comdos",
+      "комисия по досиетата",
+      "state security",
     )
   )
     return { tool: "personProfile", args: { name: personName } };

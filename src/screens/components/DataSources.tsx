@@ -261,6 +261,10 @@ export const DataSources = () => {
                 href="https://sanctionssearch.ofac.treas.gov/"
                 label={t("integrity_sanctions_source")}
               />
+              <SourceItem
+                href="https://comdos.bg/"
+                label={t("integrity_ds_source")}
+              />
             </ul>
           </DataGroup>
         </div>

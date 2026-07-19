@@ -33,6 +33,13 @@ type PersonProfilePayload = {
   ngos: { eik: string; name: string | null }[];
   procuredEur: number;
   sanctions: { program: string; authority: string; date: string }[];
+  ds: {
+    decisionNo: string;
+    decisionDate: string;
+    body: string;
+    category: string | null;
+    pseudonyms: string[];
+  }[];
 } | null;
 
 type ConnectionsPayload = {
@@ -128,6 +135,17 @@ export const personProfile = async (
   if (p.sanctions?.length)
     facts[bg ? "санкции" : "sanctions"] = p.sanctions
       .map((s) => `${s.program} (${s.authority}, ${s.date})`)
+      .join("; ");
+  // ДС / COMDOS affiliation — an official Комисия по досиетата verdict, cited to the
+  // решение № + date, verbatim from the government finding (a public act, not our claim).
+  if (p.ds?.length)
+    facts[bg ? "принадлежност към ДС" : "State Security affiliation"] = p.ds
+      .map(
+        (d) =>
+          `${d.category ?? d.body}${
+            d.pseudonyms.length ? ` „${d.pseudonyms.join("“, „")}“` : ""
+          } (Комисия по досиетата, реш. № ${d.decisionNo}/${d.decisionDate})`,
+      )
       .join("; ");
   if (officeLabels.length)
     facts[bg ? "длъжности" : "positions"] = officeLabels.join(", ");

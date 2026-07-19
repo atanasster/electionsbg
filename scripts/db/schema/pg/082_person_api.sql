@@ -100,6 +100,22 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       WHERE r.person_id = pick.person_id AND r.source = 'sanctions'
         AND r.confidence IN ('exact_id', 'high', 'manual')
     ), '[]'::jsonb),
+    -- ДС / COMDOS affiliations (Комисия по досиетата) — official state findings, cited to
+    -- their решение № + date, rendered as a prominent CITED badge (a government verdict,
+    -- not our claim). Same public-safe gate as sanctions (attached only via the MP gold key).
+    'ds', COALESCE((
+      SELECT jsonb_agg(jsonb_build_object(
+        'decisionNo', r.source_row->>'decisionNo',
+        'decisionDate', r.source_row->>'decisionDate',
+        'body', r.source_row->>'bodyContext',
+        'category', r.source_row->>'category',
+        'pseudonyms', COALESCE(r.source_row->'pseudonyms', '[]'::jsonb),
+        'url', r.source_row->>'url'
+      ) ORDER BY r.source_row->>'decisionDate' DESC)
+      FROM person_role r
+      WHERE r.person_id = pick.person_id AND r.source = 'ds'
+        AND r.confidence IN ('exact_id', 'high', 'manual')
+    ), '[]'::jsonb),
     -- Alternate surface forms that fold to this person (spelling / transliteration
     -- variants across sources), for display + so a search hit on any of them makes sense.
     'aliases', COALESCE((
