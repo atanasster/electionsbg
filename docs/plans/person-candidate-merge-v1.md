@@ -6,8 +6,22 @@ EU funds, subsidies, donations, declarations, connections, and integrity flags. 
 `/person/:slug` **and** `/candidate/:id` render the **same** shared dashboard component; the
 candidate URLs are kept (no redirect) because they are the biggest organic-traffic draw.
 
-Status: PLAN. Prereqs: person-identity v1 (`docs/plans/person-identity-v1.md`) is live —
-`person_id`, `person_role`, `person_by_slug`, `person_connections` all shipped.
+Status: SHIPPED (all 5 phases). Prereqs: person-identity v1
+(`docs/plans/person-identity-v1.md`) is live — `person_id`, `person_role`, `person_by_slug`,
+`person_connections`.
+
+**Deltas from plan (as built):**
+- Money split: funds + subsidies fold into `person_by_slug` (cheap EIK point-joins, ~6ms
+  warm); the cabinet-tenure procurement timeline is a separate lazy `person_money()` /
+  `/api/db/person-money` (heavier range-join kept off the hot path). No `party_num` in the
+  `person_election_stats` PK — a seated MP's dual mp/c shard is deduped to the slug-party row.
+- Bug fixed en route: `person_by_slug` summed `current_amount_eur` (2%-populated, vestigial);
+  switched all sums to `amount_eur WHERE tag='contract'` (078 basis) — mp-2946 4602 → 1.39M.
+- Electoral block: reuses the candidate stat cards via an extracted pure
+  `computeCandidateSummary` reducer; PG source `usePersonElections`; cycle selector on
+  `?pelect=` (defaults to global `?elections=`).
+- Deferred: MP voting scorecard + assets/declarations tiles on the merged page (follow-up);
+  DashboardSection grouping of the non-electoral sections (kept as Cards).
 
 ## Decisions (locked)
 
