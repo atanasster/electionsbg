@@ -27,6 +27,10 @@ type MunicipalSearchFile = {
     role: string;
     municipality: string;
     district?: string;
+    // Set by the build when the official resolves to exactly one public person in the
+    // unified person layer; the row then links to /person/<personSlug>. Candidate-
+    // duplicate rows are dropped at build time, so a person never appears twice.
+    personSlug?: string;
   }>;
 };
 
@@ -284,6 +288,9 @@ export const useSearchItems = () => {
             name_en: transliterateName(e.name),
             parentName: e.municipality,
             parentName_en: e.municipality,
+            // When the person layer resolved this official to a single public person,
+            // link to their unified /person profile instead of the /officials/<slug> page.
+            ...(e.personSlug ? { path: `/person/${e.personSlug}` } : {}),
           });
         }
       }
