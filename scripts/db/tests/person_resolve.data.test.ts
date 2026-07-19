@@ -116,3 +116,15 @@ test.skipIf(skip)(
     assert.equal(Number(r.bad), 0);
   },
 );
+
+// A review candidate is a "these might be the same person" flag, so a group is only
+// meaningful when it spans >= 2 DISTINCT persons — a single-person group would be noise
+// (mentions that actually merged, or all-dropped tr mentions, must not surface here).
+test.skipIf(skip)("every review group spans >= 2 persons", async () => {
+  const [r] = await allRows<{ bad: string }>(
+    `SELECT count(*) bad FROM (
+       SELECT group_key FROM person_review_candidate
+        GROUP BY group_key HAVING count(*) < 2) x`,
+  );
+  assert.equal(Number(r.bad), 0, "found a review group with < 2 persons");
+});

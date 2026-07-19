@@ -189,7 +189,9 @@ describe("clusterBlock", () => {
     ]);
     expect(r.merges).toHaveLength(0); // party alone is too weak
     // identical full name (same patronymic), common (namesake 9) -> review, not merge
-    expect(r.reviewCandidates).toEqual([{ memberIds: ["a", "b"] }]);
+    expect(r.reviewCandidates).toEqual([
+      { memberIds: ["a", "b"], reason: "identical_fullname" },
+    ]);
   });
 
   it("INVARIANT — an identical full name merges ONLY when globally unique (namesake<=1)", () => {
@@ -227,7 +229,9 @@ describe("clusterBlock", () => {
       }),
     ]);
     expect(common.merges).toHaveLength(0);
-    expect(common.reviewCandidates).toEqual([{ memberIds: ["a", "b"] }]);
+    expect(common.reviewCandidates).toEqual([
+      { memberIds: ["a", "b"], reason: "identical_fullname" },
+    ]);
   });
 
   it("Tier 2 — a globally-unique clean 3-part fold merges the whole block as high", () => {
@@ -259,7 +263,9 @@ describe("clusterBlock", () => {
       base({ id: "tr:1", source: "tr", namesakeRisk: 40 }),
     ]);
     expect(r.merges).toHaveLength(0); // the donor-blocker case: no bridge
-    expect(r.reviewCandidates).toEqual([{ memberIds: ["don:1", "tr:1"] }]);
+    expect(r.reviewCandidates).toEqual([
+      { memberIds: ["don:1", "tr:1"], reason: "twopart_block" },
+    ]);
   });
 
   it("INVARIANT — an ambiguous (4+ token) name never merges on the name alone", () => {

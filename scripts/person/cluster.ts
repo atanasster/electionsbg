@@ -44,7 +44,12 @@ export type MergeGroup = {
   confidence: "exact_id" | "high";
 };
 /** An ambiguous same-fold group → a human review item. NOTHING is merged. */
-export type ReviewCandidate = { memberIds: string[] };
+export type ReviewCandidate = {
+  memberIds: string[];
+  /** Why it can't be auto-resolved: a 2-part name colliding with the whole block, or an
+   *  identical full name that stayed split (a common 3-part name — many people share it). */
+  reason: "twopart_block" | "identical_fullname";
+};
 export type ClusterResult = {
   merges: MergeGroup[];
   reviewCandidates: ReviewCandidate[];
@@ -187,7 +192,10 @@ export function clusterBlock(mentions: Mention[]): ClusterResult {
   const reviewCandidates: ReviewCandidate[] = [];
   const distinctRoots = new Set(mentions.map((_, i) => find(i)));
   if (distinctRoots.size >= 2 && mentions.some((m) => m.nameParts === 2)) {
-    reviewCandidates.push({ memberIds: mentions.map((m) => m.id) });
+    reviewCandidates.push({
+      memberIds: mentions.map((m) => m.id),
+      reason: "twopart_block",
+    });
   } else {
     const byFullName = new Map<string, { ids: string[]; roots: Set<number> }>();
     mentions.forEach((m, i) => {
@@ -199,7 +207,11 @@ export function clusterBlock(mentions: Mention[]): ClusterResult {
       g.roots.add(find(i));
     });
     for (const g of byFullName.values())
-      if (g.roots.size >= 2) reviewCandidates.push({ memberIds: g.ids });
+      if (g.roots.size >= 2)
+        reviewCandidates.push({
+          memberIds: g.ids,
+          reason: "identical_fullname",
+        });
   }
 
   return { merges, reviewCandidates };

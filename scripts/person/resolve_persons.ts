@@ -416,8 +416,13 @@ async function main(): Promise<void> {
 
   type Group = { ids: string[]; confidence: "exact_id" | "high" };
   const groups: Group[] = [];
-  let reviewCandidates = 0;
-  for (const block of blocks.values()) {
+  type Review = {
+    blockKey: string;
+    memberIds: string[];
+    reason: "twopart_block" | "identical_fullname";
+  };
+  const reviews: Review[] = [];
+  for (const [blockKey, block] of blocks) {
     const res = clusterBlock(block);
     const merged = new Set<string>();
     for (const mg of res.merges) {
@@ -426,7 +431,8 @@ async function main(): Promise<void> {
     }
     for (const m of block)
       if (!merged.has(m.id)) groups.push({ ids: [m.id], confidence: "high" });
-    reviewCandidates += res.reviewCandidates.length;
+    for (const rc of res.reviewCandidates)
+      reviews.push({ blockKey, memberIds: rc.memberIds, reason: rc.reason });
   }
 
   const byId = new Map(mentions.map((m) => [m.id, m]));
@@ -545,8 +551,10 @@ async function main(): Promise<void> {
   const roleRows: unknown[][] = [];
   const aliasRows: unknown[][] = [];
   const aliasSeen = new Set<string>();
+  const mentionToPid = new Map<string, number>(); // mention id -> its person's pid
   built.forEach((b, idx) => {
     const pid = idx + 1;
+    for (const m of b.members) mentionToPid.set(m.id, pid);
     personRows.push([
       pid,
       b.display,
@@ -580,11 +588,41 @@ async function main(): Promise<void> {
     }
   });
 
+  // Persist the review queue (plan §3 tier 3, aggressive-merge holding area). Map each
+  // ambiguous group's mentions to the persons they landed in; a group is real only if it
+  // spans >=2 DISTINCT persons (mentions that actually merged, or dropped tr mentions,
+  // aren't ambiguous). group_key is a deterministic hash of the sorted member slugs, so a
+  // re-run addresses the same group. NOTHING is merged here — each person stays active.
+  const reviewRows: unknown[][] = [];
+  const reviewSeen = new Set<string>();
+  const reviewGroups = new Set<string>();
+  for (const rc of reviews) {
+    const pids = [
+      ...new Set(
+        rc.memberIds
+          .map((id) => mentionToPid.get(id))
+          .filter((p): p is number => p !== undefined),
+      ),
+    ];
+    if (pids.length < 2) continue;
+    const slugs = pids.map((p) => built[p - 1].slug).sort();
+    const groupKey = `${kebab(rc.blockKey.replace("\t", "-"))}-${hash6(slugs.join("|"))}`;
+    const namesake = Math.max(...pids.map((p) => built[p - 1].namesake));
+    reviewGroups.add(groupKey);
+    for (const p of pids) {
+      const rk = `${groupKey}\t${p}`;
+      if (reviewSeen.has(rk)) continue;
+      reviewSeen.add(rk);
+      reviewRows.push([groupKey, p, rc.blockKey, namesake, rc.reason]);
+    }
+  }
+
   await withTx(async (c) => {
-    // Rebuild only the derived tables. CASCADE clears the FK-linked person_link_evidence;
-    // person_link_override is human-authored (fold-keyed, no FK) and MUST survive rebuilds.
+    // Rebuild only the derived tables. CASCADE clears the FK-linked person_link_evidence
+    // and person_review_candidate; person_link_override is human-authored (fold-keyed, no
+    // FK) and MUST survive rebuilds.
     await c.query(
-      `TRUNCATE person, person_role, person_alias RESTART IDENTITY CASCADE`,
+      `TRUNCATE person, person_role, person_alias, person_review_candidate RESTART IDENTITY CASCADE`,
     );
     await copyRows(
       c,
@@ -626,13 +664,20 @@ async function main(): Promise<void> {
       ["person_id", "alias_raw", "source"],
       aliasRows,
     );
+    await copyRows(
+      c,
+      "person_review_candidate",
+      ["group_key", "person_id", "block_key", "namesake_risk", "reason"],
+      reviewRows,
+    );
     await c.query(
       `SELECT setval(pg_get_serial_sequence('person','person_id'), (SELECT COALESCE(max(person_id),1) FROM person))`,
     );
   });
 
   console.log(
-    `  ${personRows.length} persons, ${roleRows.length} roles, ${aliasRows.length} aliases; ${reviewCandidates} review candidate group(s)`,
+    `  ${personRows.length} persons, ${roleRows.length} roles, ${aliasRows.length} aliases; ` +
+      `${reviewGroups.size} review group(s) over ${reviewRows.length} person(s)`,
   );
   await end();
 }
