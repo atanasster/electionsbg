@@ -149,6 +149,27 @@ follow-the-money thesis: `person_by_slug` now carries each company's public-cont
 Георги Попов → director of АВТОМАГИСТРАЛИ ЕАД → **€390.3M across 26 contracts**, connected to co-director
 Гено Георгиев — a politician, their company, the public money, and their business peer on ONE page.
 
+**IMPLEMENTATION LOG (2026-07-19, Phase 5 sanctions).** Landed the first Phase-5 source —
+`data/person/sanctions.json`, OFFICIAL OFAC/EU designations of Bulgarian individuals as a
+`person_role` `source='sanctions'` (the §5 T1 sanctions facet). **Defamation-safe by construction:** an
+entry attaches ONLY via a stable disambiguator (`mpId` → Tier-0), so a name-ambiguous designee (the 3
+"Васил Крумов Божков" namesakes) is documented but HELD — never minting an ambiguous public accusation.
+Threaded a `source_row` (jsonb provenance) through the resolver → `person_by_slug` exposes a cited
+`sanctions` array → /person renders a prominent red "Санкции" tile (program · authority · date · link
+to the official OFAC source) + a red facet chip, and the `personProfile` tool narrates the sanction
+first. Verified: Делян Пеевски (`mp-5100`) shows US Global Magnitsky (OFAC, 2021-06-02). Also fixed a
+latent bug the tile exposed — some MPs' `currentRegion` is a `{code,name}` object (rendered as raw JSON
+in Длъжности), now normalized.
+
+**STATUS — the person-identity build is complete for every in-session-completable item.** Remaining
+backlog items are each a DEDICATED effort, not a quick win: (a) **Phase 5 ДС/COMDOS** = a multi-day
+headed scrape of dossier.bg; (b) **Phase 5 regulators** = accuracy-heavy curated rosters (ВСС/КС/БНБ/…)
+that share the sanctions namesake-disambiguation problem; (c) **Phase 6 SEO/prerender** stays deferred
+by design — blocked on the Firebase file-ceiling decision (34k public persons) AND on getting
+PG-resident person data into the build-time prerender pipeline; (d) the §8 radial graph visual is
+low-ROI until the edge model densifies (most subjects have 0-2 connections today). Recommend picking
+ONE of these as a focused next session rather than bundling.
+
 Goal: give every natural person in the site a single stable `person_id` in Postgres, so that
 candidates, MPs, mayors, councillors, executive & municipal officials, TR company officers/owners,
 magistrates, NGO board members and campaign-finance donors all resolve to **one profile** and can
