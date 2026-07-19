@@ -26,7 +26,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
   co AS (
     SELECT r.ref AS eik, count(DISTINCT r.person_id) AS officers
       FROM person_role r JOIN person p USING (person_id)
-     WHERE r.source = 'tr' AND p.is_public_figure AND p.status = 'active'
+     WHERE r.source IN ('tr','ngo') AND p.is_public_figure AND p.status = 'active'
      GROUP BY r.ref
   ),
   -- the subject's own companies that are small enough to be a real tie (<= 6 officers)
@@ -35,7 +35,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       FROM person_role r
       JOIN subj ON subj.person_id = r.person_id
       JOIN co ON co.eik = r.ref AND co.officers <= 6
-     WHERE r.source = 'tr'
+     WHERE r.source IN ('tr','ngo')
   ),
   -- every OTHER public person on one of those companies
   rel AS (
@@ -43,7 +43,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       FROM person_role r
       JOIN person p USING (person_id)
       JOIN subj_co s ON s.eik = r.ref
-     WHERE r.source = 'tr' AND p.is_public_figure AND p.status = 'active'
+     WHERE r.source IN ('tr','ngo') AND p.is_public_figure AND p.status = 'active'
        AND r.person_id <> (SELECT person_id FROM subj)
   ),
   agg AS (

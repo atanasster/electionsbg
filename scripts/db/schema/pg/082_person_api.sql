@@ -57,6 +57,22 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
         FROM contracts ct WHERE ct.contractor_eik = tr.ref
       ) pr ON pr.n > 0
     ), '[]'::jsonb),
+    -- NGO board seats (ЮЛНЦ — associations / foundations / читалища), the `ngo` facet.
+    -- Same bridge + public-safe rules as `companies`, but a civic board seat, not a
+    -- business interest, so it renders in its own section (no procurement column).
+    'ngos', COALESCE((
+      SELECT jsonb_agg(jsonb_build_object(
+        'eik', ng.ref, 'name', c.name, 'legalForm', c.legal_form,
+        'seat', c.seat, 'roles', ng.roles
+      ) ORDER BY c.name NULLS LAST, ng.ref)
+      FROM (
+        SELECT r.ref, jsonb_agg(DISTINCT r.role ORDER BY r.role) AS roles
+        FROM person_role r
+        WHERE r.person_id = pick.person_id AND r.source = 'ngo'
+          AND r.confidence IN ('exact_id', 'high', 'manual')
+        GROUP BY r.ref
+      ) ng LEFT JOIN tr_companies c ON c.uic = ng.ref
+    ), '[]'::jsonb),
     -- The person's total public-contract take across ALL their companies (EIK-deduped so a
     -- manager+owner double role can't double-count).
     'procuredEur', COALESCE((

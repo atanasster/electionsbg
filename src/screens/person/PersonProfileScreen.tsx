@@ -16,6 +16,7 @@ import {
   Building2,
   Coins,
   ExternalLink,
+  HeartHandshake,
   Landmark,
   ShieldAlert,
   Users,
@@ -53,6 +54,13 @@ type Sanction = {
   date: string;
   url: string;
 };
+type NgoSeat = {
+  eik: string;
+  name: string | null;
+  legalForm: string | null;
+  seat: string | null;
+  roles: string[];
+};
 export type PersonProfile = {
   slug: string;
   name: string;
@@ -61,6 +69,7 @@ export type PersonProfile = {
   facets: string[];
   roles: ProfileRole[];
   companies: ProfileCompany[];
+  ngos: NgoSeat[];
   procuredEur: number;
   sanctions: Sanction[];
   aliases: string[];
@@ -288,6 +297,37 @@ const Profile: FC<{ p: PersonProfile }> = ({ p }) => {
                     </span>
                   </span>
                 )}
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      )}
+
+      {/* NGO board seats (ЮЛНЦ) — the civic-board facet, distinct from business companies */}
+      {p.ngos.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <HeartHandshake className="h-4 w-4" /> {t("pp_ngos")}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            {p.ngos.map((n) => (
+              <div
+                key={n.eik}
+                className="border-b border-border/50 pb-2 last:border-0 last:pb-0"
+              >
+                <span className="text-sm">
+                  <Link
+                    to={`/company/${n.eik}`}
+                    className="font-medium text-primary hover:underline"
+                  >
+                    {n.name ? decodeEntities(n.name) : n.eik}
+                  </Link>
+                  <span className="block text-xs text-muted-foreground">
+                    {n.roles.map((r) => trRoleLabel(r, t)).join(", ")}
+                  </span>
+                </span>
               </div>
             ))}
           </CardContent>

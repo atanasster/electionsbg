@@ -58,7 +58,7 @@ test.skipIf(skip)(
           AND NOT EXISTS (
             SELECT 1 FROM person_role r
              WHERE r.person_id = p.person_id
-               AND (r.confidence = 'exact_id' OR r.source = 'tr'))`,
+               AND (r.confidence = 'exact_id' OR r.source IN ('tr', 'ngo')))`,
     );
     assert.equal(
       Number(r.bad),
@@ -76,22 +76,24 @@ test.skipIf(skip)(
 //   Bridge B (unique full name) — the person is globally unique (namesake_risk<=1) and
 //     their full-name fold matches a TR officer/owner ON THAT EXACT company; the company
 //     appears once for that name, so it is unambiguously them.
-// A tr role satisfying NEITHER is an unlicensed attribution and must never exist.
-test.skipIf(skip)("every tr role is a licensed bridge (A or B)", async () => {
+// A tr/ngo role satisfying NEITHER is an unlicensed attribution and must never exist.
+// (NGO board seats bridge exactly like company officerships — same shared-uic / unique-name
+// mechanism — so both facets carry the same licensing invariant.)
+test.skipIf(skip)("every tr/ngo role is a licensed bridge (A or B)", async () => {
   const [r] = await allRows<{ bad: string }>(
     `SELECT count(*) bad
        FROM person_role r JOIN person p USING (person_id)
-      WHERE r.source = 'tr'
+      WHERE r.source IN ('tr', 'ngo')
         AND r.ref NOT IN (   -- Bridge A: curated company link
           SELECT eik FROM magistrate_company WHERE eik IS NOT NULL AND NOT eik_ambiguous
           UNION SELECT eik FROM company_politicians)
-        AND NOT (            -- Bridge B: unique full-name match on that exact company
+        AND NOT (            -- Bridge B: unique full-name match on that exact entity
           p.namesake_risk <= 1
           AND EXISTS (
             SELECT 1 FROM tr_person_roles t
              WHERE t.uic = r.ref AND t.name_fold = p.name_fold))`,
   );
-  assert.equal(Number(r.bad), 0, "found an unlicensed tr role");
+  assert.equal(Number(r.bad), 0, "found an unlicensed tr/ngo role");
 });
 
 test.skipIf(skip)(

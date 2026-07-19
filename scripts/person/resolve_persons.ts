@@ -66,6 +66,14 @@ const hash6 = (s: string): string => {
 const kebab = (s: string): string =>
   s.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
+// A TR role that is board membership of a ЮЛНЦ (association / foundation / читалище) is
+// the `ngo` facet, not a company (`tr`) officership — the two carry different meaning on a
+// profile (civic board seat vs business interest). These role codes only ever occur on
+// NGO entity classes (verified), so the role name is a clean, entity-independent classifier.
+const NGO_ROLES = new Set(["ngo_board", "ngo_representative"]);
+const trOrNgo = (role: string): "tr" | "ngo" =>
+  NGO_ROLES.has(role) ? "ngo" : "tr";
+
 // (election, partyNum) -> canonicalId — a party corroborant that is STABLE across
 // elections (partyNum is re-assigned every cycle). Lets a person's candidacies for the
 // same party in the same oblast merge across elections (weak-both corroboration, §3
@@ -383,10 +391,11 @@ async function collect(): Promise<Raw[]> {
       const dedup = `${t.uic}\t${key}\t${t.role}`;
       if (seenTr.has(dedup)) continue;
       seenTr.add(dedup);
+      const src = trOrNgo(t.role); // NGO board seat → `ngo` facet, else company `tr`
       out.push({
-        id: `tr:${t.uic}:${p.displayName}:${t.role}`,
-        source: "tr",
-        ref: t.uic, // the company EIK
+        id: `${src}:${t.uic}:${p.displayName}:${t.role}`,
+        source: src,
+        ref: t.uic, // the company / ЮЛНЦ EIK
         role: t.role,
         ...fields(p, { uics: [t.uic] }),
       });
@@ -569,9 +578,15 @@ async function main(): Promise<void> {
     members: M[];
   };
   const built: Built[] = mergedGroups
-    // Drop tr-only groups: a TR officer that failed to bridge to a real person (a same-EIK
-    // co-owner, or a patronymic conflict) is NOT materialized (plan §3 bounded universe).
-    .filter((g) => g.ids.some((id) => byId.get(id)!.source !== "tr"))
+    // Drop bridge-only groups: a TR/NGO officer that failed to bridge to a real person (a
+    // same-EIK co-owner, or a patronymic conflict) is NOT materialized (plan §3 bounded
+    // universe). Both `tr` and `ngo` are bridge sources — never a standalone person.
+    .filter((g) =>
+      g.ids.some((id) => {
+        const s = byId.get(id)!.source;
+        return s !== "tr" && s !== "ngo";
+      }),
+    )
     .map((g) => {
       const members = g.ids.map((id) => byId.get(id)!);
       // Slug priority: the mp id gold key (stable, /candidate/mp-{id} lineage) > an
@@ -757,7 +772,9 @@ async function main(): Promise<void> {
     // CONFLICT dedups against Bridge-A rows on the same (person, company, role).
     const bridgeB = await c.query(
       `INSERT INTO person_role (person_id, source, ref, role, confidence)
-       SELECT DISTINCT p.person_id, 'tr', t.uic, t.role, 'high'
+       SELECT DISTINCT p.person_id,
+              CASE WHEN t.role IN ('ngo_board','ngo_representative') THEN 'ngo' ELSE 'tr' END,
+              t.uic, t.role, 'high'
          FROM person p
          JOIN (
            SELECT name_fold, count(DISTINCT uic) cc FROM tr_person_roles
