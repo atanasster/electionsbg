@@ -1,14 +1,15 @@
 /**
- * Household electricity price — Bulgaria vs the EU — from Eurostat nrg_pc_204
- * (household consumers, medium band 2500-4999 kWh, ALL taxes, EUR/kWh, bi-annual).
- * Writes data/energy/prices.json for the /sector/energy "what you pay" tile.
+ * Household energy prices — Bulgaria vs the EU vs the neighbour peers — from
+ * Eurostat, ALL taxes, EUR/kWh, bi-annual. Two datasets share this fetcher:
+ *   • electricity → nrg_pc_204 (medium band 2500-4999 kWh) → data/energy/prices.json
+ *   • natural gas → nrg_pc_202 (medium band 20-199 GJ)     → data/energy/gas_prices.json
  *
  *   npx tsx scripts/energy/fetch_prices.ts
  *
- * The story: BG has among the LOWEST household electricity prices in the EU
- * (~half the EU average) — the citizen-facing counterpoint to the €9.76bn of
- * state-energy spending. (nrg_pc_205 is industrial electricity; gas household is
- * nrg_pc_202 — add later if the bill-decomposition tile grows.)
+ * The story: BG has among the LOWEST household electricity AND gas prices in the
+ * EU (~half the EU average) — the citizen-facing counterpoint to the state-energy
+ * spending. (nrg_pc_205 is industrial electricity — add later if the
+ * bill-decomposition tile grows.)
  */
 
 import fs from "node:fs";
@@ -16,11 +17,9 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const OUT = path.resolve(__dirname, "../../data/energy/prices.json");
-const BASE =
-  "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nrg_pc_204";
-const QUERY =
-  "siec=E7000&nrg_cons=KWH2500-4999&unit=KWH&tax=I_TAX&currency=EUR&format=JSON&lang=EN";
+const DIR = path.resolve(__dirname, "../../data/energy");
+const API =
+  "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data";
 const FIRST_YEAR = 2007;
 
 interface JsonStat {
@@ -32,19 +31,40 @@ interface Point {
   value: number;
 }
 
-const fetchSeries = async (geo: string): Promise<Point[]> => {
-  const r = await fetch(`${BASE}?geo=${geo}&${QUERY}`);
-  if (!r.ok) throw new Error(`Eurostat ${geo} failed: HTTP ${r.status}`);
-  const j = (await r.json()) as JsonStat;
-  const idx = j.dimension?.time?.category?.index;
-  if (!idx) throw new Error(`Eurostat ${geo}: no time dimension`);
-  return Object.entries(idx)
-    .map(([period, i]) => ({ period, value: j.value[i] }))
-    .filter(
-      (p) => p.value != null && Number(p.period.slice(0, 4)) >= FIRST_YEAR,
-    )
-    .sort((a, b) => a.period.localeCompare(b.period));
-};
+// The two household-energy datasets, each keyed by its Eurostat cube + the query
+// selecting the medium consumption band, all-taxes, EUR/kWh.
+interface Dataset {
+  id: string;
+  out: string;
+  cube: string;
+  query: string;
+  source: string;
+  sourceUrl: string;
+}
+const DATASETS: Dataset[] = [
+  {
+    id: "electricity",
+    out: "prices.json",
+    cube: "nrg_pc_204",
+    query:
+      "siec=E7000&nrg_cons=KWH2500-4999&unit=KWH&tax=I_TAX&currency=EUR&format=JSON&lang=EN",
+    source:
+      "Eurostat — nrg_pc_204 (household electricity, all taxes, 2500-4999 kWh)",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/nrg_pc_204/default/table",
+  },
+  {
+    id: "gas",
+    out: "gas_prices.json",
+    cube: "nrg_pc_202",
+    query:
+      "siec=G3000&nrg_cons=GJ20-199&unit=KWH&tax=I_TAX&currency=EUR&format=JSON&lang=EN",
+    source:
+      "Eurostat — nrg_pc_202 (household natural gas, all taxes, 20-199 GJ)",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/nrg_pc_202/default/table",
+  },
+];
 
 // Neighbour peers for the trend chart. Keyed by our canonical geo code, valued by
 // the Eurostat geo (Greece is EL upstream, GR in our peer set). BG + EU27 stay
@@ -57,28 +77,45 @@ const PEERS: { key: "RO" | "GR" | "HU" | "HR"; geo: string }[] = [
   { key: "HR", geo: "HR" },
 ];
 
-const main = async (): Promise<void> => {
-  console.log(
-    "energy/prices: fetching Eurostat nrg_pc_204 (BG + EU27 + peers)…",
-  );
+const fetchSeries = async (
+  cube: string,
+  query: string,
+  geo: string,
+): Promise<Point[]> => {
+  const r = await fetch(`${API}/${cube}?geo=${geo}&${query}`);
+  if (!r.ok)
+    throw new Error(`Eurostat ${cube}/${geo} failed: HTTP ${r.status}`);
+  const j = (await r.json()) as JsonStat;
+  const idx = j.dimension?.time?.category?.index;
+  if (!idx) throw new Error(`Eurostat ${cube}/${geo}: no time dimension`);
+  return Object.entries(idx)
+    .map(([period, i]) => ({ period, value: j.value[i] }))
+    .filter(
+      (p) => p.value != null && Number(p.period.slice(0, 4)) >= FIRST_YEAR,
+    )
+    .sort((a, b) => a.period.localeCompare(b.period));
+};
+
+const buildOne = async (ds: Dataset): Promise<void> => {
+  console.log(`energy/${ds.id}: fetching ${ds.cube} (BG + EU27 + peers)…`);
   const [bg, eu] = await Promise.all([
-    fetchSeries("BG"),
-    fetchSeries("EU27_2020"),
+    fetchSeries(ds.cube, ds.query, "BG"),
+    fetchSeries(ds.cube, ds.query, "EU27_2020"),
   ]);
   if (bg.length < 10 || eu.length < 10)
     throw new Error(
-      `energy/prices: thin series (BG ${bg.length}, EU ${eu.length}) — upstream query likely rejected`,
+      `energy/${ds.id}: thin series (BG ${bg.length}, EU ${eu.length}) — upstream query likely rejected`,
     );
 
   const peerSeries: Record<string, Point[]> = {};
   await Promise.all(
     PEERS.map(async ({ key, geo }) => {
       try {
-        const s = await fetchSeries(geo);
+        const s = await fetchSeries(ds.cube, ds.query, geo);
         if (s.length) peerSeries[key] = s;
       } catch (e) {
         console.warn(
-          `energy/prices: peer ${key} (${geo}) skipped — ${e instanceof Error ? e.message : e}`,
+          `energy/${ds.id}: peer ${key} (${geo}) skipped — ${e instanceof Error ? e.message : e}`,
         );
       }
     }),
@@ -93,25 +130,28 @@ const main = async (): Promise<void> => {
 
   const out = {
     updated: process.env.INGEST_DATE ?? new Date().toISOString().slice(0, 10),
-    source:
-      "Eurostat — nrg_pc_204 (household electricity, all taxes, 2500-4999 kWh)",
-    sourceUrl:
-      "https://ec.europa.eu/eurostat/databrowser/view/nrg_pc_204/default/table",
+    source: ds.source,
+    sourceUrl: ds.sourceUrl,
     unit: "EUR/kWh",
     latest: commonLatest,
     series: { BG: bg, EU27: eu, ...peerSeries },
   };
-  fs.mkdirSync(path.dirname(OUT), { recursive: true });
-  fs.writeFileSync(OUT, JSON.stringify(out) + "\n");
+  const outPath = path.join(DIR, ds.out);
+  fs.mkdirSync(DIR, { recursive: true });
+  fs.writeFileSync(outPath, JSON.stringify(out) + "\n");
 
   const lb = bg[bg.length - 1];
   const le = eu[eu.length - 1];
   console.log(
-    `energy/prices: BG ${bg.length} pts (${bg[0].period}–${lb.period}) → ${path.relative(process.cwd(), OUT)}`,
+    `energy/${ds.id}: BG ${bg.length} pts (${bg[0].period}–${lb.period}) → ${path.relative(process.cwd(), outPath)}`,
   );
   console.log(
-    `  latest ${lb.period}: BG €${lb.value}/kWh vs EU27 €${le.value}/kWh (${Math.round((lb.value / le.value) * 100)}% of EU avg)`,
+    `  latest ${lb.period}: BG €${lb.value}/kWh vs EU27 €${le.value}/kWh (${Math.round((lb.value / le.value) * 100)}% of EU avg) · peers ${Object.keys(peerSeries).join("/")}`,
   );
+};
+
+const main = async (): Promise<void> => {
+  for (const ds of DATASETS) await buildOne(ds);
 };
 
 main().catch((e) => {

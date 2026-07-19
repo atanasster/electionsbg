@@ -230,6 +230,13 @@ export const ConsumptionScreen = () => {
           T("Цената на тока спрямо ЕС", "Power prices vs the EU"),
           TILE_ACCENTS.gold,
         ),
+        tile(
+          "gas",
+          "/consumption/gas",
+          T("Природен газ", "Natural gas"),
+          T("Цената на газа спрямо ЕС", "Gas prices vs the EU"),
+          TILE_ACCENTS.copper,
+        ),
       ],
     },
   ];

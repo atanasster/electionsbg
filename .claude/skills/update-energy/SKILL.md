@@ -18,6 +18,7 @@ PG, so no `recordIngestBatch`).
 | ----------------------------- | -------------------------------------------------------------------------------- | ------------------------ | -------------------------------------------- |
 | `data/energy/generation.json` | Ember Yearly Electricity Data (global long-format CSV, CC BY 4.0)                | `ember_generation`       | `npx tsx scripts/energy/fetch_generation.ts` |
 | `data/energy/prices.json`     | Eurostat `nrg_pc_204` (household electricity, all taxes, 2500-4999 kWh, EUR/kWh) | `eurostat_energy_prices` | `npx tsx scripts/energy/fetch_prices.ts`     |
+| `data/energy/gas_prices.json` | Eurostat `nrg_pc_202` (household natural gas, all taxes, 20-199 GJ, EUR/kWh)     | `eurostat_energy_prices` | `npx tsx scripts/energy/fetch_prices.ts`     |
 
 Both scripts are fully automated (download → parse → write); a schema change
 upstream makes them throw (thin-series / missing-field asserts) rather than write
@@ -57,17 +58,21 @@ bioenergy/otherFossil/otherRenewables, TWh), `totalGen`, `demand`, `netImports`
 for 2007-latest. Attribution "Ember — Yearly Electricity Data (CC BY 4.0)" is
 required on the tile and is baked into the JSON `source` field.
 
-## Step 2 — Household electricity price (`eurostat_energy_prices`)
+## Step 2 — Household electricity + gas prices (`eurostat_energy_prices`)
 
 ```
 npx tsx scripts/energy/fetch_prices.ts
 ```
 
-Fetches Eurostat `nrg_pc_204` for BG + EU27_2020 (band 2500-4999 kWh, all taxes,
-EUR/kWh, bi-annual) and writes `series.BG` / `series.EU27` since 2007. The tile
-shows BG vs the EU average and BG's % of it (~47% — among the lowest in the EU).
-`nrg_pc_205` is INDUSTRIAL electricity (not gas); household gas is `nrg_pc_202` —
-add only if the bill-decomposition tile grows.
+One run writes BOTH `data/energy/prices.json` (electricity, Eurostat `nrg_pc_204`,
+band 2500-4999 kWh) and `data/energy/gas_prices.json` (natural gas, `nrg_pc_202`,
+band 20-199 GJ). Each fetches BG + EU27_2020 + the RO/GR/HU/HR neighbour peers
+(Greece is Eurostat `EL` → our `GR`; peers are best-effort — an upstream gap for
+one country is skipped, not fatal), all taxes, EUR/kWh, bi-annual since 2007. The
+/sector/energy tile + the `/consumption/electricity` & `/consumption/gas` trend
+pages show BG vs the EU average and BG's % of it (~47% electricity, ~53% gas —
+among the lowest in the EU). `nrg_pc_205` is INDUSTRIAL electricity; add only if a
+tile needs it.
 
 ## Step 2b — Power-plant fleet (`data/energy/plants.json`) — CURATED
 

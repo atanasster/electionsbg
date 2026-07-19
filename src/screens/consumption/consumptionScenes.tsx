@@ -315,6 +315,22 @@ const ElectricityScene: FC = () => (
   </SceneFrame>
 );
 
+// Природен газ — a gas flame.
+const GasScene: FC = () => (
+  <SceneFrame>
+    <path
+      d="M158 22 c 14 16 22 26 22 40 a22 22 0 0 1 -44 0 c 0 -10 6 -16 10 -22 c 3 6 7 8 10 6 c 4 -3 1 -14 -8 -24 z"
+      fill="var(--sector)"
+      opacity=".85"
+    />
+    <path
+      d="M158 58 c 6 6 9 11 9 17 a9 9 0 0 1 -18 0 c 0 -6 5 -10 9 -17 z"
+      fill={PAPER}
+      opacity=".85"
+    />
+  </SceneFrame>
+);
+
 // Спрямо ЕС — diverging bars around an EU=100 baseline.
 const EuCompare: FC = () => (
   <SceneFrame>
@@ -449,4 +465,5 @@ export const CONSUMPTION_SCENES: Record<string, FC> = {
   deals: Deals,
   fuel: FuelScene,
   electricity: ElectricityScene,
+  gas: GasScene,
 };
