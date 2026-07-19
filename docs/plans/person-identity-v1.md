@@ -38,8 +38,24 @@ any name-based corroborant merge (Tier-0 gold key exempt; Tier-2 already matched
 layer: **35,272 persons / 75,061 roles** (candidate 67,065, donor 1,283); idempotent + determinism
 verified. The `person_resolve.data.test.ts` headline invariant is reframed to the defamation-critical
 rule — **no CROSS-SOURCE common-name merge without a gold key (=0)**; same-source candidacy merges are
-allowed and patronymic-guarded. NEXT: TR-officer bridging (promote officers that share a company with
-an existing person); then person↔company edges (Phase 4); then the frontend `/person/{slug}` + AI tools.
+allowed and patronymic-guarded.
+
+**IMPLEMENTATION LOG (2026-07-19, later still).** Added **TR-officer bridging (Bridge A — shared
+company)**. The `uic` corroborant is generalized to a `uics[]` set (a person holds many companies),
+and a person's declared/linked companies are drawn from the two curated links already in PG —
+`magistrate_company` (ИВСС чл.175а) and `company_politicians` (MP/official). For each linked EIK the
+resolver pulls the `tr_person_roles` rows on that company and keeps only those whose name matches the
+linked person's `(given, family)` (an `eikExpected` gate, so same-company co-owners aren't swept in);
+those mentions carry the EIK as a **strong shared-uic corroborant** and merge into the person (Tier 1),
+patronymic-guarded. **Bounded universe held (§3):** a TR mention that fails to bridge forms a tr-only
+group that is DROPPED — no person is materialized per TR officer. Result: **120 `tr` roles on 88
+existing persons, 0 new persons** (reads ~1.5k rows on ~360 linked EIKs, not the 748k-officer set).
+The data-test invariant is widened to the name-independent-link rule — a cross-source common-name merge
+needs a gold key OR a shared-company (tr) bridge (a `tr` role at namesake>1 PROVES a uic-backed merge,
+since TR mentions have no other merge path there) — plus a new licensing invariant (every `tr` role's
+EIK is a curated company link). NEXT: broad name-based TR discovery (Bridge B, over the full officer
+set, namesake-gated) + review-candidate persistence; then person↔company edges (Phase 4); then the
+frontend `/person/{slug}` + AI tools.
 
 Goal: give every natural person in the site a single stable `person_id` in Postgres, so that
 candidates, MPs, mayors, councillors, executive & municipal officials, TR company officers/owners,
