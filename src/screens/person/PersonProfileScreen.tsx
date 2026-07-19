@@ -10,6 +10,7 @@
 
 import { FC, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { PersonProfile, usePersonProfile } from "./usePersonProfile";
 import { useTranslation } from "react-i18next";
 import {
   Briefcase,
@@ -25,79 +26,12 @@ import {
   Vote,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
+import { StatCard } from "@/screens/dashboard/StatCard";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { trRoleLabel } from "@/lib/trRole";
 import { formatEurCompact } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { PersonScreen } from "@/screens/dev/PersonScreen";
-
-type ProfileRole = {
-  source: string;
-  facet: string;
-  sourceLabel: string;
-  role: string;
-  ref: string;
-  place: string | null;
-  confidence: string;
-};
-type ProfileCompany = {
-  eik: string;
-  name: string | null;
-  legalForm: string | null;
-  seat: string | null;
-  status: string | null;
-  roles: string[];
-  procuredEur: number | null;
-  contracts: number | null;
-  fundsEur: number | null;
-  fundsPaidEur: number | null;
-  fundProjects: number | null;
-  subsidiesEur: number | null;
-};
-type Sanction = {
-  program: string;
-  authority: string;
-  date: string;
-  url: string;
-};
-type DsFinding = {
-  decisionNo: string;
-  decisionDate: string;
-  body: string;
-  category: string | null;
-  pseudonyms: string[];
-  url: string;
-};
-type RegulatorSeat = {
-  body: string;
-  seat: string;
-  termStart: string | null;
-  url: string;
-};
-type NgoSeat = {
-  eik: string;
-  name: string | null;
-  legalForm: string | null;
-  seat: string | null;
-  roles: string[];
-};
-export type PersonProfile = {
-  slug: string;
-  name: string;
-  namesakeRisk: number;
-  isPublicFigure: boolean;
-  facets: string[];
-  roles: ProfileRole[];
-  companies: ProfileCompany[];
-  ngos: NgoSeat[];
-  procuredEur: number;
-  fundsEur: number;
-  subsidiesEur: number;
-  sanctions: Sanction[];
-  ds: DsFinding[];
-  regulators: RegulatorSeat[];
-  aliases: string[];
-};
 
 type Connections = {
   related: {
@@ -141,7 +75,10 @@ const Chip: FC<{ children: React.ReactNode; danger?: boolean }> = ({
   </span>
 );
 
-const Profile: FC<{ p: PersonProfile }> = ({ p }) => {
+// The shared person dashboard body — rendered by /person/:slug and (Phase 5) /candidate/:id.
+// Pure render over an already-fetched profile; fetching lives in usePersonProfile so both
+// entry routes can share it.
+export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
   const { t } = useTranslation();
 
   // Person↔person edges (shared company, association-noise-guarded, public-safe) — the
@@ -211,39 +148,47 @@ const Profile: FC<{ p: PersonProfile }> = ({ p }) => {
     return s === k ? seat : s;
   };
 
+  // Money-footprint + presence KPIs — only tiles with a value render, so a pure businessman
+  // shows money tiles and a councillor shows counts. The dashboard headline (idiom: StatCard).
+  const kpis: { key: string; label: string; value: string }[] = [];
+  if (p.procuredEur > 0)
+    kpis.push({
+      key: "procured",
+      label: t("pp_procured_total"),
+      value: formatEurCompact(p.procuredEur),
+    });
+  if (p.fundsEur > 0)
+    kpis.push({
+      key: "funds",
+      label: t("pp_funds_total"),
+      value: formatEurCompact(p.fundsEur),
+    });
+  if (p.subsidiesEur > 0)
+    kpis.push({
+      key: "subsidies",
+      label: t("pp_subsidies_total"),
+      value: formatEurCompact(p.subsidiesEur),
+    });
+  if (p.companies.length > 0)
+    kpis.push({
+      key: "companies",
+      label: t("pp_companies"),
+      value: String(p.companies.length),
+    });
+  if (candidacies.length > 0)
+    kpis.push({
+      key: "candidacies",
+      label: t("pp_candidacies"),
+      value: String(candidacies.length),
+    });
+
   return (
-    <div className="mx-auto w-full max-w-4xl px-4 py-6 space-y-6">
+    <div className="mx-auto w-full max-w-6xl px-4 py-6 space-y-6">
       {/* Header */}
       <div className="flex items-start gap-4">
         <MpAvatar name={p.name} mpId={mpId} className="h-16 w-16 shrink-0" />
         <div className="min-w-0">
           <h1 className="text-2xl font-bold leading-tight">{p.name}</h1>
-          <div className="mt-1 flex flex-wrap gap-x-4 gap-y-0.5 text-sm text-muted-foreground">
-            {p.procuredEur > 0 && (
-              <span>
-                {t("pp_procured_total")}:{" "}
-                <span className="font-semibold text-foreground">
-                  {formatEurCompact(p.procuredEur)}
-                </span>
-              </span>
-            )}
-            {p.fundsEur > 0 && (
-              <span>
-                {t("pp_funds_total")}:{" "}
-                <span className="font-semibold text-foreground">
-                  {formatEurCompact(p.fundsEur)}
-                </span>
-              </span>
-            )}
-            {p.subsidiesEur > 0 && (
-              <span>
-                {t("pp_subsidies_total")}:{" "}
-                <span className="font-semibold text-foreground">
-                  {formatEurCompact(p.subsidiesEur)}
-                </span>
-              </span>
-            )}
-          </div>
           <div className="mt-2 flex flex-wrap gap-1.5">
             {p.facets.map((f) => {
               const Icon = FACET_ICON[f];
@@ -262,6 +207,19 @@ const Profile: FC<{ p: PersonProfile }> = ({ p }) => {
           )}
         </div>
       </div>
+
+      {/* Money-footprint + presence KPI row */}
+      {kpis.length > 0 && (
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+          {kpis.map((k) => (
+            <StatCard key={k.key} label={k.label}>
+              <div className="text-2xl font-bold text-foreground">
+                {k.value}
+              </div>
+            </StatCard>
+          ))}
+        </div>
+      )}
 
       {/* Sanctions — a prominent, CITED badge (official government finding, not our claim) */}
       {p.sanctions.length > 0 && (
@@ -602,31 +560,11 @@ const Profile: FC<{ p: PersonProfile }> = ({ p }) => {
 
 export const PersonProfileScreen: FC = () => {
   const { name } = useParams<{ name: string }>();
-  const key = name ?? "";
-  const [profile, setProfile] = useState<PersonProfile | null>(null);
-  const [state, setState] = useState<"loading" | "hit" | "miss">("loading");
+  const profile = usePersonProfile(name ?? "");
 
-  useEffect(() => {
-    let live = true;
-    setState("loading");
-    fetch(`/api/db/person-profile?slug=${encodeURIComponent(key)}`)
-      .then((r) => r.json())
-      .then((j: PersonProfile | null) => {
-        if (!live) return;
-        if (j && j.slug) {
-          setProfile(j);
-          setState("hit");
-        } else setState("miss");
-      })
-      .catch(() => live && setState("miss"));
-    return () => {
-      live = false;
-    };
-  }, [key]);
-
-  if (state === "loading") return null;
+  if (profile === undefined) return null;
   // Legacy name-keyed links (magistrate holdings, connection checks, associates) fall
   // through to the portfolio dashboard so nothing breaks.
-  if (state === "miss" || !profile) return <PersonScreen />;
-  return <Profile p={profile} />;
+  if (profile === null) return <PersonScreen />;
+  return <PersonDashboard p={profile} />;
 };
