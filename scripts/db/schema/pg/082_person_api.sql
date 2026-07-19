@@ -11,7 +11,10 @@ DROP FUNCTION IF EXISTS person_by_slug(text);
 CREATE OR REPLACE FUNCTION person_by_slug(p_slug text)
 RETURNS jsonb LANGUAGE sql STABLE AS $$
   WITH pick AS (
-    SELECT * FROM person WHERE slug = p_slug AND status = 'active' LIMIT 1
+    -- §6 privacy gate: only PUBLIC figures get a public profile. A private person (e.g. a
+    -- donor-only individual) is internal-only and must never be served, even by slug.
+    SELECT * FROM person
+     WHERE slug = p_slug AND status = 'active' AND is_public_figure LIMIT 1
   )
   SELECT jsonb_build_object(
     'slug', pick.slug,
@@ -117,6 +120,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
   WITH m AS (
     SELECT slug FROM person
      WHERE name_fold = translit_bg_latin(p_name) AND status = 'active'
+       AND is_public_figure   -- §6 privacy gate: never resolve a name to a private person
      LIMIT 2
   )
   SELECT CASE WHEN (SELECT count(*) FROM m) = 1
@@ -141,6 +145,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     ) AS row
     FROM person p, q
     WHERE p.status = 'active'
+      AND p.is_public_figure   -- §6 privacy gate: search never surfaces a private person
       AND length(q.f) >= 2
       AND (p.name_fold % q.f OR p.name_fold LIKE '%' || q.f || '%')
     ORDER BY similarity(p.name_fold, q.f) DESC, p.slug

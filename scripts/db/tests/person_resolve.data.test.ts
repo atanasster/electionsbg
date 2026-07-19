@@ -79,9 +79,11 @@ test.skipIf(skip)(
 // A tr/ngo role satisfying NEITHER is an unlicensed attribution and must never exist.
 // (NGO board seats bridge exactly like company officerships — same shared-uic / unique-name
 // mechanism — so both facets carry the same licensing invariant.)
-test.skipIf(skip)("every tr/ngo role is a licensed bridge (A or B)", async () => {
-  const [r] = await allRows<{ bad: string }>(
-    `SELECT count(*) bad
+test.skipIf(skip)(
+  "every tr/ngo role is a licensed bridge (A or B)",
+  async () => {
+    const [r] = await allRows<{ bad: string }>(
+      `SELECT count(*) bad
        FROM person_role r JOIN person p USING (person_id)
       WHERE r.source IN ('tr', 'ngo')
         AND r.ref NOT IN (   -- Bridge A: curated company link
@@ -92,9 +94,10 @@ test.skipIf(skip)("every tr/ngo role is a licensed bridge (A or B)", async () =>
           AND EXISTS (
             SELECT 1 FROM tr_person_roles t
              WHERE t.uic = r.ref AND t.name_fold = p.name_fold))`,
-  );
-  assert.equal(Number(r.bad), 0, "found an unlicensed tr/ngo role");
-});
+    );
+    assert.equal(Number(r.bad), 0, "found an unlicensed tr/ngo role");
+  },
+);
 
 test.skipIf(skip)(
   "every person has a non-null fold and a blocking key",
@@ -139,6 +142,34 @@ test.skipIf(skip)("every review group spans >= 2 persons", async () => {
         GROUP BY group_key HAVING count(*) < 2) x`,
   );
   assert.equal(Number(r.bad), 0, "found a review group with < 2 persons");
+});
+
+// §6 PRIVACY GATE: the serving functions must NEVER return a non-public person (a
+// donor-only individual has no public page). Guards person_by_slug + person_by_name +
+// person_search against leaking a private person by slug, name, or search.
+test.skipIf(skip)("serving functions never leak a private person", async () => {
+  const [priv] = await allRows<{ slug: string; name: string }>(
+    `SELECT slug, display_name AS name FROM person WHERE NOT is_public_figure LIMIT 1`,
+  );
+  if (!priv) return; // no private persons in this corpus
+  const [r] = await allRows<{
+    by_slug: unknown;
+    by_name: unknown;
+    in_search: string;
+  }>(
+    `SELECT person_by_slug($1) AS by_slug,
+            person_by_name($2) AS by_name,
+            (SELECT count(*) FROM jsonb_array_elements(person_search($2, 50))
+              WHERE value->>'slug' = $1) AS in_search`,
+    [priv.slug, priv.name],
+  );
+  assert.equal(r.by_slug, null, "person_by_slug leaked a private person");
+  assert.equal(r.by_name, null, "person_by_name leaked a private person");
+  assert.equal(
+    Number(r.in_search),
+    0,
+    "person_search surfaced a private person",
+  );
 });
 
 // person_by_slug (082) is the /person/{slug} payload. For any bridged person it must

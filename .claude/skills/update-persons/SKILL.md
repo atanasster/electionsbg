@@ -66,6 +66,28 @@ attached) so no wrong same-named person is ever publicly accused. To add a desig
 3. `npm run db:resolve:persons` and confirm the profile shows the red "Санкции" tile
    (e.g. `/person/mp-5100` for Delyan Peevski → US Global Magnitsky, OFAC, 2021-06-02).
 
+## Publishing to production (Cloud SQL)
+
+The `person_*` tables are Postgres-only, so `db:resolve:persons` above updates only LOCAL
+Postgres. The live `/person` page + `personProfile`/`personConnections` AI tools read the
+`db` Cloud Function against **Cloud SQL**, so a change is not public until you re-resolve
+against the cloud proxy:
+
+```bash
+# The resolver reads its PG sources (magistrate / official_roster / tr_person_roles /
+# contracts) from whatever DATABASE_URL points at, so those must ALREADY be loaded on
+# Cloud SQL (db:load:magistrates:pg:cloud, db:load:tr:pg:cloud, db:load:pg:cloud) first.
+npm run db:resolve:persons:cloud     # applies 081-084 + rebuilds person_* on Cloud SQL
+```
+
+The route layer (`functions/db_routes.js` person-profile / person-lookup / person-connections)
+ships with the normal `npm run deploy` (functions deploy) — until that deploy runs, prod
+returns `{"error":"unknown db route"}` for the person routes.
+
+CAVEAT (like `reference_contracts_reload_lock`): the resolver TRUNCATE+COPYs `person_*`, so
+`/person` briefly 500s during the ~10s cloud rebuild. It is small and fast enough that a
+staging-swap isn't warranted, but don't run it during a traffic spike.
+
 ## After running
 
 Record the ingest marker for the orchestrator:
