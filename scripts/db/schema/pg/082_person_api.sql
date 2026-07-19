@@ -100,6 +100,20 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       WHERE r.person_id = pick.person_id AND r.source = 'sanctions'
         AND r.confidence IN ('exact_id', 'high', 'manual')
     ), '[]'::jsonb),
+    -- Seats on the independent / regulatory bodies (the `regulator` "кой решава" facet),
+    -- with their provenance from source_row — a NEUTRAL civic-office badge (not an
+    -- accusation), each carrying the body, seat, term start and the official source link.
+    'regulators', COALESCE((
+      SELECT jsonb_agg(jsonb_build_object(
+        'body', r.source_row->>'body',
+        'seat', r.source_row->>'seat',
+        'termStart', r.source_row->>'termStart',
+        'url', r.source_row->>'url'
+      ) ORDER BY r.source_row->>'body', r.source_row->>'seat')
+      FROM person_role r
+      WHERE r.person_id = pick.person_id AND r.source = 'regulator'
+        AND r.confidence IN ('exact_id', 'high', 'manual')
+    ), '[]'::jsonb),
     -- Alternate surface forms that fold to this person (spelling / transliteration
     -- variants across sources), for display + so a search hit on any of them makes sense.
     'aliases', COALESCE((

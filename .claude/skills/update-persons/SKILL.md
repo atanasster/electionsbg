@@ -1,6 +1,6 @@
 ---
 name: update-persons
-description: Rebuild the unified person-identity layer (Postgres `person`/`person_role`/`person_alias`/`person_review_candidate` + the serving fns in 082/084) that powers the `/person/{slug}` profile page and the `personProfile`/`personConnections` AI tools. It resolves EVERY people dataset — MPs, CIK candidates, ЕРИК donors, executive & municipal officials, magistrates (ИВСС), TR company officers/owners (bridged), and the curated OFAC/EU sanctions register (data/person/sanctions.json) — to ONE stable person_id via `scripts/person/resolve_persons.ts`. Use when the daily watch report flags any of its UPSTREAM sources as changed (`ivss_declarations`, `cacbg_officials`, `cacbg_local`, `egov_commerce`, `cik_results`, `erik_campaign_financing`, or `ofac_sanctions`), when the user asks to refresh person profiles / свързани лица / sanctions, to add a newly-verified sanctions designee, or after a fresh git clone if the `person` table is empty. Read-only re-derivation — it never mutates its source datasets, only the person_* tables.
+description: Rebuild the unified person-identity layer (Postgres `person`/`person_role`/`person_alias`/`person_review_candidate` + the serving fns in 082/084) that powers the `/person/{slug}` profile page and the `personProfile`/`personConnections` AI tools. It resolves EVERY people dataset — MPs, CIK candidates, ЕРИК donors, executive & municipal officials, magistrates (ИВСС), TR company officers/owners (bridged), and the curated OFAC/EU sanctions register (data/person/sanctions.json) — to ONE stable person_id via `scripts/person/resolve_persons.ts`. Use when the daily watch report flags any of its UPSTREAM sources as changed (`ivss_declarations`, `cacbg_officials`, `cacbg_local`, `egov_commerce`, `cik_results`, `erik_campaign_financing`, `ofac_sanctions`, or `regulator_rosters`), when the user asks to refresh person profiles / свързани лица / sanctions, to add a newly-verified sanctions designee, or after a fresh git clone if the `person` table is empty. Read-only re-derivation — it never mutates its source datasets, only the person_* tables.
 allowed-tools:
   - Read
   - Bash
@@ -31,6 +31,7 @@ go stale:
 | `erik_campaign_financing` | `update-financing` | ЕРИК donors |
 | `parliament_mps` | `parliament-scrape` | the MP gold key (Tier 0) |
 | `ofac_sanctions` | **this skill (curated)** | the OFAC/EU sanctions facet |
+| `regulator_rosters` | **this skill (curated)** | the `regulator` "кой решава" facet (independent-body seats) |
 
 It is safe (and cheap, ~10s) to re-run after ANY of these; a rebuild yields identical
 person_ids/slugs when nothing changed (verified idempotent).
@@ -66,6 +67,30 @@ attached) so no wrong same-named person is ever publicly accused. To add a desig
 3. `npm run db:resolve:persons` and confirm the profile shows the red "Санкции" tile
    (e.g. `/person/mp-5100` for Delyan Peevski → US Global Magnitsky, OFAC, 2021-06-02).
 
+## The regulators register (data/person/regulators.json) — manually curated
+
+`regulator_rosters` has no unified feed — each independent body publishes its own roster —
+so the register is hand-maintained (like `sanctions.json`), covering the Конституционен съд,
+Сметна палата, КФН, БНБ (Управителен съвет), СЕМ, КЗК and the Омбудсман. Each entry is a
+PUBLIC-RECORD seat verified against the body's OFFICIAL page (the per-entry `url`).
+
+ACCURACY RULE (same discipline as sanctions, though a regulator seat is a NEUTRAL civic
+office, not an accusation): an entry attaches ONLY via a stable disambiguator — an `mpId`
+(→ a Tier-0 gold merge onto that MP) OR a name confirmed globally-unique in the person
+layer. To add / refresh a member:
+
+1. Get the current roster from the body's official page (see each entry's `url`).
+2. Resolve the person: if they are (or were) an MP, prefer `"mpId": <id>` (grep
+   `data/parliament/index.json` for the full name). Otherwise add `"resolved": true` and,
+   after resolving, CONFIRM the minted person is `namesake_risk <= 1`:
+   `psql … -c "SELECT slug, namesake_risk FROM person WHERE display_name = '<name>'"`.
+   If the name is NOT unique (namesake_risk > 1, or several same-named people) → flip the
+   entry to `"resolved": false` with a `note`; it is HELD (`held N name-ambiguous
+   regulator seat(s)`) and never attached.
+3. `npm run db:resolve:persons` and confirm the profile shows the neutral "Регулатори /
+   независими органи" tile + the `Регулатор` facet chip (e.g. `/person/pavlina-panova-…`).
+   Seat labels live under the `pp_reg_seat_<seat>` i18n keys — add a new seat there.
+
 ## Publishing to production (Cloud SQL)
 
 The `person_*` tables are Postgres-only, so `db:resolve:persons` above updates only LOCAL
@@ -96,5 +121,6 @@ Record the ingest marker for the orchestrator:
 node -e 'const fs=require("fs");fs.writeFileSync("state/ingest/persons.json",JSON.stringify({lastSuccessfulIngest:new Date().toISOString(),skill:"update-persons",summary:"<one line>"},null,2))'
 ```
 
-Then commit the changed `data/person/sanctions.json` (if edited) — the person_* tables are
-Postgres-only (no serving JSON, no `recordIngestBatch`), so there is nothing else to commit.
+Then commit the changed `data/person/sanctions.json` / `data/person/regulators.json` (if
+edited) — the person_* tables are Postgres-only (no serving JSON, no `recordIngestBatch`),
+so there is nothing else to commit.

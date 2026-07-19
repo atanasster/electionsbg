@@ -1379,6 +1379,16 @@ export const route = (question: string, ctx: ToolContext): Route => {
       "magnitsky",
       "магнитски",
       "ofac",
+      "регулатор", // the profile carries the `regulator` (независими органи) "кой решава" facet
+      "regulator",
+      "независим орган",
+      "кой решава",
+      "всс",
+      "конституционен съд",
+      "конституционен съдия",
+      "кевр",
+      "кфн",
+      "бнб",
     )
   )
     return { tool: "personProfile", args: { name: personName } };

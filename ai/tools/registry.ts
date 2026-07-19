@@ -3809,6 +3809,10 @@ export const TOOLS: ToolDef[] = [
         bg: "Санкциониран ли е Делян Пеевски и от кого?",
         en: "Is Delyan Peevski under sanctions and by whom?",
       },
+      {
+        bg: "В кой независим орган или регулатор членува това лице?",
+        en: "Which independent body or regulator does this person sit on?",
+      },
     ],
     run: personProfile,
   },

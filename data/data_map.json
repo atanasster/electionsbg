@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-19T11:01:20.627Z",
+  "generatedAt": "2026-07-19T15:30:49.248Z",
   "nodes": [
     {
       "id": "src:water",
@@ -17,9 +17,7 @@
         "bg": "Обществените поръчки на Български ВиК холдинг и регионалните ВиК дружества, и договорите за почистване и корекция на речни корита и дерета — изведени от регистъра на обществените поръчки (АОП/ЦАИС ЕОП). Предстоят показателите на КЕВР (загуби на вода, цени), водният режим (НСИ) и нивата на язовирите (МОСВ).",
         "en": "Public procurement of the Bulgarian Water Holding and the regional water operators, plus contracts for cleaning and regulating riverbeds — derived from the public-procurement register (АОП/ЦАИС ЕОП). КЕВР indicators (water loss, tariffs), water rationing (NSI) and reservoir levels (МОСВ) are planned."
       },
-      "tags": [
-        "fiscal"
-      ],
+      "tags": ["fiscal"],
       "url": "https://www.vikholding.bg/",
       "origin": "state",
       "skills": [],
@@ -41,7 +39,7 @@
         }
       ],
       "x": 28,
-      "y": 2174,
+      "y": 702,
       "w": 240,
       "h": 62
     },
@@ -60,17 +58,12 @@
         "bg": "Протоколите на секционните комисии и официалните резултати от results.cik.bg — за всички парламентарни избори от 2005 г. и местните избори от 2007 г. насам.",
         "en": "Section-commission protocols and official results from results.cik.bg — every parliamentary election since 2005 and local elections since 2007."
       },
-      "tags": [
-        "elections",
-        "local"
-      ],
+      "tags": ["elections", "local"],
       "url": "https://results.cik.bg/",
       "origin": "state",
       "cadence": "daily",
       "freshness": "2026-06-30T06:08:57.757Z",
-      "skills": [
-        "update-local-elections"
-      ],
+      "skills": ["update-local-elections"],
       "sources": [
         {
           "id": "cik_results",
@@ -81,7 +74,7 @@
         }
       ],
       "x": 28,
-      "y": 224,
+      "y": 2808,
       "w": 240,
       "h": 62
     },
@@ -100,17 +93,12 @@
         "bg": "Поименните гласувания от пленарните заседания, съставите и биографиите на народните представители от parliament.bg.",
         "en": "Roll-call votes from plenary sittings plus MP rosters and biographies from parliament.bg."
       },
-      "tags": [
-        "parliament"
-      ],
+      "tags": ["parliament"],
       "url": "https://www.parliament.bg/",
       "origin": "state",
       "cadence": "daily",
       "freshness": "2026-07-18T06:46:43.565Z",
-      "skills": [
-        "update-rollcall",
-        "parliament-scrape"
-      ],
+      "skills": ["update-rollcall", "parliament-scrape"],
       "sources": [
         {
           "id": "parliament_votes",
@@ -128,7 +116,7 @@
         }
       ],
       "x": 28,
-      "y": 2564,
+      "y": 156,
       "w": 240,
       "h": 62
     },
@@ -147,16 +135,12 @@
         "bg": "Обнародваният Закон за държавния бюджет с чл. 53 (трансфери към общините) и Приложение III — инвестиционната програма по проекти.",
         "en": "The promulgated State Budget Law with Article 53 municipal transfers and Annex III — the per-project investment programme."
       },
-      "tags": [
-        "fiscal"
-      ],
+      "tags": ["fiscal"],
       "url": "https://dv.parliament.bg/",
       "origin": "state",
       "cadence": "weekly",
       "freshness": "2026-07-04T06:09:29.998Z",
-      "skills": [
-        "update-budget"
-      ],
+      "skills": ["update-budget"],
       "sources": [
         {
           "id": "budget_law",
@@ -174,7 +158,7 @@
         }
       ],
       "x": 28,
-      "y": 1628,
+      "y": 1794,
       "w": 240,
       "h": 62
     },
@@ -193,20 +177,12 @@
         "bg": "Имуществените декларации на депутати, магистрати, кметове и съветници от register.cacbg.bg, плюс отчетите за финансиране на партиите и предизборните кампании.",
         "en": "Asset and interest declarations of MPs, officials, mayors and councillors from register.cacbg.bg, plus party and campaign financing reports."
       },
-      "tags": [
-        "parliament",
-        "elections",
-        "local"
-      ],
+      "tags": ["parliament", "elections", "local"],
       "url": "https://register.cacbg.bg/",
       "origin": "state",
       "cadence": "weekly",
       "freshness": "2026-07-18T06:08:52.941Z",
-      "skills": [
-        "update-connections",
-        "update-officials",
-        "update-financing"
-      ],
+      "skills": ["update-connections", "update-officials", "update-financing"],
       "sources": [
         {
           "id": "smetna_palata",
@@ -252,7 +228,7 @@
         }
       ],
       "x": 28,
-      "y": 2330,
+      "y": 546,
       "w": 240,
       "h": 62
     },
@@ -271,17 +247,11 @@
         "bg": "Списъкът на санкционираните лица (SDN) на Министерството на финансите на САЩ — българските физически лица под Global Magnitsky, отразени като официален източник в обединения профил на лицето (/person).",
         "en": "The U.S. Treasury OFAC Specially Designated Nationals (SDN) list — Bulgarian individuals under Global Magnitsky, cited on the unified person profile (/person)."
       },
-      "tags": [
-        "parliament",
-        "elections",
-        "local"
-      ],
+      "tags": ["parliament", "elections", "local"],
       "url": "https://sanctionssearch.ofac.treas.gov/",
       "origin": "intl",
       "cadence": "weekly",
-      "skills": [
-        "update-persons"
-      ],
+      "skills": ["update-persons"],
       "sources": [
         {
           "id": "ofac_sanctions",
@@ -291,7 +261,40 @@
         }
       ],
       "x": 28,
-      "y": 2486,
+      "y": 312,
+      "w": 240,
+      "h": 62
+    },
+    {
+      "id": "src:regulators",
+      "kind": "source",
+      "label": {
+        "bg": "Регулаторни / независими органи",
+        "en": "Regulatory / independent bodies"
+      },
+      "detail": {
+        "bg": "състави на независимите органи",
+        "en": "rosters of the independent bodies"
+      },
+      "desc": {
+        "bg": "Курирани състави на независимите / регулаторни органи — Конституционен съд, Сметна палата, КФН, БНБ (Управителен съвет), СЕМ, КЗК и Омбудсман — слоят „кой решава“. Всяко място е публичен запис, свързан с обединения профил на лицето (/person) чрез депутатски идентификатор или потвърдено уникално име.",
+        "en": "Curated rosters of the independent / regulatory bodies — the Constitutional Court, Court of Audit, Financial Supervision Commission, BNB Governing Council, Council for Electronic Media, Competition Protection Commission and the Ombudsman — the 'who decides' layer, each seat a public record cited on the unified person profile (/person)."
+      },
+      "tags": ["parliament", "elections", "local"],
+      "url": "https://www.constcourt.bg/bg/composition",
+      "origin": "state",
+      "cadence": "monthly",
+      "skills": ["update-persons"],
+      "sources": [
+        {
+          "id": "regulator_rosters",
+          "label": "Регулатори / независими органи — състави (regulator facet)",
+          "url": "https://www.constcourt.bg/bg/composition",
+          "cadence": "monthly"
+        }
+      ],
+      "x": 28,
+      "y": 390,
       "w": 240,
       "h": 62
     },
@@ -310,12 +313,7 @@
         "bg": "Националният портал за отворени данни: обществени поръчки (АОП), Търговски регистър, касово изпълнение на бюджета, общински бюджети, резултати от матурите (ДЗИ) и от НВО в 7. клас (по училища — захранват /education и картоните /school), регистърът на институциите на МОН (ЕИК→EKATTE връзка, която локализира училищата и детските градини като възложители на поръчки), качество на въздуха (ИАОС) и пощенски кодове.",
         "en": "The national open-data portal: public procurement (OCDS), the Commerce Registry, budget cash execution, municipal budgets, matura (ДЗИ) and 7th-grade НВО exam results by school (feeding /education and the /school report cards), the МОН institution register (the ЕИК→EKATTE crosswalk that geo-locates schools and kindergartens as procurement buyers), air quality and postcodes."
       },
-      "tags": [
-        "fiscal",
-        "parliament",
-        "indicators",
-        "local"
-      ],
+      "tags": ["fiscal", "parliament", "indicators", "local"],
       "url": "https://data.egov.bg/",
       "origin": "state",
       "cadence": "daily",
@@ -394,7 +392,7 @@
         }
       ],
       "x": 28,
-      "y": 1784,
+      "y": 1326,
       "w": 240,
       "h": 62
     },
@@ -413,16 +411,12 @@
         "bg": "Дневната емисия отворени данни на ЦАИС ЕОП (storage.eop.bg): договори (допълват OCDS емисията на АОП с ~900 малки възложители — предимно училища и детски градини — и са единственият източник за 2024–2025 г., които АОП не публикува в OCDS), поръчки (захранват тендер-СТАДИЙНИЯ корпус — прогнозна стойност, обособени позиции, статус — на /procurement/tenders + детайла /tenders/:унп, плюс място на изпълнение по NUTS за локализиране на възложителите) и OCDS обявления (адреси на страните).",
         "en": "ЦАИС ЕОП's daily open-data feed (storage.eop.bg): contracts (supplement АОП's OCDS export with ~900 small buyers — mostly schools and kindergartens — and are the sole source for 2024–2025, which АОП doesn't publish in OCDS), tenders (drive the tender-STAGE corpus — estimated value, lots, status — on /procurement/tenders + the /tenders/:unp detail page, plus place-of-performance NUTS for buyer geo-location) and OCDS announcements (party addresses)."
       },
-      "tags": [
-        "fiscal"
-      ],
+      "tags": ["fiscal"],
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
       "freshness": "2026-07-19T06:09:20.174Z",
-      "skills": [
-        "update-procurement"
-      ],
+      "skills": ["update-procurement"],
       "sources": [
         {
           "id": "eop_procurement",
@@ -433,7 +427,7 @@
         }
       ],
       "x": 28,
-      "y": 2642,
+      "y": 1170,
       "w": 240,
       "h": 62
     },
@@ -452,16 +446,12 @@
         "bg": "Регистърът „Стопански субекти с нарушения“ на Агенцията по обществени поръчки (www2.aop.bg) — лица с влязла в сила забрана да участват в обществени поръчки. Захранва маркера „в черен списък“ на оценката на риска. Отделен източник, обхождан директно от сайта на АОП, а не от data.egov.bg.",
         "en": "The Public Procurement Agency's \"Стопански субекти с нарушения\" register (www2.aop.bg) — operators barred from public procurement after a final ruling. Drives the \"debarred\" flag on the contract risk score. A separate source scraped directly from the АОП site, not data.egov.bg."
       },
-      "tags": [
-        "fiscal"
-      ],
+      "tags": ["fiscal"],
       "url": "https://www2.aop.bg/stopanski-subekti/stopanski-subekti-s-narusheniya/",
       "origin": "state",
       "cadence": "monthly",
       "freshness": "2026-05-15T16:39:00.124Z",
-      "skills": [
-        "update-procurement"
-      ],
+      "skills": ["update-procurement"],
       "sources": [
         {
           "id": "aop_debarred",
@@ -472,7 +462,7 @@
         }
       ],
       "x": 28,
-      "y": 2798,
+      "y": 1092,
       "w": 240,
       "h": 62
     },
@@ -491,9 +481,7 @@
         "bg": "Публичният електронен регистър на Комисията за защита на конкуренцията (reg.cpc.bg) — всяка жалба срещу обществена поръчка с нейния УНП, статус (спряно/приключено/…) и изхода на решението (уважена/отхвърлена). Свързва се точно към търга по УНП и показва „обжалвана“/„спряна“ на страницата на процедурата. Ръчно обхождане с браузър (изисква българска свързаност).",
         "en": "The Competition Protection Commission's public register (reg.cpc.bg) — every complaint against a public-procurement procedure with its УНП, status (suspended/concluded/…) and merits outcome (upheld/rejected). Joins to the tender by exact УНП and drives the “under appeal” / “suspended” markers on the procedure page. Manual headed-browser crawl (needs a Bulgarian connection)."
       },
-      "tags": [
-        "fiscal"
-      ],
+      "tags": ["fiscal"],
       "url": "https://reg.cpc.bg/AllComplaints.aspx?dt=2",
       "origin": "state",
       "cadence": "weekly",
@@ -509,7 +497,7 @@
         }
       ],
       "x": 28,
-      "y": 2720,
+      "y": 1248,
       "w": 240,
       "h": 62
     },
@@ -528,17 +516,12 @@
         "bg": "Публичният регистър на еврофондовете — всички договори, бенефициенти и проекти по оперативните програми и ПВУ от 2020.eufunds.bg.",
         "en": "The public EU-funds register — every contract, beneficiary and project across operational programmes and the RRF, from 2020.eufunds.bg."
       },
-      "tags": [
-        "fiscal",
-        "local"
-      ],
+      "tags": ["fiscal", "local"],
       "url": "https://2020.eufunds.bg/",
       "origin": "state",
       "cadence": "weekly",
       "freshness": "2026-07-18T06:08:52.941Z",
-      "skills": [
-        "update-funds"
-      ],
+      "skills": ["update-funds"],
       "sources": [
         {
           "id": "isun_eu_funds",
@@ -556,7 +539,7 @@
         }
       ],
       "x": 28,
-      "y": 1940,
+      "y": 1014,
       "w": 240,
       "h": 62
     },
@@ -575,16 +558,12 @@
         "bg": "Разплащателната агенция по ОСП — всички изплатени субсидии (директни плащания, пазарни мерки и развитие на селските райони) по бенефициент, схема и област, публикувани на data.egov.bg.",
         "en": "The CAP paying agency — every paid subsidy (direct payments, market measures and rural development) by beneficiary, scheme and region, published on data.egov.bg."
       },
-      "tags": [
-        "fiscal"
-      ],
+      "tags": ["fiscal"],
       "url": "https://www.dfz.bg/",
       "origin": "state",
       "cadence": "weekly",
       "freshness": "2026-07-08T06:09:00.761Z",
-      "skills": [
-        "update-agri"
-      ],
+      "skills": ["update-agri"],
       "sources": [
         {
           "id": "dfz_subsidies",
@@ -595,7 +574,7 @@
         }
       ],
       "x": 28,
-      "y": 2876,
+      "y": 78,
       "w": 240,
       "h": 62
     },
@@ -614,9 +593,7 @@
         "bg": "Годишните набори данни на Системата за финансова прозрачност (FTS) на Европейската комисия — получателите на пряко управляваните бюджетни средства на ЕС (Horizon, Erasmus, CERV, LIFE и др.), с флаг за НПО и ДДС номер. Захранва профила „Външно финансиране“ на организациите с нестопанска цел (допълва ИСУН, който покрива средствата при споделено управление).",
         "en": "The European Commission's Financial Transparency System annual datasets — recipients of directly-managed EU budget funds (Horizon, Erasmus, CERV, LIFE, etc.), with an NGO flag and VAT number. Feeds the NGO 'external funding' profile (complements ISUN, which covers shared-management funds)."
       },
-      "tags": [
-        "fiscal"
-      ],
+      "tags": ["fiscal"],
       "url": "https://ec.europa.eu/budget/financial-transparency-system/",
       "origin": "eu",
       "cadence": "weekly",
@@ -631,7 +608,7 @@
         }
       ],
       "x": 28,
-      "y": 2408,
+      "y": 468,
       "w": 240,
       "h": 62
     },
@@ -650,10 +627,7 @@
         "bg": "Отчети за изпълнението на програмните бюджети, месечните бюлетини на МФ, годишните отчети на НАП и Агенция „Митници“, фондовете на НОИ, бюджета и плащанията на НЗОК (болнична помощ, лекарства, единични цени на лекарства, отчетени дейности и цени на клинични пътеки по НРД), финансовите показатели на болниците (ЕЕОФ, МЗ), годишните приходи на частните болници от ГФО в Търговския регистър, общинските проекти в ИПОП (МРРБ) и регистрите на администрацията (ИИСДА).",
         "en": "Programme-budget execution reports, MoF monthly bulletins, NRA and Customs annual reports, NSSI social-security funds, NHIF (НЗОК) budget + payments (hospital care, drugs, per-hospital drug unit prices, reported clinical-pathway activity and НРД pathway tariffs), the МЗ hospital financial indicators (ЕЕОФ), private-hospital annual revenue from ГФО in the Commerce Register, MRDPW's municipal project register (IPOP) and the state-administration registers (IISDA)."
       },
-      "tags": [
-        "fiscal",
-        "local"
-      ],
+      "tags": ["fiscal", "local"],
       "url": "https://www.minfin.bg/",
       "origin": "state",
       "cadence": "daily",
@@ -813,7 +787,7 @@
         }
       ],
       "x": 28,
-      "y": 926,
+      "y": 2340,
       "w": 240,
       "h": 62
     },
@@ -832,10 +806,7 @@
         "bg": "Капиталовите програми на 26 областни града, протоколите с решения на общинските съвети и наредбите за местните данъци и такси — направо от сайтовете на общините.",
         "en": "Capital programmes of 26 oblast-centre cities, municipal-council resolution minutes and local-tax ordinances — scraped directly from municipal websites."
       },
-      "tags": [
-        "local",
-        "fiscal"
-      ],
+      "tags": ["local", "fiscal"],
       "url": "https://www.namrb.org/",
       "origin": "state",
       "cadence": "daily",
@@ -869,7 +840,7 @@
         }
       ],
       "x": 28,
-      "y": 1082,
+      "y": 1950,
       "w": 240,
       "h": 62
     },
@@ -888,9 +859,7 @@
         "bg": "Население по общини, естествен прираст и миграция, Преброяване 2021, балансът на територията и регионалните отворени данни (болнични легла, обща смъртност, ЧПИ, музеи).",
         "en": "Municipal population, vital statistics and migration, Census 2021, the land-use balance and regional open data (hospital beds, crude death rate, FDI, museums)."
       },
-      "tags": [
-        "indicators"
-      ],
+      "tags": ["indicators"],
       "url": "https://www.nsi.bg/",
       "origin": "state",
       "cadence": "daily",
@@ -942,7 +911,7 @@
         }
       ],
       "x": 28,
-      "y": 458,
+      "y": 2418,
       "w": 240,
       "h": 62
     },
@@ -961,17 +930,12 @@
         "bg": "Годишните таблици за регистрирана и продължителна безработица по общини от az.government.bg.",
         "en": "Annual registered and long-term unemployment tables by municipality from az.government.bg."
       },
-      "tags": [
-        "indicators"
-      ],
+      "tags": ["indicators"],
       "url": "https://www.az.government.bg/stats/4/",
       "origin": "state",
       "cadence": "daily",
       "freshness": "2026-05-12T11:14:52.642Z",
-      "skills": [
-        "update-indicators",
-        "update-regional"
-      ],
+      "skills": ["update-indicators", "update-regional"],
       "sources": [
         {
           "id": "indicators_az",
@@ -982,7 +946,7 @@
         }
       ],
       "x": 28,
-      "y": 1004,
+      "y": 1872,
       "w": 240,
       "h": 62
     },
@@ -1001,16 +965,12 @@
         "bg": "Тримесечните таблици „по постоянен и настоящ адрес“ за всяко населено място — независим от НСИ поглед върху населението.",
         "en": "Quarterly permanent/current address tables for every settlement — a population view independent of the statistics institute."
       },
-      "tags": [
-        "indicators"
-      ],
+      "tags": ["indicators"],
       "url": "https://www.grao.bg/tables.html",
       "origin": "state",
       "cadence": "daily",
       "freshness": "2026-06-16T07:08:32.388Z",
-      "skills": [
-        "update-grao"
-      ],
+      "skills": ["update-grao"],
       "sources": [
         {
           "id": "grao",
@@ -1021,7 +981,7 @@
         }
       ],
       "x": 28,
-      "y": 146,
+      "y": 2886,
       "w": 240,
       "h": 62
     },
@@ -1040,20 +1000,12 @@
         "bg": "Тримесечни и годишни серии: БВП, инфлация, СИЛК неравенство, COFOG разходи, COICOP потребление, ценови равнища на храните (PLI, за /consumption/eu), NUTS 3 регионални данни и бюджетът на ЕС по държави.",
         "en": "Quarterly and annual series: GDP, inflation, SILC inequality, COFOG spending, COICOP consumption, food price level indices (PLI, for /consumption/eu), NUTS 3 regional data and the EU budget per member state."
       },
-      "tags": [
-        "indicators",
-        "fiscal",
-        "prices"
-      ],
+      "tags": ["indicators", "fiscal", "prices"],
       "url": "https://ec.europa.eu/eurostat/",
       "origin": "eu",
       "cadence": "weekly",
       "freshness": "2026-07-18T06:08:52.941Z",
-      "skills": [
-        "update-macro",
-        "update-regional",
-        "update-budget"
-      ],
+      "skills": ["update-macro", "update-regional", "update-budget"],
       "sources": [
         {
           "id": "eurostat",
@@ -1106,7 +1058,7 @@
         }
       ],
       "x": 28,
-      "y": 1160,
+      "y": 2106,
       "w": 240,
       "h": 62
     },
@@ -1125,9 +1077,7 @@
         "bg": "Котвите на данъчния симулатор: ставките в държавите от ЕС зад сравнителите „Като в…“ по отделните лостове и зад бутоните за избор на цяла държава (PwC Worldwide Tax Summaries за ДДС/ДДФЛ/корпоративен; Tax Foundation за акцизите на горива и цигари и ЕК TEDB за спиртните напитки и виното; базите на ОИСР за данъците и за семейството за праговете, необлагаемите минимуми и платения отпуск зад лостовете за необлагаем минимум/скоби/майчинство), дяловете за отбрана от компендиума на НАТО, прогнозата на ЕК за България, върху която стъпва 5-годишната проекция на салдото и дълга, плюс котвите на динамичния (поведенчески) режим — докладът на ЕК за несъбраното ДДС и МВФ изданията зад фискалните мултипликатори. Котвите за хазарта (GGR) и виното са по данни на бранша и НАП. Стойностите живеят като константи с източници в кода на симулатора и се обновяват ръчно при сигнал от наблюдателя.",
         "en": "The tax simulator's anchors: EU member-state rates behind both the per-lever \"Like in…\" comparators and the whole-country quick-select profiles (PwC Worldwide Tax Summaries for VAT/PIT/corporate; Tax Foundation for fuel & cigarette excises and the EC TEDB for spirits/wine; the OECD Tax & Family databases for the income-threshold, allowance and paid-leave inputs behind the tax-free-minimum/bracket/maternity levers), defence shares from the NATO expenditure compendium, the EC forecast for Bulgaria that the 5-year balance/debt projection is built on, plus the dynamic (behavioral) mode's anchors — the EC VAT gap report and the IMF vintages behind the fiscal multipliers. The gambling (GGR) and wine bases are industry/НАП-reported. The values live as sourced constants in the simulator code and are updated manually when the watcher flags a change."
       },
-      "tags": [
-        "fiscal"
-      ],
+      "tags": ["fiscal"],
       "url": "https://taxsummaries.pwc.com/quick-charts/value-added-tax-vat-rates",
       "origin": "intl",
       "cadence": "weekly",
@@ -1199,7 +1149,7 @@
         }
       ],
       "x": 28,
-      "y": 1550,
+      "y": 2262,
       "w": 240,
       "h": 62
     },
@@ -1218,9 +1168,7 @@
         "bg": "Българските котви на данъчния симулатор: EDP нотификацията на НСИ (дефицит/дълг/БВП — началната точка на 5-годишната проекция), публикациите на Фискалния съвет, срещу които симулаторът сверява оценките си (включително калибрацията на дивидентния лост в динамичния режим), и годишните приходи от пътни такси на АПИ (винетки + тол — базата на лоста за пътни такси). Всички водят до ръчна редакция на константи с източници в кода.",
         "en": "The tax simulator's Bulgarian anchors: the НСИ EDP notification (deficit/debt/GDP — the starting point of the 5-year projection), the Fiscal Council publications the simulator benchmarks against (including the dividend lever's calibration in dynamic mode), and АПИ's annual road-charge revenue (vignettes + toll — the base of the road-charge lever). All map to manual edits of sourced constants in code."
       },
-      "tags": [
-        "fiscal"
-      ],
+      "tags": ["fiscal"],
       "url": "https://www.nsi.bg/bg/content/2432/",
       "origin": "state",
       "cadence": "weekly",
@@ -1250,7 +1198,7 @@
         }
       ],
       "x": 28,
-      "y": 1472,
+      "y": 2184,
       "w": 240,
       "h": 62
     },
@@ -1269,16 +1217,12 @@
         "bg": "Индикаторите за управление на Световната банка (шест измерения) и Индексът за възприятие на корупцията на Transparency International.",
         "en": "The World Bank's Worldwide Governance Indicators (six dimensions) and Transparency International's Corruption Perceptions Index."
       },
-      "tags": [
-        "indicators"
-      ],
+      "tags": ["indicators"],
       "url": "https://databank.worldbank.org/source/worldwide-governance-indicators",
       "origin": "intl",
       "cadence": "monthly",
       "freshness": "2026-05-15T15:09:53.389Z",
-      "skills": [
-        "update-macro"
-      ],
+      "skills": ["update-macro"],
       "sources": [
         {
           "id": "worldbank_wgi",
@@ -1296,7 +1240,7 @@
         }
       ],
       "x": 28,
-      "y": 1238,
+      "y": 2496,
       "w": 240,
       "h": 62
     },
@@ -1315,17 +1259,12 @@
         "bg": "Резултатите от аукционите за държавни ценни книжа (вътрешният държавен дълг и доходността по емисиите) и месечните потоци на преките чуждестранни инвестиции по платежния баланс (РПБ6) — общо, дялов капитал, реинвестирана печалба и дългови инструменти.",
         "en": "Government securities auction results (domestic sovereign debt issuance and yields) and monthly foreign-direct-investment flows from the balance of payments (BPM6) — total, equity, reinvested earnings and debt instruments."
       },
-      "tags": [
-        "fiscal",
-        "indicators"
-      ],
+      "tags": ["fiscal", "indicators"],
       "url": "https://www.bnb.bg/Statistics/StExternalSector/index.htm",
       "origin": "state",
       "cadence": "weekly",
       "freshness": "2026-06-23T07:40:11.378Z",
-      "skills": [
-        "update-macro"
-      ],
+      "skills": ["update-macro"],
       "sources": [
         {
           "id": "bnb_auctions",
@@ -1343,7 +1282,7 @@
         }
       ],
       "x": 28,
-      "y": 770,
+      "y": 2028,
       "w": 240,
       "h": 62
     },
@@ -1362,16 +1301,12 @@
         "bg": "Дневният отворен файл на kolkostruva.bg — индивидуалните цени на 101 продукта от потребителската кошница във всички големи търговски вериги, от въвеждането на еврото насам.",
         "en": "The daily open-data file from kolkostruva.bg — individual prices for the 101-product consumer basket across all major retail chains, since euro adoption."
       },
-      "tags": [
-        "prices"
-      ],
+      "tags": ["prices"],
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
       "freshness": "2026-07-19T06:09:20.174Z",
-      "skills": [
-        "update-prices"
-      ],
+      "skills": ["update-prices"],
       "sources": [
         {
           "id": "kzp_prices",
@@ -1382,7 +1317,7 @@
         }
       ],
       "x": 28,
-      "y": 380,
+      "y": 2574,
       "w": 240,
       "h": 62
     },
@@ -1401,9 +1336,7 @@
         "bg": "Консолидираната история на потребителските цени на горивата (бензин А95 и дизел, с ДДС) — България спрямо средното за ЕС и съседните държави (Румъния, Гърция, Унгария, Хърватия), седмично от 2005 г. Захранва страницата „Горива“ (/consumption/fuel) в изгледа „Потребление“.",
         "en": "The consolidated history of consumer fuel prices (petrol 95 & diesel, incl. VAT) — Bulgaria vs the EU average and its neighbours (Romania, Greece, Hungary, Croatia), weekly since 2005. Powers the Fuel page (/consumption/fuel) in the Consumption view."
       },
-      "tags": [
-        "prices"
-      ],
+      "tags": ["prices"],
       "url": "https://energy.ec.europa.eu/data-and-analysis/weekly-oil-bulletin_en",
       "origin": "eu",
       "cadence": "weekly",
@@ -1418,7 +1351,7 @@
         }
       ],
       "x": 28,
-      "y": 302,
+      "y": 2652,
       "w": 240,
       "h": 62
     },
@@ -1437,16 +1370,12 @@
         "bg": "Годишният Индекс на местната система за почтеност — композитна оценка за прозрачност на 27-те областни центъра.",
         "en": "The annual Local Integrity System Index — a composite transparency score for the 27 oblast-centre municipalities."
       },
-      "tags": [
-        "local"
-      ],
+      "tags": ["local"],
       "url": "https://lisi.transparency.bg/",
       "origin": "intl",
       "cadence": "monthly",
       "freshness": "2026-05-29T00:27:36.982Z",
-      "skills": [
-        "update-transparency-lisi"
-      ],
+      "skills": ["update-transparency-lisi"],
       "sources": [
         {
           "id": "ti_bg_lisi",
@@ -1457,7 +1386,7 @@
         }
       ],
       "x": 28,
-      "y": 536,
+      "y": 1716,
       "w": 240,
       "h": 62
     },
@@ -1476,16 +1405,12 @@
         "bg": "Годишните „Обобщени статистически таблици за дейността на съдилищата“ на Висшия съдебен съвет — постъпили, свършени и висящи дела, срокове и натовареност на съдиите, по съдебен ред (Приложение № 1) и по конкретен съд за картата на натовареността (Приложение № 2). Публикуват се само като PDF. Плюс регистъра на имуществените декларации на магистратите и списъците на ИВСС за неизрядни декларации, както и декларираните от магистрати дружества (целият състав, кръстосан с поръчките и с политици през общи управители). Забележка: регистърът на ИВСС се публикува на гол IP адрес по нешифрован HTTP (без TLS), затова обхождането му се прави от доверена мрежа и всяка промяна в имената се преглежда ръчно преди публикуване.",
         "en": "The Supreme Judicial Council's annual summary statistical tables on the activity of the courts — cases filed, resolved and pending, delays and judges' workload, by court tier (Приложение № 1) and by individual court for the per-court workload map (Приложение № 2). Published as PDFs only. Plus the magistrates' asset-declaration register and the Inspectorate's non-compliance lists, and the companies magistrates declare (the full roster, cross-linked to procurement and — through shared officers — to politicians). Note: the Inspectorate's register is served from a bare IP over unencrypted HTTP (no TLS), so the crawl is run from a trusted network and every change to the named individuals is reviewed by hand before publication."
       },
-      "tags": [
-        "fiscal"
-      ],
+      "tags": ["fiscal"],
       "url": "https://vss.justice.bg/page/view/1082",
       "origin": "state",
       "cadence": "monthly",
       "freshness": "2026-07-10T06:08:57.396Z",
-      "skills": [
-        "update-judiciary"
-      ],
+      "skills": ["update-judiciary"],
       "sources": [
         {
           "id": "vss_court_statistics",
@@ -1503,7 +1428,7 @@
         }
       ],
       "x": 28,
-      "y": 2018,
+      "y": 936,
       "w": 240,
       "h": 62
     },
@@ -1522,17 +1447,12 @@
         "bg": "Данни за отбраната от три източника: годишният доклад на НАТО „Defence Expenditure of NATO Countries“ (дял от БВП и разпределението техника/личен състав), годишният доклад на Министерството на икономиката за износа на отбранителна продукция, и докладът за състоянието на отбраната на МО (готовност, личен състав). Публикуват се само като PDF; поддържат се като малки .json файлове в data/defense/. Придобиването на F-16/Stryker е по US FMS и не е в регистъра на поръчките.",
         "en": "Defence data from three sources: NATO's annual Defence Expenditure of NATO Countries (share of GDP and the equipment/personnel split), the Ministry of Economy's annual arms-export control report, and the МО state-of-defence report (readiness, personnel). Published as PDFs only; maintained as small .json files under data/defense/. F-16/Stryker acquisition is via US FMS and not in the procurement register."
       },
-      "tags": [
-        "fiscal",
-        "indicators"
-      ],
+      "tags": ["fiscal", "indicators"],
       "url": "https://www.nato.int/cps/en/natohq/news_216897.htm",
       "origin": "state",
       "cadence": "monthly",
       "freshness": "2026-07-13T06:08:38.041Z",
-      "skills": [
-        "update-defense"
-      ],
+      "skills": ["update-defense"],
       "sources": [
         {
           "id": "nato_defexp",
@@ -1557,7 +1477,7 @@
         }
       ],
       "x": 28,
-      "y": 848,
+      "y": 1404,
       "w": 240,
       "h": 62
     },
@@ -1576,17 +1496,12 @@
         "bg": "Физическата картина на енергетиката до парите: производственият микс на тока (ядрена, въглища, ВЕИ), нетният износ и въглеродният интензитет от Ember (Yearly Electricity Data, CC BY 4.0), цените на тока и природния газ за домакинствата спрямо ЕС и съседите от Eurostat (nrg_pc_204 и nrg_pc_202 — за страниците /consumption/electricity и /consumption/gas), и регистър на електроцентралите (мощност и собственост) — куриран от Global Energy Monitor. Поддържат се като .json в data/energy/. Обществените поръчки на групата на БЕХ идват от корпуса на договорите, не оттук.",
         "en": "The physical picture of energy beside the money: the electricity generation mix (nuclear, coal, renewables), net exports and carbon intensity from Ember (Yearly Electricity Data, CC BY 4.0), the household electricity AND natural-gas prices vs the EU and neighbours from Eurostat (nrg_pc_204 and nrg_pc_202 — powering /consumption/electricity and /consumption/gas), and a power-plant registry (capacity and ownership) curated from Global Energy Monitor. Maintained as .json under data/energy/. The БЕХ group's procurement comes from the contracts corpus, not here."
       },
-      "tags": [
-        "indicators",
-        "prices"
-      ],
+      "tags": ["indicators", "prices"],
       "url": "https://ember-energy.org/data/",
       "origin": "intl",
       "cadence": "monthly",
       "freshness": "2026-07-14T06:08:38.433Z",
-      "skills": [
-        "update-energy"
-      ],
+      "skills": ["update-energy"],
       "sources": [
         {
           "id": "ember_generation",
@@ -1604,7 +1519,7 @@
         }
       ],
       "x": 28,
-      "y": 2252,
+      "y": 624,
       "w": 240,
       "h": 62
     },
@@ -1623,9 +1538,7 @@
         "bg": "Изходният слой до парите на МВР: националните жертви на пътя по години от Eurostat (sdg_11_40) — изходът, който Пътна полиция (КАТ) и покупката на патрулни автомобили трябва да подобрят (708 връх 2015 → 478 през 2024, −32%). Поддържа се като малък .json в data/security/. Обществените поръчки на групата на МВР (~75 структури, ~€1.9 млрд.) идват от корпуса на договорите, не оттук; разсейката разход-срещу-престъпност преизползва data/regional.json.",
         "en": "The outcome layer beside МВР's money: national road-traffic deaths by year from Eurostat (sdg_11_40) — the outcome the traffic police (КАТ) and patrol-car procurement are meant to improve (708 peak 2015 → 478 in 2024, −32%). Maintained as a small .json under data/security/. The МВР group's procurement (~75 units, ~€1.9bn) comes from the contracts corpus, not here; the spend-vs-crime scatter reuses data/regional.json."
       },
-      "tags": [
-        "indicators"
-      ],
+      "tags": ["indicators"],
       "url": "https://ec.europa.eu/eurostat/databrowser/view/sdg_11_40/default/table",
       "origin": "intl",
       "cadence": "monthly",
@@ -1641,7 +1554,7 @@
         }
       ],
       "x": 28,
-      "y": 1394,
+      "y": 780,
       "w": 240,
       "h": 62
     },
@@ -1660,9 +1573,7 @@
         "bg": "Данните за железопътната субсидия до парите на транспорта: жп пътниците от Eurostat (rail_pa_total) — знаменателят на „субсидия на пътник“ — сдвоени с държавната субсидия за БДЖ/НКЖИ от Закона за държавния бюджет (data/transport/). Субсидията се парсва от вече кешираните ЗДБ HTML файлове (rides the budget_law watcher). Обществените поръчки на транспортната група идват от корпуса на договорите, не оттук.",
         "en": "The rail-subsidy data beside the transport money: rail passengers from Eurostat (rail_pa_total) — the denominator of 'subsidy per passenger' — paired with the state subsidy to БДЖ/НКЖИ from the State Budget Law (data/transport/). The subsidy is parsed from the already-cached ЗДБ HTML (rides the budget_law watcher). The transport group's procurement comes from the contracts corpus, not here."
       },
-      "tags": [
-        "indicators"
-      ],
+      "tags": ["indicators"],
       "url": "https://ec.europa.eu/eurostat/databrowser/view/rail_pa_total/default/table",
       "origin": "intl",
       "cadence": "monthly",
@@ -1678,7 +1589,7 @@
         }
       ],
       "x": 28,
-      "y": 1316,
+      "y": 858,
       "w": 240,
       "h": 62
     },
@@ -1697,17 +1608,12 @@
         "bg": "Държавната администрация като институция: административните услуги от Административния регистър (ИИСДА, ~2 668 услуги), използването на електронно управление спрямо ЕС от Eurostat (isoc_ciegi_ac), дигиталните умения на гражданите (isoc_sk_dskl_i21) и показателите за административно обслужване от годишния Доклад за състоянието на администрацията. Численост, структури и разход идват от Доклада (personnel.json) и COFOG.",
         "en": "The state administration as an institution: the administrative-services register (IISDA, ~2,668 services), e-government use vs the EU from Eurostat (isoc_ciegi_ac), citizen digital skills (isoc_sk_dskl_i21), and the service-quality metrics from the annual Report on the State of the Administration. Headcount, structures and cost come from the Report (personnel.json) and COFOG."
       },
-      "tags": [
-        "fiscal",
-        "indicators"
-      ],
+      "tags": ["fiscal", "indicators"],
       "url": "https://iisda.government.bg/",
       "origin": "state",
       "cadence": "weekly",
       "freshness": "2026-07-17T06:09:07.869Z",
-      "skills": [
-        "update-administration"
-      ],
+      "skills": ["update-administration"],
       "sources": [
         {
           "id": "iisda_services",
@@ -1732,7 +1638,7 @@
         }
       ],
       "x": 28,
-      "y": 2096,
+      "y": 1482,
       "w": 240,
       "h": 62
     },
@@ -1751,17 +1657,12 @@
         "bg": "Социалното подпомагане: помощите, които Агенцията за социално подпомагане (АСП) плаща на домакинствата — детски надбавки, помощи за хора с увреждания, целева помощ за отопление, ГМД (национално/годишно, от годишния отчет на АСП), бюджетът на МТСП по вид помощ (Закон за държавния бюджет) и ефектът на трансферите върху бедността спрямо ЕС (Eurostat ilc_li10/ilc_li02). Пенсиите (НОИ) са отделен източник.",
         "en": "Social assistance: the benefits the Agency for Social Assistance (АСП) pays households — child allowances, disability support, targeted heating aid, guaranteed minimum income (national/annual, from the АСП annual report), the МТСП budget by benefit type (State Budget Law), and the poverty-reduction effect of transfers vs the EU (Eurostat ilc_li10/ilc_li02). Pensions (НОИ) are a separate source."
       },
-      "tags": [
-        "fiscal",
-        "indicators"
-      ],
+      "tags": ["fiscal", "indicators"],
       "url": "https://asp.government.bg/",
       "origin": "state",
       "cadence": "monthly",
       "freshness": "2026-07-17T06:09:07.869Z",
-      "skills": [
-        "update-social"
-      ],
+      "skills": ["update-social"],
       "sources": [
         {
           "id": "asp_benefits",
@@ -1779,7 +1680,7 @@
         }
       ],
       "x": 28,
-      "y": 1862,
+      "y": 1560,
       "w": 240,
       "h": 62
     },
@@ -1798,16 +1699,12 @@
         "bg": "Единният публичен регистър на финансираните филми и сериали на Изпълнителна агенция „Национален филмов център“ — държавната субсидия за игрално, документално и анимационно кино по проект и продуцент, 2014–2025. Публикува се като .xls файлове по година; сумите са в лева, конвертирани в евро по фиксирания курс.",
         "en": "The National Film Center's public register of financed films and series — the state subsidy for feature, documentary and animation film by project and producer, 2014–2025. Published as per-year .xls files; amounts are in leva, converted to euro at the fixed rate."
       },
-      "tags": [
-        "fiscal"
-      ],
+      "tags": ["fiscal"],
       "url": "https://www.nfc.bg/статистика-публичен-регистър/единен-публичен-регистър/",
       "origin": "state",
       "cadence": "weekly",
       "freshness": "2026-07-18T06:08:52.941Z",
-      "skills": [
-        "update-culture"
-      ],
+      "skills": ["update-culture"],
       "sources": [
         {
           "id": "nfc_film_register",
@@ -1832,7 +1729,7 @@
         }
       ],
       "x": 28,
-      "y": 1706,
+      "y": 234,
       "w": 240,
       "h": 62
     },
@@ -1851,16 +1748,12 @@
         "bg": "Петте индикатора за местни данъци на Института за пазарна икономика — данък върху имоти на юридически лица, възмезден превоз, превозни средства и патентни данъци за всички 265 общини.",
         "en": "The Institute for Market Economics' five local-tax indicators — property, transfer, vehicle and patent taxes across all 265 municipalities."
       },
-      "tags": [
-        "local"
-      ],
+      "tags": ["local"],
       "url": "https://www.265obshtini.bg/",
       "origin": "community",
       "cadence": "monthly",
       "freshness": "2026-05-28T23:28:02.097Z",
-      "skills": [
-        "update-local-taxes"
-      ],
+      "skills": ["update-local-taxes"],
       "sources": [
         {
           "id": "ipi_local_taxes",
@@ -1871,7 +1764,7 @@
         }
       ],
       "x": 28,
-      "y": 614,
+      "y": 1638,
       "w": 240,
       "h": 62
     },
@@ -1890,17 +1783,12 @@
         "bg": "Социологическите проучвания, събрани в българската Уикипедия, и хронологията на правителствата — проверени срещу сайтовете на агенциите и официални източници.",
         "en": "Opinion polls collected on Bulgarian Wikipedia and the cabinet chronology — cross-checked against pollster websites and official sources."
       },
-      "tags": [
-        "elections",
-        "indicators"
-      ],
+      "tags": ["elections", "indicators"],
       "url": "https://bg.wikipedia.org/",
       "origin": "community",
       "cadence": "daily",
       "freshness": "2026-06-30T06:08:57.757Z",
-      "skills": [
-        "update-polls"
-      ],
+      "skills": ["update-polls"],
       "sources": [
         {
           "id": "wiki_polls",
@@ -1918,7 +1806,7 @@
         }
       ],
       "x": 28,
-      "y": 692,
+      "y": 2730,
       "w": 240,
       "h": 62
     },
@@ -1937,11 +1825,7 @@
         "bg": "Контурите на области, общини и населени места (Bulgaria-geocoding), районите на София (Sofiaplan) и координатите на населените места — основата на всички карти.",
         "en": "Region, municipality and settlement boundaries (Bulgaria-geocoding), Sofia districts (Sofiaplan) and settlement coordinates — the base layer for every map."
       },
-      "tags": [
-        "elections",
-        "local",
-        "indicators"
-      ],
+      "tags": ["elections", "local", "indicators"],
       "url": "https://github.com/yurukov/Bulgaria-geocoding",
       "origin": "community",
       "skills": [],
@@ -1958,7 +1842,7 @@
         }
       ],
       "x": 28,
-      "y": 68,
+      "y": 2964,
       "w": 240,
       "h": 62
     },
@@ -1977,12 +1861,10 @@
         "bg": "Консолидираните обществени поръчки на групата на Български ВиК холдинг (по дружества и по функция) и договорите за почистване на речни корита (по възложител, по години, най-големи), от АОП/ЦАИС ЕОП.",
         "en": "The Bulgarian Water Holding group's consolidated public procurement (by operator and by function) and the riverbed-cleaning contracts (by awarder, by year, largest), from the АОП/ЦАИС ЕОП register."
       },
-      "tags": [
-        "fiscal"
-      ],
+      "tags": ["fiscal"],
       "path": "data/water/",
       "x": 378,
-      "y": 2018,
+      "y": 1229,
       "w": 240,
       "h": 62
     },
@@ -2001,12 +1883,10 @@
         "bg": "Резултатите от всеки парламентарен вот от 2005 г. насам — по секция, населено място, община и област, с машинно/хартиено разделение, преференции и деривирания рисков индекс.",
         "en": "Every parliamentary vote since 2005 — by section, settlement, municipality and region, with machine/paper splits, preferences and the derived risk index."
       },
-      "tags": [
-        "elections"
-      ],
+      "tags": ["elections"],
       "path": "public/{election}/",
       "x": 378,
-      "y": 458,
+      "y": 2536,
       "w": 240,
       "h": 62
     },
@@ -2025,13 +1905,10 @@
         "bg": "Резултати за кметове и общински съвети от всички редовни цикли от 2007 г. насам плюс частичните и нови избори между тях. Данни по избирателни секции (за кмет и за съвет) захранват картите на секциите.",
         "en": "Mayor and council results from every regular cycle since 2007 plus the partial and new elections in between. Per-polling-station data (both the mayor and council ballots) powers the section maps."
       },
-      "tags": [
-        "local",
-        "elections"
-      ],
+      "tags": ["local", "elections"],
       "path": "data/{cycle}_mi/",
       "x": 378,
-      "y": 770,
+      "y": 2458,
       "w": 240,
       "h": 62
     },
@@ -2050,12 +1927,10 @@
         "bg": "Всички поименни гласувания с деривирани метрики — лоялност към групата, присъствие, сходство между депутати и кохезия на групите.",
         "en": "Every roll-call vote with derived metrics — party loyalty, attendance, MP similarity and group cohesion."
       },
-      "tags": [
-        "parliament"
-      ],
+      "tags": ["parliament"],
       "path": "data/parliament/votes/",
       "x": 378,
-      "y": 2491,
+      "y": 449,
       "w": 240,
       "h": 62
     },
@@ -2074,12 +1949,10 @@
         "bg": "Бизнес връзките между хора във властта и фирми — от декларациите пред Сметната палата, съединени с Търговския регистър.",
         "en": "Business ties between people in power and companies — from audit-office declarations joined with the Commerce Registry."
       },
-      "tags": [
-        "parliament"
-      ],
+      "tags": ["parliament"],
       "path": "public/parliament/connections.json",
       "x": 378,
-      "y": 2252,
+      "y": 683,
       "w": 240,
       "h": 62
     },
@@ -2098,13 +1971,10 @@
         "bg": "Декларираното имущество на членовете на кабинета, областните управители и общинския ешелон — кметове, председатели на съвети, съветници.",
         "en": "Declared assets of cabinet members, governors and the municipal tier — mayors, council chairs, councillors."
       },
-      "tags": [
-        "parliament",
-        "local"
-      ],
+      "tags": ["parliament", "local"],
       "path": "data/officials/",
       "x": 378,
-      "y": 1706,
+      "y": 761,
       "w": 240,
       "h": 62
     },
@@ -2123,12 +1993,10 @@
         "bg": "Декларираните приходи и разходи на партиите за всяка кампания и годишните им отчети — включително индивидуалните дарители.",
         "en": "Declared party income and spending for every campaign plus annual reports — including individual donors."
       },
-      "tags": [
-        "elections"
-      ],
+      "tags": ["elections"],
       "path": "data/financing/",
       "x": 378,
-      "y": 2330,
+      "y": 605,
       "w": 240,
       "h": 62
     },
@@ -2147,12 +2015,10 @@
         "bg": "Всички договори от АОП (OCDS емисията) плюс попълване от ЦАИС ЕОП за малките възложители, които АОП пропуска — по месеци, изпълнители и възложители, с локализация до населено място и кръстосване с фирмите, свързани с депутати и длъжностни лица.",
         "en": "Every procurement contract from АОП (the OCDS feed) plus a ЦАИС ЕОП gap-fill for the small contracting authorities АОП omits — by month, contractor and awarder, localised to settlement level and cross-referenced against companies tied to MPs and public officials."
       },
-      "tags": [
-        "fiscal"
-      ],
+      "tags": ["fiscal"],
       "path": "data/procurement/",
       "x": 378,
-      "y": 2408,
+      "y": 1307,
       "w": 240,
       "h": 62
     },
@@ -2171,13 +2037,10 @@
         "bg": "Регистърът на юридическите лица с нестопанска цел (сдружения, фондации, читалища) от общата база на Търговския регистър — управителни съвети, представляващи и настоятелства, цели и статут за обществена полза, гражданство на членовете, плюс полученото публично и външно финансиране (държавни субсидии, пряко управлявани средства от ЕС). Само в базата данни — сървира се от Postgres, без статични JSON файлове.",
         "en": "The register of non-profit legal entities (associations, foundations, community centres) from the shared Commerce Registry database — management boards, representatives and boards of trustees, objectives and public-benefit status, member nationality, plus the public and external funding received (state subsidies, directly-managed EU funds). Database-only — served live from Postgres, no static JSON."
       },
-      "tags": [
-        "fiscal",
-        "parliament"
-      ],
+      "tags": ["fiscal", "parliament"],
       "path": "raw_data/tr/state.sqlite",
       "x": 378,
-      "y": 2174,
+      "y": 917,
       "w": 240,
       "h": 62
     },
@@ -2196,13 +2059,10 @@
         "bg": "Договорите и бенефициентите по еврофондовете с геокодирани проекти по общини и интегрити проверки срещу декларациите и черните списъци.",
         "en": "EU-funds contracts and beneficiaries with geocoded projects per municipality and integrity checks against declarations and debarment lists."
       },
-      "tags": [
-        "fiscal",
-        "local"
-      ],
+      "tags": ["fiscal", "local"],
       "path": "data/funds/",
       "x": 378,
-      "y": 1862,
+      "y": 1073,
       "w": 240,
       "h": 62
     },
@@ -2221,11 +2081,9 @@
         "bg": "Изплатените субсидии от ДФ „Земеделие“ по бенефициент, схема и област — с концентрация, топ получатели и връзка към поръчки и еврофондове по ЕИК. Съхранява се директно в Postgres (agri_subsidies, agri_payloads).",
         "en": "Subsidies paid by the State Fund Agriculture by beneficiary, scheme and region — with concentration, top recipients and an EIK link to procurement and EU funds. Stored directly in Postgres (agri_subsidies, agri_payloads)."
       },
-      "tags": [
-        "fiscal"
-      ],
+      "tags": ["fiscal"],
       "x": 378,
-      "y": 2575,
+      "y": 78,
       "w": 240,
       "h": 62
     },
@@ -2244,12 +2102,10 @@
         "bg": "Движението на делата в българските съдилища от 2018 г. насам — постъпили, свършени и висящи дела, дял решени в 3-месечния срок, брой съдии и двата официални показателя за натовареност (по щат и действителна), по съдебен ред и по конкретен съд (геокодирана карта на натовареността). Плюс регистъра на имуществените декларации на целия магистратски състав и декларираните от тях дружества, които се кръстосват с обществените поръчки и — през общи управители/съдружници — с политици.",
         "en": "The movement of cases through Bulgaria's courts since 2018 — filed, resolved and pending, the share closed inside the three-month deadline, judge posts and both official workload measures (per post and actual), by court tier and by individual court (a geocoded workload map). Plus the full magistrate roster's asset-declaration index and the companies they declare, cross-linked to public procurement and — through shared officers — to politicians."
       },
-      "tags": [
-        "fiscal"
-      ],
+      "tags": ["fiscal"],
       "path": "data/judiciary/",
       "x": 378,
-      "y": 1550,
+      "y": 1385,
       "w": 240,
       "h": 62
     },
@@ -2268,13 +2124,10 @@
         "bg": "Разходите на България за отбрана като дял от БВП (пътят към целта от 5%), разпределението техника срещу личен състав, големите програми (F-16, Stryker, патрулни кораби), рекордният износ на оръжие след 2022 г. и готовността на армията.",
         "en": "Bulgaria's defence spending as a share of GDP (the road to the 5% target), the equipment-vs-personnel split, the flagship programs (F-16, Stryker, patrol ships), the record post-2022 arms exports and force readiness."
       },
-      "tags": [
-        "fiscal",
-        "indicators"
-      ],
+      "tags": ["fiscal", "indicators"],
       "path": "data/defense/",
       "x": 378,
-      "y": 1082,
+      "y": 1463,
       "w": 240,
       "h": 62
     },
@@ -2293,13 +2146,10 @@
         "bg": "Производственият микс на тока (ядрена, въглища, ВЕИ), нетният износ и въглеродният интензитет от Ember, цената на тока за домакинствата спрямо ЕС от Eurostat, и регистър на електроцентралите (мощност и собственост) от Global Energy Monitor. Поръчките на държавната енергийна група (БЕХ) идват от корпуса на договорите.",
         "en": "The electricity generation mix (nuclear, coal, renewables), net exports and carbon intensity from Ember, the household electricity price vs the EU from Eurostat, and a power-plant registry (capacity and ownership) from Global Energy Monitor. The state energy group's (БЕХ) procurement comes from the contracts corpus."
       },
-      "tags": [
-        "indicators",
-        "prices"
-      ],
+      "tags": ["indicators", "prices"],
       "path": "data/energy/",
       "x": 378,
-      "y": 2096,
+      "y": 839,
       "w": 240,
       "h": 62
     },
@@ -2318,12 +2168,10 @@
         "bg": "Изходният слой до парите на МВР: националните жертви на пътя по години от Eurostat (708 връх 2015 → 478 през 2024), сдвоени с покупката на патрулни автомобили от МВР. Обществените поръчки на групата на МВР (~75 структури, ~€1.9 млрд.) идват от корпуса на договорите; разсейката разход-срещу-престъпност преизползва data/regional.json.",
         "en": "The outcome layer beside МВР's money: national road-traffic deaths by year from Eurostat (708 peak 2015 → 478 in 2024), paired with МВР patrol-car procurement. The МВР group's procurement (~75 units, ~€1.9bn) comes from the contracts corpus; the spend-vs-crime scatter reuses data/regional.json."
       },
-      "tags": [
-        "indicators"
-      ],
+      "tags": ["indicators"],
       "path": "data/security/",
       "x": 378,
-      "y": 1394,
+      "y": 995,
       "w": 240,
       "h": 62
     },
@@ -2342,12 +2190,10 @@
         "bg": "Данните до парите на транспорта: държавната субсидия за железниците (БДЖ PSO + НКЖИ) от Закона за държавния бюджет и жп пътниците от Eurostat, за плочката „субсидия на пътник“ на /sector/transport. Обществените поръчки на групата (~€5.9 млрд., 11 структури) идват от корпуса на договорите; пътната инфраструктура (АПИ) е отделен сектор.",
         "en": "The data beside the transport money: the state rail subsidy (БДЖ PSO + НКЖИ) from the State Budget Law and rail passengers from Eurostat, for the 'subsidy per passenger' tile on /sector/transport. The group's procurement (~€5.9bn, 11 entities) comes from the contracts corpus; road infrastructure (АПИ) is a separate sector."
       },
-      "tags": [
-        "indicators"
-      ],
+      "tags": ["indicators"],
       "path": "data/transport/",
       "x": 378,
-      "y": 1316,
+      "y": 1151,
       "w": 240,
       "h": 62
     },
@@ -2366,13 +2212,10 @@
         "bg": "Административните услуги (ИИСДА, ~2 668), използването на е-управление спрямо ЕС (Eurostat), качеството на административното обслужване (сигнали, измерване на удовлетвореността — от годишния Доклад), плюс сгънатия page-context (щат, структури, разход, население). Поръчките за е-управление (МЕУ + ИА ИЕУ + ДАЕУ) идват от корпуса на договорите.",
         "en": "The administrative-services register (IISDA, ~2,668), e-government use vs the EU (Eurostat), service quality (signals, satisfaction-measurement — from the annual Report), plus the folded page-context (workforce, structures, cost, population). e-government procurement (МЕУ + ИА ИЕУ + ДАЕУ) comes from the contracts corpus."
       },
-      "tags": [
-        "fiscal",
-        "indicators"
-      ],
+      "tags": ["fiscal", "indicators"],
       "path": "data/administration/",
       "x": 378,
-      "y": 1940,
+      "y": 1541,
       "w": 240,
       "h": 62
     },
@@ -2391,13 +2234,10 @@
         "bg": "Помощите на АСП по вид (детски надбавки, увреждания, отопление, ГМД — национално/годишно) и ефектът на социалните трансфери върху бедността спрямо ЕС (Eurostat ilc_li10/ilc_li02). Бюджетът на МТСП по вид помощ идва от бюджетното дърво; поръчките на групата — от корпуса на договорите. Пенсиите (НОИ) са отделен изглед.",
         "en": "АСП benefits by type (child allowances, disability, heating aid, GMI — national/annual) and the poverty-reduction effect of social transfers vs the EU (Eurostat ilc_li10/ilc_li02). The МТСП budget by benefit type comes from the budget tree; the group's procurement from the contracts corpus. Pensions (НОИ) are a separate view."
       },
-      "tags": [
-        "fiscal",
-        "indicators"
-      ],
+      "tags": ["fiscal", "indicators"],
       "path": "data/social/",
       "x": 378,
-      "y": 1784,
+      "y": 1619,
       "w": 240,
       "h": 62
     },
@@ -2416,12 +2256,10 @@
         "bg": "Държавната субсидия на Националния филмов център за кино (2014–2025) — по вид (игрално, документално, анимационно), по продуцент и по година, с концентрацията на средствата у най-финансираните продуценти. Плюс успеваемостта на грантовете на НФК, културните институти по области, съставите на националните художествени комисии (кой решава за филмовите пари), и общинската и читалищна култура (Столична програма „Култура“ по направления и националната субсидия за читалища).",
         "en": "The National Film Center's state subsidy for film (2014–2025) — by discipline (feature, documentary, animation), by producer and by year, with the concentration of money among the most-funded producers. Plus НФК grant success rates, the state cultural institutes by oblast, the national artistic-commission compositions (who decides the film money), and municipal & community-centre culture (Sofia's „Култура“ programme by direction and the national читалища subsidy)."
       },
-      "tags": [
-        "fiscal"
-      ],
+      "tags": ["fiscal"],
       "path": "data/culture/",
       "x": 378,
-      "y": 1628,
+      "y": 527,
       "w": 240,
       "h": 62
     },
@@ -2440,12 +2278,10 @@
         "bg": "Пенсионната система на България от статистическия годишник на НОИ — средна пенсия и плащания в брой по области, разпределението на пенсионерите по размер на пенсията (минимум и таван), и националните редове заплата–осигурителен доход–пенсия, плюс кой плаща разходите на ДОО (вноски срещу трансфер от бюджета). Включва и частните пенсионни фондове (стълбове 2 и 3) от КФН — нетни активи и осигурени лица по фонд.",
         "en": "Bulgaria's pension system from the NSSI statistical yearbook — average pension and cash payments by oblast, the distribution of pensioners by pension size (minimum and cap), and the national wage–insurable-income–pension series, plus who pays for ДОО (contributions vs the state-budget transfer). Also the private pension funds (pillars 2 & 3) from КФН — net assets and insured persons per fund."
       },
-      "tags": [
-        "fiscal"
-      ],
+      "tags": ["fiscal"],
       "path": "data/budget/noi/pensions.json",
       "x": 378,
-      "y": 614,
+      "y": 2146,
       "w": 240,
       "h": 62
     },
@@ -2464,12 +2300,10 @@
         "bg": "Законът за бюджета срещу касовото изпълнение — по министерства и програми, с приходната разбивка (ДДС, акцизи, мита), общинските бюджети, инвестиционната програма и фондовете на НОИ.",
         "en": "Budget law versus cash execution — by ministry and programme, with the revenue breakdown (VAT, excise, customs), municipal budgets, the investment programme and NSSI funds."
       },
-      "tags": [
-        "fiscal"
-      ],
+      "tags": ["fiscal"],
       "path": "data/budget/",
       "x": 378,
-      "y": 1472,
+      "y": 1967,
       "w": 240,
       "h": 62
     },
@@ -2488,13 +2322,10 @@
         "bg": "Националните макро серии и сравненията с ЕС — растеж, инфлация, дълг, фискален резерв, COFOG структура на разходите, управленски индикатори и хронологията на кабинетите.",
         "en": "National macro series and EU comparisons — growth, inflation, debt, the fiscal reserve, COFOG spending structure, governance indicators and the cabinet timeline."
       },
-      "tags": [
-        "indicators",
-        "fiscal"
-      ],
+      "tags": ["indicators", "fiscal"],
       "path": "data/macro.json",
       "x": 378,
-      "y": 1238,
+      "y": 2059,
       "w": 240,
       "h": 62
     },
@@ -2513,13 +2344,10 @@
         "bg": "Месечните потоци на преките чуждестранни инвестиции в България по платежния баланс (РПБ6) от 2010 г. насам — общо, дялов капитал, реинвестирана печалба и дългови инструменти, плюс натрупването от началото на годината спрямо същия период на предходната.",
         "en": "Monthly foreign-direct-investment flows into Bulgaria from the balance of payments (BPM6) since 2010 — total, equity, reinvested earnings and debt instruments, plus the year-to-date cumulative versus the same period a year earlier."
       },
-      "tags": [
-        "indicators",
-        "fiscal"
-      ],
+      "tags": ["indicators", "fiscal"],
       "path": "data/macro_fdi.json",
       "x": 378,
-      "y": 926,
+      "y": 1889,
       "w": 240,
       "h": 62
     },
@@ -2538,12 +2366,10 @@
         "bg": "Годишните под-национални индикатори — безработица и матури по общини, БВП на човек, миграция и инвестиции по области. Включва и per-училище разрез (/education + картоните /school): успех на ДЗИ, постижение спрямо социалната среда (индекс от Преброяване 2021) и добавена стойност 7→12 клас спрямо входното ниво по НВО, плюс концентрацията на пазара на учебници (по обществени поръчки, CPV 22112).",
         "en": "Annual sub-national indicators — unemployment and matura scores by municipality, GDP per capita, migration and investment by region. Also a per-school layer (/education + the /school report cards): ДЗИ results, performance versus the community's socioeconomic context (a Census-2021 index) and 7→12 value-added against the 7th-grade НВО intake, plus textbook-market concentration (from procurement, CPV 22112)."
       },
-      "tags": [
-        "indicators"
-      ],
+      "tags": ["indicators"],
       "path": "data/schools/index.json",
       "x": 378,
-      "y": 1160,
+      "y": 1811,
       "w": 240,
       "h": 62
     },
@@ -2562,13 +2388,10 @@
         "bg": "Преброяване 2021 по образование, възраст и етнос, адресните регистри на ГРАО и естественият прираст — основата на демографските разрези на вота.",
         "en": "Census 2021 by education, age and ethnicity, GRAO address registers and vital statistics — the base for demographic vote analysis."
       },
-      "tags": [
-        "indicators",
-        "elections"
-      ],
+      "tags": ["indicators", "elections"],
       "path": "data/census/",
       "x": 378,
-      "y": 536,
+      "y": 2302,
       "w": 240,
       "h": 62
     },
@@ -2587,12 +2410,10 @@
         "bg": "Местните данъци по общини, решенията на общинските съвети, индексът на прозрачност LISI, контактите на кметовете и качеството на въздуха.",
         "en": "Local tax rates per municipality, council resolutions, the LISI transparency index, mayor contacts and air quality."
       },
-      "tags": [
-        "local"
-      ],
+      "tags": ["local"],
       "path": "data/local_taxes/ · data/council/",
       "x": 378,
-      "y": 1004,
+      "y": 1716,
       "w": 240,
       "h": 62
     },
@@ -2611,11 +2432,9 @@
         "bg": "Потребителската кошница от въвеждането на еврото — мин/средна/макс цена по населено място и продукт, индекси по категории, сравнение между веригите и каталог от ~118 000 продукта с история на цените. Съхранява се директно в Postgres (price_facts, price_products, price_payloads), без статичен JSON.",
         "en": "The consumer basket since euro adoption — min/average/max prices by settlement and product, category indices, chain comparison and a ~118,000-product catalogue with price history. Stored directly in Postgres (price_facts, price_products, price_payloads); no static JSON."
       },
-      "tags": [
-        "prices"
-      ],
+      "tags": ["prices"],
       "x": 378,
-      "y": 848,
+      "y": 2224,
       "w": 240,
       "h": 62
     },
@@ -2634,12 +2453,10 @@
         "bg": "Предизборните проучвания за всеки вот с измерена точност на всяка агенция спрямо реалния резултат.",
         "en": "Pre-election surveys for every vote with each agency's measured accuracy against the real result."
       },
-      "tags": [
-        "elections"
-      ],
+      "tags": ["elections"],
       "path": "data/polls/",
       "x": 378,
-      "y": 692,
+      "y": 2380,
       "w": 240,
       "h": 62
     },
@@ -2658,14 +2475,10 @@
         "bg": "Геоконтурите и координатите, върху които стъпват всички карти — области, общини, населени места, столичните райони и адресите на секциите.",
         "en": "The boundaries and coordinates under every map — regions, municipalities, settlements, Sofia districts and polling-station locations."
       },
-      "tags": [
-        "elections",
-        "local",
-        "indicators"
-      ],
+      "tags": ["elections", "local", "indicators"],
       "path": "public/*.geojson",
       "x": 378,
-      "y": 380,
+      "y": 2614,
       "w": 240,
       "h": 62
     },
@@ -2684,12 +2497,10 @@
         "bg": "Кой купува във водния сектор — консолидираните поръчки на Български ВиК холдинг и дружествата му, какво купуват по функция, и парите за почистване на речни корита.",
         "en": "Who buys in the water sector — the Bulgarian Water Holding group's consolidated procurement, what they buy by function, and the money spent cleaning riverbeds."
       },
-      "tags": [
-        "fiscal"
-      ],
+      "tags": ["fiscal"],
       "route": "/water",
       "x": 728,
-      "y": 1961,
+      "y": 1219,
       "w": 240,
       "h": 62
     },
@@ -2708,12 +2519,10 @@
         "bg": "Резултати по области, общини, населени места и секции — с преференции, машинно гласуване, демографски разрези и сравнение между изборите.",
         "en": "Results by region, municipality, settlement and section — with preferences, machine voting, demographic breakdowns and election-to-election comparison."
       },
-      "tags": [
-        "elections"
-      ],
+      "tags": ["elections"],
       "route": "/",
       "x": 728,
-      "y": 525,
+      "y": 2469,
       "w": 240,
       "h": 62
     },
@@ -2732,12 +2541,10 @@
         "bg": "Композитният рисков индекс и докладите за аномалии — Бенфорд отклонения, клъстери на контролиран вот, недействителни бюлетини, повторни преброявания.",
         "en": "The composite risk index and anomaly reports — Benford deviations, controlled-voting clusters, invalid ballots, recount shifts."
       },
-      "tags": [
-        "elections"
-      ],
+      "tags": ["elections"],
       "route": "/risk-analysis",
       "x": 728,
-      "y": 447,
+      "y": 2391,
       "w": 240,
       "h": 62
     },
@@ -2756,12 +2563,10 @@
         "bg": "Всички предизборни проучвания, сравнени с реалните резултати — точност и пристрастия на всяка агенция през годините.",
         "en": "Every pre-election poll compared against the real results — each agency's accuracy and bias over the years."
       },
-      "tags": [
-        "elections"
-      ],
+      "tags": ["elections"],
       "route": "/polls",
       "x": 728,
-      "y": 618,
+      "y": 2547,
       "w": 240,
       "h": 62
     },
@@ -2780,13 +2585,10 @@
         "bg": "Резултатите от местните избори по общини — кметски битки, разпределение на съветите, хемицикли и извънредните избори между циклите.",
         "en": "Local-election results by municipality — mayoral races, council seat allocation, hemicycles and the extraordinary elections between cycles."
       },
-      "tags": [
-        "local",
-        "elections"
-      ],
+      "tags": ["local", "elections"],
       "route": "/local/2023_10_29_mi",
       "x": 728,
-      "y": 369,
+      "y": 2625,
       "w": 240,
       "h": 62
     },
@@ -2805,12 +2607,10 @@
         "bg": "Поименните гласувания, лоялността и присъствието на всеки депутат, сходството между депутати и кохезията на групите.",
         "en": "Roll-call votes, every MP's loyalty and attendance, MP-to-MP similarity and party cohesion."
       },
-      "tags": [
-        "parliament"
-      ],
+      "tags": ["parliament"],
       "route": "/parliament",
       "x": 728,
-      "y": 2507,
+      "y": 434,
       "w": 240,
       "h": 62
     },
@@ -2829,12 +2629,10 @@
         "bg": "Профил на всеки депутат — резултати, декларирано имущество, фирмени връзки, поръчки и еврофондове на свързани фирми, дарения.",
         "en": "Every MP's profile — results, declared assets, company ties, procurement and EU funds of connected companies, donations."
       },
-      "tags": [
-        "parliament"
-      ],
+      "tags": ["parliament"],
       "route": "/connections",
       "x": 728,
-      "y": 2273,
+      "y": 743,
       "w": 240,
       "h": 62
     },
@@ -2853,12 +2651,10 @@
         "bg": "Приходите и разходите на партиите по кампании, индивидуалните дарители и статусът на годишните им отчети пред Сметната палата.",
         "en": "Party income and spending per campaign, individual donors and the filing status of annual reports before the audit office."
       },
-      "tags": [
-        "elections"
-      ],
+      "tags": ["elections"],
       "route": "/financing",
       "x": 728,
-      "y": 2429,
+      "y": 595,
       "w": 240,
       "h": 62
     },
@@ -2877,12 +2673,10 @@
         "bg": "Договорите на държавата и общините — топ изпълнители и възложители, поръчки по населени места и връзки с хора във властта.",
         "en": "State and municipal contracts — top contractors and awarders, procurement by settlement and ties to people in power."
       },
-      "tags": [
-        "fiscal"
-      ],
+      "tags": ["fiscal"],
       "route": "/procurement",
       "x": 728,
-      "y": 2195,
+      "y": 923,
       "w": 240,
       "h": 62
     },
@@ -2901,13 +2695,10 @@
         "bg": "Профилите на сдруженията, фондациите и читалищата — управителни органи, публично финансиране (обществени поръчки, ИСУН, държавни субсидии) и външно финансиране (ЕС FTS, Фондация „Америка за България“), плюс сигнали за публичен интерес, когато политик или магистрат е в управата на НПО, което получава публични средства.",
         "en": "Profiles of associations, foundations and community centres — governing bodies, public funding (procurement, ISUN, state subsidies) and external funding (EU FTS, America for Bulgaria Foundation), plus public-interest signals when a politician or magistrate sits on the board of an NGO that receives public money."
       },
-      "tags": [
-        "fiscal",
-        "parliament"
-      ],
+      "tags": ["fiscal", "parliament"],
       "route": "/procurement/ngos",
       "x": 728,
-      "y": 2117,
+      "y": 845,
       "w": 240,
       "h": 62
     },
@@ -2926,12 +2717,10 @@
         "bg": "Програмите и бенефициентите на еврофондовете, проектите по общини и интегрити сигналите — свързани лица, черни списъци.",
         "en": "EU-funds programmes and beneficiaries, projects per municipality and integrity flags — connected persons, debarment lists."
       },
-      "tags": [
-        "fiscal"
-      ],
+      "tags": ["fiscal"],
       "route": "/funds",
       "x": 728,
-      "y": 2039,
+      "y": 1079,
       "w": 240,
       "h": 62
     },
@@ -2950,12 +2739,10 @@
         "bg": "Националната картина на земеделските субсидии — колко се плаща, колко е концентрирано, по схема и област, плюс профил на всеки получател до връзка с поръчки и еврофондове.",
         "en": "The national picture of farm subsidies — how much is paid, how concentrated, by scheme and region, plus a per-recipient profile linking through to procurement and EU funds."
       },
-      "tags": [
-        "fiscal"
-      ],
+      "tags": ["fiscal"],
       "route": "/subsidies",
       "x": 728,
-      "y": 2585,
+      "y": 68,
       "w": 240,
       "h": 62
     },
@@ -2974,12 +2761,10 @@
         "bg": "Държавният бюджет — план срещу изпълнение по министерства, приходната структура, инвестиционната програма и симулаторът на данъчни промени.",
         "en": "The state budget — plan versus execution by ministry, the revenue structure, the investment programme and the tax-policy simulator."
       },
-      "tags": [
-        "fiscal"
-      ],
+      "tags": ["fiscal"],
       "route": "/budget",
       "x": 728,
-      "y": 1306,
+      "y": 2001,
       "w": 240,
       "h": 62
     },
@@ -2998,15 +2783,10 @@
         "bg": "Всичко за едно място на един екран — кмет и съвет, избори, бюджет и капиталови проекти, еврофондове, данъци, въздух, демография. Най-големият потребител на данни в сайта.",
         "en": "Everything about one place on one screen — mayor and council, elections, budget and capital projects, EU funds, taxes, air quality, demographics. The site's biggest data consumer."
       },
-      "tags": [
-        "local",
-        "indicators",
-        "fiscal",
-        "elections"
-      ],
+      "tags": ["local", "indicators", "fiscal", "elections"],
       "route": "/governance",
       "x": 728,
-      "y": 1008,
+      "y": 1923,
       "w": 240,
       "h": 62
     },
@@ -3025,12 +2805,10 @@
         "bg": "Колко дела влизат в съдилищата, колко излизат и колко остават висящи — плюс натовареността на всеки съд върху карта, разхода за свършено дело, бюджета на съдебната власт по органи и декларираните от магистрати дружества.",
         "en": "How many cases enter the courts, how many leave, and how many stay pending — plus each court's workload on a map, the cost per resolved case, the judiciary's budget by spending body, and the companies magistrates declare."
       },
-      "tags": [
-        "fiscal"
-      ],
+      "tags": ["fiscal"],
       "route": "/judiciary",
       "x": 728,
-      "y": 1485,
+      "y": 1611,
       "w": 240,
       "h": 62
     },
@@ -3049,13 +2827,10 @@
         "bg": "Разходите за отбрана като дял от БВП спрямо целите на НАТО, техника срещу заплати, големите програми (F-16, Stryker), износът на оръжие и готовността — плюс поръчките на 25-те структури на МО.",
         "en": "Defence spending as a share of GDP against the NATO targets, equipment vs personnel, the flagship programs (F-16, Stryker), arms exports and readiness — plus the procurement of the 25 МО units."
       },
-      "tags": [
-        "fiscal",
-        "indicators"
-      ],
+      "tags": ["fiscal", "indicators"],
       "route": "/defense",
       "x": 728,
-      "y": 1228,
+      "y": 1845,
       "w": 240,
       "h": 62
     },
@@ -3074,13 +2849,10 @@
         "bg": "Обществените поръчки на държавната енергийна група (БЕХ, ~9 млрд. €), невидимата инвестиция в Козлодуй 7/8 (~14 млрд.), единственият участник, производственият микс на тока, регистърът на електроцентралите (мощност и собственост) и цената за домакинствата спрямо ЕС.",
         "en": "The procurement of the state energy group (БЕХ, ~€9bn), the invisible Kozloduy 7/8 investment (~€14bn), single-bid share, the electricity generation mix, the power-plant fleet (capacity and ownership) and the household electricity price vs the EU."
       },
-      "tags": [
-        "fiscal",
-        "indicators"
-      ],
+      "tags": ["fiscal", "indicators"],
       "route": "/sector/energy",
       "x": 728,
-      "y": 2351,
+      "y": 1001,
       "w": 240,
       "h": 62
     },
@@ -3099,13 +2871,10 @@
         "bg": "Държавната администрация като институция — щатна численост и структури по тип (годишният Доклад за състоянието на администрацията), разходът за персонал на щат, разминаването администрация–население, и парите за електронно управление (обществените поръчки на групата МЕУ + ИА ИЕУ + ДАЕУ).",
         "en": "The state administration as an institution — positions and structures by type (the annual Report on the State of the Administration), personnel cost per FTE, the administration-vs-population divergence, and the e-government money (procurement by the МЕУ + ИА ИЕУ + ДАЕУ group)."
       },
-      "tags": [
-        "fiscal",
-        "indicators"
-      ],
+      "tags": ["fiscal", "indicators"],
       "route": "/sector/administration",
       "x": 728,
-      "y": 1883,
+      "y": 1689,
       "w": 240,
       "h": 62
     },
@@ -3124,13 +2893,10 @@
         "bg": "МРРБ е министерство-разпределител: управлява ~1,06 млрд. €/год., но през собствени поръчки минават само ~100 млн. — останалото са трансфери към общините и европейско съфинансиране. Усвояването на ОПРР и „Развитие на регионите“, кохезията по области, разходът спрямо ЕС (COFOG GF06), кадастърът (АГКК) и стигат ли парите до най-бедните области. Пътищата (АПИ) и ВиК са отделни сектори.",
         "en": "МРРБ is a pass-through ministry: it directs ~€1.06bn/yr but only ~€100M flows through its own procurement — the rest is transfers to municipalities and EU co-financing. ОПРР and „Развитие на регионите“ absorption, cohesion by oblast, spending vs the EU (COFOG GF06), the cadastre (АГКК) and whether the money reaches the poorest oblasts. Roads (АПИ) and water (ВиК) are separate sectors."
       },
-      "tags": [
-        "fiscal",
-        "indicators"
-      ],
+      "tags": ["fiscal", "indicators"],
       "route": "/sector/regional",
       "x": 728,
-      "y": 1710,
+      "y": 1533,
       "w": 240,
       "h": 62
     },
@@ -3149,13 +2915,10 @@
         "bg": "Социалната защита е ~37% от разхода на държавата. /sector/social показва бюджета на МТСП по вид помощ (разходът за хора с увреждания се утрои), помощите на АСП към домакинствата (отопление, детски, ГМД), ефекта на трансферите върху бедността спрямо ЕС и обществените поръчки на групата. Пенсиите (НОИ) са отделен изглед.",
         "en": "Social protection is ~37% of state spending. /sector/social shows the МТСП budget by benefit type (disability spending tripled), the benefits АСП pays households (heating, child, GMI), the poverty-reduction effect of transfers vs the EU, and the group's procurement. Pensions (НОИ) are a separate view."
       },
-      "tags": [
-        "fiscal",
-        "indicators"
-      ],
+      "tags": ["fiscal", "indicators"],
       "route": "/sector/social",
       "x": 728,
-      "y": 1788,
+      "y": 1767,
       "w": 240,
       "h": 62
     },
@@ -3174,12 +2937,10 @@
         "bg": "Къде отиват държавните пари за кино — субсидиите на Националния филмов център по вид, по продуцент и по година, и колко се концентрират у най-финансираните.",
         "en": "Where the state's film money goes — the National Film Center's subsidies by discipline, producer and year, and how concentrated they are among the most-funded."
       },
-      "tags": [
-        "fiscal"
-      ],
+      "tags": ["fiscal"],
       "route": "/culture",
       "x": 728,
-      "y": 1632,
+      "y": 517,
       "w": 240,
       "h": 62
     },
@@ -3198,12 +2959,10 @@
         "bg": "Кой плаща пенсиите (вноски срещу трансфер от бюджета), как са разпределени по размер, средна пенсия и плащания в брой по области, и връзката заплата–пенсия през годините.",
         "en": "Who pays for pensions (contributions vs the state-budget transfer), how they are distributed by size, average pension and cash payment by oblast, and the wage-to-pension link over time."
       },
-      "tags": [
-        "fiscal"
-      ],
+      "tags": ["fiscal"],
       "route": "/pensions",
       "x": 728,
-      "y": 930,
+      "y": 2157,
       "w": 240,
       "h": 62
     },
@@ -3222,12 +2981,10 @@
         "bg": "Икономика, фискална политика, общество и управление — националните серии и сравнението с партньорите от ЕС.",
         "en": "Economy, fiscal policy, society and governance — national series and the comparison against EU peers."
       },
-      "tags": [
-        "indicators"
-      ],
+      "tags": ["indicators"],
       "route": "/indicators",
       "x": 728,
-      "y": 774,
+      "y": 2079,
       "w": 240,
       "h": 62
     },
@@ -3246,12 +3003,10 @@
         "bg": "Цените на потребителската кошница по населени места и вериги от въвеждането на еврото, плюс структурата на потреблението на домакинствата.",
         "en": "Consumer-basket prices by settlement and chain since euro adoption, plus household consumption structure."
       },
-      "tags": [
-        "prices"
-      ],
+      "tags": ["prices"],
       "route": "/prices",
       "x": 728,
-      "y": 852,
+      "y": 2235,
       "w": 240,
       "h": 62
     },
@@ -3270,12 +3025,10 @@
         "bg": "Каталог от ~118 000 продукта, извлечени от имената във фийда на КЗП — търсене, цена по вериги и история на цената от еврото за всеки продукт.",
         "en": "A ~118,000-product catalogue derived from the CPC feed's product names — search, per-chain price, and since-euro price history for every product."
       },
-      "tags": [
-        "prices"
-      ],
+      "tags": ["prices"],
       "route": "/consumption/products",
       "x": 728,
-      "y": 696,
+      "y": 2313,
       "w": 240,
       "h": 62
     },
@@ -3304,7 +3057,7 @@
       ],
       "url": "https://ai.electionsbg.com",
       "x": 728,
-      "y": 1394,
+      "y": 1455,
       "w": 240,
       "h": 62
     }
@@ -3357,721 +3110,726 @@
     },
     {
       "id": "e9",
-      "from": "src:egov",
+      "from": "src:regulators",
       "to": "ds:connections"
     },
     {
       "id": "e10",
       "from": "src:egov",
-      "to": "ds:procurement"
+      "to": "ds:connections"
     },
     {
       "id": "e11",
-      "from": "src:vss",
-      "to": "ds:judiciary"
+      "from": "src:egov",
+      "to": "ds:procurement"
     },
     {
       "id": "e12",
-      "from": "src:dv",
+      "from": "src:vss",
       "to": "ds:judiciary"
     },
     {
       "id": "e13",
+      "from": "src:dv",
+      "to": "ds:judiciary"
+    },
+    {
+      "id": "e14",
       "from": "ds:judiciary",
       "to": "f:judiciary"
     },
     {
-      "id": "e14",
+      "id": "e15",
       "from": "src:defense",
       "to": "ds:defense"
     },
     {
-      "id": "e15",
+      "id": "e16",
       "from": "ds:defense",
       "to": "f:defense"
     },
     {
-      "id": "e16",
-      "from": "ds:budget",
-      "to": "f:defense"
-    },
-    {
       "id": "e17",
-      "from": "ds:macro",
+      "from": "ds:budget",
       "to": "f:defense"
     },
     {
       "id": "e18",
+      "from": "ds:macro",
+      "to": "f:defense"
+    },
+    {
+      "id": "e19",
       "from": "src:security",
       "to": "ds:security"
     },
     {
-      "id": "e19",
+      "id": "e20",
       "from": "src:transport",
       "to": "ds:transport"
     },
     {
-      "id": "e20",
+      "id": "e21",
       "from": "src:energy",
       "to": "ds:energy"
     },
     {
-      "id": "e21",
+      "id": "e22",
       "from": "ds:energy",
       "to": "f:energy"
     },
     {
-      "id": "e22",
+      "id": "e23",
       "from": "ds:procurement",
       "to": "f:energy"
     },
     {
-      "id": "e23",
+      "id": "e24",
       "from": "src:administration",
       "to": "ds:administration"
     },
     {
-      "id": "e24",
+      "id": "e25",
       "from": "ds:administration",
       "to": "f:administration"
     },
     {
-      "id": "e25",
-      "from": "ds:budget",
-      "to": "f:administration"
-    },
-    {
       "id": "e26",
-      "from": "ds:macro",
+      "from": "ds:budget",
       "to": "f:administration"
     },
     {
       "id": "e27",
-      "from": "ds:procurement",
+      "from": "ds:macro",
       "to": "f:administration"
     },
     {
       "id": "e28",
+      "from": "ds:procurement",
+      "to": "f:administration"
+    },
+    {
+      "id": "e29",
       "from": "src:social",
       "to": "ds:social"
     },
     {
-      "id": "e29",
+      "id": "e30",
       "from": "ds:social",
       "to": "f:social"
     },
     {
-      "id": "e30",
-      "from": "ds:budget",
-      "to": "f:social"
-    },
-    {
       "id": "e31",
-      "from": "ds:macro",
+      "from": "ds:budget",
       "to": "f:social"
     },
     {
       "id": "e32",
-      "from": "ds:procurement",
+      "from": "ds:macro",
       "to": "f:social"
     },
     {
       "id": "e33",
+      "from": "ds:procurement",
+      "to": "f:social"
+    },
+    {
+      "id": "e34",
       "from": "ds:funds",
       "to": "f:regional"
     },
     {
-      "id": "e34",
-      "from": "ds:budget",
-      "to": "f:regional"
-    },
-    {
       "id": "e35",
-      "from": "ds:macro",
+      "from": "ds:budget",
       "to": "f:regional"
     },
     {
       "id": "e36",
-      "from": "ds:indicators",
+      "from": "ds:macro",
       "to": "f:regional"
     },
     {
       "id": "e37",
-      "from": "ds:procurement",
+      "from": "ds:indicators",
       "to": "f:regional"
     },
     {
       "id": "e38",
+      "from": "ds:procurement",
+      "to": "f:regional"
+    },
+    {
+      "id": "e39",
       "from": "src:water",
       "to": "ds:water"
     },
     {
-      "id": "e39",
+      "id": "e40",
       "from": "src:egov",
       "to": "ds:water"
     },
     {
-      "id": "e40",
+      "id": "e41",
       "from": "ds:water",
       "to": "f:water"
     },
     {
-      "id": "e41",
+      "id": "e42",
       "from": "src:culture",
       "to": "ds:culture"
     },
     {
-      "id": "e42",
+      "id": "e43",
       "from": "ds:culture",
       "to": "f:culture"
     },
     {
-      "id": "e43",
+      "id": "e44",
       "from": "src:ministries",
       "to": "ds:pensions"
     },
     {
-      "id": "e44",
+      "id": "e45",
       "from": "ds:pensions",
       "to": "f:pensions"
     },
     {
-      "id": "e45",
+      "id": "e46",
       "from": "ds:budget",
       "to": "f:judiciary"
     },
     {
-      "id": "e46",
-      "from": "src:egov",
-      "to": "ds:budget"
-    },
-    {
       "id": "e47",
       "from": "src:egov",
-      "to": "ds:indicators"
+      "to": "ds:budget"
     },
     {
       "id": "e48",
       "from": "src:egov",
-      "to": "ds:localgov"
+      "to": "ds:indicators"
     },
     {
       "id": "e49",
+      "from": "src:egov",
+      "to": "ds:localgov"
+    },
+    {
+      "id": "e50",
       "from": "src:eop",
       "to": "ds:procurement"
     },
     {
-      "id": "e50",
+      "id": "e51",
       "from": "src:aop",
       "to": "ds:procurement"
     },
     {
-      "id": "e51",
+      "id": "e52",
       "from": "src:kzk",
       "to": "ds:procurement"
     },
     {
-      "id": "e52",
+      "id": "e53",
       "from": "src:isun",
       "to": "ds:funds"
     },
     {
-      "id": "e53",
+      "id": "e54",
       "from": "src:dfz",
       "to": "ds:agri"
     },
     {
-      "id": "e54",
+      "id": "e55",
       "from": "src:egov",
       "to": "ds:ngo"
     },
     {
-      "id": "e55",
+      "id": "e56",
       "from": "src:ec_fts",
       "to": "ds:ngo"
     },
     {
-      "id": "e56",
+      "id": "e57",
       "from": "src:sp",
       "to": "ds:ngo"
     },
     {
-      "id": "e57",
+      "id": "e58",
       "from": "src:vss",
       "to": "ds:ngo"
     },
     {
-      "id": "e58",
-      "from": "src:dv",
-      "to": "ds:budget"
-    },
-    {
       "id": "e59",
-      "from": "src:ministries",
+      "from": "src:dv",
       "to": "ds:budget"
     },
     {
       "id": "e60",
       "from": "src:ministries",
-      "to": "ds:macro"
+      "to": "ds:budget"
     },
     {
       "id": "e61",
       "from": "src:ministries",
-      "to": "ds:localgov"
+      "to": "ds:macro"
     },
     {
       "id": "e62",
-      "from": "src:municipalities",
-      "to": "ds:budget"
+      "from": "src:ministries",
+      "to": "ds:localgov"
     },
     {
       "id": "e63",
       "from": "src:municipalities",
-      "to": "ds:localgov"
+      "to": "ds:budget"
     },
     {
       "id": "e64",
-      "from": "src:nsi",
-      "to": "ds:indicators"
+      "from": "src:municipalities",
+      "to": "ds:localgov"
     },
     {
       "id": "e65",
       "from": "src:nsi",
-      "to": "ds:demographics"
+      "to": "ds:indicators"
     },
     {
       "id": "e66",
+      "from": "src:nsi",
+      "to": "ds:demographics"
+    },
+    {
+      "id": "e67",
       "from": "src:az",
       "to": "ds:indicators"
     },
     {
-      "id": "e67",
+      "id": "e68",
       "from": "src:grao",
       "to": "ds:demographics"
     },
     {
-      "id": "e68",
-      "from": "src:eurostat",
-      "to": "ds:macro"
-    },
-    {
       "id": "e69",
       "from": "src:eurostat",
-      "to": "ds:indicators"
+      "to": "ds:macro"
     },
     {
       "id": "e70",
       "from": "src:eurostat",
-      "to": "ds:budget"
+      "to": "ds:indicators"
     },
     {
       "id": "e71",
-      "from": "src:eu_policy_anchors",
+      "from": "src:eurostat",
       "to": "ds:budget"
     },
     {
       "id": "e72",
-      "from": "src:bg_fiscal_anchors",
+      "from": "src:eu_policy_anchors",
       "to": "ds:budget"
     },
     {
       "id": "e73",
-      "from": "src:intl",
-      "to": "ds:macro"
+      "from": "src:bg_fiscal_anchors",
+      "to": "ds:budget"
     },
     {
       "id": "e74",
-      "from": "src:bnb",
+      "from": "src:intl",
       "to": "ds:macro"
     },
     {
       "id": "e75",
       "from": "src:bnb",
-      "to": "ds:macro_fdi"
+      "to": "ds:macro"
     },
     {
       "id": "e76",
+      "from": "src:bnb",
+      "to": "ds:macro_fdi"
+    },
+    {
+      "id": "e77",
       "from": "src:kzp",
       "to": "ds:prices"
     },
     {
-      "id": "e77",
+      "id": "e78",
       "from": "src:oil_bulletin",
       "to": "ds:prices"
     },
     {
-      "id": "e78",
+      "id": "e79",
       "from": "src:tibg",
       "to": "ds:localgov"
     },
     {
-      "id": "e79",
+      "id": "e80",
       "from": "src:ipi",
       "to": "ds:localgov"
     },
     {
-      "id": "e80",
+      "id": "e81",
       "from": "src:wiki",
       "to": "ds:polls"
     },
     {
-      "id": "e81",
+      "id": "e82",
       "from": "src:wiki",
       "to": "ds:macro"
     },
     {
-      "id": "e82",
+      "id": "e83",
       "from": "src:geo",
       "to": "ds:geo"
     },
     {
-      "id": "e83",
+      "id": "e84",
       "from": "ds:elections",
       "to": "f:elections"
     },
     {
-      "id": "e84",
+      "id": "e85",
       "from": "ds:elections",
       "to": "f:risk"
     },
     {
-      "id": "e85",
+      "id": "e86",
       "from": "ds:elections",
       "to": "f:polls"
     },
     {
-      "id": "e86",
+      "id": "e87",
       "from": "ds:elections",
       "to": "f:governance"
     },
     {
-      "id": "e87",
+      "id": "e88",
       "from": "ds:local",
       "to": "f:local"
     },
     {
-      "id": "e88",
+      "id": "e89",
       "from": "ds:local",
       "to": "f:governance"
     },
     {
-      "id": "e89",
+      "id": "e90",
       "from": "ds:parliament",
       "to": "f:parliament"
     },
     {
-      "id": "e90",
-      "from": "ds:parliament",
-      "to": "f:mps"
-    },
-    {
       "id": "e91",
-      "from": "ds:connections",
+      "from": "ds:parliament",
       "to": "f:mps"
     },
     {
       "id": "e92",
       "from": "ds:connections",
-      "to": "f:procurement"
+      "to": "f:mps"
     },
     {
       "id": "e93",
-      "from": "ds:officials",
-      "to": "f:mps"
+      "from": "ds:connections",
+      "to": "f:procurement"
     },
     {
       "id": "e94",
       "from": "ds:officials",
-      "to": "f:governance"
+      "to": "f:mps"
     },
     {
       "id": "e95",
-      "from": "ds:financing",
-      "to": "f:financing"
+      "from": "ds:officials",
+      "to": "f:governance"
     },
     {
       "id": "e96",
       "from": "ds:financing",
-      "to": "f:mps"
+      "to": "f:financing"
     },
     {
       "id": "e97",
-      "from": "ds:procurement",
-      "to": "f:procurement"
+      "from": "ds:financing",
+      "to": "f:mps"
     },
     {
       "id": "e98",
       "from": "ds:procurement",
-      "to": "f:mps"
+      "to": "f:procurement"
     },
     {
       "id": "e99",
-      "from": "ds:ngo",
-      "to": "f:ngo"
+      "from": "ds:procurement",
+      "to": "f:mps"
     },
     {
       "id": "e100",
       "from": "ds:ngo",
-      "to": "f:procurement"
+      "to": "f:ngo"
     },
     {
       "id": "e101",
       "from": "ds:ngo",
-      "to": "f:mps"
+      "to": "f:procurement"
     },
     {
       "id": "e102",
-      "from": "ds:funds",
-      "to": "f:funds"
+      "from": "ds:ngo",
+      "to": "f:mps"
     },
     {
       "id": "e103",
       "from": "ds:funds",
-      "to": "f:mps"
+      "to": "f:funds"
     },
     {
       "id": "e104",
       "from": "ds:funds",
-      "to": "f:governance"
+      "to": "f:mps"
     },
     {
       "id": "e105",
-      "from": "ds:agri",
-      "to": "f:agri"
+      "from": "ds:funds",
+      "to": "f:governance"
     },
     {
       "id": "e106",
       "from": "ds:agri",
-      "to": "f:mps"
+      "to": "f:agri"
     },
     {
       "id": "e107",
-      "from": "ds:budget",
-      "to": "f:budget"
+      "from": "ds:agri",
+      "to": "f:mps"
     },
     {
       "id": "e108",
       "from": "ds:budget",
-      "to": "f:governance"
+      "to": "f:budget"
     },
     {
       "id": "e109",
-      "from": "ds:macro",
-      "to": "f:budget"
+      "from": "ds:budget",
+      "to": "f:governance"
     },
     {
       "id": "e110",
       "from": "ds:macro",
-      "to": "f:indicators"
+      "to": "f:budget"
     },
     {
       "id": "e111",
       "from": "ds:macro",
-      "to": "f:prices"
-    },
-    {
-      "id": "e112",
-      "from": "ds:macro_fdi",
       "to": "f:indicators"
     },
     {
+      "id": "e112",
+      "from": "ds:macro",
+      "to": "f:prices"
+    },
+    {
       "id": "e113",
-      "from": "ds:indicators",
+      "from": "ds:macro_fdi",
       "to": "f:indicators"
     },
     {
       "id": "e114",
       "from": "ds:indicators",
-      "to": "f:governance"
+      "to": "f:indicators"
     },
     {
       "id": "e115",
-      "from": "ds:demographics",
-      "to": "f:elections"
+      "from": "ds:indicators",
+      "to": "f:governance"
     },
     {
       "id": "e116",
       "from": "ds:demographics",
-      "to": "f:risk"
+      "to": "f:elections"
     },
     {
       "id": "e117",
       "from": "ds:demographics",
-      "to": "f:governance"
+      "to": "f:risk"
     },
     {
       "id": "e118",
-      "from": "ds:localgov",
+      "from": "ds:demographics",
       "to": "f:governance"
     },
     {
       "id": "e119",
-      "from": "ds:prices",
-      "to": "f:prices"
+      "from": "ds:localgov",
+      "to": "f:governance"
     },
     {
       "id": "e120",
       "from": "ds:prices",
-      "to": "f:products"
+      "to": "f:prices"
     },
     {
       "id": "e121",
       "from": "ds:prices",
-      "to": "f:governance"
+      "to": "f:products"
     },
     {
       "id": "e122",
-      "from": "ds:polls",
-      "to": "f:polls"
+      "from": "ds:prices",
+      "to": "f:governance"
     },
     {
       "id": "e123",
       "from": "ds:polls",
-      "to": "f:elections"
+      "to": "f:polls"
     },
     {
       "id": "e124",
-      "from": "ds:geo",
+      "from": "ds:polls",
       "to": "f:elections"
     },
     {
       "id": "e125",
       "from": "ds:geo",
-      "to": "f:local"
+      "to": "f:elections"
     },
     {
       "id": "e126",
       "from": "ds:geo",
-      "to": "f:governance"
+      "to": "f:local"
     },
     {
       "id": "e127",
       "from": "ds:geo",
-      "to": "f:indicators"
+      "to": "f:governance"
     },
     {
       "id": "e128",
+      "from": "ds:geo",
+      "to": "f:indicators"
+    },
+    {
+      "id": "e129",
       "from": "ds:administration",
       "to": "f:ai"
     },
     {
-      "id": "e129",
+      "id": "e130",
       "from": "ds:budget",
       "to": "f:ai"
     },
     {
-      "id": "e130",
+      "id": "e131",
       "from": "ds:connections",
       "to": "f:ai"
     },
     {
-      "id": "e131",
+      "id": "e132",
       "from": "ds:culture",
       "to": "f:ai"
     },
     {
-      "id": "e132",
+      "id": "e133",
       "from": "ds:defense",
       "to": "f:ai"
     },
     {
-      "id": "e133",
+      "id": "e134",
       "from": "ds:demographics",
       "to": "f:ai"
     },
     {
-      "id": "e134",
+      "id": "e135",
       "from": "ds:elections",
       "to": "f:ai"
     },
     {
-      "id": "e135",
+      "id": "e136",
       "from": "ds:energy",
       "to": "f:ai"
     },
     {
-      "id": "e136",
+      "id": "e137",
       "from": "ds:financing",
       "to": "f:ai"
     },
     {
-      "id": "e137",
+      "id": "e138",
       "from": "ds:geo",
       "to": "f:ai"
     },
     {
-      "id": "e138",
+      "id": "e139",
       "from": "ds:indicators",
       "to": "f:ai"
     },
     {
-      "id": "e139",
+      "id": "e140",
       "from": "ds:judiciary",
       "to": "f:ai"
     },
     {
-      "id": "e140",
+      "id": "e141",
       "from": "ds:local",
       "to": "f:ai"
     },
     {
-      "id": "e141",
+      "id": "e142",
       "from": "ds:localgov",
       "to": "f:ai"
     },
     {
-      "id": "e142",
+      "id": "e143",
       "from": "ds:macro",
       "to": "f:ai"
     },
     {
-      "id": "e143",
+      "id": "e144",
       "from": "ds:macro_fdi",
       "to": "f:ai"
     },
     {
-      "id": "e144",
+      "id": "e145",
       "from": "ds:ngo",
       "to": "f:ai"
     },
     {
-      "id": "e145",
+      "id": "e146",
       "from": "ds:officials",
       "to": "f:ai"
     },
     {
-      "id": "e146",
+      "id": "e147",
       "from": "ds:parliament",
       "to": "f:ai"
     },
     {
-      "id": "e147",
+      "id": "e148",
       "from": "ds:polls",
       "to": "f:ai"
     },
     {
-      "id": "e148",
+      "id": "e149",
       "from": "ds:prices",
       "to": "f:ai"
     },
     {
-      "id": "e149",
+      "id": "e150",
       "from": "ds:security",
       "to": "f:ai"
     },
     {
-      "id": "e150",
+      "id": "e151",
       "from": "ds:social",
       "to": "f:ai"
     },
     {
-      "id": "e151",
+      "id": "e152",
       "from": "ds:transport",
       "to": "f:ai"
     },
     {
-      "id": "e152",
+      "id": "e153",
       "from": "ds:water",
       "to": "f:ai"
     }
@@ -4142,9 +3900,9 @@
         "en": "Sources"
       },
       "x": 0,
-      "y": 0,
+      "y": 10,
       "w": 296,
-      "h": 2966
+      "h": 3044
     },
     {
       "kind": "dataset",
@@ -4153,9 +3911,9 @@
         "en": "Datasets"
       },
       "x": 350,
-      "y": 312,
+      "y": 10,
       "w": 296,
-      "h": 2353
+      "h": 2694
     },
     {
       "kind": "feature",
@@ -4164,9 +3922,9 @@
         "en": "Features"
       },
       "x": 700,
-      "y": 301,
+      "y": 0,
       "w": 296,
-      "h": 2374
+      "h": 2715
     }
   ],
   "tours": [

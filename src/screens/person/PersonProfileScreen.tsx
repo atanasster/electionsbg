@@ -18,6 +18,7 @@ import {
   ExternalLink,
   HeartHandshake,
   Landmark,
+  Scale,
   ShieldAlert,
   Users,
   Vote,
@@ -54,6 +55,12 @@ type Sanction = {
   date: string;
   url: string;
 };
+type RegulatorSeat = {
+  body: string;
+  seat: string;
+  termStart: string | null;
+  url: string;
+};
 type NgoSeat = {
   eik: string;
   name: string | null;
@@ -72,6 +79,7 @@ export type PersonProfile = {
   ngos: NgoSeat[];
   procuredEur: number;
   sanctions: Sanction[];
+  regulators: RegulatorSeat[];
   aliases: string[];
 };
 
@@ -98,6 +106,7 @@ const FACET_ICON: Record<string, typeof Landmark> = {
   company: Building2,
   donor: Coins,
   sanctions: ShieldAlert,
+  regulator: Scale,
 };
 
 const Chip: FC<{ children: React.ReactNode; danger?: boolean }> = ({
@@ -178,6 +187,13 @@ const Profile: FC<{ p: PersonProfile }> = ({ p }) => {
     return s === k ? f : s;
   };
 
+  // Regulatory-seat code → localized label; unknown seats pass through.
+  const seatLabel = (seat: string): string => {
+    const k = `pp_reg_seat_${seat}`;
+    const s = t(k);
+    return s === k ? seat : s;
+  };
+
   return (
     <div className="mx-auto w-full max-w-4xl px-4 py-6 space-y-6">
       {/* Header */}
@@ -235,6 +251,48 @@ const Profile: FC<{ p: PersonProfile }> = ({ p }) => {
                   className="ml-2 inline-flex items-center gap-0.5 text-primary hover:underline"
                 >
                   {t("pp_sanctions_source")}
+                  <ExternalLink className="h-3 w-3" />
+                </a>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Regulators / independent bodies — the `regulator` "кой решава" facet. A NEUTRAL
+          civic-office tile (not an accusation), each seat cited to the body's official page. */}
+      {p.regulators.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Scale className="h-4 w-4" /> {t("pp_regulators")}
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            {p.regulators.map((rg, i) => (
+              <div
+                key={`${rg.body}:${rg.seat}:${i}`}
+                className="flex items-baseline justify-between gap-3 border-b border-border/50 pb-2 last:border-0 last:pb-0"
+              >
+                <span className="min-w-0 text-sm">
+                  <span className="font-medium">{rg.body}</span>
+                  <span className="text-muted-foreground">
+                    {" "}
+                    · {seatLabel(rg.seat)}
+                  </span>
+                  {rg.termStart && (
+                    <span className="block text-xs text-muted-foreground">
+                      {t("pp_reg_since")} {rg.termStart}
+                    </span>
+                  )}
+                </span>
+                <a
+                  href={rg.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex shrink-0 items-center gap-0.5 text-xs text-primary hover:underline"
+                >
+                  {t("pp_reg_source")}
                   <ExternalLink className="h-3 w-3" />
                 </a>
               </div>

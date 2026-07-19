@@ -33,6 +33,7 @@ type PersonProfilePayload = {
   ngos: { eik: string; name: string | null }[];
   procuredEur: number;
   sanctions: { program: string; authority: string; date: string }[];
+  regulators: { body: string; seat: string; termStart: string | null }[];
 } | null;
 
 type ConnectionsPayload = {
@@ -128,6 +129,12 @@ export const personProfile = async (
   if (p.sanctions?.length)
     facts[bg ? "санкции" : "sanctions"] = p.sanctions
       .map((s) => `${s.program} (${s.authority}, ${s.date})`)
+      .join("; ");
+  // Seats on the independent / regulatory bodies (the `regulator` "кой решава" facet) —
+  // verbatim body + seat, a neutral civic office, never computed prose.
+  if (p.regulators?.length)
+    facts[bg ? "регулаторни органи" : "regulatory bodies"] = p.regulators
+      .map((r) => `${r.body}${r.seat ? ` (${r.seat})` : ""}`)
       .join("; ");
   if (officeLabels.length)
     facts[bg ? "длъжности" : "positions"] = officeLabels.join(", ");
