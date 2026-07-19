@@ -65,9 +65,19 @@ until a human writes a `person_link_override`. `cluster.ts` now tags each `Revie
 `reason` (`twopart_block` | `identical_fullname`). Result: **1,881 groups over 6,826 persons** (1,329
 identical-fullname, 552 two-part), idempotent group_keys, +1 data invariant. Also **closed a
 fresh-clone gap**: nothing applied `081/082/083`, so `db:resolve:persons` (wired into `db:refresh`)
-would fail on an empty DB — the resolver now applies its own idempotent schema at startup. NEXT: broad
-name-based TR discovery (Bridge B, over the full officer set, namesake-gated); then person↔company
-edges (Phase 4); then the frontend `/person/{slug}` + AI tools.
+would fail on an empty DB — the resolver now applies its own idempotent schema at startup.
+
+**IMPLEMENTATION LOG (2026-07-19, later⁵).** Added **TR-officer Bridge B (unique full name)** — a
+public 3-part person whose globally-unique full-name fold matches a TR officer/owner appearing on
+exactly ONE company is unambiguously that person on that company (Tier-2), so their TR footprint
+attaches BEYOND Bridge A's 358 curated links. Runs as a gated SQL attach inside the resolver tx (the
+folds live in PG), **double-gated** — unique in `tr_officers` (`namesake_risk<=1`) AND in
+`tr_person_roles` (cc=1) — so it only touches namesake≤1 persons and can never form a common-name
+collapse; `ON CONFLICT` dedups vs Bridge-A. Result: **+9,040 tr roles; TR footprint 88 → 5,985 bridged
+persons** (9,160 roles). Spot-check: `mp-2258` Георги Юруков now carries actual_owner/director/sole_owner
+on his company. The licensing invariant is widened to accept EITHER bridge (curated link, or unique
+full-name match on that exact company). NEXT: person↔company edges (Phase 4 — rebuild the connections
+graph on `person_id`); then the frontend `/person/{slug}` + AI tools (Phase 3).
 
 Goal: give every natural person in the site a single stable `person_id` in Postgres, so that
 candidates, MPs, mayors, councillors, executive & municipal officials, TR company officers/owners,
