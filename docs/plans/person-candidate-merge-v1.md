@@ -20,8 +20,14 @@ Status: SHIPPED (all 5 phases). Prereqs: person-identity v1
 - Electoral block: reuses the candidate stat cards via an extracted pure
   `computeCandidateSummary` reducer; PG source `usePersonElections`; cycle selector on
   `?pelect=` (defaults to global `?elections=`).
-- Deferred: MP voting scorecard + assets/declarations tiles on the merged page (follow-up);
-  DashboardSection grouping of the non-electoral sections (kept as Cards).
+- Phase 6 (the deferred items, now SHIPPED): MP voting scorecard + roll-call + declared
+  assets/declarations on the merged page for MPs (`PersonMpSections`, gated on mpId, wrapped
+  in `CandidateMpProvider` to skip the ~950 KB roster; the redundant name-keyed
+  management/connections/contracts/funds tiles stay omitted — PG supersedes them). Fixed an
+  `nsFolders`-gating bug that hid voting for most former MPs (empty array ≠ "didn't serve").
+  All non-electoral sections converted to the `DashboardSection` idiom (sanctions/ДС stay
+  alert Cards). Still deferred: person_id-keyed declarations serving for ALL officials (not
+  just MPs) — belongs with the person-identity roadmap.
 
 ## Decisions (locked)
 
