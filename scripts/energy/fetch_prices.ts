@@ -107,19 +107,27 @@ const buildOne = async (ds: Dataset): Promise<void> => {
       `energy/${ds.id}: thin series (BG ${bg.length}, EU ${eu.length}) — upstream query likely rejected`,
     );
 
-  const peerSeries: Record<string, Point[]> = {};
-  await Promise.all(
-    PEERS.map(async ({ key, geo }) => {
-      try {
-        const s = await fetchSeries(ds.cube, ds.query, geo);
-        if (s.length) peerSeries[key] = s;
-      } catch (e) {
-        console.warn(
-          `energy/${ds.id}: peer ${key} (${geo}) skipped — ${e instanceof Error ? e.message : e}`,
-        );
-      }
-    }),
+  // Fetch peers concurrently but ASSEMBLE the series object in the fixed PEERS
+  // order — Promise.all preserves input order in its result array, so iterating
+  // it gives deterministic key order (inserting inside the async callbacks would
+  // key the object by resolution order → non-reproducible JSON, noisy diffs).
+  const fetched = await Promise.all(
+    PEERS.map(
+      async ({ key, geo }): Promise<{ key: string; s: Point[] | null }> => {
+        try {
+          const s = await fetchSeries(ds.cube, ds.query, geo);
+          return { key, s: s.length ? s : null };
+        } catch (e) {
+          console.warn(
+            `energy/${ds.id}: peer ${key} (${geo}) skipped — ${e instanceof Error ? e.message : e}`,
+          );
+          return { key, s: null };
+        }
+      },
+    ),
   );
+  const peerSeries: Record<string, Point[]> = {};
+  for (const { key, s } of fetched) if (s) peerSeries[key] = s;
 
   // `latest` = the newest period present in BOTH series (EU27 aggregates can lag
   // BG), so consumers that compare BG vs EU never straddle two half-years.

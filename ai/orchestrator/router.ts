@@ -280,7 +280,7 @@ const hasGasCue = (q: string): boolean =>
 // is fuel-price by itself; "гориво/fuel" is paired with a price cue by the caller
 // so the excise levers ("акциз върху горивата") don't get hijacked.
 const hasFuelNameCue = (q: string): boolean =>
-  has(q, "бензин", "дизел", "petrol", "diesel", "gasoline");
+  has(q, "бензин", "дизел", "газьол", "petrol", "diesel", "gasoline");
 
 // Strip the tender filler so the residue is the subject keyword to search:
 // "покажи всички търгове за асфалт през 2024" → "асфалт". Token-set filtering,
@@ -1189,9 +1189,11 @@ export const route = (question: string, ctx: ToolContext): Route => {
     // (each already carries the EU line + peers), not the generic euComparison.
     if (hasElectricityCue(q) && hasPriceCue(q))
       return { tool: "electricityPrices", args: {} };
-    if (hasGasCue(q) && hasPriceCue(q)) return { tool: "gasPrices", args: {} };
+    // Fuel BEFORE gas: hasGasCue matches the "gas" in "gasoline", so a fuel-name
+    // query must win first (mirrors the main energy block's order below).
     if (hasFuelNameCue(q) || (has(q, "горив", "fuel") && hasPriceCue(q)))
       return { tool: "fuelPrices", args: {} };
+    if (hasGasCue(q) && hasPriceCue(q)) return { tool: "gasPrices", args: {} };
     // an indicator framed against the EU / peers -> the peer comparison (before
     // the election-vs-election default below swallows "сравни безработицата…").
     if (
