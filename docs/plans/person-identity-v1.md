@@ -15,6 +15,18 @@ tests for the two highest-risk AI surfaces (retriever recall gate + the narratio
 incl. a NEW claims/disclaimer gate since the number gate is numbers-only) + the `ai/**` vitest-config
 coverage gap. Owner: TBD.
 
+**IMPLEMENTATION LOG (2026-07-19).** Phase 1 SHIPPED + start of Phase 2 (8 commits on main):
+`081_person_identity.sql` (schema + `person_source` catalog) → `scripts/person/nameParts.ts` (§2a
+split, tested) → `cluster.ts` (§3 tier decisions, gold-set) → `resolve_persons.ts` (resolver) →
+`082_person_api.sql` (`person_by_slug`/`person_search`) → `/api/db/person-profile` + `/api/db/person-lookup`
+routes → `db:resolve:persons` npm script (in `db:refresh`) → MP source (mp-id gold key). Live layer
+resolves magistrate + official + MP sources = **6,680 persons**, 2,122 mp-slug anchors, invariant gate
+`scripts/db/tests/person_resolve.data.test.ts` (0 common-name merges). **KEY CORRECTION vs the plan:**
+real-data verification showed §2a rule 3 was too optimistic — a matching patronymic is NOT a
+name-independent corroborant (148 people share "Димитър Георгиев Димитров"); the resolver treats
+full-name identity as a namesake≤1-gated Tier-2 merge only. NEXT: candidates + donors + TR-officer
+bridging sources; then person↔company edges (Phase 4); then the frontend `/person/{slug}` + AI tools.
+
 Goal: give every natural person in the site a single stable `person_id` in Postgres, so that
 candidates, MPs, mayors, councillors, executive & municipal officials, TR company officers/owners,
 magistrates, NGO board members and campaign-finance donors all resolve to **one profile** and can
