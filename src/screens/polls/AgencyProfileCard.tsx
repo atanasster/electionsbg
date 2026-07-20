@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { ExternalLink, Sparkles, AlertTriangle, Landmark } from "lucide-react";
+import { ExternalLink, Sparkles, AlertTriangle } from "lucide-react";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import {
   Agency,
@@ -96,11 +96,11 @@ export const AgencyProfileCard: FC<Props> = ({
             {agency?.eik ? (
               <Link
                 to={`/company/${agency.eik}`}
-                className="text-primary hover:text-primary/80"
+                className="text-[10px] font-medium text-primary hover:underline"
                 title={t("polls_public_money_hint")}
                 aria-label={t("polls_public_money_hint")}
               >
-                <Landmark className="h-3.5 w-3.5" />
+                {isBg ? "ТР" : "TR"}
               </Link>
             ) : null}
             {agency?.website ? (

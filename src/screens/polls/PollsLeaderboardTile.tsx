@@ -1,7 +1,7 @@
 import { FC, Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { Trophy, Landmark } from "lucide-react";
+import { Trophy } from "lucide-react";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { Hint } from "@/ux/Hint";
 import { Agency, AgencyGrade, AgencyProfile } from "@/data/polls/pollsTypes";
@@ -85,7 +85,9 @@ export const PollsLeaderboardTile: FC<Props> = ({ profiles, agencies }) => {
           </Hint>
         </span>
         <Hint text={t("polls_public_money_hint")} underline={false}>
-          <Landmark className="h-3.5 w-3.5 text-muted-foreground justify-self-end" />
+          <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground justify-self-end">
+            {isBg ? "ТР" : "TR"}
+          </span>
         </Hint>
 
         {profiles.map((p, idx) => {
@@ -112,66 +114,63 @@ export const PollsLeaderboardTile: FC<Props> = ({ profiles, agencies }) => {
           const eik = a?.eik;
           return (
             <Fragment key={p.agencyId}>
-            <Link
-              to={`/polls/${p.agencyId}`}
-              className="contents group"
-            >
-              <span className="tabular-nums text-xs text-muted-foreground">
-                {idx + 1}
-              </span>
-              <span className="font-medium truncate text-primary group-hover:underline">
-                {name}
-              </span>
-              <span
-                className={`px-2 py-0.5 rounded-md text-xs font-bold tabular-nums text-center min-w-[32px] ${GRADE_STYLE[p.grade]}`}
-              >
-                {p.grade}
-              </span>
-              <div className="hidden md:block relative h-2 rounded-full bg-muted overflow-hidden">
-                <div
-                  className="absolute top-0 bottom-0 left-0 rounded-full"
-                  style={{
-                    width: `${widthPct}%`,
-                    backgroundColor: `hsl(${hue} 70% 45%)`,
-                  }}
-                />
-              </div>
-              <span className="tabular-nums text-xs font-semibold text-right">
-                {p.shrunkMAEAdjusted.toFixed(2)}
-              </span>
-              <span
-                className={`tabular-nums text-xs font-semibold text-right ${pmColor}`}
-              >
-                {pmText}
-              </span>
-              <span className="hidden md:block tabular-nums text-xs text-muted-foreground text-right">
-                {barrierText}
-              </span>
-              <span className="hidden lg:block tabular-nums text-xs text-muted-foreground text-right">
-                {p.electionsCovered.length}
-              </span>
-              <span className="hidden lg:block tabular-nums text-xs text-muted-foreground text-right">
-                {p.medianDaysBefore != null ? `${p.medianDaysBefore}d` : "—"}
-              </span>
-            </Link>
-            {eik ? (
-              <Hint text={t("polls_public_money_hint")} underline={false}>
-                <Link
-                  to={`/company/${eik}`}
-                  aria-label={t("polls_public_money_hint")}
-                  className="justify-self-end text-muted-foreground hover:text-primary"
+              <Link to={`/polls/${p.agencyId}`} className="contents group">
+                <span className="tabular-nums text-xs text-muted-foreground">
+                  {idx + 1}
+                </span>
+                <span className="font-medium truncate text-primary group-hover:underline">
+                  {name}
+                </span>
+                <span
+                  className={`px-2 py-0.5 rounded-md text-xs font-bold tabular-nums text-center min-w-[32px] ${GRADE_STYLE[p.grade]}`}
                 >
-                  <Landmark className="h-4 w-4" />
-                </Link>
-              </Hint>
-            ) : (
-              <span
-                aria-hidden
-                className="justify-self-end text-muted-foreground/25 select-none"
-              >
-                ·
-              </span>
-            )}
+                  {p.grade}
+                </span>
+                <div className="hidden md:block relative h-2 rounded-full bg-muted overflow-hidden">
+                  <div
+                    className="absolute top-0 bottom-0 left-0 rounded-full"
+                    style={{
+                      width: `${widthPct}%`,
+                      backgroundColor: `hsl(${hue} 70% 45%)`,
+                    }}
+                  />
+                </div>
+                <span className="tabular-nums text-xs font-semibold text-right">
+                  {p.shrunkMAEAdjusted.toFixed(2)}
+                </span>
+                <span
+                  className={`tabular-nums text-xs font-semibold text-right ${pmColor}`}
+                >
+                  {pmText}
+                </span>
+                <span className="hidden md:block tabular-nums text-xs text-muted-foreground text-right">
+                  {barrierText}
+                </span>
+                <span className="hidden lg:block tabular-nums text-xs text-muted-foreground text-right">
+                  {p.electionsCovered.length}
+                </span>
+                <span className="hidden lg:block tabular-nums text-xs text-muted-foreground text-right">
+                  {p.medianDaysBefore != null ? `${p.medianDaysBefore}d` : "—"}
+                </span>
+              </Link>
+              {eik ? (
+                <Hint text={t("polls_public_money_hint")} underline={false}>
+                  <Link
+                    to={`/company/${eik}`}
+                    aria-label={t("polls_public_money_hint")}
+                    className="justify-self-end text-xs font-medium text-primary hover:underline"
+                  >
+                    {isBg ? "ТР" : "TR"}
+                  </Link>
+                </Hint>
+              ) : (
+                <span
+                  aria-hidden
+                  className="justify-self-end text-muted-foreground/25 select-none"
+                >
+                  ·
+                </span>
+              )}
             </Fragment>
           );
         })}
