@@ -37,6 +37,7 @@ import { ecFts } from "./ec_fts";
 import { bnbAuctions } from "./bnb_auctions";
 import { bnbFdi } from "./bnb_fdi";
 import { minfinMreports } from "./minfin_mreports";
+import { minfinEurobond } from "./minfin_eurobond";
 import { minfinProgramOtchet } from "./minfin_program_otchet";
 import { mfaProgramOtchet } from "./mfa_program_otchet";
 import { budgetLaw } from "./budget_law";
@@ -183,6 +184,7 @@ export const SOURCES: WatchSource[] = [
   bnbAuctions,
   bnbFdi,
   minfinMreports,
+  minfinEurobond,
   minfinProgramOtchet,
   mfaProgramOtchet,
   budgetLaw,
