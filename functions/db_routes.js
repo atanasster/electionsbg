@@ -346,7 +346,7 @@ const DB_ROUTES = {
       // 2–3) is deliberately withheld from the public page (a name coincidence is
       // too likely to name a real person). Empty for non-NGOs / pre-080.
       dbRows(
-        `SELECT person, ref, kind, role, confidence FROM ngo_board_links
+        `SELECT person, ref, kind, role, position, confidence FROM ngo_board_links
          WHERE eik = $1 AND confidence = 'high' ORDER BY person LIMIT 50`,
         [eik],
       ).catch((e) => (e?.code === "42P01" ? [] : Promise.reject(e))),

@@ -89,6 +89,7 @@ interface NgoBoardLink {
   ref: string;
   kind: string;
   role: string | null;
+  position: string | null;
   confidence: string;
 }
 import { SchoolIdentityTile } from "../components/procurement/mon/SchoolIdentityTile";
@@ -853,6 +854,12 @@ export const CompanyDbScreen: FC = () => {
                                     ? "служител"
                                     : "official"}
                             </span>
+                            {l.position && (
+                              <span className="text-muted-foreground">
+                                {" · "}
+                                {decodeEntities(l.position)}
+                              </span>
+                            )}
                           </li>
                         ))}
                       </ul>

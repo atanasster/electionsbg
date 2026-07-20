@@ -75,9 +75,13 @@ CREATE TABLE IF NOT EXISTS ngo_board_links (
   ref            text NOT NULL,   -- /officials/<slug> | /person/<name> | /candidate/mp-<id>
   kind           text NOT NULL,   -- 'mp' | 'official' | 'magistrate'
   role           text,            -- the NGO board role (ngo_board/representative/…)
+  position       text,            -- registry position within the body (председател на УС / секретар / …), when known
   confidence     text NOT NULL,   -- 'high' (namesake company_count ≤2) | 'medium' (≤5)
   namesake_count int
 );
+-- Backfill the column on an already-created table (IF NOT EXISTS above is a no-op
+-- when the table predates this column).
+ALTER TABLE ngo_board_links ADD COLUMN IF NOT EXISTS position text;
 CREATE INDEX IF NOT EXISTS idx_ngo_board_links_eik ON ngo_board_links (eik);
 
 -- Rebuild the whole table from the current officers + rosters. TRUNCATE+INSERT so
@@ -93,7 +97,7 @@ RETURNS int LANGUAGE plpgsql AS $$
 DECLARE n int;
 BEGIN
   TRUNCATE ngo_board_links;
-  INSERT INTO ngo_board_links (eik, person, ref, kind, role, confidence, namesake_count)
+  INSERT INTO ngo_board_links (eik, person, ref, kind, role, position, confidence, namesake_count)
   WITH ngo_off AS (
     SELECT o.uic AS eik, o.name_fold,
            CASE WHEN o.roles LIKE '%ngo_board%'          THEN 'ngo_board'
@@ -124,6 +128,25 @@ BEGIN
     JOIN mp_roster mp ON translit_bg_latin(mp.name) = n.name_fold
     JOIN officer_name_counts nc ON nc.name_fold = n.name_fold
     WHERE nc.company_count <= 3
+  ),
+  pos AS (  -- current registry position (председател на УС / секретар / …) per
+            -- person-at-NGO; the label lives mostly on the ngo_representative
+            -- role. When a person holds several, prefer the most senior title so
+            -- "председател" wins over "член"; position_label is the final
+            -- deterministic tiebreak.
+    SELECT DISTINCT ON (uic, name_fold) uic, name_fold, position_label
+    FROM tr_person_roles
+    WHERE position_label IS NOT NULL AND erased_at IS NULL
+    ORDER BY uic, name_fold,
+             CASE
+               WHEN position_label ILIKE '%председател%'
+                    AND position_label NOT ILIKE '%заместник%' THEN 0
+               WHEN position_label ILIKE '%заместник%председател%' THEN 1
+               WHEN position_label ILIKE '%изпълнителен директор%' THEN 2
+               WHEN position_label ILIKE '%секретар%' THEN 3
+               ELSE 4
+             END,
+             position_label
   )
   -- Dedup by PERSON identity (name_fold), not by ref: someone who is both an
   -- all-time MP and a listed official/magistrate matches the same board officer
@@ -131,15 +154,16 @@ BEGIN
   -- one link so the politician_board count isn't inflated. Kind priority picks the
   -- most-constrained roster (magistrate → official → mp); cc breaks ties toward
   -- the highest confidence.
-  SELECT DISTINCT ON (eik, name_fold)
-         eik, person, ref, kind, role,
-         CASE WHEN cc = 1 THEN 'high' ELSE 'medium' END, cc
-  FROM matched
-  ORDER BY eik, name_fold,
-           CASE kind WHEN 'magistrate' THEN 0 WHEN 'official' THEN 1 ELSE 2 END,
-           cc, ref;  -- ref is the final deterministic tiebreak: two officials
-                     -- sharing a fold-name must not flip the winning slug between
-                     -- rebuilds (determinism — the payload is compared in tests).
+  SELECT DISTINCT ON (m.eik, m.name_fold)
+         m.eik, m.person, m.ref, m.kind, m.role, p.position_label,
+         CASE WHEN m.cc = 1 THEN 'high' ELSE 'medium' END, m.cc
+  FROM matched m
+  LEFT JOIN pos p ON p.uic = m.eik AND p.name_fold = m.name_fold
+  ORDER BY m.eik, m.name_fold,
+           CASE m.kind WHEN 'magistrate' THEN 0 WHEN 'official' THEN 1 ELSE 2 END,
+           m.cc, m.ref;  -- ref is the final deterministic tiebreak: two officials
+                         -- sharing a fold-name must not flip the winning slug
+                         -- between rebuilds (determinism — compared in tests).
   GET DIAGNOSTICS n = ROW_COUNT;
   RETURN n;
 END $$;

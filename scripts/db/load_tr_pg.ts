@@ -215,7 +215,7 @@ export const loadTrPg = async (): Promise<{
   // Raw per-role records for the person page's history (from/to dates + share).
   const roles = tr
     .prepare(
-      `SELECT uic, name, role, country, share_percent, share_amount, share_currency, added_at, erased_at
+      `SELECT uic, name, role, country, share_percent, share_amount, share_currency, added_at, erased_at, position_label
        FROM company_persons
        WHERE name IS NOT NULL AND name <> ''`,
     )
@@ -232,6 +232,7 @@ export const loadTrPg = async (): Promise<{
       "share_currency",
       "added_at",
       "erased_at",
+      "position_label",
     ],
     (function* () {
       for (const r of roles)
@@ -245,6 +246,7 @@ export const loadTrPg = async (): Promise<{
           r.share_currency,
           r.added_at || null,
           r.erased_at || null,
+          r.position_label || null,
         ];
     })(),
   );

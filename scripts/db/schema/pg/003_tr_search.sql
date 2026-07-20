@@ -61,5 +61,6 @@ CREATE TABLE tr_person_roles (
   share_currency text,
   added_at       timestamptz,  -- role opened
   erased_at      timestamptz,  -- role closed (NULL = current)
+  position_label text,         -- registry position within the body (председател на УС / секретар / член) — populated mostly on ngo_representative rows
   name_fold      text GENERATED ALWAYS AS (translit_bg_latin(name)) STORED
 );
