@@ -94,8 +94,20 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
         r.source === "magistrate" ||
         r.source === "local",
     );
+    // A single seat is often recorded by more than one source — e.g. a municipal councillor
+    // shows up in BOTH the local-election results (`local`, carries the place "Ловеч") and the
+    // Court-of-Audit officials roster (`official_muni`, place-less). The place-less roster row
+    // just restates a role we already show WITH a place, so drop it; the electoral row keeps
+    // the richer label + place.
+    const placedRoles = new Set(held.filter((r) => r.place).map((r) => r.role));
     const seen = new Set<string>();
     return held.filter((r) => {
+      if (
+        !r.place &&
+        r.source.startsWith("official") &&
+        placedRoles.has(r.role)
+      )
+        return false;
       const k = `${r.source}\t${r.role}\t${r.place ?? ""}`;
       if (seen.has(k)) return false;
       seen.add(k);
@@ -337,7 +349,7 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
                       r.role !== "official" && (
                         <span className="text-muted-foreground">
                           {" "}
-                          · {r.role}
+                          · {roleLabel(r.role)}
                         </span>
                       )}
                   </span>
