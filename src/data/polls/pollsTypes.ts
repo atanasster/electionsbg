@@ -7,6 +7,10 @@ export type Agency = {
   name_en: string;
   abbr_bg: string;
   abbr_en: string;
+  // ЕИК of the agency's legal entity in the Commerce Registry, when confidently
+  // resolved. Enables deep-links to /company/:eik (public procurement + EU funds).
+  // Left unset for agencies we could not pin to a single TR entity (e.g. Mediana).
+  eik?: string | null;
 };
 
 export type PollGenre =

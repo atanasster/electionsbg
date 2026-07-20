@@ -1,7 +1,7 @@
-import { FC } from "react";
+import { FC, Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { Trophy } from "lucide-react";
+import { Trophy, Landmark } from "lucide-react";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { Hint } from "@/ux/Hint";
 import { Agency, AgencyGrade, AgencyProfile } from "@/data/polls/pollsTypes";
@@ -40,9 +40,9 @@ export const PollsLeaderboardTile: FC<Props> = ({ profiles, agencies }) => {
       <div
         className="
           grid items-center mt-1 text-sm gap-x-3 gap-y-1.5
-          grid-cols-[auto_minmax(0,1.4fr)_auto_auto_auto]
-          md:grid-cols-[auto_minmax(0,1.4fr)_auto_minmax(80px,1fr)_auto_auto_auto]
-          lg:grid-cols-[auto_minmax(0,1.4fr)_auto_minmax(80px,1fr)_auto_auto_auto_auto_auto]
+          grid-cols-[auto_minmax(0,1.4fr)_auto_auto_auto_auto]
+          md:grid-cols-[auto_minmax(0,1.4fr)_auto_minmax(80px,1fr)_auto_auto_auto_auto]
+          lg:grid-cols-[auto_minmax(0,1.4fr)_auto_minmax(80px,1fr)_auto_auto_auto_auto_auto_auto]
         "
       >
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
@@ -84,6 +84,9 @@ export const PollsLeaderboardTile: FC<Props> = ({ profiles, agencies }) => {
             </span>
           </Hint>
         </span>
+        <Hint text={t("polls_public_money_hint")} underline={false}>
+          <Landmark className="h-3.5 w-3.5 text-muted-foreground justify-self-end" />
+        </Hint>
 
         {profiles.map((p, idx) => {
           const a = agencyById.get(p.agencyId);
@@ -106,11 +109,12 @@ export const PollsLeaderboardTile: FC<Props> = ({ profiles, agencies }) => {
             p.barrierCallRate === null
               ? "—"
               : `${Math.round(p.barrierCallRate * 100)}%`;
+          const eik = a?.eik;
           return (
+            <Fragment key={p.agencyId}>
             <Link
               to={`/polls/${p.agencyId}`}
               className="contents group"
-              key={p.agencyId}
             >
               <span className="tabular-nums text-xs text-muted-foreground">
                 {idx + 1}
@@ -150,6 +154,25 @@ export const PollsLeaderboardTile: FC<Props> = ({ profiles, agencies }) => {
                 {p.medianDaysBefore != null ? `${p.medianDaysBefore}d` : "—"}
               </span>
             </Link>
+            {eik ? (
+              <Hint text={t("polls_public_money_hint")} underline={false}>
+                <Link
+                  to={`/company/${eik}`}
+                  aria-label={t("polls_public_money_hint")}
+                  className="justify-self-end text-muted-foreground hover:text-primary"
+                >
+                  <Landmark className="h-4 w-4" />
+                </Link>
+              </Hint>
+            ) : (
+              <span
+                aria-hidden
+                className="justify-self-end text-muted-foreground/25 select-none"
+              >
+                ·
+              </span>
+            )}
+            </Fragment>
           );
         })}
       </div>

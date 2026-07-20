@@ -61,6 +61,10 @@ type Agency = {
   name_en: string;
   abbr_bg: string;
   abbr_en: string;
+  // Optional ЕИК of the agency's legal entity (Commerce Registry). Preserved
+  // across scrapes by mergeAgencies (existing records win), so it can be
+  // curated directly in data/polls/agencies.json.
+  eik?: string | null;
 };
 
 type PollGenre = "raw_attitudes" | "forecast" | "both_published" | "unclear";
