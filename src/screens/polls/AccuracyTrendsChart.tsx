@@ -136,8 +136,15 @@ export const AccuracyTrendsChart: FC<{ height?: number }> = ({
     <>
       <div className="w-full mt-2" style={{ height }}>
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={rows} margin={{ top: 10, right: 8, left: 0, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} opacity={0.15} />
+          <BarChart
+            data={rows}
+            margin={{ top: 10, right: 8, left: 0, bottom: 0 }}
+          >
+            <CartesianGrid
+              strokeDasharray="3 3"
+              vertical={false}
+              opacity={0.15}
+            />
             <XAxis
               dataKey="label"
               tick={{ fontSize: 10 }}
@@ -178,6 +185,11 @@ export const AccuracyTrendsChart: FC<{ height?: number }> = ({
               radius={[4, 4, 0, 0]}
               onClick={handleBarClick}
               style={{ cursor: "pointer" }}
+              // Render bar shapes immediately. Without this, recharts leaves the
+              // bars empty when the ResponsiveContainer first measures 0 width
+              // (happens on mobile / async mount) — the grow animation never
+              // recovers. Matches the rest of the app's charts.
+              isAnimationActive={false}
             >
               {rows.map((r) => (
                 <Cell
@@ -202,7 +214,10 @@ export const AccuracyTrendsChart: FC<{ height?: number }> = ({
             </span>
           </div>
           {anomalies.map((a) => (
-            <div key={a.date} className="flex justify-between items-baseline gap-2">
+            <div
+              key={a.date}
+              className="flex justify-between items-baseline gap-2"
+            >
               <button
                 type="button"
                 onClick={() => goToElection(a.date)}
