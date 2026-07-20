@@ -125,6 +125,64 @@ Where §0 conflicts with a later section, §0 wins.
 - **Mobile:** the two-indent timeline tree collapses gracefully at the article measure (date inline in the
   card header, not a separate rail; consortium co-signers under the contract, no third indent).
 
+### 0f. RESEARCH-SPEED CORRECTIONS (2026-07-20) — grounded in the "elections cost" case
+A live hand-analysis of a real topic (cost of running an election: **ballot printing** vs **machine voting**)
+was assembled by hand from the corpus and exposed where this plan is *correct but slow for a researcher*. The
+§2 model (search-seeds-humans-refine, УНП spine, honesty/gap) stands; these six close the time-to-insight gap.
+The founding facts from that case (for the flagship + the tests): ballot printing = **Печатница на БНБ** (EIK
+130800278), €18.6M / 19 contracts under ЦИК (EIK 176481459), ~€0.9–1.1M per plain parliamentary election;
+machine chain = **Сиела Норма** (EIK 130199580), €67.4M; the printing awarder **moved МС → ЦИК ~2016** (pre-2016
+printer = Мултипринт ООД, Костинброд, EIK 122013040); and — the crux — **paper-ballot transport & securing are
+NOT procured** (state function via областни администрации + МВР on budget), while the *machine* transport/insurance
+IS tendered. That asymmetry is the whole story.
+
+1. **Starter templates belong in Phase 1, not Phase 3.** A researcher must not face a blank search box. Ship a
+   small gallery of pre-built multi-term/multi-EIK **starter seeds** on the `/procurement/project` on-ramp +
+   the picker footer ("Избори — машини срещу хартия", "Магистрала Хемус", a hospital) that populate `search`
+   on click. This is a lightweight, uncurated *starter-search* list — NOT the committed curated-flagship track
+   (still Phase 3, §10). Near-zero cost, the biggest single lever for "quickly research such topics." (Amends §4.3b / §10 Phase 1.)
+2. **A seed is a SET of sub-searches, not one query (§2 model change).** The elections topic needed three
+   lexically-disjoint terms with different scopes — `бюлетин` (printing), `СУЕМГ` (machine transport),
+   `компютърна обработка` (IT processing). `search.terms + mode:"any"` cannot express "OR of phrases, each with
+   its own `buyerEik`." **Change `search` to an array of `{terms, mode, buyerEik, distinctive, threshold}`
+   threads, unioned** (`matched = ⋃ thread(search[i])`). One file then assembles a whole topic instead of the
+   user running three searches and merging by hand. Back-compatible: a single-object `search` is a one-thread array. (Amends §2 resolution + the stored-artifact shape.)
+3. **Promote the "broader matches" candidate panel to Phase 1.** When the user checks one ballot-printing
+   contract, the file should immediately offer its sibling legs — "same awarder, other roles" via
+   same-buyer + adjacent-CPV + УНП-neighbours (the ИО processing contract, the Siela transport). §4.2.6 / §4.3
+   currently defer this to Phase 2, but it is the difference between two clicks and three separate searches —
+   it is core to research speed, not enrichment. Move the looser-candidate panel + `+ добави` into Phase 1. (Amends §10 Phase 1/2.)
+4. **Add a recurring-object (per-cycle) rollup — a genuinely missing view.** Elections are a *recurring* project,
+   one instance per cycle; annual road maintenance and yearly IT support are the same shape. The single vertical
+   timeline (§4.2) clusters ONE lifecycle and cannot render "all parliamentary printing 2016–2026" — yet the
+   natural research pivot is **group-by-cycle** (the per-election table the hand-analysis produced). Add an
+   optional "повтарящ се проект" fold: members grouped by election/year into a compact trend table + a small
+   bar-per-cycle strip, above the timeline. Keyed off an optional `recurrence: { by: "cycle"|"year", label }`
+   on the file. (New sub-section under §4.2; NOT a Recharts chart — CSS strip per the dataviz rule.)
+5. **Upgrade «празнина» from "absent stage" to "done off-tender by X."** The paper-transport gap is not *missing*
+   — it is *deliberately not procured*. For a researcher, "why isn't X here?" is as valuable as what is. The gap
+   node (§4.2.3) gains an optional curated `{ reason, authority, basis, sourceUrl }` so it can state
+   "логистика на хартиени бюлетини — държавна функция (областни администрации + МВР), не по ЗОП" instead of a
+   bare dashed placeholder. This is the honesty thesis at its sharpest and the elections flagship's punchline. (Amends the «празнина» node in §4.2.3 + §2 artifact.)
+6. **Generalize `benchmark` → a `unitCost` lens, and add a compare mode.** The machine-vs-paper insight IS a
+   *normalized* number (€/глас) and a *two-file comparison*; the plan's `benchmark` is roads-only €/km and every
+   file is standalone. (a) Generalize `benchmark.unit` to an arbitrary unit (`глас`, `km`, `случай`, `ученик`)
+   with a curated denominator, rendered as a "единична цена" figure in the honesty block. (b) Allow 2+ files
+   side-by-side (a thin compare route/param) so "машинен глас €3–5,30 срещу хартиен ~стотинки" is one screen.
+   Both stay OPTIONAL/curated. (Amends §2 `benchmark`, §4.2.2 honesty block, §4.5.)
+
+Smaller, from the same case:
+- **Extend the `nature` role taxonomy beyond construction.** Add `печат`, `ИТ обработка`, `логистика`,
+  `застраховане`, `доставка`, `услуга` alongside проектиране/строителство/надзор; CPV-division fallback stays. (Amends §2 `nature` + §4.4.)
+- **A `buyerEik` scope must NOT feed confidence for cross-awarder topics.** The elections file spans two awarders
+  (МС pre-2016, ЦИК after) plus областни администрации for local ballots — a buyer-EIK confidence boost (§2)
+  would wrongly *demote* the true МС-era printing contracts. Rule: `buyerEik` is a recall filter only when the
+  user sets it; it must never be an implicit precision signal on a multi-awarder file. Same-buyer stays a
+  *boost* only within a single-thread search, never across threads. (Amends the `confidence()` rule in §2.)
+- **Flagship candidate.** "Колко струват изборите" is the ideal first curated file for Phase 3 — it exercises the
+  multi-thread seed (#2), the recurring rollup (#4), the off-tender gap (#5) and the unit-cost/compare lens (#6)
+  all at once, and it already has a companion `naiasno-post` DATA card ready.
+
 ---
 
 ## 0f. FIELD-TEST — the Shishkov road-legacy claim (2026-07-20) — supersedes/extends the model
