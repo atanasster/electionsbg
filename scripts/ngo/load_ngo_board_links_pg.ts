@@ -10,8 +10,9 @@
 //     company_links.json (names + person refs only; the served artifact is
 //     ngo_board_links, so this stays a build-time lookup, DB-only, no JSON serving);
 //   - magistrates → already in PG (the `magistrate` table, migration 070);
-//   - MPs → companies-index.json when the connections graph has been rebuilt
-//     (added if present; otherwise the MP leg stays empty until update-connections).
+//   - MPs → loaded here into `mp_roster` from the all-time MP list
+//     (data/parliament/index.json); names are matched against NGO board officers
+//     the same way the official/magistrate legs are.
 //
 //   npm run db:load:ngo-board-links   (needs local Postgres up + TR loaded)
 //
@@ -88,14 +89,25 @@ export const loadNgoBoardLinksPg = async (): Promise<{
   if (existsSync(MP_INDEX)) {
     const j = JSON.parse(readFileSync(MP_INDEX, "utf8")) as MpIndexFile;
     const seen = new Map<string, [string, number]>();
-    for (const m of j.mps ?? [])
-      if (m?.name && Number.isInteger(m.id) && !seen.has(m.name))
-        seen.set(m.name, [m.name, m.id]);
+    for (const m of j.mps ?? []) {
+      if (!m?.name || !Number.isInteger(m.id)) continue;
+      const prev = seen.get(m.name);
+      if (prev) {
+        if (prev[1] !== m.id)
+          console.warn(
+            `[ngo-board-links] duplicate MP name "${m.name}" (ids ${prev[1]}, ${m.id}) — keeping ${prev[1]}; board seats attribute to the first id`,
+          );
+        continue;
+      }
+      seen.set(m.name, [m.name, m.id]);
+    }
     await withClient(async (c) => {
       await c.query("TRUNCATE mp_roster");
       mps = await copyRows(c, "mp_roster", ["name", "mp_id"], seen.values());
     });
   } else {
+    // Empty the leg so a vanished index.json genuinely clears it (not stale rows).
+    await withClient((c) => c.query("TRUNCATE mp_roster"));
     console.warn(
       "[ngo-board-links] parliament/index.json missing — MP leg empty",
     );

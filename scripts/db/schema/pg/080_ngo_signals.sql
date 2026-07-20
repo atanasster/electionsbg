@@ -46,8 +46,8 @@ $$;
 -- official_roster is a build-time lookup loaded from data/officials/derived/
 -- company_links.json by scripts/ngo/load_ngo_board_links_pg.ts (names + person
 -- refs only — NOT served; the served artifact is ngo_board_links). Magistrates
--- come from the `magistrate` table (070); MPs from companies-index.json when the
--- connections graph has been rebuilt (the loader adds them if present).
+-- come from the `magistrate` table (070); MPs from `mp_roster` (the all-time MP
+-- list, data/parliament/index.json), loaded by the same loader.
 CREATE TABLE IF NOT EXISTS official_roster (
   name text NOT NULL,
   slug text NOT NULL,
@@ -107,29 +107,37 @@ BEGIN
   ),
   matched AS (
     SELECT n.eik, m.name AS person, '/person/' || m.name AS ref, 'magistrate' AS kind,
-           n.board_role AS role, nc.company_count AS cc
+           n.board_role AS role, nc.company_count AS cc, n.name_fold
     FROM ngo_off n
     JOIN magistrate m ON translit_bg_latin(m.name) = n.name_fold
     JOIN officer_name_counts nc ON nc.name_fold = n.name_fold
     WHERE nc.company_count <= 3
     UNION ALL
-    SELECT n.eik, r.name, '/officials/' || r.slug, 'official', n.board_role, nc.company_count
+    SELECT n.eik, r.name, '/officials/' || r.slug, 'official', n.board_role, nc.company_count, n.name_fold
     FROM ngo_off n
     JOIN official_roster r ON translit_bg_latin(r.name) = n.name_fold
     JOIN officer_name_counts nc ON nc.name_fold = n.name_fold
     WHERE nc.company_count <= 3
     UNION ALL
-    SELECT n.eik, mp.name, '/candidate/mp-' || mp.mp_id, 'mp', n.board_role, nc.company_count
+    SELECT n.eik, mp.name, '/candidate/mp-' || mp.mp_id, 'mp', n.board_role, nc.company_count, n.name_fold
     FROM ngo_off n
     JOIN mp_roster mp ON translit_bg_latin(mp.name) = n.name_fold
     JOIN officer_name_counts nc ON nc.name_fold = n.name_fold
     WHERE nc.company_count <= 3
   )
-  SELECT DISTINCT ON (eik, ref)
+  -- Dedup by PERSON identity (name_fold), not by ref: someone who is both an
+  -- all-time MP and a listed official/magistrate matches the same board officer
+  -- via multiple arms with different refs. Keying on name_fold collapses them to
+  -- one link so the politician_board count isn't inflated. Kind priority picks the
+  -- most-constrained roster (magistrate → official → mp); cc breaks ties toward
+  -- the highest confidence.
+  SELECT DISTINCT ON (eik, name_fold)
          eik, person, ref, kind, role,
          CASE WHEN cc = 1 THEN 'high' ELSE 'medium' END, cc
   FROM matched
-  ORDER BY eik, ref, cc;  -- keep the lowest-namesake (highest-confidence) per link
+  ORDER BY eik, name_fold,
+           CASE kind WHEN 'magistrate' THEN 0 WHEN 'official' THEN 1 ELSE 2 END,
+           cc;
   GET DIAGNOSTICS n = ROW_COUNT;
   RETURN n;
 END $$;
