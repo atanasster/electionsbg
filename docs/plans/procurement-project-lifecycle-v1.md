@@ -183,9 +183,7 @@ Smaller, from the same case:
   multi-thread seed (#2), the recurring rollup (#4), the off-tender gap (#5) and the unit-cost/compare lens (#6)
   all at once, and it already has a companion `naiasno-post` DATA card ready.
 
----
-
-## 0f. FIELD-TEST — the Shishkov road-legacy claim (2026-07-20) — supersedes/extends the model
+### 0g. FIELD-TEST — the Shishkov road-legacy claim (2026-07-20) — supersedes/extends the model
 
 A live press statement by regional minister Ivan Shishkov (2026-07-20, faktor.bg / BTA / bgonair /
 cross.bg) is the exact use-case this view exists for, and running it against the corpus both **validated
@@ -250,12 +248,13 @@ others after award; (e) prosecutor signals + asphalt-quantity discrepancies.
      ledger** section (potvarzhdava / oprovergava / chastichno) above the provenance footer. This is
      обективност-срещу-заглавието made explicit and is the sharpest differentiator vs SIGMA.
 
-**Model shape deltas (extend §2's JSON):** add `advance` (Tier B curated), `claims[]`, `inhouseAwarderEiks`
-+ optional `knownSubcontractors[]`, and mark every member node with its derived `method`/`singleBid` flag
-(computed, not stored). **Timeline deltas (§4.2):** method badge per contract node; a «подизпълнители»
-blind-spot node for in-house-awarder members; an «авансово изплатено» figure in the honesty block. **On-ramp
-delta (§4.3b):** the claim box + `claims` ledger. None require new ingest — (1) and the node in (2) reuse
-existing columns; (2)'s subcontractor list, (3), and (4) are curated Tier-B fields.
+**These four are now folded into the body:** the model shape (§2 JSON: `advance`, `claims[]`,
+`inhouseAwarderEiks`, `knownSubcontractors[]`, computed per-member `method`/`singleBid`); the honesty block +
+timeline (§4.2: "как е възложено" strip, method badge, «подизпълнители» blind-spot node, «авансово изплатено»
+figure, claims-ledger §4.2.6b); the on-ramp (§4.3b claim box); Tier B (§3); phasing (§10 — the method strip
+in P1, the rest in P2); and risks (§11 — the blank-method caveat + the blind-spot honesty rule). None require
+new ingest: (1) reuses existing columns; (2)'s node reuses them too; (2)'s subcontractor list, (3), (4) are
+curated Tier-B fields.
 
 ---
 
@@ -373,9 +372,26 @@ The stored artifact is tiny and the same shape in both tiers (curated flagship v
     "unit": "eur_per_km", "low": 14500000, "high": 20000000, "km": 8,
     "comparables": [ { "name": "Габрово тунел Шипка", "eurPerKm": 14500000 } ]
   },
+  "advance": {                                        // OPTIONAL, CURATED & SOURCED — no bulk advance data exists (§0g.3)
+    "pctDeclared": 35, "amountEur": 161504000, "asOf": "2020-08", "sourceUrl": "…",
+    "physicalProgress": { "bg": "участъци без започнало строителство", "en": "…" }
+  },
+  "inhouseAwarderEiks": ["831646048"],                // OPTIONAL — contractors that are state in-house cos; money trail stops here (§0g.2)
+  "knownSubcontractors": [                            // OPTIONAL, CURATED — the sub-layer absent from ЦАИС (§0g.2)
+    { "name": "Нивел строй ЕООД", "eik": "…", "amountEur": 0, "source": "Сметна палата", "note": {"bg":"…","en":"…"} }
+  ],
+  "claims": [                                          // OPTIONAL — the "провери твърдение" ledger (§0g.4)
+    { "text": {"bg":"35% аванс, нищо построено","en":"…"}, "byWhom": "Иван Шишков (МРРБ)",
+      "saidAt": "2026-07-20", "sourceUrl": "https://faktor.bg/…", "verdict": "chastichno",
+      "ourNumber": {"bg":"договор €461M, метод «вътрешен избор»; подизпълнители не се публикуват","en":"…"} }
+  ],
   "curator": { "by": "…", "verifiedAt": "2026-07-19" }  // curated tier only
 }
 ```
+
+Every **member node also carries a computed (not stored) `method` + `singleBid` flag** — derived from
+`procurement_method` / `number_of_tenderers` at fold time (§0g.1), driving the timeline method badge and the
+"как е възложено" honesty strip. Nothing to persist; it re-derives from the live rows.
 
 Why this shape:
 - **`search` gives recall, `includes`/`excludes` give precision** (§0a). Reproducible, auditable, and it
@@ -383,8 +399,13 @@ Why this shape:
 - **Live, not frozen.** A new contract or the long-awaited construction tender that matches the search
   auto-appears on next load (for review, in the curated tier) — the "did they finally procure it?" moment
   surfaces itself. `excludes` neutralises any future false positive.
-- **Almost everything is OPTIONAL.** A minimal file is just `{search}`. Budget/benchmark/thesis/nature are
-  editorial extras that power the honesty header when present, absent otherwise.
+- **Almost everything is OPTIONAL.** A minimal file is just `{search}`. Budget/benchmark/advance/thesis/nature
+  and `claims`/`knownSubcontractors` are editorial extras that power the honesty header when present, absent otherwise.
+- **`advance` + `claims` are the fact-check payload.** `advance` answers the «къде отидоха парите» question
+  (the single most legible number, always curated — no bulk source, §0g.3); `claims` prints the confirm/deny
+  ledger that IS the "провери твърдение" product (§0g.4). Both are dated snapshots with `sourceUrl`.
+- **`inhouseAwarderEiks` marks where the money trail stops** — a member whose contractor is a state in-house
+  company (Автомагистрали ЕАД) gets the «подизпълнители» blind-spot node (§0g.2); the sub-layer is not in ЦАИС.
 - **`nature`** turns a flat list into a design→build→supervise narrative where labelled (the OC4IDS `nature`
   trick); defaults to the contract's CPV division otherwise.
 - Each member deep-links: `tenderUnp` → `/procurement/tenders/:unp`, `contractKey` → `/procurement/contract/:id`.
@@ -423,15 +444,17 @@ admission (OC4IDS: without a project id in the source data, project↔contract a
 
 - **Tier A — already ingested, zero new work:**
   - `contracts` (key, unp, ocid, amount_eur, signing_amount_eur, cpv, awarder/contractor eik, dates,
-    procurement_method, number_of_tenderers, eu_funded) — the spend members.
+    procurement_method, number_of_tenderers, eu_funded) — the spend members. **`procurement_method` +
+    `number_of_tenderers` also power the method badge + "как е възложено" strip (§0g.1) — no extra ingest.**
   - `tenders` (unp, estimated_value_eur, buyer_eik, subject, cpv, publication_date, procedure_type) — the
     procedure members.
   - Annex-folded current value (`amount_eur` already flipped; per-annex Δ via `signing_amount_eur`).
   - `roadAttributes.ts` (roadRef/length/workType/€-per-km) for the benchmark cross-check.
-- **Tier B — curated, hand-authored (small, per project):** `announcedBudget`, `benchmark`, `thesis`,
-  `nature`, `status`. Sourced from budget-law text / АПИ statements / news. This is editorial work, not an
-  ingest. (The cover's authority defaults to the dominant member `buyer_eik`; add an optional
-  `publicAuthority`/`location` field only if the derived value is wrong.)
+- **Tier B — curated, hand-authored (small, per project):** `announcedBudget`, `benchmark`, `advance`
+  (§0g.3), `thesis`, `nature`, `status`, `claims` (§0g.4), `inhouseAwarderEiks` + `knownSubcontractors`
+  (§0g.2). Sourced from budget-law text / АПИ & Сметна палата reports / ministerial statements / news. This
+  is editorial work, not an ingest. (The cover's authority defaults to the dominant member `buyer_eik`; add an
+  optional `publicAuthority`/`location` field only if the derived value is wrong.)
 - **Tier C — optional enrichment:** budget-law line linkage (the `data/budget/investment_program/`
   Приложение III per-project capital allocations already exist for some objects — a real join candidate
   for the announced figure where the object is named there).
@@ -490,11 +513,19 @@ on screen and as an exported PDF (§4.7). Numbers are **large display totals, no
 and the mockup). Sections top→bottom:
 1. **Cover block** — brand row ("Наясно · проектно досие" + generated date + the PDF button), the authority
    + lifecycle status, the serif title, and a one-line thesis subtitle.
-2. **Honesty block (the hero) — big totals, not chips.** Two-to-three large display figures side by side:
-   договорено (Σ `amount_eur`) · обявено (curated budget, muted) · еталон (curated benchmark, muted). Below
-   them the three-bar comparison on one scale, then the gap statement as a serif pull-quote ("от обявените
-   €1.07 млрд са договорени 9% · строителна процедура още няма") — the comparison SIGMA stores-but-won't-make.
-   When no budget is curated it degrades to just the договорено total + span (still large-format, no tiles).
+2. **Honesty block (the hero) — big totals, not chips.** Two-to-four large display figures side by side:
+   договорено (Σ `amount_eur`) · обявено (curated budget, muted) · **авансово изплатено** (curated `advance`,
+   muted — present only when curated, §0g.3) · еталон (curated benchmark, muted). Below them the three-bar
+   comparison on one scale, then the gap statement as a serif pull-quote ("от обявените €1.07 млрд са
+   договорени 9% · строителна процедура още няма") — the comparison SIGMA stores-but-won't-make. When
+   `advance` exists, its `physicalProgress` note becomes a second pull-quote ("35% авансово изплатено · участъци
+   без започнало строителство" — the «къде отидоха парите» line). When no budget is curated it degrades to
+   just the договорено total + span (still large-format, no tiles).
+   - **"Как е възложено" competitiveness strip (§0g.1).** A thin CSS bar directly under the totals splitting
+     Σ contracted by award method — открита процедура (neutral) vs вътрешен избор / договаряне без обявление /
+     единствен участник (red). Derived at fold time from each member's `procurement_method` /
+     `number_of_tenderers` — no new data. The Видин–Ботевград file reads "€461M · 100% без открита процедура",
+     which is precisely Shishkov's "наследство" complaint, quantified.
    Secondary figures (# процедури, # изпълнители, прогнозна стойност labelled "не разход", EU-funded share)
    read as a compact inline stat line under the hero, not a tile grid.
 3. **The vertical timeline (the body — see the multi-lot mockup).** One time spine, chronological, a **thread
@@ -509,7 +540,14 @@ and the mockup). Sections top→bottom:
    - **отменена процедура** (cancelled tender) — a distinct struck/greyed node when `tenders.is_cancelled`.
      Story-relevant (a tendered-then-cancelled build is the ring-road narrative) — show it, don't drop it.
    - **договор** (contract) — filled marker under its lot; contractor (→ `/company/:eik`), signed value, role
-     badge. Deep-links `/procurement/contract/:id`. Consortium co-signers group under one lot.
+     badge, and a **method badge** (§0g.1): `открита` neutral, or a red `вътрешен избор` / `договаряне без
+     обявление` / `единствен участник` (`number_of_tenderers ≤ 1`) from `procurement_method`. Deep-links
+     `/procurement/contract/:id`. Consortium co-signers group under one lot.
+   - **подизпълнители** (subcontractor blind-spot — §0g.2) — when the contractor EIK is in the file's
+     `inhouseAwarderEiks` (a state in-house company, e.g. Автомагистрали ЕАД), a dashed node under the договор:
+     "паричната следа спира тук — подизпълнителите не се публикуват в ЦАИС", listing any curated
+     `knownSubcontractors[]` (sourced). Renders the *known blind spot* — the sub-layer (856M лв per Сметна
+     палата on Видин–Ботевград) is absent from the ЗОП corpus, so the absence itself is the finding.
    - **обжалване** (КЗК appeal) — a badge/flag on any member carrying `has_appeal`/`appeal_upheld` (already
      projected on `contracts_list`, migration 042) — a free delay/dispute signal on the timeline.
    - **анекс** (amendment) — a `ti-git-branch` caret off its contract; Δ value + `changeReason` (чл.116); red
@@ -537,8 +575,15 @@ and the mockup). Sections top→bottom:
 6. **Membership editor (mode toggle, screen-only)** — the §2 interactive curator: the search box + "broader
    matches" candidate panel with `+ add`, and every row's `× remove`. Curated tier adds "export JSON"; DIY
    tier writes to URL/localStorage. This whole block is `@media print`-hidden (§4.7) — controls aren't report.
+6b. **Проверка на твърдения (claims ledger — §0g.4)** — present only when the file has ≥1 `claims` entry.
+   Each claim renders a row: the quote + who-said-it + date (→ `sourceUrl`), a verdict pill
+   (потвърждава / опровергава / частично), and **нашите данни** — the grounded counter-number pulled from the
+   file's own totals (договорено, method mix, advance, blind-spot). This is обективност-срещу-заглавието made
+   literal and the sharpest differentiator vs SIGMA. Prints in the PDF (it *is* the report). Curated tier only
+   in v1 (DIY files stay unbranded to avoid a user claim reading as a Наясно verdict — §11).
 7. **Provenance footer** — the search string, includes/excludes counts, `verifiedAt`, and sourced links for
-   any curated budget/benchmark (method transparency — the Наясно data-map ethos). Doubles as the PDF footer.
+   any curated budget / benchmark / advance / claim (method transparency — the Наясно data-map ethos). Doubles
+   as the PDF footer.
 
 ### 4.3 The picker: the combined-search dropdown IS the on-ramp
 The starting gesture for every file — curated or DIY — is the **existing combined-search dropdown**
@@ -562,6 +607,12 @@ The starting gesture for every file — curated or DIY — is the **existing com
 - Entry points: a "Създай досие на проект" tile on `/procurement`; the picker's "Създай досие" button in the
   global search dropdown; a **"проследи като досие"** action on any contract/tender detail page (seeds the
   search from that row's title + УНП, pre-checked). The natural on-ramp is the search a user already ran.
+- **"Провери твърдение" claim box (§0g.4) — the fact-check on-ramp.** A prompt on `/procurement` ("Провери
+  твърдение за обществена поръчка"): the citizen pastes a sentence from the news ("Видин–Ботевград взе 35%
+  аванс и нищо не е построено"), we extract the object + firm/number, seed the project search, and land on the
+  dossier whose honesty block + claims ledger answers the specific figure. This is a distinct gesture from
+  "build a dossier" — it starts from a *claim*, not a search. v1 = keyword extraction into the picker; the AI
+  `projectLifecycle` tool (§6) does the parse once ≥3 curated files exist.
 - **Search-box → project page link.** The combined-search dropdown also carries a footer link
   ("Отвори като досие →") to the full-page builder `procurement/project?q=<current search>` — the picker in a
   roomy layout (checkbox list + live timeline preview) for when the dropdown is too cramped. Later smart case:
@@ -627,10 +678,13 @@ The starting gesture for every file — curated or DIY — is the **existing com
 - Reconcile Σ member `amount_eur` at whole-euro grain (`reference_procurement_eur_sum_basis`).
 
 ## 6. AI chat tools
-- `projectLifecycle(slug)` → the folded project model + honesty gap, for grounded answers ("how much of
-  the €1bn ring road is actually contracted?"). Register under the existing procurement tool family
+- `projectLifecycle(slug)` → the folded project model + honesty gap (договорено, method mix, advance,
+  blind-spot, claims verdicts), for grounded answers ("how much of the €1bn ring road is actually
+  contracted?" / "did Видин–Ботевград get 35% advance?"). Register under the existing procurement tool family
   (`project_ai_chat_tools`); numbers must pass the grounded-number gate (`project_ai_chat_grounding_gate`).
-- Defer until ≥3 curated projects exist.
+- **Claim-parse for the "провери твърдение" box (§0g.4):** the same tool extracts the object + firm/number
+  from a pasted sentence and maps it to (or seeds) a project — the fact-check on-ramp's engine.
+- Defer both until ≥3 curated projects exist.
 
 ## 7. Watchers & process-watch-report wiring
 - No new watcher source — files derive from the already-watched `eop_procurement`/`egov_procurement`
@@ -658,9 +712,12 @@ The starting gesture for every file — curated or DIY — is the **existing com
   large display totals, serif title; NOT dashboard tiles): cover, honesty block, the §4.2 vertical timeline
   (процедура/договор/анекс/gap; payments deferred), money-by-role, contractors table. Reuse `ContractValueBases`,
   `DbDataTable`; timeline + totals bespoke-CSS off the mockups.
+- **Method badge + "как е възложено" strip (§0g.1)** — ships in P1: pure derivation from `procurement_method`
+  / `number_of_tenderers`, no ingest, and it is the cheapest high-signal honesty element (the Видин–Ботевград
+  "100% без открита процедура" line).
 - **Save/share:** "Запази проект" → localStorage; `?q=` share link; "Моите досиета" list at `/procurement/projects`.
 - Optional editorial extras entered inline for the ring-road file (curated `announcedBudget` + `benchmark` +
-  `nature`) so the honesty block is real — held in the saved artifact, not yet a committed repo file.
+  `advance` + `nature`) so the honesty block is real — held in the saved artifact, not yet a committed repo file.
 - **PDF export** (§4.7): `@media print` stylesheet + "Изтегли PDF" `window.print()` — in P1, cheap given the
   report layout, and a headline capability.
 - Social card: "€1.07 млрд обявени · €X договорени · €150–400 млн по еталон" (`naiasno-post` DATA, fact-checked).
@@ -668,6 +725,11 @@ The starting gesture for every file — curated or DIY — is the **existing com
 **Phase 2: on-ramps, richer curation, more example files.**
 - The "проследи като досие" on-ramp from contract/tender detail + the search-box footer link (§4.3b); the
   "broader matches" (looser-search) candidate panel for additions.
+- **The "провери твърдение" claim box (§0g.4)** — keyword extraction into the picker (the AI parse waits for
+  §6). Ships with the **claims ledger** section (§4.2.6b) + the `claims[]` field, curated-tier only.
+- **Subcontractor blind-spot node (§0g.2)** — the «подизпълнители» dashed node keyed off `inhouseAwarderEiks`
+  + curated `knownSubcontractors[]`, and the curated `advance` honesty figure + progress pull-quote (§0g.3).
+  All curated Tier-B — authored inline on the Видин–Ботевград / ring-road flagships.
 - **EU funds as a member type:** ship `search_fund_projects` (§4.1) + the ЕВРОФОНДОВЕ search group + the
   Европейско финансиране (ИСУН) block (§4.2.3b) — so a curator can hand-attach an ИСУН project (договорено/
   изплатено/усвоено %, no dates). This is how the "funding" stage lands, join-key-free (§0d).
@@ -702,8 +764,18 @@ The starting gesture for every file — curated or DIY — is the **existing com
 - **Contract→lot linkage is title-parsed** (`"Обособена позиция N"` → `lots[].lotId`, `contractTitle.ts`),
   not a hard FK → partial coverage. Contracts without the prefix attach at `unp` level (no lot badge) —
   labelled honestly. Future: persist a derived `lot_id` column (as 050 does `lot_name`).
-- **Announced-figure freshness.** Budget allocations get redirected (the €920M reroute). `announcedBudget.asOf`
-  + a note field; treat as a dated snapshot, not a live number.
+- **Announced- & advance-figure freshness.** Budget allocations get redirected (the €920M reroute) and
+  advances are dated events. `announcedBudget.asOf` / `advance.asOf` + a note field; treat both as dated
+  snapshots, not live numbers.
+- **Subcontractor layer is a genuine blind spot, not a bug (§0g.2).** The money trail stops at the in-house
+  head contract (Автомагистрали ЕАД → private firms is absent from ЦАИС). The «подизпълнители» node must read
+  as *"не се публикува"*, never imply we've traced it. Curated `knownSubcontractors[]` is explicitly sourced
+  (Сметна палата / news), so a reader can tell our data from a third-party finding.
+- **Blank `procurement_method` skews the "как е възложено" strip (§0g.1).** ~€2.66bn of АПИ awards carry an
+  empty `procurement_method` (measured); a naive split would understate non-competitive share. Bucket blanks
+  as "неуточнен метод" (a third, neutral-grey band) rather than folding them into "открита" — and flag a
+  back-classification pass (from `procurement_method_rationale` / `number_of_tenderers` / procedure type) as a
+  prerequisite before the strip is presented as a definitive competitive/non-competitive ratio.
 - **Payments stage downscoped (§0d, researched 2026-07-19).** No bulk УНП↔ИСУН key (EIK = only robust join;
   ~17% via `europeanProgram` regex) AND ИСУН has no bulk payment dates → render an EU-funding annotation
   (totals), never a dated «плащане» node. Be honest ("плащания: не се проследяват").
