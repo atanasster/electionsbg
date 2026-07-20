@@ -12,7 +12,15 @@ import { Candidate } from "./components/candidates/Candidate";
 import { PersonDashboard } from "./person/PersonProfileScreen";
 import { usePersonProfile } from "./person/usePersonProfile";
 
-// Resolve a candidate slug (c-{party}-… | mp-{id}) to its owning person's slug.
+// A candidate slug is `mp-{id}` or `c-…`; anything else (spaces, Cyrillic) is a bare-name
+// SEO/legacy URL. The two forms resolve through different lookups.
+const CANDIDATE_SLUG_RE = /^(mp-\d+|c-)/;
+
+// Resolve a candidate URL param to its owning person's slug so BOTH the id form
+// (`/candidate/mp-5229`) and the bare-name form (`/candidate/Мария Балъкчиева`) render the
+// same person dashboard. A slug goes through candidate_person_slug (exact); a bare name goes
+// through candidate_person_by_name (unambiguous match only — a >1-namesake name returns null
+// and the caller falls through to the legacy chooser).
 // `undefined` = resolving, `null` = no public person (fall through), string = the person slug.
 const useCandidatePerson = (id?: string): string | null | undefined => {
   const [personSlug, setPersonSlug] = useState<string | null | undefined>(
@@ -25,7 +33,10 @@ const useCandidatePerson = (id?: string): string | null | undefined => {
       setPersonSlug(null);
       return;
     }
-    fetch(`/api/db/candidate-person?slug=${encodeURIComponent(id)}`)
+    const query = CANDIDATE_SLUG_RE.test(id)
+      ? `slug=${encodeURIComponent(id)}`
+      : `name=${encodeURIComponent(id)}`;
+    fetch(`/api/db/candidate-person?${query}`)
       .then((r) => r.json())
       .then((j: { personSlug: string | null }) => {
         if (live) setPersonSlug(j?.personSlug ?? null);
