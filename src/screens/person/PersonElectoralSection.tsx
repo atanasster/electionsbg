@@ -82,6 +82,17 @@ export const PersonElectoralSection: FC<Props> = ({
     });
   }, [row, name, selectedCycle, prevElections, findParty, findRegion]);
 
+  // The trajectory is the person's WHOLE arc, so it always shows the fullest history — the
+  // longest snapshot across the person's rows — never clipped to the selected cycle (an older
+  // cycle's row only carries history up to that election).
+  const fullHistory = useMemo(() => {
+    const longest = rows
+      .map((r) => r.history)
+      .filter((h) => (h?.length ?? 0) > 0)
+      .sort((a, b) => b.length - a.length)[0];
+    return longest ?? [];
+  }, [rows]);
+
   // No election with actual results → no electoral section (a candidacy role alone isn't
   // enough to show a dashboard of empty cards).
   if (dataCycles.length === 0 || !summary) return null;
@@ -149,7 +160,11 @@ export const PersonElectoralSection: FC<Props> = ({
           <CandidateTopRegionCard data={summary} />
         </div>
         <CandidateRegionsTile data={summary} linkSlug={candidateSlug} />
-        <CandidateTrajectoryTile data={summary} />
+        <CandidateTrajectoryTile
+          data={
+            fullHistory.length ? { ...summary, history: fullHistory } : summary
+          }
+        />
       </DashboardSection>
 
       {summary &&
