@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-07-19T19:24:31.569Z",
+  "lastSuccessfulIngest": "2026-07-20T06:56:58.174Z",
   "skill": "update-procurement",
-  "summary": "eop tenders refresh (recent-day поръчки shards → PG); hub_stats re-based (appeals 7841, ngos 331, places 868)"
+  "summary": "EOP check: 0 new договори rows, tenders byte-identical (07-19 evening ingest already captured 07-19)"
 }

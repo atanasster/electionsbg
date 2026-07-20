@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-19T15:58:17.500Z",
+  "generatedAt": "2026-07-20T07:00:59.074Z",
   "nodes": [
     {
       "id": "src:water",
@@ -279,6 +279,7 @@
       "url": "https://sanctionssearch.ofac.treas.gov/",
       "origin": "intl",
       "cadence": "weekly",
+      "freshness": "2026-07-20T06:08:49.083Z",
       "skills": [
         "update-persons"
       ],
@@ -287,7 +288,8 @@
           "id": "ofac_sanctions",
           "label": "OFAC SDN — Bulgaria-linked designations (sanctions facet)",
           "url": "https://www.treasury.gov/ofac/downloads/sdn.csv",
-          "cadence": "weekly"
+          "cadence": "weekly",
+          "freshness": "2026-07-20T06:08:49.083Z"
         }
       ],
       "x": 28,
@@ -318,6 +320,7 @@
       "url": "https://comdos.bg/",
       "origin": "state",
       "cadence": "monthly",
+      "freshness": "2026-07-20T06:08:49.083Z",
       "skills": [
         "update-persons"
       ],
@@ -326,7 +329,8 @@
           "id": "comdos_ds",
           "label": "Комисия по досиетата (comdos.bg) — решения (ДС facet)",
           "url": "https://comdos.bg/%D0%9D%D0%B0%D1%87%D0%B0%D0%BB%D0%BE/%D0%90%D1%80%D1%85%D0%B8%D0%B2_%D0%A0%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D1%8F",
-          "cadence": "monthly"
+          "cadence": "monthly",
+          "freshness": "2026-07-20T06:08:49.083Z"
         }
       ],
       "x": 28,
@@ -357,6 +361,7 @@
       "url": "https://www.constcourt.bg/bg/composition",
       "origin": "state",
       "cadence": "monthly",
+      "freshness": "2026-07-20T06:08:49.083Z",
       "skills": [
         "update-persons"
       ],
@@ -365,7 +370,8 @@
           "id": "regulator_rosters",
           "label": "Регулатори / независими органи — състави (regulator facet)",
           "url": "https://www.constcourt.bg/bg/composition",
-          "cadence": "monthly"
+          "cadence": "monthly",
+          "freshness": "2026-07-20T06:08:49.083Z"
         }
       ],
       "x": 28,
@@ -497,7 +503,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-19T06:09:20.174Z",
+      "freshness": "2026-07-20T06:08:49.083Z",
       "skills": [
         "update-procurement"
       ],
@@ -507,7 +513,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-07-19T06:09:20.174Z"
+          "freshness": "2026-07-20T06:08:49.083Z"
         }
       ],
       "x": 28,
@@ -613,7 +619,7 @@
       "url": "https://2020.eufunds.bg/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-07-18T06:08:52.941Z",
+      "freshness": "2026-07-20T06:08:49.083Z",
       "skills": [
         "update-funds"
       ],
@@ -630,7 +636,7 @@
           "label": "ИСУН EU funds (projects)",
           "url": "https://2020.eufunds.bg/bg/0/0/Project/ExportToExcel",
           "cadence": "weekly",
-          "freshness": "2026-07-13T07:01:47.350Z"
+          "freshness": "2026-07-20T06:08:49.083Z"
         }
       ],
       "x": 28,
@@ -1302,7 +1308,7 @@
       "url": "https://www.nsi.bg/bg/content/2432/",
       "origin": "state",
       "cadence": "weekly",
-      "freshness": "2026-07-13T07:01:47.350Z",
+      "freshness": "2026-07-20T06:08:49.083Z",
       "skills": [],
       "sources": [
         {
@@ -1317,7 +1323,7 @@
           "label": "Фискален съвет — publications",
           "url": "https://www.fiscal-council.bg/bg/publikacii",
           "cadence": "weekly",
-          "freshness": "2026-07-13T07:01:47.350Z"
+          "freshness": "2026-07-20T06:08:49.083Z"
         },
         {
           "id": "api_road_charges",
@@ -1446,7 +1452,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-19T06:09:20.174Z",
+      "freshness": "2026-07-20T06:08:49.083Z",
       "skills": [
         "update-prices"
       ],
@@ -1456,7 +1462,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-07-19T06:09:20.174Z"
+          "freshness": "2026-07-20T06:08:49.083Z"
         }
       ],
       "x": 28,

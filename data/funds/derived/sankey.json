@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-07-17T14:13:32.337Z",
-  "totalContracted": 43932011944.54,
+  "generatedAt": "2026-07-20T06:59:18.211Z",
+  "totalContracted": 43933047764.78,
   "topN": 6,
   "nodes": [
     {
       "id": "fund:RRP",
       "kind": "fund",
       "label": "RRP (ПВУ)",
-      "totalEur": 17754317833.23
+      "totalEur": 17755353653.47
     },
     {
       "id": "prog:2021BG-RRP",
       "kind": "programme",
       "label": "Национален план за възстановяване и устойчивост",
-      "totalEur": 17754317833.23,
+      "totalEur": 17755353653.47,
       "bucket": "RRP (ПВУ) RRP"
     },
     {
@@ -204,7 +204,7 @@
     {
       "source": "fund:RRP",
       "target": "prog:2021BG-RRP",
-      "value": 17754317833.23
+      "value": 17755353653.47
     },
     {
       "source": "fund:CF",
