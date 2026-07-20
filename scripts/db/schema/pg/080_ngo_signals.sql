@@ -217,24 +217,38 @@ board AS (  -- high-confidence politician / magistrate board members (Phase 2)
   FROM ngo_board_links WHERE eik = p_eik
 ),
 rp AS (  -- related-party proximity: a high-confidence board member who ALSO
-         -- controls a company (declared holdings — magistrate_company /
-         -- company_politicians) that wins public procurement, the firm being a
-         -- DIFFERENT entity than this NGO. The strict "self-dealing counterparty"
-         -- join is structurally empty under the namesake guard (0 matches, see
-         -- docs/plans/ngo-risk-signals-v1.md), so this flags the board member's
-         -- own public-contractor firm instead. A trace, not proof.
-  SELECT count(DISTINCT b.person)::int AS n,
-         min(b.person) AS person_name,
-         min(tc.name)  AS firm_name
-  FROM ngo_board_links b
-  JOIN (SELECT eik AS pco, name AS pnm FROM magistrate_company
-        UNION ALL
-        SELECT eik, politician FROM company_politicians) pc
-    ON translit_bg_latin(pc.pnm) = translit_bg_latin(b.person)
-  JOIN tr_companies tc ON tc.uic = pc.pco
-  WHERE b.eik = p_eik AND b.confidence = 'high'
-    AND pc.pco <> p_eik
-    AND EXISTS (SELECT 1 FROM contracts ct WHERE ct.contractor_eik = pc.pco)
+         -- controls a company (declared holdings) that wins public procurement,
+         -- the firm being a DIFFERENT entity than this NGO. The strict "self-dealing
+         -- counterparty" join is structurally empty under the namesake guard (0
+         -- matches, see docs/plans/ngo-risk-signals-v1.md), so this flags the board
+         -- member's own public-contractor firm instead. A trace, not proof.
+         --
+         -- Namesake-safe: the MP/official arm joins company_politicians on the
+         -- person REF (identity), not the name; the magistrate arm matches the
+         -- magistrate's (globally-unique, cc=1) name against magistrate_company
+         -- (which carries no id). person_name + firm_name are read from the SAME
+         -- row (parallel array_agg on one ORDER BY) so we never pair a person with
+         -- another member's firm.
+  SELECT count(DISTINCT person)::int AS n,
+         (array_agg(person ORDER BY person, firm))[1] AS person_name,
+         (array_agg(firm   ORDER BY person, firm))[1] AS firm_name
+  FROM (
+    SELECT b.person, tc.name AS firm
+    FROM ngo_board_links b
+    JOIN company_politicians cp ON cp.ref = b.ref AND cp.eik <> b.eik
+    JOIN tr_companies tc ON tc.uic = cp.eik
+    WHERE b.eik = p_eik AND b.confidence = 'high'
+      AND EXISTS (SELECT 1 FROM contracts ct WHERE ct.contractor_eik = cp.eik)
+    UNION
+    SELECT b.person, tc.name
+    FROM ngo_board_links b
+    JOIN magistrate_company mc
+      ON translit_bg_latin(mc.magistrate_name) = translit_bg_latin(b.person)
+     AND mc.eik <> b.eik
+    JOIN tr_companies tc ON tc.uic = mc.eik
+    WHERE b.eik = p_eik AND b.confidence = 'high' AND b.kind = 'magistrate'
+      AND EXISTS (SELECT 1 FROM contracts ct WHERE ct.contractor_eik = mc.eik)
+  ) mf
 ),
 sig AS (
   SELECT ord, code, obj FROM (
