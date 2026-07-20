@@ -123,12 +123,13 @@ export const PersonMoneyTimeline: FC<{ slug: string }> = ({ slug }) => {
     >
       <Card>
         <CardContent className="pt-6">
-          {/* Money columns rise flush from the top of the government strip below — height ∝ €,
-              colour = the cabinet's party, so each column reads as "won under this government". */}
+          {/* Money columns — height ∝ €, colour = the cabinet's party. They sit on the chart's
+              own baseline; the government strip is a separate band below (not glued). */}
           <div className="relative w-full" style={{ height: PLOT_H }}>
             <div className="absolute left-0 top-0 text-[10px] tabular-nums text-muted-foreground">
               {formatEurCompact(model.max)}
             </div>
+            <div className="absolute inset-x-0 bottom-0 h-px bg-border" />
             {model.bars.map((b) => (
               <div
                 key={b.id}
@@ -150,12 +151,14 @@ export const PersonMoneyTimeline: FC<{ slug: string }> = ({ slug }) => {
               />
             ))}
           </div>
-          {/* Shared government strip (small/compact) — the labelled time axis the columns sit
-              on; same window → each band lines up under its column. */}
+          {/* Shared government strip (small/compact) — a separate context band below the chart
+              (mt gap so it isn't glued to the columns); same window → each band still lines up
+              under its column. */}
           <ChartCabinetStrip
             fromDate={model.fromDate}
             toDate={model.toDate}
             compact
+            className="mt-3"
           />
           {/* Shared tooltip — a sibling of the relative plot, never inside it (house rule:
               it's position:absolute against the nearest non-static ancestor; CardContent is
