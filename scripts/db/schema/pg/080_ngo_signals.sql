@@ -137,7 +137,9 @@ BEGIN
   FROM matched
   ORDER BY eik, name_fold,
            CASE kind WHEN 'magistrate' THEN 0 WHEN 'official' THEN 1 ELSE 2 END,
-           cc;
+           cc, ref;  -- ref is the final deterministic tiebreak: two officials
+                     -- sharing a fold-name must not flip the winning slug between
+                     -- rebuilds (determinism — the payload is compared in tests).
   GET DIAGNOSTICS n = ROW_COUNT;
   RETURN n;
 END $$;

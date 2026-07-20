@@ -6,9 +6,11 @@
 // We instead match the person's name against the NGO's OWN board officers
 // (tr_officers roles ngo_board/representative/trustee/verifier, already in PG),
 // namesake-guarded via officer_name_counts. Two rosters:
-//   - officials → loaded here into `official_roster` from data/officials/derived/
-//     company_links.json (names + person refs only; the served artifact is
-//     ngo_board_links, so this stays a build-time lookup, DB-only, no JSON serving);
+//   - officials → loaded here into `official_roster` from the full officials
+//     universe: data/officials/index.json (executive) + municipal/index.json
+//     (mayors, councillors, …), with derived/company_links.json as a fallback.
+//     Names + person refs only; the served artifact is ngo_board_links, so this
+//     stays a build-time lookup, DB-only, no JSON serving;
 //   - magistrates → already in PG (the `magistrate` table, migration 070);
 //   - MPs → loaded here into `mp_roster` from the all-time MP list
 //     (data/parliament/index.json); names are matched against NGO board officers
@@ -47,7 +49,15 @@ const MP_INDEX = fileURLToPath(
   new URL("../../data/parliament/index.json", import.meta.url),
 );
 
-type OfficialEntry = { name: string; slug: string };
+// index.json exec entries carry `category`; municipal entries carry `role`.
+// Either is used as the roster `role` label (resolve_persons reads it into
+// person_role), so a broadened official keeps a meaningful role, not a generic one.
+type OfficialEntry = {
+  name: string;
+  slug: string;
+  role?: string;
+  category?: string;
+};
 type OfficialsIndexFile = { entries?: OfficialEntry[] };
 type OfficialLinksFile = {
   byOfficial: Record<
@@ -90,13 +100,15 @@ export const loadNgoBoardLinksPg = async (): Promise<{
       const j = JSON.parse(
         readFileSync(OFFICIALS_EXEC, "utf8"),
       ) as OfficialsIndexFile;
-      for (const e of j.entries ?? []) add(e.name, e.slug, null, "executive");
+      for (const e of j.entries ?? [])
+        add(e.name, e.slug, e.category ?? e.role ?? null, "executive");
     }
     if (existsSync(OFFICIALS_MUNI)) {
       const j = JSON.parse(
         readFileSync(OFFICIALS_MUNI, "utf8"),
       ) as OfficialsIndexFile;
-      for (const e of j.entries ?? []) add(e.name, e.slug, null, "municipal");
+      for (const e of j.entries ?? [])
+        add(e.name, e.slug, e.role ?? e.category ?? null, "municipal");
     }
     if (existsSync(OFFICIALS_LINKS)) {
       const j = JSON.parse(
@@ -107,7 +119,7 @@ export const loadNgoBoardLinksPg = async (): Promise<{
     }
     if (seen.size === 0)
       console.warn(
-        "[ngo-board-links] no officials indexes found — official leg empty",
+        "[ngo-board-links] officials indexes missing or empty — official leg empty",
       );
     await withClient(async (c) => {
       await c.query("TRUNCATE official_roster");
