@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { ExternalLink, Sparkles, AlertTriangle } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ExternalLink, Sparkles, AlertTriangle, Landmark } from "lucide-react";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import {
   Agency,
@@ -91,17 +92,29 @@ export const AgencyProfileCard: FC<Props> = ({
               {profile.agencyId}
             </span>
           </div>
-          {agency?.website ? (
-            <a
-              href={agency.website}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="text-[10px] text-primary hover:underline flex items-center gap-1"
-              title={agency.website}
-            >
-              <ExternalLink className="h-3 w-3" />
-            </a>
-          ) : null}
+          <div className="flex items-center gap-2 shrink-0">
+            {agency?.eik ? (
+              <Link
+                to={`/company/${agency.eik}`}
+                className="text-primary hover:text-primary/80"
+                title={t("polls_public_money_hint")}
+                aria-label={t("polls_public_money_hint")}
+              >
+                <Landmark className="h-3.5 w-3.5" />
+              </Link>
+            ) : null}
+            {agency?.website ? (
+              <a
+                href={agency.website}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="text-[10px] text-primary hover:underline flex items-center gap-1"
+                title={agency.website}
+              >
+                <ExternalLink className="h-3 w-3" />
+              </a>
+            ) : null}
+          </div>
         </div>
       }
     >
