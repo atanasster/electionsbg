@@ -150,8 +150,21 @@ export const PersonElectoralSection: FC<Props> = ({
             </span>
           )}
         </div>
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          <CandidatePreferencesCard data={summary} />
+        {/* The paper/machine split card self-hides when the cycle has no split
+            (all-machine or paper-only), so the grid width tracks the card count
+            — 3 cards fill 3 columns instead of leaving a ragged empty column. */}
+        <div
+          className={
+            summary.paperMachine
+              ? "grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4"
+              : "grid grid-cols-1 gap-3 sm:grid-cols-3"
+          }
+        >
+          <CandidatePreferencesCard
+            data={summary}
+            linkSlug={candidateSlug}
+            election={selectedCycle}
+          />
           <CandidatePaperMachineCard
             paperMachine={summary.paperMachine}
             priorElection={summary.priorElection}

@@ -298,7 +298,13 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
       />
 
       {/* MP-only: voting scorecard + roll-call + declared assets (no PG equivalent). */}
-      {mpId != null && <PersonMpSections name={p.name} mpId={mpId} />}
+      {mpId != null && (
+        <PersonMpSections
+          name={p.name}
+          mpId={mpId}
+          hasMoneyTimeline={p.procuredEur > 0}
+        />
+      )}
 
       {/* Non-MP official: declared assets (Court of Audit). MPs get theirs above. */}
       {mpId == null && officialSlug && (

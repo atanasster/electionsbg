@@ -1,6 +1,6 @@
 import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Sparkles, ChevronDown, ChevronUp } from "lucide-react";
+import { Sparkles, ChevronDown, ChevronUp, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { Link } from "@/ux/Link";
 import { useMps } from "@/data/parliament/useMps";
@@ -74,6 +74,15 @@ export const MpTwinsTile: FC<Props> = ({ name }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entry, seedParty, sessionParty]);
 
+  // Most-different peers (lowest cosine) — the one bit of signal the old
+  // "Сходно гласуващи" browser carried that the twins split didn't. Folded in
+  // here so similarity lives in ONE section instead of two near-identical ones.
+  const mostDifferent = useMemo(
+    () => (entry?.bottomK ?? []).filter((p) => partyOf(p.mpId)),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [entry, sessionParty],
+  );
+
   if (simLoading || mpsLoading) {
     return (
       <Card className="my-4" aria-hidden>
@@ -94,11 +103,19 @@ export const MpTwinsTile: FC<Props> = ({ name }) => {
   const visibleSame = expanded
     ? sameParty
     : sameParty.slice(0, PREVIEW_PER_GROUP);
+  const visibleDiff = expanded
+    ? mostDifferent
+    : mostDifferent.slice(0, PREVIEW_PER_GROUP);
   const hiddenCount =
     crossParty.length +
-    sameParty.length -
+    sameParty.length +
+    mostDifferent.length -
     visibleCross.length -
-    visibleSame.length;
+    visibleSame.length -
+    visibleDiff.length;
+
+  // "see full ranking" targets the standalone screen keyed by the roster id.
+  const rosterMpId = mp?.id ?? entry.mpId;
 
   const renderRow = (
     p: { mpId: number; score: number; overlap: number },
@@ -186,6 +203,22 @@ export const MpTwinsTile: FC<Props> = ({ name }) => {
           </section>
         )}
 
+        {mostDifferent.length > 0 && (
+          <section className="mt-4 pt-4 border-t">
+            <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
+              {t("mp_similarity_opposed") || "Most different"}
+              <span className="ml-1 font-normal normal-case">
+                ({mostDifferent.length})
+              </span>
+            </h3>
+            <ul className="divide-y">
+              {visibleDiff.map((p) =>
+                renderRow(p, !!seedParty && partyOf(p.mpId) !== seedParty),
+              )}
+            </ul>
+          </section>
+        )}
+
         {hiddenCount > 0 && (
           <button
             type="button"
@@ -206,6 +239,17 @@ export const MpTwinsTile: FC<Props> = ({ name }) => {
             <ChevronUp className="h-3 w-3" />
           </button>
         )}
+
+        <div className="mt-4 pt-3 border-t">
+          <Link
+            to={`/parliament/similarity/${rosterMpId}`}
+            underline={false}
+            className="text-xs text-primary hover:underline inline-flex items-center gap-1"
+          >
+            {t("mp_similarity_see_full") || "See full ranking"}
+            <ArrowRight className="h-3 w-3" />
+          </Link>
+        </div>
       </CardContent>
     </Card>
   );

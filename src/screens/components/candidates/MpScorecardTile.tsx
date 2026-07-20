@@ -11,11 +11,23 @@ import {
   Vote,
   Landmark,
   CalendarCheck,
+  ChevronRight,
   LucideIcon,
 } from "lucide-react";
 import { useMpScorecard } from "@/data/parliament/useMpScorecard";
 
-type Props = { name: string };
+// Anchors on the person/candidate dashboard each scorecard metric drills into
+// (the fuller breakdown lives further down the same page). Passed in by the
+// host so the tile stays decoupled from the page layout; omit to keep a metric
+// static (e.g. the standalone /candidate view has no such sections).
+export type ScorecardLinks = {
+  loyalty?: string;
+  attendance?: string;
+  netWorth?: string;
+  connectedContracts?: string;
+};
+
+type Props = { name: string; links?: ScorecardLinks };
 
 const numberFmt = (locale: string) =>
   new Intl.NumberFormat(locale === "bg" ? "bg-BG" : "en-GB");
@@ -45,6 +57,9 @@ type MetricProps = {
   /** Tint the value text amber when this metric reads as a concern.
    *  e.g. high contracts-to-connected-firms or unusually low attendance. */
   warn?: boolean;
+  /** In-page anchor (e.g. "#parliament") the metric drills into. When set the
+   *  whole tile becomes an anchor link with a hover affordance + corner chevron. */
+  to?: string;
 };
 
 const Metric: FC<MetricProps> = ({
@@ -53,28 +68,50 @@ const Metric: FC<MetricProps> = ({
   value,
   context,
   warn,
-}) => (
-  <div className="flex h-full flex-col gap-1 rounded-xl border bg-card p-3 shadow-sm">
-    <div className="flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
-      <Icon className="h-3.5 w-3.5 shrink-0" />
-      <span className="line-clamp-2 break-words leading-tight">{label}</span>
-    </div>
-    <div
-      className={`text-2xl font-bold tabular-nums leading-tight ${
-        warn ? "text-amber-600" : ""
-      }`}
-    >
-      {value}
-    </div>
-    {context ? (
-      <div className="mt-auto pt-0.5 text-[10px] text-muted-foreground tabular-nums">
-        {context}
+  to,
+}) => {
+  const body = (
+    <>
+      {to ? (
+        <ChevronRight
+          className="absolute right-2.5 top-3 h-3.5 w-3.5 text-muted-foreground opacity-50"
+          aria-hidden
+        />
+      ) : null}
+      <div className="flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+        <Icon className="h-3.5 w-3.5 shrink-0" />
+        <span className="line-clamp-2 break-words leading-tight">{label}</span>
       </div>
-    ) : null}
-  </div>
-);
+      <div
+        className={`text-2xl font-bold tabular-nums leading-tight ${
+          warn ? "text-amber-600" : ""
+        }`}
+      >
+        {value}
+      </div>
+      {context ? (
+        <div className="mt-auto pt-0.5 text-[10px] text-muted-foreground tabular-nums">
+          {context}
+        </div>
+      ) : null}
+    </>
+  );
+  const shell =
+    "flex h-full flex-col gap-1 rounded-xl border bg-card p-3 shadow-sm";
+  if (to) {
+    return (
+      <a
+        href={to}
+        className={`${shell} relative transition-colors hover:bg-accent/40 hover:border-primary/40`}
+      >
+        {body}
+      </a>
+    );
+  }
+  return <div className={`${shell} relative`}>{body}</div>;
+};
 
-export const MpScorecardTile: FC<Props> = ({ name }) => {
+export const MpScorecardTile: FC<Props> = ({ name, links }) => {
   const { t, i18n } = useTranslation();
   const { scorecard, isLoading } = useMpScorecard(name);
   const lang = i18n.language;
@@ -151,6 +188,7 @@ export const MpScorecardTile: FC<Props> = ({ name }) => {
           label={t("mp_scorecard_loyalty") || "Party loyalty"}
           value={formatPct(scorecard.loyalty.value, lang)}
           context={loyaltyContext}
+          to={links?.loyalty}
         />
         <Metric
           icon={CalendarCheck}
@@ -158,12 +196,14 @@ export const MpScorecardTile: FC<Props> = ({ name }) => {
           value={formatPct(scorecard.attendance.value, lang)}
           context={attendanceContext}
           warn={attendanceWarn}
+          to={links?.attendance}
         />
         <Metric
           icon={Wallet}
           label={t("mp_scorecard_net_worth") || "Declared net worth"}
           value={formatCompactEur(scorecard.netWorth.value, lang)}
           context={netWorthContext}
+          to={scorecard.netWorth.value != null ? links?.netWorth : undefined}
         />
         <Metric
           icon={Landmark}
@@ -178,6 +218,11 @@ export const MpScorecardTile: FC<Props> = ({ name }) => {
           }
           context={contractsContext}
           warn={contractsWarn}
+          to={
+            scorecard.connectedContracts.value != null
+              ? links?.connectedContracts
+              : undefined
+          }
         />
       </div>
     </section>

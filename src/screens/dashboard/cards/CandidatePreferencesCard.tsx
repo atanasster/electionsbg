@@ -5,10 +5,27 @@ import { CandidateDashboardSummary } from "@/data/dashboard/candidateDashboardTy
 import { formatPct, formatThousands, localDate } from "@/data/utils";
 import { StatCard } from "../StatCard";
 
-type Props = { data: CandidateDashboardSummary };
+type Props = {
+  data: CandidateDashboardSummary;
+  // When set, the whole card drills into the candidate's regional preference
+  // breakdown, scoped to the selected cycle (?elections=<election>).
+  linkSlug?: string;
+  election?: string;
+};
 
-export const CandidatePreferencesCard: FC<Props> = ({ data }) => {
+export const CandidatePreferencesCard: FC<Props> = ({
+  data,
+  linkSlug,
+  election,
+}) => {
   const { t } = useTranslation();
+  const slug = linkSlug ?? encodeURIComponent(data.name);
+  const to = data.regions.length
+    ? {
+        pathname: `/candidate/${slug}/regions`,
+        search: election ? `?elections=${election}` : undefined,
+      }
+    : undefined;
   const delta = data.deltaPct;
   const sign = (delta ?? 0) >= 0 ? "+" : "";
   const Icon =
@@ -32,6 +49,7 @@ export const CandidatePreferencesCard: FC<Props> = ({ data }) => {
     <StatCard
       label={t("dashboard_candidate_preferences")}
       hint={t("dashboard_candidate_preferences_hint")}
+      to={to}
     >
       <div className="flex items-baseline gap-2">
         <Vote className="h-5 w-5 text-muted-foreground shrink-0" />

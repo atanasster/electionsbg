@@ -7,7 +7,6 @@ import { useMps } from "@/data/parliament/useMps";
 import { useMpLoyalty } from "@/data/parliament/votes/useMpLoyalty";
 import { useRollcallIndex } from "@/data/parliament/votes/useRollcallIndex";
 import { MpDissentsSection } from "./MpDissentsSection";
-import { MpSimilarityBrowser } from "@/screens/components/votes/MpSimilarityBrowser";
 
 type Props = { name: string; linkSlug?: string };
 
@@ -128,8 +127,6 @@ export const MpVotingTile: FC<Props> = ({ name }) => {
         )}
 
         <MpDissentsSection mpId={mp?.id} name={name} />
-
-        <MpSimilarityBrowser mpId={mp?.id} name={name} />
 
         {recent.length > 0 && mp && (
           <div className="mt-5 pt-4 border-t">

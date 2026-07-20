@@ -21,10 +21,13 @@ import { MpVotingSection } from "@/screens/components/candidates/MpVotingSection
 import { MpAssetsSummary } from "@/screens/components/candidates/MpAssetsSummary";
 import { MpFinancialDeclarations } from "@/screens/components/candidates/MpFinancialDeclarations";
 
-export const PersonMpSections: FC<{ name: string; mpId: number }> = ({
-  name,
-  mpId,
-}) => {
+export const PersonMpSections: FC<{
+  name: string;
+  mpId: number;
+  // True when the page renders the PersonMoneyTimeline (id="person-money") below,
+  // so the scorecard's connected-contracts metric can deep-link to it.
+  hasMoneyTimeline?: boolean;
+}> = ({ name, mpId, hasMoneyTimeline }) => {
   const { t } = useTranslation();
   const { selected } = useElectionContext();
   const { entry } = useMpEntry(mpId);
@@ -41,7 +44,18 @@ export const PersonMpSections: FC<{ name: string; mpId: number }> = ({
 
   return (
     <CandidateMpProvider value={{ id: mpId, name, entry: entry ?? null }}>
-      <MpScorecardTile name={name} />
+      {/* Each scorecard KPI drills into its fuller breakdown further down the
+          page: loyalty/attendance → the roll-call section, net worth → the
+          declarations section, connected contracts → the money timeline. */}
+      <MpScorecardTile
+        name={name}
+        links={{
+          loyalty: maybeServedInSelectedNs ? "#parliament" : undefined,
+          attendance: maybeServedInSelectedNs ? "#parliament" : undefined,
+          netWorth: "#declarations",
+          connectedContracts: hasMoneyTimeline ? "#person-money" : undefined,
+        }}
+      />
       {maybeServedInSelectedNs && (
         <MpVotingSection name={name} linkSlug={linkSlug} mpId={mpId} />
       )}
