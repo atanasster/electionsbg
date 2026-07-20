@@ -129,6 +129,11 @@ Where §0 conflicts with a later section, §0 wins.
 A live hand-analysis of a real topic (cost of running an election: **ballot printing** vs **machine voting**)
 was assembled by hand from the corpus and exposed where this plan is *correct but slow for a researcher*. The
 §2 model (search-seeds-humans-refine, УНП spine, honesty/gap) stands; these six close the time-to-insight gap.
+**FOLDED into the body (2026-07-20):** multi-thread `search` (§2 formula + artifact), `recurrence` + the
+per-cycle rollup (§4.2.2b), the cross-awarder `buyerEik` confidence rule (§2), the gap-node `reason`/authority
+(§4.2.3 «празнина»), the extended `nature` taxonomy (§2/§4.4), starter templates (§4.3b/§10 P1), and the
+broader-matches panel promoted to P1 (§4.3/§10). The `benchmark → unitCost`/compare generalization already
+rides `benchmark.unit` (§2) + a compare route (§4.5).
 The founding facts from that case (for the flagship + the tests): ballot printing = **Печатница на БНБ** (EIK
 130800278), €18.6M / 19 contracts under ЦИК (EIK 176481459), ~€0.9–1.1M per plain parliamentary election;
 machine chain = **Сиела Норма** (EIK 130199580), €67.4M; the printing awarder **moved МС → ЦИК ~2016** (pre-2016
@@ -296,8 +301,8 @@ auto-classifier (search seeds, humans refine). Not payment reconciliation for no
 A project file is **a saved search + manual overrides**, generic across domains. Membership resolves as:
 
 ```
-matched   = search(contracts.title_fold) ∪ search(tenders.subject_fold)   // recall, live — each row scored
-autoIn    = { r ∈ matched : confidence(r) ≥ threshold }                    // pre-checked in the picker
+matched   = ⋃ᵢ [ search(sᵢ, contracts.title_fold) ∪ search(sᵢ, tenders.subject_fold) ]  // search is an ARRAY of threads sᵢ (§0f.2), unioned; each thread has its own terms/mode/buyerEik/distinctive/threshold
+autoIn    = { r ∈ matched : confidence(r, r.thread) ≥ r.thread.threshold }  // per-thread threshold; a single-search file is a one-thread array
 seed      = (autoIn ∪ includes) − excludes                                 // human precision (the checkboxes)
 lineage   = tenders(seed.unps)                                             // contract → its procedure (+ its lots[])
           ∪ contracts(seed.unps, tag='contract')                          // procedure → its contract(s)
@@ -339,8 +344,11 @@ resolves to the whole procedure and every sibling lot. Rules:
 **Confidence & the checkboxes (the authoring gesture).** The picker (§4.3) is the existing combined-search
 dropdown with a checkbox per row. `confidence(r)` is a transparent, explainable rule — NOT a classifier:
 does the row carry a *distinctive* query token (e.g. "дъга") vs only a generic landmark token
-("София"/"пътища"/"околовръстен"); + boosts for same-buyer-EIK, a matching road-ref/km-range, and being
-УНП-linked to an already-selected row. Rows `≥ threshold` are auto-checked; the rest show unchecked with a
+("София"/"пътища"/"околовръстен"); + boosts for a matching road-ref/km-range and being УНП-linked to an
+already-selected row. **`buyerEik` is a per-thread recall FILTER only, never a cross-file confidence boost**
+(§0f): a multi-awarder topic — elections span МС pre-2016 + ЦИК after + областни администрации — would have
+its true МС-era printing contracts wrongly demoted by a same-buyer signal. Same-buyer boosts only within a
+single thread's own scope, never across threads. Rows `≥ threshold` are auto-checked; the rest show unchecked with a
 "само спомената" (landmark-only) tag, one tap from inclusion. The checkboxes map straight onto the override
 sets: uncheck an auto-checked row → `excludes`; check a below-threshold row → `includes`. The same score
 becomes the row's "защо е тук?" provenance chip later. This is the object-vs-landmark call search alone
@@ -352,17 +360,17 @@ The stored artifact is tiny and the same shape in both tiers (curated flagship v
 {
   "slug": "sofia-околовръстен-jz-дъга",              // omitted for DIY (URL-encoded instead)
   "title": { "bg": "…", "en": "…" },
-  "search": {                                         // the seed — recall
-    "terms": "околовръстен дъга",                     // matched against title_fold + subject_fold
-    "mode": "any",                                    // phrase | all-words | any
-    "buyerEik": ["000695089"],                        // optional scope to cut false positives
-    "distinctive": ["дъга"],                          // token(s) that drive confidence (auto-derivable: rarest query token)
-    "threshold": 0.6                                  // auto-check rows scoring ≥ this; default tuned per corpus
-  },
+  "search": [                                         // the seed — recall; an ARRAY of unioned threads (§0f.2). A single-search file is a one-element array.
+    { "terms": "околовръстен дъга", "mode": "any",    // matched against title_fold + subject_fold; mode = phrase | all-words | any
+      "buyerEik": ["000695089"],                      // optional per-thread recall scope (NOT a cross-thread confidence signal — §2 confidence rule)
+      "distinctive": ["дъга"], "threshold": 0.6 }     // distinctive token(s) drive confidence (rarest query token); threshold = auto-check cutoff
+  ],                                                  // multi-topic example: [{terms:"бюлетин",buyerEik:["176481459"]},{terms:"СУЕМГ"},{terms:"компютърна обработка"}]
+  "recurrence": { "by": "cycle",                      // OPTIONAL — a recurring project (elections/annual maintenance): fold members into a per-cycle rollup (§0f.4)
+                  "label": { "bg": "по избори", "en": "by election" } },
   "includes": { "contractKeys": ["<key>"], "tenderUnps": ["00044-2015-0031"],
                 "fundContractNumbers": ["BG16M1OP001-1.001-0004"] },            // manual adds (incl. ИСУН fund projects)
   "excludes": { "contractKeys": ["<key>"], "tenderUnps": ["<unp>"] },            // auto-checked rows the user unchecked
-  "nature":   { "00044-2015-0031": "construction" }, // OPTIONAL per-member role label (design/build/…)
+  "nature":   { "00044-2015-0031": "construction" }, // OPTIONAL per-member role: проектиране|строителство|надзор|печат|ИТ обработка|логистика|застраховане|доставка|услуга (§0f); CPV-division fallback
 
   "sector": "roads",                                  // OPTIONAL — unlocks roads-only benchmark
   "status": "procurement",                            // OPTIONAL lifecycle phase for the header
@@ -531,6 +539,12 @@ and the mockup). Sections top→bottom:
      which is precisely Shishkov's "наследство" complaint, quantified.
    Secondary figures (# процедури, # изпълнители, прогнозна стойност labelled "не разход", EU-funded share)
    read as a compact inline stat line under the hero, not a tile grid.
+2b. **Повтарящ се проект — per-cycle rollup (§0f.4).** Present only when the file carries `recurrence`
+   (elections per cycle, annual road maintenance, yearly IT support). The single vertical timeline (#3) renders
+   ONE lifecycle and can't show "all parliamentary printing 2016–2026"; the natural research pivot is
+   group-by-cycle. Render a compact trend table (one row per election/year: Σ contracted, # contracts, top
+   contractor, method mix) + a thin bar-per-cycle CSS strip, *above* the timeline. A plain CSS strip, not a
+   Recharts chart (dataviz rule). Members are grouped by `recurrence.by` (cycle|year).
 3. **The vertical timeline (the body — see the multi-lot mockup).** One time spine, chronological, a **thread
    per procedure** clustered on the spine. A thread is a small TREE (procedure → lots → contracts → annexes),
    because a tender fans out into lots (§2):
@@ -560,7 +574,10 @@ and the mockup). Sections top→bottom:
      per-contract for the ~17% where `europeanProgram` embeds the БФП code. **No dated «плащане» node** — ИСУН
      bulk data has no payment dates (§0d). Otherwise a muted "плащания: не се проследяват" line — honest.
    - **празнина** (gap) — a dashed placeholder for an expected-but-absent stage ("строителна процедура за
-     последните 8 км — още не обявена"). Rendering the *absence* is core to the honesty thesis.
+     последните 8 км — още не обявена"). Rendering the *absence* is core to the honesty thesis. **Optional
+     curated `{ reason, authority, basis, sourceUrl }` (§0f.5)** upgrades it from "missing" to "done off-tender
+     by X": "логистика на хартиени бюлетини — държавна функция (областни администрации + МВР), не по ЗОП" —
+     "why isn't X here?" answered, the elections flagship's punchline.
    - Each row: a small horizontal money bar (scaled to the file max), a **× remove** (membership mode, at the
      row's grain — lot or contract), and a **"защо е тук?"** provenance chip.
    - Build as a bespoke CSS/flex component (the mockups are pure CSS — dataviz rule: heroes are CSS). Two indent
@@ -571,8 +588,9 @@ and the mockup). Sections top→bottom:
    (`добавен ръчно` or, if we ship the suggestion helper, `съвпадение по ЕИК`) with a `× remove`. An honest note:
    "ИСУН публикува договорени и изплатени суми, но не и дати на плащане" — so no dated tranches (§0d). In the
    timeline this also shows as the single **финансиране от ЕС** annotation node (dateless), not a «плащане» event.
-4. **Money split by role/CPV** — проектиране / строителство / надзор (or доставка/услуга/строителство for
-   non-construction), `nature`-first, CPV-division fallback. CSS flex bars.
+4. **Money split by role/CPV** — проектиране / строителство / надзор / печат / ИТ обработка / логистика /
+   застраховане / доставка / услуга (the extended `nature` taxonomy, §0f), `nature`-first, CPV-division
+   fallback. CSS flex bars.
 5. **Contractors table** & **procedures table** — scoped `DbDataTable` over the member sets; rows deep-link
    to `/company/:eik` and `/procurement/tenders/:unp`. Inline member-level red flags via `computeProcurementRisk`.
 6. **Membership editor (mode toggle, screen-only)** — the §2 interactive curator: the search box + "broader
@@ -610,6 +628,11 @@ The starting gesture for every file — curated or DIY — is the **existing com
 - Entry points: a "Създай досие на проект" tile on `/procurement`; the picker's "Създай досие" button in the
   global search dropdown; a **"проследи като досие"** action on any contract/tender detail page (seeds the
   search from that row's title + УНП, pre-checked). The natural on-ramp is the search a user already ran.
+- **Starter templates (§0f.1) — a researcher must not face a blank box.** A small gallery of pre-built
+  multi-thread **starter seeds** on the `/procurement/project` on-ramp + the picker footer ("Избори — машини
+  срещу хартия", "Магистрала Хемус", a hospital) that populate `search` on click. A lightweight, *uncurated*
+  starter-search list — NOT the committed curated-flagship track (Phase 3). Near-zero cost, biggest single
+  lever for "quickly research such topics"; ships in Phase 1.
 - **"Провери твърдение" claim box (§0g.4) — the fact-check on-ramp.** A prompt on `/procurement` ("Провери
   твърдение за обществена поръчка"): the citizen pastes a sentence from the news ("Видин–Ботевград взе 35%
   аванс и нищо не е построено"), we extract the object + firm/number, seed the project search, and land on the
@@ -672,8 +695,10 @@ The starting gesture for every file — curated or DIY — is the **existing com
 ---
 
 ## 5. Data model & SQL performance
-- v1: no new SQL beyond one REGISTRY column flag (`contracts.key filter:"in"`). Member fetch is a
-  key-set `IN` query — index-backed (`key` is the PK). Tiny N per project → sub-10ms.
+- v1 new SQL is small but NOT "one flag" (see the §4.1 correction): `filter:"in"` on `tenders_list.unp` +
+  `contracts_list.key` (+ verify `contracts_list` projects `unp`), the `search_fund_projects` fn, and the
+  optional `annexes` resource. Member fetch is a key-set `IN` query — index-backed (`key` is the PK). Tiny N
+  per project → sub-10ms.
 - If promoted: `project_model(p_keys text[], p_unps text[])` returning compact jsonb (headline +
   byCpv[] + byYear[] + suppliers[] + valueLadder), mirroring `awarder_group_model` (`061`), folded by a
   `buildProjectModel` in `src/lib/`. EXPLAIN ANALYZE the largest curated project before promoting
@@ -708,9 +733,12 @@ The starting gesture for every file — curated or DIY — is the **existing com
 ## 10. Phasing (localStorage builder first; curated + auth later)
 
 **Phase 1 (shippable): the whole build→view→save→PDF→share loop, localStorage-only, no auth.**
-- REGISTRY: `contracts.key`/`contracts.unp` → `filter:"in"` (two lines).
+- REGISTRY (§4.1): `filter:"in"` on `tenders_list.unp` + `contracts_list.key` (+ verify `contracts_list`
+  projects `unp`).
 - The §2 resolver (search → score → seed → УНП lineage → fold) as a client hook. Domain-agnostic.
-- The §4.3 **picker**: combined-search dropdown with per-row checkboxes + confidence pre-check + "Създай досие".
+- The §4.3 **picker**: combined-search dropdown with per-row checkboxes + confidence pre-check + "Създай досие",
+  **multi-thread `search`** (§0f.2), **starter templates** (§0f.1), and the **"broader matches" candidate panel
+  with `+ добави`** (§0f.3 — promoted from P2: two clicks beat three separate searches, core to research speed).
 - `ProjectFileScreen` at `/procurement/project?q=<encoded>` in **report layout** (§4.2/§4.6 — `ArticleLayout`,
   large display totals, serif title; NOT dashboard tiles): cover, honesty block, the §4.2 vertical timeline
   (процедура/договор/анекс/gap; payments deferred), money-by-role, contractors table. Reuse `ContractValueBases`,
@@ -726,8 +754,8 @@ The starting gesture for every file — curated or DIY — is the **existing com
 - Social card: "€1.07 млрд обявени · €X договорени · €150–400 млн по еталон" (`naiasno-post` DATA, fact-checked).
 
 **Phase 2: on-ramps, richer curation, more example files.**
-- The "проследи като досие" on-ramp from contract/tender detail + the search-box footer link (§4.3b); the
-  "broader matches" (looser-search) candidate panel for additions.
+- The "проследи като досие" on-ramp from contract/tender detail + the search-box footer link (§4.3b).
+  (The "broader matches" candidate panel moved to P1 — §0f.3.)
 - **The "провери твърдение" claim box (§0g.4)** — keyword extraction into the picker (the AI parse waits for
   §6). Ships with the **claims ledger** section (§4.2.6b) + the `claims[]` field, curated-tier only.
 - **Subcontractor blind-spot node (§0g.2)** — the «подизпълнители» dashed node keyed off `inhouseAwarderEiks`
