@@ -27,13 +27,28 @@ import { recordIngestBatch } from "../db/lib/ingest_changelog";
 const SCHEMA_SQL = fileURLToPath(
   new URL("../db/schema/pg/080_ngo_signals.sql", import.meta.url),
 );
-const OFFICIALS = fileURLToPath(
+// The full officials universe (executive + municipal), NOT just the officials
+// that already had a company link. Every company_links.json official is a strict
+// subset of these two indexes, so the board-link roster covers e.g. a councillor
+// who sits on a читалище board but owns no company.
+const OFFICIALS_EXEC = fileURLToPath(
+  new URL("../../data/officials/index.json", import.meta.url),
+);
+const OFFICIALS_MUNI = fileURLToPath(
+  new URL("../../data/officials/municipal/index.json", import.meta.url),
+);
+// Kept as a robustness fallback: any company-linked official not present in the
+// two indexes above is still added (0 such today, but avoids a silent regression
+// if the officials pipeline ever diverges).
+const OFFICIALS_LINKS = fileURLToPath(
   new URL("../../data/officials/derived/company_links.json", import.meta.url),
 );
 const MP_INDEX = fileURLToPath(
   new URL("../../data/parliament/index.json", import.meta.url),
 );
 
+type OfficialEntry = { name: string; slug: string };
+type OfficialsIndexFile = { entries?: OfficialEntry[] };
 type OfficialLinksFile = {
   byOfficial: Record<
     string,
@@ -55,16 +70,45 @@ export const loadNgoBoardLinksPg = async (): Promise<{
   await exec(readFileSync(SCHEMA_SQL, "utf8"));
 
   // Officials roster → official_roster (one row per official; dedup on slug).
+  // Union the executive index, the municipal index, and (fallback) company_links.
   let roster = 0;
-  if (existsSync(OFFICIALS)) {
-    const j = JSON.parse(readFileSync(OFFICIALS, "utf8")) as OfficialLinksFile;
+  {
     const seen = new Map<
       string,
       [string, string, string | null, string | null]
     >();
-    for (const o of Object.values(j.byOfficial))
-      if (o?.slug && o?.name && !seen.has(o.slug))
-        seen.set(o.slug, [o.name, o.slug, o.role ?? null, o.tier ?? null]);
+    const add = (
+      name: string | undefined,
+      slug: string | undefined,
+      role: string | null,
+      tier: string | null,
+    ) => {
+      if (slug && name && !seen.has(slug))
+        seen.set(slug, [name, slug, role, tier]);
+    };
+    if (existsSync(OFFICIALS_EXEC)) {
+      const j = JSON.parse(
+        readFileSync(OFFICIALS_EXEC, "utf8"),
+      ) as OfficialsIndexFile;
+      for (const e of j.entries ?? []) add(e.name, e.slug, null, "executive");
+    }
+    if (existsSync(OFFICIALS_MUNI)) {
+      const j = JSON.parse(
+        readFileSync(OFFICIALS_MUNI, "utf8"),
+      ) as OfficialsIndexFile;
+      for (const e of j.entries ?? []) add(e.name, e.slug, null, "municipal");
+    }
+    if (existsSync(OFFICIALS_LINKS)) {
+      const j = JSON.parse(
+        readFileSync(OFFICIALS_LINKS, "utf8"),
+      ) as OfficialLinksFile;
+      for (const o of Object.values(j.byOfficial))
+        add(o.name, o.slug, o.role ?? null, o.tier ?? null);
+    }
+    if (seen.size === 0)
+      console.warn(
+        "[ngo-board-links] no officials indexes found — official leg empty",
+      );
     await withClient(async (c) => {
       await c.query("TRUNCATE official_roster");
       roster = await copyRows(
@@ -74,10 +118,6 @@ export const loadNgoBoardLinksPg = async (): Promise<{
         seen.values(),
       );
     });
-  } else {
-    console.warn(
-      "[ngo-board-links] officials company_links.json missing — official leg empty",
-    );
   }
 
   // MP leg → mp_roster (the full all-time MP list from parliament/index.json).
