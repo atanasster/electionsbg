@@ -206,51 +206,8 @@ test.skipIf(skip)("serving functions never leak a private person", async () => {
   );
 });
 
-// person_search ranking (082): a prefix of a name must RECALL that person, and an exact
-// full name must rank them #1. Guards the twin regressions the ranking sum fixes —
-// full-string similarity alone cut a longer real surname past the LIMIT ("…Балъкчиева"
-// lost to a shorter shared-prefix namesake), and word_similarity alone sank a First+Last
-// query that skips the middle name. Self-selecting on a uniquely-named prominent person so
-// it can't hardcode a name that later leaves the corpus.
-test.skipIf(skip)(
-  "person_search recalls a name prefix and ranks exact #1",
-  async () => {
-    const [row] = await allRows<{
-      slug: string;
-      name: string;
-      prefix: string;
-      exact_top1: boolean;
-      prefix_in_top8: boolean;
-    }>(
-      `WITH pick AS (
-       SELECT p.slug, p.display_name AS name,
-              split_part(p.display_name,' ',1)||' '||split_part(p.display_name,' ',2)
-                ||' '||left(split_part(p.display_name,' ',3),4) AS prefix
-       FROM person p
-       WHERE p.status='active' AND p.is_public_figure
-         AND array_length(string_to_array(p.name_fold,' '),1) = 3
-         AND length(split_part(p.name_fold,' ',3)) >= 6
-         -- unique full name → the exact-#1 assertion is unambiguous (no namesake tie)
-         AND (SELECT count(*) FROM person p2
-               WHERE p2.status='active' AND p2.is_public_figure
-                 AND p2.name_fold = p.name_fold) = 1
-       ORDER BY (SELECT count(*) FROM person_role r WHERE r.person_id = p.person_id) DESC, p.slug
-       LIMIT 1
-     )
-     SELECT pick.slug, pick.name, pick.prefix,
-       ((person_search(pick.name, 6)->0)->>'slug' = pick.slug) AS exact_top1,
-       EXISTS (SELECT 1 FROM jsonb_array_elements(person_search(pick.prefix, 8)) v
-                WHERE v->>'slug' = pick.slug) AS prefix_in_top8
-     FROM pick`,
-    );
-    if (!row) return; // no uniquely-named 3-token person in this corpus
-    assert.ok(row.exact_top1, `exact name did not rank #1: ${row.name}`);
-    assert.ok(
-      row.prefix_in_top8,
-      `name prefix "${row.prefix}" did not recall ${row.name} in the top 8`,
-    );
-  },
-);
+// (person_search ranking/recall, the party badge + mpId, and the /candidate URL resolution
+// live in the dedicated person_search.data.test.ts gate.)
 
 // person_by_slug (082) is the /person/{slug} payload. For any bridged person it must
 // resolve EVERY distinct tr EIK to one `companies` entry, and expose only public-safe
