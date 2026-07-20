@@ -57,6 +57,18 @@ CREATE TABLE IF NOT EXISTS official_roster (
 CREATE INDEX IF NOT EXISTS idx_official_roster_fold
   ON official_roster (translit_bg_latin(name));
 
+-- mp_roster — the full all-time MP list (data/parliament/index.json), loaded by
+-- scripts/ngo/load_ngo_board_links_pg.ts. Same build-time-lookup role as
+-- official_roster: names + the MP id (→ /candidate/mp-<id> ref), never served.
+-- The MP leg matches these names against NGO board officers the same way the
+-- official/magistrate legs do — namesake-guarded, high-confidence-only public.
+CREATE TABLE IF NOT EXISTS mp_roster (
+  name  text NOT NULL,
+  mp_id int  NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_mp_roster_fold
+  ON mp_roster (translit_bg_latin(name));
+
 CREATE TABLE IF NOT EXISTS ngo_board_links (
   eik            text NOT NULL,
   person         text NOT NULL,
@@ -104,6 +116,12 @@ BEGIN
     SELECT n.eik, r.name, '/officials/' || r.slug, 'official', n.board_role, nc.company_count
     FROM ngo_off n
     JOIN official_roster r ON translit_bg_latin(r.name) = n.name_fold
+    JOIN officer_name_counts nc ON nc.name_fold = n.name_fold
+    WHERE nc.company_count <= 3
+    UNION ALL
+    SELECT n.eik, mp.name, '/candidate/mp-' || mp.mp_id, 'mp', n.board_role, nc.company_count
+    FROM ngo_off n
+    JOIN mp_roster mp ON translit_bg_latin(mp.name) = n.name_fold
     JOIN officer_name_counts nc ON nc.name_fold = n.name_fold
     WHERE nc.company_count <= 3
   )

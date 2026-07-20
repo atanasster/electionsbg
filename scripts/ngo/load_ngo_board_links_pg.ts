@@ -29,6 +29,9 @@ const SCHEMA_SQL = fileURLToPath(
 const OFFICIALS = fileURLToPath(
   new URL("../../data/officials/derived/company_links.json", import.meta.url),
 );
+const MP_INDEX = fileURLToPath(
+  new URL("../../data/parliament/index.json", import.meta.url),
+);
 
 type OfficialLinksFile = {
   byOfficial: Record<
@@ -37,8 +40,13 @@ type OfficialLinksFile = {
   >;
 };
 
+type MpIndexFile = {
+  mps: { id: number; name: string }[];
+};
+
 export const loadNgoBoardLinksPg = async (): Promise<{
   roster: number;
+  mps: number;
   links: number;
 }> => {
   // Idempotent DDL (tables + rebuild fn + the signals matview/view). Safe to
@@ -71,9 +79,27 @@ export const loadNgoBoardLinksPg = async (): Promise<{
     );
   }
 
-  // MP leg (companies-index.json) is deferred: absent until update-connections
-  // rebuilds the MP-companies graph. When present, add MPs to the roster with a
-  // /candidate/mp-<id> ref (TODO once the graph is regenerated on this checkout).
+  // MP leg → mp_roster (the full all-time MP list from parliament/index.json).
+  // Names are matched against NGO board officers in rebuild_ngo_board_links the
+  // same way officials/magistrates are, so we only need (name, id) here. Dedup on
+  // name — the ref (/candidate/mp-<id>) must be single-valued per name to avoid an
+  // ambiguous double-attribution of one board seat.
+  let mps = 0;
+  if (existsSync(MP_INDEX)) {
+    const j = JSON.parse(readFileSync(MP_INDEX, "utf8")) as MpIndexFile;
+    const seen = new Map<string, [string, number]>();
+    for (const m of j.mps ?? [])
+      if (m?.name && Number.isInteger(m.id) && !seen.has(m.name))
+        seen.set(m.name, [m.name, m.id]);
+    await withClient(async (c) => {
+      await c.query("TRUNCATE mp_roster");
+      mps = await copyRows(c, "mp_roster", ["name", "mp_id"], seen.values());
+    });
+  } else {
+    console.warn(
+      "[ngo-board-links] parliament/index.json missing — MP leg empty",
+    );
+  }
 
   // The rebuild joins `magistrate` (070) + `officer_name_counts` (008). On a DB
   // where those haven't been applied/refreshed the function would raise — guard
@@ -88,7 +114,7 @@ export const loadNgoBoardLinksPg = async (): Promise<{
     console.warn(
       "[ngo-board-links] magistrate / officer_name_counts not present — run db:load:tr:pg first; skipping rebuild",
     );
-    return { roster, links: 0 };
+    return { roster, mps, links: 0 };
   }
   // Rebuild + the "what changed" changelog atomically, so a newly-appeared board
   // link surfaces in recent_updates (the PG-changelog rule). ingest_first_seen
@@ -118,15 +144,15 @@ export const loadNgoBoardLinksPg = async (): Promise<{
     .catch(() => false);
   if (hasSignals) await exec("REFRESH MATERIALIZED VIEW ngo_signals");
 
-  return { roster, links };
+  return { roster, mps, links };
 };
 
 if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
   const t0 = Date.now();
   loadNgoBoardLinksPg()
-    .then(async ({ roster, links }) => {
+    .then(async ({ roster, mps, links }) => {
       console.log(
-        `ngo_board_links: ${roster} officials in roster, ${links} board links (${((Date.now() - t0) / 1000).toFixed(1)}s)`,
+        `ngo_board_links: ${roster} officials + ${mps} MPs in roster, ${links} board links (${((Date.now() - t0) / 1000).toFixed(1)}s)`,
       );
       await end();
     })

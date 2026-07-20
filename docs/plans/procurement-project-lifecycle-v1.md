@@ -812,9 +812,11 @@ The starting gesture for every file — curated or DIY — is the **existing com
   `numberOfTenderers`); validated at ~100% coverage for 2016–2023 (2019: 39% single-bid, 2016: 30%). So the
   strip's bands are **конкурентно (`number_of_tenderers` ≥ 2) · единствена оферта (≤ 1, the red flag) ·
   неуточнен (no data)** — derived from bid count, NOT the named method, for legacy rows. Residual "неуточнен":
-  the 2011–2015 JSON bulk (~57k rows) has no count column and stays honestly grey. **Requires a legacy
-  re-ingest to populate the DB** (parser change alone doesn't touch served rows) — gate on the operator
-  (`reference_cloud_sql_deploy_perf`); until then the strip shows legacy rows as неуточнен.
+  the 2011–2015 JSON bulk (~125k rows corpus-wide) has no count column and stays honestly grey. **Local
+  re-ingest DONE (2026-07-20):** of 266,546 blank-method rows, 141,260 (53%) recovered a bid count → 84,991
+  competitive / 56,269 single-bid; АПИ alone gained 200 single-bid awards worth €331.8M. **Cloud SQL deploy
+  pending** (`db:load:pg:cloud`, ~68min, operator-run in a quiet window — `reference_cloud_sql_deploy_perf`);
+  until it lands, served rows still show legacy method as неуточнен.
 - **Payments stage downscoped (§0d, researched 2026-07-19).** No bulk УНП↔ИСУН key (EIK = only robust join;
   ~17% via `europeanProgram` regex) AND ИСУН has no bulk payment dates → render an EU-funding annotation
   (totals), never a dated «плащане» node. Be honest ("плащания: не се проследяват").
