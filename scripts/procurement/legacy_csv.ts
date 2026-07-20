@@ -217,6 +217,17 @@ const COLUMN_PATTERNS: Record<keyof LegacyRow, RegExp[]> = {
     /^стойност$/i,
   ],
   currency: [/^валута$/i, /currency/i],
+  // "БРОЙ ОФЕРТИ" / "Брой оферти" (2016-2023) and the bare "ОФЕРТИ" header
+  // (2018) — the count of bids received. This is the ONLY competitiveness
+  // signal the annual AOP CSV carries: the source has no procedure-type /
+  // правно основание column at all, so the named procurement method is
+  // unrecoverable for these pre-ЦАИС rows, but a single-bid award (count ≤ 1)
+  // is exactly what the risk flags + the "как е възложено" honesty split need
+  // (see docs/plans/procurement-project-lifecycle-v1.md §0g.1 / §11). The
+  // 2011-2015 bulk file's "Оферти са подадени от…" free-text column is NOT a
+  // count — the anchored patterns below deliberately skip it. Declared last so
+  // it never steals another field's column in buildHeaderMap's first-match claim.
+  bidCount: [/бро[йя].*оферт/i, /^оферти$/i],
 };
 
 interface LegacyRow {
@@ -235,6 +246,7 @@ interface LegacyRow {
   contractorName?: string;
   amount?: string;
   currency?: string;
+  bidCount?: string;
 }
 
 // Returns `field → column index` for the parsed CSV header. Unmapped fields
@@ -431,6 +443,13 @@ export const parseLegacyCsv = (
       .trim();
     const amountRaw = pick("amount");
     const currencyRaw = (pick("currency") ?? "").trim() || "BGN";
+    // Bid count → numberOfTenderers (the single-bid competitiveness signal).
+    // Take the first integer token; guard against a stray non-count cell.
+    const bidCountMatch = (pick("bidCount") ?? "").match(/\d+/);
+    const numberOfTenderers =
+      bidCountMatch && Number(bidCountMatch[0]) < 100000
+        ? Number(bidCountMatch[0])
+        : undefined;
     const contractDate = parseDate(pick("contractDate"), fallbackYear);
     const publishedDate = parseDate(pick("publishedDate"), fallbackYear);
     const categoryRaw = (pick("category") ?? "").trim();
@@ -486,6 +505,7 @@ export const parseLegacyCsv = (
       amount,
       currency: currencyRaw || "BGN",
       amountEur: toEur(amount, currencyRaw || "BGN") ?? undefined,
+      numberOfTenderers,
       title: contractSubject || tenderSubject || "",
       category: category || undefined,
       bundleUuid: ds.datasetUuid,

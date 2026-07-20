@@ -215,7 +215,10 @@ others after award; (e) prosecutor signals + asphalt-quantity discrepancies.
    обявление` / `единствен участник` (`number_of_tenderers ≤ 1`) rendered as a red honesty flag. Add a
    project-level **"как е възложено"** strip in the honesty block: Σ contracted split by competitive vs
    non-competitive method (the €461M Видин–Ботевград reads "100% без открита процедура"). Data exists
-   (`procurement_method`, `number_of_tenderers`; `computeTenderRisk.ts` / `useContractRiskFlags.tsx` ship).
+   (`procurement_method`, `number_of_tenderers`; `computeTenderRisk.ts` / `useContractRiskFlags.tsx` ship). For
+   **legacy rows the named method is blank and unrecoverable** — the strip falls back to a bid-count basis
+   (конкурентно ≥2 / единствена оферта ≤1 / неуточнен), recovered by the `БРОЙ ОФЕРТИ` parser fix (§11
+   blank-method resolution).
 
 2. **Subcontractor chain is a STRUCTURAL GAP — render the absence (like payments, §0d).** The subcontract
    layer Shishkov names (Автомагистрали ЕАД → 25 sub-contracts / 856M лв per Сметна палата) is **NOT in the
@@ -771,11 +774,19 @@ The starting gesture for every file — curated or DIY — is the **existing com
   head contract (Автомагистрали ЕАД → private firms is absent from ЦАИС). The «подизпълнители» node must read
   as *"не се публикува"*, never imply we've traced it. Curated `knownSubcontractors[]` is explicitly sourced
   (Сметна палата / news), so a reader can tell our data from a third-party finding.
-- **Blank `procurement_method` skews the "как е възложено" strip (§0g.1).** ~€2.66bn of АПИ awards carry an
-  empty `procurement_method` (measured); a naive split would understate non-competitive share. Bucket blanks
-  as "неуточнен метод" (a third, neutral-grey band) rather than folding them into "открита" — and flag a
-  back-classification pass (from `procurement_method_rationale` / `number_of_tenderers` / procedure type) as a
-  prerequisite before the strip is presented as a definitive competitive/non-competitive ratio.
+- **Blank `procurement_method` — back-classification RESOLVED (2026-07-20).** 139,904 contract rows / €34.2bn
+  corpus-wide (34%) carry an empty `procurement_method`; 117k are the `ocds-legacy-*` annual-AOP-CSV feed
+  (`legacy_csv.ts`), the rest pre-2020 aop.bg. **The procedure NAME is unrecoverable:** the annual CSV has no
+  procedure-type / правно-основание column at all (verified across 2016–2023 headers), and the УНП→`tenders`
+  bridge yields only 106 rows (the tenders corpus starts 2020). Do NOT invent a named method. **But the
+  competitive-vs-single-bid CLASS — all the "как е възложено" strip needs — IS recoverable:** the CSV carries
+  `БРОЙ ОФЕРТИ` (bid count), which `legacy_csv.ts` silently dropped. Fixed 2026-07-20 (map `БРОЙ ОФЕРТИ` →
+  `numberOfTenderers`); validated at ~100% coverage for 2016–2023 (2019: 39% single-bid, 2016: 30%). So the
+  strip's bands are **конкурентно (`number_of_tenderers` ≥ 2) · единствена оферта (≤ 1, the red flag) ·
+  неуточнен (no data)** — derived from bid count, NOT the named method, for legacy rows. Residual "неуточнен":
+  the 2011–2015 JSON bulk (~57k rows) has no count column and stays honestly grey. **Requires a legacy
+  re-ingest to populate the DB** (parser change alone doesn't touch served rows) — gate on the operator
+  (`reference_cloud_sql_deploy_perf`); until then the strip shows legacy rows as неуточнен.
 - **Payments stage downscoped (§0d, researched 2026-07-19).** No bulk УНП↔ИСУН key (EIK = only robust join;
   ~17% via `europeanProgram` regex) AND ИСУН has no bulk payment dates → render an EU-funding annotation
   (totals), never a dated «плащане» node. Be honest ("плащания: не се проследяват").
