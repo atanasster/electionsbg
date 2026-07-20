@@ -127,6 +127,80 @@ Where §0 conflicts with a later section, §0 wins.
 
 ---
 
+## 0f. FIELD-TEST — the Shishkov road-legacy claim (2026-07-20) — supersedes/extends the model
+
+A live press statement by regional minister Ivan Shishkov (2026-07-20, faktor.bg / BTA / bgonair /
+cross.bg) is the exact use-case this view exists for, and running it against the corpus both **validated
+the design and exposed four missing pieces**. What Shishkov claimed: (a) the Видин–Ботевград modernisation
+was contracted in-house without an open tender and split into 5 lots; (b) АПИ gave **35% advances** yet
+some sections have no construction; (c) **~30 active major-repair contracts** are held by "фирми от
+наследството" (legacy firms) named in the subcontract chains; (d) declared subcontractors were swapped for
+others after award; (e) prosecutor signals + asphalt-quantity discrepancies.
+
+**What our data confirms today (the design works):**
+- The head object is one row: `contracts` — АПИ (EIK `000695089`) → **Автомагистрали ЕАД** (EIK
+  `831646048`), **€461.4M**, `procurement_method = "Вътрешен конкурентен избор по РС"`, title
+  «Модернизация на път I-1 (Е-79) Видин–Ботевград», dated 2020-10-02. A search-seeded project file lands
+  on it immediately.
+- The **in-house / no-open-tender mechanism is quantifiable**: АПИ awarded **€526.5M via «Вътрешен
+  конкурентен избор по РС» (163 contracts) + €516.5M «Договаряне без предварително обявление» (124)** —
+  ~€1.04bn steered without an open procedure. This is precisely Shishkov's "наследство" and it is a
+  first-class field (`procurement_method`) we already hold.
+- The **named legacy firms resolve as contractors**: Нивел строй €413M, Европейски пътища €303M, ПСТ Груп,
+  Геострой, Пътстрой-92, Водно строителство-Благоевград — >€1bn combined, each with a `/company/:eik` page.
+  Claim (c) is confirmable at the firm level today.
+
+**What we CANNOT do yet — four additions (these are the improvements):**
+
+1. **Competitiveness / award-method must be a first-class HONESTY node on the timeline, not just a table
+   flag.** Shishkov's core complaint IS the award method (in-house, negotiation-without-notice, single-bid).
+   §4.2 currently surfaces `computeProcurementRisk` only "inline in the tables" (§4.5). PROMOTE it: every
+   contract node carries a **method badge** — `открита` (neutral) vs `вътрешен избор` / `договаряне без
+   обявление` / `единствен участник` (`number_of_tenderers ≤ 1`) rendered as a red honesty flag. Add a
+   project-level **"как е възложено"** strip in the honesty block: Σ contracted split by competitive vs
+   non-competitive method (the €461M Видин–Ботевград reads "100% без открита процедура"). Data exists
+   (`procurement_method`, `number_of_tenderers`; `computeTenderRisk.ts` / `useContractRiskFlags.tsx` ship).
+
+2. **Subcontractor chain is a STRUCTURAL GAP — render the absence (like payments, §0d).** The subcontract
+   layer Shishkov names (Автомагистрали ЕАД → 25 sub-contracts / 856M лв per Сметна палата) is **NOT in the
+   ЗОП corpus**: `contracts` has no subcontractor field, and Автомагистрали ЕАД **as awarder** shows only 16
+   tiny rows (€1M) — the in-house state company's onward awards escape ЦАИС/АОП. So a project file for
+   Видин–Ботевград captures the €461M head contract but **cannot show where the money went**. Add a
+   **«подизпълнители» timeline node** that is honest about this: where a member's contractor is a state
+   in-house company (a small curated `inhouseAwarderEiks` set — Автомагистрали ЕАД, etc.), render a dashed
+   "паричната следа спира тук — подизпълнителите не се публикуват в ЦАИС" node, optionally with a curated
+   `knownSubcontractors[]` list (sourced from Сметна палата / news). This makes claim (d) — the
+   declared-vs-actual subcontractor swap — visible as a *known blind spot*, which is itself the finding.
+
+3. **Advances vs physical progress — a curated honesty row (the «къде отидоха парите» question).** The whole
+   claim (b) is 35% advance paid / nothing built. The honesty block today is announced-vs-contracted-vs-
+   benchmark; it has **no advance/progress axis** and the corpus has no advance data (verified — no payments
+   table for ЗОП). Add an OPTIONAL curated field `advance: { pctDeclared, amountEur, physicalProgressNote,
+   source, asOf }` (Tier B, same status as `announcedBudget`) and a fourth honesty figure **«авансово
+   изплатено»** with the progress note as a pull-quote. Absent → hidden. This is the single most
+   citizen-legible number in the whole story and it will always be curated+sourced, never joined.
+
+4. **A "провери твърдение" (fact-check a claim) on-ramp + a `claims[]` field.** The user's framing —
+   *"quickly confirm/deny such statements"* — is a distinct entry point from "build a dossier". Add:
+   - A **claim box** on `/procurement` ("Провери твърдение за обществена поръчка"): paste a sentence, we
+     extract the object + firm/number and seed the project search, landing on the dossier with the honesty
+     block answering the specific figure. (Reuses the picker; the AI `projectLifecycle` tool, §6, does the
+     extraction once ≥3 files exist.)
+   - A **`claims[]`** array on the project artifact: `{ text, byWhom, saidAt, sourceUrl, verdict, ourNumber,
+     note }` — so the dossier literally prints "Шишков, 20.07.2026: «35% аванс, нищо построено» → нашите
+     данни: договор €461M, метод «вътрешен избор», подизпълнители не се публикуват". Renders as a **claims
+     ledger** section (potvarzhdava / oprovergava / chastichno) above the provenance footer. This is
+     обективност-срещу-заглавието made explicit and is the sharpest differentiator vs SIGMA.
+
+**Model shape deltas (extend §2's JSON):** add `advance` (Tier B curated), `claims[]`, `inhouseAwarderEiks`
++ optional `knownSubcontractors[]`, and mark every member node with its derived `method`/`singleBid` flag
+(computed, not stored). **Timeline deltas (§4.2):** method badge per contract node; a «подизпълнители»
+blind-spot node for in-house-awarder members; an «авансово изплатено» figure in the honesty block. **On-ramp
+delta (§4.3b):** the claim box + `claims` ledger. None require new ingest — (1) and the node in (2) reuse
+existing columns; (2)'s subcontractor list, (3), and (4) are curated Tier-B fields.
+
+---
+
 ## 1. Goal & thesis
 
 **Goal.** A `/procurement/project/:slug` page (and an on-the-fly builder) that tells the money-story of
