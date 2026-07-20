@@ -32,7 +32,9 @@ type Bucket = {
   eur: number;
 };
 
-const PLOT_H = 88; // px — a small chart, per the design ask
+const PLOT_H = 92; // px — a small chart, per the design ask
+const COL_W = 2.2; // uniform column width (% of plot) — height is the ONLY magnitude cue, so
+//                    bars stay comparable regardless of how long the cabinet governed.
 const NO_PARTY = "#94a3b8"; // slate fallback when the cabinet's party has no canonical colour
 
 const fmtYear = (d?: string | null): string =>
@@ -76,13 +78,23 @@ export const PersonMoneyTimeline: FC<{ slug: string }> = ({ slug }) => {
     const toDate = buckets
       .map((b) => b.end ?? nowIso)
       .reduce((m, e) => (e > m ? e : m), buckets[0].end ?? nowIso);
-    const bars = buckets.map((b) => ({
-      ...b,
-      leftPct: ((startFy(b) - x0) / span) * 100,
-      widthPct: Math.max(((endFy(b) - startFy(b)) / span) * 100, 1.2),
-      heightPct: Math.max((b.eur / max) * 100, 3),
-      color: (b.parties?.[0] && colorFor(b.parties[0])) || NO_PARTY,
-    }));
+    // One uniform-width column per cabinet, CENTERED over its band on the same time axis, so
+    // the strip's coloured band sits directly beneath each bar. Width is capped to 70% of a
+    // (short caretaker) band so a slim band never overflows.
+    const bars = buckets.map((b) => {
+      const s = startFy(b);
+      const e = endFy(b);
+      const bandPct = ((e - s) / span) * 100;
+      const midPct = (((s + e) / 2 - x0) / span) * 100;
+      const w = Math.min(COL_W, Math.max(bandPct * 0.7, 0.6));
+      return {
+        ...b,
+        widthPct: w,
+        leftPct: Math.max(0, Math.min(100 - w, midPct - w / 2)),
+        heightPct: Math.max((b.eur / max) * 100, 4),
+        color: (b.parties?.[0] && colorFor(b.parties[0])) || NO_PARTY,
+      };
+    });
     return { bars, fromDate, toDate, max };
   }, [buckets, colorFor]);
 
@@ -111,16 +123,16 @@ export const PersonMoneyTimeline: FC<{ slug: string }> = ({ slug }) => {
     >
       <Card>
         <CardContent className="pt-6">
-          {/* Bars: one per cabinet won under, positioned by tenure + height ∝ €. */}
+          {/* Money columns rise flush from the top of the government strip below — height ∝ €,
+              colour = the cabinet's party, so each column reads as "won under this government". */}
           <div className="relative w-full" style={{ height: PLOT_H }}>
             <div className="absolute left-0 top-0 text-[10px] tabular-nums text-muted-foreground">
               {formatEurCompact(model.max)}
             </div>
-            <div className="absolute inset-x-0 bottom-0 h-px bg-border" />
             {model.bars.map((b) => (
               <div
                 key={b.id}
-                className="absolute bottom-px rounded-t transition-opacity hover:opacity-80"
+                className="absolute bottom-0 rounded-t transition-opacity hover:opacity-80"
                 style={{
                   left: `${b.leftPct}%`,
                   width: `${b.widthPct}%`,
@@ -138,12 +150,12 @@ export const PersonMoneyTimeline: FC<{ slug: string }> = ({ slug }) => {
               />
             ))}
           </div>
-          {/* Shared government strip (small/compact), same time window → bands align to bars. */}
+          {/* Shared government strip (small/compact) — the labelled time axis the columns sit
+              on; same window → each band lines up under its column. */}
           <ChartCabinetStrip
             fromDate={model.fromDate}
             toDate={model.toDate}
             compact
-            className="mt-1"
           />
           {/* Shared tooltip — a sibling of the relative plot, never inside it (house rule:
               it's position:absolute against the nearest non-static ancestor; CardContent is

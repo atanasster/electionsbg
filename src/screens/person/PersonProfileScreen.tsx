@@ -445,10 +445,6 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
           </Card>
         </DashboardSection>
       )}
-
-      <p className="text-xs text-muted-foreground">
-        {t("person_namesake_disclosure")}
-      </p>
     </div>
   );
 };

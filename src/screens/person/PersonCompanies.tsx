@@ -229,6 +229,15 @@ export const PersonCompanies: FC<{
               ))}
             </div>
           )}
+
+          {/* Namesake caveat — lives HERE (was an orphaned page-bottom note): the registry
+              footprint is name-matched (no ЕГН), so it belongs with the company records it
+              qualifies, not after the EIK-exact money timeline. */}
+          {companies.length > 0 && (
+            <div className="mt-3 border-t pt-3 text-xs text-muted-foreground">
+              {t("person_namesake_disclosure")}
+            </div>
+          )}
         </CardContent>
       </Card>
     </DashboardSection>
