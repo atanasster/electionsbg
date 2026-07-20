@@ -200,6 +200,12 @@ export type BarCardSpec = {
    * (shares, money, counts), where a leading "+" reads as a spurious increase.
    */
   signed?: boolean;
+  /**
+   * Row order by value. Default "desc" (largest magnitude on top) — right for
+   * gainers/losers and shares. Use "asc" when a *smaller* value is the good
+   * outcome (e.g. polling error / MAE), so the best row leads the chart.
+   */
+  sort?: "asc" | "desc";
 };
 
 /**
@@ -274,7 +280,9 @@ export const renderBarCard = (spec: BarCardSpec): Buffer => {
   const ruleY = footLines.length ? footTop - 34 : SOURCE_Y - 40;
 
   // ---- bars: shared left edge, length proportional to |value| ----
-  const rows = [...spec.bars].sort((a, b) => b.value - a.value);
+  const rows = [...spec.bars].sort((a, b) =>
+    spec.sort === "asc" ? a.value - b.value : b.value - a.value,
+  );
   const GUTTER = 330; // right-aligned label column
   const X0 = 80 + GUTTER + 24; // bars start here
   const VALUE_W = 130; // room for "+10,4%" after the bar
