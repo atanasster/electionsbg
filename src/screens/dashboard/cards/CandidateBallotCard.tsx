@@ -5,9 +5,9 @@ import { CandidateDashboardSummary } from "@/data/dashboard/candidateDashboardTy
 import { Link } from "@/ux/Link";
 import { StatCard } from "../StatCard";
 
-type Props = { data: CandidateDashboardSummary };
+type Props = { data: CandidateDashboardSummary; election?: string };
 
-export const CandidateBallotCard: FC<Props> = ({ data }) => {
+export const CandidateBallotCard: FC<Props> = ({ data, election }) => {
   const { t, i18n } = useTranslation();
   const regions = data.regions;
   if (!regions.length) {
@@ -53,7 +53,14 @@ export const CandidateBallotCard: FC<Props> = ({ data }) => {
                 #{r.pref}
               </span>
               <Link
-                to={`/municipality/${r.oblast}`}
+                to={
+                  election
+                    ? {
+                        pathname: `/municipality/${r.oblast}`,
+                        search: { elections: election },
+                      }
+                    : `/municipality/${r.oblast}`
+                }
                 className="font-medium truncate hover:underline"
                 underline={false}
               >

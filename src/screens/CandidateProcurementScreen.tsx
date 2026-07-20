@@ -76,7 +76,7 @@ export const CandidateProcurementScreen: FC = () => {
   }
 
   return (
-    <>
+    <div className="w-full space-y-4 px-3 py-3">
       <CandidateHeader
         displayName={displayName}
         lookupName={lookupName}
@@ -87,7 +87,7 @@ export const CandidateProcurementScreen: FC = () => {
         }
         seoDescription={`Public-procurement contracts awarded to companies connected to ${displayName}`}
       />
-      <div className="w-full pb-8 space-y-6">
+      <div className="w-full space-y-6 pb-8">
         {mpIdParam != null ? (
           <div className="flex">
             <FollowButton
@@ -147,6 +147,6 @@ export const CandidateProcurementScreen: FC = () => {
             "Source: data.egov.bg (АОП OCDS). MP linkages from cacbg property declarations and Commerce Registry filings. Connections describe what the MP has declared or is on record for — they are not in themselves an accusation of wrongdoing."}
         </p>
       </div>
-    </>
+    </div>
   );
 };

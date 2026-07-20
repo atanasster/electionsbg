@@ -156,8 +156,8 @@ export const PersonElectoralSection: FC<Props> = ({
             paperMachine={summary.paperMachine}
             priorElection={summary.priorElection}
           />
-          <CandidateBallotCard data={summary} />
-          <CandidateTopRegionCard data={summary} />
+          <CandidateBallotCard data={summary} election={selectedCycle} />
+          <CandidateTopRegionCard data={summary} election={selectedCycle} />
         </div>
         <CandidateRegionsTile
           data={summary}

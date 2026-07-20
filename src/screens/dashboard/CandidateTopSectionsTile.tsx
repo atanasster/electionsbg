@@ -69,7 +69,14 @@ export const CandidateTopSectionsTile: FC<Props> = ({
             </div>
           </Hint>
           <Link
-            to={`/candidate/${candidateSlug}/sections${election ? `?elections=${election}` : ""}`}
+            to={
+              election
+                ? {
+                    pathname: `/candidate/${candidateSlug}/sections`,
+                    search: { elections: election },
+                  }
+                : `/candidate/${candidateSlug}/sections`
+            }
             className="text-[10px] normal-case text-primary hover:underline"
             underline={false}
           >
@@ -98,7 +105,14 @@ export const CandidateTopSectionsTile: FC<Props> = ({
         {rows.map((r) => (
           <Link
             key={r.key}
-            to={`/section/${r.section}`}
+            to={
+              election
+                ? {
+                    pathname: `/section/${r.section}`,
+                    search: { elections: election },
+                  }
+                : `/section/${r.section}`
+            }
             underline={false}
             className="contents"
           >

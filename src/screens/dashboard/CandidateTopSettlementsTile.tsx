@@ -78,7 +78,14 @@ export const CandidateTopSettlementsTile: FC<Props> = ({
             </div>
           </Hint>
           <Link
-            to={`/candidate/${candidateSlug}/settlements${election ? `?elections=${election}` : ""}`}
+            to={
+              election
+                ? {
+                    pathname: `/candidate/${candidateSlug}/settlements`,
+                    search: { elections: election },
+                  }
+                : `/candidate/${candidateSlug}/settlements`
+            }
             className="text-[10px] normal-case text-primary hover:underline"
             underline={false}
           >
@@ -107,7 +114,14 @@ export const CandidateTopSettlementsTile: FC<Props> = ({
         {rows.map((r) => (
           <Link
             key={r.key}
-            to={`/settlement/${r.key}`}
+            to={
+              election
+                ? {
+                    pathname: `/settlement/${r.key}`,
+                    search: { elections: election },
+                  }
+                : `/settlement/${r.key}`
+            }
             underline={false}
             className="contents"
           >

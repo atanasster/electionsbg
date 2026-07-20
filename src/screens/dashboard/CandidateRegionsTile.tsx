@@ -81,7 +81,14 @@ export const CandidateRegionsTile: FC<Props> = ({
           </Hint>
           {totalCount > TOP_N ? (
             <Link
-              to={`/candidate/${candidateSlug}/regions${election ? `?elections=${election}` : ""}`}
+              to={
+                election
+                  ? {
+                      pathname: `/candidate/${candidateSlug}/regions`,
+                      search: { elections: election },
+                    }
+                  : `/candidate/${candidateSlug}/regions`
+              }
               className="text-[10px] normal-case text-primary hover:underline"
               underline={false}
             >
@@ -123,7 +130,14 @@ export const CandidateRegionsTile: FC<Props> = ({
         {rows.map((r) => (
           <Link
             key={r.key}
-            to={`/municipality/${r.oblast}`}
+            to={
+              election
+                ? {
+                    pathname: `/municipality/${r.oblast}`,
+                    search: { elections: election },
+                  }
+                : `/municipality/${r.oblast}`
+            }
             underline={false}
             className="contents"
           >

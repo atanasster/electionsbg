@@ -161,7 +161,7 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
     });
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-3 py-3 space-y-4">
+    <div className="w-full px-3 py-3 space-y-4">
       {/* Header — identity, party badge, compact MP bio */}
       <PersonHeader p={p} mpId={mpId} />
 

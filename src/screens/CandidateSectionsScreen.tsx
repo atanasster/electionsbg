@@ -22,16 +22,14 @@ export const CandidateSectionsScreen: FC = () => {
       : canonical.name
     : nameForBg(lookupName);
   return (
-    <>
+    <div className="w-full space-y-4 px-3 py-3 pb-12">
       <CandidateHeader
         displayName={displayName}
         lookupName={lookupName}
         cikRows={canonical?.cikRows}
         subtitle={t("votes_by_section")}
       />
-      <div className="w-full px-3 pb-12">
-        <CandidateBySections name={lookupName} partyNum={canonical?.partyNum} />
-      </div>
-    </>
+      <CandidateBySections name={lookupName} partyNum={canonical?.partyNum} />
+    </div>
   );
 };

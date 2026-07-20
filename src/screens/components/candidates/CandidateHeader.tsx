@@ -1,8 +1,7 @@
-import { FC, Fragment, ReactNode } from "react";
+import { FC, ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import { Title } from "@/ux/Title";
-import { Caption } from "@/ux/Caption";
+import { SEO } from "@/ux/SEO";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import type { CandidatesInfo } from "@/data/dataTypes";
 import { MpAvatar, MpAvatarView } from "./MpAvatar";
@@ -62,55 +61,61 @@ export const CandidateHeader: FC<Props> = ({
     seoDescription ?? subtitleText ?? `Results for candidate ${displayName}`;
   return (
     <>
+      <SEO title={resolvedSeoTitle} description={resolvedSeoDescription} />
       {backTo && (
         <Link
           to={backTo}
-          className="inline-flex items-center gap-1 text-sm text-primary hover:underline mb-2"
+          className="mb-2 inline-flex items-center gap-1 text-sm text-primary hover:underline"
         >
           <ArrowLeft className="h-4 w-4" />
           {backLabel ?? displayName}
         </Link>
       )}
-      <Title
-        title={resolvedSeoTitle}
-        description={resolvedSeoDescription}
-        className="pt-4 pb-1 md:pt-10 md:pb-1 sm:pb-1"
-      >
-        <span className="inline-flex items-center justify-center gap-3">
-          {lookupName &&
-            (mpEntry !== undefined ? (
-              <MpAvatarView
-                photoUrl={mpEntry?.photoUrl}
-                displayName={displayName}
-                className="h-12 w-12 md:h-14 md:w-14"
-              />
-            ) : (
-              <MpAvatar
-                name={lookupName}
-                className="h-12 w-12 md:h-14 md:w-14"
-                showPartyRing={false}
-              />
-            ))}
-          <span>{displayName}</span>
-        </span>
-      </Title>
-      {cikRows.length > 0 && (
-        <div className="grid grid-cols-[auto_auto_auto] justify-center items-center gap-x-3 gap-y-1.5 px-4 pt-1 pb-2">
-          {cikRows.map((c) => {
-            const party = findParty(c.partyNum);
-            return (
-              <Fragment key={`${c.oblast}-${c.pref}`}>
-                <PartyLink party={party} width="w-9 shrink-0" />
-                <div className="text-sm sm:text-base font-semibold">
-                  <RegionLink oblast={c.oblast} />
+      {/* Left-aligned, compact — matches the person dashboard header so every candidate
+          (sub-)page shares one layout. */}
+      <div className="flex items-start gap-3">
+        {lookupName &&
+          (mpEntry !== undefined ? (
+            <MpAvatarView
+              photoUrl={mpEntry?.photoUrl}
+              displayName={displayName}
+              className="h-16 w-16 shrink-0"
+            />
+          ) : (
+            <MpAvatar
+              name={lookupName}
+              className="h-16 w-16 shrink-0"
+              showPartyRing={false}
+            />
+          ))}
+        <div className="min-w-0">
+          <h1 className="text-2xl font-bold leading-tight">{displayName}</h1>
+          {cikRows.length > 0 && (
+            <div className="mt-1.5 flex flex-col gap-1">
+              {cikRows.map((c) => (
+                <div
+                  key={`${c.oblast}-${c.pref}`}
+                  className="flex items-center gap-2 text-sm"
+                >
+                  <PartyLink
+                    party={findParty(c.partyNum)}
+                    width="w-9 shrink-0"
+                  />
+                  <span className="font-semibold">
+                    <RegionLink oblast={c.oblast} />
+                  </span>
+                  <span className="tabular-nums text-muted-foreground">{`#${c.pref}`}</span>
                 </div>
-                <div className="text-sm sm:text-base font-semibold tabular-nums">{`#${c.pref}`}</div>
-              </Fragment>
-            );
-          })}
+              ))}
+            </div>
+          )}
+          {subtitle && (
+            <div className="mt-1 text-sm font-semibold text-muted-foreground">
+              {subtitle}
+            </div>
+          )}
         </div>
-      )}
-      {subtitle && <Caption>{subtitle}</Caption>}
+      </div>
     </>
   );
 };

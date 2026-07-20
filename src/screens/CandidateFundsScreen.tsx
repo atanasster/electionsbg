@@ -47,7 +47,7 @@ export const CandidateFundsScreen: FC = () => {
   }
 
   return (
-    <>
+    <div className="w-full space-y-4 px-3 py-3 pb-12">
       <CandidateHeader
         displayName={displayName}
         lookupName={lookupName}
@@ -57,7 +57,7 @@ export const CandidateFundsScreen: FC = () => {
         }
         seoDescription={`EU-funds beneficiaries connected to ${displayName}`}
       />
-      <div className="mx-auto w-full max-w-5xl space-y-6 px-4 pb-12">
+      <div className="w-full space-y-6">
         <header className="space-y-1">
           <p className="text-sm text-muted-foreground">
             {t("funds_page_intro") ||
@@ -118,6 +118,6 @@ export const CandidateFundsScreen: FC = () => {
             "Source: ИСУН 2020 public beneficiary register. MP linkages from cacbg property declarations and Commerce Registry filings. Connections describe what the MP has declared or is on record for — they are not in themselves an accusation of wrongdoing."}
         </p>
       </div>
-    </>
+    </div>
   );
 };

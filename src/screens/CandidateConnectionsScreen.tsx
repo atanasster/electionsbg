@@ -78,7 +78,7 @@ export const CandidateConnectionsScreen: FC = () => {
   const orderedLengths = Array.from(buckets.keys()).sort((a, b) => a - b);
 
   return (
-    <>
+    <div className="w-full space-y-4 px-3 py-3 pb-12">
       <CandidateHeader
         displayName={displayName}
         lookupName={lookupName}
@@ -86,7 +86,7 @@ export const CandidateConnectionsScreen: FC = () => {
         subtitle={t("mp_connections_full_title") || "Connections to other MPs"}
         seoDescription={`Business connection paths from ${displayName} to other MPs`}
       />
-      <div className="w-full max-w-5xl mx-auto px-4 pb-12 space-y-6">
+      <div className="w-full space-y-6">
         <p className="text-sm text-muted-foreground">
           {t("mp_connections_full_intro") ||
             "Each row is a shortest path through the business connections graph from this MP to another. Direct shared companies (2 steps) usually indicate an explicit business overlap; longer paths show indirect links through co-officers or owners."}
@@ -122,6 +122,6 @@ export const CandidateConnectionsScreen: FC = () => {
           );
         })}
       </div>
-    </>
+    </div>
   );
 };

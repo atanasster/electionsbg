@@ -403,7 +403,7 @@ export const CandidateAssetsScreen: FC = () => {
   }`;
 
   return (
-    <div className="w-full">
+    <div className="w-full space-y-4 px-3 py-3">
       <CandidateHeader
         displayName={displayName}
         lookupName={lookupName}

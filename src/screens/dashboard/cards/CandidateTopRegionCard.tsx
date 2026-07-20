@@ -6,9 +6,9 @@ import { formatPct, formatThousands } from "@/data/utils";
 import { Link } from "@/ux/Link";
 import { StatCard } from "../StatCard";
 
-type Props = { data: CandidateDashboardSummary };
+type Props = { data: CandidateDashboardSummary; election?: string };
 
-export const CandidateTopRegionCard: FC<Props> = ({ data }) => {
+export const CandidateTopRegionCard: FC<Props> = ({ data, election }) => {
   const { t, i18n } = useTranslation();
   const top = data.regions[0];
   if (!top) {
@@ -35,7 +35,14 @@ export const CandidateTopRegionCard: FC<Props> = ({ data }) => {
       <div className="flex items-baseline gap-2">
         <MapPin className="h-5 w-5 text-muted-foreground shrink-0" />
         <Link
-          to={`/municipality/${top.oblast}`}
+          to={
+            election
+              ? {
+                  pathname: `/municipality/${top.oblast}`,
+                  search: { elections: election },
+                }
+              : `/municipality/${top.oblast}`
+          }
           className="text-2xl font-bold truncate hover:underline"
           underline={false}
         >
