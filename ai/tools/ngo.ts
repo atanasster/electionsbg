@@ -58,6 +58,10 @@ const SIGNAL_LABEL: Record<string, { bg: string; en: string }> = {
     bg: "Магистрат в ръководството",
     en: "Magistrate on board",
   },
+  related_party: {
+    bg: "Свързана фирма в управата",
+    en: "Related-party firm on board",
+  },
   public_contracts: { bg: "Обществени поръчки", en: "Public contracts" },
   single_bid: { bg: "Един кандидат", en: "Single bidder" },
   eu_funds: { bg: "Средства от ЕС", en: "EU funds" },

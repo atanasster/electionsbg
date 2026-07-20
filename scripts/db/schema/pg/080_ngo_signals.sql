@@ -216,6 +216,26 @@ board AS (  -- high-confidence politician / magistrate board members (Phase 2)
        FILTER (WHERE kind = 'magistrate' AND confidence = 'high'))[1]         AS mag_name
   FROM ngo_board_links WHERE eik = p_eik
 ),
+rp AS (  -- related-party proximity: a high-confidence board member who ALSO
+         -- controls a company (declared holdings — magistrate_company /
+         -- company_politicians) that wins public procurement, the firm being a
+         -- DIFFERENT entity than this NGO. The strict "self-dealing counterparty"
+         -- join is structurally empty under the namesake guard (0 matches, see
+         -- docs/plans/ngo-risk-signals-v1.md), so this flags the board member's
+         -- own public-contractor firm instead. A trace, not proof.
+  SELECT count(DISTINCT b.person)::int AS n,
+         min(b.person) AS person_name,
+         min(tc.name)  AS firm_name
+  FROM ngo_board_links b
+  JOIN (SELECT eik AS pco, name AS pnm FROM magistrate_company
+        UNION ALL
+        SELECT eik, politician FROM company_politicians) pc
+    ON translit_bg_latin(pc.pnm) = translit_bg_latin(b.person)
+  JOIN tr_companies tc ON tc.uic = pc.pco
+  WHERE b.eik = p_eik AND b.confidence = 'high'
+    AND pc.pco <> p_eik
+    AND EXISTS (SELECT 1 FROM contracts ct WHERE ct.contractor_eik = pc.pco)
+),
 sig AS (
   SELECT ord, code, obj FROM (
     -- Connection signals (Phase 2) — shown first; each carries the (single) top
@@ -232,33 +252,39 @@ sig AS (
              'confidence','high')
     WHERE (SELECT mag FROM board) > 0
     UNION ALL
-    SELECT 3, 'public_contracts',
+    SELECT 3, 'related_party',
+           jsonb_build_object('code','related_party','class','connection','tone','rose',
+             'count', (SELECT n FROM rp), 'detail', (SELECT person_name FROM rp),
+             'firm', (SELECT firm_name FROM rp), 'confidence','high')
+    WHERE (SELECT n FROM rp) > 0
+    UNION ALL
+    SELECT 4, 'public_contracts',
            jsonb_build_object('code','public_contracts','class','public_money','tone','teal',
              'valueEur', ROUND((SELECT eur FROM ctr)), 'count', (SELECT n FROM ctr),
              'asOf', left((SELECT last_date FROM ctr), 4))
     WHERE (SELECT n FROM ctr) > 0
     UNION ALL
-    SELECT 4, 'single_bid',
+    SELECT 5, 'single_bid',
            jsonb_build_object('code','single_bid','class','public_money','tone','amber',
              'share', ROUND((SELECT single_share FROM sb), 4))
     WHERE (SELECT single_share FROM sb) >= 0.5
     UNION ALL
-    SELECT 5, 'eu_funds',
+    SELECT 6, 'eu_funds',
            jsonb_build_object('code','eu_funds','class','public_money','tone','emerald',
              'valueEur', ROUND((SELECT eur FROM eu)), 'count', (SELECT n FROM eu))
     WHERE (SELECT n FROM eu) > 0
     UNION ALL
-    SELECT 6, 'budget_subsidy',
+    SELECT 7, 'budget_subsidy',
            jsonb_build_object('code','budget_subsidy','class','public_money','tone','emerald',
              'valueEur', ROUND((SELECT subsidy_eur FROM nf)), 'asOf', (SELECT subsidy_year FROM nf))
     WHERE (SELECT subsidy_eur FROM nf) > 0
     UNION ALL
-    SELECT 7, 'foreign_funded',
+    SELECT 8, 'foreign_funded',
            jsonb_build_object('code','foreign_funded','class','disclosure','tone','slate',
              'valueEur', ROUND((SELECT foreign_eur FROM nf)), 'asOf', (SELECT foreign_year FROM nf))
     WHERE (SELECT foreign_eur FROM nf) > 0
     UNION ALL
-    SELECT 8, 'large',
+    SELECT 9, 'large',
            jsonb_build_object('code','large','class','public_money','tone','yellow',
              'valueEur', ROUND((SELECT eur FROM money)))
     WHERE (SELECT eur FROM money) >= 1000000

@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-05-15",
+  "fetchedAt": "2026-07-20",
   "country": "BG",
   "sources": {
     "bnbAuctions": "https://www.bnb.bg/FiscalAgent/FAGSAuctions/FAAuctionResults/index.htm",
@@ -8,6 +8,55 @@
     "cbondsBulgaria": "https://cbonds.com/country/Bulgaria-bond/"
   },
   "emissions": [
+    {
+      "id": "EU-2026-07-2032tap",
+      "market": "international",
+      "type": "eurobond",
+      "issueDate": "2026-07-07",
+      "maturityDate": "2032-09-05",
+      "termYears": 8,
+      "currency": "EUR",
+      "principalMillion": 1000,
+      "couponPct": 3.625,
+      "settlementYieldPct": 3.45,
+      "listingVenue": "Luxembourg SE",
+      "titleEn": "€1bn tap of 8y (mat. 2032)",
+      "titleBg": "€1 млрд. преотваряне, 8-годишна (падеж 2032)",
+      "notes": "Reopening (преотваряне) of the 3.625% Sept-2024 bond; first market access after euro-area entry. Priced MS+65bps, yield ~3.45%, order book ~€4.4bn. Part of the €2.5bn 3-tranche tap on 2026-07-07 under the GMTN programme. Source: MoF statement + SeeNews 2026-07-07."
+    },
+    {
+      "id": "EU-2026-07-2038tap",
+      "market": "international",
+      "type": "eurobond",
+      "issueDate": "2026-07-07",
+      "maturityDate": "2038-05-07",
+      "termYears": 13,
+      "currency": "EUR",
+      "principalMillion": 1000,
+      "couponPct": 4.125,
+      "settlementYieldPct": 4.35,
+      "listingVenue": "Luxembourg SE",
+      "titleEn": "€1bn tap of 13y (mat. 2038)",
+      "titleBg": "€1 млрд. преотваряне, 13-годишна (падеж 2038)",
+      "notes": "Reopening (преотваряне) of the 4.125% May-2025 bond. Priced MS+120bps, yield ~4.35%, order book ~€3.4bn. Part of the €2.5bn 3-tranche tap on 2026-07-07 under the GMTN programme. Source: MoF statement + SeeNews 2026-07-07."
+    },
+    {
+      "id": "EU-2026-07-2045tap",
+      "market": "international",
+      "type": "eurobond",
+      "isin": "XS3124393367",
+      "issueDate": "2026-07-07",
+      "maturityDate": "2045-07-18",
+      "termYears": 20,
+      "currency": "EUR",
+      "principalMillion": 500,
+      "couponPct": 4.125,
+      "settlementYieldPct": 4.7,
+      "listingVenue": "Luxembourg SE",
+      "titleEn": "€0.5bn tap of 20y (mat. 2045)",
+      "titleBg": "€0,5 млрд. преотваряне, 20-годишна (падеж 2045)",
+      "notes": "Reopening (преотваряне) of the 4.125% July-2025 bond (ISIN XS3124393367). Priced MS+145bps, yield ~4.70%, order book ~€1.7bn. Part of the €2.5bn 3-tranche tap on 2026-07-07 under the GMTN programme. Source: MoF statement + SeeNews 2026-07-07."
+    },
     {
       "id": "EU-2025-07-20y",
       "market": "international",

@@ -16,6 +16,7 @@ import {
   TrendingUp,
   Users,
   Scale,
+  Briefcase,
 } from "lucide-react";
 import { formatEurCompact } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
@@ -34,6 +35,7 @@ export type NgoSignal = {
   share?: number | null;
   asOf?: string | number | null;
   detail?: string | null; // e.g. the connected person's name
+  firm?: string | null; // related_party: the board member's own contractor firm
   confidence?: string | null;
 };
 
@@ -52,6 +54,7 @@ const ICON = "h-3 w-3";
 export const NGO_SIGNAL_ORDER = [
   "politician_board",
   "magistrate_board",
+  "related_party",
   "public_contracts",
   "single_bid",
   "eu_funds",
@@ -82,6 +85,19 @@ export const NGO_SIGNAL_META: Record<string, Meta> = {
     hint: [
       "ngo_signal_magistrate_hint",
       "Магистрат с това име фигурира в управата — възможно съвпадение на име, следа, не доказателство.",
+    ],
+  },
+  related_party: {
+    tone: "rose",
+    icon: <Briefcase className={ICON} />,
+    short: ["ngo_signal_related_party_short", "Свързана фирма"],
+    long: [
+      "ngo_signal_related_party_long",
+      "Член на ръководството с фирма — обществен изпълнител",
+    ],
+    hint: [
+      "ngo_signal_related_party_hint",
+      "Лице от управата контролира фирма, която печели обществени поръчки — потенциален конфликт на интереси, следа, не доказателство.",
     ],
   },
   public_contracts: {
@@ -185,6 +201,7 @@ export const NgoSignalPills: FC<{
           {sig.detail ? (
             <div className="text-xs">
               {decodeEntities(sig.detail)}
+              {sig.firm ? ` · ${decodeEntities(sig.firm)}` : ""}
               {sig.count != null && sig.count > 1 ? ` +${sig.count - 1}` : ""}
             </div>
           ) : null}
