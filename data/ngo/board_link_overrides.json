@@ -1,0 +1,5 @@
+{
+  "_readme": "Human-in-the-loop overrides for ngo_board_links (migration 080). Medium-confidence links (namesake company_count 2-3) are withheld from the public NGO/company page by default because a name coincidence could implicate the wrong person. An editor reviews candidates with `npm run ngo:review-board-links` and lists verified ones here. Applied by scripts/ngo/load_ngo_board_links_pg.ts after each rebuild. Match key is (eik, ref) — copy both verbatim from the review output. `promote` bumps a verified medium link to 'high' so it renders publicly; `suppress` removes a link (false positive) even if it is 'high'. Suppress wins over promote.",
+  "promote": [],
+  "suppress": []
+}

@@ -22,6 +22,7 @@
 
 import { readFileSync, existsSync } from "node:fs";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import type { PoolClient } from "pg";
 import { exec, withClient, getPool, end } from "../db/lib/pg";
 import { copyRows } from "../db/lib/copy";
 import { recordIngestBatch } from "../db/lib/ingest_changelog";
@@ -48,6 +49,11 @@ const OFFICIALS_LINKS = fileURLToPath(
 const MP_INDEX = fileURLToPath(
   new URL("../../data/parliament/index.json", import.meta.url),
 );
+// Human-in-the-loop overrides: an editor promotes a verified medium-confidence
+// link to 'high' (public) or suppresses a false positive. See ngo:review-board-links.
+const OVERRIDES = fileURLToPath(
+  new URL("../../data/ngo/board_link_overrides.json", import.meta.url),
+);
 
 // index.json exec entries carry `category`; municipal entries carry `role`.
 // Either is used as the roster `role` label (resolve_persons reads it into
@@ -68,6 +74,67 @@ type OfficialLinksFile = {
 
 type MpIndexFile = {
   mps: { id: number; name: string }[];
+};
+
+type OverrideEntry = { eik: string; ref: string; note?: string };
+export type Overrides = { promote: OverrideEntry[]; suppress: OverrideEntry[] };
+
+// Read the editor's promote/suppress overrides. Tolerant: a missing file is an
+// empty set, and a malformed (hand-edited) file warns and no-ops rather than
+// aborting the whole board-links load — this runs in the automated pipeline, not
+// only when the editor is present.
+export const readOverrides = (): Overrides => {
+  const empty: Overrides = { promote: [], suppress: [] };
+  if (!existsSync(OVERRIDES)) return empty;
+  try {
+    const j = JSON.parse(readFileSync(OVERRIDES, "utf8")) as {
+      promote?: OverrideEntry[];
+      suppress?: OverrideEntry[];
+    };
+    const clean = (a?: OverrideEntry[]): OverrideEntry[] =>
+      (a ?? []).filter((o) => o?.eik && o?.ref);
+    return { promote: clean(j.promote), suppress: clean(j.suppress) };
+  } catch (e) {
+    console.warn(
+      `[ngo-board-links] board_link_overrides.json is malformed — skipping overrides (${String(e)})`,
+    );
+    return empty;
+  }
+};
+
+// Apply overrides to the freshly-rebuilt table, inside the rebuild txn so the
+// changelog reflects the final public state. Suppress wins over promote (a
+// suppressed row is deleted regardless of a promote on the same ref, because the
+// promote loop runs first and the suppress DELETE is unconditional).
+export const applyOverrides = async (
+  c: PoolClient,
+  ov: Overrides,
+): Promise<{ promoted: number; suppressed: number }> => {
+  let promoted = 0;
+  for (const o of ov.promote) {
+    const r = await c.query(
+      "UPDATE ngo_board_links SET confidence = 'high' WHERE eik = $1 AND ref = $2 AND confidence <> 'high'",
+      [o.eik, o.ref],
+    );
+    if (!r.rowCount)
+      console.warn(
+        `[ngo-board-links] promote override matched no promotable row: ${o.eik} ${o.ref}`,
+      );
+    promoted += r.rowCount ?? 0;
+  }
+  let suppressed = 0;
+  for (const o of ov.suppress) {
+    const r = await c.query(
+      "DELETE FROM ngo_board_links WHERE eik = $1 AND ref = $2",
+      [o.eik, o.ref],
+    );
+    if (!r.rowCount)
+      console.warn(
+        `[ngo-board-links] suppress override matched no row: ${o.eik} ${o.ref}`,
+      );
+    suppressed += r.rowCount ?? 0;
+  }
+  return { promoted, suppressed };
 };
 
 export const loadNgoBoardLinksPg = async (): Promise<{
@@ -189,6 +256,16 @@ export const loadNgoBoardLinksPg = async (): Promise<{
     links = Number(
       (await c.query("SELECT rebuild_ngo_board_links() AS n")).rows[0].n,
     );
+    const ov = await applyOverrides(c, readOverrides());
+    if (ov.promoted || ov.suppressed) {
+      links = Number(
+        (await c.query("SELECT count(*)::int AS n FROM ngo_board_links"))
+          .rows[0].n,
+      );
+      console.log(
+        `[ngo-board-links] overrides: +${ov.promoted} promoted, -${ov.suppressed} suppressed`,
+      );
+    }
     await recordIngestBatch(c, {
       source: "ngo_board_links",
       table: "ngo_board_links",
