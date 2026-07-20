@@ -1,6 +1,6 @@
 import { FC, ReactNode, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Info, Globe2, CalendarDays } from "lucide-react";
+import { Info, Globe2, CalendarDays, Activity } from "lucide-react";
 import { Hint } from "@/ux/Hint";
 import { Title } from "@/ux/Title";
 import { useElectionContext } from "@/data/ElectionContext";
@@ -11,6 +11,7 @@ import {
   usePollsAccuracy,
   usePollsAnalysis,
 } from "@/data/polls/usePolls";
+import { AccuracyTrendsChart } from "./polls/AccuracyTrendsChart";
 import { PollsHeadlinesTile } from "./polls/PollsHeadlinesTile";
 import { PollsLeaderboardTile } from "./polls/PollsLeaderboardTile";
 import { PollsLatestElectionTile } from "./polls/PollsLatestElectionTile";
@@ -151,6 +152,16 @@ export const PollsScreen: FC = () => {
 
         <div className="mt-3">
           <PollsLeaderboardTile profiles={agencyProfiles} agencies={agencies} />
+        </div>
+
+        {/* Accuracy over time — shared with the dashboard tile */}
+        <SectionHeader
+          icon={<Activity className="h-3.5 w-3.5" />}
+          label={t("dashboard_accuracy_trends")}
+          hint={t("dashboard_accuracy_trends_hint")}
+        />
+        <div className="rounded-xl border bg-card p-4 shadow-sm">
+          <AccuracyTrendsChart height={300} />
         </div>
 
         <div className="mt-3">
