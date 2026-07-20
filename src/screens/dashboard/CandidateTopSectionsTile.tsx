@@ -9,9 +9,18 @@ import { StatCard } from "./StatCard";
 
 const TOP_N = 15;
 
-type Props = { data: CandidateDashboardSummary; linkSlug?: string };
+type Props = {
+  data: CandidateDashboardSummary;
+  linkSlug?: string;
+  // ?elections=<cycle> on the "see all" link so the drill-down is scoped to the selected cycle.
+  election?: string;
+};
 
-export const CandidateTopSectionsTile: FC<Props> = ({ data, linkSlug }) => {
+export const CandidateTopSectionsTile: FC<Props> = ({
+  data,
+  linkSlug,
+  election,
+}) => {
   const { t } = useTranslation();
 
   const rows = useMemo(() => {
@@ -60,7 +69,7 @@ export const CandidateTopSectionsTile: FC<Props> = ({ data, linkSlug }) => {
             </div>
           </Hint>
           <Link
-            to={`/candidate/${candidateSlug}/sections`}
+            to={`/candidate/${candidateSlug}/sections${election ? `?elections=${election}` : ""}`}
             className="text-[10px] normal-case text-primary hover:underline"
             underline={false}
           >

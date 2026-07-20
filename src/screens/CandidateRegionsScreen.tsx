@@ -31,7 +31,7 @@ export const CandidateRegionsScreen: FC = () => {
         cikRows={canonical?.cikRows}
         subtitle={t("votes_by_region")}
       />
-      <div className="w-full max-w-7xl mx-auto px-4 pb-12">
+      <div className="w-full px-3 pb-12">
         <CandidateByRegions name={lookupName} partyNum={canonical?.partyNum} />
       </div>
     </>

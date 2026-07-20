@@ -159,7 +159,11 @@ export const PersonElectoralSection: FC<Props> = ({
           <CandidateBallotCard data={summary} />
           <CandidateTopRegionCard data={summary} />
         </div>
-        <CandidateRegionsTile data={summary} linkSlug={candidateSlug} />
+        <CandidateRegionsTile
+          data={summary}
+          linkSlug={candidateSlug}
+          election={selectedCycle}
+        />
         <CandidateTrajectoryTile
           data={
             fullHistory.length ? { ...summary, history: fullHistory } : summary
@@ -177,8 +181,13 @@ export const PersonElectoralSection: FC<Props> = ({
           <CandidateTopSettlementsTile
             data={summary}
             linkSlug={candidateSlug}
+            election={selectedCycle}
           />
-          <CandidateTopSectionsTile data={summary} linkSlug={candidateSlug} />
+          <CandidateTopSectionsTile
+            data={summary}
+            linkSlug={candidateSlug}
+            election={selectedCycle}
+          />
         </DashboardSection>
       ) : null}
     </>

@@ -27,9 +27,18 @@ const DeltaBadge: FC<{ delta?: number }> = ({ delta }) => {
   );
 };
 
-type Props = { data: CandidateDashboardSummary; linkSlug?: string };
+type Props = {
+  data: CandidateDashboardSummary;
+  linkSlug?: string;
+  // ?elections=<cycle> on the "see details" link so the drill-down is scoped to the selected cycle.
+  election?: string;
+};
 
-export const CandidateRegionsTile: FC<Props> = ({ data, linkSlug }) => {
+export const CandidateRegionsTile: FC<Props> = ({
+  data,
+  linkSlug,
+  election,
+}) => {
   const { t, i18n } = useTranslation();
 
   const rows = useMemo(() => {
@@ -72,7 +81,7 @@ export const CandidateRegionsTile: FC<Props> = ({ data, linkSlug }) => {
           </Hint>
           {totalCount > TOP_N ? (
             <Link
-              to={`/candidate/${candidateSlug}/regions`}
+              to={`/candidate/${candidateSlug}/regions${election ? `?elections=${election}` : ""}`}
               className="text-[10px] normal-case text-primary hover:underline"
               underline={false}
             >

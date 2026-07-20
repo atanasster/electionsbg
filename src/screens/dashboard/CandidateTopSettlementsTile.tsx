@@ -10,9 +10,20 @@ import { StatCard } from "./StatCard";
 
 const TOP_N = 15;
 
-type Props = { data: CandidateDashboardSummary; linkSlug?: string };
+type Props = {
+  data: CandidateDashboardSummary;
+  linkSlug?: string;
+  // When set, the "see all" link carries ?elections=<cycle> so the drill-down table is
+  // scoped to the SELECTED election (the person page shows one cycle at a time), not the
+  // global one.
+  election?: string;
+};
 
-export const CandidateTopSettlementsTile: FC<Props> = ({ data, linkSlug }) => {
+export const CandidateTopSettlementsTile: FC<Props> = ({
+  data,
+  linkSlug,
+  election,
+}) => {
   const { t, i18n } = useTranslation();
   const { findSettlement } = useSettlementsInfo();
 
@@ -67,7 +78,7 @@ export const CandidateTopSettlementsTile: FC<Props> = ({ data, linkSlug }) => {
             </div>
           </Hint>
           <Link
-            to={`/candidate/${candidateSlug}/settlements`}
+            to={`/candidate/${candidateSlug}/settlements${election ? `?elections=${election}` : ""}`}
             className="text-[10px] normal-case text-primary hover:underline"
             underline={false}
           >
