@@ -4,6 +4,7 @@ import { Sparkles, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { Link } from "@/ux/Link";
 import { useSimilarityHeadline } from "@/data/parliament/votes/useSimilarityHeadline";
+import { isVotingTwinByScore } from "@/data/parliament/votes/similarityClass";
 import { useMpProfile } from "@/data/parliament/votes/useMpProfile";
 import { useCandidateUrlForVote } from "@/data/parliament/votes/useCandidateUrlForVote";
 import { useMps } from "@/data/parliament/useMps";
@@ -46,6 +47,10 @@ export const ParliamentSimilarityMiniTile: FC = () => {
   if (!headline) return null;
 
   const lang = i18n.language;
+  // Only call the hub highlight "voting twins" when the seed's cross-party matches are genuinely
+  // twin-level (shared similarityClass methodology). The headline shard carries no overlap, so
+  // this is the score-only check — the seed is the top cross-party MP, so the sample is ample.
+  const twins = headline.twins.some((tw) => isVotingTwinByScore(tw.score));
   const seedName = nameOf(headline.seedId);
   const seedLabel =
     labelForPartyShort(headline.seedPartyShort) || headline.seedPartyShort;
@@ -55,7 +60,9 @@ export const ParliamentSimilarityMiniTile: FC = () => {
       <CardHeader className="pb-2">
         <CardTitle className="text-base flex items-center gap-2 flex-wrap">
           <Sparkles className="h-4 w-4" />
-          {t("hub_similarity_title") || "Voting twins"}
+          {twins
+            ? t("hub_similarity_title") || "Voting twins"
+            : t("mp_similarity_title") || "Voting similarity"}
           <Link
             to={candidateUrl(headline.seedId, seedName)}
             underline={false}

@@ -1316,7 +1316,7 @@
   "cohesion_outlier_most_breakaway": "Most independent",
   "cohesion_outlier_threshold": "≥{{count}} votes",
   "cohesion_outlier_view_dissents": "View dissents",
-  "mp_similarity_title": "Voting peers",
+  "mp_similarity_title": "Voting similarity",
   "mp_similarity_closest": "Closest peers",
   "mp_similarity_opposed": "Most different",
   "mp_similarity_score": "Similarity",
@@ -1408,7 +1408,7 @@
   "similarity_pick_mp_placeholder": "Search by name…",
   "similarity_pick_prompt": "Choose an MP above to see their voting twins.",
   "similarity_no_data": "No similarity data is available for this MP yet.",
-  "similarity_cross_party": "Cross-party twins",
+  "similarity_cross_party": "Closest, other groups",
   "similarity_cross_party_hint": "MPs from other parliamentary groups whose votes most closely match this MP. These signal informal blocs that cross party lines.",
   "similarity_same_party": "Within the same group",
   "similarity_same_party_hint": "Top peers within this MP's own parliamentary group, ranked by vote similarity.",
@@ -1435,7 +1435,7 @@
   "embedding_interaction_hint": "Drag to pan · scroll to zoom · or use the controls",
   "mp_twins_title": "Voting twins",
   "mp_twins_peers_label": "peers",
-  "mp_twins_intro": "Other MPs whose voting record most closely matches this one. Cross-party twins — MPs from a different parliamentary group — appear first.",
+  "mp_twins_intro": "Other MPs whose voting record most closely matches this one. Those from a different parliamentary group appear first.",
   "mp_twins_show_all": "See all",
   "mp_twins_show_less": "Show fewer",
   "hub_title": "Parliament — voting analytics",
@@ -4951,5 +4951,7 @@
   "pp_reg_seat_kzk_deputy": "Deputy chair",
   "pp_reg_seat_sem_chair": "Chair",
   "pp_reg_seat_sem_member": "Member",
-  "pp_reg_seat_ombudsman": "Ombudsman"
+  "pp_reg_seat_ombudsman": "Ombudsman",
+  "mp_similarity_weak": "This MP has no strong voting twins — the closest match is {{pct}}.",
+  "similarity_low_overlap": "Few shared votes — similarity is unreliable"
 }

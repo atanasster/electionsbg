@@ -2,6 +2,7 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "@/ux/Link";
 import { useMpSimilarity } from "@/data/parliament/votes/useMpSimilarity";
+import { classifyPeer } from "@/data/parliament/votes/similarityClass";
 import { useMpProfile } from "@/data/parliament/votes/useMpProfile";
 import { useCandidateUrlForVote } from "@/data/parliament/votes/useCandidateUrlForVote";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
@@ -118,6 +119,8 @@ const PeerColumn: FC<{
       <ul className="divide-y">
         {peers.map((p) => {
           const name = mpNames[String(p.mpId)] ?? `MP #${p.mpId}`;
+          // Shared similarityClass reliability flag — too few shared votes and the score is noise.
+          const unreliable = classifyPeer(p.score, p.overlap) === "unreliable";
           return (
             <li key={p.mpId} className="py-2">
               <Link
@@ -133,7 +136,15 @@ const PeerColumn: FC<{
                   <div className="text-sm font-semibold">
                     {p.score.toFixed(2)}
                   </div>
-                  <div className="text-[10px] text-muted-foreground">
+                  <div
+                    className={`text-[10px] ${unreliable ? "text-amber-700 dark:text-amber-500" : "text-muted-foreground"}`}
+                    title={
+                      unreliable
+                        ? t("similarity_low_overlap") ||
+                          "Few shared votes — similarity is unreliable"
+                        : undefined
+                    }
+                  >
                     {p.overlap}
                   </div>
                 </div>

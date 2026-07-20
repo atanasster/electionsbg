@@ -1316,7 +1316,7 @@
   "cohesion_outlier_most_breakaway": "Най-независими",
   "cohesion_outlier_threshold": "≥{{count}} гласувания",
   "cohesion_outlier_view_dissents": "Виж отклоненията",
-  "mp_similarity_title": "Сходно гласуващи",
+  "mp_similarity_title": "Гласово сходство",
   "mp_similarity_closest": "Най-сходни",
   "mp_similarity_opposed": "Най-различни",
   "mp_similarity_score": "Сходство",
@@ -1408,7 +1408,7 @@
   "similarity_pick_mp_placeholder": "Търсене по име…",
   "similarity_pick_prompt": "Изберете депутат отгоре, за да видите неговите гласови близнаци.",
   "similarity_no_data": "Все още няма данни за сходство за този депутат.",
-  "similarity_cross_party": "Близнаци от други групи",
+  "similarity_cross_party": "Най-сходни от други групи",
   "similarity_cross_party_hint": "Депутати от други парламентарни групи, чиито гласувания най-силно съвпадат с избрания депутат. Тези редове разкриват неформални блокове, които пресичат партийните линии.",
   "similarity_same_party": "В рамките на групата",
   "similarity_same_party_hint": "Топ близнаци в рамките на собствената парламентарна група, подредени по сходство.",
@@ -1434,8 +1434,8 @@
   "embedding_pan_right": "Премести надясно",
   "embedding_interaction_hint": "Използвайте мишката за местене и мащабиране или бутоните за управление вдясно.",
   "mp_twins_title": "Гласови близнаци",
-  "mp_twins_peers_label": "близнаци",
-  "mp_twins_intro": "Други депутати, чиито гласувания най-силно съвпадат с този. Близнаците от друга парламентарна група излизат най-горе.",
+  "mp_twins_peers_label": "сходни",
+  "mp_twins_intro": "Други депутати, чиито гласувания най-силно съвпадат с този. Тези от друга парламентарна група излизат най-горе.",
   "mp_twins_show_all": "Виж всички",
   "mp_twins_show_less": "Виж по-малко",
   "hub_title": "Парламент — анализи на гласуването",
@@ -4951,5 +4951,7 @@
   "pp_reg_seat_kzk_deputy": "Заместник-председател",
   "pp_reg_seat_sem_chair": "Председател",
   "pp_reg_seat_sem_member": "Член",
-  "pp_reg_seat_ombudsman": "Омбудсман"
+  "pp_reg_seat_ombudsman": "Омбудсман",
+  "mp_similarity_weak": "Този депутат няма силни гласови близнаци — най-близкото съвпадение е {{pct}}.",
+  "similarity_low_overlap": "Малко общи гласувания — сходството е ненадеждно"
 }

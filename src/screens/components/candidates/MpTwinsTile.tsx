@@ -5,6 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { Link } from "@/ux/Link";
 import { useMps } from "@/data/parliament/useMps";
 import { useMpSimilarity } from "@/data/parliament/votes/useMpSimilarity";
+import {
+  classifyPeer,
+  hasVotingTwins,
+} from "@/data/parliament/votes/similarityClass";
 import { useMpProfile } from "@/data/parliament/votes/useMpProfile";
 import { useCandidateUrlForVote } from "@/data/parliament/votes/useCandidateUrlForVote";
 import { useParliamentGroups } from "@/data/parliament/useParliamentGroups";
@@ -97,6 +101,12 @@ export const MpTwinsTile: FC<Props> = ({ name }) => {
   }
 
   const lang = i18n.language;
+  // "Twin" is EARNED, not assumed (similarityClass): only frame the section as "voting twins"
+  // when at least one peer is a reliable, near-identical match. Otherwise it's "voting
+  // similarity", with a caveat showing the actual ceiling so nobody reads a 53% (or a match over
+  // a handful of shared votes) as a twin.
+  const twins = hasVotingTwins(entry.topK);
+  const topScore = Math.max(0, ...entry.topK.map((p) => p.score));
   const visibleCross = expanded
     ? crossParty
     : crossParty.slice(0, PREVIEW_PER_GROUP);
@@ -124,6 +134,9 @@ export const MpTwinsTile: FC<Props> = ({ name }) => {
     const party = partyOf(p.mpId);
     const peerName = nameOf(p.mpId);
     const color = colorForPartyShort(party) ?? "#94a3b8";
+    // Too few shared votes → the score is unreliable; amber-flag the overlap so a high-looking
+    // percentage over a handful of votes isn't taken at face value.
+    const unreliable = classifyPeer(p.score, p.overlap) === "unreliable";
     return (
       <li key={p.mpId}>
         <Link
@@ -140,7 +153,17 @@ export const MpTwinsTile: FC<Props> = ({ name }) => {
                   {labelForPartyShort(party) || party}
                 </span>
               )}
-              <span>
+              <span
+                className={
+                  unreliable ? "text-amber-700 dark:text-amber-500" : undefined
+                }
+                title={
+                  unreliable
+                    ? t("similarity_low_overlap") ||
+                      "Few shared votes — similarity is unreliable"
+                    : undefined
+                }
+              >
                 {t("similarity_overlap") || "Shared items"}: {p.overlap}
               </span>
             </div>
@@ -163,22 +186,30 @@ export const MpTwinsTile: FC<Props> = ({ name }) => {
       <CardHeader className="pb-2">
         <CardTitle className="text-base flex items-center gap-2 flex-wrap">
           <Sparkles className="h-4 w-4" />
-          {t("mp_twins_title") || "Voting twins"}
+          {twins
+            ? t("mp_twins_title") || "Voting twins"
+            : t("mp_similarity_title") || "Voting similarity"}
           <span className="text-xs text-muted-foreground font-normal">
             · {entry.topK.length} {t("mp_twins_peers_label") || "peers"}
           </span>
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="text-sm text-muted-foreground mb-4">
+        <p className="text-sm text-muted-foreground mb-2">
           {t("mp_twins_intro") ||
-            "Other MPs whose voting record most closely matches this one. Cross-party twins — MPs from a different parliamentary group — appear first."}
+            "Other MPs whose voting record most closely matches this one. Those from a different parliamentary group appear first."}
         </p>
+        {!twins && (
+          <p className="mb-4 text-xs text-amber-700 dark:text-amber-500">
+            {t("mp_similarity_weak", { pct: formatScore(topScore, lang) }) ||
+              `No strong voting twins — the closest match is ${formatScore(topScore, lang)}.`}
+          </p>
+        )}
 
         {crossParty.length > 0 && (
           <section className="mb-4">
             <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">
-              {t("similarity_cross_party") || "Cross-party twins"}
+              {t("similarity_cross_party") || "Closest, other groups"}
               <span className="ml-1 font-normal normal-case">
                 ({crossParty.length})
               </span>
