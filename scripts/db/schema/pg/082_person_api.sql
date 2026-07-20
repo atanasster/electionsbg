@@ -233,17 +233,30 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       AND length(q.f) >= 2 AND a.alias_fold % q.f
   ),
   scored AS (
-    -- Aliased persons SURFACE (via `cand`); ranking is by display-name closeness (an
-    -- alias-only hit scores low but still appears — enough for the lookup, and cheap).
+    -- Ranking sums TWO trigram metrics because each alone mis-ranks a real query pattern:
+    --   • full-string similarity() ranked a shorter namesake that shares the leading tokens
+    --     ("Мария Димитрова Димитрова") above the real prefix match ("…Балъкчиева") — the
+    --     recall bug — because the longer real surname diverges more over the whole string.
+    --   • word_similarity() (best word-aligned extent) fixes that, BUT for a First+Last query
+    --     that SKIPS the middle name ("Божидар Божанов" → "Божидар ПЛАМЕНОВ Божанов") the gap
+    --     drops the real person below an unrelated "…Божанов…" whose two words sit adjacent.
+    -- A wrong match is only ever high on ONE metric, so their SUM is self-correcting: the real
+    -- person is the one that scores well on both. A small prefix boost rewards typing the start
+    -- of the name; ties break toward the more-connected namesake (role count), then lower
+    -- namesake_risk, then name — so the notable person of a homonym set surfaces first.
+    -- Aliased persons still SURFACE (via `cand`); an alias-only hit scores low but appears.
     SELECT p.person_id, p.slug, p.display_name, p.namesake_risk,
-           similarity(p.name_fold, q.f) AS score
+           similarity(p.name_fold, q.f)
+             + word_similarity(q.f, p.name_fold)
+             + (p.name_fold LIKE q.f || '%')::int * 0.15                 AS score,
+           (SELECT count(*) FROM person_role r WHERE r.person_id = p.person_id) AS n_roles
     FROM cand JOIN person p USING (person_id), q
-    ORDER BY score DESC, p.slug
+    ORDER BY score DESC, n_roles DESC, p.namesake_risk ASC, p.display_name, p.slug
     LIMIT GREATEST(p_limit, 1)
   )
   SELECT COALESCE(jsonb_agg(jsonb_build_object(
     'slug', s.slug, 'name', s.display_name, 'namesakeRisk', s.namesake_risk,
-    'roles', (SELECT count(*) FROM person_role r WHERE r.person_id = s.person_id),
+    'roles', s.n_roles,
     -- Party badge = the person's MOST RECENT candidacy party (nick + colour baked into
     -- person_election_stats at load). Lets a politician who ran in ANY cycle — not just the
     -- currently-selected one — carry their party in the header search, the person-basis
@@ -254,7 +267,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
              WHERE r.person_id = s.person_id AND r.source = 'mp' AND r.ref ~ '^[0-9]+$'
              ORDER BY (r.ref)::bigint DESC LIMIT 1),
     'score', round(s.score::numeric, 3)
-  ) ORDER BY s.score DESC, s.display_name), '[]'::jsonb)
+  ) ORDER BY s.score DESC, s.n_roles DESC, s.display_name), '[]'::jsonb)
   FROM scored s
   LEFT JOIN LATERAL (
     SELECT pes.party_nick, pes.party_color
