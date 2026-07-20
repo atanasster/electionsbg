@@ -32,6 +32,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { trRoleLabel } from "@/lib/trRole";
+import { magistrateRoleKey } from "@/lib/magistrateRole";
 import { formatEurCompact } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { PersonScreen } from "@/screens/dev/PersonScreen";
@@ -135,6 +136,25 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
     const k = `pp_role_${role}`;
     const s = t(k);
     return s === k ? role : s;
+  };
+
+  // Office heading. Local: the role (Кмет / Общински съветник). Magistrate: the SPECIFIC role
+  // (Съдия / Прокурор / Следовател / ВСС) inferred from the institution when we can tell — the
+  // explicit position field is nearly empty, but the court/office TYPE implies it (99.8% of the
+  // ~2.7k with an institution); an unclassifiable one keeps the generic "Магистрати". Everything
+  // else uses its source label.
+  const officeHeading = (r: {
+    source: string;
+    role: string;
+    place?: string | null;
+    sourceLabel: string;
+  }): string => {
+    if (r.source === "local") return roleLabel(r.role);
+    if (r.source === "magistrate") {
+      const k = magistrateRoleKey(r.place);
+      if (k) return t(k);
+    }
+    return r.sourceLabel;
   };
 
   // Regulator seat code → localized label; unknown codes pass through.
@@ -338,9 +358,7 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
                   className="flex items-baseline justify-between gap-3 border-b border-border/50 pb-2 last:border-0 last:pb-0"
                 >
                   <span className="text-sm">
-                    <span className="font-medium">
-                      {r.source === "local" ? roleLabel(r.role) : r.sourceLabel}
-                    </span>
+                    <span className="font-medium">{officeHeading(r)}</span>
                     {/* The role code adds signal for officials (councillor / mayor / chair);
                       for mp & magistrate the source label already says it; local shows the
                       role AS the heading (Кмет / Общински съветник). */}
