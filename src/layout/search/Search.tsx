@@ -99,9 +99,6 @@ const SearchInternal: FC = () => {
         case "r":
           navigate({ pathname: `/municipality/${selectedOption.item.key}` });
           break;
-        case "a":
-          navigate({ pathname: `/candidate/${selectedOption.item.key}` });
-          break;
         case "o":
           // Municipal official — keyed by the cacbg slug.
           navigate({ pathname: `/officials/${selectedOption.item.key}` });

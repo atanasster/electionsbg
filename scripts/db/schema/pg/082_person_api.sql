@@ -244,9 +244,24 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
   SELECT COALESCE(jsonb_agg(jsonb_build_object(
     'slug', s.slug, 'name', s.display_name, 'namesakeRisk', s.namesake_risk,
     'roles', (SELECT count(*) FROM person_role r WHERE r.person_id = s.person_id),
+    -- Party badge = the person's MOST RECENT candidacy party (nick + colour baked into
+    -- person_election_stats at load). Lets a politician who ran in ANY cycle — not just the
+    -- currently-selected one — carry their party in the header search, the person-basis
+    -- replacement for the old CIK-JSON candidate index.
+    'party', pty.party_nick, 'partyColor', pty.party_color,
+    -- mpId (latest mp role) → the MpAvatar photo in the dropdown; NULL for non-MPs.
+    'mpId', (SELECT r.ref::bigint FROM person_role r
+             WHERE r.person_id = s.person_id AND r.source = 'mp' AND r.ref ~ '^[0-9]+$'
+             ORDER BY (r.ref)::bigint DESC LIMIT 1),
     'score', round(s.score::numeric, 3)
   ) ORDER BY s.score DESC, s.display_name), '[]'::jsonb)
-  FROM scored s;
+  FROM scored s
+  LEFT JOIN LATERAL (
+    SELECT pes.party_nick, pes.party_color
+    FROM person_election_stats pes
+    WHERE pes.person_id = s.person_id AND pes.party_nick IS NOT NULL
+    ORDER BY pes.election_date DESC LIMIT 1
+  ) pty ON true;
 $$;
 
 -- The person's public-contract take bucketed by CABINET tenure (the "money vs power"

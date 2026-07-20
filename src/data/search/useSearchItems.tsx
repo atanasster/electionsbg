@@ -6,9 +6,6 @@ import { useRegions } from "../regions/useRegions";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { SectionIndex } from "../dataTypes";
 import { useElectionContext } from "../ElectionContext";
-import { useCikGroups } from "@/data/candidates/useResolvedCandidate";
-import { usePartyInfo } from "@/data/parties/usePartyInfo";
-import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { dataUrl } from "@/data/dataUrl";
 import { transliterateName } from "@/data/candidates/transliterateName";
 import { SOFIA_CITY_GOVERNANCE_ID } from "@/data/local/placeViews";
@@ -130,10 +127,10 @@ export type SearchIndexType = {
   // o=municipal official (mayor / chair / deputy mayor / councillor /
   //   chief architect — from data/officials/municipal/. Key is the slug
   //   used at /officials/<slug>.)
-  // p=unified person (live /api/db/person-lookup — covers everyone with a
-  //   /person/<slug> page: former MPs, magistrates, NGO boards, DS, etc. that
-  //   the static per-election candidate index can't hold). Key = person slug.
-  type: "s" | "m" | "d" | "r" | "c" | "a" | "b" | "v" | "o" | "p";
+  // p=unified person (live /api/db/person-lookup — the SINGLE people surface: every
+  //   candidate (any cycle), former MP, magistrate, NGO board, DS person with a
+  //   /person/<slug> page. Replaces the retired static candidate index. Key = person slug.
+  type: "s" | "m" | "d" | "r" | "c" | "b" | "v" | "o" | "p";
   key: string;
   name: string;
   name_en?: string;
@@ -143,11 +140,13 @@ export type SearchIndexType = {
   // instead of deriving one from `type` + `key` (used for the synthetic
   // София / Столична община entries that don't map to a /<type>/<key> route).
   path?: string;
-  photoUrl?: string;
-  // candidate (type "a") only: the party label + colour, so namesakes are
-  // told apart in the dropdown (display-only — not a Fuse search key).
+  // person (type "p") party label + colour, so namesakes are told apart in the
+  // dropdown (display-only — not a Fuse search key). Resolved from the person's
+  // most-recent candidacy in person_search.
   party?: string;
   partyColor?: string;
+  // person (type "p") only: the person's mp id → the MpAvatar photo. Absent for non-MPs.
+  mpId?: number;
 };
 export const useSearchItems = () => {
   const { selected } = useElectionContext();
@@ -157,12 +156,6 @@ export const useSearchItems = () => {
   });
   const { settlements } = useSettlementsInfo();
   const { municipalities } = useMunicipalities();
-  // Resolved (name, partyNum) buckets — one per distinct person, each with an
-  // unambiguous slug so a dropdown pick lands on the right candidate page (no
-  // namesake chooser). Plus party lookups for the dropdown badge.
-  const cikGroups = useCikGroups();
-  const { findParty } = usePartyInfo();
-  const { displayNameFor } = useCanonicalParties();
   const { regions } = useRegions();
   const { data: adminFlow } = useBudgetMinistriesForSearch();
   const { data: voteIndex } = useSearchVoteIndex();
@@ -222,33 +215,10 @@ export const useSearchItems = () => {
         parentName_en: "Sofia-grad",
         path: `/governance/${SOFIA_CITY_GOVERNANCE_ID}`,
       });
-      // Candidates / MPs — one entry per DISTINCT PERSON (a (name, partyNum)
-      // bucket), keyed by its unambiguous slug (mp-… / c-…) so picking from the
-      // dropdown lands straight on that candidate's page rather than a bare-name
-      // URL that re-opens the namesake chooser. The party label + colour tell
-      // namesakes apart inline. name_en already prefers the matched MP's
-      // canonical (parliament.bg) spelling. Most-районs-first so a prominent
-      // candidate wins a score tie. Optional — appears once the roster loads.
-      if (cikGroups) {
-        [...cikGroups]
-          .sort((a, b) => b.oblasts.length - a.oblasts.length)
-          .forEach((g) => {
-            const party =
-              g.partyNum != null ? findParty(g.partyNum) : undefined;
-            const partyLabel = party
-              ? (displayNameFor(party.nickName) ?? party.nickName ?? party.name)
-              : undefined;
-            searchItems.push({
-              type: "a",
-              key: g.slug,
-              name: g.name,
-              name_en: g.name_en,
-              photoUrl: g.mpEntry?.photoUrl ?? undefined,
-              party: partyLabel,
-              partyColor: party?.color,
-            });
-          });
-      }
+      // Candidates / MPs are NOT indexed here anymore — they come from the unified person
+      // layer (/api/db/person-lookup → `p` rows), so the header search is person-basis only and
+      // carries no named-candidate JSON dependency. A person who ran in ANY cycle surfaces with
+      // their party badge; the old CIK-roster ("a") surface is gone.
 
       // Budget spending units (ministries / agencies). Dedupe across years —
       // the same nodeId appears in every year's ministries[]; we want one
@@ -327,9 +297,6 @@ export const useSearchItems = () => {
     return undefined;
   }, [
     adminFlow,
-    cikGroups,
-    displayNameFor,
-    findParty,
     municipalities,
     municipalOfficials,
     regions,

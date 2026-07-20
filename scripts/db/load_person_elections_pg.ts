@@ -42,6 +42,12 @@ interface RegionRow {
   partyNum?: number;
   totalVotes?: number;
 }
+interface CikParty {
+  number: number;
+  nickName?: string;
+  name?: string;
+  color?: string;
+}
 interface PrefStats {
   stats?: unknown[];
   top_settlements?: unknown[];
@@ -50,6 +56,32 @@ interface PrefStats {
 
 const readJson = <T>(file: string): T | null =>
   fs.existsSync(file) ? (JSON.parse(fs.readFileSync(file, "utf8")) as T) : null;
+
+// Per-election party DISPLAY (number → {nick, color}) from data/{election}/cik_parties.json.
+// Cached per election since the loop below touches an election's shards together. The colour
+// and nickName only exist in these per-election files, so this is the ONE place they enter the
+// person layer (baked into person_election_stats for the search badge).
+const partyDisplayCache = new Map<
+  string,
+  Map<number, { nick: string | null; color: string | null }>
+>();
+const partyDisplayFor = (
+  election: string,
+): Map<number, { nick: string | null; color: string | null }> => {
+  const hit = partyDisplayCache.get(election);
+  if (hit) return hit;
+  const rows =
+    readJson<CikParty[]>(
+      path.join(ROOT, "data", election, "cik_parties.json"),
+    ) ?? [];
+  const map = new Map<number, { nick: string | null; color: string | null }>();
+  for (const p of rows) {
+    if (p.number == null) continue;
+    map.set(p.number, { nick: p.nickName ?? null, color: p.color ?? null });
+  }
+  partyDisplayCache.set(election, map);
+  return map;
+};
 
 const run = async (): Promise<void> => {
   await exec(fs.readFileSync(SCHEMA, "utf8"));
@@ -76,14 +108,16 @@ const run = async (): Promise<void> => {
     [string, string, string, number | null, number, string]
   > = [];
   type StatsRow = [
-    number,
-    string,
-    number,
-    number,
-    RegionRow[],
-    unknown[],
-    unknown[],
-    unknown[],
+    number, // person_id
+    string, // election_date
+    number, // party_num
+    string | null, // party_nick
+    string | null, // party_color
+    number, // total_votes
+    RegionRow[], // regions
+    unknown[], // stats
+    unknown[], // top_settlements
+    unknown[], // top_sections
   ];
   // ONE row per (person, election). A seated MP resolves from BOTH its mp-{id} shard (party
   // inferred from the name folder) AND its c-{party} list shard (party from the slug) in the
@@ -166,11 +200,17 @@ const run = async (): Promise<void> => {
       // Set on first sight; on a dual-shard clash, replace only to upgrade an inferred-party
       // row to the slug-party one — never the reverse.
       if (existing && !(fromSlug && !existing.fromSlug)) continue;
+      const disp =
+        effectiveParty != null
+          ? partyDisplayFor(election).get(effectiveParty)
+          : undefined;
       statsByPersonElection.set(key, {
         row: [
           pr.personId,
           election,
           effectiveParty ?? 0,
+          disp?.nick ?? null,
+          disp?.color ?? null,
           totalVotes,
           regions,
           ps?.stats ?? [],
@@ -213,6 +253,8 @@ const run = async (): Promise<void> => {
         "person_id",
         "election_date",
         "party_num",
+        "party_nick",
+        "party_color",
         "total_votes",
         "regions",
         "stats",

@@ -15,14 +15,15 @@ import {
   Landmark,
   Gavel,
   Users,
-  User,
 } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { PartyBadge } from "@/screens/components/PartyBadge";
 
 type ItemType = SearchIndexType["type"];
 
-const TYPE_ICON: Record<Exclude<ItemType, "a">, FC<{ className?: string }>> = {
+// "p" (person) renders an avatar, not an icon.
+const TYPE_ICON: Record<Exclude<ItemType, "p">, FC<{ className?: string }>> = {
   s: MapPin,
   m: Building2,
   d: MapPinned,
@@ -31,7 +32,6 @@ const TYPE_ICON: Record<Exclude<ItemType, "a">, FC<{ className?: string }>> = {
   b: Landmark,
   v: Gavel,
   o: Users,
-  p: User,
 };
 
 const Highlight: FC<{
@@ -77,8 +77,6 @@ export const SearchItems: FC<{
         return t("rayon");
       case "s":
         return t("settlement");
-      case "a":
-        return t("candidate");
       case "o":
         return t("search_group_municipal_officials") || "Municipal officials";
       case "p":
@@ -103,7 +101,7 @@ export const SearchItems: FC<{
   return (
     <>
       {TYPE_ORDER.filter((type) => grouped[type]?.length).map((type) => {
-        const Icon = type === "a" ? null : TYPE_ICON[type];
+        const Icon = type === "p" ? null : TYPE_ICON[type];
         return (
           <CommandGroup key={type} heading={typeLabel(type)}>
             {grouped[type].map((r) => {
@@ -140,19 +138,20 @@ export const SearchItems: FC<{
                     selected?.refIndex === r.refIndex ? "bg-muted" : "",
                   )}
                 >
-                  {r.item.type === "a" ? (
-                    <Avatar className="h-6 w-6 mt-0.5">
-                      {r.item.photoUrl && (
-                        <AvatarImage
-                          src={r.item.photoUrl}
-                          alt={r.item.name}
-                          className="object-cover"
-                        />
-                      )}
-                      <AvatarFallback className="text-[9px] font-semibold text-muted-foreground">
-                        {initials(r.item.name)}
-                      </AvatarFallback>
-                    </Avatar>
+                  {r.item.type === "p" ? (
+                    r.item.mpId != null ? (
+                      <MpAvatar
+                        mpId={r.item.mpId}
+                        name={r.item.name}
+                        className="mt-0.5 h-6 w-6"
+                      />
+                    ) : (
+                      <Avatar className="h-6 w-6 mt-0.5">
+                        <AvatarFallback className="text-[9px] font-semibold text-muted-foreground">
+                          {initials(r.item.name)}
+                        </AvatarFallback>
+                      </Avatar>
+                    )
                   ) : (
                     Icon && (
                       <Icon className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
@@ -181,7 +180,7 @@ export const SearchItems: FC<{
                     </div>
                     {/* Party badge sits under the name, mirroring how the
                         municipal official's location is shown below. */}
-                    {r.item.type === "a" && r.item.party && (
+                    {r.item.type === "p" && r.item.party && (
                       <div>
                         <PartyBadge
                           label={r.item.party}

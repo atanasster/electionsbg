@@ -39,6 +39,12 @@ CREATE TABLE IF NOT EXISTS person_election_stats (
   person_id       bigint NOT NULL,
   election_date   text   NOT NULL,
   party_num       int    NOT NULL DEFAULT 0,
+  -- Party DISPLAY (nickName + colour) resolved from that election's cik_parties.json at load
+  -- time — (election, party_num)→party is election-specific and the colour/nick live only in
+  -- per-election JSON, so baking them here lets person_search show a correct party badge
+  -- without the client re-loading every candidacy's election. NULL for a party-less row.
+  party_nick      text,
+  party_color     text,
   total_votes     int    NOT NULL DEFAULT 0,   -- Σ regions[].totalVotes (denormalized for sort)
   regions         jsonb  NOT NULL DEFAULT '[]'::jsonb,   -- regions.json (PreferencesInfo[])
   stats           jsonb  NOT NULL DEFAULT '[]'::jsonb,   -- preferences_stats.stats (history)
@@ -46,6 +52,9 @@ CREATE TABLE IF NOT EXISTS person_election_stats (
   top_sections    jsonb  NOT NULL DEFAULT '[]'::jsonb,
   PRIMARY KEY (person_id, election_date)
 );
+-- Back-compat for an already-migrated DB (the CREATE TABLE above no-ops via IF NOT EXISTS).
+ALTER TABLE person_election_stats ADD COLUMN IF NOT EXISTS party_nick  text;
+ALTER TABLE person_election_stats ADD COLUMN IF NOT EXISTS party_color text;
 CREATE INDEX IF NOT EXISTS idx_person_election_stats_person
   ON person_election_stats (person_id);
 

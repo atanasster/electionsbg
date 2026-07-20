@@ -15,10 +15,19 @@ import { trackSearch } from "@/lib/analytics";
 
 const norm = (s: string): string => s.trim().toLowerCase();
 
-// Live people from the unified person layer (/api/db/person-lookup) — everyone with a
-// /person/<slug> page, incl. the former MPs / magistrates / NGO boards / DS people the
-// static per-election candidate index can't hold. Rendered as `p` rows.
-type PersonHit = { slug: string; name: string; score?: number };
+// Live people from the unified person layer (/api/db/person-lookup) — the SINGLE people
+// surface in the header search (the former CIK-JSON candidate index is gone; candidates are
+// persons now). Covers everyone with a /person/<slug> page: candidates from ANY cycle, former
+// MPs, magistrates, NGO boards, DS people. `party`/`partyColor` = the person's most-recent
+// candidacy party (badge); `mpId` drives the avatar photo. Rendered as `p` rows.
+type PersonHit = {
+  slug: string;
+  name: string;
+  score?: number;
+  party?: string | null;
+  partyColor?: string | null;
+  mpId?: number | null;
+};
 const fetchPersons = async (q: string): Promise<PersonHit[]> => {
   try {
     const res = await fetch(
@@ -117,19 +126,26 @@ export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [term]);
 
   // Merge Fuse rows + person rows into ONE flat, group-sorted list (the whole pipeline —
-  // render, arrow-nav, selection — runs off this). Person rows are deduped by name against
-  // the static candidate/official rows so a CURRENT candidate isn't shown twice; the person
-  // rows are exactly the gap the static index can't hold (former MPs, magistrates, …).
+  // render, arrow-nav, selection — runs off this). Person rows are deduped by name against the
+  // static MUNICIPAL-OFFICIAL rows so an official who also resolves to a person isn't shown
+  // twice (officials are the one static people surface left; candidates come only via `p`).
   const items = useMemo<SearchItemType[]>(() => {
     const staticNames = new Set(
       searchItems
-        .filter((r) => r.item.type === "a" || r.item.type === "o")
+        .filter((r) => r.item.type === "o")
         .map((r) => norm(r.item.name)),
     );
     const personItems: SearchItemType[] = personHits
       .filter((p) => !staticNames.has(norm(p.name)))
       .map((p) => ({
-        item: { type: "p", key: p.slug, name: p.name },
+        item: {
+          type: "p",
+          key: p.slug,
+          name: p.name,
+          party: p.party ?? undefined,
+          partyColor: p.partyColor ?? undefined,
+          mpId: p.mpId ?? undefined,
+        },
         refIndex: -1,
         score: 0,
       }));
