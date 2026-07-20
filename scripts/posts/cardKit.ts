@@ -204,8 +204,9 @@ export type BarCardSpec = {
    * Row order by value. Default "desc" (largest magnitude on top) — right for
    * gainers/losers and shares. Use "asc" when a *smaller* value is the good
    * outcome (e.g. polling error / MAE), so the best row leads the chart.
+   * Use "none" to keep the caller's order (e.g. a time series by date).
    */
-  sort?: "asc" | "desc";
+  sort?: "asc" | "desc" | "none";
 };
 
 /**
@@ -280,12 +281,34 @@ export const renderBarCard = (spec: BarCardSpec): Buffer => {
   const ruleY = footLines.length ? footTop - 34 : SOURCE_Y - 40;
 
   // ---- bars: shared left edge, length proportional to |value| ----
-  const rows = [...spec.bars].sort((a, b) =>
-    spec.sort === "asc" ? a.value - b.value : b.value - a.value,
-  );
+  const rows =
+    spec.sort === "none"
+      ? spec.bars
+      : [...spec.bars].sort((a, b) =>
+          spec.sort === "asc" ? a.value - b.value : b.value - a.value,
+        );
   const GUTTER = 330; // right-aligned label column
   const X0 = 80 + GUTTER + 24; // bars start here
-  const VALUE_W = 130; // room for "+10,4%" after the bar
+  const signedW = spec.signed ?? true;
+  const unitW = spec.unit ?? "%";
+  // Reserve room for the value label after the bar — and, where present, the
+  // trailing muted note. Sized to the WIDEST value(+note) string rather than a
+  // fixed "+10,4%" guess, so long units (" млн. лв.") and per-bar notes don't
+  // clip off the right edge.
+  const VALUE_W = Math.max(
+    130,
+    ...rows.map((r) => {
+      const num = Math.abs(r.value).toFixed(1).replace(".", ",");
+      const sign = !signedW ? "" : r.value >= 0 ? "+" : "−";
+      ctx.font = `700 34px ${FONT}`;
+      let vw = 18 + ctx.measureText(`${sign}${num}${unitW}`).width;
+      if (r.note) {
+        ctx.font = `600 26px ${FONT}`;
+        vw += 18 + ctx.measureText(r.note).width;
+      }
+      return vw + 12; // small right pad
+    }),
+  );
   const MAX_W = S - 80 - X0 - VALUE_W;
   const peak = Math.max(...rows.map((r) => Math.abs(r.value)), 1);
 
@@ -324,7 +347,16 @@ export const renderBarCard = (spec: BarCardSpec): Buffer => {
     const signed = spec.signed ?? true;
     const sign = !signed ? "" : up ? "+" : "−"; // real minus sign, not a hyphen
     const num = Math.abs(row.value).toFixed(1).replace(".", ",");
-    ctx.fillText(`${sign}${num}${unit}`, X0 + w + 18, by);
+    const valText = `${sign}${num}${unit}`;
+    ctx.fillText(valText, X0 + w + 18, by);
+
+    // Optional per-bar note (e.g. a secondary unit-rate) — muted, trailing the value.
+    if (row.note) {
+      const valW = ctx.measureText(valText).width;
+      ctx.fillStyle = pal.muted;
+      ctx.font = `600 26px ${FONT}`;
+      ctx.fillText(row.note, X0 + w + 18 + valW + 18, by);
+    }
 
     by += step;
   }
