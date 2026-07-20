@@ -16,9 +16,9 @@ import { PersonElectoralSection } from "./PersonElectoralSection";
 import { PersonMpSections } from "./PersonMpSections";
 import { PersonOfficialAssets } from "./PersonOfficialAssets";
 import { PersonMoneyTimeline } from "./PersonMoneyTimeline";
+import { PersonCompanies } from "./PersonCompanies";
 import { useTranslation } from "react-i18next";
 import {
-  Building2,
   Coins,
   ExternalLink,
   FileWarning,
@@ -353,80 +353,8 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
         </DashboardSection>
       )}
 
-      {/* Companies (TR footprint) */}
-      {p.companies.length > 0 && (
-        <DashboardSection
-          id="person-business"
-          title={t("pp_companies")}
-          icon={Building2}
-        >
-          <Card>
-            <CardContent className="space-y-2 pt-6">
-              {p.companies.map((c) => (
-                <div
-                  key={c.eik}
-                  className="flex items-baseline justify-between gap-3 border-b border-border/50 pb-2 last:border-0 last:pb-0"
-                >
-                  <span className="min-w-0 text-sm">
-                    <Link
-                      to={`/company/${c.eik}`}
-                      className="font-medium text-primary hover:underline"
-                    >
-                      {c.name ? decodeEntities(c.name) : c.eik}
-                    </Link>
-                    {c.legalForm && (
-                      <span className="text-muted-foreground">
-                        {" "}
-                        {c.legalForm}
-                      </span>
-                    )}
-                    <span className="block text-xs text-muted-foreground">
-                      {c.roles.map((r) => trRoleLabel(r, t)).join(", ")}
-                    </span>
-                  </span>
-                  {((c.procuredEur ?? 0) > 0 ||
-                    (c.fundsEur ?? 0) > 0 ||
-                    (c.subsidiesEur ?? 0) > 0) && (
-                    <span className="shrink-0 space-y-0.5 text-right text-xs font-medium text-foreground">
-                      {c.procuredEur != null && c.procuredEur > 0 && (
-                        <span className="block whitespace-nowrap">
-                          {formatEurCompact(c.procuredEur)}
-                          <span className="ml-1 font-normal text-muted-foreground">
-                            {t("pp_in_contracts", { count: c.contracts ?? 0 })}
-                          </span>
-                        </span>
-                      )}
-                      {c.fundsEur != null && c.fundsEur > 0 && (
-                        <span className="block whitespace-nowrap font-normal">
-                          {formatEurCompact(c.fundsEur)}
-                          <span className="ml-1 text-muted-foreground">
-                            {t("pp_funds_total")}
-                            {c.fundProjects
-                              ? ` · ${t("pp_fund_projects", { count: c.fundProjects })}`
-                              : ""}
-                            {c.fundsPaidEur != null &&
-                            c.fundsPaidEur < c.fundsEur
-                              ? ` · ${formatEurCompact(c.fundsPaidEur)} ${t("pp_funds_paid")}`
-                              : ""}
-                          </span>
-                        </span>
-                      )}
-                      {c.subsidiesEur != null && c.subsidiesEur > 0 && (
-                        <span className="block whitespace-nowrap font-normal">
-                          {formatEurCompact(c.subsidiesEur)}
-                          <span className="ml-1 text-muted-foreground">
-                            {t("pp_subsidies_total")}
-                          </span>
-                        </span>
-                      )}
-                    </span>
-                  )}
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-        </DashboardSection>
-      )}
+      {/* Companies (TR registry footprint) with the MP's declared ownership stakes folded in. */}
+      <PersonCompanies companies={p.companies} name={p.name} mpId={mpId} />
 
       {/* Money vs power — the person's company procurement bucketed by cabinet (lazy). */}
       {p.procuredEur > 0 && <PersonMoneyTimeline slug={p.slug} />}

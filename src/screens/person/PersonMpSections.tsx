@@ -19,7 +19,6 @@ import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { MpScorecardTile } from "@/screens/components/candidates/MpScorecardTile";
 import { MpVotingSection } from "@/screens/components/candidates/MpVotingSection";
 import { MpAssetsSummary } from "@/screens/components/candidates/MpAssetsSummary";
-import { MpFinancialDeclarations } from "@/screens/components/candidates/MpFinancialDeclarations";
 
 export const PersonMpSections: FC<{
   name: string;
@@ -59,14 +58,15 @@ export const PersonMpSections: FC<{
       {maybeServedInSelectedNs && (
         <MpVotingSection name={name} linkSlug={linkSlug} mpId={mpId} />
       )}
-      {/* Self-hides via DashboardSection when both tiles come back empty. */}
+      {/* Declared ASSETS/wealth (property, bank, vehicles). The declared company STAKES that
+          used to live here moved into the unified <PersonCompanies> "Фирми" section, folded
+          onto the registry company they belong to. Self-hides when the assets tile is empty. */}
       <DashboardSection
         id="declarations"
         title={t("mp_section_assets") || "Assets & declarations"}
         icon={Wallet}
       >
         <MpAssetsSummary name={name} linkSlug={linkSlug} />
-        <MpFinancialDeclarations name={name} />
       </DashboardSection>
     </CandidateMpProvider>
   );
