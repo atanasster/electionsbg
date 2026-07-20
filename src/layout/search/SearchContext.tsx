@@ -111,7 +111,10 @@ export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
   // Debounced live person lookup — runs in parallel with the static Fuse search, so the
   // dropdown shows the (fast) static rows first and the person rows land ~200ms later.
   useEffect(() => {
-    if (!term || term.length < 2) {
+    // Min 3 chars: person_search can't use its trigram index below a full trigram, so a 1-2
+    // char query would seq-scan every person server-side (~150ms) for noise. Mirror the SQL
+    // gate here so the keystroke never round-trips; the static index still answers at 2 chars.
+    if (!term || term.length < 3) {
       setPersonHits([]);
       return;
     }

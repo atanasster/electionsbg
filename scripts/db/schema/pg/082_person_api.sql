@@ -218,11 +218,15 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
   -- Candidate persons: a trigram/substring hit on the display name OR any ALIAS (variant
   -- spelling). Both sides ride a GIN trigram index (name_fold + idx_person_alias_fold_trgm),
   -- so this stays fast even on a common surname.
+  -- Min length 3: a trigram is 3 chars, so a 1-2 char query CAN'T use the GIN index and
+  -- degrades to a full seq scan over every person (~46k rows, ~150ms) — and a 2-char person
+  -- match is noise anyway. Gating here keeps the seq scan off the hot path; the client mirrors
+  -- the gate so a 2-char keystroke never round-trips.
   cand AS (
     SELECT DISTINCT p.person_id
     FROM person p, q
     WHERE p.status = 'active' AND p.is_public_figure   -- §6 privacy gate
-      AND length(q.f) >= 2
+      AND length(q.f) >= 3
       AND (p.name_fold % q.f OR p.name_fold LIKE '%' || q.f || '%')
     UNION
     SELECT DISTINCT a.person_id
@@ -230,7 +234,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     JOIN person p2 ON p2.person_id = a.person_id
     CROSS JOIN q
     WHERE p2.status = 'active' AND p2.is_public_figure
-      AND length(q.f) >= 2 AND a.alias_fold % q.f
+      AND length(q.f) >= 3 AND a.alias_fold % q.f
   ),
   scored AS (
     -- Ranking sums TWO trigram metrics because each alone mis-ranks a real query pattern:
