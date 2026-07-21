@@ -466,9 +466,15 @@ export const ProjectFileScreen = () => {
       { replace: true },
     );
 
-  const buildFromTerms = (terms: string) => {
+  const buildFromTerms = (terms: string, awarderEik?: string) => {
     const t = terms.trim();
-    if (t) setQ({ title: { bg: t }, search: [{ terms: t }] });
+    if (!t) return;
+    // Scope to the chosen buyer (buyerEik) so a user can recreate a buyer-specific
+    // project (e.g. АПИ), the way the curated starters do.
+    const thread = awarderEik
+      ? { terms: t, buyerEik: [awarderEik] }
+      : { terms: t };
+    setQ({ title: { bg: t }, search: [thread] });
   };
 
   // Multi-thread search editing (§0f.2): each thread is a unioned OR-branch of
@@ -2259,43 +2265,161 @@ const ProvenanceFooter = ({
   );
 };
 
+interface AwarderChoice {
+  eik: string;
+  name: string;
+}
+
+// Incremental awarder (buyer) search for the builder — so a user can scope a file
+// to a specific state buyer (e.g. АПИ) the way the curated starters do, not just
+// hardcoded. Debounced backend typeahead over the existing procurement-search
+// endpoint's `awarders` group (deduped by EIK). Select one → a chip with a clear ×.
+const AwarderPicker = ({
+  value,
+  onChange,
+  bg,
+}: {
+  value: AwarderChoice | null;
+  onChange: (a: AwarderChoice | null) => void;
+  bg: boolean;
+}) => {
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState<AwarderChoice[]>([]);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const term = query.trim();
+    if (term.length < 2) {
+      setResults([]);
+      return;
+    }
+    const ctl = new AbortController();
+    const id = setTimeout(() => {
+      fetch(`/api/db/procurement-search?q=${encodeURIComponent(term)}`, {
+        signal: ctl.signal,
+      })
+        .then((r) => r.json() as Promise<{ awarders?: AwarderChoice[] }>)
+        .then((j) => {
+          if (ctl.signal.aborted) return;
+          setResults(
+            (j.awarders ?? [])
+              .slice(0, 8)
+              .map((a) => ({ eik: a.eik, name: a.name })),
+          );
+        })
+        .catch(() => {
+          if (!ctl.signal.aborted) setResults([]);
+        });
+    }, 200);
+    return () => {
+      clearTimeout(id);
+      ctl.abort();
+    };
+  }, [query]);
+
+  if (value) {
+    return (
+      <div className="flex items-center gap-2 text-sm">
+        <span className="rounded-md border bg-muted px-2 py-1">
+          <span className="text-muted-foreground">
+            {bg ? "Възложител: " : "Buyer: "}
+          </span>
+          {value.name}
+        </span>
+        <button
+          type="button"
+          onClick={() => onChange(null)}
+          className="text-muted-foreground hover:text-foreground"
+          aria-label={bg ? "Изчисти възложителя" : "Clear buyer"}
+        >
+          ×
+        </button>
+      </div>
+    );
+  }
+  return (
+    <div className="relative max-w-md">
+      <input
+        className="w-full rounded-md border px-3 py-1.5 text-sm bg-background"
+        value={query}
+        onChange={(e) => {
+          setQuery(e.target.value);
+          setOpen(true);
+        }}
+        onFocus={() => setOpen(true)}
+        // Delay so an option's onMouseDown/onClick fires before the list closes.
+        onBlur={() => setTimeout(() => setOpen(false), 150)}
+        placeholder={
+          bg
+            ? "Възложител (по избор) — напр. Пътна инфраструктура…"
+            : "Buyer (optional) — e.g. Road Infrastructure Agency…"
+        }
+      />
+      {open && results.length > 0 && (
+        <ul className="absolute z-20 mt-1 max-h-64 w-full overflow-auto rounded-md border bg-background shadow-lg">
+          {results.map((a) => (
+            <li key={a.eik}>
+              <button
+                type="button"
+                onMouseDown={(e) => e.preventDefault()}
+                onClick={() => {
+                  onChange(a);
+                  setQuery("");
+                  setOpen(false);
+                }}
+                className="block w-full truncate px-3 py-1.5 text-left text-sm hover:bg-muted"
+              >
+                {a.name}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
 const BuildForm = ({
   onSubmit,
   bg,
   cta,
   initial = "",
 }: {
-  onSubmit: (terms: string) => void;
+  onSubmit: (terms: string, awarderEik?: string) => void;
   bg: boolean;
   cta: string;
   /** Pre-populate the input — e.g. a "Прецизирай думите" refine deep-link. */
   initial?: string;
 }) => {
   const [terms, setTerms] = useState(initial);
+  const [awarder, setAwarder] = useState<AwarderChoice | null>(null);
   return (
     <form
-      className="no-print flex gap-2 my-3"
+      className="no-print flex flex-col gap-2 my-3"
       onSubmit={(e) => {
         e.preventDefault();
-        onSubmit(terms);
+        onSubmit(terms, awarder?.eik);
       }}
     >
-      <input
-        className="flex-1 rounded-md border px-3 py-1.5 text-sm bg-background"
-        value={terms}
-        onChange={(e) => setTerms(e.target.value)}
-        placeholder={
-          bg
-            ? "напр. западна дъга, ремонт улици Пловдив…"
-            : "e.g. western arc, street repair Plovdiv…"
-        }
-      />
-      <button
-        className="rounded-md border px-3 py-1.5 text-sm hover:bg-muted"
-        type="submit"
-      >
-        {cta}
-      </button>
+      <div className="flex gap-2">
+        <input
+          className="flex-1 rounded-md border px-3 py-1.5 text-sm bg-background"
+          value={terms}
+          onChange={(e) => setTerms(e.target.value)}
+          placeholder={
+            bg
+              ? "напр. западна дъга, ремонт улици Пловдив…"
+              : "e.g. western arc, street repair Plovdiv…"
+          }
+        />
+        <button
+          className="rounded-md border px-3 py-1.5 text-sm hover:bg-muted"
+          type="submit"
+        >
+          {cta}
+        </button>
+      </div>
+      <AwarderPicker value={awarder} onChange={setAwarder} bg={bg} />
     </form>
   );
 };
