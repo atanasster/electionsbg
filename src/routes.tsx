@@ -2267,6 +2267,14 @@ export const AuthRoutes = () => {
             }
           />
           <Route
+            path="procurement/project/:slug"
+            element={
+              <LayoutScreen>
+                <ProjectFileScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
             path="procurement/projects"
             element={
               <LayoutScreen>

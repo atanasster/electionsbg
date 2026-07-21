@@ -5,7 +5,10 @@ import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
 import { useGovernments } from "@/data/governments/useGovernments";
 import { useMacro } from "@/data/macro/useMacro";
-import { useMacroPeers } from "@/data/macro/useMacroPeers";
+import {
+  useMacroPeers,
+  usePeerIndicatorAnnual,
+} from "@/data/macro/useMacroPeers";
 import { useCompareToggle } from "@/data/macro/useCompareToggle";
 import {
   CabinetStrip,
@@ -24,7 +27,10 @@ import { PeerSnapshotTable } from "@/screens/components/macro/PeerSnapshotTable"
 import { CompareToggleButton } from "@/screens/components/macro/CompareToggleButton";
 import { IndicatorsNav } from "./indicatorsNav";
 import { ChartSources } from "./indicatorsShared";
-import { computeLabourSlackCallout } from "./labourSlack";
+import {
+  computeLabourSlackCallout,
+  computeSlackEuAverage,
+} from "./labourSlack";
 
 const ECONOMY_INDICATOR_SPEC: IndicatorSpec = [
   {
@@ -93,6 +99,19 @@ export const IndicatorsEconomyScreen = () => {
         v.toFixed(1).replace(".", lang === "bg" ? "," : "."),
       ),
     [macro, lang],
+  );
+
+  // EU-27 average slack, shown beside the BG slack callout when Compare is on
+  // (only when it shares the BG value's year — see computeSlackEuAverage).
+  const slackPeer = usePeerIndicatorAnnual("labourSlack");
+  const slackEuAverage = useMemo(
+    () =>
+      computeSlackEuAverage(
+        slackPeer?.latestDistribution,
+        labourSlackCallout ? labourSlackCallout.year : null,
+        (v) => v.toFixed(1).replace(".", lang === "bg" ? "," : "."),
+      ),
+    [slackPeer, labourSlackCallout, lang],
   );
 
   if (!governments) {
@@ -205,6 +224,17 @@ export const IndicatorsEconomyScreen = () => {
         <h3 className="text-sm font-medium text-muted-foreground mt-4 mb-1">
           {t("governments_chart_labour_participation")}
         </h3>
+        {compare && (
+          // Both rows always shown (unlike the headline chart, which filters by
+          // its enabled pills) — this panel's GovernmentTimeline owns its toggle
+          // state internally, so there is no lifted `enabled` map to filter by.
+          <PeerSnapshotTable
+            rows={[
+              { indicatorKey: "employmentRate" },
+              { indicatorKey: "activityRate" },
+            ]}
+          />
+        )}
         <GovernmentTimeline
           governments={governments}
           macro={macro}
@@ -212,11 +242,24 @@ export const IndicatorsEconomyScreen = () => {
           yAxisFormatter={(v) => `${v}`}
           unitFormatter={(_k, v) => `${v.toFixed(1)}%`}
           height={300}
+          peerOverlay={peerOverlay}
+          peerCompareEnabled={compare}
         />
 
         <h3 className="text-sm font-medium text-muted-foreground mt-6 mb-1">
           {t("governments_chart_labour_unemployment")}
         </h3>
+        {compare && (
+          // The main line is monthly (no peer data at monthly cadence), so the
+          // EU comparison rides the quarterly snapshot table rather than ghost
+          // lines on the chart.
+          <PeerSnapshotTable
+            rows={[
+              { indicatorKey: "unemployment" },
+              { indicatorKey: "youthUnemployment" },
+            ]}
+          />
+        )}
         <GovernmentTimeline
           governments={governments}
           macro={macro}
@@ -255,6 +298,9 @@ export const IndicatorsEconomyScreen = () => {
                 unemp: labourSlackCallout.unemp,
               },
             )}
+            {compare && slackEuAverage
+              ? " " + t("indicators_labour_slack_eu", { value: slackEuAverage })
+              : ""}
           </p>
         ) : null}
       </section>

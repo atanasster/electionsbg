@@ -10,6 +10,8 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { fetchTablePage } from "./fetchTablePage";
+import { fetchJsonSoft } from "@/data/fetchJson";
+import { dataUrl } from "@/data/dataUrl";
 import type { ProcurementContract } from "@/data/dataTypes";
 import {
   bestConfidence,
@@ -569,5 +571,47 @@ export const useBroaderMatches = (
     queryKey: ["procurement", "project-broader", spec?.search],
     queryFn: () => fetchBroaderMatches(spec as ProjectFileSpec),
     enabled: enabled && !!spec && (spec.search?.length ?? 0) > 0,
+    staleTime: Infinity,
+  });
+
+/** One entry in the curated-flagship index (`data/procurement/projects/index.json`). */
+export interface CuratedProjectEntry {
+  slug: string;
+  title: LocalizedText;
+  summary?: LocalizedText;
+  verifiedAt?: string;
+}
+
+/** The list of committed curated flagship files, for the on-ramp gallery (§4.3b). */
+export const useCuratedProjectIndex = () =>
+  useQuery({
+    queryKey: ["procurement", "curated-project-index"],
+    queryFn: async (): Promise<CuratedProjectEntry[]> => {
+      const raw = await fetchJsonSoft<{ files?: CuratedProjectEntry[] }>(
+        dataUrl("/procurement/projects/index.json"),
+      );
+      return (raw?.files ?? []).filter(
+        (f) => f && typeof f.slug === "string" && f.slug.length > 0,
+      );
+    },
+    staleTime: Infinity,
+  });
+
+/** Load a CURATED flagship file (§4.4 / §10 Phase 3) — a committed
+ *  `data/procurement/projects/<slug>.json` ProjectFileSpec, served through the
+ *  same validation as a ?q= spec. Returns null on a missing/invalid file (the
+ *  screen renders a not-found state). Curated files are read-only + indexable. */
+export const useCuratedProjectSpec = (slug: string | undefined) =>
+  useQuery({
+    queryKey: ["procurement", "curated-project", slug],
+    queryFn: async (): Promise<ProjectFileSpec | null> => {
+      const raw = await fetchJsonSoft<unknown>(
+        dataUrl(`/procurement/projects/${slug}.json`),
+      );
+      // Reuse the untrusted-input validator (the file is committed, but the
+      // clamps + shape checks keep one code path).
+      return raw ? parseProjectSpec(JSON.stringify(raw)) : null;
+    },
+    enabled: !!slug,
     staleTime: Infinity,
   });

@@ -6,7 +6,7 @@
 // See docs/plans/procurement-project-lifecycle-v1.md §4.2/§4.6.
 
 import { useEffect, useMemo, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
 import { ProcurementBreadcrumb } from "@/screens/components/procurement/ProcurementBreadcrumb";
@@ -15,6 +15,8 @@ import type { ProcurementContract } from "@/data/dataTypes";
 import {
   useProjectFile,
   useBroaderMatches,
+  useCuratedProjectSpec,
+  useCuratedProjectIndex,
   parseProjectSpec,
   type ProjectFileSpec,
   type ProjectTenderRow,
@@ -264,25 +266,33 @@ export const ProjectFileScreen = () => {
   const bg = i18n.language === "bg";
   const loc = bg ? "bg-BG" : "en-US";
   const [params, setParams] = useSearchParams();
-  const spec = useMemo(() => parseProjectSpec(params.get("q")), [params]);
+  // A curated flagship file is addressed by /procurement/project/:slug and loads
+  // a committed spec (§4.4 / Phase 3); the DIY builder uses ?q=. Curated files are
+  // read-only + indexable.
+  const { slug } = useParams<{ slug?: string }>();
+  const curated = useCuratedProjectSpec(slug);
+  const curatedMode = !!slug;
+  const curatedIndex = useCuratedProjectIndex();
+  const urlSpec = useMemo(() => parseProjectSpec(params.get("q")), [params]);
+  const spec = curatedMode ? (curated.data ?? null) : urlSpec;
   const { data, isLoading, error } = useProjectFile(spec);
-  const [editMode, setEditMode] = useState(false);
+  const [editModeState, setEditModeState] = useState(false);
+  const editMode = curatedMode ? false : editModeState; // no editing a committed file
 
   // A resolved DIY/URL-built file (§4.4) is noindex — a user's search must not
   // read as a Наясно editorial finding. Flip the static robots meta (index.html
   // ships "index, follow") in place, restoring it on leave; the empty on-ramp
-  // stays indexable. Best-effort for JS-executing crawlers (Googlebot runs JS);
-  // a non-JS crawler sees the shell's "index, follow", but these ?q= URLs are
-  // dynamic and never in the sitemap, so the exposure is negligible.
+  // stays indexable. CURATED /project/:slug files are editorial + prerendered, so
+  // they stay indexable (not flipped). Best-effort for JS-executing crawlers.
   useEffect(() => {
     const meta = document.querySelector<HTMLMetaElement>('meta[name="robots"]');
-    if (!meta || !spec) return;
+    if (!meta || !spec || curatedMode) return;
     const prev = meta.content;
     meta.content = "noindex, follow";
     return () => {
       meta.content = prev;
     };
-  }, [spec]);
+  }, [spec, curatedMode]);
 
   // Spec mutations write straight to the ?q= param (so Save/Copy capture the edit
   // and the timeline re-resolves live — the §4.3b full-page builder), PRESERVING
@@ -473,6 +483,19 @@ export const ProjectFileScreen = () => {
     formatEurCompact(n, loc) || "—";
 
   const body = () => {
+    // Curated /project/:slug states: loading the committed file, or not found.
+    if (curatedMode && curated.isLoading)
+      return (
+        <p className="text-muted-foreground">
+          {bg ? "Зареждане…" : "Loading…"}
+        </p>
+      );
+    if (curatedMode && !spec)
+      return (
+        <p className="text-muted-foreground">
+          {bg ? "Досието не е намерено." : "Project file not found."}
+        </p>
+      );
     if (!spec) {
       return (
         <div className="mt-4">
@@ -510,6 +533,31 @@ export const ProjectFileScreen = () => {
               </Link>
             ))}
           </div>
+          {(curatedIndex.data?.length ?? 0) > 0 && (
+            <div className="mt-8">
+              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
+                {bg ? "Досиета на Наясно" : "Наясно files"}
+              </div>
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                {curatedIndex.data!.map((f) => (
+                  <Link
+                    key={f.slug}
+                    to={`/procurement/project/${f.slug}`}
+                    className="flex min-w-0 flex-col gap-1 rounded-lg border p-3 transition-colors hover:border-primary/40 hover:bg-muted"
+                  >
+                    <span className="text-sm font-medium leading-snug">
+                      {(bg ? f.title.bg : f.title.en) ?? f.title.bg}
+                    </span>
+                    {f.summary && (
+                      <span className="text-xs text-muted-foreground leading-snug">
+                        {(bg ? f.summary.bg : f.summary.en) ?? f.summary.bg}
+                      </span>
+                    )}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
           <div className="mt-6">
             <Link to="/procurement/projects" className="text-sm text-primary">
               {bg ? "Моите досиета →" : "My project files →"}
@@ -555,11 +603,12 @@ export const ProjectFileScreen = () => {
       <>
         {/* key on the ?q= param so Saved/Copied feedback resets per project */}
         <Toolbar
-          key={params.get("q") ?? ""}
+          key={slug ?? params.get("q") ?? ""}
           spec={spec}
           bg={bg}
           editMode={editMode}
-          onToggleEdit={() => setEditMode((e) => !e)}
+          onToggleEdit={() => setEditModeState((e) => !e)}
+          curated={curatedMode}
         />
         {editMode && (
           <div className="no-print rounded-md border border-dashed p-3 mb-3">
@@ -1273,35 +1322,42 @@ const Toolbar = ({
   bg,
   editMode,
   onToggleEdit,
+  curated = false,
 }: {
   spec: ProjectFileSpec;
   bg: boolean;
   editMode: boolean;
   onToggleEdit: () => void;
+  /** A committed /project/:slug file — read-only, so no edit/save. */
+  curated?: boolean;
 }) => {
   const [saved, setSaved] = useState(false);
   const [copied, setCopied] = useState(false);
   const btn = "no-print rounded-md border px-3 py-1.5 text-sm hover:bg-muted";
   return (
     <div className="no-print flex flex-wrap gap-2 mb-2">
-      <button className={btn} onClick={onToggleEdit} aria-pressed={editMode}>
-        {editMode ? (bg ? "Готово" : "Done") : bg ? "Редактирай" : "Edit"}
-      </button>
-      <button
-        className={btn}
-        onClick={() => {
-          saveProject(spec);
-          setSaved(true);
-        }}
-      >
-        {saved
-          ? bg
-            ? "Запазено ✓"
-            : "Saved ✓"
-          : bg
-            ? "Запази досие"
-            : "Save file"}
-      </button>
+      {!curated && (
+        <button className={btn} onClick={onToggleEdit} aria-pressed={editMode}>
+          {editMode ? (bg ? "Готово" : "Done") : bg ? "Редактирай" : "Edit"}
+        </button>
+      )}
+      {!curated && (
+        <button
+          className={btn}
+          onClick={() => {
+            saveProject(spec);
+            setSaved(true);
+          }}
+        >
+          {saved
+            ? bg
+              ? "Запазено ✓"
+              : "Saved ✓"
+            : bg
+              ? "Запази досие"
+              : "Save file"}
+        </button>
+      )}
       <button
         className={btn}
         onClick={() => {

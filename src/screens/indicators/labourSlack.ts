@@ -43,3 +43,18 @@ export const computeLabourSlackCallout = (
     ratio: ratio != null ? fmt(ratio) : null,
   };
 };
+
+// EU-27 average slack (formatted) for the compare view. Guarded on year: the BG
+// value comes from data/macro.json and the EU average from data/macro_peers.json
+// — two separately-refreshed artifacts — so we only render the comparison when
+// both describe the same year, never two mismatched years side by side. Returns
+// null when there is no distribution, no EU average, or a year mismatch.
+export const computeSlackEuAverage = (
+  dist: { year: number; euAverage: number | null } | null | undefined,
+  calloutYear: number | null,
+  fmt: (v: number) => string,
+): string | null => {
+  if (!dist || dist.euAverage == null) return null;
+  if (calloutYear != null && dist.year !== calloutYear) return null;
+  return fmt(dist.euAverage);
+};

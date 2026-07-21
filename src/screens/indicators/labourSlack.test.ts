@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 import type { MacroPayload } from "@/data/macro/useMacro";
-import { computeLabourSlackCallout } from "./labourSlack";
+import {
+  computeLabourSlackCallout,
+  computeSlackEuAverage,
+} from "./labourSlack";
 
 const fmt1 = (v: number) => v.toFixed(1);
 
@@ -77,5 +80,36 @@ describe("computeLabourSlackCallout", () => {
       fmt1,
     );
     expect(out).toMatchObject({ unemp: "0.0", ratio: null });
+  });
+});
+
+describe("computeSlackEuAverage", () => {
+  it("returns null when there is no distribution", () => {
+    expect(computeSlackEuAverage(null, 2025, fmt1)).toBeNull();
+    expect(computeSlackEuAverage(undefined, 2025, fmt1)).toBeNull();
+  });
+
+  it("returns null when the EU average is missing", () => {
+    expect(
+      computeSlackEuAverage({ year: 2025, euAverage: null }, 2025, fmt1),
+    ).toBeNull();
+  });
+
+  it("returns the formatted EU average when the year matches the callout", () => {
+    expect(
+      computeSlackEuAverage({ year: 2025, euAverage: 11.0 }, 2025, fmt1),
+    ).toBe("11.0");
+  });
+
+  it("returns null on a year mismatch (never compare two different years)", () => {
+    expect(
+      computeSlackEuAverage({ year: 2024, euAverage: 11.0 }, 2025, fmt1),
+    ).toBeNull();
+  });
+
+  it("skips the year guard when no callout year is available", () => {
+    expect(
+      computeSlackEuAverage({ year: 2024, euAverage: 11.0 }, null, fmt1),
+    ).toBe("11.0");
   });
 });
