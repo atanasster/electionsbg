@@ -522,6 +522,77 @@ const WaterEuFunded: FC = () => {
   );
 };
 
+// 13. Магистрала „Русе – Велико Търново" — the "golden motorway": a receding road
+// with a large € coin (its notoriety is the price per km, ~€4.5bn estimated).
+const GoldenRoad: FC = () => (
+  <SceneFrame>
+    <path
+      d="M40 108 L150 40 L164 40 L100 108 Z"
+      fill="currentColor"
+      opacity=".12"
+    />
+    <path
+      d="M96 106 L154 42"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeDasharray="9 8"
+    />
+    {/* € coin — the "golden" price tag */}
+    <circle cx="228" cy="52" r="30" fill="var(--sector)" />
+    <path
+      d="M242 40 a16 16 0 1 0 0 24 M212 48 h22 M212 56 h22"
+      fill="none"
+      stroke={PAPER}
+      strokeWidth="3.4"
+      strokeLinecap="round"
+    />
+  </SceneFrame>
+);
+
+// 14. Арена Плевен — the most expensive sports hall: a domed arena + a ball.
+const Arena: FC = () => (
+  <SceneFrame>
+    <path d="M20 104 H280" stroke="currentColor" strokeWidth="1.8" />
+    <path
+      d="M96 104 V70 A74 40 0 0 1 244 70 V104 Z"
+      fill={PAPER}
+      stroke="currentColor"
+      strokeWidth="1.8"
+    />
+    <path d="M96 70 A74 40 0 0 1 244 70" fill="var(--sector)" opacity=".25" />
+    <path
+      d="M96 70 A74 40 0 0 1 244 70"
+      fill="none"
+      stroke="var(--sector)"
+      strokeWidth="3"
+    />
+    <rect
+      x="158"
+      y="82"
+      width="24"
+      height="22"
+      rx="2"
+      fill="currentColor"
+      opacity=".28"
+    />
+    {/* ball */}
+    <circle
+      cx="52"
+      cy="78"
+      r="17"
+      fill="var(--sector)"
+      stroke={PAPER}
+      strokeWidth="1.6"
+    />
+    <path
+      d="M35 78 h34 M52 61 v34 M40 64 q12 14 0 28 M64 64 q-12 14 0 28"
+      fill="none"
+      stroke={PAPER}
+      strokeWidth="1.4"
+    />
+  </SceneFrame>
+);
+
 export const PROJECT_SCENES: Record<string, FC> = {
   hemus: HemusMotorway,
   ringArc: RingArc,
@@ -535,4 +606,6 @@ export const PROJECT_SCENES: Record<string, FC> = {
   votingMachine: VotingMachine,
   waterTrench: WaterTrench,
   waterEu: WaterEuFunded,
+  goldenRoad: GoldenRoad,
+  arena: Arena,
 };
