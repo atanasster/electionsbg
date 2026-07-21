@@ -37,6 +37,7 @@ const OUT_FILE = path.resolve(__dirname, "../../data/macro.json");
 // what every current indicator produces on a healthy day.
 const MIN_POINTS_QUARTERLY = 60; // ~15 years of quarterly data
 const MIN_POINTS_ANNUAL = 12; // ~12 years
+const MIN_POINTS_MONTHLY = 180; // ~15 years of monthly data
 // Regression threshold: if a series shrinks by more than this fraction
 // compared to the previously-committed data/macro.json, abort. Catches the
 // "filter narrowed silently" case the SKILL.md describes.
@@ -48,7 +49,7 @@ const WORLD_BANK_BASE = "https://api.worldbank.org/v2";
 
 const START_YEAR = 2005;
 
-type Cadence = "annual" | "quarterly";
+type Cadence = "annual" | "quarterly" | "monthly";
 
 // Quarterly-equivalent representation. Annual points omit `quarter`/`period`;
 // quarterly points carry both. Existing consumers that read only {year,value}
@@ -57,6 +58,8 @@ type MacroPoint = {
   year: number;
   value: number;
   quarter?: 1 | 2 | 3 | 4;
+  // Set on monthly-cadence points (1-12). Mutually exclusive with `quarter`.
+  month?: number;
   period?: string;
 };
 
@@ -233,6 +236,30 @@ const EUROSTAT_INDICATORS: EurostatIndicator[] = [
     unitLabelBg: "% от активното население (сезонно изгладено)",
     titleEn: "Unemployment rate",
     titleBg: "Безработица",
+  },
+  {
+    source: "eurostat",
+    key: "unemploymentMonthly",
+    // Full MONTHLY unemployment series (une_rt_m, SA, age TOTAL = 15-74) — the
+    // internationally-cited headline number. Monthly cadence gives ~3x the
+    // resolution of the quarterly line and surfaces the freshest reading
+    // (~6-week lag) as the last point rather than as a separate callout.
+    dataset: "une_rt_m",
+    query: {
+      geo: "BG",
+      unit: "PC_ACT",
+      age: "TOTAL",
+      sex: "T",
+      s_adj: "SA",
+      freq: "M",
+    },
+    cadence: "monthly",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/une_rt_m/default/table",
+    unitLabelEn: "% of active population (monthly, SA)",
+    unitLabelBg: "% от активното население (месечно, сезонно изгладено)",
+    titleEn: "Unemployment rate (monthly)",
+    titleBg: "Безработица (месечна)",
   },
   {
     source: "eurostat",
@@ -1359,6 +1386,27 @@ const valueAt = (
   return typeof v === "number" && Number.isFinite(v) ? v : undefined;
 };
 
+// Parse a Eurostat monthly time index ("YYYY-MM" keys) into raw monthly
+// points, dropping nulls and anything before START_YEAR. Shared by the
+// monthly-average-to-quarter aggregation and the full monthly-cadence branch.
+const parseMonthlyPoints = (
+  timeIndex: Record<string, number>,
+  values: Record<string, number> | number[],
+): { year: number; month: number; value: number }[] => {
+  const out: { year: number; month: number; value: number }[] = [];
+  for (const [key, idx] of Object.entries(timeIndex)) {
+    const m = /^(\d{4})-(\d{2})$/.exec(key);
+    if (!m) continue;
+    const year = +m[1];
+    const month = +m[2];
+    if (year < START_YEAR) continue;
+    const v = valueAt(values, idx);
+    if (v === undefined) continue;
+    out.push({ year, month, value: v });
+  }
+  return out;
+};
+
 const aggregateMonthlyToQuarterly = (
   monthly: { year: number; month: number; value: number }[],
 ): MacroPoint[] => {
@@ -1412,18 +1460,7 @@ const fetchEurostat = async (i: EurostatIndicator): Promise<MacroPoint[]> => {
   const values = json.value;
 
   if (i.aggregate === "monthlyAvgToQuarter") {
-    const monthly: { year: number; month: number; value: number }[] = [];
-    for (const [key, idx] of Object.entries(timeIndex)) {
-      const m = /^(\d{4})-(\d{2})$/.exec(key);
-      if (!m) continue;
-      const year = +m[1];
-      const month = +m[2];
-      if (year < START_YEAR) continue;
-      const v = valueAt(values, idx);
-      if (v === undefined) continue;
-      monthly.push({ year, month, value: v });
-    }
-    return aggregateMonthlyToQuarterly(monthly);
+    return aggregateMonthlyToQuarterly(parseMonthlyPoints(timeIndex, values));
   }
 
   if (i.cadence === "quarterly") {
@@ -1472,6 +1509,18 @@ const fetchEurostat = async (i: EurostatIndicator): Promise<MacroPoint[]> => {
     }
 
     return all.map((p) => ({ ...p, value: round(p.value, 2) }));
+  }
+
+  if (i.cadence === "monthly") {
+    // Full monthly series (no aggregation). One point per YYYY-MM key.
+    return parseMonthlyPoints(timeIndex, values)
+      .map((p) => ({
+        year: p.year,
+        month: p.month,
+        period: `${p.year}-${String(p.month).padStart(2, "0")}`,
+        value: round(p.value, 2),
+      }))
+      .sort((a, b) => a.year - b.year || a.month - b.month);
   }
 
   // annual
@@ -1579,6 +1628,7 @@ const readPriorSeries = (): Record<string, MacroPoint[]> | null => {
 
 const floorFor = (ind: EurostatIndicator | WorldBankIndicator): number => {
   if (ind.minPoints !== undefined) return ind.minPoints;
+  if (ind.cadence === "monthly") return MIN_POINTS_MONTHLY;
   return ind.cadence === "quarterly" ? MIN_POINTS_QUARTERLY : MIN_POINTS_ANNUAL;
 };
 

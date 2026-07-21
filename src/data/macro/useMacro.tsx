@@ -6,6 +6,9 @@ export type MacroIndicatorKey =
   | "gdpGrowth"
   | "inflation"
   | "unemployment"
+  // Eurostat — unemployment at monthly cadence (une_rt_m, SA) — the freshest
+  // headline reading, plotted as the main labour-panel line
+  | "unemploymentMonthly"
   // Eurostat — labour market (quarterly SA employment/activity rate; slack
   // annual, % of extended labour force)
   | "employmentRate"
@@ -73,15 +76,17 @@ export type MacroIndicatorKey =
   | "euFunds"
   | "euContribution";
 
-export type MacroCadence = "annual" | "quarterly";
+export type MacroCadence = "annual" | "quarterly" | "monthly";
 
 // Quarterly points carry `quarter` (1-4) and a denormalised `period`
-// ("YYYY-Q[1-4]"). Annual points have neither — consumers that only read
-// {year,value} keep working transparently.
+// ("YYYY-Q[1-4]"); monthly points carry `month` (1-12) and period "YYYY-MM".
+// Annual points have none — consumers that only read {year,value} keep
+// working transparently.
 export type MacroPoint = {
   year: number;
   value: number;
   quarter?: 1 | 2 | 3 | 4;
+  month?: number;
   period?: string;
 };
 
@@ -124,20 +129,54 @@ export type MacroPayload = {
 
 // Position a macro point on a fractional-year x-axis. Annual points sit at
 // mid-year (year+0.5); quarterly points at mid-quarter (.125, .375, .625,
-// .875). This aligns dots with the calendar interval the value describes
-// and makes cabinet bands (already fractional) and election lines line up
-// correctly with quarterly resolution.
-export const pointToFractionalX = (p: MacroPoint): number =>
-  p.quarter ? p.year + (p.quarter - 1) * 0.25 + 0.125 : p.year + 0.5;
+// .875); monthly points at mid-month (month m → year+(m-1)/12+1/24). This
+// aligns dots with the calendar interval the value describes and makes cabinet
+// bands (already fractional) and election lines line up at any resolution.
+export const pointToFractionalX = (p: MacroPoint): number => {
+  if (p.month) return p.year + (p.month - 1) / 12 + 1 / 24;
+  if (p.quarter) return p.year + (p.quarter - 1) * 0.25 + 0.125;
+  return p.year + 0.5;
+};
 
-// Reverse: best-effort label for a fractional x. Used in chart tooltips so
-// the user sees "2024 Q2" or "2024" rather than the raw number.
+const MONTH_NAMES = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
+// Reverse: best-effort label for a fractional x. Used in chart tooltips so the
+// user sees "2024 May", "2024 Q2", or "2024" rather than the raw number.
+//
+// Quarter is tried FIRST (with a tight tolerance) so that on the many
+// quarterly-only charts a Q-center x still reads "Q2", never a month —
+// crucial because quarter centers (.125/.375/.625/.875) coincide exactly with
+// the Feb/May/Aug/Nov month centers. Only genuinely off-quarter month centers
+// fall through to a month label; anything else degrades to the bare year.
 export const labelForFractionalX = (x: number): string => {
   const year = Math.floor(x);
   const frac = x - year;
   if (Math.abs(frac - 0.5) < 0.01) return `${year}`;
-  const q = Math.round((frac - 0.125) / 0.25) + 1;
-  if (q >= 1 && q <= 4) return `${year} Q${q}`;
+  // Quarter centers: (q-1)*0.25 + 0.125.
+  const qFloat = (frac - 0.125) / 0.25;
+  const q = Math.round(qFloat);
+  if (q >= 0 && q <= 3 && Math.abs(qFloat - q) < 0.02) {
+    return `${year} Q${q + 1}`;
+  }
+  // Month centers: (m-1)/12 + 1/24.
+  const mFloat = (frac - 1 / 24) * 12;
+  const m = Math.round(mFloat);
+  if (m >= 0 && m <= 11 && Math.abs(mFloat - m) < 0.02) {
+    return `${year} ${MONTH_NAMES[m]}`;
+  }
   return `${year}`;
 };
 

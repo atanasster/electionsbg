@@ -220,7 +220,8 @@ export const IndicatorsEconomyScreen = () => {
         <GovernmentTimeline
           governments={governments}
           macro={macro}
-          indicatorKeys={["unemployment", "youthUnemployment"]}
+          indicatorKeys={["unemploymentMonthly", "youthUnemployment"]}
+          referenceKeys={["unemployment"]}
           yAxisFormatter={(v) => `${v}`}
           unitFormatter={(_k, v) => `${v.toFixed(1)}%`}
           height={300}

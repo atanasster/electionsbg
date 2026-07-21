@@ -82,6 +82,10 @@ const SERIES_COLORS: Record<MacroIndicatorKey, string> = {
   gdpGrowth: "#10b981",
   inflation: "#ef4444",
   unemployment: "#3b82f6",
+  // Same blue as the quarterly `unemployment` — it is the same metric at
+  // monthly cadence (the labour panel's main line); the quarterly series then
+  // renders as faint reference dots in the same hue.
+  unemploymentMonthly: "#3b82f6",
   // labour market — participation panel (teal/violet, high mutual contrast);
   // labourSlack is a callout, never a chart line, but the palette map is total.
   employmentRate: "#0d9488",
@@ -840,6 +844,13 @@ export const GovernmentTimeline: FC<{
    * row of pills, or a list of `{labelKey, keys}` groups for category rows.
    */
   indicatorKeys: IndicatorSpec;
+  /**
+   * Optional secondary series rendered as faint dots-only (no connecting line,
+   * no toggle pill, no tooltip row) — a low-emphasis "reference" layer beneath
+   * the main lines. Used e.g. to show the coarser quarterly points beneath a
+   * monthly main line. Their values are still plotted at their own cadence.
+   */
+  referenceKeys?: MacroIndicatorKey[];
   /** Subset of indicator keys enabled by default. Defaults to all. */
   defaultEnabled?: MacroIndicatorKey[];
   /** Y-axis tick formatter. */
@@ -898,6 +909,7 @@ export const GovernmentTimeline: FC<{
   governments,
   macro,
   indicatorKeys,
+  referenceKeys,
   defaultEnabled,
   yAxisFormatter = (v) => `${v}`,
   yDomain,
@@ -953,8 +965,13 @@ export const GovernmentTimeline: FC<{
     : setInternalEnabled;
 
   const chartData = useMemo(
-    () => buildChartData(macro, flatKeys, peerOverlay),
-    [macro, flatKeys, peerOverlay],
+    () =>
+      buildChartData(
+        macro,
+        [...flatKeys, ...(referenceKeys ?? [])],
+        peerOverlay,
+      ),
+    [macro, flatKeys, referenceKeys, peerOverlay],
   );
 
   const xDomain = useMemo<[number, number]>(
@@ -1286,11 +1303,32 @@ export const GovernmentTimeline: FC<{
                 })
               : null}
 
+            {/* Reference layer — faint dots-only, painted BEFORE the main
+                lines so the main series sit on top. */}
+            {(referenceKeys ?? []).map((k) => (
+              <Line
+                key={`ref-${k}`}
+                type="monotone"
+                dataKey={k}
+                stroke="none"
+                dot={{
+                  r: 1.6,
+                  fill: SERIES_COLORS[k],
+                  fillOpacity: 0.35,
+                  stroke: "none",
+                }}
+                activeDot={false}
+                isAnimationActive={false}
+                connectNulls={false}
+              />
+            ))}
+
             {flatKeys.map((k) => {
               if (!enabled[k]) return null;
-              // Quarterly series have 4x the points across the same span,
-              // so shrink the dot to keep the line readable.
-              const quarterly = macro.indicators[k]?.cadence === "quarterly";
+              // Denser cadences (quarterly ~4x, monthly ~12x the points across
+              // the same span) shrink or drop the dot to keep the line readable.
+              const cadence = macro.indicators[k]?.cadence;
+              const dense = cadence === "quarterly" || cadence === "monthly";
               return (
                 <Line
                   key={k}
@@ -1298,8 +1336,8 @@ export const GovernmentTimeline: FC<{
                   dataKey={k}
                   stroke={SERIES_COLORS[k]}
                   strokeWidth={2.5}
-                  dot={{ r: quarterly ? 1.5 : 3 }}
-                  activeDot={{ r: quarterly ? 3 : 5 }}
+                  dot={cadence === "monthly" ? false : { r: dense ? 1.5 : 3 }}
+                  activeDot={{ r: dense ? 3 : 5 }}
                   isAnimationActive={false}
                   connectNulls
                 />
