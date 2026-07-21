@@ -30,7 +30,29 @@ const DATASETS: { code: string; query: string }[] = [
   { code: "prc_hicp_minr", query: "geo=BG&unit=RCH_A&coicop18=TOTAL" },
   {
     code: "une_rt_q",
-    query: "geo=BG&unit=PC_ACT&age=Y15-74&sex=T&s_adj=NSA&freq=Q",
+    query: "geo=BG&unit=PC_ACT&age=Y15-74&sex=T&s_adj=SA&freq=Q",
+  },
+  {
+    // Monthly unemployment (une_rt_m). Distinct dataset from une_rt_q with its
+    // own monthly release cadence — feeds the monthly-first unemployment line
+    // (unemploymentMonthly) + the latestMonthly callout on /indicators/economy.
+    // Tracked separately so an intra-quarter monthly release still flags.
+    code: "une_rt_m",
+    query: "geo=BG&unit=PC_ACT&age=TOTAL&sex=T&s_adj=SA&freq=M",
+  },
+  {
+    // Employment + activity rate (lfsi_emp_q). One dataset-level `updated`
+    // covers both indic_em cuts (EMP_LFS / ACT) — feeds the labour-market
+    // participation panel + its EU-peer overlay (fetch_eu_peers.ts).
+    code: "lfsi_emp_q",
+    query:
+      "geo=BG&indic_em=EMP_LFS&s_adj=SA&sex=T&age=Y20-64&unit=PC_POP&freq=Q",
+  },
+  {
+    // Labour-market slack (lfsi_sla_a, annual) — the broad "true unemployment"
+    // callout on /indicators/economy + its EU-peer average (fetch_eu_peers.ts).
+    code: "lfsi_sla_a",
+    query: "geo=BG&wstatus=SLACK&sex=T&age=Y20-64&unit=PC_ELF&freq=A",
   },
   {
     code: "gov_10q_ggdebt",
@@ -177,7 +199,7 @@ const fetchUpdated = async (code: string, query: string): Promise<string> => {
 
 export const eurostat: WatchSource = {
   id: "eurostat",
-  label: "Eurostat macro (BG): 23 datasets",
+  label: "Eurostat macro (BG): 26 datasets",
   // Best representative URL for the report's link column — the rest live in
   // meta.
   url: "https://ec.europa.eu/eurostat/databrowser/",
