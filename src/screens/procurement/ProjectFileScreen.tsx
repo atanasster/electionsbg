@@ -700,13 +700,25 @@ export const ProjectFileScreen = () => {
             )}
           </div>
         )}
-        {data.truncated && (
-          <div className="text-sm rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-2 my-3 text-amber-700 dark:text-amber-400">
-            {bg
-              ? "Търсенето е твърде общо — показани се само част от резултатите. Прецизирай думите или добави име на възложител."
-              : "The search is broad — only a slice is shown. Narrow the terms or add a buyer."}
-          </div>
-        )}
+        {data.truncated &&
+          (() => {
+            // Show the real match count when the engine reported it (§4.1): the
+            // search matched ~M contracts but only the largest by value seeded the
+            // file. Falls back to the generic wording when the count is absent.
+            const total = data.matchedTotal;
+            const totalStr = total != null ? total.toLocaleString(loc) : null;
+            return (
+              <div className="text-sm rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-2 my-3 text-amber-700 dark:text-amber-400">
+                {totalStr
+                  ? bg
+                    ? `Търсенето върна ~${totalStr} договора — в досието са включени само най-големите по стойност. Прецизирай думите или добави име на възложител.`
+                    : `The search matched ~${totalStr} contracts — only the largest by value seeded this file. Narrow the terms or add a buyer.`
+                  : bg
+                    ? "Търсенето е твърде общо — показани са само част от резултатите. Прецизирай думите или добави име на възложител."
+                    : "The search is broad — only a slice is shown. Narrow the terms or add a buyer."}
+              </div>
+            );
+          })()}
         {/* Honesty block — big totals */}
         <div className="flex flex-wrap gap-x-10 gap-y-5 border-y py-5 my-6">
           <Figure

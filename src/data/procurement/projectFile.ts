@@ -114,6 +114,32 @@ export function scoreConfidence(
 export const thresholdOf = (thread: SearchThread): number =>
   thread.threshold ?? DEFAULT_THRESHOLD;
 
+/** One thread's contract-seed shape the truncation count reads. */
+export interface ContractSeedMeta {
+  rowCount: number;
+  total: number | null;
+  totalExact: boolean;
+}
+
+/**
+ * The approximate total matching contracts for the "search too broad" notice, or
+ * null when the notice should NOT lead with a contract count. Null unless:
+ *  - the CONTRACT side actually hit the seed cap (a tender-only truncation must
+ *    not claim contracts were trimmed — the count would be complete), AND
+ *  - every thread reported an EXACT count (never sum reltuples estimates).
+ * Summed across threads, which are unioned and may overlap → an approximate upper
+ * bound (the caller renders it with a "~").
+ */
+export function matchedContractTotal(
+  seeds: readonly ContractSeedMeta[],
+  seedPage: number,
+): number | null {
+  const contractsTruncated = seeds.some((s) => s.rowCount >= seedPage);
+  if (!contractsTruncated) return null;
+  if (!seeds.every((s) => s.total != null && s.totalExact)) return null;
+  return seeds.reduce((sum, s) => sum + (s.total ?? 0), 0);
+}
+
 /** The lot number parsed from a contract title ("Обособена позиция N"), matched
  *  against tenders.lots[].lotId (the title-parsed, non-FK link — §2). Null when
  *  the contract carries no lot marker (it attaches at the procedure grain). */

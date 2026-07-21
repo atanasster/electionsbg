@@ -18,6 +18,7 @@ import {
   lotNumberOf,
   displayLotNumberOf,
   foldContractsByLot,
+  matchedContractTotal,
   dedupContracts,
   dedupTenders,
   dedupFunds,
@@ -353,6 +354,30 @@ describe("displayLotNumberOf — wider display parser (ОП N shorthand)", () =>
       ),
     ).toBeNull();
     expect(displayLotNumberOf(null)).toBeNull();
+  });
+});
+
+describe("matchedContractTotal — the 'search too broad' count (§4.1)", () => {
+  const seed = (rowCount: number, total: number | null, totalExact = true) => ({
+    rowCount,
+    total,
+    totalExact,
+  });
+  it("sums exact contract totals across threads when the contract side hit the cap", () => {
+    expect(matchedContractTotal([seed(60, 40), seed(60, 72)], 60)).toBe(112);
+  });
+  it("is null when the contract side did NOT hit the cap (tender-only truncation)", () => {
+    // Neither thread's contract page filled → nothing was trimmed on the contract
+    // side, so the count-led banner must not fire (FINDING-001).
+    expect(matchedContractTotal([seed(12, 12)], 60)).toBeNull();
+  });
+  it("is null when any thread's total is unavailable", () => {
+    expect(matchedContractTotal([seed(60, 40), seed(60, null)], 60)).toBeNull();
+  });
+  it("is null when any thread's total is an estimate, never summing reltuples", () => {
+    expect(
+      matchedContractTotal([seed(60, 40), seed(60, 9999, false)], 60),
+    ).toBeNull();
   });
 });
 

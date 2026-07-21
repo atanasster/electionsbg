@@ -10,7 +10,7 @@
 
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchTablePage } from "./fetchTablePage";
+import { fetchTablePage, fetchTablePageWithTotal } from "./fetchTablePage";
 import { fetchJsonSoft } from "@/data/fetchJson";
 import { dataUrl } from "@/data/dataUrl";
 import {
@@ -30,6 +30,7 @@ import {
   foldMembers,
   siblingLotPolicy,
   lotNumberOf,
+  matchedContractTotal,
   SEED_PAGE,
   LINEAGE_PAGE,
   type SearchThread,
@@ -206,6 +207,10 @@ export interface ProjectFileModel {
   /** A seed thread hit the recall cap → the search is over-broad, results are a
    *  top-N slice, not the whole set. The screen should prompt to narrow (§4.1). */
   truncated: boolean;
+  /** Approximate total contracts matching the search term(s) — the engine's count
+   *  aggregate, summed across (possibly-overlapping) threads. Lets the truncation
+   *  notice state "N examined of ~M". Null when unavailable. */
+  matchedTotal: number | null;
 }
 
 // Broader-match recall budget: fetch this many per thread, then rank by
@@ -455,38 +460,52 @@ async function resolveProjectFile(
     min?: string | number;
     max?: string | number;
   };
-  const seedFetches = threads.flatMap((t) => {
+  const seedFetches = threads.map((t) => {
     const cCols: Col[] = [{ id: "tag", value: ["contract"] }];
     if (nonEmpty(t.buyerEik))
       cCols.push({ id: "awarder_eik", value: t.buyerEik });
     const tCols: Col[] = [];
     if (nonEmpty(t.buyerEik))
       tCols.push({ id: "buyer_eik", value: t.buyerEik });
-    return [
-      fetchTablePage<ProcurementContract>({
+    return Promise.all([
+      fetchTablePageWithTotal<ProcurementContract>({
         resource: "contracts",
         page: 0,
         pageSize: SEED_PAGE,
         sort: [{ id: "amount_eur", desc: true }],
         filters: { global: t.terms, columns: cCols },
       }),
-      fetchTablePage<ProjectTenderRow>({
+      fetchTablePageWithTotal<ProjectTenderRow>({
         resource: "tenders",
         page: 0,
         pageSize: SEED_PAGE,
         sort: [{ id: "estimated_value_eur", desc: true }],
         filters: { global: t.terms, columns: tCols },
       }),
-    ];
+    ]);
   });
   const seedResults = await Promise.all(seedFetches);
   // A seed page filled to the cap → the search is over-broad (§4.1 breadth cap).
-  const truncated = seedResults.some((rows) => rows.length >= SEED_PAGE);
+  const truncated = seedResults.some(
+    ([c, t]) => c.rows.length >= SEED_PAGE || t.rows.length >= SEED_PAGE,
+  );
+  // The approximate total contracts matching the search term(s), from the
+  // engine's exact count aggregate — so the banner can say "~M договора" (§4.1).
+  // Null unless the CONTRACT side hit the cap (a tender-only truncation must not
+  // claim contracts were trimmed) and every thread's count was exact.
+  const matchedTotal = matchedContractTotal(
+    seedResults.map(([c]) => ({
+      rowCount: c.rows.length,
+      total: c.total,
+      totalExact: c.totalExact,
+    })),
+    SEED_PAGE,
+  );
   const matchedContracts: ProcurementContract[] = [];
   const matchedTenders: ProjectTenderRow[] = [];
-  seedResults.forEach((rows, i) => {
-    if (i % 2 === 0) matchedContracts.push(...(rows as ProcurementContract[]));
-    else matchedTenders.push(...(rows as ProjectTenderRow[]));
+  seedResults.forEach(([c, t]) => {
+    matchedContracts.push(...c.rows);
+    matchedTenders.push(...t.rows);
   });
 
   // 2. Score + seed = (autoIn ∪ includes) − excludes.
@@ -581,6 +600,7 @@ async function resolveProjectFile(
     funds,
     fold,
     truncated,
+    matchedTotal,
   };
 }
 
