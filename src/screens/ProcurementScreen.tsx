@@ -155,26 +155,30 @@ export const ProcurementScreen: FC = () => {
   };
 
   const bg = i18n.language === "bg";
+  const subpageTiles: InfographicTileProps[] = SUBPAGES.map((p) => ({
+    to: p.to,
+    title: t(p.titleKey),
+    desc: t(p.descKey),
+    accent: p.accent,
+    scene: PROCUREMENT_SCENES[p.id],
+    metric: metricFor("metric" in p ? p.metric : undefined),
+  }));
+  // The project-file builder on-ramp (§4.3b). Bilingual-inline (no i18n key);
+  // reuses the document "досие" scene, a distinct accent, no headline number.
+  const projectsTile: InfographicTileProps = {
+    to: "/procurement/project",
+    title: bg ? "Проектни досиета" : "Project files",
+    desc: bg
+      ? "Проследи един проект през поръчките"
+      : "Track one project across procurement",
+    accent: TILE_ACCENTS.indigo,
+    scene: PROCUREMENT_SCENES.contracts,
+  };
+  // Slot it just before "Моят списък" (the watchlist, always the last SUBPAGE).
   const exploreTiles: InfographicTileProps[] = [
-    ...SUBPAGES.map((p) => ({
-      to: p.to,
-      title: t(p.titleKey),
-      desc: t(p.descKey),
-      accent: p.accent,
-      scene: PROCUREMENT_SCENES[p.id],
-      metric: metricFor("metric" in p ? p.metric : undefined),
-    })),
-    // The project-file builder on-ramp (§4.3b). Bilingual-inline (no i18n key);
-    // reuses the document "досие" scene, a distinct accent, no headline number.
-    {
-      to: "/procurement/project",
-      title: bg ? "Проектни досиета" : "Project files",
-      desc: bg
-        ? "Проследи един проект през поръчките"
-        : "Track one project across procurement",
-      accent: TILE_ACCENTS.indigo,
-      scene: PROCUREMENT_SCENES.contracts,
-    },
+    ...subpageTiles.slice(0, -1),
+    projectsTile,
+    ...subpageTiles.slice(-1),
   ];
 
   const exploreSection: TileHubSection = {
