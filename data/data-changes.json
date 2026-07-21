@@ -1,6 +1,33 @@
 {
-  "updatedAt": "2026-07-20T07:00:27.717Z",
+  "updatedAt": "2026-07-21T09:49:14.165Z",
   "entries": [
+    {
+      "timestamp": "2026-07-21T09:49:14.165Z",
+      "date": "2026-07-21",
+      "skill": "update-prices",
+      "summary": "Retail prices refreshed through 2026-07-20 (feed recovered from a 07-18..19 dip)",
+      "source": "КЗП Колко струва (kolkostruva.bg)"
+    },
+    {
+      "timestamp": "2026-07-21T09:14:21.406Z",
+      "date": "2026-07-21",
+      "skill": "update-procurement",
+      "summary": "Procurement refresh: ЦАИС ЕОП gap-fill + tender-stage + current-value fold",
+      "source": "ЦАИС ЕОП / АОП (storage.eop.bg)"
+    },
+    {
+      "timestamp": "2026-07-21T08:54:02.315Z",
+      "date": "2026-07-21",
+      "skill": "update-rollcall",
+      "summary": "1 new roll-call session (2026-07-17)",
+      "source": "Parliament roll-call votes (parliament.bg)",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-07-20T07:00:27.717Z",
       "date": "2026-07-20",

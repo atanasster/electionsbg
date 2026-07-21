@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-07-18T10:32:45.263Z",
+  "lastSuccessfulIngest": "2026-07-21T09:49:13.702Z",
   "skill": "update-prices",
-  "summary": "prices day 2026-07-17: +13,424 facts, 7,918 closed; 114,473 products; index through 2026-07-17"
+  "summary": "backfilled 07-18..07-20 through a real feed dip (--force declined; bounded backfill); price_current on 07-20 (210 chains, 1.39M rows); catalog 114,575 products"
 }

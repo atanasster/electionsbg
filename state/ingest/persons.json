@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-07-21T00:21:12.361Z",
-  "skill": "update-persons",
-  "summary": "person layer + candidate merge deployed to Cloud SQL: 48423 persons, 101767 roles, 67065 candidate_person, 67019 person_election_stats (081-085)"
+  "lastSuccessfulIngest": "2026-07-21T09:53:53.246Z",
+  "skill": "persons",
+  "summary": "re-derived off fresh TR (egov_commerce 07-21): 48,425 persons, 101,767 roles (+11,538 tr bridge-B), 67,065 candidate_person, 67,019 person_election_stats — local PG via db:refresh chain"
 }
