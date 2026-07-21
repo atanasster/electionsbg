@@ -5,7 +5,7 @@ import { useMpConnections } from "@/data/parliament/useMpConnections";
 import { useResolvedCandidate } from "@/data/candidates/useResolvedCandidate";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
 import type { ConnectionsEdge, ConnectionsNode } from "@/data/dataTypes";
-import { CandidateHeader } from "./components/candidates/CandidateHeader";
+import { CandidateProfileHeader } from "./components/candidates/CandidateProfileHeader";
 import { ConnectionPathRow } from "./components/candidates/ConnectionPathRow";
 import { ErrorSection } from "./components/ErrorSection";
 
@@ -51,7 +51,7 @@ export const CandidateConnectionsScreen: FC = () => {
     };
   }, [subgraph]);
 
-  if (!lookupName) return null;
+  if (!id || !lookupName) return null;
 
   if (!isLoading && (!subgraph || subgraph.paths.length === 0)) {
     return (
@@ -79,9 +79,11 @@ export const CandidateConnectionsScreen: FC = () => {
 
   return (
     <div className="w-full space-y-4 px-3 py-3 pb-12">
-      <CandidateHeader
+      <CandidateProfileHeader
+        idParam={id}
         displayName={displayName}
         lookupName={lookupName}
+        mpId={canonical?.mpId}
         cikRows={canonical?.cikRows}
         subtitle={t("mp_connections_full_title") || "Connections to other MPs"}
         seoDescription={`Business connection paths from ${displayName} to other MPs`}

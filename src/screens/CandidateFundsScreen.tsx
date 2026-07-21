@@ -9,7 +9,7 @@ import { Euro } from "lucide-react";
 import { useResolvedCandidate } from "@/data/candidates/useResolvedCandidate";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { useMpConnectedFunds } from "@/data/funds/useMpConnectedFunds";
-import { CandidateHeader } from "./components/candidates/CandidateHeader";
+import { CandidateProfileHeader } from "./components/candidates/CandidateProfileHeader";
 import { ErrorSection } from "./components/ErrorSection";
 import { summarizeFundsRelations } from "@/data/funds/relationLabel";
 import { orgTypeLabel } from "@/data/funds/orgLabels";
@@ -32,7 +32,7 @@ export const CandidateFundsScreen: FC = () => {
     : nameForBg(fallback);
   const { entries, summary, isLoading } = useMpConnectedFunds(lookupName);
 
-  if (!lookupName) return null;
+  if (!id || !lookupName) return null;
 
   if (!isLoading && entries.length === 0) {
     return (
@@ -48,9 +48,11 @@ export const CandidateFundsScreen: FC = () => {
 
   return (
     <div className="w-full space-y-4 px-3 py-3 pb-12">
-      <CandidateHeader
+      <CandidateProfileHeader
+        idParam={id}
         displayName={displayName}
         lookupName={lookupName}
+        mpId={canonical?.mpId}
         cikRows={canonical?.cikRows}
         subtitle={
           t("funds_page_title") || "Connected companies receiving EU funds"

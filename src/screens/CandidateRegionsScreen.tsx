@@ -1,14 +1,17 @@
 import { FC } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { localDate } from "@/data/utils";
+import { useElectionContext } from "@/data/ElectionContext";
 import { useResolvedCandidate } from "@/data/candidates/useResolvedCandidate";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
-import { CandidateHeader } from "./components/candidates/CandidateHeader";
+import { CandidateProfileHeader } from "./components/candidates/CandidateProfileHeader";
 import { CandidateByRegions } from "./components/candidates/CandidateByRegions";
 
 export const CandidateRegionsScreen: FC = () => {
   const { id } = useParams();
   const { t } = useTranslation();
+  const { selected } = useElectionContext();
   const { canonical } = useResolvedCandidate(id);
   const { isEn, nameForBg } = useCandidateName();
   if (!id) return null;
@@ -25,11 +28,13 @@ export const CandidateRegionsScreen: FC = () => {
     : nameForBg(lookupName);
   return (
     <div className="w-full space-y-4 px-3 py-3 pb-12">
-      <CandidateHeader
+      <CandidateProfileHeader
+        idParam={id}
         displayName={displayName}
         lookupName={lookupName}
+        mpId={canonical?.mpId}
         cikRows={canonical?.cikRows}
-        subtitle={t("votes_by_region")}
+        seoTitle={`${displayName} — ${t("preferences_by_regions")} — ${localDate(selected)}`}
       />
       <CandidateByRegions name={lookupName} partyNum={canonical?.partyNum} />
     </div>

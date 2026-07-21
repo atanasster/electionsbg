@@ -11,7 +11,7 @@ import { useResolvedCandidate } from "@/data/candidates/useResolvedCandidate";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { useMps } from "@/data/parliament/useMps";
 import { useMpConnectedContracts } from "@/data/parliament/useMpConnectedContracts";
-import { CandidateHeader } from "./components/candidates/CandidateHeader";
+import { CandidateProfileHeader } from "./components/candidates/CandidateProfileHeader";
 import { ErrorSection } from "./components/ErrorSection";
 import { summarizeRelations } from "./components/candidates/procurement/relationLabel";
 import { ConnectedContractorCard } from "./components/candidates/procurement/ConnectedContractorCard";
@@ -61,7 +61,7 @@ export const CandidateProcurementScreen: FC = () => {
     }
   }
 
-  if (!lookupName) return null;
+  if (!id || !lookupName) return null;
 
   if (!isLoading && entries.length === 0) {
     return (
@@ -77,9 +77,11 @@ export const CandidateProcurementScreen: FC = () => {
 
   return (
     <div className="w-full space-y-4 px-3 py-3">
-      <CandidateHeader
+      <CandidateProfileHeader
+        idParam={id}
         displayName={displayName}
         lookupName={lookupName}
+        mpId={canonical?.mpId ?? rosterMp?.id ?? null}
         cikRows={canonical?.cikRows}
         subtitle={
           t("procurement_page_title") ||

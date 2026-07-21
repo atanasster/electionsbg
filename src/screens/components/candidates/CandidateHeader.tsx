@@ -2,11 +2,9 @@ import { FC, ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { SEO } from "@/ux/SEO";
-import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import type { CandidatesInfo } from "@/data/dataTypes";
 import { MpAvatar, MpAvatarView } from "./MpAvatar";
-import { PartyLink } from "../party/PartyLink";
-import { RegionLink } from "../regions/RegionLink";
+import { CandidateBallot } from "./CandidateBallot";
 
 type CikBadge = Pick<CandidatesInfo, "partyNum" | "oblast" | "pref">;
 
@@ -52,7 +50,6 @@ export const CandidateHeader: FC<Props> = ({
   cikRows = [],
   mpEntry,
 }) => {
-  const { findParty } = usePartyInfo();
   const subtitleText = typeof subtitle === "string" ? subtitle : undefined;
   const resolvedSeoTitle =
     seoTitle ??
@@ -90,27 +87,9 @@ export const CandidateHeader: FC<Props> = ({
           ))}
         <div className="min-w-0">
           <h1 className="text-2xl font-bold leading-tight">{displayName}</h1>
-          {cikRows.length > 0 && (
-            <div className="mt-1.5 flex flex-col gap-1">
-              {cikRows.map((c) => (
-                <div
-                  key={`${c.oblast}-${c.pref}`}
-                  className="flex items-center gap-2 text-sm"
-                >
-                  <PartyLink
-                    party={findParty(c.partyNum)}
-                    width="w-9 shrink-0"
-                  />
-                  <span className="font-semibold">
-                    <RegionLink oblast={c.oblast} />
-                  </span>
-                  <span className="tabular-nums text-muted-foreground">{`#${c.pref}`}</span>
-                </div>
-              ))}
-            </div>
-          )}
+          <CandidateBallot rows={cikRows} />
           {subtitle && (
-            <div className="mt-1 text-sm font-semibold text-muted-foreground">
+            <div className="mt-1.5 text-sm font-semibold text-muted-foreground">
               {subtitle}
             </div>
           )}

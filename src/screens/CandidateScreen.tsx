@@ -5,49 +5,12 @@
 // person, unknown slug) falls through to the legacy <Candidate> render + its namesake chooser,
 // so no inbound link dead-ends. NO redirect.
 
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { SEO } from "@/ux/SEO";
+import { useCandidatePerson } from "@/data/candidates/useCandidatePerson";
 import { Candidate } from "./components/candidates/Candidate";
 import { PersonDashboard } from "./person/PersonProfileScreen";
 import { usePersonProfile } from "./person/usePersonProfile";
-
-// A candidate slug is `mp-{id}` or `c-…`; anything else (spaces, Cyrillic) is a bare-name
-// SEO/legacy URL. The two forms resolve through different lookups.
-const CANDIDATE_SLUG_RE = /^(mp-\d+|c-)/;
-
-// Resolve a candidate URL param to its owning person's slug so BOTH the id form
-// (`/candidate/mp-5229`) and the bare-name form (`/candidate/Мария Балъкчиева`) render the
-// same person dashboard. A slug goes through candidate_person_slug (exact); a bare name goes
-// through candidate_person_by_name (unambiguous match only — a >1-namesake name returns null
-// and the caller falls through to the legacy chooser).
-// `undefined` = resolving, `null` = no public person (fall through), string = the person slug.
-const useCandidatePerson = (id?: string): string | null | undefined => {
-  const [personSlug, setPersonSlug] = useState<string | null | undefined>(
-    undefined,
-  );
-  useEffect(() => {
-    let live = true;
-    setPersonSlug(undefined);
-    if (!id) {
-      setPersonSlug(null);
-      return;
-    }
-    const query = CANDIDATE_SLUG_RE.test(id)
-      ? `slug=${encodeURIComponent(id)}`
-      : `name=${encodeURIComponent(id)}`;
-    fetch(`/api/db/candidate-person?${query}`)
-      .then((r) => r.json())
-      .then((j: { personSlug: string | null }) => {
-        if (live) setPersonSlug(j?.personSlug ?? null);
-      })
-      .catch(() => live && setPersonSlug(null));
-    return () => {
-      live = false;
-    };
-  }, [id]);
-  return personSlug;
-};
 
 export const CandidateScreen = () => {
   const { id: name } = useParams();

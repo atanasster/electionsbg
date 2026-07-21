@@ -18,7 +18,7 @@ import { useMpAssets } from "@/data/parliament/useMpAssets";
 import { useMpDeclarations } from "@/data/parliament/useMpDeclarations";
 import { useResolvedCandidate } from "@/data/candidates/useResolvedCandidate";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
-import { CandidateHeader } from "@/screens/components/candidates/CandidateHeader";
+import { CandidateProfileHeader } from "@/screens/components/candidates/CandidateProfileHeader";
 import type { MpAsset, MpAssetCategory, MpDeclaration } from "@/data/dataTypes";
 import { formatEur } from "@/lib/currency";
 import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
@@ -404,9 +404,11 @@ export const CandidateAssetsScreen: FC = () => {
 
   return (
     <div className="w-full space-y-4 px-3 py-3">
-      <CandidateHeader
+      <CandidateProfileHeader
+        idParam={id ?? lookupName}
         displayName={displayName}
         lookupName={lookupName}
+        mpId={canonical?.mpId}
         cikRows={canonical?.cikRows}
         backTo={`/candidate/${id ?? encodeURIComponent(lookupName)}`}
         subtitle={subtitle}

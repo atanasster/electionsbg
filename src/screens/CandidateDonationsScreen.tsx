@@ -5,7 +5,7 @@ import { localDate } from "@/data/utils";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useResolvedCandidate } from "@/data/candidates/useResolvedCandidate";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
-import { CandidateHeader } from "./components/candidates/CandidateHeader";
+import { CandidateProfileHeader } from "./components/candidates/CandidateProfileHeader";
 import { ErrorSection } from "./components/ErrorSection";
 import { CandidateDonationsTable } from "./components/candidates/CandidateDonationsTable";
 
@@ -35,9 +35,11 @@ export const CandidateDonationsScreen: FC = () => {
   }
   return (
     <div className="w-full space-y-4 px-3 py-3 pb-12">
-      <CandidateHeader
+      <CandidateProfileHeader
+        idParam={id}
         displayName={displayName}
         lookupName={lookupName}
+        mpId={canonical?.mpId}
         cikRows={canonical?.cikRows}
         subtitle={t("donations")}
       />
