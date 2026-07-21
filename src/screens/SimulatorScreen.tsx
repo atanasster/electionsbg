@@ -250,7 +250,7 @@ export const SimulatorScreen: FC = () => {
         </div>
 
         {tab === "actual" && officialSeats && (
-          <div className="space-y-6 mt-6">
+          <div className="space-y-6 mt-6" data-og="simulator-hero">
             <p className="text-sm text-muted-foreground">
               {t("actual_seats_explainer")}
             </p>

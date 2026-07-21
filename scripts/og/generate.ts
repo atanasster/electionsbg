@@ -242,8 +242,10 @@ const main = async () => {
     renderHomeCard(summary, "home.png");
   }
 
-  // Static-page cards: branded covers for /timeline, /compare, /simulator,
-  // /about, /financing, /sofia. Each gets 4 quick highlight tiles.
+  // Static-page cards: branded covers for /timeline, /compare, /about and the
+  // methodology pages below. Each gets 4 quick highlight tiles. (Pages with a
+  // strong chart/map hero — /simulator, /sofia, /consumption, /financing — use
+  // live Playwright screenshots via capture-screens.ts instead.)
   const electionCount = elections.length;
   const oldestYear = elections[elections.length - 1].name.split("_")[0];
   const newestYear = elections[0].name.split("_")[0];
@@ -273,34 +275,11 @@ const main = async () => {
     "compare.png",
   );
 
-  renderStaticPageCard(
-    "Симулатор на коалиции",
-    "Разпределение на 240-те мандата при различен праг",
-    [
-      { label: "общо мандати", value: "240" },
-      { label: "за мнозинство", value: "121" },
-      { label: "праг", value: "0–10%" },
-      { label: "коалиции до", value: "4 партии" },
-    ],
-    "simulator.png",
-  );
-
-  // NB: /financing uses a live Playwright dashboard screenshot (public/og/
-  // financing.png via scripts/og/capture-screens.ts), not a rendered text
-  // card — so no financing.png job is queued here (it would overwrite the
-  // screenshot in dist/og/ during postbuild).
-
-  renderStaticPageCard(
-    "Резултати в София",
-    "23, 24 и 25 МИР — столични резултати по секции",
-    [
-      { label: "райони", value: "3" },
-      { label: "23 МИР", value: "София" },
-      { label: "24 МИР", value: "София" },
-      { label: "25 МИР", value: "София" },
-    ],
-    "sofia.png",
-  );
+  // NB: /simulator, /sofia, /consumption and /financing use live Playwright
+  // dashboard screenshots (public/og/{simulator,sofia,consumption,financing}.png
+  // via scripts/og/capture-screens.ts), not rendered text cards — so no jobs are
+  // queued here (they would overwrite the screenshots in dist/og/ during
+  // postbuild).
 
   renderStaticPageCard(
     "За проекта",
@@ -312,18 +291,6 @@ const main = async () => {
       { label: "език", value: "BG / EN" },
     ],
     "about.png",
-  );
-
-  renderStaticPageCard(
-    "Потребление",
-    "Издръжка на живота — цени, инфлация и достъпност по места",
-    [
-      { label: "кошница", value: "101 продукта" },
-      { label: "населени места", value: "244" },
-      { label: "инфлация", value: "ХИПЦ" },
-      { label: "достъпност", value: "по области" },
-    ],
-    "consumption.png",
   );
 
   // /risk-analysis, /risk-score, /benford, /persistence, /wasted-vote and

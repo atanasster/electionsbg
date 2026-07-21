@@ -358,6 +358,43 @@ const captures: Capture[] = [
     settleMs: 2000,
   },
   {
+    slug: "simulator",
+    routePath: "simulator?elections=2026_04_19",
+    // The coalition seat strip — the 240-mandate bar with the dashed 121-majority
+    // marker — sitting above the ranked party/seat table. Top-aligned so the clip
+    // leads with the strip and carries the party rows below it. (Was a rendered
+    // text card in generate.ts; that job is removed so postbuild doesn't overwrite
+    // this screenshot in dist/og — same reason /financing has none.)
+    waitFor: '[data-og="simulator-hero"]',
+    anchor: '[data-og="simulator-hero"]',
+    settleMs: 1500,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
+  {
+    slug: "sofia",
+    routePath: "sofia?elections=2026_04_19",
+    // KPI row (top gainer / loser / turnout / paper-vs-machine) above the Sofia
+    // section map. Top-aligned on the dashboard section so the clip leads with the
+    // headline numbers and carries the map below. Wait for a loaded Leaflet tile so
+    // the map isn't captured blank. (Was a rendered text card — job removed from
+    // generate.ts.)
+    waitFor: ".leaflet-tile-loaded",
+    anchor: '[data-og="sofia-hero"]',
+    settleMs: 2500,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
+  {
+    slug: "consumption",
+    routePath: "consumption?elections=2026_04_19",
+    // The Потребление hub is a launcher (product search + a grid of coloured
+    // section tiles). Top-aligned on the tile grid so the clip shows the view's
+    // breadth. (Was a rendered text card — job removed from generate.ts.)
+    waitFor: '[data-og="consumption-hub"]',
+    anchor: '[data-og="consumption-hub"]',
+    settleMs: 1500,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
+  {
     slug: "judiciary",
     routePath: "judiciary",
     // The caseload-flow chart IS the page's argument (filed ≈ resolved, so the

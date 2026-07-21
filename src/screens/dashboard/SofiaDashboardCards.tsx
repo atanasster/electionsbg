@@ -78,7 +78,7 @@ export const SofiaDashboardCards: FC = () => {
   if (!data) return null;
 
   return (
-    <section aria-label={t("dashboard")} className="my-4">
+    <section aria-label={t("dashboard")} className="my-4" data-og="sofia-hero">
       <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         <PartyChangeCard variant="gainer" change={data.topGainer} />
         <PartyChangeCard variant="loser" change={data.topLoser} />
