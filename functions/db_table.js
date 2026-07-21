@@ -84,6 +84,9 @@ const REGISTRY = {
       cpv: { type: "text", filter: "prefix", facetExpr: "left(cpv, 2)" },
       procurement_method: { type: "text", sort: true, filter: "in" },
       procurement_method_rationale: { type: "text" },
+      // DB-recovered обособена позиция name (migration 050) — the project-file
+      // timeline groups a procedure's contracts by lot.
+      lot_name: { type: "text" },
       category: { type: "text", filter: "in" },
       number_of_tenderers: {
         type: "int",
@@ -118,6 +121,7 @@ const REGISTRY = {
       "cpv",
       "procurement_method",
       "procurement_method_rationale",
+      "lot_name",
       "category",
       "number_of_tenderers",
       "eu_funded",
