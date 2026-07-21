@@ -415,7 +415,12 @@ export function foldByPeriod(rows: readonly FoldInput[]): PeriodAgg[] {
       let topContractorName: string | undefined;
       let topContractorEur = 0;
       for (const [name, eur] of b.contractors) {
-        if (eur > topContractorEur) {
+        // Name tiebreak on equal Σ → stable regardless of fetch/iteration order.
+        if (
+          eur > topContractorEur ||
+          (eur === topContractorEur &&
+            name.localeCompare(topContractorName ?? "") < 0)
+        ) {
           topContractorEur = eur;
           topContractorName = name;
         }

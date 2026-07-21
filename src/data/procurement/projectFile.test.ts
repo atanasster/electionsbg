@@ -427,4 +427,35 @@ describe("foldByPeriod — recurring-project rollup (§4.2.2b)", () => {
     expect(p[1].methodMix.competitive).toBe(100);
     expect(p[1].methodMix.nonCompetitive).toBe(300);
   });
+  it("falls back to contractorEik when the name is missing", () => {
+    const p = foldByPeriod([
+      {
+        key: "x",
+        tag: "contract",
+        amountEur: 10,
+        date: "2022-01-01",
+        contractorEik: "123",
+      },
+    ]);
+    expect(p[0].topContractorName).toBe("123");
+  });
+  it("dedups member rows by key before bucketing", () => {
+    const p = foldByPeriod([
+      { key: "dup", tag: "contract", amountEur: 10, date: "2022-01-01" },
+      { key: "dup", tag: "contract", amountEur: 10, date: "2022-01-01" },
+    ]);
+    expect(p[0].contractCount).toBe(1);
+    expect(p[0].totalEur).toBe(10);
+  });
+  it("breaks a top-contractor Σ tie by name, order-independently", () => {
+    const mk = (name: string): FoldInput => ({
+      key: name,
+      tag: "contract",
+      amountEur: 10,
+      date: "2022-01-01",
+      contractorName: name,
+    });
+    expect(foldByPeriod([mk("Б"), mk("А")])[0].topContractorName).toBe("А");
+    expect(foldByPeriod([mk("А"), mk("Б")])[0].topContractorName).toBe("А");
+  });
 });

@@ -236,7 +236,9 @@ export const ProjectFileScreen = () => {
   // A resolved DIY/URL-built file (§4.4) is noindex — a user's search must not
   // read as a Наясно editorial finding. Flip the static robots meta (index.html
   // ships "index, follow") in place, restoring it on leave; the empty on-ramp
-  // stays indexable.
+  // stays indexable. Best-effort for JS-executing crawlers (Googlebot runs JS);
+  // a non-JS crawler sees the shell's "index, follow", but these ?q= URLs are
+  // dynamic and never in the sitemap, so the exposure is negligible.
   useEffect(() => {
     const meta = document.querySelector<HTMLMetaElement>('meta[name="robots"]');
     if (!meta || !spec) return;
@@ -1169,10 +1171,13 @@ const RecurrenceRollup = ({
         </thead>
         <tbody>
           {periods.map((p) => {
-            const noOpen =
-              p.totalEur > 0
-                ? Math.round((p.methodMix.nonCompetitive / p.totalEur) * 100)
-                : 0;
+            const share = (v: number) =>
+              p.totalEur > 0 ? Math.round((v / p.totalEur) * 100) : 0;
+            const noOpen = share(p.methodMix.nonCompetitive);
+            // Blank-method awards (§11 — ~€2.66bn of АПИ) are `unspecified`, not
+            // competitive; show them so a 0%-no-open period isn't misread as
+            // fully-competitive when it's really all-unknown.
+            const unknown = share(p.methodMix.unspecified);
             return (
               <tr key={p.period} className="border-b border-border/50">
                 <td className="py-1.5 font-medium">{p.period}</td>
@@ -1183,6 +1188,11 @@ const RecurrenceRollup = ({
                 </td>
                 <td className="py-1.5 text-right text-muted-foreground">
                   {nf.format(noOpen)}%
+                  {unknown > 0 && (
+                    <span className="ml-1 text-foreground/40">
+                      ({nf.format(unknown)}% {bg ? "неуточн." : "unknown"})
+                    </span>
+                  )}
                 </td>
               </tr>
             );
@@ -1209,7 +1219,7 @@ const ProvenanceFooter = ({
   bg: boolean;
 }) => {
   const nf = new Intl.NumberFormat(loc);
-  const terms = spec.search.map((t) => t.terms).filter(Boolean);
+  const terms = [...new Set(spec.search.map((t) => t.terms).filter(Boolean))];
   const countIds = (m?: {
     contractKeys?: string[];
     tenderUnps?: string[];
