@@ -12,6 +12,7 @@ import {
 import { EURO_ADOPTION } from "@/data/prices/euroBaseline";
 import { hasCrawlableId, latestBel } from "@/data/schools/schoolBel";
 import { DATA_URL, PrerenderRoute, SITE_URL } from "./routes";
+import { buildCuratedProjectRoutes } from "./curatedProjectRoutes";
 import { readProcurementSeoSettlements } from "../db/lib/seo_settlements";
 import {
   buildBreadcrumbLd,
@@ -3481,6 +3482,7 @@ export const buildDynamicRoutes = async (
     ...buildOfficialRoutes(projectRoot),
     ...(await buildProcurementSettlementRoutes()),
     ...buildFundsThemeRoutes(projectRoot),
+    ...buildCuratedProjectRoutes(projectRoot),
     ...buildProductRoutes(projectRoot),
   ];
 };

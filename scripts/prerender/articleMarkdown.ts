@@ -7,20 +7,14 @@
 // deliberately out of scope — the runtime renderer (react-markdown +
 // remark-gfm) handles the same set, so output diverges only in styling.
 
+import { escapeHtml } from "./html";
+
 export type Frontmatter = Record<string, unknown>;
 
 export type ArticleImageDimensions = Map<
   string,
   { width: number; height: number }
 >;
-
-const escapeHtml = (s: string): string =>
-  s
-    .replace(/&/g, "&amp;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
 
 // Strip optional surrounding quotes and trim a YAML scalar.
 const unquote = (s: string): string => {

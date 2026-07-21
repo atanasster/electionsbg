@@ -371,6 +371,7 @@ export const routeDefs = (year: string): RouteDefs => [
   { path: "funds/integrity", file: `data/funds/derived/integrity.json` },
   { path: "funds/rrf", file: `data/funds/rrf_context.json` },
   { path: "funds/focus/:id", file: `funds-themes-list` },
+  { path: "procurement/project/:id", file: `curated-projects-list` },
   { path: "funds/programme/:id", file: `funds-programmes-list` },
   { path: "product/:id", file: `prices-products-list` },
 

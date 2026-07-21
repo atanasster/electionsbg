@@ -22,6 +22,7 @@
 import fs from "fs";
 import path from "path";
 import { PrerenderRoute, SITE_URL } from "./routes";
+import { escapeHtml } from "./html";
 import { buildArticleLd, buildBreadcrumbLd } from "./jsonLd";
 import {
   ArticleImageDimensions,
@@ -96,13 +97,7 @@ const liftFrontmatter = (data: Frontmatter): FrontmatterFields => ({
   ogImage: asString(data.ogImage) ?? asString(data.image),
 });
 
-const escapeHtml = (s: string): string =>
-  s
-    .replace(/&/g, "&amp;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
+// escapeHtml lives in ./html (shared by the prerender builders).
 
 const buildArticleBody = (
   meta: ArticleMeta,

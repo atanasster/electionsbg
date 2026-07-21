@@ -499,6 +499,28 @@ const enumerateProducts = (rootUrl: string, routes: string[]) => {
   }
 };
 
+// /procurement/project/{slug} — one URL per CURATED flagship dossier listed in
+// data/procurement/projects/index.json (§4.4 / Phase 3). Mirrors
+// buildCuratedProjectRoutes in the prerenderer, so every <loc> has a real file.
+const enumerateCuratedProjects = (rootUrl: string, routes: string[]) => {
+  const file = `${projectPath}/data/procurement/projects/index.json`;
+  if (!fs.existsSync(file)) return;
+  let payload: { files?: Array<{ slug?: string; title?: { bg?: string } }> };
+  try {
+    payload = JSON.parse(fs.readFileSync(file, "utf-8"));
+  } catch {
+    return;
+  }
+  const lastmod = safeFileMod(file);
+  for (const f of payload.files ?? []) {
+    // Mirror buildCuratedProjectRoutes' guard exactly — an entry the prerenderer
+    // skips (no title.bg) must NOT get a <loc> pointing at a non-existent file.
+    if (!f.slug || !f.title?.bg) continue;
+    pushUrl(`${rootUrl}/${routes[0]}${f.slug}`, lastmod);
+    pushUrl(`/en${rootUrl}/${routes[0]}${f.slug}`, lastmod);
+  }
+};
+
 // /funds/programme/{code} — one URL per operational programme that has its
 // own summary shard under data/funds/projects/by-program. Each shard's
 // mtime is the lastmod for that programme's URL.
@@ -664,6 +686,8 @@ const getRoute = (route: RouteDef, rootUrl: string) => {
       return enumerateCabinets(route, rootUrl, routes);
     if (route.file === "funds-themes-list")
       return enumerateFundsThemes(rootUrl, routes);
+    if (route.file === "curated-projects-list")
+      return enumerateCuratedProjects(rootUrl, routes);
     if (route.file === "prices-products-list")
       return enumerateProducts(rootUrl, routes);
     if (route.file === "funds-programmes-list")
