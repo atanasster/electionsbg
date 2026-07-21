@@ -133,6 +133,41 @@ const CPV_DIVISION_ROLE: Record<string, { bg: string; en: string }> = {
   "30": { bg: "офис/ИТ оборудване", en: "office/IT equipment" },
 };
 
+export interface ContractorAgg {
+  eik?: string;
+  name: string;
+  count: number;
+  eur: number;
+}
+
+/** Aggregate member contracts by contractor (§4.2.5) — count + Σ amount_eur,
+ *  sorted by value desc. Spend rows only (tag='contract'); amendment/award rows
+ *  are skipped so this reconciles with the Σ amount_eur total. */
+export function foldByContractor(
+  rows: ReadonlyArray<{
+    contractorEik?: string | null;
+    contractorName?: string | null;
+    tag?: string | null;
+    amountEur?: number | null;
+  }>,
+): ContractorAgg[] {
+  const map = new Map<string, ContractorAgg>();
+  for (const c of rows) {
+    if ((c.tag ?? "contract") !== "contract") continue;
+    const key = c.contractorEik || c.contractorName || "?";
+    const e = map.get(key) ?? {
+      eik: c.contractorEik || undefined,
+      name: c.contractorName || key,
+      count: 0,
+      eur: 0,
+    };
+    e.count += 1;
+    e.eur += c.amountEur ?? 0;
+    map.set(key, e);
+  }
+  return [...map.values()].sort((a, b) => b.eur - a.eur);
+}
+
 /** A stable grouping key for a member's role (§4.2.4) — the curated `nature`
  *  label when set, else `cpv:<2-digit division>`. Nature labels are Cyrillic
  *  words and CPV keys are `cpv:NN`, so the two spaces never collide. */

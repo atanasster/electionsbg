@@ -7,6 +7,7 @@ import {
   annexDelta,
   roleKeyOf,
   roleLabel,
+  foldByContractor,
   resolveSeedIds,
   siblingLotPolicy,
   lotNumberOf,
@@ -122,6 +123,43 @@ describe("annexDelta — signing→current value change", () => {
     expect(annexDelta(undefined, undefined)).toBeNull();
     expect(annexDelta(100, 100.4)).toBeNull();
     expect(annexDelta(100, 100)).toBeNull();
+  });
+});
+
+describe("foldByContractor — contractors table (§4.2.5)", () => {
+  it("groups by eik, sums amount, sorts desc, skips amendments", () => {
+    const agg = foldByContractor([
+      {
+        contractorEik: "1",
+        contractorName: "A",
+        tag: "contract",
+        amountEur: 100,
+      },
+      {
+        contractorEik: "1",
+        contractorName: "A",
+        tag: "contract",
+        amountEur: 50,
+      },
+      {
+        contractorEik: "2",
+        contractorName: "B",
+        tag: "contract",
+        amountEur: 200,
+      },
+      { contractorEik: "1", tag: "contractAmendment", amountEur: 999 }, // skipped
+    ]);
+    expect(agg.map((a) => [a.eik, a.count, a.eur])).toEqual([
+      ["2", 1, 200],
+      ["1", 2, 150],
+    ]);
+  });
+  it("falls back to name when eik is missing", () => {
+    const agg = foldByContractor([
+      { contractorName: "NoEik Ltd", tag: "contract", amountEur: 10 },
+    ]);
+    expect(agg[0].eik).toBeUndefined();
+    expect(agg[0].name).toBe("NoEik Ltd");
   });
 });
 

@@ -24,6 +24,7 @@ import {
   annexDelta,
   roleKeyOf,
   roleLabel,
+  foldByContractor,
 } from "@/data/procurement/projectFile";
 import { saveProject, projectHref } from "@/data/procurement/projectStore";
 
@@ -326,6 +327,7 @@ export const ProjectFileScreen = () => {
     if (!data) return [] as Array<{ key: string; eur: number }>;
     const map = new Map<string, number>();
     for (const c of data.contracts) {
+      if ((c.tag ?? "contract") !== "contract") continue;
       const key = roleKeyOf(
         spec?.nature?.[c.key] ?? (c.unp ? spec?.nature?.[c.unp] : undefined),
         c.cpv,
@@ -336,6 +338,12 @@ export const ProjectFileScreen = () => {
       .map(([key, eur]) => ({ key, eur }))
       .sort((a, b) => b.eur - a.eur);
   }, [data, spec]);
+
+  // Contractors — aggregate the member contracts by contractor (§4.2.5).
+  const byContractor = useMemo(
+    () => (data ? foldByContractor(data.contracts) : []),
+    [data],
+  );
 
   const money = (n: number | null | undefined) =>
     formatEurCompact(n, loc) || "—";
@@ -710,6 +718,60 @@ export const ProjectFileScreen = () => {
             </div>
           )}
         </div>
+
+        {/* Contractors table (§4.2.5) — aggregated from the member contracts */}
+        {byContractor.length > 0 && (
+          <div className="my-8 max-w-3xl">
+            <h2 className="mb-3 text-sm font-medium text-muted-foreground">
+              {bg ? "Изпълнители" : "Contractors"}
+            </h2>
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b text-xs text-muted-foreground">
+                  <th className="py-1 text-left font-normal">
+                    {bg ? "изпълнител" : "contractor"}
+                  </th>
+                  <th className="py-1 text-right font-normal">
+                    {bg ? "договори" : "contracts"}
+                  </th>
+                  <th className="py-1 text-right font-normal">
+                    {bg ? "стойност" : "value"}
+                  </th>
+                  <th className="py-1 text-right font-normal">
+                    {bg ? "дял" : "share"}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {byContractor.map((r) => (
+                  <tr
+                    key={r.eik ?? r.name}
+                    className="border-b border-border/50"
+                  >
+                    <td className="py-1.5">
+                      {r.eik ? (
+                        <Link to={`/company/${r.eik}`} className="text-primary">
+                          {r.name}
+                        </Link>
+                      ) : (
+                        r.name
+                      )}
+                    </td>
+                    <td className="py-1.5 text-right">{r.count}</td>
+                    <td className="py-1.5 text-right font-medium">
+                      {money(r.eur)}
+                    </td>
+                    <td className="py-1.5 text-right text-muted-foreground">
+                      {fold.totalContractedEur > 0
+                        ? `${Math.round((r.eur / fold.totalContractedEur) * 100)}%`
+                        : "—"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </>
     );
   };

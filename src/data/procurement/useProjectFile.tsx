@@ -180,7 +180,14 @@ const fetchContractsByKey = (keys: string[]) =>
     page: 0,
     pageSize: LINEAGE_PAGE,
     sort: [{ id: "date", desc: false }],
-    filters: { columns: [{ id: "key", value: keys }] },
+    // tag='contract' so a curated include-key can't pull an amendment/award row
+    // in — keeps every member a spend row (reconciles with the money total).
+    filters: {
+      columns: [
+        { id: "key", value: keys },
+        { id: "tag", value: ["contract"] },
+      ],
+    },
   });
 
 const fetchTendersByUnp = (unps: string[]) =>
