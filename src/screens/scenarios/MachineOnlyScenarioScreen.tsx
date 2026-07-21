@@ -417,6 +417,22 @@ export const MachineOnlyScenarioScreen: FC = () => {
         </ArticleP>
       </div>
 
+      <ArticleP>
+        <Trans
+          i18nKey="machine_only_validation"
+          components={{
+            src: (
+              <a
+                className="text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary"
+                href="https://www.svobodnaevropa.bg/a/32352096.html"
+                target="_blank"
+                rel="noopener noreferrer"
+              />
+            ),
+          }}
+        />
+      </ArticleP>
+
       {/* ---- interactive controls ---- */}
       <div className="mt-8 rounded-xl border border-border bg-card/60 p-4 md:p-5">
         <div className="grid gap-5 sm:grid-cols-2">

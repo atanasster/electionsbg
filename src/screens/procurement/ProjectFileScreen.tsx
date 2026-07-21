@@ -80,6 +80,7 @@ interface Starter {
 }
 const API_EIK = ["000695089"]; // Агенция „Пътна инфраструктура"
 const MO_EIK = ["000695324"]; // Министерство на отбраната
+const ICGB_EIK = ["201383265"]; // „Ай Си Джи Би" АД — the IGB gas-interconnector company
 
 // Elections scene (a ballot dropping into a box, over result tallies) — the one
 // topic with no matching sector scene. Same SceneFrame contract as the sector
@@ -225,9 +226,20 @@ const STARTERS: Starter[] = [
     },
     sceneKey: "energy",
     accent: TILE_ACCENTS.gold,
+    // "интерконектор" isn't a word in any contract title — the corpus calls it
+    // "газопровод IGB" / "междусистемна газова връзка". Seed on both terms scoped
+    // to the project company (ICGB), whose entire portfolio IS the IGB, so it
+    // stays precise (not the Serbia/IBS interconnector).
     spec: {
-      title: { bg: "Газов интерконектор с Гърция" },
-      search: [{ terms: "интерконектор", distinctive: ["интерконектор"] }],
+      title: { bg: "Газов интерконектор с Гърция (IGB)" },
+      search: [
+        {
+          terms: "газопровод",
+          distinctive: ["газопровод"],
+          buyerEik: ICGB_EIK,
+        },
+        { terms: "IGB", distinctive: ["igb"], buyerEik: ICGB_EIK },
+      ],
     },
   },
   {

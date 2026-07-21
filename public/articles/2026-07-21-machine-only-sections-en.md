@@ -42,6 +42,8 @@ The direction is remarkably stable across every election: **machine voting favou
 - **lifts ПП-ДБ by roughly 4–6 points**, plus smaller gains for reform/protest parties;
 - in 2023 and 2026 it flips the second-place finisher (ПП-ДБ overtakes ГЕРБ); in October 2024 it knocks a party below the 4% line.
 
+This direction is backed by a separate real-data analysis: in a recent election machine voting was chosen by 80% of ИТН, 79% of ПП-ДБ and 70% of Възраждане voters, while ГЕРБ, ДПС and БСП voters leaned to paper ([Radio Free Europe](https://www.svobodnaevropa.bg/a/32352096.html)).
+
 The likely reason is who each group is: the machine is preferred by younger, urban voters, paper by older voters and people in smaller places — so removing paper amplifies the urban/reform vote. By district, ПП-ДБ's gain is biggest in Sofia and Plovdiv (up 5–7 points), and there is exactly one winner flip — Sofia's 23rd district, from ПрБ to ПП-ДБ. The regional map colours each district by its projected winner.
 
 ## What this is not
