@@ -461,8 +461,8 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       en: "MoF, NRA, Customs, NSSI, NHIF, MRDPW, IISDA",
     },
     desc: {
-      bg: "Отчети за изпълнението на програмните бюджети, месечните бюлетини на МФ, годишните отчети на НАП и Агенция „Митници“, фондовете на НОИ, бюджета и плащанията на НЗОК (болнична помощ, лекарства, единични цени на лекарства, отчетени дейности и цени на клинични пътеки по НРД), финансовите показатели на болниците (ЕЕОФ, МЗ), годишните приходи на частните болници от ГФО в Търговския регистър, общинските проекти в ИПОП (МРРБ) и регистрите на администрацията (ИИСДА).",
-      en: "Programme-budget execution reports, MoF monthly bulletins, NRA and Customs annual reports, NSSI social-security funds, NHIF (НЗОК) budget + payments (hospital care, drugs, per-hospital drug unit prices, reported clinical-pathway activity and НРД pathway tariffs), the МЗ hospital financial indicators (ЕЕОФ), private-hospital annual revenue from ГФО in the Commerce Register, MRDPW's municipal project register (IPOP) and the state-administration registers (IISDA).",
+      bg: "Отчети за изпълнението на програмните бюджети, месечните бюлетини на МФ (вкл. бюлетина „Държавен дълг“ — сигнал за нови еврооблигации), годишните отчети на НАП и Агенция „Митници“, фондовете на НОИ, бюджета и плащанията на НЗОК (болнична помощ, лекарства, единични цени на лекарства, отчетени дейности и цени на клинични пътеки по НРД), финансовите показатели на болниците (ЕЕОФ, МЗ), годишните приходи на частните болници от ГФО в Търговския регистър, общинските проекти в ИПОП (МРРБ) и регистрите на администрацията (ИИСДА).",
+      en: "Programme-budget execution reports, MoF monthly bulletins (incl. the government-debt bulletin — the new-Eurobond signal), NRA and Customs annual reports, NSSI social-security funds, NHIF (НЗОК) budget + payments (hospital care, drugs, per-hospital drug unit prices, reported clinical-pathway activity and НРД pathway tariffs), the МЗ hospital financial indicators (ЕЕОФ), private-hospital annual revenue from ГФО in the Commerce Register, MRDPW's municipal project register (IPOP) and the state-administration registers (IISDA).",
     },
     url: "https://www.minfin.bg/",
     origin: "state",
@@ -477,6 +477,7 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
     ],
     members: [
       "minfin_mreports",
+      "minfin_eurobond",
       "minfin_program_otchet",
       "mfa_program_otchet",
       "ministry_execution_reports",
