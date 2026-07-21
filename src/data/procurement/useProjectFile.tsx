@@ -59,6 +59,21 @@ export interface Benchmark {
   note?: LocalizedText;
 }
 
+/** OPTIONAL curated advance-vs-progress axis (§0g.3) — Tier B, same status as
+ *  announcedBudget. The corpus has no advance data (no ЗОП payments table), so
+ *  this is always curated+sourced, never joined. `amountEur` OR `pctDeclared`
+ *  (of the contracted total) drives the «авансово изплатено» figure; the
+ *  `physicalProgressNote` renders as the pull-quote ("35% платено, нищо построено"
+ *  — the most citizen-legible number in the story). */
+export interface Advance {
+  pctDeclared?: number;
+  amountEur?: number;
+  physicalProgressNote?: LocalizedText;
+  source?: string;
+  sourceUrl?: string;
+  asOf?: string;
+}
+
 /** The stored/URL-encoded project-file artifact (the resolution-relevant subset
  *  plus the optional curated honesty fields — §2). */
 export interface ProjectFileSpec {
@@ -71,6 +86,8 @@ export interface ProjectFileSpec {
   excludes?: MemberIds;
   announcedBudget?: AnnouncedBudget;
   benchmark?: Benchmark;
+  /** Curated advance-vs-progress honesty axis (§0g.3). */
+  advance?: Advance;
   /** OPTIONAL per-member role label (member contract key or УНП → e.g.
    *  "проектиране"/"строителство"/"надзор"/"печат"/…), for the money-by-role
    *  split (§4.2.4). Absent members fall back to a CPV-division role. */
@@ -201,6 +218,31 @@ const clampClaims = (c: Claim[] | undefined): Claim[] | undefined => {
   return out.length ? out : undefined;
 };
 
+const num = (x: unknown): number | undefined =>
+  typeof x === "number" && Number.isFinite(x) ? x : undefined;
+/** Shape-check the untrusted `advance` (§0g.3): numbers stay numbers, the
+ *  rendered strings/note are coerced (a non-string would crash the render). */
+const clampAdvance = (a: Advance | undefined): Advance | undefined => {
+  if (!a || typeof a !== "object") return undefined;
+  const pct = num(a.pctDeclared);
+  const eur = num(a.amountEur);
+  const out: Advance = {
+    // Drop out-of-band figures — the honesty axis is about credible numbers.
+    pctDeclared: pct != null && pct >= 0 && pct <= 100 ? pct : undefined,
+    amountEur: eur != null && eur >= 0 ? eur : undefined,
+    physicalProgressNote: clampNote(a.physicalProgressNote),
+    source: str(a.source),
+    sourceUrl: str(a.sourceUrl),
+    asOf: str(a.asOf),
+  };
+  // Keep only if it carries a real figure or a progress note.
+  return out.amountEur != null ||
+    out.pctDeclared != null ||
+    out.physicalProgressNote
+    ? out
+    : undefined;
+};
+
 /** Shape-check the untrusted knownSubcontractors[]: every rendered field coerced
  *  to a string/number, entries without a name dropped, array bounded. */
 const clampSubs = (
@@ -252,6 +294,7 @@ export const parseProjectSpec = (
     includes: clampMembers(spec.includes),
     excludes: clampMembers(spec.excludes),
     claims: clampClaims(spec.claims),
+    advance: clampAdvance(spec.advance),
     inhouseAwarderEiks: clampIds(spec.inhouseAwarderEiks),
     knownSubcontractors: clampSubs(spec.knownSubcontractors),
   };

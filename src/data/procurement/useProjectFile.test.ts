@@ -81,6 +81,68 @@ describe("parseProjectSpec — untrusted ?q= parsing (§4.1)", () => {
     expect(s?.claims?.length).toBeLessThanOrEqual(20);
   });
 
+  it("shape-checks the untrusted advance (§0g.3)", () => {
+    const s = parseProjectSpec(
+      JSON.stringify({
+        search: [{ terms: "x" }],
+        advance: {
+          pctDeclared: 35,
+          amountEur: "lots", // non-number → dropped
+          physicalProgressNote: { bg: "35% платено, нищо построено", en: {} },
+          source: {}, // non-string → dropped
+        },
+      }),
+    );
+    expect(s?.advance?.pctDeclared).toBe(35);
+    expect(s?.advance?.amountEur).toBeUndefined();
+    expect(s?.advance?.physicalProgressNote?.bg).toBe(
+      "35% платено, нищо построено",
+    );
+    expect(s?.advance?.physicalProgressNote?.en).toBeUndefined();
+    expect(s?.advance?.source).toBeUndefined();
+  });
+
+  it("drops an advance carrying no figure or note", () => {
+    const s = parseProjectSpec(
+      JSON.stringify({ search: [{ terms: "x" }], advance: { source: "x" } }),
+    );
+    expect(s?.advance).toBeUndefined();
+  });
+
+  it("keeps a note-only and an amount-only advance", () => {
+    const noteOnly = parseProjectSpec(
+      JSON.stringify({
+        search: [{ terms: "x" }],
+        advance: { physicalProgressNote: { bg: "нищо построено" } },
+      }),
+    );
+    expect(noteOnly?.advance?.physicalProgressNote?.bg).toBe("нищо построено");
+    const amtOnly = parseProjectSpec(
+      JSON.stringify({
+        search: [{ terms: "x" }],
+        advance: { amountEur: 1000 },
+      }),
+    );
+    expect(amtOnly?.advance?.amountEur).toBe(1000);
+  });
+
+  it("drops out-of-band advance figures (pct 0–100, amount ≥ 0)", () => {
+    const s = parseProjectSpec(
+      JSON.stringify({
+        search: [{ terms: "x" }],
+        advance: {
+          pctDeclared: -500,
+          amountEur: -1,
+          physicalProgressNote: { bg: "note" },
+        },
+      }),
+    );
+    expect(s?.advance?.pctDeclared).toBeUndefined();
+    expect(s?.advance?.amountEur).toBeUndefined();
+    // kept only because of the note
+    expect(s?.advance?.physicalProgressNote?.bg).toBe("note");
+  });
+
   it("shape-checks knownSubcontractors[] + bounds inhouseAwarderEiks (§0g.2)", () => {
     const s = parseProjectSpec(
       JSON.stringify({

@@ -37,6 +37,10 @@ import {
 } from "@/data/procurement/projectFile";
 import { saveProject, projectHref } from "@/data/procurement/projectStore";
 
+// Only render a curated link when it is an http(s) URL — an untrusted ?q= could
+// otherwise carry a javascript:/data: scheme.
+const isHttpUrl = (u?: string): boolean => /^https?:\/\//i.test(u ?? "");
+
 // Uncurated starter seeds — a researcher must not face a blank box (§0f.1).
 // Publicly-discussed 2023–2026 Bulgarian procurement topics, spread across
 // domains. Only АПИ (000695089) and МО (000695324) EIKs are confirmed; the
@@ -489,6 +493,18 @@ export const ProjectFileScreen = () => {
     const pct = (n: number) => `${Math.round((n / mixTotal) * 100)}%`;
     const announced = spec.announcedBudget?.amountEur;
     const thesis = bg ? spec.thesis?.bg : spec.thesis?.en;
+    // Advance-vs-progress (§0g.3) — curated. The figure is the explicit amount,
+    // else pctDeclared applied to the contracted total; the progress note is a
+    // pull-quote. Absent → hidden.
+    const adv = spec.advance;
+    const advanceEur =
+      adv?.amountEur ??
+      (adv?.pctDeclared != null
+        ? (fold.totalContractedEur * adv.pctDeclared) / 100
+        : undefined);
+    const advanceNote = bg
+      ? adv?.physicalProgressNote?.bg
+      : adv?.physicalProgressNote?.en;
 
     return (
       <>
@@ -591,7 +607,49 @@ export const ProjectFileScreen = () => {
               muted
             />
           )}
+          {advanceEur != null && (
+            <Figure
+              label={
+                (bg ? "Авансово изплатено" : "Advance paid") +
+                // % suffix only when the figure IS the derived percentage (no
+                // explicit amountEur) — else the label could contradict the value.
+                (adv?.amountEur == null && adv?.pctDeclared != null
+                  ? ` (${adv.pctDeclared}%)`
+                  : "")
+              }
+              value={money(advanceEur)}
+            />
+          )}
         </div>
+
+        {/* Advance progress pull-quote (§0g.3) — «35% платено, нищо построено»,
+            the most citizen-legible number. Curated + sourced, never joined. */}
+        {advanceNote && (
+          <blockquote className="my-4 border-l-2 border-amber-500/60 pl-4 text-lg font-voice">
+            {advanceNote}
+            {(adv?.source || adv?.asOf || isHttpUrl(adv?.sourceUrl)) && (
+              <span className="mt-1 block text-xs font-sans not-italic text-muted-foreground">
+                {adv?.asOf}
+                {/* separator only when a source label actually follows */}
+                {adv?.asOf && (adv?.source || isHttpUrl(adv?.sourceUrl))
+                  ? " · "
+                  : ""}
+                {isHttpUrl(adv?.sourceUrl) ? (
+                  <a
+                    href={adv?.sourceUrl}
+                    className="underline"
+                    rel="nofollow noopener"
+                    target="_blank"
+                  >
+                    {adv?.source ?? (bg ? "източник" : "source")}
+                  </a>
+                ) : (
+                  adv?.source
+                )}
+              </span>
+            )}
+          </blockquote>
+        )}
 
         {/* Announced vs contracted vs benchmark — one scale + the gap sentence.
             Only when there's a real comparator (announced, or a benchmark range);
@@ -833,7 +891,7 @@ export const ProjectFileScreen = () => {
                 {spec.gap.authority
                   ? ` (${bg ? "по" : "by"} ${spec.gap.authority})`
                   : ""}
-                {/^https?:\/\//i.test(spec.gap.sourceUrl ?? "") && (
+                {isHttpUrl(spec.gap.sourceUrl) && (
                   <>
                     {" · "}
                     <a
@@ -912,7 +970,7 @@ export const ProjectFileScreen = () => {
                         ) : null}
                         {s.source && (
                           <span className="text-muted-foreground">
-                            {/^https?:\/\//i.test(s.sourceUrl ?? "") ? (
+                            {isHttpUrl(s.sourceUrl) ? (
                               <a
                                 href={s.sourceUrl}
                                 className="underline"
@@ -1347,7 +1405,7 @@ const ClaimsLedger = ({ claims, bg }: { claims: Claim[]; bg: boolean }) => (
     <div className="flex flex-col gap-4">
       {claims.map((c) => {
         const v = c.verdict ? VERDICT_STYLE[c.verdict] : null;
-        const hasSource = /^https?:\/\//i.test(c.sourceUrl ?? "");
+        const hasSource = isHttpUrl(c.sourceUrl);
         return (
           <div key={c.sourceUrl ?? c.text} className="border-l-2 pl-4">
             <div className="mb-1 flex flex-wrap items-center gap-2">
@@ -1432,8 +1490,9 @@ const ProvenanceFooter = ({
       label: bg ? "обявен бюджет" : "announced budget",
       url: spec.announcedBudget?.sourceUrl,
     },
+    { label: bg ? "аванс" : "advance", url: spec.advance?.sourceUrl },
     { label: bg ? "празнина" : "gap", url: spec.gap?.sourceUrl },
-  ].filter((s) => /^https?:\/\//i.test(s.url ?? ""));
+  ].filter((s) => isHttpUrl(s.url));
   return (
     <footer className="mt-10 max-w-3xl border-t pt-4 text-xs text-muted-foreground">
       <div className="mb-1 font-medium text-foreground/70">
