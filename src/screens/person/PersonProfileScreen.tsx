@@ -17,6 +17,10 @@ import { PersonMpSections } from "./PersonMpSections";
 import { PersonOfficialAssets } from "./PersonOfficialAssets";
 import { PersonMoneyTimeline } from "./PersonMoneyTimeline";
 import { PersonCompanies } from "./PersonCompanies";
+import {
+  PersonConnections,
+  type PersonConnectionsData,
+} from "./PersonConnections";
 import { PersonMagistrateHoldingsTile } from "@/screens/components/procurement/PersonMagistrateHoldingsTile";
 import { useTranslation } from "react-i18next";
 import {
@@ -27,7 +31,6 @@ import {
   Landmark,
   Scale,
   ShieldAlert,
-  Users,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { StatCard } from "@/screens/dashboard/StatCard";
@@ -37,16 +40,6 @@ import { magistrateRoleKey } from "@/lib/magistrateRole";
 import { formatEurCompact } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { PersonScreen } from "@/screens/dev/PersonScreen";
-
-type Connections = {
-  related: {
-    slug: string;
-    name: string;
-    sharedCount: number;
-    companies: { eik: string; name: string | null }[];
-  }[];
-  disclaimer: string;
-};
 
 // "2021_11_14" -> "14.11.2021"; anything else passes through.
 const fmtElection = (d: string): string => {
@@ -62,12 +55,12 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
 
   // Person↔person edges (shared company, association-noise-guarded, public-safe) — the
   // §8 Connections surface. Loaded lazily; absent for most people.
-  const [conn, setConn] = useState<Connections | null>(null);
+  const [conn, setConn] = useState<PersonConnectionsData | null>(null);
   useEffect(() => {
     let live = true;
     fetch(`/api/db/person-connections?slug=${encodeURIComponent(p.slug)}`)
       .then((r) => r.json())
-      .then((j: Connections | null) => live && setConn(j))
+      .then((j: PersonConnectionsData | null) => live && setConn(j))
       .catch(() => {});
     return () => {
       live = false;
@@ -425,39 +418,8 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
         </DashboardSection>
       )}
 
-      {/* Connected people (§8) — public co-officers via a shared company */}
-      {conn && conn.related.length > 0 && (
-        <DashboardSection
-          id="person-connections"
-          title={t("pp_connections")}
-          icon={Users}
-        >
-          <Card>
-            <CardContent className="space-y-2 pt-6">
-              {conn.related.map((r) => (
-                <div
-                  key={r.slug}
-                  className="flex items-baseline justify-between gap-3 border-b border-border/50 pb-2 last:border-0 last:pb-0"
-                >
-                  <span className="min-w-0 text-sm">
-                    <Link
-                      to={`/person/${r.slug}`}
-                      className="font-medium text-primary hover:underline"
-                    >
-                      {r.name}
-                    </Link>
-                    <span className="block text-xs text-muted-foreground">
-                      {r.companies
-                        .map((c) => (c.name ? decodeEntities(c.name) : c.eik))
-                        .join(", ")}
-                    </span>
-                  </span>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
-        </DashboardSection>
-      )}
+      {/* Connected people (§8) — the unified connections view (direct + indirect paths). */}
+      {conn && <PersonConnections data={conn} />}
 
       {/* Donations */}
       {donations.length > 0 && (
