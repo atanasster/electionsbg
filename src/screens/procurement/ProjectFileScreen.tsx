@@ -22,18 +22,31 @@ import { classifyMethod, isSingleBid } from "@/data/procurement/projectFile";
 import { saveProject, projectHref } from "@/data/procurement/projectStore";
 
 // Uncurated starter seeds — a researcher must not face a blank box (§0f.1).
-const STARTERS: Array<{ label: string; spec: ProjectFileSpec }> = [
+// Publicly-discussed 2023–2026 Bulgarian procurement topics, spread across
+// domains. Only АПИ (000695089) and МО (000695324) EIKs are confirmed; the
+// others are search-only (no buyer scope). Labels are BG proper nouns; category
+// + hint are bilingual-inline.
+interface Starter {
+  category: { bg: string; en: string };
+  label: string;
+  hint: { bg: string; en: string };
+  spec: ProjectFileSpec;
+}
+const API_EIK = ["000695089"]; // Агенция „Пътна инфраструктура"
+const MO_EIK = ["000695324"]; // Министерство на отбраната
+
+const STARTERS: Starter[] = [
   {
+    category: { bg: "Пътища", en: "Roads" },
     label: "Софийски околовръстен — Западна дъга",
+    hint: {
+      bg: "Последните км от околовръстното: обявено срещу договорено",
+      en: "The ring road's last km: announced vs contracted",
+    },
     spec: {
       title: { bg: "Софийски околовръстен — Западна дъга" },
       search: [
-        {
-          terms: "западна дъга",
-          distinctive: ["дъга"],
-          buyerEik: ["000695089"],
-          threshold: 0.6,
-        },
+        { terms: "западна дъга", distinctive: ["дъга"], buyerEik: API_EIK },
       ],
       benchmark: {
         unit: "eur_per_km",
@@ -43,22 +56,117 @@ const STARTERS: Array<{ label: string; spec: ProjectFileSpec }> = [
     },
   },
   {
-    label: "Магистрала Хемус",
+    category: { bg: "Пътища", en: "Roads" },
+    label: "Магистрала „Хемус“",
+    hint: {
+      bg: "2+ млрд. лв на „Автомагистрали“ без конкурс",
+      en: "€1bn+ to state „Avtomagistrali“ without a tender",
+    },
     spec: {
-      title: { bg: "Магистрала Хемус" },
+      title: { bg: "Магистрала „Хемус“" },
+      search: [{ terms: "хемус", distinctive: ["хемус"], buyerEik: API_EIK }],
+    },
+  },
+  {
+    category: { bg: "Пътища", en: "Roads" },
+    label: "АМ „Струма“ (Кресна)",
+    hint: {
+      bg: "Спорният лот 3.2 през Кресненското дефиле",
+      en: "The contested lot 3.2 through the Kresna gorge",
+    },
+    spec: {
+      title: { bg: "АМ „Струма“ — Кресненско дефиле" },
+      search: [{ terms: "струма", distinctive: ["струма"], buyerEik: API_EIK }],
+    },
+  },
+  {
+    category: { bg: "Транспорт", en: "Transport" },
+    label: "Софийско метро",
+    hint: {
+      bg: "Разширението на третия лъч",
+      en: "The third-line extension",
+    },
+    spec: {
+      title: { bg: "Софийско метро" },
+      search: [{ terms: "метро", distinctive: ["метро"] }],
+    },
+  },
+  {
+    category: { bg: "Железници", en: "Rail" },
+    label: "жп „Елин Пелин – Костенец“",
+    hint: {
+      bg: "Най-голямата жп поръчка по ОПТТИ",
+      en: "The biggest rail job under OPTTI",
+    },
+    spec: {
+      title: { bg: "жп „Елин Пелин – Костенец“" },
+      search: [{ terms: "костенец", distinctive: ["костенец"] }],
+    },
+  },
+  {
+    category: { bg: "Енергетика", en: "Energy" },
+    label: "Газов интерконектор с Гърция",
+    hint: {
+      bg: "Тръбата IGB и договорът с „Боташ“",
+      en: "The IGB pipeline and the Botas deal",
+    },
+    spec: {
+      title: { bg: "Газов интерконектор с Гърция" },
+      search: [{ terms: "интерконектор", distinctive: ["интерконектор"] }],
+    },
+  },
+  {
+    category: { bg: "Отбрана", en: "Defense" },
+    label: "Авиобаза „Граф Игнатиево“ (F-16)",
+    hint: {
+      bg: "Инфраструктурата за новите изтребители",
+      en: "The base infrastructure for the new jets",
+    },
+    spec: {
+      title: { bg: "Авиобаза „Граф Игнатиево“" },
       search: [
-        { terms: "хемус", distinctive: ["хемус"], buyerEik: ["000695089"] },
+        {
+          terms: "граф игнатиево",
+          distinctive: ["игнатиево"],
+          buyerEik: MO_EIK,
+        },
       ],
     },
   },
   {
-    label: "Избори — машини срещу хартия",
+    category: { bg: "Еврофондове", en: "EU funds" },
+    label: "Саниране на сгради",
+    hint: {
+      bg: "Националната програма за енергийна ефективност",
+      en: "The national energy-efficiency program",
+    },
     spec: {
-      title: { bg: "Избори — машини срещу хартия" },
-      search: [
-        { terms: "бюлетин", distinctive: ["бюлетин"] },
-        { terms: "суемг", distinctive: ["суемг"] },
-      ],
+      title: { bg: "Саниране на жилищни сгради" },
+      search: [{ terms: "саниране", distinctive: ["саниране"] }],
+    },
+  },
+  {
+    category: { bg: "Води", en: "Water" },
+    label: "Воден цикъл (ВиК)",
+    hint: {
+      bg: "ВиК проектите по ОПОС",
+      en: "Water-cycle projects under OPOS",
+    },
+    spec: {
+      title: { bg: "Воден цикъл" },
+      search: [{ terms: "воден цикъл", distinctive: ["цикъл"] }],
+    },
+  },
+  {
+    category: { bg: "Избори", en: "Elections" },
+    label: "Машинно гласуване (СУЕМГ)",
+    hint: {
+      bg: "Договорите със „Сиела Норма“",
+      en: "The contracts with „Ciela Norma“",
+    },
+    spec: {
+      title: { bg: "Машинно гласуване (СУЕМГ)" },
+      search: [{ terms: "суемг", distinctive: ["суемг"] }],
     },
   },
 ];
@@ -188,32 +296,42 @@ export const ProjectFileScreen = () => {
   const body = () => {
     if (!spec) {
       return (
-        <div>
-          <p className="text-muted-foreground mb-2">
-            {bg
-              ? "Търси предмет на договор или процедура, за да създадеш досие — или започни от готов пример."
-              : "Search a contract or tender subject to build a file — or start from a template."}
-          </p>
-          <BuildForm
-            onSubmit={buildFromTerms}
-            bg={bg}
-            cta={bg ? "Създай досие" : "Create file"}
-          />
-          <div className="text-xs text-muted-foreground mb-2">
-            {bg ? "Готови примери" : "Templates"}
+        <div className="mt-4">
+          <div className="max-w-2xl">
+            <p className="text-muted-foreground mb-3">
+              {bg
+                ? "Търси предмет на договор или процедура, за да сглобиш досие на един проект — или започни от публично обсъждана тема."
+                : "Search a contract or tender subject to assemble a project's file — or start from a publicly-debated topic."}
+            </p>
+            <BuildForm
+              onSubmit={buildFromTerms}
+              bg={bg}
+              cta={bg ? "Създай досие" : "Create file"}
+            />
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="text-xs uppercase tracking-wide text-muted-foreground mt-6 mb-2">
+            {bg ? "Или започни от тема" : "Or start from a topic"}
+          </div>
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
             {STARTERS.map((s) => (
               <Link
                 key={s.label}
                 to={projectHref(s.spec)}
-                className="rounded-md border px-3 py-2 text-sm hover:bg-muted"
+                className="flex min-w-0 flex-col gap-1 rounded-lg border p-3 transition-colors hover:border-primary/40 hover:bg-muted"
               >
-                {s.label}
+                <span className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
+                  {bg ? s.category.bg : s.category.en}
+                </span>
+                <span className="text-sm font-medium leading-snug">
+                  {s.label}
+                </span>
+                <span className="text-xs text-muted-foreground leading-snug">
+                  {bg ? s.hint.bg : s.hint.en}
+                </span>
               </Link>
             ))}
           </div>
-          <div className="mt-4">
+          <div className="mt-6">
             <Link to="/procurement/projects" className="text-sm text-primary">
               {bg ? "Моите досиета →" : "My project files →"}
             </Link>
