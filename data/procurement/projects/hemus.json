@@ -7,7 +7,12 @@
   "authority": "Агенция „Пътна инфраструктура“",
   "sector": "roads",
   "search": [
-    { "terms": "хемус", "distinctive": ["хемус"], "buyerEik": ["000695089"] }
+    {
+      "terms": "хемус",
+      "distinctive": ["хемус"],
+      "buyerEik": ["000695089"],
+      "buyerName": "Агенция „Пътна инфраструктура“"
+    }
   ],
   "inhouseAwarderEiks": ["831646048"],
   "knownSubcontractors": [

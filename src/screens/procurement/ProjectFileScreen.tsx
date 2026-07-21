@@ -87,6 +87,12 @@ const API_EIK = ["000695089"]; // Агенция „Пътна инфрастр�
 const MO_EIK = ["000695324"]; // Министерство на отбраната
 const ICGB_EIK = ["201383265"]; // „Ай Си Джи Би" АД — the IGB gas-interconnector company
 const PLEVEN_EIK = ["000413974"]; // Община Плевен
+// Display names for the scoped buyers — carried on the thread (buyerName) so the
+// editor/refine chip reads a name, not a bare EIK.
+const API_NAME = "Агенция „Пътна инфраструктура“";
+const MO_NAME = "Министерство на отбраната";
+const ICGB_NAME = "„Ай Си Джи Би“ АД";
+const PLEVEN_NAME = "Община Плевен";
 
 // Tile images: bespoke per-project scenes (projectScenes.tsx), with the sector
 // scenes as a fallback for any future topic that reuses a domain scene.
@@ -159,7 +165,14 @@ const STARTERS: Starter[] = [
     accent: TILE_ACCENTS.clay,
     spec: {
       title: { bg: "АМ „Струма“ — Кресненско дефиле" },
-      search: [{ terms: "струма", distinctive: ["струма"], buyerEik: API_EIK }],
+      search: [
+        {
+          terms: "струма",
+          distinctive: ["струма"],
+          buyerEik: API_EIK,
+          buyerName: API_NAME,
+        },
+      ],
     },
   },
   {
@@ -210,8 +223,14 @@ const STARTERS: Starter[] = [
           terms: "газопровод",
           distinctive: ["газопровод"],
           buyerEik: ICGB_EIK,
+          buyerName: ICGB_NAME,
         },
-        { terms: "IGB", distinctive: ["igb"], buyerEik: ICGB_EIK },
+        {
+          terms: "IGB",
+          distinctive: ["igb"],
+          buyerEik: ICGB_EIK,
+          buyerName: ICGB_NAME,
+        },
       ],
     },
   },
@@ -231,6 +250,7 @@ const STARTERS: Starter[] = [
           terms: "граф игнатиево",
           distinctive: ["игнатиево"],
           buyerEik: MO_EIK,
+          buyerName: MO_NAME,
         },
       ],
     },
@@ -312,6 +332,7 @@ const STARTERS: Starter[] = [
           terms: "Русе Велико Търново",
           distinctive: ["русе"],
           buyerEik: API_EIK,
+          buyerName: API_NAME,
         },
       ],
     },
@@ -332,6 +353,7 @@ const STARTERS: Starter[] = [
           terms: "многофункционална спортна зала",
           distinctive: ["спортна"],
           buyerEik: PLEVEN_EIK,
+          buyerName: PLEVEN_NAME,
         },
       ],
     },
@@ -726,9 +748,18 @@ export const ProjectFileScreen = () => {
             onSubmit={buildFromTerms}
             bg={bg}
             cta={bg ? "Създай досие" : "Create file"}
-            // A "Прецизирай думите" link lands here with ?refine=<terms> to
-            // pre-populate the box for editing.
+            // A "Прецизирай думите" link lands here with ?refine=<terms> (and the
+            // optional ?awarderEik/&awarderName) to pre-populate the box + buyer.
             initial={params.get("refine") ?? ""}
+            initialAwarder={
+              params.get("awarderEik")
+                ? {
+                    eik: params.get("awarderEik")!,
+                    name:
+                      params.get("awarderName") ?? params.get("awarderEik")!,
+                  }
+                : null
+            }
           />
           <TileHubGrid sections={sections} className="mt-8" />
         </div>
@@ -858,9 +889,20 @@ export const ProjectFileScreen = () => {
             const seeAllHref = seeAllContractsHref(spec.search[0]);
             // "Прецизирай думите" → the dossiers hub with the search box
             // pre-populated (?refine=), so the user can edit the terms and rebuild.
-            const refineTerms = spec.search[0]?.terms?.trim();
+            // Carry the thread's buyer too (?awarderEik/&awarderName, falling back
+            // to spec.authority for a curated file) so the buyer scope survives.
+            const thread0 = spec.search[0];
+            const refineTerms = thread0?.terms?.trim();
+            const refineAwarderEik = thread0?.buyerEik?.[0];
+            const refineAwarderName = thread0?.buyerName ?? spec.authority;
             const refineHref = refineTerms
-              ? `/procurement/project?refine=${encodeURIComponent(refineTerms)}`
+              ? `/procurement/project?refine=${encodeURIComponent(refineTerms)}` +
+                (refineAwarderEik
+                  ? `&awarderEik=${encodeURIComponent(refineAwarderEik)}` +
+                    (refineAwarderName
+                      ? `&awarderName=${encodeURIComponent(refineAwarderName)}`
+                      : "")
+                  : "")
               : null;
             // Lead sentence (count when the engine reported it, else generic);
             // the "refine / add a buyer" tail is shared and carries the link.
@@ -2259,15 +2301,18 @@ const BuildForm = ({
   bg,
   cta,
   initial = "",
+  initialAwarder = null,
 }: {
   onSubmit: (terms: string, awarder: AwarderChoice | null) => void;
   bg: boolean;
   cta: string;
   /** Pre-populate the input — e.g. a "Прецизирай думите" refine deep-link. */
   initial?: string;
+  /** Pre-select the buyer — the refine link carries the dossier's scope. */
+  initialAwarder?: AwarderChoice | null;
 }) => {
   const [terms, setTerms] = useState(initial);
-  const [awarder, setAwarder] = useState<AwarderChoice | null>(null);
+  const [awarder, setAwarder] = useState<AwarderChoice | null>(initialAwarder);
   return (
     <form
       className="no-print my-3"
