@@ -427,3 +427,41 @@ export function selectBroaderCandidates<T extends { key: string }>(
   const seen = new Set([...memberKeys, ...excludeKeys, ...includeKeys]);
   return ranked.filter((r) => !seen.has(r.key)).slice(0, limit);
 }
+
+// --- Multi-thread search edits (§0f.2) -------------------------------------
+// Pure transforms over the search-thread array; the screen wraps each in
+// mutateSpec. Kept here so the load-bearing invariants (keep-other-fields,
+// ignore-blank, never-drop-the-last) are unit-testable without the DOM.
+
+/** Replace thread i's terms, preserving its other fields (distinctive,
+ *  threshold, buyerEik). A blank/whitespace commit is ignored — a thread must
+ *  keep some terms; use withoutThread to drop it. */
+export function withThreadTerms(
+  threads: readonly SearchThread[],
+  i: number,
+  terms: string,
+): SearchThread[] {
+  const t = terms.trim();
+  if (!t) return [...threads];
+  return threads.map((th, idx) => (idx === i ? { ...th, terms: t } : th));
+}
+
+/** Append a new (terms-only) thread; a blank add is ignored. */
+export function withAddedThread(
+  threads: readonly SearchThread[],
+  terms: string,
+): SearchThread[] {
+  const t = terms.trim();
+  return t ? [...threads, { terms: t }] : [...threads];
+}
+
+/** Drop thread i — but never the last one (an empty `search` parses to a null
+ *  spec, i.e. an unresolvable file). */
+export function withoutThread(
+  threads: readonly SearchThread[],
+  i: number,
+): SearchThread[] {
+  return threads.length > 1
+    ? threads.filter((_, idx) => idx !== i)
+    : [...threads];
+}

@@ -10,6 +10,9 @@ import {
   foldByContractor,
   rankBroaderCandidates,
   selectBroaderCandidates,
+  withThreadTerms,
+  withAddedThread,
+  withoutThread,
   resolveSeedIds,
   siblingLotPolicy,
   lotNumberOf,
@@ -231,6 +234,35 @@ describe("selectBroaderCandidates — new-only, capped (§0f.3)", () => {
   it("caps the visible list (default 15)", () => {
     expect(selectBroaderCandidates(rows, [], [], [])).toHaveLength(15);
     expect(selectBroaderCandidates(rows, [], [], [], 3)).toHaveLength(3);
+  });
+});
+
+describe("multi-thread search edits (§0f.2)", () => {
+  const threads: SearchThread[] = [
+    { terms: "западна дъга", distinctive: ["дъга"], buyerEik: ["000695089"] },
+    { terms: "надзор" },
+  ];
+  it("withThreadTerms replaces terms but keeps the thread's other fields", () => {
+    const out = withThreadTerms(threads, 0, "  източна дъга ");
+    expect(out[0]).toEqual({
+      terms: "източна дъга",
+      distinctive: ["дъга"],
+      buyerEik: ["000695089"],
+    });
+    expect(out[1]).toBe(threads[1]); // untouched
+  });
+  it("withThreadTerms ignores a blank commit (returns an equal array)", () => {
+    expect(withThreadTerms(threads, 1, "   ")).toEqual(threads);
+  });
+  it("withAddedThread appends a terms-only thread, ignoring a blank add", () => {
+    expect(withAddedThread(threads, "струма")).toHaveLength(3);
+    expect(withAddedThread(threads, "струма")[2]).toEqual({ terms: "струма" });
+    expect(withAddedThread(threads, "  ")).toHaveLength(2);
+  });
+  it("withoutThread drops the target, but never the last remaining thread", () => {
+    expect(withoutThread(threads, 0).map((t) => t.terms)).toEqual(["надзор"]);
+    const one: SearchThread[] = [{ terms: "само аз" }];
+    expect(withoutThread(one, 0)).toEqual(one);
   });
 });
 

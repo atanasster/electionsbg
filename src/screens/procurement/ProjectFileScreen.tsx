@@ -5,7 +5,7 @@
 // with per-contract method badges, and a contractors table.
 // See docs/plans/procurement-project-lifecycle-v1.md §4.2/§4.6.
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
@@ -27,6 +27,9 @@ import {
   roleLabel,
   foldByContractor,
   selectBroaderCandidates,
+  withThreadTerms,
+  withAddedThread,
+  withoutThread,
 } from "@/data/procurement/projectFile";
 import { saveProject, projectHref } from "@/data/procurement/projectStore";
 
@@ -257,16 +260,25 @@ export const ProjectFileScreen = () => {
     if (t) setQ({ title: { bg: t }, search: [{ terms: t }] });
   };
 
-  const refineTerms = (terms: string) => {
-    const t = terms.trim();
-    if (!t) return;
-    if (!spec) return buildFromTerms(t);
-    // Only the first thread's terms are editable here — keep the rest intact.
+  // Multi-thread search editing (§0f.2): each thread is a unioned OR-branch of
+  // the search. The pure transforms (in projectFile.ts) keep a thread's non-terms
+  // fields, ignore blank commits, and never drop the last thread.
+  const setThreadTerms = (i: number, terms: string) =>
     mutateSpec((cur) => ({
       ...cur,
-      search: [{ ...cur.search[0], terms: t }, ...cur.search.slice(1)],
+      search: withThreadTerms(cur.search, i, terms),
+    }));
+
+  const addThread = (terms: string) => {
+    if (!terms.trim()) return; // skip the redundant no-op URL write
+    mutateSpec((cur) => ({
+      ...cur,
+      search: withAddedThread(cur.search, terms),
     }));
   };
+
+  const removeThread = (i: number) =>
+    mutateSpec((cur) => ({ ...cur, search: withoutThread(cur.search, i) }));
 
   const excludeMember = (kind: "contract" | "tender", id: string) =>
     mutateSpec((cur) => {
@@ -450,16 +462,27 @@ export const ProjectFileScreen = () => {
         />
         {editMode && (
           <div className="no-print rounded-md border border-dashed p-3 mb-3">
-            <BuildForm
-              initial={spec.search[0]?.terms}
-              onSubmit={refineTerms}
-              bg={bg}
-              cta={bg ? "Обнови търсенето" : "Update search"}
-            />
-            <div className="text-xs text-muted-foreground">
+            <div className="text-xs font-medium text-muted-foreground mb-2">
+              {bg ? "Думи за търсене (обединени)" : "Search terms (unioned)"}
+            </div>
+            <div className="flex flex-col gap-2">
+              {spec.search.map((th, i) => (
+                <ThreadRow
+                  key={i}
+                  initial={th.terms}
+                  index={i}
+                  removable={spec.search.length > 1}
+                  onCommit={setThreadTerms}
+                  onRemove={removeThread}
+                  bg={bg}
+                />
+              ))}
+              <ThreadAdder onAdd={addThread} bg={bg} />
+            </div>
+            <div className="text-xs text-muted-foreground mt-2">
               {bg
-                ? "Смени думите за търсене, или махни отделен ред с ×."
-                : "Change the search terms, or remove a row with ×."}
+                ? "Всеки ред е отделно търсене — резултатите се обединяват. Махни ред с ×."
+                : "Each row is a separate search — results are unioned. Remove a row with ×."}
             </div>
             {candidates.length > 0 && (
               <div className="mt-3 border-t pt-3">
@@ -1039,17 +1062,15 @@ const ContractRow = ({
 };
 
 const BuildForm = ({
-  initial,
   onSubmit,
   bg,
   cta,
 }: {
-  initial?: string;
   onSubmit: (terms: string) => void;
   bg: boolean;
   cta: string;
 }) => {
-  const [terms, setTerms] = useState(initial ?? "");
+  const [terms, setTerms] = useState("");
   return (
     <form
       className="no-print flex gap-2 my-3"
@@ -1075,5 +1096,105 @@ const BuildForm = ({
         {cta}
       </button>
     </form>
+  );
+};
+
+// One editable search thread (§0f.2). Commits on Enter or blur; the × removes it
+// (hidden for the last remaining thread — a file needs at least one search).
+const ThreadRow = ({
+  initial,
+  index,
+  removable,
+  onCommit,
+  onRemove,
+  bg,
+}: {
+  initial: string;
+  index: number;
+  removable: boolean;
+  onCommit: (i: number, terms: string) => void;
+  onRemove: (i: number) => void;
+  bg: boolean;
+}) => {
+  const [terms, setTerms] = useState(initial);
+  // Re-sync when the committed value changes externally (e.g. a sibling row was
+  // removed and indices shifted). Keying by index keeps focus on Enter-commit.
+  useEffect(() => setTerms(initial), [initial]);
+  // Blank is not a valid commit (setThreadTerms ignores it) — revert the box to
+  // the committed term instead of leaving it misleadingly empty.
+  const commit = () => {
+    if (!terms.trim()) setTerms(initial);
+    else onCommit(index, terms);
+  };
+  return (
+    <div className="flex items-center gap-2">
+      <input
+        className="flex-1 rounded-md border px-3 py-1.5 text-sm bg-background"
+        aria-label={
+          bg ? `Дума за търсене ${index + 1}` : `Search term ${index + 1}`
+        }
+        value={terms}
+        onChange={(e) => setTerms(e.target.value)}
+        onBlur={commit}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            commit();
+          }
+        }}
+      />
+      {removable && (
+        <button
+          type="button"
+          onClick={() => onRemove(index)}
+          aria-label={bg ? "Махни реда" : "Remove row"}
+          className="shrink-0 rounded-md border px-2 py-1.5 text-sm text-muted-foreground hover:bg-muted"
+        >
+          ×
+        </button>
+      )}
+    </div>
+  );
+};
+
+// The "add another search thread" row — clears itself after each add.
+const ThreadAdder = ({
+  onAdd,
+  bg,
+}: {
+  onAdd: (terms: string) => void;
+  bg: boolean;
+}) => {
+  const [terms, setTerms] = useState("");
+  const submit = () => {
+    onAdd(terms);
+    setTerms("");
+  };
+  return (
+    <div className="flex items-center gap-2">
+      <input
+        className="flex-1 rounded-md border border-dashed px-3 py-1.5 text-sm bg-background"
+        aria-label={bg ? "Добави дума за търсене" : "Add a search term"}
+        value={terms}
+        onChange={(e) => setTerms(e.target.value)}
+        placeholder={
+          bg ? "+ добави дума за търсене…" : "+ add another search term…"
+        }
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            submit();
+          }
+        }}
+      />
+      <button
+        type="button"
+        onClick={submit}
+        disabled={!terms.trim()}
+        className="shrink-0 rounded-md border px-3 py-1.5 text-sm hover:bg-muted disabled:opacity-40"
+      >
+        {bg ? "Добави" : "Add"}
+      </button>
+    </div>
   );
 };
