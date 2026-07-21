@@ -17,6 +17,43 @@ export const encodeSpec = (spec: ProjectFileSpec): string =>
 export const projectHref = (spec: ProjectFileSpec): string =>
   `/procurement/project?q=${encodeSpec(spec)}`;
 
+/**
+ * Seed a project file from ONE contract (the "проследи като досие" on-ramp,
+ * §4.3b). Its title seeds both the dossier title and the search, and the contract
+ * (plus its originating procedure, when the УНП is known) is force-included so the
+ * dossier always contains the row the user came from; they refine the search from
+ * there. `titleSeed` is the caller-split object title (drops the lot qualifier).
+ */
+export const projectFromContract = (opts: {
+  key: string;
+  unp?: string | null;
+  titleSeed: string;
+}): ProjectFileSpec => {
+  const terms = opts.titleSeed.trim() || "договор";
+  return {
+    title: { bg: terms },
+    search: [{ terms }],
+    includes: {
+      contractKeys: [opts.key],
+      ...(opts.unp ? { tenderUnps: [opts.unp] } : {}),
+    },
+  };
+};
+
+/** Seed a project file from ONE procedure (tender). The procedure is
+ *  force-included so its lineage (sibling lots + contracts) resolves. §4.3b */
+export const projectFromTender = (opts: {
+  unp: string;
+  titleSeed: string;
+}): ProjectFileSpec => {
+  const terms = opts.titleSeed.trim() || "процедура";
+  return {
+    title: { bg: terms },
+    search: [{ terms }],
+    includes: { tenderUnps: [opts.unp] },
+  };
+};
+
 const slugify = (s: string): string =>
   s
     .toLowerCase()

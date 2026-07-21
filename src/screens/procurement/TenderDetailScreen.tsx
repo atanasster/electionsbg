@@ -37,6 +37,11 @@ import { TenderNormalcyPanel } from "@/screens/components/procurement/TenderNorm
 import { TenderRiskPanel } from "@/screens/components/procurement/TenderRiskPanel";
 import { formatAmountEur } from "@/lib/currency";
 import {
+  projectFromTender,
+  projectHref,
+} from "@/data/procurement/projectStore";
+import { TrackAsProjectFileLink } from "@/screens/components/procurement/TrackAsProjectFileLink";
+import {
   displayProcurementMethod,
   contractCategoryLabel,
 } from "@/lib/cpvSectors";
@@ -728,6 +733,16 @@ export const TenderDetailScreen: FC = () => {
             </p>
           </div>
         ) : null}
+        {/* "Проследи като досие" on-ramp (§4.3b) — seed a project file from this
+            procedure; its lineage (sibling lots + contracts) resolves. */}
+        <TrackAsProjectFileLink
+          to={projectHref(
+            projectFromTender({
+              unp: tender.unp,
+              titleSeed: tender.subject || "",
+            }),
+          )}
+        />
       </header>
 
       <TenderLifecycle tender={tender} awards={awards} />

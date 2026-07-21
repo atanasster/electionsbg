@@ -27,7 +27,12 @@ import { useProcurementMpConnectedByEik } from "@/data/procurement/useMpConnecte
 import { usePepConnectedByEik } from "@/data/procurement/usePepConnectedByEik";
 import { formatAmountEur } from "@/lib/currency";
 import { splitContractTitle } from "@/lib/contractTitle";
+import {
+  projectFromContract,
+  projectHref,
+} from "@/data/procurement/projectStore";
 import { ProcurementBreadcrumb } from "./components/procurement/ProcurementBreadcrumb";
+import { TrackAsProjectFileLink } from "./components/procurement/TrackAsProjectFileLink";
 import {
   displayProcurementMethod,
   contractCategoryLabel,
@@ -147,6 +152,17 @@ export const ContractDetailScreen: FC = () => {
             <RiskBadges result={riskResult} variant="full" />
           </div>
         ) : null}
+        {/* "Проследи като досие" on-ramp (§4.3b) — seed a project file from this
+            contract (title + this row force-included, plus its procedure). */}
+        <TrackAsProjectFileLink
+          to={projectHref(
+            projectFromContract({
+              key: c.key,
+              unp: c.unp,
+              titleSeed: splitContractTitle(c.title).main || c.title || "",
+            }),
+          )}
+        />
       </header>
 
       <ContractNormalcyPanel contractKey={id} />

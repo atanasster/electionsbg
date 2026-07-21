@@ -6,7 +6,10 @@ import {
   saveProject,
   listProjects,
   deleteProject,
+  projectFromContract,
+  projectFromTender,
 } from "./projectStore";
+import { parseProjectSpec } from "./useProjectFile";
 import type { ProjectFileSpec } from "./useProjectFile";
 
 const ringRoad: ProjectFileSpec = {
@@ -39,6 +42,43 @@ describe("encodeSpec / projectHref", () => {
   });
   it("builds the deep-link href", () => {
     expect(projectHref(ringRoad)).toMatch(/^\/procurement\/project\?q=/);
+  });
+});
+
+describe("projectFromContract / projectFromTender — detail-page on-ramp (§4.3b)", () => {
+  it("seeds a valid spec from a contract (title + force-included key & procedure)", () => {
+    const spec = projectFromContract({
+      key: "k1",
+      unp: "u1",
+      titleSeed: "Модернизация Видин–Ботевград",
+    });
+    expect(spec.search[0].terms).toBe("Модернизация Видин–Ботевград");
+    expect(spec.includes?.contractKeys).toEqual(["k1"]);
+    expect(spec.includes?.tenderUnps).toEqual(["u1"]);
+    // must survive the untrusted-?q= validator so the deep link resolves
+    expect(parseProjectSpec(JSON.stringify(spec))).not.toBeNull();
+  });
+  it("omits tenderUnps when the contract has no УНП", () => {
+    const spec = projectFromContract({ key: "k1", titleSeed: "Договор" });
+    expect(spec.includes?.tenderUnps).toBeUndefined();
+  });
+  it("falls back to a non-empty search when the title is blank (spec stays valid)", () => {
+    const spec = projectFromContract({ key: "k1", titleSeed: "   " });
+    expect(spec.search[0].terms.length).toBeGreaterThan(0);
+    expect(parseProjectSpec(JSON.stringify(spec))).not.toBeNull();
+  });
+  it("seeds a valid spec from a tender (force-included УНП)", () => {
+    const spec = projectFromTender({
+      unp: "u9",
+      titleSeed: "Строеж на магистрала",
+    });
+    expect(spec.includes?.tenderUnps).toEqual(["u9"]);
+    expect(parseProjectSpec(JSON.stringify(spec))).not.toBeNull();
+  });
+  it("falls back to a non-empty search when the tender title is blank", () => {
+    const spec = projectFromTender({ unp: "u9", titleSeed: "  " });
+    expect(spec.search[0].terms.length).toBeGreaterThan(0);
+    expect(parseProjectSpec(JSON.stringify(spec))).not.toBeNull();
   });
 });
 
