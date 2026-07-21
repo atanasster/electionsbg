@@ -888,10 +888,12 @@ export const ProjectFileScreen = () => {
                 )}
               </div>
               {/* Procedure прогнозна (estimated) value vs Σ contracted of its
-                  member contracts. The delta is shown ONLY when all lots are
-                  included (siblingLotPolicy 'all') — for a many-lot framework the
-                  whole-tender estimate covers lots we didn't include, so the % would
-                  mislead; there we show the estimate alone. */}
+                  member contracts. The договорено-спрямо-прогнозна % shows ONLY when
+                  ALL lots are included (siblingLotPolicy 'all'). For a many-lot
+                  framework the whole-tender estimate covers lots this dossier didn't
+                  include (АМ Хемус+Тракия+Марица+Струма maintenance, only the Хемус
+                  lot in scope), so we LABEL it "(цялата процедура)" and show the
+                  included contracted sum WITHOUT a %, which would mislead. */}
               {(() => {
                 const est = r.tender?.estimatedValueEur;
                 if (est == null || est <= 0) return null;
@@ -902,17 +904,22 @@ export const ProjectFileScreen = () => {
                       : s,
                   0,
                 );
-                const comparable =
-                  siblingLotPolicy(r.tender?.lotsCount) === "all" &&
-                  contracted > 0;
-                const pct = comparable
-                  ? Math.round((contracted / est) * 100)
-                  : null;
+                const allLots = siblingLotPolicy(r.tender?.lotsCount) === "all";
+                const pct =
+                  allLots && contracted > 0
+                    ? Math.round((contracted / est) * 100)
+                    : null;
                 return (
                   <div className="mt-0.5 text-xs text-muted-foreground">
-                    {bg ? "прогнозна " : "estimated "}
+                    {allLots
+                      ? bg
+                        ? "прогнозна "
+                        : "estimated "
+                      : bg
+                        ? "прогнозна (цялата процедура) "
+                        : "estimated (whole procedure) "}
                     {money(est)}
-                    {comparable && (
+                    {contracted > 0 && (
                       <>
                         {" · "}
                         {bg ? "договорено " : "contracted "}
