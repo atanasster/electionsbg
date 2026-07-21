@@ -126,8 +126,9 @@ type MonthlyLatestSpec = {
   dataset: string;
   query: Record<string, string>;
   // True when the monthly cut is seasonally adjusted (Eurostat's headline
-  // monthly unemployment is SA). Recorded so the UI can label it honestly —
-  // the quarterly line for BG unemployment is NSA.
+  // monthly unemployment is SA). Recorded so the UI can label it honestly.
+  // The quarterly `unemployment` line is now also SA, so the callout and the
+  // line share the same seasonal treatment.
   seasonallyAdjusted: boolean;
   sourceUrl: string;
 };
@@ -210,26 +211,106 @@ const EUROSTAT_INDICATORS: EurostatIndicator[] = [
   {
     source: "eurostat",
     key: "unemployment",
-    // une_rt_q only publishes NSA for Bulgaria — the seasonally-adjusted
-    // quarterly series is empty. NSA has visible winter peaks; the line
-    // stays interpretable because the seasonal swing is much smaller than
-    // the cycle (~1pp vs 8pp peak-to-trough across the 2009→2024 cycle).
+    // Seasonally adjusted (SA). une_rt_q now publishes a full SA quarterly
+    // series for Bulgaria (2009-Q1→, same length as NSA), so we take it —
+    // it removes the winter peaks and, crucially, matches the SA monthly
+    // callout (une_rt_m) rendered beside this line, killing the old
+    // NSA-line-vs-SA-callout inconsistency.
     dataset: "une_rt_q",
     query: {
       geo: "BG",
       unit: "PC_ACT",
       age: "Y15-74",
       sex: "T",
-      s_adj: "NSA",
+      s_adj: "SA",
       freq: "Q",
     },
     cadence: "quarterly",
     sourceUrl:
       "https://ec.europa.eu/eurostat/databrowser/view/une_rt_q/default/table",
-    unitLabelEn: "% of active population (NSA)",
-    unitLabelBg: "% от активното население (NSA)",
+    unitLabelEn: "% of active population (SA)",
+    unitLabelBg: "% от активното население (сезонно изгладено)",
     titleEn: "Unemployment rate",
     titleBg: "Безработица",
+  },
+  {
+    source: "eurostat",
+    key: "employmentRate",
+    // Employment rate, ages 20-64 — the EU headline labour-market target
+    // metric (% of the 20-64 population in work). For Bulgaria this tells
+    // the real story the ~4% unemployment rate hides: the shrinking,
+    // ageing working-age base. Seasonally adjusted, quarterly (LFS).
+    dataset: "lfsi_emp_q",
+    query: {
+      geo: "BG",
+      indic_em: "EMP_LFS",
+      s_adj: "SA",
+      sex: "T",
+      age: "Y20-64",
+      unit: "PC_POP",
+      freq: "Q",
+    },
+    cadence: "quarterly",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/lfsi_emp_q/default/table",
+    unitLabelEn: "% of population 20-64 (SA)",
+    unitLabelBg: "% от населението 20-64 г. (сезонно изгладено)",
+    titleEn: "Employment rate (20-64)",
+    titleBg: "Коефициент на заетост (20-64)",
+  },
+  {
+    source: "eurostat",
+    key: "activityRate",
+    // Activity / participation rate, ages 20-64 (% of the 20-64 population
+    // either working or looking for work). The denominator behind the
+    // unemployment rate: a low activity rate means people have left the
+    // labour force entirely (emigration, discouragement) rather than shown
+    // up as "unemployed". Seasonally adjusted, quarterly (LFS).
+    dataset: "lfsi_emp_q",
+    query: {
+      geo: "BG",
+      indic_em: "ACT",
+      s_adj: "SA",
+      sex: "T",
+      age: "Y20-64",
+      unit: "PC_POP",
+      freq: "Q",
+    },
+    cadence: "quarterly",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/lfsi_emp_q/default/table",
+    unitLabelEn: "% of population 20-64 (SA)",
+    unitLabelBg: "% от населението 20-64 г. (сезонно изгладено)",
+    titleEn: "Activity rate (20-64)",
+    titleBg: "Коефициент на икономическа активност (20-64)",
+  },
+  {
+    source: "eurostat",
+    key: "labourSlack",
+    // Labour market slack, ages 20-64 — the broad "true unemployment"
+    // measure: unemployed + underemployed part-timers + persons available
+    // but not seeking + persons seeking but not available. Annual only, and
+    // expressed as % of the EXTENDED labour force (PC_ELF) — a different
+    // denominator from the headline unemployment rate (% of active
+    // population), so the two are not numerically interchangeable even
+    // though slack runs ~1.5-2x the headline rate. Surfaced as a contextual
+    // callout, not a chart line.
+    dataset: "lfsi_sla_a",
+    query: {
+      geo: "BG",
+      wstatus: "SLACK",
+      sex: "T",
+      age: "Y20-64",
+      unit: "PC_ELF",
+      freq: "A",
+    },
+    cadence: "annual",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/lfsi_sla_a/default/table",
+    unitLabelEn: "% of extended labour force",
+    unitLabelBg: "% от разширената работна сила",
+    titleEn: "Labour market slack (20-64)",
+    titleBg: "Разширена безработица (20-64)",
   },
   {
     source: "eurostat",
@@ -652,19 +733,21 @@ const EUROSTAT_INDICATORS: EurostatIndicator[] = [
     source: "eurostat",
     key: "youthUnemployment",
     dataset: "une_rt_q",
+    // SA — matches the headline `unemployment` series so total and youth
+    // lines share the same seasonal treatment in the labour-market panel.
     query: {
       geo: "BG",
       unit: "PC_ACT",
       age: "Y15-24",
       sex: "T",
-      s_adj: "NSA",
+      s_adj: "SA",
       freq: "Q",
     },
     cadence: "quarterly",
     sourceUrl:
       "https://ec.europa.eu/eurostat/databrowser/view/une_rt_q/default/table",
-    unitLabelEn: "% of active 15-24 population (NSA)",
-    unitLabelBg: "% от активното 15-24 г. население (NSA)",
+    unitLabelEn: "% of active 15-24 population (SA)",
+    unitLabelBg: "% от активното 15-24 г. население (сезонно изгладено)",
     titleEn: "Youth unemployment (15-24)",
     titleBg: "Младежка безработица (15-24)",
   },

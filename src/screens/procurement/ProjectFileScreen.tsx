@@ -1071,13 +1071,13 @@ export const ProjectFileScreen = () => {
                   <th className="py-1 text-left font-normal">
                     {bg ? "изпълнител" : "contractor"}
                   </th>
-                  <th className="py-1 text-right font-normal">
+                  <th className="py-1 pl-6 text-right font-normal">
                     {bg ? "договори" : "contracts"}
                   </th>
-                  <th className="py-1 text-right font-normal">
+                  <th className="py-1 pl-8 text-right font-normal">
                     {bg ? "стойност" : "value"}
                   </th>
-                  <th className="py-1 text-right font-normal">
+                  <th className="py-1 pl-6 text-right font-normal">
                     {bg ? "дял" : "share"}
                   </th>
                 </tr>
@@ -1097,11 +1097,13 @@ export const ProjectFileScreen = () => {
                         r.name
                       )}
                     </td>
-                    <td className="py-1.5 text-right">{r.count}</td>
-                    <td className="py-1.5 text-right font-medium">
+                    <td className="py-1.5 pl-6 text-right tabular-nums">
+                      {r.count}
+                    </td>
+                    <td className="py-1.5 pl-8 text-right font-medium tabular-nums whitespace-nowrap">
                       {money(r.eur)}
                     </td>
-                    <td className="py-1.5 text-right text-muted-foreground">
+                    <td className="py-1.5 pl-6 text-right tabular-nums text-muted-foreground">
                       {fold.totalContractedEur > 0
                         ? `${Math.round((r.eur / fold.totalContractedEur) * 100)}%`
                         : "—"}
