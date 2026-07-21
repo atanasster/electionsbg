@@ -354,9 +354,12 @@ export interface EurPerKm {
   confidence: "high" | "med";
 }
 
-/** Defensible €/km for one contract, or undefined if it should not carry one. */
+/** Defensible €/km for one contract, or undefined if it should not carry one.
+ *  Reads only `amountEur`, so the parameter is the minimal shape — this keeps
+ *  callers that hold just an amount (e.g. the project-file €/km cross-check)
+ *  type-checked without an unsafe cast. */
 export const eurPerKmOf = (
-  c: ProcurementContract,
+  c: Pick<ProcurementContract, "amountEur">,
   workType: WorkType,
   len: ParsedLength | undefined,
 ): EurPerKm | undefined => {

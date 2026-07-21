@@ -17,12 +17,14 @@ import {
   useBroaderMatches,
   useCuratedProjectSpec,
   useCuratedProjectIndex,
+  useResolvedBudgetLine,
   parseProjectSpec,
   type ProjectFileSpec,
   type ProjectTenderRow,
   type Claim,
   type FundProjectMember,
 } from "@/data/procurement/useProjectFile";
+import { computeCorpusEurPerKm } from "@/data/procurement/projectRoadBenchmark";
 import {
   classifyMethod,
   isSingleBid,
@@ -471,6 +473,21 @@ export const ProjectFileScreen = () => {
     [data, spec],
   );
 
+  // Corpus-derived €/km cross-check (§10 P3) — only for a roads file, computed from
+  // its OWN member contracts via the guarded roadAttributes gate. Null when too few
+  // rows carry a defensible €/km (then the figure is simply hidden).
+  const corpusUnitCost = useMemo(
+    () =>
+      data && spec?.sector === "roads"
+        ? computeCorpusEurPerKm(data.contracts)
+        : null,
+    [data, spec],
+  );
+
+  // Budget-law line linkage (§10 P3, Tier C) — resolves a curated announcedBudget
+  // to its Приложение III capital line; null (hidden) when unreferenced/unmatched.
+  const budgetLine = useResolvedBudgetLine(spec);
+
   // Broader matches (§0f.3) — a looser (unscoped) search, run only in edit mode;
   // candidates = matches that aren't already members and aren't excluded.
   const { data: broader } = useBroaderMatches(spec, editMode);
@@ -710,6 +727,17 @@ export const ProjectFileScreen = () => {
               muted
             />
           )}
+          {corpusUnitCost && (
+            <Figure
+              label={
+                bg
+                  ? `Единична цена (${corpusUnitCost.sampleCount} договора)`
+                  : `Unit cost (${corpusUnitCost.sampleCount} contracts)`
+              }
+              value={`${money(corpusUnitCost.eurPerKmMedian)}/${bg ? "км" : "km"}`}
+              muted
+            />
+          )}
           {advanceEur != null && (
             <Figure
               label={
@@ -724,6 +752,31 @@ export const ProjectFileScreen = () => {
             />
           )}
         </div>
+
+        {/* Budget-law source line (§10 P3, Tier C) — turns the curated «обявено»
+            figure into one sourced against ЗДБ Приложение III. Hidden unless the
+            file's budgetLine ref resolves to a real capital-programme entry. */}
+        {budgetLine && (
+          <p className="-mt-3 mb-6 text-sm text-muted-foreground">
+            {bg ? "Бюджетен ред: " : "Budget line: "}
+            <span className="text-foreground">{budgetLine.name}</span>
+            {budgetLine.amountEur != null &&
+              ` — ${money(budgetLine.amountEur)}`}
+            {" · "}
+            {isHttpUrl(budgetLine.sourceUrl) ? (
+              <a
+                href={budgetLine.sourceUrl}
+                className="underline"
+                rel="nofollow noopener"
+                target="_blank"
+              >
+                {budgetLine.basis}
+              </a>
+            ) : (
+              budgetLine.basis
+            )}
+          </p>
+        )}
 
         {/* Advance progress pull-quote (§0g.3) — «35% платено, нищо построено»,
             the most citizen-legible number. Curated + sourced, never joined. */}

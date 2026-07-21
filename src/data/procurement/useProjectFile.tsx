@@ -13,6 +13,12 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchTablePage } from "./fetchTablePage";
 import { fetchJsonSoft } from "@/data/fetchJson";
 import { dataUrl } from "@/data/dataUrl";
+import {
+  resolveBudgetLine,
+  safeFiscalYear,
+  type InvestmentProgram,
+  type ResolvedBudgetLine,
+} from "./projectBudgetLine";
 import type { ProcurementContract } from "@/data/dataTypes";
 import {
   bestConfidence,
@@ -54,6 +60,15 @@ export interface AnnouncedBudget {
   sourceUrl?: string;
   asOf?: string;
   note?: LocalizedText;
+  /** OPTIONAL budget-law line linkage (§10 P3, Tier C) — resolves the announced
+   *  figure to a real Приложение III capital line in
+   *  data/budget/investment_program/<fiscalYear>.json (by `projectId`), so the
+   *  announced number is *sourced against the budget law*, not merely curated.
+   *  Absent / unmatched → the sourced-line caption is simply hidden. */
+  budgetLine?: {
+    fiscalYear: number;
+    projectId?: string;
+  };
 }
 
 export interface Benchmark {
@@ -90,6 +105,12 @@ export interface ProjectFileSpec {
   search: SearchThread[];
   includes?: MemberIds;
   excludes?: MemberIds;
+  /** OPTIONAL sector tag. `"roads"` unlocks the corpus-derived €/km cross-check
+   *  (§10 P3) — the guarded unit cost computed from the file's own road member
+   *  contracts, shown next to any curated `benchmark` range. Closed union so a
+   *  typo (`"road"`) is a compile error, not a silently-disabled cross-check;
+   *  extend as future sectors gain benchmarks. */
+  sector?: "roads";
   announcedBudget?: AnnouncedBudget;
   benchmark?: Benchmark;
   /** Curated advance-vs-progress honesty axis (§0g.3). */
@@ -655,3 +676,29 @@ export const useCuratedProjectSpec = (slug: string | undefined) =>
     enabled: !!slug,
     staleTime: Infinity,
   });
+
+/** Resolve a curated `announcedBudget.budgetLine` to its ЗДБ Приложение III capital
+ *  line (§10 P3, Tier C). Fetches data/budget/investment_program/<year>.json ONLY
+ *  when the file carries a budget-line reference; returns null (caller hides the
+ *  sourced-line caption) when there is no reference, no payload, or no match. */
+export const useResolvedBudgetLine = (
+  spec: ProjectFileSpec | null | undefined,
+): ResolvedBudgetLine | null => {
+  const budgetLine = spec?.announcedBudget?.budgetLine;
+  // fiscalYear feeds a data URL — a DIY ?q= spec is untrusted, so accept only a
+  // plausible integer year (never a string that could path-traverse the fetch).
+  const year = safeFiscalYear(budgetLine?.fiscalYear);
+  const { data } = useQuery({
+    queryKey: ["budget", "investment-program", year],
+    queryFn: () =>
+      fetchJsonSoft<InvestmentProgram>(
+        dataUrl(`/budget/investment_program/${year}.json`),
+      ),
+    enabled: year != null,
+    staleTime: Infinity,
+  });
+  return useMemo(
+    () => resolveBudgetLine(budgetLine, data ?? null),
+    [budgetLine, data],
+  );
+};
