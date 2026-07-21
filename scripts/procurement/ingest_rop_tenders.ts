@@ -299,7 +299,7 @@ const main = async (args: {
   console.log(
     `✓ done. Now rebuild the tenders tree (merges these + the ЦАИС cache):\n` +
       `    tsx scripts/procurement/ingest_tenders.ts --apply\n` +
-      `  then reload PG:  npm run db:load:pg`,
+      `  then reload PG:  npm run db:load:tenders:pg`,
   );
 };
 
