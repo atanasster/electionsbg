@@ -70,6 +70,10 @@ export interface ProjectFileSpec {
   excludes?: MemberIds;
   announcedBudget?: AnnouncedBudget;
   benchmark?: Benchmark;
+  /** OPTIONAL per-member role label (member contract key or УНП → e.g.
+   *  "проектиране"/"строителство"/"надзор"/"печат"/…), for the money-by-role
+   *  split (§4.2.4). Absent members fall back to a CPV-division role. */
+  nature?: Record<string, string>;
   /** Curated «празнина» — an expected-but-absent stage rendered as a gap node at
    *  the end of the timeline (§0f.5). Optional authority/source explain WHY it's
    *  absent (e.g. "still no construction tender", or "done off-tender by X"). */

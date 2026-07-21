@@ -115,6 +115,50 @@ export function lotNumberOf(title: string | null | undefined): string | null {
   return m ? m[1] : null;
 }
 
+/** Broad role for a CPV division (2-digit) — the money-by-role fallback when a
+ *  member has no curated `nature`. Unknown divisions show "ЦПВ NN". */
+const CPV_DIVISION_ROLE: Record<string, { bg: string; en: string }> = {
+  "45": { bg: "строителство", en: "works" },
+  "71": { bg: "проектиране и надзор", en: "design & supervision" },
+  "34": { bg: "транспортни средства", en: "transport equipment" },
+  "44": { bg: "строителни материали", en: "construction materials" },
+  "48": { bg: "софтуер", en: "software" },
+  "72": { bg: "ИТ услуги", en: "IT services" },
+  "50": { bg: "поддръжка и ремонт", en: "maintenance & repair" },
+  "79": { bg: "бизнес услуги", en: "business services" },
+  "90": { bg: "околна среда", en: "environmental services" },
+  "77": { bg: "озеленяване", en: "landscaping" },
+  "09": { bg: "горива и енергия", en: "fuels & energy" },
+  "33": { bg: "медицински", en: "medical" },
+  "30": { bg: "офис/ИТ оборудване", en: "office/IT equipment" },
+};
+
+/** A stable grouping key for a member's role (§4.2.4) — the curated `nature`
+ *  label when set, else `cpv:<2-digit division>`. Nature labels are Cyrillic
+ *  words and CPV keys are `cpv:NN`, so the two spaces never collide. */
+export function roleKeyOf(
+  nature: unknown, // untrusted ?q= — may be a non-string; guarded below
+  cpv: string | null | undefined,
+): string {
+  const n = typeof nature === "string" ? nature.trim() : "";
+  if (n) return n;
+  const div = (cpv ?? "").slice(0, 2);
+  return div ? `cpv:${div}` : "cpv:—";
+}
+
+/** Display label for a role key from `roleKeyOf`. */
+export function roleLabel(key: string, bg: boolean): string {
+  if (!key.startsWith("cpv:")) return key; // a curated nature label
+  const div = key.slice(4);
+  const r = CPV_DIVISION_ROLE[div];
+  if (r) return bg ? r.bg : r.en;
+  return div === "—"
+    ? bg
+      ? "без ЦПВ"
+      : "no CPV"
+    : `${bg ? "ЦПВ" : "CPV"} ${div}`;
+}
+
 export type AwardMethodClass = "competitive" | "nonCompetitive" | "unspecified";
 
 /**

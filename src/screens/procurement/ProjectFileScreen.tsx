@@ -22,6 +22,8 @@ import {
   classifyMethod,
   isSingleBid,
   annexDelta,
+  roleKeyOf,
+  roleLabel,
 } from "@/data/procurement/projectFile";
 import { saveProject, projectHref } from "@/data/procurement/projectStore";
 
@@ -319,6 +321,22 @@ export const ProjectFileScreen = () => {
     return { rows, noUnp };
   }, [data]);
 
+  // Money by role — curated `nature` first, CPV-division fallback (§4.2.4).
+  const byRole = useMemo(() => {
+    if (!data) return [] as Array<{ key: string; eur: number }>;
+    const map = new Map<string, number>();
+    for (const c of data.contracts) {
+      const key = roleKeyOf(
+        spec?.nature?.[c.key] ?? (c.unp ? spec?.nature?.[c.unp] : undefined),
+        c.cpv,
+      );
+      map.set(key, (map.get(key) ?? 0) + (c.amountEur ?? 0));
+    }
+    return [...map.entries()]
+      .map(([key, eur]) => ({ key, eur }))
+      .sort((a, b) => b.eur - a.eur);
+  }, [data, spec]);
+
   const money = (n: number | null | undefined) =>
     formatEurCompact(n, loc) || "—";
 
@@ -536,6 +554,36 @@ export const ProjectFileScreen = () => {
               ` · ${bg ? "неуточнен" : "unspecified"} ${pct(mix.unspecified)}`}
           </div>
         </div>
+
+        {/* Money by role (§4.2.4) — nature-first, CPV-division fallback */}
+        {byRole.length > 1 && (
+          <div className="my-6 max-w-3xl">
+            <div className="text-sm text-muted-foreground mb-2">
+              {bg ? "Разпределение по вид" : "By role"}
+            </div>
+            <div className="flex flex-col gap-1.5">
+              {byRole.map(({ key, eur }) => (
+                <div key={key} className="flex items-center gap-3">
+                  <span className="w-40 shrink-0 truncate text-xs">
+                    {roleLabel(key, bg)}
+                  </span>
+                  <div className="relative h-3 flex-1 overflow-hidden rounded bg-muted">
+                    <div
+                      className="absolute h-full rounded"
+                      style={{
+                        width: `${Math.round((eur / (byRole[0].eur || 1)) * 100)}%`,
+                        background: "#8a7734",
+                      }}
+                    />
+                  </div>
+                  <span className="w-20 shrink-0 text-right text-xs text-muted-foreground">
+                    {money(eur)}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {thesis && (
           <blockquote className="border-l-2 pl-4 my-6 text-lg font-voice">

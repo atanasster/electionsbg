@@ -5,6 +5,8 @@ import {
   classifyMethod,
   isSingleBid,
   annexDelta,
+  roleKeyOf,
+  roleLabel,
   resolveSeedIds,
   siblingLotPolicy,
   lotNumberOf,
@@ -120,6 +122,30 @@ describe("annexDelta — signing→current value change", () => {
     expect(annexDelta(undefined, undefined)).toBeNull();
     expect(annexDelta(100, 100.4)).toBeNull();
     expect(annexDelta(100, 100)).toBeNull();
+  });
+});
+
+describe("roleKeyOf / roleLabel — money-by-role grouping (§4.2.4)", () => {
+  it("prefers a curated nature label over CPV", () => {
+    expect(roleKeyOf("строителство", "71000000")).toBe("строителство");
+    expect(roleLabel("строителство", true)).toBe("строителство");
+  });
+  it("falls back to the CPV division and labels known ones", () => {
+    expect(roleKeyOf(undefined, "45233000")).toBe("cpv:45");
+    expect(roleLabel("cpv:45", true)).toBe("строителство");
+    expect(roleLabel("cpv:71", false)).toBe("design & supervision");
+  });
+  it("handles blank nature, missing CPV, and unknown divisions", () => {
+    expect(roleKeyOf("  ", null)).toBe("cpv:—");
+    expect(roleLabel("cpv:—", true)).toBe("без ЦПВ");
+    expect(roleLabel("cpv:—", false)).toBe("no CPV");
+    expect(roleLabel("cpv:63", true)).toBe("ЦПВ 63");
+    expect(roleLabel("cpv:63", false)).toBe("CPV 63");
+    expect(roleLabel("cpv:45", false)).toBe("works");
+  });
+  it("survives a non-string nature from an untrusted ?q= (no throw)", () => {
+    expect(roleKeyOf(42, "45000000")).toBe("cpv:45");
+    expect(roleKeyOf({}, null)).toBe("cpv:—");
   });
 });
 
