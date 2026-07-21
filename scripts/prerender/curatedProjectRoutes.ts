@@ -59,6 +59,12 @@ export const buildCuratedProjectRoutes = (
       path: `procurement/project/${f.slug}`,
       title,
       description: summaryBg,
+      // Social card: hemus has a data-filled capture; the rest share the
+      // project-dossiers tile card (public/og, from scripts/capture-project-og).
+      ogImage:
+        f.slug === "hemus"
+          ? "/og/procurement-project-hemus.png"
+          : "/og/procurement-project.png",
       bodyHtml: `<h1>${escapeHtml(nameBg)}</h1><p>${escapeHtml(summaryBg)}</p>`,
       jsonLd: [
         buildWebPageLd({ title, description: summaryBg, url }),
