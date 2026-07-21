@@ -150,6 +150,11 @@ export interface ProjectFileSpec {
   inhouseAwarderEiks?: string[];
   /** OPTIONAL curated, sourced subcontractor list surfaced in that node. */
   knownSubcontractors?: KnownSubcontractor[];
+  /** OPTIONAL route geometry (§10 P3, Tier D) — a polyline of [lat, lng] points.
+   *  Present (≥2 points) → a small Leaflet route map renders above the timeline,
+   *  showing WHERE a linear object runs. Curated + sourced (an approximate
+   *  corridor is labelled as such); never auto-derived from contract text. */
+  geo?: { line: [number, number][] };
 }
 
 /** OPTIONAL blind-spot config (§0g.2). `inhouseAwarderEiks` = EIKs of state
@@ -301,6 +306,37 @@ const clampSubs = (
   return out.length ? out : undefined;
 };
 
+/** Shape-check the untrusted `geo.line` (§10 P3, Tier D): keep only well-formed
+ *  [lat, lng] pairs within world ranges, bound the point count so a huge ?q= can't
+ *  blow up the map, and drop the field unless ≥2 valid points remain (a polyline
+ *  needs two). Coordinates are Leaflet-native [lat, lng]. */
+const clampGeo = (
+  geo: { line?: unknown } | undefined,
+): { line: [number, number][] } | undefined => {
+  if (!geo || typeof geo !== "object" || !Array.isArray(geo.line))
+    return undefined;
+  const line: [number, number][] = [];
+  // Cap the INPUT walk too (not just the output) so a hostile ?q= with a huge
+  // all-invalid array can't force a full-length iteration.
+  for (const p of geo.line.slice(0, 8000)) {
+    if (line.length >= 4000) break;
+    if (
+      Array.isArray(p) &&
+      typeof p[0] === "number" &&
+      typeof p[1] === "number" &&
+      Number.isFinite(p[0]) &&
+      Number.isFinite(p[1]) &&
+      p[0] >= -90 &&
+      p[0] <= 90 &&
+      p[1] >= -180 &&
+      p[1] <= 180
+    ) {
+      line.push([p[0], p[1]]);
+    }
+  }
+  return line.length >= 2 ? { line } : undefined;
+};
+
 /**
  * Parse + validate an untrusted URL-encoded ProjectFileSpec (§4.1). Returns null
  * on bad JSON, a missing/empty search, or a thread with a non-string `terms`;
@@ -336,6 +372,7 @@ export const parseProjectSpec = (
     advance: clampAdvance(spec.advance),
     inhouseAwarderEiks: clampIds(spec.inhouseAwarderEiks),
     knownSubcontractors: clampSubs(spec.knownSubcontractors),
+    geo: clampGeo(spec.geo),
   };
 };
 

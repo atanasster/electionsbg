@@ -5,7 +5,7 @@
 // with per-contract method badges, and a contractors table.
 // See docs/plans/procurement-project-lifecycle-v1.md §4.2/§4.6.
 
-import { useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
@@ -25,6 +25,11 @@ import {
   type FundProjectMember,
 } from "@/data/procurement/useProjectFile";
 import { computeCorpusEurPerKm } from "@/data/procurement/projectRoadBenchmark";
+// Lazy so Leaflet (a heavy vendor chunk) only loads for a file that carries route
+// geometry — most dossiers have none (§10 P3, Tier D).
+const ProjectRouteMap = lazy(
+  () => import("@/screens/components/procurement/ProjectRouteMap"),
+);
 import {
   classifyMethod,
   isSingleBid,
@@ -894,6 +899,29 @@ export const ProjectFileScreen = () => {
               ` · ${bg ? "неуточнен" : "unspecified"} ${pct(mix.unspecified)}`}
           </div>
         </div>
+
+        {/* Route map (§10 P3, Tier D) — where a linear object runs. Only when the
+            file carries geometry (clampGeo guarantees ≥2 points); Leaflet is
+            lazy-loaded so map-less dossiers pay nothing. Suspense fallback is empty
+            (the map is supplementary). */}
+        {spec.geo && (
+          <div className="my-6 max-w-3xl">
+            <Suspense fallback={null}>
+              <ProjectRouteMap
+                line={spec.geo.line}
+                ariaLabel={
+                  (bg ? spec.title?.bg : spec.title?.en) ??
+                  (bg ? "Карта на трасето" : "Route map")
+                }
+              />
+            </Suspense>
+            <div className="text-xs text-muted-foreground mt-1">
+              {bg
+                ? "Приблизително трасе (илюстративно)."
+                : "Approximate alignment (illustrative)."}
+            </div>
+          </div>
+        )}
 
         {/* Money by role (§4.2.4) — nature-first, CPV-division fallback */}
         {byRole.length > 1 && (

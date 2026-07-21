@@ -205,6 +205,58 @@ describe("parseProjectSpec — untrusted ?q= parsing (§4.1)", () => {
     expect(c?.sourceUrl).toBeUndefined();
     expect(c?.note).toBeUndefined();
   });
+
+  it("keeps a well-formed geo.line and drops invalid points (§10 P3, Tier D)", () => {
+    const s = parseProjectSpec(
+      JSON.stringify({
+        search: [{ terms: "x" }],
+        geo: {
+          line: [
+            [42.7, 23.3],
+            [43.0, 24.1],
+            [999, 0], // out-of-range lat → dropped
+            [42, "x"], // non-number → dropped
+            [43.4, 25.9],
+          ],
+        },
+      }),
+    );
+    expect(s?.geo?.line).toEqual([
+      [42.7, 23.3],
+      [43.0, 24.1],
+      [43.4, 25.9],
+    ]);
+  });
+
+  it("drops geo entirely when fewer than 2 valid points remain", () => {
+    expect(
+      parseProjectSpec(
+        JSON.stringify({
+          search: [{ terms: "x" }],
+          geo: {
+            line: [
+              [42.7, 23.3],
+              [999, 999],
+            ],
+          },
+        }),
+      )?.geo,
+    ).toBeUndefined();
+    // Non-array line → dropped.
+    expect(
+      parseProjectSpec(
+        JSON.stringify({ search: [{ terms: "x" }], geo: { line: "nope" } }),
+      )?.geo,
+    ).toBeUndefined();
+  });
+
+  it("bounds a huge geo.line so a hostile ?q= can't blow up the map", () => {
+    const many = Array.from({ length: 9000 }, () => [42.7, 23.3]);
+    const s = parseProjectSpec(
+      JSON.stringify({ search: [{ terms: "x" }], geo: { line: many } }),
+    );
+    expect(s?.geo?.line.length).toBeLessThanOrEqual(4000);
+  });
 });
 
 describe("filterCuratedIndex — the curated-flagship gallery guard (Phase 3)", () => {

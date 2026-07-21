@@ -37,6 +37,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { FitBounds } from "./FitBounds";
 
 // Leaflet's stylesheet is loaded dynamically so it lands in its own chunk; see
 // LeafletMap.tsx for the rationale.
@@ -374,26 +375,6 @@ const LineSegment: FC<{ line: SectorMapLine }> = ({ line }) => {
   );
 };
 
-const FitPoints: FC<{ bounds: LatLngBoundsExpression }> = ({ bounds }) => {
-  const map = useMap();
-  useEffect(() => {
-    const el = map.getContainer();
-    let done = false;
-    const fit = () => {
-      if (done || el.clientHeight <= 0 || el.clientWidth <= 0) return;
-      done = true;
-      map.invalidateSize();
-      map.fitBounds(bounds, { padding: [24, 24] });
-      ro.disconnect();
-    };
-    const ro = new ResizeObserver(fit);
-    ro.observe(el);
-    fit();
-    return () => ro.disconnect();
-  }, [map, bounds]);
-  return null;
-};
-
 export const SectorPointMap: FC<{
   points: SectorMapPoint[];
   /** Optional lines drawn under the markers (e.g. funded rail sections). */
@@ -463,7 +444,7 @@ export const SectorPointMap: FC<{
         boundsOptions={{ padding: [24, 24] }}
         scrollWheelZoom
       >
-        <FitPoints bounds={bounds} />
+        <FitBounds bounds={bounds} />
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
