@@ -621,7 +621,7 @@ export const ProjectFileScreen = () => {
         {data.truncated && (
           <div className="text-sm rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-2 my-3 text-amber-700 dark:text-amber-400">
             {bg
-              ? "Търсенето е широко — показва се само част от резултатите. Стесни думите или добави възложител."
+              ? "Търсенето е твърде общо — показва се само част от резултатите. Прецизирай думите или добави име на възложител."
               : "The search is broad — only a slice is shown. Narrow the terms or add a buyer."}
           </div>
         )}
@@ -1065,53 +1065,58 @@ export const ProjectFileScreen = () => {
             <h2 className="mb-3 text-sm font-medium text-muted-foreground">
               {bg ? "Изпълнители" : "Contractors"}
             </h2>
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b text-xs text-muted-foreground">
-                  <th className="py-1 text-left font-normal">
-                    {bg ? "изпълнител" : "contractor"}
-                  </th>
-                  <th className="py-1 pl-6 text-right font-normal">
-                    {bg ? "договори" : "contracts"}
-                  </th>
-                  <th className="py-1 pl-8 text-right font-normal">
-                    {bg ? "стойност" : "value"}
-                  </th>
-                  <th className="py-1 pl-6 text-right font-normal">
-                    {bg ? "дял" : "share"}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {byContractor.map((r) => (
-                  <tr
-                    key={r.eik ?? r.name}
-                    className="border-b border-border/50"
-                  >
-                    <td className="py-1.5">
-                      {r.eik ? (
-                        <Link to={`/company/${r.eik}`} className="text-primary">
-                          {r.name}
-                        </Link>
-                      ) : (
-                        r.name
-                      )}
-                    </td>
-                    <td className="py-1.5 pl-6 text-right tabular-nums">
-                      {r.count}
-                    </td>
-                    <td className="py-1.5 pl-8 text-right font-medium tabular-nums whitespace-nowrap">
-                      {money(r.eur)}
-                    </td>
-                    <td className="py-1.5 pl-6 text-right tabular-nums text-muted-foreground">
-                      {fold.totalContractedEur > 0
-                        ? `${Math.round((r.eur / fold.totalContractedEur) * 100)}%`
-                        : "—"}
-                    </td>
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[32rem] text-sm">
+                <thead>
+                  <tr className="border-b text-xs text-muted-foreground">
+                    <th className="py-1 text-left font-normal">
+                      {bg ? "изпълнител" : "contractor"}
+                    </th>
+                    <th className="py-1 pl-6 text-right font-normal">
+                      {bg ? "договори" : "contracts"}
+                    </th>
+                    <th className="py-1 pl-8 text-right font-normal">
+                      {bg ? "стойност" : "value"}
+                    </th>
+                    <th className="py-1 pl-6 text-right font-normal">
+                      {bg ? "дял" : "share"}
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {byContractor.map((r) => (
+                    <tr
+                      key={r.eik ?? r.name}
+                      className="border-b border-border/50"
+                    >
+                      <td className="py-1.5">
+                        {r.eik ? (
+                          <Link
+                            to={`/company/${r.eik}`}
+                            className="text-primary"
+                          >
+                            {r.name}
+                          </Link>
+                        ) : (
+                          r.name
+                        )}
+                      </td>
+                      <td className="py-1.5 pl-6 text-right tabular-nums">
+                        {r.count}
+                      </td>
+                      <td className="py-1.5 pl-8 text-right font-medium tabular-nums whitespace-nowrap">
+                        {money(r.eur)}
+                      </td>
+                      <td className="py-1.5 pl-6 text-right tabular-nums text-muted-foreground">
+                        {fold.totalContractedEur > 0
+                          ? `${Math.round((r.eur / fold.totalContractedEur) * 100)}%`
+                          : "—"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
 
@@ -1398,54 +1403,56 @@ const RecurrenceRollup = ({
           </div>
         ))}
       </div>
-      <table className="w-full text-sm">
-        <thead>
-          <tr className="border-b text-xs text-muted-foreground">
-            <th className="py-1 text-left font-normal">{label}</th>
-            <th className="py-1 text-right font-normal">
-              {bg ? "договорено" : "contracted"}
-            </th>
-            <th className="py-1 text-right font-normal">
-              {bg ? "договори" : "contracts"}
-            </th>
-            <th className="py-1 pl-3 text-left font-normal">
-              {bg ? "водещ изпълнител" : "top contractor"}
-            </th>
-            <th className="py-1 text-right font-normal">
-              {bg ? "без открита" : "no open"}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {periods.map((p) => {
-            const share = (v: number) =>
-              p.totalEur > 0 ? Math.round((v / p.totalEur) * 100) : 0;
-            const noOpen = share(p.methodMix.nonCompetitive);
-            // Blank-method awards (§11 — ~€2.66bn of АПИ) are `unspecified`, not
-            // competitive; show them so a 0%-no-open period isn't misread as
-            // fully-competitive when it's really all-unknown.
-            const unknown = share(p.methodMix.unspecified);
-            return (
-              <tr key={p.period} className="border-b border-border/50">
-                <td className="py-1.5 font-medium">{p.period}</td>
-                <td className="py-1.5 text-right">{money(p.totalEur)}</td>
-                <td className="py-1.5 text-right">{p.contractCount}</td>
-                <td className="max-w-[16rem] truncate py-1.5 pl-3">
-                  {p.topContractorName ?? "—"}
-                </td>
-                <td className="py-1.5 text-right text-muted-foreground">
-                  {nf.format(noOpen)}%
-                  {unknown > 0 && (
-                    <span className="ml-1 text-foreground/40">
-                      ({nf.format(unknown)}% {bg ? "неуточн." : "unknown"})
-                    </span>
-                  )}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[34rem] text-sm">
+          <thead>
+            <tr className="border-b text-xs text-muted-foreground">
+              <th className="py-1 text-left font-normal">{label}</th>
+              <th className="py-1 text-right font-normal">
+                {bg ? "договорено" : "contracted"}
+              </th>
+              <th className="py-1 text-right font-normal">
+                {bg ? "договори" : "contracts"}
+              </th>
+              <th className="py-1 pl-3 text-left font-normal">
+                {bg ? "водещ изпълнител" : "top contractor"}
+              </th>
+              <th className="py-1 text-right font-normal">
+                {bg ? "без открита" : "no open"}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {periods.map((p) => {
+              const share = (v: number) =>
+                p.totalEur > 0 ? Math.round((v / p.totalEur) * 100) : 0;
+              const noOpen = share(p.methodMix.nonCompetitive);
+              // Blank-method awards (§11 — ~€2.66bn of АПИ) are `unspecified`, not
+              // competitive; show them so a 0%-no-open period isn't misread as
+              // fully-competitive when it's really all-unknown.
+              const unknown = share(p.methodMix.unspecified);
+              return (
+                <tr key={p.period} className="border-b border-border/50">
+                  <td className="py-1.5 font-medium">{p.period}</td>
+                  <td className="py-1.5 text-right">{money(p.totalEur)}</td>
+                  <td className="py-1.5 text-right">{p.contractCount}</td>
+                  <td className="max-w-[16rem] truncate py-1.5 pl-3">
+                    {p.topContractorName ?? "—"}
+                  </td>
+                  <td className="py-1.5 text-right text-muted-foreground">
+                    {nf.format(noOpen)}%
+                    {unknown > 0 && (
+                      <span className="ml-1 text-foreground/40">
+                        ({nf.format(unknown)}% {bg ? "неуточн." : "unknown"})
+                      </span>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
