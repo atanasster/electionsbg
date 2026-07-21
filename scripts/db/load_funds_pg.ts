@@ -33,7 +33,10 @@ const SCHEMA_FILE = path.join(SCHEMA_DIR, "015_funds.sql");
 const PROJECTS_SCHEMA_FILE = path.join(SCHEMA_DIR, "016_fund_projects.sql");
 const SERVING_SCHEMA_FILE = path.join(SCHEMA_DIR, "043_funds_serving.sql");
 // The ЕВРОФОНДОВЕ combined-search fn (§4.1) — depends on fund_projects.
-const SEARCH_SCHEMA_FILE = path.join(SCHEMA_DIR, "086_search_fund_projects.sql");
+const SEARCH_SCHEMA_FILE = path.join(
+  SCHEMA_DIR,
+  "086_search_fund_projects.sql",
+);
 const FUNDS_DIR = path.join(PROC_DIR, "..", "funds");
 const BY_EIK_DIR = path.join(FUNDS_DIR, "beneficiaries-by-eik");
 const PROJECTS_DIR = path.join(FUNDS_DIR, "projects");
