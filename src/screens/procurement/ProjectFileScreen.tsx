@@ -45,6 +45,7 @@ import {
   siblingLotPolicy,
   withThreadTerms,
   withAddedThread,
+  withThreadBuyer,
   withoutThread,
   type PeriodAgg,
 } from "@/data/procurement/projectFile";
@@ -57,6 +58,10 @@ import {
 } from "@/ux/infographic";
 import { SECTOR_SCENES } from "@/screens/governance/sectorScenes";
 import { PROJECT_SCENES } from "./projectScenes";
+import {
+  AwarderSearch,
+  type AwarderChoice,
+} from "@/screens/components/procurement/AwarderSearch";
 
 // Only render a curated link when it is an http(s) URL — an untrusted ?q= could
 // otherwise carry a javascript:/data: scheme.
@@ -388,13 +393,13 @@ export const ProjectFileScreen = () => {
       { replace: true },
     );
 
-  const buildFromTerms = (terms: string, awarderEik?: string) => {
+  const buildFromTerms = (terms: string, awarder: AwarderChoice | null) => {
     const t = terms.trim();
     if (!t) return;
-    // Scope to the chosen buyer (buyerEik) so a user can recreate a buyer-specific
-    // project (e.g. АПИ), the way the curated starters do.
-    const thread = awarderEik
-      ? { terms: t, buyerEik: [awarderEik] }
+    // Scope to the chosen buyer (buyerEik + display buyerName) so a user can
+    // recreate a buyer-specific project (e.g. АПИ), the way the curated starters do.
+    const thread = awarder
+      ? { terms: t, buyerEik: [awarder.eik], buyerName: awarder.name }
       : { terms: t };
     setQ({ title: { bg: t }, search: [thread] });
   };
@@ -418,6 +423,14 @@ export const ProjectFileScreen = () => {
 
   const removeThread = (i: number) =>
     mutateSpec((cur) => ({ ...cur, search: withoutThread(cur.search, i) }));
+
+  // Set/clear a thread's buyer scope from the in-page editor (§0f) — the same
+  // buyer typeahead the build form uses, per-thread.
+  const setThreadBuyer = (i: number, buyer: AwarderChoice | null) =>
+    mutateSpec((cur) => ({
+      ...cur,
+      search: withThreadBuyer(cur.search, i, buyer),
+    }));
 
   const excludeMember = (kind: "contract" | "tender", id: string) =>
     mutateSpec((cur) => {
@@ -732,7 +745,16 @@ export const ProjectFileScreen = () => {
                   initial={th.terms}
                   index={i}
                   removable={spec.search.length > 1}
+                  buyer={
+                    th.buyerEik?.[0]
+                      ? {
+                          eik: th.buyerEik[0],
+                          name: th.buyerName ?? th.buyerEik[0],
+                        }
+                      : null
+                  }
                   onCommit={setThreadTerms}
+                  onBuyer={setThreadBuyer}
                   onRemove={removeThread}
                   bg={bg}
                 />
@@ -2187,127 +2209,13 @@ const ProvenanceFooter = ({
   );
 };
 
-interface AwarderChoice {
-  eik: string;
-  name: string;
-}
-
-// Incremental awarder (buyer) search for the builder — so a user can scope a file
-// to a specific state buyer (e.g. АПИ) the way the curated starters do, not just
-// hardcoded. Debounced backend typeahead over the existing procurement-search
-// endpoint's `awarders` group (deduped by EIK). Select one → a chip with a clear ×.
-const AwarderPicker = ({
-  value,
-  onChange,
-  bg,
-}: {
-  value: AwarderChoice | null;
-  onChange: (a: AwarderChoice | null) => void;
-  bg: boolean;
-}) => {
-  const [query, setQuery] = useState("");
-  const [results, setResults] = useState<AwarderChoice[]>([]);
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    const term = query.trim();
-    if (term.length < 2) {
-      setResults([]);
-      return;
-    }
-    const ctl = new AbortController();
-    const id = setTimeout(() => {
-      fetch(`/api/db/procurement-search?q=${encodeURIComponent(term)}`, {
-        signal: ctl.signal,
-      })
-        .then((r) => r.json() as Promise<{ awarders?: AwarderChoice[] }>)
-        .then((j) => {
-          if (ctl.signal.aborted) return;
-          setResults(
-            (j.awarders ?? [])
-              .slice(0, 8)
-              .map((a) => ({ eik: a.eik, name: a.name })),
-          );
-        })
-        .catch(() => {
-          if (!ctl.signal.aborted) setResults([]);
-        });
-    }, 200);
-    return () => {
-      clearTimeout(id);
-      ctl.abort();
-    };
-  }, [query]);
-
-  if (value) {
-    return (
-      <div className="flex items-center gap-2 text-sm">
-        <span className="rounded-md border bg-muted px-2 py-1">
-          <span className="text-muted-foreground">
-            {bg ? "Възложител: " : "Buyer: "}
-          </span>
-          {value.name}
-        </span>
-        <button
-          type="button"
-          onClick={() => onChange(null)}
-          className="text-muted-foreground hover:text-foreground"
-          aria-label={bg ? "Изчисти възложителя" : "Clear buyer"}
-        >
-          ×
-        </button>
-      </div>
-    );
-  }
-  return (
-    <div className="relative max-w-md">
-      <input
-        className="w-full rounded-md border px-3 py-1.5 text-sm bg-background"
-        value={query}
-        onChange={(e) => {
-          setQuery(e.target.value);
-          setOpen(true);
-        }}
-        onFocus={() => setOpen(true)}
-        // Delay so an option's onMouseDown/onClick fires before the list closes.
-        onBlur={() => setTimeout(() => setOpen(false), 150)}
-        placeholder={
-          bg
-            ? "Възложител (по избор) — напр. Пътна инфраструктура…"
-            : "Buyer (optional) — e.g. Road Infrastructure Agency…"
-        }
-      />
-      {open && results.length > 0 && (
-        <ul className="absolute z-20 mt-1 max-h-64 w-full overflow-auto rounded-md border bg-background shadow-lg">
-          {results.map((a) => (
-            <li key={a.eik}>
-              <button
-                type="button"
-                onMouseDown={(e) => e.preventDefault()}
-                onClick={() => {
-                  onChange(a);
-                  setQuery("");
-                  setOpen(false);
-                }}
-                className="block w-full truncate px-3 py-1.5 text-left text-sm hover:bg-muted"
-              >
-                {a.name}
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-};
-
 const BuildForm = ({
   onSubmit,
   bg,
   cta,
   initial = "",
 }: {
-  onSubmit: (terms: string, awarderEik?: string) => void;
+  onSubmit: (terms: string, awarder: AwarderChoice | null) => void;
   bg: boolean;
   cta: string;
   /** Pre-populate the input — e.g. a "Прецизирай думите" refine deep-link. */
@@ -2317,15 +2225,16 @@ const BuildForm = ({
   const [awarder, setAwarder] = useState<AwarderChoice | null>(null);
   return (
     <form
-      className="no-print flex flex-col gap-2 my-3"
+      className="no-print my-3"
       onSubmit={(e) => {
         e.preventDefault();
-        onSubmit(terms, awarder?.eik);
+        onSubmit(terms, awarder);
       }}
     >
-      <div className="flex gap-2">
+      {/* terms + buyer + submit share one row on desktop, stack on mobile */}
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
         <input
-          className="flex-1 rounded-md border px-3 py-1.5 text-sm bg-background"
+          className="rounded-md border px-3 py-1.5 text-sm bg-background sm:flex-1"
           value={terms}
           onChange={(e) => setTerms(e.target.value)}
           placeholder={
@@ -2334,6 +2243,12 @@ const BuildForm = ({
               : "e.g. western arc, street repair Plovdiv…"
           }
         />
+        <AwarderSearch
+          value={awarder}
+          onChange={setAwarder}
+          bg={bg}
+          className="sm:w-72"
+        />
         <button
           className="rounded-md border px-3 py-1.5 text-sm hover:bg-muted"
           type="submit"
@@ -2341,7 +2256,6 @@ const BuildForm = ({
           {cta}
         </button>
       </div>
-      <AwarderPicker value={awarder} onChange={setAwarder} bg={bg} />
     </form>
   );
 };
@@ -2352,14 +2266,18 @@ const ThreadRow = ({
   initial,
   index,
   removable,
+  buyer,
   onCommit,
+  onBuyer,
   onRemove,
   bg,
 }: {
   initial: string;
   index: number;
   removable: boolean;
+  buyer: AwarderChoice | null;
   onCommit: (i: number, terms: string) => void;
+  onBuyer: (i: number, buyer: AwarderChoice | null) => void;
   onRemove: (i: number) => void;
   bg: boolean;
 }) => {
@@ -2374,9 +2292,9 @@ const ThreadRow = ({
     else onCommit(index, terms);
   };
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
       <input
-        className="flex-1 rounded-md border px-3 py-1.5 text-sm bg-background"
+        className="rounded-md border px-3 py-1.5 text-sm bg-background sm:flex-1"
         aria-label={
           bg ? `Дума за търсене ${index + 1}` : `Search term ${index + 1}`
         }
@@ -2390,12 +2308,19 @@ const ThreadRow = ({
           }
         }}
       />
+      {/* per-thread buyer scope — same typeahead as the build form */}
+      <AwarderSearch
+        value={buyer}
+        onChange={(a) => onBuyer(index, a)}
+        bg={bg}
+        className="sm:w-64"
+      />
       {removable && (
         <button
           type="button"
           onClick={() => onRemove(index)}
           aria-label={bg ? "Махни реда" : "Remove row"}
-          className="shrink-0 rounded-md border px-2 py-1.5 text-sm text-muted-foreground hover:bg-muted"
+          className="shrink-0 self-start rounded-md border px-2 py-1.5 text-sm text-muted-foreground hover:bg-muted sm:self-auto"
         >
           ×
         </button>

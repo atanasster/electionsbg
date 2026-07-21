@@ -12,6 +12,7 @@ import {
   selectBroaderCandidates,
   withThreadTerms,
   withAddedThread,
+  withThreadBuyer,
   withoutThread,
   resolveSeedIds,
   siblingLotPolicy,
@@ -270,6 +271,23 @@ describe("multi-thread search edits (§0f.2)", () => {
     expect(withoutThread(threads, 0).map((t) => t.terms)).toEqual(["надзор"]);
     const one: SearchThread[] = [{ terms: "само аз" }];
     expect(withoutThread(one, 0)).toEqual(one);
+  });
+  it("withThreadBuyer sets a thread's buyer scope + display name, keeping terms", () => {
+    const out = withThreadBuyer(threads, 1, {
+      eik: "000695324",
+      name: "Министерство на отбраната",
+    });
+    expect(out[1]).toEqual({
+      terms: "надзор",
+      buyerEik: ["000695324"],
+      buyerName: "Министерство на отбраната",
+    });
+    expect(out[0]).toBe(threads[0]); // untouched
+  });
+  it("withThreadBuyer(null) clears buyerEik + buyerName, keeping other fields", () => {
+    const out = withThreadBuyer(threads, 0, null);
+    expect(out[0]).toEqual({ terms: "западна дъга", distinctive: ["дъга"] });
+    expect(out[0]).not.toHaveProperty("buyerEik");
   });
 });
 

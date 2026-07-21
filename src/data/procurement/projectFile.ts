@@ -19,6 +19,9 @@ export interface SearchThread {
   /** Per-thread RECALL filter only. NEVER a cross-file confidence signal (§0f):
    *  a multi-awarder topic would wrongly demote true members of the other buyer. */
   buyerEik?: string[];
+  /** Display-only name for the chosen buyerEik — shown in the builder/editor chip
+   *  so an existing scope survives a ?q= reload readably; never used to resolve. */
+  buyerName?: string;
   /** Token(s) that drive confidence — the distinctive part of the query
    *  ("дъга"), vs the generic landmark ("Софийски околовръстен"). The picker
    *  derives this as the rarest query token; stored on the thread. */
@@ -671,6 +674,25 @@ export function withAddedThread(
 ): SearchThread[] {
   const t = terms.trim();
   return t ? [...threads, { terms: t }] : [...threads];
+}
+
+/** Set or clear thread i's buyer scope (buyerEik + display buyerName). `null`
+ *  clears the scope; the other thread fields are preserved. */
+export function withThreadBuyer(
+  threads: readonly SearchThread[],
+  i: number,
+  buyer: { eik: string; name: string } | null,
+): SearchThread[] {
+  return threads.map((th, idx) => {
+    if (idx !== i) return th;
+    if (!buyer) {
+      const next = { ...th };
+      delete next.buyerEik;
+      delete next.buyerName;
+      return next;
+    }
+    return { ...th, buyerEik: [buyer.eik], buyerName: buyer.name };
+  });
 }
 
 /** Drop thread i — but never the last one (an empty `search` parses to a null
