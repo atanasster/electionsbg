@@ -51,13 +51,12 @@ import {
 import { saveProject, projectHref } from "@/data/procurement/projectStore";
 import {
   TileHubGrid,
-  SceneFrame,
-  PAPER,
   TILE_ACCENTS,
   type InfographicTileProps,
   type TileHubSection,
 } from "@/ux/infographic";
 import { SECTOR_SCENES } from "@/screens/governance/sectorScenes";
+import { PROJECT_SCENES } from "./projectScenes";
 
 // Only render a curated link when it is an http(s) URL — an untrusted ?q= could
 // otherwise carry a javascript:/data: scheme.
@@ -83,87 +82,10 @@ const API_EIK = ["000695089"]; // Агенция „Пътна инфрастр�
 const MO_EIK = ["000695324"]; // Министерство на отбраната
 const ICGB_EIK = ["201383265"]; // „Ай Си Джи Би" АД — the IGB gas-interconnector company
 
-// Elections scene (a ballot dropping into a box, over result tallies) — the one
-// topic with no matching sector scene. Same SceneFrame contract as the sector
-// scenes: ink = currentColor, accent = var(--sector), PAPER for under-ink fills.
-const ElectionsScene: FC = () => (
-  <SceneFrame>
-    <rect
-      x="28"
-      y="40"
-      width="70"
-      height="8"
-      rx="4"
-      fill="var(--sector)"
-      opacity=".85"
-    />
-    <rect
-      x="28"
-      y="58"
-      width="50"
-      height="8"
-      rx="4"
-      fill="currentColor"
-      opacity=".3"
-    />
-    <rect
-      x="28"
-      y="76"
-      width="34"
-      height="8"
-      rx="4"
-      fill="currentColor"
-      opacity=".25"
-    />
-    <rect
-      x="150"
-      y="52"
-      width="96"
-      height="52"
-      rx="6"
-      fill={PAPER}
-      stroke="currentColor"
-      strokeWidth="1.6"
-    />
-    <rect
-      x="168"
-      y="49"
-      width="60"
-      height="6"
-      rx="3"
-      fill="currentColor"
-      opacity=".55"
-    />
-    <g transform="rotate(-12 198 34)">
-      <rect
-        x="176"
-        y="16"
-        width="44"
-        height="32"
-        rx="3"
-        fill={PAPER}
-        stroke="currentColor"
-        strokeWidth="1.4"
-      />
-      <path
-        d="M184 33 l6 6 l12 -15"
-        fill="none"
-        stroke="var(--sector)"
-        strokeWidth="3"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </g>
-  </SceneFrame>
-);
-
-// Topic tile images: reuse the rich sector scenes, plus the elections one.
-const PROJECT_SCENE: Record<string, FC> = {
-  ...SECTOR_SCENES,
-  elections: ElectionsScene,
-};
+// Tile images: bespoke per-project scenes (projectScenes.tsx), with the sector
+// scenes as a fallback for any future topic that reuses a domain scene.
 const projectScene = (key: string): FC =>
-  PROJECT_SCENE[key] ?? SECTOR_SCENES.regional;
+  PROJECT_SCENES[key] ?? SECTOR_SCENES[key] ?? SECTOR_SCENES.regional;
 
 // The hub groups every project (curated + topic starters) by DOMAIN section, not
 // by curated-vs-DIY. Order = biggest sections first.
@@ -197,15 +119,15 @@ const CURATED_TILE: Record<
   string,
   { section: SectionKey; sceneKey: string; accent: string }
 > = {
-  hemus: { section: "transport", sceneKey: "roads", accent: TILE_ACCENTS.clay },
+  hemus: { section: "transport", sceneKey: "hemus", accent: TILE_ACCENTS.clay },
   "zapadna-daga": {
     section: "transport",
-    sceneKey: "roads",
+    sceneKey: "ringArc",
     accent: TILE_ACCENTS.copper,
   },
   "mashinno-glasuvane": {
     section: "elections",
-    sceneKey: "elections",
+    sceneKey: "votingMachine",
     accent: TILE_ACCENTS.indigo,
   },
 };
@@ -224,7 +146,7 @@ const STARTERS: Starter[] = [
       bg: "Спорният лот 3.2 през Кресненското дефиле",
       en: "The contested lot 3.2 through the Kresna gorge",
     },
-    sceneKey: "roads",
+    sceneKey: "struma",
     accent: TILE_ACCENTS.clay,
     spec: {
       title: { bg: "АМ „Струма“ — Кресненско дефиле" },
@@ -238,7 +160,7 @@ const STARTERS: Starter[] = [
       bg: "Разширението на третия лъч",
       en: "The third-line extension",
     },
-    sceneKey: "transport",
+    sceneKey: "metro",
     accent: TILE_ACCENTS.copper,
     spec: {
       title: { bg: "Софийско метро" },
@@ -252,7 +174,7 @@ const STARTERS: Starter[] = [
       bg: "Най-голямата жп поръчка по ОПТТИ",
       en: "The biggest rail job under OPTTI",
     },
-    sceneKey: "transport",
+    sceneKey: "railTunnel",
     accent: TILE_ACCENTS.steel,
     spec: {
       title: { bg: "жп „Елин Пелин – Костенец“" },
@@ -266,7 +188,7 @@ const STARTERS: Starter[] = [
       bg: "Тръбата IGB и договорът с „Боташ“",
       en: "The IGB pipeline and the Botas deal",
     },
-    sceneKey: "energy",
+    sceneKey: "gasPipe",
     accent: TILE_ACCENTS.gold,
     // "интерконектор" isn't a word in any contract title — the corpus calls it
     // "газопровод IGB" / "междусистемна газова връзка". Seed on both terms scoped
@@ -291,7 +213,7 @@ const STARTERS: Starter[] = [
       bg: "Инфраструктурата за новите изтребители",
       en: "The base infrastructure for the new jets",
     },
-    sceneKey: "defense",
+    sceneKey: "jet",
     accent: TILE_ACCENTS.moss,
     spec: {
       title: { bg: "Авиобаза „Граф Игнатиево“" },
@@ -311,7 +233,7 @@ const STARTERS: Starter[] = [
       bg: "Националната програма за енергийна ефективност",
       en: "The national energy-efficiency program",
     },
-    sceneKey: "environment",
+    sceneKey: "insulation",
     accent: TILE_ACCENTS.leaf,
     spec: {
       title: { bg: "Саниране на жилищни сгради" },
@@ -325,7 +247,7 @@ const STARTERS: Starter[] = [
       bg: "ВиК проектите по ОПОС",
       en: "Water-cycle projects under OPOS",
     },
-    sceneKey: "water",
+    sceneKey: "waterTrench",
     accent: TILE_ACCENTS.teal,
     spec: {
       title: { bg: "Воден цикъл" },
@@ -339,7 +261,7 @@ const STARTERS: Starter[] = [
       bg: "Най-проточилият се болничен строеж",
       en: "The most drawn-out hospital build",
     },
-    sceneKey: "health",
+    sceneKey: "hospitalPit",
     accent: TILE_ACCENTS.rose,
     spec: {
       title: { bg: "Национална детска болница" },
@@ -353,7 +275,7 @@ const STARTERS: Starter[] = [
       bg: "Финансиран от ЕС ВиК проект: договорено срещу изплатено",
       en: "An EU-funded water project: contracted vs paid",
     },
-    sceneKey: "water",
+    sceneKey: "waterEu",
     accent: TILE_ACCENTS.aqua,
     // Carries a real ИСУН fund member so the «Европейско финансиране» block
     // (§4.2.3b) is exercised — договорено €105M / изплатено a fraction.
