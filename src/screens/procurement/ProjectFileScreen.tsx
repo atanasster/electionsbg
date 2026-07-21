@@ -614,6 +614,9 @@ const Toolbar = ({
       <button className={btn} onClick={() => window.print()}>
         {bg ? "Изтегли PDF" : "Download PDF"}
       </button>
+      <Link to="/procurement/project" className={btn}>
+        {bg ? "Ново досие" : "New file"}
+      </Link>
       <Link to="/procurement/projects" className={btn}>
         {bg ? "Моите досиета" : "My files"}
       </Link>
