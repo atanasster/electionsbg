@@ -621,7 +621,7 @@ export const ProjectFileScreen = () => {
         {data.truncated && (
           <div className="text-sm rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-2 my-3 text-amber-700 dark:text-amber-400">
             {bg
-              ? "Търсенето е твърде общо — показва се само част от резултатите. Прецизирай думите или добави име на възложител."
+              ? "Търсенето е твърде общо — показани се само част от резултатите. Прецизирай думите или добави име на възложител."
               : "The search is broad — only a slice is shown. Narrow the terms or add a buyer."}
           </div>
         )}
