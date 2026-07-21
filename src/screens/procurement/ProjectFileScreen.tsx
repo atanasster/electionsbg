@@ -459,6 +459,32 @@ export const ProjectFileScreen = () => {
     () => (data ? foldByContractor(data.contracts) : []),
     [data],
   );
+  // Sortable contractors table. Default: by value desc (foldByContractor's order,
+  // and the дял column is monotonic in eur so it shares that key).
+  const [contractorSort, setContractorSort] = useState<{
+    key: "name" | "count" | "eur";
+    dir: "asc" | "desc";
+  }>({ key: "eur", dir: "desc" });
+  const sortedContractors = useMemo(() => {
+    const { key, dir } = contractorSort;
+    const sign = dir === "asc" ? 1 : -1;
+    return [...byContractor].sort((a, b) => {
+      const cmp =
+        key === "name"
+          ? a.name.localeCompare(b.name, loc)
+          : key === "count"
+            ? a.count - b.count
+            : a.eur - b.eur;
+      // Stable tiebreak on value desc so equal keys keep a deterministic order.
+      return cmp !== 0 ? sign * cmp : b.eur - a.eur;
+    });
+  }, [byContractor, contractorSort, loc]);
+  const toggleContractorSort = (key: "name" | "count" | "eur") =>
+    setContractorSort((s) =>
+      s.key === key
+        ? { key, dir: s.dir === "asc" ? "desc" : "asc" }
+        : { key, dir: key === "name" ? "asc" : "desc" },
+    );
 
   // Subcontractor blind spot (§0g.2): which in-house state companies among the
   // members' contractors are where the ЦАИС money trail stops (their onward
@@ -1322,9 +1348,10 @@ export const ProjectFileScreen = () => {
           )}
         </div>
 
-        {/* Contractors table (§4.2.5) — aggregated from the member contracts */}
+        {/* Contractors table (§4.2.5) — aggregated from the member contracts.
+            Full-width to match the timeline above; sortable client-side. */}
         {byContractor.length > 0 && (
-          <div className="my-8 max-w-3xl">
+          <div className="my-8">
             <h2 className="mb-3 text-sm font-medium text-muted-foreground">
               {bg ? "Изпълнители" : "Contractors"}
             </h2>
@@ -1332,22 +1359,39 @@ export const ProjectFileScreen = () => {
               <table className="w-full min-w-[32rem] text-sm">
                 <thead>
                   <tr className="border-b text-xs text-muted-foreground">
-                    <th className="py-1 text-left font-normal">
-                      {bg ? "изпълнител" : "contractor"}
-                    </th>
-                    <th className="py-1 pl-6 text-right font-normal">
-                      {bg ? "договори" : "contracts"}
-                    </th>
-                    <th className="py-1 pl-8 text-right font-normal">
-                      {bg ? "стойност" : "value"}
-                    </th>
-                    <th className="py-1 pl-6 text-right font-normal">
-                      {bg ? "дял" : "share"}
-                    </th>
+                    <SortableTh
+                      label={bg ? "изпълнител" : "contractor"}
+                      col="name"
+                      sort={contractorSort}
+                      onSort={toggleContractorSort}
+                      align="left"
+                    />
+                    <SortableTh
+                      label={bg ? "договори" : "contracts"}
+                      col="count"
+                      sort={contractorSort}
+                      onSort={toggleContractorSort}
+                      className="pl-6"
+                    />
+                    <SortableTh
+                      label={bg ? "стойност" : "value"}
+                      col="eur"
+                      sort={contractorSort}
+                      onSort={toggleContractorSort}
+                      className="pl-8"
+                    />
+                    {/* дял is monotonic in value → sorts on the same key. */}
+                    <SortableTh
+                      label={bg ? "дял" : "share"}
+                      col="eur"
+                      sort={contractorSort}
+                      onSort={toggleContractorSort}
+                      className="pl-6"
+                    />
                   </tr>
                 </thead>
                 <tbody>
-                  {byContractor.map((r) => (
+                  {sortedContractors.map((r) => (
                     <tr
                       key={r.eik ?? r.name}
                       className="border-b border-border/50"
@@ -1530,6 +1574,46 @@ const ComparisonBar = ({
     </div>
   </div>
 );
+
+// A sortable column header for the contractors table (§4.2.5). Shows the active
+// sort direction and toggles it on click; a plain header cell otherwise.
+type ContractorSortKey = "name" | "count" | "eur";
+const SortableTh = ({
+  label,
+  col,
+  sort,
+  onSort,
+  align = "right",
+  className = "",
+}: {
+  label: string;
+  col: ContractorSortKey;
+  sort: { key: ContractorSortKey; dir: "asc" | "desc" };
+  onSort: (col: ContractorSortKey) => void;
+  align?: "left" | "right";
+  className?: string;
+}) => {
+  const active = sort.key === col;
+  return (
+    <th
+      className={`py-1 font-normal ${align === "left" ? "text-left" : "text-right"} ${className}`}
+      aria-sort={
+        active ? (sort.dir === "asc" ? "ascending" : "descending") : "none"
+      }
+    >
+      <button
+        type="button"
+        onClick={() => onSort(col)}
+        className={`inline-flex items-center gap-0.5 hover:text-foreground ${active ? "text-foreground" : ""} ${align === "left" ? "" : "flex-row-reverse"}`}
+      >
+        <span>{label}</span>
+        <span className="w-2 text-[0.65rem] leading-none">
+          {active ? (sort.dir === "asc" ? "▲" : "▼") : ""}
+        </span>
+      </button>
+    </th>
+  );
+};
 
 const Figure = ({
   label,

@@ -660,6 +660,7 @@ export const MachineOnlyScenarioScreen: FC = () => {
       <ArticleH2>{t("machine_only_h_caveats")}</ArticleH2>
       <ArticleUL>
         <ArticleLI>{t("machine_only_caveat_behavior")}</ArticleLI>
+        <ArticleLI>{t("machine_only_caveat_invalid")}</ArticleLI>
         <ArticleLI>{t("machine_only_caveat_adoption")}</ArticleLI>
         <ArticleLI>{t("machine_only_caveat_turnout")}</ArticleLI>
         <ArticleLI>{t("machine_only_caveat_seats")}</ArticleLI>
