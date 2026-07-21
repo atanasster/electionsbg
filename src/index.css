@@ -61,3 +61,21 @@ a {
   outline-offset: 2px;
   border-radius: 3px;
 }
+
+/* Print: the project-file report (and any article) prints as a clean document —
+   hide the fixed site nav, footer, and any interactive .no-print chrome, and drop
+   the header offset. See docs/plans/procurement-project-lifecycle-v1.md §4.7. */
+@media print {
+  nav,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+  .container {
+    padding-top: 0 !important;
+  }
+  main {
+    overflow: visible !important;
+    background: #fff !important;
+  }
+}

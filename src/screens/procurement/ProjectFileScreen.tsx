@@ -361,6 +361,9 @@ const Toolbar = ({ spec, bg }: { spec: ProjectFileSpec; bg: boolean }) => {
             ? "Копирай връзка"
             : "Copy link"}
       </button>
+      <button className={btn} onClick={() => window.print()}>
+        {bg ? "Изтегли PDF" : "Download PDF"}
+      </button>
       <Link to="/procurement/projects" className={btn}>
         {bg ? "Моите досиета" : "My files"}
       </Link>
