@@ -24,6 +24,7 @@ import { PeerSnapshotTable } from "@/screens/components/macro/PeerSnapshotTable"
 import { CompareToggleButton } from "@/screens/components/macro/CompareToggleButton";
 import { IndicatorsNav } from "./indicatorsNav";
 import { ChartSources } from "./indicatorsShared";
+import { computeLabourSlackCallout } from "./labourSlack";
 
 const ECONOMY_INDICATOR_SPEC: IndicatorSpec = [
   {
@@ -82,31 +83,17 @@ export const IndicatorsEconomyScreen = () => {
     return { label, value, sourceUrl: m.sourceUrl };
   }, [macro, lang]);
 
-  // Labour-market slack: the broad "true unemployment" measure (annual). We
-  // pair the latest reading with its multiple over the headline unemployment
-  // rate for the same year (annual mean of the SA quarters) — a like-for-like
-  // rate ratio, though slack's denominator is the extended labour force (noted
-  // in the caption). Rendered as a contextual callout, never a chart line.
-  const labourSlackCallout = useMemo(() => {
-    const slackSeries = macro?.series.labourSlack;
-    if (!slackSeries?.length) return null;
-    const slack = slackSeries[slackSeries.length - 1];
-    const fmt = (v: number) =>
-      v.toFixed(1).replace(".", lang === "bg" ? "," : ".");
-    const sameYear = (macro?.series.unemployment ?? []).filter(
-      (p) => p.year === slack.year,
-    );
-    const unempAvg = sameYear.length
-      ? sameYear.reduce((s, p) => s + p.value, 0) / sameYear.length
-      : null;
-    const ratio = unempAvg && unempAvg > 0 ? slack.value / unempAvg : null;
-    return {
-      year: slack.year,
-      value: fmt(slack.value),
-      unemp: unempAvg != null ? fmt(unempAvg) : null,
-      ratio: ratio != null ? fmt(ratio) : null,
-    };
-  }, [macro, lang]);
+  // Labour-market slack: the broad "true unemployment" measure (annual),
+  // rendered as a contextual callout below the unemployment panel. Computation
+  // lives in a pure, unit-tested helper — see labourSlack.ts for the ratio and
+  // denominator caveats.
+  const labourSlackCallout = useMemo(
+    () =>
+      computeLabourSlackCallout(macro, (v) =>
+        v.toFixed(1).replace(".", lang === "bg" ? "," : "."),
+      ),
+    [macro, lang],
+  );
 
   if (!governments) {
     return (
