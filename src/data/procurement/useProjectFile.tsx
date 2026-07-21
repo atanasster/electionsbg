@@ -582,6 +582,21 @@ export interface CuratedProjectEntry {
   verifiedAt?: string;
 }
 
+/** Keep only well-formed index entries — a non-empty `slug` AND a `title` object
+ *  (the gallery renders `f.title` unconditionally, so a malformed entry must not
+ *  reach it and blank the on-ramp). Pure + exported for unit testing. */
+export const filterCuratedIndex = (
+  files: CuratedProjectEntry[] | undefined,
+): CuratedProjectEntry[] =>
+  (files ?? []).filter(
+    (f) =>
+      f &&
+      typeof f.slug === "string" &&
+      f.slug.length > 0 &&
+      f.title != null &&
+      typeof f.title === "object",
+  );
+
 /** The list of committed curated flagship files, for the on-ramp gallery (§4.3b). */
 export const useCuratedProjectIndex = () =>
   useQuery({
@@ -590,9 +605,7 @@ export const useCuratedProjectIndex = () =>
       const raw = await fetchJsonSoft<{ files?: CuratedProjectEntry[] }>(
         dataUrl("/procurement/projects/index.json"),
       );
-      return (raw?.files ?? []).filter(
-        (f) => f && typeof f.slug === "string" && f.slug.length > 0,
-      );
+      return filterCuratedIndex(raw?.files);
     },
     staleTime: Infinity,
   });

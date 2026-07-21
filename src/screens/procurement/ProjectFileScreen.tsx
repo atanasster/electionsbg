@@ -279,20 +279,25 @@ export const ProjectFileScreen = () => {
   const [editModeState, setEditModeState] = useState(false);
   const editMode = curatedMode ? false : editModeState; // no editing a committed file
 
-  // A resolved DIY/URL-built file (§4.4) is noindex — a user's search must not
-  // read as a Наясно editorial finding. Flip the static robots meta (index.html
-  // ships "index, follow") in place, restoring it on leave; the empty on-ramp
-  // stays indexable. CURATED /project/:slug files are editorial + prerendered, so
-  // they stay indexable (not flipped). Best-effort for JS-executing crawlers.
+  // robots: noindex for a resolved DIY/URL-built file (§4.4 — a user's search must
+  // not read as a Наясно editorial finding) OR a curated slug that failed to
+  // resolve (a soft-404 must not be indexed). A RESOLVED curated /project/:slug is
+  // editorial + prerendered → stays indexable. The empty on-ramp stays indexable.
+  // Flip the static robots meta (index.html ships "index, follow") in place,
+  // restoring on leave. Best-effort for JS-executing crawlers.
   useEffect(() => {
     const meta = document.querySelector<HTMLMetaElement>('meta[name="robots"]');
-    if (!meta || !spec || curatedMode) return;
+    if (!meta) return;
+    const shouldNoindex = curatedMode
+      ? !curated.isLoading && !spec // curated slug that didn't resolve (soft-404)
+      : !!spec; // a resolved DIY file
+    if (!shouldNoindex) return;
     const prev = meta.content;
     meta.content = "noindex, follow";
     return () => {
       meta.content = prev;
     };
-  }, [spec, curatedMode]);
+  }, [spec, curatedMode, curated.isLoading]);
 
   // Spec mutations write straight to the ?q= param (so Save/Copy capture the edit
   // and the timeline re-resolves live — the §4.3b full-page builder), PRESERVING
@@ -546,11 +551,15 @@ export const ProjectFileScreen = () => {
                     className="flex min-w-0 flex-col gap-1 rounded-lg border p-3 transition-colors hover:border-primary/40 hover:bg-muted"
                   >
                     <span className="text-sm font-medium leading-snug">
-                      {(bg ? f.title.bg : f.title.en) ?? f.title.bg}
+                      {bg
+                        ? (f.title.bg ?? f.title.en)
+                        : (f.title.en ?? f.title.bg)}
                     </span>
                     {f.summary && (
                       <span className="text-xs text-muted-foreground leading-snug">
-                        {(bg ? f.summary.bg : f.summary.en) ?? f.summary.bg}
+                        {bg
+                          ? (f.summary.bg ?? f.summary.en)
+                          : (f.summary.en ?? f.summary.bg)}
                       </span>
                     )}
                   </Link>

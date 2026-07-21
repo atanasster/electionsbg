@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { parseProjectSpec } from "./useProjectFile";
+import { parseProjectSpec, filterCuratedIndex } from "./useProjectFile";
 
 describe("parseProjectSpec — untrusted ?q= parsing (§4.1)", () => {
   it("accepts a valid spec", () => {
@@ -204,5 +204,43 @@ describe("parseProjectSpec — untrusted ?q= parsing (§4.1)", () => {
     expect(c?.ourNumber).toBeUndefined();
     expect(c?.sourceUrl).toBeUndefined();
     expect(c?.note).toBeUndefined();
+  });
+});
+
+describe("filterCuratedIndex — the curated-flagship gallery guard (Phase 3)", () => {
+  it("keeps a well-formed entry (slug + title)", () => {
+    const out = filterCuratedIndex([{ slug: "hemus", title: { bg: "Хемус" } }]);
+    expect(out).toHaveLength(1);
+    expect(out[0].slug).toBe("hemus");
+  });
+  it("drops entries missing a slug or a title, so the on-ramp can't crash", () => {
+    const out = filterCuratedIndex([
+      { slug: "", title: { bg: "x" } } as never, // empty slug
+      { slug: "no-title" } as never, // no title
+      { slug: "bad-title", title: null } as never, // null title
+      { slug: "ok", title: { bg: "ok" } },
+    ]);
+    expect(out.map((f) => f.slug)).toEqual(["ok"]);
+  });
+  it("handles undefined / non-array input", () => {
+    expect(filterCuratedIndex(undefined)).toEqual([]);
+  });
+});
+
+describe("a committed curated spec validates through parseProjectSpec (Phase 3)", () => {
+  it("accepts a flagship file with curated honesty fields", () => {
+    const curated = {
+      title: { bg: "Магистрала „Хемус“" },
+      thesis: { bg: "…" },
+      search: [
+        { terms: "хемус", distinctive: ["хемус"], buyerEik: ["000695089"] },
+      ],
+      inhouseAwarderEiks: ["831646048"],
+      verifiedAt: "2026-07-21",
+    };
+    const s = parseProjectSpec(JSON.stringify(curated));
+    expect(s).not.toBeNull();
+    expect(s?.inhouseAwarderEiks).toEqual(["831646048"]);
+    expect(s?.verifiedAt).toBe("2026-07-21");
   });
 });
