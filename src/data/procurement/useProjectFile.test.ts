@@ -48,4 +48,60 @@ describe("parseProjectSpec — untrusted ?q= parsing (§4.1)", () => {
     const s = parseProjectSpec(JSON.stringify({ search: many }));
     expect(s?.search.length).toBeLessThanOrEqual(20);
   });
+
+  it("shape-checks + bounds the untrusted claims[] (§4.2.6b)", () => {
+    const s = parseProjectSpec(
+      JSON.stringify({
+        search: [{ terms: "x" }],
+        claims: [
+          { text: "валидно", verdict: "confirms" },
+          { text: "лош вердикт", verdict: "hacked" }, // verdict dropped
+          { text: 5 }, // non-string text → dropped
+          {}, // no text → dropped
+        ],
+      }),
+    );
+    expect(s?.claims).toHaveLength(2);
+    expect(s?.claims?.[0].verdict).toBe("confirms");
+    expect(s?.claims?.[1].verdict).toBeUndefined();
+  });
+
+  it("drops claims[] entirely when none are well-formed", () => {
+    const s = parseProjectSpec(
+      JSON.stringify({ search: [{ terms: "x" }], claims: [{}, { text: 1 }] }),
+    );
+    expect(s?.claims).toBeUndefined();
+  });
+
+  it("caps claims[] at 20", () => {
+    const many = Array.from({ length: 40 }, (_, i) => ({ text: `c${i}` }));
+    const s = parseProjectSpec(
+      JSON.stringify({ search: [{ terms: "x" }], claims: many }),
+    );
+    expect(s?.claims?.length).toBeLessThanOrEqual(20);
+  });
+
+  it("neutralizes non-string claim fields from untrusted ?q= (no React-child crash)", () => {
+    const s = parseProjectSpec(
+      JSON.stringify({
+        search: [{ terms: "x" }],
+        claims: [
+          {
+            text: "ok",
+            byWhom: {},
+            saidAt: [],
+            ourNumber: {},
+            sourceUrl: 5,
+            note: { bg: {} },
+          },
+        ],
+      }),
+    );
+    const c = s?.claims?.[0];
+    expect(c?.byWhom).toBeUndefined();
+    expect(c?.saidAt).toBeUndefined();
+    expect(c?.ourNumber).toBeUndefined();
+    expect(c?.sourceUrl).toBeUndefined();
+    expect(c?.note).toBeUndefined();
+  });
 });

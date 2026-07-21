@@ -94,6 +94,27 @@ export interface ProjectFileSpec {
   /** OPTIONAL curator verification date (ISO), shown in the provenance footer
    *  (§4.2.7). */
   verifiedAt?: string;
+  /** OPTIONAL fact-check ledger (§4.2.6b / §0g.4) — public statements checked
+   *  against the file's own numbers. Rendered above the provenance footer and
+   *  printed (it IS the report), but ONLY when the file also carries `verifiedAt`
+   *  — the curator signal that keeps the authoritative verdict pills off a casual
+   *  DIY ?q= (§11). That gate is a v1 proxy, not a cryptographic curated/DIY
+   *  boundary (which waits for auth, P3). */
+  claims?: Claim[];
+}
+
+/** A public statement checked against the dossier's grounded numbers (§4.2.6b). */
+export interface Claim {
+  /** The quote, verbatim (not translated). */
+  text: string;
+  byWhom?: string;
+  saidAt?: string;
+  sourceUrl?: string;
+  verdict?: "confirms" | "refutes" | "partial";
+  /** The grounded counter-number pulled from the file's own totals, curator-
+   *  written (e.g. "договор €461M, метод «вътрешен избор»"). */
+  ourNumber?: string;
+  note?: LocalizedText;
 }
 
 export interface ProjectFileModel {
@@ -126,6 +147,37 @@ const clampMembers = (m: MemberIds | undefined): MemberIds | undefined =>
       }
     : undefined;
 
+const VERDICTS = new Set(["confirms", "refutes", "partial"]);
+const str = (x: unknown): string | undefined =>
+  typeof x === "string" && x.length > 0 ? x : undefined;
+const clampNote = (n: unknown): LocalizedText | undefined => {
+  if (!n || typeof n !== "object") return undefined;
+  const bg = str((n as LocalizedText).bg);
+  const en = str((n as LocalizedText).en);
+  return bg || en ? { bg, en } : undefined;
+};
+/** Bound + FULLY shape-check the untrusted `claims[]` from ?q=: keep only entries
+ *  with a non-empty string `text`, cap the array, drop an invalid verdict, and
+ *  coerce EVERY rendered field to a string / valid note — a non-string here would
+ *  otherwise throw "Objects are not valid as a React child" and crash the screen
+ *  (render also scheme-validates sourceUrl). */
+const clampClaims = (c: Claim[] | undefined): Claim[] | undefined => {
+  if (!Array.isArray(c)) return undefined;
+  const out: Claim[] = c
+    .filter((x) => x && typeof x.text === "string" && x.text.length > 0)
+    .slice(0, 20)
+    .map((x) => ({
+      text: x.text,
+      byWhom: str(x.byWhom),
+      saidAt: str(x.saidAt),
+      sourceUrl: str(x.sourceUrl),
+      ourNumber: str(x.ourNumber),
+      note: clampNote(x.note),
+      verdict: VERDICTS.has(x.verdict as string) ? x.verdict : undefined,
+    }));
+  return out.length ? out : undefined;
+};
+
 /**
  * Parse + validate an untrusted URL-encoded ProjectFileSpec (§4.1). Returns null
  * on bad JSON, a missing/empty search, or a thread with a non-string `terms`;
@@ -157,6 +209,7 @@ export const parseProjectSpec = (
     search: search.slice(0, 20),
     includes: clampMembers(spec.includes),
     excludes: clampMembers(spec.excludes),
+    claims: clampClaims(spec.claims),
   };
 };
 

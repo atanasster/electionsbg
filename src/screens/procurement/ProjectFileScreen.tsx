@@ -18,6 +18,7 @@ import {
   parseProjectSpec,
   type ProjectFileSpec,
   type ProjectTenderRow,
+  type Claim,
 } from "@/data/procurement/useProjectFile";
 import {
   classifyMethod,
@@ -889,6 +890,16 @@ export const ProjectFileScreen = () => {
           </div>
         )}
 
+        {/* Claims ledger (§4.2.6b) — public statements vs the file's own numbers.
+            Gated on verifiedAt: the authoritative verdict pills must not appear on
+            a casual DIY ?q= (§11 — a user claim must not read as a Наясно verdict).
+            verifiedAt is the curator signal we have in v1; it is a proxy, not a
+            cryptographic gate — real curated/DIY separation waits for auth (P3).
+            Prints (it IS the report). */}
+        {spec.verifiedAt && spec.claims && spec.claims.length > 0 && (
+          <ClaimsLedger claims={spec.claims} bg={bg} />
+        )}
+
         {/* Provenance footer (§4.2.7) — method transparency; doubles as the PDF
             footer, so it is NOT print-hidden. */}
         <ProvenanceFooter
@@ -1202,6 +1213,93 @@ const RecurrenceRollup = ({
     </div>
   );
 };
+
+// Verdict pill palette + labels — the good/bad/partial semantics reused from the
+// method strip (green / coral / amber).
+const VERDICT_STYLE: Record<
+  NonNullable<Claim["verdict"]>,
+  { bg: string; color: string; label: { bg: string; en: string } }
+> = {
+  confirms: {
+    bg: "#E1F5EE",
+    color: "#0F6E56",
+    label: { bg: "потвърждава", en: "confirms" },
+  },
+  refutes: {
+    bg: "#FAECE7",
+    color: "#712B13",
+    label: { bg: "опровергава", en: "refutes" },
+  },
+  partial: {
+    bg: "#FAEEDA",
+    color: "#854F0B",
+    label: { bg: "частично", en: "partial" },
+  },
+};
+
+// Claims ledger (§4.2.6b / §0g.4) — public statements checked against the file's
+// own numbers ("нашите данни"). обективност-срещу-заглавието made literal, and the
+// sharpest differentiator vs SIGMA. Prints (it IS the report), so not print-hidden.
+const ClaimsLedger = ({ claims, bg }: { claims: Claim[]; bg: boolean }) => (
+  <section className="my-8 max-w-3xl">
+    <h2 className="mb-3 text-sm font-medium text-muted-foreground">
+      {bg ? "Проверка на твърдения" : "Claim check"}
+    </h2>
+    <div className="flex flex-col gap-4">
+      {claims.map((c) => {
+        const v = c.verdict ? VERDICT_STYLE[c.verdict] : null;
+        const hasSource = /^https?:\/\//i.test(c.sourceUrl ?? "");
+        return (
+          <div key={c.sourceUrl ?? c.text} className="border-l-2 pl-4">
+            <div className="mb-1 flex flex-wrap items-center gap-2">
+              {v && (
+                <span
+                  className="rounded-full px-2 py-0.5 text-xs font-medium"
+                  style={{ background: v.bg, color: v.color }}
+                >
+                  {bg ? v.label.bg : v.label.en}
+                </span>
+              )}
+              {(c.byWhom || c.saidAt) && (
+                <span className="text-xs text-muted-foreground">
+                  {c.byWhom}
+                  {c.byWhom && c.saidAt ? " · " : ""}
+                  {c.saidAt}
+                </span>
+              )}
+            </div>
+            <blockquote className="text-base font-voice leading-snug">
+              „{c.text}“
+            </blockquote>
+            {c.ourNumber && (
+              <p className="mt-1.5 text-sm">
+                <span className="font-medium">
+                  {bg ? "Нашите данни: " : "Our data: "}
+                </span>
+                {c.ourNumber}
+              </p>
+            )}
+            {(c.note?.bg || c.note?.en) && (
+              <p className="mt-1 text-xs text-muted-foreground">
+                {(bg ? c.note?.bg : c.note?.en) ?? c.note?.bg ?? c.note?.en}
+              </p>
+            )}
+            {hasSource && (
+              <a
+                href={c.sourceUrl}
+                className="mt-1 inline-block text-xs text-primary underline"
+                rel="nofollow noopener"
+                target="_blank"
+              >
+                {bg ? "източник" : "source"}
+              </a>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  </section>
+);
 
 // Provenance footer (§4.2.7) — the search string(s), member/include/exclude
 // counts, curator verification date, sourced links for any curated figure, and
