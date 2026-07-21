@@ -41,6 +41,7 @@ import {
   subsidiesByScheme,
   subsidiesForEntity,
 } from "./subsidies";
+import { projectLifecycle } from "./projectLifecycle";
 import {
   cultureOverview,
   topCultureGrantees,
@@ -3235,6 +3236,35 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: fundsOverview,
+  },
+  {
+    name: "projectLifecycle",
+    domain: "fiscal",
+    description: {
+      bg: "Проектно досие (Наясно) — договорено, как е възложено (открита / без открита процедура / неуточнен метод) и топ изпълнители за един публичен проект (напр. Хемус, машинно гласуване). Без аргумент изброява наличните досиета.",
+      en: "Curated project file (Наясно) — contracted total, how it was awarded (open tender / no open tender / method unstated) and top contractors for one public project (e.g. Hemus, machine voting). Lists the available files when called with no argument.",
+    },
+    params: [
+      {
+        name: "project",
+        type: "text",
+        description: {
+          bg: "Идентификатор на досие (slug), напр. hemus, mashinno-glasuvane",
+          en: "Project-file slug, e.g. hemus, mashinno-glasuvane",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Колко е договорено за магистрала Хемус и как е възложено?",
+        en: "How much is contracted for the Hemus motorway and how was it awarded?",
+      },
+      {
+        bg: "Кой печели поръчките за машинно гласуване?",
+        en: "Who wins the machine-voting contracts?",
+      },
+    ],
+    run: projectLifecycle,
   },
   {
     name: "subsidiesOverview",

@@ -18,6 +18,8 @@ import {
   dedupTenders,
   siblingLotPolicy,
   lotNumberOf,
+  foldMembers,
+  foldByContractor,
   SEED_PAGE,
   LINEAGE_PAGE,
   type SearchThread,
@@ -45,7 +47,19 @@ type Spec = {
   includes?: { contractKeys?: string[]; tenderUnps?: string[] };
   excludes?: { contractKeys?: string[]; tenderUnps?: string[] };
 };
-type CRow = { key: string; unp?: string | null; title?: string | null };
+export type CRow = {
+  key: string;
+  unp?: string | null;
+  title?: string | null;
+  tag?: string | null;
+  amountEur?: number | null;
+  procurementMethod?: string | null;
+  numberOfTenderers?: number | null;
+  date?: string | null;
+  contractorEik?: string | null;
+  contractorName?: string | null;
+  cpv?: string | null;
+};
 type TRow = { unp: string; subject?: string | null; lotsCount?: number };
 
 const nonEmpty = (a?: string[]): a is string[] =>
@@ -61,9 +75,12 @@ const page = (req: object) =>
  * so every member the up-link asserts is actually shown on that dossier's page.
  * The only difference: no money fold (we need the membership set, not the totals).
  */
-async function resolveMembers(
-  spec: Spec,
-): Promise<{ keys: string[]; unps: string[] }> {
+async function resolveMembers(spec: Spec): Promise<{
+  keys: string[];
+  unps: string[];
+  contracts: CRow[];
+  tenderCount: number;
+}> {
   const threads = spec.search ?? [];
   const excludeKeys = new Set(spec.excludes?.contractKeys ?? []);
   const excludeUnps = new Set(spec.excludes?.tenderUnps ?? []);
@@ -199,9 +216,82 @@ async function resolveMembers(
   // member (FINDING-004: keeps the contract and tender up-links consistent).
   const memberUnps = new Set<string>(seedTenderUnps);
   for (const c of allContracts) if (c.unp) memberUnps.add(c.unp);
+  // procedureCount for the honesty summary must match the page's displayed
+  // procedure nodes = dedupTenders(lineageTenders) (useProjectFile.tsx), NOT the
+  // wider memberUnps set (which also holds contract УНПs with no tenders row,
+  // e.g. pre-2020 contracts). Otherwise the AI facts.procedures would overcount
+  // vs what /procurement/project/:slug renders.
+  const tenderCount = dedupTenders(
+    (lineageTenders as TRow[]).filter((t) => !excludeUnps.has(t.unp)),
+  ).length;
   return {
     keys: allContracts.map((c) => c.key),
     unps: [...memberUnps].filter((u) => !excludeUnps.has(u)),
+    contracts: allContracts,
+    tenderCount,
+  };
+}
+
+type Summary = {
+  title: { bg?: string; en?: string };
+  thesis?: { bg?: string; en?: string };
+  contractedEur: number;
+  contractCount: number;
+  procedureCount: number;
+  contractorCount: number;
+  methodMix: {
+    competitive: number;
+    nonCompetitive: number;
+    unspecified: number;
+  };
+  topContractors: Array<{ name: string; eik?: string; eur: number }>;
+};
+
+/** The grounded honesty summary of a curated file — same money fold the dossier
+ *  page shows — for the AI projectLifecycle tool. */
+export function summarize(
+  meta: {
+    title: { bg?: string; en?: string };
+    thesis?: { bg?: string; en?: string };
+  },
+  contracts: CRow[],
+  procedureCount: number,
+): Summary {
+  const fold = foldMembers(
+    contracts.map((c) => ({
+      key: c.key,
+      tag: c.tag ?? "contract",
+      amountEur: c.amountEur ?? null,
+      procurementMethod: c.procurementMethod ?? null,
+      numberOfTenderers: c.numberOfTenderers ?? null,
+      date: c.date ?? null,
+      contractorEik: c.contractorEik ?? null,
+      contractorName: c.contractorName ?? null,
+      cpv: c.cpv ?? null,
+    })),
+  );
+  // Drop the anonymous "?" bucket (rows with neither EIK nor name) so it never
+  // surfaces as a named top contractor (FINDING-003).
+  const byContractor = foldByContractor(contracts)
+    .filter((r) => r.name !== "?")
+    .slice(0, 8);
+  return {
+    title: meta.title,
+    thesis: meta.thesis,
+    contractedEur: Math.round(fold.totalContractedEur),
+    contractCount: fold.contractCount,
+    procedureCount,
+    contractorCount: fold.contractorCount,
+    methodMix: {
+      competitive: Math.round(fold.methodMix.competitive),
+      nonCompetitive: Math.round(fold.methodMix.nonCompetitive),
+      unspecified: Math.round(fold.methodMix.unspecified),
+    },
+    topContractors: byContractor.map((r) => ({
+      name: r.name,
+      eik: r.eik,
+      eur: Math.round(r.eur),
+    })),
   };
 }
 
@@ -214,27 +304,47 @@ async function main() {
     if (!reverse[id]) reverse[id] = [];
     if (!reverse[id].includes(slug)) reverse[id].push(slug);
   };
+  const summaries: Record<string, Summary> = {};
   for (const f of index.files ?? []) {
     if (!f.slug) continue;
     const spec = JSON.parse(
       fs.readFileSync(path.join(DIR, `${f.slug}.json`), "utf-8"),
-    ) as Spec;
-    const { keys, unps } = await resolveMembers(spec);
+    ) as Spec & {
+      title: { bg?: string; en?: string };
+      thesis?: { bg?: string; en?: string };
+    };
+    const { keys, unps, contracts, tenderCount } = await resolveMembers(spec);
     for (const k of keys) add(k, f.slug);
     for (const u of unps) add(u, f.slug);
+    summaries[f.slug] = summarize(
+      { title: spec.title, thesis: spec.thesis },
+      contracts,
+      tenderCount,
+    );
     console.log(
-      `  ${f.slug}: ${keys.length} contracts, ${unps.length} procedures`,
+      `  ${f.slug}: ${keys.length} contracts, ${unps.length} procedures, €${summaries[f.slug].contractedEur}`,
     );
   }
-  const out = path.join(DIR, "members.json");
-  fs.writeFileSync(out, JSON.stringify(reverse) + "\n");
+  fs.writeFileSync(
+    path.join(DIR, "members.json"),
+    JSON.stringify(reverse) + "\n",
+  );
+  fs.writeFileSync(
+    path.join(DIR, "summaries.json"),
+    JSON.stringify(summaries, null, 2) + "\n",
+  );
   console.log(
-    `members.json: ${Object.keys(reverse).length} ids across ${(index.files ?? []).length} files`,
+    `members.json: ${Object.keys(reverse).length} ids; summaries.json: ${Object.keys(summaries).length} files`,
   );
   await end();
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
+// Only run the DB job when invoked as a script — importing this module (e.g. from
+// the unit test that exercises the pure summarize() fold) must not connect to PG.
+const isEntrypoint = process.argv[1] === fileURLToPath(import.meta.url);
+if (isEntrypoint) {
+  main().catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });
+}
