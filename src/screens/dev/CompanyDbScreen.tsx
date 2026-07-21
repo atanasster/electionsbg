@@ -79,10 +79,8 @@ import { NzokActivityByEikTile } from "../components/procurement/nzok/NzokActivi
 import { NzokReportCardTile } from "../components/procurement/nzok/NzokReportCardTile";
 import { NzokDrugOverpayByEikTile } from "../components/procurement/nzok/NzokDrugOverpayByEikTile";
 import { NzokFinancialHealthStrip } from "@/screens/components/procurement/nzok/NzokFinancialHealthStrip";
-import {
-  NgoSignalPills,
-  type NgoSignal,
-} from "@/screens/components/procurement/NgoSignalPills";
+import { NgoSignalPills } from "@/screens/components/procurement/NgoSignalPills";
+import { type NgoSignal } from "@/screens/components/procurement/ngoSignalMeta";
 
 interface NgoBoardLink {
   person: string;

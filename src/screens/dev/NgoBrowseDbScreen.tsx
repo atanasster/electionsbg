@@ -16,12 +16,12 @@ import { StatCard } from "../dashboard/StatCard";
 import { ProcurementSectionHeader } from "@/screens/components/procurement/ProcurementSectionHeader";
 import { formatEurCompact } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
+import { NgoSignalPills } from "@/screens/components/procurement/NgoSignalPills";
 import {
-  NgoSignalPills,
   NGO_SIGNAL_ORDER,
   NGO_SIGNAL_META,
   type NgoSignal,
-} from "@/screens/components/procurement/NgoSignalPills";
+} from "@/screens/components/procurement/ngoSignalMeta";
 import {
   Select,
   SelectContent,
