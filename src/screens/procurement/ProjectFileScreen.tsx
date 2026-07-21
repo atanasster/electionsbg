@@ -564,6 +564,9 @@ export const ProjectFileScreen = () => {
               onSubmit={buildFromTerms}
               bg={bg}
               cta={bg ? "Създай досие" : "Create file"}
+              // A "Прецизирай думите" link lands here with ?refine=<terms> to
+              // pre-populate the box for editing.
+              initial={params.get("refine") ?? ""}
             />
           </div>
           <div className="text-xs uppercase tracking-wide text-muted-foreground mt-6 mb-2">
@@ -738,15 +741,33 @@ export const ProjectFileScreen = () => {
             // scoped to match the ~M count (terms + full corpus + buyer). See
             // seeAllContractsHref for the URL-contract rationale.
             const seeAllHref = seeAllContractsHref(spec.search[0]);
+            // "Прецизирай думите" → the dossiers hub with the search box
+            // pre-populated (?refine=), so the user can edit the terms and rebuild.
+            const refineTerms = spec.search[0]?.terms?.trim();
+            const refineHref = refineTerms
+              ? `/procurement/project?refine=${encodeURIComponent(refineTerms)}`
+              : null;
+            // Lead sentence (count when the engine reported it, else generic);
+            // the "refine / add a buyer" tail is shared and carries the link.
+            const lead = totalStr
+              ? bg
+                ? `Търсенето върна ~${totalStr} договора — в досието са включени само най-големите по стойност.`
+                : `The search matched ~${totalStr} contracts — only the largest by value seeded this file.`
+              : bg
+                ? "Търсенето е твърде общо — показани са само част от резултатите."
+                : "The search is broad — only a slice is shown.";
+            const refineLabel = bg ? "Прецизирай думите" : "Narrow the terms";
             return (
               <div className="text-sm rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-2 my-3 text-amber-700 dark:text-amber-400">
-                {totalStr
-                  ? bg
-                    ? `Търсенето върна ~${totalStr} договора — в досието са включени само най-големите по стойност. Прецизирай думите или добави име на възложител.`
-                    : `The search matched ~${totalStr} contracts — only the largest by value seeded this file. Narrow the terms or add a buyer.`
-                  : bg
-                    ? "Търсенето е твърде общо — показани са само част от резултатите. Прецизирай думите или добави име на възложител."
-                    : "The search is broad — only a slice is shown. Narrow the terms or add a buyer."}
+                {lead}{" "}
+                {refineHref ? (
+                  <Link to={refineHref} className="font-medium underline">
+                    {refineLabel}
+                  </Link>
+                ) : (
+                  refineLabel
+                )}
+                {bg ? " или добави име на възложител." : " or add a buyer."}
                 {seeAllHref && (
                   <>
                     {" "}
@@ -1473,6 +1494,15 @@ export const ProjectFileScreen = () => {
       </Title>
       <ProcurementBreadcrumb
         current={spec ? title : bg ? "Проектни досиета" : "Project files"}
+        // On a resolved dossier, the hub (Проектни досиета) is the linked parent.
+        section={
+          spec
+            ? {
+                label: bg ? "Проектни досиета" : "Project files",
+                to: "/procurement/project",
+              }
+            : undefined
+        }
         className="my-3"
       />
       {body()}
@@ -2117,12 +2147,15 @@ const BuildForm = ({
   onSubmit,
   bg,
   cta,
+  initial = "",
 }: {
   onSubmit: (terms: string) => void;
   bg: boolean;
   cta: string;
+  /** Pre-populate the input — e.g. a "Прецизирай думите" refine deep-link. */
+  initial?: string;
 }) => {
-  const [terms, setTerms] = useState("");
+  const [terms, setTerms] = useState(initial);
   return (
     <form
       className="no-print flex gap-2 my-3"

@@ -22,8 +22,9 @@ export const ProcurementBreadcrumb: FC<{
   /** Already-resolved current label. Wins over currentKey. */
   current?: string;
   /** Optional linked sub-page crumb between the hub and the current leaf, for
-   *  detail pages (e.g. Договори → /procurement/contracts). */
-  section?: { labelKey: string; to: string };
+   *  detail pages (e.g. Договори → /procurement/contracts). Pass `labelKey` for an
+   *  i18n label, or `label` for an already-resolved one. */
+  section?: { labelKey?: string; label?: string; to: string };
   className?: string;
 }> = ({ currentKey, current, section, className }) => {
   const { t } = useTranslation();
@@ -40,7 +41,11 @@ export const ProcurementBreadcrumb: FC<{
       ...(hasDescendant ? { to: "/procurement" } : {}),
     },
   ];
-  if (section) items.push({ label: t(section.labelKey), to: section.to });
+  if (section)
+    items.push({
+      label: section.label ?? (section.labelKey ? t(section.labelKey) : ""),
+      to: section.to,
+    });
   if (label) items.push({ label });
 
   return <Breadcrumbs items={items} className={className} />;
