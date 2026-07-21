@@ -25,10 +25,15 @@ For each section above the chosen threshold that also has real machine votes, we
 
 ```
 machineShare_p = machineVotes_p / Σ machineVotes
-votes_p(d)     = machineVotes_p + (1 − d) · paperTotal · machineShare_p
+paperShare_p   = paperVotes_p   / Σ paperVotes
+votes_p(d)     = machineVotes_p + (1 − d) · (paperTotal · machineShare_p + invalid · paperShare_p)
 ```
 
-The turnout dial **d** is the share of a section's paper-voters who *abstain* rather than switch to a machine. At `d = 0` turnout is held constant; at `d = 100%` every paper-voter in a large section stays home and only the original machine-voters count. Smaller sections — and the few large sections whose machine failed — are left exactly as recorded. We then re-aggregate nationally and run a Hare-quota seat allocation (4% threshold) on both the actual and the modelled totals, so the seat difference reflects only the vote shift.
+The turnout dial **d** is the share of a section's paper-voters who *abstain* rather than switch to a machine. At `d = 0` turnout is held constant; at `d = 100%` every paper-voter in a large section stays home and only the original machine-voters count.
+
+A machine also won't accept a spoiled ballot, so the model recovers each affected section's invalid paper ballots (about 3.9% of paper in 2026) and adds them as valid votes, distributed by that section's **paper-vote shares** — because the voters who mis-mark ballots belong to the same older, paper-preferring demographic (Fujiwara 2015). This feeds the paper-heavy parties and softens the swing (at the default it turns ПП-ДБ's seat gain from +12 to +11 and ГЕРБ-СДС's loss from −12 to −11).
+
+Smaller sections — and the few large sections whose machine failed — are left exactly as recorded. We then re-aggregate nationally and run a Hare-quota seat allocation (4% threshold) on both the actual and the modelled totals.
 
 ## What we already excluded
 
@@ -48,9 +53,9 @@ The likely reason is who each group is: the machine is preferred by younger, urb
 
 ## What this is not
 
-- What this measures is the **composition (selection) effect** — the change that comes purely from which medium each voter chose. It is not the full effect of mandating machines, which would also shift turnout, recover spoiled ballots and carry the machine's own influence on the vote.
+- The model combines two channels — the **composition (selection) effect** (from which medium each voter chose) and the spoiled-ballot recovery above. It still is not the full effect of mandating machines, which would also shift turnout and carry the machine's own influence on the vote.
 - It assumes paper-voters would vote like their section's machine-voters — it captures the selection skew between the groups. The machine's on-screen flow nudges behaviour (the explicit "I support no one" button is picked by 1.8% of machine-voters vs 1.3% on paper) and can create errors of its own (Zucco & Nicolau, 2016).
-- It counts only valid party votes, so it leaves out the biggest mechanism in the voting-technology literature (Fujiwara 2015): a machine lets no one spoil a ballot. In 2026 about 3.9% of paper ballots were invalid versus ~0% on machines — machine-only would turn most of those into valid votes, and because mis-marking voters skew older and paper-preferring, that recovery would likely push back against the shift toward ПП-ДБ shown here.
+- The spoiled-ballot recovery rests on an assumption: recovered invalid ballots are distributed by each section's paper-vote shares because mis-marking voters resemble the paper-preferring demographic (Fujiwara 2015), but a spoiled ballot carries no recorded preference, so the true split is unknowable.
 - **The natural experiment is only as strong as machine adoption.** In April 2021 machine was a freely-chosen minority (~29% of affected voters), so its voters skew young/urban/early-adopter — read that election as the most aggressive extrapolation, not the most reliable.
 - The turnout drop-off is a scenario dial, not an estimate. In Bulgaria's three machine-only elections (2021–2022) turnout was 39–42%, within the range of the mixed elections around them (34–51%), so a large machine-driven turnout collapse is not visible in the data — though repeat-election fatigue confounds the comparison. Small drop-offs are the more likely case.
 - Seats are allocated by the national Hare-Niemeyer quota with the 4% threshold — the same method Bulgaria uses to fix each party's national total (it reproduces the official result for every election since 2013). Bulgaria then spreads those totals across the 31 districts, which only changes where seats land, not how many each party wins; the meaningful figure is the actual-vs-model *difference*.

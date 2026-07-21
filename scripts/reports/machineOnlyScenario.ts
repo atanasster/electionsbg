@@ -55,7 +55,10 @@ type Votes = {
   paperVotes?: number;
   machineVotes?: number;
 };
-type SectionProtocol = { numRegisteredVoters?: number };
+type SectionProtocol = {
+  numRegisteredVoters?: number;
+  numInvalidBallotsFound?: number; // spoiled PAPER ballots (machines can't spoil)
+};
 type SectionInfo = {
   oblast?: string; // 3-letter МИР code (BLG, S23, PDV-00 …) = geojson `nuts3` key
   region_name?: string; // "16. ПЛОВДИВ град"
@@ -82,7 +85,16 @@ const loadNationalSummary = (date: string) => {
   return JSON.parse(fs.readFileSync(p, "utf8"));
 };
 
-type PartyAgg = { base: number; reassignable: number; actualPaper: number };
+type PartyAgg = {
+  base: number;
+  reassignable: number;
+  actualPaper: number;
+  // Recovered spoiled paper ballots, distributed by the section's paper-vote
+  // shares — machines can't spoil, so under machine-only these become valid
+  // votes for the (paper-preferring) demographic that mis-marked them
+  // (Fujiwara 2015 enfranchisement). Scaled by (1 − d) with the paper switchers.
+  invalidRecoverable: number;
+};
 
 type RegionAgg = { name: string; agg: Map<number, PartyAgg> };
 
@@ -90,6 +102,7 @@ const emptyAgg = (): PartyAgg => ({
   base: 0,
   reassignable: 0,
   actualPaper: 0,
+  invalidRecoverable: 0,
 });
 const bumpAgg = (
   m: Map<number, PartyAgg>,
@@ -162,16 +175,22 @@ const buildThreshold = (
       affectedRegistered += reg;
       affectedPaperVoters += paperSum;
       affectedMachineVoters += machineSum;
+      const invalid = res.protocol?.numInvalidBallotsFound ?? 0;
       for (const v of res.votes) {
         const mv = v.machineVotes ?? 0;
+        const pv = v.paperVotes ?? 0;
         const share = mv / machineSum;
+        // spoiled ballots recovered by the section's paper-vote shares
+        const invRec = paperSum > 0 ? (pv / paperSum) * invalid : 0;
         bumpAgg(agg, v.partyNum, "base", mv);
         bumpAgg(agg, v.partyNum, "reassignable", share * paperSum);
-        bumpAgg(agg, v.partyNum, "actualPaper", v.paperVotes ?? 0);
+        bumpAgg(agg, v.partyNum, "actualPaper", pv);
+        bumpAgg(agg, v.partyNum, "invalidRecoverable", invRec);
         if (regionAgg) {
           bumpAgg(regionAgg, v.partyNum, "base", mv);
           bumpAgg(regionAgg, v.partyNum, "reassignable", share * paperSum);
-          bumpAgg(regionAgg, v.partyNum, "actualPaper", v.paperVotes ?? 0);
+          bumpAgg(regionAgg, v.partyNum, "actualPaper", pv);
+          bumpAgg(regionAgg, v.partyNum, "invalidRecoverable", invRec);
         }
       }
     }
@@ -254,6 +273,7 @@ const run = () => {
           base: round(a.base),
           reassignable: round(a.reassignable),
           actualPaper: round(a.actualPaper),
+          invalidRecoverable: round(a.invalidRecoverable),
         })),
         ...(withRegions
           ? {
@@ -274,6 +294,7 @@ const run = () => {
                       base: round(a.base),
                       reassignable: round(a.reassignable),
                       actualPaper: round(a.actualPaper),
+                      invalidRecoverable: round(a.invalidRecoverable),
                     }));
                   return [code, { name: r.name, rows }];
                 }),

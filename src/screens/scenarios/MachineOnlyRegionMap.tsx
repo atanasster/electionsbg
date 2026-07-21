@@ -26,6 +26,7 @@ type RegionRow = {
   base: number;
   reassignable: number;
   actualPaper: number;
+  invalidRecoverable: number;
 };
 export type RegionSlice = { name: string; rows: RegionRow[] };
 
@@ -49,7 +50,7 @@ const computeRegion = (
   let mTot = 0;
   const raw = slice.rows.map((r) => {
     const a = r.base + r.actualPaper;
-    const m = r.base + (1 - d) * r.reassignable;
+    const m = r.base + (1 - d) * (r.reassignable + r.invalidRecoverable);
     aTot += a;
     mTot += m;
     return { partyNum: r.partyNum, a, m };

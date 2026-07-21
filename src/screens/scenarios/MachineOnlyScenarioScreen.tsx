@@ -40,6 +40,7 @@ type ThresholdRow = {
   base: number;
   reassignable: number;
   actualPaper: number;
+  invalidRecoverable: number;
 };
 type ThresholdSlice = {
   affectedSections: number;
@@ -290,7 +291,9 @@ export const MachineOnlyScenarioScreen: FC = () => {
     const modelVotes = slice.rows.map((r) => ({
       partyNum: r.partyNum,
       nickName: meta.get(r.partyNum)?.nickName,
-      totalVotes: r.base + (1 - d) * r.reassignable,
+      // switched paper-voters (by machine share) + recovered spoiled ballots
+      // (by paper share, per Fujiwara 2015), both at turnout (1 − d)
+      totalVotes: r.base + (1 - d) * (r.reassignable + r.invalidRecoverable),
     }));
 
     const actualRows = allocateSeats(actualVotes, THRESHOLD_PCT);
@@ -662,8 +665,10 @@ export const MachineOnlyScenarioScreen: FC = () => {
       <div className="my-4 rounded-lg border border-border bg-muted/30 p-4 font-mono text-[13px] leading-6 text-foreground/90">
         machineShare<sub>p</sub> = machineVotes<sub>p</sub> / Σ machineVotes
         <br />
-        votes<sub>p</sub>(d) = machineVotes<sub>p</sub> + (1 − d) · paperTotal ·
-        machineShare<sub>p</sub>
+        paperShare<sub>p</sub> = paperVotes<sub>p</sub> / Σ paperVotes
+        <br />
+        votes<sub>p</sub>(d) = machineVotes<sub>p</sub> + (1 − d) · (paperTotal
+        · machineShare<sub>p</sub> + invalid · paperShare<sub>p</sub>)
       </div>
       <ArticleP>{t("machine_only_method_p3")}</ArticleP>
       <ArticleOL>
@@ -672,6 +677,7 @@ export const MachineOnlyScenarioScreen: FC = () => {
         <ArticleLI>{t("machine_only_method_step3")}</ArticleLI>
         <ArticleLI>{t("machine_only_method_step4")}</ArticleLI>
       </ArticleOL>
+      <ArticleP>{t("machine_only_method_invalid")}</ArticleP>
       <ArticleP>{t("machine_only_method_frame")}</ArticleP>
 
       <ArticleH2>{t("machine_only_h_caveats")}</ArticleH2>

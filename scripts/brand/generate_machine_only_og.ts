@@ -42,6 +42,7 @@ const DATA = scenario as unknown as {
           base: number;
           reassignable: number;
           actualPaper: number;
+          invalidRecoverable: number;
         }[];
       }
     >;
@@ -56,7 +57,7 @@ const actualVotes = slice.rows.map((r) => ({
 }));
 const modelVotes = slice.rows.map((r) => ({
   partyNum: r.partyNum,
-  totalVotes: r.base + r.reassignable,
+  totalVotes: r.base + r.reassignable + r.invalidRecoverable,
 }));
 const aSeat = new Map(
   allocateSeats(actualVotes, 4).map((r) => [r.partyNum, r.seats]),
