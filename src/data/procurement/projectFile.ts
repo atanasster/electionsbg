@@ -114,6 +114,28 @@ export function scoreConfidence(
 export const thresholdOf = (thread: SearchThread): number =>
   thread.threshold ?? DEFAULT_THRESHOLD;
 
+/**
+ * The "see all" escape-hatch href for the truncation banner (§4.1), or null when
+ * there is nothing to link. Deep-links the server-paginated contracts browser:
+ *  - `q` seeds its free-text search box,
+ *  - `pscope=all` pivots it to the full corpus (the seed search is all-time, so a
+ *    default parliament-window scope would show far fewer than the ~M quoted),
+ *  - `awarder` carries the thread's buyerEik so a buyer-scoped file lands on the
+ *    SAME buyer scope its count was measured over, not an all-buyers superset.
+ * Only the FIRST thread's terms are linked — the destination is one free-text box,
+ * so unioning distinct threads' phrases would AND their tokens and match fewer.
+ */
+export function seeAllContractsHref(
+  thread: SearchThread | undefined,
+): string | null {
+  const terms = thread?.terms?.trim();
+  if (!terms) return null;
+  let href = `/procurement/contracts?q=${encodeURIComponent(terms)}&pscope=all`;
+  if (thread?.buyerEik?.length)
+    href += `&awarder=${encodeURIComponent(thread.buyerEik.join(","))}`;
+  return href;
+}
+
 /** One thread's contract-seed shape the truncation count reads. */
 export interface ContractSeedMeta {
   rowCount: number;

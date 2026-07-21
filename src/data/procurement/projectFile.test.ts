@@ -19,6 +19,7 @@ import {
   displayLotNumberOf,
   foldContractsByLot,
   matchedContractTotal,
+  seeAllContractsHref,
   dedupContracts,
   dedupTenders,
   dedupFunds,
@@ -378,6 +379,29 @@ describe("matchedContractTotal — the 'search too broad' count (§4.1)", () => 
     expect(
       matchedContractTotal([seed(60, 40), seed(60, 9999, false)], 60),
     ).toBeNull();
+  });
+});
+
+describe("seeAllContractsHref — the 'view all' escape hatch (§4.1)", () => {
+  it("links terms + full corpus scope, URL-encoding the Cyrillic query", () => {
+    expect(seeAllContractsHref({ terms: "хемус" })).toBe(
+      "/procurement/contracts?q=%D1%85%D0%B5%D0%BC%D1%83%D1%81&pscope=all",
+    );
+  });
+  it("carries the thread's buyerEik through as ?awarder= so the buyer scope matches", () => {
+    expect(
+      seeAllContractsHref({ terms: "хемус", buyerEik: ["000695089"] }),
+    ).toBe(
+      "/procurement/contracts?q=%D1%85%D0%B5%D0%BC%D1%83%D1%81&pscope=all&awarder=000695089",
+    );
+  });
+  it("joins a multi-EIK buyer scope with a comma", () => {
+    const href = seeAllContractsHref({ terms: "x", buyerEik: ["1", "2"] });
+    expect(href).toContain("&awarder=1%2C2");
+  });
+  it("returns null when there is nothing to link (missing/blank terms)", () => {
+    expect(seeAllContractsHref(undefined)).toBeNull();
+    expect(seeAllContractsHref({ terms: "  " })).toBeNull();
   });
 });
 

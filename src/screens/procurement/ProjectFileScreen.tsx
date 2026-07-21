@@ -40,6 +40,7 @@ import {
   foldByPeriod,
   foldContractsByLot,
   matchInhouseContractors,
+  seeAllContractsHref,
   selectBroaderCandidates,
   siblingLotPolicy,
   withThreadTerms,
@@ -707,6 +708,10 @@ export const ProjectFileScreen = () => {
             // file. Falls back to the generic wording when the count is absent.
             const total = data.matchedTotal;
             const totalStr = total != null ? total.toLocaleString(loc) : null;
+            // "View all" escape hatch → the server-paginated contracts browser,
+            // scoped to match the ~M count (terms + full corpus + buyer). See
+            // seeAllContractsHref for the URL-contract rationale.
+            const seeAllHref = seeAllContractsHref(spec.search[0]);
             return (
               <div className="text-sm rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-2 my-3 text-amber-700 dark:text-amber-400">
                 {totalStr
@@ -716,6 +721,17 @@ export const ProjectFileScreen = () => {
                   : bg
                     ? "Търсенето е твърде общо — показани са само част от резултатите. Прецизирай думите или добави име на възложител."
                     : "The search is broad — only a slice is shown. Narrow the terms or add a buyer."}
+                {seeAllHref && (
+                  <>
+                    {" "}
+                    <Link
+                      to={seeAllHref}
+                      className="whitespace-nowrap font-medium underline"
+                    >
+                      {bg ? "Виж всички в търсачката →" : "See all in search →"}
+                    </Link>
+                  </>
+                )}
               </div>
             );
           })()}

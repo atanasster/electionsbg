@@ -63,6 +63,9 @@ export const ContractsBrowserDbScreen: FC = () => {
     () => getSectorBrowsePack(params.get("sector")),
     [params],
   );
+  // ?awarder=<eik,eik> — an explicit buyer scope (e.g. the project-file "see all"
+  // banner carries its thread's buyerEik so the browser matches the count shown).
+  const awarderParam = params.get("awarder");
 
   // The parliament window is the base temporal bound (exclusive end ≈ inclusive
   // max, off by ≤1 day — fine for a browser). "All years" drops it.
@@ -112,8 +115,19 @@ export const ContractsBrowserDbScreen: FC = () => {
       });
     // Restrict to the sector's awarder EIK-set (awarder_eik IN …).
     if (browsePack) f.push({ id: "awarder_eik", value: [...browsePack.eiks] });
+    // A deep-link can scope to a buyer set via ?awarder=<eik,eik> (e.g. the
+    // project-file "see all" banner mirrors its thread's buyerEik so the
+    // destination matches the buyer-scoped count that produced the link). Only
+    // when no sector pack already set the awarder scope.
+    else if (awarderParam) {
+      const eiks = awarderParam
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean);
+      if (eiks.length) f.push({ id: "awarder_eik", value: eiks });
+    }
     return f;
-  }, [windowFilter, singleBidder, method, cpvDiv, browsePack]);
+  }, [windowFilter, singleBidder, method, cpvDiv, browsePack, awarderParam]);
 
   const columns = useMemo<DataTableColumnDef<ProcurementContract, unknown>[]>(
     () => [
