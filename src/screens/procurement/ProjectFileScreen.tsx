@@ -1305,6 +1305,11 @@ const ContractRow = ({
         className="w-2 h-2 rounded-full shrink-0"
         style={{ background: "#1D9E75" }}
       />
+      {c.date && (
+        <span className="shrink-0 text-xs text-muted-foreground tabular-nums">
+          {c.date}
+        </span>
+      )}
       {c.contractorEik ? (
         <Link
           to={`/company/${c.contractorEik}`}

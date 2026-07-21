@@ -82,6 +82,32 @@ export const IndicatorsEconomyScreen = () => {
     return { label, value, sourceUrl: m.sourceUrl };
   }, [macro, lang]);
 
+  // Labour-market slack: the broad "true unemployment" measure (annual). We
+  // pair the latest reading with its multiple over the headline unemployment
+  // rate for the same year (annual mean of the SA quarters) — a like-for-like
+  // rate ratio, though slack's denominator is the extended labour force (noted
+  // in the caption). Rendered as a contextual callout, never a chart line.
+  const labourSlackCallout = useMemo(() => {
+    const slackSeries = macro?.series.labourSlack;
+    if (!slackSeries?.length) return null;
+    const slack = slackSeries[slackSeries.length - 1];
+    const fmt = (v: number) =>
+      v.toFixed(1).replace(".", lang === "bg" ? "," : ".");
+    const sameYear = (macro?.series.unemployment ?? []).filter(
+      (p) => p.year === slack.year,
+    );
+    const unempAvg = sameYear.length
+      ? sameYear.reduce((s, p) => s + p.value, 0) / sameYear.length
+      : null;
+    const ratio = unempAvg && unempAvg > 0 ? slack.value / unempAvg : null;
+    return {
+      year: slack.year,
+      value: fmt(slack.value),
+      unemp: unempAvg != null ? fmt(unempAvg) : null,
+      ratio: ratio != null ? fmt(ratio) : null,
+    };
+  }, [macro, lang]);
+
   if (!governments) {
     return (
       <div className="pb-12">
@@ -161,7 +187,58 @@ export const IndicatorsEconomyScreen = () => {
           peerOverlay={peerOverlay}
           peerCompareEnabled={compare}
         />
-        {unemploymentMonthly && economyEnabled.unemployment ? (
+      </section>
+
+      <section className="mb-10">
+        <h2 className="text-lg font-semibold mb-3">
+          {t("governments_chart_labour")}
+        </h2>
+        <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
+          {t("governments_chart_labour_explainer")}
+        </p>
+        <ChartSources
+          prefix={t("governments_chart_sources_prefix")}
+          sources={[
+            {
+              href: "https://ec.europa.eu/eurostat/databrowser/view/lfsi_emp_q/default/table",
+              label:
+                "Eurostat lfsi_emp_q (employment + activity rate, 20-64, quarterly SA)",
+            },
+            {
+              href: "https://ec.europa.eu/eurostat/databrowser/view/une_rt_q/default/table",
+              label: "Eurostat une_rt_q (unemployment rate, quarterly SA)",
+            },
+            {
+              href: "https://ec.europa.eu/eurostat/databrowser/view/lfsi_sla_a/default/table",
+              label: "Eurostat lfsi_sla_a (labour market slack, 20-64, annual)",
+            },
+          ]}
+        />
+
+        <h3 className="text-sm font-medium text-muted-foreground mt-4 mb-1">
+          {t("governments_chart_labour_participation")}
+        </h3>
+        <GovernmentTimeline
+          governments={governments}
+          macro={macro}
+          indicatorKeys={["employmentRate", "activityRate"]}
+          yAxisFormatter={(v) => `${v}`}
+          unitFormatter={(_k, v) => `${v.toFixed(1)}%`}
+          height={300}
+        />
+
+        <h3 className="text-sm font-medium text-muted-foreground mt-6 mb-1">
+          {t("governments_chart_labour_unemployment")}
+        </h3>
+        <GovernmentTimeline
+          governments={governments}
+          macro={macro}
+          indicatorKeys={["unemployment", "youthUnemployment"]}
+          yAxisFormatter={(v) => `${v}`}
+          unitFormatter={(_k, v) => `${v.toFixed(1)}%`}
+          height={300}
+        />
+        {unemploymentMonthly ? (
           <p className="mt-2 text-xs text-muted-foreground max-w-3xl">
             {t("indicators_unemployment_monthly_latest", {
               label: unemploymentMonthly.label,
@@ -175,6 +252,21 @@ export const IndicatorsEconomyScreen = () => {
             >
               une_rt_m
             </a>
+          </p>
+        ) : null}
+        {labourSlackCallout ? (
+          <p className="mt-3 text-xs text-muted-foreground max-w-3xl border-l-2 border-border pl-3">
+            {t(
+              labourSlackCallout.ratio
+                ? "indicators_labour_slack"
+                : "indicators_labour_slack_short",
+              {
+                year: labourSlackCallout.year,
+                value: labourSlackCallout.value,
+                ratio: labourSlackCallout.ratio,
+                unemp: labourSlackCallout.unemp,
+              },
+            )}
           </p>
         ) : null}
       </section>

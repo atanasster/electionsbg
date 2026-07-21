@@ -6,6 +6,11 @@ export type MacroIndicatorKey =
   | "gdpGrowth"
   | "inflation"
   | "unemployment"
+  // Eurostat — labour market (quarterly SA employment/activity rate; slack
+  // annual, % of extended labour force)
+  | "employmentRate"
+  | "activityRate"
+  | "labourSlack"
   // Eurostat — fiscal / external (quarterly)
   | "govDebt"
   | "budgetBalance"

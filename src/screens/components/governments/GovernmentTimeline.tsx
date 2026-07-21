@@ -82,6 +82,11 @@ const SERIES_COLORS: Record<MacroIndicatorKey, string> = {
   gdpGrowth: "#10b981",
   inflation: "#ef4444",
   unemployment: "#3b82f6",
+  // labour market — participation panel (teal/violet, high mutual contrast);
+  // labourSlack is a callout, never a chart line, but the palette map is total.
+  employmentRate: "#0d9488",
+  activityRate: "#7c3aed",
+  labourSlack: "#b45309",
   gdpPerCapita: "#a855f7",
   nominalGdp: "#d946ef",
   // fiscal / external
@@ -114,8 +119,10 @@ const SERIES_COLORS: Record<MacroIndicatorKey, string> = {
   // sentiment (different scales — own chart)
   consumerConfidence: "#38bdf8",
   economicSentiment: "#4f46e5",
-  // social
-  youthUnemployment: "#1d4ed8",
+  // social — youth unemployment in orange so it contrasts with the blue
+  // total-unemployment line when both share the labour-market panel (it
+  // renders solo elsewhere, where the hue is arbitrary).
+  youthUnemployment: "#ea580c",
   housePricesYoY: "#a16207",
   gini: "#7c3aed",
   povertyRate: "#be185d",
