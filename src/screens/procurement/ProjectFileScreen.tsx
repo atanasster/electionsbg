@@ -31,6 +31,7 @@ import {
   foldByPeriod,
   matchInhouseContractors,
   selectBroaderCandidates,
+  siblingLotPolicy,
   withThreadTerms,
   withAddedThread,
   withoutThread,
@@ -886,6 +887,42 @@ export const ProjectFileScreen = () => {
                   </button>
                 )}
               </div>
+              {/* Procedure прогнозна (estimated) value vs Σ contracted of its
+                  member contracts. The delta is shown ONLY when all lots are
+                  included (siblingLotPolicy 'all') — for a many-lot framework the
+                  whole-tender estimate covers lots we didn't include, so the % would
+                  mislead; there we show the estimate alone. */}
+              {(() => {
+                const est = r.tender?.estimatedValueEur;
+                if (est == null || est <= 0) return null;
+                const contracted = r.contracts.reduce(
+                  (s, c) =>
+                    (c.tag ?? "contract") === "contract"
+                      ? s + (c.amountEur ?? 0)
+                      : s,
+                  0,
+                );
+                const comparable =
+                  siblingLotPolicy(r.tender?.lotsCount) === "all" &&
+                  contracted > 0;
+                const pct = comparable
+                  ? Math.round((contracted / est) * 100)
+                  : null;
+                return (
+                  <div className="mt-0.5 text-xs text-muted-foreground">
+                    {bg ? "прогнозна " : "estimated "}
+                    {money(est)}
+                    {comparable && (
+                      <>
+                        {" · "}
+                        {bg ? "договорено " : "contracted "}
+                        {money(contracted)}
+                        {pct != null && ` (${pct}%)`}
+                      </>
+                    )}
+                  </div>
+                );
+              })()}
               <div className="mt-2 flex flex-col gap-2 pl-3">
                 {r.contracts.map((c) => (
                   <ContractRow
