@@ -8,7 +8,8 @@
 import { useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArticleLayout } from "@/components/article/ArticleLayout";
+import { Title } from "@/ux/Title";
+import { ProcurementBreadcrumb } from "@/screens/components/procurement/ProcurementBreadcrumb";
 import { formatEurCompact } from "@/lib/currency";
 import type { ProcurementContract } from "@/data/dataTypes";
 import {
@@ -420,16 +421,22 @@ export const ProjectFileScreen = () => {
   };
 
   return (
-    <ArticleLayout
-      title={title}
-      breadcrumb={{
-        to: "/procurement",
-        label: bg ? "Обществени поръчки" : "Public procurement",
-      }}
-      seoType="website"
-    >
+    <>
+      <Title
+        description={
+          bg
+            ? "Проследи един публичен проект през обществените поръчки."
+            : "Track one public project across procurement."
+        }
+      >
+        {title}
+      </Title>
+      <ProcurementBreadcrumb
+        current={spec ? title : bg ? "Проектни досиета" : "Project files"}
+        className="my-3"
+      />
       {body()}
-    </ArticleLayout>
+    </>
   );
 };
 
