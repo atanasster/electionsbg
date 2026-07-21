@@ -10,14 +10,17 @@
 //     header. When nothing fired it reads as "no red flags · N checks passed"
 //     rather than a bare dash.
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   AlertTriangle,
   Ban,
+  Check,
+  ChevronDown,
   Gavel,
   Landmark,
   Link as LinkIcon,
+  Minus,
   Repeat,
   Scissors,
   ShieldCheck,
@@ -26,11 +29,123 @@ import {
   TrendingUp,
   Users,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { Tooltip } from "@/ux/Tooltip";
 import { formatEurCompact } from "@/lib/currency";
 import { formatShare, criColor } from "@/lib/riskGrade";
 import { SignalPill } from "@/screens/components/procurement/SignalPill";
 import type { ContractRiskResult } from "@/data/procurement/useContractRiskFlags";
+import type { RiskComponentKey } from "@/data/procurement/computeProcurementRisk";
+
+/** The full applicable-check catalogue, ordered heaviest-first so the explained
+ *  list reads worst-to-least within each state bucket. Each entry maps a check
+ *  to its human label (`_long`), the "why this matters" line (`_hint`), the
+ *  reason it can be unavailable (`naReasonKey`), and an optional source ref. */
+type CheckMeta = {
+  key: RiskComponentKey;
+  icon: LucideIcon;
+  labelKey: string;
+  whyKey: string;
+  naReasonKey: string;
+  ref?: string;
+};
+
+const CHECK_CATALOG: CheckMeta[] = [
+  {
+    key: "debarred",
+    icon: Ban,
+    labelKey: "risk_flag_debarred_long",
+    whyKey: "risk_flag_debarred_hint",
+    naReasonKey: "risk_na_generic",
+    ref: "АОП",
+  },
+  {
+    key: "appealUpheld",
+    icon: Gavel,
+    labelKey: "risk_flag_appeal_upheld_long",
+    whyKey: "risk_flag_appeal_upheld_hint",
+    naReasonKey: "risk_na_appeal_upheld",
+    ref: "КЗК",
+  },
+  {
+    key: "mpConnected",
+    icon: LinkIcon,
+    labelKey: "risk_flag_mp_connected_long",
+    whyKey: "risk_flag_mp_connected_hint",
+    naReasonKey: "risk_na_generic",
+  },
+  {
+    key: "weakCompetition",
+    icon: Users,
+    labelKey: "risk_flag_weak_competition_long",
+    whyKey: "risk_flag_weak_competition_hint",
+    naReasonKey: "risk_na_weak_competition",
+    ref: "Fazekas / GTI",
+  },
+  {
+    key: "pepConnected",
+    icon: Landmark,
+    labelKey: "risk_flag_pep_connected_long",
+    whyKey: "risk_flag_pep_connected_hint",
+    naReasonKey: "risk_na_pep_connected",
+  },
+  {
+    key: "awarderConcentration",
+    icon: AlertTriangle,
+    labelKey: "risk_flag_concentration_long",
+    whyKey: "risk_flag_concentration_hint",
+    naReasonKey: "risk_na_generic",
+    ref: "Fazekas / GTI",
+  },
+  {
+    key: "annexGrowth",
+    icon: TrendingUp,
+    labelKey: "risk_flag_annex_growth_long",
+    whyKey: "risk_flag_annex_growth_hint",
+    naReasonKey: "risk_na_annex_growth",
+    ref: "ЗОП чл.116 ал.2",
+  },
+  {
+    key: "newFirmWinner",
+    icon: Sparkles,
+    labelKey: "risk_flag_new_firm_long",
+    whyKey: "risk_flag_new_firm_hint",
+    naReasonKey: "risk_na_new_firm",
+    ref: "K-Index P4",
+  },
+  {
+    key: "splitPurchase",
+    icon: Scissors,
+    labelKey: "risk_flag_split_long",
+    whyKey: "risk_flag_split_hint",
+    naReasonKey: "risk_na_generic",
+    ref: "ЗОП чл.20 ал.4",
+  },
+  {
+    key: "directAward",
+    icon: Gavel,
+    labelKey: "risk_flag_direct_award_long",
+    whyKey: "risk_flag_direct_award_hint",
+    naReasonKey: "risk_na_direct_award",
+    ref: "Fazekas / GTI",
+  },
+  {
+    key: "shortTenderPeriod",
+    icon: Timer,
+    labelKey: "risk_flag_short_period_long",
+    whyKey: "risk_flag_short_period_hint",
+    naReasonKey: "risk_na_short_period",
+    ref: "ЕС 2014/24 чл.27",
+  },
+  {
+    key: "amendment",
+    icon: Repeat,
+    labelKey: "risk_flag_amendment_long",
+    whyKey: "risk_flag_amendment_hint",
+    naReasonKey: "risk_na_generic",
+    ref: "ЗОП чл.116",
+  },
+];
 
 type Props = {
   result: ContractRiskResult;
@@ -41,6 +156,7 @@ type Props = {
 export const RiskBadges: FC<Props> = ({ result, variant = "chips" }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
+  const [open, setOpen] = useState(false);
   const { flags, cri, firedCount, availableCount, hasFlag } = result;
 
   if (!hasFlag && variant !== "full") {
@@ -357,48 +473,231 @@ export const RiskBadges: FC<Props> = ({ result, variant = "chips" }) => {
 
   if (variant !== "full") return chips;
 
-  // Explainable CRI meter for the detail header.
-  if (!hasFlag) {
+  // The concrete datum shown as a pill next to a fired check (share %, bid
+  // count, annex growth, firm age, tender days, split size).
+  const bidWord = (n: number) =>
+    n === 1
+      ? lang === "bg"
+        ? "оферта"
+        : "bid"
+      : lang === "bg"
+        ? "оферти"
+        : "bids";
+  const firedValue = (key: RiskComponentKey): string | null => {
+    switch (key) {
+      case "awarderConcentration":
+        return flags.awarderConcentration
+          ? formatShare(flags.awarderConcentration.sharePct, lang)
+          : null;
+      case "weakCompetition":
+        return flags.bidCount != null
+          ? `${flags.bidCount} ${bidWord(flags.bidCount)}`
+          : null;
+      case "annexGrowth":
+        return flags.annexGrowthPct != null
+          ? `+${formatShare(flags.annexGrowthPct, lang)}`
+          : null;
+      case "newFirmWinner":
+        return flags.newFirmMonths != null
+          ? `${flags.newFirmMonths} ${t("risk_flag_new_firm_months") || "mo"}`
+          : null;
+      case "shortTenderPeriod":
+        return flags.tenderPeriodDays != null
+          ? `${flags.tenderPeriodDays}${t("risk_flag_short_period_days_abbr") || "d"}`
+          : null;
+      case "splitPurchase":
+        return flags.splitPurchase
+          ? `${flags.splitPurchase.contractCount}×`
+          : null;
+      default:
+        return null;
+    }
+  };
+
+  // Explained, collapsed-by-default check ledger for the detail header. The
+  // summary line ("N of M applicable checks") IS the toggle; rows are sorted
+  // fired → passed → not-applicable, catalogue order (severity) breaking ties.
+  const byKey = new Map(result.components.map((c) => [c.key, c]));
+  const stateRank = (key: RiskComponentKey) => {
+    const c = byKey.get(key);
+    if (!c || !c.available) return 2;
+    return c.fired ? 0 : 1;
+  };
+  const rows = [...CHECK_CATALOG].sort(
+    (a, b) => stateRank(a.key) - stateRank(b.key),
+  );
+
+  // Nothing evaluable (never happens in practice — 5 checks are always
+  // available — but keep a static fallback rather than an empty toggle).
+  if (availableCount === 0) {
     return (
       <div className="inline-flex items-center gap-1.5 text-sm text-emerald-700 dark:text-emerald-300">
         <ShieldCheck className="h-4 w-4" />
-        <span>
-          {t("risk_cri_clear") || "No flags fired"}
-          {availableCount > 0 ? (
-            <span className="text-muted-foreground">
-              {" · "}
-              {availableCount}{" "}
-              {t("risk_cri_checks_passed") || "automated checks, none fired"}
-            </span>
-          ) : null}
-        </span>
+        <span>{t("risk_cri_clear") || "No flags fired"}</span>
       </div>
     );
   }
 
+  // One cell per applicable check (the "M" denominator), fired-first: red for
+  // the authoritative flags (debarred / КЗК-upheld), amber for review signals,
+  // emerald for a passed check. Previews the ledger without opening it.
+  const isAuthoritative = (key: RiskComponentKey) =>
+    key === "debarred" || key === "appealUpheld";
+  const cellRank = (c: (typeof result.components)[number]) =>
+    c.fired ? (isAuthoritative(c.key) ? 0 : 1) : 2;
+  const cells = result.components
+    .filter((c) => c.available)
+    .sort((a, b) => cellRank(a) - cellRank(b));
+
   return (
     <div className="space-y-2">
-      <div className="flex items-center gap-2 flex-wrap">
-        <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-          {t("risk_cri_label") || "Flags fired"}
-        </span>
-        <span
-          className="text-base font-bold tabular-nums"
-          style={{ color: criColor(cri) }}
-        >
-          {firedCount} {t("risk_cri_of") || "of"} {availableCount}
-        </span>
-        <span className="text-xs text-muted-foreground">
-          {t("risk_cri_checks") || "applicable checks"}
-        </span>
-      </div>
-      <div className="h-1.5 w-full max-w-[240px] overflow-hidden rounded-full bg-muted">
-        <div
-          className="h-full rounded-full"
-          style={{ width: `${cri}%`, backgroundColor: criColor(cri) }}
+      <button
+        type="button"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        className="group flex w-full flex-wrap items-center gap-2 text-left"
+      >
+        <ChevronDown
+          className={`h-4 w-4 shrink-0 text-muted-foreground transition-transform ${open ? "rotate-180" : ""}`}
+          aria-hidden
         />
-      </div>
-      {chips}
+        {hasFlag ? (
+          <>
+            <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+              {t("risk_cri_label") || "Flags fired"}
+            </span>
+            <span
+              className="text-base font-bold tabular-nums"
+              style={{ color: criColor(cri) }}
+            >
+              {firedCount} {t("risk_cri_of") || "of"} {availableCount}
+            </span>
+            <span className="text-xs text-muted-foreground">
+              {t("risk_cri_checks") || "applicable checks"}
+            </span>
+          </>
+        ) : (
+          <>
+            <ShieldCheck
+              className="h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400"
+              aria-hidden
+            />
+            <span className="text-sm text-emerald-700 dark:text-emerald-300">
+              {t("risk_cri_clear") || "No flags fired"}
+            </span>
+            <span className="text-xs text-muted-foreground">
+              {" · "}
+              {availableCount} {t("risk_cri_checks") || "applicable checks"}
+            </span>
+          </>
+        )}
+        <span className="ml-auto flex items-center gap-[3px]" aria-hidden>
+          {cells.map((c, i) => (
+            <span
+              key={`${c.key}-${i}`}
+              className={`h-2 w-3 rounded-[2px] ${
+                c.fired
+                  ? isAuthoritative(c.key)
+                    ? "bg-red-500"
+                    : "bg-amber-500"
+                  : "bg-emerald-500"
+              }`}
+            />
+          ))}
+        </span>
+      </button>
+
+      {open ? (
+        <div className="rounded-lg border border-border bg-muted/30 p-3">
+          <p className="mb-2 text-xs leading-relaxed text-muted-foreground">
+            {t("risk_explain_intro") ||
+              "Automated risk indicators — descriptive, not a verdict. Each compares this contract against the market norm."}
+          </p>
+          {rows.map((item) => {
+            const comp = byKey.get(item.key);
+            const state: "fired" | "pass" | "na" = !comp?.available
+              ? "na"
+              : comp.fired
+                ? "fired"
+                : "pass";
+            const authoritative =
+              item.key === "debarred" || item.key === "appealUpheld";
+            const Icon =
+              state === "fired" ? item.icon : state === "pass" ? Check : Minus;
+            const iconCls =
+              state === "fired"
+                ? authoritative
+                  ? "text-red-600 dark:text-red-400"
+                  : "text-amber-600 dark:text-amber-400"
+                : state === "pass"
+                  ? "text-emerald-600 dark:text-emerald-400"
+                  : "text-muted-foreground/60";
+            const value = state === "fired" ? firedValue(item.key) : null;
+            return (
+              <div
+                key={item.key}
+                className="flex items-start gap-2 border-t border-border/60 py-2 first:border-t-0"
+              >
+                <Icon
+                  className={`mt-0.5 h-4 w-4 shrink-0 ${iconCls}`}
+                  aria-hidden
+                />
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <span
+                      className={`text-sm ${state === "na" ? "text-muted-foreground" : "text-foreground"}`}
+                    >
+                      {t(item.labelKey)}
+                    </span>
+                    {value ? (
+                      <span
+                        className={`rounded-full px-1.5 py-0.5 text-[11px] font-medium tabular-nums ${
+                          authoritative
+                            ? "bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-300"
+                            : "bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-300"
+                        }`}
+                      >
+                        {value}
+                      </span>
+                    ) : null}
+                    {state === "na" ? (
+                      <span className="rounded-full border border-border px-1.5 py-0.5 text-[11px] text-muted-foreground">
+                        {t("risk_na") || "not applicable"}
+                      </span>
+                    ) : null}
+                  </div>
+                  <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
+                    {t(item.whyKey)}
+                    {item.ref ? (
+                      <span className="text-muted-foreground/70">
+                        {" · "}
+                        {item.ref}
+                      </span>
+                    ) : null}
+                  </p>
+                  {state === "na" ? (
+                    <p className="mt-0.5 text-xs text-muted-foreground/70">
+                      {t(item.naReasonKey)}
+                    </p>
+                  ) : null}
+                  {item.key === "debarred" &&
+                  state === "fired" &&
+                  flags.debarred?.detailsUrl ? (
+                    <a
+                      href={flags.debarred.detailsUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mt-0.5 inline-block text-xs text-primary hover:underline"
+                    >
+                      {t("risk_flag_debarred_source") || "КЗК decision (PDF)"}
+                    </a>
+                  ) : null}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      ) : null}
     </div>
   );
 };
