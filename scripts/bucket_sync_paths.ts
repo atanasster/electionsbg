@@ -58,14 +58,19 @@ const isExcluded = (rel: string): string | null => {
     return "parliament/company-connections/ is PG-served";
   if (rel === "procurement" || rel.startsWith("procurement/")) {
     // Keep in sync with bucket:sync's -x regex allow-list in package.json.
+    // procurement/projects/ is the exception: small static curated-project
+    // files (the /procurement/project hub gallery) that ARE bucket-served,
+    // not part of the PG-served corpus.
     const allowed = [
       "procurement/roads.json",
       "procurement/derived/mp_party.json",
       "procurement/derived/hub_stats.json",
       "procurement/derived/sector_stats.json",
     ];
-    if (!allowed.includes(rel))
-      return `procurement/ is served from Cloud SQL — only ${allowed.join(", ")} belong on the bucket`;
+    const isProjects =
+      rel === "procurement/projects" || rel.startsWith("procurement/projects/");
+    if (!isProjects && !allowed.includes(rel))
+      return `procurement/ is served from Cloud SQL — only ${allowed.join(", ")} + procurement/projects/ belong on the bucket`;
   }
   return null;
 };
