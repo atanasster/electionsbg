@@ -68,10 +68,14 @@ export const EntityRiskGradeCard: FC<{ grade: EntityRiskGrade | null }> = ({
   return (
     <Card className={tone.ring}>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-base">
-          <ShieldAlert className="h-4 w-4" />
-          {t("risk_grade_title") || "Procurement risk grade"}
-          <span className="text-xs font-normal text-muted-foreground">
+        <CardTitle className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-base">
+          <span className="flex items-center gap-2">
+            <ShieldAlert className="h-4 w-4" />
+            {t("risk_grade_title") || "Procurement risk grade"}
+          </span>
+          <span
+            className={`rounded-full border px-2 py-0.5 text-xs font-semibold ${tone.ring} ${tone.bg} ${tone.text}`}
+          >
             {roleLabel}
           </span>
         </CardTitle>
