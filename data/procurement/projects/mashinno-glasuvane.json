@@ -1,0 +1,20 @@
+{
+  "title": {
+    "bg": "Машинно гласуване (СУЕМГ)",
+    "en": "Machine voting (SUEMG)"
+  },
+  "thesis": {
+    "bg": "Разходът за машинно гласуване и хартиени бюлетини по избори — и колко от него отива към един изпълнител.",
+    "en": "The cost of machine voting and paper ballots across election cycles — and how much of it goes to a single supplier."
+  },
+  "authority": "Централна избирателна комисия",
+  "search": [
+    { "terms": "суемг", "distinctive": ["суемг"] },
+    { "terms": "хартиени бюлетини", "distinctive": ["бюлетини"] }
+  ],
+  "recurrence": {
+    "by": "cycle",
+    "label": { "bg": "По избори", "en": "By election" }
+  },
+  "verifiedAt": "2026-07-21"
+}
