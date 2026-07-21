@@ -17,6 +17,7 @@ import { PersonMpSections } from "./PersonMpSections";
 import { PersonOfficialAssets } from "./PersonOfficialAssets";
 import { PersonMoneyTimeline } from "./PersonMoneyTimeline";
 import { PersonCompanies } from "./PersonCompanies";
+import { PersonMagistrateHoldingsTile } from "@/screens/components/procurement/PersonMagistrateHoldingsTile";
 import { useTranslation } from "react-i18next";
 import {
   Coins,
@@ -149,10 +150,15 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
     place?: string | null;
     sourceLabel: string;
   }): string => {
-    if (r.source === "local") return roleLabel(r.role);
     if (r.source === "magistrate") {
       const k = magistrateRoleKey(r.place);
-      if (k) return t(k);
+      return k ? t(k) : r.sourceLabel;
+    }
+    // local + officials: the SPECIFIC role (Кмет / Член на кабинета / Зам.-кмет…) is the most
+    // informative heading; fall back to the source label (an MP, or an unlabelled role).
+    if (r.role && r.role !== "official") {
+      const label = roleLabel(r.role);
+      if (label !== r.role) return label;
     }
     return r.sourceLabel;
   };
@@ -343,6 +349,13 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
         <PersonOfficialAssets slug={officialSlug} />
       )}
 
+      {/* Magistrate: the ИВСС declaration (court/position, declared wealth + companies) — the
+          judiciary counterpart to the officials' assets block. Name-matched, so it self-hides
+          when nothing matches. */}
+      {p.roles.some((r) => r.source === "magistrate") && (
+        <PersonMagistrateHoldingsTile name={p.name} />
+      )}
+
       {/* Offices held */}
       {offices.length > 0 && (
         <DashboardSection
@@ -357,19 +370,10 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
                   key={`${r.source}:${r.ref}:${r.role}`}
                   className="flex items-baseline justify-between gap-3 border-b border-border/50 pb-2 last:border-0 last:pb-0"
                 >
-                  <span className="text-sm">
-                    <span className="font-medium">{officeHeading(r)}</span>
-                    {/* The role code adds signal for officials (councillor / mayor / chair);
-                      for mp & magistrate the source label already says it; local shows the
-                      role AS the heading (Кмет / Общински съветник). */}
-                    {r.source.startsWith("official") &&
-                      r.role &&
-                      r.role !== "official" && (
-                        <span className="text-muted-foreground">
-                          {" "}
-                          · {roleLabel(r.role)}
-                        </span>
-                      )}
+                  {/* The specific role IS the heading now (Кмет / Член на кабинета / Съдия…),
+                      so no separate role code is appended. */}
+                  <span className="text-sm font-medium">
+                    {officeHeading(r)}
                   </span>
                   {r.place && (
                     <span className="shrink-0 text-xs text-muted-foreground">
