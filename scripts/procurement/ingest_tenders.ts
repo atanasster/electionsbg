@@ -49,6 +49,14 @@ const CACHE_DIR = path.resolve(
   __dirname,
   "../../raw_data/procurement/eop_tenders",
 );
+// Pre-2020 РОП backfill day-caches (synthetic EopTenderRecord[] per day, written
+// by ingest_rop_tenders.ts from the aop.bg cases search). Merged into the same
+// rebuild so the tenders tree spans РОП (pre-2020) + ЦАИС ЕОП (2020→). УНП spaces
+// are disjoint across the boundary, so no procedure is double-counted.
+const ROP_CACHE_DIR = path.resolve(
+  __dirname,
+  "../../raw_data/procurement/rop_tenders",
+);
 
 // 2 hex chars → 256 shards. УНП is sha256-hashed for a uniform spread (raw УНП
 // prefixes are the buyer code → wildly uneven). Mirrors by_id_shards.ts.
@@ -473,7 +481,8 @@ const buildIndex = (tenders: Tender[], months: string[]): TendersIndex => {
 
   return {
     generatedAt: new Date().toISOString(),
-    source: "ЦАИС ЕОП (storage.eop.bg) — open-data поръчки feed",
+    source:
+      "ЦАИС ЕОП (storage.eop.bg) — open-data поръчки feed; pre-2020 procedures backfilled from РОП (aop.bg cases register)",
     valueSemantics:
       "estimatedValueEur is a FORECAST (прогнозна стойност), not contracted spend. Never sum it into contracted totals.",
     coverage: {
@@ -509,27 +518,32 @@ const collectCachedRecords = (): {
   const dated: { day: string; rec: EopTenderRecord }[] = [];
   const months = new Set<string>();
   let cachedDays = 0;
-  if (!fs.existsSync(CACHE_DIR)) return { dated, cachedDays, months };
-  for (const f of fs.readdirSync(CACHE_DIR).sort()) {
-    if (!f.endsWith(".json.gz")) continue;
-    cachedDays++;
-    const day = f.replace(".json.gz", "");
-    // A partially-written .json.gz (process killed mid-write) must not abort the
-    // whole rebuild — skip the one bad day and keep every other (mirrors
-    // build_alerts.ts::readJson swallowing parse errors).
-    let recs: EopTenderRecord[];
-    try {
-      recs = JSON.parse(
-        zlib
-          .gunzipSync(fs.readFileSync(path.join(CACHE_DIR, f)))
-          .toString("utf8"),
-      ) as EopTenderRecord[];
-    } catch (e) {
-      console.log(`  ! skipping corrupt cache ${f}: ${(e as Error).message}`);
-      continue;
+  const seenDays = new Set<string>();
+  // Read the live ЦАИС cache first, then the РОП backfill cache. A day present in
+  // both (should not happen — disjoint date ranges) keeps the ЦАИС copy.
+  for (const dir of [CACHE_DIR, ROP_CACHE_DIR]) {
+    if (!fs.existsSync(dir)) continue;
+    for (const f of fs.readdirSync(dir).sort()) {
+      if (!f.endsWith(".json.gz")) continue;
+      const day = f.replace(".json.gz", "");
+      if (seenDays.has(day)) continue;
+      seenDays.add(day);
+      cachedDays++;
+      // A partially-written .json.gz (process killed mid-write) must not abort the
+      // whole rebuild — skip the one bad day and keep every other (mirrors
+      // build_alerts.ts::readJson swallowing parse errors).
+      let recs: EopTenderRecord[];
+      try {
+        recs = JSON.parse(
+          zlib.gunzipSync(fs.readFileSync(path.join(dir, f))).toString("utf8"),
+        ) as EopTenderRecord[];
+      } catch (e) {
+        console.log(`  ! skipping corrupt cache ${f}: ${(e as Error).message}`);
+        continue;
+      }
+      if (recs.length > 0) months.add(day.slice(0, 7));
+      for (const rec of recs) dated.push({ day, rec });
     }
-    if (recs.length > 0) months.add(day.slice(0, 7));
-    for (const rec of recs) dated.push({ day, rec });
   }
   return { dated, cachedDays, months };
 };

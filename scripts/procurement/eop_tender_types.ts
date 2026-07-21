@@ -39,6 +39,12 @@ export interface EopTenderRecord {
   changeNoticeDocuments?: unknown;
   linkToOjEu?: string;
   isLot?: string; // "Да" (lot row) | "Не" (procedure row)
+  // Non-feed passthrough: set only by the pre-2020 РОП backfill
+  // (ingest_rop_tenders.ts), whose records come from the aop.bg cases search, not
+  // storage.eop.bg. Lets the normalizer cite the real source URL instead of the
+  // storage.eop.bg day bucket (which 404s for pre-2020). The live ЦАИС feed never
+  // sets this, so its citations are unchanged.
+  sourceUrl?: string;
 }
 
 // The feed's daily-bucket filename pattern + object URL. Lives here (one place)

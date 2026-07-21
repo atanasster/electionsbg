@@ -271,7 +271,9 @@ export const buildTenders = (
       linkToOjEu: trimOr(p.linkToOjEu),
       changeNoticeCount: toInt(p.changeNoticeCount),
       sourceDay: head.day,
-      sourceUrl: dayUrl(head.day),
+      // Pre-2020 РОП rows carry their own aop.bg cases-search URL; the live ЦАИС
+      // feed leaves it unset and falls back to the storage.eop.bg day bucket.
+      sourceUrl: trimOr(p.sourceUrl) ?? dayUrl(head.day),
     });
     stats.proceduresEmitted++;
     stats.lotsEmitted += lots.length;
