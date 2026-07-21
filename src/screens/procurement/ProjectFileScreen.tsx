@@ -716,21 +716,20 @@ export const ProjectFileScreen = () => {
         };
       return (
         <div className="mt-4">
-          <div className="max-w-2xl">
-            <p className="text-muted-foreground mb-3">
-              {bg
-                ? "Търси предмет на договор или процедура, за да сглобиш досие на един проект — или започни от публично обсъждана тема."
-                : "Search a contract or tender subject to assemble a project's file — or start from a publicly-debated topic."}
-            </p>
-            <BuildForm
-              onSubmit={buildFromTerms}
-              bg={bg}
-              cta={bg ? "Създай досие" : "Create file"}
-              // A "Прецизирай думите" link lands here with ?refine=<terms> to
-              // pre-populate the box for editing.
-              initial={params.get("refine") ?? ""}
-            />
-          </div>
+          {/* prose stays a readable measure; the build row spans the full width */}
+          <p className="max-w-2xl text-muted-foreground mb-3">
+            {bg
+              ? "Търси предмет на договор или процедура, за да сглобиш досие на един проект — или започни от публично обсъждана тема."
+              : "Search a contract or tender subject to assemble a project's file — or start from a publicly-debated topic."}
+          </p>
+          <BuildForm
+            onSubmit={buildFromTerms}
+            bg={bg}
+            cta={bg ? "Създай досие" : "Create file"}
+            // A "Прецизирай думите" link lands here with ?refine=<terms> to
+            // pre-populate the box for editing.
+            initial={params.get("refine") ?? ""}
+          />
           <TileHubGrid sections={sections} className="mt-8" />
         </div>
       );
@@ -2277,10 +2276,11 @@ const BuildForm = ({
         onSubmit(terms, awarder);
       }}
     >
-      {/* terms + buyer + submit share one row on desktop, stack on mobile */}
+      {/* terms + buyer + submit fill one row on desktop (subject ~2× the buyer,
+          both flexible), stacking on mobile */}
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
         <input
-          className="rounded-md border px-3 py-1.5 text-sm bg-background sm:flex-1"
+          className="rounded-md border px-3 py-1.5 text-sm bg-background sm:min-w-0 sm:flex-[2]"
           value={terms}
           onChange={(e) => setTerms(e.target.value)}
           placeholder={
@@ -2293,10 +2293,10 @@ const BuildForm = ({
           value={awarder}
           onChange={setAwarder}
           bg={bg}
-          className="sm:w-72"
+          className="sm:min-w-0 sm:flex-1"
         />
         <button
-          className="rounded-md border px-3 py-1.5 text-sm hover:bg-muted"
+          className="shrink-0 rounded-md border px-3 py-1.5 text-sm hover:bg-muted"
           type="submit"
         >
           {cta}
