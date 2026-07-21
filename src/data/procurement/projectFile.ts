@@ -362,6 +362,76 @@ export function foldMembers(rows: readonly FoldInput[]): ProjectFold {
   };
 }
 
+export interface PeriodAgg {
+  period: string; // the calendar year, e.g. "2021"
+  totalEur: number;
+  contractCount: number;
+  topContractorName?: string;
+  topContractorEur: number;
+  methodMix: MethodMix;
+}
+
+/**
+ * Per-period rollup for a RECURRING project (§4.2.2b) — elections per cycle,
+ * annual maintenance, yearly IT support. The single lifecycle timeline can't show
+ * "all parliamentary printing 2016–2026"; this groups member spend rows by
+ * calendar year with Σ contracted, # contracts, the top contractor, and the
+ * method mix, sorted chronologically. Cycle-precise attribution (multiple
+ * elections in one year) would need per-contract election linkage we don't hold,
+ * so both `recurrence.by` modes bucket by year — the label differs in the UI.
+ */
+export function foldByPeriod(rows: readonly FoldInput[]): PeriodAgg[] {
+  const spend = dedupContracts(
+    rows.filter((r) => (r.tag ?? "contract") === "contract"),
+  );
+  const buckets = new Map<
+    string,
+    {
+      totalEur: number;
+      count: number;
+      methodMix: MethodMix;
+      contractors: Map<string, number>;
+    }
+  >();
+  for (const r of spend) {
+    const y = yearOf(r.date);
+    if (!y) continue;
+    const b = buckets.get(y) ?? {
+      totalEur: 0,
+      count: 0,
+      methodMix: { competitive: 0, nonCompetitive: 0, unspecified: 0 },
+      contractors: new Map<string, number>(),
+    };
+    const amt = r.amountEur ?? 0;
+    b.totalEur += amt;
+    b.count += 1;
+    b.methodMix[classifyMethod(r.procurementMethod)] += amt;
+    const name = r.contractorName || r.contractorEik;
+    if (name) b.contractors.set(name, (b.contractors.get(name) ?? 0) + amt);
+    buckets.set(y, b);
+  }
+  return [...buckets.entries()]
+    .map(([period, b]) => {
+      let topContractorName: string | undefined;
+      let topContractorEur = 0;
+      for (const [name, eur] of b.contractors) {
+        if (eur > topContractorEur) {
+          topContractorEur = eur;
+          topContractorName = name;
+        }
+      }
+      return {
+        period,
+        totalEur: b.totalEur,
+        contractCount: b.count,
+        topContractorName,
+        topContractorEur,
+        methodMix: b.methodMix,
+      };
+    })
+    .sort((a, b) => a.period.localeCompare(b.period));
+}
+
 /** Union-of-threads scoring: score a row against EVERY thread and keep the best
  *  (a row auto-includes if any thread is confident about it, §0f.2). */
 export function bestConfidence(

@@ -19,6 +19,7 @@ import {
   dedupContracts,
   dedupTenders,
   foldMembers,
+  foldByPeriod,
   DEFAULT_THRESHOLD,
   type SearchThread,
   type FoldInput,
@@ -377,5 +378,53 @@ describe("foldMembers — the money fold (§4.1 step 3)", () => {
     expect(f.contractorCount).toBe(2);
     expect(f.byYear["2020"]).toBe(461_400_000);
     expect(f.byYear["2015"]).toBe(39_500_000);
+  });
+});
+
+describe("foldByPeriod — recurring-project rollup (§4.2.2b)", () => {
+  const rows: FoldInput[] = [
+    {
+      key: "a",
+      tag: "contract",
+      amountEur: 100,
+      date: "2021-05-01",
+      procurementMethod: "Открита процедура",
+      contractorName: "Печатница А",
+    },
+    {
+      key: "b",
+      tag: "contract",
+      amountEur: 300,
+      date: "2021-09-01",
+      procurementMethod: "Договаряне без предварително обявление",
+      contractorName: "Сиела",
+    },
+    {
+      key: "c",
+      tag: "contract",
+      amountEur: 50,
+      date: "2016-03-01",
+      procurementMethod: "Открита процедура",
+      contractorName: "Печатница А",
+    },
+    // amendment + undated rows are excluded
+    { key: "d", tag: "contractAmendment", amountEur: 999, date: "2021-01-01" },
+    { key: "e", tag: "contract", amountEur: 7, date: null },
+  ];
+  it("groups spend by year, chronologically, with per-year totals and counts", () => {
+    const p = foldByPeriod(rows);
+    expect(p.map((x) => x.period)).toEqual(["2016", "2021"]);
+    expect(p[1].totalEur).toBe(400);
+    expect(p[1].contractCount).toBe(2);
+  });
+  it("picks the top contractor by Σ amount within the period", () => {
+    const p = foldByPeriod(rows);
+    expect(p[1].topContractorName).toBe("Сиела");
+    expect(p[1].topContractorEur).toBe(300);
+  });
+  it("splits the method mix per period", () => {
+    const p = foldByPeriod(rows);
+    expect(p[1].methodMix.competitive).toBe(100);
+    expect(p[1].methodMix.nonCompetitive).toBe(300);
   });
 });

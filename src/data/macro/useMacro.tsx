@@ -93,12 +93,28 @@ export type MacroIndicatorMeta = {
   attributionBg?: string;
 };
 
+// A fresher single reading pulled from a monthly Eurostat dataset, attached to
+// a quarterly series (currently only `unemployment`). The chart stays quarterly
+// but the UI can surface this newest month as a callout.
+export type MacroMonthlyLatest = {
+  period: string; // "YYYY-MM"
+  year: number;
+  month: number;
+  value: number;
+  seasonallyAdjusted: boolean;
+  datasetCode: string;
+  sourceUrl: string;
+};
+
 export type MacroPayload = {
   sources: Record<string, string>;
   fetchedAt: string;
   country: string;
   indicators: Record<MacroIndicatorKey, MacroIndicatorMeta>;
   series: Record<MacroIndicatorKey, MacroPoint[]>;
+  // Optional — absent on older data/macro.json before the monthly-latest
+  // garnish shipped. Keyed by MacroIndicatorKey.
+  latestMonthly?: Partial<Record<MacroIndicatorKey, MacroMonthlyLatest>>;
 };
 
 // Position a macro point on a fractional-year x-axis. Annual points sit at

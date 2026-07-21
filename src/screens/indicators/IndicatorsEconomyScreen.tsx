@@ -69,6 +69,19 @@ export const IndicatorsEconomyScreen = () => {
     [governments],
   );
 
+  // Fresher-than-quarterly headline for unemployment: the newest monthly SA
+  // reading (une_rt_m), rendered as a callout under the quarterly line.
+  const unemploymentMonthly = useMemo(() => {
+    const m = macro?.latestMonthly?.unemployment;
+    if (!m) return null;
+    const label = new Date(m.year, m.month - 1, 1).toLocaleDateString(
+      lang === "bg" ? "bg-BG" : "en-GB",
+      { month: "long", year: "numeric" },
+    );
+    const value = m.value.toFixed(1).replace(".", lang === "bg" ? "," : ".");
+    return { label, value, sourceUrl: m.sourceUrl };
+  }, [macro, lang]);
+
   if (!governments) {
     return (
       <div className="pb-12">
@@ -148,6 +161,22 @@ export const IndicatorsEconomyScreen = () => {
           peerOverlay={peerOverlay}
           peerCompareEnabled={compare}
         />
+        {unemploymentMonthly && economyEnabled.unemployment ? (
+          <p className="mt-2 text-xs text-muted-foreground max-w-3xl">
+            {t("indicators_unemployment_monthly_latest", {
+              label: unemploymentMonthly.label,
+              value: unemploymentMonthly.value,
+            })}{" "}
+            <a
+              href={unemploymentMonthly.sourceUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="underline hover:text-foreground"
+            >
+              une_rt_m
+            </a>
+          </p>
+        ) : null}
       </section>
 
       <section className="mb-10">

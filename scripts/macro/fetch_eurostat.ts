@@ -114,6 +114,56 @@ type CuratedIndicator = {
 
 type Indicator = EurostatIndicator | WorldBankIndicator | CuratedIndicator;
 
+// A single latest-reading pulled from a *monthly* Eurostat dataset, attached to
+// a quarterly series so the chart can show a fresher headline number than the
+// last completed quarter. The chart axis stays quarterly (some series — GDP,
+// labour income — have no monthly frequency at all), but for series that do
+// publish monthly (unemployment, HICP) we surface the newest month as a
+// callout. We store only the single most recent non-null point.
+type MonthlyLatestSpec = {
+  // Must match an existing quarterly series `key` in EUROSTAT_INDICATORS.
+  key: string;
+  dataset: string;
+  query: Record<string, string>;
+  // True when the monthly cut is seasonally adjusted (Eurostat's headline
+  // monthly unemployment is SA). Recorded so the UI can label it honestly —
+  // the quarterly line for BG unemployment is NSA.
+  seasonallyAdjusted: boolean;
+  sourceUrl: string;
+};
+
+// Eurostat headline monthly unemployment is SA, age TOTAL (= 15-74, matching
+// the quarterly line's population base), % of active population. This is the
+// internationally-cited "X%, lowest/highest in EU" figure.
+const MONTHLY_LATEST_SPECS: MonthlyLatestSpec[] = [
+  {
+    key: "unemployment",
+    dataset: "une_rt_m",
+    query: {
+      geo: "BG",
+      unit: "PC_ACT",
+      age: "TOTAL",
+      sex: "T",
+      s_adj: "SA",
+      freq: "M",
+    },
+    seasonallyAdjusted: true,
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/une_rt_m/default/table",
+  },
+];
+
+// The latest monthly reading we attach per series key.
+type MonthlyLatest = {
+  period: string; // "YYYY-MM"
+  year: number;
+  month: number;
+  value: number;
+  seasonallyAdjusted: boolean;
+  datasetCode: string;
+  sourceUrl: string;
+};
+
 const EUROSTAT_INDICATORS: EurostatIndicator[] = [
   {
     source: "eurostat",
@@ -1352,6 +1402,50 @@ const fetchEurostat = async (i: EurostatIndicator): Promise<MacroPoint[]> => {
   return out.sort((a, b) => a.year - b.year);
 };
 
+const fetchMonthlyLatest = async (
+  spec: MonthlyLatestSpec,
+): Promise<MonthlyLatest | null> => {
+  const params = new URLSearchParams({ format: "JSON", lang: "EN" });
+  for (const [k, v] of Object.entries(spec.query)) params.append(k, v);
+  const url = `${EUROSTAT_BASE}/${spec.dataset}?${params.toString()}`;
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(
+      `Eurostat monthly ${spec.key} returned ${res.status} for ${url}`,
+    );
+  }
+  const json = (await res.json()) as EurostatResponse;
+  const timeIndex = json.dimension.time.category.index;
+  const values = json.value;
+  // Walk every YYYY-MM key, keep only non-null, pick the chronologically latest.
+  let best: { year: number; month: number; value: number } | null = null;
+  for (const [key, idx] of Object.entries(timeIndex)) {
+    const m = /^(\d{4})-(\d{2})$/.exec(key);
+    if (!m) continue;
+    const v = valueAt(values, idx);
+    if (v === undefined) continue;
+    const year = +m[1];
+    const month = +m[2];
+    if (
+      !best ||
+      year > best.year ||
+      (year === best.year && month > best.month)
+    ) {
+      best = { year, month, value: v };
+    }
+  }
+  if (!best) return null;
+  return {
+    period: `${best.year}-${String(best.month).padStart(2, "0")}`,
+    year: best.year,
+    month: best.month,
+    value: round(best.value, 2),
+    seasonallyAdjusted: spec.seasonallyAdjusted,
+    datasetCode: spec.dataset,
+    sourceUrl: spec.sourceUrl,
+  };
+};
+
 const fetchWorldBank = async (i: WorldBankIndicator): Promise<MacroPoint[]> => {
   // WGI indicators live in source=3 (separate from the default WDI source). The
   // GOV_WGI_ prefix encodes that linkage; without `source=3` the API returns
@@ -1489,6 +1583,25 @@ const main = async () => {
     }
   }
 
+  // Monthly-latest callouts. A failure here is non-fatal — these are a
+  // freshness garnish on top of the quarterly series, not core data — so a
+  // single monthly dataset hiccup must not abort the whole macro build.
+  const latestMonthly: Record<string, MonthlyLatest> = {};
+  for (const spec of MONTHLY_LATEST_SPECS) {
+    process.stdout.write(`Loading ${spec.key} monthly-latest... `);
+    try {
+      const point = await fetchMonthlyLatest(spec);
+      if (point) {
+        latestMonthly[spec.key] = point;
+        console.log(`${point.period} = ${point.value}`);
+      } else {
+        console.log("no non-null month (skipped)");
+      }
+    } catch (err) {
+      console.warn(`skipped: ${(err as Error).message}`);
+    }
+  }
+
   const payload = {
     sources: {
       eurostat: "https://ec.europa.eu/eurostat/databrowser/",
@@ -1502,6 +1615,7 @@ const main = async () => {
     country: "BG",
     indicators: meta,
     series,
+    latestMonthly,
   };
 
   // Minified — ships to /public/ and is fetched client-side.

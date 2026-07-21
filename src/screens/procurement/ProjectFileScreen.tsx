@@ -26,10 +26,12 @@ import {
   roleKeyOf,
   roleLabel,
   foldByContractor,
+  foldByPeriod,
   selectBroaderCandidates,
   withThreadTerms,
   withAddedThread,
   withoutThread,
+  type PeriodAgg,
 } from "@/data/procurement/projectFile";
 import { saveProject, projectHref } from "@/data/procurement/projectStore";
 
@@ -231,6 +233,20 @@ export const ProjectFileScreen = () => {
   const { data, isLoading, error } = useProjectFile(spec);
   const [editMode, setEditMode] = useState(false);
 
+  // A resolved DIY/URL-built file (§4.4) is noindex — a user's search must not
+  // read as a Наясно editorial finding. Flip the static robots meta (index.html
+  // ships "index, follow") in place, restoring it on leave; the empty on-ramp
+  // stays indexable.
+  useEffect(() => {
+    const meta = document.querySelector<HTMLMetaElement>('meta[name="robots"]');
+    if (!meta || !spec) return;
+    const prev = meta.content;
+    meta.content = "noindex, follow";
+    return () => {
+      meta.content = prev;
+    };
+  }, [spec]);
+
   // Spec mutations write straight to the ?q= param (so Save/Copy capture the edit
   // and the timeline re-resolves live — the §4.3b full-page builder), PRESERVING
   // sibling params (?elections=, ?pscope=). `mutateSpec` uses the functional
@@ -365,6 +381,12 @@ export const ProjectFileScreen = () => {
   const byContractor = useMemo(
     () => (data ? foldByContractor(data.contracts) : []),
     [data],
+  );
+
+  // Recurring-project rollup (§4.2.2b) — only for a file that declares recurrence.
+  const byPeriod = useMemo(
+    () => (data && spec?.recurrence ? foldByPeriod(data.contracts) : []),
+    [data, spec],
   );
 
   // Broader matches (§0f.3) — a looser (unscoped) search, run only in edit mode;
@@ -677,6 +699,20 @@ export const ProjectFileScreen = () => {
           </blockquote>
         )}
 
+        {/* Recurring-object per-period rollup (§4.2.2b) — above the timeline */}
+        {byPeriod.length > 1 && (
+          <RecurrenceRollup
+            periods={byPeriod}
+            label={
+              (bg ? spec.recurrence?.label?.bg : spec.recurrence?.label?.en) ??
+              (bg ? "По години" : "By year")
+            }
+            money={money}
+            loc={loc}
+            bg={bg}
+          />
+        )}
+
         {/* Timeline */}
         <h2 className="text-sm font-medium text-muted-foreground mt-8 mb-3">
           {bg ? "Хронология" : "Timeline"}
@@ -850,6 +886,15 @@ export const ProjectFileScreen = () => {
             </table>
           </div>
         )}
+
+        {/* Provenance footer (§4.2.7) — method transparency; doubles as the PDF
+            footer, so it is NOT print-hidden. */}
+        <ProvenanceFooter
+          spec={spec}
+          memberCount={data.contracts.length}
+          loc={loc}
+          bg={bg}
+        />
       </>
     );
   };
@@ -1058,6 +1103,189 @@ const ContractRow = ({
         </button>
       )}
     </div>
+  );
+};
+
+// Recurring-object rollup (§4.2.2b) — a per-period trend table + a thin
+// bar-per-period CSS strip (dataviz rule: CSS heroes, not Recharts). Renders
+// above the timeline for a file that declares `recurrence`.
+const RecurrenceRollup = ({
+  periods,
+  label,
+  money,
+  loc,
+  bg,
+}: {
+  periods: PeriodAgg[];
+  label: string;
+  money: (n: number | null | undefined) => string;
+  loc: string;
+  bg: boolean;
+}) => {
+  const max = Math.max(...periods.map((p) => p.totalEur), 1);
+  const nf = new Intl.NumberFormat(loc, { maximumFractionDigits: 0 });
+  return (
+    <div className="my-6 max-w-3xl">
+      <h2 className="mb-3 text-sm font-medium text-muted-foreground">
+        {bg ? "Повтарящ се проект" : "Recurring project"} · {label}
+      </h2>
+      <div className="mb-4 flex items-end gap-1.5" style={{ height: 64 }}>
+        {periods.map((p) => (
+          <div
+            key={p.period}
+            className="flex flex-1 flex-col items-center gap-1"
+          >
+            <div
+              className="w-full rounded-t"
+              style={{
+                height: `${Math.max(2, (p.totalEur / max) * 100)}%`,
+                background: "#8a7734",
+              }}
+              title={`${p.period}: ${money(p.totalEur)}`}
+            />
+            <span className="text-[10px] text-muted-foreground">
+              {p.period}
+            </span>
+          </div>
+        ))}
+      </div>
+      <table className="w-full text-sm">
+        <thead>
+          <tr className="border-b text-xs text-muted-foreground">
+            <th className="py-1 text-left font-normal">{label}</th>
+            <th className="py-1 text-right font-normal">
+              {bg ? "договорено" : "contracted"}
+            </th>
+            <th className="py-1 text-right font-normal">
+              {bg ? "договори" : "contracts"}
+            </th>
+            <th className="py-1 pl-3 text-left font-normal">
+              {bg ? "водещ изпълнител" : "top contractor"}
+            </th>
+            <th className="py-1 text-right font-normal">
+              {bg ? "без открита" : "no open"}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {periods.map((p) => {
+            const noOpen =
+              p.totalEur > 0
+                ? Math.round((p.methodMix.nonCompetitive / p.totalEur) * 100)
+                : 0;
+            return (
+              <tr key={p.period} className="border-b border-border/50">
+                <td className="py-1.5 font-medium">{p.period}</td>
+                <td className="py-1.5 text-right">{money(p.totalEur)}</td>
+                <td className="py-1.5 text-right">{p.contractCount}</td>
+                <td className="max-w-[16rem] truncate py-1.5 pl-3">
+                  {p.topContractorName ?? "—"}
+                </td>
+                <td className="py-1.5 text-right text-muted-foreground">
+                  {nf.format(noOpen)}%
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+// Provenance footer (§4.2.7) — the search string(s), member/include/exclude
+// counts, curator verification date, sourced links for any curated figure, and
+// the DIY disclaimer (§4.4/§11 — a user's search must not read as an editorial
+// Наясно finding). Method transparency; prints as the PDF footer, not print-hidden.
+const ProvenanceFooter = ({
+  spec,
+  memberCount,
+  loc,
+  bg,
+}: {
+  spec: ProjectFileSpec;
+  memberCount: number;
+  loc: string;
+  bg: boolean;
+}) => {
+  const nf = new Intl.NumberFormat(loc);
+  const terms = spec.search.map((t) => t.terms).filter(Boolean);
+  const countIds = (m?: {
+    contractKeys?: string[];
+    tenderUnps?: string[];
+    fundContractNumbers?: string[];
+  }) =>
+    (m?.contractKeys?.length ?? 0) +
+    (m?.tenderUnps?.length ?? 0) +
+    (m?.fundContractNumbers?.length ?? 0);
+  const incCount = countIds(spec.includes);
+  const excCount = countIds(spec.excludes);
+  const sources = [
+    {
+      label: bg ? "обявен бюджет" : "announced budget",
+      url: spec.announcedBudget?.sourceUrl,
+    },
+    { label: bg ? "празнина" : "gap", url: spec.gap?.sourceUrl },
+  ].filter((s) => /^https?:\/\//i.test(s.url ?? ""));
+  return (
+    <footer className="mt-10 max-w-3xl border-t pt-4 text-xs text-muted-foreground">
+      <div className="mb-1 font-medium text-foreground/70">
+        {bg ? "Метод и източници" : "Method & sources"}
+      </div>
+      <div className="flex flex-col gap-0.5">
+        <div>
+          <span className="text-foreground/60">
+            {bg ? "Търсене: " : "Search: "}
+          </span>
+          {terms.length
+            ? terms.map((t) => `„${t}“`).join(bg ? " или " : " or ")
+            : "—"}
+        </div>
+        <div>
+          {bg ? "Членове: " : "Members: "}
+          {nf.format(memberCount)}
+          {incCount > 0 &&
+            ` · ${bg ? "ръчно добавени" : "added"} ${nf.format(incCount)}`}
+          {excCount > 0 &&
+            ` · ${bg ? "премахнати" : "removed"} ${nf.format(excCount)}`}
+        </div>
+        {spec.verifiedAt && (
+          <div>
+            {bg ? "Проверено на: " : "Verified: "}
+            {spec.verifiedAt}
+          </div>
+        )}
+        {spec.authority && (
+          <div>
+            {bg ? "Възложител: " : "Authority: "}
+            {spec.authority}
+          </div>
+        )}
+        {sources.length > 0 && (
+          <div>
+            {bg ? "Източници: " : "Sources: "}
+            {sources.map((s, i) => (
+              <span key={s.label}>
+                {i > 0 && " · "}
+                <a
+                  href={s.url}
+                  className="text-primary underline"
+                  rel="nofollow noopener"
+                  target="_blank"
+                >
+                  {s.label}
+                </a>
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+      <p className="mt-3 italic">
+        {bg
+          ? "Изготвено от потребител чрез търсене в обществените поръчки — не е редакционен анализ на Наясно."
+          : "Assembled by a user from a procurement search — not a Наясно editorial analysis."}
+      </p>
+    </footer>
   );
 };
 

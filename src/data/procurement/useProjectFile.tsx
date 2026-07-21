@@ -83,6 +83,17 @@ export interface ProjectFileSpec {
     authority?: string;
     sourceUrl?: string;
   };
+  /** OPTIONAL — marks a RECURRING project (elections per cycle, annual
+   *  maintenance). Present → the screen renders a per-period rollup above the
+   *  timeline (§4.2.2b). `by` buckets by calendar year in v1; `label` overrides
+   *  the column header. */
+  recurrence?: {
+    by: "cycle" | "year";
+    label?: LocalizedText;
+  };
+  /** OPTIONAL curator verification date (ISO), shown in the provenance footer
+   *  (§4.2.7). */
+  verifiedAt?: string;
 }
 
 export interface ProjectFileModel {
