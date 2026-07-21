@@ -179,6 +179,33 @@ const STARTERS: Starter[] = [
     },
   },
   {
+    category: { bg: "Здравеопазване", en: "Health" },
+    label: "Национална детска болница",
+    hint: {
+      bg: "Най-проточилият се болничен строеж",
+      en: "The most drawn-out hospital build",
+    },
+    spec: {
+      title: { bg: "Национална детска болница" },
+      search: [{ terms: "детска болница", distinctive: ["детска"] }],
+    },
+  },
+  {
+    category: { bg: "Еврофондове", en: "EU funds" },
+    label: "Воден цикъл по ОПОС (ИСУН)",
+    hint: {
+      bg: "Финансиран от ЕС ВиК проект: договорено срещу изплатено",
+      en: "An EU-funded water project: contracted vs paid",
+    },
+    // Carries a real ИСУН fund member so the «Европейско финансиране» block
+    // (§4.2.3b) is exercised — договорено €105M / изплатено a fraction.
+    spec: {
+      title: { bg: "Воден цикъл по ОПОС (ИСУН)" },
+      search: [{ terms: "вик инфраструктура", distinctive: ["вик"] }],
+      includes: { fundContractNumbers: ["BG16FFPR002-1.002-0007"] },
+    },
+  },
+  {
     category: { bg: "Избори", en: "Elections" },
     label: "Машинно гласуване (СУЕМГ)",
     hint: {
