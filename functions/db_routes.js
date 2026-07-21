@@ -1179,7 +1179,9 @@ const DB_ROUTES = {
   //
   // DEPLOY COUPLING: needs schema pg/035_procurement_search.sql applied and
   // awarder_search / contracts.title_fold rebuilt before this route is live —
-  // see docs/plans/procurement-dashboard-redesign-v1.md for the checklist.
+  // see docs/plans/procurement-dashboard-redesign-v1.md for the checklist. The
+  // ЕВРОФОНДОВЕ group additionally needs pg/086_search_fund_projects.sql (applied
+  // by load_funds_pg); until then its query degrades to [] via the allSettled.
   //
   // allSettled, not all: a failing group (e.g. search_tender_subjects on a DB
   // where tenders isn't loaded yet) degrades that group to [] instead of
@@ -1213,8 +1215,20 @@ const DB_ROUTES = {
          FROM search_tender_subjects($1, $2)`,
         [term, lim],
       ),
+      // ЕВРОФОНДОВЕ · ИСУН projects (§4.1) — degrades to [] on a DB predating
+      // migration 086 via the allSettled below. Only the tile-consumed columns
+      // (the dossier's ИСУН block fetches full fund rows by contract_number).
+      dbRows(
+        `SELECT contract_number AS "contractNumber", title,
+                beneficiary_eik AS "beneficiaryEik",
+                beneficiary_name AS "beneficiaryName",
+                program_name AS "programName",
+                total_eur AS "totalEur"
+         FROM search_fund_projects($1, $2)`,
+        [term, lim],
+      ),
     ]);
-    const [companies, awarders, contracts, tenders] = settled.map((r) =>
+    const [companies, awarders, contracts, tenders, funds] = settled.map((r) =>
       r.status === "fulfilled" ? r.value : [],
     );
     // Total matches per "see all" group, so the dropdown can show "6 of N" and
@@ -1256,6 +1270,7 @@ const DB_ROUTES = {
         awarders,
         contracts,
         tenders,
+        funds,
         contractsTotal,
         tendersTotal,
       },

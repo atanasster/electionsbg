@@ -29,6 +29,7 @@ import {
   EntitySearchTile,
   type SearchGroup,
 } from "@/ux/search/EntitySearchTile";
+import { fundSearchGroup, type FundRow } from "./fundSearchGroup";
 import { projectHref } from "@/data/procurement/projectStore";
 import {
   useCorpusPersonIndex,
@@ -65,6 +66,7 @@ interface DbResults {
   awarders: EntityRow[];
   contracts: ContractRow[];
   tenders: TenderRow[];
+  funds: FundRow[];
   // Total matches (bounded to 100 server-side; equals the shown length when the
   // preview isn't capped) — drives the "6 of N" hint on the "see all" links.
   contractsTotal: number;
@@ -84,6 +86,7 @@ const EMPTY: DbResults = {
   awarders: [],
   contracts: [],
   tenders: [],
+  funds: [],
   contractsTotal: 0,
   tendersTotal: 0,
 };
@@ -349,6 +352,10 @@ export const ProcurementSearchTile: FC = () => {
           icon: ClipboardList,
         })),
       });
+    // ЕВРОФОНДОВЕ · ИСУН projects (§4.1) — built by a pure helper so the
+    // "no linkable rows → no empty header" guard is unit-tested.
+    const fundGroup = fundSearchGroup(db.funds, i18n.language === "bg");
+    if (fundGroup) g.push(fundGroup);
     // Footer on-ramp (§4.3b): turn the current search into a project file —
     // /procurement/project resolves the УНП spine into a lifecycle report.
     if (term.length >= 2)

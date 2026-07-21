@@ -32,6 +32,8 @@ const SCHEMA_DIR = path.join(
 const SCHEMA_FILE = path.join(SCHEMA_DIR, "015_funds.sql");
 const PROJECTS_SCHEMA_FILE = path.join(SCHEMA_DIR, "016_fund_projects.sql");
 const SERVING_SCHEMA_FILE = path.join(SCHEMA_DIR, "043_funds_serving.sql");
+// The ЕВРОФОНДОВЕ combined-search fn (§4.1) — depends on fund_projects.
+const SEARCH_SCHEMA_FILE = path.join(SCHEMA_DIR, "086_search_fund_projects.sql");
 const FUNDS_DIR = path.join(PROC_DIR, "..", "funds");
 const BY_EIK_DIR = path.join(FUNDS_DIR, "beneficiaries-by-eik");
 const PROJECTS_DIR = path.join(FUNDS_DIR, "projects");
@@ -300,6 +302,7 @@ export const loadFundsPg = async (): Promise<{
   await exec(readFileSync(SCHEMA_FILE, "utf8"));
   await exec(readFileSync(PROJECTS_SCHEMA_FILE, "utf8"));
   await exec(readFileSync(SERVING_SCHEMA_FILE, "utf8"));
+  await exec(readFileSync(SEARCH_SCHEMA_FILE, "utf8"));
   // Changelog tracking tables (idempotent; also present via load_pg's 005).
   await exec(
     readFileSync(path.join(SCHEMA_DIR, "005_ingest_tracking.sql"), "utf8"),
