@@ -16,6 +16,8 @@ import {
   resolveSeedIds,
   siblingLotPolicy,
   lotNumberOf,
+  displayLotNumberOf,
+  foldContractsByLot,
   dedupContracts,
   dedupTenders,
   dedupFunds,
@@ -335,6 +337,41 @@ describe("lotNumberOf", () => {
   it("returns null when there is no lot marker", () => {
     expect(lotNumberOf("Строителство на Западна дъга")).toBeNull();
     expect(lotNumberOf(null)).toBeNull();
+  });
+});
+
+describe("displayLotNumberOf — wider display parser (ОП N shorthand)", () => {
+  it("matches both 'Обособена позиция N' and 'ОП N' (with optional №)", () => {
+    expect(displayLotNumberOf("Обособена позиция 4: кв. Макак")).toBe("4");
+    expect(displayLotNumberOf("ОП 2: в.з. Зелин, АМ „Хемус“")).toBe("2");
+    expect(displayLotNumberOf("ОП № 3: с. Мало Бучино")).toBe("3");
+  });
+  it("returns null with no lot marker (the framework head contract)", () => {
+    expect(
+      displayLotNumberOf(
+        "Определяне на изпълнител за проектиране и строителство",
+      ),
+    ).toBeNull();
+    expect(displayLotNumberOf(null)).toBeNull();
+  });
+});
+
+describe("foldContractsByLot — procedure→lot→contract tree (§4.2)", () => {
+  it("groups by title lot number even when lot_name is absent, ordered numerically", () => {
+    const contracts = [
+      { title: "ОП 2: в.з. Зелин", lotName: null }, // no DB lot_name
+      { title: "Обособена позиция 4: кв. Макак", lotName: "кв. Макак" },
+      { title: "Обособена позиция 4: кв. Макак", lotName: "кв. Макак" },
+      { title: "ОП 10: последен участък", lotName: null }, // numeric, not string, order
+      { title: "Рамково: инженеринг (без ОП)", lotName: null }, // no lot → noLot
+    ];
+    const { lots, noLot } = foldContractsByLot(contracts);
+    expect(lots.map((l) => l.lotNo)).toEqual(["2", "4", "10"]); // 10 after 4, not before
+    expect(lots.find((l) => l.lotNo === "4")?.contracts).toHaveLength(2);
+    // lotName is picked up from the first member that carries one.
+    expect(lots.find((l) => l.lotNo === "4")?.lotName).toBe("кв. Макак");
+    expect(lots.find((l) => l.lotNo === "2")?.lotName).toBeNull();
+    expect(noLot).toHaveLength(1);
   });
 });
 

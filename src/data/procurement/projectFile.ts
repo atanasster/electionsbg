@@ -122,6 +122,66 @@ export function lotNumberOf(title: string | null | undefined): string | null {
   return m ? m[1] : null;
 }
 
+/** The lot number for DISPLAY grouping on the timeline — wider than lotNumberOf:
+ *  also matches the "ОП N" shorthand (and an optional "№") АПИ commonly uses in
+ *  contract titles, so a contract whose DB `lot_name` wasn't recovered still lands
+ *  under its обособена позиция. Kept SEPARATE from lotNumberOf so the membership
+ *  over-expansion guard (§2) is not perturbed. */
+export function displayLotNumberOf(
+  title: string | null | undefined,
+): string | null {
+  const m = (title ?? "").match(/(?:Обособена позиция|ОП)\s*№?\s*(\d+)/i);
+  return m ? m[1] : null;
+}
+
+export interface LotGroup {
+  lotNo: string;
+  /** The lot's full name, from the first member that carries a DB `lot_name`
+   *  (null when none in the group has a recovered name). */
+  lotName: string | null;
+  contracts: LotContract[];
+}
+
+/** The contract fields the lot fold reads (a structural subset of
+ *  ProcurementContract) — keeps the fold usable from tests without a full row. */
+export interface LotContract {
+  title?: string | null;
+  lotName?: string | null;
+}
+
+/**
+ * Group a procedure's member contracts by their обособена позиция (lot) for the
+ * timeline tree (§4.2). The lot key is the display lot-number parsed from each
+ * title (so "ОП N" and "Обособена позиция N" both resolve), NOT the DB `lot_name`
+ * alone — many АПИ contracts carry a title lot marker but no recovered `lot_name`.
+ * Contracts with no parseable lot number attach directly under the procedure
+ * (`noLot`). Pure + deterministic; lots ordered by numeric lot number.
+ */
+export function foldContractsByLot<T extends LotContract>(
+  contracts: readonly T[],
+): { lots: (LotGroup & { contracts: T[] })[]; noLot: T[] } {
+  const byNo = new Map<string, LotGroup & { contracts: T[] }>();
+  const noLot: T[] = [];
+  for (const c of contracts) {
+    const no = displayLotNumberOf(c.title);
+    if (!no) {
+      noLot.push(c);
+      continue;
+    }
+    let g = byNo.get(no);
+    if (!g) {
+      g = { lotNo: no, lotName: null, contracts: [] };
+      byNo.set(no, g);
+    }
+    if (!g.lotName && c.lotName) g.lotName = c.lotName;
+    g.contracts.push(c);
+  }
+  const lots = [...byNo.values()].sort(
+    (a, b) => Number(a.lotNo) - Number(b.lotNo),
+  );
+  return { lots, noLot };
+}
+
 /** Broad role for a CPV division (2-digit) — the money-by-role fallback when a
  *  member has no curated `nature`. Unknown divisions show "ЦПВ NN". */
 const CPV_DIVISION_ROLE: Record<string, { bg: string; en: string }> = {

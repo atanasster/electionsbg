@@ -38,6 +38,7 @@ import {
   roleLabel,
   foldByContractor,
   foldByPeriod,
+  foldContractsByLot,
   matchInhouseContractors,
   selectBroaderCandidates,
   siblingLotPolicy,
@@ -1087,33 +1088,33 @@ export const ProjectFileScreen = () => {
                   );
                   // Attach contracts to their обособена позиция (lot) under the
                   // procedure — the procedure→lot→contract tree (§4.2). The lot is
-                  // the DB-recovered lot_name (migration 050, title-parsed → partial
-                  // coverage). Group only when ≥2 distinct lots are present; else
-                  // collapse the level. Contracts with no recoverable lot attach
-                  // directly under the procedure (labelled honestly, §2).
-                  const lots = [
-                    ...new Set(
-                      r.contracts.map((c) => c.lotName).filter(Boolean),
-                    ),
-                  ] as string[];
+                  // the title-parsed display lot number (catches both "ОП N" and
+                  // "Обособена позиция N", so a contract with no DB-recovered
+                  // lot_name still groups). Group only when ≥2 distinct lots are
+                  // present; else collapse the level. Contracts with no parseable
+                  // lot attach directly under the procedure (labelled honestly, §2).
+                  const { lots, noLot } = foldContractsByLot(r.contracts);
                   if (lots.length < 2) return r.contracts.map(row);
-                  const noLot = r.contracts.filter((c) => !c.lotName);
                   return (
                     <>
                       {lots.map((lot) => (
                         <div
-                          key={lot}
+                          key={lot.lotNo}
                           className="flex flex-col gap-2 border-l border-dashed border-border pl-3"
                         >
                           <div className="text-xs font-medium text-foreground/70">
                             <span className="text-muted-foreground">
                               {bg ? "ОП" : "Lot"}
                             </span>{" "}
-                            {lot}
+                            {lot.lotNo}
+                            {lot.lotName && (
+                              <span className="font-normal text-muted-foreground">
+                                {" — "}
+                                {lot.lotName}
+                              </span>
+                            )}
                           </div>
-                          {r.contracts
-                            .filter((c) => c.lotName === lot)
-                            .map(row)}
+                          {lot.contracts.map(row)}
                         </div>
                       ))}
                       {noLot.length > 0 && (
