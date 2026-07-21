@@ -429,6 +429,57 @@ export const ProjectFileScreen = () => {
           )}
         </div>
 
+        {/* Announced vs contracted vs benchmark — one scale + the gap sentence.
+            Only when there's a real comparator (announced, or a benchmark range);
+            договорено alone is nothing to compare against. */}
+        {(announced != null ||
+          (spec.benchmark?.impliedLow != null &&
+            spec.benchmark?.impliedHigh != null)) &&
+          (() => {
+            const contracted = fold.totalContractedEur;
+            const bLow = spec.benchmark?.impliedLow;
+            const bHigh = spec.benchmark?.impliedHigh;
+            const max = Math.max(announced ?? 0, bHigh ?? 0, contracted, 1);
+            const w = (v: number) => `${Math.round((v / max) * 100)}%`;
+            const gapPct =
+              announced != null && announced > 0
+                ? Math.round((contracted / announced) * 100)
+                : null;
+            return (
+              <div className="my-6 max-w-3xl">
+                <div className="flex flex-col gap-2">
+                  {announced != null && (
+                    <ComparisonBar
+                      label={bg ? "обявено" : "announced"}
+                      width={w(announced)}
+                      color="#CECBF6"
+                    />
+                  )}
+                  {bLow != null && bHigh != null && (
+                    <ComparisonBar
+                      label={bg ? "еталон" : "benchmark"}
+                      left={w(bLow)}
+                      width={`${Math.max(2, Math.round(((bHigh - bLow) / max) * 100))}%`}
+                      color="#FAC775"
+                    />
+                  )}
+                  <ComparisonBar
+                    label={bg ? "договорено" : "contracted"}
+                    width={w(contracted)}
+                    color="#1D9E75"
+                  />
+                </div>
+                {gapPct != null && (
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {bg
+                      ? `От обявените ${money(announced)} са договорени ${gapPct}%.`
+                      : `${gapPct}% of the announced ${money(announced)} is contracted.`}
+                  </p>
+                )}
+              </div>
+            );
+          })()}
+
         {/* "Как е възложено" method strip */}
         <div className="my-6">
           <div className="text-sm text-muted-foreground mb-2">
@@ -632,6 +683,28 @@ const Toolbar = ({
     </div>
   );
 };
+
+const ComparisonBar = ({
+  label,
+  width,
+  left,
+  color,
+}: {
+  label: string;
+  width: string;
+  left?: string;
+  color: string;
+}) => (
+  <div className="flex items-center gap-3">
+    <span className="w-24 shrink-0 text-xs text-muted-foreground">{label}</span>
+    <div className="relative h-3.5 flex-1 overflow-hidden rounded bg-muted">
+      <div
+        className="absolute top-0 h-full rounded"
+        style={{ left: left ?? 0, width, background: color }}
+      />
+    </div>
+  </div>
+);
 
 const Figure = ({
   label,
