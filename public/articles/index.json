@@ -193,5 +193,21 @@
       "en": "Comparative analysis across 12 elections (2009-2026): flash-memory anomalies, turnout, protest vote, risk neighborhoods and polling."
     },
     "ogImage": "/og/dashboard-2026-04-19.png"
+  },
+  {
+    "slug": "2026-07-21-machine-only-sections",
+    "publishedAt": "2026-07-21",
+    "category": "data_analysis",
+    "topics": ["votes", "anomalies"],
+    "author": "Claude Opus 4.8",
+    "title": {
+      "bg": "Гласуване само с машини: кой печели и кой губи",
+      "en": "Machine-only voting: who wins and who loses"
+    },
+    "summary": {
+      "bg": "Интерактивна хипотеза върху реалните изборни данни. От 2021 г. всяка секция отчита машинните и хартиените гласове поотделно — един и същ електорат, разделен само по начина на гласуване, което прави разделението естествен експеримент. Махаме хартиената бюлетина във всяка „голяма“ секция (над избран праг), прехвърляме хартиено гласувалите към машинното разпределение на тяхната секция и гледаме как националният резултат и местата в парламента се преизчисляват на живо. Плъзгачите управляват прага (100/200/300/500 избиратели) и отлива на активността; последователно ГЕРБ и ДПС губят, а ПП-ДБ печели.",
+      "en": "An interactive what-if on Bulgaria's own election data. Since 2021 every section records machine and paper votes separately — the same electorate split only by voting medium, which makes the split a natural experiment. We remove the paper ballot in every 'large' section (above a chosen threshold), recast its paper-voters onto that section's machine distribution, and watch national vote share and parliamentary seats recompute live. Sliders control the threshold (100/200/300/500 voters) and a turnout drop-off; the pattern is consistent — ГЕРБ and ДПС lose, ПП-ДБ gains."
+    },
+    "ogImage": "/og/machine-only.png"
   }
 ]

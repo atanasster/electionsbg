@@ -12,9 +12,44 @@ export type SeatRow = {
   passedThreshold: boolean;
 };
 
-// Largest-remainder (Hare quota) allocation across a single national constituency.
-// Bulgaria's actual allocation is per-MMR (31 districts), so this is an approximation
-// useful for threshold what-if exploration, not for reproducing CEC numbers exactly.
+// Pure Hare (largest-remainder / Hare-Niemeyer) apportionment: distribute
+// `seats` among `weights` in proportion to each weight, as whole numbers,
+// then hand the leftover seats to the largest fractional remainders. Ties
+// break by larger weight, then lower index, so the output is deterministic.
+// Returns a seat count per input index (same length/order as `weights`).
+//
+// This is the arithmetic core of Bulgaria's seat allocation, exported on its
+// own so the national allocator below, any per-district distribution, and
+// offline scripts can all share one implementation.
+export const hareQuota = (weights: number[], seats: number): number[] => {
+  const out: number[] = new Array(weights.length).fill(0);
+  const total = weights.reduce((s, w) => s + w, 0);
+  if (total <= 0 || seats <= 0) return out;
+  const quota = total / seats;
+  let assigned = 0;
+  const remainders = weights.map((w, i) => {
+    const exact = w / quota;
+    const whole = Math.floor(exact);
+    out[i] = whole;
+    assigned += whole;
+    return { i, remainder: exact - whole, weight: w };
+  });
+  remainders
+    .sort(
+      (a, b) => b.remainder - a.remainder || b.weight - a.weight || a.i - b.i,
+    )
+    .slice(0, seats - assigned)
+    .forEach(({ i }) => {
+      out[i] += 1;
+    });
+  return out;
+};
+
+// National largest-remainder (Hare-Niemeyer) allocation across a single
+// constituency. Bulgaria fixes each party's *national* seat total exactly this
+// way (then spreads those totals across the 31 districts, which does not change
+// the national counts) — so this reproduces the official CEC totals for every
+// election since 2013, and is also the right engine for threshold what-ifs.
 export const allocateSeats = (
   votes: { partyNum: number; nickName?: string; totalVotes: number }[],
   thresholdPct: number,
@@ -34,27 +69,13 @@ export const allocateSeats = (
   });
 
   const qualifying = rows.filter((r) => r.passedThreshold);
-  const qualifyingTotal = qualifying.reduce((s, r) => s + r.totalVotes, 0);
-  if (!qualifyingTotal) return rows.sort((a, b) => b.totalVotes - a.totalVotes);
-
-  const quota = qualifyingTotal / totalSeats;
-  const remainders: { row: SeatRow; remainder: number }[] = [];
-  let assigned = 0;
-  qualifying.forEach((r) => {
-    const exact = r.totalVotes / quota;
-    const whole = Math.floor(exact);
-    r.seats = whole;
-    assigned += whole;
-    remainders.push({ row: r, remainder: exact - whole });
+  const seats = hareQuota(
+    qualifying.map((r) => r.totalVotes),
+    totalSeats,
+  );
+  qualifying.forEach((r, i) => {
+    r.seats = seats[i];
   });
-
-  const remaining = totalSeats - assigned;
-  remainders
-    .sort((a, b) => b.remainder - a.remainder)
-    .slice(0, remaining)
-    .forEach(({ row }) => {
-      row.seats += 1;
-    });
 
   return rows.sort((a, b) => b.totalVotes - a.totalVotes);
 };

@@ -843,6 +843,11 @@ const BenfordMethodologyScreen = lazy(() =>
     default: m.BenfordMethodologyScreen,
   })),
 );
+const MachineOnlyScenarioScreen = lazy(() =>
+  import("./screens/scenarios/MachineOnlyScenarioScreen").then((m) => ({
+    default: m.MachineOnlyScenarioScreen,
+  })),
+);
 const AllPartiesScreen = lazy(() =>
   import("./screens/AllPartiesScreen").then((m) => ({
     default: m.AllPartiesScreen,
@@ -3061,6 +3066,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <ArticlesScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="articles/2026-07-21-machine-only-sections"
+            element={
+              <LayoutScreen>
+                <MachineOnlyScenarioScreen />
               </LayoutScreen>
             }
           />
