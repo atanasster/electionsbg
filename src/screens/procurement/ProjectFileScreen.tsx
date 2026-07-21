@@ -14,6 +14,7 @@ import { formatEurCompact } from "@/lib/currency";
 import type { ProcurementContract } from "@/data/dataTypes";
 import {
   useProjectFile,
+  useBroaderMatches,
   parseProjectSpec,
   type ProjectFileSpec,
   type ProjectTenderRow,
@@ -25,6 +26,7 @@ import {
   roleKeyOf,
   roleLabel,
   foldByContractor,
+  selectBroaderCandidates,
 } from "@/data/procurement/projectFile";
 import { saveProject, projectHref } from "@/data/procurement/projectStore";
 
@@ -280,6 +282,14 @@ export const ProjectFileScreen = () => {
           };
     });
 
+  const includeMember = (key: string) =>
+    mutateSpec((cur) => {
+      const inc = cur.includes ?? {};
+      const keys = inc.contractKeys ?? [];
+      if (keys.includes(key)) return cur; // no duplicate keys in the spec/URL
+      return { ...cur, includes: { ...inc, contractKeys: [...keys, key] } };
+    });
+
   const title =
     (bg ? spec?.title?.bg : spec?.title?.en) ??
     spec?.title?.bg ??
@@ -344,6 +354,19 @@ export const ProjectFileScreen = () => {
     () => (data ? foldByContractor(data.contracts) : []),
     [data],
   );
+
+  // Broader matches (§0f.3) — a looser (unscoped) search, run only in edit mode;
+  // candidates = matches that aren't already members and aren't excluded.
+  const { data: broader } = useBroaderMatches(spec, editMode);
+  const candidates = useMemo(() => {
+    if (!broader || !data) return [];
+    return selectBroaderCandidates(
+      broader,
+      data.contracts.map((c) => c.key),
+      spec?.excludes?.contractKeys ?? [],
+      spec?.includes?.contractKeys ?? [],
+    );
+  }, [broader, data, spec]);
 
   const money = (n: number | null | undefined) =>
     formatEurCompact(n, loc) || "—";
@@ -438,6 +461,38 @@ export const ProjectFileScreen = () => {
                 ? "Смени думите за търсене, или махни отделен ред с ×."
                 : "Change the search terms, or remove a row with ×."}
             </div>
+            {candidates.length > 0 && (
+              <div className="mt-3 border-t pt-3">
+                <div className="text-xs font-medium text-muted-foreground mb-2">
+                  {bg
+                    ? "По-широко търсене — възможно пропуснати договори:"
+                    : "Broader matches — possibly missed contracts:"}
+                </div>
+                <ul className="flex flex-col gap-1.5">
+                  {candidates.map((c) => (
+                    <li
+                      key={c.key}
+                      className="flex items-start gap-2 text-sm leading-snug"
+                    >
+                      <button
+                        type="button"
+                        onClick={() => includeMember(c.key)}
+                        className="shrink-0 rounded border border-emerald-600/40 bg-emerald-600/10 px-1.5 py-0.5 text-xs font-medium text-emerald-700 hover:bg-emerald-600/20 dark:text-emerald-400"
+                      >
+                        {bg ? "+ добави" : "+ add"}
+                      </button>
+                      <span className="min-w-0 flex-1 truncate">
+                        {c.contractorName ?? "—"}
+                        {c.title ? ` — ${c.title}` : ""}
+                      </span>
+                      <span className="shrink-0 text-xs text-muted-foreground tabular-nums">
+                        {money(c.amountEur ?? 0)}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         )}
         {data.truncated && (

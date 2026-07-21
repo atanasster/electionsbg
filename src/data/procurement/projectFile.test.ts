@@ -8,6 +8,8 @@ import {
   roleKeyOf,
   roleLabel,
   foldByContractor,
+  rankBroaderCandidates,
+  selectBroaderCandidates,
   resolveSeedIds,
   siblingLotPolicy,
   lotNumberOf,
@@ -184,6 +186,51 @@ describe("roleKeyOf / roleLabel — money-by-role grouping (§4.2.4)", () => {
   it("survives a non-string nature from an untrusted ?q= (no throw)", () => {
     expect(roleKeyOf(42, "45000000")).toBe("cpv:45");
     expect(roleKeyOf({}, null)).toBe("cpv:—");
+  });
+});
+
+describe("rankBroaderCandidates — relevance over amount (§0f.3)", () => {
+  const threads: SearchThread[] = [
+    { terms: "хемус магистрала", distinctive: ["хемус"], threshold: 0.6 },
+  ];
+  it("drops below-threshold rows and ranks the on-topic one first despite a smaller amount", () => {
+    const ranked = rankBroaderCandidates(
+      [
+        // large but off-topic (landmark-only, no distinctive token) → dropped
+        { key: "big", title: "Магистрала Струма", amountEur: 900 },
+        // genuinely on-topic, small → kept, ranked first
+        { key: "small", title: "Магистрала Хемус, участък 3", amountEur: 10 },
+      ],
+      threads,
+    );
+    expect(ranked.map((r) => r.key)).toEqual(["small"]);
+  });
+  it("uses amount as the tiebreak when two rows score equally", () => {
+    const ranked = rankBroaderCandidates(
+      [
+        { key: "lo", title: "Магистрала Хемус, лот 1", amountEur: 10 },
+        { key: "hi", title: "Магистрала Хемус, лот 2", amountEur: 99 },
+      ],
+      threads,
+    );
+    expect(ranked.map((r) => r.key)).toEqual(["hi", "lo"]);
+  });
+});
+
+describe("selectBroaderCandidates — new-only, capped (§0f.3)", () => {
+  const rows = Array.from({ length: 20 }, (_, i) => ({ key: `k${i}` }));
+  it("drops members, excludes and already-included, then caps at the limit", () => {
+    const out = selectBroaderCandidates(
+      [{ key: "member" }, { key: "excl" }, { key: "inc" }, { key: "fresh" }],
+      ["member"],
+      ["excl"],
+      ["inc"],
+    );
+    expect(out.map((r) => r.key)).toEqual(["fresh"]);
+  });
+  it("caps the visible list (default 15)", () => {
+    expect(selectBroaderCandidates(rows, [], [], [])).toHaveLength(15);
+    expect(selectBroaderCandidates(rows, [], [], [], 3)).toHaveLength(3);
   });
 });
 

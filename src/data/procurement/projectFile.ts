@@ -381,3 +381,49 @@ export function bestConfidence(
   }
   return best;
 }
+
+// How many broader-match candidates the edit-mode panel shows at once (§0f.3).
+export const BROADER_SHOWN = 15;
+
+export interface BroaderCandidate {
+  key: string;
+  title?: string | null;
+  amountEur?: number | null;
+}
+
+/**
+ * Rank the looser (unscoped) broader-search rows by RELEVANCE, not amount: score
+ * each title against the search threads, drop below-threshold rows, then sort by
+ * confidence desc (amount as tiebreak). Without this an on-name-but-off-topic
+ * large contract would crowd out the genuinely-missed small one the panel exists
+ * to surface (§0f.3).
+ */
+export function rankBroaderCandidates<T extends BroaderCandidate>(
+  rows: readonly T[],
+  threads: readonly SearchThread[],
+): T[] {
+  return rows
+    .map((r) => ({ r, c: bestConfidence(r.title, threads) }))
+    .filter((x) => x.c.score >= x.c.threshold)
+    .sort(
+      (a, b) =>
+        b.c.score - a.c.score || (b.r.amountEur ?? 0) - (a.r.amountEur ?? 0),
+    )
+    .map((x) => x.r);
+}
+
+/**
+ * Keep only genuinely-new candidates — those that aren't already members, aren't
+ * excluded, and aren't already force-included — then cap the visible list. Pure
+ * so the edit-panel selection is unit-tested independent of the network.
+ */
+export function selectBroaderCandidates<T extends { key: string }>(
+  ranked: readonly T[],
+  memberKeys: Iterable<string>,
+  excludeKeys: Iterable<string>,
+  includeKeys: Iterable<string>,
+  limit = BROADER_SHOWN,
+): T[] {
+  const seen = new Set([...memberKeys, ...excludeKeys, ...includeKeys]);
+  return ranked.filter((r) => !seen.has(r.key)).slice(0, limit);
+}

@@ -13,6 +13,7 @@ import { fetchTablePage } from "./fetchTablePage";
 import type { ProcurementContract } from "@/data/dataTypes";
 import {
   bestConfidence,
+  rankBroaderCandidates,
   resolveSeedIds,
   dedupContracts,
   dedupTenders,
@@ -95,6 +96,9 @@ export interface ProjectFileModel {
 
 const SEED_PAGE = 60;
 const LINEAGE_PAGE = 400;
+// Broader-match recall budget: fetch this many per thread, then rank by
+// confidence and show BROADER_SHOWN (§0f.3).
+const BROADER_PAGE = 40;
 /** Hard cap on URL-provided include/exclude id-lists before they reach an
  *  `in`-filter — the DIY breadth guard (§4.1). The server also caps at 1000. */
 const MAX_IDS = 500;
@@ -334,5 +338,46 @@ export const useProjectFile = (spec: ProjectFileSpec | null) =>
     queryKey: ["procurement", "project-file", spec],
     queryFn: () => resolveProjectFile(spec as ProjectFileSpec),
     enabled: !!spec && (spec.search?.length ?? 0) > 0,
+    staleTime: Infinity,
+  });
+
+/**
+ * A LOOSER candidate search for the "broader matches" panel (§0f.3): the same
+ * search terms but WITHOUT the per-thread buyerEik scope, so the curator can add
+ * on-topic rows the scoped seed missed. Returns deduped contracts RANKED by
+ * confidence against the threads (not by amount) so the genuinely-missed rows
+ * surface; the screen filters out members/excludes/includes. Runs only when
+ * `enabled` (edit mode).
+ */
+async function fetchBroaderMatches(
+  spec: ProjectFileSpec,
+): Promise<ProcurementContract[]> {
+  const threads = spec.search ?? [];
+  const fetches = threads.map((t) =>
+    fetchTablePage<ProcurementContract>({
+      resource: "contracts",
+      page: 0,
+      pageSize: BROADER_PAGE,
+      sort: [{ id: "amount_eur", desc: true }],
+      filters: {
+        global: t.terms,
+        columns: [{ id: "tag", value: ["contract"] }],
+      },
+    }),
+  );
+  const rows = dedupContracts((await Promise.all(fetches)).flat());
+  return rankBroaderCandidates(rows, threads);
+}
+
+export const useBroaderMatches = (
+  spec: ProjectFileSpec | null,
+  enabled: boolean,
+) =>
+  useQuery({
+    // Keyed on the search terms only — includes/excludes/title edits must not
+    // re-trigger this unscoped fetch (it ignores them by design).
+    queryKey: ["procurement", "project-broader", spec?.search],
+    queryFn: () => fetchBroaderMatches(spec as ProjectFileSpec),
+    enabled: enabled && !!spec && (spec.search?.length ?? 0) > 0,
     staleTime: Infinity,
   });
