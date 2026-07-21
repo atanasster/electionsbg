@@ -1,7 +1,6 @@
 ---
 name: update-persons
-description: Rebuild the unified person-identity layer (Postgres `person`/`person_role`/`person_alias`/`person_review_candidate` + the serving fns in 082/084) that powers the `/person/{slug}` profile page and the `personProfile`/`personConnections` AI tools. It resolves EVERY people dataset — MPs, CIK candidates, ЕРИК donors, executive & municipal officials, magistrates (ИВСС), TR company officers/owners (bridged), the curated OFAC/EU sanctions register (data/person/sanctions.json), and the curated ДС/COMDOS affiliation register (data/person/ds.json, Комисия по досиетата) — to ONE stable person_id via `scripts/person/resolve_persons.ts`. Use when the daily watch report flags any of its UPSTREAM sources as changed (`ivss_declarations`, `cacbg_officials`, `cacbg_local`, `egov_commerce`, `cik_results`, `erik_campaign_financing`, `ofac_sanctions`, or `comdos_ds`), when the user asks to refresh person profiles / свързани лица / sanctions / ДС досиета, to add a newly-verified sanctions designee or ДС affiliation, or after a fresh git clone if the `person` table is empty. Read-only re-derivation — it never mutates its source datasets, only the person_* tables.
-description: Rebuild the unified person-identity layer (Postgres `person`/`person_role`/`person_alias`/`person_review_candidate` + the serving fns in 082/084) that powers the `/person/{slug}` profile page and the `personProfile`/`personConnections` AI tools. It resolves EVERY people dataset — MPs, CIK candidates, ЕРИК donors, executive & municipal officials, magistrates (ИВСС), TR company officers/owners (bridged), and the curated OFAC/EU sanctions register (data/person/sanctions.json) — to ONE stable person_id via `scripts/person/resolve_persons.ts`. Use when the daily watch report flags any of its UPSTREAM sources as changed (`ivss_declarations`, `cacbg_officials`, `cacbg_local`, `egov_commerce`, `cik_results`, `erik_campaign_financing`, `ofac_sanctions`, or `regulator_rosters`), when the user asks to refresh person profiles / свързани лица / sanctions, to add a newly-verified sanctions designee, or after a fresh git clone if the `person` table is empty. Read-only re-derivation — it never mutates its source datasets, only the person_* tables.
+description: Rebuild the unified person-identity layer (Postgres `person`/`person_role`/`person_alias`/`person_review_candidate` + the `candidate_person`/`person_election_stats` electoral tables + the serving fns in 082/084/085) that powers the `/person/{slug}` profile page, the merged `/candidate/:id` electoral block, and the `personProfile`/`personConnections`/`person_elections` AI tools. It resolves EVERY people dataset — MPs, CIK candidates, ЕРИК donors, executive & municipal officials, magistrates (ИВСС), TR company officers/owners (bridged), the curated OFAC/EU sanctions register (data/person/sanctions.json), the curated ДС/COMDOS affiliation register (data/person/ds.json, Комисия по досиетата), and the curated регулатори / независими органи register (data/person/regulators.json) — to ONE stable person_id via `scripts/person/resolve_persons.ts` (+ `scripts/db/load_person_elections_pg.ts` for the per-election stats). Use when the daily watch report flags any of its UPSTREAM sources as changed (`ivss_declarations`, `cacbg_officials`, `cacbg_local`, `egov_commerce`, `cik_results`, `erik_campaign_financing`, `ofac_sanctions`, `comdos_ds`, or `regulator_rosters`), when the user asks to refresh person profiles / свързани лица / sanctions / ДС досиета / регулатори, to add a newly-verified sanctions designee, ДС affiliation, or regulator seat, or after a fresh git clone if the `person` table is empty. Read-only re-derivation — it never mutates its source datasets, only the person_* tables.
 allowed-tools:
   - Read
   - Bash
@@ -41,13 +40,19 @@ person_ids/slugs when nothing changed (verified idempotent).
 ## How to run
 
 ```bash
-npm run db:resolve:persons        # applies 081-084 schema + resolves + rebuilds person_*
+npm run db:resolve:persons        # applies 081+085+082-084 schema + resolves + rebuilds person_*
+npm run db:load:person-elections:pg  # loads candidate_person + person_election_stats (the merged /candidate block)
 npm run test:person               # the §7a gold-set + hermetic matcher tests
 npm run test:data                 # PG invariants incl. person_resolve.data.test.ts (zero-false-public-merge, tr-bridge licensing, connections public-safety)
 ```
 
-The resolver self-applies its schema (081 core, 082 profile/search fns, 083 review queue,
-084 person↔person edges), so it also bootstraps a fresh/empty DB.
+The resolver self-applies its schema (081 core, **085 electoral tables — must precede 082**,
+082 profile/search fns, 083 review queue, 084 person↔person edges), so it also bootstraps a
+fresh/empty DB. The `candidate_person`/`person_election_stats` ROWS are then filled by the
+separate `db:load:person-elections:pg` loader (which re-applies 085 idempotently and reads the
+per-election CIK shards) — always run it AFTER the resolve. Both are wired into `db:refresh` in
+that order. (085 must be created before 082 because 082's `person_search` reads
+`person_election_stats` in a LANGUAGE-sql body validated at CREATE time.)
 
 ## The sanctions register (data/person/sanctions.json) — manually curated
 
@@ -130,8 +135,16 @@ against the cloud proxy:
 # The resolver reads its PG sources (magistrate / official_roster / tr_person_roles /
 # contracts) from whatever DATABASE_URL points at, so those must ALREADY be loaded on
 # Cloud SQL (db:load:magistrates:pg:cloud, db:load:tr:pg:cloud, db:load:pg:cloud) first.
-npm run db:resolve:persons:cloud     # applies 081-084 + rebuilds person_* on Cloud SQL
+npm run db:resolve:persons:cloud            # applies 081+085+082-084 + rebuilds person_* on Cloud SQL
+npm run db:load:person-elections:pg:cloud   # loads candidate_person + person_election_stats on Cloud SQL
 ```
+
+BOTH commands are required — the first rebuilds the identity/roles/connections layer, the
+second fills the electoral tables behind the merged `/candidate` block. Publishing only the
+first leaves `/candidate/:id` and the header search's party badge stale/empty on prod. On a
+FRESH Cloud SQL (person tables absent), `db:resolve:persons:cloud` now self-bootstraps the
+right order (085 before 082); if you ever hit `relation "person_election_stats" does not exist`
+on an older checkout, apply `085_person_elections.sql` by hand first, then re-run.
 
 The route layer (`functions/db_routes.js` person-profile / person-lookup / person-connections)
 ships with the normal `npm run deploy` (functions deploy) — until that deploy runs, prod
@@ -149,9 +162,6 @@ Record the ingest marker for the orchestrator:
 node -e 'const fs=require("fs");fs.writeFileSync("state/ingest/persons.json",JSON.stringify({lastSuccessfulIngest:new Date().toISOString(),skill:"update-persons",summary:"<one line>"},null,2))'
 ```
 
-Then commit the changed `data/person/sanctions.json` / `data/person/ds.json` (if edited) —
-the person_* tables are Postgres-only (no serving JSON, no `recordIngestBatch`), so there is
-nothing else to commit.
-Then commit the changed `data/person/sanctions.json` / `data/person/regulators.json` (if
-edited) — the person_* tables are Postgres-only (no serving JSON, no `recordIngestBatch`),
-so there is nothing else to commit.
+Then commit the changed curated register(s) — `data/person/sanctions.json` /
+`data/person/ds.json` / `data/person/regulators.json` (if edited). The person_* tables are
+Postgres-only (no serving JSON, no `recordIngestBatch`), so there is nothing else to commit.

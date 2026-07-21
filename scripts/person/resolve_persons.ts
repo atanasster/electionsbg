@@ -622,13 +622,19 @@ type M = Mention & { raw: Raw };
 
 // The person-layer schema files, applied (idempotent CREATE … IF NOT EXISTS) before every
 // resolve so `db:refresh` / a fresh clone can rebuild from an empty DB — nothing else wires
-// these in. Order matters: core tables → serving fns → review queue.
+// these in. Order matters: core tables → election tables → serving fns → review queue.
+// 085 (candidate_person / person_election_stats) MUST precede 082, because 082's person_search
+// reads person_election_stats in a LATERAL and a LANGUAGE-sql body is validated at CREATE time
+// — so on a fresh DB (a new clone or the first Cloud SQL deploy) applying 082 before the 085
+// table exists fails with `relation "person_election_stats" does not exist`. The
+// db:load:person-elections:pg loader re-applies 085 (idempotently) and fills the rows.
 const SCHEMA_DIR = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   "../db/schema/pg",
 );
 const SCHEMA_FILES = [
   "081_person_identity.sql",
+  "085_person_elections.sql",
   "082_person_api.sql",
   "083_person_review.sql",
   "084_person_connections.sql",

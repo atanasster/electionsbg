@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-07-19T10:09:48.672Z",
+  "lastSuccessfulIngest": "2026-07-21T00:21:12.361Z",
   "skill": "update-persons",
-  "summary": "person layer resolved: 6 sources + dual TR bridges + review queue + OFAC sanctions (Peevski); 35,272 persons"
+  "summary": "person layer + candidate merge deployed to Cloud SQL: 48423 persons, 101767 roles, 67065 candidate_person, 67019 person_election_stats (081-085)"
 }
