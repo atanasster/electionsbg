@@ -182,8 +182,17 @@ const methodLabel = (
   return bg ? "открита" : "open";
 };
 
-const isRedMethod = (method: string | null | undefined): boolean =>
-  classifyMethod(method) === "nonCompetitive";
+// Per-method pill colours — the same good/bad/unknown semantics as the "как е
+// възложено" strip, so открита (competitive) no longer reads identical to
+// неуточнен (unknown): green / coral / grey.
+const METHOD_PILL: Record<
+  ReturnType<typeof classifyMethod>,
+  { bg: string; color: string }
+> = {
+  competitive: { bg: "#E1F5EE", color: "#0F6E56" }, // green — open procedure
+  nonCompetitive: { bg: "#FAECE7", color: "#712B13" }, // coral — no open tender
+  unspecified: { bg: "#F1EFE8", color: "#5F5E5A" }, // grey — method not stated
+};
 
 export const ProjectFileScreen = () => {
   const { i18n } = useTranslation();
@@ -655,48 +664,51 @@ const ContractRow = ({
   bg: boolean;
   money: (n: number | null | undefined) => string;
   onRemove?: () => void;
-}) => (
-  <div className="flex items-center gap-2 flex-wrap">
-    <span
-      className="w-2 h-2 rounded-full shrink-0"
-      style={{ background: "#1D9E75" }}
-    />
-    {c.contractorEik ? (
-      <Link to={`/company/${c.contractorEik}`} className="text-sm text-primary">
-        {c.contractorName}
-      </Link>
-    ) : (
-      <span className="text-sm">{c.contractorName}</span>
-    )}
-    <span
-      className="text-[11px] px-1.5 py-0.5 rounded-full"
-      style={{
-        background: isRedMethod(c.procurementMethod) ? "#FAECE7" : "#F1EFE8",
-        color: isRedMethod(c.procurementMethod) ? "#712B13" : "#5F5E5A",
-      }}
-    >
-      {methodLabel(c.procurementMethod, bg)}
-    </span>
-    {isSingleBid(c.numberOfTenderers) && (
+}) => {
+  const pill = METHOD_PILL[classifyMethod(c.procurementMethod)];
+  return (
+    <div className="flex items-center gap-2 flex-wrap">
+      <span
+        className="w-2 h-2 rounded-full shrink-0"
+        style={{ background: "#1D9E75" }}
+      />
+      {c.contractorEik ? (
+        <Link
+          to={`/company/${c.contractorEik}`}
+          className="text-sm text-primary"
+        >
+          {c.contractorName}
+        </Link>
+      ) : (
+        <span className="text-sm">{c.contractorName}</span>
+      )}
       <span
         className="text-[11px] px-1.5 py-0.5 rounded-full"
-        style={{ background: "#FAECE7", color: "#712B13" }}
+        style={{ background: pill.bg, color: pill.color }}
       >
-        {bg ? "единствен участник" : "single bidder"}
+        {methodLabel(c.procurementMethod, bg)}
       </span>
-    )}
-    <span className="ml-auto text-sm font-medium">{money(c.amountEur)}</span>
-    {onRemove && (
-      <button
-        className="no-print text-xs text-muted-foreground hover:text-destructive"
-        title={bg ? "махни договора" : "remove contract"}
-        onClick={onRemove}
-      >
-        ×
-      </button>
-    )}
-  </div>
-);
+      {isSingleBid(c.numberOfTenderers) && (
+        <span
+          className="text-[11px] px-1.5 py-0.5 rounded-full"
+          style={{ background: "#FAECE7", color: "#712B13" }}
+        >
+          {bg ? "единствен участник" : "single bidder"}
+        </span>
+      )}
+      <span className="ml-auto text-sm font-medium">{money(c.amountEur)}</span>
+      {onRemove && (
+        <button
+          className="no-print text-xs text-muted-foreground hover:text-destructive"
+          title={bg ? "махни договора" : "remove contract"}
+          onClick={onRemove}
+        >
+          ×
+        </button>
+      )}
+    </div>
+  );
+};
 
 const BuildForm = ({
   initial,
