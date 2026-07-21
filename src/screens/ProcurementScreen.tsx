@@ -19,6 +19,7 @@ import {
 import { ScopeControl } from "./components/ScopeControl";
 import { GovernanceBreadcrumb } from "./components/GovernanceBreadcrumb";
 import { ProcurementSearchTile } from "./components/procurement/ProcurementSearchTile";
+import { ClaimCheckBox } from "./components/procurement/ClaimCheckBox";
 import { WatchlistDigestTile } from "./components/procurement/WatchlistDigestTile";
 import { useProcurementHubStats } from "@/data/procurement/useProcurementHubStats";
 import {
@@ -202,6 +203,9 @@ export const ProcurementScreen: FC = () => {
       </div>
 
       <ProcurementSearchTile />
+      <div className="mt-3">
+        <ClaimCheckBox />
+      </div>
       <WatchlistDigestTile />
 
       <div data-og="procurement-hub">
