@@ -656,16 +656,45 @@ export const MachineOnlyScenarioScreen: FC = () => {
         <ArticleLI>{t("machine_only_method_step3")}</ArticleLI>
         <ArticleLI>{t("machine_only_method_step4")}</ArticleLI>
       </ArticleOL>
+      <ArticleP>{t("machine_only_method_frame")}</ArticleP>
 
       <ArticleH2>{t("machine_only_h_caveats")}</ArticleH2>
       <ArticleUL>
         <ArticleLI>{t("machine_only_caveat_behavior")}</ArticleLI>
+        <ArticleLI>{t("machine_only_caveat_medium")}</ArticleLI>
         <ArticleLI>{t("machine_only_caveat_invalid")}</ArticleLI>
         <ArticleLI>{t("machine_only_caveat_adoption")}</ArticleLI>
         <ArticleLI>{t("machine_only_caveat_turnout")}</ArticleLI>
         <ArticleLI>{t("machine_only_caveat_seats")}</ArticleLI>
         <ArticleLI>{t("machine_only_caveat_nomachine")}</ArticleLI>
         <ArticleLI>{t("machine_only_caveat_none")}</ArticleLI>
+      </ArticleUL>
+
+      <ArticleH2>{t("machine_only_h_refs")}</ArticleH2>
+      <ArticleUL>
+        <ArticleLI>
+          <a
+            className="text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary"
+            href="https://onlinelibrary.wiley.com/doi/abs/10.3982/ECTA11520"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Fujiwara, T. (2015). Voting Technology, Political Responsiveness,
+            and Infant Health: Evidence from Brazil. Econometrica 83(2).
+          </a>
+        </ArticleLI>
+        <ArticleLI>
+          <a
+            className="text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary"
+            href="https://www.sciencedirect.com/science/article/abs/pii/S0261379416301238"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Zucco, C. &amp; Nicolau, J. (2016). Trading old errors for new
+            errors? The impact of electronic voting technology on party label
+            votes in Brazil. Electoral Studies 43.
+          </a>
+        </ArticleLI>
       </ArticleUL>
 
       <ArticleP>{t("machine_only_footer")}</ArticleP>

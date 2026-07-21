@@ -46,10 +46,16 @@ The likely reason is who each group is: the machine is preferred by younger, urb
 
 ## What this is not
 
-- It assumes paper-voters would vote like their section's machine-voters — it captures the selection skew between the groups, not any change caused by the medium itself.
+- What this measures is the **composition (selection) effect** — the change that comes purely from which medium each voter chose. It is not the full effect of mandating machines, which would also shift turnout, recover spoiled ballots and carry the machine's own influence on the vote.
+- It assumes paper-voters would vote like their section's machine-voters — it captures the selection skew between the groups. The machine's on-screen flow nudges behaviour (the explicit "I support no one" button is picked by 1.8% of machine-voters vs 1.3% on paper) and can create errors of its own (Zucco & Nicolau, 2016).
 - It counts only valid party votes, so it leaves out the biggest mechanism in the voting-technology literature (Fujiwara 2015): a machine lets no one spoil a ballot. In 2026 about 3.9% of paper ballots were invalid versus ~0% on machines — machine-only would turn most of those into valid votes, and because mis-marking voters skew older and paper-preferring, that recovery would likely push back against the shift toward ПП-ДБ shown here.
 - **The natural experiment is only as strong as machine adoption.** In April 2021 machine was a freely-chosen minority (~29% of affected voters), so its voters skew young/urban/early-adopter — read that election as the most aggressive extrapolation, not the most reliable.
 - The turnout drop-off is a scenario dial, not an estimate (a plausible band is ~10–30%).
 - Seats are allocated by the national Hare-Niemeyer quota with the 4% threshold — the same method Bulgaria uses to fix each party's national total (it reproduces the official result for every election since 2013). Bulgaria then spreads those totals across the 31 districts, which only changes where seats land, not how many each party wins; the meaningful figure is the actual-vs-model *difference*.
+
+## Further reading
+
+- Fujiwara, T. (2015). [Voting Technology, Political Responsiveness, and Infant Health: Evidence from Brazil](https://onlinelibrary.wiley.com/doi/abs/10.3982/ECTA11520). *Econometrica* 83(2).
+- Zucco, C. & Nicolau, J. (2016). [Trading old errors for new errors? The impact of electronic voting technology on party label votes in Brazil](https://www.sciencedirect.com/science/article/abs/pii/S0261379416301238). *Electoral Studies* 43.
 
 *Data: per-section protocols from the Central Election Commission, as processed by electionsbg.com. This is an analytical scenario, not a forecast.*
