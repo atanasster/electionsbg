@@ -166,5 +166,127 @@
         "eur": 14728
       }
     ]
+  },
+  "ruse-veliko-tarnovo": {
+    "title": {
+      "bg": "Магистрала „Русе – Велико Търново“",
+      "en": "Ruse – Veliko Tarnovo motorway"
+    },
+    "thesis": {
+      "bg": "„Златната магистрала“ — при прогнозна стойност около 4,5 млрд. лв участъкът Русе–Велико Търново е сред най-скъпите по километър. Проследяваме какво е договорено досега, кои са изпълнителите и как е възложено.",
+      "en": "The 'golden motorway' — with a ~€2.3bn estimate, the Ruse–Veliko Tarnovo stretch is among the priciest per kilometre. We track what has been contracted so far, the contractors, and how it was awarded."
+    },
+    "contractedEur": 894950582,
+    "contractCount": 121,
+    "procedureCount": 30,
+    "contractorCount": 43,
+    "methodMix": {
+      "competitive": 799134149,
+      "nonCompetitive": 5739836,
+      "unspecified": 90076597
+    },
+    "topContractors": [
+      {
+        "name": "Инфра експерт АД",
+        "eik": "204342601",
+        "eur": 89632034
+      },
+      {
+        "name": "ПЪТИНЖЕНЕРИНГСТРОЙ-Т ЕАД",
+        "eik": "835009611",
+        "eur": 89632034
+      },
+      {
+        "name": "Автомагистрали - черно море АД",
+        "eik": "127001597",
+        "eur": 89632034
+      },
+      {
+        "name": "ДЗЗД ХЕМУС-16320",
+        "eik": "177201764",
+        "eur": 89632034
+      },
+      {
+        "name": "ТРАНСКОНСУЛТ-22 ЕООД",
+        "eik": "130608148",
+        "eur": 89632034
+      },
+      {
+        "name": "Европейски пътища АД",
+        "eik": "115004094",
+        "eur": 56278371
+      },
+      {
+        "name": "Автомагистрали хемус АД",
+        "eik": "831643461",
+        "eur": 56278371
+      },
+      {
+        "name": "АМ Русе търново",
+        "eik": "180808653",
+        "eur": 56278371
+      }
+    ]
+  },
+  "arena-pleven": {
+    "title": {
+      "bg": "Арена Плевен — многофункционална спортна зала",
+      "en": "Arena Pleven — multifunctional sports hall"
+    },
+    "thesis": {
+      "bg": "Най-скъпата спортна зала в България по цена на квадратен метър (над 4200 лв/кв.м), възлагана от Община Плевен насред воден режим в града. Проследяваме договорите, изпълнителите и как е възложено.",
+      "en": "Bulgaria's priciest sports hall per square metre (over €2,150/m²), procured by the Pleven municipality amid the city's water crisis. We track the contracts, contractors and how it was awarded."
+    },
+    "contractedEur": 17239004,
+    "contractCount": 14,
+    "procedureCount": 8,
+    "contractorCount": 12,
+    "methodMix": {
+      "competitive": 16006171,
+      "nonCompetitive": 0,
+      "unspecified": 1232833
+    },
+    "topContractors": [
+      {
+        "name": "Тъндербилд ЕООД",
+        "eik": "206819813",
+        "eur": 4932627
+      },
+      {
+        "name": "ДЗЗД Плевен спорт АТ",
+        "eik": "181325067",
+        "eur": 4932627
+      },
+      {
+        "name": "Арете строй ЕООД",
+        "eik": "200360121",
+        "eur": 4932627
+      },
+      {
+        "name": "ДЗЗД Обединение Плевен Спорт 1- Пазарджик",
+        "eik": "176758924",
+        "eur": 841011
+      },
+      {
+        "name": "Марсен ООД - Плевен",
+        "eik": "824124605",
+        "eur": 391822
+      },
+      {
+        "name": "Ерст БАУ ЕООД",
+        "eik": "206016515",
+        "eur": 367052
+      },
+      {
+        "name": "Стройнорм ЕООД",
+        "eik": "200285252",
+        "eur": 367052
+      },
+      {
+        "name": "ДЗЗД „Ерстбилд“",
+        "eik": "181235434",
+        "eur": 367052
+      }
+    ]
   }
 }

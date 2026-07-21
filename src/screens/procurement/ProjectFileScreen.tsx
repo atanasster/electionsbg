@@ -86,13 +86,11 @@ interface Starter {
 const API_EIK = ["000695089"]; // Агенция „Пътна инфраструктура"
 const MO_EIK = ["000695324"]; // Министерство на отбраната
 const ICGB_EIK = ["201383265"]; // „Ай Си Джи Би" АД — the IGB gas-interconnector company
-const PLEVEN_EIK = ["000413974"]; // Община Плевен
 // Display names for the scoped buyers — carried on the thread (buyerName) so the
 // editor/refine chip reads a name, not a bare EIK.
 const API_NAME = "Агенция „Пътна инфраструктура“";
 const MO_NAME = "Министерство на отбраната";
 const ICGB_NAME = "„Ай Си Джи Би“ АД";
-const PLEVEN_NAME = "Община Плевен";
 
 // Tile images: bespoke per-project scenes (projectScenes.tsx), with the sector
 // scenes as a fallback for any future topic that reuses a domain scene.
@@ -144,6 +142,16 @@ const CURATED_TILE: Record<
     section: "elections",
     sceneKey: "votingMachine",
     accent: TILE_ACCENTS.indigo,
+  },
+  "ruse-veliko-tarnovo": {
+    section: "transport",
+    sceneKey: "goldenRoad",
+    accent: TILE_ACCENTS.gold,
+  },
+  "arena-pleven": {
+    section: "sports",
+    sceneKey: "arena",
+    accent: TILE_ACCENTS.terracotta,
   },
 };
 const curatedTile = (slug: string) =>
@@ -312,50 +320,6 @@ const STARTERS: Starter[] = [
       title: { bg: "Воден цикъл по ОПОС (ИСУН)" },
       search: [{ terms: "вик инфраструктура", distinctive: ["вик"] }],
       includes: { fundContractNumbers: ["BG16FFPR002-1.002-0007"] },
-    },
-  },
-  {
-    section: "transport",
-    label: "Магистрала „Русе – Велико Търново“",
-    hint: {
-      bg: "„Златната магистрала“ — ~4,5 млрд. лв прогнозна стойност",
-      en: "The 'golden motorway' — a ~€2.3bn estimate",
-    },
-    sceneKey: "goldenRoad",
-    accent: TILE_ACCENTS.gold,
-    // Early-stage: only design + route archaeology is contracted so far, so the
-    // dossier reads announced (~€2.3bn) vs contracted (a few €M) — the story.
-    spec: {
-      title: { bg: "Магистрала „Русе – Велико Търново“" },
-      search: [
-        {
-          terms: "Русе Велико Търново",
-          distinctive: ["русе"],
-          buyerEik: API_EIK,
-          buyerName: API_NAME,
-        },
-      ],
-    },
-  },
-  {
-    section: "sports",
-    label: "Арена Плевен",
-    hint: {
-      bg: "Най-скъпата спортна зала — над 4200 лв/кв.м",
-      en: "Bulgaria's priciest sports hall — over €2,150/m²",
-    },
-    sceneKey: "arena",
-    accent: TILE_ACCENTS.terracotta,
-    spec: {
-      title: { bg: "Арена Плевен — многофункционална спортна зала" },
-      search: [
-        {
-          terms: "многофункционална спортна зала",
-          distinctive: ["спортна"],
-          buyerEik: PLEVEN_EIK,
-          buyerName: PLEVEN_NAME,
-        },
-      ],
     },
   },
 ];
