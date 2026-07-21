@@ -3,9 +3,10 @@
  * data/macro.json. Election-context indicators we overlay on the cabinet
  * timeline:
  *
- *   Eurostat   — quarterly: real GDP growth, HICP inflation, unemployment,
- *                gov debt, budget balance, current account
- *                annual: GDP per capita
+ *   Eurostat   — quarterly: real GDP growth, HICP inflation, unemployment
+ *                (SA), employment + activity rate (LFS, 20-64), gov debt,
+ *                budget balance, current account
+ *                annual: GDP per capita, labour-market slack
  *   World Bank — WGI Rule of Law, WGI Control of Corruption, WGI Government
  *                Effectiveness (annual, -2.5 to +2.5)
  *   Curated    — Transparency International CPI (2012+, 0-100), Standard
