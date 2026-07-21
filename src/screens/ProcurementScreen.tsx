@@ -154,14 +154,28 @@ export const ProcurementScreen: FC = () => {
     return v != null ? numFmt.format(v) : undefined;
   };
 
-  const exploreTiles: InfographicTileProps[] = SUBPAGES.map((p) => ({
-    to: p.to,
-    title: t(p.titleKey),
-    desc: t(p.descKey),
-    accent: p.accent,
-    scene: PROCUREMENT_SCENES[p.id],
-    metric: metricFor("metric" in p ? p.metric : undefined),
-  }));
+  const bg = i18n.language === "bg";
+  const exploreTiles: InfographicTileProps[] = [
+    ...SUBPAGES.map((p) => ({
+      to: p.to,
+      title: t(p.titleKey),
+      desc: t(p.descKey),
+      accent: p.accent,
+      scene: PROCUREMENT_SCENES[p.id],
+      metric: metricFor("metric" in p ? p.metric : undefined),
+    })),
+    // The project-file builder on-ramp (§4.3b). Bilingual-inline (no i18n key);
+    // reuses the document "досие" scene, a distinct accent, no headline number.
+    {
+      to: "/procurement/project",
+      title: bg ? "Проектни досиета" : "Project files",
+      desc: bg
+        ? "Проследи един проект през поръчките"
+        : "Track one project across procurement",
+      accent: TILE_ACCENTS.indigo,
+      scene: PROCUREMENT_SCENES.contracts,
+    },
+  ];
 
   const exploreSection: TileHubSection = {
     heading: t("procurement_hub_explore") || "Explore",
