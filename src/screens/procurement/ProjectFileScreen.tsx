@@ -5,7 +5,7 @@
 // with per-contract method badges, and a contractors table.
 // See docs/plans/procurement-project-lifecycle-v1.md §4.2/§4.6.
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArticleLayout } from "@/components/article/ArticleLayout";
@@ -14,9 +14,53 @@ import type { ProcurementContract } from "@/data/dataTypes";
 import {
   useProjectFile,
   parseProjectSpec,
+  type ProjectFileSpec,
   type ProjectTenderRow,
 } from "@/data/procurement/useProjectFile";
 import { classifyMethod, isSingleBid } from "@/data/procurement/projectFile";
+import { saveProject, projectHref } from "@/data/procurement/projectStore";
+
+// Uncurated starter seeds — a researcher must not face a blank box (§0f.1).
+const STARTERS: Array<{ label: string; spec: ProjectFileSpec }> = [
+  {
+    label: "Софийски околовръстен — Западна дъга",
+    spec: {
+      title: { bg: "Софийски околовръстен — Западна дъга" },
+      search: [
+        {
+          terms: "западна дъга",
+          distinctive: ["дъга"],
+          buyerEik: ["000695089"],
+          threshold: 0.6,
+        },
+      ],
+      benchmark: {
+        unit: "eur_per_km",
+        impliedLow: 116000000,
+        impliedHigh: 400000000,
+      },
+    },
+  },
+  {
+    label: "Магистрала Хемус",
+    spec: {
+      title: { bg: "Магистрала Хемус" },
+      search: [
+        { terms: "хемус", distinctive: ["хемус"], buyerEik: ["000695089"] },
+      ],
+    },
+  },
+  {
+    label: "Избори — машини срещу хартия",
+    spec: {
+      title: { bg: "Избори — машини срещу хартия" },
+      search: [
+        { terms: "бюлетин", distinctive: ["бюлетин"] },
+        { terms: "суемг", distinctive: ["суемг"] },
+      ],
+    },
+  },
+];
 
 const methodLabel = (
   method: string | null | undefined,
@@ -88,11 +132,29 @@ export const ProjectFileScreen = () => {
   const body = () => {
     if (!spec) {
       return (
-        <p className="text-muted-foreground">
-          {bg
-            ? "Няма зададено досие. Отвори тази страница от търсенето в обществените поръчки."
-            : "No project specified. Open this page from the procurement search."}
-        </p>
+        <div>
+          <p className="text-muted-foreground mb-4">
+            {bg
+              ? "Няма зададено досие. Започни от готов пример или от търсенето в обществените поръчки."
+              : "No project yet. Start from a template or the procurement search."}
+          </p>
+          <div className="flex flex-col gap-2">
+            {STARTERS.map((s) => (
+              <Link
+                key={s.label}
+                to={projectHref(s.spec)}
+                className="rounded-md border px-3 py-2 text-sm hover:bg-muted"
+              >
+                {s.label}
+              </Link>
+            ))}
+          </div>
+          <div className="mt-4">
+            <Link to="/procurement/projects" className="text-sm text-primary">
+              {bg ? "Моите досиета →" : "My project files →"}
+            </Link>
+          </div>
+        </div>
       );
     }
     if (isLoading)
@@ -118,6 +180,8 @@ export const ProjectFileScreen = () => {
 
     return (
       <>
+        {/* key on the ?q= param so Saved/Copied feedback resets per project */}
+        <Toolbar key={params.get("q") ?? ""} spec={spec} bg={bg} />
         {data.truncated && (
           <div className="text-sm rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-2 my-3 text-amber-700 dark:text-amber-400">
             {bg
@@ -254,6 +318,53 @@ export const ProjectFileScreen = () => {
     >
       {body()}
     </ArticleLayout>
+  );
+};
+
+const Toolbar = ({ spec, bg }: { spec: ProjectFileSpec; bg: boolean }) => {
+  const [saved, setSaved] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const btn = "no-print rounded-md border px-3 py-1.5 text-sm hover:bg-muted";
+  return (
+    <div className="no-print flex flex-wrap gap-2 mb-2">
+      <button
+        className={btn}
+        onClick={() => {
+          saveProject(spec);
+          setSaved(true);
+        }}
+      >
+        {saved
+          ? bg
+            ? "Запазено ✓"
+            : "Saved ✓"
+          : bg
+            ? "Запази проект"
+            : "Save project"}
+      </button>
+      <button
+        className={btn}
+        onClick={() => {
+          // Only claim success once the write actually resolves; on failure the
+          // URL is still in the address bar, so leave the label unchanged.
+          navigator.clipboard
+            ?.writeText(window.location.href)
+            .then(() => setCopied(true))
+            .catch(() => {});
+        }}
+      >
+        {copied
+          ? bg
+            ? "Копирано ✓"
+            : "Copied ✓"
+          : bg
+            ? "Копирай връзка"
+            : "Copy link"}
+      </button>
+      <Link to="/procurement/projects" className={btn}>
+        {bg ? "Моите досиета" : "My files"}
+      </Link>
+    </div>
   );
 };
 

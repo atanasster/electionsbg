@@ -458,6 +458,11 @@ const ProjectFileScreen = lazy(() =>
     default: m.ProjectFileScreen,
   })),
 );
+const MyProjectFilesScreen = lazy(() =>
+  import("./screens/procurement/MyProjectFilesScreen").then((m) => ({
+    default: m.MyProjectFilesScreen,
+  })),
+);
 const TendersBrowserDbScreen = lazy(() =>
   import("./screens/dev/TendersBrowserDbScreen").then((m) => ({
     default: m.TendersBrowserDbScreen,
@@ -2253,6 +2258,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <ProjectFileScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="procurement/projects"
+            element={
+              <LayoutScreen>
+                <MyProjectFilesScreen />
               </LayoutScreen>
             }
           />
