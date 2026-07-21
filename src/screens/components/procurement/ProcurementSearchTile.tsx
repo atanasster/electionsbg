@@ -23,11 +23,13 @@ import {
   ClipboardList,
   Users,
   Scale,
+  FolderPlus,
 } from "lucide-react";
 import {
   EntitySearchTile,
   type SearchGroup,
 } from "@/ux/search/EntitySearchTile";
+import { projectHref } from "@/data/procurement/projectStore";
 import {
   useCorpusPersonIndex,
   type PersonProcurementRow,
@@ -346,6 +348,33 @@ export const ProcurementSearchTile: FC = () => {
           amountEur: td.estimatedValueEur,
           icon: ClipboardList,
         })),
+      });
+    // Footer on-ramp (§4.3b): turn the current search into a project file —
+    // /procurement/project resolves the УНП spine into a lifecycle report.
+    if (term.length >= 2)
+      g.push({
+        key: "project-file",
+        // Bilingual-inline (the sector-pack convention) — these are new labels
+        // with no i18n keys; t() would echo the raw key for a missing translation.
+        label: i18n.language === "bg" ? "Проследи темата" : "Track this topic",
+        items: [
+          {
+            id: "create-project-file",
+            to: projectHref({
+              title: { bg: term },
+              search: [{ terms: term }],
+            }),
+            primary:
+              i18n.language === "bg"
+                ? `Създай досие за „${term}“`
+                : `Create a file for “${term}”`,
+            secondary:
+              i18n.language === "bg"
+                ? "проследи договорите и процедурите по темата"
+                : "track its contracts & procedures",
+            icon: FolderPlus,
+          },
+        ],
       });
     return g;
   }, [
