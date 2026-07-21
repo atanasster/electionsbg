@@ -857,11 +857,19 @@ export const ProjectFileScreen = () => {
                 )}
               </div>
               <div className="text-sm flex items-start gap-2">
-                <span
-                  className={`flex-1 ${r.tender?.isCancelled ? "line-through text-muted-foreground" : ""}`}
-                >
-                  {r.tender?.subject ?? r.contracts[0]?.title}
-                </span>
+                {/* Link to the procedure page ONLY when we actually hold the
+                    tender row — pre-2020 procedures exist as a contract.unp with
+                    no tender in the corpus, so /tenders/:unp would 404. */}
+                {r.tender ? (
+                  <Link
+                    to={`/tenders/${r.unp}`}
+                    className={`flex-1 hover:underline ${r.tender.isCancelled ? "line-through text-muted-foreground" : ""}`}
+                  >
+                    {r.tender.subject}
+                  </Link>
+                ) : (
+                  <span className="flex-1">{r.contracts[0]?.title}</span>
+                )}
                 {r.contracts.some((c) => c.hasAppeal) && (
                   <AppealBadge
                     upheld={r.contracts.some((c) => c.appealUpheld)}
