@@ -443,6 +443,24 @@ const captures: Capture[] = [
     extraCss: "[data-community-banner]{display:none!important;}",
   },
   {
+    slug: "observations",
+    routePath: "observations",
+    // OSCE/ODIHR observation reports — dated report cards with the mission-type
+    // badge and the AI summary. Anchor on the ArticleLayout <article> so the clip
+    // leads with the title + intro + the first report card; wait for the loaded
+    // list (not the skeleton). HIDE_CHROME_CSS blanks every <header> (to drop the
+    // site nav), which also hides ArticleLayout's own header (the title) — so
+    // re-reveal just this article's header. (Was a rendered text card — job
+    // removed from generate.ts.)
+    waitFor: '[data-og="observations-list"]',
+    anchor: "article",
+    settleMs: 1500,
+    extraCss:
+      "[data-community-banner]{display:none!important;}" +
+      " article header{display:block!important;}" +
+      " article header h1,article header p{display:revert!important;}",
+  },
+  {
     slug: "judiciary",
     routePath: "judiciary",
     // The caseload-flow chart IS the page's argument (filed ≈ resolved, so the

@@ -54,7 +54,7 @@ export const ObservationsScreen = () => {
           ))}
         </div>
       ) : (
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4" data-og="observations-list">
           {sorted.map((o) => {
             const folderKey = o.electionDate.replace(/-/g, "_");
             const summary =

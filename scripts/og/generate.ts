@@ -354,31 +354,11 @@ const main = async () => {
   // not rendered text cards — so no jobs are queued here (they would overwrite
   // the screenshots in dist/og/ during postbuild).
 
-  // /observations — OSCE/ODIHR election observation reports landing page.
-  renderStaticPageCard(
-    "Доклади ОССЕ/ОДИХР",
-    "Международни наблюдения на парламентарните избори в България",
-    [
-      { label: "източник", value: "OSCE/ODIHR" },
-      { label: "обхват", value: yearSpan },
-      { label: "доклади", value: "EOM / LEOM / EAM" },
-      { label: "резюмета", value: "Claude AI" },
-    ],
-    "observations.png",
-  );
-
-  // /data-changes — public log of dataset refreshes.
-  renderStaticPageCard(
-    "Промени в данните",
-    "Дневник на обновяванията на electionsbg.com",
-    [
-      { label: "обхват", value: "всички набори" },
-      { label: "проследява", value: "обновявания" },
-      { label: "източник", value: "pipeline" },
-      { label: "тип", value: "log" },
-    ],
-    "data-changes.png",
-  );
+  // NB: /observations uses a live Playwright screenshot of its report feed
+  // (public/og/observations.png via capture-screens.ts), not a rendered text
+  // card — so no job is queued here. The data-hub pages (/data, /data/sources,
+  // /data/updates and the /data-changes redirect) all share the data-map
+  // diagram (public/og/data-map.png via screenshot_data_map.ts).
 
   // (/mp-cars now uses a live screenshot — see the NB above.)
 
