@@ -70,6 +70,14 @@ export interface ProjectFileSpec {
   excludes?: MemberIds;
   announcedBudget?: AnnouncedBudget;
   benchmark?: Benchmark;
+  /** Curated «празнина» — an expected-but-absent stage rendered as a gap node at
+   *  the end of the timeline (§0f.5). Optional authority/source explain WHY it's
+   *  absent (e.g. "still no construction tender", or "done off-tender by X"). */
+  gap?: {
+    note?: LocalizedText;
+    authority?: string;
+    sourceUrl?: string;
+  };
 }
 
 export interface ProjectFileModel {

@@ -145,6 +145,18 @@ export const isSingleBid = (
   numberOfTenderers: number | null | undefined,
 ): boolean => typeof numberOfTenderers === "number" && numberOfTenderers <= 1;
 
+/** The signing→current (post-annex) value change on a contract — an annex moved
+ *  the value. Null when either side is missing (foreign-currency rows) or the
+ *  change is sub-€1 (rounding noise, not an annex). Positive = the value grew. */
+export function annexDelta(
+  signing: number | null | undefined,
+  current: number | null | undefined,
+): number | null {
+  if (signing == null || current == null) return null;
+  const d = current - signing;
+  return Math.abs(d) >= 1 ? d : null;
+}
+
 /**
  * Resolve the seed id-set from scored matches + the manual overrides (§2):
  *   seed = (autoIn ∪ includes) − excludes

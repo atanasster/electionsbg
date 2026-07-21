@@ -4,6 +4,7 @@ import {
   bestConfidence,
   classifyMethod,
   isSingleBid,
+  annexDelta,
   resolveSeedIds,
   siblingLotPolicy,
   lotNumberOf,
@@ -105,6 +106,20 @@ describe("isSingleBid", () => {
     expect(isSingleBid(3)).toBe(false);
     expect(isSingleBid(null)).toBe(false);
     expect(isSingleBid(undefined)).toBe(false);
+  });
+});
+
+describe("annexDelta — signing→current value change", () => {
+  it("returns the delta above the €1 threshold, signed by direction", () => {
+    expect(annexDelta(100, 150)).toBe(50);
+    expect(annexDelta(150, 100)).toBe(-50);
+  });
+  it("is null when an operand is missing or the change is sub-€1", () => {
+    expect(annexDelta(null, 100)).toBeNull();
+    expect(annexDelta(100, null)).toBeNull();
+    expect(annexDelta(undefined, undefined)).toBeNull();
+    expect(annexDelta(100, 100.4)).toBeNull();
+    expect(annexDelta(100, 100)).toBeNull();
   });
 });
 

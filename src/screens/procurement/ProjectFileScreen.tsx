@@ -18,7 +18,11 @@ import {
   type ProjectFileSpec,
   type ProjectTenderRow,
 } from "@/data/procurement/useProjectFile";
-import { classifyMethod, isSingleBid } from "@/data/procurement/projectFile";
+import {
+  classifyMethod,
+  isSingleBid,
+  annexDelta,
+} from "@/data/procurement/projectFile";
 import { saveProject, projectHref } from "@/data/procurement/projectStore";
 
 // Uncurated starter seeds — a researcher must not face a blank box (§0f.1).
@@ -193,6 +197,22 @@ const METHOD_PILL: Record<
   nonCompetitive: { bg: "#FAECE7", color: "#712B13" }, // coral — no open tender
   unspecified: { bg: "#F1EFE8", color: "#5F5E5A" }, // grey — method not stated
 };
+
+/** КЗК-appeal badge. `has_appeal`/`appeal_upheld` are PROCEDURE-level flags, so
+ *  render this once at the procedure node (not per sibling-lot contract). */
+const AppealBadge = ({ upheld, bg }: { upheld?: boolean; bg: boolean }) => (
+  <span
+    className="rounded-full px-1.5 py-0.5 text-[11px]"
+    style={
+      upheld
+        ? { background: "#FAECE7", color: "#712B13" }
+        : { background: "#FAEEDA", color: "#854F0B" }
+    }
+    title={bg ? "жалба пред КЗК" : "KZK appeal"}
+  >
+    {bg ? "обжалване" : "appeal"}
+  </span>
+);
 
 export const ProjectFileScreen = () => {
   const { i18n } = useTranslation();
@@ -547,9 +567,17 @@ export const ProjectFileScreen = () => {
                 )}
               </div>
               <div className="text-sm flex items-start gap-2">
-                <span className="flex-1">
+                <span
+                  className={`flex-1 ${r.tender?.isCancelled ? "line-through text-muted-foreground" : ""}`}
+                >
                   {r.tender?.subject ?? r.contracts[0]?.title}
                 </span>
+                {r.contracts.some((c) => c.hasAppeal) && (
+                  <AppealBadge
+                    upheld={r.contracts.some((c) => c.appealUpheld)}
+                    bg={bg}
+                  />
+                )}
                 {editMode && (
                   <button
                     className="no-print text-xs text-muted-foreground hover:text-destructive"
@@ -567,6 +595,7 @@ export const ProjectFileScreen = () => {
                     c={c}
                     bg={bg}
                     money={money}
+                    showAppeal={false}
                     onRemove={
                       editMode
                         ? () => excludeMember("contract", c.key)
@@ -593,6 +622,45 @@ export const ProjectFileScreen = () => {
               />
             </div>
           ))}
+          {spec.gap && (
+            <div className="relative">
+              <span
+                className="absolute -left-[27px] top-1 h-4 w-4 rounded-full border-2 border-dashed"
+                style={{
+                  borderColor: "#B4B2A9",
+                  background: "var(--background, #fff)",
+                }}
+              />
+              <div className="rounded-md border border-dashed p-3 text-sm text-muted-foreground">
+                <span className="font-medium text-foreground">
+                  {bg ? "Липсваща стъпка" : "Missing stage"}
+                </span>{" "}
+                —{" "}
+                {(bg ? spec.gap.note?.bg : spec.gap.note?.en) ??
+                  spec.gap.note?.bg ??
+                  spec.gap.note?.en ??
+                  (bg
+                    ? "очаквана процедура, която все още липсва"
+                    : "an expected stage still missing")}
+                {spec.gap.authority
+                  ? ` (${bg ? "по" : "by"} ${spec.gap.authority})`
+                  : ""}
+                {/^https?:\/\//i.test(spec.gap.sourceUrl ?? "") && (
+                  <>
+                    {" · "}
+                    <a
+                      href={spec.gap.sourceUrl}
+                      className="text-primary underline"
+                      rel="nofollow noopener"
+                      target="_blank"
+                    >
+                      {bg ? "източник" : "source"}
+                    </a>
+                  </>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </>
     );
@@ -732,13 +800,18 @@ const ContractRow = ({
   bg,
   money,
   onRemove,
+  showAppeal = true,
 }: {
   c: ProcurementContract;
   bg: boolean;
   money: (n: number | null | undefined) => string;
   onRemove?: () => void;
+  /** false when the appeal badge is shown once at the procedure node above. */
+  showAppeal?: boolean;
 }) => {
   const pill = METHOD_PILL[classifyMethod(c.procurementMethod)];
+  const delta = annexDelta(c.signingAmountEur, c.amountEur);
+  const hasAnnex = delta != null;
   return (
     <div className="flex items-center gap-2 flex-wrap">
       <span
@@ -769,7 +842,24 @@ const ContractRow = ({
           {bg ? "единствен участник" : "single bidder"}
         </span>
       )}
-      <span className="ml-auto text-sm font-medium">{money(c.amountEur)}</span>
+      {showAppeal && c.hasAppeal && (
+        <AppealBadge upheld={c.appealUpheld} bg={bg} />
+      )}
+      <span className="ml-auto flex items-baseline gap-1.5">
+        <span className="text-sm font-medium">{money(c.amountEur)}</span>
+        {hasAnnex && (
+          <span
+            className="text-[11px]"
+            style={{ color: delta! > 0 ? "#993C1D" : "#5F5E5A" }}
+            title={
+              bg ? "анекс промени стойността" : "an annex changed the value"
+            }
+          >
+            {delta! > 0 ? "↑" : "↓"}
+            {money(Math.abs(delta!))}
+          </span>
+        )}
+      </span>
       {onRemove && (
         <button
           className="no-print text-xs text-muted-foreground hover:text-destructive"
