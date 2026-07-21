@@ -5,7 +5,7 @@
 // with per-contract method badges, and a contractors table.
 // See docs/plans/procurement-project-lifecycle-v1.md §4.2/§4.6.
 
-import { lazy, Suspense, useEffect, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState, type FC } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
@@ -49,6 +49,15 @@ import {
   type PeriodAgg,
 } from "@/data/procurement/projectFile";
 import { saveProject, projectHref } from "@/data/procurement/projectStore";
+import {
+  TileHubGrid,
+  SceneFrame,
+  PAPER,
+  TILE_ACCENTS,
+  type InfographicTileProps,
+  type TileHubSection,
+} from "@/ux/infographic";
+import { SECTOR_SCENES } from "@/screens/governance/sectorScenes";
 
 // Only render a curated link when it is an http(s) URL — an untrusted ?q= could
 // otherwise carry a javascript:/data: scheme.
@@ -63,43 +72,108 @@ interface Starter {
   category: { bg: string; en: string };
   label: string;
   hint: { bg: string; en: string };
+  /** Tile scene key (a PROJECT_SCENE / SECTOR_SCENES id) + accent hex — the hub
+   *  tile's infographic image, matching the topic (roads → roads, water → water). */
+  sceneKey: string;
+  accent: string;
   spec: ProjectFileSpec;
 }
 const API_EIK = ["000695089"]; // Агенция „Пътна инфраструктура"
 const MO_EIK = ["000695324"]; // Министерство на отбраната
 
+// Elections scene (a ballot dropping into a box, over result tallies) — the one
+// topic with no matching sector scene. Same SceneFrame contract as the sector
+// scenes: ink = currentColor, accent = var(--sector), PAPER for under-ink fills.
+const ElectionsScene: FC = () => (
+  <SceneFrame>
+    <rect
+      x="28"
+      y="40"
+      width="70"
+      height="8"
+      rx="4"
+      fill="var(--sector)"
+      opacity=".85"
+    />
+    <rect
+      x="28"
+      y="58"
+      width="50"
+      height="8"
+      rx="4"
+      fill="currentColor"
+      opacity=".3"
+    />
+    <rect
+      x="28"
+      y="76"
+      width="34"
+      height="8"
+      rx="4"
+      fill="currentColor"
+      opacity=".25"
+    />
+    <rect
+      x="150"
+      y="52"
+      width="96"
+      height="52"
+      rx="6"
+      fill={PAPER}
+      stroke="currentColor"
+      strokeWidth="1.6"
+    />
+    <rect
+      x="168"
+      y="49"
+      width="60"
+      height="6"
+      rx="3"
+      fill="currentColor"
+      opacity=".55"
+    />
+    <g transform="rotate(-12 198 34)">
+      <rect
+        x="176"
+        y="16"
+        width="44"
+        height="32"
+        rx="3"
+        fill={PAPER}
+        stroke="currentColor"
+        strokeWidth="1.4"
+      />
+      <path
+        d="M184 33 l6 6 l12 -15"
+        fill="none"
+        stroke="var(--sector)"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </g>
+  </SceneFrame>
+);
+
+// Topic tile images: reuse the rich sector scenes, plus the elections one.
+const PROJECT_SCENE: Record<string, FC> = {
+  ...SECTOR_SCENES,
+  elections: ElectionsScene,
+};
+const projectScene = (key: string): FC =>
+  PROJECT_SCENE[key] ?? SECTOR_SCENES.regional;
+
+// Curated flagship tile → scene + accent (by slug; a sensible fallback for any
+// future file so the gallery never renders a blank tile).
+const CURATED_TILE: Record<string, { sceneKey: string; accent: string }> = {
+  hemus: { sceneKey: "roads", accent: TILE_ACCENTS.clay },
+  "zapadna-daga": { sceneKey: "roads", accent: TILE_ACCENTS.copper },
+  "mashinno-glasuvane": { sceneKey: "elections", accent: TILE_ACCENTS.indigo },
+};
+const curatedTile = (slug: string) =>
+  CURATED_TILE[slug] ?? { sceneKey: "regional", accent: TILE_ACCENTS.indigo };
+
 const STARTERS: Starter[] = [
-  {
-    category: { bg: "Пътища", en: "Roads" },
-    label: "Софийски околовръстен — Западна дъга",
-    hint: {
-      bg: "Последните км от околовръстното: обявено срещу договорено",
-      en: "The ring road's last km: announced vs contracted",
-    },
-    spec: {
-      title: { bg: "Софийски околовръстен — Западна дъга" },
-      search: [
-        { terms: "западна дъга", distinctive: ["дъга"], buyerEik: API_EIK },
-      ],
-      benchmark: {
-        unit: "eur_per_km",
-        impliedLow: 116000000,
-        impliedHigh: 400000000,
-      },
-    },
-  },
-  {
-    category: { bg: "Пътища", en: "Roads" },
-    label: "Магистрала „Хемус“",
-    hint: {
-      bg: "2+ млрд. лв на „Автомагистрали“ без конкурс",
-      en: "€1bn+ to state „Avtomagistrali“ without a tender",
-    },
-    spec: {
-      title: { bg: "Магистрала „Хемус“" },
-      search: [{ terms: "хемус", distinctive: ["хемус"], buyerEik: API_EIK }],
-    },
-  },
   {
     category: { bg: "Пътища", en: "Roads" },
     label: "АМ „Струма“ (Кресна)",
@@ -107,6 +181,8 @@ const STARTERS: Starter[] = [
       bg: "Спорният лот 3.2 през Кресненското дефиле",
       en: "The contested lot 3.2 through the Kresna gorge",
     },
+    sceneKey: "roads",
+    accent: TILE_ACCENTS.clay,
     spec: {
       title: { bg: "АМ „Струма“ — Кресненско дефиле" },
       search: [{ terms: "струма", distinctive: ["струма"], buyerEik: API_EIK }],
@@ -119,6 +195,8 @@ const STARTERS: Starter[] = [
       bg: "Разширението на третия лъч",
       en: "The third-line extension",
     },
+    sceneKey: "transport",
+    accent: TILE_ACCENTS.copper,
     spec: {
       title: { bg: "Софийско метро" },
       search: [{ terms: "метро", distinctive: ["метро"] }],
@@ -131,6 +209,8 @@ const STARTERS: Starter[] = [
       bg: "Най-голямата жп поръчка по ОПТТИ",
       en: "The biggest rail job under OPTTI",
     },
+    sceneKey: "transport",
+    accent: TILE_ACCENTS.steel,
     spec: {
       title: { bg: "жп „Елин Пелин – Костенец“" },
       search: [{ terms: "костенец", distinctive: ["костенец"] }],
@@ -143,6 +223,8 @@ const STARTERS: Starter[] = [
       bg: "Тръбата IGB и договорът с „Боташ“",
       en: "The IGB pipeline and the Botas deal",
     },
+    sceneKey: "energy",
+    accent: TILE_ACCENTS.gold,
     spec: {
       title: { bg: "Газов интерконектор с Гърция" },
       search: [{ terms: "интерконектор", distinctive: ["интерконектор"] }],
@@ -155,6 +237,8 @@ const STARTERS: Starter[] = [
       bg: "Инфраструктурата за новите изтребители",
       en: "The base infrastructure for the new jets",
     },
+    sceneKey: "defense",
+    accent: TILE_ACCENTS.moss,
     spec: {
       title: { bg: "Авиобаза „Граф Игнатиево“" },
       search: [
@@ -173,6 +257,8 @@ const STARTERS: Starter[] = [
       bg: "Националната програма за енергийна ефективност",
       en: "The national energy-efficiency program",
     },
+    sceneKey: "environment",
+    accent: TILE_ACCENTS.leaf,
     spec: {
       title: { bg: "Саниране на жилищни сгради" },
       search: [{ terms: "саниране", distinctive: ["саниране"] }],
@@ -185,6 +271,8 @@ const STARTERS: Starter[] = [
       bg: "ВиК проектите по ОПОС",
       en: "Water-cycle projects under OPOS",
     },
+    sceneKey: "water",
+    accent: TILE_ACCENTS.teal,
     spec: {
       title: { bg: "Воден цикъл" },
       search: [{ terms: "воден цикъл", distinctive: ["цикъл"] }],
@@ -197,6 +285,8 @@ const STARTERS: Starter[] = [
       bg: "Най-проточилият се болничен строеж",
       en: "The most drawn-out hospital build",
     },
+    sceneKey: "health",
+    accent: TILE_ACCENTS.rose,
     spec: {
       title: { bg: "Национална детска болница" },
       search: [{ terms: "детска болница", distinctive: ["детска"] }],
@@ -209,24 +299,14 @@ const STARTERS: Starter[] = [
       bg: "Финансиран от ЕС ВиК проект: договорено срещу изплатено",
       en: "An EU-funded water project: contracted vs paid",
     },
+    sceneKey: "water",
+    accent: TILE_ACCENTS.aqua,
     // Carries a real ИСУН fund member so the «Европейско финансиране» block
     // (§4.2.3b) is exercised — договорено €105M / изплатено a fraction.
     spec: {
       title: { bg: "Воден цикъл по ОПОС (ИСУН)" },
       search: [{ terms: "вик инфраструктура", distinctive: ["вик"] }],
       includes: { fundContractNumbers: ["BG16FFPR002-1.002-0007"] },
-    },
-  },
-  {
-    category: { bg: "Избори", en: "Elections" },
-    label: "Машинно гласуване (СУЕМГ)",
-    hint: {
-      bg: "Договорите със „Сиела Норма“",
-      en: "The contracts with „Ciela Norma“",
-    },
-    spec: {
-      title: { bg: "Машинно гласуване (СУЕМГ)" },
-      search: [{ terms: "суемг", distinctive: ["суемг"] }],
     },
   },
 ];
@@ -552,6 +632,46 @@ export const ProjectFileScreen = () => {
         </p>
       );
     if (!spec) {
+      // Hub dashboard (§4.3b) — a build-search box, then tile sections that front
+      // curated flagships + topic starters, each with a scene image matching its
+      // subject (mirrors the /procurement hub). Curated files lead (editorial),
+      // topic starters follow.
+      const curatedTiles: InfographicTileProps[] = (
+        curatedIndex.data ?? []
+      ).map((f) => {
+        const { sceneKey, accent } = curatedTile(f.slug);
+        return {
+          to: `/procurement/project/${f.slug}`,
+          title: bg
+            ? (f.title.bg ?? f.title.en ?? "")
+            : (f.title.en ?? f.title.bg ?? ""),
+          desc: bg ? f.summary?.bg : (f.summary?.en ?? f.summary?.bg),
+          accent,
+          scene: projectScene(sceneKey),
+        };
+      });
+      const starterTiles: InfographicTileProps[] = STARTERS.map((s) => ({
+        to: projectHref(s.spec),
+        title: s.label,
+        desc: bg ? s.hint.bg : s.hint.en,
+        badge: bg ? s.category.bg : s.category.en,
+        accent: s.accent,
+        scene: projectScene(s.sceneKey),
+      }));
+      const sections: TileHubSection[] = [];
+      if (curatedTiles.length)
+        sections.push({
+          heading: bg ? "Досиета на Наясно" : "Наясно files",
+          tiles: curatedTiles,
+        });
+      sections.push({
+        heading: bg ? "Или започни от тема" : "Or start from a topic",
+        tiles: starterTiles,
+        action: {
+          label: bg ? "Моите досиета" : "My files",
+          to: "/procurement/projects",
+        },
+      });
       return (
         <div className="mt-4">
           <div className="max-w-2xl">
@@ -569,62 +689,7 @@ export const ProjectFileScreen = () => {
               initial={params.get("refine") ?? ""}
             />
           </div>
-          <div className="text-xs uppercase tracking-wide text-muted-foreground mt-6 mb-2">
-            {bg ? "Или започни от тема" : "Or start from a topic"}
-          </div>
-          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
-            {STARTERS.map((s) => (
-              <Link
-                key={s.label}
-                to={projectHref(s.spec)}
-                className="flex min-w-0 flex-col gap-1 rounded-lg border p-3 transition-colors hover:border-primary/40 hover:bg-muted"
-              >
-                <span className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
-                  {bg ? s.category.bg : s.category.en}
-                </span>
-                <span className="text-sm font-medium leading-snug">
-                  {s.label}
-                </span>
-                <span className="text-xs text-muted-foreground leading-snug">
-                  {bg ? s.hint.bg : s.hint.en}
-                </span>
-              </Link>
-            ))}
-          </div>
-          {(curatedIndex.data?.length ?? 0) > 0 && (
-            <div className="mt-8">
-              <div className="text-xs uppercase tracking-wide text-muted-foreground mb-2">
-                {bg ? "Досиета на Наясно" : "Наясно files"}
-              </div>
-              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                {curatedIndex.data!.map((f) => (
-                  <Link
-                    key={f.slug}
-                    to={`/procurement/project/${f.slug}`}
-                    className="flex min-w-0 flex-col gap-1 rounded-lg border p-3 transition-colors hover:border-primary/40 hover:bg-muted"
-                  >
-                    <span className="text-sm font-medium leading-snug">
-                      {bg
-                        ? (f.title.bg ?? f.title.en)
-                        : (f.title.en ?? f.title.bg)}
-                    </span>
-                    {f.summary && (
-                      <span className="text-xs text-muted-foreground leading-snug">
-                        {bg
-                          ? (f.summary.bg ?? f.summary.en)
-                          : (f.summary.en ?? f.summary.bg)}
-                      </span>
-                    )}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
-          <div className="mt-6">
-            <Link to="/procurement/projects" className="text-sm text-primary">
-              {bg ? "Моите досиета →" : "My project files →"}
-            </Link>
-          </div>
+          <TileHubGrid sections={sections} className="mt-8" />
         </div>
       );
     }
@@ -1490,7 +1555,8 @@ export const ProjectFileScreen = () => {
             : "Track one public project across procurement."
         }
       >
-        {title}
+        {/* Hub shows the plural section name; a resolved dossier its own title. */}
+        {spec ? title : bg ? "Проектни досиета" : "Project files"}
       </Title>
       <ProcurementBreadcrumb
         current={spec ? title : bg ? "Проектни досиета" : "Project files"}
