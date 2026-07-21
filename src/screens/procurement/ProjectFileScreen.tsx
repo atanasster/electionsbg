@@ -19,6 +19,7 @@ import {
   type ProjectFileSpec,
   type ProjectTenderRow,
   type Claim,
+  type FundProjectMember,
 } from "@/data/procurement/useProjectFile";
 import {
   classifyMethod,
@@ -324,6 +325,22 @@ export const ProjectFileScreen = () => {
       const keys = inc.contractKeys ?? [];
       if (keys.includes(key)) return cur; // no duplicate keys in the spec/URL
       return { ...cur, includes: { ...inc, contractKeys: [...keys, key] } };
+    });
+
+  // Fund members are manual-add only (includes.fundContractNumbers) — removing
+  // one just drops its contract_number (§4.2.3b).
+  const removeFund = (contractNumber: string) =>
+    mutateSpec((cur) => {
+      const inc = cur.includes ?? {};
+      return {
+        ...cur,
+        includes: {
+          ...inc,
+          fundContractNumbers: (inc.fundContractNumbers ?? []).filter(
+            (n) => n !== contractNumber,
+          ),
+        },
+      };
     });
 
   const title =
@@ -991,6 +1008,28 @@ export const ProjectFileScreen = () => {
               </div>
             </div>
           )}
+          {/* EU funding annotation (§4.2.3b) — a single DATELESS node (ИСУН has no
+              payment dates, §0d); the amounts live in the ИСУН block below. */}
+          {data.funds.length > 0 && (
+            <div className="relative">
+              <span
+                className="absolute -left-[27px] top-1 h-4 w-4 rounded-full border-2 border-dashed"
+                style={{
+                  borderColor: "#0F6E56",
+                  background: "var(--background, #fff)",
+                }}
+              />
+              <div className="rounded-md border border-dashed p-3 text-sm text-muted-foreground">
+                <span className="font-medium text-foreground">
+                  {bg ? "Финансиране от ЕС" : "EU funding"}
+                </span>{" "}
+                —{" "}
+                {bg
+                  ? `${data.funds.length} проект${data.funds.length === 1 ? "" : "а"} по ИСУН (без дати на плащане — виж по-долу)`
+                  : `${data.funds.length} ISUN project${data.funds.length === 1 ? "" : "s"} (no payment dates — see below)`}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Contractors table (§4.2.5) — aggregated from the member contracts */}
@@ -1045,6 +1084,17 @@ export const ProjectFileScreen = () => {
               </tbody>
             </table>
           </div>
+        )}
+
+        {/* Европейско финансиране (ИСУН) block (§4.2.3b) — curated fund members */}
+        {data.funds.length > 0 && (
+          <FundsBlock
+            funds={data.funds}
+            money={money}
+            bg={bg}
+            editMode={editMode}
+            onRemove={removeFund}
+          />
         )}
 
         {/* Claims ledger (§4.2.6b) — public statements vs the file's own numbers.
@@ -1393,6 +1443,119 @@ const VERDICT_STYLE: Record<
     label: { bg: "частично", en: "partial" },
   },
 };
+
+// Европейско финансиране (ИСУН) block (§4.2.3b) — curated fund-project members.
+// Each card: programme + contract_number, beneficiary → /company/:eik, a
+// договорено/изплатено disbursement bar with усвоено %, status, a manual-add
+// provenance chip and (edit mode) a × remove. ИСУН publishes contracted + paid
+// sums but NO payment dates (§0d), so the honest note says exactly that — no
+// dated tranches, and in the timeline this is one dateless annotation.
+const FundsBlock = ({
+  funds,
+  money,
+  bg,
+  editMode,
+  onRemove,
+}: {
+  funds: FundProjectMember[];
+  money: (n: number | null | undefined) => string;
+  bg: boolean;
+  editMode: boolean;
+  onRemove: (contractNumber: string) => void;
+}) => (
+  <section className="my-8 max-w-3xl">
+    <h2 className="mb-1 text-sm font-medium text-muted-foreground">
+      {bg ? "Европейско финансиране (ИСУН)" : "EU funding (ISUN)"}
+    </h2>
+    <p className="mb-3 text-xs text-muted-foreground">
+      {bg
+        ? "ИСУН публикува договорени и изплатени суми, но не и дати на плащане."
+        : "ISUN publishes contracted and paid sums, but no payment dates."}
+    </p>
+    <div className="flex flex-col gap-3">
+      {funds.map((f) => {
+        const total = f.totalEur ?? 0;
+        // Keep the raw % (over-100% over-disbursement is an honest signal); only
+        // guard the negative/absent case. The bar clamps to [0,100] visually.
+        const paidPct =
+          total > 0 && f.paidEur != null && f.paidEur >= 0
+            ? Math.round((f.paidEur / total) * 100)
+            : null;
+        return (
+          <div key={f.contractNumber} className="rounded-md border p-3">
+            <div className="mb-1 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+              {f.programName && (
+                <span className="rounded-full bg-muted px-2 py-0.5">
+                  {f.programName}
+                </span>
+              )}
+              <span className="font-mono">{f.contractNumber}</span>
+              <span className="rounded-full border px-1.5 py-0.5">
+                {bg ? "добавен ръчно" : "manually added"}
+              </span>
+              {editMode && (
+                <button
+                  type="button"
+                  onClick={() => onRemove(f.contractNumber)}
+                  className="no-print text-muted-foreground hover:text-destructive"
+                  aria-label={bg ? "махни проекта" : "remove project"}
+                  title={bg ? "махни проекта" : "remove project"}
+                >
+                  ×
+                </button>
+              )}
+            </div>
+            <div className="text-sm font-medium leading-snug">{f.title}</div>
+            {f.beneficiaryEik && (
+              <Link
+                to={`/company/${f.beneficiaryEik}`}
+                className="text-xs text-primary hover:underline"
+              >
+                {f.beneficiaryName ?? f.beneficiaryEik}
+              </Link>
+            )}
+            <div className="mt-2 flex flex-wrap items-center gap-x-6 gap-y-1 text-sm">
+              <span>
+                <span className="text-xs text-muted-foreground">
+                  {bg ? "договорено " : "contracted "}
+                </span>
+                {money(f.totalEur)}
+              </span>
+              <span>
+                <span className="text-xs text-muted-foreground">
+                  {bg ? "изплатено " : "paid "}
+                </span>
+                {money(f.paidEur)}
+                {paidPct != null && (
+                  <span className="text-xs text-muted-foreground">
+                    {" "}
+                    ({paidPct}% {bg ? "усвоено" : "absorbed"})
+                  </span>
+                )}
+              </span>
+              {f.status && (
+                <span className="text-xs text-muted-foreground">
+                  {f.status}
+                </span>
+              )}
+            </div>
+            {paidPct != null && (
+              <div className="mt-1.5 h-2 overflow-hidden rounded bg-muted">
+                <div
+                  className="h-full rounded"
+                  style={{
+                    width: `${Math.min(100, paidPct)}%`,
+                    background: "#0F6E56",
+                  }}
+                />
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  </section>
+);
 
 // Claims ledger (§4.2.6b / §0g.4) — public statements checked against the file's
 // own numbers ("нашите данни"). обективност-срещу-заглавието made literal, and the

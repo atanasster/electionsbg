@@ -230,7 +230,10 @@ const REGISTRY = {
     base: "fund_projects",
     scopeCols: ["beneficiary_eik"],
     columns: {
-      contract_number: { type: "text" },
+      // `in` filter so the project-file resolver can pull curated fund members by
+      // contract_number (the ИСУН member spine, §4.2.3b) — mirrors the unp/key
+      // spine on contracts/tenders.
+      contract_number: { type: "text", filter: "in" },
       beneficiary_eik: { type: "text", filter: "eq" },
       beneficiary_name: {
         type: "text",

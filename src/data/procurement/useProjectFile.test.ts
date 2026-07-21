@@ -43,6 +43,26 @@ describe("parseProjectSpec — untrusted ?q= parsing (§4.1)", () => {
     expect(s?.includes?.contractKeys?.length).toBeLessThanOrEqual(500);
   });
 
+  it("string-filters + bounds includes.fundContractNumbers (§4.2.3b)", () => {
+    const s = parseProjectSpec(
+      JSON.stringify({
+        search: [{ terms: "x" }],
+        includes: { fundContractNumbers: [123, "BG16", null, "BG-RRP"] },
+      }),
+    );
+    // non-strings dropped, strings kept
+    expect(s?.includes?.fundContractNumbers).toEqual(["BG16", "BG-RRP"]);
+    const big = parseProjectSpec(
+      JSON.stringify({
+        search: [{ terms: "x" }],
+        includes: {
+          fundContractNumbers: Array.from({ length: 5000 }, (_, i) => `f${i}`),
+        },
+      }),
+    );
+    expect(big?.includes?.fundContractNumbers?.length).toBeLessThanOrEqual(500);
+  });
+
   it("caps the number of search threads", () => {
     const many = Array.from({ length: 100 }, () => ({ terms: "x" }));
     const s = parseProjectSpec(JSON.stringify({ search: many }));

@@ -18,6 +18,7 @@ import {
   lotNumberOf,
   dedupContracts,
   dedupTenders,
+  dedupFunds,
   foldMembers,
   foldByPeriod,
   matchInhouseContractors,
@@ -338,11 +339,18 @@ describe("lotNumberOf", () => {
 });
 
 describe("dedup", () => {
-  it("dedups contracts by key, tenders by unp", () => {
+  it("dedups contracts by key, tenders by unp, funds by contractNumber", () => {
     expect(
       dedupContracts([{ key: "x" }, { key: "x" }, { key: "y" }]),
     ).toHaveLength(2);
     expect(dedupTenders([{ unp: "u1" }, { unp: "u1" }])).toHaveLength(1);
+    const f = dedupFunds([
+      { contractNumber: "BG-1", title: "a" },
+      { contractNumber: "BG-1", title: "dup" }, // dropped, first kept
+      { contractNumber: "BG-2", title: "b" },
+    ]);
+    expect(f.map((x) => x.contractNumber)).toEqual(["BG-1", "BG-2"]);
+    expect(f[0].title).toBe("a");
   });
 });
 

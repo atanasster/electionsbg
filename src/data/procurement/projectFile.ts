@@ -289,6 +289,14 @@ export const dedupTenders = <T extends { unp: string }>(
   rows: readonly T[],
 ): T[] => uniqBy(rows, (r) => r.unp);
 
+/** Dedup fund members by `contractNumber` (§4.2.3b). `contract_number` is the
+ *  fund_projects PRIMARY KEY (one row per project), so this only guards a curated
+ *  include-set that lists the same project twice — it never merges distinct
+ *  projects. Keeps the first (highest total_eur under the resolver's sort). */
+export const dedupFunds = <T extends { contractNumber: string }>(
+  rows: readonly T[],
+): T[] => uniqBy(rows, (r) => r.contractNumber);
+
 export interface FoldInput {
   key: string;
   tag?: string | null;

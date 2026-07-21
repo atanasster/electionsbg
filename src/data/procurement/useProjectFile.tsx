@@ -17,6 +17,7 @@ import {
   resolveSeedIds,
   dedupContracts,
   dedupTenders,
+  dedupFunds,
   foldMembers,
   siblingLotPolicy,
   lotNumberOf,
@@ -153,9 +154,23 @@ export interface Claim {
   note?: LocalizedText;
 }
 
+/** A curated ИСУН fund-project member (§4.2.3b) — manual-add only (no ЗОП
+ *  lineage), pulled by contract_number. договорено/изплатено, no payment dates. */
+export interface FundProjectMember {
+  contractNumber: string;
+  title: string;
+  beneficiaryEik?: string;
+  beneficiaryName?: string;
+  programName?: string;
+  totalEur?: number;
+  paidEur?: number;
+  status?: string;
+}
+
 export interface ProjectFileModel {
   contracts: ProcurementContract[];
   tenders: ProjectTenderRow[];
+  funds: FundProjectMember[];
   fold: ProjectFold;
   /** A seed thread hit the recall cap → the search is over-broad, results are a
    *  top-N slice, not the whole set. The screen should prompt to narrow (§4.1). */
@@ -354,6 +369,17 @@ const fetchTendersByUnp = (unps: string[]) =>
     filters: { columns: [{ id: "unp", value: unps }] },
   });
 
+/** Curated ИСУН fund-project members by contract_number (§4.2.3b). Manual-add
+ *  only — no lineage — so this pulls exactly the included contract numbers. */
+const fetchFundProjects = (contractNumbers: string[]) =>
+  fetchTablePage<FundProjectMember>({
+    resource: "fund_projects",
+    page: 0,
+    pageSize: LINEAGE_PAGE,
+    sort: [{ id: "total_eur", desc: true }],
+    filters: { columns: [{ id: "contract_number", value: contractNumbers }] },
+  });
+
 async function resolveProjectFile(
   spec: ProjectFileSpec,
 ): Promise<ProjectFileModel> {
@@ -433,13 +459,19 @@ async function resolveProjectFile(
   for (const u of seedTenderUnps) unpSet.add(u);
   const unps = [...unpSet];
 
-  const [lineageContracts, includeContracts, lineageTenders] =
+  const [lineageContracts, includeContracts, lineageTenders, fundMembers] =
     await Promise.all([
       nonEmpty(unps) ? fetchContractsByUnp(unps) : Promise.resolve([]),
       nonEmpty(spec.includes?.contractKeys)
         ? fetchContractsByKey(spec.includes!.contractKeys!)
         : Promise.resolve([]),
       nonEmpty(unps) ? fetchTendersByUnp(unps) : Promise.resolve([]),
+      // ИСУН fund members (§4.2.3b) — manual-add only, by contract_number. Catch
+      // so a fund-fetch failure (e.g. a DB predating the contract_number filter)
+      // degrades to "no ИСУН block" rather than blanking the whole dossier.
+      nonEmpty(spec.includes?.fundContractNumbers)
+        ? fetchFundProjects(spec.includes!.fundContractNumbers!).catch(() => [])
+        : Promise.resolve([]),
     ]);
 
   // 4. Lot over-expansion guard (§2): for a MANY-lot procedure keep only the
@@ -481,7 +513,14 @@ async function resolveProjectFile(
   );
 
   const fold = foldMembers(allContracts.map(toFoldInput));
-  return { contracts: allContracts, tenders: allTenders, fold, truncated };
+  const funds = dedupFunds(fundMembers);
+  return {
+    contracts: allContracts,
+    tenders: allTenders,
+    funds,
+    fold,
+    truncated,
+  };
 }
 
 export const useProjectFile = (spec: ProjectFileSpec | null) =>
