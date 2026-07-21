@@ -292,11 +292,16 @@ async function resolveProjectFile(
   });
 
   // 5. Assemble: seeded + guarded lineage + explicit includes, − excludes, deduped.
+  //    Excluding a procedure (unp) drops BOTH its tender node AND its contracts —
+  //    "remove procedure" removes the whole procedure and its money, not just the
+  //    marker. Individual contract excludes still apply by key.
   const allContracts = dedupContracts([
     ...seedContractRows,
     ...guardedLineage,
     ...includeContracts,
-  ]).filter((c) => !excludeKeys.has(c.key));
+  ]).filter(
+    (c) => !excludeKeys.has(c.key) && !(c.unp && excludeUnps.has(c.unp)),
+  );
   const allTenders = dedupTenders(lineageTenders).filter(
     (t) => !excludeUnps.has(t.unp),
   );

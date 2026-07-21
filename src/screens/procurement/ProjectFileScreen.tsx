@@ -80,9 +80,64 @@ export const ProjectFileScreen = () => {
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
   const loc = bg ? "bg-BG" : "en-US";
-  const [params] = useSearchParams();
+  const [params, setParams] = useSearchParams();
   const spec = useMemo(() => parseProjectSpec(params.get("q")), [params]);
   const { data, isLoading, error } = useProjectFile(spec);
+  const [editMode, setEditMode] = useState(false);
+
+  // Spec mutations write straight to the ?q= param (so Save/Copy capture the edit
+  // and the timeline re-resolves live — the §4.3b full-page builder), PRESERVING
+  // sibling params (?elections=, ?pscope=). `mutateSpec` uses the functional
+  // setParams form, re-reading the freshest spec from the URL so rapid edits
+  // (e.g. several × clicks) don't clobber each other via a stale closure.
+  const setQ = (next: ProjectFileSpec) =>
+    setParams((prev) => {
+      const p = new URLSearchParams(prev);
+      p.set("q", JSON.stringify(next));
+      return p;
+    });
+
+  const mutateSpec = (fn: (cur: ProjectFileSpec) => ProjectFileSpec) =>
+    setParams(
+      (prev) => {
+        const cur = parseProjectSpec(prev.get("q"));
+        if (!cur) return prev;
+        const p = new URLSearchParams(prev);
+        p.set("q", JSON.stringify(fn(cur)));
+        return p;
+      },
+      { replace: true },
+    );
+
+  const buildFromTerms = (terms: string) => {
+    const t = terms.trim();
+    if (t) setQ({ title: { bg: t }, search: [{ terms: t }] });
+  };
+
+  const refineTerms = (terms: string) => {
+    const t = terms.trim();
+    if (!t) return;
+    if (!spec) return buildFromTerms(t);
+    // Only the first thread's terms are editable here — keep the rest intact.
+    mutateSpec((cur) => ({
+      ...cur,
+      search: [{ ...cur.search[0], terms: t }, ...cur.search.slice(1)],
+    }));
+  };
+
+  const excludeMember = (kind: "contract" | "tender", id: string) =>
+    mutateSpec((cur) => {
+      const ex = cur.excludes ?? {};
+      return kind === "contract"
+        ? {
+            ...cur,
+            excludes: { ...ex, contractKeys: [...(ex.contractKeys ?? []), id] },
+          }
+        : {
+            ...cur,
+            excludes: { ...ex, tenderUnps: [...(ex.tenderUnps ?? []), id] },
+          };
+    });
 
   const title =
     (bg ? spec?.title?.bg : spec?.title?.en) ??
@@ -133,11 +188,19 @@ export const ProjectFileScreen = () => {
     if (!spec) {
       return (
         <div>
-          <p className="text-muted-foreground mb-4">
+          <p className="text-muted-foreground mb-2">
             {bg
-              ? "Няма зададено досие. Започни от готов пример или от търсенето в обществените поръчки."
-              : "No project yet. Start from a template or the procurement search."}
+              ? "Търси предмет на договор или процедура, за да създадеш досие — или започни от готов пример."
+              : "Search a contract or tender subject to build a file — or start from a template."}
           </p>
+          <BuildForm
+            onSubmit={buildFromTerms}
+            bg={bg}
+            cta={bg ? "Създай досие" : "Create file"}
+          />
+          <div className="text-xs text-muted-foreground mb-2">
+            {bg ? "Готови примери" : "Templates"}
+          </div>
           <div className="flex flex-col gap-2">
             {STARTERS.map((s) => (
               <Link
@@ -181,7 +244,28 @@ export const ProjectFileScreen = () => {
     return (
       <>
         {/* key on the ?q= param so Saved/Copied feedback resets per project */}
-        <Toolbar key={params.get("q") ?? ""} spec={spec} bg={bg} />
+        <Toolbar
+          key={params.get("q") ?? ""}
+          spec={spec}
+          bg={bg}
+          editMode={editMode}
+          onToggleEdit={() => setEditMode((e) => !e)}
+        />
+        {editMode && (
+          <div className="no-print rounded-md border border-dashed p-3 mb-3">
+            <BuildForm
+              initial={spec.search[0]?.terms}
+              onSubmit={refineTerms}
+              bg={bg}
+              cta={bg ? "Обнови търсенето" : "Update search"}
+            />
+            <div className="text-xs text-muted-foreground">
+              {bg
+                ? "Смени думите за търсене, или махни отделен ред с ×."
+                : "Change the search terms, or remove a row with ×."}
+            </div>
+          </div>
+        )}
         {data.truncated && (
           <div className="text-sm rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-2 my-3 text-amber-700 dark:text-amber-400">
             {bg
@@ -283,12 +367,33 @@ export const ProjectFileScreen = () => {
                   </span>
                 )}
               </div>
-              <div className="text-sm">
-                {r.tender?.subject ?? r.contracts[0]?.title}
+              <div className="text-sm flex items-start gap-2">
+                <span className="flex-1">
+                  {r.tender?.subject ?? r.contracts[0]?.title}
+                </span>
+                {editMode && (
+                  <button
+                    className="no-print text-xs text-muted-foreground hover:text-destructive"
+                    title={bg ? "махни процедурата" : "remove procedure"}
+                    onClick={() => excludeMember("tender", r.unp)}
+                  >
+                    ×
+                  </button>
+                )}
               </div>
               <div className="mt-2 flex flex-col gap-2 pl-3">
                 {r.contracts.map((c) => (
-                  <ContractRow key={c.key} c={c} bg={bg} money={money} />
+                  <ContractRow
+                    key={c.key}
+                    c={c}
+                    bg={bg}
+                    money={money}
+                    onRemove={
+                      editMode
+                        ? () => excludeMember("contract", c.key)
+                        : undefined
+                    }
+                  />
                 ))}
               </div>
             </div>
@@ -299,7 +404,14 @@ export const ProjectFileScreen = () => {
                 className="absolute -left-[24px] top-1.5 w-2.5 h-2.5 rounded-full"
                 style={{ background: "#1D9E75" }}
               />
-              <ContractRow c={c} bg={bg} money={money} />
+              <ContractRow
+                c={c}
+                bg={bg}
+                money={money}
+                onRemove={
+                  editMode ? () => excludeMember("contract", c.key) : undefined
+                }
+              />
             </div>
           ))}
         </div>
@@ -321,12 +433,25 @@ export const ProjectFileScreen = () => {
   );
 };
 
-const Toolbar = ({ spec, bg }: { spec: ProjectFileSpec; bg: boolean }) => {
+const Toolbar = ({
+  spec,
+  bg,
+  editMode,
+  onToggleEdit,
+}: {
+  spec: ProjectFileSpec;
+  bg: boolean;
+  editMode: boolean;
+  onToggleEdit: () => void;
+}) => {
   const [saved, setSaved] = useState(false);
   const [copied, setCopied] = useState(false);
   const btn = "no-print rounded-md border px-3 py-1.5 text-sm hover:bg-muted";
   return (
     <div className="no-print flex flex-wrap gap-2 mb-2">
+      <button className={btn} onClick={onToggleEdit} aria-pressed={editMode}>
+        {editMode ? (bg ? "Готово" : "Done") : bg ? "Редактирай" : "Edit"}
+      </button>
       <button
         className={btn}
         onClick={() => {
@@ -396,10 +521,12 @@ const ContractRow = ({
   c,
   bg,
   money,
+  onRemove,
 }: {
   c: ProcurementContract;
   bg: boolean;
   money: (n: number | null | undefined) => string;
+  onRemove?: () => void;
 }) => (
   <div className="flex items-center gap-2 flex-wrap">
     <span
@@ -431,5 +558,54 @@ const ContractRow = ({
       </span>
     )}
     <span className="ml-auto text-sm font-medium">{money(c.amountEur)}</span>
+    {onRemove && (
+      <button
+        className="no-print text-xs text-muted-foreground hover:text-destructive"
+        title={bg ? "махни договора" : "remove contract"}
+        onClick={onRemove}
+      >
+        ×
+      </button>
+    )}
   </div>
 );
+
+const BuildForm = ({
+  initial,
+  onSubmit,
+  bg,
+  cta,
+}: {
+  initial?: string;
+  onSubmit: (terms: string) => void;
+  bg: boolean;
+  cta: string;
+}) => {
+  const [terms, setTerms] = useState(initial ?? "");
+  return (
+    <form
+      className="no-print flex gap-2 my-3"
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSubmit(terms);
+      }}
+    >
+      <input
+        className="flex-1 rounded-md border px-3 py-1.5 text-sm bg-background"
+        value={terms}
+        onChange={(e) => setTerms(e.target.value)}
+        placeholder={
+          bg
+            ? "напр. западна дъга, ремонт улици Пловдив…"
+            : "e.g. western arc, street repair Plovdiv…"
+        }
+      />
+      <button
+        className="rounded-md border px-3 py-1.5 text-sm hover:bg-muted"
+        type="submit"
+      >
+        {cta}
+      </button>
+    </form>
+  );
+};
