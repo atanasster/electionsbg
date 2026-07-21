@@ -598,8 +598,8 @@ const Toolbar = ({
             ? "Запазено ✓"
             : "Saved ✓"
           : bg
-            ? "Запази проект"
-            : "Save project"}
+            ? "Запази досие"
+            : "Save file"}
       </button>
       <button
         className={btn}
