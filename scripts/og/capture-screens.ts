@@ -395,6 +395,54 @@ const captures: Capture[] = [
     extraCss: "[data-community-banner]{display:none!important;}",
   },
   {
+    slug: "mp-assets",
+    routePath: "mp-assets?elections=2026_04_19",
+    // MP net-worth leaderboard (richest first) — avatar + name rows with the
+    // declared net-worth column. Anchor on the page root so the clip leads with
+    // the title and the top-ranked avatar rows; extra settle for the photos.
+    // (Was a rendered text card — job removed from generate.ts.)
+    waitFor: '[data-og="mp-assets-og"] tbody tr',
+    anchor: '[data-og="mp-assets-og"]',
+    leftAlign: true,
+    settleMs: 2500,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
+  {
+    slug: "mp-cars",
+    routePath: "mp-cars?elections=2026_04_19",
+    // MP declared-cars leaderboard (most valuable first) — avatar rows with make/
+    // model and declared value, led by the total-fleet summary line. (Was a
+    // rendered text card — job removed from generate.ts.)
+    waitFor: '[data-og="mp-cars-og"] tbody tr',
+    anchor: '[data-og="mp-cars-og"]',
+    leftAlign: true,
+    settleMs: 2500,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
+  {
+    slug: "mp-companies",
+    routePath: "mp/companies?elections=2026_04_19",
+    // MP-connected companies (most MPs first) — company rows with their linked-MP
+    // avatars. (Was a rendered text card — job removed from generate.ts.)
+    waitFor: '[data-og="mp-companies-og"] tbody tr',
+    anchor: '[data-og="mp-companies-og"]',
+    leftAlign: true,
+    settleMs: 2500,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
+  {
+    slug: "officials-assets",
+    routePath: "officials/assets?elections=2026_04_19",
+    // Officials net-worth leaderboard (ministers / agency heads / governors),
+    // richest first — name + category rows with the declared net-worth column.
+    // (Was a rendered text card — job removed from generate.ts.)
+    waitFor: '[data-og="officials-assets-og"] tbody tr',
+    anchor: '[data-og="officials-assets-og"]',
+    leftAlign: true,
+    settleMs: 2500,
+    extraCss: "[data-community-banner]{display:none!important;}",
+  },
+  {
     slug: "judiciary",
     routePath: "judiciary",
     // The caseload-flow chart IS the page's argument (filed ≈ resolved, so the

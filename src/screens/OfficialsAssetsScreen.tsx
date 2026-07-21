@@ -257,7 +257,7 @@ export const OfficialsAssetsScreen: FC = () => {
     t("officials_assets_page_title") || "Officials by declared assets";
 
   return (
-    <div className="w-full">
+    <div className="w-full" data-og="officials-assets-og">
       <Title description={t("officials_assets_page_description") || ""}>
         {pageTitle}
       </Title>

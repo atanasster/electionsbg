@@ -10,6 +10,7 @@ import {
 } from "@/data/parliament/useCompanyIndex";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
+import { decodeEntities } from "@/lib/decodeEntities";
 import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
 
 const STATUS_CLASSES: Record<string, string> = {
@@ -65,7 +66,10 @@ export const AllMpCompaniesScreen: FC = () => {
           seen.set(key, { name: r.mpName, mpId: r.mpId, viaStake: false });
       }
       const distinctMps = Array.from(seen.values());
-      const searchParts = [c.displayName, ...c.registeredOffices];
+      const searchParts = [
+        decodeEntities(c.displayName),
+        ...c.registeredOffices.map(decodeEntities),
+      ];
       if (c.tr?.uic) searchParts.push(c.tr.uic);
       for (const m of distinctMps) searchParts.push(m.name);
       return {
@@ -85,9 +89,11 @@ export const AllMpCompaniesScreen: FC = () => {
         header: t("all_companies_col_name") || "Company",
         accessorFn: (row) => row.searchBlob,
         sortingFn: (a, b) =>
-          a.original.displayName.localeCompare(b.original.displayName, "bg", {
-            sensitivity: "base",
-          }),
+          decodeEntities(a.original.displayName).localeCompare(
+            decodeEntities(b.original.displayName),
+            "bg",
+            { sensitivity: "base" },
+          ),
         cell: ({ row }) => {
           const c = row.original;
           return (
@@ -97,11 +103,13 @@ export const AllMpCompaniesScreen: FC = () => {
                 className="font-medium hover:underline"
               >
                 <Briefcase className="inline h-3.5 w-3.5 mr-1 text-muted-foreground -mt-0.5" />
-                {c.displayName}
+                {decodeEntities(c.displayName)}
               </Link>
               <div className="text-xs text-muted-foreground">
                 {c.registeredOffices.length > 0 && (
-                  <span>{c.registeredOffices.join(" · ")}</span>
+                  <span>
+                    {c.registeredOffices.map(decodeEntities).join(" · ")}
+                  </span>
                 )}
                 {c.tr?.uic && (
                   <a
@@ -190,7 +198,7 @@ export const AllMpCompaniesScreen: FC = () => {
   );
 
   return (
-    <div className="w-full pb-12">
+    <div className="w-full pb-12" data-og="mp-companies-og">
       <Title description={t("all_companies_description") || ""}>
         {t("all_companies") || "MP-connected companies"}
       </Title>

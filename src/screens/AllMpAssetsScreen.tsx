@@ -246,6 +246,7 @@ export const AllMpAssetsScreen: FC = () => {
 
   return (
     <div
+      data-og="mp-assets-og"
       className={
         partyFullName ? "w-full max-w-7xl mx-auto px-4 md:px-8 pb-12" : "w-full"
       }

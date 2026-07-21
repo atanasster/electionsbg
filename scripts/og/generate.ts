@@ -348,41 +348,11 @@ const main = async () => {
     "vote-flow-methodology.png",
   );
 
-  renderStaticPageCard(
-    "Фирми с участие на депутати",
-    "Списък на компании със собственик или ръководител-депутат",
-    [
-      { label: "източник", value: "Търг. регистър" },
-      { label: "обогатяване", value: "Декларации" },
-      { label: "филтри", value: "по партия" },
-      { label: "обхват", value: "действащ парламент" },
-    ],
-    "mp-companies.png",
-  );
-
-  renderStaticPageCard(
-    "Народни представители по активи",
-    "Класиране по декларирано нетно имущество",
-    [
-      { label: "източник", value: "Сметна палата" },
-      { label: "обхват", value: "декларант + съпруг" },
-      { label: "метрика", value: "нетно имущество" },
-      { label: "валута", value: "BGN" },
-    ],
-    "mp-assets.png",
-  );
-
-  renderStaticPageCard(
-    "Длъжностни лица по активи",
-    "Министри, агенции, областни управители",
-    [
-      { label: "източник", value: "Сметна палата" },
-      { label: "категории", value: "3 групи" },
-      { label: "метрика", value: "нетно имущество" },
-      { label: "обхват", value: "декларант + съпруг" },
-    ],
-    "officials-assets.png",
-  );
+  // NB: /mp/companies, /mp-assets, /officials/assets and /mp-cars use live
+  // Playwright screenshots of their avatar-row leaderboards (public/og/
+  // {mp-companies,mp-assets,officials-assets,mp-cars}.png via capture-screens.ts),
+  // not rendered text cards — so no jobs are queued here (they would overwrite
+  // the screenshots in dist/og/ during postbuild).
 
   // /observations — OSCE/ODIHR election observation reports landing page.
   renderStaticPageCard(
@@ -410,17 +380,7 @@ const main = async () => {
     "data-changes.png",
   );
 
-  renderStaticPageCard(
-    "Коли, декларирани от депутатите",
-    "Леки автомобили и джипове от подадените декларации",
-    [
-      { label: "източник", value: "Сметна палата" },
-      { label: "видове", value: "лек + джип" },
-      { label: "стойност", value: "BGN" },
-      { label: "обхват", value: "декларант + съпруг" },
-    ],
-    "mp-cars.png",
-  );
+  // (/mp-cars now uses a live screenshot — see the NB above.)
 
   // Per-cabinet OG cards — one card per entry in data/governments.json,
   // emitted as public/og/cabinet/{id}.png. Used by the prerender step
