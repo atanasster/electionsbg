@@ -41,6 +41,7 @@ import {
   projectHref,
 } from "@/data/procurement/projectStore";
 import { TrackAsProjectFileLink } from "@/screens/components/procurement/TrackAsProjectFileLink";
+import { ProjectFileUpLink } from "@/screens/components/procurement/ProjectFileUpLink";
 import {
   displayProcurementMethod,
   contractCategoryLabel,
@@ -733,6 +734,9 @@ export const TenderDetailScreen: FC = () => {
             </p>
           </div>
         ) : null}
+        {/* Member→file up-link (§10 Phase 3) — a curated dossier that includes this
+            procedure, if any. */}
+        <ProjectFileUpLink id={tender.unp} />
         {/* "Проследи като досие" on-ramp (§4.3b) — seed a project file from this
             procedure; its lineage (sibling lots + contracts) resolves. */}
         <TrackAsProjectFileLink

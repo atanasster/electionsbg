@@ -119,6 +119,8 @@
     "prices": "NODE_OPTIONS=--max-old-space-size=6144 tsx ./scripts/prices/ingest.ts",
     "prod": "tsx ./scripts/main.ts --all --prod",
     "sitemap": "tsx ./scripts/sitemap/index.ts",
+    "build:project-members": "tsx ./scripts/procurement/build_project_members.ts",
+    "build:project-members:cloud": "DATABASE_URL=postgres://postgres@127.0.0.1:5434/electionsbg npm run build:project-members",
     "llms": "tsx ./scripts/llms/buildFull.ts",
     "polls:scrape": "tsx ./scripts/polls/scrape_polls.ts",
     "polls:analyze": "tsx ./scripts/polls/analyze_accuracy.ts",

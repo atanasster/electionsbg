@@ -8,6 +8,7 @@
 // dedup + fold. CRITICAL: an `in`-filter on an EMPTY array returns the whole
 // corpus, so every by-unp / by-key fetch is guarded on a non-empty set.
 
+import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchTablePage } from "./fetchTablePage";
 import { fetchJsonSoft } from "@/data/fetchJson";
@@ -23,6 +24,8 @@ import {
   foldMembers,
   siblingLotPolicy,
   lotNumberOf,
+  SEED_PAGE,
+  LINEAGE_PAGE,
   type SearchThread,
   type MemberIds,
   type ProjectFold,
@@ -179,8 +182,6 @@ export interface ProjectFileModel {
   truncated: boolean;
 }
 
-const SEED_PAGE = 60;
-const LINEAGE_PAGE = 400;
 // Broader-match recall budget: fetch this many per thread, then rank by
 // confidence and show BROADER_SHOWN (§0f.3).
 const BROADER_PAGE = 40;
@@ -596,6 +597,32 @@ export const filterCuratedIndex = (
       f.title != null &&
       typeof f.title === "object",
   );
+
+/** Reverse index (contract key / tender УНП → curated slug[]) from
+ *  members.json, built offline by build_project_members.ts. */
+const useProjectMembersIndex = () =>
+  useQuery({
+    queryKey: ["procurement", "project-members"],
+    queryFn: () =>
+      fetchJsonSoft<Record<string, string[]>>(
+        dataUrl("/procurement/projects/members.json"),
+      ),
+    staleTime: Infinity,
+  });
+
+/** The curated flagship files that include a given contract key / tender УНП —
+ *  drives the member→file up-link on the detail pages (§10 Phase 3). */
+export const useProjectMemberFiles = (
+  id: string | undefined,
+): CuratedProjectEntry[] => {
+  const members = useProjectMembersIndex();
+  const index = useCuratedProjectIndex();
+  return useMemo(() => {
+    if (!id || !members.data || !index.data) return [];
+    const slugs = new Set(members.data[id] ?? []);
+    return slugs.size ? index.data.filter((f) => slugs.has(f.slug)) : [];
+  }, [id, members.data, index.data]);
+};
 
 /** The list of committed curated flagship files, for the on-ramp gallery (§4.3b). */
 export const useCuratedProjectIndex = () =>

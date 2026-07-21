@@ -39,6 +39,13 @@ export const DEFAULT_THRESHOLD = 0.6;
  *  sibling lots (a genuinely split single object); more → matched lots only. */
 export const LOTS_GUARD_MAX = 3;
 
+// The membership recall budget, shared between the client resolver
+// (useProjectFile.resolveProjectFile) and the offline member-index builder
+// (scripts/procurement/build_project_members.ts) so both define the SAME member
+// set. Changing these changes what a dossier contains — keep the two in lockstep.
+export const SEED_PAGE = 60;
+export const LINEAGE_PAGE = 400;
+
 /** Lowercased comparison form. The server search matches over a transliterated
  *  `*_fold`; confidence compares the query and the row title in the same script
  *  (both Cyrillic here), so a plain lowercase is enough and keeps this pure. */

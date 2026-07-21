@@ -33,6 +33,7 @@ import {
 } from "@/data/procurement/projectStore";
 import { ProcurementBreadcrumb } from "./components/procurement/ProcurementBreadcrumb";
 import { TrackAsProjectFileLink } from "./components/procurement/TrackAsProjectFileLink";
+import { ProjectFileUpLink } from "./components/procurement/ProjectFileUpLink";
 import {
   displayProcurementMethod,
   contractCategoryLabel,
@@ -152,6 +153,9 @@ export const ContractDetailScreen: FC = () => {
             <RiskBadges result={riskResult} variant="full" />
           </div>
         ) : null}
+        {/* Member→file up-link (§10 Phase 3) — a curated dossier that includes this
+            contract, if any. */}
+        <ProjectFileUpLink id={c.key} />
         {/* "Проследи като досие" on-ramp (§4.3b) — seed a project file from this
             contract (title + this row force-included, plus its procedure). */}
         <TrackAsProjectFileLink
