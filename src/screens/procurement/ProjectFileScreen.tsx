@@ -69,7 +69,8 @@ const isHttpUrl = (u?: string): boolean => /^https?:\/\//i.test(u ?? "");
 // others are search-only (no buyer scope). Labels are BG proper nouns; category
 // + hint are bilingual-inline.
 interface Starter {
-  category: { bg: string; en: string };
+  /** Domain section the hub groups this project under. */
+  section: SectionKey;
   label: string;
   hint: { bg: string; en: string };
   /** Tile scene key (a PROJECT_SCENE / SECTOR_SCENES id) + accent hex — the hub
@@ -164,19 +165,60 @@ const PROJECT_SCENE: Record<string, FC> = {
 const projectScene = (key: string): FC =>
   PROJECT_SCENE[key] ?? SECTOR_SCENES.regional;
 
-// Curated flagship tile → scene + accent (by slug; a sensible fallback for any
-// future file so the gallery never renders a blank tile).
-const CURATED_TILE: Record<string, { sceneKey: string; accent: string }> = {
-  hemus: { sceneKey: "roads", accent: TILE_ACCENTS.clay },
-  "zapadna-daga": { sceneKey: "roads", accent: TILE_ACCENTS.copper },
-  "mashinno-glasuvane": { sceneKey: "elections", accent: TILE_ACCENTS.indigo },
+// The hub groups every project (curated + topic starters) by DOMAIN section, not
+// by curated-vs-DIY. Order = biggest sections first.
+type SectionKey =
+  | "transport"
+  | "water"
+  | "energy"
+  | "defense"
+  | "health"
+  | "elections";
+const SECTION_LABEL: Record<SectionKey, { bg: string; en: string }> = {
+  transport: { bg: "Транспорт", en: "Transport" },
+  water: { bg: "Води", en: "Water" },
+  energy: { bg: "Енергетика", en: "Energy" },
+  defense: { bg: "Отбрана", en: "Defense" },
+  health: { bg: "Здравеопазване", en: "Health" },
+  elections: { bg: "Избори", en: "Elections" },
+};
+const SECTION_ORDER: SectionKey[] = [
+  "transport",
+  "water",
+  "energy",
+  "defense",
+  "health",
+  "elections",
+];
+
+// Curated flagship tile → section + scene + accent (by slug; a sensible fallback
+// for any future file so the gallery never renders a blank tile).
+const CURATED_TILE: Record<
+  string,
+  { section: SectionKey; sceneKey: string; accent: string }
+> = {
+  hemus: { section: "transport", sceneKey: "roads", accent: TILE_ACCENTS.clay },
+  "zapadna-daga": {
+    section: "transport",
+    sceneKey: "roads",
+    accent: TILE_ACCENTS.copper,
+  },
+  "mashinno-glasuvane": {
+    section: "elections",
+    sceneKey: "elections",
+    accent: TILE_ACCENTS.indigo,
+  },
 };
 const curatedTile = (slug: string) =>
-  CURATED_TILE[slug] ?? { sceneKey: "regional", accent: TILE_ACCENTS.indigo };
+  CURATED_TILE[slug] ?? {
+    section: "transport" as SectionKey,
+    sceneKey: "regional",
+    accent: TILE_ACCENTS.indigo,
+  };
 
 const STARTERS: Starter[] = [
   {
-    category: { bg: "Пътища", en: "Roads" },
+    section: "transport",
     label: "АМ „Струма“ (Кресна)",
     hint: {
       bg: "Спорният лот 3.2 през Кресненското дефиле",
@@ -190,7 +232,7 @@ const STARTERS: Starter[] = [
     },
   },
   {
-    category: { bg: "Транспорт", en: "Transport" },
+    section: "transport",
     label: "Софийско метро",
     hint: {
       bg: "Разширението на третия лъч",
@@ -204,7 +246,7 @@ const STARTERS: Starter[] = [
     },
   },
   {
-    category: { bg: "Железници", en: "Rail" },
+    section: "transport",
     label: "жп „Елин Пелин – Костенец“",
     hint: {
       bg: "Най-голямата жп поръчка по ОПТТИ",
@@ -218,7 +260,7 @@ const STARTERS: Starter[] = [
     },
   },
   {
-    category: { bg: "Енергетика", en: "Energy" },
+    section: "energy",
     label: "Газов интерконектор с Гърция",
     hint: {
       bg: "Тръбата IGB и договорът с „Боташ“",
@@ -243,7 +285,7 @@ const STARTERS: Starter[] = [
     },
   },
   {
-    category: { bg: "Отбрана", en: "Defense" },
+    section: "defense",
     label: "Авиобаза „Граф Игнатиево“ (F-16)",
     hint: {
       bg: "Инфраструктурата за новите изтребители",
@@ -263,7 +305,7 @@ const STARTERS: Starter[] = [
     },
   },
   {
-    category: { bg: "Еврофондове", en: "EU funds" },
+    section: "energy",
     label: "Саниране на сгради",
     hint: {
       bg: "Националната програма за енергийна ефективност",
@@ -277,7 +319,7 @@ const STARTERS: Starter[] = [
     },
   },
   {
-    category: { bg: "Води", en: "Water" },
+    section: "water",
     label: "Воден цикъл (ВиК)",
     hint: {
       bg: "ВиК проектите по ОПОС",
@@ -291,7 +333,7 @@ const STARTERS: Starter[] = [
     },
   },
   {
-    category: { bg: "Здравеопазване", en: "Health" },
+    section: "health",
     label: "Национална детска болница",
     hint: {
       bg: "Най-проточилият се болничен строеж",
@@ -305,7 +347,7 @@ const STARTERS: Starter[] = [
     },
   },
   {
-    category: { bg: "Еврофондове", en: "EU funds" },
+    section: "water",
     label: "Воден цикъл по ОПОС (ИСУН)",
     hint: {
       bg: "Финансиран от ЕС ВиК проект: договорено срещу изплатено",
@@ -644,46 +686,47 @@ export const ProjectFileScreen = () => {
         </p>
       );
     if (!spec) {
-      // Hub dashboard (§4.3b) — a build-search box, then tile sections that front
-      // curated flagships + topic starters, each with a scene image matching its
-      // subject (mirrors the /procurement hub). Curated files lead (editorial),
-      // topic starters follow.
-      const curatedTiles: InfographicTileProps[] = (
-        curatedIndex.data ?? []
-      ).map((f) => {
-        const { sceneKey, accent } = curatedTile(f.slug);
-        return {
-          to: `/procurement/project/${f.slug}`,
-          title: bg
-            ? (f.title.bg ?? f.title.en ?? "")
-            : (f.title.en ?? f.title.bg ?? ""),
-          desc: bg ? f.summary?.bg : (f.summary?.en ?? f.summary?.bg),
-          accent,
-          scene: projectScene(sceneKey),
-        };
-      });
-      const starterTiles: InfographicTileProps[] = STARTERS.map((s) => ({
+      // Hub dashboard (§4.3b) — a build-search box, then tiles grouped by DOMAIN
+      // section (Транспорт / Води / …), curated flagships and topic starters
+      // intermixed, each with a scene image matching its subject (mirrors the
+      // /procurement hub). No curated-vs-DIY split.
+      type SectionedTile = InfographicTileProps & { section: SectionKey };
+      const curatedTiles: SectionedTile[] = (curatedIndex.data ?? []).map(
+        (f) => {
+          const { section, sceneKey, accent } = curatedTile(f.slug);
+          return {
+            section,
+            to: `/procurement/project/${f.slug}`,
+            title: bg
+              ? (f.title.bg ?? f.title.en ?? "")
+              : (f.title.en ?? f.title.bg ?? ""),
+            desc: bg ? f.summary?.bg : (f.summary?.en ?? f.summary?.bg),
+            accent,
+            scene: projectScene(sceneKey),
+          };
+        },
+      );
+      const starterTiles: SectionedTile[] = STARTERS.map((s) => ({
+        section: s.section,
         to: projectHref(s.spec),
         title: s.label,
         desc: bg ? s.hint.bg : s.hint.en,
-        badge: bg ? s.category.bg : s.category.en,
         accent: s.accent,
         scene: projectScene(s.sceneKey),
       }));
-      const sections: TileHubSection[] = [];
-      if (curatedTiles.length)
-        sections.push({
-          heading: bg ? "Досиета на Наясно" : "Наясно files",
-          tiles: curatedTiles,
-        });
-      sections.push({
-        heading: bg ? "Или започни от тема" : "Or start from a topic",
-        tiles: starterTiles,
-        action: {
+      const allTiles = [...curatedTiles, ...starterTiles];
+      const sections: TileHubSection[] = SECTION_ORDER.map((key) => ({
+        heading: bg ? SECTION_LABEL[key].bg : SECTION_LABEL[key].en,
+        // SectionedTile carries every InfographicTileProps field; the extra
+        // `section` is ignored by InfographicTile.
+        tiles: allTiles.filter((t) => t.section === key),
+      })).filter((s) => s.tiles.length > 0);
+      // "My files" rides the first section header (no curated/DIY sections now).
+      if (sections[0])
+        sections[0].action = {
           label: bg ? "Моите досиета" : "My files",
           to: "/procurement/projects",
-        },
-      });
+        };
       return (
         <div className="mt-4">
           <div className="max-w-2xl">
@@ -2212,11 +2255,6 @@ const ProvenanceFooter = ({
           </div>
         )}
       </div>
-      <p className="mt-3 italic">
-        {bg
-          ? "Изготвено от потребител чрез търсене в обществените поръчки — не е редакционен анализ на Наясно."
-          : "Assembled by a user from a procurement search — not a Наясно editorial analysis."}
-      </p>
     </footer>
   );
 };
