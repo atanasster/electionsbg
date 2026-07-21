@@ -12,8 +12,9 @@
  *     is now [BG, EU27, RO, GR, HU, HR].
  *
  *  2. New per-indicator time series for the IndicatorsScreen peer overlay:
- *     inflation (HICP), real GDP growth, unemployment, government debt,
- *     budget balance, current account, house prices YoY, youth unemployment.
+ *     inflation (HICP), real GDP growth, unemployment, employment rate,
+ *     activity rate, government debt, budget balance, current account, house
+ *     prices YoY, youth unemployment.
  *     Quarterly cadence (inflation is monthly→quarterly mean). For headline
  *     indicators where the direction is unambiguous (lower-is-better for
  *     prices/debt/unemployment, higher-is-better for growth/balance) a
@@ -310,17 +311,51 @@ const PEER_INDICATORS: PeerIndicatorConfig[] = [
   {
     key: "unemployment",
     dataset: "une_rt_q",
+    // SA — matches the BG `unemployment` macro series (also SA) so the BG line
+    // and the peer ghost lines share the same seasonal treatment.
     query: {
       unit: "PC_ACT",
       age: "Y15-74",
       sex: "T",
-      s_adj: "NSA",
+      s_adj: "SA",
       freq: "Q",
     },
     freq: "Q",
     direction: "lower",
     sourceUrl:
       "https://ec.europa.eu/eurostat/databrowser/view/une_rt_q/default/table",
+  },
+  {
+    key: "employmentRate",
+    dataset: "lfsi_emp_q",
+    query: {
+      indic_em: "EMP_LFS",
+      s_adj: "SA",
+      sex: "T",
+      age: "Y20-64",
+      unit: "PC_POP",
+      freq: "Q",
+    },
+    freq: "Q",
+    direction: "higher",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/lfsi_emp_q/default/table",
+  },
+  {
+    key: "activityRate",
+    dataset: "lfsi_emp_q",
+    query: {
+      indic_em: "ACT",
+      s_adj: "SA",
+      sex: "T",
+      age: "Y20-64",
+      unit: "PC_POP",
+      freq: "Q",
+    },
+    freq: "Q",
+    direction: "higher",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/lfsi_emp_q/default/table",
   },
   {
     key: "govDebt",
@@ -383,11 +418,12 @@ const PEER_INDICATORS: PeerIndicatorConfig[] = [
   {
     key: "youthUnemployment",
     dataset: "une_rt_q",
+    // SA — matches the BG `youthUnemployment` macro series (also SA).
     query: {
       unit: "PC_ACT",
       age: "Y15-24",
       sex: "T",
-      s_adj: "NSA",
+      s_adj: "SA",
       freq: "Q",
     },
     freq: "Q",
@@ -615,7 +651,7 @@ const fetchIndicatorDistribution = async (
   return null;
 };
 
-// ---- Pass 3: annual per-indicator peer series (SILC + demographics) ------
+// ---- Pass 3: annual per-indicator peer series (SILC / demographics / LFS) -
 
 interface AnnualPeerIndicatorConfig {
   key: string;
@@ -701,6 +737,18 @@ const PEER_INDICATORS_ANNUAL: AnnualPeerIndicatorConfig[] = [
       "https://ec.europa.eu/eurostat/databrowser/view/crim_pris_age/default/table",
     minYears: 8,
     computeEu27FromMembers: true,
+  },
+  {
+    key: "labourSlack",
+    dataset: "lfsi_sla_a",
+    // Broad labour-market slack, ages 20-64, as % of the extended labour force
+    // (PC_ELF). Eurostat publishes EU27_2020 directly, so no compute-from-
+    // members needed. Lower is better. Annual (~16 points from ~2009).
+    query: { wstatus: "SLACK", sex: "T", age: "Y20-64", unit: "PC_ELF" },
+    direction: "lower",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/lfsi_sla_a/default/table",
+    minYears: 8,
   },
   {
     key: "digitalSkills",
@@ -1224,7 +1272,7 @@ const main = async () => {
     console.log(`${peerCounts}${distNote}`);
   }
 
-  // ----- Pass 3: annual per-indicator peer series (SILC + demographics) ----
+  // ----- Pass 3: annual per-indicator peer series (SILC / demographics / LFS)
   const indicatorsAnnual: Record<
     string,
     {
