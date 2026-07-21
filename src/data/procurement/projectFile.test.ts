@@ -20,6 +20,7 @@ import {
   dedupTenders,
   foldMembers,
   foldByPeriod,
+  matchInhouseContractors,
   DEFAULT_THRESHOLD,
   type SearchThread,
   type FoldInput,
@@ -264,6 +265,30 @@ describe("multi-thread search edits (§0f.2)", () => {
     expect(withoutThread(threads, 0).map((t) => t.terms)).toEqual(["надзор"]);
     const one: SearchThread[] = [{ terms: "само аз" }];
     expect(withoutThread(one, 0)).toEqual(one);
+  });
+});
+
+describe("matchInhouseContractors — the blind-spot trigger (§0g.2)", () => {
+  const rows = [
+    { contractorEik: "831646048", contractorName: "Автомагистрали ЕАД" },
+    { contractorEik: "831646048", contractorName: "Автомагистрали ЕАД" }, // dup
+    { contractorEik: "111", contractorName: "Частна фирма" },
+    { contractorEik: null, contractorName: "без ЕИК" },
+  ];
+  it("returns one deduped entry per in-house contractor present among members", () => {
+    const hit = matchInhouseContractors(rows, ["831646048"]);
+    expect(hit).toEqual([{ eik: "831646048", name: "Автомагистрали ЕАД" }]);
+  });
+  it("is empty when no member is contracted to an in-house EIK, or the set is empty", () => {
+    expect(matchInhouseContractors(rows, ["999"])).toEqual([]);
+    expect(matchInhouseContractors(rows, [])).toEqual([]);
+  });
+  it("falls back to the EIK when the contractor name is missing", () => {
+    const hit = matchInhouseContractors(
+      [{ contractorEik: "222", contractorName: null }],
+      ["222"],
+    );
+    expect(hit).toEqual([{ eik: "222", name: "222" }]);
   });
 });
 

@@ -81,6 +81,25 @@ describe("parseProjectSpec — untrusted ?q= parsing (§4.1)", () => {
     expect(s?.claims?.length).toBeLessThanOrEqual(20);
   });
 
+  it("shape-checks knownSubcontractors[] + bounds inhouseAwarderEiks (§0g.2)", () => {
+    const s = parseProjectSpec(
+      JSON.stringify({
+        search: [{ terms: "x" }],
+        inhouseAwarderEiks: ["831646048", 5], // non-string dropped
+        knownSubcontractors: [
+          { name: "Нивел строй", eik: "111", amountEur: 413000000 },
+          { name: "Bad", amountEur: "lots", source: {} }, // amountEur/source coerced
+          { eik: "222" }, // no name → dropped
+        ],
+      }),
+    );
+    expect(s?.inhouseAwarderEiks).toEqual(["831646048"]);
+    expect(s?.knownSubcontractors).toHaveLength(2);
+    expect(s?.knownSubcontractors?.[0].amountEur).toBe(413000000);
+    expect(s?.knownSubcontractors?.[1].amountEur).toBeUndefined();
+    expect(s?.knownSubcontractors?.[1].source).toBeUndefined();
+  });
+
   it("neutralizes non-string claim fields from untrusted ?q= (no React-child crash)", () => {
     const s = parseProjectSpec(
       JSON.stringify({

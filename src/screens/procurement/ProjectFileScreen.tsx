@@ -28,6 +28,7 @@ import {
   roleLabel,
   foldByContractor,
   foldByPeriod,
+  matchInhouseContractors,
   selectBroaderCandidates,
   withThreadTerms,
   withAddedThread,
@@ -384,6 +385,20 @@ export const ProjectFileScreen = () => {
   const byContractor = useMemo(
     () => (data ? foldByContractor(data.contracts) : []),
     [data],
+  );
+
+  // Subcontractor blind spot (§0g.2): which in-house state companies among the
+  // members' contractors are where the ЦАИС money trail stops (their onward
+  // awards aren't published). Empty unless the file declares inhouseAwarderEiks.
+  const inhouseHit = useMemo(
+    () =>
+      data
+        ? matchInhouseContractors(
+            data.contracts,
+            spec?.inhouseAwarderEiks ?? [],
+          )
+        : [],
+    [data, spec],
   );
 
   // Recurring-project rollup (§4.2.2b) — only for a file that declares recurrence.
@@ -830,6 +845,90 @@ export const ProjectFileScreen = () => {
                       {bg ? "източник" : "source"}
                     </a>
                   </>
+                )}
+              </div>
+            </div>
+          )}
+          {/* Subcontractor blind spot (§0g.2) — the money trail stops at a state
+              in-house head contractor; render the ABSENCE (like the gap node).
+              The known sub-layer, if curated, is shown as a *known* blind spot. */}
+          {(inhouseHit.length > 0 ||
+            (spec.knownSubcontractors?.length ?? 0) > 0) && (
+            <div className="relative">
+              <span
+                className="absolute -left-[27px] top-1 h-4 w-4 rounded-full border-2 border-dashed"
+                style={{
+                  borderColor: "#B4B2A9",
+                  background: "var(--background, #fff)",
+                }}
+              />
+              <div className="rounded-md border border-dashed p-3 text-sm text-muted-foreground">
+                <span className="font-medium text-foreground">
+                  {bg ? "Подизпълнители" : "Subcontractors"}
+                </span>{" "}
+                —{" "}
+                {bg
+                  ? "паричната следа спира тук — подизпълнителите не се публикуват в ЦАИС"
+                  : "the money trail stops here — subcontractors aren't published in CAIS"}
+                {inhouseHit.length > 0 && (
+                  <>
+                    {" ("}
+                    {bg ? "възложено на " : "awarded to "}
+                    {inhouseHit.map((h, i) => (
+                      <span key={h.eik}>
+                        {i > 0 ? ", " : ""}
+                        <Link
+                          to={`/company/${h.eik}`}
+                          className="text-primary hover:underline"
+                        >
+                          {h.name}
+                        </Link>
+                      </span>
+                    ))}
+                    {")"}
+                  </>
+                )}
+                {(spec.knownSubcontractors?.length ?? 0) > 0 && (
+                  <ul className="mt-2 flex flex-col gap-1">
+                    {spec.knownSubcontractors!.map((s, i) => (
+                      <li
+                        key={`${s.eik ?? "x"}-${i}`}
+                        className="flex flex-wrap items-baseline gap-x-2 text-xs"
+                      >
+                        {s.eik ? (
+                          <Link
+                            to={`/company/${s.eik}`}
+                            className="text-primary hover:underline"
+                          >
+                            {s.name}
+                          </Link>
+                        ) : (
+                          <span className="text-foreground">{s.name}</span>
+                        )}
+                        {s.amountEur ? (
+                          <span className="tabular-nums">
+                            {money(s.amountEur)}
+                          </span>
+                        ) : null}
+                        {s.source && (
+                          <span className="text-muted-foreground">
+                            {/^https?:\/\//i.test(s.sourceUrl ?? "") ? (
+                              <a
+                                href={s.sourceUrl}
+                                className="underline"
+                                rel="nofollow noopener"
+                                target="_blank"
+                              >
+                                {s.source}
+                              </a>
+                            ) : (
+                              s.source
+                            )}
+                          </span>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
                 )}
               </div>
             </div>

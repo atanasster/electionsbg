@@ -503,6 +503,26 @@ export function selectBroaderCandidates<T extends { key: string }>(
   return ranked.filter((r) => !seen.has(r.key)).slice(0, limit);
 }
 
+/** The state in-house contractors present among the members (§0g.2) — one deduped
+ *  {eik,name} per member contractor whose EIK is in the blind-spot set. This is
+ *  where the ЦАИС money trail stops (their onward awards aren't published). */
+export function matchInhouseContractors(
+  rows: ReadonlyArray<{
+    contractorEik?: string | null;
+    contractorName?: string | null;
+  }>,
+  inhouseEiks: Iterable<string>,
+): { eik: string; name: string }[] {
+  const set = new Set(inhouseEiks);
+  if (set.size === 0) return [];
+  const seen = new Map<string, string>();
+  for (const c of rows) {
+    if (c.contractorEik && set.has(c.contractorEik))
+      seen.set(c.contractorEik, c.contractorName || c.contractorEik);
+  }
+  return [...seen.entries()].map(([eik, name]) => ({ eik, name }));
+}
+
 // --- Multi-thread search edits (§0f.2) -------------------------------------
 // Pure transforms over the search-thread array; the screen wraps each in
 // mutateSpec. Kept here so the load-bearing invariants (keep-other-fields,

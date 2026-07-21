@@ -101,6 +101,25 @@ export interface ProjectFileSpec {
    *  DIY ?q= (§11). That gate is a v1 proxy, not a cryptographic curated/DIY
    *  boundary (which waits for auth, P3). */
   claims?: Claim[];
+  /** OPTIONAL — EIKs of state in-house companies whose onward awards escape ЦАИС;
+   *  a member contracted to one gets a «подизпълнители» blind-spot node (§0g.2). */
+  inhouseAwarderEiks?: string[];
+  /** OPTIONAL curated, sourced subcontractor list surfaced in that node. */
+  knownSubcontractors?: KnownSubcontractor[];
+}
+
+/** OPTIONAL blind-spot config (§0g.2). `inhouseAwarderEiks` = EIKs of state
+ *  in-house companies (e.g. Автомагистрали ЕАД, 831646048) whose ONWARD awards to
+ *  private firms escape ЦАИС; when a member contractor is one of these the money
+ *  trail stops at the head contract. `knownSubcontractors` is the curated, sourced
+ *  list of who's underneath (Сметна палата / news) — a *known* blind spot, which
+ *  is itself the finding. */
+export interface KnownSubcontractor {
+  name: string;
+  eik?: string;
+  amountEur?: number;
+  source?: string;
+  sourceUrl?: string;
 }
 
 /** A public statement checked against the dossier's grounded numbers (§4.2.6b). */
@@ -150,6 +169,10 @@ const clampMembers = (m: MemberIds | undefined): MemberIds | undefined =>
 const VERDICTS = new Set(["confirms", "refutes", "partial"]);
 const str = (x: unknown): string | undefined =>
   typeof x === "string" && x.length > 0 ? x : undefined;
+// Like str() but tolerates a numeric id (a curator writing eik: 831646048 as a
+// JSON number keeps its /company/:eik link instead of silently losing it).
+const strOrNum = (x: unknown): string | undefined =>
+  typeof x === "number" ? String(x) : str(x);
 const clampNote = (n: unknown): LocalizedText | undefined => {
   if (!n || typeof n !== "object") return undefined;
   const bg = str((n as LocalizedText).bg);
@@ -174,6 +197,25 @@ const clampClaims = (c: Claim[] | undefined): Claim[] | undefined => {
       ourNumber: str(x.ourNumber),
       note: clampNote(x.note),
       verdict: VERDICTS.has(x.verdict as string) ? x.verdict : undefined,
+    }));
+  return out.length ? out : undefined;
+};
+
+/** Shape-check the untrusted knownSubcontractors[]: every rendered field coerced
+ *  to a string/number, entries without a name dropped, array bounded. */
+const clampSubs = (
+  s: KnownSubcontractor[] | undefined,
+): KnownSubcontractor[] | undefined => {
+  if (!Array.isArray(s)) return undefined;
+  const out: KnownSubcontractor[] = s
+    .filter((x) => x && typeof x.name === "string" && x.name.length > 0)
+    .slice(0, 50)
+    .map((x) => ({
+      name: x.name,
+      eik: strOrNum(x.eik),
+      amountEur: typeof x.amountEur === "number" ? x.amountEur : undefined,
+      source: str(x.source),
+      sourceUrl: str(x.sourceUrl),
     }));
   return out.length ? out : undefined;
 };
@@ -210,6 +252,8 @@ export const parseProjectSpec = (
     includes: clampMembers(spec.includes),
     excludes: clampMembers(spec.excludes),
     claims: clampClaims(spec.claims),
+    inhouseAwarderEiks: clampIds(spec.inhouseAwarderEiks),
+    knownSubcontractors: clampSubs(spec.knownSubcontractors),
   };
 };
 
