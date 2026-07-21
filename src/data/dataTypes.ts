@@ -1538,6 +1538,11 @@ export type ProcurementContractTag = "award" | "contract" | "contractAmendment";
 export type ProcurementContract = {
   key: string;
   ocid: string;
+  /** УНП lineage key to the originating procedure (`contracts.unp`, migration
+   * 049). Nullable at source (legacy ~62%, eop-T rows join nothing); projected
+   * by the contracts DbDataTable so the project-file resolver can thread the
+   * contract↔tender spine (contracts.unp = tenders.unp). */
+  unp?: string;
   releaseId: string;
   contractId?: string;
   tag: ProcurementContractTag;

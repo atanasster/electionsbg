@@ -30,7 +30,13 @@ const REGISTRY = {
     base: "contracts_list",
     scopeCols: ["contractor_eik", "awarder_eik"],
     columns: {
-      key: { type: "text" },
+      // filter:"in" so the project-file resolver can fetch a member set by
+      // contract key (key IN (...)) — the УНП spine's contract-side seek.
+      key: { type: "text", filter: "in" },
+      // The УНП lineage key (migration 049; exposed via contracts_list c.*).
+      // filter:"in" so the resolver can pull every contract of a procedure
+      // (unp IN (...)) — the contract↔tender join that threads the timeline.
+      unp: { type: "text", filter: "in" },
       ocid: { type: "text" },
       // Projected (badge) but NOT filterable: has_appeal/appeal_upheld are
       // LEFT-JOIN flags (ao.ocid IS NOT NULL), so `WHERE flag = $1` can't reduce
@@ -95,6 +101,7 @@ const REGISTRY = {
     // so the client can reuse the risk scorer + row components.
     select: [
       "key",
+      "unp",
       "ocid",
       "tag",
       "date",
@@ -134,7 +141,9 @@ const REGISTRY = {
     base: "tenders_list",
     scopeCols: ["buyer_eik"],
     columns: {
-      unp: { type: "text" },
+      // filter:"in" so the project-file resolver can fetch procedures by УНП
+      // set (unp IN (...)) — the tender side of the contract↔tender spine.
+      unp: { type: "text", filter: "in" },
       ocid: { type: "text" },
       // Projected badge, not filterable — correlated EXISTS can't be index-driven
       // as a WHERE predicate (full ~125k scan). See the contracts note above.
