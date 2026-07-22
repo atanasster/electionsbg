@@ -60,6 +60,12 @@ import {
   type PeriodAgg,
 } from "@/data/procurement/projectFile";
 import { saveProject, projectHref } from "@/data/procurement/projectStore";
+import { RiskBadges } from "@/screens/components/procurement/RiskBadges";
+import {
+  useContractRiskScorer,
+  type ContractRiskResult,
+} from "@/data/procurement/useContractRiskFlags";
+import { mergeContractRisk } from "@/data/procurement/computeProcurementRisk";
 import {
   TileHubGrid,
   TILE_ACCENTS,
@@ -619,6 +625,25 @@ export const ProjectFileScreen = () => {
     () => (data ? foldByContractor(data.contracts) : []),
     [data],
   );
+  // Per-contractor red-flag chips (§4.2.5b) — score each member spend row and
+  // union the flags per contractor, keyed exactly as foldByContractor groups
+  // (contractorEik || contractorName). Skips consortium-member (€0) + amendment
+  // rows to match the money fold. The scorer loads the risk indexes once.
+  const { scoreRow: scoreContractRisk } = useContractRiskScorer();
+  const riskByContractor = useMemo(() => {
+    const groups = new Map<string, ContractRiskResult[]>();
+    for (const c of data?.contracts ?? []) {
+      if ((c.tag ?? "contract") !== "contract") continue;
+      if (c.consortiumRole === "member") continue;
+      const key = c.contractorEik || c.contractorName || "?";
+      const list = groups.get(key) ?? [];
+      list.push(scoreContractRisk(c));
+      groups.set(key, list);
+    }
+    const out = new Map<string, ContractRiskResult>();
+    for (const [k, rs] of groups) out.set(k, mergeContractRisk(rs));
+    return out;
+  }, [data, scoreContractRisk]);
   // Sortable contractors table. Default: by value desc (foldByContractor's order,
   // and the дял column is monotonic in eur so it shares that key).
   const [contractorSort, setContractorSort] = useState<{
@@ -1729,36 +1754,46 @@ export const ProjectFileScreen = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {sortedContractors.map((r) => (
-                    <tr
-                      key={r.eik ?? r.name}
-                      className="border-b border-border/50"
-                    >
-                      <td className="py-1.5">
-                        {r.eik ? (
-                          <Link
-                            to={`/company/${r.eik}`}
-                            className="text-primary"
-                          >
-                            {r.name}
-                          </Link>
-                        ) : (
-                          r.name
-                        )}
-                      </td>
-                      <td className="py-1.5 pl-6 text-right tabular-nums">
-                        {r.count}
-                      </td>
-                      <td className="py-1.5 pl-8 text-right font-medium tabular-nums whitespace-nowrap">
-                        {money(r.eur)}
-                      </td>
-                      <td className="py-1.5 pl-6 text-right tabular-nums text-muted-foreground">
-                        {fold.totalContractedEur > 0
-                          ? `${Math.round((r.eur / fold.totalContractedEur) * 100)}%`
-                          : "—"}
-                      </td>
-                    </tr>
-                  ))}
+                  {sortedContractors.map((r) => {
+                    const risk = riskByContractor.get(r.eik ?? r.name);
+                    const showRisk =
+                      !!risk && (risk.hasFlag || !!risk.flags.ngoForeignFunded);
+                    return (
+                      <tr
+                        key={r.eik ?? r.name}
+                        className="border-b border-border/50"
+                      >
+                        <td className="py-1.5">
+                          {r.eik ? (
+                            <Link
+                              to={`/company/${r.eik}`}
+                              className="text-primary"
+                            >
+                              {r.name}
+                            </Link>
+                          ) : (
+                            r.name
+                          )}
+                          {showRisk && (
+                            <div className="mt-1">
+                              <RiskBadges result={risk} variant="chips" />
+                            </div>
+                          )}
+                        </td>
+                        <td className="py-1.5 pl-6 text-right tabular-nums">
+                          {r.count}
+                        </td>
+                        <td className="py-1.5 pl-8 text-right font-medium tabular-nums whitespace-nowrap">
+                          {money(r.eur)}
+                        </td>
+                        <td className="py-1.5 pl-6 text-right tabular-nums text-muted-foreground">
+                          {fold.totalContractedEur > 0
+                            ? `${Math.round((r.eur / fold.totalContractedEur) * 100)}%`
+                            : "—"}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>

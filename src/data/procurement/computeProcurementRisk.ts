@@ -46,6 +46,26 @@ export type RiskComponent = {
   fired: boolean;
 };
 
+/** Contract-page NEUTRAL DISCLOSURE: the contractor either IS a foreign-funded
+ *  NGO ('direct') or is a firm whose declared owner/officer sits on a
+ *  foreign-funded NGO's board ('connected'). NOT a scored risk flag — it does
+ *  not touch the CRI or the "N of M checks" tally (foreign funding is lawful
+ *  disclosure, never a "foreign-agent" red flag). From the served risk-indexes
+ *  `ngoForeignFunded` list. */
+export type NgoForeignFundedEntry = {
+  kind: "direct" | "connected";
+  /** The foreign-funded NGO's name. */
+  ngoName: string;
+  /** The NGO's EIK (= the contractor EIK when kind='direct'). */
+  ngoEik: string;
+  /** Headline funder (largest grant), e.g. "America for Bulgaria Foundation". */
+  funder: string | null;
+  /** Total foreign funding the NGO received, EUR. */
+  eur: number | null;
+  /** The shared board member (kind='connected'); null for 'direct'. */
+  person: string | null;
+};
+
 export type ContractRiskFlags = {
   /** Contractor's declared officers / owners include a sitting or former MP. */
   mpConnected: boolean;
@@ -87,6 +107,9 @@ export type ContractRiskFlags = {
   appealUpheld: boolean;
   /** Tender open window shorter than the EU 14-day reference. */
   shortTenderPeriod: boolean;
+  /** NEUTRAL DISCLOSURE (not scored): the contractor is / is tied to a
+   *  foreign-funded NGO. Null when neither applies. See NgoForeignFundedEntry. */
+  ngoForeignFunded: NgoForeignFundedEntry | null;
   /** Realised bid count when known (surfaced in the single-bidder tooltip). */
   bidCount: number | null;
   /** Tender open window in days when known (short-deadline tooltip). */
@@ -135,6 +158,67 @@ const MS_PER_MONTH = 2_629_800_000; // 30.44 days
 // just below debarment (80). Only fires where the appeal outcome is known.
 const WEIGHT_APPEAL_UPHELD = 70;
 
+/** All-default `ContractRiskFlags` — the single source of truth for the field
+ *  list, reused by the merge initializer and tests so a new flag can't be
+ *  silently missed in one of them. */
+export const emptyContractRiskFlags = (): ContractRiskFlags => ({
+  mpConnected: false,
+  pepConnected: false,
+  debarred: null,
+  awarderConcentration: null,
+  isAmendment: false,
+  annexGrowth: false,
+  annexGrowthPct: null,
+  newFirmWinner: false,
+  newFirmMonths: null,
+  splitPurchase: null,
+  weakCompetition: false,
+  directAward: false,
+  appealUpheld: false,
+  shortTenderPeriod: false,
+  ngoForeignFunded: null,
+  bidCount: null,
+  tenderPeriodDays: null,
+});
+
+/** The legacy additive severity score for a flag set — a stable internal sort
+ *  key capped at 100 (see the file header: NOT rendered). Shared by
+ *  computeProcurementRisk and mergeContractRisk so a single-contract result and a
+ *  merged contractor result stay on the SAME scale (the merged score is the sum
+ *  of the union's weights, consistent with its cri/firedCount). */
+const scoreFromFlags = (
+  f: Pick<
+    ContractRiskFlags,
+    | "mpConnected"
+    | "pepConnected"
+    | "debarred"
+    | "weakCompetition"
+    | "awarderConcentration"
+    | "directAward"
+    | "shortTenderPeriod"
+    | "isAmendment"
+    | "annexGrowth"
+    | "newFirmWinner"
+    | "splitPurchase"
+    | "appealUpheld"
+  >,
+): number => {
+  let score = 0;
+  if (f.mpConnected) score += WEIGHT_MP_CONNECTED;
+  if (f.pepConnected) score += WEIGHT_PEP_CONNECTED;
+  if (f.debarred) score += WEIGHT_DEBARRED;
+  if (f.weakCompetition) score += WEIGHT_WEAK_COMPETITION;
+  if (f.awarderConcentration) score += WEIGHT_HIGH_CONCENTRATION;
+  if (f.directAward) score += WEIGHT_DIRECT_AWARD;
+  if (f.shortTenderPeriod) score += WEIGHT_SHORT_PERIOD;
+  if (f.isAmendment) score += WEIGHT_AMENDMENT;
+  if (f.annexGrowth) score += WEIGHT_ANNEX_GROWTH;
+  if (f.newFirmWinner) score += WEIGHT_NEW_FIRM;
+  if (f.splitPurchase) score += WEIGHT_SPLIT_PURCHASE;
+  if (f.appealUpheld) score += WEIGHT_APPEAL_UPHELD;
+  return Math.min(100, score);
+};
+
 /** ЗОП чл.116 ал.2 caps the CUMULATIVE value of annex modifications at 50% of
  *  the signing value (stricter than the EU per-modification rule). A contract
  *  whose signed→current growth reaches this is at/over the statutory ceiling for
@@ -177,6 +261,10 @@ export type RiskScoreArgs = {
    *  served risk-indexes `splitPurchase` list. Always present (empty when the
    *  payload is absent), like `concentrationByPair`. */
   splitPurchaseByKey?: Map<string, SplitPurchaseEntry>;
+  /** Contractor EIK → foreign-funded-NGO disclosure. From the served
+   *  risk-indexes `ngoForeignFunded` list. Optional — surfaced as a neutral
+   *  disclosure, never scored into the CRI. */
+  ngoForeignFundedByEik?: Map<string, NgoForeignFundedEntry>;
   /** Folded-name normaliser, shared with the debarred index (passed in to keep
    *  this module React-free). */
   normalizeName: (raw: string) => string;
@@ -349,20 +437,25 @@ export const computeProcurementRisk = (
     add("shortTenderPeriod", false, false);
   }
 
-  let score = 0;
-  if (mpConnected) score += WEIGHT_MP_CONNECTED;
-  if (pepConnected) score += WEIGHT_PEP_CONNECTED;
-  if (debarred) score += WEIGHT_DEBARRED;
-  if (weakCompetition) score += WEIGHT_WEAK_COMPETITION;
-  if (concentration) score += WEIGHT_HIGH_CONCENTRATION;
-  if (directAward) score += WEIGHT_DIRECT_AWARD;
-  if (shortTenderPeriod) score += WEIGHT_SHORT_PERIOD;
-  if (isAmendment) score += WEIGHT_AMENDMENT;
-  if (annexGrowth) score += WEIGHT_ANNEX_GROWTH;
-  if (newFirmWinner) score += WEIGHT_NEW_FIRM;
-  if (splitPurchase) score += WEIGHT_SPLIT_PURCHASE;
-  if (appealUpheld) score += WEIGHT_APPEAL_UPHELD;
-  score = Math.min(100, score);
+  const score = scoreFromFlags({
+    mpConnected,
+    pepConnected,
+    debarred,
+    weakCompetition,
+    awarderConcentration: concentration,
+    directAward,
+    shortTenderPeriod,
+    isAmendment,
+    annexGrowth,
+    newFirmWinner,
+    splitPurchase,
+    appealUpheld,
+  });
+
+  // Neutral disclosure — deliberately NOT an `add()`ed component, so it never
+  // touches the CRI numerator/denominator or the "N of M checks" tally.
+  const ngoForeignFunded =
+    args.ngoForeignFundedByEik?.get(contract.contractorEik) ?? null;
 
   const availableCount = components.filter((c) => c.available).length;
   const firedCount = components.filter((c) => c.fired).length;
@@ -385,6 +478,7 @@ export const computeProcurementRisk = (
       directAward,
       appealUpheld,
       shortTenderPeriod,
+      ngoForeignFunded,
       bidCount,
       tenderPeriodDays,
     },
@@ -396,3 +490,79 @@ export const computeProcurementRisk = (
     hasFlag: firedCount > 0,
   };
 };
+
+/**
+ * Aggregate several contracts' risk results into ONE (§4.2.5b) — for a contractor
+ * row that spans multiple contracts in a project file. A flag shows if it fired on
+ * ANY of the contractor's contracts (union): entity-level checks (mpConnected /
+ * pepConnected / debarred / newFirmWinner / ngoForeignFunded) are the same across
+ * the contracts anyway; contract-level ones (weakCompetition / annexGrowth /
+ * directAward / …) surface if any single contract tripped them. Where a flag
+ * carries a magnitude the merge keeps the MOST CONCERNING across the contracts —
+ * lowest `bidCount`, largest `annexGrowthPct`, youngest `newFirmMonths` — so a
+ * chip never under-reports the contractor's worst case. `score` is recomputed
+ * from the union (via scoreFromFlags) so it stays consistent with cri/firedCount.
+ * Pure so the union rule is unit-testable.
+ */
+export function mergeContractRisk(
+  results: readonly ContractRiskResult[],
+): ContractRiskResult {
+  const f = emptyContractRiskFlags();
+  const comp = new Map<
+    RiskComponentKey,
+    { available: boolean; fired: boolean }
+  >();
+  for (const r of results) {
+    const s = r.flags;
+    f.mpConnected ||= s.mpConnected;
+    f.pepConnected ||= s.pepConnected;
+    f.isAmendment ||= s.isAmendment;
+    f.weakCompetition ||= s.weakCompetition;
+    f.directAward ||= s.directAward;
+    f.appealUpheld ||= s.appealUpheld;
+    f.shortTenderPeriod ||= s.shortTenderPeriod;
+    f.debarred ??= s.debarred;
+    f.awarderConcentration ??= s.awarderConcentration;
+    f.splitPurchase ??= s.splitPurchase;
+    f.ngoForeignFunded ??= s.ngoForeignFunded;
+    if (s.annexGrowth) {
+      f.annexGrowth = true;
+      if (s.annexGrowthPct != null)
+        f.annexGrowthPct = Math.max(f.annexGrowthPct ?? 0, s.annexGrowthPct);
+    }
+    if (s.newFirmWinner) {
+      f.newFirmWinner = true;
+      if (s.newFirmMonths != null)
+        f.newFirmMonths =
+          f.newFirmMonths == null
+            ? s.newFirmMonths
+            : Math.min(f.newFirmMonths, s.newFirmMonths);
+    }
+    if (s.bidCount != null)
+      f.bidCount =
+        f.bidCount == null ? s.bidCount : Math.min(f.bidCount, s.bidCount);
+    if (s.tenderPeriodDays != null && f.tenderPeriodDays == null)
+      f.tenderPeriodDays = s.tenderPeriodDays;
+    for (const c of r.components) {
+      const e = comp.get(c.key) ?? { available: false, fired: false };
+      e.available ||= c.available;
+      e.fired ||= c.fired;
+      comp.set(c.key, e);
+    }
+  }
+  const score = scoreFromFlags(f);
+  const components = [...comp.entries()].map(([key, v]) => ({ key, ...v }));
+  const availableCount = components.filter((c) => c.available).length;
+  const firedCount = components.filter((c) => c.fired).length;
+  const cri =
+    availableCount === 0 ? 0 : Math.round((100 * firedCount) / availableCount);
+  return {
+    flags: f,
+    score,
+    cri,
+    components,
+    firedCount,
+    availableCount,
+    hasFlag: firedCount > 0,
+  };
+}
