@@ -128,7 +128,7 @@ const SECTION_LABEL: Record<SectionKey, { bg: string; en: string }> = {
   transport: { bg: "Транспорт", en: "Transport" },
   water: { bg: "Води", en: "Water" },
   energy: { bg: "Енергетика", en: "Energy" },
-  sports: { bg: "Спорт", en: "Sports" },
+  sports: { bg: "Спорт и отдих", en: "Sport & recreation" },
   defense: { bg: "Отбрана", en: "Defense" },
   health: { bg: "Здравеопазване", en: "Health" },
   elections: { bg: "Избори", en: "Elections" },
@@ -176,9 +176,14 @@ const CURATED_TILE: Record<
     accent: TILE_ACCENTS.leaf,
   },
   "pancharevo-veloaleya": {
-    section: "transport",
+    section: "sports",
     sceneKey: "bikePath",
     accent: TILE_ACCENTS.emerald,
+  },
+  "national-childrens-hospital": {
+    section: "health",
+    sceneKey: "hospitalPit",
+    accent: TILE_ACCENTS.rose,
   },
 };
 const curatedTile = (slug: string) =>
@@ -302,20 +307,6 @@ const STARTERS: Starter[] = [
     spec: {
       title: { bg: "Воден цикъл" },
       search: [{ terms: "воден цикъл", distinctive: ["цикъл"] }],
-    },
-  },
-  {
-    section: "health",
-    label: "Национална детска болница",
-    hint: {
-      bg: "Най-проточилият се болничен строеж",
-      en: "The most drawn-out hospital build",
-    },
-    sceneKey: "hospitalPit",
-    accent: TILE_ACCENTS.rose,
-    spec: {
-      title: { bg: "Национална детска болница" },
-      search: [{ terms: "детска болница", distinctive: ["детска"] }],
     },
   },
   {
