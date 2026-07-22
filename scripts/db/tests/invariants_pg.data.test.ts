@@ -123,3 +123,51 @@ test.skipIf(skip)("no synthetic legacy -x twin survivors", async () => {
         .join(", ")}`,
   );
 });
+
+// Consortium/framework attribution invariants (migration 087). A true consortium
+// collapses to exactly ONE carrier holding the full value with every member at €0;
+// frameworks keep their equal split. If rebuild_consortium() ever double-created a
+// carrier, left a member non-zero, or the carrier didn't equal the group's total,
+// these fire.
+test.skipIf(skip)(
+  "each consortium group has one carrier + all-€0 members, carrier == group total",
+  async () => {
+    const [bad] = await allRows<{ n: string }>(
+      `WITH g AS (
+         SELECT ocid, COALESCE(contract_id,'') cid,
+                count(*) FILTER (WHERE consortium_role='carrier') AS carriers,
+                count(*) FILTER (WHERE consortium_role='member' AND amount_eur <> 0) AS nonzero_members,
+                max(amount_eur) FILTER (WHERE consortium_role='carrier') AS carrier_eur,
+                sum(consortium_full_eur) FILTER (WHERE consortium_role='carrier') AS carrier_full
+         FROM contracts
+         WHERE joint_kind='consortium'
+         GROUP BY ocid, COALESCE(contract_id,'')
+       )
+       SELECT count(*)::text AS n FROM g
+       WHERE carriers <> 1 OR nonzero_members > 0
+          OR abs(COALESCE(carrier_eur,0) - COALESCE(carrier_full,0)) > 0.01`,
+    );
+    assert.equal(
+      Number(bad.n),
+      0,
+      `${bad.n} consortium group(s) violate the carrier/member invariant ` +
+        `(≠1 carrier, a non-€0 member, or carrier amount_eur ≠ consortium_full_eur)`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "framework rows keep their split (no role) and synthetic carriers are consortia",
+  async () => {
+    const [r] = await allRows<{ bad_fw: string; bad_synth: string }>(
+      `SELECT
+         (SELECT count(*) FROM contracts
+           WHERE joint_kind='framework' AND consortium_role IS NOT NULL)::text AS bad_fw,
+         (SELECT count(*) FROM contracts
+           WHERE contractor_eik LIKE 'obed-%'
+             AND (joint_kind <> 'consortium' OR consortium_role <> 'carrier'))::text AS bad_synth`,
+    );
+    assert.equal(Number(r.bad_fw), 0, `${r.bad_fw} framework rows wrongly carry a consortium_role`);
+    assert.equal(Number(r.bad_synth), 0, `${r.bad_synth} synthetic obed- rows are not consortium carriers`);
+  },
+);

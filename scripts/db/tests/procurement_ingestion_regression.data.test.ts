@@ -283,19 +283,26 @@ test.skipIf(skip)(
 );
 
 // ============================================================================
-// 3. FEATURE CANARY — consortium participation exposed to the company page
+// 3. FEATURE CANARY — consortium + framework participation exposed to the company
+// page (stored model, migration 087). МЕДЕКС is a pharma distributor: it BOTH
+// co-delivers real обединение contracts (consortium participation) AND sits on
+// multi-winner рамкови споразумения (framework). Under the stored model, totalEur
+// is its SOLO+framework money, consortiumEur is the FULL value of joint contracts
+// it participated in (share not public) — which is NOT bounded by totalEur.
 // ============================================================================
 
 test.skipIf(skip)(
-  "company_procurement exposes consortium participation (МЕДЕКС ООД)",
+  "company_procurement exposes consortium + framework participation (МЕДЕКС ООД)",
   async () => {
     const [r] = await allRows<{
       ceur: string | null;
       ccount: string | null;
+      feur: string | null;
       total: string | null;
     }>(
       `SELECT (company_procurement('131268894') ->> 'consortiumEur')   AS ceur,
               (company_procurement('131268894') ->> 'consortiumCount') AS ccount,
+              (company_procurement('131268894') ->> 'frameworkEur')    AS feur,
               (company_procurement('131268894') ->> 'totalEur')        AS total`,
     );
     assert.ok(
@@ -306,9 +313,10 @@ test.skipIf(skip)(
       num(r.ccount) > 0,
       "company_procurement.consortiumCount missing / zero",
     );
+    // Framework participation is a SUBSET of totalEur (those rows keep their split).
     assert.ok(
-      num(r.ceur) <= num(r.total),
-      "consortium value cannot exceed the company total",
+      num(r.feur) > 0 && num(r.feur) <= num(r.total),
+      "company_procurement.frameworkEur missing / not a subset of totalEur",
     );
   },
 );
