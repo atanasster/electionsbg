@@ -150,6 +150,11 @@ const CURATED_TILE: Record<
   { section: SectionKey; sceneKey: string; accent: string }
 > = {
   hemus: { section: "transport", sceneKey: "hemus", accent: TILE_ACCENTS.clay },
+  "sofia-metro": {
+    section: "transport",
+    sceneKey: "metro",
+    accent: TILE_ACCENTS.steel,
+  },
   "zapadna-daga": {
     section: "transport",
     sceneKey: "ringArc",
@@ -213,20 +218,6 @@ const STARTERS: Starter[] = [
           buyerName: API_NAME,
         },
       ],
-    },
-  },
-  {
-    section: "transport",
-    label: "Софийско метро",
-    hint: {
-      bg: "Разширението на третия лъч",
-      en: "The third-line extension",
-    },
-    sceneKey: "metro",
-    accent: TILE_ACCENTS.copper,
-    spec: {
-      title: { bg: "Софийско метро" },
-      search: [{ terms: "метро", distinctive: ["метро"] }],
     },
   },
   {

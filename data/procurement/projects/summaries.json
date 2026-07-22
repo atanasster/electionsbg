@@ -8,12 +8,12 @@
       "bg": "Как се строи най-дългата българска магистрала — предимно чрез вътрешни възлагания на държавното дружество „Автомагистрали“ ЕАД, без открита процедура, и къде спира публичната следа на парите.",
       "en": "How Bulgaria's longest motorway is built — largely through in-house awards to the state company Avtomagistrali EAD without an open tender, and where the public money trail stops."
     },
-    "contractedEur": 484462400,
-    "contractCount": 106,
+    "contractedEur": 485760061,
+    "contractCount": 115,
     "procedureCount": 71,
-    "contractorCount": 41,
+    "contractorCount": 43,
     "methodMix": {
-      "competitive": 201373837,
+      "competitive": 202671499,
       "nonCompetitive": 127742508,
       "unspecified": 155346054
     },
@@ -51,12 +51,71 @@
       {
         "name": "Национален Археологически институт с музей на БАН",
         "eik": "000670919",
-        "eur": 18929232
+        "eur": 20192051
       },
       {
         "name": "ДЗЗД Хемус А2 - гр.София",
         "eik": "176096983",
         "eur": 16923408
+      }
+    ]
+  },
+  "sofia-metro": {
+    "title": {
+      "bg": "Софийско метро",
+      "en": "Sofia Metro"
+    },
+    "thesis": {
+      "bg": "Цялата обществена поръчка на софийското метро минава през едно дружество — „Метрополитен“ ЕАД, което строи и стопанисва само метрото. За разлика от „Хемус“, където държавното дружество възлага основно на себе си, тук делът на прякото договаряне е малък, а възлагането с обявен метод е предимно чрез открити процедури по ОП „Транспорт“.",
+      "en": "The Sofia metro's entire procurement runs through a single company — „Metropoliten“ EAD, which builds and operates only the metro. Unlike Hemus, where the state company mostly awards to itself, direct (non-competitive) awards are a small share here, and the money with a stated method goes mostly through open procedures under the EU Transport OP."
+    },
+    "contractedEur": 1689786709,
+    "contractCount": 366,
+    "procedureCount": 347,
+    "contractorCount": 177,
+    "methodMix": {
+      "competitive": 796013760,
+      "nonCompetitive": 50896411,
+      "unspecified": 842876538
+    },
+    "topContractors": [
+      {
+        "name": "Сименс ЕООД - София",
+        "eik": "121746004",
+        "eur": 213875762
+      },
+      {
+        "name": "ДВУ21",
+        "eik": "180846084",
+        "eur": 110548105
+      },
+      {
+        "name": "ДЗЗД Граждански дружество ДВУ",
+        "eik": "176918485",
+        "eur": 99820308
+      },
+      {
+        "name": "Consortium Skoda transportation and skoda vagonka",
+        "eur": 71253637
+      },
+      {
+        "name": "СИМЕТРО СОФИЯ",
+        "eik": "176922583",
+        "eur": 70698163
+      },
+      {
+        "name": "Обединение: ДЖИ ПИ Груп АД, Метро Люлин 2024, Трейс груп холд АД",
+        "eik": "obed-3c76d4088cb9",
+        "eur": 70410771
+      },
+      {
+        "name": "ДЗЗД \"МЕТРОБИЛД ИЗТОК",
+        "eik": "180930422",
+        "eur": 68974480
+      },
+      {
+        "name": "Консорциум Škoda transportation и škoda vagonka",
+        "eur": 68513112
       }
     ]
   },
@@ -176,14 +235,14 @@
       "bg": "„Златната магистрала“ — при прогнозна стойност около 4,5 млрд. лв участъкът Русе–Велико Търново е сред най-скъпите по километър. Проследяваме какво е договорено досега, кои са изпълнителите и как е възложено.",
       "en": "The 'golden motorway' — with a ~€2.3bn estimate, the Ruse–Veliko Tarnovo stretch is among the priciest per kilometre. We track what has been contracted so far, the contractors, and how it was awarded."
     },
-    "contractedEur": 823130861,
-    "contractCount": 56,
+    "contractedEur": 824331580,
+    "contractCount": 69,
     "procedureCount": 30,
-    "contractorCount": 19,
+    "contractorCount": 23,
     "methodMix": {
-      "competitive": 799233549,
-      "nonCompetitive": 5784084,
-      "unspecified": 18113228
+      "competitive": 800349100,
+      "nonCompetitive": 5796301,
+      "unspecified": 18186178
     },
     "topContractors": [
       {
@@ -199,7 +258,7 @@
       {
         "name": "Национален Археологически институт с музей на БАН",
         "eik": "000670919",
-        "eur": 12949069
+        "eur": 14010975
       },
       {
         "name": "Дружество по ЗЗД \"Лидер консулт\"",
@@ -301,11 +360,11 @@
     "contractedEur": 975259089,
     "contractCount": 4539,
     "procedureCount": 91,
-    "contractorCount": 57,
+    "contractorCount": 53,
     "methodMix": {
       "competitive": 154560857,
       "nonCompetitive": 3718009,
-      "unspecified": 9506347
+      "unspecified": 5618957
     },
     "topContractors": [
       {
