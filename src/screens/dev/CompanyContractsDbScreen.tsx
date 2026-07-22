@@ -181,7 +181,7 @@ export const CompanyContractsDbScreen: FC<{
         id: "consortium_full_eur",
         accessorFn: (r) => r.consortiumFullEur ?? null,
         header: t("company_contract_consortium_full", {
-          defaultValue: "Обединение (пълна ст-ст)",
+          defaultValue: "Обединение",
         }),
         meta: { align: "right" },
         enableSorting: false,
