@@ -89,14 +89,22 @@ interface Resolved {
   /** Top-N member fold total (before any program-total override) — to prove the
    *  corpus basis lifts a distributed program clear of its fold. */
   foldContractedEur: number;
+  /** Member procedure УНПs (contracts ∪ tenders) — to pin a tender-only member
+   *  (e.g. an unawarded flagship design tender) that carries no contract row. */
+  unps: Set<string>;
 }
 
 const resolveDossier = async (slug: string): Promise<Resolved> => {
   const spec = JSON.parse(
     fs.readFileSync(path.join(DIR, `${slug}.json`), "utf-8"),
   ) as Spec & { title: { bg?: string; en?: string }; thesis?: unknown };
-  const { contracts, tenderCount, corpusContractedEur, corpusContractCount } =
-    await resolveMembers(spec);
+  const {
+    contracts,
+    unps,
+    tenderCount,
+    corpusContractedEur,
+    corpusContractCount,
+  } = await resolveMembers(spec);
   // MIRROR the offline builder: a program dossier's headline is the corpus total.
   const summary = summarize(
     { title: spec.title, thesis: spec.thesis as never },
@@ -125,6 +133,7 @@ const resolveDossier = async (slug: string): Promise<Resolved> => {
     eurPerKm: computeCorpusEurPerKm(contracts)?.eurPerKmMedian ?? null,
     unpCount: (unp) => spend.filter((c) => c.unp === unp).length,
     maxContractEur: Math.max(0, ...spend.map((c) => c.amountEur ?? 0)),
+    unps: new Set(unps),
   };
 };
 
@@ -132,6 +141,7 @@ const resolveDossier = async (slug: string): Promise<Resolved> => {
 const RUSE = skip ? null : await resolveDossier("ruse-veliko-tarnovo");
 const HEMUS = skip ? null : await resolveDossier("hemus");
 const SAN = skip ? null : await resolveDossier("sanirane-jilishta");
+const NCH = skip ? null : await resolveDossier("national-childrens-hospital");
 
 // ── Русе–Велико Търново ─────────────────────────────────────────────────────
 
@@ -383,6 +393,85 @@ test.skipIf(skip)(
     assert.ok(
       fts.total < fuzzy.total,
       `FTS-only banner (${fts.total}) not below the fuzzy banner (${fuzzy.total})`,
+    );
+  },
+);
+
+// ── Национална детска болница ────────────────────────────────────────────────
+// A single-buyer SPV dossier. The audit fixed TWO failure modes at once:
+//  · Fix G (scope): the distinctive token `детска` is a generic word (детска
+//    градина / ясла / площадка / церебрална парализа), so the UNSCOPED seed
+//    auto-included ~€1.22M of kindergartens, nurseries, playgrounds and a
+//    cerebral-palsy rehab hospital across 10 unrelated buyers. `buyerEik`
+//    206218659 ("Здравна инвестиционна компания за детска болница" ЕАД — the
+//    special-purpose company built solely for this hospital) removes all of it.
+//  · Fix D (recall): the project was RENAMED, so its two most important records
+//    carry no „детска болница" in the title and were dropped — the €5.04M
+//    flagship design/supervision tender (06008-2026-0001, „…Национална
+//    многопрофилна болница за активно лечение на деца") and the €35k prep study
+//    (contract ced05ae42f50 / tender 06008-2024-0001). Pulled back via `includes`.
+
+test.skipIf(skip)(
+  "national-childrens-hospital: total is the whole-SPV set, not the €1.22M kindergarten pollution",
+  () => {
+    // The scoped SPV fold is ~€2.37M (demolition €2.30M + prep €35k + banking).
+    // A dropped/broken buyerEik scope re-admits the ~€1.22M of детска-градина /
+    // площадка / церебрална-парализа false positives (plus lineage), blowing the
+    // ceiling; an over-trim of the €2.3M demolition sinks the floor.
+    const eur = NCH!.summary.contractedEur;
+    assert.ok(
+      eur > 2_000_000 && eur < 3_000_000,
+      `nch contractedEur €${(eur / 1e6).toFixed(2)}M outside [2.0M, 3.0M]`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "national-childrens-hospital: the €5M flagship design tender is a member (recall fix)",
+  () => {
+    // Tender-only (unawarded) → pinned via the member УНП set, not a contract row.
+    assert.ok(
+      NCH!.unps.has("06008-2026-0001"),
+      "flagship design/supervision tender 06008-2026-0001 missing — the includes recall fix regressed",
+    );
+    // The prep study (both its contract and tender) — the other title-missed member.
+    assert.ok(
+      NCH!.unps.has("06008-2024-0001"),
+      "prep-study procedure 06008-2024-0001 missing from the member set",
+    );
+    // 7 SPV procedures total (3 from contracts + 4 tender-only) — a broken include
+    // for a tender-only procedure drops this below 7.
+    assert.ok(
+      NCH!.summary.procedureCount >= 7,
+      `nch procedureCount ${NCH!.summary.procedureCount} < 7 — a tender-only member was dropped`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "national-childrens-hospital: no kindergarten / playground buyer leaks in (scope fix)",
+  () => {
+    // Every member must be an SPV award — its biggest is the €2.30M demolition
+    // (Консорциум техноком). None of the audit's false-positive buyers'
+    // contractors may appear, and no member may exceed the demolition.
+    assert.ok(
+      NCH!.contractorEiks.has("176059792"),
+      "Консорциум техноком (the €2.3M demolition contractor) missing — over-trim",
+    );
+    assert.ok(
+      NCH!.maxContractEur < 2_500_000,
+      `a €${(NCH!.maxContractEur / 1e6).toFixed(2)}M member exceeds the €2.3M demolition — a foreign buyer leaked in`,
+    );
+    // A cheap cleanliness invariant: no member title is a kindergarten / nursery /
+    // playground / cerebral-palsy object (the audit's false-positive shapes).
+    const leak = NCH!.contracts.find((c) =>
+      /детска градина|детска ясла|детски ясли|детск(а|и) площадк|церебрална парализа/i.test(
+        c.title ?? "",
+      ),
+    );
+    assert.ok(
+      leak == null,
+      `kindergarten/playground contract leaked into nch: "${leak?.title?.slice(0, 60)}"`,
     );
   },
 );
