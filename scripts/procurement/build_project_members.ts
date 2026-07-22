@@ -102,14 +102,17 @@ async function resolveMembers(spec: Spec): Promise<{
         page: 0,
         pageSize: SEED_PAGE,
         sort: [{ id: "amount_eur", desc: true }],
-        filters: { global: t.terms, columns: cCols },
+        // MIRROR the client seed (useProjectFile.resolveProjectFile): search the
+        // contract title / tender subject only, so a landmark term does not recall
+        // via contractor_name and the two resolvers stay in lockstep.
+        filters: { global: t.terms, globalCols: ["title"], columns: cCols },
       }),
       page({
         resource: "tenders",
         page: 0,
         pageSize: SEED_PAGE,
         sort: [{ id: "estimated_value_eur", desc: true }],
-        filters: { global: t.terms, columns: tCols },
+        filters: { global: t.terms, globalCols: ["subject"], columns: tCols },
       }),
     ]);
     matchedContracts.push(...(cr as CRow[]));

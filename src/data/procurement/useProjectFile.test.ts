@@ -69,6 +69,22 @@ describe("parseProjectSpec — untrusted ?q= parsing (§4.1)", () => {
     expect(s?.search.length).toBeLessThanOrEqual(20);
   });
 
+  it("preserves multiple threads and their per-thread buyerEik (union recall)", () => {
+    // The Hemus dossier ships two buyer-scoped threads (АПИ + НКСИП); both must
+    // survive parsing intact so each recalls against its own buyer.
+    const s = parseProjectSpec(
+      JSON.stringify({
+        search: [
+          { terms: "хемус", distinctive: ["хемус"], buyerEik: ["000695089"] },
+          { terms: "хемус", distinctive: ["хемус"], buyerEik: ["202062287"] },
+        ],
+      }),
+    );
+    expect(s?.search).toHaveLength(2);
+    expect(s?.search[0].buyerEik).toEqual(["000695089"]);
+    expect(s?.search[1].buyerEik).toEqual(["202062287"]);
+  });
+
   it("shape-checks + bounds the untrusted claims[] (§4.2.6b)", () => {
     const s = parseProjectSpec(
       JSON.stringify({
