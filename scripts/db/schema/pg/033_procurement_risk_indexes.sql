@@ -37,6 +37,28 @@ GRANT SELECT ON company_founded TO app_readonly;
 -- DROP FUNCTION below doesn't fail on the dependency.
 DROP MATERIALIZED VIEW IF EXISTS procurement_risk_indexes_cache;
 
+-- NGO foreign-funding link — a NEUTRAL DISCLOSURE surfaced on the contract page,
+-- NOT a corruption-risk flag (foreign funding is lawful; framing it as a red
+-- flag is the exact "foreign-agent" trap the NGO feature avoids, see
+-- docs/plans/ngo-competitive-research.md). One row per contractor EIK that is
+-- either (a) itself an NGO with foreign funding, or (b) a firm whose declared
+-- owner/officer sits on a foreign-funded NGO's board. The row carries the
+-- headline NGO / funder / amount for the tooltip. This table is OWNED here (so
+-- procurement_risk_indexes() can read it on a fresh load — the function must not
+-- reference ngo_funding / ngo_board_links directly, which are created by later,
+-- separately-run loaders). It stays EMPTY until rebuild_procurement_ngo_foreign_link()
+-- (migration 080, run by the NGO loaders once ngo_funding + ngo_board_links
+-- exist) populates it; those loaders then refresh procurement_risk_indexes_cache.
+CREATE TABLE IF NOT EXISTS procurement_ngo_foreign_link (
+  eik       text PRIMARY KEY,   -- the CONTRACTOR eik that carries the disclosure
+  kind      text NOT NULL,      -- 'direct' (contractor IS the NGO) | 'connected' (owner on its board)
+  ngo_name  text,               -- the foreign-funded NGO's name
+  ngo_eik   text,               -- the NGO's eik (= eik when kind='direct')
+  person    text,               -- the shared board member (kind='connected'); NULL for 'direct'
+  funder    text,               -- headline funder (largest grant)
+  eur       numeric             -- total foreign funding to the NGO
+);
+
 DROP FUNCTION IF EXISTS procurement_risk_indexes();
 CREATE OR REPLACE FUNCTION procurement_risk_indexes()
 RETURNS jsonb LANGUAGE sql STABLE AS $$
@@ -180,6 +202,17 @@ SELECT jsonb_build_object(
   'pepConnectedEiks', (
     SELECT COALESCE(jsonb_agg(DISTINCT eik), '[]'::jsonb)
     FROM company_politicians WHERE kind = 'official'
+  ),
+  -- NGO foreign-funding disclosure (NEUTRAL, not scored — see the table comment
+  -- above). Read from the OWNED link table so this function has no dependency on
+  -- the NGO tables. One representative row per contractor eik.
+  'ngoForeignFunded', (
+    SELECT COALESCE(jsonb_agg(jsonb_build_object(
+      'eik', eik, 'kind', kind, 'ngoName', ngo_name, 'ngoEik', ngo_eik,
+      'person', person, 'funder', funder,
+      'eur', CASE WHEN eur IS NULL THEN NULL ELSE ROUND(eur) END
+    ) ORDER BY eur DESC NULLS LAST, eik), '[]'::jsonb)
+    FROM procurement_ngo_foreign_link
   ),
   'cpvCompetition', jsonb_build_object(
     'structuralSingleBidShare', 0.8,

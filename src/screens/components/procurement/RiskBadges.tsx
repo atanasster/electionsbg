@@ -18,6 +18,7 @@ import {
   Check,
   ChevronDown,
   Gavel,
+  Globe,
   Landmark,
   Link as LinkIcon,
   Minus,
@@ -35,7 +36,12 @@ import { formatEurCompact } from "@/lib/currency";
 import { formatShare, criColor } from "@/lib/riskGrade";
 import { SignalPill } from "@/screens/components/procurement/SignalPill";
 import type { ContractRiskResult } from "@/data/procurement/useContractRiskFlags";
-import type { RiskComponentKey } from "@/data/procurement/computeProcurementRisk";
+import type {
+  RiskComponentKey,
+  NgoForeignFundedEntry,
+} from "@/data/procurement/computeProcurementRisk";
+import { Link } from "react-router-dom";
+import type { TFunction } from "i18next";
 
 /** The full applicable-check catalogue, ordered heaviest-first so the explained
  *  list reads worst-to-least within each state bucket. Each entry maps a check
@@ -153,13 +159,72 @@ type Props = {
   variant?: "chips" | "full";
 };
 
+/** Shared body for the foreign-funded-NGO NEUTRAL disclosure (tooltip + the
+ *  full-ledger block). Names the NGO (link), its headline funder + total, and —
+ *  for the 'connected' kind — the shared board member. Framed as lawful
+ *  disclosure, never a "foreign-agent" flag. */
+const NgoForeignFundedBody: FC<{
+  entry: NgoForeignFundedEntry;
+  t: TFunction;
+  lang: string;
+}> = ({ entry, t, lang }) => (
+  <div className="space-y-1">
+    <div className="font-medium">
+      {entry.kind === "connected"
+        ? t("risk_disc_ngo_foreign_connected_long") ||
+          "Contractor is tied to a foreign-funded NGO"
+        : t("risk_disc_ngo_foreign_long") ||
+          "Contractor is an NGO with foreign funding"}
+    </div>
+    {entry.kind === "connected" && entry.person ? (
+      <div className="text-xs text-muted-foreground">
+        {entry.person}
+        {" · "}
+        {t("risk_disc_ngo_foreign_board_of") || "on the board of"}{" "}
+        <Link
+          to={`/company/${entry.ngoEik}`}
+          className="text-primary hover:underline"
+        >
+          {entry.ngoName}
+        </Link>
+      </div>
+    ) : (
+      <div className="text-xs text-muted-foreground">
+        <Link
+          to={`/company/${entry.ngoEik}`}
+          className="text-primary hover:underline"
+        >
+          {entry.ngoName}
+        </Link>
+      </div>
+    )}
+    <div className="text-xs tabular-nums">
+      {entry.funder ??
+        (t("risk_disc_ngo_foreign_funder_generic") || "Foreign funding")}
+      {entry.eur != null ? (
+        <>
+          {" · "}
+          {formatEurCompact(entry.eur, lang)}
+        </>
+      ) : null}
+    </div>
+    <div className="text-[11px] leading-relaxed text-muted-foreground/80">
+      {t("risk_disc_ngo_foreign_note") ||
+        "Lawful disclosure, not a risk flag — foreign funding is not evidence of wrongdoing."}
+    </div>
+  </div>
+);
+
 export const RiskBadges: FC<Props> = ({ result, variant = "chips" }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const [open, setOpen] = useState(false);
   const { flags, cri, firedCount, availableCount, hasFlag } = result;
 
-  if (!hasFlag && variant !== "full") {
+  // The foreign-funded-NGO disclosure deliberately does NOT bump `firedCount`
+  // (hasFlag), so it would be swallowed by this early return — keep it alive in
+  // the compact `chips`/row contexts too, not just the detail `full` variant.
+  if (!hasFlag && !flags.ngoForeignFunded && variant !== "full") {
     return <span className="text-xs text-muted-foreground">—</span>;
   }
 
@@ -468,6 +533,25 @@ export const RiskBadges: FC<Props> = ({ result, variant = "chips" }) => {
           </SignalPill>
         </Tooltip>
       ) : null}
+
+      {flags.ngoForeignFunded ? (
+        <Tooltip
+          content={
+            <NgoForeignFundedBody
+              entry={flags.ngoForeignFunded}
+              t={t}
+              lang={lang}
+            />
+          }
+        >
+          <SignalPill tone="slate" icon={<Globe className="h-3 w-3" />}>
+            {flags.ngoForeignFunded.kind === "connected"
+              ? t("risk_disc_ngo_foreign_connected") ||
+                "NGO-linked (foreign-funded)"
+              : t("risk_disc_ngo_foreign") || "Foreign-funded NGO"}
+          </SignalPill>
+        </Tooltip>
+      ) : null}
     </div>
   );
 
@@ -696,6 +780,59 @@ export const RiskBadges: FC<Props> = ({ result, variant = "chips" }) => {
               </div>
             );
           })}
+          {flags.ngoForeignFunded ? (
+            <div className="flex items-start gap-2 border-t border-border/60 py-2">
+              <Globe
+                className="mt-0.5 h-4 w-4 shrink-0 text-slate-500 dark:text-slate-400"
+                aria-hidden
+              />
+              <div className="min-w-0 flex-1">
+                <div className="flex flex-wrap items-center gap-1.5">
+                  <span className="text-sm text-foreground">
+                    {flags.ngoForeignFunded.kind === "connected"
+                      ? t("risk_disc_ngo_foreign_connected_long") ||
+                        "Contractor is tied to a foreign-funded NGO"
+                      : t("risk_disc_ngo_foreign_long") ||
+                        "Contractor is an NGO with foreign funding"}
+                  </span>
+                  <span className="rounded-full border border-slate-300 px-1.5 py-0.5 text-[11px] text-slate-600 dark:border-slate-700 dark:text-slate-300">
+                    {t("risk_disc_label") || "disclosure"}
+                  </span>
+                </div>
+                <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
+                  {flags.ngoForeignFunded.kind === "connected" &&
+                  flags.ngoForeignFunded.person ? (
+                    <>
+                      {flags.ngoForeignFunded.person}
+                      {" · "}
+                      {t("risk_disc_ngo_foreign_board_of") ||
+                        "on the board of"}{" "}
+                    </>
+                  ) : null}
+                  <Link
+                    to={`/company/${flags.ngoForeignFunded.ngoEik}`}
+                    className="text-primary hover:underline"
+                  >
+                    {flags.ngoForeignFunded.ngoName}
+                  </Link>
+                  {" · "}
+                  {flags.ngoForeignFunded.funder ??
+                    (t("risk_disc_ngo_foreign_funder_generic") ||
+                      "Foreign funding")}
+                  {flags.ngoForeignFunded.eur != null ? (
+                    <>
+                      {" · "}
+                      {formatEurCompact(flags.ngoForeignFunded.eur, lang)}
+                    </>
+                  ) : null}
+                </p>
+                <p className="mt-0.5 text-[11px] leading-relaxed text-muted-foreground/70">
+                  {t("risk_disc_ngo_foreign_note") ||
+                    "Lawful disclosure, not a risk flag — foreign funding is not evidence of wrongdoing."}
+                </p>
+              </div>
+            </div>
+          ) : null}
         </div>
       ) : null}
     </div>

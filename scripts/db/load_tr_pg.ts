@@ -425,6 +425,28 @@ export const loadTrPg = async (): Promise<{
       // Matview is created WITH NO DATA; a plain REFRESH populates it (~2s over
       // ~31k NGOs). Not CONCURRENTLY — it may be unpopulated on the first run.
       await exec("REFRESH MATERIALIZED VIEW ngo_signals");
+      // Rebuild the contract-page foreign-funding disclosure feed, then refresh
+      // the risk-indexes cache so /api/db/procurement-risk-indexes serves it.
+      // Gate on the TARGET TABLE itself (owned by migration 033, applied by the
+      // separate procurement loader) — `hasContracts` above is only a practical
+      // proxy and is stale-033-vulnerable, so guard the exact object we touch.
+      const hasLinkTable = await getPool()
+        .query("SELECT to_regclass('public.procurement_ngo_foreign_link') AS t")
+        .then((r) => r.rows[0]?.t != null)
+        .catch(() => false);
+      if (hasLinkTable) {
+        await exec("SELECT rebuild_procurement_ngo_foreign_link()");
+        const hasRiskCache = await getPool()
+          .query(
+            "SELECT to_regclass('public.procurement_risk_indexes_cache') AS t",
+          )
+          .then((r) => r.rows[0]?.t != null)
+          .catch(() => false);
+        if (hasRiskCache)
+          await exec(
+            "REFRESH MATERIALIZED VIEW procurement_risk_indexes_cache",
+          );
+      }
     }
   }
 

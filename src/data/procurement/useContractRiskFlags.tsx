@@ -16,6 +16,7 @@ import { useAwarderConcentration } from "./useAwarderConcentration";
 import { useMpConnectedContractors } from "./useMpConnectedContractors";
 import { useCpvCompetition } from "./useCpvCompetition";
 import { usePepConnectedEikSet } from "./usePepConnectedByEik";
+import { useNgoForeignFundedByEik } from "./usePepConnectedByEik";
 import { useCompanyFoundedByEik } from "./useCompanyFoundedByEik";
 import { useSplitPurchase } from "./useSplitPurchase";
 
@@ -47,6 +48,7 @@ export const useContractRiskFlags = (
   const { byEik: foundedByEik, isLoaded: foundedLoaded } =
     useCompanyFoundedByEik();
   const { byKey: splitPurchaseByKey } = useSplitPurchase();
+  const { byEik: ngoForeignFundedByEik } = useNgoForeignFundedByEik();
 
   const result = useMemo(() => {
     if (!contract) return null;
@@ -60,6 +62,7 @@ export const useContractRiskFlags = (
       cpvBidderMedian: cpv.bidderMedianByCpv5,
       foundedByEik: foundedLoaded ? foundedByEik : undefined,
       splitPurchaseByKey,
+      ngoForeignFundedByEik,
       normalizeName: normalizeContractorName,
     });
   }, [
@@ -75,6 +78,7 @@ export const useContractRiskFlags = (
     foundedByEik,
     foundedLoaded,
     splitPurchaseByKey,
+    ngoForeignFundedByEik,
   ]);
 
   return {
@@ -99,6 +103,7 @@ export const useContractRiskScorer = (): {
   const { byEik: foundedByEik, isLoaded: foundedLoaded } =
     useCompanyFoundedByEik();
   const { byKey: splitPurchaseByKey } = useSplitPurchase();
+  const { byEik: ngoForeignFundedByEik } = useNgoForeignFundedByEik();
 
   const scoreRow = useMemo(() => {
     return (contract: ProcurementContract) =>
@@ -112,6 +117,7 @@ export const useContractRiskScorer = (): {
         cpvBidderMedian: cpv.bidderMedianByCpv5,
         foundedByEik: foundedLoaded ? foundedByEik : undefined,
         splitPurchaseByKey,
+        ngoForeignFundedByEik,
         normalizeName: normalizeContractorName,
       });
   }, [
@@ -124,6 +130,7 @@ export const useContractRiskScorer = (): {
     cpv.bidderMedianByCpv5,
     cpv.structuralSingleBidShare,
     foundedByEik,
+    ngoForeignFundedByEik,
     foundedLoaded,
     splitPurchaseByKey,
   ]);

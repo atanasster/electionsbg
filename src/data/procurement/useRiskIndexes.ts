@@ -31,6 +31,17 @@ export type RiskIndexesPayload = {
   };
   mpConnected: Array<{ eik: string; mpId: number; mpName: string }>;
   pepConnectedEiks: string[];
+  /** Contractor EIKs that are / are tied to a foreign-funded NGO. NEUTRAL
+   *  disclosure surfaced on the contract page — not a scored risk flag. */
+  ngoForeignFunded?: Array<{
+    eik: string;
+    kind: "direct" | "connected";
+    ngoName: string;
+    ngoEik: string;
+    person: string | null;
+    funder: string | null;
+    eur: number | null;
+  }>;
   cpvCompetition: {
     structuralSingleBidShare: number;
     divisions: CpvCompetitionDivision[];

@@ -6,6 +6,7 @@
 import { useMemo } from "react";
 import { useRiskIndexes } from "./useRiskIndexes";
 import { useCompanyPoliticians } from "./useMpConnectedByEik";
+import type { NgoForeignFundedEntry } from "./computeProcurementRisk";
 
 /** Chip-grade official entry: who, route slug, and their public role. */
 export type PepConnectedChipEntry = {
@@ -28,6 +29,30 @@ export const usePepConnectedEikSet = (): {
   // payload must leave pepConnected UNAVAILABLE in the risk scorer, not
   // "available + never fires" (which would dilute every CRI).
   return { set, isLoading, isLoaded: data != null };
+};
+
+/** Contractor EIK → foreign-funded-NGO disclosure. Backs the neutral
+ *  `ngoForeignFunded` flag on the contract page (see NgoForeignFundedEntry). */
+export const useNgoForeignFundedByEik = (): {
+  byEik: Map<string, NgoForeignFundedEntry>;
+  isLoading: boolean;
+  isLoaded: boolean;
+} => {
+  const { data, isLoading } = useRiskIndexes();
+  const byEik = useMemo(() => {
+    const m = new Map<string, NgoForeignFundedEntry>();
+    for (const r of data?.ngoForeignFunded ?? [])
+      m.set(r.eik, {
+        kind: r.kind,
+        ngoName: r.ngoName,
+        ngoEik: r.ngoEik,
+        funder: r.funder,
+        eur: r.eur,
+        person: r.person,
+      });
+    return m;
+  }, [data]);
+  return { byEik, isLoading, isLoaded: data != null };
 };
 
 export const usePepConnectedByEik = (

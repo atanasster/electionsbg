@@ -351,3 +351,76 @@ DO $$ BEGIN
   EXECUTE 'GRANT SELECT ON ngo_signals TO app_readonly';
   EXECUTE 'GRANT SELECT ON ngos_list TO app_readonly';
 EXCEPTION WHEN undefined_object THEN NULL; END $$;
+
+-- ---------------------------------------------------------------------------
+-- procurement_ngo_foreign_link — the CONTRACT-page disclosure feed.
+--
+-- Populates the table OWNED by migration 033 (procurement_ngo_foreign_link) so
+-- the risk-indexes payload can carry a NEUTRAL "this contractor is / is tied to
+-- a foreign-funded NGO" disclosure without procurement_risk_indexes() ever
+-- referencing the NGO tables (which are loaded separately). It is NOT a scored
+-- risk flag — foreign funding is lawful disclosure, never a "foreign-agent" red
+-- flag (docs/plans/ngo-competitive-research.md).
+--
+-- Two arms, mirroring the related_party CTE in ngo_signal_row():
+--   direct    — the contractor EIK is itself a foreign-funded NGO.
+--   connected — a high-confidence board member of a foreign-funded NGO ALSO
+--               controls a DIFFERENT firm (declared holdings) that wins public
+--               procurement; that firm's EIK carries the disclosure, tagged with
+--               the person + NGO. Namesake-safe: MP/official arm joins
+--               company_politicians on the person REF (identity), the magistrate
+--               arm on the globally-unique (cc=1) magistrate name.
+-- Only foreign sources (eu_fts / abf / ned) count — NOT domestic budget_subsidy.
+-- Restricted to EIKs that actually appear as a contractor, so the table stays
+-- small. One representative row per contractor EIK: 'direct' wins over
+-- 'connected', then the largest foreign amount.
+DROP FUNCTION IF EXISTS rebuild_procurement_ngo_foreign_link();
+CREATE OR REPLACE FUNCTION rebuild_procurement_ngo_foreign_link()
+RETURNS void LANGUAGE plpgsql AS $$
+BEGIN
+  TRUNCATE procurement_ngo_foreign_link;
+  INSERT INTO procurement_ngo_foreign_link (eik, kind, ngo_name, ngo_eik, person, funder, eur)
+  WITH ff AS (  -- foreign-funded NGOs (private grantmakers + EU direct FTS)
+    SELECT nf.eik,
+           ROUND(SUM(nf.amount_eur)) AS eur,
+           (array_agg(nf.funder ORDER BY nf.amount_eur DESC NULLS LAST, nf.funder))[1] AS funder
+    FROM ngo_funding nf
+    WHERE nf.eik IS NOT NULL AND nf.source IN ('eu_fts','abf','ned')
+    GROUP BY nf.eik
+  ),
+  cand AS (
+    -- direct: contractor IS the foreign-funded NGO
+    SELECT ff.eik AS eik, 'direct'::text AS kind, tc.name AS ngo_name,
+           ff.eik AS ngo_eik, NULL::text AS person, ff.funder, ff.eur
+    FROM ff
+    JOIN tr_companies tc ON tc.uic = ff.eik
+    WHERE EXISTS (SELECT 1 FROM contracts ct
+                  WHERE ct.tag='contract' AND ct.contractor_eik = ff.eik)
+    UNION ALL
+    -- connected (MP/official arm): board member's own public-contractor firm
+    SELECT cp.eik, 'connected', ngo.name, b.eik, b.person, ff.funder, ff.eur
+    FROM ngo_board_links b
+    JOIN ff             ON ff.eik = b.eik
+    JOIN tr_companies ngo ON ngo.uic = b.eik
+    JOIN company_politicians cp ON cp.ref = b.ref AND cp.eik <> b.eik
+    WHERE b.confidence = 'high'
+      AND EXISTS (SELECT 1 FROM contracts ct
+                  WHERE ct.tag='contract' AND ct.contractor_eik = cp.eik)
+    UNION ALL
+    -- connected (magistrate arm): globally-unique magistrate name → held firm
+    SELECT mc.eik, 'connected', ngo.name, b.eik, b.person, ff.funder, ff.eur
+    FROM ngo_board_links b
+    JOIN ff             ON ff.eik = b.eik
+    JOIN tr_companies ngo ON ngo.uic = b.eik
+    JOIN magistrate_company mc
+      ON translit_bg_latin(mc.magistrate_name) = translit_bg_latin(b.person)
+     AND mc.eik <> b.eik
+    WHERE b.confidence = 'high' AND b.kind = 'magistrate'
+      AND EXISTS (SELECT 1 FROM contracts ct
+                  WHERE ct.tag='contract' AND ct.contractor_eik = mc.eik)
+  )
+  SELECT DISTINCT ON (eik) eik, kind, ngo_name, ngo_eik, person, funder, eur
+  FROM cand
+  ORDER BY eik, (kind='direct') DESC, eur DESC NULLS LAST, ngo_eik;
+END;
+$$;

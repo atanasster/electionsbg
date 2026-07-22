@@ -353,6 +353,33 @@ export const loadNgoFundingPg = async (): Promise<{
       .then((r) => r.rows[0]?.t != null)
       .catch(() => false);
     if (present) await c.query("REFRESH MATERIALIZED VIEW ngo_signals");
+    // The contract-page foreign-funding disclosure feed also depends on this
+    // funding data — rebuild it and refresh the risk-indexes cache so
+    // /api/db/procurement-risk-indexes serves the fresh links. Both are guarded:
+    // a DB without the TR load (no rebuild fn) or without procurement (no cache)
+    // skips cleanly.
+    // Gate on the TARGET TABLE (owned by migration 033, applied by the separate
+    // procurement loader) — its presence is the real precondition. Gating on the
+    // rebuild fn or the cache is a false proxy: both can exist from an OLD 033
+    // while the new table is still absent, which would make the rebuild throw
+    // and abort the whole funding load.
+    const hasLinkTable = await c
+      .query("SELECT to_regclass('public.procurement_ngo_foreign_link') AS t")
+      .then((r) => r.rows[0]?.t != null)
+      .catch(() => false);
+    if (hasLinkTable) {
+      await c.query("SELECT rebuild_procurement_ngo_foreign_link()");
+      const hasRiskCache = await c
+        .query(
+          "SELECT to_regclass('public.procurement_risk_indexes_cache') AS t",
+        )
+        .then((r) => r.rows[0]?.t != null)
+        .catch(() => false);
+      if (hasRiskCache)
+        await c.query(
+          "REFRESH MATERIALIZED VIEW procurement_risk_indexes_cache",
+        );
+    }
   });
   return { rows: total, matched };
 };
