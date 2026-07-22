@@ -188,8 +188,8 @@ describe("roleKeyOf / roleLabel — money-by-role grouping (§4.2.4)", () => {
   });
   it("handles blank nature, missing CPV, and unknown divisions", () => {
     expect(roleKeyOf("  ", null)).toBe("cpv:—");
-    expect(roleLabel("cpv:—", true)).toBe("без ЦПВ");
-    expect(roleLabel("cpv:—", false)).toBe("no CPV");
+    expect(roleLabel("cpv:—", true)).toBe("без код по ЦПВ");
+    expect(roleLabel("cpv:—", false)).toBe("no CPV code");
     expect(roleLabel("cpv:63", true)).toBe("ЦПВ 63");
     expect(roleLabel("cpv:63", false)).toBe("CPV 63");
     expect(roleLabel("cpv:45", false)).toBe("works");

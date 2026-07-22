@@ -310,10 +310,14 @@ export function roleLabel(key: string, bg: boolean): string {
   const div = key.slice(4);
   const r = CPV_DIVISION_ROLE[div];
   if (r) return bg ? r.bg : r.en;
+  // "cpv:—" = the source carries NO CPV code (not a spend category). Label it as
+  // missing metadata so the bucket — often the largest, since big АПИ works
+  // contracts frequently ship without a code — doesn't read as a real "type"
+  // that understates строителство next to it.
   return div === "—"
     ? bg
-      ? "без ЦПВ"
-      : "no CPV"
+      ? "без код по ЦПВ"
+      : "no CPV code"
     : `${bg ? "ЦПВ" : "CPV"} ${div}`;
 }
 
