@@ -147,6 +147,7 @@ const GRAF = skip ? null : await resolveDossier("graf-ignatievo");
 const MASH = skip ? null : await resolveDossier("mashinno-glasuvane");
 const ZAPADNA = skip ? null : await resolveDossier("zapadna-daga");
 const ARENA = skip ? null : await resolveDossier("arena-pleven");
+const PANCHAREVO = skip ? null : await resolveDossier("pancharevo-veloaleya");
 
 // ── Русе–Велико Търново ─────────────────────────────────────────────────────
 
@@ -861,5 +862,84 @@ test.skipIf(skip)(
         `arena-pleven lost genuine procedure ${unp}`,
       );
     }
+  },
+);
+
+// ── Велоалея Горубляне – Панчаревско езеро ───────────────────────────────────
+// A hand-curated saved search: район „Панчарево" has no separate EIK, so the one
+// seed thread (`алтернативен туризъм`) is scoped to Столична община's shared EIK
+// 000696327 — narrow enough to pull only the 4 project-publicity lots, but the
+// broad buyer means a seed regression could re-admit Sofia-wide megaprojects
+// (metro/waste €50–100M). The audit added the €1.82M slope-reinforcement
+// procedure 01269-2025-0029 (Хидрострой груп) — the same "велоалея „Панчарево",
+// financed OUTSIDE the ИСУН grant — lifting the ЗОП total €1.93M → €3.75M.
+
+test.skipIf(skip)(
+  "pancharevo: total contracted spans all three procedures (grant works + slope reinforcement)",
+  () => {
+    // €1.93M before the audit (construction + publicity only); €3.75M after,
+    // with the €1.82M slope-reinforcement procedure included. Floor catches a
+    // drop of the slope work; ceiling catches an all-of-Sofia buyer-scope leak.
+    const eur = PANCHAREVO!.summary.contractedEur;
+    assert.ok(
+      eur > 3_400_000 && eur < 4_100_000,
+      `pancharevo contractedEur €${(eur / 1e6).toFixed(2)}M outside [3.4M, 4.1M]`,
+    );
+    // The broad shared buyer EIK is the standing risk: no member may be a
+    // Sofia-wide megaproject. The priciest genuine member is the €1.82M slope work.
+    assert.ok(
+      PANCHAREVO!.maxContractEur > 1_700_000 &&
+        PANCHAREVO!.maxContractEur < 2_000_000,
+      `pancharevo max member €${(PANCHAREVO!.maxContractEur / 1e6).toFixed(2)}M — slope work dropped or a Sofia-wide contract leaked`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "pancharevo: the three procedures are present and none fans out",
+  () => {
+    // Construction (2 lots), slope reinforcement (1 lot), publicity (4 lots).
+    for (const unp of [
+      "01269-2026-0002",
+      "01269-2025-0029",
+      "01269-2026-0007",
+    ]) {
+      assert.ok(
+        PANCHAREVO!.unps.has(unp),
+        `pancharevo lost genuine procedure ${unp}`,
+      );
+    }
+    // Exact member-lot counts — a lineage regression that fanned a framework out
+    // would push these over their true lot totals.
+    assert.ok(
+      PANCHAREVO!.unpCount("01269-2026-0002") <= 2,
+      `construction ${PANCHAREVO!.unpCount("01269-2026-0002")} member lots — lot guard regressed`,
+    );
+    assert.ok(
+      PANCHAREVO!.unpCount("01269-2025-0029") <= 1,
+      `slope reinforcement ${PANCHAREVO!.unpCount("01269-2025-0029")} member lots — leaked siblings`,
+    );
+    assert.ok(
+      PANCHAREVO!.unpCount("01269-2026-0007") <= 4,
+      `publicity ${PANCHAREVO!.unpCount("01269-2026-0007")} member lots — leaked siblings`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "pancharevo: both the main build and the slope-reinforcement contractors are present",
+  () => {
+    // Трилиум инженеринг (203419767) built the €1.6M alley/pump-track main lot —
+    // the signature true-positive.
+    assert.ok(
+      PANCHAREVO!.contractorEiks.has("203419767"),
+      "Трилиум инженеринг (€1.6M main build) missing from pancharevo",
+    );
+    // Хидрострой груп (205558139) won the €1.82M slope reinforcement the audit
+    // added — dropping it would silently revert the scope decision.
+    assert.ok(
+      PANCHAREVO!.contractorEiks.has("205558139"),
+      "Хидрострой груп (€1.82M slope reinforcement) missing from pancharevo — audit scope reverted",
+    );
   },
 );
