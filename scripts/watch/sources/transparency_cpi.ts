@@ -60,7 +60,14 @@ export const transparencyCpi: WatchSource = {
   cadence: "monthly",
 
   async fingerprint(): Promise<Fingerprint> {
-    const html = await fetchText(PAGE);
+    // TI's CDN blocks the watcher UA (bot-detection); a real browser UA works.
+    const html = await fetchText(PAGE, {
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+        Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      },
+    });
     if (!html) throw new Error("empty TI Bulgaria page");
     const parsed = parseCpi(html);
     if (!parsed) {
