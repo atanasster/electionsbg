@@ -155,9 +155,13 @@ export const CompanyContractsDbScreen: FC<{
         header: t("company_contract_subject") || "Subject",
         enableSorting: false,
         cell: ({ row }) => (
-          <span className="text-sm line-clamp-2 max-w-md inline-block">
+          <Link
+            to={`/procurement/contract/${row.original.key}`}
+            className="text-sm line-clamp-2 max-w-md inline-block hover:text-primary hover:underline"
+            title={row.original.title || undefined}
+          >
             {row.original.title || "—"}
-          </span>
+          </Link>
         ),
       },
       {
