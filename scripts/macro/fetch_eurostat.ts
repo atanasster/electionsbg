@@ -954,7 +954,12 @@ const TI_CPI: MacroPoint[] = [
 
 // Eurobarometer "tend to trust" — Bulgaria results, annual averages of the
 // spring and autumn Standard EB waves (% who answered "tend to trust").
-// Compiled from the per-wave country fact sheets at europa.eu/eurobarometer.
+// Read from the per-wave Standard Eurobarometer DATA ANNEX (QA6 "How much trust
+// do you have in certain institutions?", BG "Tend to trust" column) at
+// europa.eu/eurobarometer — the authoritative per-country tables.
+// 2025 = mean of STD103 (Spring) + STD104 (Autumn) 2025; both waves read equal.
+// 2026 = STD105 (Spring 2026) only — the autumn 2026 wave is not out yet, so this
+// latest point is a single-wave reading and will be re-meaned when autumn lands.
 // Granularity is approximate; treat as illustrative trend, not point-precise.
 const EB_TRUST_PARLIAMENT: MacroPoint[] = [
   { year: 2005, value: 18 },
@@ -977,6 +982,8 @@ const EB_TRUST_PARLIAMENT: MacroPoint[] = [
   { year: 2022, value: 17 },
   { year: 2023, value: 18 },
   { year: 2024, value: 20 },
+  { year: 2025, value: 19 },
+  { year: 2026, value: 16 },
 ];
 
 const EB_TRUST_GOVERNMENT: MacroPoint[] = [
@@ -1000,6 +1007,8 @@ const EB_TRUST_GOVERNMENT: MacroPoint[] = [
   { year: 2022, value: 20 },
   { year: 2023, value: 21 },
   { year: 2024, value: 22 },
+  { year: 2025, value: 25 },
+  { year: 2026, value: 22 },
 ];
 
 const EB_TRUST_EU: MacroPoint[] = [
@@ -1023,6 +1032,8 @@ const EB_TRUST_EU: MacroPoint[] = [
   { year: 2022, value: 52 },
   { year: 2023, value: 53 },
   { year: 2024, value: 55 },
+  { year: 2025, value: 46 },
+  { year: 2026, value: 52 },
 ];
 
 // Annual EU budget flows for Bulgaria, both directions (EUR billions).
