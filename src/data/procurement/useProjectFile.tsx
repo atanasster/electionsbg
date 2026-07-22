@@ -381,6 +381,31 @@ export const parseProjectSpec = (
   };
 };
 
+/**
+ * A curated /project/:slug file is read-only. "Edit" forks it into an editable
+ * DIY copy at the ?q= builder route — the "start from this example" entry point.
+ * It keeps the whole SEARCH (all threads incl. their per-buyer scopes — e.g.
+ * Hemus's АПИ + НКСИП union), the sector tag (road €/km cross-check), the role
+ * labels and the manual include/exclude curation, so the copy reproduces the
+ * same member set as a starting point. It STRIPS every editorial field (thesis,
+ * authority, claims, verifiedAt, subcontractor notes, …) so a DIY file never
+ * carries a Наясно verdict (§11). `&edit=1` opens the copy straight into the
+ * thread editor. Exported so a test can lock the no-editorial-leak invariant.
+ */
+export const curatedForkHref = (spec: ProjectFileSpec): string => {
+  const bg = spec.title?.bg ? `Копие: ${spec.title.bg}` : undefined;
+  const en = spec.title?.en ? `Copy: ${spec.title.en}` : undefined;
+  const copy: ProjectFileSpec = {
+    ...(bg || en ? { title: { bg, en } } : {}),
+    search: spec.search,
+    ...(spec.sector ? { sector: spec.sector } : {}),
+    ...(spec.nature ? { nature: spec.nature } : {}),
+    ...(spec.includes ? { includes: spec.includes } : {}),
+    ...(spec.excludes ? { excludes: spec.excludes } : {}),
+  };
+  return `/procurement/project?q=${encodeURIComponent(JSON.stringify(copy))}&edit=1`;
+};
+
 const nonEmpty = (a: readonly string[] | undefined): a is string[] =>
   Array.isArray(a) && a.length > 0;
 

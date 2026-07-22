@@ -1,5 +1,10 @@
 import { describe, it, expect } from "vitest";
-import { parseProjectSpec, filterCuratedIndex } from "./useProjectFile";
+import {
+  parseProjectSpec,
+  filterCuratedIndex,
+  curatedForkHref,
+  type ProjectFileSpec,
+} from "./useProjectFile";
 
 describe("parseProjectSpec — untrusted ?q= parsing (§4.1)", () => {
   it("accepts a valid spec", () => {
@@ -310,5 +315,80 @@ describe("a committed curated spec validates through parseProjectSpec (Phase 3)"
     expect(s).not.toBeNull();
     expect(s?.inhouseAwarderEiks).toEqual(["831646048"]);
     expect(s?.verifiedAt).toBe("2026-07-21");
+  });
+});
+
+describe("curatedForkHref — 'start from this example' fork (§4.4)", () => {
+  // A representative curated spec carrying the full editorial surface.
+  const curated: ProjectFileSpec = {
+    title: { bg: "Магистрала „Хемус“", en: "Hemus motorway" },
+    thesis: { bg: "теза", en: "thesis" },
+    authority: "Агенция „Пътна инфраструктура“",
+    sector: "roads",
+    search: [
+      { terms: "хемус", distinctive: ["хемус"], buyerEik: ["000695089"] },
+      { terms: "хемус", distinctive: ["хемус"], buyerEik: ["202062287"] },
+    ],
+    nature: { abc123: "строителство" },
+    includes: { contractKeys: ["k1"] },
+    excludes: { tenderUnps: ["u1"] },
+    inhouseAwarderEiks: ["831646048"],
+    knownSubcontractors: [{ name: "Нивел строй ЕООД" }],
+    verifiedAt: "2026-07-22",
+    claims: [{ text: "claim", verdict: "confirms" }],
+  };
+
+  const forkedSpec = (spec: ProjectFileSpec) => {
+    const q = new URL(curatedForkHref(spec), "http://x").searchParams.get("q");
+    return parseProjectSpec(q);
+  };
+
+  it("carries NO editorial voice (§11) — every editorial field is stripped", () => {
+    const forked = forkedSpec(curated);
+    expect(forked).not.toBeNull();
+    // Guard the WHOLE editorial set so a future field is stripped by default —
+    // if someone adds one to the copy, this fails until they justify it.
+    for (const k of [
+      "thesis",
+      "authority",
+      "status",
+      "announcedBudget",
+      "benchmark",
+      "advance",
+      "gap",
+      "recurrence",
+      "verifiedAt",
+      "claims",
+      "inhouseAwarderEiks",
+      "knownSubcontractors",
+      "geo",
+    ] as const) {
+      expect(forked?.[k]).toBeUndefined();
+    }
+  });
+
+  it("keeps the whole search (all threads + per-buyer scope), sector, nature, includes/excludes", () => {
+    const forked = forkedSpec(curated);
+    expect(forked?.search).toHaveLength(2);
+    expect(forked?.search[0].buyerEik).toEqual(["000695089"]);
+    expect(forked?.search[1].buyerEik).toEqual(["202062287"]);
+    expect(forked?.sector).toBe("roads");
+    expect(forked?.nature).toEqual({ abc123: "строителство" });
+    expect(forked?.includes?.contractKeys).toEqual(["k1"]);
+    expect(forked?.excludes?.tenderUnps).toEqual(["u1"]);
+  });
+
+  it("prefixes the title as a copy and opens the editor (&edit=1)", () => {
+    const href = curatedForkHref(curated);
+    expect(href).toContain("&edit=1");
+    const forked = forkedSpec(curated);
+    expect(forked?.title?.bg).toBe("Копие: Магистрала „Хемус“");
+    expect(forked?.title?.en).toBe("Copy: Hemus motorway");
+  });
+
+  it("emits no empty title object when the source has no title", () => {
+    const href = curatedForkHref({ search: [{ terms: "x" }] });
+    const q = new URL(href, "http://x").searchParams.get("q");
+    expect(JSON.parse(q ?? "{}").title).toBeUndefined();
   });
 });

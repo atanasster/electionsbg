@@ -19,6 +19,7 @@ import {
   useCuratedProjectIndex,
   useResolvedBudgetLine,
   parseProjectSpec,
+  curatedForkHref,
   type ProjectFileSpec,
   type ProjectTenderRow,
   type Claim,
@@ -378,8 +379,34 @@ export const ProjectFileScreen = () => {
   const urlSpec = useMemo(() => parseProjectSpec(params.get("q")), [params]);
   const spec = curatedMode ? (curated.data ?? null) : urlSpec;
   const { data, isLoading, error } = useProjectFile(spec);
-  const [editModeState, setEditModeState] = useState(false);
+  // The curated "Edit" fork target (§4.4) — built once and reused by the toolbar
+  // button and the truncation banner's refine link. Only curated files fork.
+  const forkHref = useMemo(
+    () => (curatedMode && spec ? curatedForkHref(spec) : undefined),
+    [curatedMode, spec],
+  );
+  // A ?q= file opened via the curated "Edit" fork (…&edit=1) lands straight in the
+  // thread editor, so the "start from this example" flow is one click, not two.
+  const [editModeState, setEditModeState] = useState(
+    () => params.get("edit") === "1",
+  );
   const editMode = curatedMode ? false : editModeState; // no editing a committed file
+  // Consume the one-shot ?edit=1 (the curated "Edit" fork) even on a client-side
+  // navigation, where the reused component's useState initializer above never
+  // re-runs. Drop the flag afterwards so Save/Copy links stay clean and a later
+  // thread edit doesn't force the panel back open.
+  useEffect(() => {
+    if (curatedMode || params.get("edit") !== "1") return;
+    setEditModeState(true);
+    setParams(
+      (prev) => {
+        const p = new URLSearchParams(prev);
+        p.delete("edit");
+        return p;
+      },
+      { replace: true },
+    );
+  }, [curatedMode, params, setParams]);
 
   // robots: noindex for a resolved DIY/URL-built file (§4.4 — a user's search must
   // not read as a Наясно editorial finding) OR a curated slug that failed to
@@ -772,6 +799,7 @@ export const ProjectFileScreen = () => {
           editMode={editMode}
           onToggleEdit={() => setEditModeState((e) => !e)}
           curated={curatedMode}
+          editHref={forkHref}
         />
         {editMode && (
           <div className="no-print rounded-md border border-dashed p-3 mb-3">
@@ -851,23 +879,27 @@ export const ProjectFileScreen = () => {
             // scoped to match the ~M count (terms + full corpus + buyer). See
             // seeAllContractsHref for the URL-contract rationale.
             const seeAllHref = seeAllContractsHref(spec.search[0]);
-            // "Прецизирай думите" → the dossiers hub with the search box
-            // pre-populated (?refine=), so the user can edit the terms and rebuild.
-            // Carry the thread's buyer too (?awarderEik/&awarderName, falling back
-            // to spec.authority for a curated file) so the buyer scope survives.
+            // "Прецизирай думите" → the editable builder. A curated file forks
+            // into a full DIY copy (ALL threads + buyer scopes intact, same as the
+            // toolbar "Edit" button), so narrowing keeps e.g. the НКСИП thread
+            // instead of dropping to the first term. A DIY file lands on the hub
+            // with the search box pre-populated (?refine=), carrying the thread's
+            // buyer too (falling back to spec.authority) so the scope survives.
             const thread0 = spec.search[0];
             const refineTerms = thread0?.terms?.trim();
             const refineAwarderEik = thread0?.buyerEik?.[0];
             const refineAwarderName = thread0?.buyerName ?? spec.authority;
-            const refineHref = refineTerms
-              ? `/procurement/project?refine=${encodeURIComponent(refineTerms)}` +
-                (refineAwarderEik
-                  ? `&awarderEik=${encodeURIComponent(refineAwarderEik)}` +
-                    (refineAwarderName
-                      ? `&awarderName=${encodeURIComponent(refineAwarderName)}`
-                      : "")
-                  : "")
-              : null;
+            const refineHref = curatedMode
+              ? forkHref
+              : refineTerms
+                ? `/procurement/project?refine=${encodeURIComponent(refineTerms)}` +
+                  (refineAwarderEik
+                    ? `&awarderEik=${encodeURIComponent(refineAwarderEik)}` +
+                      (refineAwarderName
+                        ? `&awarderName=${encodeURIComponent(refineAwarderName)}`
+                        : "")
+                    : "")
+                : null;
             // Lead sentence (count when the engine reported it, else generic);
             // the "refine / add a buyer" tail is shared and carries the link.
             const lead = totalStr
@@ -1723,13 +1755,16 @@ const Toolbar = ({
   editMode,
   onToggleEdit,
   curated = false,
+  editHref,
 }: {
   spec: ProjectFileSpec;
   bg: boolean;
   editMode: boolean;
   onToggleEdit: () => void;
-  /** A committed /project/:slug file — read-only, so no edit/save. */
+  /** A committed /project/:slug file — read-only, so no in-place edit/save. */
   curated?: boolean;
+  /** For a curated file: the "fork into an editable DIY copy" href (§4.4). */
+  editHref?: string;
 }) => {
   const [saved, setSaved] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -1740,6 +1775,19 @@ const Toolbar = ({
         <button className={btn} onClick={onToggleEdit} aria-pressed={editMode}>
           {editMode ? (bg ? "Готово" : "Done") : bg ? "Редактирай" : "Edit"}
         </button>
+      )}
+      {curated && editHref && (
+        <Link
+          to={editHref}
+          className={btn}
+          title={
+            bg
+              ? "Създава редактируемо копие (ваше досие) от това досие"
+              : "Creates an editable copy (your own file) from this dossier"
+          }
+        >
+          {bg ? "Редактирай" : "Edit"}
+        </Link>
       )}
       {!curated && (
         <button
