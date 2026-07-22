@@ -146,6 +146,7 @@ const SOFIA = skip ? null : await resolveDossier("sofia-metro");
 const GRAF = skip ? null : await resolveDossier("graf-ignatievo");
 const MASH = skip ? null : await resolveDossier("mashinno-glasuvane");
 const ZAPADNA = skip ? null : await resolveDossier("zapadna-daga");
+const ARENA = skip ? null : await resolveDossier("arena-pleven");
 
 // ── Русе–Велико Търново ─────────────────────────────────────────────────────
 
@@ -788,5 +789,77 @@ test.skipIf(skip)(
       spend >= 14 && spend <= 18,
       `zapadna-daga has ${spend} member contracts (expected ~16) — seed or includes drifted`,
     );
+  },
+);
+
+// ── Арена Плевен ────────────────────────────────────────────────────────────
+// The audit removed two false-positive classes: neighborhood playgrounds
+// ("многофункционална спортна ПЛОЩАДКА", Марсен ООД) that passed the gate while
+// the distinctive token was the substring `спортна`, and the DIFFERENT existing
+// hall "Спартак" (an energy-renovation genuinely titled "многофункционална
+// спортна зала") + its 3-lot supervision framework. Fix = distinctive→"спортна
+// зала" + excludes.tenderUnps. Deleaked €17.24M → €15.74M.
+
+test.skipIf(skip)(
+  "arena-pleven: total contracted stays in the deleaked band (playgrounds + Спартак removed)",
+  () => {
+    // €17.24M before the audit (Марсен playgrounds €0.39M + Спартак renovation
+    // €1.11M); €15.74M after. Ceiling catches a re-leak; floor catches an
+    // over-trim of the three genuine arena contracts.
+    const eur = ARENA!.summary.contractedEur;
+    assert.ok(
+      eur > 15_000_000 && eur < 16_500_000,
+      `arena-pleven contractedEur €${(eur / 1e6).toFixed(2)}M outside [15.0M, 16.5M]`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "arena-pleven: the priciest playground contractor and the Спартак hall are gone",
+  () => {
+    // Марсен ООД (824124605) won only the outdoor "спортна площадка" playgrounds
+    // — the distinctive-token fix must keep it out. A regression to `спортна`
+    // re-admits its €0.39M.
+    assert.ok(
+      !ARENA!.contractorEiks.has("824124605"),
+      "Марсен ООД (playgrounds) leaked back into arena-pleven — distinctive token regressed",
+    );
+    // ДЗЗД „Ерстбилд" (181235434) built the DIFFERENT "Спартак" hall energy
+    // renovation — the excludes.tenderUnps must drop its whole procedure.
+    assert.ok(
+      !ARENA!.contractorEiks.has("181235434"),
+      "ДЗЗД Ерстбилд (Спартак renovation) leaked into arena-pleven — excludes.tenderUnps regressed",
+    );
+    // No member row belongs to either excluded procedure.
+    for (const unp of ["00226-2025-0045", "00226-2024-0038"]) {
+      assert.ok(
+        ARENA!.unpCount(unp) === 0,
+        `excluded procedure ${unp} still has ${ARENA!.unpCount(unp)} member contract(s) in arena-pleven`,
+      );
+    }
+  },
+);
+
+test.skipIf(skip)(
+  "arena-pleven: the genuine new-build arena stays whole (over-trim guard)",
+  () => {
+    // The €14.8M main construction (ДЗЗД Плевен спорт АТ, 181325067) is the object
+    // of the dossier — it must stay and be the largest member.
+    assert.ok(
+      ARENA!.contractorEiks.has("181325067"),
+      "ДЗЗД Плевен спорт АТ (€14.8M main build) missing from arena-pleven",
+    );
+    assert.ok(
+      ARENA!.maxContractEur > 14_000_000 && ARENA!.maxContractEur < 15_500_000,
+      `arena-pleven max member €${(ARENA!.maxContractEur / 1e6).toFixed(2)}M — main build dropped or a foreign object leaked`,
+    );
+    // The full lifecycle stays as procedure nodes: 2014 design, 2021 earlier
+    // construction tender, 2024 build, 2025 supervision, 2026 authorial supervision.
+    for (const unp of ["00226-2024-0044", "00226-2025-0011"]) {
+      assert.ok(
+        ARENA!.unps.has(unp),
+        `arena-pleven lost genuine procedure ${unp}`,
+      );
+    }
   },
 );
