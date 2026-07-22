@@ -59,15 +59,23 @@ export interface SeedFilter {
 }
 
 /**
+ * FTS-only is safe to demand of the seed ONLY for a single-token thread. There
+ * the trigram `%>` fallback can add nothing but fuzzy pollution (`планиране`
+ * scores 5/6 trigrams against `саниране`) that floods the amount-sorted window
+ * and inflates the "~N" banner. For a MULTI-word thread the FTS arm is a strict
+ * prefix-AND (`ruse:* & veliko:* & tarnovo:*`), so it drops genuine members that
+ * carry only some tokens (the €448M „Участък Русе – Бяла" section names Русе but
+ * not Велико Търново) — there the trigram arm is the real recall and must stay.
+ */
+const isSingleToken = (terms: string): boolean => tokens(terms).length <= 1;
+
+/**
  * The contract- and tender-seed `filters` blocks a thread resolves to — the ONE
  * definition shared by the client resolver (useProjectFile.resolveProjectFile)
  * and the offline builder (build_project_members.resolveMembers) so their seeds
- * can never drift. Both:
- *  · search the TITLE / SUBJECT only (`globalCols`) — a landmark term must not
- *    recall via contractor_name and inflate the count;
- *  · are FTS-only (`globalFtsOnly`) — membership is decided by the Cyrillic
- *    confidence gate, so the trigram `%>` fuzz never admits a member; it only
- *    pulls unrelated near-spellings into the amount-sorted seed window.
+ * can never drift. Both search the TITLE / SUBJECT only (`globalCols`) — a
+ * landmark term must not recall via contractor_name and inflate the count — and
+ * go FTS-only exactly when the thread is single-token (see `isSingleToken`).
  */
 export const seedContractFilter = (thread: SearchThread): SeedFilter => {
   const columns: SeedFilter["columns"] = [{ id: "tag", value: ["contract"] }];
@@ -76,7 +84,7 @@ export const seedContractFilter = (thread: SearchThread): SeedFilter => {
   return {
     global: thread.terms,
     globalCols: ["title"],
-    globalFtsOnly: true,
+    globalFtsOnly: isSingleToken(thread.terms),
     columns,
   };
 };
@@ -88,7 +96,7 @@ export const seedTenderFilter = (thread: SearchThread): SeedFilter => {
   return {
     global: thread.terms,
     globalCols: ["subject"],
-    globalFtsOnly: true,
+    globalFtsOnly: isSingleToken(thread.terms),
     columns,
   };
 };

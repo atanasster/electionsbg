@@ -288,5 +288,66 @@
         "eur": 695
       }
     ]
+  },
+  "sanirane-jilishta": {
+    "title": {
+      "bg": "Саниране на жилищни сгради",
+      "en": "Residential building renovation (energy efficiency)"
+    },
+    "thesis": {
+      "bg": "„Санирането“ — Националната програма за енергийна ефективност на многофамилни жилищни сгради и продълженията ѝ по еврофондове. Възлага се от над сто общини поотделно, блок по блок. Проследяваме колко е договорено, през кои общини и кои са изпълнителите.",
+      "en": "The National Energy-Efficiency Programme for multifamily residential buildings and its EU-funded successors — awarded block by block by 100+ municipalities separately. We track what has been contracted, through which municipalities, and who the contractors are."
+    },
+    "contractedEur": 167785213,
+    "contractCount": 65,
+    "procedureCount": 91,
+    "contractorCount": 57,
+    "methodMix": {
+      "competitive": 154560857,
+      "nonCompetitive": 3718009,
+      "unspecified": 9506347
+    },
+    "topContractors": [
+      {
+        "name": "СК Билдинг АД",
+        "eik": "201205309",
+        "eur": 47947341
+      },
+      {
+        "name": "Обединение: ГАЯ ИН ЕООД, Калекса ЕООД +2 още",
+        "eik": "obed-dbec0175d94e",
+        "eur": 25564594
+      },
+      {
+        "name": "Атлант 2013 ЕООД",
+        "eik": "202397111",
+        "eur": 4051745
+      },
+      {
+        "name": "Сетатех ЕООД",
+        "eik": "202571423",
+        "eur": 3499488
+      },
+      {
+        "name": "ЕКО Строй проект ЕООД",
+        "eik": "204352937",
+        "eur": 3375153
+      },
+      {
+        "name": "ПИ ЕС ПИ ЕАД",
+        "eik": "206132758",
+        "eur": 3305730
+      },
+      {
+        "name": "Обединение: Панов ЕООД, Солар инвест 07 ЕООД",
+        "eik": "obed-43924dc08337",
+        "eur": 3129106
+      },
+      {
+        "name": "Обединение: Билдинг консулт, Национална агенция за териториално устройство ООД, Строителни консултанти ООД",
+        "eik": "obed-a6f7f38afbd3",
+        "eur": 2800013
+      }
+    ]
   }
 }

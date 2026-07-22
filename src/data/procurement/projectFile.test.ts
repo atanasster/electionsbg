@@ -21,6 +21,8 @@ import {
   displayLotNumberOf,
   foldContractsByLot,
   matchedContractTotal,
+  seedContractFilter,
+  seedTenderFilter,
   pickCollision,
   COLLISION_MIN,
   inferRoleFromTitle,
@@ -1047,5 +1049,46 @@ describe("guardLineageContracts — lot fan-out guard (§2)", () => {
       new Map(),
     );
     expect(kept.map((r) => r.key)).toEqual(["s"]); // only the seeded row (edge)
+  });
+});
+
+describe("seedContractFilter / seedTenderFilter — the seed policy (§1)", () => {
+  it("goes FTS-only for a single-token thread (trigram would only pollute)", () => {
+    // A short single token like `саниране` fuzzy-matches unrelated words
+    // (`планиране`, 5/6 trigrams) via `%>`; FTS-only keeps the seed honest.
+    const c = seedContractFilter({ terms: "саниране" });
+    const t = seedTenderFilter({ terms: "многофамилн" });
+    expect(c.globalFtsOnly).toBe(true);
+    expect(c.globalCols).toEqual(["title"]);
+    expect(t.globalFtsOnly).toBe(true);
+    expect(t.globalCols).toEqual(["subject"]);
+  });
+
+  it("keeps FTS+trigram for a multi-word thread (trigram is the real recall)", () => {
+    // The prefix-AND FTS arm (`ruse:* & veliko:* & tarnovo:*`) would drop
+    // sectioned members naming only some tokens (the €448M „Русе – Бяла"
+    // section), so a multi-word thread must keep the trigram fallback.
+    const c = seedContractFilter({ terms: "Русе Велико Търново" });
+    const t = seedTenderFilter({ terms: "Русе Велико Търново" });
+    expect(c.globalFtsOnly).toBe(false);
+    expect(t.globalFtsOnly).toBe(false);
+  });
+
+  it("carries the buyer scope onto the right column, or omits it", () => {
+    const scoped = seedContractFilter({
+      terms: "хемус",
+      buyerEik: ["000695089"],
+    });
+    expect(scoped.columns).toContainEqual({
+      id: "awarder_eik",
+      value: ["000695089"],
+    });
+    const tScoped = seedTenderFilter({ terms: "хемус", buyerEik: ["x"] });
+    expect(tScoped.columns).toContainEqual({ id: "buyer_eik", value: ["x"] });
+    // Unscoped: contract seed keeps only the tag filter; tender seed is bare.
+    expect(seedContractFilter({ terms: "хемус" }).columns).toEqual([
+      { id: "tag", value: ["contract"] },
+    ]);
+    expect(seedTenderFilter({ terms: "хемус" }).columns).toEqual([]);
   });
 });

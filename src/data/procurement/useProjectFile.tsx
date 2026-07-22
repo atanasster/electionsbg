@@ -495,12 +495,14 @@ async function resolveProjectFile(
         page: 0,
         pageSize: SEED_PAGE,
         sort: [{ id: "amount_eur", desc: true }],
-        // Title-only, FTS-only seed — see seedContractFilter (the ONE definition
-        // shared with the offline builder). Title-only so a landmark term
-        // ("хемус") does not recall a consortium merely NAMED after it; FTS-only
-        // so the trigram `%>` fuzz (`планиране` for `саниране`) never floods the
-        // amount-sorted window or the "~M" banner. The confidence gate, not the
-        // seed breadth, decides membership.
+        // Title-only seed — see seedContractFilter (the ONE definition shared
+        // with the offline builder). Title-only so a landmark term ("хемус")
+        // does not recall a consortium merely NAMED after it; FTS-only for
+        // single-token threads (the trigram `%>` fuzz — `планиране` for
+        // `саниране` — would only flood the amount-sorted window and the "~M"
+        // banner), but FTS+trigram for multi-word ones where the trigram arm is
+        // the real recall (see isSingleToken). The confidence gate, not the seed
+        // breadth, decides membership.
         filters: seedContractFilter(t),
       }),
       fetchTablePageWithTotal<ProjectTenderRow>({
