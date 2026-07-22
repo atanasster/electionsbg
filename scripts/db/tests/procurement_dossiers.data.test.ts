@@ -142,6 +142,7 @@ const RUSE = skip ? null : await resolveDossier("ruse-veliko-tarnovo");
 const HEMUS = skip ? null : await resolveDossier("hemus");
 const SAN = skip ? null : await resolveDossier("sanirane-jilishta");
 const NCH = skip ? null : await resolveDossier("national-childrens-hospital");
+const SOFIA = skip ? null : await resolveDossier("sofia-metro");
 
 // ── Русе–Велико Търново ─────────────────────────────────────────────────────
 
@@ -472,6 +473,63 @@ test.skipIf(skip)(
     assert.ok(
       leak == null,
       `kindergarten/playground contract leaked into nch: "${leak?.title?.slice(0, 60)}"`,
+    );
+  },
+);
+
+// ── Софийско метро (buyer-anchored: whole „Метрополитен" ЕАД corpus) ─────────
+// The audit that produced this dossier replaced a fuzzy `terms:"метро"` search
+// (which pulled cross-buyer noise — метрология, N-метрови buses, a 50-метров
+// pool, railway trigram junk — AND missed €258M of the buyer's own non-"метро"-
+// titled tunnel work) with a buyer-anchored thread scoped to EIK 000632256. The
+// member set is now the WHOLE buyer. These pins catch a regression to the term.
+
+test.skipIf(skip)(
+  "sofia-metro: contracted total is the whole-buyer figure, not the term slice",
+  () => {
+    // Buyer-anchored = ~€1.69bn over ~372 contracts. A revert to `terms:"метро"`
+    // collapses to ~240 contracts / ~€1.43bn, so a floor well above €1.43bn is the
+    // primary anchoring guard; the ceiling catches a corpus-wide over-inclusion.
+    const eur = SOFIA!.summary.contractedEur;
+    assert.ok(
+      eur > 1_550_000_000 && eur < 2_300_000_000,
+      `sofia-metro contractedEur €${(eur / 1e6).toFixed(0)}M outside [1550M, 2300M] — buyer-anchoring may have regressed to a term slice`,
+    );
+    assert.ok(
+      SOFIA!.contracts.length >= 360,
+      `sofia-metro has only ${SOFIA!.contracts.length} member contracts (< 360) — whole-buyer paging under-collected`,
+    );
+    // ~356 procedures — proves the lineage walk paged past the engine's 100 cap.
+    // (contractedEur here is the member FOLD total; usesCorpusTotal is false for a
+    // buyer-anchored dossier, but the fold == the whole-buyer sum, so the band holds.)
+    assert.ok(
+      SOFIA!.unps.size >= 300,
+      `sofia-metro has only ${SOFIA!.unps.size} member procedures (< 300) — lineage truncated at the page cap`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "sofia-metro: anchoring recovers the buyer's own non-'метро'-titled core work",
+  () => {
+    // ДЗЗД Граждански дружество ДВУ built the €99.8M tunnel-boring section titled
+    // "Tунелен участък… ТПМ" — NO "метро" in the title, so a term search misses it
+    // entirely. Its presence proves the buyer (not a landmark word) is the predicate.
+    assert.ok(
+      SOFIA!.contractorEiks.has("176918485"),
+      "ДЗЗД ДВУ (€99.8M ТПМ tunnel — no 'метро' in title) missing → anchoring regressed to a term",
+    );
+    // Siemens (EIK 121746004) built the €213.9M rolling-stock contract — the
+    // signature true-positive AND the largest single member. Assert the Siemens
+    // contract itself carries a €200M+ value (a floor: catches a drop or a
+    // value-collapse) rather than pinning the GLOBAL max to a tight ceiling, which
+    // a future metro-extension award could breach while Siemens is still correct.
+    const siemens = SOFIA!.contracts.find(
+      (c) => c.contractorEik === "121746004",
+    );
+    assert.ok(
+      siemens != null && (siemens.amountEur ?? 0) > 200_000_000,
+      `Сименс (€213.9M metro trains) missing or under €200M in sofia-metro — over-trim`,
     );
   },
 );
