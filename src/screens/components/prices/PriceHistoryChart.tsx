@@ -86,9 +86,20 @@ export const PriceHistoryChart: FC<Props> = ({ points, height = 220 }) => {
   const span = t1 - t0 || 1;
   // y-scale spans both series so the regular reference line fits too.
   const vals = pts.flatMap((p) => [effOf(p), p.min_eur]);
-  const vmin = Math.min(...vals);
-  const vmax = Math.max(...vals);
-  const vspan = vmax - vmin || 1;
+  const dataMin = Math.min(...vals);
+  const dataMax = Math.max(...vals);
+  // Domain scaling. Hugging [dataMin, dataMax] makes a tiny absolute move (a
+  // €0.70 wobble on a €7.50 oil) fill the whole plot height and read as a
+  // cliff. Anchor the domain to a MINIMUM span proportional to the price level
+  // so vertical travel tracks the RELATIVE change instead: a ~9% move draws as
+  // a modest bump, a genuine doubling still fills the chart. Scale-invariant —
+  // the same rule reads right for a €0.50 salt and a €20 oil. When the data's
+  // own range is already wider than that floor, it wins (big moves look big).
+  const level = view.avg || dataMax || 1;
+  const domSpan = Math.max((dataMax - dataMin) * 1.3, level * 0.5);
+  const mid = (dataMin + dataMax) / 2;
+  const vmin = Math.max(0, mid - domSpan / 2);
+  const vspan = domSpan;
 
   const x = (iso: string) =>
     padX + ((Date.parse(iso) - t0) / span) * (W - 2 * padX);

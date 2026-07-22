@@ -115,6 +115,12 @@ export interface ProjectFileSpec {
    *  typo (`"road"`) is a compile error, not a silently-disabled cross-check;
    *  extend as future sectors gain benchmarks. */
   sector?: "roads";
+  /** OPTIONAL headline-total basis. Default (`"members"`) sums the top-N member
+   *  fold — right for a bounded project. `"corpus"` makes "Договорено (ЗОП)" the
+   *  WHOLE-corpus contracted sum for a distributed PROGRAM whose top-60 seed
+   *  under-counts by an order of magnitude (see `usesCorpusTotal` — honoured only
+   *  for a single single-token thread, so the sum stays confidence-consistent). */
+  totalBasis?: "members" | "corpus";
   announcedBudget?: AnnouncedBudget;
   benchmark?: Benchmark;
   /** Curated advance-vs-progress honesty axis (§0g.3). */
@@ -218,6 +224,12 @@ export interface ProjectFileModel {
    *  names ≥ COLLISION_MIN winning firms, so the screen can nudge "add a buyer".
    *  Null when every thread is buyer-scoped or no term collides. */
   collision: { term: string; count: number } | null;
+  /** WHOLE-corpus contracted sum + count over the seed WHERE (the engine `sum`
+   *  aggregate), independent of the top-N fold. The screen shows these as the
+   *  headline total only for a program dossier (`usesCorpusTotal`); otherwise it
+   *  keeps the member fold. `null` when the engine reported no aggregate/count. */
+  corpusContractedEur: number | null;
+  corpusContractCount: number | null;
 }
 
 // Broader-match recall budget: fetch this many per thread, then rank by
@@ -378,6 +390,8 @@ export const parseProjectSpec = (
   return {
     ...spec,
     search: search.slice(0, 20),
+    // Clamp the untrusted ?q= value to the known union (never an arbitrary string).
+    totalBasis: spec.totalBasis === "corpus" ? "corpus" : undefined,
     includes: clampMembers(spec.includes),
     excludes: clampMembers(spec.excludes),
     claims: clampClaims(spec.claims),
@@ -406,6 +420,7 @@ export const curatedForkHref = (spec: ProjectFileSpec): string => {
     ...(bg || en ? { title: { bg, en } } : {}),
     search: spec.search,
     ...(spec.sector ? { sector: spec.sector } : {}),
+    ...(spec.totalBasis ? { totalBasis: spec.totalBasis } : {}),
     ...(spec.nature ? { nature: spec.nature } : {}),
     ...(spec.includes ? { includes: spec.includes } : {}),
     ...(spec.excludes ? { excludes: spec.excludes } : {}),
@@ -654,6 +669,15 @@ async function resolveProjectFile(
 
   const fold = foldMembers(allContracts.map(toFoldInput));
   const funds = dedupFunds(fundMembers);
+  // Whole-corpus contracted total/count over the seed WHERE — the program-total
+  // basis (used only when `usesCorpusTotal(spec)`). Sum across threads; a
+  // program dossier is single-thread so there is no cross-thread overlap.
+  const corpusContractedEur = seedResults.some(([c]) => c.sumEur != null)
+    ? seedResults.reduce((s, [c]) => s + (c.sumEur ?? 0), 0)
+    : null;
+  const corpusContractCount = seedResults.every(([c]) => c.totalExact)
+    ? seedResults.reduce((s, [c]) => s + (c.total ?? 0), 0)
+    : null;
   return {
     contracts: allContracts,
     tenders: allTenders,
@@ -662,6 +686,8 @@ async function resolveProjectFile(
     truncated,
     matchedTotal,
     collision,
+    corpusContractedEur,
+    corpusContractCount,
   };
 }
 

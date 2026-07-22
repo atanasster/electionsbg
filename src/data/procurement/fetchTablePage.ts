@@ -43,6 +43,11 @@ export interface TablePageResult<T> {
    *  reltuples estimate — read `totalExact` to tell which. `null` if absent. */
   total: number | null;
   totalExact: boolean;
+  /** `sum(amount_eur)` over ALL rows matching the filters (before paging), from
+   *  the engine's `sum` aggregate — the WHOLE-corpus contracted total for the
+   *  filter, not just the returned page. `null` when the resource has no such
+   *  aggregate. The program-total dossier mode reads this. */
+  sumEur: number | null;
 }
 
 /** Fetch one page AND its total match count (the engine returns both). Used where
@@ -59,11 +64,16 @@ export const fetchTablePageWithTotal = async <T>(
     rows?: T[];
     total?: number;
     totalExact?: boolean;
+    aggregates?: { sumAmountEur?: number };
   };
   return {
     rows: j.rows ?? [],
     total: typeof j.total === "number" ? j.total : null,
     totalExact: j.totalExact ?? false,
+    sumEur:
+      typeof j.aggregates?.sumAmountEur === "number"
+        ? j.aggregates.sumAmountEur
+        : null,
   };
 };
 

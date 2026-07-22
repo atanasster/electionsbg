@@ -22,6 +22,7 @@ import {
   foldByContractor,
   seedContractFilter,
   seedTenderFilter,
+  usesCorpusTotal,
   SEED_PAGE,
   LINEAGE_PAGE,
   type SearchThread,
@@ -47,6 +48,10 @@ export type Spec = {
   search: SearchThread[];
   includes?: { contractKeys?: string[]; tenderUnps?: string[] };
   excludes?: { contractKeys?: string[]; tenderUnps?: string[] };
+  /** Headline-total basis — see usesCorpusTotal. "corpus" makes the summary's
+   *  contractedEur/contractCount the whole-corpus figures (a distributed program
+   *  whose top-N fold under-counts); default keeps the member fold. */
+  totalBasis?: "members" | "corpus";
 };
 export type CRow = {
   key: string;
@@ -70,6 +75,16 @@ const nonEmpty = (a?: string[]): a is string[] =>
 const page = (req: object) =>
   runDbTable(q, req).then((r: { rows: unknown[] }) => r.rows);
 
+// Like page(), but keeps the engine's exact count + `sum(amount_eur)` aggregate
+// over the WHERE (the whole-corpus contracted total the program-total basis reads).
+const pageFull = (req: object) =>
+  runDbTable(q, req) as Promise<{
+    rows: unknown[];
+    total: number;
+    totalExact: boolean;
+    aggregates: { sumAmountEur?: number };
+  }>;
+
 /**
  * All contract keys + tender УНПs that a curated spec resolves to. This MUST
  * mirror resolveProjectFile in src/data/procurement/useProjectFile.tsx (same seed
@@ -82,6 +97,8 @@ export async function resolveMembers(spec: Spec): Promise<{
   unps: string[];
   contracts: CRow[];
   tenderCount: number;
+  corpusContractedEur: number | null;
+  corpusContractCount: number | null;
 }> {
   const threads = spec.search ?? [];
   const excludeKeys = new Set(spec.excludes?.contractKeys ?? []);
@@ -90,12 +107,15 @@ export async function resolveMembers(spec: Spec): Promise<{
   // 1. Seed — per-thread recall over contract titles + tender subjects.
   const matchedContracts: CRow[] = [];
   const matchedTenders: TRow[] = [];
+  // Whole-corpus contracted total/count over the seed WHERE (program-total basis).
+  let corpusEur: number | null = null;
+  let corpusCount: number | null = null;
   for (const t of threads) {
     // MIRROR the client seed (useProjectFile.resolveProjectFile) via the ONE
     // shared factory, so the two resolvers can never drift: title/subject-only,
     // FTS-only (no `%>` trigram fuzz — the confidence gate decides membership).
     const [cr, tr] = await Promise.all([
-      page({
+      pageFull({
         resource: "contracts",
         page: 0,
         pageSize: SEED_PAGE,
@@ -110,8 +130,11 @@ export async function resolveMembers(spec: Spec): Promise<{
         filters: seedTenderFilter(t),
       }),
     ]);
-    matchedContracts.push(...(cr as CRow[]));
+    matchedContracts.push(...(cr.rows as CRow[]));
     matchedTenders.push(...(tr as TRow[]));
+    if (typeof cr.aggregates?.sumAmountEur === "number")
+      corpusEur = (corpusEur ?? 0) + cr.aggregates.sumAmountEur;
+    if (cr.totalExact) corpusCount = (corpusCount ?? 0) + cr.total;
   }
 
   // 2. Score + seed = (autoIn ∪ includes) − excludes.
@@ -227,6 +250,8 @@ export async function resolveMembers(spec: Spec): Promise<{
     unps: [...memberUnps].filter((u) => !excludeUnps.has(u)),
     contracts: allContracts,
     tenderCount,
+    corpusContractedEur: corpusEur,
+    corpusContractCount: corpusCount,
   };
 }
 
@@ -254,6 +279,10 @@ export function summarize(
   },
   contracts: CRow[],
   procedureCount: number,
+  // Whole-corpus override (a distributed program). When set, the headline
+  // contractedEur/contractCount report the program total (over the seed WHERE),
+  // not the top-N fold; the fold still drives the breakdowns + contractors.
+  corpus?: { contractedEur: number | null; contractCount: number | null },
 ): Summary {
   const fold = foldMembers(
     contracts.map((c) => ({
@@ -274,11 +303,17 @@ export function summarize(
   const byContractor = foldByContractor(contracts)
     .filter((r) => r.name !== "?")
     .slice(0, 8);
+  const useCorpus = corpus != null && corpus.contractedEur != null;
   return {
     title: meta.title,
     thesis: meta.thesis,
-    contractedEur: Math.round(fold.totalContractedEur),
-    contractCount: fold.contractCount,
+    contractedEur: useCorpus
+      ? Math.round(corpus!.contractedEur!)
+      : Math.round(fold.totalContractedEur),
+    contractCount:
+      useCorpus && corpus!.contractCount != null
+        ? corpus!.contractCount
+        : fold.contractCount,
     procedureCount,
     contractorCount: fold.contractorCount,
     methodMix: {
@@ -312,13 +347,27 @@ async function main() {
       title: { bg?: string; en?: string };
       thesis?: { bg?: string; en?: string };
     };
-    const { keys, unps, contracts, tenderCount } = await resolveMembers(spec);
+    const {
+      keys,
+      unps,
+      contracts,
+      tenderCount,
+      corpusContractedEur,
+      corpusContractCount,
+    } = await resolveMembers(spec);
     for (const k of keys) add(k, f.slug);
     for (const u of unps) add(u, f.slug);
     summaries[f.slug] = summarize(
       { title: spec.title, thesis: spec.thesis },
       contracts,
       tenderCount,
+      // Program dossier → headline is the whole-corpus total, not the top-N fold.
+      usesCorpusTotal(spec)
+        ? {
+            contractedEur: corpusContractedEur,
+            contractCount: corpusContractCount,
+          }
+        : undefined,
     );
     console.log(
       `  ${f.slug}: ${keys.length} contracts, ${unps.length} procedures, €${summaries[f.slug].contractedEur}`,

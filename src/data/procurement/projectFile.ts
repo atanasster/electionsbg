@@ -70,6 +70,26 @@ export interface SeedFilter {
 const isSingleToken = (terms: string): boolean => tokens(terms).length <= 1;
 
 /**
+ * Whether a dossier's headline "Договорено (ЗОП)" is the WHOLE-corpus contracted
+ * sum (the program total) rather than the top-N member fold. A distributed
+ * PROGRAM — thousands of small contracts across many buyers (e.g. „саниране" of
+ * многофамилни сгради, ~4.5k contracts across 121 общини) — cannot be summed by
+ * the top-60 seed, so its fold under-counts by an order of magnitude. Opt in with
+ * `totalBasis:"corpus"`, but ONLY honoured for a single SINGLE-TOKEN thread:
+ * there the seed WHERE (FTS-only) equals the confidence set, so the corpus sum is
+ * confidence-consistent. A multi-word / multi-thread spec would let a title-only
+ * corpus sum re-admit the false positives the fold's confidence gate + lot guard
+ * remove (the Русе „ОПУ Велико Търново" junk), so it keeps the member total.
+ */
+export const usesCorpusTotal = (spec: {
+  totalBasis?: "members" | "corpus";
+  search: readonly SearchThread[];
+}): boolean =>
+  spec.totalBasis === "corpus" &&
+  spec.search.length === 1 &&
+  isSingleToken(spec.search[0]!.terms);
+
+/**
  * The contract- and tender-seed `filters` blocks a thread resolves to — the ONE
  * definition shared by the client resolver (useProjectFile.resolveProjectFile)
  * and the offline builder (build_project_members.resolveMembers) so their seeds
