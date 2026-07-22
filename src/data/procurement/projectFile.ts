@@ -165,6 +165,38 @@ export function matchedContractTotal(
   return seeds.reduce((sum, s) => sum + (s.total ?? 0), 0);
 }
 
+/** The minimum contractor-name collision count worth nudging about (§4.1b). Below
+ *  this a stray namesake or two isn't worth a warning; at/above it the term likely
+ *  doubles as a company name and a buyer scope would sharpen the search. */
+export const COLLISION_MIN = 5;
+
+/** One thread's collision probe: its term, whether it is already buyer-scoped, and
+ *  how many contracts were WON by a firm whose NAME matches the term (a
+ *  contractor_name match, which a buyer scope would exclude). `count` is null when
+ *  the probe was skipped (a scoped thread) or the engine returned an estimate. */
+export interface ThreadCollisionMeta {
+  term: string;
+  scoped: boolean;
+  count: number | null;
+}
+
+/**
+ * Pick the collision worth surfacing (§4.1b) — the first UNSCOPED thread whose
+ * term collides with ≥ `min` contractor NAMES. A buyer-scoped thread is already
+ * precise, so it never nudges. Returns the term + count for the notice, or null
+ * when nothing crosses the bar. Kept pure so the "when to nudge" rule is testable.
+ */
+export function pickCollision(
+  metas: readonly ThreadCollisionMeta[],
+  min: number = COLLISION_MIN,
+): { term: string; count: number } | null {
+  for (const m of metas) {
+    if (!m.scoped && m.count != null && m.count >= min)
+      return { term: m.term, count: m.count };
+  }
+  return null;
+}
+
 /** The lot number parsed from a contract title ("Обособена позиция N"), matched
  *  against tenders.lots[].lotId (the title-parsed, non-FK link — §2). Null when
  *  the contract carries no lot marker (it attaches at the procedure grain). */

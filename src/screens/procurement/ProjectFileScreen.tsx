@@ -5,7 +5,15 @@
 // with per-contract method badges, and a contractors table.
 // See docs/plans/procurement-project-lifecycle-v1.md §4.2/§4.6.
 
-import { lazy, Suspense, useEffect, useMemo, useState, type FC } from "react";
+import {
+  lazy,
+  Suspense,
+  useEffect,
+  useMemo,
+  useState,
+  type FC,
+  type ReactNode,
+} from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
@@ -362,6 +370,14 @@ const AppealBadge = ({ upheld, bg }: { upheld?: boolean; bg: boolean }) => (
   >
     {bg ? "обжалване" : "appeal"}
   </span>
+);
+
+// The shared amber "heads-up" box for the §4.1 breadth notice and the §4.1b
+// collision nudge — one place for the styling so the two never drift apart.
+const AmberNudge: FC<{ children: ReactNode }> = ({ children }) => (
+  <div className="text-sm rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-2 my-3 text-amber-700 dark:text-amber-400">
+    {children}
+  </div>
 );
 
 export const ProjectFileScreen = () => {
@@ -910,8 +926,17 @@ export const ProjectFileScreen = () => {
                 ? "Търсенето е твърде общо — показани са само част от резултатите."
                 : "The search is broad — only a slice is shown.";
             const refineLabel = bg ? "Прецизирай думите" : "Narrow the terms";
+            // Fold the collision fact into THIS notice when both apply, so an
+            // over-broad + name-colliding search shows one box, not two stacked
+            // amber notes with duplicate remediation. The refine/add-a-buyer CTA
+            // below already carries the fix; here we only add the ≈N fact.
+            const collisionClause =
+              data.collision &&
+              (bg
+                ? ` „${data.collision.term}“ съвпада и с ≈${data.collision.count.toLocaleString(loc)} договора, спечелени от фирми с това име.`
+                : ` "${data.collision.term}" also matches ≈${data.collision.count.toLocaleString(loc)} contracts won by firms with that name.`);
             return (
-              <div className="text-sm rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-2 my-3 text-amber-700 dark:text-amber-400">
+              <AmberNudge>
                 {lead}{" "}
                 {refineHref ? (
                   <Link to={refineHref} className="font-medium underline">
@@ -921,6 +946,7 @@ export const ProjectFileScreen = () => {
                   refineLabel
                 )}
                 {bg ? " или добави име на възложител." : " or add a buyer."}
+                {collisionClause}
                 {seeAllHref && (
                   <>
                     {" "}
@@ -932,9 +958,33 @@ export const ProjectFileScreen = () => {
                     </Link>
                   </>
                 )}
-              </div>
+              </AmberNudge>
             );
           })()}
+        {/* Contractor-name collision nudge (§4.1b) — the term also names winning
+            firms; suggest a buyer scope. Only set for an unscoped thread, and only
+            standalone when the truncation notice above isn't already carrying it. */}
+        {!data.truncated && data.collision && (
+          <AmberNudge>
+            {bg
+              ? `Търсенето „${data.collision.term}“ съвпада и с ≈${data.collision.count.toLocaleString(loc)} договора, спечелени от фирми с това име (не непременно за проекта). `
+              : `"${data.collision.term}" also matches ≈${data.collision.count.toLocaleString(loc)} contracts won by firms with that name (not necessarily about it). `}
+            {curatedMode && forkHref ? (
+              <Link to={forkHref} className="font-medium underline">
+                {bg ? "Добави възложител" : "Add a buyer"}
+              </Link>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setEditModeState(true)}
+                className="font-medium underline"
+              >
+                {bg ? "Добави възложител" : "Add a buyer"}
+              </button>
+            )}
+            {bg ? ", за да стесниш търсенето." : " to narrow the search."}
+          </AmberNudge>
+        )}
         {/* Honesty block — big totals */}
         <div className="flex flex-wrap gap-x-10 gap-y-5 border-y py-5 my-6">
           <Figure

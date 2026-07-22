@@ -20,6 +20,8 @@ import {
   displayLotNumberOf,
   foldContractsByLot,
   matchedContractTotal,
+  pickCollision,
+  COLLISION_MIN,
   seeAllContractsHref,
   dedupContracts,
   dedupTenders,
@@ -644,5 +646,41 @@ describe("foldByPeriod — recurring-project rollup (§4.2.2b)", () => {
     });
     expect(foldByPeriod([mk("Б"), mk("А")])[0].topContractorName).toBe("А");
     expect(foldByPeriod([mk("А"), mk("Б")])[0].topContractorName).toBe("А");
+  });
+});
+
+describe("pickCollision — contractor-name collision nudge (§4.1b)", () => {
+  it("surfaces the first unscoped thread over the threshold", () => {
+    expect(
+      pickCollision([{ term: "хемус", scoped: false, count: 19 }]),
+    ).toEqual({ term: "хемус", count: 19 });
+  });
+  it("never nudges a buyer-scoped thread (already precise)", () => {
+    expect(
+      pickCollision([{ term: "хемус", scoped: true, count: 999 }]),
+    ).toBeNull();
+  });
+  it("ignores counts below COLLISION_MIN and null (skipped/estimate) counts", () => {
+    expect(
+      pickCollision([{ term: "x", scoped: false, count: COLLISION_MIN - 1 }]),
+    ).toBeNull();
+    expect(
+      pickCollision([{ term: "x", scoped: false, count: null }]),
+    ).toBeNull();
+  });
+  it("picks the first qualifying unscoped thread, skipping scoped/low ones", () => {
+    expect(
+      pickCollision([
+        { term: "scoped", scoped: true, count: 500 },
+        { term: "low", scoped: false, count: 1 },
+        { term: "hit", scoped: false, count: 42 },
+      ]),
+    ).toEqual({ term: "hit", count: 42 });
+  });
+  it("honours a custom minimum", () => {
+    expect(pickCollision([{ term: "x", scoped: false, count: 3 }], 3)).toEqual({
+      term: "x",
+      count: 3,
+    });
   });
 });

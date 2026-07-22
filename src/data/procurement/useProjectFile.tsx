@@ -31,6 +31,7 @@ import {
   siblingLotPolicy,
   lotNumberOf,
   matchedContractTotal,
+  pickCollision,
   SEED_PAGE,
   LINEAGE_PAGE,
   type SearchThread,
@@ -211,6 +212,10 @@ export interface ProjectFileModel {
    *  aggregate, summed across (possibly-overlapping) threads. Lets the truncation
    *  notice state "N examined of ~M". Null when unavailable. */
   matchedTotal: number | null;
+  /** Contractor-name collision (§4.1b) — set when an UNSCOPED thread's term also
+   *  names ≥ COLLISION_MIN winning firms, so the screen can nudge "add a buyer".
+   *  Null when every thread is buyer-scoped or no term collides. */
+  collision: { term: string; count: number } | null;
 }
 
 // Broader-match recall budget: fetch this many per thread, then rank by
@@ -487,12 +492,11 @@ async function resolveProjectFile(
     max?: string | number;
   };
   const seedFetches = threads.map((t) => {
+    const scoped = nonEmpty(t.buyerEik);
     const cCols: Col[] = [{ id: "tag", value: ["contract"] }];
-    if (nonEmpty(t.buyerEik))
-      cCols.push({ id: "awarder_eik", value: t.buyerEik });
+    if (scoped) cCols.push({ id: "awarder_eik", value: t.buyerEik });
     const tCols: Col[] = [];
-    if (nonEmpty(t.buyerEik))
-      tCols.push({ id: "buyer_eik", value: t.buyerEik });
+    if (scoped) tCols.push({ id: "buyer_eik", value: t.buyerEik });
     return Promise.all([
       fetchTablePageWithTotal<ProcurementContract>({
         resource: "contracts",
@@ -514,6 +518,24 @@ async function resolveProjectFile(
         sort: [{ id: "estimated_value_eur", desc: true }],
         filters: { global: t.terms, globalCols: ["subject"], columns: tCols },
       }),
+      // Collision probe (§4.1b) — only for an UNSCOPED thread: how many contracts
+      // were WON by a firm whose NAME matches the term (a contractor_name match a
+      // buyer scope would exclude). We only need the count, so pageSize 1. A
+      // buyer-scoped thread is already precise → skip (null). A non-exact count
+      // (estimate) is treated as absent so the nudge never quotes a guess.
+      scoped
+        ? Promise.resolve<number | null>(null)
+        : fetchTablePageWithTotal<ProcurementContract>({
+            resource: "contracts",
+            page: 0,
+            pageSize: 1,
+            sort: [{ id: "amount_eur", desc: true }],
+            filters: {
+              global: t.terms,
+              globalCols: ["contractor_name"],
+              columns: [{ id: "tag", value: ["contract"] }],
+            },
+          }).then((r) => (r.totalExact ? r.total : null)),
     ]);
   });
   const seedResults = await Promise.all(seedFetches);
@@ -532,6 +554,16 @@ async function resolveProjectFile(
       totalExact: c.totalExact,
     })),
     SEED_PAGE,
+  );
+  // Contractor-name collision nudge (§4.1b) — the first unscoped thread whose term
+  // also names ≥ COLLISION_MIN winning firms, so the screen can suggest a buyer
+  // scope. Scoped threads (already precise) never contribute.
+  const collision = pickCollision(
+    threads.map((t, i) => ({
+      term: t.terms,
+      scoped: nonEmpty(t.buyerEik),
+      count: seedResults[i][2],
+    })),
   );
   const matchedContracts: ProcurementContract[] = [];
   const matchedTenders: ProjectTenderRow[] = [];
@@ -633,6 +665,7 @@ async function resolveProjectFile(
     fold,
     truncated,
     matchedTotal,
+    collision,
   };
 }
 
