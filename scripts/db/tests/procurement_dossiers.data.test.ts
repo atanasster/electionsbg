@@ -144,6 +144,7 @@ const SAN = skip ? null : await resolveDossier("sanirane-jilishta");
 const NCH = skip ? null : await resolveDossier("national-childrens-hospital");
 const SOFIA = skip ? null : await resolveDossier("sofia-metro");
 const GRAF = skip ? null : await resolveDossier("graf-ignatievo");
+const MASH = skip ? null : await resolveDossier("mashinno-glasuvane");
 
 // ── Русе–Велико Търново ─────────────────────────────────────────────────────
 
@@ -585,6 +586,128 @@ test.skipIf(skip)(
     assert.ok(
       GRAF!.maxContractEur < 13_000_000,
       `graf-ignatievo largest member is €${(GRAF!.maxContractEur / 1e6).toFixed(1)}M (>= €13M) — an off-base contract leaked in`,
+    );
+  },
+);
+
+// ── Машинно гласуване (СУЕМГ) ────────────────────────────────────────────────
+// Audit (2026-07-23): the two title-term threads (`суемг`, `хартиени бюлетини`)
+// missed the €18.4M flagship "9600 устройства за електронно машинно гласуване"
+// (04312-2020-0001) + ~€15M of Сиела provisioning whose titles carry neither
+// term — under-counting the dossier by ~€34M. A term thread for `машинно
+// гласуване` would instead OVER-recall: it pulls "компютърна обработка на данните
+// … включително машинното гласуване" (result tabulation, Информационно
+// обслужване) and "клипове … с акцент върху машинното гласуване" (Адвер ТЕХ), which
+// merely MENTION the topic. The fix anchors the supplier instead — a CONTRACTOR-
+// anchored thread (Сиела Норма 130199580, scoped to ЦИК+МС), unioned with the two
+// term threads. These pins catch a regression to either the under-count or the
+// term over-recall, and prove the excludes drop Сиела's legal-software subs.
+
+test.skipIf(skip)(
+  "mashinno-glasuvane: contracted total is the supplier-anchored figure (~€92M), flagship in",
+  () => {
+    // ~€92.3M / 67 contracts: the two term threads (€58.7M) + Сиела's whole ЦИК+МС
+    // slice (adds the €18.4M flagship + provisioning), minus the €47k legal subs. A
+    // drop toward €59M = the contractor anchor regressed; a jump toward €106M = the
+    // компютърна-обработка / клипове over-recall leaked back in.
+    const eur = MASH!.summary.contractedEur;
+    assert.ok(
+      eur > 85_000_000 && eur < 100_000_000,
+      `mashinno contractedEur €${(eur / 1e6).toFixed(1)}M outside [85M, 100M] — anchor regressed or over-recall leaked`,
+    );
+    // The €18.4M flagship device-supply procedure — the record the term threads
+    // missed and the whole reason for the contractor anchor.
+    assert.ok(
+      MASH!.unps.has("04312-2020-0001"),
+      "flagship '9600 устройства' procedure 04312-2020-0001 missing → contractor anchor regressed",
+    );
+    // Sum the procedure's spend rows (not .find() on one) so a future lot/annex
+    // split can't sink a single row below the floor while the €18.4M is intact.
+    const flagshipEur = MASH!.contracts
+      .filter(
+        (c) =>
+          c.unp === "04312-2020-0001" && (c.tag ?? "contract") === "contract",
+      )
+      .reduce((s, c) => s + (c.amountEur ?? 0), 0);
+    assert.ok(
+      flagshipEur > 18_000_000,
+      `flagship 9600-devices procedure missing or under €18M (€${(flagshipEur / 1e6).toFixed(1)}M)`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "mashinno-glasuvane: Сиела Норма is present and leads by value (the single-supplier thesis)",
+  () => {
+    // Сиела Норма (130199580) is the machine-voting supplier — ~€67.6M, the leading
+    // contractor. A floor well above the €19.8M paper-ballot printer keeps this the
+    // anchoring guard without pinning an exact rank.
+    assert.ok(
+      MASH!.contractorEiks.has("130199580"),
+      "Сиела Норма (130199580) missing from mashinno — the supplier anchor is not resolving",
+    );
+    const siela = MASH!.summary.topContractors.find(
+      (r) => r.eik === "130199580",
+    );
+    assert.ok(
+      siela != null && siela.eur > 55_000_000,
+      `Сиела Норма not the leading mashinno contractor (${siela ? `€${(siela.eur / 1e6).toFixed(0)}M` : "absent from top list"})`,
+    );
+    // A modest contractor count — the term over-recall (компютърна/клипове/street-
+    // cleaning) would balloon this well past the ~8 genuine suppliers.
+    assert.ok(
+      MASH!.summary.contractorCount <= 12,
+      `mashinno has ${MASH!.summary.contractorCount} contractors (> 12) — the term over-recall leaked back in`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "mashinno-glasuvane: the 'mentions machine voting' false positives stay OUT",
+  () => {
+    // These procedures merely REFERENCE machine voting in a title whose real object
+    // is different — result tabulation (Информационно обслужване) and campaign clips
+    // (Адвер ТЕХ). A `машинно гласуване` term thread would pull them; the contractor
+    // anchor (different contractors) must not.
+    assert.ok(
+      !MASH!.unps.has("04312-2023-0010"),
+      "компютърна-обработка procedure 04312-2023-0010 leaked into mashinno (term over-recall)",
+    );
+    assert.ok(
+      !MASH!.unps.has("04312-2023-0001"),
+      "клипове procedure 04312-2023-0001 leaked into mashinno (term over-recall)",
+    );
+    // A cheap cleanliness invariant on the member titles themselves.
+    const leak = MASH!.contracts.find((c) =>
+      /компютърната обработка на данните|аудио-визуални произведения \(клип/i.test(
+        c.title ?? "",
+      ),
+    );
+    assert.ok(
+      leak == null,
+      `a 'mentions machine voting' contract leaked into mashinno: "${leak?.title?.slice(0, 60)}"`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "mashinno-glasuvane: the Сиела legal-software subscriptions are excluded",
+  () => {
+    // Сиела also sells its "СИЕЛА" legal-information software to ЦИК (~€47k across 5
+    // contracts) — inside the contractor slice but NOT machine voting, so the spec
+    // drops them via excludes.contractKeys. A broken exclude re-admits them.
+    const legalKeys = new Set([
+      "0a3783477656",
+      "ca5d0822c799",
+      "f0ecded85d79",
+      "38ab96165bc2",
+      "6ff6c7b6ed4a",
+    ]);
+    const leaked = MASH!.contracts.filter((c) => legalKeys.has(c.key));
+    assert.equal(
+      leaked.length,
+      0,
+      `${leaked.length} СИЕЛА legal-software subscription(s) leaked into mashinno — excludes.contractKeys regressed`,
     );
   },
 );
