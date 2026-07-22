@@ -1,0 +1,26 @@
+{
+  "title": {
+    "bg": "Авиобаза „Граф Игнатиево“",
+    "en": "Graf Ignatievo Air Base"
+  },
+  "thesis": {
+    "bg": "Изтребителната авиобаза (военно формирование 28000) край Пловдив. Едрите капиталови поръчки — новият автопарк с горивозарядна станция за €12,2 млн. — минават през Министерството на отбраната, а ежедневната издръжка (превоз на личен състав, ремонти, комуникации, аварийната спирачна система „кабел-кука“) — през Командването на Военновъздушните сили. Проследяваме двата възложителя, договорите и изпълнителите.",
+    "en": "The fighter air base (military unit 28000) near Plovdiv. The big capital works — the new €12.2M vehicle depot with a refuelling station — run through the Ministry of Defence, while day-to-day upkeep (personnel transport, repairs, communications, the „cable-hook“ arrestor system) runs through the Air Force Command. We track both buyers, the contracts and the contractors."
+  },
+  "authority": "Министерство на отбраната",
+  "search": [
+    {
+      "terms": "граф игнатиево",
+      "distinctive": ["игнатиево"],
+      "buyerEik": ["000695324"],
+      "buyerName": "Министерство на отбраната"
+    },
+    {
+      "terms": "граф игнатиево",
+      "distinctive": ["игнатиево"],
+      "buyerEik": ["129010189"],
+      "buyerName": "Командване на Военновъздушните сили"
+    }
+  ],
+  "verifiedAt": "2026-07-23"
+}

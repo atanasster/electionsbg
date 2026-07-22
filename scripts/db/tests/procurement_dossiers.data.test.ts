@@ -143,6 +143,7 @@ const HEMUS = skip ? null : await resolveDossier("hemus");
 const SAN = skip ? null : await resolveDossier("sanirane-jilishta");
 const NCH = skip ? null : await resolveDossier("national-childrens-hospital");
 const SOFIA = skip ? null : await resolveDossier("sofia-metro");
+const GRAF = skip ? null : await resolveDossier("graf-ignatievo");
 
 // ── Русе–Велико Търново ─────────────────────────────────────────────────────
 
@@ -530,6 +531,60 @@ test.skipIf(skip)(
     assert.ok(
       siemens != null && (siemens.amountEur ?? 0) > 200_000_000,
       `Сименс (€213.9M metro trains) missing or under €200M in sofia-metro — over-trim`,
+    );
+  },
+);
+
+// ── Авиобаза „Граф Игнатиево“ ────────────────────────────────────────────────
+// Audit (2026-07-23): the base is military unit 28000; its procurement splits
+// across TWO buyers — МО (000695324) for the €12.17M capital autopark + ATC
+// software, and Командване на ВВС (129010189) for day-to-day upkeep. The initial
+// spec scoped ONLY to МО (2 contracts / €14.1M) and missed the 23 Air Force
+// operational contracts. The distinctive token "игнатиево" is heavily polluted
+// (town Игнатиево near Varna, village Граф Игнатиево municipal works, "ул. Граф
+// Игнатиев" streets/schools) — the two-buyer scope is what keeps that €33M+ of
+// noise out, so these pins double as a buyer-scope regression net.
+
+test.skipIf(skip)(
+  "graf-ignatievo: both buyer threads resolve (МО capital + ВВС upkeep), no pollution leak",
+  () => {
+    // €16.99M across МО + ВВС. Floor catches loss of a thread / gross over-trim;
+    // ceiling catches the town/street pollution leaking back if the buyer scope
+    // breaks (unscoped, "игнатиево" pulls €33M+ of Ямбол/Аксаково/Марица noise).
+    const eur = GRAF!.summary.contractedEur;
+    assert.ok(
+      eur > 15_000_000 && eur < 20_000_000,
+      `graf-ignatievo contractedEur €${(eur / 1e6).toFixed(1)}M outside [15M, 20M] — a thread dropped or pollution leaked`,
+    );
+    // ВВС thread present: МО alone is 2 contracts; the airbase's operational
+    // corpus lifts this well past 20. A drop back toward 2 = the ВВС thread lost.
+    assert.ok(
+      GRAF!.summary.contractCount >= 20,
+      `graf-ignatievo has only ${GRAF!.summary.contractCount} contracts (< 20) — the ВВС Command thread regressed`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "graf-ignatievo: both buyers' signature contractors present; no oversized off-base leak",
+  () => {
+    // ПАРСЕК ГРУП (МО) built the €12.17M автопарк с горивозарядна станция — the
+    // single largest member and the МО-thread signature.
+    assert.ok(
+      GRAF!.contractorEiks.has("203215490"),
+      "ПАРСЕК ГРУП (€12.17M autopark) missing → МО thread regressed",
+    );
+    // ЛОГ-СИБЕРИЯ built the €1.38M „кабел-кука“ arrestor system — reachable ONLY
+    // via the Командване на ВВС buyer, so its presence proves the second thread.
+    assert.ok(
+      GRAF!.contractorEiks.has("121502690"),
+      "ЛОГ-СИБЕРИЯ (€1.38M arrestor cable) missing → the ВВС Command thread is not resolving",
+    );
+    // The autopark (€12.17M) is the biggest genuine member; anything larger would
+    // be an off-base pollution leak (the €10-11M Ямбол/Аксаково aggregates).
+    assert.ok(
+      GRAF!.maxContractEur < 13_000_000,
+      `graf-ignatievo largest member is €${(GRAF!.maxContractEur / 1e6).toFixed(1)}M (>= €13M) — an off-base contract leaked in`,
     );
   },
 );
