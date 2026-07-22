@@ -8,7 +8,6 @@
 // €/km count — per the roads-effectiveness audit only ~7% of road rows do, so this is
 // often null, which the caller renders as "absent", never as zero.
 
-import type { ProcurementContract } from "@/data/dataTypes";
 import { workTypeOf, lengthOf, eurPerKmOf } from "@/lib/roadAttributes";
 
 export interface CorpusUnitCost {
@@ -27,7 +26,16 @@ export interface CorpusUnitCost {
   contractedInSampleEur: number;
 }
 
-type RoadRow = Pick<ProcurementContract, "title" | "cpv" | "amountEur" | "tag">;
+// Minimal, defensively-nullable shape: the body already tolerates missing
+// title/cpv/amountEur/tag, so this accepts both a full ProcurementContract and
+// the leaner CRow the dossier resolver emits (nullable fields), which the
+// Pick<ProcurementContract, …> form rejected (its title/tag are non-null).
+type RoadRow = {
+  title?: string | null;
+  cpv?: string | null;
+  amountEur?: number | null;
+  tag?: string | null;
+};
 
 /** Value-weighted median of (€/km, value) pairs — the lowest €/km at or below
  *  which at least half the total weight (money) sits (the LOWER weighted median).
