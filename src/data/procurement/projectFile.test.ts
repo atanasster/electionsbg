@@ -16,6 +16,7 @@ import {
   withoutThread,
   resolveSeedIds,
   siblingLotPolicy,
+  guardLineageContracts,
   lotNumberOf,
   displayLotNumberOf,
   foldContractsByLot,
@@ -774,5 +775,277 @@ describe("inferNatureFromTitles — fill the 'без код' bucket (§4.2.4b)",
       { key: "w", title: "Тунел на АМ „Хемус“", cpv: "   " },
     ]);
     expect(nature.w).toBe("cpv:45");
+  });
+});
+
+describe("guardLineageContracts — lot fan-out guard (§2)", () => {
+  type Row = {
+    key: string;
+    unp?: string | null;
+    title?: string | null;
+    contractorEik?: string | null;
+  };
+  const seededLots = (m: Record<string, (string | null)[]>) =>
+    new Map(Object.entries(m).map(([u, ls]) => [u, new Set(ls)]));
+
+  it("keeps all siblings of a genuine few-lot procedure (≤ guardMax)", () => {
+    const lineage: Row[] = [
+      {
+        key: "s",
+        unp: "U1",
+        title: "Обособена позиция 1: Участък Русе – Бяла",
+      },
+      { key: "x", unp: "U1", title: "Надзор на участъка" }, // sibling, no lot marker
+    ];
+    const kept = guardLineageContracts(
+      lineage,
+      new Set(["s"]),
+      seededLots({ U1: ["1"] }),
+      new Map([["U1", 2]]), // 2 lots → all
+    );
+    expect(kept.map((r) => r.key)).toEqual(["s", "x"]);
+  });
+
+  it("trims a lot-per-oblast framework to the seeded lot (known lotsCount)", () => {
+    const lineage: Row[] = [
+      {
+        key: "s",
+        unp: "F",
+        title: "Обособена позиция 2: Северен централен район",
+      },
+      { key: "a", unp: "F", title: "Обособена позиция 1: Северозападен район" },
+      { key: "b", unp: "F", title: "Обособена позиция 3: Югоизточен район" },
+    ];
+    const kept = guardLineageContracts(
+      lineage,
+      new Set(["s"]),
+      seededLots({ F: ["2"] }),
+      new Map([["F", 6]]), // 6 lots → matched-only
+    );
+    expect(kept.map((r) => r.key)).toEqual(["s"]);
+  });
+
+  it("trims a multi-contractor framework when lotsCount is UNKNOWN — numbered lots (Русе leak)", () => {
+    // Four region lots, NO linked tender (lotsCount undefined), a firm per region
+    // (>1 contractor) → sibling-count fallback → matched-only, seeded lot survives.
+    const lineage: Row[] = [
+      {
+        key: "s",
+        unp: "F",
+        title: "Обособена позиция 2: Северен централен район",
+        contractorEik: "1",
+      },
+      {
+        key: "a",
+        unp: "F",
+        title: "Обособена позиция 1: Северозападен район",
+        contractorEik: "2",
+      },
+      {
+        key: "b",
+        unp: "F",
+        title: "Обособена позиция 3: Южен централен район",
+        contractorEik: "3",
+      },
+      {
+        key: "c",
+        unp: "F",
+        title: "Обособена позиция 4: Югозападен район",
+        contractorEik: "4",
+      },
+    ];
+    const kept = guardLineageContracts(
+      lineage,
+      new Set(["s"]),
+      seededLots({ F: ["2"] }),
+      new Map(),
+    );
+    expect(kept.map((r) => r.key)).toEqual(["s"]);
+  });
+
+  it("trims a multi-contractor framework with region-name (NULL) lots too", () => {
+    // Region-name-only titles (no "Обособена позиция N" → null lot) still trim:
+    // the seeded lot stays, the other regions' null lots are unconfirmable → dropped.
+    const lineage: Row[] = [
+      {
+        key: "s",
+        unp: "F",
+        title: "Северен централен район, включващ Велико Търново, Русе",
+        contractorEik: "1",
+      },
+      {
+        key: "a",
+        unp: "F",
+        title: "Северозападен район, включващ Видин, Враца",
+        contractorEik: "2",
+      },
+      {
+        key: "b",
+        unp: "F",
+        title: "Южен централен район, включващ Пловдив",
+        contractorEik: "3",
+      },
+      {
+        key: "c",
+        unp: "F",
+        title: "Югозападен район, включващ Благоевград",
+        contractorEik: "4",
+      },
+    ];
+    const kept = guardLineageContracts(
+      lineage,
+      new Set(["s"]),
+      seededLots({ F: [null] }),
+      new Map(),
+    );
+    expect(kept.map((r) => r.key)).toEqual(["s"]);
+  });
+
+  it("keeps a single-contractor campaign (route archaeology) with many null-lot siblings", () => {
+    // One institute (НАИМ) runs every sub-contract → one object, never a
+    // lot-per-oblast framework → keep all, even with many null-lot siblings.
+    const naim = "000670919";
+    const lineage: Row[] = [
+      {
+        key: "s",
+        unp: "A",
+        title: "Археологическо проучване по трасето на АМ Хемус",
+        contractorEik: naim,
+      },
+      {
+        key: "a",
+        unp: "A",
+        title: "Археологическо проучване на обект №6 от км 39+300",
+        contractorEik: naim,
+      },
+      {
+        key: "b",
+        unp: "A",
+        title: "Археологическо проучване на обект №7 от км 41+100",
+        contractorEik: naim,
+      },
+      {
+        key: "c",
+        unp: "A",
+        title: "Демонтаж на археологически структури",
+        contractorEik: naim,
+      },
+    ];
+    const kept = guardLineageContracts(
+      lineage,
+      new Set(["s"]),
+      seededLots({ A: [null] }),
+      new Map(), // unknown lotsCount + one contractor → keep all
+    );
+    expect(kept.map((r) => r.key).sort()).toEqual(["a", "b", "c", "s"]);
+  });
+
+  it("a seeded row and an unp-less row always stay", () => {
+    const lineage: Row[] = [
+      { key: "s", unp: "F", title: "x" },
+      { key: "n", unp: null, title: "no procedure" },
+      { key: "d", unp: "F", title: "Обособена позиция 9: другаде" },
+    ];
+    const kept = guardLineageContracts(
+      lineage,
+      new Set(["s"]),
+      seededLots({ F: ["1"] }),
+      new Map([["F", 9]]),
+    );
+    expect(kept.map((r) => r.key).sort()).toEqual(["n", "s"]);
+  });
+
+  it("keeps all when lotsCount unknown, multi-contractor, but FEW siblings (≤ guardMax)", () => {
+    const lineage: Row[] = [
+      {
+        key: "s",
+        unp: "F",
+        title: "Обособена позиция 1: А",
+        contractorEik: "1",
+      },
+      {
+        key: "a",
+        unp: "F",
+        title: "Обособена позиция 2: Б",
+        contractorEik: "2",
+      },
+    ];
+    const kept = guardLineageContracts(
+      lineage,
+      new Set(["s"]),
+      seededLots({ F: ["1"] }),
+      new Map(), // siblingCount 2 ≤ guardMax → all
+    );
+    expect(kept.map((r) => r.key).sort()).toEqual(["a", "s"]);
+  });
+
+  it("keeps a non-seeded sibling whose numbered lot IS a seeded lot (many-lot)", () => {
+    const lineage: Row[] = [
+      {
+        key: "s",
+        unp: "F",
+        title: "Обособена позиция 2: Б",
+        contractorEik: "1",
+      },
+      {
+        key: "a",
+        unp: "F",
+        title: "Обособена позиция 2: Б — надзор",
+        contractorEik: "2",
+      }, // same seeded lot
+      {
+        key: "b",
+        unp: "F",
+        title: "Обособена позиция 5: другаде",
+        contractorEik: "3",
+      },
+      {
+        key: "c",
+        unp: "F",
+        title: "Обособена позиция 6: пак другаде",
+        contractorEik: "4",
+      },
+    ];
+    const kept = guardLineageContracts(
+      lineage,
+      new Set(["s"]),
+      seededLots({ F: ["2"] }),
+      new Map([["F", 6]]),
+    );
+    expect(kept.map((r) => r.key).sort()).toEqual(["a", "s"]); // lot 2 kept, 5/6 dropped
+  });
+
+  it("DOCUMENTED EDGE: a 2-firm consortium single object with many null-lot siblings is trimmed", () => {
+    // Accepted heuristic limitation (see JSDoc): without a linked tender's
+    // lotsCount, a 2+ contractor procedure with >guardMax null-lot siblings reads
+    // as a framework. Pinned so a future heuristic change is a conscious choice.
+    const lineage: Row[] = [
+      { key: "s", unp: "C", title: "Инженеринг участък", contractorEik: "1" },
+      {
+        key: "a",
+        unp: "C",
+        title: "Съпътстваща дейност 1",
+        contractorEik: "2",
+      },
+      {
+        key: "b",
+        unp: "C",
+        title: "Съпътстваща дейност 2",
+        contractorEik: "1",
+      },
+      {
+        key: "d",
+        unp: "C",
+        title: "Съпътстваща дейност 3",
+        contractorEik: "2",
+      },
+    ];
+    const kept = guardLineageContracts(
+      lineage,
+      new Set(["s"]),
+      seededLots({ C: [null] }),
+      new Map(),
+    );
+    expect(kept.map((r) => r.key)).toEqual(["s"]); // only the seeded row (edge)
   });
 });

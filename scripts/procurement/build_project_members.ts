@@ -16,7 +16,7 @@ import {
   resolveSeedIds,
   dedupContracts,
   dedupTenders,
-  siblingLotPolicy,
+  guardLineageContracts,
   lotNumberOf,
   foldMembers,
   foldByContractor,
@@ -199,13 +199,12 @@ async function resolveMembers(spec: Spec): Promise<{
     set.add(lotNumberOf(c.title));
     matchedLotsByUnp.set(c.unp, set);
   }
-  const guardedLineage = (lineage as CRow[]).filter((c) => {
-    if (seededKeySet.has(c.key)) return true;
-    if (!c.unp) return true;
-    if (siblingLotPolicy(lotsCountByUnp.get(c.unp)) === "all") return true;
-    const matched = matchedLotsByUnp.get(c.unp);
-    return matched ? matched.has(lotNumberOf(c.title)) : false;
-  });
+  const guardedLineage = guardLineageContracts(
+    lineage as CRow[],
+    seededKeySet,
+    matchedLotsByUnp,
+    lotsCountByUnp,
+  );
 
   // 5. Assemble: seeded + guarded lineage + explicit includes − excludes, deduped.
   const allContracts = dedupContracts([

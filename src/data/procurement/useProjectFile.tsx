@@ -28,7 +28,7 @@ import {
   dedupTenders,
   dedupFunds,
   foldMembers,
-  siblingLotPolicy,
+  guardLineageContracts,
   lotNumberOf,
   matchedContractTotal,
   pickCollision,
@@ -633,13 +633,12 @@ async function resolveProjectFile(
     set.add(lotNumberOf(c.title));
     matchedLotsByUnp.set(c.unp, set);
   }
-  const guardedLineage = lineageContracts.filter((c) => {
-    if (seededKeySet.has(c.key)) return true; // a seed row always stays
-    if (!c.unp) return true;
-    if (siblingLotPolicy(lotsCountByUnp.get(c.unp)) === "all") return true;
-    const matched = matchedLotsByUnp.get(c.unp); // many-lot: only seeded lots
-    return matched ? matched.has(lotNumberOf(c.title)) : false;
-  });
+  const guardedLineage = guardLineageContracts(
+    lineageContracts,
+    seededKeySet,
+    matchedLotsByUnp,
+    lotsCountByUnp,
+  );
 
   // 5. Assemble: seeded + guarded lineage + explicit includes, − excludes, deduped.
   //    Excluding a procedure (unp) drops BOTH its tender node AND its contracts —

@@ -505,6 +505,75 @@ export function siblingLotPolicy(
   return n <= guardMax ? "all" : "matched-only";
 }
 
+/** The subset of a lineage contract the fan-out guard reads. */
+export interface LineageGuardRow {
+  key: string;
+  unp?: string | null;
+  title?: string | null;
+  tag?: string | null;
+  contractorEik?: string | null;
+}
+
+/**
+ * The lot fan-out guard (§2), shared by the client resolver and the offline
+ * member-index builder so they NEVER drift. A seeded row always stays. For a
+ * sibling pulled via a seeded procedure's УНП:
+ *  - the effective lot count is the tender's `lotsCount`, or — when that is
+ *    UNKNOWN (no linked tender / null) — the number of contract siblings on that
+ *    УНП, EXCEPT a single-contractor procedure (one firm doing every sub-contract)
+ *    is treated as one object. Without this fallback an un-linked lot-per-oblast
+ *    framework (lotsCount null → the old `?? 1`) counted as one object and dragged
+ *    in EVERY region's lot (the nationwide АПИ frameworks that inflated the
+ *    Русе–В.Търново and Хемус files — one region's lot matched, the rest, incl.
+ *    other motorways / a fuel-supply lot, leaked). These frameworks award a firm
+ *    PER region (2+ contractors); the single-contractor carve-out keeps a genuine
+ *    one-object campaign — e.g. a route-archaeology procedure run entirely by
+ *    НАИМ, a contract per обект/км with no "Обособена позиция N" — as "keep all";
+ *  - few lots (≤ guardMax) → keep all siblings (a genuinely split single object);
+ *  - many lots → keep a non-seeded sibling only if its parsed lot number is a
+ *    seeded lot. A NULL lot number can't be confirmed as a seeded lot (region-
+ *    name-only framework lots carry no "Обособена позиция N"), so it is dropped.
+ *
+ * Two heuristic edges are ACCEPTED (only reachable when lotsCount is unknown):
+ * a real framework where ONE firm swept every regional lot reads as one object
+ * (kept — over-inclusive), and conversely a genuine single object run by a 2+
+ * firm CONSORTIUM with >guardMax null-lot siblings reads as a framework (its
+ * non-seeded siblings trimmed — under-inclusive). Both need a linked tender's
+ * lotsCount to resolve cleanly; neither matches the multi-contractor nationwide
+ * frameworks this guard targets.
+ */
+export function guardLineageContracts<T extends LineageGuardRow>(
+  lineage: readonly T[],
+  seededKeys: ReadonlySet<string>,
+  seededLotsByUnp: ReadonlyMap<string, ReadonlySet<string | null>>,
+  lotsCountByUnp: ReadonlyMap<string, number | undefined>,
+  guardMax: number = LOTS_GUARD_MAX,
+): T[] {
+  const siblingCountByUnp = new Map<string, number>();
+  const contractorsByUnp = new Map<string, Set<string>>();
+  for (const c of lineage) {
+    // Defensive: both callers already fetch tag='contract' rows, but keep the
+    // fan-out/contractor tallies contracts-only if a caller ever passes annexes.
+    if ((c.tag ?? "contract") !== "contract" || !c.unp) continue;
+    siblingCountByUnp.set(c.unp, (siblingCountByUnp.get(c.unp) ?? 0) + 1);
+    const cs = contractorsByUnp.get(c.unp) ?? new Set<string>();
+    if (c.contractorEik) cs.add(c.contractorEik);
+    contractorsByUnp.set(c.unp, cs);
+  }
+  return lineage.filter((c) => {
+    if (seededKeys.has(c.key)) return true; // a seed row always stays
+    if (!c.unp) return true;
+    const oneContractor = (contractorsByUnp.get(c.unp)?.size ?? 0) <= 1;
+    const effectiveLots =
+      lotsCountByUnp.get(c.unp) ??
+      (oneContractor ? 1 : (siblingCountByUnp.get(c.unp) ?? 1));
+    if (siblingLotPolicy(effectiveLots, guardMax) === "all") return true;
+    const lot = lotNumberOf(c.title); // many-lot: only confirmed seeded lots
+    if (lot == null) return false; // region-name-only lot — unconfirmable
+    return seededLotsByUnp.get(c.unp)?.has(lot) ?? false;
+  });
+}
+
 const uniqBy = <T>(items: readonly T[], key: (t: T) => string): T[] => {
   const seen = new Set<string>();
   const out: T[] = [];
