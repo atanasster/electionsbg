@@ -23,6 +23,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { createRequire } from "node:module";
 import { allRows, end } from "../lib/pg";
 import {
   resolveMembers,
@@ -31,6 +32,24 @@ import {
   type CRow,
 } from "../../procurement/build_project_members";
 import { computeCorpusEurPerKm } from "@/data/procurement/projectRoadBenchmark";
+
+// The real /api/db/table engine — driven directly to prove the globalFtsOnly
+// seed flag at the corpus level (see the trigram-pollution audit).
+const { runDbTable } = createRequire(import.meta.url)(
+  "../../../functions/db_table.js",
+) as {
+  runDbTable: (
+    q: (sql: string, params: unknown[]) => Promise<unknown[]>,
+    req: {
+      resource: string;
+      page: number;
+      pageSize: number;
+      sort: Array<{ id: string; desc: boolean }>;
+      filters: Record<string, unknown>;
+    },
+  ) => Promise<{ rows: Array<{ title?: string | null }>; total: number }>;
+};
+const dbq = (sql: string, params: unknown[]) => allRows(sql, params);
 
 // Anchor to the module, not the cwd, so a read failure can't escape the PG-skip.
 const DIR = path.resolve(
@@ -91,9 +110,10 @@ const resolveDossier = async (slug: string): Promise<Resolved> => {
   };
 };
 
-// Resolve both once (only when the DB is up).
+// Resolve once (only when the DB is up).
 const RUSE = skip ? null : await resolveDossier("ruse-veliko-tarnovo");
 const HEMUS = skip ? null : await resolveDossier("hemus");
+const SAN = skip ? null : await resolveDossier("sanirane-jilishta");
 
 // ── Русе–Велико Търново ─────────────────────────────────────────────────────
 
@@ -219,6 +239,115 @@ test.skipIf(skip)(
     assert.ok(
       HEMUS!.contractorEiks.has("831646048"),
       "Автомагистрали ЕАД (the in-house builder) missing from Хемус",
+    );
+  },
+);
+
+// ── Саниране на жилищни сгради (многофамилн) ────────────────────────────────
+
+test.skipIf(skip)(
+  "sanirane: total contracted stays in the multifamily-programme band",
+  () => {
+    // €167.8M at audit time (top-60 seed of the многофамилн programme + УНП
+    // lineage). Floor catches an over-trim / a regression that re-breaks the
+    // stem term; ceiling catches a re-leak. Widen as the corpus grows.
+    const eur = SAN!.summary.contractedEur;
+    assert.ok(
+      eur > 120_000_000 && eur < 260_000_000,
+      `sanirane contractedEur €${(eur / 1e6).toFixed(0)}M outside [120M, 260M]`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "sanirane: the лидиращ renovation contractor is present and no road-sized contract leaked in",
+  () => {
+    // СК Билдинг АД leads the multifamily renovation spend (~€48M across the
+    // programme). A genuine multifamily contract is never road-sized.
+    assert.ok(
+      SAN!.contractorEiks.has("201205309"),
+      "СК Билдинг АД (leading renovation contractor) missing from sanirane",
+    );
+    assert.ok(
+      SAN!.maxContractEur < 100_000_000,
+      `a €${(SAN!.maxContractEur / 1e6).toFixed(0)}M contract leaked into sanirane (not a multifamily block)`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "sanirane: membership carries no gas / planning contract (cleanliness sanity)",
+  () => {
+    // A cheap membership invariant — no gas-pipeline (`газопреносн…`) or planning
+    // (`…планиране, инвестиционно…`) contract is in the set. NB this dossier's
+    // stem `многофамилн` shares no trigrams with those, so it is NOT the guard for
+    // the single-token FTS-only policy — the engine test below (driven with the
+    // colliding `-иране` term `саниране`) is what enforces the policy.
+    const leak = SAN!.contracts.find((c) =>
+      /газопреносн|планиране, инвестиционно/i.test(c.title ?? ""),
+    );
+    assert.ok(
+      leak == null,
+      `gas / planning contract in sanirane: "${leak?.title?.slice(0, 60)}"`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "sanirane: a buildings dossier reports no road €/km (sector-less → no benchmark)",
+  () => {
+    // No `sector: "roads"` → the road €/km benchmark must not apply to buildings.
+    assert.ok(
+      SAN!.eurPerKm == null,
+      `a buildings dossier computed a €/km rate (${SAN!.eurPerKm}) — road benchmark wrongly applied`,
+    );
+  },
+);
+
+// ── Engine: the globalFtsOnly seed flag (trigram-pollution guard) ────────────
+
+test.skipIf(skip)(
+  "globalFtsOnly drops the trigram fuzz that inflates a single-token seed",
+  async () => {
+    // `саниране` (a `-иране` term) fuzzy-matches `…планиране, инвестиционно…` and
+    // `…газопреносната мрежа…` via `%>` (5/6 shared trigrams). Those fuzz rows are
+    // the HIGHEST-value contracts (gas-transmission works dwarf any renovation),
+    // so they sit permanently at the top of the amount-desc seed window — the
+    // premise guard below is durable, not a marginal-rank flake. The default seed
+    // pulls them in and inflates the exact count; FTS-only drops both. Proven
+    // against the real engine, not a re-implemented WHERE clause.
+    const seed = (ftsOnly: boolean) =>
+      runDbTable(dbq, {
+        resource: "contracts",
+        page: 0,
+        pageSize: 60,
+        sort: [{ id: "amount_eur", desc: true }],
+        filters: {
+          global: "саниране",
+          globalCols: ["title"],
+          ...(ftsOnly ? { globalFtsOnly: true } : {}),
+          columns: [{ id: "tag", value: ["contract"] }],
+        },
+      });
+    const gasIn = (rows: Array<{ title?: string | null }>) =>
+      rows.filter((r) =>
+        /газопреносн|планиране, инвестиционно/i.test(r.title ?? ""),
+      ).length;
+
+    const fuzzy = await seed(false);
+    const fts = await seed(true);
+    assert.ok(
+      gasIn(fuzzy.rows) > 0,
+      "expected the default seed to admit trigram-fuzz rows (test premise)",
+    );
+    assert.equal(
+      gasIn(fts.rows),
+      0,
+      "globalFtsOnly still let trigram-fuzz rows into the seed window",
+    );
+    assert.ok(
+      fts.total < fuzzy.total,
+      `FTS-only banner (${fts.total}) not below the fuzzy banner (${fuzzy.total})`,
     );
   },
 );
