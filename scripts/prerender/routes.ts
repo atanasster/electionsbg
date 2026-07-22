@@ -58,6 +58,7 @@ import {
   buildHomeBodyEn,
 } from "./bodyBuilders";
 import { getLatestElection } from "./dynamicRoutes";
+import { electionYearSuffix } from "./electionYear";
 import { AGRI_FINANCIAL_YEARS } from "@/data/agri/constants";
 import { SECTOR_DASHBOARD_IDS } from "@/screens/sector/sectorDashboards";
 
@@ -70,6 +71,20 @@ const DATA_FOLDER = path.join(PROJECT_ROOT, "data");
 const PUBLIC_ASSETS_FOLDER = path.join(PROJECT_ROOT, "public");
 const ELECTIONS_FILE = path.join(PROJECT_ROOT, "src/data/json/elections.json");
 const REGIONS_FILE = path.join(PROJECT_ROOT, "src/data/json/regions.json");
+
+// " 2026"-style suffix for the head-term freshness signal in the home +
+// results-hub titles/descriptions, derived from the latest election folder name
+// ("2026_04_19") so it never goes stale. electionYearSuffix returns "" when the
+// elections file is unreadable, so titles omit the year rather than break.
+const YEAR_SUFFIX = electionYearSuffix(
+  (() => {
+    try {
+      return getLatestElection(ELECTIONS_FILE);
+    } catch {
+      return "";
+    }
+  })(),
+);
 
 // The /judiciary prerender body quotes real figures — the prerendered HTML is the
 // only thing crawlers see, so a number hardcoded here would go stale the next time
@@ -355,14 +370,10 @@ const homeBodies = (() => {
   }
 })();
 
-const HOME_TITLE =
-  "Парламентарни избори в България — данни и анализ от 2005 | electionsbg.com";
-const HOME_DESCRIPTION =
-  "Платформа с отворен код за визуализация и анализ на резултатите от всички парламентарни избори в България от 2005 г. насам — по области, общини, населени места и секции.";
-const HOME_TITLE_EN =
-  "Bulgarian Parliamentary Elections — Data and Analysis Since 2005 | electionsbg.com";
-const HOME_DESCRIPTION_EN =
-  "Open-source platform for visualizing and analyzing every Bulgarian parliamentary election since 2005 — broken down by region, municipality, settlement, and polling section.";
+const HOME_TITLE = `Парламентарни избори${YEAR_SUFFIX} — резултати и анализ от 2005 | electionsbg.com`;
+const HOME_DESCRIPTION = `Пълни резултати от парламентарните избори${YEAR_SUFFIX} и всеки вот от 2005 г. насам — по области, общини, населени места и секции. Отворени данни за гласовете, машинното гласуване и отклоненията.`;
+const HOME_TITLE_EN = `Bulgarian Parliamentary Elections${YEAR_SUFFIX} — Results and Analysis Since 2005 | electionsbg.com`;
+const HOME_DESCRIPTION_EN = `Full results of Bulgaria's${YEAR_SUFFIX} parliamentary election and every vote since 2005 — by region, municipality, settlement, and polling section. Open data on votes, machine voting, and anomalies.`;
 
 // Reused as the body for /sofia and all /sofia/* sub-tabs so non-JS crawlers
 // see indexable content under deep tab URLs without per-tab hand-written copy.
@@ -1241,15 +1252,14 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "sofia",
-    title: "Резултати в София — Парламентарни избори | electionsbg.com",
+    title: `София — резултати от парламентарните избори${YEAR_SUFFIX} | electionsbg.com`,
     description:
       "Подробни резултати, обхват на машинното гласуване и отклонения по секции в трите столични района (23, 24 и 25 МИР).",
     breadcrumbName: "София",
     ogImage: "/og/sofia.png",
     bodyHtml: SOFIA_BODY_BG,
     english: {
-      title:
-        "Sofia — Bulgarian Parliamentary Election Results | electionsbg.com",
+      title: `Sofia — Bulgarian Parliamentary Election${YEAR_SUFFIX} Results | electionsbg.com`,
       description:
         "Detailed results, machine-voting coverage, and section-level anomalies across the three Sofia electoral districts (MIR 23, 24, and 25).",
       breadcrumbName: "Sofia",
@@ -1444,8 +1454,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "parties",
-    title:
-      "Всички партии — резултати на парламентарните избори | electionsbg.com",
+    title: `Партии на парламентарните избори${YEAR_SUFFIX} — резултати и мандати | electionsbg.com`,
     description:
       "Пълен списък на партиите и коалициите, участвали в последния парламентарен вот — гласове, проценти и мандати, плюс линкове към подробни профили.",
     breadcrumbName: "Партии",
@@ -1454,8 +1463,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Пълен списък на партиите и коалициите, участвали в последния парламентарен вот в България. За всяка партия са показани общите гласове, процентен дял и брой мандати, ако е преминала избирателния праг от 4%.</p>
 <p>Кликнете името на партия, за да видите профила ѝ — резултати по области, общини и населени места, преференции, дарители и разходи за кампанията.</p>`.trim(),
     english: {
-      title:
-        "All Parties — Bulgarian Parliamentary Election Results | electionsbg.com",
+      title: `Parties — Bulgarian Parliamentary Election${YEAR_SUFFIX} Results & Seats | electionsbg.com`,
       description:
         "Full list of parties and coalitions running in the latest parliamentary vote — votes, percentages, seats, and links to detailed profiles.",
       breadcrumbName: "Parties",
@@ -1493,8 +1501,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "regions",
-    title:
-      "Резултати по области в България — парламентарни избори | electionsbg.com",
+    title: `Резултати по области — парламентарни избори${YEAR_SUFFIX} в България | electionsbg.com`,
     description:
       "Резултати на парламентарните избори в България по области (28 МИР) — победител, гласове и активност за всяка област.",
     breadcrumbName: "Области",
@@ -1503,8 +1510,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Резултатите от последния парламентарен вот по 28 многомандатни избирателни района (МИР) в България. За всяка област се вижда коя партия е първа, броят гласове и процентният дял, плюс избирателната активност спрямо предходния вот.</p>
 <p>Кликнете името на област, за да видите подробен разрез по общини, населени места, преференции и отклонения по секции.</p>`.trim(),
     english: {
-      title:
-        "Results by Region — Bulgarian Parliamentary Elections | electionsbg.com",
+      title: `Results by Region — Bulgarian Parliamentary Election${YEAR_SUFFIX} | electionsbg.com`,
       description:
         "Bulgarian parliamentary election results across the 28 multi-member districts (MIR) — winner, votes and turnout per region.",
       breadcrumbName: "Regions",
