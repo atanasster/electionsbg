@@ -14,7 +14,11 @@
  *  a topic like "elections" needs lexically-disjoint threads (бюлетин / СУЕМГ /
  *  компютърна обработка), each with its own recall scope + confidence. */
 export interface SearchThread {
-  terms: string;
+  /** The title/subject recall term(s). OPTIONAL: a BUYER-ANCHORED thread (a
+   *  `buyerEik` with no `terms`) treats the whole buyer as the member set — used
+   *  for a single-purpose SOE whose entire corpus IS the project (e.g.
+   *  „Метрополитен" ЕАД = the Sofia metro). See `isBuyerAnchored`. */
+  terms?: string;
   mode?: "any" | "all-words" | "phrase";
   /** Per-thread RECALL filter only. NEVER a cross-file confidence signal (§0f):
    *  a multi-awarder topic would wrongly demote true members of the other buyer. */
@@ -48,6 +52,16 @@ export const LOTS_GUARD_MAX = 3;
 // set. Changing these changes what a dossier contains — keep the two in lockstep.
 export const SEED_PAGE = 60;
 export const LINEAGE_PAGE = 400;
+// A buyer-anchored thread (see `isBuyerAnchored`) must page its buyer's ENTIRE
+// corpus, not the top-60 amount window: the small standalone contracts (office
+// supplies, uniforms) share no УНП with the big procedures, so УНП lineage can't
+// recover them — they must land in the seed itself. The engine caps a single
+// page at 100 rows (functions/db_table.js maxPageSize), so the resolvers WALK the
+// buyer in ANCHOR_CHUNK pages up to the BUYER_ANCHOR_MAX ceiling. The ceiling is
+// sized well above any single-purpose SOE's contract count; a buyer that exceeds
+// it flags `truncated`.
+export const ANCHOR_CHUNK = 100;
+export const BUYER_ANCHOR_MAX = 3000;
 
 /** One `/api/db/table` free-text filter block. Structural (not imported from the
  *  fetch layer) so this module stays dependency-free and pure. */
@@ -67,7 +81,104 @@ export interface SeedFilter {
  * carry only some tokens (the €448M „Участък Русе – Бяла" section names Русе but
  * not Велико Търново) — there the trigram arm is the real recall and must stay.
  */
-const isSingleToken = (terms: string): boolean => tokens(terms).length <= 1;
+const isSingleToken = (terms: string | undefined): boolean =>
+  tokens(terms ?? "").length <= 1;
+
+/**
+ * A BUYER-ANCHORED thread — a `buyerEik` scope with NO recall `terms` — resolves
+ * to the WHOLE buyer as its member set. This is the honest membership for a
+ * single-purpose SOE whose entire corpus is one project (e.g. „Метрополитен" ЕАД
+ * builds and runs ONLY the Sofia metro): a landmark term both over-recalls
+ * cross-buyer namesakes ("метрология", "N-метрови" buses) that the substring
+ * confidence gate can't filter, AND under-recalls the buyer's own core work
+ * whose title omits the word ("Тунелен участък… км 11+966"). The buyer, not a
+ * term, is the predicate: the DB buyer-filter on the seed decides membership, so
+ * every seed row auto-includes past the title gate (see the resolvers). Reuses
+ * the existing `buyerEik` field — no new spec shape.
+ */
+export const isBuyerAnchored = (thread: SearchThread): boolean =>
+  (thread.buyerEik?.length ?? 0) > 0 && tokens(thread.terms ?? "").length === 0;
+
+/** The recall CEILING for one thread — the max rows its seed collects, and the
+ *  bar above which the seed counts as `truncated`: the whole buyer (walked in
+ *  ANCHOR_CHUNK pages) for a buyer-anchored thread, else the standard top-N
+ *  window. Kept here so the client resolver and the offline builder agree. */
+export const seedCapOf = (thread: SearchThread): number =>
+  isBuyerAnchored(thread) ? BUYER_ANCHOR_MAX : SEED_PAGE;
+
+/** One page of a walked fetch — the minimal shape both resolvers' fetch
+ *  primitives adapt to (client `fetchTablePageWithTotal`, offline `pageFull`). */
+export interface PageWalkPage<T> {
+  rows: T[];
+  total: number | null;
+  totalExact: boolean;
+  sumEur: number | null;
+}
+
+/**
+ * Walk a filtered set in ANCHOR_CHUNK pages up to `cap` rows, accumulating EVERY
+ * row. The `/api/db/table` engine caps a single page at 100 rows, so a
+ * buyer-anchored seed (cap = BUYER_ANCHOR_MAX) needs several pages and the
+ * LINEAGE_PAGE fetches (cap = 400) up to four; a normal seed (cap = SEED_PAGE ≤
+ * 100) makes exactly ONE request, identical to a single-page fetch.
+ *
+ * The ONE shared walker behind both resolvers (they inject their own `fetchPage`
+ * adapter) so the client and the offline builder can never drift on membership.
+ * The WHERE-level total/exact/sum are the SAME on every page, so they are
+ * captured from page 0 only — later pages' aggregates are ignored (no last-page
+ * `null` can clobber a good sum, and nothing depends on re-reading them).
+ */
+export async function pageWalk<T>(
+  fetchPage: (req: {
+    page: number;
+    pageSize: number;
+    sort: Array<{ id: string; desc: boolean }>;
+    filters: unknown;
+  }) => Promise<PageWalkPage<T>>,
+  args: {
+    sort: Array<{ id: string; desc: boolean }>;
+    filters: unknown;
+    cap: number;
+  },
+): Promise<PageWalkPage<T>> {
+  const rows: T[] = [];
+  let total: number | null = null;
+  let totalExact = false;
+  let sumEur: number | null = null;
+  const step = Math.min(args.cap, ANCHOR_CHUNK);
+  for (let p = 0; rows.length < args.cap; p++) {
+    const r = await fetchPage({
+      page: p,
+      pageSize: step,
+      sort: args.sort,
+      filters: args.filters,
+    });
+    rows.push(...r.rows);
+    if (p === 0) {
+      total = r.total;
+      totalExact = r.totalExact;
+      sumEur = r.sumEur;
+    }
+    if (r.rows.length < step) break; // last (partial) page
+    if (totalExact && total != null && rows.length >= total) break;
+  }
+  return { rows, total, totalExact, sumEur };
+}
+
+/** The seed score for one row: a buyer-anchored seed row auto-includes past the
+ *  title confidence gate (the DB buyer-filter already decided membership), so it
+ *  scores a full 1 at threshold 0; every other row is scored by the union of
+ *  threads (bestConfidence). Shared by both resolvers' scoring maps so the
+ *  gate-bypass rule is defined once and directly testable. */
+export function seedScore(
+  anchored: boolean,
+  text: string | null | undefined,
+  threads: readonly SearchThread[],
+): { score: number; threshold: number } {
+  if (anchored) return { score: 1, threshold: 0 };
+  const b = bestConfidence(text, threads);
+  return { score: b.score, threshold: b.threshold };
+}
 
 /**
  * Whether a dossier's headline "Договорено (ЗОП)" is the WHOLE-corpus contracted
@@ -89,7 +200,7 @@ export const usesCorpusTotal = (spec: {
   spec.search.length === 1 &&
   // A non-EMPTY single token: `isSingleToken` also passes a blank term (0 tokens),
   // which would sum the whole corpus, so require a real token here.
-  spec.search[0]!.terms.trim().length > 0 &&
+  (spec.search[0]!.terms ?? "").trim().length > 0 &&
   isSingleToken(spec.search[0]!.terms);
 
 /**
@@ -105,7 +216,10 @@ export const seedContractFilter = (thread: SearchThread): SeedFilter => {
   if (thread.buyerEik?.length)
     columns.push({ id: "awarder_eik", value: thread.buyerEik });
   return {
-    global: thread.terms,
+    // A buyer-anchored thread (blank terms) sends no text predicate — the engine
+    // treats an empty `global` as a no-op (db_table.js), so the seed returns the
+    // whole buyer, ordered by amount.
+    global: thread.terms ?? "",
     globalCols: ["title"],
     globalFtsOnly: isSingleToken(thread.terms),
     columns,
@@ -117,7 +231,7 @@ export const seedTenderFilter = (thread: SearchThread): SeedFilter => {
   if (thread.buyerEik?.length)
     columns.push({ id: "buyer_eik", value: thread.buyerEik });
   return {
-    global: thread.terms,
+    global: thread.terms ?? "",
     globalCols: ["subject"],
     globalFtsOnly: isSingleToken(thread.terms),
     columns,
@@ -156,7 +270,7 @@ export function scoreConfidence(
 ): ConfidenceResult {
   const folded = foldText(text);
   const reasons: string[] = [];
-  const qTokens = tokens(thread.terms);
+  const qTokens = tokens(thread.terms ?? "");
   const distinctive = thread.distinctive ?? [];
 
   const anyTermPresent = qTokens.some((t) => hasToken(folded, t));
@@ -219,6 +333,9 @@ export interface ContractSeedMeta {
   rowCount: number;
   total: number | null;
   totalExact: boolean;
+  /** The page cap this thread was seeded at (buyer-anchored threads page the
+   *  whole buyer, so they only count as truncated well above `seedPage`). */
+  cap?: number;
 }
 
 /**
@@ -234,7 +351,9 @@ export function matchedContractTotal(
   seeds: readonly ContractSeedMeta[],
   seedPage: number,
 ): number | null {
-  const contractsTruncated = seeds.some((s) => s.rowCount >= seedPage);
+  const contractsTruncated = seeds.some(
+    (s) => s.rowCount >= (s.cap ?? seedPage),
+  );
   if (!contractsTruncated) return null;
   if (!seeds.every((s) => s.total != null && s.totalExact)) return null;
   return seeds.reduce((sum, s) => sum + (s.total ?? 0), 0);

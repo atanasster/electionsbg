@@ -12,7 +12,6 @@ import { fileURLToPath } from "url";
 import { createRequire } from "module";
 import { allRows, end } from "../db/lib/pg";
 import {
-  bestConfidence,
   resolveSeedIds,
   dedupContracts,
   dedupTenders,
@@ -23,7 +22,10 @@ import {
   seedContractFilter,
   seedTenderFilter,
   usesCorpusTotal,
-  SEED_PAGE,
+  isBuyerAnchored,
+  seedCapOf,
+  seedScore,
+  pageWalk,
   LINEAGE_PAGE,
   type SearchThread,
 } from "@/data/procurement/projectFile";
@@ -76,14 +78,43 @@ type TRow = { unp: string; subject?: string | null; lotsCount?: number };
 const nonEmpty = (a?: string[]): a is string[] =>
   Array.isArray(a) && a.length > 0;
 
-const page = (req: object) =>
-  runDbTable(q, req).then((r: { rows: unknown[] }) => r.rows);
-
-// Like page(), but keeps the engine's exact count + `sum(amount_eur)` aggregate
-// over the WHERE (the whole-corpus contracted total the program-total basis
-// reads). Typed via the engine's own DbTableResult so a shape drift is a compile
-// error, not a silent undefined.
+// Keeps the engine's exact count + `sum(amount_eur)` aggregate over the WHERE
+// (the whole-corpus contracted total the program-total basis reads). Typed via
+// the engine's own DbTableResult so a shape drift is a compile error, not a
+// silent undefined.
 const pageFull = (req: object): Promise<DbTableResult> => runDbTable(q, req);
+
+// Walk a filtered set via the shared projectFile.pageWalk, injecting this
+// resource + the offline runDbTable primitive (mapping the engine's
+// `aggregates.sumAmountEur` onto the walker's `sumEur`). The client resolver
+// injects its own fetch into the SAME walker, so the two can never drift.
+const walkResource = <T>(
+  resource: "contracts" | "tenders",
+  sort: Array<{ id: string; desc: boolean }>,
+  filters: object,
+  cap: number,
+) =>
+  pageWalk<T>(
+    async ({ page, pageSize, sort: s, filters: f }) => {
+      const r = await pageFull({
+        resource,
+        page,
+        pageSize,
+        sort: s,
+        filters: f,
+      });
+      return {
+        rows: r.rows as T[],
+        total: r.total,
+        totalExact: r.totalExact,
+        sumEur:
+          typeof r.aggregates?.sumAmountEur === "number"
+            ? r.aggregates.sumAmountEur
+            : null,
+      };
+    },
+    { sort, filters, cap },
+  );
 
 /**
  * All contract keys + tender УНПs that a curated spec resolves to. This MUST
@@ -110,42 +141,53 @@ export async function resolveMembers(spec: Spec): Promise<{
   // Whole-corpus contracted total/count over the seed WHERE (program-total basis).
   let corpusEur: number | null = null;
   let corpusCount: number | null = null;
+  // Ids seeded by a buyer-anchored thread (see isBuyerAnchored): the DB
+  // buyer-filter already decided their membership, so they auto-include past the
+  // title confidence gate below.
+  const anchoredKeys = new Set<string>();
+  const anchoredUnps = new Set<string>();
   for (const t of threads) {
     // MIRROR the client seed (useProjectFile.resolveProjectFile) via the ONE
     // shared factory, so the two resolvers can never drift: title/subject-only,
-    // FTS-only (no `%>` trigram fuzz — the confidence gate decides membership).
+    // FTS-only (no `%>` trigram fuzz — the confidence gate decides membership). A
+    // buyer-anchored thread walks its whole buyer (cap = BUYER_ANCHOR_MAX); a
+    // normal thread makes one page (cap = SEED_PAGE).
+    const cap = seedCapOf(t);
     const [cr, tr] = await Promise.all([
-      pageFull({
-        resource: "contracts",
-        page: 0,
-        pageSize: SEED_PAGE,
-        sort: [{ id: "amount_eur", desc: true }],
-        filters: seedContractFilter(t),
-      }),
-      page({
-        resource: "tenders",
-        page: 0,
-        pageSize: SEED_PAGE,
-        sort: [{ id: "estimated_value_eur", desc: true }],
-        filters: seedTenderFilter(t),
-      }),
+      walkResource<CRow>(
+        "contracts",
+        [{ id: "amount_eur", desc: true }],
+        seedContractFilter(t),
+        cap,
+      ),
+      walkResource<TRow>(
+        "tenders",
+        [{ id: "estimated_value_eur", desc: true }],
+        seedTenderFilter(t),
+        cap,
+      ),
     ]);
-    matchedContracts.push(...(cr.rows as CRow[]));
-    matchedTenders.push(...(tr as TRow[]));
-    if (typeof cr.aggregates?.sumAmountEur === "number")
-      corpusEur = (corpusEur ?? 0) + cr.aggregates.sumAmountEur;
-    if (cr.totalExact) corpusCount = (corpusCount ?? 0) + cr.total;
+    matchedContracts.push(...cr.rows);
+    matchedTenders.push(...tr.rows);
+    if (isBuyerAnchored(t)) {
+      for (const c of cr.rows) anchoredKeys.add(c.key);
+      for (const t2 of tr.rows) anchoredUnps.add(t2.unp);
+    }
+    if (typeof cr.sumEur === "number") corpusEur = (corpusEur ?? 0) + cr.sumEur;
+    if (cr.totalExact && cr.total != null)
+      corpusCount = (corpusCount ?? 0) + cr.total;
   }
 
-  // 2. Score + seed = (autoIn ∪ includes) − excludes.
-  const scoredC = dedupContracts(matchedContracts).map((c) => {
-    const b = bestConfidence(c.title, threads);
-    return { id: c.key, score: b.score, threshold: b.threshold };
-  });
-  const scoredT = dedupTenders(matchedTenders).map((t) => {
-    const b = bestConfidence(t.subject, threads);
-    return { id: t.unp, score: b.score, threshold: b.threshold };
-  });
+  // 2. Score + seed = (autoIn ∪ includes) − excludes. A buyer-anchored seed row
+  // bypasses the title gate (seedScore: score 1 / threshold 0).
+  const scoredC = dedupContracts(matchedContracts).map((c) => ({
+    id: c.key,
+    ...seedScore(anchoredKeys.has(c.key), c.title, threads),
+  }));
+  const scoredT = dedupTenders(matchedTenders).map((t) => ({
+    id: t.unp,
+    ...seedScore(anchoredUnps.has(t.unp), t.subject, threads),
+  }));
   const seedKeys = resolveSeedIds(
     scoredC,
     spec.includes?.contractKeys ?? [],
@@ -157,7 +199,10 @@ export async function resolveMembers(spec: Spec): Promise<{
     spec.excludes?.tenderUnps ?? [],
   );
 
-  // 3. Lineage — the УНП spine (single LINEAGE_PAGE fetch, matching the client).
+  // 3. Lineage — the УНП spine. Walked in ANCHOR_CHUNK pages up to LINEAGE_PAGE
+  // (the engine caps a single page at 100), matching the client. A buyer-anchored
+  // dossier's member set can exceed 100, so a single page would silently truncate
+  // the procedure list / tender count.
   const seedRows = dedupContracts(matchedContracts).filter((c) =>
     seedKeys.includes(c.key),
   );
@@ -168,46 +213,44 @@ export async function resolveMembers(spec: Spec): Promise<{
 
   const [lineage, lineageTenders, includeContracts] = await Promise.all([
     nonEmpty(unps)
-      ? page({
-          resource: "contracts",
-          page: 0,
-          pageSize: LINEAGE_PAGE,
-          sort: [{ id: "date", desc: false }],
-          filters: {
+      ? walkResource<CRow>(
+          "contracts",
+          [{ id: "date", desc: false }],
+          {
             columns: [
               { id: "unp", value: unps },
               { id: "tag", value: ["contract"] },
             ],
           },
-        })
-      : Promise.resolve([]),
+          LINEAGE_PAGE,
+        ).then((r) => r.rows)
+      : Promise.resolve([] as CRow[]),
     nonEmpty(unps)
-      ? page({
-          resource: "tenders",
-          page: 0,
-          pageSize: LINEAGE_PAGE,
-          sort: [{ id: "publication_date", desc: false }],
-          filters: { columns: [{ id: "unp", value: unps }] },
-        })
-      : Promise.resolve([]),
+      ? walkResource<TRow>(
+          "tenders",
+          [{ id: "publication_date", desc: false }],
+          { columns: [{ id: "unp", value: unps }] },
+          LINEAGE_PAGE,
+        ).then((r) => r.rows)
+      : Promise.resolve([] as TRow[]),
     nonEmpty(spec.includes?.contractKeys)
-      ? page({
-          resource: "contracts",
-          page: 0,
-          pageSize: LINEAGE_PAGE,
-          filters: {
+      ? walkResource<CRow>(
+          "contracts",
+          [{ id: "date", desc: false }],
+          {
             columns: [
               { id: "key", value: spec.includes!.contractKeys },
               { id: "tag", value: ["contract"] },
             ],
           },
-        })
-      : Promise.resolve([]),
+          LINEAGE_PAGE,
+        ).then((r) => r.rows)
+      : Promise.resolve([] as CRow[]),
   ]);
 
   // 4. Lot over-expansion guard (§2) — mirror resolveProjectFile.
   const lotsCountByUnp = new Map<string, number | undefined>(
-    (lineageTenders as TRow[]).map((t) => [t.unp, t.lotsCount]),
+    lineageTenders.map((t) => [t.unp, t.lotsCount]),
   );
   const seededKeySet = new Set(seedRows.map((c) => c.key));
   const matchedLotsByUnp = new Map<string, Set<string | null>>();
@@ -218,7 +261,7 @@ export async function resolveMembers(spec: Spec): Promise<{
     matchedLotsByUnp.set(c.unp, set);
   }
   const guardedLineage = guardLineageContracts(
-    lineage as CRow[],
+    lineage,
     seededKeySet,
     matchedLotsByUnp,
     lotsCountByUnp,
@@ -228,7 +271,7 @@ export async function resolveMembers(spec: Spec): Promise<{
   const allContracts = dedupContracts([
     ...seedRows,
     ...guardedLineage,
-    ...(includeContracts as CRow[]),
+    ...includeContracts,
   ]).filter(
     (c) => !excludeKeys.has(c.key) && !(c.unp && excludeUnps.has(c.unp)),
   );
@@ -243,7 +286,7 @@ export async function resolveMembers(spec: Spec): Promise<{
   // e.g. pre-2020 contracts). Otherwise the AI facts.procedures would overcount
   // vs what /procurement/project/:slug renders.
   const tenderCount = dedupTenders(
-    (lineageTenders as TRow[]).filter((t) => !excludeUnps.has(t.unp)),
+    lineageTenders.filter((t) => !excludeUnps.has(t.unp)),
   ).length;
   return {
     keys: allContracts.map((c) => c.key),

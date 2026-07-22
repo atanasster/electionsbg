@@ -24,6 +24,14 @@ import {
   seedContractFilter,
   seedTenderFilter,
   usesCorpusTotal,
+  isBuyerAnchored,
+  seedCapOf,
+  seedScore,
+  pageWalk,
+  type PageWalkPage,
+  SEED_PAGE,
+  ANCHOR_CHUNK,
+  BUYER_ANCHOR_MAX,
   pickCollision,
   COLLISION_MIN,
   inferRoleFromTitle,
@@ -1091,6 +1099,150 @@ describe("seedContractFilter / seedTenderFilter — the seed policy (§1)", () =
       { id: "tag", value: ["contract"] },
     ]);
     expect(seedTenderFilter({ terms: "хемус" }).columns).toEqual([]);
+  });
+});
+
+describe("isBuyerAnchored / seedCapOf — whole-buyer membership (single-purpose SOE)", () => {
+  const anchored: SearchThread = { buyerEik: ["000632256"] }; // „Метрополитен" ЕАД
+  const scopedTerm: SearchThread = { terms: "метро", buyerEik: ["000632256"] };
+  const bareTerm: SearchThread = { terms: "метро" };
+
+  it("is anchored only when a buyer scope carries NO recall term", () => {
+    expect(isBuyerAnchored(anchored)).toBe(true);
+    expect(isBuyerAnchored({ buyerEik: ["x"], terms: "" })).toBe(true);
+    expect(isBuyerAnchored({ buyerEik: ["x"], terms: "   " })).toBe(true);
+    // A term present → normal scoped recall, not anchored.
+    expect(isBuyerAnchored(scopedTerm)).toBe(false);
+    // No buyer → nothing to anchor on.
+    expect(isBuyerAnchored(bareTerm)).toBe(false);
+    expect(isBuyerAnchored({})).toBe(false);
+  });
+
+  it("pages the WHOLE buyer for an anchored thread, top-N otherwise", () => {
+    expect(seedCapOf(anchored)).toBe(BUYER_ANCHOR_MAX);
+    expect(seedCapOf(scopedTerm)).toBe(SEED_PAGE);
+    expect(seedCapOf(bareTerm)).toBe(SEED_PAGE);
+    expect(BUYER_ANCHOR_MAX).toBeGreaterThan(SEED_PAGE);
+  });
+
+  it("sends an empty text predicate but keeps the buyer column (whole buyer)", () => {
+    const c = seedContractFilter(anchored);
+    expect(c.global).toBe("");
+    expect(c.columns).toContainEqual({
+      id: "awarder_eik",
+      value: ["000632256"],
+    });
+    const t = seedTenderFilter(anchored);
+    expect(t.global).toBe("");
+    expect(t.columns).toContainEqual({ id: "buyer_eik", value: ["000632256"] });
+  });
+
+  it("does not turn an anchored (no-term) thread into a corpus-total headline", () => {
+    // usesCorpusTotal must reject a blank-term thread (it would sum the whole
+    // corpus); an anchored dossier's exact fold over all paged members is enough.
+    expect(usesCorpusTotal({ totalBasis: "corpus", search: [anchored] })).toBe(
+      false,
+    );
+  });
+});
+
+describe("seedScore — buyer-anchored gate bypass", () => {
+  const thread: SearchThread = { terms: "метро", distinctive: ["метро"] };
+  it("scores an anchored row a full 1 at threshold 0, regardless of title", () => {
+    // A generic-title buyer contract (office supplies) that would score 0 by
+    // title still auto-includes when it came from an anchored buyer seed.
+    expect(
+      seedScore(true, "Доставка на канцеларски материали", [thread]),
+    ).toEqual({ score: 1, threshold: 0 });
+    expect(seedScore(true, null, [thread])).toEqual({ score: 1, threshold: 0 });
+  });
+  it("falls back to the confidence gate for a non-anchored row", () => {
+    // Title carries the distinctive token → auto-includes via bestConfidence.
+    const hit = seedScore(false, "Разширение на метрото, трети лъч", [thread]);
+    expect(hit.score).toBeGreaterThanOrEqual(hit.threshold);
+    // Unrelated title → below threshold, so NOT auto-included.
+    const miss = seedScore(false, "Ремонт на училище", [thread]);
+    expect(miss.score).toBeLessThan(miss.threshold);
+  });
+});
+
+describe("pageWalk — chunked accumulation up to a cap", () => {
+  // A fake fetch that returns fixed-size pages from a synthetic corpus, recording
+  // how many requests it received (to prove the early-breaks fire).
+  const fakeFetcher = (totalRows: number, totalExact = true) => {
+    let calls = 0;
+    const fetchPage = ({
+      page,
+      pageSize,
+    }: {
+      page: number;
+      pageSize: number;
+    }): Promise<PageWalkPage<{ key: string }>> => {
+      calls++;
+      const start = page * pageSize;
+      const rows = Array.from(
+        { length: Math.max(0, Math.min(pageSize, totalRows - start)) },
+        (_, i) => ({ key: `k${start + i}` }),
+      );
+      // The engine returns the SAME WHERE-level total/sum on every page.
+      return Promise.resolve({
+        rows,
+        total: totalExact ? totalRows : null,
+        totalExact,
+        sumEur: 1000,
+      });
+    };
+    return { fetchPage, calls: () => calls };
+  };
+
+  it("makes exactly ONE request when cap ≤ ANCHOR_CHUNK (a normal seed)", async () => {
+    const f = fakeFetcher(500);
+    const r = await pageWalk(f.fetchPage, {
+      sort: [],
+      filters: {},
+      cap: SEED_PAGE,
+    });
+    expect(r.rows.length).toBe(SEED_PAGE); // one page of `step` = SEED_PAGE rows
+    expect(f.calls()).toBe(1);
+  });
+
+  it("accumulates every row across pages up to cap (buyer-anchored)", async () => {
+    // 250 rows, ANCHOR_CHUNK-sized pages → 3 requests (100 + 100 + 50), stops on
+    // the partial final page.
+    const f = fakeFetcher(250);
+    const r = await pageWalk(f.fetchPage, {
+      sort: [],
+      filters: {},
+      cap: BUYER_ANCHOR_MAX,
+    });
+    expect(r.rows.length).toBe(250);
+    expect(f.calls()).toBe(Math.ceil(250 / ANCHOR_CHUNK));
+    expect(new Set(r.rows.map((x) => x.key)).size).toBe(250); // no dup/skip
+  });
+
+  it("early-breaks on the exact total without a wasted empty page", async () => {
+    // Exactly 200 rows over 100-row pages: after page 1 rows.length === total, so
+    // it must NOT fetch an empty page 2.
+    const f = fakeFetcher(200);
+    const r = await pageWalk(f.fetchPage, {
+      sort: [],
+      filters: {},
+      cap: BUYER_ANCHOR_MAX,
+    });
+    expect(r.rows.length).toBe(200);
+    expect(f.calls()).toBe(2);
+  });
+
+  it("captures total/sum from page 0 only (a null later page can't clobber it)", async () => {
+    const f = fakeFetcher(150);
+    const r = await pageWalk(f.fetchPage, {
+      sort: [],
+      filters: {},
+      cap: BUYER_ANCHOR_MAX,
+    });
+    expect(r.total).toBe(150);
+    expect(r.totalExact).toBe(true);
+    expect(r.sumEur).toBe(1000);
   });
 });
 

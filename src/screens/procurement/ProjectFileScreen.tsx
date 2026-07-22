@@ -863,7 +863,7 @@ export const ProjectFileScreen = () => {
               {spec.search.map((th, i) => (
                 <ThreadRow
                   key={i}
-                  initial={th.terms}
+                  initial={th.terms ?? ""}
                   index={i}
                   removable={spec.search.length > 1}
                   buyer={

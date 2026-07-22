@@ -10,7 +10,12 @@
 
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchTablePage, fetchTablePageWithTotal } from "./fetchTablePage";
+import {
+  fetchTablePage,
+  fetchTablePageWithTotal,
+  type TablePageRequest,
+  type TablePageResult,
+} from "./fetchTablePage";
 import { fetchJsonSoft } from "@/data/fetchJson";
 import { dataUrl } from "@/data/dataUrl";
 import {
@@ -21,7 +26,6 @@ import {
 } from "./projectBudgetLine";
 import type { ProcurementContract } from "@/data/dataTypes";
 import {
-  bestConfidence,
   rankBroaderCandidates,
   resolveSeedIds,
   dedupContracts,
@@ -35,6 +39,10 @@ import {
   seedContractFilter,
   seedTenderFilter,
   usesCorpusTotal,
+  isBuyerAnchored,
+  seedCapOf,
+  seedScore,
+  pageWalk,
   SEED_PAGE,
   LINEAGE_PAGE,
   type SearchThread,
@@ -439,7 +447,19 @@ export const parseProjectSpec = (
   if (
     !Array.isArray(search) ||
     search.length === 0 ||
-    !search.every((t) => t && typeof t.terms === "string" && t.terms.length > 0)
+    // A thread is valid with recall `terms` OR a buyer scope (a buyer-anchored
+    // thread has no terms — the buyer is the predicate; see isBuyerAnchored). The
+    // buyer scope must be ≥1 NON-EMPTY EIK string (an empty/blank one would make
+    // seedContractFilter emit a bare tag-only seed = the whole corpus).
+    !search.every(
+      (t) =>
+        t &&
+        ((typeof t.terms === "string" && t.terms.length > 0) ||
+          (Array.isArray(t.buyerEik) &&
+            t.buyerEik.some(
+              (e) => typeof e === "string" && e.trim().length > 0,
+            ))),
+    )
   ) {
     return null;
   }
@@ -501,44 +521,44 @@ const toFoldInput = (c: ProcurementContract): FoldInput => ({
   consortiumRole: c.consortiumRole ?? null,
 });
 
+// Lineage fetches are page-walked up to LINEAGE_PAGE (the engine caps a single
+// page at 100): a buyer-anchored dossier's member set can exceed 100, so a single
+// page would silently truncate the procedure list / tender count.
 const fetchContractsByUnp = (unps: string[]) =>
-  fetchTablePage<ProcurementContract>({
-    resource: "contracts",
-    page: 0,
-    pageSize: LINEAGE_PAGE,
-    sort: [{ id: "date", desc: false }],
-    filters: {
+  walkResource<ProcurementContract>(
+    "contracts",
+    [{ id: "date", desc: false }],
+    {
       columns: [
         { id: "unp", value: unps },
         { id: "tag", value: ["contract"] },
       ],
     },
-  });
+    LINEAGE_PAGE,
+  ).then((r) => r.rows);
 
 const fetchContractsByKey = (keys: string[]) =>
-  fetchTablePage<ProcurementContract>({
-    resource: "contracts",
-    page: 0,
-    pageSize: LINEAGE_PAGE,
-    sort: [{ id: "date", desc: false }],
+  walkResource<ProcurementContract>(
+    "contracts",
+    [{ id: "date", desc: false }],
     // tag='contract' so a curated include-key can't pull an amendment/award row
     // in — keeps every member a spend row (reconciles with the money total).
-    filters: {
+    {
       columns: [
         { id: "key", value: keys },
         { id: "tag", value: ["contract"] },
       ],
     },
-  });
+    LINEAGE_PAGE,
+  ).then((r) => r.rows);
 
 const fetchTendersByUnp = (unps: string[]) =>
-  fetchTablePage<ProjectTenderRow>({
-    resource: "tenders",
-    page: 0,
-    pageSize: LINEAGE_PAGE,
-    sort: [{ id: "publication_date", desc: false }],
-    filters: { columns: [{ id: "unp", value: unps }] },
-  });
+  walkResource<ProjectTenderRow>(
+    "tenders",
+    [{ id: "publication_date", desc: false }],
+    { columns: [{ id: "unp", value: unps }] },
+    LINEAGE_PAGE,
+  ).then((r) => r.rows);
 
 /** Curated ИСУН fund-project members by contract_number (§4.2.3b). Manual-add
  *  only — no lineage — so this pulls exactly the included contract numbers. */
@@ -551,6 +571,28 @@ const fetchFundProjects = (contractNumbers: string[]) =>
     filters: { columns: [{ id: "contract_number", value: contractNumbers }] },
   });
 
+// Walk a filtered set via the shared projectFile.pageWalk, injecting this
+// resource + the React-Query fetch primitive. The offline builder injects its own
+// runDbTable fetch into the SAME walker, so client + builder can never drift on
+// membership. Returns a TablePageResult so existing callers are unchanged.
+const walkResource = <T,>(
+  resource: "contracts" | "tenders",
+  sort: Array<{ id: string; desc: boolean }>,
+  filters: TablePageRequest["filters"],
+  cap: number,
+): Promise<TablePageResult<T>> =>
+  pageWalk<T>(
+    ({ page, pageSize, sort: s, filters: f }) =>
+      fetchTablePageWithTotal<T>({
+        resource,
+        page,
+        pageSize,
+        sort: s,
+        filters: f as TablePageRequest["filters"],
+      }),
+    { sort, filters, cap },
+  );
+
 async function resolveProjectFile(
   spec: ProjectFileSpec,
 ): Promise<ProjectFileModel> {
@@ -561,29 +603,31 @@ async function resolveProjectFile(
   // 1. Seed — per-thread recall over contract titles + tender subjects.
   const seedFetches = threads.map((t) => {
     const scoped = nonEmpty(t.buyerEik);
+    // A buyer-anchored thread pages the WHOLE buyer, not the top-N window (its
+    // small standalone contracts share no УНП with the big procedures, so lineage
+    // can't recover them — see seedCapOf / BUYER_ANCHOR_MAX).
+    const cap = seedCapOf(t);
     return Promise.all([
-      fetchTablePageWithTotal<ProcurementContract>({
-        resource: "contracts",
-        page: 0,
-        pageSize: SEED_PAGE,
-        sort: [{ id: "amount_eur", desc: true }],
-        // Title-only seed — see seedContractFilter (the ONE definition shared
-        // with the offline builder). Title-only so a landmark term ("хемус")
-        // does not recall a consortium merely NAMED after it; FTS-only for
-        // single-token threads (the trigram `%>` fuzz — `планиране` for
-        // `саниране` — would only flood the amount-sorted window and the "~M"
-        // banner), but FTS+trigram for multi-word ones where the trigram arm is
-        // the real recall (see isSingleToken). The confidence gate, not the seed
-        // breadth, decides membership.
-        filters: seedContractFilter(t),
-      }),
-      fetchTablePageWithTotal<ProjectTenderRow>({
-        resource: "tenders",
-        page: 0,
-        pageSize: SEED_PAGE,
-        sort: [{ id: "estimated_value_eur", desc: true }],
-        filters: seedTenderFilter(t),
-      }),
+      // Title-only seed — see seedContractFilter (the ONE definition shared with
+      // the offline builder). Title-only so a landmark term ("хемус") does not
+      // recall a consortium merely NAMED after it; FTS-only for single-token
+      // threads (the trigram `%>` fuzz — `планиране` for `саниране` — would only
+      // flood the amount-sorted window and the "~M" banner), but FTS+trigram for
+      // multi-word ones where the trigram arm is the real recall (see
+      // isSingleToken). The confidence gate, not the seed breadth, decides
+      // membership. pageWalk makes ONE request unless the thread is buyer-anchored.
+      walkResource<ProcurementContract>(
+        "contracts",
+        [{ id: "amount_eur", desc: true }],
+        seedContractFilter(t),
+        cap,
+      ),
+      walkResource<ProjectTenderRow>(
+        "tenders",
+        [{ id: "estimated_value_eur", desc: true }],
+        seedTenderFilter(t),
+        cap,
+      ),
       // Collision probe (§4.1b) — only for an UNSCOPED thread: how many contracts
       // were WON by a firm whose NAME matches the term (a contractor_name match a
       // buyer scope would exclude). We only need the count, so pageSize 1. A
@@ -600,7 +644,7 @@ async function resolveProjectFile(
             // no-op here — intentionally omitted (the FTS-only rule applies only
             // to the searchText title/subject seeds above).
             filters: {
-              global: t.terms,
+              global: t.terms ?? "",
               globalCols: ["contractor_name"],
               columns: [{ id: "tag", value: ["contract"] }],
             },
@@ -608,19 +652,24 @@ async function resolveProjectFile(
     ]);
   });
   const seedResults = await Promise.all(seedFetches);
-  // A seed page filled to the cap → the search is over-broad (§4.1 breadth cap).
+  // A seed page filled to its thread's cap → the search is over-broad (§4.1
+  // breadth cap). A buyer-anchored thread's cap is the whole-buyer page, so it
+  // only counts as truncated when the buyer exceeds BUYER_ANCHOR_MAX.
   const truncated = seedResults.some(
-    ([c, t]) => c.rows.length >= SEED_PAGE || t.rows.length >= SEED_PAGE,
+    ([c, t], i) =>
+      c.rows.length >= seedCapOf(threads[i]) ||
+      t.rows.length >= seedCapOf(threads[i]),
   );
   // The approximate total contracts matching the search term(s), from the
   // engine's exact count aggregate — so the banner can say "~M договора" (§4.1).
   // Null unless the CONTRACT side hit the cap (a tender-only truncation must not
   // claim contracts were trimmed) and every thread's count was exact.
   const matchedTotal = matchedContractTotal(
-    seedResults.map(([c]) => ({
+    seedResults.map(([c], i) => ({
       rowCount: c.rows.length,
       total: c.total,
       totalExact: c.totalExact,
+      cap: seedCapOf(threads[i]),
     })),
     SEED_PAGE,
   );
@@ -629,27 +678,36 @@ async function resolveProjectFile(
   // scope. Scoped threads (already precise) never contribute.
   const collision = pickCollision(
     threads.map((t, i) => ({
-      term: t.terms,
+      term: t.terms ?? "",
       scoped: nonEmpty(t.buyerEik),
       count: seedResults[i][2],
     })),
   );
   const matchedContracts: ProcurementContract[] = [];
   const matchedTenders: ProjectTenderRow[] = [];
-  seedResults.forEach(([c, t]) => {
+  // Ids seeded by a buyer-anchored thread auto-include past the title gate — the
+  // DB buyer-filter already decided their membership (mirrors resolveMembers).
+  const anchoredKeys = new Set<string>();
+  const anchoredUnps = new Set<string>();
+  seedResults.forEach(([c, t], i) => {
     matchedContracts.push(...c.rows);
     matchedTenders.push(...t.rows);
+    if (isBuyerAnchored(threads[i])) {
+      for (const row of c.rows) anchoredKeys.add(row.key);
+      for (const row of t.rows) anchoredUnps.add(row.unp);
+    }
   });
 
-  // 2. Score + seed = (autoIn ∪ includes) − excludes.
-  const scoredContracts = dedupContracts(matchedContracts).map((c) => {
-    const b = bestConfidence(c.title, threads);
-    return { id: c.key, score: b.score, threshold: b.threshold };
-  });
-  const scoredTenders = dedupTenders(matchedTenders).map((t) => {
-    const b = bestConfidence(t.subject, threads);
-    return { id: t.unp, score: b.score, threshold: b.threshold };
-  });
+  // 2. Score + seed = (autoIn ∪ includes) − excludes. A buyer-anchored seed row
+  // bypasses the title gate (seedScore: score 1 / threshold 0).
+  const scoredContracts = dedupContracts(matchedContracts).map((c) => ({
+    id: c.key,
+    ...seedScore(anchoredKeys.has(c.key), c.title, threads),
+  }));
+  const scoredTenders = dedupTenders(matchedTenders).map((t) => ({
+    id: t.unp,
+    ...seedScore(anchoredUnps.has(t.unp), t.subject, threads),
+  }));
   const seedKeys = resolveSeedIds(
     scoredContracts,
     spec.includes?.contractKeys ?? [],
@@ -800,18 +858,23 @@ async function fetchBroaderMatches(
   spec: ProjectFileSpec,
 ): Promise<ProcurementContract[]> {
   const threads = spec.search ?? [];
-  const fetches = threads.map((t) =>
-    fetchTablePage<ProcurementContract>({
-      resource: "contracts",
-      page: 0,
-      pageSize: BROADER_PAGE,
-      sort: [{ id: "amount_eur", desc: true }],
-      filters: {
-        global: t.terms,
-        columns: [{ id: "tag", value: ["contract"] }],
-      },
-    }),
-  );
+  // A buyer-anchored thread has no recall term to broaden by (an empty `global`
+  // would seq-scan the whole corpus for noise), and its member set is already the
+  // whole buyer — nothing broader to surface.
+  const fetches = threads
+    .filter((t) => !isBuyerAnchored(t))
+    .map((t) =>
+      fetchTablePage<ProcurementContract>({
+        resource: "contracts",
+        page: 0,
+        pageSize: BROADER_PAGE,
+        sort: [{ id: "amount_eur", desc: true }],
+        filters: {
+          global: t.terms ?? "",
+          columns: [{ id: "tag", value: ["contract"] }],
+        },
+      }),
+    );
   const rows = dedupContracts((await Promise.all(fetches)).flat());
   return rankBroaderCandidates(rows, threads);
 }
