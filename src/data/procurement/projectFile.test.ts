@@ -13,6 +13,7 @@ import {
   withThreadTerms,
   withAddedThread,
   withThreadBuyer,
+  withThreadContractor,
   withoutThread,
   resolveSeedIds,
   siblingLotPolicy,
@@ -25,6 +26,9 @@ import {
   seedTenderFilter,
   usesCorpusTotal,
   isBuyerAnchored,
+  isContractorAnchored,
+  isAnchored,
+  threadSeedsTenders,
   seedCapOf,
   seedScore,
   pageWalk,
@@ -1143,6 +1147,121 @@ describe("isBuyerAnchored / seedCapOf — whole-buyer membership (single-purpose
     expect(usesCorpusTotal({ totalBasis: "corpus", search: [anchored] })).toBe(
       false,
     );
+  });
+});
+
+describe("isContractorAnchored / isAnchored / threadSeedsTenders — supplier scope", () => {
+  // Сиела Норма (130199580) scoped to ЦИК+МС = the machine-voting supplier slice.
+  const supplier: SearchThread = {
+    contractorEik: ["130199580"],
+    buyerEik: ["176481459", "000695025"],
+  };
+  const supplierTerm: SearchThread = {
+    terms: "суемг",
+    contractorEik: ["130199580"],
+  };
+  const buyerOnly: SearchThread = { buyerEik: ["000632256"] };
+  const bareTerm: SearchThread = { terms: "суемг" };
+
+  it("is contractor-anchored only when a contractor scope carries NO recall term", () => {
+    expect(isContractorAnchored(supplier)).toBe(true);
+    expect(isContractorAnchored({ contractorEik: ["x"], terms: "  " })).toBe(
+      true,
+    );
+    // A term present → normal scoped recall (term pinned to a supplier), not anchored.
+    expect(isContractorAnchored(supplierTerm)).toBe(false);
+    // No contractor scope → nothing to anchor on.
+    expect(isContractorAnchored(buyerOnly)).toBe(false);
+    expect(isContractorAnchored(bareTerm)).toBe(false);
+  });
+
+  it("a contractor scope makes a no-term thread anchored but NOT buyer-anchored", () => {
+    // Both scopes + no terms: contractor-anchored wins (the tender-seed skip and
+    // gate bypass follow the contractor rule), so isBuyerAnchored is false.
+    expect(isBuyerAnchored(supplier)).toBe(false);
+    expect(isAnchored(supplier)).toBe(true);
+    // Buyer-only anchor is still buyer-anchored + anchored.
+    expect(isBuyerAnchored(buyerOnly)).toBe(true);
+    expect(isAnchored(buyerOnly)).toBe(true);
+    // A term thread is never anchored, whatever its scope.
+    expect(isAnchored(supplierTerm)).toBe(false);
+    expect(isAnchored(bareTerm)).toBe(false);
+  });
+
+  it("pages the WHOLE slice for a contractor-anchored thread", () => {
+    expect(seedCapOf(supplier)).toBe(BUYER_ANCHOR_MAX);
+    expect(seedCapOf(supplierTerm)).toBe(SEED_PAGE);
+  });
+
+  it("does NOT seed tenders for a contractor-anchored thread (no contractor column)", () => {
+    // Its procedures come via contract-УНП lineage; a buyer-only tender seed would
+    // pull the buyer's whole unrelated procedure corpus.
+    expect(threadSeedsTenders(supplier)).toBe(false);
+    // Every other thread seeds tenders normally.
+    expect(threadSeedsTenders(supplierTerm)).toBe(true);
+    expect(threadSeedsTenders(buyerOnly)).toBe(true);
+    expect(threadSeedsTenders(bareTerm)).toBe(true);
+  });
+
+  it("carries the contractor scope onto contract_eik, alongside the buyer scope", () => {
+    const c = seedContractFilter(supplier);
+    expect(c.global).toBe(""); // no text predicate — the DB scope is the predicate
+    expect(c.columns).toContainEqual({
+      id: "contractor_eik",
+      value: ["130199580"],
+    });
+    expect(c.columns).toContainEqual({
+      id: "awarder_eik",
+      value: ["176481459", "000695025"],
+    });
+    // A term thread pinned to a supplier keeps both its term and the contractor col.
+    const scoped = seedContractFilter(supplierTerm);
+    expect(scoped.global).toBe("суемг");
+    expect(scoped.columns).toContainEqual({
+      id: "contractor_eik",
+      value: ["130199580"],
+    });
+  });
+
+  it("auto-includes a contractor-anchored seed row past the title gate", () => {
+    // A generic-title supplier contract (a maintenance lot) that would score 0 by
+    // title still auto-includes when it came from the contractor-anchored seed.
+    expect(
+      seedScore(isAnchored(supplier), "Транспорт на устройства", []),
+    ).toEqual({ score: 1, threshold: 0 });
+  });
+});
+
+describe("withThreadContractor — per-thread supplier scope edit", () => {
+  const threads: SearchThread[] = [
+    { terms: "суемг", distinctive: ["суемг"] },
+    { terms: "хартиени бюлетини" },
+  ];
+
+  it("sets a thread's contractor scope + display name, keeping terms", () => {
+    const out = withThreadContractor(threads, 0, {
+      eik: "130199580",
+      name: "Сиела Норма АД",
+    });
+    expect(out[0]).toEqual({
+      terms: "суемг",
+      distinctive: ["суемг"],
+      contractorEik: ["130199580"],
+      contractorName: "Сиела Норма АД",
+    });
+    // Other threads untouched.
+    expect(out[1]).toEqual(threads[1]);
+  });
+
+  it("(null) clears contractorEik + contractorName, keeping other fields", () => {
+    const scoped = withThreadContractor(threads, 0, {
+      eik: "130199580",
+      name: "Сиела Норма АД",
+    });
+    const out = withThreadContractor(scoped, 0, null);
+    expect(out[0]).toEqual({ terms: "суемг", distinctive: ["суемг"] });
+    expect(out[0]).not.toHaveProperty("contractorEik");
+    expect(out[0]).not.toHaveProperty("contractorName");
   });
 });
 

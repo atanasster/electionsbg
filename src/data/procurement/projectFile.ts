@@ -26,6 +26,18 @@ export interface SearchThread {
   /** Display-only name for the chosen buyerEik — shown in the builder/editor chip
    *  so an existing scope survives a ?q= reload readably; never used to resolve. */
   buyerName?: string;
+  /** Per-thread RECALL filter on the CONTRACTOR (supplier) EIK — the mirror of
+   *  `buyerEik` on the other side of the award. A CONTRACTOR-ANCHORED thread (a
+   *  `contractorEik` with no `terms`) treats a supplier's whole slice as the member
+   *  set — used when one firm IS the object of a dossier (e.g. Сиела Норма = machine
+   *  voting): a title term both over-recalls contracts that merely MENTION the topic
+   *  and under-recalls the firm's own work whose title omits the word. Almost always
+   *  paired with a `buyerEik` scope, since a supplier also sells unrelated goods to
+   *  OTHER buyers. See `isContractorAnchored`. */
+  contractorEik?: string[];
+  /** Display-only name for the chosen contractorEik — shown in the builder/editor
+   *  chip so the scope survives a ?q= reload readably; never used to resolve. */
+  contractorName?: string;
   /** Token(s) that drive confidence — the distinctive part of the query
    *  ("дъга"), vs the generic landmark ("Софийски околовръстен"). The picker
    *  derives this as the rarest query token; stored on the thread. */
@@ -97,14 +109,43 @@ const isSingleToken = (terms: string | undefined): boolean =>
  * the existing `buyerEik` field — no new spec shape.
  */
 export const isBuyerAnchored = (thread: SearchThread): boolean =>
-  (thread.buyerEik?.length ?? 0) > 0 && tokens(thread.terms ?? "").length === 0;
+  (thread.buyerEik?.length ?? 0) > 0 &&
+  (thread.contractorEik?.length ?? 0) === 0 &&
+  tokens(thread.terms ?? "").length === 0;
+
+/**
+ * A CONTRACTOR-ANCHORED thread — a `contractorEik` scope with NO recall `terms` —
+ * resolves the supplier's whole (contractor ∩ buyer) slice to the member set, the
+ * award's-other-side mirror of `isBuyerAnchored`. Membership is decided by the DB
+ * contractor filter (+ any buyerEik), so every seed row auto-includes past the
+ * title gate (see `seedScore` / the resolvers). Unlike a buyer anchor it does NOT
+ * seed tenders: the tenders table carries no contractor column, so a supplier's
+ * procedures are recovered via the seeded contracts' УНП lineage instead (see
+ * `threadSeedsTenders`). Reuses the existing `contractorEik` field — no new shape.
+ */
+export const isContractorAnchored = (thread: SearchThread): boolean =>
+  (thread.contractorEik?.length ?? 0) > 0 &&
+  tokens(thread.terms ?? "").length === 0;
+
+/** A thread whose membership is decided by a DB scope (buyer and/or contractor)
+ *  rather than a title term — its seed rows bypass the confidence gate. */
+export const isAnchored = (thread: SearchThread): boolean =>
+  isBuyerAnchored(thread) || isContractorAnchored(thread);
+
+/** Whether a thread's seed collects TENDERS. A contractor-anchored thread does
+ *  not (tenders carry no contractor column; a buyer-only tender seed would pull
+ *  the buyer's ENTIRE unrelated procedure corpus) — its tenders arrive via the
+ *  seeded contracts' УНП lineage. Every other thread seeds tenders normally. */
+export const threadSeedsTenders = (thread: SearchThread): boolean =>
+  !isContractorAnchored(thread);
 
 /** The recall CEILING for one thread — the max rows its seed collects, and the
- *  bar above which the seed counts as `truncated`: the whole buyer (walked in
- *  ANCHOR_CHUNK pages) for a buyer-anchored thread, else the standard top-N
- *  window. Kept here so the client resolver and the offline builder agree. */
+ *  bar above which the seed counts as `truncated`: the whole scoped slice (walked
+ *  in ANCHOR_CHUNK pages) for an anchored thread (buyer- or contractor-), else the
+ *  standard top-N window. Kept here so the client resolver and the offline builder
+ *  agree. */
 export const seedCapOf = (thread: SearchThread): number =>
-  isBuyerAnchored(thread) ? BUYER_ANCHOR_MAX : SEED_PAGE;
+  isAnchored(thread) ? BUYER_ANCHOR_MAX : SEED_PAGE;
 
 /** One page of a walked fetch — the minimal shape both resolvers' fetch
  *  primitives adapt to (client `fetchTablePageWithTotal`, offline `pageFull`). */
@@ -215,6 +256,12 @@ export const seedContractFilter = (thread: SearchThread): SeedFilter => {
   const columns: SeedFilter["columns"] = [{ id: "tag", value: ["contract"] }];
   if (thread.buyerEik?.length)
     columns.push({ id: "awarder_eik", value: thread.buyerEik });
+  // Contractor (supplier) recall scope — the award's-other-side mirror of the
+  // buyer filter. contract_eik is a filter:"in" column (db_table.js), so an
+  // EIK-set narrows the seed to a supplier's contracts (a contractor-anchored
+  // thread, or a term thread pinned to one supplier).
+  if (thread.contractorEik?.length)
+    columns.push({ id: "contractor_eik", value: thread.contractorEik });
   return {
     // A buyer-anchored thread (blank terms) sends no text predicate — the engine
     // treats an empty `global` as a no-op (db_table.js), so the seed returns the
@@ -1090,6 +1137,30 @@ export function withThreadBuyer(
       return next;
     }
     return { ...th, buyerEik: [buyer.eik], buyerName: buyer.name };
+  });
+}
+
+/** Set or clear thread i's contractor (supplier) scope (contractorEik +
+ *  contractorName). `null` clears the scope; the other thread fields are
+ *  preserved. The award's-other-side mirror of withThreadBuyer. */
+export function withThreadContractor(
+  threads: readonly SearchThread[],
+  i: number,
+  contractor: { eik: string; name: string } | null,
+): SearchThread[] {
+  return threads.map((th, idx) => {
+    if (idx !== i) return th;
+    if (!contractor) {
+      const next = { ...th };
+      delete next.contractorEik;
+      delete next.contractorName;
+      return next;
+    }
+    return {
+      ...th,
+      contractorEik: [contractor.eik],
+      contractorName: contractor.name,
+    };
   });
 }
 

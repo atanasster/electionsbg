@@ -22,7 +22,8 @@ import {
   seedContractFilter,
   seedTenderFilter,
   usesCorpusTotal,
-  isBuyerAnchored,
+  isAnchored,
+  threadSeedsTenders,
   seedCapOf,
   seedScore,
   pageWalk,
@@ -153,6 +154,8 @@ export async function resolveMembers(spec: Spec): Promise<{
     // buyer-anchored thread walks its whole buyer (cap = BUYER_ANCHOR_MAX); a
     // normal thread makes one page (cap = SEED_PAGE).
     const cap = seedCapOf(t);
+    // A contractor-anchored thread does NOT seed tenders (no contractor column;
+    // its procedures come via contract-УНП lineage) — see threadSeedsTenders.
     const [cr, tr] = await Promise.all([
       walkResource<CRow>(
         "contracts",
@@ -160,16 +163,23 @@ export async function resolveMembers(spec: Spec): Promise<{
         seedContractFilter(t),
         cap,
       ),
-      walkResource<TRow>(
-        "tenders",
-        [{ id: "estimated_value_eur", desc: true }],
-        seedTenderFilter(t),
-        cap,
-      ),
+      threadSeedsTenders(t)
+        ? walkResource<TRow>(
+            "tenders",
+            [{ id: "estimated_value_eur", desc: true }],
+            seedTenderFilter(t),
+            cap,
+          )
+        : Promise.resolve({
+            rows: [] as TRow[],
+            total: null,
+            totalExact: false,
+            sumEur: null,
+          }),
     ]);
     matchedContracts.push(...cr.rows);
     matchedTenders.push(...tr.rows);
-    if (isBuyerAnchored(t)) {
+    if (isAnchored(t)) {
       for (const c of cr.rows) anchoredKeys.add(c.key);
       for (const t2 of tr.rows) anchoredUnps.add(t2.unp);
     }

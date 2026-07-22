@@ -39,7 +39,8 @@ import {
   seedContractFilter,
   seedTenderFilter,
   usesCorpusTotal,
-  isBuyerAnchored,
+  isAnchored,
+  threadSeedsTenders,
   seedCapOf,
   seedScore,
   pageWalk,
@@ -447,16 +448,21 @@ export const parseProjectSpec = (
   if (
     !Array.isArray(search) ||
     search.length === 0 ||
-    // A thread is valid with recall `terms` OR a buyer scope (a buyer-anchored
-    // thread has no terms — the buyer is the predicate; see isBuyerAnchored). The
-    // buyer scope must be ≥1 NON-EMPTY EIK string (an empty/blank one would make
-    // seedContractFilter emit a bare tag-only seed = the whole corpus).
+    // A thread is valid with recall `terms` OR a buyer/contractor scope (an
+    // anchored thread has no terms — the DB scope is the predicate; see
+    // isBuyerAnchored / isContractorAnchored). The scope must be ≥1 NON-EMPTY EIK
+    // string (an empty/blank one would make seedContractFilter emit a bare
+    // tag-only seed = the whole corpus).
     !search.every(
       (t) =>
         t &&
         ((typeof t.terms === "string" && t.terms.length > 0) ||
           (Array.isArray(t.buyerEik) &&
             t.buyerEik.some(
+              (e) => typeof e === "string" && e.trim().length > 0,
+            )) ||
+          (Array.isArray(t.contractorEik) &&
+            t.contractorEik.some(
               (e) => typeof e === "string" && e.trim().length > 0,
             ))),
     )
@@ -602,7 +608,9 @@ async function resolveProjectFile(
 
   // 1. Seed — per-thread recall over contract titles + tender subjects.
   const seedFetches = threads.map((t) => {
-    const scoped = nonEmpty(t.buyerEik);
+    // A buyer- OR contractor-scoped thread is already precise → skip the
+    // contractor-name collision nudge (§4.1b).
+    const scoped = nonEmpty(t.buyerEik) || nonEmpty(t.contractorEik);
     // A buyer-anchored thread pages the WHOLE buyer, not the top-N window (its
     // small standalone contracts share no УНП with the big procedures, so lineage
     // can't recover them — see seedCapOf / BUYER_ANCHOR_MAX).
@@ -622,12 +630,21 @@ async function resolveProjectFile(
         seedContractFilter(t),
         cap,
       ),
-      walkResource<ProjectTenderRow>(
-        "tenders",
-        [{ id: "estimated_value_eur", desc: true }],
-        seedTenderFilter(t),
-        cap,
-      ),
+      // A contractor-anchored thread does NOT seed tenders (no contractor column;
+      // its procedures come via contract-УНП lineage) — see threadSeedsTenders.
+      threadSeedsTenders(t)
+        ? walkResource<ProjectTenderRow>(
+            "tenders",
+            [{ id: "estimated_value_eur", desc: true }],
+            seedTenderFilter(t),
+            cap,
+          )
+        : Promise.resolve<TablePageResult<ProjectTenderRow>>({
+            rows: [],
+            total: null,
+            totalExact: false,
+            sumEur: null,
+          }),
       // Collision probe (§4.1b) — only for an UNSCOPED thread: how many contracts
       // were WON by a firm whose NAME matches the term (a contractor_name match a
       // buyer scope would exclude). We only need the count, so pageSize 1. A
@@ -679,7 +696,7 @@ async function resolveProjectFile(
   const collision = pickCollision(
     threads.map((t, i) => ({
       term: t.terms ?? "",
-      scoped: nonEmpty(t.buyerEik),
+      scoped: nonEmpty(t.buyerEik) || nonEmpty(t.contractorEik),
       count: seedResults[i][2],
     })),
   );
@@ -692,7 +709,7 @@ async function resolveProjectFile(
   seedResults.forEach(([c, t], i) => {
     matchedContracts.push(...c.rows);
     matchedTenders.push(...t.rows);
-    if (isBuyerAnchored(threads[i])) {
+    if (isAnchored(threads[i])) {
       for (const row of c.rows) anchoredKeys.add(row.key);
       for (const row of t.rows) anchoredUnps.add(row.unp);
     }
@@ -858,11 +875,11 @@ async function fetchBroaderMatches(
   spec: ProjectFileSpec,
 ): Promise<ProcurementContract[]> {
   const threads = spec.search ?? [];
-  // A buyer-anchored thread has no recall term to broaden by (an empty `global`
-  // would seq-scan the whole corpus for noise), and its member set is already the
-  // whole buyer — nothing broader to surface.
+  // An anchored thread (buyer- or contractor-) has no recall term to broaden by
+  // (an empty `global` would seq-scan the whole corpus for noise), and its member
+  // set is already the whole scoped slice — nothing broader to surface.
   const fetches = threads
-    .filter((t) => !isBuyerAnchored(t))
+    .filter((t) => !isAnchored(t))
     .map((t) =>
       fetchTablePage<ProcurementContract>({
         resource: "contracts",

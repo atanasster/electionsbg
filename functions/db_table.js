@@ -53,7 +53,11 @@ const REGISTRY = {
       // SECTOR_BROWSE_PACKS seam (docs/plans/water-view-v1.md §4.3).
       awarder_eik: { type: "text", filter: "in" },
       awarder_name: { type: "text", sort: true, filter: "text", search: true },
-      contractor_eik: { type: "text", filter: "eq" },
+      // filter:"in" (not "eq") — mirrors awarder_eik: the project-file resolver
+      // scopes a CONTRACTOR-anchored thread by passing a contractor-EIK set
+      // (contractor_eik IN (...)); the builder wraps a scalar in an array, so
+      // single-value callers are unaffected.
+      contractor_eik: { type: "text", filter: "in" },
       contractor_name: {
         type: "text",
         sort: true,
