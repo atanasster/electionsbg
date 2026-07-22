@@ -41,7 +41,7 @@ import {
 const ALL = "__all__";
 
 export const ContractsBrowserDbScreen: FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { scoreRow } = useContractRiskScorer();
   const { from, to, all, year } = useScopeWindow();
   // ?q= deep link (combined-search "see all" footer) seeds the search box.
@@ -189,15 +189,21 @@ export const ContractsBrowserDbScreen: FC = () => {
         header: t("company_contract_amount") || "Amount",
         meta: { align: "right" },
         cell: ({ row }) =>
-          // A €0 consortium member row (migration 087) shows the full joint value
-          // with a badge instead of a bare €0 — the value sits on the carrier.
+          // A €0 consortium member row (migration 087) keeps its real €0 here so a
+          // sort on the amount stays honest; the full joint value is on the "обед."
+          // chip's tooltip (the value sits on the carrier — its share isn't public).
           row.original.consortiumRole === "member" ? (
-            <span
-              className="text-xs text-muted-foreground"
-              title="Договор на обединение — пълна стойност; дялът на всеки член не е публичен."
-            >
-              обед. ·{" "}
-              <ContractAmount amountEur={row.original.consortiumFullEur} />
+            <span className="inline-flex items-center gap-1 whitespace-nowrap">
+              <ContractAmount amountEur={row.original.amountEur} />
+              <span
+                className="rounded bg-muted px-1 py-0.5 text-[10px] text-muted-foreground"
+                title={`Договор на обединение — пълна стойност ${formatEur(
+                  row.original.consortiumFullEur ?? 0,
+                  i18n.language,
+                )}; дялът на всеки член не е публичен.`}
+              >
+                обед.
+              </span>
             </span>
           ) : (
             <ContractAmount

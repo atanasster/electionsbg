@@ -174,6 +174,31 @@ export const CompanyContractsDbScreen: FC<{
         ),
       },
       {
+        // Reference-only column (migration 087): for a consortium MEMBER row the
+        // amount is €0 (its real share isn't public), so the full joint-contract
+        // value is shown HERE, in its own column, to avoid distorting a sort on the
+        // real amount. Empty for ordinary rows.
+        id: "consortium_full_eur",
+        accessorFn: (r) => r.consortiumFullEur ?? null,
+        header: t("company_contract_consortium_full", {
+          defaultValue: "Обединение (пълна ст-ст)",
+        }),
+        meta: { align: "right" },
+        enableSorting: false,
+        cell: ({ row }) =>
+          row.original.consortiumRole === "member" ? (
+            <span
+              className="whitespace-nowrap text-xs text-muted-foreground"
+              title={t("company_contract_consortium_full_tip", {
+                defaultValue:
+                  "Пълна стойност на договора на обединението — тази фирма е участник; реалният ѝ дял не е публичен.",
+              })}
+            >
+              <ContractAmount amountEur={row.original.consortiumFullEur} />
+            </span>
+          ) : null,
+      },
+      {
         id: "risk",
         header: t("company_contract_risk") || "Flags",
         enableSorting: false,
