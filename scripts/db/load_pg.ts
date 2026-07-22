@@ -58,10 +58,7 @@ const CONTRACT_CAIS_ID_FILE = path.join(
   SCHEMA_DIR,
   "079_contracts_cais_id.sql",
 );
-const CONSORTIUM_FILE = path.join(
-  SCHEMA_DIR,
-  "087_procurement_consortium.sql",
-);
+const CONSORTIUM_FILE = path.join(SCHEMA_DIR, "087_procurement_consortium.sql");
 const TRACKING_FILE = path.join(SCHEMA_DIR, "005_ingest_tracking.sql");
 const CONTRACTOR_SEARCH_FILE = path.join(
   SCHEMA_DIR,

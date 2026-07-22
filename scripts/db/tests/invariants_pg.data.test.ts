@@ -167,7 +167,15 @@ test.skipIf(skip)(
            WHERE contractor_eik LIKE 'obed-%'
              AND (joint_kind <> 'consortium' OR consortium_role <> 'carrier'))::text AS bad_synth`,
     );
-    assert.equal(Number(r.bad_fw), 0, `${r.bad_fw} framework rows wrongly carry a consortium_role`);
-    assert.equal(Number(r.bad_synth), 0, `${r.bad_synth} synthetic obed- rows are not consortium carriers`);
+    assert.equal(
+      Number(r.bad_fw),
+      0,
+      `${r.bad_fw} framework rows wrongly carry a consortium_role`,
+    );
+    assert.equal(
+      Number(r.bad_synth),
+      0,
+      `${r.bad_synth} synthetic obed- rows are not consortium carriers`,
+    );
   },
 );

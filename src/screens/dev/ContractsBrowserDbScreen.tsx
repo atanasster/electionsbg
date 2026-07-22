@@ -246,7 +246,7 @@ export const ContractsBrowserDbScreen: FC = () => {
         },
       },
     ],
-    [t, scoreRow],
+    [t, scoreRow, i18n.language],
   );
 
   return (
