@@ -1282,6 +1282,89 @@ export const ProjectFileScreen = () => {
                       }
                     />
                   );
+                  // Render a list of contracts, nesting each consortium's €0 member
+                  // firms INDENTED under their carrier (migration 087). Members share
+                  // their carrier's `consortiumEik`; the carrier carries the full
+                  // value. Solo/framework rows render flat.
+                  const renderRows = (contracts: ProcurementContract[]) => {
+                    const carrierEiks = new Set(
+                      contracts
+                        .filter(
+                          (c) =>
+                            c.consortiumRole === "carrier" && c.consortiumEik,
+                        )
+                        .map((c) => c.consortiumEik),
+                    );
+                    const membersByCarrier = new Map<
+                      string,
+                      ProcurementContract[]
+                    >();
+                    for (const c of contracts)
+                      if (c.consortiumRole === "member" && c.consortiumEik) {
+                        const arr = membersByCarrier.get(c.consortiumEik) ?? [];
+                        arr.push(c);
+                        membersByCarrier.set(c.consortiumEik, arr);
+                      }
+                    return contracts
+                      .filter(
+                        // Keep everything except members that WILL be nested under a
+                        // carrier present in this list; an orphan member (carrier
+                        // absent) still renders flat (ContractRow badges it).
+                        (c) =>
+                          !(
+                            c.consortiumRole === "member" &&
+                            c.consortiumEik &&
+                            carrierEiks.has(c.consortiumEik)
+                          ),
+                      )
+                      .map((c) => {
+                        const members =
+                          c.consortiumRole === "carrier" && c.consortiumEik
+                            ? (membersByCarrier.get(c.consortiumEik) ?? [])
+                            : [];
+                        if (members.length === 0) return row(c);
+                        return (
+                          <div key={c.key} className="flex flex-col gap-1">
+                            {row(c)}
+                            <div className="ml-2 flex flex-col gap-0.5 border-l border-dashed border-border pl-3">
+                              <div className="text-[11px] text-muted-foreground">
+                                {bg
+                                  ? "участници в обединението"
+                                  : "consortium members"}
+                              </div>
+                              {members.map((m) => (
+                                <div
+                                  key={m.key}
+                                  className="flex items-center gap-2 text-xs"
+                                >
+                                  {m.contractorEik ? (
+                                    <Link
+                                      to={`/company/${m.contractorEik}`}
+                                      className="text-primary hover:underline"
+                                    >
+                                      {m.contractorName}
+                                    </Link>
+                                  ) : (
+                                    <span>{m.contractorName}</span>
+                                  )}
+                                  {editMode && (
+                                    <button
+                                      className="no-print text-muted-foreground hover:text-destructive"
+                                      title={bg ? "махни" : "remove"}
+                                      onClick={() =>
+                                        excludeMember("contract", m.key)
+                                      }
+                                    >
+                                      ×
+                                    </button>
+                                  )}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        );
+                      });
+                  };
                   // Attach contracts to their обособена позиция (lot) under the
                   // procedure — the procedure→lot→contract tree (§4.2). The lot is
                   // the title-parsed display lot number (catches both "ОП N" and
@@ -1290,7 +1373,7 @@ export const ProjectFileScreen = () => {
                   // present; else collapse the level. Contracts with no parseable
                   // lot attach directly under the procedure (labelled honestly, §2).
                   const { lots, noLot } = foldContractsByLot(r.contracts);
-                  if (lots.length < 2) return r.contracts.map(row);
+                  if (lots.length < 2) return renderRows(r.contracts);
                   return (
                     <>
                       {lots.map((lot) => (
@@ -1310,7 +1393,7 @@ export const ProjectFileScreen = () => {
                               </span>
                             )}
                           </div>
-                          {lot.contracts.map(row)}
+                          {renderRows(lot.contracts)}
                         </div>
                       ))}
                       {noLot.length > 0 && (
@@ -1318,7 +1401,7 @@ export const ProjectFileScreen = () => {
                           <div className="text-xs text-muted-foreground">
                             {bg ? "без обособена позиция" : "no lot"}
                           </div>
-                          {noLot.map(row)}
+                          {renderRows(noLot)}
                         </div>
                       )}
                     </>
