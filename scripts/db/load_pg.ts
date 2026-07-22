@@ -58,6 +58,10 @@ const CONTRACT_CAIS_ID_FILE = path.join(
   SCHEMA_DIR,
   "079_contracts_cais_id.sql",
 );
+const CONSORTIUM_FILE = path.join(
+  SCHEMA_DIR,
+  "087_procurement_consortium.sql",
+);
 const TRACKING_FILE = path.join(SCHEMA_DIR, "005_ingest_tracking.sql");
 const CONTRACTOR_SEARCH_FILE = path.join(
   SCHEMA_DIR,
@@ -248,6 +252,9 @@ export const loadPg = async (): Promise<{
   await exec(readFileSync(CONTRACT_LOT_FILE, "utf8"));
   await exec(readFileSync(CONTRACT_CURRENT_VALUE_FILE, "utf8"));
   await exec(readFileSync(CONTRACT_CAIS_ID_FILE, "utf8"));
+  // Consortium/framework columns + rebuild_consortium(). Adds columns only here
+  // (the fn is invoked post-MERGE below); references contract_cais_ref from 079.
+  await exec(readFileSync(CONSORTIUM_FILE, "utf8"));
   await exec(readFileSync(TRACKING_FILE, "utf8"));
   await exec(readFileSync(CONTRACTOR_SEARCH_FILE, "utf8"));
   await exec(readFileSync(COMPANY_API_FILE, "utf8"));
@@ -343,6 +350,15 @@ export const loadPg = async (): Promise<{
       `UPDATE contracts SET cais_id = contract_cais_ref(unp, ocid)
        WHERE cais_id IS DISTINCT FROM contract_cais_ref(unp, ocid)`,
     );
+
+    // Consortium/framework attribution. The MERGE just restored every joint-award
+    // member row to its fresh equal split and anti-join-deleted prior synthetic
+    // carriers, so the corpus is in the equal-split state rebuild_consortium()
+    // needs: it moves each true consortium's full value onto one carrier entity
+    // (real ДЗЗД or a synthetic obed-… keyed by member set), zeroes the members,
+    // and tags рамк frameworks. Runs BEFORE the search rebuilds so the synthetic
+    // carrier EIKs land in contractor_search. See 087_procurement_consortium.sql.
+    await c.query("SELECT rebuild_consortium()");
 
     // Contract-name search index — distinct contractor as they appear in the
     // corpus (covers contractors absent from TR). Rebuilt each load.
