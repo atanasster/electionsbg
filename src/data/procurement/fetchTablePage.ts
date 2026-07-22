@@ -15,6 +15,18 @@ export interface TablePageRequest {
      *  landmark term matches the contract title / tender subject only, not
      *  entity-name columns. */
     globalCols?: string[];
+    /** Drop the trigram `%>` word-similarity fallback from the free-text
+     *  `global` match, leaving only the prefix-AND FTS arm. The default
+     *  (false/omitted) keeps FTS+trigram — the typo-tolerant behaviour the
+     *  interactive contracts/tenders browser relies on. The project-file seed
+     *  sets this: its membership is decided by the Cyrillic-substring confidence
+     *  gate, so the fuzzy arm never ADMITS a member — it only pulls unrelated
+     *  high-value near-spellings (e.g. `планиране`/`проектиране` fuzzy-match a
+     *  `-иране` term like `саниране`) into the `amount_eur DESC` seed window,
+     *  inflating the "~N" banner count and starving the fixed seed budget so
+     *  genuine low-value members are never fetched. FTS-only makes the banner
+     *  honest and the seed budget spend on real matches. */
+    globalFtsOnly?: boolean;
     columns: Array<{
       id: string;
       value?: unknown;

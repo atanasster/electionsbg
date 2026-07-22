@@ -100,3 +100,40 @@ test("globalCols is validated even when there is no global term", () => {
     /column not searchable: nope/,
   );
 });
+
+test("globalFtsOnly drops the trigram %> fallback, keeps the FTS arm", () => {
+  // The project-file seed sets this: its membership is decided by the Cyrillic
+  // confidence gate, so the fuzzy `%>` arm never admits a member — it only pulls
+  // unrelated near-spellings (планиране for саниране) into the amount-sorted
+  // seed window and inflates the exact-count banner. FTS-only makes it honest.
+  const { whereSql } = buildWhere(contracts, {
+    filters: { global: "саниране", globalCols: ["title"], globalFtsOnly: true },
+  });
+  assert.ok(whereSql.includes("fold_prefix_tsquery"), "FTS arm kept");
+  assert.ok(!whereSql.includes("%>"), "trigram %> arm dropped");
+  assert.ok(
+    !whereSql.includes("translit_bg_latin"),
+    "trigram translit fallback dropped",
+  );
+});
+
+test("default (no globalFtsOnly) keeps BOTH the FTS and trigram arms", () => {
+  const { whereSql } = buildWhere(contracts, {
+    filters: { global: "саниране", globalCols: ["title"] },
+  });
+  assert.ok(whereSql.includes("fold_prefix_tsquery"), "FTS arm present");
+  assert.ok(whereSql.includes("%>"), "trigram %> arm present by default");
+});
+
+test("globalFtsOnly is a no-op on a non-searchText (name) column", () => {
+  // contractor_name is a searchFold/ILIKE column, not searchText — the flag only
+  // gates the FTS/trigram searchText arm, so the name match is unchanged.
+  const { whereSql } = buildWhere(contracts, {
+    filters: {
+      global: "хемус",
+      globalCols: ["contractor_name"],
+      globalFtsOnly: true,
+    },
+  });
+  assert.ok(whereSql.includes("contractor_name ILIKE"), "name arm unchanged");
+});

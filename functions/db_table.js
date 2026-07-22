@@ -678,6 +678,12 @@ const buildWhere = (r, req) => {
     // `%g%` and the folded `g` are each pushed at most once and shared across the
     // OR arms.
     const searchDefs = restrictedDefs ?? searchAll;
+    // Opt-in: drop the trigram `%>` fallback from the free-text match, leaving
+    // only the prefix-AND FTS arm. The project-file seed sets this (its
+    // membership is decided by a downstream confidence gate, so the fuzzy arm
+    // only pollutes the amount-sorted seed window with unrelated near-spellings
+    // and inflates the exact count banner). Default keeps FTS+trigram.
+    const ftsOnly = req.filters?.globalFtsOnly === true;
     if (searchDefs.length) {
       const ors = [];
       let rawIdx = null; // "%g%" for the plain contiguous-substring arms
@@ -710,8 +716,10 @@ const buildWhere = (r, req) => {
           // pg_trgm.word_similarity_threshold (0.6), same as the dropdown.
           const i = gParam();
           ors.push(
-            `(to_tsvector('simple', ${target}) @@ fold_prefix_tsquery($${i})` +
-              ` OR ${target} %> translit_bg_latin($${i}))`,
+            ftsOnly
+              ? `to_tsvector('simple', ${target}) @@ fold_prefix_tsquery($${i})`
+              : `(to_tsvector('simple', ${target}) @@ fold_prefix_tsquery($${i})` +
+                  ` OR ${target} %> translit_bg_latin($${i}))`,
           );
         } else if (d.searchFold) {
           // Transliterated contiguous substring — entity-name columns whose fold

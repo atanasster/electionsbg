@@ -49,6 +49,50 @@ export const LOTS_GUARD_MAX = 3;
 export const SEED_PAGE = 60;
 export const LINEAGE_PAGE = 400;
 
+/** One `/api/db/table` free-text filter block. Structural (not imported from the
+ *  fetch layer) so this module stays dependency-free and pure. */
+export interface SeedFilter {
+  global: string;
+  globalCols: string[];
+  globalFtsOnly: boolean;
+  columns: Array<{ id: string; value?: unknown }>;
+}
+
+/**
+ * The contract- and tender-seed `filters` blocks a thread resolves to — the ONE
+ * definition shared by the client resolver (useProjectFile.resolveProjectFile)
+ * and the offline builder (build_project_members.resolveMembers) so their seeds
+ * can never drift. Both:
+ *  · search the TITLE / SUBJECT only (`globalCols`) — a landmark term must not
+ *    recall via contractor_name and inflate the count;
+ *  · are FTS-only (`globalFtsOnly`) — membership is decided by the Cyrillic
+ *    confidence gate, so the trigram `%>` fuzz never admits a member; it only
+ *    pulls unrelated near-spellings into the amount-sorted seed window.
+ */
+export const seedContractFilter = (thread: SearchThread): SeedFilter => {
+  const columns: SeedFilter["columns"] = [{ id: "tag", value: ["contract"] }];
+  if (thread.buyerEik?.length)
+    columns.push({ id: "awarder_eik", value: thread.buyerEik });
+  return {
+    global: thread.terms,
+    globalCols: ["title"],
+    globalFtsOnly: true,
+    columns,
+  };
+};
+
+export const seedTenderFilter = (thread: SearchThread): SeedFilter => {
+  const columns: SeedFilter["columns"] = [];
+  if (thread.buyerEik?.length)
+    columns.push({ id: "buyer_eik", value: thread.buyerEik });
+  return {
+    global: thread.terms,
+    globalCols: ["subject"],
+    globalFtsOnly: true,
+    columns,
+  };
+};
+
 /** Lowercased comparison form. The server search matches over a transliterated
  *  `*_fold`; confidence compares the query and the row title in the same script
  *  (both Cyrillic here), so a plain lowercase is enough and keeps this pure. */

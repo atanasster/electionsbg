@@ -32,6 +32,8 @@ import {
   lotNumberOf,
   matchedContractTotal,
   pickCollision,
+  seedContractFilter,
+  seedTenderFilter,
   SEED_PAGE,
   LINEAGE_PAGE,
   type SearchThread,
@@ -485,38 +487,28 @@ async function resolveProjectFile(
   const excludeUnps = new Set(spec.excludes?.tenderUnps ?? []);
 
   // 1. Seed — per-thread recall over contract titles + tender subjects.
-  type Col = {
-    id: string;
-    value?: unknown;
-    min?: string | number;
-    max?: string | number;
-  };
   const seedFetches = threads.map((t) => {
     const scoped = nonEmpty(t.buyerEik);
-    const cCols: Col[] = [{ id: "tag", value: ["contract"] }];
-    if (scoped) cCols.push({ id: "awarder_eik", value: t.buyerEik });
-    const tCols: Col[] = [];
-    if (scoped) tCols.push({ id: "buyer_eik", value: t.buyerEik });
     return Promise.all([
       fetchTablePageWithTotal<ProcurementContract>({
         resource: "contracts",
         page: 0,
         pageSize: SEED_PAGE,
         sort: [{ id: "amount_eur", desc: true }],
-        // Search the contract TITLE only — NOT contractor_name/awarder_name — so
-        // a landmark term ("хемус") matches the contract title and not a consortium
-        // merely NAMED after it (which would inflate the "~M договора" count and
-        // waste seed slots on unrelated procedures the title-confidence gate then
-        // drops anyway). Membership is title-confidence-based, so this changes
-        // only the count + which real rows fill the cap, never the fold.
-        filters: { global: t.terms, globalCols: ["title"], columns: cCols },
+        // Title-only, FTS-only seed — see seedContractFilter (the ONE definition
+        // shared with the offline builder). Title-only so a landmark term
+        // ("хемус") does not recall a consortium merely NAMED after it; FTS-only
+        // so the trigram `%>` fuzz (`планиране` for `саниране`) never floods the
+        // amount-sorted window or the "~M" banner. The confidence gate, not the
+        // seed breadth, decides membership.
+        filters: seedContractFilter(t),
       }),
       fetchTablePageWithTotal<ProjectTenderRow>({
         resource: "tenders",
         page: 0,
         pageSize: SEED_PAGE,
         sort: [{ id: "estimated_value_eur", desc: true }],
-        filters: { global: t.terms, globalCols: ["subject"], columns: tCols },
+        filters: seedTenderFilter(t),
       }),
       // Collision probe (§4.1b) — only for an UNSCOPED thread: how many contracts
       // were WON by a firm whose NAME matches the term (a contractor_name match a
@@ -530,6 +522,9 @@ async function resolveProjectFile(
             page: 0,
             pageSize: 1,
             sort: [{ id: "amount_eur", desc: true }],
+            // contractor_name is a fold/ILIKE column, so globalFtsOnly is a
+            // no-op here — intentionally omitted (the FTS-only rule applies only
+            // to the searchText title/subject seeds above).
             filters: {
               global: t.terms,
               globalCols: ["contractor_name"],

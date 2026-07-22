@@ -20,6 +20,8 @@ import {
   lotNumberOf,
   foldMembers,
   foldByContractor,
+  seedContractFilter,
+  seedTenderFilter,
   SEED_PAGE,
   LINEAGE_PAGE,
   type SearchThread,
@@ -41,7 +43,6 @@ const DIR = path.join(ROOT, "data", "procurement", "projects");
 // The dbRows shim runDbTable expects: (sql, params) => rows.
 const q = (sql: string, params: unknown[]) => allRows(sql, params);
 
-type Col = { id: string; value?: unknown };
 export type Spec = {
   search: SearchThread[];
   includes?: { contractKeys?: string[]; tenderUnps?: string[] };
@@ -90,29 +91,23 @@ export async function resolveMembers(spec: Spec): Promise<{
   const matchedContracts: CRow[] = [];
   const matchedTenders: TRow[] = [];
   for (const t of threads) {
-    const cCols: Col[] = [{ id: "tag", value: ["contract"] }];
-    if (nonEmpty(t.buyerEik))
-      cCols.push({ id: "awarder_eik", value: t.buyerEik });
-    const tCols: Col[] = [];
-    if (nonEmpty(t.buyerEik))
-      tCols.push({ id: "buyer_eik", value: t.buyerEik });
+    // MIRROR the client seed (useProjectFile.resolveProjectFile) via the ONE
+    // shared factory, so the two resolvers can never drift: title/subject-only,
+    // FTS-only (no `%>` trigram fuzz — the confidence gate decides membership).
     const [cr, tr] = await Promise.all([
       page({
         resource: "contracts",
         page: 0,
         pageSize: SEED_PAGE,
         sort: [{ id: "amount_eur", desc: true }],
-        // MIRROR the client seed (useProjectFile.resolveProjectFile): search the
-        // contract title / tender subject only, so a landmark term does not recall
-        // via contractor_name and the two resolvers stay in lockstep.
-        filters: { global: t.terms, globalCols: ["title"], columns: cCols },
+        filters: seedContractFilter(t),
       }),
       page({
         resource: "tenders",
         page: 0,
         pageSize: SEED_PAGE,
         sort: [{ id: "estimated_value_eur", desc: true }],
-        filters: { global: t.terms, globalCols: ["subject"], columns: tCols },
+        filters: seedTenderFilter(t),
       }),
     ]);
     matchedContracts.push(...(cr as CRow[]));
