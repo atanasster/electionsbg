@@ -59,6 +59,7 @@ export type CRow = {
   contractorEik?: string | null;
   contractorName?: string | null;
   cpv?: string | null;
+  consortiumRole?: string | null;
 };
 type TRow = { unp: string; subject?: string | null; lotsCount?: number };
 
@@ -268,6 +269,7 @@ export function summarize(
       contractorEik: c.contractorEik ?? null,
       contractorName: c.contractorName ?? null,
       cpv: c.cpv ?? null,
+      consortiumRole: c.consortiumRole ?? null,
     })),
   );
   // Drop the anonymous "?" bucket (rows with neither EIK nor name) so it never

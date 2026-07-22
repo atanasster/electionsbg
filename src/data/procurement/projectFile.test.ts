@@ -518,6 +518,56 @@ describe("foldMembers — the money fold (§4.1 step 3)", () => {
   });
 });
 
+describe("consortium fold — carrier holds the value, members are €0 (migration 087)", () => {
+  // The Русе–Бяла ОП1 award: a €448.16M ДЗЗД contract stored as one carrier row +
+  // 4 zeroed member rows (distinct keys). The fold must count it ONCE at full value
+  // and never surface a member as a €0 contractor.
+  const ruse: FoldInput[] = [
+    {
+      key: "carrier",
+      tag: "contract",
+      amountEur: 448_160_168,
+      date: "2020-12-01",
+      contractorEik: "177201764",
+      contractorName: "ДЗЗД ХЕМУС-16320",
+      consortiumRole: "carrier",
+    },
+    ...["204342601", "835009611", "127001597", "130608148"].map((eik, i) => ({
+      key: `member${i}`,
+      tag: "contract",
+      amountEur: 0,
+      date: "2020-12-01",
+      contractorEik: eik,
+      contractorName: `Член ${i}`,
+      consortiumRole: "member" as const,
+    })),
+  ];
+
+  it("foldMembers counts the joint award once, at the carrier's full value", () => {
+    const f = foldMembers(ruse);
+    expect(f.contractCount).toBe(1); // carrier only — 4 €0 members excluded
+    expect(f.totalContractedEur).toBe(448_160_168);
+    expect(f.contractorCount).toBe(1); // the consortium entity, not each member
+  });
+
+  it("foldByContractor surfaces the consortium entity, not the €0 members", () => {
+    const agg = foldByContractor(ruse);
+    expect(agg).toHaveLength(1);
+    expect(agg[0]).toMatchObject({ eik: "177201764", eur: 448_160_168 });
+  });
+
+  it("framework rows keep their equal split (not collapsed)", () => {
+    // A рамк framework: independent winners, each row keeps its share, no role set.
+    const framework: FoldInput[] = [
+      { key: "f1", tag: "contract", amountEur: 100, contractorEik: "a" },
+      { key: "f2", tag: "contract", amountEur: 100, contractorEik: "b" },
+    ];
+    const f = foldMembers(framework);
+    expect(f.totalContractedEur).toBe(200);
+    expect(f.contractorCount).toBe(2);
+  });
+});
+
 describe("foldByPeriod — recurring-project rollup (§4.2.2b)", () => {
   const rows: FoldInput[] = [
     {

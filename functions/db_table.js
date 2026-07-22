@@ -87,6 +87,13 @@ const REGISTRY = {
       // DB-recovered обособена позиция name (migration 050) — the project-file
       // timeline groups a procedure's contracts by lot.
       lot_name: { type: "text" },
+      // Consortium / framework attribution (migration 087). joint_kind =
+      // 'consortium'|'framework'; consortium_role = 'carrier'|'member'. The project
+      // fold reads these to treat €0 member rows as participants, not money-winners.
+      joint_kind: { type: "text", filter: "in" },
+      consortium_role: { type: "text", filter: "in" },
+      consortium_eik: { type: "text", filter: "eq" },
+      consortium_full_eur: { type: "number" },
       category: { type: "text", filter: "in" },
       number_of_tenderers: {
         type: "int",
@@ -132,6 +139,10 @@ const REGISTRY = {
       "source_url",
       "has_appeal",
       "appeal_upheld",
+      "joint_kind",
+      "consortium_role",
+      "consortium_eik",
+      "consortium_full_eur",
     ],
     defaultSort: [["date", "desc"]],
     aggregates: [{ fn: "count" }, { fn: "sum", col: "amount_eur" }],

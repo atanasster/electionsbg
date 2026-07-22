@@ -225,6 +225,12 @@ BEGIN
 END;
 $$;
 
+-- contracts_list is `SELECT c.*` — a view freezes its column list at creation, so
+-- it won't expose the new joint_kind/consortium_* columns (which the contracts
+-- DbDataTable projects) until recreated. Rebuild it via the shared helper (same one
+-- 042/050 call) so the served column set can't drift by migration/load order.
+SELECT rebuild_contracts_list();
+
 -- NOTE — this file is re-exec'd at the TOP of every load (before the corpus MERGE),
 -- so it deliberately does NOT call rebuild_consortium() here: at that point the
 -- table still holds the PREVIOUS load's transformed rows (members zeroed), which is

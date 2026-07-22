@@ -267,11 +267,16 @@ export function foldByContractor(
     contractorName?: string | null;
     tag?: string | null;
     amountEur?: number | null;
+    consortiumRole?: string | null;
   }>,
 ): ContractorAgg[] {
   const map = new Map<string, ContractorAgg>();
   for (const c of rows) {
     if ((c.tag ?? "contract") !== "contract") continue;
+    // A consortium MEMBER row is a €0 participation placeholder (migration 087) —
+    // the full value + the contract sit on the carrier entity. Skip it so a member
+    // firm isn't listed as a €0 "contractor"; it surfaces as a participant instead.
+    if (c.consortiumRole === "member") continue;
     const key = c.contractorEik || c.contractorName || "?";
     const e = map.get(key) ?? {
       eik: c.contractorEik || undefined,
@@ -425,7 +430,16 @@ export interface FoldInput {
   contractorEik?: string | null;
   contractorName?: string | null;
   cpv?: string | null;
+  /** Migration 087. `'member'` rows are €0 participation placeholders whose value
+   *  sits on the carrier — excluded from the money fold so a joint contract counts
+   *  once (via its carrier) and members aren't double-counted as €0 rows. */
+  consortiumRole?: string | null;
 }
+
+/** A joint-award MEMBER row (migration 087): €0, its value carried by the
+ *  consortium entity. Excluded from every money/count fold. */
+const isConsortiumMember = (r: { consortiumRole?: string | null }): boolean =>
+  r.consortiumRole === "member";
 
 export interface MethodMix {
   competitive: number; // Σ amountEur
@@ -453,9 +467,13 @@ const yearOf = (date: string | null | undefined): string | null =>
  */
 export function foldMembers(rows: readonly FoldInput[]): ProjectFold {
   // Filter to spend rows BEFORE dedup: a same-`key` amendment sorted first must
-  // never shadow the real contract row (dedup keeps the first per key).
+  // never shadow the real contract row (dedup keeps the first per key). Consortium
+  // member rows are €0 placeholders (the carrier holds the contract + value), so
+  // they're dropped here — the joint award counts once, via its carrier.
   const spend = dedupContracts(
-    rows.filter((r) => (r.tag ?? "contract") === "contract"),
+    rows.filter(
+      (r) => (r.tag ?? "contract") === "contract" && !isConsortiumMember(r),
+    ),
   );
   const contractors = new Set<string>();
   const byYear: Record<string, number> = {};
@@ -508,7 +526,9 @@ export interface PeriodAgg {
  */
 export function foldByPeriod(rows: readonly FoldInput[]): PeriodAgg[] {
   const spend = dedupContracts(
-    rows.filter((r) => (r.tag ?? "contract") === "contract"),
+    rows.filter(
+      (r) => (r.tag ?? "contract") === "contract" && !isConsortiumMember(r),
+    ),
   );
   const buckets = new Map<
     string,

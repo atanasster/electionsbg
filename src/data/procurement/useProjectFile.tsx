@@ -394,6 +394,7 @@ const toFoldInput = (c: ProcurementContract): FoldInput => ({
   contractorEik: c.contractorEik ?? null,
   contractorName: c.contractorName ?? null,
   cpv: c.cpv ?? null,
+  consortiumRole: c.consortiumRole ?? null,
 });
 
 const fetchContractsByUnp = (unps: string[]) =>

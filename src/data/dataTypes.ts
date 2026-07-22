@@ -1608,6 +1608,19 @@ export type ProcurementContract = {
    *  projected from contracts_list.has_appeal by the DbDataTable browser; drives
    *  the "Appealed (КЗК)" row chip. Absent outside that browser. */
   hasAppeal?: boolean;
+  /** Joint-award attribution (migration 087). `'consortium'` = a true обединение /
+   *  ДЗЗД whose full value sits on ONE carrier row (`consortiumRole='carrier'`)
+   *  while member rows are €0 (`consortiumRole='member'`); `'framework'` = a
+   *  рамково споразумение with many independent winners (rows keep their equal
+   *  split). Undefined for ordinary sole awards. */
+  jointKind?: "consortium" | "framework";
+  consortiumRole?: "carrier" | "member";
+  /** The consortium entity's EIK — self on a carrier, the link target on a member
+   *  row (drives the "part of обединение X" link). */
+  consortiumEik?: string;
+  /** Full value of the joint contract (== the carrier's `amountEur`), denormalized
+   *  onto member rows so a €0 member can show what it participated in. */
+  consortiumFullEur?: number;
   bundleUuid: string;
   sourceUrl: string;
 };
