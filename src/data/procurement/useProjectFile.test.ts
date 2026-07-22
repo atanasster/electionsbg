@@ -68,6 +68,48 @@ describe("parseProjectSpec — untrusted ?q= parsing (§4.1)", () => {
     expect(big?.includes?.fundContractNumbers?.length).toBeLessThanOrEqual(500);
   });
 
+  it("keeps a valid euFinancing split and coerces its source (§4.2.3b)", () => {
+    const s = parseProjectSpec(
+      JSON.stringify({
+        search: [{ terms: "x" }],
+        euFinancing: {
+          "BG16FFPR003-1.001-0062": {
+            euEur: 1789521.58,
+            nationalEur: 766937.83,
+            source: "ИСУН",
+            sourceUrl: "https://2020.eufunds.bg/x",
+          },
+        },
+      }),
+    );
+    const split = s?.euFinancing?.["BG16FFPR003-1.001-0062"];
+    expect(split?.euEur).toBe(1789521.58);
+    expect(split?.nationalEur).toBe(766937.83);
+    expect(split?.source).toBe("ИСУН");
+  });
+
+  it("drops euFinancing entries with no finite figure + a non-object map", () => {
+    const s = parseProjectSpec(
+      JSON.stringify({
+        search: [{ terms: "x" }],
+        euFinancing: {
+          bad: { euEur: "NaN", nationalEur: null },
+          neg: { euEur: -5, nationalEur: -1 },
+          ok: { euEur: 10, nationalEur: 0 },
+        },
+      }),
+    );
+    // bad (non-numeric) + neg (both negative) dropped; a one-sided real figure kept.
+    expect(s?.euFinancing?.bad).toBeUndefined();
+    expect(s?.euFinancing?.neg).toBeUndefined();
+    expect(s?.euFinancing?.ok).toEqual({ euEur: 10, nationalEur: 0 });
+    // A non-object euFinancing must not throw, just vanish.
+    const s2 = parseProjectSpec(
+      JSON.stringify({ search: [{ terms: "x" }], euFinancing: 5 }),
+    );
+    expect(s2?.euFinancing).toBeUndefined();
+  });
+
   it("caps the number of search threads", () => {
     const many = Array.from({ length: 100 }, () => ({ terms: "x" }));
     const s = parseProjectSpec(JSON.stringify({ search: many }));

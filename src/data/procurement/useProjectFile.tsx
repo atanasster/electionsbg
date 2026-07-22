@@ -126,6 +126,11 @@ export interface ProjectFileSpec {
   benchmark?: Benchmark;
   /** Curated advance-vs-progress honesty axis (§0g.3). */
   advance?: Advance;
+  /** OPTIONAL curated EU-vs-national funding split per ИСУН fund member, keyed
+   *  by contract_number → { euEur, nationalEur, source?, sourceUrl? }. The bulk
+   *  ИСУН feed carries only обща стойност / БФП / собствено съфинансиране, so the
+   *  европейско/национално share of the grant is curated+sourced (§4.2.3b). */
+  euFinancing?: Record<string, EuFinancingSplit>;
   /** OPTIONAL per-member role label (member contract key or УНП → e.g.
    *  "проектиране"/"строителство"/"надзор"/"печат"/…), for the money-by-role
    *  split (§4.2.4). Absent members fall back to a CPV-division role. */
@@ -207,6 +212,30 @@ export interface FundProjectMember {
   totalEur?: number;
   paidEur?: number;
   status?: string;
+  /** ИСУН bulk-feed funding stack: обща стойност = БФП (grant) + собствено
+   *  съфинансиране (own). Present for any fund member; the own-share is 0 for a
+   *  100%-grant project. */
+  grantEur?: number;
+  ownCofinanceEur?: number;
+  /** Curated EU-vs-national split of the grant (§4.2.3b) — merged from the
+   *  spec's `euFinancing` by contract_number. The bulk ИСУН feed does NOT carry
+   *  this split (only total/БФП/собствено), so it is curated+sourced, never
+   *  joined. Absent → the EU/national breakdown simply doesn't render. */
+  euEur?: number;
+  nationalEur?: number;
+  financingSource?: string;
+  financingSourceUrl?: string;
+}
+
+/** Curated EU-vs-national split of one ИСУН grant (БФП), keyed by its
+ *  contract_number in `ProjectFileSpec.euFinancing`. Sourced, because the bulk
+ *  ИСУН open-data feed exposes only обща стойност / БФП / собствено съфинансиране
+ *  — not the европейско/национално share, which lives on the project-detail page. */
+export interface EuFinancingSplit {
+  euEur: number;
+  nationalEur: number;
+  source?: string;
+  sourceUrl?: string;
 }
 
 export interface ProjectFileModel {
@@ -312,6 +341,32 @@ const clampAdvance = (a: Advance | undefined): Advance | undefined => {
     : undefined;
 };
 
+/** Shape-check the untrusted `euFinancing` map from ?q=: keep only entries whose
+ *  EU + national shares are both finite and non-negative (a curated split needs
+ *  at least one real figure), coerce the source strings. Keyed by ИСУН
+ *  contract_number; capped so a hostile ?q= can't balloon the object. */
+const clampEuFinancing = (
+  m: Record<string, EuFinancingSplit> | undefined,
+): Record<string, EuFinancingSplit> | undefined => {
+  if (!m || typeof m !== "object") return undefined;
+  const out: Record<string, EuFinancingSplit> = {};
+  for (const [k, v] of Object.entries(m).slice(0, 50)) {
+    if (!v || typeof v !== "object") continue;
+    const eu = num(v.euEur);
+    const national = num(v.nationalEur);
+    const euOk = eu != null && eu >= 0 ? eu : undefined;
+    const natOk = national != null && national >= 0 ? national : undefined;
+    if (euOk == null && natOk == null) continue;
+    out[k] = {
+      euEur: euOk ?? 0,
+      nationalEur: natOk ?? 0,
+      source: str(v.source),
+      sourceUrl: str(v.sourceUrl),
+    };
+  }
+  return Object.keys(out).length ? out : undefined;
+};
+
 /** Shape-check the untrusted knownSubcontractors[]: every rendered field coerced
  *  to a string/number, entries without a name dropped, array bounded. */
 const clampSubs = (
@@ -397,6 +452,7 @@ export const parseProjectSpec = (
     excludes: clampMembers(spec.excludes),
     claims: clampClaims(spec.claims),
     advance: clampAdvance(spec.advance),
+    euFinancing: clampEuFinancing(spec.euFinancing),
     inhouseAwarderEiks: clampIds(spec.inhouseAwarderEiks),
     knownSubcontractors: clampSubs(spec.knownSubcontractors),
     geo: clampGeo(spec.geo),
@@ -669,7 +725,21 @@ async function resolveProjectFile(
   );
 
   const fold = foldMembers(allContracts.map(toFoldInput));
-  const funds = dedupFunds(fundMembers);
+  // Merge the curated EU-vs-national split (spec.euFinancing, by contract_number)
+  // onto each fund member — the bulk ИСУН feed carries only total/БФП/собствено,
+  // so this share is curated+sourced, never joined (§4.2.3b).
+  const funds = dedupFunds(fundMembers).map((f) => {
+    const split = spec.euFinancing?.[f.contractNumber];
+    return split
+      ? {
+          ...f,
+          euEur: split.euEur,
+          nationalEur: split.nationalEur,
+          financingSource: split.source,
+          financingSourceUrl: split.sourceUrl,
+        }
+      : f;
+  });
   // Whole-corpus contracted total/count over the seed WHERE — the program-total
   // basis. GATED on usesCorpusTotal (single single-token thread) at the source,
   // exactly like the offline builder, so the model can never carry an unsafe

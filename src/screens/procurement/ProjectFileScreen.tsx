@@ -2292,6 +2292,125 @@ const VERDICT_STYLE: Record<
   },
 };
 
+// Funding composition of one ИСУН grant (§4.2.3b) — WHERE the money comes from,
+// distinct from the договорено/изплатено disbursement bar (how much has been
+// paid). Two independent, optional axes: (1) the curated EU-vs-national split of
+// the grant (europeisko/nacionalno — NOT in the bulk ИСУН feed, so curated +
+// sourced); (2) the grant-vs-own-co-financing split from the ИСУН feed itself
+// (обща стойност = БФП + собствено съфинансиране), shown only when the
+// beneficiary actually co-finances (own > 0). Renders nothing when neither axis
+// has data — a plain 100%-grant project (own = 0, no curated split) shows only
+// the disbursement bar above.
+const FUND_EU_COLOR = "#234a8a"; // EU flag blue
+const FUND_NAT_COLOR = "#C05A38"; // coral — national co-financing
+const FUND_OWN_COLOR = "#8a8a8a"; // grey — beneficiary's own money
+const FundingComposition = ({
+  f,
+  money,
+  bg,
+}: {
+  f: FundProjectMember;
+  money: (n: number | null | undefined) => string;
+  bg: boolean;
+}) => {
+  const hasEuSplit =
+    f.euEur != null &&
+    f.nationalEur != null &&
+    f.euEur + f.nationalEur > 0;
+  const ownShare = f.ownCofinanceEur ?? 0;
+  const hasOwn = ownShare > 0 && f.grantEur != null && f.grantEur > 0;
+  if (!hasEuSplit && !hasOwn) return null;
+
+  const euNatTotal = (f.euEur ?? 0) + (f.nationalEur ?? 0);
+  const euPct = hasEuSplit ? Math.round(((f.euEur ?? 0) / euNatTotal) * 100) : 0;
+  const natPct = hasEuSplit ? 100 - euPct : 0;
+
+  const ownTotal = (f.grantEur ?? 0) + ownShare;
+  const grantPct = hasOwn ? Math.round(((f.grantEur ?? 0) / ownTotal) * 100) : 0;
+  const ownPct = hasOwn ? 100 - grantPct : 0;
+
+  return (
+    <div className="mt-2.5">
+      <div className="mb-1 text-xs font-medium text-muted-foreground">
+        {bg ? "Състав на финансирането" : "Funding composition"}
+      </div>
+      {hasEuSplit && (
+        <div className="mb-1.5">
+          <div className="flex h-2 overflow-hidden rounded bg-muted">
+            <div style={{ width: `${euPct}%`, background: FUND_EU_COLOR }} />
+            <div style={{ width: `${natPct}%`, background: FUND_NAT_COLOR }} />
+          </div>
+          <div className="mt-1 flex flex-wrap gap-x-4 gap-y-0.5 text-xs">
+            <span>
+              <span
+                className="mr-1 inline-block h-2 w-2 rounded-sm align-middle"
+                style={{ background: FUND_EU_COLOR }}
+              />
+              {bg ? "Европейско финансиране " : "EU financing "}
+              <span className="font-medium">{money(f.euEur)}</span>
+              <span className="text-muted-foreground"> ({euPct}%)</span>
+            </span>
+            <span>
+              <span
+                className="mr-1 inline-block h-2 w-2 rounded-sm align-middle"
+                style={{ background: FUND_NAT_COLOR }}
+              />
+              {bg ? "Национално съфинансиране " : "National co-financing "}
+              <span className="font-medium">{money(f.nationalEur)}</span>
+              <span className="text-muted-foreground"> ({natPct}%)</span>
+            </span>
+          </div>
+        </div>
+      )}
+      {hasOwn && (
+        <div className="mb-1">
+          <div className="flex h-2 overflow-hidden rounded bg-muted">
+            <div style={{ width: `${grantPct}%`, background: "#0F6E56" }} />
+            <div style={{ width: `${ownPct}%`, background: FUND_OWN_COLOR }} />
+          </div>
+          <div className="mt-1 flex flex-wrap gap-x-4 gap-y-0.5 text-xs">
+            <span>
+              <span
+                className="mr-1 inline-block h-2 w-2 rounded-sm align-middle"
+                style={{ background: "#0F6E56" }}
+              />
+              {bg ? "Безвъзмездна помощ (БФП) " : "Grant (БФП) "}
+              <span className="font-medium">{money(f.grantEur)}</span>
+              <span className="text-muted-foreground"> ({grantPct}%)</span>
+            </span>
+            <span>
+              <span
+                className="mr-1 inline-block h-2 w-2 rounded-sm align-middle"
+                style={{ background: FUND_OWN_COLOR }}
+              />
+              {bg ? "Собствено съфинансиране " : "Own co-financing "}
+              <span className="font-medium">{money(ownShare)}</span>
+              <span className="text-muted-foreground"> ({ownPct}%)</span>
+            </span>
+          </div>
+        </div>
+      )}
+      {hasEuSplit && (f.financingSource || isHttpUrl(f.financingSourceUrl)) && (
+        <div className="text-xs text-muted-foreground">
+          {bg ? "източник: " : "source: "}
+          {isHttpUrl(f.financingSourceUrl) ? (
+            <a
+              href={f.financingSourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline"
+            >
+              {f.financingSource ?? f.financingSourceUrl}
+            </a>
+          ) : (
+            f.financingSource
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
 // Европейско финансиране (ИСУН) block (§4.2.3b) — curated fund-project members.
 // Each card: programme + contract_number, beneficiary → /company/:eik, a
 // договорено/изплатено disbursement bar with усвоено %, status, a manual-add
@@ -2398,6 +2517,7 @@ const FundsBlock = ({
                 />
               </div>
             )}
+            <FundingComposition f={f} money={money} bg={bg} />
           </div>
         );
       })}
