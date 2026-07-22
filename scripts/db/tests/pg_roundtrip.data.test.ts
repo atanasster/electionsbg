@@ -60,6 +60,32 @@ test.skipIf(skip)(
       byKey.set(c.key, c);
     }
 
+    // Consortium/framework attribution (migration 087) deliberately mutates the
+    // corpus AFTER the shard COPY: a true consortium's value moves onto ONE carrier
+    // row while its members go to €0, and unnamed consortia gain a NEW synthetic
+    // `obed-…` carrier row. So the strict per-row / count round-trip is against the
+    // PRE-transform shards for everything EXCEPT those transformed rows — the
+    // transform's own correctness is covered by invariants_pg.data.test.ts, and the
+    // headline SUM below still reconciles (carrier-full + members-€0 == the split
+    // sum). `consortium_role IS NOT NULL` = a promoted carrier or a zeroed member;
+    // synthetic carriers additionally have no shard row at all.
+    const transformed = new Set(
+      (
+        await allRows<{ key: string }>(
+          "SELECT key FROM contracts WHERE consortium_role IS NOT NULL",
+        )
+      ).map((r) => r.key),
+    );
+    const syntheticCount = Number(
+      Object.values(
+        (
+          await allRows<{ n: string }>(
+            "SELECT count(*) AS n FROM contracts WHERE contractor_eik LIKE 'obed-%'",
+          )
+        )[0],
+      )[0],
+    );
+
     const shardFiles: string[] = [];
     for (const year of readdirSync(monthShardDir).sort()) {
       const dir = path.join(monthShardDir, year);
@@ -71,7 +97,11 @@ test.skipIf(skip)(
     for (const f of shardFiles)
       onDisk += (JSON.parse(readFileSync(f, "utf8")) as Contract[]).length;
 
-    assert.equal(byKey.size, onDisk, "row count: Postgres vs month shards");
+    assert.equal(
+      byKey.size - syntheticCount,
+      onDisk,
+      "row count: Postgres (minus synthetic consortium carriers) vs month shards",
+    );
 
     const stride = full ? 1 : Math.max(1, Math.floor(onDisk / 5000));
     let i = 0;
@@ -87,6 +117,9 @@ test.skipIf(skip)(
         )
           sumNonAmendEur += src.amountEur;
         if (i++ % stride !== 0) continue;
+        // Skip rows the consortium transform intentionally rewrote (see above) —
+        // their PG values no longer match the pre-transform shard.
+        if (transformed.has(src.key)) continue;
         const rebuilt = byKey.get(src.key);
         if (!rebuilt) {
           mismatches.push(`${src.key}: absent from Postgres`);
