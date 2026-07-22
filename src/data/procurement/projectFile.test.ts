@@ -22,6 +22,8 @@ import {
   matchedContractTotal,
   pickCollision,
   COLLISION_MIN,
+  inferRoleFromTitle,
+  inferNatureFromTitles,
   seeAllContractsHref,
   dedupContracts,
   dedupTenders,
@@ -682,5 +684,95 @@ describe("pickCollision — contractor-name collision nudge (§4.1b)", () => {
       term: "x",
       count: 3,
     });
+  });
+});
+
+describe("inferRoleFromTitle — opt-in title→role classifier (§4.2.4b)", () => {
+  // Returns a CPV-division KEY so inferred members merge with coded ones under
+  // roleKeyOf (no duplicate rows); archaeology has no division → custom label.
+  it("reads an инженеринг (design+build) contract as WORKS despite 'проект'", () => {
+    expect(
+      inferRoleFromTitle(
+        "Изготвяне на технически проект и строителство (инженеринг) на обект: АМ „Хемус“",
+      ),
+    ).toBe("cpv:45");
+  });
+  it("classifies maintenance / winter upkeep", () => {
+    expect(
+      inferRoleFromTitle("Дейности по зимно поддържане на АМ „Хемус“"),
+    ).toBe("cpv:50");
+  });
+  it("classifies tunnels / viaducts as works", () => {
+    expect(inferRoleFromTitle("Тунел „Топли дол“ на АМ „Хемус“")).toBe(
+      "cpv:45",
+    );
+  });
+  it("classifies design / supervision / audits", () => {
+    expect(inferRoleFromTitle("Изготвяне на идеен проект за АМ „Хемус“")).toBe(
+      "cpv:71",
+    );
+    expect(
+      inferRoleFromTitle("Консултантска услуга за строителен надзор"),
+    ).toBe("cpv:71");
+    expect(inferRoleFromTitle("Одит за пътна безопасност")).toBe("cpv:71");
+  });
+  it("classifies archaeology with its own (label) bucket", () => {
+    expect(
+      inferRoleFromTitle("Извършване на археологически проучвания по трасето"),
+    ).toBe("археология");
+  });
+  it("returns null when no rule fires", () => {
+    expect(inferRoleFromTitle("Застрахователни услуги")).toBeNull();
+    expect(inferRoleFromTitle("")).toBeNull();
+    expect(inferRoleFromTitle(null)).toBeNull();
+  });
+  it("its keys resolve through roleKeyOf → roleLabel to the coded-member bucket", () => {
+    // The whole point: an inferred 'cpv:45' and a CPV-45-coded member land on the
+    // same key AND the same localized label — so they sum into one row.
+    const inferred = inferRoleFromTitle("Тунел на АМ „Хемус“"); // cpv:45
+    expect(roleKeyOf(inferred, null)).toBe(roleKeyOf(undefined, "45233000"));
+    expect(roleLabel(roleKeyOf(inferred, null), true)).toBe("строителство");
+  });
+});
+
+describe("inferNatureFromTitles — fill the 'без код' bucket (§4.2.4b)", () => {
+  const rows = [
+    { key: "a", title: "Зимно поддържане на АМ „Хемус“", cpv: null },
+    { key: "b", title: "Тунел „Топли дол“", cpv: "" },
+    { key: "c", title: "Строителство на пътен участък", cpv: "45233000" }, // has CPV
+    { key: "d", title: "Застрахователни услуги", cpv: null }, // no rule
+  ];
+  it("infers only for no-CPV members, skipping coded and unmatched ones", () => {
+    const nature = inferNatureFromTitles(rows);
+    expect(nature).toEqual({ a: "cpv:50", b: "cpv:45" });
+    expect(nature.c).toBeUndefined(); // CPV-coded → untouched
+    expect(nature.d).toBeUndefined(); // no rule fired
+  });
+  it("never overwrites an existing override", () => {
+    const nature = inferNatureFromTitles(rows, { a: "проектиране и надзор" });
+    expect(nature.a).toBe("проектиране и надзор"); // kept
+    expect(nature.b).toBe("cpv:45"); // still filled
+  });
+  it("skips amendment/award rows (byRole never groups them → keep ?q= lean)", () => {
+    const nature = inferNatureFromTitles([
+      { key: "amд", tag: "contractAmendment", title: "Тунел на АМ „Хемус“" },
+      { key: "cx", tag: "contract", title: "Тунел на АМ „Хемус“" },
+    ]);
+    expect(nature.amд).toBeUndefined(); // amendment → not keyed
+    expect(nature.cx).toBe("cpv:45"); // spend row → filled
+  });
+  it("does not shadow a UNP-keyed override", () => {
+    const nature = inferNatureFromTitles(
+      [{ key: "k1", unp: "u1", title: "Тунел на АМ „Хемус“", cpv: null }],
+      { u1: "проектиране и надзор" }, // UNP-keyed existing
+    );
+    expect(nature.k1).toBeUndefined(); // not overridden by a key-keyed entry
+    expect(nature.u1).toBe("проектиране и надзор");
+  });
+  it("treats a whitespace-only CPV as uncoded (the .trim() guard)", () => {
+    const nature = inferNatureFromTitles([
+      { key: "w", title: "Тунел на АМ „Хемус“", cpv: "   " },
+    ]);
+    expect(nature.w).toBe("cpv:45");
   });
 });

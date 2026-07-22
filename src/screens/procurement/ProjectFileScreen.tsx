@@ -45,6 +45,7 @@ import {
   annexDelta,
   roleKeyOf,
   roleLabel,
+  inferNatureFromTitles,
   foldByContractor,
   foldByPeriod,
   foldContractsByLot,
@@ -544,6 +545,15 @@ export const ProjectFileScreen = () => {
         },
       };
     });
+
+  // Fill the "без код по ЦПВ" bucket from member titles (§4.2.4b) — a user-invoked,
+  // opt-in split of THEIR file's uncoded contracts. Never overrides a real CPV code
+  // or an existing override. DIY only: mutateSpec no-ops on a curated file (no ?q=).
+  const applyRoleInference = () =>
+    mutateSpec((cur) => ({
+      ...cur,
+      nature: inferNatureFromTitles(data?.contracts ?? [], cur.nature),
+    }));
 
   const title =
     (bg ? spec?.title?.bg : spec?.title?.en) ??
@@ -1208,6 +1218,27 @@ export const ProjectFileScreen = () => {
             <div className="text-sm text-muted-foreground mb-2">
               {bg ? "Разпределение по вид" : "By role"}
             </div>
+            {/* Opt-in title→role split (§4.2.4b) — only in the editor, and only
+                while an uncoded bucket exists to fill. Writes to the file's own
+                nature; re-click after edits picks up any new uncoded members. */}
+            {editMode && byRole.some((r) => r.key === "cpv:—") && (
+              <div className="mb-2">
+                <button
+                  type="button"
+                  onClick={applyRoleInference}
+                  className="no-print rounded-md border px-3 py-1 text-xs hover:bg-muted"
+                  title={
+                    bg
+                      ? "Определя вид (строителство/поддръжка/проектиране…) по заглавието за договорите без код по ЦПВ. Приблизително."
+                      : "Assigns a role from the title for contracts with no CPV code. Approximate."
+                  }
+                >
+                  {bg
+                    ? "Разпредели по вид от заглавията"
+                    : "Infer roles from titles"}
+                </button>
+              </div>
+            )}
             <div className="flex flex-col gap-1.5">
               {byRole.map(({ key, eur }) => (
                 <div key={key} className="flex items-center gap-3">

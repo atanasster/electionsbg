@@ -671,7 +671,20 @@ async function resolveProjectFile(
 
 export const useProjectFile = (spec: ProjectFileSpec | null) =>
   useQuery({
-    queryKey: ["procurement", "project-file", spec],
+    // Key ONLY on the slice resolveProjectFile actually reads. Presentational,
+    // resolver-irrelevant fields (title, nature, thesis, …) must not invalidate
+    // the fetch: applying "разпредели по вид" writes `nature` into ?q=, and
+    // keying on the whole spec would mint a new key → a full corpus re-resolve +
+    // loading flash purely to re-group client-side.
+    queryKey: [
+      "procurement",
+      "project-file",
+      spec && {
+        search: spec.search,
+        includes: spec.includes,
+        excludes: spec.excludes,
+      },
+    ],
     queryFn: () => resolveProjectFile(spec as ProjectFileSpec),
     enabled: !!spec && (spec.search?.length ?? 0) > 0,
     staleTime: Infinity,

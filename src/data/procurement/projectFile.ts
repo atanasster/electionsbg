@@ -353,6 +353,85 @@ export function roleLabel(key: string, bg: boolean): string {
     : `${bg ? "ЦПВ" : "CPV"} ${div}`;
 }
 
+/** Ordered title-keyword → role rules for the opt-in "разпредели по вид от
+ *  заглавията" action (§4.2.4b). Order matters: an инженеринг (design+build)
+ *  contract is WORKS even though it also says "проект", so it must beat the
+ *  design rule; a "технически проект за …" whose deliverable is the design lands
+ *  on проектиране. The role is a CPV-division KEY (`cpv:45`/`cpv:50`/`cpv:71`)
+ *  so an inferred member groups under the SAME roleKeyOf bucket as a CPV-coded
+ *  one (no duplicate "строителство" row) and roleLabel localizes it. Archaeology
+ *  has no CPV division, so it keeps a bg custom label (its own bucket).
+ *  Deliberately conservative — no clear signal returns null → stays "без код". */
+const TITLE_ROLE_RULES: ReadonlyArray<{ re: RegExp; role: string }> = [
+  { re: /археолог/, role: "археология" },
+  { re: /инженеринг/, role: "cpv:45" },
+  {
+    re: /надзор|одит|оценк|овос|кадастр|консултант|проект/,
+    role: "cpv:71",
+  },
+  {
+    re: /поддържан|поддръжк|зимно|аварийн|текущ ремонт/,
+    role: "cpv:50",
+  },
+  {
+    re: /строителств|строително|изграждан|реконструкц|рехабилитац|основен ремонт|тунел|естакад|виадукт|мост|пътен възел/,
+    role: "cpv:45",
+  },
+];
+
+/**
+ * Infer a broad role from a contract title (§4.2.4b) — the deterministic
+ * classifier behind the user-invoked "разпредели по вид от заглавията" action.
+ * Returns a role KEY (a `cpv:NN` division that roleKeyOf/roleLabel already know,
+ * so inferred members MERGE with CPV-coded ones and localize; or a bg custom
+ * label for archaeology) or null when no rule matches. NOT authoritative — it
+ * only helps a user split their OWN file's "без код по ЦПВ" bucket; it never
+ * overrides a real CPV code or an existing
+ * curated nature.
+ */
+export function inferRoleFromTitle(
+  title: string | null | undefined,
+): string | null {
+  const t = foldText(title);
+  if (!t) return null;
+  for (const { re, role } of TITLE_ROLE_RULES) if (re.test(t)) return role;
+  return null;
+}
+
+/**
+ * Fill the `nature` map for members that currently fall to "без код по ЦПВ"
+ * (§4.2.4b) — spend rows (`tag='contract'`) with NO CPV code and NO existing
+ * override. Keeps every existing entry, never touches a CPV-coded member (its
+ * code already classifies it), skips amendment/award rows (byRole never groups
+ * them, so keying them would only bloat the ?q= URL), and only writes a key when
+ * a title rule fires. Keyed by contract key, matching roleKeyOf's primary lookup.
+ */
+export function inferNatureFromTitles(
+  contracts: ReadonlyArray<{
+    key: string;
+    unp?: string | null;
+    tag?: string | null;
+    title?: string | null;
+    cpv?: string | null;
+  }>,
+  existing?: Record<string, string>,
+): Record<string, string> {
+  const out: Record<string, string> = { ...(existing ?? {}) };
+  for (const c of contracts) {
+    if ((c.tag ?? "contract") !== "contract") continue; // match byRole; keep URL lean
+    if (out[c.key]) continue; // keep an existing key-keyed override
+    // byRole resolves nature as `nature[key] ?? nature[unp]`; a curated file may
+    // carry a UNP-keyed override, so don't shadow it with a key-keyed one. (Not
+    // reachable today — inference is DIY-only and DIY nature is always key-keyed
+    // — but this keeps the invariant if a UNP-keyed writer is ever added.)
+    if (c.unp && out[c.unp]) continue;
+    if ((c.cpv ?? "").trim()) continue; // a real CPV code already classifies it
+    const role = inferRoleFromTitle(c.title);
+    if (role) out[c.key] = role;
+  }
+  return out;
+}
+
 export type AwardMethodClass = "competitive" | "nonCompetitive" | "unspecified";
 
 /**
