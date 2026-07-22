@@ -170,6 +170,11 @@ const CURATED_TILE: Record<
     sceneKey: "arena",
     accent: TILE_ACCENTS.terracotta,
   },
+  "sanirane-jilishta": {
+    section: "energy",
+    sceneKey: "insulation",
+    accent: TILE_ACCENTS.leaf,
+  },
 };
 const curatedTile = (slug: string) =>
   CURATED_TILE[slug] ?? {
@@ -278,20 +283,6 @@ const STARTERS: Starter[] = [
           buyerName: MO_NAME,
         },
       ],
-    },
-  },
-  {
-    section: "energy",
-    label: "Саниране на сгради",
-    hint: {
-      bg: "Националната програма за енергийна ефективност",
-      en: "The national energy-efficiency program",
-    },
-    sceneKey: "insulation",
-    accent: TILE_ACCENTS.leaf,
-    spec: {
-      title: { bg: "Саниране на жилищни сгради" },
-      search: [{ terms: "саниране", distinctive: ["саниране"] }],
     },
   },
   {
