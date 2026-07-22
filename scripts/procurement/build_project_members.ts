@@ -42,7 +42,7 @@ const DIR = path.join(ROOT, "data", "procurement", "projects");
 const q = (sql: string, params: unknown[]) => allRows(sql, params);
 
 type Col = { id: string; value?: unknown };
-type Spec = {
+export type Spec = {
   search: SearchThread[];
   includes?: { contractKeys?: string[]; tenderUnps?: string[] };
   excludes?: { contractKeys?: string[]; tenderUnps?: string[] };
@@ -76,7 +76,7 @@ const page = (req: object) =>
  * so every member the up-link asserts is actually shown on that dossier's page.
  * The only difference: no money fold (we need the membership set, not the totals).
  */
-async function resolveMembers(spec: Spec): Promise<{
+export async function resolveMembers(spec: Spec): Promise<{
   keys: string[];
   unps: string[];
   contracts: CRow[];
