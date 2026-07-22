@@ -132,6 +132,40 @@ describe("parseProjectSpec — untrusted ?q= parsing (§4.1)", () => {
     expect(s?.search[1].buyerEik).toEqual(["202062287"]);
   });
 
+  it("accepts a terms-less anchored thread (buyer OR contractor is the predicate)", () => {
+    // A buyer-anchored thread (whole-SOE dossier) is valid without terms…
+    const buyer = parseProjectSpec(
+      JSON.stringify({ search: [{ buyerEik: ["000632256"] }] }),
+    );
+    expect(buyer?.search[0].buyerEik).toEqual(["000632256"]);
+    // …and so is a CONTRACTOR-anchored thread (supplier-slice dossier) — the
+    // machine-voting fix leans on this branch (Сиела Норма scoped to ЦИК+МС).
+    const supplier = parseProjectSpec(
+      JSON.stringify({
+        search: [
+          {
+            buyerEik: ["176481459", "000695025"],
+            contractorEik: ["130199580"],
+            contractorName: "Сиела Норма АД",
+          },
+        ],
+      }),
+    );
+    expect(supplier?.search[0].contractorEik).toEqual(["130199580"]);
+    expect(supplier?.search[0].contractorName).toBe("Сиела Норма АД");
+  });
+
+  it("rejects a thread scoped only by a blank/empty contractorEik", () => {
+    // An empty/whitespace EIK is no predicate — the seed would degrade to the
+    // whole corpus, so the spec must parse to null (same guard as buyerEik).
+    expect(
+      parseProjectSpec(JSON.stringify({ search: [{ contractorEik: [] }] })),
+    ).toBeNull();
+    expect(
+      parseProjectSpec(JSON.stringify({ search: [{ contractorEik: ["  "] }] })),
+    ).toBeNull();
+  });
+
   it("shape-checks + bounds the untrusted claims[] (§4.2.6b)", () => {
     const s = parseProjectSpec(
       JSON.stringify({

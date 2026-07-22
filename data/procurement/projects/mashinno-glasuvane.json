@@ -10,11 +10,26 @@
   "authority": "Централна избирателна комисия",
   "search": [
     { "terms": "суемг", "distinctive": ["суемг"] },
-    { "terms": "хартиени бюлетини", "distinctive": ["бюлетини"] }
+    { "terms": "хартиени бюлетини", "distinctive": ["бюлетини"] },
+    {
+      "buyerEik": ["176481459", "000695025"],
+      "buyerName": "ЦИК / Министерски съвет",
+      "contractorEik": ["130199580"],
+      "contractorName": "Сиела Норма АД"
+    }
   ],
+  "excludes": {
+    "contractKeys": [
+      "0a3783477656",
+      "ca5d0822c799",
+      "f0ecded85d79",
+      "38ab96165bc2",
+      "6ff6c7b6ed4a"
+    ]
+  },
   "recurrence": {
     "by": "cycle",
     "label": { "bg": "По избори", "en": "By election" }
   },
-  "verifiedAt": "2026-07-21"
+  "verifiedAt": "2026-07-23"
 }
