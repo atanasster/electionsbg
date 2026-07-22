@@ -1802,21 +1802,25 @@ export const ProjectFileScreen = () => {
                         className="border-b border-border/50"
                       >
                         <td className="py-1.5">
-                          {r.eik ? (
-                            <Link
-                              to={`/company/${r.eik}`}
-                              className="text-primary"
-                            >
-                              {r.name}
-                            </Link>
-                          ) : (
-                            r.name
-                          )}
-                          {showRisk && (
-                            <div className="mt-1">
-                              <RiskBadges result={risk} variant="chips" />
-                            </div>
-                          )}
+                          {/* On desktop the risk chips sit inline after the name
+                              (small gap); on mobile they wrap onto their own row. */}
+                          <div className="sm:flex sm:flex-wrap sm:items-center sm:gap-x-2 sm:gap-y-1">
+                            {r.eik ? (
+                              <Link
+                                to={`/company/${r.eik}`}
+                                className="text-primary"
+                              >
+                                {r.name}
+                              </Link>
+                            ) : (
+                              <span>{r.name}</span>
+                            )}
+                            {showRisk && (
+                              <div className="mt-1 sm:mt-0">
+                                <RiskBadges result={risk} variant="chips" />
+                              </div>
+                            )}
+                          </div>
                         </td>
                         <td className="py-1.5 pl-6 text-right tabular-nums">
                           {r.count}
