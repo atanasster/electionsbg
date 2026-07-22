@@ -64,7 +64,7 @@ describe("projectFromContract / projectFromTender — detail-page on-ramp (§4.3
   });
   it("falls back to a non-empty search when the title is blank (spec stays valid)", () => {
     const spec = projectFromContract({ key: "k1", titleSeed: "   " });
-    expect(spec.search[0].terms.length).toBeGreaterThan(0);
+    expect((spec.search[0].terms ?? "").length).toBeGreaterThan(0);
     expect(parseProjectSpec(JSON.stringify(spec))).not.toBeNull();
   });
   it("seeds a valid spec from a tender (force-included УНП)", () => {
@@ -77,7 +77,7 @@ describe("projectFromContract / projectFromTender — detail-page on-ramp (§4.3
   });
   it("falls back to a non-empty search when the tender title is blank", () => {
     const spec = projectFromTender({ unp: "u9", titleSeed: "  " });
-    expect(spec.search[0].terms.length).toBeGreaterThan(0);
+    expect((spec.search[0].terms ?? "").length).toBeGreaterThan(0);
     expect(parseProjectSpec(JSON.stringify(spec))).not.toBeNull();
   });
   it("clamps totalBasis from an untrusted ?q= to the known union", () => {
