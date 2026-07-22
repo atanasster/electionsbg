@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-07-21T09:53:53.246Z",
+  "lastSuccessfulIngest": "2026-07-22T17:20:45.850Z",
   "skill": "persons",
-  "summary": "re-derived off fresh TR (egov_commerce 07-21): 48,425 persons, 101,767 roles (+11,538 tr bridge-B), 67,065 candidate_person, 67,019 person_election_stats — local PG via db:refresh chain"
+  "summary": "re-derived via db:refresh after fresh TR: 48,425 persons, 101,768 roles, 67,065 candidate_person rows"
 }
