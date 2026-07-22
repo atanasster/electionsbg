@@ -407,7 +407,11 @@ export const buildSettlementRoutes = (
         ? `${fullName}, обл. ${oblastName}`
         : fullName;
       const url = `${SITE_URL}/settlement/${s.ekatte}`;
-      const title = `Резултати в ${labelWithOblast} — Парламентарни избори | electionsbg.com`;
+      // Front-load the settlement name — that is the query users type, and Google
+      // weights the head of the <title> (and truncates ~60 chars, so the name must
+      // survive). The "резултати … по секции" framing keeps this door distinct from
+      // the /governance/{ekatte} door on the same place.
+      const title = `${labelWithOblast} — резултати от изборите по секции | electionsbg.com`;
       const description = `Резултати по секции в ${labelWithOblast} на парламентарните избори в България — гласове, машинно гласуване и отклонения.`;
       const breadcrumb = oblastName
         ? [
@@ -478,7 +482,10 @@ export const buildGovernancePlaceRoutes = (
         ? `${fullName}, обл. ${oblastName}`
         : fullName;
       const url = `${SITE_URL}/governance/${s.ekatte}`;
-      const title = `Управление — ${labelWithOblast} | electionsbg.com`;
+      // Entity-first title (place name at the head) — the governance door leads
+      // with "управление" to stay distinct from the /settlement/{ekatte} results
+      // door on the same place.
+      const title = `${labelWithOblast} — управление, бюджет и представители | electionsbg.com`;
       const description = `Обобщено табло за управлението на ${labelWithOblast}: народни представители, кмет и общински съвет, бюджет, еврофондове, преброяване и още — всичко за вашия район на едно място.`;
       const breadcrumb = oblastName
         ? [
@@ -562,7 +569,7 @@ export const buildGovernanceMuniRoutes = (
     seen.add(m.obshtina);
     const oblastName = m.oblast ? oblastNames.get(m.oblast) : undefined;
     const url = `${SITE_URL}/governance/${m.obshtina}`;
-    const title = `Управление — община ${m.name} | electionsbg.com`;
+    const title = `Община ${m.name} — управление, бюджет и представители | electionsbg.com`;
     const description = `Обобщено табло за управлението на община ${m.name}: депутати и декларации, кмет и общински съвет, общинско финансиране, еврофондове, обществени поръчки, местни данъци, преброяване и прозрачност.`;
     const breadcrumb = oblastName
       ? [
@@ -637,7 +644,7 @@ export const buildGovernanceRayonRoutes = (
       const name = f.properties?.name;
       if (!id || !name) continue;
       const url = `${SITE_URL}/governance/${id}`;
-      const title = `Управление — район ${name}, община ${city.bg} | electionsbg.com`;
+      const title = `Район ${name}, община ${city.bg} — управление и избори | electionsbg.com`;
       const description = `Резултати от парламентарни избори и районен кмет за административен район ${name} в община ${city.bg} (${city.mir.replace(/^0+/, "")} МИР).`;
       const breadcrumb = [
         { name: "Начало", url: `${SITE_URL}/` },
@@ -659,7 +666,7 @@ export const buildGovernanceRayonRoutes = (
       // Parliamentary results node of the same район (/settlement/<id>) — the
       // other tab of the район place; reuses MunicipalityDashboardCards.
       const pUrl = `${SITE_URL}/settlement/${id}`;
-      const pTitle = `Резултати в район ${name}, община ${city.bg} | electionsbg.com`;
+      const pTitle = `Район ${name}, община ${city.bg} — резултати от изборите | electionsbg.com`;
       const pDesc = `Резултати от парламентарни избори по партии за административен район ${name} в община ${city.bg} (${city.mir.replace(/^0+/, "")} МИР).`;
       result.push({
         path: `settlement/${id}`,
