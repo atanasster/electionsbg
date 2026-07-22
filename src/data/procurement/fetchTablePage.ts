@@ -9,6 +9,12 @@ export interface TablePageRequest {
   sort: Array<{ id: string; desc: boolean }>;
   filters: {
     global?: string;
+    /** Restrict the free-text `global` search to this subset of the resource's
+     *  searchable columns (logical ids). Omit to search all `search:true`
+     *  columns. The project-file seed passes `["title"]`/`["subject"]` so a
+     *  landmark term matches the contract title / tender subject only, not
+     *  entity-name columns. */
+    globalCols?: string[];
     columns: Array<{
       id: string;
       value?: unknown;

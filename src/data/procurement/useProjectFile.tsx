@@ -474,14 +474,20 @@ async function resolveProjectFile(
         page: 0,
         pageSize: SEED_PAGE,
         sort: [{ id: "amount_eur", desc: true }],
-        filters: { global: t.terms, columns: cCols },
+        // Search the contract TITLE only — NOT contractor_name/awarder_name — so
+        // a landmark term ("хемус") matches the contract title and not a consortium
+        // merely NAMED after it (which would inflate the "~M договора" count and
+        // waste seed slots on unrelated procedures the title-confidence gate then
+        // drops anyway). Membership is title-confidence-based, so this changes
+        // only the count + which real rows fill the cap, never the fold.
+        filters: { global: t.terms, globalCols: ["title"], columns: cCols },
       }),
       fetchTablePageWithTotal<ProjectTenderRow>({
         resource: "tenders",
         page: 0,
         pageSize: SEED_PAGE,
         sort: [{ id: "estimated_value_eur", desc: true }],
-        filters: { global: t.terms, columns: tCols },
+        filters: { global: t.terms, globalCols: ["subject"], columns: tCols },
       }),
     ]);
   });

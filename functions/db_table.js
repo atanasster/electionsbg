@@ -645,6 +645,27 @@ const buildWhere = (r, req) => {
     add(buildFilter(def.col || f.id, def, f, params.length));
   }
 
+  // Global search ORs every `search:true` column. A caller may narrow that to a
+  // specific subset via `filters.globalCols` (a whitelist of logical column ids)
+  // — e.g. the project-file seed searches contract TITLE only, so a free-text
+  // term ("хемус") is not also matched against contractor_name and does not pull
+  // in unrelated procedures won by a consortium merely NAMED after the landmark
+  // (a "…Хемус…" firm building a different road). Every id must be a real
+  // searchable column: a typo would silently drop the whole search arm and match
+  // the entire corpus, so reject it like a bad filter. Validated up front — even
+  // with no active `global` term — so a malformed request always throws rather
+  // than being silently accepted in the empty-term case.
+  const searchAll = Object.entries(r.columns).filter(([, d]) => d.search);
+  const globalCols = req.filters?.globalCols;
+  let restrictedDefs = null;
+  if (Array.isArray(globalCols) && globalCols.length) {
+    const searchable = new Set(searchAll.map(([id]) => id));
+    for (const id of globalCols)
+      if (!searchable.has(id)) throw new Error(`column not searchable: ${id}`);
+    const allow = new Set(globalCols);
+    restrictedDefs = searchAll.filter(([id]) => allow.has(id));
+  }
+
   const g = (req.filters?.global ?? "").trim();
   if (g) {
     // Each searchable column ORs one ILIKE. A column may redirect the match to a
@@ -656,7 +677,7 @@ const buildWhere = (r, req) => {
     // (contracts, whose raw columns ARE trigram-indexed) are unchanged. The raw
     // `%g%` and the folded `g` are each pushed at most once and shared across the
     // OR arms.
-    const searchDefs = Object.entries(r.columns).filter(([, d]) => d.search);
+    const searchDefs = restrictedDefs ?? searchAll;
     if (searchDefs.length) {
       const ors = [];
       let rawIdx = null; // "%g%" for the plain contiguous-substring arms
@@ -866,4 +887,4 @@ const runDbFacets = async (q, reqRaw) => {
   return { facets };
 };
 
-module.exports = { runDbTable, runDbFacets, REGISTRY };
+module.exports = { runDbTable, runDbFacets, REGISTRY, buildWhere };
