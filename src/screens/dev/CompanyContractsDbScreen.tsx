@@ -194,7 +194,16 @@ export const CompanyContractsDbScreen: FC<{
                   "Пълна стойност на договора на обединението — тази фирма е участник; реалният ѝ дял не е публичен.",
               })}
             >
-              <ContractAmount amountEur={row.original.consortiumFullEur} />
+              {row.original.consortiumEik ? (
+                <Link
+                  to={`/company/${row.original.consortiumEik}`}
+                  className="text-primary hover:underline"
+                >
+                  <ContractAmount amountEur={row.original.consortiumFullEur} />
+                </Link>
+              ) : (
+                <ContractAmount amountEur={row.original.consortiumFullEur} />
+              )}
             </span>
           ) : null,
       },
