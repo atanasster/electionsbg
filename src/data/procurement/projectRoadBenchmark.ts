@@ -10,11 +10,14 @@
 
 import type { ProcurementContract } from "@/data/dataTypes";
 import { workTypeOf, lengthOf, eurPerKmOf } from "@/lib/roadAttributes";
-import { median } from "@/lib/awarderModel";
 
 export interface CorpusUnitCost {
-  /** Median €/km across the defensible member road contracts (robust to the
-   *  occasional scope-mismatched outlier the gate lets through). */
+  /** VALUE-WEIGHTED median €/km — the rate at which half the sample's MONEY sits
+   *  below. A plain per-contract median is dragged down by the many cheap survey /
+   *  archaeology contracts that each span km but carry little value (and which the
+   *  workType gate misclassifies as physical works); weighting by contracted value
+   *  lets the big construction contracts — where the money actually is — set the
+   *  figure, so it reads as the real cost of building the road per km. */
   eurPerKmMedian: number;
   /** How many member contracts carried a defensible €/km (the evidence base). */
   sampleCount: number;
@@ -26,17 +29,37 @@ export interface CorpusUnitCost {
 
 type RoadRow = Pick<ProcurementContract, "title" | "cpv" | "amountEur" | "tag">;
 
+/** Value-weighted median of (€/km, value) pairs — the €/km below which half the
+ *  total weight (money) lies. Sorted ascending; returns the first point whose
+ *  cumulative weight reaches half. */
+const weightedMedian = (
+  pairs: ReadonlyArray<{ perKm: number; weight: number }>,
+): number => {
+  const sorted = pairs
+    .filter((p) => p.weight > 0)
+    .sort((a, b) => a.perKm - b.perKm);
+  if (!sorted.length) return 0;
+  const total = sorted.reduce((s, p) => s + p.weight, 0);
+  let cum = 0;
+  for (const p of sorted) {
+    cum += p.weight;
+    if (cum >= total / 2) return p.perKm;
+  }
+  return sorted[sorted.length - 1].perKm;
+};
+
 /**
  * The corpus €/km cross-check for a roads file, or null when the evidence base is
  * thinner than `minSamples` (too few defensible rows to publish a unit cost).
  * Pure + deterministic: same members → same figure. Award rows and amendments
  * (tag !== "contract") are ignored so the €/km is over signed contract values only.
+ * The rate is VALUE-WEIGHTED (see CorpusUnitCost.eurPerKmMedian).
  */
 export function computeCorpusEurPerKm(
   contracts: ReadonlyArray<RoadRow>,
   minSamples = 3,
 ): CorpusUnitCost | null {
-  const perKm: number[] = [];
+  const pairs: { perKm: number; weight: number }[] = [];
   let totalKm = 0;
   let contractedInSampleEur = 0;
   for (const c of contracts) {
@@ -46,16 +69,14 @@ export function computeCorpusEurPerKm(
     // eurPerKmOf reads only amountEur — its parameter is now that minimal shape.
     const pk = eurPerKmOf({ amountEur: c.amountEur }, workType, len);
     if (!pk) continue;
-    perKm.push(pk.eurPerKm);
+    pairs.push({ perKm: pk.eurPerKm, weight: c.amountEur ?? 0 });
     totalKm += pk.lengthKm;
     contractedInSampleEur += c.amountEur ?? 0;
   }
-  if (perKm.length < minSamples) return null;
-  // Reuse the canonical median (@/lib/awarderModel) the roads engine uses, so the
-  // statistic stays defined in one place (odd → middle, even → mean of the two).
+  if (pairs.length < minSamples) return null;
   return {
-    eurPerKmMedian: median(perKm),
-    sampleCount: perKm.length,
+    eurPerKmMedian: weightedMedian(pairs),
+    sampleCount: pairs.length,
     totalKm,
     contractedInSampleEur,
   };

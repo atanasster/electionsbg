@@ -66,6 +66,8 @@ describe("computeProcurementRisk — foreign-funded-NGO neutral disclosure", () 
     expect(withFlag.availableCount).toBe(without.availableCount);
     expect(withFlag.score).toBe(without.score);
     // And it is not present as a scored component in the ledger.
-    expect(withFlag.components.some((c) => c.key === ("ngoForeignFunded" as never))).toBe(false);
+    expect(
+      withFlag.components.some((c) => c.key === ("ngoForeignFunded" as never)),
+    ).toBe(false);
   });
 });

@@ -13,8 +13,10 @@ const road = (km: number, amountEur: number, key: string) => ({
 });
 
 describe("computeCorpusEurPerKm", () => {
-  it("returns the median €/km over the defensible member road contracts", () => {
-    // Three build rows: 10 km/€20M (2M/km), 20 km/€60M (3M/km), 5 km/€5M (1M/km).
+  it("returns the VALUE-WEIGHTED median €/km over the defensible member rows", () => {
+    // Three build rows: 5 km/€5M (1M/km, w=5M), 10 km/€20M (2M/km, w=20M),
+    // 20 km/€60M (3M/km, w=60M). Total weight 85M; half (42.5M) is crossed at the
+    // 3M/km row → weighted median 3M/km (vs a plain median of 2M/km).
     const r = computeCorpusEurPerKm([
       road(10, 20_000_000, "a"),
       road(20, 60_000_000, "b"),
@@ -22,21 +24,37 @@ describe("computeCorpusEurPerKm", () => {
     ]);
     expect(r).not.toBeNull();
     expect(r!.sampleCount).toBe(3);
-    expect(r!.eurPerKmMedian).toBe(2_000_000); // median of {1M, 2M, 3M}
+    expect(r!.eurPerKmMedian).toBe(3_000_000);
     expect(r!.totalKm).toBe(35);
     expect(r!.contractedInSampleEur).toBe(85_000_000);
   });
 
-  it("averages the two middle values for an even sample count", () => {
-    // {1M, 2M, 3M, 4M} → mean of the two middle €/km = 2.5M.
+  it("lets the big construction set the rate, not many cheap km-spanning rows", () => {
+    // The Русе pathology: two €400M+ builds at ~10M/km plus several small survey
+    // contracts that each span ~35 km at a tiny €/km. A plain median would land on
+    // a survey row (~0.15M/km); value-weighting returns the real ~10M/km.
+    const bigBuild = {
+      key: "big",
+      tag: "contract" as const,
+      cpv: "45233120",
+      amountEur: 400_000_000,
+      title: "Строителство участък от км 0+000 до км 40+000", // 10M/km
+    };
+    const survey = (i: number) => ({
+      key: `s${i}`,
+      tag: "contract" as const,
+      cpv: "45233120",
+      amountEur: 1_800_000,
+      title: `Строителство участък от км 0+000 до км 36+000`, // 0.05M/km
+    });
     const r = computeCorpusEurPerKm([
-      road(5, 5_000_000, "a"), // 1M/km
-      road(10, 20_000_000, "b"), // 2M/km
-      road(20, 60_000_000, "c"), // 3M/km
-      road(10, 40_000_000, "d"), // 4M/km
+      survey(1),
+      survey(2),
+      bigBuild,
+      survey(3),
     ]);
     expect(r!.sampleCount).toBe(4);
-    expect(r!.eurPerKmMedian).toBe(2_500_000);
+    expect(r!.eurPerKmMedian).toBe(10_000_000); // the build, not a survey row
   });
 
   it("returns null below the minimum sample size", () => {
