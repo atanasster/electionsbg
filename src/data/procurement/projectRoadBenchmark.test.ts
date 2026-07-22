@@ -57,6 +57,31 @@ describe("computeCorpusEurPerKm", () => {
     expect(r!.eurPerKmMedian).toBe(10_000_000); // the build, not a survey row
   });
 
+  it("on an exact even money split returns the lower rate (>= total/2 convention)", () => {
+    // Two rows carry the SAME €20M; a third €60M filler clears minSamples but sits
+    // above both. Among the two equal-value rows the half-money boundary lands on
+    // the lower €/km (2M/km at 10 km vs 2.5M/km at 8 km).
+    const r = computeCorpusEurPerKm([
+      road(8, 20_000_000, "b"), // 2.5M/km
+      road(10, 20_000_000, "a"), // 2.0M/km
+      road(20, 60_000_000, "c"), // 3.0M/km filler
+    ]);
+    // total weight 100M; sorted by €/km: 2.0M(w20M)→20M, 2.5M(w20M)→40M,
+    // 3.0M(w60M)→100M. Half (50M) is crossed at 3.0M/km.
+    expect(r!.eurPerKmMedian).toBe(3_000_000);
+  });
+
+  it("is invariant to input order among equal-€/km rows", () => {
+    const rows = [
+      road(10, 20_000_000, "a"), // 2M/km
+      road(10, 20_000_000, "b"), // 2M/km (tie)
+      road(20, 60_000_000, "c"), // 3M/km
+    ];
+    const forward = computeCorpusEurPerKm(rows)!.eurPerKmMedian;
+    const reversed = computeCorpusEurPerKm([...rows].reverse())!.eurPerKmMedian;
+    expect(forward).toBe(reversed);
+  });
+
   it("returns null below the minimum sample size", () => {
     expect(
       computeCorpusEurPerKm([

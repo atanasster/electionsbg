@@ -29,9 +29,10 @@ export interface CorpusUnitCost {
 
 type RoadRow = Pick<ProcurementContract, "title" | "cpv" | "amountEur" | "tag">;
 
-/** Value-weighted median of (€/km, value) pairs — the €/km below which half the
- *  total weight (money) lies. Sorted ascending; returns the first point whose
- *  cumulative weight reaches half. */
+/** Value-weighted median of (€/km, value) pairs — the lowest €/km at or below
+ *  which at least half the total weight (money) sits (the LOWER weighted median).
+ *  Sorted ascending; returns the first point whose cumulative weight reaches
+ *  `total/2`, so an exact even money split resolves to the lower rate. */
 const weightedMedian = (
   pairs: ReadonlyArray<{ perKm: number; weight: number }>,
 ): number => {
@@ -69,9 +70,13 @@ export function computeCorpusEurPerKm(
     // eurPerKmOf reads only amountEur — its parameter is now that minimal shape.
     const pk = eurPerKmOf({ amountEur: c.amountEur }, workType, len);
     if (!pk) continue;
-    pairs.push({ perKm: pk.eurPerKm, weight: c.amountEur ?? 0 });
+    const weight = c.amountEur ?? 0;
+    // eurPerKmOf's amount floor makes this unreachable, but keep the positive-weight
+    // invariant local + explicit so a future gate change can't reintroduce a 0 rate.
+    if (weight <= 0) continue;
+    pairs.push({ perKm: pk.eurPerKm, weight });
     totalKm += pk.lengthKm;
-    contractedInSampleEur += c.amountEur ?? 0;
+    contractedInSampleEur += weight;
   }
   if (pairs.length < minSamples) return null;
   return {
