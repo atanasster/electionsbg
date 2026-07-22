@@ -59,6 +59,10 @@ const CONTRACT_CAIS_ID_FILE = path.join(
   "079_contracts_cais_id.sql",
 );
 const CONSORTIUM_FILE = path.join(SCHEMA_DIR, "087_procurement_consortium.sql");
+const DROP_CURRENT_VALUE_FILE = path.join(
+  SCHEMA_DIR,
+  "088_drop_current_amount_eur.sql",
+);
 const TRACKING_FILE = path.join(SCHEMA_DIR, "005_ingest_tracking.sql");
 const CONTRACTOR_SEARCH_FILE = path.join(
   SCHEMA_DIR,
@@ -252,6 +256,8 @@ export const loadPg = async (): Promise<{
   // Consortium/framework columns + rebuild_consortium(). Adds columns only here
   // (the fn is invoked post-MERGE below); references contract_cais_ref from 079.
   await exec(readFileSync(CONSORTIUM_FILE, "utf8"));
+  // Idempotent cleanup: drop the vestigial local-only current_amount_eur column.
+  await exec(readFileSync(DROP_CURRENT_VALUE_FILE, "utf8"));
   await exec(readFileSync(TRACKING_FILE, "utf8"));
   await exec(readFileSync(CONTRACTOR_SEARCH_FILE, "utf8"));
   await exec(readFileSync(COMPANY_API_FILE, "utf8"));

@@ -248,7 +248,7 @@ test.skipIf(skip)("person_by_slug resolves the full tr footprint", async () => {
 // The profile's procuredEur must equal Σ amount_eur over the person's DISTINCT company EIKs
 // — a manager+owner double role on one company must not double-count. Basis is
 // `amount_eur WHERE tag='contract'` (the current post-annex sum matching person_by_slug and
-// SIGMA — reference_procurement_eur_sum_basis / 078), NOT the vestigial current_amount_eur.
+// SIGMA — reference_procurement_eur_sum_basis / 078).
 test.skipIf(skip)("person_by_slug procuredEur is EIK-deduped", async () => {
   const [pick] = await allRows<{ slug: string }>(
     `SELECT p.slug FROM person p

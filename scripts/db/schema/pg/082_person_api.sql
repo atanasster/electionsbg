@@ -39,7 +39,7 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
     -- TR footprint resolved to NAMED companies (the bare EIK in `roles` is useless on a
     -- page). Each company carries every role the person holds there + its PUBLIC-CONTRACT
     -- take (Σ amount_eur WHERE tag='contract' — the current post-annex basis matching SIGMA,
-    -- reference_procurement_eur_sum_basis / 078; NOT the 2%-populated current_amount_eur)
+    -- reference_procurement_eur_sum_basis / 078)
     -- — the money thesis on the identity page. Bridged only — Bridge A (shared company) /
     -- Bridge B (unique full name) — so it is public-safe by §3/§6. Ordered money-first.
     'companies', COALESCE((
