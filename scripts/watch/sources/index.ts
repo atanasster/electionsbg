@@ -53,6 +53,7 @@ import { financingReports } from "./financing_reports";
 import { erikCampaignFinancing } from "./erik_campaign_financing";
 import { transparencyCpi } from "./transparency_cpi";
 import { worldbankWgi } from "./worldbank_wgi";
+import { eurobarometer } from "./eurobarometer";
 import { customsRevenue } from "./customs_revenue";
 import { customsExciseRegister } from "./customs_excise_register";
 import { napAnnual } from "./nap_annual";
@@ -197,6 +198,7 @@ export const SOURCES: WatchSource[] = [
   grao,
   transparencyCpi,
   worldbankWgi,
+  eurobarometer,
   cikResults,
   iisdaMayors,
   iaosAirQuality,

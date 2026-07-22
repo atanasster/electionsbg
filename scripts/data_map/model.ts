@@ -603,8 +603,8 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       en: "macro, regional and EU series",
     },
     desc: {
-      bg: "Тримесечни и годишни серии: БВП, инфлация, СИЛК неравенство, COFOG разходи, COICOP потребление, ценови равнища на храните (PLI, за /consumption/eu), NUTS 3 регионални данни и бюджетът на ЕС по държави.",
-      en: "Quarterly and annual series: GDP, inflation, SILC inequality, COFOG spending, COICOP consumption, food price level indices (PLI, for /consumption/eu), NUTS 3 regional data and the EU budget per member state.",
+      bg: "Тримесечни и годишни серии: БВП, инфлация, СИЛК неравенство, COFOG разходи, COICOP потребление, ценови равнища на храните (PLI, за /consumption/eu), NUTS 3 регионални данни и бюджетът на ЕС по държави. Плюс проучванията Евробарометър на Европейската комисия за доверие в институциите (национално правителство, парламент, ЕС) — зад тайла „Доверие в правителството“ на /indicators.",
+      en: "Quarterly and annual series: GDP, inflation, SILC inequality, COFOG spending, COICOP consumption, food price level indices (PLI, for /consumption/eu), NUTS 3 regional data and the EU budget per member state. Plus the European Commission's Eurobarometer surveys of institutional trust (national government, parliament, EU) — behind the 'trust in government' tile on /indicators.",
     },
     url: "https://ec.europa.eu/eurostat/",
     origin: "eu",
@@ -616,6 +616,7 @@ export const SOURCE_GROUPS: SourceGroupDef[] = [
       "eurostat_env",
       "eurostat_food_pli",
       "ec_budget_per_ms",
+      "eurobarometer",
     ],
     skills: ["update-macro", "update-regional", "update-budget"],
     tags: ["indicators", "fiscal", "prices"],

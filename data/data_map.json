@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-22T16:59:21.255Z",
+  "generatedAt": "2026-07-22T20:27:19.691Z",
   "nodes": [
     {
       "id": "src:water",
@@ -1128,8 +1128,8 @@
         "en": "macro, regional and EU series"
       },
       "desc": {
-        "bg": "Тримесечни и годишни серии: БВП, инфлация, СИЛК неравенство, COFOG разходи, COICOP потребление, ценови равнища на храните (PLI, за /consumption/eu), NUTS 3 регионални данни и бюджетът на ЕС по държави.",
-        "en": "Quarterly and annual series: GDP, inflation, SILC inequality, COFOG spending, COICOP consumption, food price level indices (PLI, for /consumption/eu), NUTS 3 regional data and the EU budget per member state."
+        "bg": "Тримесечни и годишни серии: БВП, инфлация, СИЛК неравенство, COFOG разходи, COICOP потребление, ценови равнища на храните (PLI, за /consumption/eu), NUTS 3 регионални данни и бюджетът на ЕС по държави. Плюс проучванията Евробарометър на Европейската комисия за доверие в институциите (национално правителство, парламент, ЕС) — зад тайла „Доверие в правителството“ на /indicators.",
+        "en": "Quarterly and annual series: GDP, inflation, SILC inequality, COFOG spending, COICOP consumption, food price level indices (PLI, for /consumption/eu), NUTS 3 regional data and the EU budget per member state. Plus the European Commission's Eurobarometer surveys of institutional trust (national government, parliament, EU) — behind the 'trust in government' tile on /indicators."
       },
       "tags": [
         "indicators",
@@ -1194,6 +1194,12 @@
           "url": "https://commission.europa.eu/strategy-and-policy/eu-budget/long-term-eu-budget/2021-2027/spending-and-revenue_en",
           "cadence": "weekly",
           "freshness": "2026-05-15T10:01:27.149Z"
+        },
+        {
+          "id": "eurobarometer",
+          "label": "Standard Eurobarometer (institutional trust)",
+          "url": "https://data.europa.eu/api/hub/search/search?q=%22Standard+Eurobarometer%22&filter=dataset&limit=100",
+          "cadence": "monthly"
         }
       ],
       "x": 28,
