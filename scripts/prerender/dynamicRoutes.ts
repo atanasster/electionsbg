@@ -11,6 +11,7 @@ import {
 } from "@/data/dataTypes";
 import { EURO_ADOPTION } from "@/data/prices/euroBaseline";
 import { hasCrawlableId, latestBel } from "@/data/schools/schoolBel";
+import { electionYearSuffix } from "./electionYear";
 import { DATA_URL, PrerenderRoute, SITE_URL } from "./routes";
 import { buildCuratedProjectRoutes } from "./curatedProjectRoutes";
 import { readProcurementSeoSettlements } from "../db/lib/seo_settlements";
@@ -146,6 +147,10 @@ export const buildPartyRoutes = (
   if (!fs.existsSync(file)) return [];
   const parties: PartyInfo[] = JSON.parse(fs.readFileSync(file, "utf-8"));
   const summary = readNationalSummary(publicFolder, latestElection);
+  // " 2026"-style freshness suffix so a party page targets its own name + the
+  // latest election year (e.g. "движение за права и свободи"), which currently
+  // rank on page 2. Front-loaded party name still owns the head of the title.
+  const yearSuffix = electionYearSuffix(latestElection);
   return parties.map((p) => {
     const label =
       p.name && p.name !== p.nickName
@@ -153,10 +158,10 @@ export const buildPartyRoutes = (
         : p.nickName;
     const url = `${SITE_URL}/party/${p.nickName}`;
     const enUrl = `${SITE_URL}/en/party/${p.nickName}`;
-    const title = `${label} — Парламентарни избори в България | electionsbg.com`;
-    const description = `Резултати на ${label} по години, области, общини и секции на парламентарните избори в България от 2005 г. насам, плюс декларирано финансиране.`;
-    const titleEn = `${label} — Bulgarian Parliamentary Elections | electionsbg.com`;
-    const descriptionEn = `Results of ${label} by year, region, municipality and section in Bulgaria's parliamentary elections since 2005, plus declared campaign financing.`;
+    const title = `${label} — резултати на парламентарните избори${yearSuffix} | electionsbg.com`;
+    const description = `Резултати за ${label} на парламентарните избори${yearSuffix} и всеки вот от 2005 г. насам — по области, общини и секции, плюс декларирано финансиране.`;
+    const titleEn = `${label} — Bulgarian Parliamentary Election${yearSuffix} Results | electionsbg.com`;
+    const descriptionEn = `Results of ${label} in the${yearSuffix} Bulgarian parliamentary election and every vote since 2005 — by region, municipality and section, plus declared campaign financing.`;
     const bodyHtml = buildPartyBody(publicFolder, latestElection, p, summary);
     // Distribution links point at the structured data files the party page
     // is built from. Search engines and dataset crawlers (Google Dataset
