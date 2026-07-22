@@ -32,6 +32,7 @@ import {
   type CRow,
 } from "../../procurement/build_project_members";
 import { computeCorpusEurPerKm } from "@/data/procurement/projectRoadBenchmark";
+import { usesCorpusTotal } from "@/data/procurement/projectFile";
 
 // The real /api/db/table engine — driven directly to prove the globalFtsOnly
 // seed flag at the corpus level (see the trigram-pollution audit).
@@ -85,22 +86,39 @@ interface Resolved {
    *  fan-out signal: a leaked framework brings back all its region lots. */
   unpCount: (unp: string) => number;
   maxContractEur: number;
+  /** Top-N member fold total (before any program-total override) — to prove the
+   *  corpus basis lifts a distributed program clear of its fold. */
+  foldContractedEur: number;
 }
 
 const resolveDossier = async (slug: string): Promise<Resolved> => {
   const spec = JSON.parse(
     fs.readFileSync(path.join(DIR, `${slug}.json`), "utf-8"),
   ) as Spec & { title: { bg?: string; en?: string }; thesis?: unknown };
-  const { contracts, tenderCount } = await resolveMembers(spec);
+  const { contracts, tenderCount, corpusContractedEur, corpusContractCount } =
+    await resolveMembers(spec);
+  // MIRROR the offline builder: a program dossier's headline is the corpus total.
   const summary = summarize(
     { title: spec.title, thesis: spec.thesis as never },
     contracts,
     tenderCount,
+    usesCorpusTotal(spec)
+      ? {
+          contractedEur: corpusContractedEur,
+          contractCount: corpusContractCount,
+        }
+      : undefined,
   );
+  const foldContractedEur = summarize(
+    { title: spec.title, thesis: spec.thesis as never },
+    contracts,
+    tenderCount,
+  ).contractedEur;
   const spend = contracts.filter((c) => (c.tag ?? "contract") === "contract");
   return {
     contracts,
     summary,
+    foldContractedEur,
     contractorEiks: new Set(
       contracts.map((c) => c.contractorEik).filter((e): e is string => !!e),
     ),
@@ -246,15 +264,32 @@ test.skipIf(skip)(
 // ── Саниране на жилищни сгради (многофамилн) ────────────────────────────────
 
 test.skipIf(skip)(
-  "sanirane: total contracted stays in the multifamily-programme band",
+  "sanirane: the headline is the WHOLE-corpus programme total, not the top-N fold",
   () => {
-    // €167.8M at audit time (top-60 seed of the многофамилн programme + УНП
-    // lineage). Floor catches an over-trim / a regression that re-breaks the
-    // stem term; ceiling catches a re-leak. Widen as the corpus grows.
+    // totalBasis:"corpus" → "Договорено (ЗОП)" is the sum over the whole seed
+    // WHERE (~€975M / ~4,539 contracts at audit time), an order of magnitude
+    // above the ~€168M top-60 fold. This is what stops the headline reading a
+    // misleadingly tiny slice of a national programme.
     const eur = SAN!.summary.contractedEur;
     assert.ok(
-      eur > 120_000_000 && eur < 260_000_000,
-      `sanirane contractedEur €${(eur / 1e6).toFixed(0)}M outside [120M, 260M]`,
+      eur > 700_000_000 && eur < 1_400_000_000,
+      `sanirane corpus contractedEur €${(eur / 1e6).toFixed(0)}M outside [700M, 1400M]`,
+    );
+    assert.ok(
+      SAN!.summary.contractCount > 3_500 && SAN!.summary.contractCount < 6_500,
+      `sanirane corpus contractCount ${SAN!.summary.contractCount} outside [3500, 6500]`,
+    );
+    // The corpus basis must clear the fold by a wide margin (else the program
+    // override silently regressed to the members total).
+    assert.ok(
+      eur > SAN!.foldContractedEur * 3,
+      `corpus €${(eur / 1e6).toFixed(0)}M not >> fold €${(SAN!.foldContractedEur / 1e6).toFixed(0)}M — program-total override regressed`,
+    );
+    // The fold (the top-N members driving the breakdowns) stays a modest slice.
+    assert.ok(
+      SAN!.foldContractedEur > 100_000_000 &&
+        SAN!.foldContractedEur < 320_000_000,
+      `sanirane fold €${(SAN!.foldContractedEur / 1e6).toFixed(0)}M outside [100M, 320M]`,
     );
   },
 );
