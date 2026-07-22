@@ -100,7 +100,6 @@ BEGIN
          count(DISTINCT contractor_eik)::int AS n,
          sum(amount)                AS full_amount,
          sum(amount_eur)            AS full_eur,
-         sum(current_amount_eur)    AS full_current,
          sum(signing_amount_eur)    AS full_signing,
          COALESCE(bool_or(title ~* 'рамк' OR COALESCE(procurement_method, '') ~* 'рамк'
                  OR COALESCE(category, '') ~* 'рамк'), false)  AS ramk,
@@ -157,7 +156,7 @@ BEGIN
   -- named carrier). Runs while the original rows still carry their split value; the
   -- synthetic carrier is inserted in (6), after this.
   UPDATE contracts c
-     SET amount = 0, amount_eur = 0, current_amount_eur = 0, signing_amount_eur = 0,
+     SET amount = 0, amount_eur = 0, signing_amount_eur = 0,
          joint_kind = 'consortium', consortium_role = 'member', consortium_size = g.n,
          consortium_eik = COALESCE(nc.carrier_eik, sy.carrier_eik),
          consortium_full_eur = g.full_eur
@@ -180,7 +179,7 @@ BEGIN
              THEN COALESCE(g.full_signing, g.full_eur)
            ELSE g.full_amount END,
          amount_eur = g.full_eur,
-         current_amount_eur = g.full_current, signing_amount_eur = g.full_signing,
+         signing_amount_eur = g.full_signing,
          joint_kind = 'consortium', consortium_role = 'carrier', consortium_size = g.n,
          consortium_eik = c.contractor_eik, consortium_full_eur = g.full_eur
   FROM _cons g
@@ -196,7 +195,7 @@ BEGIN
     amount, currency, amount_eur, title, cpv, procurement_method, category,
     procurement_method_rationale, number_of_tenderers, eu_funded, eu_program,
     tender_period_start_date, tender_period_end_date, bundle_uuid, source_url,
-    unp, lot_name, current_amount_eur, signing_amount_eur, cais_id,
+    unp, lot_name, signing_amount_eur, cais_id,
     joint_kind, consortium_role, consortium_size, consortium_eik, consortium_full_eur)
   SELECT
     sy.carrier_key, r.ocid, r.release_id, r.contract_id, 'contract', r.date, r.date_signed,
@@ -211,7 +210,7 @@ BEGIN
     r.currency, g.full_eur, r.title, r.cpv, r.procurement_method, r.category,
     r.procurement_method_rationale, r.number_of_tenderers, r.eu_funded, r.eu_program,
     r.tender_period_start_date, r.tender_period_end_date, r.bundle_uuid, r.source_url,
-    r.unp, r.lot_name, g.full_current, g.full_signing, contract_cais_ref(r.unp, r.ocid),
+    r.unp, r.lot_name, g.full_signing, contract_cais_ref(r.unp, r.ocid),
     'consortium', 'carrier', g.n, sy.carrier_eik, g.full_eur
   FROM _synth sy
   JOIN _cons g ON g.ocid = sy.ocid AND g.cid = sy.cid
