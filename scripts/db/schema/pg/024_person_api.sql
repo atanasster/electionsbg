@@ -56,6 +56,45 @@ other AS (
     GROUP BY currency
   ) q
 ),
+-- Consortium / framework participation of the person's companies (stored model,
+-- migration 087). Members' own rows are €0 so `totalEur` above is solo-only; here
+-- we surface the joint contracts they took part in at full value, separately.
+-- `partic` deduplicates by joint-award group so two of the person's companies
+-- co-participating in the SAME consortium count that contract once (the full value
+-- is shared). Frameworks are NOT deduped here — each company is an independent
+-- framework winner, so its split rows sum legitimately (framework_* below).
+partic AS (
+  SELECT DISTINCT ON (ocid, COALESCE(contract_id, '')) key, ocid, date,
+         consortium_full_eur, awarder_eik, awarder_name, title,
+         contractor_eik, contractor_name, consortium_eik, source_url
+  FROM base
+  WHERE tag = 'contract' AND consortium_role = 'member'
+  ORDER BY ocid, COALESCE(contract_id, ''), amount_eur DESC
+),
+conshd AS (
+  SELECT
+    (SELECT COALESCE(SUM(consortium_full_eur), 0) FROM partic) AS consortium_eur,
+    (SELECT COUNT(*) FROM partic)::int                         AS consortium_count,
+    COALESCE(SUM(amount_eur) FILTER (WHERE joint_kind = 'framework'), 0) AS framework_eur,
+    (COUNT(*) FILTER (WHERE joint_kind = 'framework'))::int AS framework_count
+  FROM base WHERE tag = 'contract'
+),
+conslist AS (
+  SELECT COALESCE(jsonb_agg(to_jsonb(t) ORDER BY t."amountEur" DESC NULLS LAST), '[]'::jsonb) AS arr FROM (
+    SELECT key, ocid, date,
+           consortium_full_eur AS "amountEur",
+           awarder_eik  AS "partyEik",
+           awarder_name AS "partyName",
+           title,
+           contractor_eik  AS "contractorEik",
+           contractor_name AS "contractorName",
+           consortium_eik AS "consortiumEik",
+           source_url   AS "sourceUrl"
+    FROM partic
+    ORDER BY consortium_full_eur DESC NULLS LAST
+    LIMIT 25
+  ) t
+),
 byaw AS (
   SELECT COALESCE(jsonb_agg(to_jsonb(a) ORDER BY a."totalEur" DESC NULLS LAST), '[]'::jsonb) AS arr FROM (
     SELECT awarder_eik AS eik, MIN(awarder_name) AS name,
@@ -92,7 +131,11 @@ topc AS (
            contractor_eik  AS "contractorEik",
            contractor_name AS "contractorName",
            bundle_uuid     AS "bundleUuid",
-           source_url      AS "sourceUrl"
+           source_url      AS "sourceUrl",
+           (consortium_role IS NOT NULL OR joint_kind IS NOT NULL) AS "inConsortium",
+           joint_kind      AS "jointKind",
+           consortium_role AS "consortiumRole",
+           consortium_full_eur AS "consortiumFullEur"
     FROM base
     WHERE tag = 'contract'
     ORDER BY amount_eur DESC NULLS LAST
@@ -133,6 +176,11 @@ SELECT CASE
     'awardCount', hd.award_count,
     'amendmentCount', hd.amendment_count,
     'awarderCount', hd.awarder_count,
+    'consortiumEur', conshd.consortium_eur,
+    'consortiumCount', conshd.consortium_count,
+    'consortiumContracts', conslist.arr,
+    'frameworkEur', conshd.framework_eur,
+    'frameworkCount', conshd.framework_count,
     'byAwarder', byaw.arr,
     'byYear', byyr.arr,
     'topContracts', topc.arr,
@@ -147,7 +195,7 @@ SELECT CASE
     )
   )
 END
-FROM hd, other, byaw, byyr, topc, bd, bd_cpv, bd_proc;
+FROM hd, other, byaw, byyr, topc, bd, bd_cpv, bd_proc, conshd, conslist;
 $$;
 
 -- Awarded € per cabinet over the person's portfolio (mirror company_by_cabinet).

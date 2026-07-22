@@ -43,44 +43,46 @@ hd AS (
     (COUNT(DISTINCT awarder_eik) FILTER (WHERE tag = 'contract'))::int AS awarder_count
   FROM base
 ),
--- Consortium participation. A contract is a joint (обединение / ДЗЗД) award when
--- the SAME award (ocid + contract_number) was split across more than one
--- contractor EIK. We credit each member an EQUAL share of the value; this flag
--- lets the company page separate "участие в обединения" from solo work, so the
--- equal-split shares don't silently distort how the headline total reads (a firm
--- that only ever bids in consortia would otherwise look like it won that money
--- outright). EXISTS over idx_contracts_ocid keeps it fast on the largest firms.
-cons AS (
-  SELECT b.*,
-    EXISTS (
-      SELECT 1 FROM contracts c
-      WHERE c.ocid = b.ocid
-        AND COALESCE(c.contract_id, '') = COALESCE(b.contract_id, '')
-        AND c.tag = 'contract'
-        AND c.contractor_eik <> b.contractor_eik
-    ) AS in_consortium
-  FROM base b
-  WHERE b.tag = 'contract'
-),
+-- Consortium / framework participation (stored model — migration 087). A joint
+-- (обединение / ДЗЗД) award's full value sits on ONE consortium entity; this firm's
+-- own member rows are €0, so the headline `totalEur` is now its SOLO work only.
+-- Here we surface, SEPARATELY (never summed into the headline), the joint contracts
+-- it took part in — at the FULL contract value, since the real per-member share
+-- isn't public — each linking to its consortium entity. Framework rows (рамково
+-- споразумение with many independent winners) keep their equal split and are only
+-- labelled, so `frameworkEur` is a SUBSET of `totalEur`, not additive.
 conshd AS (
   SELECT
-    COALESCE(SUM(amount_eur) FILTER (WHERE in_consortium), 0) AS consortium_eur,
-    (COUNT(*) FILTER (WHERE in_consortium))::int              AS consortium_count
-  FROM cons
+    COALESCE(SUM(consortium_full_eur) FILTER (WHERE consortium_role = 'member'), 0) AS consortium_eur,
+    (COUNT(*) FILTER (WHERE consortium_role = 'member'))::int AS consortium_count,
+    COALESCE(SUM(amount_eur) FILTER (WHERE joint_kind = 'framework'), 0) AS framework_eur,
+    (COUNT(*) FILTER (WHERE joint_kind = 'framework'))::int AS framework_count
+  FROM base WHERE tag = 'contract'
 ),
 conslist AS (
   SELECT COALESCE(jsonb_agg(to_jsonb(t) ORDER BY t."amountEur" DESC NULLS LAST), '[]'::jsonb) AS arr FROM (
     SELECT key, ocid, date,
-           amount_eur   AS "amountEur",
+           consortium_full_eur AS "amountEur",
            awarder_eik  AS "partyEik",
            awarder_name AS "partyName",
            title,
+           consortium_eik AS "consortiumEik",
            source_url   AS "sourceUrl"
-    FROM cons
-    WHERE in_consortium
-    ORDER BY amount_eur DESC NULLS LAST
+    FROM base
+    WHERE tag = 'contract' AND consortium_role = 'member'
+    ORDER BY consortium_full_eur DESC NULLS LAST
     LIMIT 25
   ) t
+),
+-- When THIS eik is a consortium entity (carrier), the member firms behind it — for
+-- the "участници" list on the consortium-entity page. Scans the whole table (a
+-- carrier's members carry contractor_eik ≠ p_eik), guarded by idx_contracts_consortium_eik.
+membersof AS (
+  SELECT COALESCE(jsonb_agg(to_jsonb(m) ORDER BY m.name), '[]'::jsonb) AS arr FROM (
+    SELECT DISTINCT contractor_eik AS eik, contractor_name AS name
+    FROM contracts
+    WHERE consortium_eik = p_eik AND consortium_role = 'member'
+  ) m
 ),
 other AS (
   SELECT COALESCE(jsonb_object_agg(cur, s), '{}'::jsonb) AS total_other FROM (
@@ -123,8 +125,12 @@ topc AS (
            title,
            bundle_uuid  AS "bundleUuid",
            source_url   AS "sourceUrl",
-           in_consortium AS "inConsortium"
-    FROM cons
+           (consortium_role IS NOT NULL OR joint_kind IS NOT NULL) AS "inConsortium",
+           joint_kind      AS "jointKind",
+           consortium_role AS "consortiumRole",
+           consortium_full_eur AS "consortiumFullEur"
+    FROM base
+    WHERE tag = 'contract'
     ORDER BY amount_eur DESC NULLS LAST
     LIMIT 25
   ) t
@@ -186,6 +192,9 @@ SELECT CASE
     'consortiumEur', conshd.consortium_eur,
     'consortiumCount', conshd.consortium_count,
     'consortiumContracts', conslist.arr,
+    'consortiumMembers', membersof.arr,
+    'frameworkEur', conshd.framework_eur,
+    'frameworkCount', conshd.framework_count,
     'byAwarder', byaw.arr,
     'byYear', byyr.arr,
     'topContracts', topc.arr,
@@ -204,5 +213,5 @@ SELECT CASE
     )
   )
 END
-FROM hd, other, byaw, byyr, topc, bd, bd_cpv, bd_proc, conshd, conslist;
+FROM hd, other, byaw, byyr, topc, bd, bd_cpv, bd_proc, conshd, conslist, membersof;
 $$;
