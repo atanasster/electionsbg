@@ -1,36 +1,89 @@
-// /indicators — the new KPI dashboard front door. 12 KpiTile cards above the
-// CabinetStrip ribbon. The ribbon doubles as a multi-select picker: click
-// pills to toggle them into the stacked CabinetScoreDetail panels below.
-// Default selection = the cabinet in office at the user's selected election.
-// "Compare all cabinets" is a cross-page link to /governments#cabinet-table
-// where the full sortable table lives — keeps this landing page focused.
+// /indicators — the KPI dashboard front door, laid out as a tile hub (like
+// /procurement). The headline KpiTile grid stays on top; below it a grid of large
+// illustrated tiles fronts the sibling domain pages (Икономика / Фискални /
+// Бюджети / Управление / Общество / Сравни), led by a "Сравнение на всички
+// кабинети" tile that cross-links to /governments#cabinet-table — where the full
+// per-cabinet timeline + sortable table live (so the landing keeps no chart of
+// its own).
 
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useLocation } from "react-router-dom";
-import { ArrowRight, ChevronDown, ChevronUp } from "lucide-react";
+import { useLocation } from "react-router-dom";
 import { Title } from "@/ux/Title";
-import { useElectionContext } from "@/data/ElectionContext";
-import { useGovernments } from "@/data/governments/useGovernments";
 import { useMacro } from "@/data/macro/useMacro";
-import { useElectionAsOf } from "@/data/macro/useElectionAsOf";
-import {
-  useCabinetAnchor,
-  useSetCabinetAnchor,
-} from "@/data/macro/cabinetAnchor";
-import { useDefaultCabinetForElection } from "@/data/macro/useDefaultCabinetForElection";
-import { xDomainFor } from "@/screens/components/governments/governmentTimelineUtils";
-import {
-  CabinetStrip,
-  GovernmentTimeline,
-} from "@/screens/components/governments/GovernmentTimeline";
-import { useEuMilestones } from "@/screens/components/governments/euMilestones";
-import { useChartEvents } from "@/screens/components/governments/chartEvents";
 import { KpiTile } from "@/screens/components/macro/KpiTile";
-import { CabinetScoreDetail } from "@/screens/components/macro/CabinetScoreCard";
-import { IndicatorsNav } from "./indicatorsNav";
+import {
+  TileHubGrid,
+  TileHubSection,
+  InfographicTileProps,
+  TILE_ACCENTS,
+} from "@/ux/infographic";
 import { GovernanceBreadcrumb } from "@/screens/components/GovernanceBreadcrumb";
 import { LANDING_KPI_ORDER } from "./indicatorsRegistry";
+import { INDICATOR_SCENES } from "./indicatorsScenes";
+
+// The hub tiles. `cabinets` cross-links to the full per-cabinet table on
+// /governments; the rest are the sibling domain pages. `to` gets the current
+// search appended at render so ?elections= / ?cabinet= survive the navigation.
+const HUB_TILES = [
+  {
+    id: "cabinets",
+    to: "/governments",
+    hash: "#cabinet-table",
+    titleKey: "cabinet_compare_all",
+    descKey: "indicators_hub_cabinets_desc",
+    accent: TILE_ACCENTS.slate,
+    scene: "cabinets",
+  },
+  {
+    id: "economy",
+    to: "/indicators/economy",
+    titleKey: "indicators_nav_economy",
+    descKey: "indicators_hub_economy_desc",
+    accent: TILE_ACCENTS.emerald,
+    scene: "economy",
+  },
+  {
+    id: "fiscal",
+    to: "/indicators/fiscal",
+    titleKey: "indicators_nav_fiscal",
+    descKey: "indicators_hub_fiscal_desc",
+    accent: TILE_ACCENTS.brass,
+    scene: "fiscal",
+  },
+  {
+    id: "budgets",
+    to: "/indicators/budgets",
+    titleKey: "indicators_nav_budgets",
+    descKey: "indicators_hub_budgets_desc",
+    accent: TILE_ACCENTS.clay,
+    scene: "budgets",
+  },
+  {
+    id: "governance",
+    to: "/indicators/governance",
+    titleKey: "indicators_nav_governance",
+    descKey: "indicators_hub_governance_desc",
+    accent: TILE_ACCENTS.steel,
+    scene: "governance",
+  },
+  {
+    id: "society",
+    to: "/indicators/society",
+    titleKey: "indicators_nav_society",
+    descKey: "indicators_hub_society_desc",
+    accent: TILE_ACCENTS.rose,
+    scene: "society",
+  },
+  {
+    id: "compare",
+    to: "/indicators/compare",
+    titleKey: "eu_compare_menu_label",
+    descKey: "indicators_hub_compare_desc",
+    accent: TILE_ACCENTS.azure,
+    scene: "compare",
+  },
+] as const;
 
 const localDateFromIso = (
   iso: string | undefined,
@@ -46,118 +99,26 @@ const localDateFromIso = (
   });
 };
 
-// "YYYY_MM_DD" → long localized date ("19 април 2026 г."). Returns null for
-// missing/malformed input so the calling banner can collapse cleanly.
-const electionNameToLongDate = (
-  name: string | undefined,
-  lang: "bg" | "en",
-): string | null => {
-  if (!name) return null;
-  const parts = name.split("_");
-  if (parts.length !== 3) return null;
-  const d = new Date(
-    Date.UTC(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2])),
-  );
-  if (Number.isNaN(d.getTime())) return null;
-  return d.toLocaleDateString(lang === "bg" ? "bg-BG" : "en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-};
-
-// Short quarter label ("2 тр. 2026" / "Q2 2026") for the as-of banner.
-const formatQuarter = (
-  q: { year: number; quarter: 1 | 2 | 3 | 4 } | null,
-  lang: "bg" | "en",
-): string | null => {
-  if (!q) return null;
-  return lang === "bg"
-    ? `${q.quarter} тр. ${q.year}`
-    : `Q${q.quarter} ${q.year}`;
-};
-
 export const IndicatorsLandingScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
-  const { selected } = useElectionContext();
-  const { data: governments } = useGovernments();
   const { data: macro } = useMacro();
-  const anchor = useCabinetAnchor();
-  const setAnchor = useSetCabinetAnchor();
-  const defaultCabinetId = useDefaultCabinetForElection();
-  const electionAsOf = useElectionAsOf();
-  // URL search string — preserved when navigating to /governments so the
-  // cabinet anchor (?cabinet=) and election (?elections=) survive the
-  // section change.
+  // URL search string — appended to the hub-tile hrefs so the cabinet anchor
+  // (?cabinet=) and election (?elections=) survive the section change.
   const { search } = useLocation();
-  const electionLongDate = electionNameToLongDate(selected, lang);
-  const asOfQuarter = formatQuarter(electionAsOf, lang);
-  // Hero chart is collapsed by default — the tile grid is what the user came
-  // for. The reveal toggle gives the strategic-context "big picture" without
-  // pushing the tiles below the fold on first paint.
-  const [heroExpanded, setHeroExpanded] = useState(false);
-  // Shared EU integration milestones — see euMilestones.ts.
-  const heroEvents = useEuMilestones();
-  // Societal-events strip (protests, crises, pandemic) below the hero
-  // chart — same set as /governments so the picture reads consistently.
-  const chartEvents = useChartEvents();
-  // Multi-select: clicking a strip pill toggles its membership here, so two
-  // or more cabinets can be compared side-by-side via stacked detail panels.
-  // Independent of the URL cabinet anchor — clicking a pill ALSO sets the
-  // anchor (most-recently-clicked wins) but the multi-select state lives
-  // page-local so navigating away doesn't carry the comparison set with you.
-  // userTouched flips on first click so the auto-default (cabinet in office
-  // at the selected election OR the URL anchor) doesn't keep re-overwriting
-  // the user's choice when they change election; default only re-applies if
-  // they've cleared selection entirely.
-  const [selectedCabinetIds, setSelectedCabinetIds] = useState<string[]>([]);
-  const [userTouched, setUserTouched] = useState(false);
-
-  const xDomain = useMemo<[number, number] | null>(
-    () => (governments ? xDomainFor(governments) : null),
-    [governments],
-  );
-
-  // Default selection prefers the URL cabinet anchor (so coming from
-  // /compare?cabinet=denkov surfaces denkov's detail card below) and falls
-  // back to the election-default cabinet. Without this, the strip would
-  // highlight denkov in amber while the bottom card showed the
-  // election-default cabinet — three "selected" semantics out of sync.
-  const initialSelection = useMemo<string[]>(() => {
-    if (anchor) return [anchor.cabinet.id];
-    return defaultCabinetId ? [defaultCabinetId] : [];
-  }, [anchor, defaultCabinetId]);
-
-  useEffect(() => {
-    if (userTouched) return;
-    setSelectedCabinetIds(initialSelection);
-  }, [initialSelection, userTouched]);
-
-  const toggleCabinet = (id: string) => {
-    setUserTouched(true);
-    setSelectedCabinetIds((prev) =>
-      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
-    );
-  };
-
-  // Render cards in the strip's left-to-right order (chronological) regardless
-  // of the click order, so the stack always reads the same way as the ribbon.
-  const selectedCabinets = useMemo(() => {
-    if (!governments || selectedCabinetIds.length === 0) return [];
-    const set = new Set(selectedCabinetIds);
-    return governments.filter((g) => set.has(g.id));
-  }, [governments, selectedCabinetIds]);
-
   const fetchedDate = localDateFromIso(macro?.fetchedAt, lang);
 
-  if (!governments) {
-    return (
-      <div className="pb-12">
-        <Title>{t("indicators_page_title")}</Title>
-      </div>
-    );
-  }
+  const hubTiles: InfographicTileProps[] = HUB_TILES.map((tile) => ({
+    to: `${tile.to}${search}${"hash" in tile ? tile.hash : ""}`,
+    title: t(tile.titleKey),
+    desc: t(tile.descKey),
+    accent: tile.accent,
+    scene: INDICATOR_SCENES[tile.scene],
+  }));
+  const hubSection: TileHubSection = {
+    heading: t("indicators_hub_explore"),
+    tiles: hubTiles,
+  };
 
   return (
     <div className="pb-12">
@@ -167,63 +128,8 @@ export const IndicatorsLandingScreen: FC = () => {
       <GovernanceBreadcrumb
         sectionKey="gov_hub_indicators_title"
         sectionTo="/indicators"
-        className="mt-5"
+        className="mt-5 mb-6"
       />
-
-      {/* "Values as of" banner — answers "what point in time am I looking
-          at?" before the user scans 12 tiles with varying period labels.
-          Uses the election date (user-picked) and the resolved quarter
-          (what KpiTile's pickAtOrBefore actually compares against). */}
-      {electionLongDate ? (
-        <p className="text-[11px] text-center text-muted-foreground mb-5">
-          {t("indicators_landing_values_as_of", {
-            date: electionLongDate,
-            quarter: asOfQuarter ?? "",
-          })}
-        </p>
-      ) : null}
-
-      <IndicatorsNav variant="landing" />
-
-      {macro ? (
-        <section className="mb-6">
-          <button
-            type="button"
-            onClick={() => setHeroExpanded((v) => !v)}
-            aria-expanded={heroExpanded}
-            className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
-          >
-            {heroExpanded ? (
-              <ChevronUp className="h-3 w-3" />
-            ) : (
-              <ChevronDown className="h-3 w-3" />
-            )}
-            {t(
-              heroExpanded
-                ? "indicators_hero_chart_collapse"
-                : "indicators_hero_chart_expand",
-            )}
-          </button>
-          {heroExpanded ? (
-            <div className="mt-2">
-              <GovernmentTimeline
-                governments={governments}
-                macro={macro}
-                indicatorKeys={["gdpGrowth", "inflation", "unemployment"]}
-                yAxisFormatter={(v) => `${v}`}
-                unitFormatter={(_k, v) => `${v.toFixed(1)}%`}
-                showZeroLine
-                hideToggles
-                height={240}
-                eventMarkers={heroEvents}
-                onCabinetClick={setAnchor}
-                highlightedCabinetId={anchor?.cabinet.id ?? null}
-                chartEvents={chartEvents}
-              />
-            </div>
-          ) : null}
-        </section>
-      ) : null}
 
       <section
         aria-label={t("indicators_landing_kpi_grid_aria")}
@@ -237,52 +143,11 @@ export const IndicatorsLandingScreen: FC = () => {
         </div>
       </section>
 
-      {xDomain ? (
-        <section className="mb-6">
-          <div className="text-[10px] uppercase tracking-wide text-muted-foreground mb-1">
-            {t("cabinet_score_row_heading")}
-          </div>
-          <CabinetStrip
-            governments={governments}
-            xDomain={xDomain}
-            lang={lang}
-            mobileScrollable
-            fullWidth
-            selectedIds={selectedCabinetIds}
-            onToggle={toggleCabinet}
-            onAnchor={setAnchor}
-            anchoredId={anchor?.cabinet.id ?? null}
-          />
-          {macro && selectedCabinets.length > 0 ? (
-            <div className="mt-3 flex flex-col gap-2">
-              {selectedCabinets.map((g) => (
-                <CabinetScoreDetail key={g.id} government={g} macro={macro} />
-              ))}
-            </div>
-          ) : (
-            <p className="text-[11px] text-muted-foreground mt-3">
-              {t("cabinet_selector_hint")}
-            </p>
-          )}
-          {macro ? (
-            <div className="mt-2 flex justify-end">
-              <Link
-                to={{
-                  pathname: "/governments",
-                  search,
-                  hash: "#cabinet-table",
-                }}
-                className="text-xs text-primary hover:underline inline-flex items-center gap-1"
-              >
-                {t("cabinet_compare_all")}
-                <ArrowRight className="h-3 w-3" />
-              </Link>
-            </div>
-          ) : null}
-        </section>
-      ) : null}
+      <div data-og="indicators-hub">
+        <TileHubGrid sections={[hubSection]} />
+      </div>
 
-      <p className="text-[11px] text-muted-foreground mt-6">
+      <p className="text-[11px] text-muted-foreground mt-8">
         {t("governments_source_prefix")}{" "}
         <a
           href="https://ec.europa.eu/eurostat/databrowser/"
