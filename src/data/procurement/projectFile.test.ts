@@ -23,6 +23,7 @@ import {
   matchedContractTotal,
   seedContractFilter,
   seedTenderFilter,
+  usesCorpusTotal,
   pickCollision,
   COLLISION_MIN,
   inferRoleFromTitle,
@@ -1090,5 +1091,41 @@ describe("seedContractFilter / seedTenderFilter — the seed policy (§1)", () =
       { id: "tag", value: ["contract"] },
     ]);
     expect(seedTenderFilter({ terms: "хемус" }).columns).toEqual([]);
+  });
+});
+
+describe("usesCorpusTotal — program-total headline guard (§4.1c)", () => {
+  const t = (terms: string) => ({ terms });
+  it("honours a single single-token corpus thread (the program case)", () => {
+    expect(
+      usesCorpusTotal({ totalBasis: "corpus", search: [t("многофамилн")] }),
+    ).toBe(true);
+  });
+  it("rejects a multi-word thread (FTS-AND ≠ confidence set → would re-inflate)", () => {
+    expect(
+      usesCorpusTotal({
+        totalBasis: "corpus",
+        search: [t("Русе Велико Търново")],
+      }),
+    ).toBe(false);
+  });
+  it("rejects a multi-thread spec (cross-thread double-count)", () => {
+    expect(
+      usesCorpusTotal({
+        totalBasis: "corpus",
+        search: [t("многофамилн"), t("топлоизолация")],
+      }),
+    ).toBe(false);
+  });
+  it("rejects the default / members basis", () => {
+    expect(usesCorpusTotal({ search: [t("многофамилн")] })).toBe(false);
+    expect(
+      usesCorpusTotal({ totalBasis: "members", search: [t("многофамилн")] }),
+    ).toBe(false);
+  });
+  it("rejects a blank term (would otherwise sum the whole corpus)", () => {
+    expect(usesCorpusTotal({ totalBasis: "corpus", search: [t("  ")] })).toBe(
+      false,
+    );
   });
 });

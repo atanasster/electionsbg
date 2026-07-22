@@ -87,6 +87,9 @@ export const usesCorpusTotal = (spec: {
 }): boolean =>
   spec.totalBasis === "corpus" &&
   spec.search.length === 1 &&
+  // A non-EMPTY single token: `isSingleToken` also passes a blank term (0 tokens),
+  // which would sum the whole corpus, so require a real token here.
+  spec.search[0]!.terms.trim().length > 0 &&
   isSingleToken(spec.search[0]!.terms);
 
 /**

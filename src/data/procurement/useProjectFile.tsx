@@ -34,6 +34,7 @@ import {
   pickCollision,
   seedContractFilter,
   seedTenderFilter,
+  usesCorpusTotal,
   SEED_PAGE,
   LINEAGE_PAGE,
   type SearchThread,
@@ -670,14 +671,19 @@ async function resolveProjectFile(
   const fold = foldMembers(allContracts.map(toFoldInput));
   const funds = dedupFunds(fundMembers);
   // Whole-corpus contracted total/count over the seed WHERE — the program-total
-  // basis (used only when `usesCorpusTotal(spec)`). Sum across threads; a
-  // program dossier is single-thread so there is no cross-thread overlap.
-  const corpusContractedEur = seedResults.some(([c]) => c.sumEur != null)
-    ? seedResults.reduce((s, [c]) => s + (c.sumEur ?? 0), 0)
-    : null;
-  const corpusContractCount = seedResults.every(([c]) => c.totalExact)
-    ? seedResults.reduce((s, [c]) => s + (c.total ?? 0), 0)
-    : null;
+  // basis. GATED on usesCorpusTotal (single single-token thread) at the source,
+  // exactly like the offline builder, so the model can never carry an unsafe
+  // figure (a multi-word re-inflation / multi-thread double-count) even if a
+  // future consumer forgets the guard.
+  const corpusOn = usesCorpusTotal(spec);
+  const corpusContractedEur =
+    corpusOn && seedResults.some(([c]) => c.sumEur != null)
+      ? seedResults.reduce((s, [c]) => s + (c.sumEur ?? 0), 0)
+      : null;
+  const corpusContractCount =
+    corpusOn && seedResults.every(([c]) => c.totalExact)
+      ? seedResults.reduce((s, [c]) => s + (c.total ?? 0), 0)
+      : null;
   return {
     contracts: allContracts,
     tenders: allTenders,

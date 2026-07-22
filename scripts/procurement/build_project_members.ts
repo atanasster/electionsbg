@@ -27,13 +27,17 @@ import {
   LINEAGE_PAGE,
   type SearchThread,
 } from "@/data/procurement/projectFile";
+import type { DbTableResult, DbRows } from "../../functions/db_table";
 
 const require = createRequire(import.meta.url);
 // Reuses the SAME table engine the /api/db/table route serves. Depends on the
 // functions/db_table.js REGISTRY: resources "contracts" (cols key, unp, title,
 // tag, awarder_eik, amount_eur) + "tenders" (unp, subject, lots_count, buyer_eik,
 // estimated_value_eur, publication_date). A REGISTRY rename breaks this at runtime.
-const { runDbTable } = require("../../functions/db_table.js");
+// Typed via the engine's own .d.ts so the aggregate/rows shape is checked.
+const { runDbTable } = require("../../functions/db_table.js") as {
+  runDbTable: (q: DbRows, req: unknown) => Promise<DbTableResult>;
+};
 
 const ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -76,14 +80,10 @@ const page = (req: object) =>
   runDbTable(q, req).then((r: { rows: unknown[] }) => r.rows);
 
 // Like page(), but keeps the engine's exact count + `sum(amount_eur)` aggregate
-// over the WHERE (the whole-corpus contracted total the program-total basis reads).
-const pageFull = (req: object) =>
-  runDbTable(q, req) as Promise<{
-    rows: unknown[];
-    total: number;
-    totalExact: boolean;
-    aggregates: { sumAmountEur?: number };
-  }>;
+// over the WHERE (the whole-corpus contracted total the program-total basis
+// reads). Typed via the engine's own DbTableResult so a shape drift is a compile
+// error, not a silent undefined.
+const pageFull = (req: object): Promise<DbTableResult> => runDbTable(q, req);
 
 /**
  * All contract keys + tender УНПs that a curated spec resolves to. This MUST

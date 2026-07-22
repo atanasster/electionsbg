@@ -80,3 +80,46 @@ describe("summarize()", () => {
     expect(s.topContractors.some((c) => c.name === "?")).toBe(false);
   });
 });
+
+describe("summarize() — program-total (corpus) override", () => {
+  const rows: CRow[] = [
+    crow({ key: "a", amountEur: 200, contractorName: "Алфа" }),
+    crow({ key: "b", amountEur: 300, contractorName: "Бета" }),
+  ];
+
+  it("replaces the fold total/count with the corpus figures when provided", () => {
+    // The top-N fold is €500 / 2, but a distributed program's true corpus is far
+    // larger — the override reports that, keeping the fold for the breakdowns.
+    const s = summarize({ title: { bg: "П" } }, rows, 1, {
+      contractedEur: 975_000_000,
+      contractCount: 4539,
+    });
+    expect(s.contractedEur).toBe(975_000_000);
+    expect(s.contractCount).toBe(4539);
+    // Breakdowns still come from the member fold.
+    expect(s.topContractors.map((c) => c.name)).toEqual(["Бета", "Алфа"]);
+  });
+
+  it("falls back to the fold total when corpus.contractedEur is null", () => {
+    const s = summarize({ title: { bg: "П" } }, rows, 1, {
+      contractedEur: null,
+      contractCount: null,
+    });
+    expect(s.contractedEur).toBe(500);
+    expect(s.contractCount).toBe(2);
+  });
+
+  it("falls back to the fold count independently when only the count is null", () => {
+    const s = summarize({ title: { bg: "П" } }, rows, 1, {
+      contractedEur: 975_000_000,
+      contractCount: null,
+    });
+    expect(s.contractedEur).toBe(975_000_000);
+    expect(s.contractCount).toBe(2); // fold count, not the corpus null
+  });
+
+  it("uses the fold total when no corpus override is passed (default project)", () => {
+    const s = summarize({ title: { bg: "П" } }, rows, 1);
+    expect(s.contractedEur).toBe(500);
+  });
+});

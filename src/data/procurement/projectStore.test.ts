@@ -80,6 +80,23 @@ describe("projectFromContract / projectFromTender — detail-page on-ramp (§4.3
     expect(spec.search[0].terms.length).toBeGreaterThan(0);
     expect(parseProjectSpec(JSON.stringify(spec))).not.toBeNull();
   });
+  it("clamps totalBasis from an untrusted ?q= to the known union", () => {
+    const base = { search: [{ terms: "многофамилн" }] };
+    // A valid "corpus" survives; anything else (arbitrary string, "members",
+    // an object) collapses to undefined so it can't drive the headline basis.
+    expect(
+      parseProjectSpec(JSON.stringify({ ...base, totalBasis: "corpus" }))
+        ?.totalBasis,
+    ).toBe("corpus");
+    expect(
+      parseProjectSpec(JSON.stringify({ ...base, totalBasis: "members" }))
+        ?.totalBasis,
+    ).toBeUndefined();
+    expect(
+      parseProjectSpec(JSON.stringify({ ...base, totalBasis: "evil" }))
+        ?.totalBasis,
+    ).toBeUndefined();
+  });
 });
 
 describe("save / list / delete (localStorage)", () => {
