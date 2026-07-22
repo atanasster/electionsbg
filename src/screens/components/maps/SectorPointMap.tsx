@@ -11,6 +11,7 @@
 
 import {
   FC,
+  Fragment,
   ReactNode,
   useCallback,
   useEffect,
@@ -22,6 +23,7 @@ import {
   MapContainer,
   TileLayer,
   Marker,
+  CircleMarker,
   Polyline,
   Tooltip,
   useMap,
@@ -38,6 +40,12 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { FitBounds } from "./FitBounds";
+import {
+  DOT_RADIUS,
+  groupByLoc,
+  shouldSpread,
+  spreadRadius,
+} from "./sectorPointGrouping";
 
 // Leaflet's stylesheet is loaded dynamically so it lands in its own chunk; see
 // LeafletMap.tsx for the rationale.
@@ -83,6 +91,15 @@ const BG_BOUNDS: LatLngBoundsExpression = [
   [41.2, 22.3],
   [44.3, 28.7],
 ];
+
+// Stable empty default for `lines`, so re-renders (e.g. the zoom watcher below)
+// don't churn the `bounds` memo and make FitBounds re-fit — which would snap the
+// map back to the fitted view every time the user zooms.
+const NO_LINES: SectorMapLine[] = [];
+
+// A mixed-value cluster shouldn't imply a single band, so in dotMode its count
+// badge is drawn neutral (slate-500) rather than the busiest member's colour.
+const NEUTRAL_BADGE = "#64748b";
 
 type TipDir = "top" | "bottom" | "left" | "right";
 
@@ -198,15 +215,95 @@ const SingleMarker: FC<{ p: SectorMapPoint; center: [number, number] }> = ({
   );
 };
 
+// dotMode: a value-coloured dot with a plain hover card (no numbered badge). Used
+// for a lone unit and for each member of a spiderfied group. A CircleMarker so
+// thousands stay cheap on the canvas renderer.
+const DotMarker: FC<{ p: SectorMapPoint; center: [number, number] }> = ({
+  p,
+  center,
+}) => {
+  const navigate = useNavigate();
+  return (
+    <CircleMarker
+      center={center}
+      radius={DOT_RADIUS}
+      pathOptions={{
+        color: p.color,
+        fillColor: p.color,
+        fillOpacity: 0.8,
+        weight: 1,
+      }}
+      eventHandlers={{ click: () => p.href && navigate(p.href) }}
+    >
+      <Tooltip direction="auto" offset={[0, -4]} className="sector-tooltip">
+        <PointCard p={p} />
+      </Tooltip>
+    </CircleMarker>
+  );
+};
+
+// Spiderfy: at high zoom a co-located group fans out onto a small pixel ring so
+// each unit gets its own colour-coded dot, with a thin leg back to the shared
+// centroid. Pixel offsets are recomputed each render (the parent re-renders on
+// zoomend), so the ring keeps its on-screen size as you zoom.
+const SpreadGroup: FC<{
+  group: SectorMapPoint[];
+  center: [number, number];
+}> = ({ group, center }) => {
+  const map = useMap();
+  const base = map.latLngToLayerPoint(center);
+  const n = group.length;
+  const radius = spreadRadius(n);
+  return (
+    <>
+      {group.map((p, i) => {
+        const angle = (2 * Math.PI * i) / n - Math.PI / 2;
+        const ll = map.layerPointToLatLng(
+          base.add([radius * Math.cos(angle), radius * Math.sin(angle)]),
+        );
+        const spot: [number, number] = [ll.lat, ll.lng];
+        return (
+          <Fragment key={p.id}>
+            <Polyline
+              positions={[center, spot]}
+              pathOptions={{ color: p.color, weight: 1, opacity: 0.4 }}
+              interactive={false}
+            />
+            <DotMarker p={p} center={spot} />
+          </Fragment>
+        );
+      })}
+    </>
+  );
+};
+
+// Lifts the live zoom into React state so the parent can decide, per group,
+// whether to collapse into a count badge or spiderfy into individual dots. Only
+// mounted when spreadZoom is set, so plain sector maps pay nothing for it.
+const ZoomWatcher: FC<{ onZoom: (z: number) => void }> = ({ onZoom }) => {
+  const map = useMap();
+  useEffect(() => {
+    onZoom(map.getZoom());
+    const handler = () => onZoom(map.getZoom());
+    map.on("zoomend", handler);
+    return () => {
+      map.off("zoomend", handler);
+    };
+  }, [map, onZoom]);
+  return null;
+};
+
 // Several units sharing a city: the badge sums their `badge` and takes the busiest
-// unit's colour; the interactive card pages through them (busiest first).
+// unit's colour (or a neutral badge in dotMode); the interactive card pages through
+// them (busiest first).
 const ClusterMarker: FC<{
   group: SectorMapPoint[];
   center: [number, number];
   groupNoun: string;
   badgeNoun: string;
   openLabel?: string;
-}> = ({ group, center, groupNoun, badgeNoun, openLabel }) => {
+  badgeColor?: string;
+}> = ({ group, center, groupNoun, badgeNoun, openLabel, badgeColor }) => {
   const map = useMap();
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -220,8 +317,9 @@ const ClusterMarker: FC<{
 
   const total = useMemo(() => group.reduce((s, p) => s + p.badge, 0), [group]);
   const icon = useMemo(
-    () => badgeIcon(total, group[0].color), // group[0] is the busiest (max value)
-    [total, group],
+    // group[0] is the busiest (max value); dotMode overrides with a neutral badge.
+    () => badgeIcon(total, badgeColor ?? group[0].color),
+    [total, group, badgeColor],
   );
   const current = group[Math.min(index, group.length - 1)];
 
@@ -389,26 +487,32 @@ export const SectorPointMap: FC<{
    *  wording). Pass a domain noun, e.g. "Виж болницата". */
   openLabel?: string;
   height?: number;
+  /** Draw each point as a value-coloured dot (its `color`) instead of a numbered
+   *  badge; co-located points still collapse into a neutral count badge + pager. */
+  dotMode?: boolean;
+  /** Zoom at/above which a co-located group fans out into individual dots
+   *  (spiderfy). Omit to never spread — the group stays one badge at every zoom. */
+  spreadZoom?: number;
+  /** Only groups up to this size spiderfy; larger stacks stay a pager badge
+   *  (e.g. София's whole-city aggregate). Default 12. */
+  spreadMax?: number;
+  /** Render circle markers on a canvas (cheaper for thousands of dots). */
+  preferCanvas?: boolean;
 }> = ({
   points,
-  lines = [],
+  lines = NO_LINES,
   groupNoun = "",
   badgeNoun = "",
   openLabel,
   height = 460,
+  dotMode = false,
+  spreadZoom,
+  spreadMax = 12,
+  preferCanvas = false,
 }) => {
-  // One marker per city (shared settlement centroid). Each group is sorted busiest
-  // first, so group[0] is both the pager's first page and the marker's colour.
-  const groups = useMemo(() => {
-    const byLoc = new Map<string, SectorMapPoint[]>();
-    for (const p of points) {
-      const key = `${p.loc[0]},${p.loc[1]}`;
-      (byLoc.get(key) ?? byLoc.set(key, []).get(key)!).push(p);
-    }
-    return [...byLoc.values()]
-      .map((g) => g.slice().sort((a, b) => b.value - a.value))
-      .sort((a, b) => a[0].value - b[0].value); // busiest cities drawn last
-  }, [points]);
+  const [zoom, setZoom] = useState<number | null>(null);
+  // One marker per city (shared settlement centroid), busiest-first within each.
+  const groups = useMemo(() => groupByLoc(points), [points]);
 
   const bounds = useMemo<LatLngBoundsExpression>(() => {
     const coords: [number, number][] = [
@@ -443,8 +547,10 @@ export const SectorPointMap: FC<{
         bounds={bounds}
         boundsOptions={{ padding: [24, 24] }}
         scrollWheelZoom
+        preferCanvas={preferCanvas}
       >
         <FitBounds bounds={bounds} />
+        {spreadZoom != null && <ZoomWatcher onZoom={setZoom} />}
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -456,9 +562,23 @@ export const SectorPointMap: FC<{
         {groups.map((group) => {
           const [lng, lat] = group[0].loc;
           const center: [number, number] = [lat, lng];
-          return group.length === 1 ? (
-            <SingleMarker key={group[0].id} p={group[0]} center={center} />
-          ) : (
+          const spread = shouldSpread({
+            len: group.length,
+            zoom,
+            spreadZoom,
+            spreadMax,
+          });
+          if (spread)
+            return (
+              <SpreadGroup key={group[0].id} group={group} center={center} />
+            );
+          if (group.length === 1)
+            return dotMode ? (
+              <DotMarker key={group[0].id} p={group[0]} center={center} />
+            ) : (
+              <SingleMarker key={group[0].id} p={group[0]} center={center} />
+            );
+          return (
             <ClusterMarker
               key={group[0].id}
               group={group}
@@ -466,6 +586,7 @@ export const SectorPointMap: FC<{
               groupNoun={groupNoun}
               badgeNoun={badgeNoun}
               openLabel={openLabel}
+              badgeColor={dotMode ? NEUTRAL_BADGE : undefined}
             />
           );
         })}

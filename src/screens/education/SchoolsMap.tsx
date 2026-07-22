@@ -1,33 +1,29 @@
-// School-finder map for /education — one canvas dot per geocoded school,
-// coloured by its latest matura (ДЗИ БЕЛ) average, click drills to /school/:id.
-// Coordinates are settlement-centroid geocodes (scripts/schools/build_index.ts),
-// so Столична община's ~157 schools stack on the Sofia city pin until per-school
-// МОН-register coordinates land — the tooltip says so.
+// School-finder map for /education — one dot per geocoded school, coloured by its
+// latest matura (ДЗИ БЕЛ) average; click drills to /school/:id. Rendered via the
+// shared SectorPointMap: schools sharing a settlement centroid collapse into one
+// count badge with a pager (browse each school), and fan out into individual score
+// dots once you zoom in. Coordinates are settlement-centroid geocodes
+// (scripts/schools/build_index.ts), so Столична община's ~157 schools stack on the
+// Sofia city pin — too many to spiderfy, so they stay a pager badge (the caption
+// says so) until per-school МОН-register coordinates land.
 //
-// Colouring by raw score is a finder aid, not a verdict: small cohorts (< the
-// rank threshold) are greyed, and the SES-adjusted "growth vs similar schools"
-// map is a separate, later phase.
+// Colouring by raw score is a finder aid, not a verdict: small cohorts (< the rank
+// threshold) are greyed, and the SES-adjusted "growth vs similar schools" map is a
+// separate, later phase.
 
-import { FC, useEffect, useMemo } from "react";
-import {
-  MapContainer,
-  TileLayer,
-  CircleMarker,
-  Tooltip,
-  useMap,
-} from "react-leaflet";
-import type { LatLngBoundsExpression } from "leaflet";
+import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import {
+  SectorPointMap,
+  type SectorMapPoint,
+} from "@/screens/components/maps/SectorPointMap";
 import {
   type DirectorySchool,
   MIN_RANK_COHORT,
 } from "@/data/schools/useSchoolDirectory";
 
-import("leaflet/dist/leaflet.css");
-
-// Colour-blind-safe-ish sequential ramp for the 2–6 matura scale. Grey = a
-// cohort too small to trust (suppressed, matching the report card / tables).
+// Colour-blind-safe-ish sequential ramp for the 2–6 matura scale. Grey = a cohort
+// too small to trust (suppressed, matching the report card / tables + the legend).
 const SUPPRESSED = "#94a3b8"; // slate-400
 const scoreColor = (score: number | null, n: number | null): string => {
   if (score == null || (n ?? 0) < MIN_RANK_COHORT) return SUPPRESSED;
@@ -39,61 +35,66 @@ const scoreColor = (score: number | null, n: number | null): string => {
   return "#047857"; // emerald-700
 };
 
-const BG_BOUNDS: LatLngBoundsExpression = [
-  [41.2, 22.3],
-  [44.3, 28.7],
-];
-
 const fmtScore = (v: number, lang: string): string =>
   v.toLocaleString(lang === "bg" ? "bg-BG" : "en-US", {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
 
+// settlements.json / school `loc` is "lng,lat" — SectorMapPoint.loc is [lng, lat].
 const parseLoc = (loc: string): [number, number] | null => {
   const [lng, lat] = loc.split(",").map(Number);
   if (!Number.isFinite(lat) || !Number.isFinite(lng)) return null;
-  return [lat, lng];
+  return [lng, lat];
 };
 
-// The map mounts inside a lazy Suspense boundary and below the fold, so on first
-// paint the container is still zero-height — Leaflet then fits `bounds` to a
-// degenerate viewport and zooms to street level. Watch the container and re-fit
-// the moment it actually has dimensions.
-const FitBulgaria: FC = () => {
-  const map = useMap();
-  useEffect(() => {
-    const el = map.getContainer();
-    let done = false;
-    const fit = () => {
-      if (done || el.clientHeight <= 0 || el.clientWidth <= 0) return;
-      done = true;
-      map.invalidateSize();
-      map.fitBounds(BG_BOUNDS, { padding: [10, 10] });
-      ro.disconnect();
-    };
-    const ro = new ResizeObserver(fit);
-    ro.observe(el);
-    fit();
-    return () => ro.disconnect();
-  }, [map]);
-  return null;
-};
+// Zoom at/above which a settlement's co-located schools fan out into individual
+// score dots; below it (or for the huge София stack) they stay one count badge.
+const SPREAD_ZOOM = 11;
 
 export const SchoolsMap: FC<{ schools: DirectorySchool[] }> = ({ schools }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const bg = lang === "bg";
-  const navigate = useNavigate();
 
-  const points = useMemo(
+  const points = useMemo<SectorMapPoint[]>(
     () =>
       schools.flatMap((s) => {
         if (!s.loc) return [];
-        const c = parseLoc(s.loc);
-        return c ? [{ s, c }] : [];
+        const loc = parseLoc(s.loc);
+        if (!loc) return [];
+        const detail =
+          s.latestScore != null ? (
+            <span>
+              {bg ? "матура БЕЛ" : "Bulgarian matura"}{" "}
+              <span className="font-semibold tabular-nums">
+                {fmtScore(s.latestScore, lang)}
+              </span>{" "}
+              <span className="opacity-70">
+                ({s.latestYear} · {s.latestN ?? "?"} {bg ? "зрел." : "grads"})
+              </span>
+            </span>
+          ) : (
+            <span className="opacity-70">{bg ? "няма данни" : "no data"}</span>
+          );
+        return [
+          {
+            id: s.id,
+            loc,
+            // Orders a group's pager (busiest = highest score first) and, in
+            // SectorPointMap, the inter-marker draw order (higher score drawn on
+            // top) — the latter is incidental for a score finder, not meaningful.
+            value: s.latestScore ?? -1,
+            color: scoreColor(s.latestScore, s.latestN),
+            badge: 1, // each school counts one — the badge shows how many share the pin
+            title: s.name,
+            subtitle: s.obshtinaName,
+            detail,
+            href: `/school/${s.id}`,
+          } satisfies SectorMapPoint,
+        ];
       }),
-    [schools],
+    [schools, bg, lang],
   );
 
   if (!points.length) {
@@ -105,62 +106,14 @@ export const SchoolsMap: FC<{ schools: DirectorySchool[] }> = ({ schools }) => {
   }
 
   return (
-    <div className="h-[460px] w-full overflow-hidden rounded-xl border">
-      <MapContainer
-        className="h-full w-full"
-        bounds={BG_BOUNDS}
-        boundsOptions={{ padding: [10, 10] }}
-        scrollWheelZoom
-        preferCanvas
-      >
-        <FitBulgaria />
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        {points.map(({ s, c }) => {
-          const color = scoreColor(s.latestScore, s.latestN);
-          return (
-            <CircleMarker
-              key={s.id}
-              center={c}
-              radius={5}
-              pathOptions={{
-                color,
-                fillColor: color,
-                fillOpacity: 0.75,
-                weight: 1,
-              }}
-              eventHandlers={{ click: () => navigate(`/school/${s.id}`) }}
-            >
-              <Tooltip direction="auto" offset={[0, -4]}>
-                <div style={{ maxWidth: 230, whiteSpace: "normal" }}>
-                  <div className="pb-0.5 text-sm font-semibold">{s.name}</div>
-                  <div className="pb-1 text-xs opacity-80">
-                    {s.obshtinaName}
-                  </div>
-                  {s.latestScore != null ? (
-                    <div className="text-xs">
-                      {bg ? "матура БЕЛ" : "Bulgarian matura"}{" "}
-                      <span className="font-semibold tabular-nums">
-                        {fmtScore(s.latestScore, lang)}
-                      </span>{" "}
-                      <span className="opacity-70">
-                        ({s.latestYear} · {s.latestN ?? "?"}{" "}
-                        {bg ? "зрел." : "grads"})
-                      </span>
-                    </div>
-                  ) : (
-                    <div className="text-xs opacity-70">
-                      {bg ? "няма данни" : "no data"}
-                    </div>
-                  )}
-                </div>
-              </Tooltip>
-            </CircleMarker>
-          );
-        })}
-      </MapContainer>
-    </div>
+    <SectorPointMap
+      points={points}
+      dotMode
+      preferCanvas
+      spreadZoom={SPREAD_ZOOM}
+      groupNoun={bg ? "училища" : "schools"}
+      openLabel={bg ? "Виж училището" : "Open school"}
+      height={460}
+    />
   );
 };
