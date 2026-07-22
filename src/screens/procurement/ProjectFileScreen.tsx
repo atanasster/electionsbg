@@ -175,6 +175,11 @@ const CURATED_TILE: Record<
     sceneKey: "insulation",
     accent: TILE_ACCENTS.leaf,
   },
+  "pancharevo-veloaleya": {
+    section: "transport",
+    sceneKey: "bikePath",
+    accent: TILE_ACCENTS.emerald,
+  },
 };
 const curatedTile = (slug: string) =>
   CURATED_TILE[slug] ?? {

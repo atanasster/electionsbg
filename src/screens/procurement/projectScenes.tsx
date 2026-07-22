@@ -593,6 +593,64 @@ const Arena: FC = () => (
   </SceneFrame>
 );
 
+// 15. Велоалея Горубляне–Панчаревско езеро — a bicycle on a dashed cycle path,
+// with a lakeside water hint at the right (the Панчаревско езеро it connects to).
+const BikePath: FC = () => (
+  <SceneFrame>
+    {/* the велоалея — a dashed path the bike rides along */}
+    <path
+      d="M16 104 H284"
+      stroke="var(--sector)"
+      strokeWidth="2"
+      opacity=".55"
+      strokeDasharray="11 8"
+    />
+    {/* lake hint at the right — a couple of wave strokes */}
+    <path
+      d="M232 60 q9 -7 18 0 t18 0 M232 70 q9 -7 18 0 t18 0"
+      fill="none"
+      stroke="var(--sector)"
+      strokeWidth="2"
+      opacity=".7"
+    />
+    {/* wheels */}
+    {[104, 190].map((cx) => (
+      <g key={cx}>
+        <circle
+          cx={cx}
+          cy="82"
+          r="20"
+          fill={PAPER}
+          stroke="currentColor"
+          strokeWidth="2.6"
+        />
+        <circle cx={cx} cy="82" r="3" fill="var(--sector)" />
+      </g>
+    ))}
+    {/* diamond frame */}
+    <path
+      d="M147 82 L135 48 M147 82 L176 52 M135 48 L176 52 M135 48 L104 82 M147 82 L104 82 M176 52 L190 82"
+      fill="none"
+      stroke="var(--sector)"
+      strokeWidth="3"
+      strokeLinejoin="round"
+      strokeLinecap="round"
+    />
+    {/* pedal crank */}
+    <circle cx="147" cy="82" r="3.4" fill="currentColor" />
+    {/* seat */}
+    <path d="M126 47 h18" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" />
+    {/* handlebar */}
+    <path
+      d="M176 52 L182 40 M174 40 h14"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="3"
+      strokeLinecap="round"
+    />
+  </SceneFrame>
+);
+
 export const PROJECT_SCENES: Record<string, FC> = {
   hemus: HemusMotorway,
   ringArc: RingArc,
@@ -608,4 +666,5 @@ export const PROJECT_SCENES: Record<string, FC> = {
   waterEu: WaterEuFunded,
   goldenRoad: GoldenRoad,
   arena: Arena,
+  bikePath: BikePath,
 };
