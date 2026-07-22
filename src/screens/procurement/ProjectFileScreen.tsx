@@ -57,6 +57,7 @@ import {
   withThreadTerms,
   withAddedThread,
   withThreadBuyer,
+  withThreadContractor,
   withoutThread,
   type PeriodAgg,
 } from "@/data/procurement/projectFile";
@@ -493,6 +494,14 @@ export const ProjectFileScreen = () => {
       search: withThreadBuyer(cur.search, i, buyer),
     }));
 
+  // Set/clear a thread's contractor (supplier) scope — the award's-other-side
+  // mirror of setThreadBuyer, using the same typeahead over the `companies` group.
+  const setThreadContractor = (i: number, contractor: AwarderChoice | null) =>
+    mutateSpec((cur) => ({
+      ...cur,
+      search: withThreadContractor(cur.search, i, contractor),
+    }));
+
   const excludeMember = (kind: "contract" | "tender", id: string) =>
     mutateSpec((cur) => {
       const ex = cur.excludes ?? {};
@@ -865,8 +874,17 @@ export const ProjectFileScreen = () => {
                         }
                       : null
                   }
+                  contractor={
+                    th.contractorEik?.[0]
+                      ? {
+                          eik: th.contractorEik[0],
+                          name: th.contractorName ?? th.contractorEik[0],
+                        }
+                      : null
+                  }
                   onCommit={setThreadTerms}
                   onBuyer={setThreadBuyer}
+                  onContractor={setThreadContractor}
                   onRemove={removeThread}
                   bg={bg}
                 />
@@ -2732,8 +2750,10 @@ const ThreadRow = ({
   index,
   removable,
   buyer,
+  contractor,
   onCommit,
   onBuyer,
+  onContractor,
   onRemove,
   bg,
 }: {
@@ -2741,8 +2761,10 @@ const ThreadRow = ({
   index: number;
   removable: boolean;
   buyer: AwarderChoice | null;
+  contractor: AwarderChoice | null;
   onCommit: (i: number, terms: string) => void;
   onBuyer: (i: number, buyer: AwarderChoice | null) => void;
+  onContractor: (i: number, contractor: AwarderChoice | null) => void;
   onRemove: (i: number) => void;
   bg: boolean;
 }) => {
@@ -2778,6 +2800,15 @@ const ThreadRow = ({
         value={buyer}
         onChange={(a) => onBuyer(index, a)}
         bg={bg}
+        className="sm:w-64"
+      />
+      {/* per-thread contractor (supplier) scope — the award's-other-side mirror.
+          A contractor + no terms anchors the dossier on that supplier's slice. */}
+      <AwarderSearch
+        value={contractor}
+        onChange={(a) => onContractor(index, a)}
+        bg={bg}
+        group="companies"
         className="sm:w-64"
       />
       {removable && (

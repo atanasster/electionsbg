@@ -1,9 +1,11 @@
-// Incremental (typeahead) buyer search — lets a user scope a project file to a
-// specific state awarder (e.g. АПИ) the way the curated starters do, instead of a
-// hardcoded EIK. Debounced backend search over the existing procurement-search
-// endpoint's `awarders` group (deduped by EIK). Reusable: the hub build form and
-// the in-page thread editor both mount it. Select a suggestion → a chip with a
-// clear ×; clearing returns to the input.
+// Incremental (typeahead) entity search — lets a user scope a project file to a
+// specific state awarder (e.g. АПИ) OR contractor/supplier (e.g. Сиела Норма) the
+// way the curated starters do, instead of a hardcoded EIK. Debounced backend
+// search over the existing procurement-search endpoint, reading either its
+// `awarders` group (buyer scope, default) or its `companies` group (contractor
+// scope) per the `group` prop. Reusable: the hub build form and the in-page thread
+// editor both mount it. Select a suggestion → a chip with a clear ×; clearing
+// returns to the input.
 
 import { useEffect, useState, type FC } from "react";
 
@@ -12,19 +14,55 @@ export interface AwarderChoice {
   name: string;
 }
 
+/** Which procurement-search result group + labels this instance drives. */
+export type AwarderSearchGroup = "awarders" | "companies";
+
+const GROUP_LABELS: Record<
+  AwarderSearchGroup,
+  {
+    chip: { bg: string; en: string };
+    clear: { bg: string; en: string };
+    search: { bg: string; en: string };
+    placeholder: { bg: string; en: string };
+  }
+> = {
+  awarders: {
+    chip: { bg: "Възложител: ", en: "Buyer: " },
+    clear: { bg: "Изчисти възложителя", en: "Clear buyer" },
+    search: { bg: "Търси възложител", en: "Search buyer" },
+    placeholder: {
+      bg: "Възложител (по избор) — напр. Пътна инфраструктура…",
+      en: "Buyer (optional) — e.g. Road Infrastructure Agency…",
+    },
+  },
+  companies: {
+    chip: { bg: "Изпълнител: ", en: "Contractor: " },
+    clear: { bg: "Изчисти изпълнителя", en: "Clear contractor" },
+    search: { bg: "Търси изпълнител", en: "Search contractor" },
+    placeholder: {
+      bg: "Изпълнител (по избор) — напр. Сиела Норма…",
+      en: "Contractor (optional) — e.g. Ciela Norma…",
+    },
+  },
+};
+
 export const AwarderSearch: FC<{
   value: AwarderChoice | null;
   onChange: (a: AwarderChoice | null) => void;
   bg: boolean;
+  /** Which entity to search — buyers (`awarders`, default) or contractors
+   *  (`companies`). Picks the procurement-search response group + the labels. */
+  group?: AwarderSearchGroup;
   /** Placeholder for the empty input. */
   placeholder?: string;
   /** Extra classes on the wrapper (e.g. a fixed width on a one-row layout). */
   className?: string;
-}> = ({ value, onChange, bg, placeholder, className }) => {
+}> = ({ value, onChange, bg, group = "awarders", placeholder, className }) => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<AwarderChoice[]>([]);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const labels = GROUP_LABELS[group];
 
   useEffect(() => {
     const term = query.trim();
@@ -39,11 +77,16 @@ export const AwarderSearch: FC<{
       fetch(`/api/db/procurement-search?q=${encodeURIComponent(term)}`, {
         signal: ctl.signal,
       })
-        .then((r) => r.json() as Promise<{ awarders?: AwarderChoice[] }>)
+        .then(
+          (r) =>
+            r.json() as Promise<
+              Partial<Record<AwarderSearchGroup, AwarderChoice[]>>
+            >,
+        )
         .then((j) => {
           if (ctl.signal.aborted) return;
           setResults(
-            (j.awarders ?? [])
+            (j[group] ?? [])
               .slice(0, 8)
               .map((a) => ({ eik: a.eik, name: a.name })),
           );
@@ -60,7 +103,7 @@ export const AwarderSearch: FC<{
       clearTimeout(id);
       ctl.abort();
     };
-  }, [query]);
+  }, [query, group]);
 
   if (value) {
     return (
@@ -69,7 +112,7 @@ export const AwarderSearch: FC<{
       >
         <span className="min-w-0 flex-1 truncate rounded-md border bg-muted px-2 py-1.5">
           <span className="text-muted-foreground">
-            {bg ? "Възложител: " : "Buyer: "}
+            {bg ? labels.chip.bg : labels.chip.en}
           </span>
           {value.name}
         </span>
@@ -77,7 +120,7 @@ export const AwarderSearch: FC<{
           type="button"
           onClick={() => onChange(null)}
           className="shrink-0 rounded-md border px-2 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"
-          aria-label={bg ? "Изчисти възложителя" : "Clear buyer"}
+          aria-label={bg ? labels.clear.bg : labels.clear.en}
         >
           ×
         </button>
@@ -91,7 +134,7 @@ export const AwarderSearch: FC<{
         value={query}
         role="combobox"
         aria-expanded={open && results.length > 0}
-        aria-label={bg ? "Търси възложител" : "Search buyer"}
+        aria-label={bg ? labels.search.bg : labels.search.en}
         onChange={(e) => {
           setQuery(e.target.value);
           setOpen(true);
@@ -100,10 +143,7 @@ export const AwarderSearch: FC<{
         // Delay so an option's onMouseDown/onClick fires before the list closes.
         onBlur={() => setTimeout(() => setOpen(false), 150)}
         placeholder={
-          placeholder ??
-          (bg
-            ? "Възложител (по избор) — напр. Пътна инфраструктура…"
-            : "Buyer (optional) — e.g. Road Infrastructure Agency…")
+          placeholder ?? (bg ? labels.placeholder.bg : labels.placeholder.en)
         }
       />
       {open && (loading || results.length > 0) && (
