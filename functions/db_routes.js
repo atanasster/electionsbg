@@ -1536,7 +1536,7 @@ const DB_ROUTES = {
       `WITH p AS (SELECT * FROM price_products WHERE slug = $1),
             panel AS (
               SELECT k.eik, ch.name AS chain, pc.price_eur, pc.promo_eur,
-                     pc.store_id, p.unit_priced
+                     pc.store_id, st.label AS store, st.settlement, p.unit_priced
                 FROM p
                 JOIN price_skus    k  ON k.product_id = p.product_id
                 JOIN price_current pc ON pc.sku_id = k.sku_id
@@ -1556,7 +1556,15 @@ const DB_ROUTES = {
                            MIN(panel.chain COLLATE "C") AS chain,
                            MIN(panel.price_eur)         AS price_eur,
                            MIN(panel.promo_eur)         AS promo_eur,
-                           COUNT(DISTINCT panel.store_id) AS stores
+                           COUNT(DISTINCT panel.store_id) AS stores,
+                           -- the cheapest store's label + settlement (effective
+                           -- price, so a promo store wins) → a directions link
+                           (array_agg(panel.store COLLATE "C"
+                              ORDER BY COALESCE(panel.promo_eur, panel.price_eur),
+                                       panel.store_id))[1] AS store,
+                           (array_agg(panel.settlement COLLATE "C"
+                              ORDER BY COALESCE(panel.promo_eur, panel.price_eur),
+                                       panel.store_id))[1] AS settlement
                       FROM panel CROSS JOIN med
                      WHERE NOT panel.unit_priced OR panel.price_eur >= 0.5 * med.m
                      GROUP BY panel.eik) x), '[]'::jsonb)

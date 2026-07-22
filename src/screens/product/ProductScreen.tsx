@@ -26,7 +26,11 @@ import { Card } from "@/components/ui/card";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { useProduct, useProductHistory } from "@/data/prices/useProducts";
 import { usePriceDict } from "@/data/prices/usePrices";
-import { fmtEur, fmtPriceDate } from "@/data/prices/usePrices";
+import {
+  fmtEur,
+  fmtPriceDate,
+  mapsDirectionsUrl,
+} from "@/data/prices/usePrices";
 import { useAreaAnchor } from "@/data/area/areaAnchor";
 import { useAreaResolver } from "@/data/area/useAreaResolver";
 import { resolvePriceKeys } from "@/data/prices/pricePlaceKeys";
@@ -247,8 +251,13 @@ export const ProductScreen: FC = () => {
             <Card className="p-4">
               {chains.map((c) => (
                 <div key={c.eik} className="flex justify-between text-sm py-1">
-                  <span>{c.chain}</span>
-                  <span className="tabular-nums">
+                  <Link
+                    to={`/consumption/chain/${c.eik}`}
+                    className="hover:text-primary hover:underline min-w-0 truncate"
+                  >
+                    {c.chain}
+                  </Link>
+                  <span className="tabular-nums shrink-0 pl-3">
                     {fmtEur(c.price_eur, lang)}
                   </span>
                 </div>
@@ -302,10 +311,19 @@ const LadderRow: FC<{
 }> = ({ row, best, worst, qty, unit, lang, T }) => {
   const save = row.price_eur - best;
   const up = unitPrice(row.price_eur, qty, unit, lang);
+  // The chain's cheapest store for this product — a directions link built from
+  // free-text label + settlement (no coordinates; Google geocodes + routes from
+  // the user's location). Same affordance as the my-area price tile.
+  const storeLabel = [row.store, row.settlement].filter(Boolean).join(" · ");
   return (
     <div className="flex items-center justify-between px-4 py-2.5">
       <div className="min-w-0">
-        <div className="text-sm font-medium truncate">{row.chain}</div>
+        <Link
+          to={`/consumption/chain/${row.eik}`}
+          className="text-sm font-medium truncate block hover:text-primary hover:underline"
+        >
+          {row.chain}
+        </Link>
         <div className="text-xs text-muted-foreground">
           {up && <span>{up}</span>}
           {up && row.stores > 1 && " · "}
@@ -315,6 +333,21 @@ const LadderRow: FC<{
             </span>
           )}
         </div>
+        {row.store ? (
+          <a
+            href={mapsDirectionsUrl([row.chain, row.store, row.settlement])}
+            target="_blank"
+            rel="noreferrer"
+            title={T(
+              `Упътване до ${storeLabel}`,
+              `Directions to ${storeLabel}`,
+            )}
+            className="mt-0.5 text-[11px] text-muted-foreground hover:text-primary hover:underline inline-flex items-center gap-1 min-w-0 max-w-full"
+          >
+            <MapPin className="size-3 shrink-0" />
+            <span className="truncate">{storeLabel}</span>
+          </a>
+        ) : null}
       </div>
       <div className="text-right shrink-0 pl-3">
         <div className="tabular-nums font-medium">

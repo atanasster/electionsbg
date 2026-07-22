@@ -46,6 +46,11 @@ export interface ChainLadderRow {
   price_eur: number;
   promo_eur: number | null;
   stores: number;
+  /** The chain's cheapest store for this product — КЗП label + settlement,
+   *  free text (no coordinates). Feeds a Google Maps directions link. Absent on
+   *  payloads built before the store fields were added. */
+  store?: string | null;
+  settlement?: string | null;
 }
 
 export interface ProductDetail {
