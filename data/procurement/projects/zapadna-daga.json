@@ -4,12 +4,27 @@
     "en": "Sofia ring road — Western Arc"
   },
   "thesis": {
-    "bg": "Последните километри от Софийския околовръстен път: през колко процедури, изпълнители и договори минава изграждането на един пътен участък и как е възложено.",
-    "en": "The last kilometres of Sofia's ring road: how many procedures, contractors and contracts one road segment passes through, and how it was awarded."
+    "bg": "Последните километри на Софийския околовръстен път — Западната дъга в двата ѝ участъка (от км 59+400 през км 0 до км 6+309): през колко процедури, изпълнители и договори минава изграждането на едно трасе и как е възложено.",
+    "en": "The last kilometres of Sofia's ring road — the Western Arc across both its sections (from km 59+400 through km 0 to km 6+309): how many procedures, contractors and contracts the building of one route passes through, and how it was awarded."
   },
   "authority": "Агенция „Пътна инфраструктура“",
   "search": [
     { "terms": "западна дъга", "distinctive": ["дъга"], "buyerEik": ["000695089"] }
   ],
-  "verifiedAt": "2026-07-21"
+  "includes": {
+    "contractKeys": [
+      "cacaba171f71",
+      "c2cd4310fa6f",
+      "852c0d0f2082",
+      "8d64d92a51f2",
+      "e6628df9d4ac",
+      "276e6f374bab",
+      "c2414572e421",
+      "3ec5376a2250",
+      "8210264a011f",
+      "ff0114a925d0",
+      "4a9aa83ab4c4"
+    ]
+  },
+  "verifiedAt": "2026-07-23"
 }

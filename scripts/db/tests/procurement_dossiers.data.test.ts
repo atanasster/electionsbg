@@ -145,6 +145,7 @@ const NCH = skip ? null : await resolveDossier("national-childrens-hospital");
 const SOFIA = skip ? null : await resolveDossier("sofia-metro");
 const GRAF = skip ? null : await resolveDossier("graf-ignatievo");
 const MASH = skip ? null : await resolveDossier("mashinno-glasuvane");
+const ZAPADNA = skip ? null : await resolveDossier("zapadna-daga");
 
 // ── Русе–Велико Търново ─────────────────────────────────────────────────────
 
@@ -708,6 +709,84 @@ test.skipIf(skip)(
       leaked.length,
       0,
       `${leaked.length} СИЕЛА legal-software subscription(s) leaked into mashinno — excludes.contractKeys regressed`,
+    );
+  },
+);
+
+// ── Софийски околовръстен — Западна дъга ─────────────────────────────────────
+// Audit (2026-07-23): the `западна дъга` title-only seed captured only участък 2
+// (km 0+780→6+309, ДЗЗД Европейски пътища €39.5M) and MISSED участък 1 — the
+// northern closure (km 59+400→61+629 & 0+000→0+780), a distinct km-range whose
+// titles say "Софийски околовръстен път" WITHOUT the phrase "Западна дъга", plus
+// three cheap участък-2 records the seed's title gate skipped. The full EU-funded
+// Западна дъга object spans BOTH участъка; the €39.5M headline understated the
+// arc by ~€27.4M. Fix = includes.contractKeys pinning the 11 title-verified rows
+// (keyed by the unique hash — АПИ's contract_id codes like РД-33-21 are REUSED
+// across unrelated roads, so a contract_id include would leak wrong objects).
+
+test.skipIf(skip)(
+  "zapadna-daga: full two-участък arc total, not just участък 2",
+  () => {
+    // Seed-only was €40.0M (участък 2). With участък 1 pinned → ~€67.4M. The
+    // floor catches a dropped include; the ceiling catches a leaked sibling
+    // fan-out (includes must NOT expand УНП siblings).
+    const eur = ZAPADNA!.summary.contractedEur;
+    assert.ok(
+      eur > 60_000_000 && eur < 75_000_000,
+      `zapadna-daga contractedEur €${(eur / 1e6).toFixed(1)}M outside [60M, 75M]`,
+    );
+  },
+);
+
+test.skipIf(skip)(
+  "zapadna-daga: участък-1 northern-closure build (Трейс СОП) is a member",
+  () => {
+    // The two participък-1 construction contracts fold to ДЗЗД Трейс СОП (EIK
+    // 176918407 is участък 2's Европейски пътища — Трейс СОП is a different EIK).
+    const trace = ZAPADNA!.summary.topContractors.find((r) =>
+      r.name.includes("Трейс СОП"),
+    );
+    assert.ok(
+      trace != null && trace.eur > 24_000_000,
+      `Трейс СОП участък-1 build absent/undersized (${trace ? `€${(trace.eur / 1e6).toFixed(1)}M` : "absent"}) — includes regressed`,
+    );
+    // Both участък-1 construction keys present, both участък-2 fixes present.
+    for (const key of [
+      "cacaba171f71", // Трейс СОП €20.4M — доп. проектиране и строителство (у-к 1)
+      "c2cd4310fa6f", // Трейс СОП €6.1M  — доп. СМР (у-к 1)
+      "8210264a011f", // Бачовска €9k     — Поз. 5, СОП 0+780→6+300 (у-к 2)
+    ]) {
+      assert.ok(
+        ZAPADNA!.contracts.some((c) => c.key === key),
+        `zapadna-daga include ${key} missing — includes.contractKeys regressed`,
+      );
+    }
+  },
+);
+
+test.skipIf(skip)(
+  "zapadna-daga: участък-2 seed anchor stays whole, no wrong-object leak",
+  () => {
+    // The genuine участък-2 headline construction (Европейски пътища, EIK
+    // 176918407) must stay; its €39.5M is the largest member.
+    assert.ok(
+      ZAPADNA!.contractorEiks.has("176918407"),
+      "Европейски пътища (176918407) — участък-2 build — missing from zapadna-daga",
+    );
+    // No member exceeds the €39.5M участък-2 build (guards against a reused
+    // contract_id or a fanned-out framework dragging in a bigger foreign object,
+    // e.g. the €16.4M Кърджали-Подкова road that shares contract_id РД-33-21).
+    assert.ok(
+      ZAPADNA!.maxContractEur < 41_000_000,
+      `zapadna-daga has a €${(ZAPADNA!.maxContractEur / 1e6).toFixed(1)}M member — a foreign object (reused contract_id) leaked in`,
+    );
+    // 5 seeded + 11 pinned includes = 16, no sibling fan-out.
+    const spend = ZAPADNA!.contracts.filter(
+      (c) => (c.tag ?? "contract") === "contract",
+    ).length;
+    assert.ok(
+      spend >= 14 && spend <= 18,
+      `zapadna-daga has ${spend} member contracts (expected ~16) — seed or includes drifted`,
     );
   },
 );
