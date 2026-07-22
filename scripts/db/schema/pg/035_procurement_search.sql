@@ -128,12 +128,14 @@ BEGIN
   SELECT count(*) = 2000 INTO dense FROM (
     SELECT 1 FROM contracts c
     WHERE c.tag = 'contract' AND c.title IS NOT NULL AND c.title <> ''
+      AND c.consortium_role IS DISTINCT FROM 'member'
       AND to_tsvector('simple', c.title_fold) @@ tsq
     LIMIT 2000) p;
   IF dense THEN
     seen := ARRAY(
       SELECT c.key FROM contracts c
       WHERE c.tag = 'contract' AND c.title IS NOT NULL AND c.title <> ''
+      AND c.consortium_role IS DISTINCT FROM 'member'
         AND to_tsvector('simple', c.title_fold) @@ tsq
       ORDER BY c.amount_eur DESC NULLS LAST, c.key
       LIMIT lim);
@@ -143,6 +145,7 @@ BEGIN
         WITH m0 AS MATERIALIZED (
           SELECT c.key, c.amount_eur FROM contracts c
           WHERE c.tag = 'contract' AND c.title IS NOT NULL AND c.title <> ''
+      AND c.consortium_role IS DISTINCT FROM 'member'
             AND to_tsvector('simple', c.title_fold) @@ tsq)
         SELECT * FROM m0) m
       ORDER BY m.amount_eur DESC NULLS LAST, m.key
@@ -158,6 +161,7 @@ BEGIN
     SELECT c.key, c.title, c.date, c.awarder_name, c.contractor_name, c.amount_eur
     FROM contracts c, qq
     WHERE c.tag = 'contract' AND c.title IS NOT NULL AND c.title <> ''
+      AND c.consortium_role IS DISTINCT FROM 'member'
       AND qq.qf <% c.title_fold
       AND NOT (c.key = ANY(seen))
     ORDER BY word_similarity((SELECT qf FROM qq), c.title_fold) DESC,

@@ -777,6 +777,10 @@ type ContractTableRow = {
   title: string;
   amountEur?: number;
   numberOfTenderers?: number;
+  // Migration 087: a consortium MEMBER row's amountEur is €0; consortiumFullEur is
+  // the full joint-contract value (its real share isn't public).
+  consortiumRole?: "carrier" | "member";
+  consortiumFullEur?: number;
 };
 type ContractsTablePage = {
   rows: ContractTableRow[];
@@ -948,7 +952,12 @@ export const contractSearch = async (
     awarder: c.awarderName,
     subject: c.title.length > 80 ? c.title.slice(0, 79) + "…" : c.title,
     bids: typeof c.numberOfTenderers === "number" ? c.numberOfTenderers : "—",
-    amount: fmtEurCompact(eurOf(c), ctx.lang),
+    // A consortium member's own amount is €0 (migration 087); show the full
+    // joint-contract value with a note so it doesn't read as a €0 contract.
+    amount:
+      c.consortiumRole === "member"
+        ? `${fmtEurCompact(c.consortiumFullEur ?? 0, ctx.lang)} (${bg ? "обединение" : "consortium"})`
+        : fmtEurCompact(eurOf(c), ctx.lang),
   }));
 
   const columns: Column[] = [

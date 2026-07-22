@@ -914,6 +914,9 @@ const DB_ROUTES = {
               CASE WHEN eu_funded IS NULL THEN NULL ELSE eu_funded = 1 END AS "euFunded"
        FROM contracts
        WHERE awarder_eik = ANY($1) AND tag = 'contract' AND amount_eur IS NOT NULL
+         -- Exclude €0 consortium member rows (migration 087) — the carrier row
+         -- carries the joint value into this "top contracts" list.
+         AND consortium_role IS DISTINCT FROM 'member'
          AND date >= COALESCE($2, '')
          AND date <  COALESCE($3, '99999999')
        ORDER BY amount_eur DESC NULLS LAST, key

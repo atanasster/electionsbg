@@ -25,7 +25,7 @@ import type { ProcurementContract } from "@/data/dataTypes";
 import { useContractRiskFlags } from "@/data/procurement/useContractRiskFlags";
 import { useProcurementMpConnectedByEik } from "@/data/procurement/useMpConnectedByEik";
 import { usePepConnectedByEik } from "@/data/procurement/usePepConnectedByEik";
-import { formatAmountEur } from "@/lib/currency";
+import { formatAmountEur, formatEur } from "@/lib/currency";
 import { splitContractTitle } from "@/lib/contractTitle";
 import {
   projectFromContract,
@@ -150,7 +150,11 @@ export const ContractDetailScreen: FC = () => {
         {c.consortiumRole === "member" && (
           <div className="rounded-lg border border-border bg-muted/30 p-3 text-sm">
             Този договор е спечелен от <strong>обединение</strong>. Пълната
-            стойност е записана при водещото обединение
+            стойност на договора е{" "}
+            <strong>
+              {formatEur(c.consortiumFullEur ?? 0, i18n.language)}
+            </strong>
+            , записана при водещото обединение
             {c.consortiumEik ? (
               <>
                 {" — "}
@@ -162,7 +166,7 @@ export const ContractDetailScreen: FC = () => {
                 </Link>
               </>
             ) : null}
-            . Този запис е за фирма-участник, затова стойността по-долу е 0 —
+            . Този запис е за фирма-участник (затова стойността по-долу е 0) —
             реалният дял на всеки член не е публичен.
           </div>
         )}
