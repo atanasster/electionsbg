@@ -39,7 +39,9 @@ const CONTRACT_COLS = `
   c.tender_period_start_date AS "tenderPeriodStartDate",
   c.tender_period_end_date AS "tenderPeriodEndDate",
   c.category, c.bundle_uuid AS "bundleUuid", c.source_url AS "sourceUrl",
-  c.lot_name AS "lotName"`;
+  c.lot_name AS "lotName",
+  c.joint_kind AS "jointKind", c.consortium_role AS "consortiumRole",
+  c.consortium_eik AS "consortiumEik", c.consortium_full_eur AS "consortiumFullEur"`;
 // The procedure's PROGNOZA (estimated value) + поръчки source-day provenance,
 // from the УНП-matched tender (tenders.unp is the PK → single-row seek). NULL for
 // the ~49% of contracts with no matching tender — the UI degrades to two bases.
@@ -993,6 +995,10 @@ const DB_ROUTES = {
                 amount, currency, amount_eur
          FROM contracts
          WHERE ${me}_eik = $1 AND ${other}_eik IS NOT NULL AND ${other}_eik <> ''
+           -- Exclude €0 consortium member rows (migration 087): the joint value
+           -- sits on the carrier entity, so member rows would list a counterparty
+           -- at €0. Participation is surfaced separately on the company page.
+           AND consortium_role IS DISTINCT FROM 'member'
            AND ($2::text IS NULL OR date >= $2::text)
            AND ($3::text IS NULL OR date <= $3::text)
        ),

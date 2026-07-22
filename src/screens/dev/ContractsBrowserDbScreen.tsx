@@ -188,13 +188,24 @@ export const ContractsBrowserDbScreen: FC = () => {
         accessorFn: (r) => r.amountEur,
         header: t("company_contract_amount") || "Amount",
         meta: { align: "right" },
-        cell: ({ row }) => (
-          <ContractAmount
-            amountEur={row.original.amountEur}
-            amount={row.original.amount}
-            currency={row.original.currency}
-          />
-        ),
+        cell: ({ row }) =>
+          // A €0 consortium member row (migration 087) shows the full joint value
+          // with a badge instead of a bare €0 — the value sits on the carrier.
+          row.original.consortiumRole === "member" ? (
+            <span
+              className="text-xs text-muted-foreground"
+              title="Договор на обединение — пълна стойност; дялът на всеки член не е публичен."
+            >
+              обед. ·{" "}
+              <ContractAmount amountEur={row.original.consortiumFullEur} />
+            </span>
+          ) : (
+            <ContractAmount
+              amountEur={row.original.amountEur}
+              amount={row.original.amount}
+              currency={row.original.currency}
+            />
+          ),
       },
       {
         id: "risk",

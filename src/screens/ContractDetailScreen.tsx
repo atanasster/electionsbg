@@ -147,6 +147,32 @@ export const ContractDetailScreen: FC = () => {
             </div>
           );
         })()}
+        {c.consortiumRole === "member" && (
+          <div className="rounded-lg border border-border bg-muted/30 p-3 text-sm">
+            Този договор е спечелен от <strong>обединение</strong>. Пълната
+            стойност е записана при водещото обединение
+            {c.consortiumEik ? (
+              <>
+                {" — "}
+                <Link
+                  to={`/company/${c.consortiumEik}`}
+                  className="text-primary hover:underline"
+                >
+                  виж обединението
+                </Link>
+              </>
+            ) : null}
+            . Този запис е за фирма-участник, затова стойността по-долу е 0 —
+            реалният дял на всеки член не е публичен.
+          </div>
+        )}
+        {c.jointKind === "framework" && (
+          <div className="rounded-lg border border-border bg-muted/30 p-3 text-sm">
+            <strong>Рамково споразумение</strong> с няколко изпълнители —
+            показаната стойност е споделен таван, а не гарантиран приход за този
+            изпълнител.
+          </div>
+        )}
         <ContractValueBases contract={c} />
         {riskResult ? (
           <div className="pt-2">

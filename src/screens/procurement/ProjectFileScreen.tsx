@@ -1594,7 +1594,9 @@ export const ProjectFileScreen = () => {
             footer, so it is NOT print-hidden. */}
         <ProvenanceFooter
           spec={spec}
-          memberCount={data.contracts.length}
+          memberCount={
+            data.contracts.filter((c) => c.consortiumRole !== "member").length
+          }
           loc={loc}
           bg={bg}
         />
@@ -1843,8 +1845,27 @@ const ContractRow = ({
       {showAppeal && c.hasAppeal && (
         <AppealBadge upheld={c.appealUpheld} bg={bg} />
       )}
+      {c.consortiumRole === "member" && (
+        <span
+          className="text-[11px] px-1.5 py-0.5 rounded-full"
+          style={{ background: "#EAEFF4", color: "#3A4A5A" }}
+          title={
+            bg
+              ? "участник в обединение — стойността е при водещото обединение"
+              : "consortium member — the value sits on the consortium entity"
+          }
+        >
+          {bg ? "участник" : "member"}
+        </span>
+      )}
       <span className="ml-auto flex items-baseline gap-1.5">
-        <span className="text-sm font-medium">{money(c.amountEur)}</span>
+        {/* A €0 consortium member row shows the full joint value (migration 087),
+            not a bare €0. */}
+        <span className="text-sm font-medium">
+          {c.consortiumRole === "member"
+            ? money(c.consortiumFullEur)
+            : money(c.amountEur)}
+        </span>
         {hasAnnex && (
           <span
             className="text-[11px]"

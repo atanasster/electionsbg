@@ -27,10 +27,15 @@ WITH base AS (
 hd AS (
   SELECT
     COALESCE(SUM(amount_eur) FILTER (WHERE tag = 'contract'), 0)        AS total_eur,
-    (COUNT(*) FILTER (WHERE tag = 'contract'))::int                     AS contract_count,
+    -- Exclude €0 consortium member rows (migration 087) from counts: the awarder's
+    -- real counterparty on a joint award is the consortium ENTITY (carrier), not
+    -- each member — counting members inflates both the contract and contractor count.
+    (COUNT(*) FILTER (WHERE tag = 'contract'
+       AND consortium_role IS DISTINCT FROM 'member'))::int            AS contract_count,
     (COUNT(*) FILTER (WHERE tag = 'award'))::int                        AS award_count,
     (COUNT(*) FILTER (WHERE tag = 'contractAmendment'))::int            AS amendment_count,
-    (COUNT(DISTINCT contractor_eik) FILTER (WHERE tag = 'contract'))::int AS contractor_count
+    (COUNT(DISTINCT contractor_eik) FILTER (WHERE tag = 'contract'
+       AND consortium_role IS DISTINCT FROM 'member'))::int            AS contractor_count
   FROM base
 ),
 other AS (
@@ -48,6 +53,9 @@ byc AS (
            '{}'::jsonb AS "totalOther",
            (COUNT(*) FILTER (WHERE tag = 'contract'))::int AS "contractCount"
     FROM base
+    -- Drop €0 consortium member rows (migration 087) so a member firm doesn't list
+    -- as a €0 counterparty; the carrier entity carries the joint value.
+    WHERE consortium_role IS DISTINCT FROM 'member'
     GROUP BY contractor_eik
     HAVING COUNT(*) FILTER (WHERE tag = 'contract') > 0
     ORDER BY "totalEur" DESC NULLS LAST

@@ -51,6 +51,9 @@ sup AS (
            (COUNT(*) FILTER (WHERE number_of_tenderers = 1))::int AS "singleBidN"
     FROM base
     WHERE contractor_eik IS NOT NULL AND contractor_eik <> ''
+      -- Exclude €0 consortium member rows (migration 087) so the per-category
+      -- distinct-supplier count isn't inflated (HHI shares are unaffected — €0).
+      AND consortium_role IS DISTINCT FROM 'member'
     GROUP BY contractor_eik
   ) s
 ),

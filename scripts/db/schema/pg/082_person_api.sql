@@ -65,6 +65,8 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       LEFT JOIN LATERAL (
         SELECT round(sum(ct.amount_eur)::numeric, 2) AS eur, count(*) AS n
         FROM contracts ct WHERE ct.contractor_eik = tr.ref AND ct.tag = 'contract'
+          -- Exclude €0 consortium member rows (migration 087) — mirrors 024.
+          AND ct.consortium_role IS DISTINCT FROM 'member'
       ) pr ON pr.n > 0
       -- ИСУН beneficiary row (one per EIK) + its project count.
       LEFT JOIN LATERAL (

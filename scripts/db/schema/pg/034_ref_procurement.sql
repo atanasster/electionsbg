@@ -24,26 +24,26 @@ per AS (
   SELECT
     l.eik, l.politician, l.kind, l.role, l.relations,
     COALESCE((SELECT tc.name FROM tr_companies tc WHERE tc.uic = l.eik),
-             (SELECT MIN(c.contractor_name) FROM contracts c WHERE c.contractor_eik = l.eik)) AS name,
+             (SELECT MIN(c.contractor_name) FROM contracts c WHERE c.contractor_eik = l.eik AND c.consortium_role IS DISTINCT FROM 'member')) AS name,
     (SELECT COALESCE(SUM(c.amount_eur) FILTER (WHERE c.tag = 'contract'), 0)
-     FROM contracts c WHERE c.contractor_eik = l.eik) AS total_eur,
+     FROM contracts c WHERE c.contractor_eik = l.eik AND c.consortium_role IS DISTINCT FROM 'member') AS total_eur,
     (SELECT COALESCE(jsonb_object_agg(cur, s), '{}'::jsonb) FROM (
        SELECT c.currency AS cur, ROUND(SUM(c.amount)) AS s
        FROM contracts c
-       WHERE c.contractor_eik = l.eik AND c.tag = 'contract'
+       WHERE c.contractor_eik = l.eik AND c.consortium_role IS DISTINCT FROM 'member' AND c.tag = 'contract'
          AND c.amount_eur IS NULL AND c.amount IS NOT NULL AND c.currency IS NOT NULL
        GROUP BY c.currency
     ) q) AS total_other,
     (SELECT (COUNT(*) FILTER (WHERE c.tag = 'contract'))::int
-     FROM contracts c WHERE c.contractor_eik = l.eik) AS contract_count,
+     FROM contracts c WHERE c.contractor_eik = l.eik AND c.consortium_role IS DISTINCT FROM 'member') AS contract_count,
     (SELECT (COUNT(*) FILTER (WHERE c.tag = 'award'))::int
-     FROM contracts c WHERE c.contractor_eik = l.eik) AS award_count,
+     FROM contracts c WHERE c.contractor_eik = l.eik AND c.consortium_role IS DISTINCT FROM 'member') AS award_count,
     (SELECT COALESCE(jsonb_agg(to_jsonb(y) ORDER BY y.year), '[]'::jsonb) FROM (
        SELECT left(c.date, 4) AS year,
               ROUND(COALESCE(SUM(c.amount_eur) FILTER (WHERE c.tag = 'contract'), 0)) AS "totalEur",
               '{}'::jsonb AS "totalOther",
               (COUNT(*) FILTER (WHERE c.tag = 'contract'))::int AS "contractCount"
-       FROM contracts c WHERE c.contractor_eik = l.eik
+       FROM contracts c WHERE c.contractor_eik = l.eik AND c.consortium_role IS DISTINCT FROM 'member'
        GROUP BY left(c.date, 4)
        HAVING COUNT(*) FILTER (WHERE c.tag = 'contract') > 0
     ) y) AS by_year,
@@ -52,7 +52,7 @@ per AS (
               ROUND(COALESCE(SUM(c.amount_eur) FILTER (WHERE c.tag = 'contract'), 0)) AS "totalEur",
               '{}'::jsonb AS "totalOther",
               (COUNT(*) FILTER (WHERE c.tag = 'contract'))::int AS "contractCount"
-       FROM contracts c WHERE c.contractor_eik = l.eik
+       FROM contracts c WHERE c.contractor_eik = l.eik AND c.consortium_role IS DISTINCT FROM 'member'
        GROUP BY c.awarder_eik
        HAVING COUNT(*) FILTER (WHERE c.tag = 'contract') > 0
        ORDER BY "totalEur" DESC

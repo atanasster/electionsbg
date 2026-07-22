@@ -36,6 +36,8 @@ WITH base AS (
     AND cpv IS NOT NULL AND cpv <> ''
     AND contractor_eik IS NOT NULL AND contractor_eik <> ''
     AND left(cpv, 2) = p_division
+    -- Exclude €0 consortium member rows (migration 087) from the peer set.
+    AND consortium_role IS DISTINCT FROM 'member'
     AND (p_from IS NULL OR date >= p_from)
     AND (p_to   IS NULL OR date <  p_to)
   GROUP BY contractor_eik

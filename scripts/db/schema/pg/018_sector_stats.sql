@@ -21,6 +21,9 @@ WITH base AS (
   WHERE tag = 'contract'
     AND cpv IS NOT NULL AND cpv <> ''
     AND contractor_eik IS NOT NULL AND contractor_eik <> ''
+    -- Exclude €0 consortium member rows (migration 087): they'd inflate the
+    -- per-division supplier count and drag the median down. The carrier holds value.
+    AND consortium_role IS DISTINCT FROM 'member'
   GROUP BY left(cpv, 2), contractor_eik
 ),
 div_stats AS (
