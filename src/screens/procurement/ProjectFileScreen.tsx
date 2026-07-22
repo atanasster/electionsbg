@@ -2310,19 +2310,21 @@ const FundingComposition = ({
   bg: boolean;
 }) => {
   const hasEuSplit =
-    f.euEur != null &&
-    f.nationalEur != null &&
-    f.euEur + f.nationalEur > 0;
+    f.euEur != null && f.nationalEur != null && f.euEur + f.nationalEur > 0;
   const ownShare = f.ownCofinanceEur ?? 0;
   const hasOwn = ownShare > 0 && f.grantEur != null && f.grantEur > 0;
   if (!hasEuSplit && !hasOwn) return null;
 
   const euNatTotal = (f.euEur ?? 0) + (f.nationalEur ?? 0);
-  const euPct = hasEuSplit ? Math.round(((f.euEur ?? 0) / euNatTotal) * 100) : 0;
+  const euPct = hasEuSplit
+    ? Math.round(((f.euEur ?? 0) / euNatTotal) * 100)
+    : 0;
   const natPct = hasEuSplit ? 100 - euPct : 0;
 
   const ownTotal = (f.grantEur ?? 0) + ownShare;
-  const grantPct = hasOwn ? Math.round(((f.grantEur ?? 0) / ownTotal) * 100) : 0;
+  const grantPct = hasOwn
+    ? Math.round(((f.grantEur ?? 0) / ownTotal) * 100)
+    : 0;
   const ownPct = hasOwn ? 100 - grantPct : 0;
 
   return (

@@ -76,7 +76,11 @@ export function computeCorpusEurPerKm(
     const workType = workTypeOf(c.title ?? "", c.cpv ?? undefined);
     const len = lengthOf(c.title ?? "");
     // eurPerKmOf reads only amountEur — its parameter is now that minimal shape.
-    const pk = eurPerKmOf({ amountEur: c.amountEur ?? undefined }, workType, len);
+    const pk = eurPerKmOf(
+      { amountEur: c.amountEur ?? undefined },
+      workType,
+      len,
+    );
     if (!pk) continue;
     const weight = c.amountEur ?? 0;
     // eurPerKmOf's amount floor makes this unreachable, but keep the positive-weight

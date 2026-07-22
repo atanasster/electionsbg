@@ -639,7 +639,12 @@ const BikePath: FC = () => (
     {/* pedal crank */}
     <circle cx="147" cy="82" r="3.4" fill="currentColor" />
     {/* seat */}
-    <path d="M126 47 h18" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" />
+    <path
+      d="M126 47 h18"
+      stroke="currentColor"
+      strokeWidth="3.2"
+      strokeLinecap="round"
+    />
     {/* handlebar */}
     <path
       d="M176 52 L182 40 M174 40 h14"
