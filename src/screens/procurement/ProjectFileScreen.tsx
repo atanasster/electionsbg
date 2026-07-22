@@ -43,6 +43,7 @@ import {
   classifyMethod,
   isSingleBid,
   annexDelta,
+  usesCorpusTotal,
   roleKeyOf,
   roleLabel,
   inferNatureFromTitles,
@@ -821,6 +822,17 @@ export const ProjectFileScreen = () => {
       );
 
     const { fold } = data;
+    // Program-total basis (§4.1c): for a distributed program (`totalBasis:
+    // "corpus"`) the headline is the WHOLE-corpus contracted sum, not the top-N
+    // fold — which under-counts a many-thousand-contract program by an order of
+    // magnitude. The breakdowns/timeline/contractors below stay the largest N
+    // members (captioned as such). Falls back to the fold if the corpus figure
+    // is unavailable.
+    const programTotal =
+      usesCorpusTotal(spec) && data.corpusContractedEur != null;
+    const headlineEur = programTotal
+      ? data.corpusContractedEur!
+      : fold.totalContractedEur;
     const mix = fold.methodMix;
     const mixTotal =
       mix.competitive + mix.nonCompetitive + mix.unspecified || 1;
@@ -831,10 +843,13 @@ export const ProjectFileScreen = () => {
     // else pctDeclared applied to the contracted total; the progress note is a
     // pull-quote. Absent → hidden.
     const adv = spec.advance;
+    // A pctDeclared advance is "% of contracted" — take it off the SAME
+    // contracted figure shown in the headline (corpus in program mode), never a
+    // fold total the reader can't see.
     const advanceEur =
       adv?.amountEur ??
       (adv?.pctDeclared != null
-        ? (fold.totalContractedEur * adv.pctDeclared) / 100
+        ? (headlineEur * adv.pctDeclared) / 100
         : undefined);
     const advanceNote = bg
       ? adv?.physicalProgressNote?.bg
@@ -1023,8 +1038,16 @@ export const ProjectFileScreen = () => {
         {/* Honesty block — big totals */}
         <div className="flex flex-wrap gap-x-10 gap-y-5 border-y py-5 my-6">
           <Figure
-            label={bg ? "Договорено (ЗОП)" : "Contracted"}
-            value={money(fold.totalContractedEur)}
+            label={
+              bg
+                ? programTotal
+                  ? "Договорено (ЗОП, целият масив)"
+                  : "Договорено (ЗОП)"
+                : programTotal
+                  ? "Contracted (ЗОП, whole corpus)"
+                  : "Contracted"
+            }
+            value={money(headlineEur)}
             emphasis
           />
           {announced != null && (
@@ -1071,6 +1094,18 @@ export const ProjectFileScreen = () => {
             />
           )}
         </div>
+
+        {/* Program-total caption (§4.1c): the headline is the whole-corpus total,
+            but the breakdowns / timeline / contractors below describe only the
+            largest members — say so, so a €156M role-split under a €975M headline
+            reads as "the biggest ones", not a sum that fails to add up. */}
+        {programTotal && (
+          <p className="-mt-3 mb-6 text-sm text-muted-foreground">
+            {bg
+              ? "Сумата е за целия масив договори по програмата. Разбивките, хронологията и изпълнителите по-долу описват само най-големите по стойност."
+              : "The total covers the whole programme corpus. The breakdowns, timeline and contractors below describe only the largest by value."}
+          </p>
+        )}
 
         {/* Budget-law source line (§10 P3, Tier C) — turns the curated «обявено»
             figure into one sourced against ЗДБ Приложение III. Hidden unless the
@@ -1133,7 +1168,10 @@ export const ProjectFileScreen = () => {
           (spec.benchmark?.impliedLow != null &&
             spec.benchmark?.impliedHigh != null)) &&
           (() => {
-            const contracted = fold.totalContractedEur;
+            // Same "договорено/contracted" figure as the headline (corpus in
+            // program mode) — the bar and the "от обявеното са договорени N%"
+            // sentence must agree with the number shown above, not the fold.
+            const contracted = headlineEur;
             const bLow = spec.benchmark?.impliedLow;
             const bHigh = spec.benchmark?.impliedHigh;
             const max = Math.max(announced ?? 0, bHigh ?? 0, contracted, 1);
