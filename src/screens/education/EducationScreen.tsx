@@ -27,6 +27,7 @@ import {
   MIN_RANK_COHORT,
 } from "@/data/schools/useSchoolDirectory";
 import { MON_AWARDER_PATH } from "@/screens/components/procurement/sectorPacks";
+import { searchSchools } from "./searchSchools";
 
 // Leaflet + react-leaflet are heavy; keep them out of the /education chunk until
 // the map actually renders.
@@ -52,13 +53,6 @@ const fmt = (v: number, lang: string): string =>
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
-
-// Fold Bulgarian + Latin so "ПГ", "sou", "гимназия" all match loosely.
-const norm = (s: string): string =>
-  s
-    .toLowerCase()
-    .replace(/[.,"„“»«]/g, " ")
-    .trim();
 
 // Rebase the narrow matura band to the series range so the sparkline shape reads.
 const rebase = (scores: number[]): number[] => {
@@ -88,18 +82,10 @@ export const EducationScreen: FC = () => {
     return (code: string) => m.get(code) ?? code;
   }, [regions, bg]);
 
-  const results = useMemo(() => {
-    if (!dir || dq.trim().length < 2) return [];
-    const needle = norm(dq);
-    return dir.schools
-      .filter(
-        (s) =>
-          norm(s.name).includes(needle) ||
-          norm(s.obshtinaName).includes(needle),
-      )
-      .sort((a, b) => (b.latestScore ?? 0) - (a.latestScore ?? 0))
-      .slice(0, 30);
-  }, [dir, dq]);
+  const results = useMemo(
+    () => (dir ? searchSchools(dir.schools, dq) : []),
+    [dir, dq],
+  );
 
   if (!dir) {
     return (
