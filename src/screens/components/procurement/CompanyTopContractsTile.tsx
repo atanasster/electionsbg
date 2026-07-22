@@ -122,11 +122,45 @@ export const CompanyTopContractsTile: FC<{
                   )}
                 </div>
                 <div className="flex shrink-0 items-center gap-2 whitespace-nowrap pt-0.5 text-right tabular-nums">
-                  <ContractAmount
-                    amountEur={c.amountEur}
-                    amount={c.amount}
-                    currency={c.currency}
-                  />
+                  {c.consortiumRole === "member" ? (
+                    // €0 participation row — show the full joint value, labelled, so
+                    // it doesn't read as a €0 contract (migration 087).
+                    <span
+                      className="text-xs text-muted-foreground"
+                      title="Договор, спечелен като член на обединение — показваме пълната стойност; дялът на всеки член не е публичен."
+                    >
+                      участник ·{" "}
+                      {c.consortiumFullEur != null ? (
+                        <ContractAmount amountEur={c.consortiumFullEur} />
+                      ) : (
+                        "—"
+                      )}
+                    </span>
+                  ) : (
+                    <>
+                      <ContractAmount
+                        amountEur={c.amountEur}
+                        amount={c.amount}
+                        currency={c.currency}
+                      />
+                      {c.jointKind === "framework" && (
+                        <span
+                          className="text-[10px] rounded bg-muted px-1 py-0.5 text-muted-foreground"
+                          title="Рамково споразумение с няколко изпълнители — стойността е споделен таван."
+                        >
+                          рамк
+                        </span>
+                      )}
+                      {c.consortiumRole === "carrier" && (
+                        <span
+                          className="text-[10px] rounded bg-muted px-1 py-0.5 text-muted-foreground"
+                          title="Обединение (ДЗЗД) — пълна стойност на договора."
+                        >
+                          обед.
+                        </span>
+                      )}
+                    </>
+                  )}
                   <a
                     href={src.url}
                     target="_blank"

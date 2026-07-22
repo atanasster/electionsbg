@@ -34,7 +34,11 @@ WITH base AS (
 hd AS (
   SELECT
     COALESCE(SUM(amount_eur) FILTER (WHERE tag = 'contract'), 0)   AS total_eur,
-    (COUNT(*) FILTER (WHERE tag = 'contract'))::int                AS contract_count,
+    -- Exclude €0 consortium member rows (migration 087): they are participation
+    -- placeholders, not the firm's own contracts, so counting them would inflate
+    -- the headline count and understate the avg (totalEur is already solo-only).
+    (COUNT(*) FILTER (WHERE tag = 'contract'
+       AND consortium_role IS DISTINCT FROM 'member'))::int        AS contract_count,
     -- awardCount = OCDS 'award' notices (matches the JSON rollup; corpus has none
     -- today). amendmentCount = 'contractAmendment' rows (анекси) — surfaced
     -- separately so they're labelled correctly, not lumped in as "awards".

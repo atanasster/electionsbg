@@ -261,12 +261,18 @@ type DbRollup = Pick<
 > & {
   awarderCount: number;
   amendmentCount: number;
-  // Consortium participation: the slice of totalEur (and count) won jointly, as a
-  // member of an обединение / ДЗЗД. The value is our EQUAL split across members,
-  // so we surface it separately — a firm that bids only in consortia would
-  // otherwise read as having won that money outright.
+  // Consortium / framework participation (stored model, migration 087). `totalEur`
+  // is now SOLO work only (a member firm's joint rows are €0). `consortiumEur` is
+  // the FULL value of the joint contracts this firm took part in as an обединение
+  // member — NOT a slice of totalEur, and not an estimate of its share (which isn't
+  // public). `frameworkEur` is the part of totalEur won via рамкови споразумения
+  // (shared ceiling). `consortiumMembers` lists this entity's members when the page
+  // itself IS a consortium (carrier) entity.
   consortiumEur?: number;
   consortiumCount?: number;
+  frameworkEur?: number;
+  frameworkCount?: number;
+  consortiumMembers?: Array<{ eik: string; name: string }>;
   breakdown: {
     totalEur: number;
     cpvKnownEur: number;
@@ -1396,17 +1402,31 @@ export const CompanyDbScreen: FC = () => {
                   {procurement && (procurement.consortiumCount ?? 0) > 0 && (
                     <Link
                       to={`/company/${eik}/contracts`}
-                      className="text-xs text-muted-foreground tabular-nums hover:underline hover:text-foreground"
-                      title="Стойност, спечелена като член на обединение (ДЗЗД). Показваме нашия равен дял между членовете — реалният дял на всеки член рядко е публикуван."
+                      className="block text-xs text-muted-foreground tabular-nums hover:underline hover:text-foreground"
+                      title="Пълната стойност на договорите, спечелени като член на обединение (ДЗЗД). Реалният дял на всеки член не е публичен, затова показваме пълната стойност на договора — тя НЕ е включена в горната сума (тя е само за самостоятелните договори)."
                     >
-                      от които{" "}
+                      + участник в{" "}
+                      {num.format(procurement.consortiumCount ?? 0)} обединения
+                      (общо{" "}
                       {formatEurCompact(
                         procurement.consortiumEur ?? 0,
                         i18n.language,
-                      )}{" "}
-                      в обединения (
-                      {num.format(procurement.consortiumCount ?? 0)})
+                      )}
+                      ; дялът не е публичен)
                     </Link>
+                  )}
+                  {procurement && (procurement.frameworkCount ?? 0) > 0 && (
+                    <div
+                      className="text-xs text-muted-foreground tabular-nums"
+                      title="Част от горната сума е спечелена по рамкови споразумения с няколко изпълнители — стойността е споделен таван, а не гарантиран приход."
+                    >
+                      вкл.{" "}
+                      {formatEurCompact(
+                        procurement.frameworkEur ?? 0,
+                        i18n.language,
+                      )}{" "}
+                      по рамкови споразумения
+                    </div>
                   )}
                 </StatCard>
                 <StatCard label="Договори">
@@ -1451,6 +1471,31 @@ export const CompanyDbScreen: FC = () => {
                   </div>
                 </StatCard>
               </div>
+
+              {procurement &&
+                (procurement.consortiumMembers?.length ?? 0) > 0 && (
+                  <div className="rounded-lg border border-border bg-muted/30 p-3 text-sm">
+                    <div className="mb-1 font-medium">
+                      Обединение — участници
+                    </div>
+                    <div className="text-xs text-muted-foreground mb-2">
+                      Това е обединение (ДЗЗД). Пълната стойност на договорите е
+                      записана тук; фирмите по-долу са членовете — дялът на
+                      всеки не е публичен.
+                    </div>
+                    <div className="flex flex-wrap gap-x-3 gap-y-1">
+                      {procurement.consortiumMembers?.map((m) => (
+                        <Link
+                          key={m.eik}
+                          to={`/company/${m.eik}`}
+                          className="text-xs hover:underline hover:text-foreground text-muted-foreground"
+                        >
+                          {m.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
               <div className="grid gap-4 xl:grid-cols-2">
                 <CompanyTopContractsTile

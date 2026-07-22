@@ -1648,6 +1648,13 @@ export type ProcurementRollupContractRow = {
    *  names which company won it. Absent elsewhere (the page IS the contractor). */
   contractorEik?: string;
   contractorName?: string;
+  /** Joint-award flags (migration 087) on DB top-contract rows. `inConsortium`
+   *  covers both a consortium role and a framework; `consortiumRole==='member'`
+   *  marks a €0 participation row whose real value is `consortiumFullEur`. */
+  inConsortium?: boolean;
+  jointKind?: "consortium" | "framework";
+  consortiumRole?: "carrier" | "member";
+  consortiumFullEur?: number;
   bundleUuid: string;
   sourceUrl: string;
 };

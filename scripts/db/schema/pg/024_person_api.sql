@@ -42,7 +42,10 @@ base AS MATERIALIZED (
 hd AS (
   SELECT
     COALESCE(SUM(amount_eur) FILTER (WHERE tag = 'contract'), 0)   AS total_eur,
-    (COUNT(*) FILTER (WHERE tag = 'contract'))::int                AS contract_count,
+    -- Exclude €0 consortium member rows (migration 087) — participation
+    -- placeholders, not the person's companies' own contracts.
+    (COUNT(*) FILTER (WHERE tag = 'contract'
+       AND consortium_role IS DISTINCT FROM 'member'))::int        AS contract_count,
     (COUNT(*) FILTER (WHERE tag = 'award'))::int                    AS award_count,
     (COUNT(*) FILTER (WHERE tag = 'contractAmendment'))::int        AS amendment_count,
     (COUNT(DISTINCT awarder_eik) FILTER (WHERE tag = 'contract'))::int AS awarder_count
