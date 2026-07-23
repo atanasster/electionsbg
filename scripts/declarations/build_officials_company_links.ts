@@ -19,6 +19,7 @@
 
 import fs from "fs";
 import path from "path";
+import { pathToFileURL } from "node:url";
 import { DatabaseSync } from "node:sqlite";
 import type {
   MunicipalIndexFile,
@@ -280,3 +281,15 @@ export const buildOfficialsCompanyLinks = ({
       `, ${lowConfidenceLinks} low-confidence (namesake) → ${path.relative(ROOT, OUT)}`,
   );
 };
+
+// Runnable directly, not only via ./run-officials-links-only.ts or the
+// declarations pipeline. Without this the module exported buildOfficialsCompanyLinks
+// and never called it, so `tsx scripts/declarations/build_officials_company_links.ts`
+// printed nothing and exited 0 — a silent no-op that reads as success and leaves
+// company_links.json stale, which then quietly feeds stale input to
+// funds/political_links.ts. Same guard idiom as scripts/db/load_funds_pg.ts.
+if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
+  buildOfficialsCompanyLinks({
+    stringify: (o) => JSON.stringify(o, null, 2),
+  });
+}
