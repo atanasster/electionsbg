@@ -254,7 +254,13 @@ export const EducationScreen: FC = () => {
               track (minmax(0,1fr)) and this keeps the item itself from
               re-imposing a min-content floor — without them the measurement it
               reads back would be the inflated one. */}
-          <Card className="min-w-0 lg:col-span-2">
+          {/* The OG capture anchors on the CARD, not the plot inside it: the
+              clip is top-aligned, so this is what puts the tile's own title in
+              frame instead of a headless cloud of dots. */}
+          <Card
+            className="min-w-0 lg:col-span-2"
+            data-og="context-scatter-card"
+          >
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Scale className="h-5 w-5 text-muted-foreground" />

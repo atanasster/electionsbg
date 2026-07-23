@@ -602,9 +602,12 @@ const captures: Capture[] = [
     routePath: "education",
     // The "score vs context" scatter (each dot a school, positioned by community
     // context vs matura, with the expectation line) is the signature visual.
+    // Wait on the plot but anchor on its CARD, top-aligned: the row is ~640px
+    // tall (the over-performers list beside it runs to 18 names on lg), so
+    // centring on the plot alone pushed both tile titles off the top and left
+    // the card's empty search box underneath in frame.
     waitFor: '[data-og="context-scatter"] svg circle',
-    anchor: '[data-og="context-scatter"]',
-    centerOnAnchor: true,
+    anchor: '[data-og="context-scatter-card"]',
     settleMs: 2500,
     extraCss: "[data-community-banner]{display:none!important;}",
   },
