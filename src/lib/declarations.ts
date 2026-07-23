@@ -32,10 +32,12 @@ export type DeclarationLike = {
   fiscalYear?: number | null;
   /** Registry filing date, ISO. Absent on a good share of the corpus. */
   filedAt?: string | null;
-  /** Registry entry number ("Г3810", "В998"). The rung that actually separates
-   *  an annual from an entry/exit filing when both share a year and neither
-   *  carries a filing date — see byRecency. */
+  /** Registry entry number ("Г3810", "В998"). A last-resort ordering rung: its
+   *  prefix encodes the form, not the sequence — see byRecency. */
   entryNumber?: string | null;
+  /** Annualy | Entry | Vacate | Other. Orders filings that share a date, by
+   *  what each one describes — see filingOrder. */
+  declarationType?: string | null;
   /** Unique per filing; the terminal ordering tie-break and the dedup key. */
   sourceUrl: string;
   assets?: MpAsset[];
@@ -109,6 +111,33 @@ export const priorAssetDeclaration = <T extends DeclarationLike>(
   );
 };
 
+/** Where a filing sits within a single day, by what it describes.
+ *
+ *  Two filings routinely share a date — an official leaving office files their
+ *  exit declaration alongside the annual for the year just ended. Neither the
+ *  date nor the registry entry number can order those: the entry number's
+ *  prefix encodes the FORM (Г = annual, Ф = entry/exit), not the sequence, so
+ *  sorting on it is arbitrary dressed up as chronology.
+ *
+ *  What does order them is what each one states. An exit declaration is the
+ *  last thing filed in a tenure and describes the position at its end; an entry
+ *  declaration is the first and describes the position at its start; an annual
+ *  sits between, describing the fiscal year just closed.
+ *
+ *  Not cosmetic. Ивелина Дундакова's exit filing (4 properties, 2 vehicles, 2
+ *  accounts, 1 debt → +€52,270) lost the entry-number tie-break to a 3-row
+ *  annual covering only two accounts and the same debt, so her published net
+ *  worth was −€79,546. 100 declarants had the same shape. */
+const FILING_ORDER: Record<string, number> = {
+  Vacate: 3,
+  Annualy: 2,
+  Other: 1,
+  Entry: 0,
+};
+
+const filingOrder = (d: DeclarationLike): number =>
+  FILING_ORDER[d.declarationType ?? ""] ?? 1;
+
 /** Newest-first ordering for a filing history — the ONE definition.
  *
  *  Every producer and consumer must agree on it, because "the latest filing" is
@@ -124,6 +153,7 @@ export const priorAssetDeclaration = <T extends DeclarationLike>(
 export const byRecency = (a: DeclarationLike, b: DeclarationLike): number =>
   b.declarationYear - a.declarationYear ||
   (b.filedAt ?? "").localeCompare(a.filedAt ?? "") ||
+  filingOrder(b) - filingOrder(a) ||
   (a.entryNumber ?? "").localeCompare(b.entryNumber ?? "") ||
   a.sourceUrl.localeCompare(b.sourceUrl);
 

@@ -690,8 +690,18 @@ const parseIncomeRow = (row: ReturnType<CheerioAPI>): MpIncomeRecord => ({
 });
 
 // The register itself starts in 2005 (see MIN_PLAUSIBLE_YEAR in
-// scripts/lib/cacbg_register.ts) — a filing cannot predate it.
+// scripts/lib/cacbg_register.ts) — a filing cannot predate it. This is the
+// absolute floor; the plausibility window below is the one that actually does
+// the work, because it is relative to the folder rather than to 2005.
 const MIN_DECLARATION_YEAR = 2005;
+
+// How far below its register folder a declared year may sit before it reads as
+// a typo rather than a late filing. Generous: the register does publish
+// genuinely late filings, and a correction to a several-years-old declaration
+// is a real thing. Anything beyond it is a mis-keyed date (2005 in a 2025
+// folder), and the point of the window is to stop BELIEVING that value, not to
+// rewrite it to something equally invented.
+const PLAUSIBLE_YEAR_SLACK = 3;
 
 // Which year a filing belongs to, in descending order of trustworthiness.
 //
@@ -708,6 +718,11 @@ const MIN_DECLARATION_YEAR = 2005;
 // So: never consult the clock. Fall through to the filing date, then to the
 // register folder the XML was published in, which is always knowable from the
 // source URL.
+//
+// Returns the fiscal year as well, because disbelieving a value for DATING and
+// then publishing it as fact would be incoherent: `fiscalYear` is what
+// priorAssetDeclaration keys the "vs prior year" comparison on, so a 2004 left
+// on a 2024 filing produces a delta across a 19-year gap that never happened.
 export const resolveDeclarationYear = ({
   declType,
   fiscalYear,
@@ -718,7 +733,7 @@ export const resolveDeclarationYear = ({
   fiscalYear: number | null;
   filedAt: string | null;
   sourceUrl: string;
-}): number => {
+}): { declarationYear: number; fiscalYear: number | null } => {
   const folderYear = registerFolderYear(sourceUrl, { allowSuffixed: true });
 
   // Finiteness, not nullishness. `<Year>` is read with `Number(...)`, so any
@@ -733,16 +748,47 @@ export const resolveDeclarationYear = ({
     );
   }
 
-  const filedYear = filedAt != null ? Number(filedAt.slice(0, 4)) : null;
+  // A filing published in folder N declares fiscal N-1 (annual) or N
+  // (entry/exit). A `<Year>` outside that neighbourhood is an upstream typo,
+  // not a late filing, and it must not be TRUSTED — clamping it would still
+  // invent a year. Fall through to the next rung instead, exactly as for a
+  // non-numeric one.
+  //
+  // Real example: a 2025-folder Vacate declaring 2005. Clamping to the register
+  // floor left it dated 2005, so it sorted BELOW the declarant's 3-row annual
+  // filed the same day and became the "prior" filing to difference against —
+  // publishing a net worth of −€79,546.
+  const fyPlausible =
+    fy != null &&
+    (folderYear == null ||
+      (fy >= folderYear - PLAUSIBLE_YEAR_SLACK && fy <= folderYear));
+  if (fy != null && !fyPlausible) {
+    console.warn(
+      `[parse] <Year> ${fy} is implausible for register folder ${folderYear} — dating from filedAt/folder instead (${sourceUrl})`,
+    );
+  }
 
-  const derived =
-    fy != null
-      ? declType === "Annualy"
-        ? fy + 1
-        : fy
-      : filedYear != null && Number.isFinite(filedYear)
-        ? filedYear
-        : folderYear;
+  const filedYear = filedAt != null ? Number(filedAt.slice(0, 4)) : null;
+  // The filing date is typo'd upstream too — a 2024 annual "filed" in 2004 —
+  // so it gets the same plausibility test before it is believed.
+  const filedPlausible =
+    filedYear != null &&
+    Number.isFinite(filedYear) &&
+    (folderYear == null ||
+      (filedYear >= folderYear - PLAUSIBLE_YEAR_SLACK &&
+        filedYear <= folderYear + 1));
+
+  // Only a believed fiscal year is published. An implausible one is dropped
+  // rather than carried forward as a fact we already refused to date from.
+  const believedFiscalYear = fyPlausible ? (fy as number) : null;
+
+  const derived = fyPlausible
+    ? declType === "Annualy"
+      ? (fy as number) + 1
+      : (fy as number)
+    : filedPlausible
+      ? filedYear
+      : folderYear;
 
   if (derived == null || !Number.isFinite(derived)) {
     throw new Error(
@@ -766,16 +812,19 @@ export const resolveDeclarationYear = ({
       console.warn(
         `[parse] declarationYear ${derived} exceeds register folder ${folderYear} — clamping to ${maxYear} (${sourceUrl})`,
       );
-      return maxYear;
+      return { declarationYear: maxYear, fiscalYear: believedFiscalYear };
     }
     if (derived < MIN_DECLARATION_YEAR) {
       console.warn(
         `[parse] declarationYear ${derived} precedes the register itself — clamping to ${MIN_DECLARATION_YEAR} (${sourceUrl})`,
       );
-      return MIN_DECLARATION_YEAR;
+      return {
+        declarationYear: MIN_DECLARATION_YEAR,
+        fiscalYear: believedFiscalYear,
+      };
     }
   }
-  return derived;
+  return { declarationYear: derived, fiscalYear: believedFiscalYear };
 };
 
 export type ParseInput = {
@@ -802,12 +851,15 @@ export const parseDeclarationXml = ({
   const entryNumber = text($, "DeclarationData > EntryNumber");
   const controlHash = text($, "DeclarationData > ControlHash");
 
-  const declarationYear = resolveDeclarationYear({
-    declType,
-    fiscalYear,
-    filedAt,
-    sourceUrl,
-  });
+  // `believedFiscalYear` is the raw <Year> only when it is plausible for the
+  // register folder — an implausible one is dropped, not carried forward.
+  const { declarationYear, fiscalYear: believedFiscalYear } =
+    resolveDeclarationYear({
+      declType,
+      fiscalYear,
+      filedAt,
+      sourceUrl,
+    });
 
   const ownershipStakes: MpOwnershipStake[] = [];
 
@@ -872,7 +924,7 @@ export const parseDeclarationXml = ({
     declarantName,
     institution,
     declarationYear,
-    fiscalYear,
+    fiscalYear: believedFiscalYear,
     declarationType: declType,
     filedAt,
     entryNumber,

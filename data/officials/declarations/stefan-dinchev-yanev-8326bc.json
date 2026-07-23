@@ -3,85 +3,7 @@
     "slug": "stefan-dinchev-yanev-8326bc",
     "declarantName": "Стефан Динчев Янев",
     "institution": "Министерство отбраната",
-    "positionTitle": null,
-    "declarationYear": 2022,
-    "fiscalYear": 2021,
-    "declarationType": "Annualy",
-    "filedAt": "2022-03-30",
-    "entryNumber": "Г827",
-    "controlHash": "CD498812",
-    "sourceUrl": "https://register.cacbg.bg/2022/2CCF866D-85AF-4131-9A15-23B749112A19132664.xml",
-    "ownershipStakes": [],
-    "income": [
-      {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 64960.144797860754,
-        "amountEurSpouse": 10225.83762392437
-      }
-    ],
-    "assets": [
-      {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 13000,
-        "valueEur": 6646.79445555084,
-        "holderName": "Стефан Динчев Янев",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "EUR",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": 51127,
-        "valueEur": 50974.77797150059,
-        "holderName": "Стефан Динчев Янев",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "парични средства, декларирани в предходни декларации"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "EUR",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": 17000,
-        "valueEur": 16999.94375789307,
-        "holderName": "Пенка Кръстева Янева",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      }
-    ]
-  },
-  {
-    "slug": "stefan-dinchev-yanev-8326bc",
-    "declarantName": "Стефан Динчев Янев",
-    "institution": "Министерство отбраната",
-    "positionTitle": null,
+    "positionTitle": "Министър",
     "declarationYear": 2022,
     "fiscalYear": 2022,
     "declarationType": "Vacate",
@@ -247,6 +169,84 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ]
+  },
+  {
+    "slug": "stefan-dinchev-yanev-8326bc",
+    "declarantName": "Стефан Динчев Янев",
+    "institution": "Министерство отбраната",
+    "positionTitle": "Министър",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-03-30",
+    "entryNumber": "Г827",
+    "controlHash": "CD498812",
+    "sourceUrl": "https://register.cacbg.bg/2022/2CCF866D-85AF-4131-9A15-23B749112A19132664.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 64960.144797860754,
+        "amountEurSpouse": 10225.83762392437
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13000,
+        "valueEur": 6646.79445555084,
+        "holderName": "Стефан Динчев Янев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 51127,
+        "valueEur": 50974.77797150059,
+        "holderName": "Стефан Динчев Янев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "парични средства, декларирани в предходни декларации"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 17000,
+        "valueEur": 16999.94375789307,
+        "holderName": "Пенка Кръстева Янева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
     ]
   }

@@ -4,6 +4,7 @@
 import { describe, expect, it } from "vitest";
 import type { MpAsset } from "@/data/dataTypes";
 import {
+  byRecency,
   declarationTotals,
   hasDeclaredAssets,
   hasDeclaredIncome,
@@ -122,6 +123,48 @@ describe("priorAssetDeclaration", () => {
     const latest = decl(2025, 2024, [asset("cash", 100)]);
     expect(priorAssetDeclaration([latest], latest)).toBeNull();
     expect(priorAssetDeclaration([], null)).toBeNull();
+  });
+});
+
+describe("byRecency — filings sharing a date", () => {
+  const filing = (
+    declarationType: string,
+    entryNumber: string,
+  ): import("./declarations").DeclarationLike => ({
+    declarationYear: 2024,
+    fiscalYear: null,
+    filedAt: "2024-05-02",
+    entryNumber,
+    declarationType,
+    sourceUrl: `https://register.cacbg.bg/2024/${entryNumber}.xml`,
+  });
+
+  // Ивелина Дундакова: exit filing (9 rows, +52,270 EUR) vs an annual filed the
+  // same day (3 rows, −79,546 EUR). The entry-number prefix is the FORM, so
+  // "Г6706" sorting before "Ф576" published the wrong headline for 100 people.
+  it("puts an exit declaration ahead of an annual filed the same day", () => {
+    const annual = filing("Annualy", "Г6706");
+    const vacate = filing("Vacate", "Ф576");
+    expect([annual, vacate].sort(byRecency)[0]).toBe(vacate);
+    expect([vacate, annual].sort(byRecency)[0]).toBe(vacate);
+  });
+
+  it("puts an entry declaration last among same-day filings", () => {
+    const entry = filing("Entry", "Ф100");
+    const annual = filing("Annualy", "Г100");
+    expect([entry, annual].sort(byRecency)[0]).toBe(annual);
+  });
+
+  it("still orders by year and date before type", () => {
+    const oldVacate = { ...filing("Vacate", "Ф1"), declarationYear: 2023 };
+    const newAnnual = filing("Annualy", "Г1");
+    expect([oldVacate, newAnnual].sort(byRecency)[0]).toBe(newAnnual);
+  });
+
+  it("falls back to entry number then sourceUrl when the type ties too", () => {
+    const a = filing("Annualy", "Г100");
+    const b = filing("Annualy", "Г200");
+    expect([b, a].sort(byRecency)[0]).toBe(a);
   });
 });
 

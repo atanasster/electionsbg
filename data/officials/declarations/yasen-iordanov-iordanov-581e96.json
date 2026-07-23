@@ -1,67 +1,9 @@
 [
   {
     "slug": "yasen-iordanov-iordanov-581e96",
-    "declarantName": "(unknown)",
-    "institution": "Агенция \"Пътна инфраструктура\"",
-    "positionTitle": null,
-    "declarationYear": 2026,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": null,
-    "entryNumber": "В1140",
-    "controlHash": "E63AE967",
-    "sourceUrl": "https://register.cacbg.bg/2023/FA27FA5D-5503-4860-827B-28AB0964AE15156021.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": []
-  },
-  {
-    "slug": "yasen-iordanov-iordanov-581e96",
     "declarantName": "Ясен Йорданов Йорданов",
     "institution": "Агенция \"Пътна инфраструктура\"",
-    "positionTitle": null,
-    "declarationYear": 2024,
-    "fiscalYear": 2023,
-    "declarationType": "Annualy",
-    "filedAt": "2024-05-23",
-    "entryNumber": "Г13358",
-    "controlHash": "E251BC89",
-    "sourceUrl": "https://register.cacbg.bg/2024/FA27FA5D-5503-4860-827B-28AB0964AE15195275.xml",
-    "ownershipStakes": [],
-    "income": [
-      {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 51551.00392160873,
-        "amountEurSpouse": null
-      }
-    ],
-    "assets": [
-      {
-        "category": "debt",
-        "description": "Потребителски кредит, лихвен 5.01 %",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 63000,
-        "valueEur": 32211.388515361767,
-        "holderName": "Ясен Йорданов Йорданов",
-        "isSpouse": false,
-        "legalBasis": "кредит",
-        "fundsOrigin": null
-      }
-    ]
-  },
-  {
-    "slug": "yasen-iordanov-iordanov-581e96",
-    "declarantName": "Ясен Йорданов Йорданов",
-    "institution": "Агенция \"Пътна инфраструктура\"",
-    "positionTitle": null,
+    "positionTitle": "Председател",
     "declarationYear": 2024,
     "fiscalYear": 2024,
     "declarationType": "Vacate",
@@ -366,7 +308,49 @@
     "slug": "yasen-iordanov-iordanov-581e96",
     "declarantName": "Ясен Йорданов Йорданов",
     "institution": "Агенция \"Пътна инфраструктура\"",
-    "positionTitle": null,
+    "positionTitle": "Председател",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-23",
+    "entryNumber": "Г13358",
+    "controlHash": "E251BC89",
+    "sourceUrl": "https://register.cacbg.bg/2024/FA27FA5D-5503-4860-827B-28AB0964AE15195275.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 51551.00392160873,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит, лихвен 5.01 %",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 63000,
+        "valueEur": 32211.388515361767,
+        "holderName": "Ясен Йорданов Йорданов",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ]
+  },
+  {
+    "slug": "yasen-iordanov-iordanov-581e96",
+    "declarantName": "Ясен Йорданов Йорданов",
+    "institution": "Агенция \"Пътна инфраструктура\"",
+    "positionTitle": "Председател",
     "declarationYear": 2023,
     "fiscalYear": 2023,
     "declarationType": "Entry",
@@ -486,5 +470,21 @@
         "fundsOrigin": null
       }
     ]
+  },
+  {
+    "slug": "yasen-iordanov-iordanov-581e96",
+    "declarantName": "(unknown)",
+    "institution": "Агенция \"Пътна инфраструктура\"",
+    "positionTitle": "Председател",
+    "declarationYear": 2023,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": null,
+    "entryNumber": "В1140",
+    "controlHash": "E63AE967",
+    "sourceUrl": "https://register.cacbg.bg/2023/FA27FA5D-5503-4860-827B-28AB0964AE15156021.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": []
   }
 ]

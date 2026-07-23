@@ -47,6 +47,7 @@ import {
   writeJson,
 } from "./shared";
 import { emitShards } from "./build_municipal_shards";
+import { decorateCandidateLinks } from "./candidate_links";
 
 const OUT_DIR = path.join(ROOT, "data", "officials", "municipal");
 const DECL_DIR = path.join(OUT_DIR, "declarations");
@@ -366,6 +367,14 @@ const cmd = command({
     console.log(
       `  wrote ${shardResult.shardsWritten} per-obshtina shard(s) to ${path.join(OUT_DIR, "by_obshtina")} (max ${shardResult.maxShardBytes} bytes)`,
     );
+
+    // The shards were just rewritten wholesale, which drops the candidateLink
+    // enrichment written back INTO them (party, ballot position, preference
+    // votes, MP photo). Re-apply it here rather than leaving it to a separate
+    // command nothing invokes: skipping it once silently deleted 5317 links
+    // across 276 of the 288 shards, and the only visible symptom was the
+    // council tiles quietly falling back to grey initials.
+    decorateCandidateLinks();
   },
 });
 

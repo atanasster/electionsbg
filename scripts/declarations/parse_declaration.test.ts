@@ -57,7 +57,7 @@ describe("resolveDeclarationYear", () => {
         fiscalYear: 2023,
         filedAt: "2024-05-14",
         sourceUrl: url("2024"),
-      }),
+      }).declarationYear,
     ).toBe(2024);
   });
 
@@ -68,7 +68,7 @@ describe("resolveDeclarationYear", () => {
         fiscalYear: 2023,
         filedAt: "2023-07-04",
         sourceUrl: url("2023"),
-      }),
+      }).declarationYear,
     ).toBe(2023);
   });
 
@@ -83,7 +83,7 @@ describe("resolveDeclarationYear", () => {
         fiscalYear: null,
         filedAt: "2023-06-28",
         sourceUrl: url("2023"),
-      }),
+      }).declarationYear,
     ).toBe(2023);
   });
 
@@ -96,7 +96,7 @@ describe("resolveDeclarationYear", () => {
         fiscalYear: null,
         filedAt: null,
         sourceUrl: url("2022"),
-      }),
+      }).declarationYear,
     ).toBe(2022);
   });
 
@@ -109,11 +109,14 @@ describe("resolveDeclarationYear", () => {
         fiscalYear: null,
         filedAt: null,
         sourceUrl: url("2021_nc"),
-      }),
+      }).declarationYear,
     ).toBe(2021);
   });
 
-  it("clamps an impossible fiscal year to the folder bound and warns", () => {
+  // A far-future <Year> is not clamped to the bound — clamping would still be
+  // inventing a year. It is DISBELIEVED, and the filing is dated from the next
+  // rung down (here the filing date).
+  it("disbelieves an impossible fiscal year and falls through, warning", () => {
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     expect(
       resolveDeclarationYear({
@@ -121,8 +124,8 @@ describe("resolveDeclarationYear", () => {
         fiscalYear: 3024,
         filedAt: "2025-04-01",
         sourceUrl: url("2025"),
-      }),
-    ).toBe(2026);
+      }).declarationYear,
+    ).toBe(2025);
     expect(warn).toHaveBeenCalledOnce();
   });
 
@@ -134,7 +137,7 @@ describe("resolveDeclarationYear", () => {
         fiscalYear: 2025,
         filedAt: null,
         sourceUrl: url("2025"),
-      }),
+      }).declarationYear,
     ).toBe(2026);
     expect(warn).not.toHaveBeenCalled();
   });
@@ -150,7 +153,7 @@ describe("resolveDeclarationYear", () => {
         fiscalYear: Number("2023 г."),
         filedAt: "2024-05-14",
         sourceUrl: url("2024"),
-      }),
+      }).declarationYear,
     ).toBe(2024);
     expect(warn).toHaveBeenCalledOnce();
   });
@@ -163,22 +166,68 @@ describe("resolveDeclarationYear", () => {
         fiscalYear: 3024,
         filedAt: null,
         sourceUrl: url("2025"),
-      }),
+      }).declarationYear,
     ).toBe(2025);
     expect(warn).toHaveBeenCalledOnce();
   });
 
-  it("clamps a year that predates the register itself", () => {
+  // The regression this window exists for: a 2025-folder Vacate declaring 2005.
+  // Clamping it to the register floor left it dated 2005, so it sorted BELOW the
+  // declarant's annual filed the same day, became the "prior" filing to
+  // difference against, and published a net worth of −79,546 EUR.
+  it("disbelieves a year far below its register folder", () => {
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
     expect(
       resolveDeclarationYear({
         declType: "Vacate",
-        fiscalYear: 1900,
+        fiscalYear: 2005,
         filedAt: null,
         sourceUrl: url("2023"),
-      }),
-    ).toBe(2005);
+      }).declarationYear,
+    ).toBe(2023);
     expect(warn).toHaveBeenCalledOnce();
+  });
+
+  // A genuinely late filing or a correction to a recent year stays believed —
+  // the window is deliberately generous.
+  it("still believes a plausibly late filing", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    expect(
+      resolveDeclarationYear({
+        declType: "Annualy",
+        fiscalYear: 2021,
+        filedAt: null,
+        sourceUrl: url("2023"),
+      }).declarationYear,
+    ).toBe(2022);
+    expect(warn).not.toHaveBeenCalled();
+  });
+
+  // Upstream types the filing DATE wrong too — a 2024 annual "filed" in 2004.
+  // The fiscal year is right there and is believed, so the bad date is ignored.
+  it("prefers a plausible fiscal year over an implausible filing date", () => {
+    expect(
+      resolveDeclarationYear({
+        declType: "Annualy",
+        fiscalYear: 2024,
+        filedAt: "2004-02-27",
+        sourceUrl: url("2025"),
+      }).declarationYear,
+    ).toBe(2025);
+  });
+
+  // ...and when BOTH are implausible, the folder is the last thing standing.
+  it("falls through to the folder when year and filing date are both implausible", () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+    expect(
+      resolveDeclarationYear({
+        declType: "Vacate",
+        fiscalYear: 1998,
+        filedAt: "2001-01-01",
+        sourceUrl: url("2025"),
+      }).declarationYear,
+    ).toBe(2025);
+    expect(warn).toHaveBeenCalled();
   });
 
   // Precedence when the rungs disagree: the fiscal year wins over the filing
@@ -190,7 +239,7 @@ describe("resolveDeclarationYear", () => {
         fiscalYear: 2022,
         filedAt: "2024-01-30",
         sourceUrl: url("2024"),
-      }),
+      }).declarationYear,
     ).toBe(2023);
   });
 
@@ -201,8 +250,35 @@ describe("resolveDeclarationYear", () => {
         fiscalYear: null,
         filedAt: "2022-08-02",
         sourceUrl: url("2023"),
-      }),
+      }).declarationYear,
     ).toBe(2022);
+  });
+
+  // Disbelieving a <Year> for DATING and then publishing it as fact would be
+  // incoherent — priorAssetDeclaration keys the "vs prior year" comparison on
+  // fiscalYear, so a 2004 left on a 2024 filing invents a 19-year gap. Real
+  // case: Ивелина Дундакова, whose Vacate and annual were filed the same day.
+  it("drops an implausible fiscal year instead of publishing it", () => {
+    vi.spyOn(console, "warn").mockImplementation(() => {});
+    const r = resolveDeclarationYear({
+      declType: "Vacate",
+      fiscalYear: 2004,
+      filedAt: "2024-05-02",
+      sourceUrl: url("2024"),
+    });
+    expect(r.declarationYear).toBe(2024);
+    expect(r.fiscalYear).toBeNull();
+  });
+
+  it("keeps a plausible fiscal year", () => {
+    const r = resolveDeclarationYear({
+      declType: "Annualy",
+      fiscalYear: 2023,
+      filedAt: "2024-05-02",
+      sourceUrl: url("2024"),
+    });
+    expect(r.declarationYear).toBe(2024);
+    expect(r.fiscalYear).toBe(2023);
   });
 
   it("throws rather than invent a year when nothing can date the filing", () => {

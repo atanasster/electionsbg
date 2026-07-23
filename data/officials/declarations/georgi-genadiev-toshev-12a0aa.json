@@ -1,97 +1,9 @@
 [
   {
     "slug": "georgi-genadiev-toshev-12a0aa",
-    "declarantName": "(unknown)",
-    "institution": "Министерство на земеделието и храните",
-    "positionTitle": null,
-    "declarationYear": 2026,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2023-07-19",
-    "entryNumber": "В1214",
-    "controlHash": "0E8999EF",
-    "sourceUrl": "https://register.cacbg.bg/2023/BC260A41-6808-4704-83E0-8A769DB6E40F156185.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": []
-  },
-  {
-    "slug": "georgi-genadiev-toshev-12a0aa",
     "declarantName": "Георги Генадиев Тошев",
     "institution": "Министерство на земеделието и храните",
-    "positionTitle": null,
-    "declarationYear": 2024,
-    "fiscalYear": 2023,
-    "declarationType": "Annualy",
-    "filedAt": "2024-05-13",
-    "entryNumber": "Г3856",
-    "controlHash": "B44D651A",
-    "sourceUrl": "https://register.cacbg.bg/2024/BC260A41-6808-4704-83E0-8A769DB6E40F184986.xml",
-    "ownershipStakes": [],
-    "income": [
-      {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 30886.119959301166,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 10792.34902828978,
-        "amountEurSpouse": 40136.41267390315
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
-        "amountEurDeclarant": 51249.853003584154,
-        "amountEurSpouse": null
-      }
-    ],
-    "assets": [
-      {
-        "category": "cash",
-        "description": null,
-        "detail": "EUR",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": 42000,
-        "valueEur": 41999.560288982175,
-        "holderName": "Георги Генадиев Тошев",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "на имоти и патентна дейност"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 23252,
-        "valueEur": 11888.558821574472,
-        "holderName": "Георги Генадиев Тошев",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "възнаграждения"
-      }
-    ]
-  },
-  {
-    "slug": "georgi-genadiev-toshev-12a0aa",
-    "declarantName": "Георги Генадиев Тошев",
-    "institution": "Министерство на земеделието и храните",
-    "positionTitle": null,
+    "positionTitle": "Заместник-министър",
     "declarationYear": 2024,
     "fiscalYear": 2024,
     "declarationType": "Vacate",
@@ -162,7 +74,95 @@
     "slug": "georgi-genadiev-toshev-12a0aa",
     "declarantName": "Георги Генадиев Тошев",
     "institution": "Министерство на земеделието и храните",
-    "positionTitle": null,
+    "positionTitle": "Заместник-министър",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-13",
+    "entryNumber": "Г3856",
+    "controlHash": "B44D651A",
+    "sourceUrl": "https://register.cacbg.bg/2024/BC260A41-6808-4704-83E0-8A769DB6E40F184986.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30886.119959301166,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 10792.34902828978,
+        "amountEurSpouse": 40136.41267390315
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 51249.853003584154,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 42000,
+        "valueEur": 41999.560288982175,
+        "holderName": "Георги Генадиев Тошев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "на имоти и патентна дейност"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 23252,
+        "valueEur": 11888.558821574472,
+        "holderName": "Георги Генадиев Тошев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "възнаграждения"
+      }
+    ]
+  },
+  {
+    "slug": "georgi-genadiev-toshev-12a0aa",
+    "declarantName": "(unknown)",
+    "institution": "Министерство на земеделието и храните",
+    "positionTitle": "Заместник-министър",
+    "declarationYear": 2023,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2023-07-19",
+    "entryNumber": "В1214",
+    "controlHash": "0E8999EF",
+    "sourceUrl": "https://register.cacbg.bg/2023/BC260A41-6808-4704-83E0-8A769DB6E40F156185.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": []
+  },
+  {
+    "slug": "georgi-genadiev-toshev-12a0aa",
+    "declarantName": "Георги Генадиев Тошев",
+    "institution": "Министерство на земеделието и храните",
+    "positionTitle": "Заместник-министър",
     "declarationYear": 2023,
     "fiscalYear": 2023,
     "declarationType": "Entry",
