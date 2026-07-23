@@ -1,44 +1,9 @@
 [
   {
     "slug": "mihail-ivanov-gruev-f6eef2",
-    "declarantName": "(unknown)",
-    "institution": "Държавна агенция \"Архиви\"",
-    "positionTitle": null,
-    "declarationYear": 2026,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": "2025-05-14",
-    "entryNumber": "Г9843",
-    "controlHash": "AE613811",
-    "sourceUrl": "https://register.cacbg.bg/2025/F420CA80-2EAC-40A1-9DD2-519DA0B42085212901.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
-      {
-        "category": "security",
-        "description": "кредит",
-        "detail": "Михаил Иванов Груев",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": "60000",
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": "ОББ",
-        "isSpouse": true,
-        "legalBasis": "заплата и хонорари",
-        "fundsOrigin": null
-      }
-    ]
-  },
-  {
-    "slug": "mihail-ivanov-gruev-f6eef2",
     "declarantName": "Михаил Иванов Груев",
     "institution": "Държавна агенция \"Архиви\"",
-    "positionTitle": null,
+    "positionTitle": "Председател",
     "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",
@@ -175,6 +140,41 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
+      }
+    ]
+  },
+  {
+    "slug": "mihail-ivanov-gruev-f6eef2",
+    "declarantName": "(unknown)",
+    "institution": "Държавна агенция \"Архиви\"",
+    "positionTitle": "Председател",
+    "declarationYear": 2025,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г9843",
+    "controlHash": "AE613811",
+    "sourceUrl": "https://register.cacbg.bg/2025/F420CA80-2EAC-40A1-9DD2-519DA0B42085212901.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "security",
+        "description": "кредит",
+        "detail": "Михаил Иванов Груев",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "60000",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "ОББ",
+        "isSpouse": true,
+        "legalBasis": "заплата и хонорари",
+        "fundsOrigin": null
       }
     ]
   },

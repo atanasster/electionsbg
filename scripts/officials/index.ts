@@ -42,6 +42,7 @@ import {
   priorAssetDeclaration,
 } from "../../src/lib/declarations";
 import { mergeDeclarations, mergeIndexEntries, mergeYears } from "./merge";
+import { categorise, categoriseRaw, isCaretakerTitle } from "./categorise";
 import {
   ROOT,
   REGISTER_BASE,
@@ -83,50 +84,6 @@ const allDeclarationSlugs = (): string[] =>
         .sort()
     : [];
 
-// Substring match against the verbatim `Category Name` in list.xml — every
-// declaration's category is one of ~80 long names from ЗПК. We bucket on
-// stable substrings and ignore the rest (mayors, judiciary, MPs, etc.).
-// Order matters: the first matching bucket wins, so put more specific
-// strings before generic ones.
-const CATEGORY_MAP: Array<{
-  kind: OfficialCategoryKind;
-  substrings: string[];
-}> = [
-  {
-    kind: "cabinet",
-    substrings: ["Министър-председател", "министри и заместник-министри"],
-  },
-  {
-    kind: "regional_governor",
-    substrings: ["Областни управители"],
-  },
-  {
-    kind: "agency_head",
-    substrings: [
-      "държавни агенции",
-      "изпълнителните агенции",
-      "изпълнителни агенции",
-    ],
-  },
-];
-
-const categoriseRaw = (raw: string): OfficialCategoryKind | null => {
-  for (const bucket of CATEGORY_MAP) {
-    for (const sub of bucket.substrings) {
-      if (raw.includes(sub)) {
-        // The cabinet substring "министри и заместник-министри" also matches
-        // some deputy-only sub-categories — keep both flavours under
-        // "cabinet" for v1, since the page-level filter doesn't need the
-        // split. If a future version wants to separate them, add a
-        // "deputy_minister" bucket above this and bind it to "Заместник-
-        // министри" only.
-        return bucket.kind;
-      }
-    }
-  }
-  return null;
-};
-
 type DirectoryEntry = {
   declarantName: string;
   institution: string;
@@ -145,8 +102,7 @@ const fetchYearListing = async (year: number): Promise<DirectoryEntry[]> => {
   const out: DirectoryEntry[] = [];
   $("Category").each((_, cat) => {
     const categoryRaw = $(cat).attr("Name") || "";
-    const kind = categoriseRaw(categoryRaw);
-    if (!kind) return;
+    if (!categoriseRaw(categoryRaw)) return;
     $(cat)
       .find("Institution")
       .each((__, inst) => {
@@ -155,9 +111,14 @@ const fetchYearListing = async (year: number): Promise<DirectoryEntry[]> => {
           .find("Person")
           .each((___, person) => {
             const name = $(person).find("> Name").first().text().trim();
+            // `Position > Name`, not `Position > Position` — the latter does not
+            // exist in the register's schema, so this read null for all 4212
+            // executive declarations and the office a person actually held was
+            // discarded. The municipal ingest has always read the right element.
             const position =
-              $(person).find("Position > Position").first().text().trim() ||
-              null;
+              $(person).find("Position > Name").first().text().trim() || null;
+            const kind = categorise(categoryRaw, position);
+            if (!kind) return;
             // A Person can have multiple Declaration nodes — annual + exit +
             // correction. Keep them all; the per-slug dedupe at write time
             // picks the most recent one for the rankings.
@@ -333,7 +294,9 @@ const cmd = command({
             categoryRaw: entry.categoryRaw,
             institution: entry.institution,
             positionTitle: entry.positionTitle,
+            isCaretaker: isCaretakerTitle(entry.positionTitle),
             latestDeclarationYear: decl.declarationYear,
+            descriptorYear: targetYear,
           });
         }
       } catch (err) {
@@ -397,10 +360,19 @@ const cmd = command({
     // 1. Per-official files. This run is authoritative for targetYear and
     // additive for every other year already on disk — see ./merge.ts.
     let filesWritten = 0;
+    const mergedLatestYear = new Map<string, number>();
     for (const [slug, decls] of declsBySlug.entries()) {
       const file = path.join(DECL_DIR, `${slug}.json`);
       const existing = readJsonOr<OfficialDeclaration[]>(file, []);
-      writeJson(file, mergeDeclarations(existing, decls, targetYear));
+      const merged = mergeDeclarations(existing, decls, targetYear);
+      writeJson(file, merged);
+      // The index's latestDeclarationYear must agree with the shard it
+      // describes. Taking it from THIS run's filings alone let a stale value
+      // survive on a row the run also touched.
+      mergedLatestYear.set(
+        slug,
+        merged.reduce((mx, d) => Math.max(mx, d.declarationYear), 0),
+      );
       filesWritten++;
     }
     console.log(`  wrote ${filesWritten} per-official file(s) to ${DECL_DIR}`);
@@ -410,9 +382,14 @@ const cmd = command({
     // resolution all read it), so a backfill must widen it, never replace it.
     const indexPath = path.join(OUT_DIR, "index.json");
     const priorIndex = readJsonOr<OfficialIndexFile | null>(indexPath, null);
-    const indexEntries = mergeIndexEntries(priorIndex?.entries ?? [], [
-      ...indexBySlug.values(),
-    ]);
+    const indexEntries = mergeIndexEntries(
+      priorIndex?.entries ?? [],
+      [...indexBySlug.values()].map((e) => ({
+        ...e,
+        latestDeclarationYear:
+          mergedLatestYear.get(e.slug) ?? e.latestDeclarationYear,
+      })),
+    );
     const years = mergeYears(priorIndex?.years ?? [], targetYear);
     const indexFile: OfficialIndexFile = {
       generatedAt: new Date().toISOString(),
@@ -532,4 +509,4 @@ const cmd = command({
 
 run(cmd, process.argv.slice(2));
 
-export { fetchYearListing, categoriseRaw, aggregateAssets, CATEGORY_MAP };
+export { fetchYearListing, aggregateAssets };

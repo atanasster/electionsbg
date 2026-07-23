@@ -26,10 +26,11 @@ import {
 const listUrl = (year: number): string => `${REGISTER_ROOT}${year}/list.xml`;
 
 // Substring match against verbatim Category Name in list.xml. Must stay in
-// sync with CATEGORY_MAP at scripts/officials/index.ts:58 — if you change the
-// scope on the ingest side, mirror it here so the watcher tracks the same
-// slice.
-const CATEGORY_SUBSTRINGS = [
+// sync with CATEGORY_MAP in scripts/officials/categorise.ts — if you change
+// the scope on the ingest side, mirror it here so the watcher tracks the same
+// slice. Enforced by scripts/officials/watcher_lockstep.test.ts; exported so
+// that test can compare the two directly rather than by eye.
+export const CATEGORY_SUBSTRINGS = [
   "Министър-председател",
   "министри и заместник-министри",
   "Областни управители",

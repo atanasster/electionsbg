@@ -144,21 +144,26 @@ describe("mergeDeclarations", () => {
   });
 });
 
+// `descriptorYear` is the register folder the run targeted — the merge
+// precedence key. It normally equals the run's own latestDeclarationYear, so it
+// defaults to it, but the two are decoupled on purpose (see mergeIndexEntries).
 const idx = (
   slug: string,
-  latestDeclarationYear: number,
+  descriptorYear: number,
   name = slug,
-): OfficialIndexEntry =>
-  ({
-    slug,
-    name,
-    normalizedName: name.toUpperCase(),
-    category: "cabinet",
-    categoryRaw: "Министър-председател",
-    institution: "Министерски съвет",
-    positionTitle: "министър",
-    latestDeclarationYear,
-  }) as OfficialIndexEntry;
+  latestDeclarationYear = descriptorYear,
+): OfficialIndexEntry => ({
+  slug,
+  name,
+  normalizedName: name.toUpperCase(),
+  category: "cabinet",
+  categoryRaw: "Министър-председател",
+  institution: "Министерски съвет",
+  positionTitle: "министър",
+  isCaretaker: false,
+  latestDeclarationYear,
+  descriptorYear,
+});
 
 describe("mergeIndexEntries", () => {
   it("widens the universe rather than replacing it", () => {
@@ -166,15 +171,15 @@ describe("mergeIndexEntries", () => {
     expect(merged.map((e) => e.slug).sort()).toEqual(["a", "b"]);
   });
 
-  it("keeps the newest year's descriptors for a slug in both runs", () => {
+  it("keeps the newest cycle's descriptors for a slug in both runs", () => {
     const merged = mergeIndexEntries([idx("a", 2025)], [idx("a", 2019)]);
     expect(merged).toHaveLength(1);
-    expect(merged[0].latestDeclarationYear).toBe(2025);
+    expect(merged[0].descriptorYear).toBe(2025);
   });
 
   it("lets a newer run supersede an older entry", () => {
     const merged = mergeIndexEntries([idx("a", 2023)], [idx("a", 2025)]);
-    expect(merged[0].latestDeclarationYear).toBe(2025);
+    expect(merged[0].descriptorYear).toBe(2025);
   });
 
   it("re-running the same year refreshes the entry in place", () => {
@@ -183,6 +188,29 @@ describe("mergeIndexEntries", () => {
       [idx("a", 2025, "Нов")],
     );
     expect(merged).toHaveLength(1);
+    expect(merged[0].name).toBe("Нов");
+  });
+
+  // The self-wedging regression: precedence used to key on the DECLARATION
+  // year, which a buggy parser could inflate past anything a later run could
+  // produce. 434 rows claimed a wall-clock 2026, and once the parser was fixed
+  // to clamp years to their folder, no re-derive could ever replace them.
+  it("replaces a row whose declaration year is impossibly far in the future", () => {
+    const stale = idx("a", 2023, "Стар", 2026);
+    const fresh = idx("a", 2025, "Нов", 2025);
+    const merged = mergeIndexEntries([stale], [fresh]);
+    expect(merged[0].name).toBe("Нов");
+    expect(merged[0].latestDeclarationYear).toBe(2025);
+  });
+
+  // A row written before descriptorYear existed must not outrank a current run.
+  it("treats a row with no descriptorYear as older than any current run", () => {
+    const legacy = { ...idx("a", 2025, "Стар") } as Partial<OfficialIndexEntry>;
+    delete legacy.descriptorYear;
+    const merged = mergeIndexEntries(
+      [legacy as OfficialIndexEntry],
+      [idx("a", 2015, "Нов")],
+    );
     expect(merged[0].name).toBe("Нов");
   });
 });

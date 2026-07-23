@@ -139,7 +139,13 @@ console.log('top 3:', r.topOfficials.slice(0,3).map(o => o.name + ' €' + Math.
 
 Sanity:
 - `total` ≥ 400 for 2025 (expect ~437; sharp drop signals a category-filter regression).
-- `byCategory.cabinet` ≥ 80 (ministers + deputies).
+- `byCategory.cabinet` ≥ 80 (PM, deputy PMs and ministers — **not** deputy
+  ministers, which have had their own `deputy_minister` bucket since the ingest
+  started reading the real position title).
+- `byCategory.deputy_minister` ≥ 10 for a re-derived cycle. Zero across a year
+  that has been re-derived means `positionTitle` came back null and the
+  cabinet/deputy split silently collapsed — check `Position > Name` still
+  exists in `list.xml`.
 - `byCategory.regional_governor` ≈ 60 (28 oblasts × deputies).
 - Top-3 net worths within an order of magnitude of last run.
 
@@ -245,7 +251,7 @@ Fails loud rather than write partial data:
 | Per-declaration fetch fails | Network error fetching one official's XML | Throws (no partial writes) |
 | Per-declaration fetch 404s | `list.xml` references a declaration whose file is gone upstream | Skipped + logged `[missing]`, not retried (a 404 is permanent) and not cached, so a later run retries it if upstream restores the file |
 | `> 5%` of a year's declarations missing upstream | Year is rotted, or we're being rate-limited into 404s | Throws — writing it would publish a partial cohort as complete. Override per run with `--max-missing <0-1>` once you've confirmed the rot is real |
-| Zero declarations match the category filter | Upstream renamed categories or shifted XML schema | Throws — investigate `CATEGORY_MAP` in `scripts/officials/index.ts` |
+| Zero declarations match the category filter | Upstream renamed categories or shifted XML schema | Throws — investigate `CATEGORY_MAP` in `scripts/officials/categorise.ts` (and mirror any change into `CATEGORY_SUBSTRINGS` in `scripts/watch/sources/cacbg_officials.ts`; `watcher_lockstep.test.ts` enforces it) |
 | `assets-rankings.json` total drops > 20% | Likely a regression in category filtering | Inspect diff; do NOT commit until cause is identified |
 | Zero entries in the `Кметове…` category | Upstream renamed the municipal category | `municipal.ts` throws |
 | > 2% (or > 20) of municipal declarations fail to parse | Upstream schema drift, not isolated bad records | `municipal.ts` throws; failures below that bar are skipped + logged, not fatal |

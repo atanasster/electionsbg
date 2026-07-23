@@ -504,8 +504,9 @@ export type OfficialDeclaration = {
   slug: string;
   declarantName: string;
   institution: string;
-  /** Position/title verbatim from the registry's `Person/Position/Position`
-   *  field — e.g. "Министър", "Заместник-министър", "Главен секретар". */
+  /** Position/title verbatim from the registry's `Person/Position/Name` field —
+   *  e.g. "Министър", "Заместник-министър", "Служебен министър", "Главен
+   *  секретар". A "Служебен" prefix marks a caretaker-government post. */
   positionTitle: string | null;
   declarationYear: number;
   fiscalYear: number | null;
@@ -531,8 +532,17 @@ export type OfficialIndexEntry = {
   categoryRaw: string;
   institution: string;
   positionTitle: string | null;
+  /** True when the position title carries the "Служебен" (caretaker
+   *  government) modifier. Three caretaker cabinets served 2021-2024, and the
+   *  category bucket alone cannot distinguish one of their ministers from a
+   *  regular one. */
+  isCaretaker: boolean;
   /** Latest declaration year on file (e.g. 2025). */
   latestDeclarationYear: number;
+  /** Register folder year the descriptors above were read from. Merge
+   *  precedence key — see mergeIndexEntries for why the declaration year
+   *  cannot serve that role. */
+  descriptorYear: number;
 };
 
 export type OfficialIndexFile = {
