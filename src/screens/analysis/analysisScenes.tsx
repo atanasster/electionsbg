@@ -250,6 +250,77 @@ const Financing: FC = () => (
   </SceneFrame>
 );
 
+// Демографски профил — the cleavages dot-plot in miniature: horizontal metric
+// tracks with a party dot per position, astride a central zero line.
+const Demographics: FC = () => {
+  const zero = 236;
+  const tracks: { y: number; dots: [number, boolean][] }[] = [
+    {
+      y: 34,
+      dots: [
+        [202, true],
+        [216, false],
+        [252, true],
+        [274, false],
+      ],
+    },
+    {
+      y: 52,
+      dots: [
+        [190, false],
+        [230, true],
+        [260, true],
+      ],
+    },
+    {
+      y: 70,
+      dots: [
+        [208, true],
+        [244, false],
+        [280, true],
+      ],
+    },
+    {
+      y: 88,
+      dots: [
+        [196, false],
+        [226, true],
+        [268, true],
+      ],
+    },
+  ];
+  return (
+    <SceneFrame>
+      <path
+        d={`M${zero} 26 V96`}
+        stroke="currentColor"
+        strokeWidth="1.2"
+        opacity=".4"
+      />
+      {tracks.map((tr) => (
+        <g key={tr.y}>
+          <path
+            d={`M178 ${tr.y} H292`}
+            stroke="currentColor"
+            strokeWidth="1"
+            opacity=".2"
+          />
+          {tr.dots.map(([x, accent], i) => (
+            <circle
+              key={i}
+              cx={x}
+              cy={tr.y}
+              r="3.4"
+              fill={accent ? "var(--sector)" : "currentColor"}
+              opacity={accent ? 0.9 : 0.4}
+            />
+          ))}
+        </g>
+      ))}
+    </SceneFrame>
+  );
+};
+
 export const ANALYSIS_SCENES: Record<string, FC> = {
   risk: Risk,
   benford: Benford,
@@ -259,4 +330,5 @@ export const ANALYSIS_SCENES: Record<string, FC> = {
   simulator: Simulator,
   polls: Polls,
   financing: Financing,
+  demographics: Demographics,
 };

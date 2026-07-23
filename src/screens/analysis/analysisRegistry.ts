@@ -69,6 +69,14 @@ export const ANALYSIS_CLUSTERS: { labelKey: string; analyses: Analysis[] }[] = [
         accent: TILE_ACCENTS.teal,
         statId: "persistence",
       },
+      {
+        id: "demographics",
+        titleKey: "party_demographics_title",
+        descKey: "party_demographics_hub_desc",
+        to: "/party-demographics",
+        accent: TILE_ACCENTS.iris,
+        statId: "demographics",
+      },
     ],
   },
   {
