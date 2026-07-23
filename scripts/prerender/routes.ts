@@ -3075,15 +3075,15 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
-    path: "reports",
-    title: "Доклади за аномалии по избори | electionsbg.com",
+    path: "parliamentary/reports",
+    title: "Доклади за парламентарните избори — аномалии | electionsbg.com",
     description:
-      "Доклади за аномалии по избори: скрининг на риска, проблемни секции, концентрация на вота, невалидни бюлетини, най-голям ръст и спад, повторно преброяване и флаш памет от машините (СУЕМГ).",
+      "Доклади за аномалии при парламентарните избори: скрининг на риска, проблемни секции, концентрация на вота, невалидни бюлетини, най-голям ръст и спад, повторно преброяване и флаш памет от машините (СУЕМГ).",
     breadcrumbName: "Доклади",
     ogImage: "/og/reports-hub.png",
     bodyHtml: `
-<h1>Доклади за аномалии по избори</h1>
-<p>Систематични справки за необичайни резултати за избрания вот. Част от <a href="${SITE_URL}/analysis">анализите</a>.</p>
+<h1>Доклади за парламентарните избори</h1>
+<p>Систематични справки за необичайни резултати за избрания вот. Част от <a href="${SITE_URL}/parliamentary/analysis">анализите</a>.</p>
 <h2>Рискови сигнали</h2>
 <ul>
 <li><a href="${SITE_URL}/risk-score">Скрининг на риска</a> — секции по съставен рисков резултат.</li>
@@ -3103,13 +3103,13 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><a href="${SITE_URL}/reports/section/missing_flash_memory">Флаш памет (СУЕМГ)</a> — липсваща, добавена или разместена.</li>
 </ul>`.trim(),
     english: {
-      title: "Election anomaly reports | electionsbg.com",
+      title: "Parliamentary election reports — anomalies | electionsbg.com",
       description:
-        "Election anomaly reports: risk screening, problem sections, vote concentration, invalid ballots, biggest gainers and losers, recount differences and machine flash memory (СУЕМГ).",
+        "Parliamentary election anomaly reports: risk screening, problem sections, vote concentration, invalid ballots, biggest gainers and losers, recount differences and machine flash memory (СУЕМГ).",
       breadcrumbName: "Reports",
       bodyHtml: `
-<h1>Election anomaly reports</h1>
-<p>Systematic reports of unusual results for the selected vote. Part of the <a href="${SITE_URL}/en/analysis">analyses</a>.</p>
+<h1>Parliamentary election reports</h1>
+<p>Systematic reports of unusual results for the selected vote. Part of the <a href="${SITE_URL}/en/parliamentary/analysis">analyses</a>.</p>
 <h2>Risk signals</h2>
 <ul>
 <li><a href="${SITE_URL}/en/risk-score">Risk screening</a> — sections by composite risk score.</li>
@@ -3131,16 +3131,16 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
-    path: "analysis",
+    path: "parliamentary/analysis",
     title:
-      "Анализи на изборите — риск, Бенфорд, изгубени гласове | electionsbg.com",
+      "Анализи на парламентарните избори — риск, Бенфорд, изгубени гласове | electionsbg.com",
     description:
-      "Всички изборни анализи на едно място: риск по секции, законът на Бенфорд, изгубени гласове, лоялност на гласоподавателите, сравнение на избори, симулатор на коалиции, точност на проучванията и финансиране на кампаниите.",
+      "Всички анализи на парламентарните избори на едно място: риск по секции, законът на Бенфорд, изгубени гласове, лоялност на гласоподавателите, сравнение на избори, симулатор на коалиции, точност на проучванията и финансиране на кампаниите.",
     breadcrumbName: "Анализи",
     ogImage: "/og/analysis-hub.png",
     bodyHtml: `
-<h1>Анализи на изборите</h1>
-<p>Обединен вход към всеки изборен анализ и инструмент. Всяка страница се отнася за избрания в момента вот.</p>
+<h1>Анализи на парламентарните избори</h1>
+<p>Обединен вход към всеки анализ и инструмент за парламентарните избори. Всяка страница се отнася за избрания в момента вот.</p>
 <h2>Анализи</h2>
 <ul>
 <li><a href="${SITE_URL}/risk-analysis">Анализ на изборния риск</a> — секции с необичайни резултати по съставен рисков сигнал.</li>
@@ -3157,13 +3157,13 @@ export const prerenderRoutes: PrerenderRoute[] = [
 </ul>`.trim(),
     english: {
       title:
-        "Election analyses — risk, Benford, wasted votes | electionsbg.com",
+        "Parliamentary election analyses — risk, Benford, wasted votes | electionsbg.com",
       description:
-        "Every election analysis in one place: section-level risk, Benford's law, wasted votes, voter loyalty, election comparison, a coalition simulator, polling accuracy and campaign financing.",
+        "Every parliamentary election analysis in one place: section-level risk, Benford's law, wasted votes, voter loyalty, election comparison, a coalition simulator, polling accuracy and campaign financing.",
       breadcrumbName: "Analyses",
       bodyHtml: `
-<h1>Election analyses</h1>
-<p>A single entry to every election analysis and tool. Each page applies to the currently selected vote.</p>
+<h1>Parliamentary election analyses</h1>
+<p>A single entry to every parliamentary election analysis and tool. Each page applies to the currently selected vote.</p>
 <h2>Analyses</h2>
 <ul>
 <li><a href="${SITE_URL}/en/risk-analysis">Election risk analysis</a> — sections with unusual results, ranked by a composite risk signal.</li>

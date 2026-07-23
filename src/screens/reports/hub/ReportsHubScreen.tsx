@@ -1,9 +1,9 @@
-// /reports — the "Доклади" hub. The standalone home for the anomaly-report
-// matrix (risk signals, votes & turnout, recount & machine flash-memory), which
-// the /analysis hub spotlights via a curated 3-up strip + a "виж всички →" link
-// here. Same reusable tile-hub kit as the /analysis and sectors hubs; each tile
-// deep-links its report to a default grain and overlays the selected election's
-// number where analysis_stats.json already carries one (turnout, risk).
+// /parliamentary/reports — the parliamentary-election anomaly-report hub. The
+// standalone home for the report matrix (risk signals, votes & turnout, recount
+// & machine flash-memory), which the analyses hub spotlights via a curated 3-up
+// strip + a "виж всички →" link here. Same reusable tile-hub kit as the analyses
+// and sectors hubs; each tile deep-links its report to a default grain and
+// overlays the selected election's number where analysis_stats.json carries one.
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";

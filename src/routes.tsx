@@ -2857,13 +2857,28 @@ export const AuthRoutes = () => {
               </LayoutScreen>
             }
           />
+          <Route path="parliamentary">
+            <Route
+              path="analysis"
+              element={
+                <LayoutScreen>
+                  <AnalysisHubScreen />
+                </LayoutScreen>
+              }
+            />
+            <Route
+              path="reports"
+              element={
+                <LayoutScreen>
+                  <ReportsHubScreen />
+                </LayoutScreen>
+              }
+            />
+          </Route>
+          {/* Old flat hub paths → the parliamentary-namespaced hubs. */}
           <Route
             path="analysis"
-            element={
-              <LayoutScreen>
-                <AnalysisHubScreen />
-              </LayoutScreen>
-            }
+            element={<Navigate to="/parliamentary/analysis" replace />}
           />
           <Route
             path="risk-analysis"
@@ -3115,13 +3130,11 @@ export const AuthRoutes = () => {
           />
 
           <Route path="reports">
+            {/* The reports hub moved to /parliamentary/reports; bare /reports
+                redirects there. The per-grain report leaves stay below. */}
             <Route
               index
-              element={
-                <LayoutScreen>
-                  <ReportsHubScreen />
-                </LayoutScreen>
-              }
+              element={<Navigate to="/parliamentary/reports" replace />}
             />
             <Route path="settlement">
               <Route

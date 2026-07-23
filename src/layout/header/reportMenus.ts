@@ -129,8 +129,8 @@ export const electionsMenu: MenuItem[] = [
     link: "/",
     subMenu: [
       { title: "menu_overview", link: "/", mobileOnly: true },
-      { title: "analysis_hub_nav", link: "/analysis" },
-      { title: "reports_hub_nav", link: "/reports" },
+      { title: "analysis_hub_nav", link: "/parliamentary/analysis" },
+      { title: "reports_hub_nav", link: "/parliamentary/reports" },
       { title: "-" },
       {
         title: "menu_header_analysis",

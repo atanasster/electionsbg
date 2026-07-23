@@ -543,7 +543,7 @@ const captures: Capture[] = [
   },
   {
     slug: "reports-hub",
-    routePath: "reports",
+    routePath: "parliamentary/reports",
     // The anomaly-reports tile hub. Anchor on the tiles wrapper and top-align so
     // the card leads with the first cluster of report tiles.
     waitFor: '[data-og="reports-hub"] a',
@@ -553,7 +553,7 @@ const captures: Capture[] = [
   },
   {
     slug: "analysis-hub",
-    routePath: "analysis",
+    routePath: "parliamentary/analysis",
     // The election-analysis tile hub. Anchor on the tiles wrapper and top-align
     // so the card leads with the first cluster of infographic tiles + their
     // headline numbers (critical sections / Benford-flagged parties / wasted

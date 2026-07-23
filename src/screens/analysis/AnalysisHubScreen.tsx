@@ -1,7 +1,8 @@
-// /analysis — the "Анализи" hub. A single visual entry point to every
-// election-analysis screen (risk, Benford, wasted votes, voter loyalty,
-// comparison) and the tools & polling dossiers (coalition simulator, poll
-// accuracy, campaign financing), replacing the long "избори" dropdown sections.
+// /parliamentary/analysis — the parliamentary-election analyses hub. A single
+// visual entry point to every election-analysis screen (risk, Benford, wasted
+// votes, voter loyalty, comparison) and the tools & polling dossiers (coalition
+// simulator, poll accuracy, campaign financing), replacing the long "избори"
+// dropdown sections.
 // Data comes from the pure ANALYSIS_CLUSTERS registry; layout from the reusable
 // infographic tile-hub kit (src/ux/infographic). Each tile overlays the
 // analysis's headline number for the selected election from the pre-generated
@@ -57,8 +58,11 @@ export const AnalysisHubScreen: FC = () => {
           sectors → all sectors strip). */}
       <FeaturedStrip
         className="mt-8"
-        heading={t("reports_hub_title")}
-        action={{ to: "/reports", label: t("reports_hub_see_all") }}
+        heading={t("reports_strip_heading")}
+        action={{
+          to: "/parliamentary/reports",
+          label: t("reports_hub_see_all"),
+        }}
         tiles={FEATURED_REPORTS.map((r) => {
           const stat = r.statId ? stats?.[r.statId] : undefined;
           return {
