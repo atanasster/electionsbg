@@ -35,6 +35,14 @@ const HISTORY_FILE = path.resolve(
   __dirname,
   "../../data/budget/nzok/execution_history.json",
 );
+// Committed sidecar of hand-verified full-year (December) points for years the
+// /quarter page lists only through November (2022-2024). Merged into the history
+// below; a real December xls on /quarter supersedes it (the scrape wins per
+// (year, month)). Produced by write_execution_annual.ts.
+const ANNUAL_FILE = path.resolve(
+  __dirname,
+  "../../data/budget/nzok/execution_annual.json",
+);
 const BASE = "https://www.nhif.bg";
 const UA = "Mozilla/5.0 (compatible; naiasno-data/1.0)";
 
@@ -167,7 +175,29 @@ const main = async (): Promise<void> => {
   }
   if (points.length === 0) throw new Error("no B1 month parsed");
   points.sort((a, b) => (a.asOf < b.asOf ? -1 : 1));
+  // `latest` (for execution.json + history.latest) is the newest SCRAPED month —
+  // never a backfilled December — so compute it before merging the sidecar.
   const latest = points[points.length - 1];
+
+  // Merge the hand-verified full-year backfill for years /quarter lists only
+  // through November. The scrape WINS: only add a sidecar (year, month) the
+  // scrape doesn't already have, so a real December xls automatically supersedes.
+  if (fs.existsSync(ANNUAL_FILE)) {
+    const annual = JSON.parse(fs.readFileSync(ANNUAL_FILE, "utf-8")) as {
+      points: B1Point[];
+    };
+    const have = new Set(points.map((p) => `${p.year}-${p.month}`));
+    let added = 0;
+    for (const p of annual.points ?? []) {
+      if (have.has(`${p.year}-${p.month}`)) continue;
+      points.push(p);
+      added++;
+    }
+    if (added) points.sort((a, b) => (a.asOf < b.asOf ? -1 : 1));
+    console.log(
+      `Merged ${added} full-year backfill point(s) from execution_annual.json`,
+    );
+  }
 
   const source = {
     publisher: "Национална здравноосигурителна каса (НЗОК)",

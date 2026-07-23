@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-09T11:44:15.090Z",
+  "generatedAt": "2026-07-23T08:00:52.088Z",
   "source": {
     "publisher": "Национална здравноосигурителна каса (НЗОК)",
     "url": "https://www.nhif.bg/bg/nzok/financial_report/quarter",
@@ -50,6 +50,15 @@
       "currencyOfRecord": "BGN",
       "revenueEur": 1768818557,
       "expenditureEur": 2752657323
+    },
+    {
+      "year": 2022,
+      "month": 12,
+      "asOf": "2022-12",
+      "currencyOfRecord": "BGN",
+      "revenueEur": 1958791920,
+      "expenditureEur": 3186364868,
+      "backfilled": true
     },
     {
       "year": 2023,
@@ -116,6 +125,15 @@
       "expenditureEur": 3059462079
     },
     {
+      "year": 2023,
+      "month": 12,
+      "asOf": "2023-12",
+      "currencyOfRecord": "BGN",
+      "revenueEur": 2222742263,
+      "expenditureEur": 3518553760,
+      "backfilled": true
+    },
+    {
       "year": 2024,
       "month": 1,
       "asOf": "2024-01",
@@ -178,6 +196,15 @@
       "currencyOfRecord": "BGN",
       "revenueEur": 2336433608,
       "expenditureEur": 3741212555
+    },
+    {
+      "year": 2024,
+      "month": 12,
+      "asOf": "2024-12",
+      "currencyOfRecord": "BGN",
+      "revenueEur": 2576050577,
+      "expenditureEur": 4166591166,
+      "backfilled": true
     },
     {
       "year": 2025,

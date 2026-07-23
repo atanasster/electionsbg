@@ -1,0 +1,38 @@
+{
+  "generatedAt": "2026-07-23T07:59:23.049Z",
+  "source": {
+    "publisher": "Национална здравноосигурителна каса (НЗОК)",
+    "url": "https://www.nhif.bg/bg/nzok/financial_report/years",
+    "description": "Годишен „Сборен отчет за касовото изпълнение на бюджета“ (ЕБК, КОД 5600), колона (1) БЮДЖЕТ, разходи (ред Б). Стойностите (хил. лв) от сканираните PDF-и са разчетени ръчно и потвърдени чрез бюджетното тъждество А−Б+В=Г и колоната „предходна година“ на следващия отчет; конвертирани в евро при 1 EUR = 1.95583 BGN. Пълногодишните (декемврийски) точки, които месечният B1 feed на /quarter не публикува за 2022-2024.",
+    "method": "manually transcribed from the scanned annual reports and locked; verified via the ЕБК identity А−Б+В=Г, the next-year report's prior-year column, and a Gemini OCR pass"
+  },
+  "points": [
+    {
+      "year": 2022,
+      "month": 12,
+      "asOf": "2022-12",
+      "currencyOfRecord": "BGN",
+      "revenueEur": 1958791920,
+      "expenditureEur": 3186364868,
+      "backfilled": true
+    },
+    {
+      "year": 2023,
+      "month": 12,
+      "asOf": "2023-12",
+      "currencyOfRecord": "BGN",
+      "revenueEur": 2222742263,
+      "expenditureEur": 3518553760,
+      "backfilled": true
+    },
+    {
+      "year": 2024,
+      "month": 12,
+      "asOf": "2024-12",
+      "currencyOfRecord": "BGN",
+      "revenueEur": 2576050577,
+      "expenditureEur": 4166591166,
+      "backfilled": true
+    }
+  ]
+}

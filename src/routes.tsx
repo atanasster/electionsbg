@@ -36,6 +36,12 @@ const GovernanceSectorsScreen = lazy(() =>
   })),
 );
 
+const AnalysisHubScreen = lazy(() =>
+  import("@/screens/analysis/AnalysisHubScreen").then((m) => ({
+    default: m.AnalysisHubScreen,
+  })),
+);
+
 const MunicipalitiesScreen = lazy(() =>
   import("@/screens/MunicipalitiesScreen").then((m) => ({
     default: m.MunicipalitiesScreen,
@@ -2842,6 +2848,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <BenfordDetailScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="analysis"
+            element={
+              <LayoutScreen>
+                <AnalysisHubScreen />
               </LayoutScreen>
             }
           />

@@ -67,7 +67,12 @@ type SectorStat = {
 };
 type SectorStats = Record<string, Record<string, SectorStat>>;
 type NzokHistory = {
-  points: Array<{ year: number; month: number; expenditureEur: number }>;
+  points: Array<{
+    year: number;
+    month: number;
+    expenditureEur: number;
+    backfilled?: boolean;
+  }>;
 };
 
 describe("health sector (payout / НЗОК)", () => {
@@ -141,6 +146,55 @@ describe("health sector (payout / НЗОК)", () => {
         "data/procurement/derived/sector_stats.json",
       );
       assert.equal(stats["all"].health.basis, "payout");
+    },
+  );
+
+  test.skipIf(skip)(
+    "full-year (December) backfill locks the y:2022-2024 payout scopes",
+    () => {
+      // The /quarter B1 feed lists 2022-2024 only through month 11, so those
+      // years' hub scopes once showed an ~8-11% understated 11-month cumulative.
+      // write_execution_annual.ts pins the hand-verified full-year figures and
+      // write_execution.ts merges them as month-12 points. Pin the exact euro
+      // values (immutable audited history) + assert the y:<year> scope reflects
+      // the full year, so dropping the sidecar or the merge is caught.
+      const EXPECTED: Record<number, number> = {
+        2022: 3_186_364_868,
+        2023: 3_518_553_760,
+        2024: 4_166_591_166,
+      };
+      const hist = readJson<NzokHistory>(
+        "data/budget/nzok/execution_history.json",
+      );
+      const stats = readJson<SectorStats>(
+        "data/procurement/derived/sector_stats.json",
+      );
+      for (const [yStr, eur] of Object.entries(EXPECTED)) {
+        const year = Number(yStr);
+        const dec = hist.points.find((p) => p.year === year && p.month === 12);
+        assert.ok(
+          dec,
+          `execution_history.json missing month-12 point for ${year}`,
+        );
+        assert.equal(
+          dec.expenditureEur,
+          eur,
+          `${year} full-year expenditure drifted from the verified value`,
+        );
+        assert.equal(
+          dec.backfilled,
+          true,
+          `${year} month-12 point should be flagged backfilled`,
+        );
+        const scope = stats[`y:${year}`]?.health;
+        assert.ok(scope, `sector_stats missing y:${year}.health`);
+        assert.equal(
+          scope.value,
+          eur,
+          `y:${year} health scope must use the full-year (not the 11-month) figure`,
+        );
+        assert.equal(scope.year, year);
+      }
     },
   );
 
