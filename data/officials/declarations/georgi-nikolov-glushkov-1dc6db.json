@@ -5,6 +5,48 @@
     "institution": "Министерство на младежта и спорта",
     "positionTitle": null,
     "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-29",
+    "entryNumber": "Г4788",
+    "controlHash": "B8596B49",
+    "sourceUrl": "https://register.cacbg.bg/2025/DC8D0A39-179A-4111-84FF-520A186D7B2C207665.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 53601.28436520557,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Георги Николов Глушков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  },
+  {
+    "slug": "georgi-nikolov-glushkov-1dc6db",
+    "declarantName": "ГЕОРГИ НИКОЛОВ ГЛУШКОВ",
+    "institution": "Министерство на младежта и спорта",
+    "positionTitle": null,
+    "declarationYear": 2025,
     "fiscalYear": 2025,
     "declarationType": "Vacate",
     "filedAt": "2025-02-07",
@@ -283,48 +325,6 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
-      }
-    ]
-  },
-  {
-    "slug": "georgi-nikolov-glushkov-1dc6db",
-    "declarantName": "ГЕОРГИ НИКОЛОВ ГЛУШКОВ",
-    "institution": "Министерство на младежта и спорта",
-    "positionTitle": null,
-    "declarationYear": 2025,
-    "fiscalYear": 2024,
-    "declarationType": "Annualy",
-    "filedAt": "2025-04-29",
-    "entryNumber": "Г4788",
-    "controlHash": "B8596B49",
-    "sourceUrl": "https://register.cacbg.bg/2025/DC8D0A39-179A-4111-84FF-520A186D7B2C207665.xml",
-    "ownershipStakes": [],
-    "income": [
-      {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 53601.28436520557,
-        "amountEurSpouse": null
-      }
-    ],
-    "assets": [
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 40000,
-        "valueEur": 20451.67524784874,
-        "holderName": "Георги Николов Глушков",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
       }
     ]
   }

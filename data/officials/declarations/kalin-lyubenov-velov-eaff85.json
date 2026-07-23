@@ -5,85 +5,6 @@
     "institution": "Министерство на културата",
     "positionTitle": null,
     "declarationYear": 2025,
-    "fiscalYear": 2024,
-    "declarationType": "Annualy",
-    "filedAt": "2025-05-07",
-    "entryNumber": "Г6176",
-    "controlHash": "F3DA05BF",
-    "sourceUrl": "https://register.cacbg.bg/2025/8A6E233F-6C44-4507-A57D-62ED983CE8A4209127.xml",
-    "ownershipStakes": [
-      {
-        "table": "11",
-        "itemType": "ДЯЛОВЕ",
-        "shareSize": "2000",
-        "companyName": "Мартино Мюзик ЕООД",
-        "registeredOffice": "София (столица)",
-        "valueEur": 1022.5837623924369,
-        "holderName": null,
-        "transfereeName": "Калин Любенов Вельов",
-        "legalBasis": "възмездно",
-        "fundsOrigin": null
-      }
-    ],
-    "income": [
-      {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 17914.6449333531,
-        "amountEurSpouse": 6624.297612778207
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 17836.92856741128,
-        "amountEurSpouse": null
-      }
-    ],
-    "assets": [
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 4257,
-        "valueEur": 2176.569538252302,
-        "holderName": "Калин Любенов Вельов",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 7265,
-        "valueEur": 3714.535516890527,
-        "holderName": "Ирина Валентинова Вельова",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      }
-    ]
-  },
-  {
-    "slug": "kalin-lyubenov-velov-eaff85",
-    "declarantName": "Калин Любенов Вельов",
-    "institution": "Министерство на културата",
-    "positionTitle": null,
-    "declarationYear": 2025,
     "fiscalYear": 2025,
     "declarationType": "Vacate",
     "filedAt": "2025-05-22",
@@ -680,6 +601,85 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ]
+  },
+  {
+    "slug": "kalin-lyubenov-velov-eaff85",
+    "declarantName": "Калин Любенов Вельов",
+    "institution": "Министерство на културата",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-07",
+    "entryNumber": "Г6176",
+    "controlHash": "F3DA05BF",
+    "sourceUrl": "https://register.cacbg.bg/2025/8A6E233F-6C44-4507-A57D-62ED983CE8A4209127.xml",
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "ДЯЛОВЕ",
+        "shareSize": "2000",
+        "companyName": "Мартино Мюзик ЕООД",
+        "registeredOffice": "София (столица)",
+        "valueEur": 1022.5837623924369,
+        "holderName": null,
+        "transfereeName": "Калин Любенов Вельов",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17914.6449333531,
+        "amountEurSpouse": 6624.297612778207
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 17836.92856741128,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4257,
+        "valueEur": 2176.569538252302,
+        "holderName": "Калин Любенов Вельов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7265,
+        "valueEur": 3714.535516890527,
+        "holderName": "Ирина Валентинова Вельова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
     ]
   }

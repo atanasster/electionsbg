@@ -5,84 +5,6 @@
     "institution": "Област - Бургас",
     "positionTitle": null,
     "declarationYear": 2025,
-    "fiscalYear": 2024,
-    "declarationType": "Annualy",
-    "filedAt": "2025-05-12",
-    "entryNumber": "Г11933",
-    "controlHash": "7B4C5919",
-    "sourceUrl": "https://register.cacbg.bg/2025/753425DC-0145-426B-A9F9-A5728D96E38C215087.xml",
-    "ownershipStakes": [],
-    "income": [
-      {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 28450.836729163577,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 22598.58985699166,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 8676.623223899827,
-        "amountEurSpouse": null
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 1.022583762392437,
-        "amountEurSpouse": null
-      }
-    ],
-    "assets": [
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 24862,
-        "valueEur": 5118.031730774147,
-        "holderName": "Мария Нейкова Кънева",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "debt",
-        "description": "ипотечен кредит",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 451624,
-        "valueEur": 230911.68455336097,
-        "holderName": "Мария Нейкова Кънева",
-        "isSpouse": false,
-        "legalBasis": "договор",
-        "fundsOrigin": null
-      }
-    ]
-  },
-  {
-    "slug": "mariya-neikova-kneva-2d663c",
-    "declarantName": "Мария Нейкова Кънева",
-    "institution": "Област - Бургас",
-    "positionTitle": null,
-    "declarationYear": 2025,
     "fiscalYear": 2025,
     "declarationType": "Vacate",
     "filedAt": "2025-05-21",
@@ -396,6 +318,84 @@
         "holderName": "Мария Нейкова Кънева",
         "isSpouse": false,
         "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ]
+  },
+  {
+    "slug": "mariya-neikova-kneva-2d663c",
+    "declarantName": "Мария Нейкова Кънева",
+    "institution": "Област - Бургас",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г11933",
+    "controlHash": "7B4C5919",
+    "sourceUrl": "https://register.cacbg.bg/2025/753425DC-0145-426B-A9F9-A5728D96E38C215087.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28450.836729163577,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 22598.58985699166,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 8676.623223899827,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 1.022583762392437,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 24862,
+        "valueEur": 5118.031730774147,
+        "holderName": "Мария Нейкова Кънева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 451624,
+        "valueEur": 230911.68455336097,
+        "holderName": "Мария Нейкова Кънева",
+        "isSpouse": false,
+        "legalBasis": "договор",
         "fundsOrigin": null
       }
     ]

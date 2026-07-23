@@ -5,41 +5,6 @@
     "institution": "Държавна агенция за българите в чужбина",
     "positionTitle": null,
     "declarationYear": 2025,
-    "fiscalYear": 2025,
-    "declarationType": "Vacate",
-    "filedAt": null,
-    "entryNumber": "Ф33",
-    "controlHash": "A6BF0566",
-    "sourceUrl": "https://register.cacbg.bg/2025/BFDC1B6C-EB16-461C-872C-BD61465BE04C201699.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
-      {
-        "category": "real_estate",
-        "description": "апартамент",
-        "detail": null,
-        "location": "ж.к. Връбница",
-        "municipality": "София-град (Столична)",
-        "areaSqm": 57,
-        "builtAreaSqm": null,
-        "acquiredYear": 1990,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 12800,
-        "valueEur": 6544.536079311597,
-        "holderName": "Дилайла Михайлова Васева",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
-      }
-    ]
-  },
-  {
-    "slug": "dilaila-mihailova-vaseva-9071f7",
-    "declarantName": "Дилайла Михайлова Васева",
-    "institution": "Държавна агенция за българите в чужбина",
-    "positionTitle": null,
-    "declarationYear": 2025,
     "fiscalYear": 2024,
     "declarationType": "Annualy",
     "filedAt": null,
@@ -84,6 +49,41 @@
         "isSpouse": true,
         "legalBasis": "покупко-продажба",
         "fundsOrigin": "заплата"
+      }
+    ]
+  },
+  {
+    "slug": "dilaila-mihailova-vaseva-9071f7",
+    "declarantName": "Дилайла Михайлова Васева",
+    "institution": "Държавна агенция за българите в чужбина",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2025,
+    "declarationType": "Vacate",
+    "filedAt": null,
+    "entryNumber": "Ф33",
+    "controlHash": "A6BF0566",
+    "sourceUrl": "https://register.cacbg.bg/2025/BFDC1B6C-EB16-461C-872C-BD61465BE04C201699.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ж.к. Връбница",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 57,
+        "builtAreaSqm": null,
+        "acquiredYear": 1990,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 12800,
+        "valueEur": 6544.536079311597,
+        "holderName": "Дилайла Михайлова Васева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
       }
     ]
   }

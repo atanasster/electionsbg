@@ -5,66 +5,6 @@
     "institution": "Комисия за публичен надзор над регистрираните одитори",
     "positionTitle": null,
     "declarationYear": 2025,
-    "fiscalYear": 2024,
-    "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г2677",
-    "controlHash": "19A763A5",
-    "sourceUrl": "https://register.cacbg.bg/2025/DB10814E-D1BD-434F-96DC-938DDF03E1C9205367.xml",
-    "ownershipStakes": [],
-    "income": [
-      {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 121533.05757657874,
-        "amountEurSpouse": null
-      }
-    ],
-    "assets": [
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "EUR",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": 199000,
-        "valueEur": 198999.9130803802,
-        "holderName": "Огнян Георгиев Симеонов",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 180391,
-        "valueEur": 92232.45374086704,
-        "holderName": "Огнян Георгиев Симеонов",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      }
-    ]
-  },
-  {
-    "slug": "ognyan-georgiev-simeonov-f1618a",
-    "declarantName": "Огнян Георгиев Симеонов",
-    "institution": "Комисия за публичен надзор над регистрираните одитори",
-    "positionTitle": null,
-    "declarationYear": 2025,
     "fiscalYear": 2025,
     "declarationType": "Vacate",
     "filedAt": "2025-05-12",
@@ -427,6 +367,66 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ]
+  },
+  {
+    "slug": "ognyan-georgiev-simeonov-f1618a",
+    "declarantName": "Огнян Георгиев Симеонов",
+    "institution": "Комисия за публичен надзор над регистрираните одитори",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г2677",
+    "controlHash": "19A763A5",
+    "sourceUrl": "https://register.cacbg.bg/2025/DB10814E-D1BD-434F-96DC-938DDF03E1C9205367.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 121533.05757657874,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 199000,
+        "valueEur": 198999.9130803802,
+        "holderName": "Огнян Георгиев Симеонов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 180391,
+        "valueEur": 92232.45374086704,
+        "holderName": "Огнян Георгиев Симеонов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
     ]
   }
