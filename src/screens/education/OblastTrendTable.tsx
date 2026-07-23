@@ -170,7 +170,14 @@ export const OblastTrendTable: FC<{
                   </th>
                 </>
               )}
-              {th("schools", bg ? "Училища" : "Schools", "text-right")}
+              {/* School count is the least informative column and the widest
+                  label; dropping it below sm keeps the table at the width it
+                  had before the trend columns arrived. */}
+              {th(
+                "schools",
+                bg ? "Училища" : "Schools",
+                "hidden text-right sm:table-cell",
+              )}
               {th("examinees", bg ? "Зрелостници" : "Graduates", "text-right")}
             </tr>
           </thead>
@@ -204,7 +211,7 @@ export const OblastTrendTable: FC<{
                     </td>
                   </>
                 )}
-                <td className="py-1.5 pr-2 text-right tabular-nums text-muted-foreground">
+                <td className="hidden py-1.5 pr-2 text-right tabular-nums text-muted-foreground sm:table-cell">
                   {o.schools}
                 </td>
                 <td className="py-1.5 text-right tabular-nums text-muted-foreground">

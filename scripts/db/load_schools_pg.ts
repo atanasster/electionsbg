@@ -66,7 +66,10 @@ type DirSchool = {
   latestYear: number | null;
   latestScore: number | null;
   latestN: number | null;
-  series: { year: number; score: number }[];
+  /** Ascending ДЗИ БЕЛ series. `n` is that year's cohort — the confidence
+   *  interval on the point: the median school-year is 31 examinees but 12% are
+   *  under 10, where a 0.4 swing is noise. /school/:id marks those. */
+  series: { year: number; score: number; n?: number }[];
   mathLatest: { year: number; score: number } | null;
   ses: number | null;
   predicted: number | null;
@@ -119,7 +122,13 @@ const buildDirectory = () => {
         .sort((a, b) => a - b)
         .flatMap((y) => {
           const s = rec.scoresByYear[String(y)]?.dzi_bel;
-          return typeof s === "number" ? [{ year: y, score: s }] : [];
+          if (typeof s !== "number") return [];
+          const n = rec.countsByYear?.[String(y)]?.dzi_bel;
+          return [
+            typeof n === "number"
+              ? { year: y, score: s, n }
+              : { year: y, score: s },
+          ];
         });
       const last = series[series.length - 1] ?? null;
       const latestN =

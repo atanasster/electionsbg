@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
-import { Sparkline } from "@/ux/Sparkline";
+import { MaturaTrendChart } from "./MaturaTrendChart";
 import {
   useSchoolDirectory,
   MIN_RANK_COHORT,
@@ -61,14 +61,6 @@ const VERDICT: Record<
   },
 };
 
-// Matura scores cluster in a narrow high band (≈2–6), which a 0-based sparkline
-// flattens. Rebase to the series' own range so the shape reads honestly.
-const rebase = (scores: number[]): number[] => {
-  if (scores.length === 0) return scores;
-  const lo = Math.min(...scores);
-  return scores.map((s) => s - lo + 0.15);
-};
-
 export const SchoolScreen: FC = () => {
   const { id } = useParams<{ id: string }>();
   const { i18n } = useTranslation();
@@ -110,6 +102,16 @@ export const SchoolScreen: FC = () => {
   const first = school.series[0];
   const last = school.series[school.series.length - 1];
   const delta = first && last ? last.score - first.score : null;
+  // The country's move over the SAME years. Without it the arrow lies: 92% of
+  // schools rose in 2024 alone, and a third of the schools this card used to
+  // paint green had in fact gained less than the national average did.
+  const natByYear = new Map(dir.nationalByYear.map((n) => [n.year, n.avg]));
+  const natFirst = first ? natByYear.get(first.year) : null;
+  const natLast = last ? natByYear.get(last.year) : null;
+  const natDelta =
+    natFirst != null && natLast != null ? natLast - natFirst : null;
+  // Positive = the school outpaced the country over its own span.
+  const relDelta = delta != null && natDelta != null ? delta - natDelta : null;
   const mathLatest = school.mathLatest;
 
   return (
@@ -159,7 +161,7 @@ export const SchoolScreen: FC = () => {
         )}
       </div>
 
-      <div className="mt-4 grid gap-4 sm:grid-cols-2">
+      <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
         {/* LEVEL */}
         <Card>
           <CardHeader>
@@ -226,42 +228,59 @@ export const SchoolScreen: FC = () => {
           <CardContent>
             {school.series.length >= 2 ? (
               <>
-                <div className="text-primary">
-                  <Sparkline
-                    values={rebase(school.series.map((p) => p.score))}
-                    ariaLabel={bg ? "Тренд на матурата" : "Matura trend"}
-                  />
-                </div>
-                <div className="mt-2 flex items-center gap-2 text-sm">
-                  {delta != null && Math.abs(delta) >= 0.05 ? (
-                    delta > 0 ? (
+                <MaturaTrendChart
+                  national={school.series.map((p) => ({
+                    year: p.year,
+                    avg: p.score,
+                    examinees: p.n ?? 0,
+                  }))}
+                  reference={dir.nationalByYear}
+                  referenceLabel={bg ? "страната" : "the country"}
+                  provisionalBelow={MIN_RANK_COHORT}
+                  showCabinet={false}
+                  ariaTitle={
+                    bg
+                      ? `Успех на матурата по БЕЛ по години за ${school.name}`
+                      : `Bulgarian matura average by year for ${school.name}`
+                  }
+                  lang={lang}
+                />
+                {/* The headline is the school's change MEASURED AGAINST the
+                    country's over the same years — the raw change was coloured
+                    green on 275 pages where the school had actually lost ground
+                    while everyone rose. */}
+                <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+                  {relDelta != null && Math.abs(relDelta) >= 0.05 ? (
+                    relDelta > 0 ? (
                       <span className="inline-flex items-center gap-1 text-emerald-600">
                         <TrendingUp className="h-4 w-4" />+
-                        {fmtScore(delta, lang)}
+                        {fmtScore(relDelta, lang)}{" "}
+                        {bg ? "спрямо страната" : "vs the country"}
                       </span>
                     ) : (
                       <span className="inline-flex items-center gap-1 text-rose-600">
                         <TrendingDown className="h-4 w-4" />
-                        {fmtScore(delta, lang)}
+                        {fmtScore(relDelta, lang)}{" "}
+                        {bg ? "спрямо страната" : "vs the country"}
                       </span>
                     )
                   ) : (
                     <span className="inline-flex items-center gap-1 text-muted-foreground">
                       <Minus className="h-4 w-4" />
-                      {bg ? "без промяна" : "flat"}
+                      {bg ? "като страната" : "in line with the country"}
                     </span>
                   )}
                   <span className="text-muted-foreground">
                     {first?.year}–{last?.year}
                   </span>
                 </div>
-                <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs tabular-nums text-muted-foreground">
-                  {school.series.map((p) => (
-                    <span key={p.year}>
-                      {p.year}: {fmtScore(p.score, lang)}
-                    </span>
-                  ))}
-                </div>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {delta != null && natDelta != null
+                    ? bg
+                      ? `Училището: ${delta >= 0 ? "+" : ""}${fmtScore(delta, lang)} · страната: ${natDelta >= 0 ? "+" : ""}${fmtScore(natDelta, lang)}`
+                      : `This school: ${delta >= 0 ? "+" : ""}${fmtScore(delta, lang)} · the country: ${natDelta >= 0 ? "+" : ""}${fmtScore(natDelta, lang)}`
+                    : null}
+                </p>
               </>
             ) : (
               <p className="text-sm text-muted-foreground">

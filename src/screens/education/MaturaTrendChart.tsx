@@ -1,5 +1,6 @@
-// The national ДЗИ БЕЛ trend, on a real date axis with the governments strip
-// under it. Two things the sparkline it replaced could not do:
+// The ДЗИ БЕЛ trend chart, shared by /education (the country, with the
+// governments strip under it) and /school/:id (one school against the country,
+// without it). Two things the sparkline it replaced could not do:
 //
 //  1. Each point sits on the day that cohort actually sat the exam (third week
 //     of May — see maturaCalendar), so the x axis is genuinely linear in time
@@ -16,7 +17,12 @@
 //
 // The strip is context, not causation: a matura score is twelve years of
 // schooling, not the tenure of whoever happened to be PM on exam day. The
-// caption says so.
+// caption says so, and the strip is off entirely on a single school, where the
+// attribution would be nonsense two levels down.
+//
+// On a school the benchmark line is what makes the chart honest: 92% of schools
+// rose in 2024, so a school's own line says nothing without the country's
+// beside it.
 
 import { FC, useMemo } from "react";
 import { useGovernments } from "@/data/governments/useGovernments";
@@ -48,9 +54,32 @@ const STRIP_MIN_H = 46;
 const MIN_PLOT_W = 160;
 
 export const MaturaTrendChart: FC<{
+  /** The subject of the chart: nationally the country, on /school/:id the school. */
   national: MaturaYear[];
   lang: string;
-}> = ({ national, lang }) => {
+  /** Faint dashed benchmark drawn behind the subject — the national series on a
+   *  school page. Without it a school's own rise is unreadable: 92% of schools
+   *  rose in 2024, so "we improved" says nothing on its own. */
+  reference?: MaturaYear[];
+  /** Label for the reference line in the legend and tooltip. */
+  referenceLabel?: string;
+  /** Cohorts below this render as hollow dots — the year is too small to trust
+   *  (12% of school-years are under 10 examinees, where a 0.4 swing is noise). */
+  provisionalBelow?: number;
+  /** The governments strip only belongs under the national series; a cabinet
+   *  band beside one school's line is attribution nonsense two levels down. */
+  showCabinet?: boolean;
+  /** Opening of the screen-reader label, before the year-by-year figures. */
+  ariaTitle?: string;
+}> = ({
+  national,
+  lang,
+  reference,
+  referenceLabel,
+  provisionalBelow,
+  showCabinet = true,
+  ariaTitle,
+}) => {
   const bg = lang === "bg";
   const locale = bg ? "bg-BG" : "en-US";
   const isSmall = useMediaQueryMatch("sm");
@@ -62,6 +91,10 @@ export const MaturaTrendChart: FC<{
   });
 
   const rows = useMemo(() => buildMaturaRows(national), [national]);
+  const refRows = useMemo(
+    () => (reference ? buildMaturaRows(reference) : []),
+    [reference],
+  );
 
   // Which cabinet was in office on exam day — saves the reader from eyeballing
   // the dot against the strip below.
@@ -89,9 +122,15 @@ export const MaturaTrendChart: FC<{
   const cohortH = plotH * COHORT_BAND;
   const baseline = H - PAD.b;
 
+  // The window is the SUBJECT's span — a school with three years gets a
+  // three-year chart, with the benchmark clipped to it rather than the chart
+  // stretched to the country's five.
   const t0 = rows[0].t - X_PAD;
   const t1 = rows[rows.length - 1].t + X_PAD;
-  const [yLo, yHi] = scoreDomain(rows);
+  const refInWindow = refRows.filter((r) => r.t >= t0 && r.t <= t1);
+  // Both series share one scale, so a school at 2.4 against a national 4.3 has
+  // to widen the band or the benchmark would sit off the plot.
+  const [yLo, yHi] = scoreDomain([...rows, ...refInWindow]);
   const nPeak = Math.max(...rows.map((r) => r.examinees));
   // Guard the scale, not just the look: a register year that carried scores but
   // no counts would divide by zero and NaN every bar coordinate.
@@ -119,22 +158,44 @@ export const MaturaTrendChart: FC<{
   // reader, so the label has to carry the series itself — the year-by-year
   // figures used to sit in a text row under the sparkline this replaced.
   const ariaLabel =
-    (bg
-      ? "Национален успех на матурата по БЕЛ по години: "
-      : "National matura average in Bulgarian by year: ") +
+    (ariaTitle ??
+      (bg
+        ? "Национален успех на матурата по БЕЛ по години"
+        : "National matura average in Bulgarian by year")) +
+    ": " +
     rows.map((r) => `${r.year} — ${fmtScore(r.avg)}`).join("; ");
+
+  const refByYear = new Map(refInWindow.map((r) => [r.year, r.avg]));
+  // Only meaningful once cohorts are actually known: on a payload without them
+  // every point would read as "too small to trust".
+  const marksProvisional = provisionalBelow != null && nPeak > 0;
+  const hasProvisional =
+    marksProvisional && rows.some((r) => r.examinees < provisionalBelow);
 
   const tipFor = (r: (typeof rows)[number]) => {
     const pm = pmOn(r.date);
+    const ref = refByYear.get(r.year);
     return (
       <span className="block">
         <span className="block font-medium">{fmtDate(r.date)}</span>
         <span className="block tabular-nums">
           {bg ? "среден успех" : "average"}: {fmtScore(r.avg)}
         </span>
+        {ref != null && (
+          <span className="block tabular-nums text-muted-foreground">
+            {referenceLabel ?? (bg ? "страната" : "the country")}:{" "}
+            {fmtScore(ref)} ({r.avg - ref >= 0 ? "+" : ""}
+            {fmtScore(r.avg - ref)})
+          </span>
+        )}
         <span className="block tabular-nums">
           {r.examinees.toLocaleString(locale)}{" "}
           {bg ? "зрелостници" : "graduates"}
+          {marksProvisional && r.examinees < provisionalBelow
+            ? bg
+              ? " · малък випуск"
+              : " · small cohort"
+            : ""}
         </span>
         {pm ? (
           <span className="block">
@@ -180,17 +241,20 @@ export const MaturaTrendChart: FC<{
               </g>
             ))}
 
-            {/* cohort-size band, along the bottom */}
-            {rows.map((r) => (
-              <rect
-                key={`n-${r.year}`}
-                x={px(r.t) - barW / 2}
-                y={pyN(r.examinees)}
-                width={barW}
-                height={baseline - pyN(r.examinees)}
-                fill="hsl(var(--muted-foreground) / 0.16)"
-              />
-            ))}
+            {/* cohort-size band, along the bottom. Skipped when no year carries
+                a count — a payload built before series counts existed would
+                otherwise draw a row of zero-height bars under a "0" label. */}
+            {nPeak > 0 &&
+              rows.map((r) => (
+                <rect
+                  key={`n-${r.year}`}
+                  x={px(r.t) - barW / 2}
+                  y={pyN(r.examinees)}
+                  width={barW}
+                  height={baseline - pyN(r.examinees)}
+                  fill="hsl(var(--muted-foreground) / 0.16)"
+                />
+              ))}
             <line
               x1={PAD.l}
               x2={W - PAD.r}
@@ -200,7 +264,7 @@ export const MaturaTrendChart: FC<{
               className="text-border"
               strokeWidth={0.5}
             />
-            {!isSmall && (
+            {!isSmall && nPeak > 0 && (
               <text
                 x={W - PAD.r + 6}
                 y={pyN(nPeak) + 4}
@@ -213,6 +277,22 @@ export const MaturaTrendChart: FC<{
               </text>
             )}
 
+            {/* the benchmark, drawn first so the subject sits on top of it */}
+            {refInWindow.length >= 2 && (
+              <polyline
+                points={refInWindow
+                  .map((r) => `${px(r.t)},${py(r.avg)}`)
+                  .join(" ")}
+                fill="none"
+                stroke="currentColor"
+                className="text-muted-foreground"
+                strokeOpacity={0.55}
+                strokeWidth={1.5}
+                strokeDasharray="5 3"
+                strokeLinejoin="round"
+              />
+            )}
+
             {/* the score line */}
             <polyline
               points={rows.map((r) => `${px(r.t)},${py(r.avg)}`).join(" ")}
@@ -222,15 +302,24 @@ export const MaturaTrendChart: FC<{
               strokeLinejoin="round"
               strokeLinecap="round"
             />
-            {rows.map((r) => (
-              <circle
-                key={`d-${r.year}`}
-                cx={px(r.t)}
-                cy={py(r.avg)}
-                r={3.5}
-                fill="hsl(var(--primary))"
-              />
-            ))}
+            {rows.map((r) => {
+              // Hollow = too few examinees to read the point as a result.
+              const provisional =
+                marksProvisional && r.examinees < provisionalBelow;
+              return (
+                <circle
+                  key={`d-${r.year}`}
+                  cx={px(r.t)}
+                  cy={py(r.avg)}
+                  r={3.5}
+                  fill={
+                    provisional ? "hsl(var(--card))" : "hsl(var(--primary))"
+                  }
+                  stroke={provisional ? "hsl(var(--primary))" : undefined}
+                  strokeWidth={provisional ? 1.5 : undefined}
+                />
+              );
+            })}
 
             {/* x labels + full-height hover targets */}
             {rows.map((r, i) => {
@@ -284,34 +373,54 @@ export const MaturaTrendChart: FC<{
           />
           {bg ? "среден успех" : "average score"}
         </span>
-        <span className="inline-flex items-center gap-1">
-          <span
-            className="inline-block h-2.5 w-2.5 rounded-sm"
-            style={{ backgroundColor: "hsl(var(--muted-foreground) / 0.16)" }}
-          />
-          {bg ? "брой зрелостници" : "graduates"}
-        </span>
+        {refInWindow.length >= 2 && (
+          <span className="inline-flex items-center gap-1">
+            <span className="inline-block h-0 w-3.5 border-t border-dashed border-muted-foreground" />
+            {referenceLabel ?? (bg ? "страната" : "the country")}
+          </span>
+        )}
+        {nPeak > 0 && (
+          <span className="inline-flex items-center gap-1">
+            <span
+              className="inline-block h-2.5 w-2.5 rounded-sm"
+              style={{ backgroundColor: "hsl(var(--muted-foreground) / 0.16)" }}
+            />
+            {bg ? "брой зрелостници" : "graduates"}
+          </span>
+        )}
+        {hasProvisional && (
+          <span className="inline-flex items-center gap-1">
+            <span className="inline-block h-2.5 w-2.5 rounded-full border-[1.5px] border-primary bg-card" />
+            {bg
+              ? `под ${provisionalBelow} зрелостници`
+              : `under ${provisionalBelow} graduates`}
+          </span>
+        )}
       </div>
 
-      <div className="pt-2" style={{ minHeight: STRIP_MIN_H }}>
-        <div
-          className="mb-1 text-[10px] uppercase tracking-wide text-muted-foreground"
-          style={{ paddingLeft: PAD.l }}
-        >
-          {bg ? "Правителства" : "Governments"}
-        </div>
-        <ChartCabinetStrip
-          fromDate={fromFractionalYear(t0)}
-          toDate={fromFractionalYear(t1)}
-          padLeft={PAD.l}
-          padRight={PAD.r}
-        />
-      </div>
-      <p className="mt-1 text-[11px] text-muted-foreground/70">
-        {bg
-          ? "Правителството е контекст, не обяснение — матурата е резултат от 12 години учене."
-          : "The cabinet is context, not explanation — a matura score is twelve years of schooling."}
-      </p>
+      {showCabinet && (
+        <>
+          <div className="pt-2" style={{ minHeight: STRIP_MIN_H }}>
+            <div
+              className="mb-1 text-[10px] uppercase tracking-wide text-muted-foreground"
+              style={{ paddingLeft: PAD.l }}
+            >
+              {bg ? "Правителства" : "Governments"}
+            </div>
+            <ChartCabinetStrip
+              fromDate={fromFractionalYear(t0)}
+              toDate={fromFractionalYear(t1)}
+              padLeft={PAD.l}
+              padRight={PAD.r}
+            />
+          </div>
+          <p className="mt-1 text-[11px] text-muted-foreground/70">
+            {bg
+              ? "Правителството е контекст, не обяснение — матурата е резултат от 12 години учене."
+              : "The cabinet is context, not explanation — a matura score is twelve years of schooling."}
+          </p>
+        </>
+      )}
 
       {/* OUTSIDE the svg — the shared tooltip positions with page coords. */}
       {tooltip}

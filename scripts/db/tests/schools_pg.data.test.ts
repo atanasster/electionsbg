@@ -233,6 +233,26 @@ test.skipIf(skip)("every oblast series is ordered and complete", async () => {
   );
 });
 
+test.skipIf(skip)("every series point carries its cohort", async () => {
+  // /school/:id marks years under MIN_RANK_COHORT as provisional, so a missing
+  // `n` would silently promote a 3-pupil year to a confident-looking dot. The
+  // index has a count for every scored year, so the payload must too.
+  const [r] = await allRows<{ points: number; missing: number }>(
+    `SELECT count(*)::int AS points,
+            count(*) FILTER (WHERE NOT (p ? 'n'))::int AS missing
+     FROM school_payloads,
+          jsonb_array_elements(payload -> 'schools') AS s,
+          jsonb_array_elements(s -> 'series') AS p
+     WHERE kind = 'directory' AND key = ''`,
+  );
+  assert.ok(r.points > 0, "no series points in the directory payload");
+  assert.equal(
+    r.missing,
+    0,
+    `${r.missing}/${r.points} series points have no cohort count`,
+  );
+});
+
 test.skipIf(skip)("matched ЕИК is resolvable and non-blank", async () => {
   const [r] = await allRows<{ blank: number }>(
     "SELECT count(*)::int AS blank FROM schools WHERE eik IS NOT NULL AND btrim(eik) = ''",

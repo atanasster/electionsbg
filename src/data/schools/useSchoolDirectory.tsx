@@ -30,8 +30,9 @@ export interface DirectorySchool {
   latestYear: number | null;
   latestScore: number | null;
   latestN: number | null;
-  /** Ascending [year, score] series for the matura sparkline. */
-  series: { year: number; score: number }[];
+  /** Ascending ДЗИ БЕЛ series. `n` is that year's cohort — absent on payloads
+   *  built before it was added, so treat it as optional. */
+  series: { year: number; score: number; n?: number }[];
   /** Latest ДЗИ Maths, if any. */
   mathLatest: { year: number; score: number } | null;
   /** Socioeconomic context of the school's obshtina (mean 0). */
