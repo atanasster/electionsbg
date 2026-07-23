@@ -31,13 +31,15 @@ const REFERENCES: { key: string; href: string }[] = [
   },
 ];
 
+// No backlink: the Избори › Анализи › Законът на Бенфорд › Методология trail
+// is rendered by <HubBreadcrumb> in LayoutScreen (see hubBreadcrumbFor).
 export const BenfordMethodologyScreen = () => {
   const { t } = useTranslation();
   return (
     <ArticleLayout
       title={t("benford_methodology_title")}
       description={t("benford_methodology_description")}
-      breadcrumb={{ to: "/benford", label: t("benford_title") }}
+      breadcrumb={null}
       seoType="website"
     >
       <ArticleP>{t("benford_methodology_intro")}</ArticleP>
