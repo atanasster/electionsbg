@@ -440,7 +440,61 @@ const Simulator: FC = () => (
   </SceneFrame>
 );
 
+// Демография — a population pyramid: mirrored age-band bars astride a centre
+// axis (accent on one side, ink on the other).
+const Demographics: FC = () => {
+  const rows: [number, number][] = [
+    [30, 26],
+    [44, 40],
+    [60, 54],
+    [72, 66],
+    [62, 58],
+    [46, 42],
+  ];
+  const cx = 150;
+  const h = 9;
+  return (
+    <SceneFrame>
+      <line
+        x1={cx}
+        y1={20}
+        x2={cx}
+        y2={100}
+        stroke="currentColor"
+        strokeWidth={1}
+        opacity={0.3}
+      />
+      {rows.map(([wl, wr], i) => {
+        const y = 26 + i * 13;
+        return (
+          <g key={i}>
+            <rect
+              x={cx - wl}
+              y={y}
+              width={wl - 2}
+              height={h}
+              rx={2}
+              fill="var(--sector)"
+              opacity={0.85}
+            />
+            <rect
+              x={cx + 2}
+              y={y}
+              width={wr - 2}
+              height={h}
+              rx={2}
+              fill="currentColor"
+              opacity={0.35}
+            />
+          </g>
+        );
+      })}
+    </SceneFrame>
+  );
+};
+
 export const GOV_HUB_SCENES: Record<string, FC> = {
+  demographics: Demographics,
   budget: Budget,
   procurement: Procurement,
   funds: Funds,

@@ -217,6 +217,15 @@ const captures: Capture[] = [
     settleMs: 2500,
   },
   {
+    slug: "demographics",
+    routePath: "demographics",
+    // The census choropleth map (first leaflet map on the page).
+    waitFor: ".leaflet-container",
+    anchor: ".leaflet-container",
+    centerOnAnchor: true,
+    settleMs: 2500,
+  },
+  {
     slug: "connections",
     routePath: "connections",
     // The d3-force layout renders to a canvas. Wait for it AND give the

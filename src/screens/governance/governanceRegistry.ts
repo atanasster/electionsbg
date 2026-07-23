@@ -127,6 +127,13 @@ export const GOV_HUB_CLUSTERS: { labelKey: string; tiles: GovHubTile[] }[] = [
         accent: TILE_ACCENTS.terracotta,
       },
       {
+        id: "demographics",
+        titleKey: "demographics_title",
+        descKey: "gov_hub_demographics_desc",
+        to: "/demographics",
+        accent: TILE_ACCENTS.moss,
+      },
+      {
         id: "ind_compare",
         titleKey: "indicators_nav_compare",
         descKey: "gov_hub_ind_compare_desc",
