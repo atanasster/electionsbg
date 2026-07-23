@@ -147,14 +147,19 @@ export const generateAnalysisStats = ({
     }
   }
 
-  // campaign financing → total donations for the cycle (EUR).
-  const donors = readJson<{ totalDonations?: number }>(
-    `${publicFolder}/${year}/parties/donors.json`,
-  );
-  if (typeof donors?.totalDonations === "number" && donors.totalDonations > 0) {
+  // campaign financing → total donated money for the cycle (EUR). NB the donor
+  // summary's `totalDonations` is a COUNT of donations, not a sum — the euro
+  // figure is monetary + non-monetary, matching the /financing KPI headline.
+  const donors = readJson<{
+    totalMonetary?: number;
+    totalNonMonetary?: number;
+  }>(`${publicFolder}/${year}/parties/donors.json`);
+  const donatedEur =
+    (donors?.totalMonetary ?? 0) + (donors?.totalNonMonetary ?? 0);
+  if (donatedEur > 0) {
     stats.financing = {
       kind: "eur",
-      value: donors.totalDonations,
+      value: Math.round(donatedEur),
       captionKey: "analysis_stat_financing_caption",
     };
   }

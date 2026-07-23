@@ -97,11 +97,20 @@ describe("generateAnalysisStats", () => {
     expect(run().polls).toMatchObject({ kind: "score", value: 1.76 });
   });
 
-  it("includes financing when totalDonations is positive and omits it at zero", () => {
-    write(`${YEAR}/parties/donors.json`, { totalDonations: 848 });
-    expect(run().financing).toMatchObject({ kind: "eur", value: 848 });
+  it("sums donated money (monetary + non-monetary), not the donation count", () => {
+    // totalDonations is a COUNT and must be ignored; the euro figure is the sum.
+    write(`${YEAR}/parties/donors.json`, {
+      totalDonations: 848,
+      totalMonetary: 1300978.76,
+      totalNonMonetary: 707.26,
+    });
+    expect(run().financing).toMatchObject({ kind: "eur", value: 1301686 });
 
-    write(`${YEAR}/parties/donors.json`, { totalDonations: 0 });
+    write(`${YEAR}/parties/donors.json`, {
+      totalDonations: 12,
+      totalMonetary: 0,
+      totalNonMonetary: 0,
+    });
     expect(run().financing).toBeUndefined();
   });
 });
