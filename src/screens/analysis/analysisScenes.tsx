@@ -27,9 +27,9 @@ const Risk: FC = () => (
     </g>
     <circle cx="232" cy="66" r="2.4" fill={PAPER} />
     <g fill="var(--sector)">
-      <rect x="150" y="86" width="8" height="14" rx="2" opacity=".45" />
-      <rect x="164" y="78" width="8" height="22" rx="2" opacity=".65" />
-      <rect x="178" y="66" width="8" height="34" rx="2" opacity=".85" />
+      <rect x="176" y="86" width="8" height="14" rx="2" opacity=".45" />
+      <rect x="190" y="78" width="8" height="22" rx="2" opacity=".65" />
+      <rect x="204" y="66" width="8" height="34" rx="2" opacity=".85" />
     </g>
   </SceneFrame>
 );

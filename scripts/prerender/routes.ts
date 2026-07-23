@@ -3075,6 +3075,56 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "analysis",
+    title:
+      "Анализи на изборите — риск, Бенфорд, изгубени гласове | electionsbg.com",
+    description:
+      "Всички изборни анализи на едно място: риск по секции, законът на Бенфорд, изгубени гласове, лоялност на гласоподавателите, сравнение на избори, симулатор на коалиции, точност на проучванията и финансиране на кампаниите.",
+    breadcrumbName: "Анализи",
+    ogImage: "/og/analysis-hub.png",
+    bodyHtml: `
+<h1>Анализи на изборите</h1>
+<p>Обединен вход към всеки изборен анализ и инструмент. Всяка страница се отнася за избрания в момента вот.</p>
+<h2>Анализи</h2>
+<ul>
+<li><a href="${SITE_URL}/risk-analysis">Анализ на изборния риск</a> — секции с необичайни резултати по съставен рисков сигнал.</li>
+<li><a href="${SITE_URL}/benford">Законът на Бенфорд</a> — отклонения в разпределението на цифрите в гласовете.</li>
+<li><a href="${SITE_URL}/wasted-vote">Изгубени гласове</a> — дял на гласовете за партии под прага.</li>
+<li><a href="${SITE_URL}/persistence">Лоялност на гласоподавателите</a> — каква част от вота се запазва между два избора.</li>
+<li><a href="${SITE_URL}/compare">Сравнение</a> — съпоставка на два избора.</li>
+</ul>
+<h2>Инструменти и проучвания</h2>
+<ul>
+<li><a href="${SITE_URL}/simulator">Симулатор на коалиции</a> — състави мнозинство при различни сценарии.</li>
+<li><a href="${SITE_URL}/polls">Точност на проучванията</a> — кои агенции познаха най-точно.</li>
+<li><a href="${SITE_URL}/financing">Финансиране на кампанията</a> — дарения, приходи и разходи на партиите.</li>
+</ul>`.trim(),
+    english: {
+      title:
+        "Election analyses — risk, Benford, wasted votes | electionsbg.com",
+      description:
+        "Every election analysis in one place: section-level risk, Benford's law, wasted votes, voter loyalty, election comparison, a coalition simulator, polling accuracy and campaign financing.",
+      breadcrumbName: "Analyses",
+      bodyHtml: `
+<h1>Election analyses</h1>
+<p>A single entry to every election analysis and tool. Each page applies to the currently selected vote.</p>
+<h2>Analyses</h2>
+<ul>
+<li><a href="${SITE_URL}/en/risk-analysis">Election risk analysis</a> — sections with unusual results, ranked by a composite risk signal.</li>
+<li><a href="${SITE_URL}/en/benford">Benford's law</a> — deviations in the digit distribution of vote counts.</li>
+<li><a href="${SITE_URL}/en/wasted-vote">Wasted votes</a> — the share of votes for below-threshold parties.</li>
+<li><a href="${SITE_URL}/en/persistence">Voter loyalty</a> — how much of the vote is retained between two elections.</li>
+<li><a href="${SITE_URL}/en/compare">Comparison</a> — two elections side by side.</li>
+</ul>
+<h2>Tools & polling</h2>
+<ul>
+<li><a href="${SITE_URL}/en/simulator">Coalition simulator</a> — build a majority under different scenarios.</li>
+<li><a href="${SITE_URL}/en/polls">Polling accuracy</a> — which agencies came closest.</li>
+<li><a href="${SITE_URL}/en/financing">Campaign financing</a> — party donations, income and spending.</li>
+</ul>`.trim(),
+    },
+  }),
+  staticPage({
     path: "risk-analysis",
     title: "Анализ на изборния риск — обобщен скрининг | electionsbg.com",
     description:

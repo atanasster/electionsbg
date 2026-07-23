@@ -542,6 +542,18 @@ const captures: Capture[] = [
     settleMs: 2500,
   },
   {
+    slug: "analysis-hub",
+    routePath: "analysis",
+    // The election-analysis tile hub. Anchor on the tiles wrapper and top-align
+    // so the card leads with the first cluster of infographic tiles + their
+    // headline numbers (critical sections / Benford-flagged parties / wasted
+    // share / stay-rate).
+    waitFor: '[data-og="analysis-hub"] a',
+    anchor: '[data-og="analysis-hub"]',
+    leftAlign: true,
+    settleMs: 3000,
+  },
+  {
     slug: "governance-sectors",
     routePath: "governance/sectors?pscope=all",
     // The 15-sector tile hub. Anchor on the tiles wrapper and top-align so the
