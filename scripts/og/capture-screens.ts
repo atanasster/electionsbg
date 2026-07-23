@@ -183,6 +183,15 @@ const captures: Capture[] = [
     settleMs: 3000,
   },
   {
+    slug: "party-demographics",
+    routePath: "party-demographics?elections=2026_04_19",
+    // The cleavages dot-plot hero (all census metrics × 4%+ parties).
+    waitFor: '[data-og="party-demographics"] a',
+    anchor: '[data-og="party-demographics"]',
+    leftAlign: true,
+    settleMs: 2500,
+  },
+  {
     slug: "benford",
     routePath: "benford",
     // The first Recharts surface inside a BenfordChart panel.

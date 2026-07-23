@@ -40,6 +40,7 @@ export const ENGLISH_STATIC_PAGES = [
   "articles",
   "parliamentary/analysis",
   "parliamentary/reports",
+  "party-demographics",
   "governance",
   "governance/overview",
   "governance/declarations",
@@ -277,6 +278,10 @@ export const routeDefs = (year: string): RouteDefs => [
   {
     path: "parliamentary/reports",
     file: `src/screens/reports/hub/ReportsHubScreen.tsx`,
+  },
+  {
+    path: "party-demographics",
+    file: `src/screens/PartyDemographicsScreen.tsx`,
   },
   { path: "risk-analysis", file: `src/screens/RiskAnalysisScreen.tsx` },
   {

@@ -3181,6 +3181,32 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "party-demographics",
+    title:
+      "Демографски профил на партиите — етнос, религия, образование | electionsbg.com",
+    description:
+      "Как резултатът на всяка партия по общини се свързва с етническия, религиозния, образователния и възрастовия състав от Преброяване 2021 — корелация на Пирсън за всяка партия над 4%.",
+    breadcrumbName: "Демографски профил",
+    ogImage: "/og/party-demographics.png",
+    bodyHtml: `
+<h1>Демографски профил на партиите</h1>
+<p>За всяка партия, преминала прага от 4%, се измерва корелацията на Пирсън между резултата ѝ по общини и демографските характеристики от Преброяване 2021. Част от <a href="${SITE_URL}/parliamentary/analysis">анализите на изборите</a>.</p>
+<p>Разгледани характеристики: етнически състав (българи, турци, роми), вероизповедание (християни, мюсюлмани), образование, заетост и безработица, пол и възрастови групи. Виж и <a href="${SITE_URL}/demographics">демографските карти</a> по общини.</p>
+<p>Корелацията показва връзка, не причинно-следствена зависимост.</p>`.trim(),
+    english: {
+      title:
+        "Party demographic profile — ethnicity, religion, education | electionsbg.com",
+      description:
+        "How each party's result by municipality correlates with the ethnic, religious, educational and age make-up from the 2021 Census — a Pearson correlation for every party above 4%.",
+      breadcrumbName: "Demographic profile",
+      bodyHtml: `
+<h1>Party demographic profile</h1>
+<p>For every party above the 4% threshold, the Pearson correlation between its result by municipality and the demographic characteristics from the 2021 Census. Part of the <a href="${SITE_URL}/en/parliamentary/analysis">election analyses</a>.</p>
+<p>Characteristics covered: ethnic make-up (Bulgarians, Turks, Roma), religion (Christians, Muslims), education, employment and unemployment, sex and age bands. See also the <a href="${SITE_URL}/en/demographics">demographic maps</a> by municipality.</p>
+<p>Correlation shows association, not causation.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "risk-analysis",
     title: "Анализ на изборния риск — обобщен скрининг | electionsbg.com",
     description:
