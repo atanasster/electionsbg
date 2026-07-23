@@ -204,7 +204,7 @@ npx tsx scripts/officials/index.ts --dry-run
 
 ## Backfill earlier years
 
-The upstream registry publishes year-keyed directories back to 2015 (see `register.cacbg.bg/`). To add an earlier year:
+The upstream registry publishes year-keyed directories back to 2015 — `2015`–`2020`, `2022`–`2025`; there is **no plain `2021`** folder (that cycle ships split as `2021_nc` / `2021_nonc` and is not ingested). To add an earlier year:
 
 ```bash
 npx tsx scripts/officials/index.ts --year 2024
@@ -212,7 +212,13 @@ npx tsx scripts/officials/index.ts --year 2023
 # etc.
 ```
 
-The script writes one declaration per (slug, year) into the same per-slug file (newest first), so backfilling does not overwrite the current year. `assets-rankings.json` always rolls up from the *latest* year on file per slug.
+Merge semantics (`scripts/officials/merge.ts`): a run is **authoritative for its target year and additive everywhere else**. It drops only the per-slug rows whose `sourceUrl` sits under the target register folder, then writes the fresh set — so re-running a year picks up upstream corrections *and* removals while leaving every other year alone, and re-running an unchanged year is a no-op. Replacement keys on the folder year in `sourceUrl`, never on `declarationYear`: the parsed year comes from inside the XML and does not track the folder (the live 2025 folder holds rows parsing to 2026 and even 2005).
+
+`index.json` accumulates — entries merge by slug with the higher `latestDeclarationYear` winning, and `years` unions. Treat it as a shared universe file: `scripts/funds/political_links.ts`, `declarations/tr/build_company_connections.ts`, `ngo/load_ngo_board_links_pg.ts` and `person/resolve_persons.ts` (`official_roster` → `/officials/<slug>`) all read it, so widening it widens the politically-exposed-person universe those builds produce. Re-run them after a backfill.
+
+`assets-rankings.json` rebuilds from every per-slug file on disk (not just the run's year), so officials whose latest filing predates the run are kept. Per slug it rolls up `decls[0]`, which is the most recently *filed* declaration — declarations sort by `declarationYear`, then `filedAt` desc, then `entryNumber`, then `sourceUrl`. That matters for the ~111 officials who file more than once in a year (annual + exit): the exit filing is usually both later and more complete.
+
+> Before this was fixed, backfilling **destroyed** the current year — per-slug files were overwritten with the run's year alone and `index.json` was stamped `years: [targetYear]`. If you are on an older checkout, do not backfill.
 
 ## Data-integrity contract
 
