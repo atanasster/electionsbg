@@ -26,6 +26,8 @@ import {
   useSchoolDirectory,
   MIN_RANK_COHORT,
 } from "@/data/schools/useSchoolDirectory";
+import { useTextbookMarket } from "@/data/education/useTextbookMarket";
+import { formatEurCompact } from "@/lib/currency";
 import { MON_AWARDER_PATH } from "@/screens/components/procurement/sectorPacks";
 import { searchSchools } from "./searchSchools";
 
@@ -67,6 +69,10 @@ export const EducationScreen: FC = () => {
   const bg = lang === "bg";
   const dir = useSchoolDirectory();
   const { regions } = useRegions();
+  // The teaser numbers come from the same payload the МОН pack renders, so this
+  // copy can't drift from the market it links to (it read "€51 млн / 74%" for a
+  // year while the corpus grew past €59M).
+  const { data: textbooks } = useTextbookMarket();
   const [q, setQ] = useState("");
   const dq = useDeferredValue(q);
 
@@ -99,6 +105,22 @@ export const EducationScreen: FC = () => {
   const latest = national[national.length - 1];
   const top = dir.rankable.slice(0, 8);
   const bottom = [...dir.rankable].reverse().slice(0, 8);
+
+  // The BG compact form already carries its abbreviation dot ("€59,9 млн."),
+  // which doubles as the sentence stop; the EN one ("€59.9M") needs one added.
+  const textbookTeaser = ((): string => {
+    if (!textbooks)
+      return bg
+        ? "Два издателя държат три четвърти от пазара на учебници. Виж концентрацията на страницата на МОН →"
+        : "Two publishers hold three quarters of the textbook market. See the concentration on the МОН page →";
+    const pct = Math.round(textbooks.concentration.top2Pct);
+    const eur = formatEurCompact(textbooks.total.eur, lang);
+    if (!bg)
+      return `Two publishers hold about ${pct}% of the ${eur} textbook market. See the concentration on the МОН page →`;
+    // BG puts the figure at the sentence end, where "млн." already stops it.
+    const stop = eur.endsWith(".") ? "" : ".";
+    return `Два издателя държат около ${pct}% от пазара на учебници за ${eur}${stop} Виж концентрацията на страницата на МОН →`;
+  })();
 
   return (
     <div className="mx-auto w-full">
@@ -166,9 +188,7 @@ export const EducationScreen: FC = () => {
               </CardTitle>
             </CardHeader>
             <CardContent className="text-sm text-muted-foreground">
-              {bg
-                ? "Два издателя държат около 74% от пазара на учебници за €51 млн. Виж концентрацията на страницата на МОН →"
-                : "Two publishers hold about 74% of the €51M textbook market. See the concentration on the МОН page →"}
+              {textbookTeaser}
             </CardContent>
           </Card>
         </Link>
