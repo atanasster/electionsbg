@@ -4,24 +4,20 @@
 // mayor / deputy_mayor / council_chair / councillor / chief_architect).
 
 import type { TFunction } from "i18next";
+import { OFFICIAL_CATEGORY_LABELS } from "@/lib/officialCategoryLabels";
 
+// Executive buckets come from the shared vocabulary; the municipal roles are
+// this module's own (they are not OfficialCategoryKind members).
 const CATEGORY: Record<string, { en: string; bgKey: string }> = {
-  cabinet: { en: "Cabinet", bgKey: "officials_cat_cabinet" },
-  deputy_minister: {
-    en: "Deputy minister",
-    bgKey: "officials_cat_deputy_minister",
-  },
-  agency_head: { en: "Agency head", bgKey: "officials_cat_agency_head" },
-  regional_governor: {
-    en: "Regional governor",
-    bgKey: "officials_cat_regional_governor",
-  },
+  ...Object.fromEntries(
+    Object.entries(OFFICIAL_CATEGORY_LABELS).map(([k, v]) => [
+      k,
+      { en: v.en, bgKey: v.key },
+    ]),
+  ),
   mayor: { en: "Mayor", bgKey: "officials_cat_mayor" },
   deputy_mayor: { en: "Deputy mayor", bgKey: "officials_cat_deputy_mayor" },
-  council_chair: {
-    en: "Council chair",
-    bgKey: "officials_cat_council_chair",
-  },
+  council_chair: { en: "Council chair", bgKey: "officials_cat_council_chair" },
   councillor: { en: "Councillor", bgKey: "officials_cat_councillor" },
   chief_architect: {
     en: "Chief architect",

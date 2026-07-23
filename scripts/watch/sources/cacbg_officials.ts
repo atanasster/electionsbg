@@ -17,6 +17,7 @@ import {
   latestRegisterYear,
   extractDeclarationXmlFiles,
 } from "../../lib/cacbg_register";
+import { CATEGORY_MAP } from "../../officials/categorise";
 
 // The year is discovered from the register root on every run rather than
 // pinned — a pinned constant kept fingerprinting the previous cycle's
@@ -25,19 +26,16 @@ import {
 // and scripts/officials/index.ts, which resolves the same way.
 const listUrl = (year: number): string => `${REGISTER_ROOT}${year}/list.xml`;
 
-// Substring match against verbatim Category Name in list.xml. Must stay in
-// sync with CATEGORY_MAP in scripts/officials/categorise.ts — if you change
-// the scope on the ingest side, mirror it here so the watcher tracks the same
-// slice. Enforced by scripts/officials/watcher_lockstep.test.ts; exported so
-// that test can compare the two directly rather than by eye.
-export const CATEGORY_SUBSTRINGS = [
-  "Министър-председател",
-  "министри и заместник-министри",
-  "Областни управители",
-  "държавни агенции",
-  "изпълнителните агенции",
-  "изпълнителни агенции",
-];
+// Derived from the ingest's own CATEGORY_MAP rather than restated here. The
+// watcher has to fingerprint exactly the set the ingest would process — a
+// hand-kept copy drifted once already, leaving two of three buckets unwatched
+// and 489 of 548 declarations tracked. Deriving it makes drift impossible;
+// scripts/officials/watcher_lockstep.test.ts still asserts the equivalence so
+// the intent is documented in a test rather than only in this comment.
+//
+// categorise.ts is import-safe (no CLI at import) — that is why it was split
+// out of officials/index.ts.
+export const CATEGORY_SUBSTRINGS = CATEGORY_MAP.flatMap((b) => b.substrings);
 
 const categoryMatches = (name: string): boolean => {
   for (const sub of CATEGORY_SUBSTRINGS) {

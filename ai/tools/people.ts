@@ -1,6 +1,7 @@
 // D1 — people & oversight tools: MP assets/connections, officials assets,
 // party-financing filing compliance, polling accuracy.
 
+import { OFFICIAL_CATEGORY_LABELS } from "../../src/lib/officialCategoryLabels";
 import { fetchData } from "./dataClient";
 import { fmtEurCompact, fmtInt } from "./format";
 import { ALL_ELECTIONS } from "./dataset";
@@ -254,12 +255,16 @@ type Official = {
   institution?: string;
   totalAssetsEur: number;
 };
-const OFFICIAL_CAT: Record<string, { bg: string; en: string }> = {
-  cabinet: { bg: "кабинет", en: "cabinet" },
-  deputy_minister: { bg: "зам.-министри", en: "deputy ministers" },
-  agency_head: { bg: "агенции", en: "agency heads" },
-  regional_governor: { bg: "областни управители", en: "regional governors" },
-};
+// Derived from the shared vocabulary. A hand-kept copy of four buckets meant
+// the `category` argument silently matched nothing for the other 23 and the
+// tool answered a narrowing question with the unfiltered list.
+const OFFICIAL_CAT: Record<string, { bg: string; en: string }> =
+  Object.fromEntries(
+    Object.entries(OFFICIAL_CATEGORY_LABELS).map(([k, v]) => [
+      k,
+      { bg: v.bg.toLowerCase(), en: v.en.toLowerCase() },
+    ]),
+  );
 
 export const officialsAssetsTop = async (
   args: ToolArgs,

@@ -494,11 +494,48 @@ export type MpIncomeRecord = {
  * tables as MpDeclaration — only the subject's key differs. `slug` is a
  * stable, name-derived identifier (since these officials have no
  * parliament.bg id). */
+/** Bucket for a non-MP, non-municipal declarant in the Court-of-Audit register.
+ *
+ *  Derived from the verbatim category name (see scripts/officials/categorise.ts),
+ *  refined by position title where the register files two distinct offices under
+ *  one category. Grouped here the way the /officials/assets filter groups them. */
 export type OfficialCategoryKind =
+  // Political executive
   | "cabinet"
   | "deputy_minister"
+  | "regional_governor"
+  | "political_cabinet"
+  | "president"
+  | "mep"
+  | "party_leader"
+  // Independent bodies — the "кой решава" facet. The central bank and the
+  // Court of Audit are peeled out: both are chips, filters and person_role
+  // labels, and "Регулатори" reads wrong for either.
+  | "regulator"
+  | "central_bank"
+  | "audit_court"
+  // Administration
+  | "secretary_general"
+  | "inspectorate"
   | "agency_head"
-  | "regional_governor";
+  | "regional_director"
+  | "procurement_officer"
+  | "eu_funds_controller"
+  // Revenue, security, defence
+  | "revenue_agency"
+  | "security_service"
+  | "military_command"
+  // Social funds and health
+  | "social_fund"
+  | "hospital_head"
+  // State-owned enterprises and public capital
+  | "state_enterprise"
+  // Diplomacy, academia, media, civil society, international
+  | "diplomat"
+  | "academic"
+  | "media_head"
+  | "civil_society"
+  | "international";
 
 export type OfficialDeclaration = {
   slug: string;

@@ -18,7 +18,6 @@ import {
   Coins,
   ExternalLink,
   Landmark,
-  MapPin,
   Receipt,
   Wallet,
 } from "lucide-react";
@@ -34,11 +33,8 @@ import { OfficialProcurementSection } from "./components/OfficialProcurementSect
 import { CouncilActivitySection } from "./components/CouncilActivitySection";
 import { LocalContestsTable } from "./components/LocalContestsTable";
 import { useCouncillorProfile } from "@/data/council/useCouncillorProfile";
-import type {
-  MpAssetCategory,
-  MpOwnershipStake,
-  OfficialCategoryKind,
-} from "@/data/dataTypes";
+import type { MpAssetCategory, MpOwnershipStake } from "@/data/dataTypes";
+import { OFFICIAL_CATEGORY_META } from "@/lib/officialCategory";
 import {
   declarationTotals,
   hasDeclaredIncome,
@@ -47,24 +43,6 @@ import {
   latestDeclarationWith,
   priorAssetDeclaration,
 } from "@/lib/declarations";
-
-const CATEGORY_ICONS: Record<OfficialCategoryKind, typeof Briefcase> = {
-  cabinet: Landmark,
-  deputy_minister: Landmark,
-  agency_head: Briefcase,
-  regional_governor: MapPin,
-};
-
-const CATEGORY_CHIP_CLASS: Record<OfficialCategoryKind, string> = {
-  cabinet:
-    "border-amber-300 bg-amber-100 text-amber-900 dark:border-amber-900 dark:bg-amber-900/40 dark:text-amber-100",
-  deputy_minister:
-    "border-amber-200 bg-amber-50 text-amber-900 dark:border-amber-900/60 dark:bg-amber-900/20 dark:text-amber-100",
-  agency_head:
-    "border-slate-300 bg-slate-100 text-slate-900 dark:border-slate-700 dark:bg-slate-800/60 dark:text-slate-100",
-  regional_governor:
-    "border-orange-300 bg-orange-100 text-orange-900 dark:border-orange-900 dark:bg-orange-900/40 dark:text-orange-100",
-};
 
 const ASSET_CATEGORY_ORDER: MpAssetCategory[] = [
   "real_estate",
@@ -244,16 +222,12 @@ export const OfficialProfileScreen: FC = () => {
     official?.latestDeclarationYear ?? newest?.declarationYear ?? null;
   const delta = summary?.delta ?? null;
 
-  const Icon = official ? CATEGORY_ICONS[official.category] : Landmark;
-  const categoryLabel = official
-    ? {
-        cabinet: t("officials_cat_cabinet") || "Cabinet",
-        deputy_minister:
-          t("officials_cat_deputy_minister") || "Deputy minister",
-        agency_head: t("officials_cat_agency_head") || "Agency head",
-        regional_governor:
-          t("officials_cat_regional_governor") || "Regional governor",
-      }[official.category]
+  const categoryMeta = official
+    ? OFFICIAL_CATEGORY_META[official.category]
+    : null;
+  const Icon = categoryMeta?.icon ?? Landmark;
+  const categoryLabel = categoryMeta
+    ? t(categoryMeta.labelKey) || categoryMeta.labelEn
     : null;
 
   const assetCategoryLabel = (cat: MpAssetCategory): string => {
@@ -291,7 +265,7 @@ export const OfficialProfileScreen: FC = () => {
           {official ? (
             <span
               className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-medium ${
-                CATEGORY_CHIP_CLASS[official.category]
+                categoryMeta?.chipClass ?? ""
               }`}
             >
               <Icon className="h-3.5 w-3.5" />

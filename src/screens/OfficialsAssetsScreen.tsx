@@ -10,7 +10,7 @@
 import { FC, useCallback, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowUp, ArrowDown, Briefcase, Landmark, MapPin } from "lucide-react";
+import { ArrowUp, ArrowDown } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { DeclarationsBreadcrumb } from "@/screens/components/DeclarationsBreadcrumb";
 import { useOfficialsRankings } from "@/data/officials/useOfficialsRankings";
@@ -21,6 +21,11 @@ import type {
   OfficialCategoryKind,
 } from "@/data/dataTypes";
 import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
+
+import {
+  OFFICIAL_CATEGORY_META,
+  OFFICIAL_CATEGORY_ORDER,
+} from "@/lib/officialCategory";
 
 type CategoryFilter = "all" | OfficialCategoryKind;
 
@@ -33,42 +38,25 @@ const fmtNum = (n: number, lang: string): string => {
 
 // Per-category chip styling. Same palette as the existing MP/contract badges
 // (slate / amber / orange) to keep the dashboard visually coherent.
-const CATEGORY_CHIP_CLASS: Record<OfficialCategoryKind, string> = {
-  cabinet:
-    "border-amber-300 bg-amber-100 text-amber-900 dark:border-amber-900 dark:bg-amber-900/40 dark:text-amber-100",
-  deputy_minister:
-    "border-amber-200 bg-amber-50 text-amber-900 dark:border-amber-900/60 dark:bg-amber-900/20 dark:text-amber-100",
-  agency_head:
-    "border-slate-300 bg-slate-100 text-slate-900 dark:border-slate-700 dark:bg-slate-800/60 dark:text-slate-100",
-  regional_governor:
-    "border-orange-300 bg-orange-100 text-orange-900 dark:border-orange-900 dark:bg-orange-900/40 dark:text-orange-100",
-};
-
-const CATEGORY_ICONS: Record<OfficialCategoryKind, typeof Briefcase> = {
-  cabinet: Landmark,
-  deputy_minister: Landmark,
-  agency_head: Briefcase,
-  regional_governor: MapPin,
-};
-
 export const OfficialsAssetsScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const { rankings } = useOfficialsRankings();
   const { nameForBg } = useCandidateName();
   const [filter, setFilter] = useState<CategoryFilter>("all");
 
+  // Only the buckets actually present, in grouped display order. The register
+  // has 27 of them and which appear varies by cycle, so a hardcoded chip list
+  // would both miss new categories and show empty ones. One pass over the rows,
+  // not one per category.
+  const presentCategoryList = useMemo(() => {
+    const seen = new Set(rankings?.topOfficials.map((o) => o.category));
+    return OFFICIAL_CATEGORY_ORDER.filter((c) => seen.has(c));
+  }, [rankings]);
+
   const categoryLabel = useCallback(
     (cat: OfficialCategoryKind): string => {
-      switch (cat) {
-        case "cabinet":
-          return t("officials_cat_cabinet") || "Cabinet";
-        case "deputy_minister":
-          return t("officials_cat_deputy_minister") || "Deputy minister";
-        case "agency_head":
-          return t("officials_cat_agency_head") || "Agency head";
-        case "regional_governor":
-          return t("officials_cat_regional_governor") || "Regional governor";
-      }
+      const meta = OFFICIAL_CATEGORY_META[cat];
+      return t(meta.labelKey) || meta.labelEn;
     },
     [t],
   );
@@ -104,11 +92,12 @@ export const OfficialsAssetsScreen: FC = () => {
           header: t("officials_col_category") || "Role",
           enableSorting: false,
           cell: ({ row }) => {
-            const Icon = CATEGORY_ICONS[row.original.category];
+            const meta = OFFICIAL_CATEGORY_META[row.original.category];
+            const Icon = meta.icon;
             return (
               <span
                 className={`inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-[10px] font-medium uppercase tracking-wide ${
-                  CATEGORY_CHIP_CLASS[row.original.category]
+                  meta.chipClass
                 }`}
               >
                 <Icon className="h-3 w-3" />
@@ -230,26 +219,28 @@ export const OfficialsAssetsScreen: FC = () => {
 
   if (!rankings) return null;
 
+  // Only the buckets actually present, in grouped display order. The register
+  // has 25 of them and which ones appear varies by cycle, so a hardcoded chip
+  // list would both miss new categories and show empty ones.
+  const presentCategories = presentCategoryList;
   const filterToggle = (
     <div className="flex items-center gap-2 flex-wrap">
-      {(["all", "cabinet", "agency_head", "regional_governor"] as const).map(
-        (f) => (
-          <button
-            key={f}
-            type="button"
-            onClick={() => setFilter(f)}
-            className={`text-xs px-3 py-1 rounded-full border ${
-              filter === f
-                ? "bg-primary text-primary-foreground border-primary"
-                : "bg-card hover:bg-muted/40"
-            }`}
-          >
-            {f === "all"
-              ? t("officials_filter_all") || "All officials"
-              : categoryLabel(f)}
-          </button>
-        ),
-      )}
+      {(["all", ...presentCategories] as CategoryFilter[]).map((f) => (
+        <button
+          key={f}
+          type="button"
+          onClick={() => setFilter(f)}
+          className={`text-xs px-3 py-1 rounded-full border ${
+            filter === f
+              ? "bg-primary text-primary-foreground border-primary"
+              : "bg-card hover:bg-muted/40"
+          }`}
+        >
+          {f === "all"
+            ? t("officials_filter_all") || "All officials"
+            : categoryLabel(f)}
+        </button>
+      ))}
     </div>
   );
 

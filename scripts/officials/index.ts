@@ -43,6 +43,7 @@ import {
 } from "../../src/lib/declarations";
 import { mergeDeclarations, mergeIndexEntries, mergeYears } from "./merge";
 import { categorise, categoriseRaw, isCaretakerTitle } from "./categorise";
+import { OFFICIAL_CATEGORY_ORDER } from "../../src/lib/officialCategoryLabels";
 import {
   ROOT,
   REGISTER_BASE,
@@ -466,15 +467,14 @@ const cmd = command({
     rankingEntries.sort(
       (a, b) => b.netWorthEur - a.netWorthEur || a.slug.localeCompare(b.slug),
     );
-    const byCategory: Record<
-      OfficialCategoryKind,
-      OfficialAssetsRankingEntry[]
-    > = {
-      cabinet: [],
-      deputy_minister: [],
-      agency_head: [],
-      regional_governor: [],
-    };
+    // Seeded from the shared bucket list rather than a literal, so adding a
+    // category to the union cannot leave this record missing a key.
+    const byCategory = Object.fromEntries(
+      OFFICIAL_CATEGORY_ORDER.map((k) => [
+        k,
+        [] as OfficialAssetsRankingEntry[],
+      ]),
+    ) as Record<OfficialCategoryKind, OfficialAssetsRankingEntry[]>;
     for (const e of rankingEntries) byCategory[e.category].push(e);
     const rankings: OfficialAssetsRankings = {
       generatedAt: new Date().toISOString(),

@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { OFFICIAL_CATEGORY_LABELS } from "../../src/lib/officialCategoryLabels";
 import {
   CandidatesInfo,
   ElectionInfo,
@@ -3113,19 +3114,16 @@ export const buildInstitutionAwarderRoutes = (): PrerenderRoute[] => {
 // state-agency head, regional governor). Body carries enough text for SEO +
 // AI crawlers to summarise: name, role, institution, latest net worth, and a
 // pointer to the source register. Mirrors buildBudgetMinistryRoutes shape.
-const OFFICIAL_CATEGORY_BG: Record<string, string> = {
-  cabinet: "Министър / заместник-министър",
-  deputy_minister: "Заместник-министър",
-  agency_head: "Ръководител на държавна или изпълнителна агенция",
-  regional_governor: "Областен управител",
-};
+// Derived from the shared vocabulary rather than a hand-kept copy of four
+// buckets: with 27 categories a partial map gave ~97% of official pages generic
+// meta text, which is precisely the SEO value these pages exist for.
+const OFFICIAL_CATEGORY_BG: Record<string, string> = Object.fromEntries(
+  Object.entries(OFFICIAL_CATEGORY_LABELS).map(([k, v]) => [k, v.descBg]),
+);
 
-const OFFICIAL_CATEGORY_EN: Record<string, string> = {
-  cabinet: "Minister or deputy minister",
-  deputy_minister: "Deputy minister",
-  agency_head: "Head of a state or executive agency",
-  regional_governor: "Regional governor",
-};
+const OFFICIAL_CATEGORY_EN: Record<string, string> = Object.fromEntries(
+  Object.entries(OFFICIAL_CATEGORY_LABELS).map(([k, v]) => [k, v.descEn]),
+);
 
 const formatEurForPrerender = (n: number): string =>
   `€${Math.round(n).toLocaleString("en-GB").replace(/,/g, " ")}`;
