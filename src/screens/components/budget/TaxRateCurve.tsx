@@ -5,14 +5,16 @@
 // taxed at just the 10% income-tax rate, so the effective rate falls.
 
 import { FC } from "react";
+import { useMeasuredWidth } from "@/ux/useMeasuredWidth";
 
 export interface CurvePoint {
   gross: number;
   rate: number;
 }
 
-const W = 320;
-const H = 132;
+// Fallback width for the first paint, plus the aspect the chart was drawn at.
+const W_FALLBACK = 560;
+const ASPECT = 132 / 320;
 const PAD_L = 6;
 const PAD_R = 6;
 const PAD_T = 16;
@@ -27,6 +29,12 @@ export const TaxRateCurve: FC<{
   locale: string;
   capLabel: string;
 }> = ({ points, current, capGross, minGross, maxGross, locale, capLabel }) => {
+  // Drawn at the measured width so the 9px labels stay 9px — stretched to a
+  // 320-unit viewBox they rendered at ~16px in the calculator's column.
+  const [setWrapEl, measured] = useMeasuredWidth();
+  const W = measured || W_FALLBACK;
+  const H = Math.round(W * ASPECT);
+
   if (points.length < 2 || maxGross <= minGross) return null;
 
   const peak = Math.max(...points.map((p) => p.rate), current.rate);
@@ -51,96 +59,105 @@ export const TaxRateCurve: FC<{
   const curX = x(current.gross);
 
   return (
-    <svg
-      viewBox={`0 0 ${W} ${H}`}
-      className="w-full"
-      role="img"
-      aria-label={`${pct0(current.rate)} @ ${eur0(current.gross)}`}
-    >
-      {/* baseline */}
-      <line
-        x1={PAD_L}
-        y1={y(0)}
-        x2={W - PAD_R}
-        y2={y(0)}
-        className="stroke-border"
-        strokeWidth={1}
-      />
-
-      {/* МОД cap line */}
-      {showCap ? (
-        <>
-          <line
-            x1={x(capGross as number)}
-            y1={PAD_T}
-            x2={x(capGross as number)}
-            y2={y(0)}
-            className="stroke-amber-500"
-            strokeWidth={1}
-            strokeDasharray="3 3"
-          />
-          <text
-            x={x(capGross as number)}
-            y={PAD_T - 5}
-            textAnchor="middle"
-            className="fill-amber-600 dark:fill-amber-400"
-            fontSize={9}
-          >
-            {capLabel}
-          </text>
-        </>
-      ) : null}
-
-      {/* the curve */}
-      <polyline
-        points={path}
-        fill="none"
-        className="stroke-indigo-500"
-        strokeWidth={2}
-        strokeLinejoin="round"
-        strokeLinecap="round"
-      />
-
-      {/* current-salary marker */}
-      <line
-        x1={curX}
-        y1={PAD_T}
-        x2={curX}
-        y2={y(0)}
-        className="stroke-foreground/25"
-        strokeWidth={1}
-      />
-      <circle
-        cx={curX}
-        cy={y(current.rate)}
-        r={3.5}
-        className="fill-indigo-600 stroke-background"
-        strokeWidth={1.5}
-      />
-      <text
-        x={Math.min(W - PAD_R, Math.max(PAD_L + 18, curX))}
-        y={Math.max(PAD_T + 8, y(current.rate) - 7)}
-        textAnchor="middle"
-        className="fill-foreground"
-        fontSize={9}
-        fontWeight={700}
+    <div ref={setWrapEl}>
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        width={W}
+        height={H}
+        className="block max-w-full"
+        role="img"
+        aria-label={`${pct0(current.rate)} @ ${eur0(current.gross)}`}
       >
-        {pct0(current.rate)}
-      </text>
+        {/* baseline */}
+        <line
+          x1={PAD_L}
+          y1={y(0)}
+          x2={W - PAD_R}
+          y2={y(0)}
+          className="stroke-border"
+          strokeWidth={1}
+        />
 
-      {/* x-axis range labels */}
-      <text x={PAD_L} y={H - 7} className="fill-muted-foreground" fontSize={9}>
-        {eur0(minGross)}
-      </text>
-      <text
-        x={W - PAD_R}
-        y={H - 7}
-        textAnchor="end"
-        className="fill-muted-foreground"
-        fontSize={9}
-      >
-        {eur0(maxGross)}
-      </text>
-    </svg>
+        {/* МОД cap line */}
+        {showCap ? (
+          <>
+            <line
+              x1={x(capGross as number)}
+              y1={PAD_T}
+              x2={x(capGross as number)}
+              y2={y(0)}
+              className="stroke-amber-500"
+              strokeWidth={1}
+              strokeDasharray="3 3"
+            />
+            <text
+              x={x(capGross as number)}
+              y={PAD_T - 5}
+              textAnchor="middle"
+              className="fill-amber-600 dark:fill-amber-400"
+              fontSize={9}
+            >
+              {capLabel}
+            </text>
+          </>
+        ) : null}
+
+        {/* the curve */}
+        <polyline
+          points={path}
+          fill="none"
+          className="stroke-indigo-500"
+          strokeWidth={2}
+          strokeLinejoin="round"
+          strokeLinecap="round"
+        />
+
+        {/* current-salary marker */}
+        <line
+          x1={curX}
+          y1={PAD_T}
+          x2={curX}
+          y2={y(0)}
+          className="stroke-foreground/25"
+          strokeWidth={1}
+        />
+        <circle
+          cx={curX}
+          cy={y(current.rate)}
+          r={3.5}
+          className="fill-indigo-600 stroke-background"
+          strokeWidth={1.5}
+        />
+        <text
+          x={Math.min(W - PAD_R, Math.max(PAD_L + 18, curX))}
+          y={Math.max(PAD_T + 8, y(current.rate) - 7)}
+          textAnchor="middle"
+          className="fill-foreground"
+          fontSize={9}
+          fontWeight={700}
+        >
+          {pct0(current.rate)}
+        </text>
+
+        {/* x-axis range labels */}
+        <text
+          x={PAD_L}
+          y={H - 7}
+          className="fill-muted-foreground"
+          fontSize={9}
+        >
+          {eur0(minGross)}
+        </text>
+        <text
+          x={W - PAD_R}
+          y={H - 7}
+          textAnchor="end"
+          className="fill-muted-foreground"
+          fontSize={9}
+        >
+          {eur0(maxGross)}
+        </text>
+      </svg>
+    </div>
   );
 };

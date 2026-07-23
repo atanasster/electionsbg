@@ -14,6 +14,7 @@ import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useTooltip } from "@/ux/useTooltip";
+import { useMeasuredWidth } from "@/ux/useMeasuredWidth";
 import { useSearchParam } from "@/screens/utils/useSearchParam";
 import { formatThousands } from "@/data/utils";
 import { MetricSelector } from "./MetricSelector";
@@ -34,6 +35,9 @@ export const VoteDemographicScatter: React.FC = () => {
   const { displayNameFor } = useCanonicalParties();
   const { selected } = useElectionContext();
   const containerRef = useRef<HTMLDivElement>(null);
+  // Drawn at the measured width so the axis labels keep their true px size —
+  // stretched to a 720-unit viewBox they rendered at ~22px on a desktop.
+  const [setPlotEl, plotWidth] = useMeasuredWidth();
   const [hoveredCode, setHoveredCode] = useState<string | undefined>();
 
   const DEFAULT_METRIC: CensusMetric = "eduSecondary";
@@ -195,9 +199,12 @@ export const VoteDemographicScatter: React.FC = () => {
     Math.min(100, yMax + yPad),
   ];
 
-  const W = 720;
-  const H = 420;
+  const W = plotWidth || 720;
+  const H = Math.round(Math.min(520, Math.max(300, W * 0.5)));
   const PAD = { top: 16, right: 16, bottom: 36, left: 44 };
+  // Bubble area still scales with the plot so a wide chart doesn't read as a
+  // field of dots — only the text is pinned to real pixels.
+  const rScale = (W - PAD.left - PAD.right) / 660;
 
   const xScale = (v: number) =>
     PAD.left +
@@ -262,8 +269,13 @@ export const VoteDemographicScatter: React.FC = () => {
           </span>
         </div>
       </div>
-      <div>
-        <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto">
+      <div ref={setPlotEl}>
+        <svg
+          viewBox={`0 0 ${W} ${H}`}
+          width={W}
+          height={H}
+          className="block max-w-full"
+        >
           {/* axes */}
           <line
             x1={PAD.left}
@@ -319,14 +331,14 @@ export const VoteDemographicScatter: React.FC = () => {
             x={(W + PAD.left - PAD.right) / 2}
             y={H - 4}
             textAnchor="middle"
-            className="fill-foreground text-xs font-medium"
+            className="fill-muted-foreground text-[11px] font-medium"
           >
             {metricLabel}
           </text>
           <text
             transform={`translate(12 ${(H + PAD.top - PAD.bottom) / 2}) rotate(-90)`}
             textAnchor="middle"
-            className="fill-foreground text-xs font-medium"
+            className="fill-muted-foreground text-[11px] font-medium"
           >
             {partyInfo ? `${partyLabel(partyInfo.nickName)} %` : ""}
           </text>
@@ -341,7 +353,7 @@ export const VoteDemographicScatter: React.FC = () => {
                   <circle
                     cx={xScale(p.x)}
                     cy={yScale(p.y)}
-                    r={Math.max(4, Math.sqrt(p.totalVotes) / 30)}
+                    r={Math.max(4, (Math.sqrt(p.totalVotes) / 30) * rScale)}
                     fill={partyColor}
                     fillOpacity={isHovered ? 0.95 : 0.7}
                     stroke={isHovered ? "hsl(var(--foreground))" : "white"}
