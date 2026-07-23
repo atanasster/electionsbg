@@ -42,6 +42,12 @@ const AnalysisHubScreen = lazy(() =>
   })),
 );
 
+const ReportsHubScreen = lazy(() =>
+  import("@/screens/reports/hub/ReportsHubScreen").then((m) => ({
+    default: m.ReportsHubScreen,
+  })),
+);
+
 const MunicipalitiesScreen = lazy(() =>
   import("@/screens/MunicipalitiesScreen").then((m) => ({
     default: m.MunicipalitiesScreen,
@@ -3109,6 +3115,14 @@ export const AuthRoutes = () => {
           />
 
           <Route path="reports">
+            <Route
+              index
+              element={
+                <LayoutScreen>
+                  <ReportsHubScreen />
+                </LayoutScreen>
+              }
+            />
             <Route path="settlement">
               <Route
                 path="wasted-votes"

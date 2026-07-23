@@ -144,6 +144,11 @@ interface SectorVal {
   value: number;
   year?: number;
   note?: "adjusted";
+  /** True when a specific `y:<year>` scope was requested but the annual series
+   *  has no datum for it, so `value`/`year` are a fall-back to the latest
+   *  available year (e.g. НЗОК payout before 2022). The tile shows a "no data
+   *  for <year>" notice instead of a misleading fall-back number. */
+  unavailable?: boolean;
 }
 type ScopeStats = Record<string, SectorVal>;
 
@@ -269,13 +274,14 @@ const annual = (
   kind: SectorVal["kind"],
   basis: SectorBasis,
 ): SectorVal => {
-  const resolved =
-    year != null && byYear[year] != null ? year : latestYearOf(byYear);
+  const has = year != null && byYear[year] != null;
+  const resolved = has ? year : latestYearOf(byYear);
   return {
     kind,
     basis,
     value: byYear[resolved] ?? 0,
     year: resolved || undefined,
+    ...(year != null && !has ? { unavailable: true } : {}),
   };
 };
 
@@ -326,6 +332,9 @@ const scopeStats = async (
           basis: "payout",
           value: nzokLatest,
           year: nzokLatestYear || undefined,
+          // НЗОК cash execution starts 2022; a pre-2022 y:<year> scope falls
+          // back to the latest full year — flag it so the tile says so.
+          ...(year != null ? { unavailable: true } : {}),
         };
   out.agri = annual(agriByYear, year, "eur", "payout");
   out.schools = annual(dziByYear, year, "score", "score");

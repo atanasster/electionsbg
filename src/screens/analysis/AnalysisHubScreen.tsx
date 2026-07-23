@@ -10,7 +10,7 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
-import { TileHubGrid, TileHubSection } from "@/ux/infographic";
+import { TileHubGrid, TileHubSection, FeaturedStrip } from "@/ux/infographic";
 import {
   useAnalysisStats,
   formatAnalysisMetric,
@@ -18,6 +18,8 @@ import {
 } from "@/data/analysis/useAnalysisStats";
 import { ANALYSIS_CLUSTERS } from "./analysisRegistry";
 import { ANALYSIS_SCENES } from "./analysisScenes";
+import { FEATURED_REPORTS } from "@/screens/reports/hub/reportsHubRegistry";
+import { REPORT_SCENES } from "@/screens/reports/hub/reportsHubScenes";
 
 export const AnalysisHubScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -49,6 +51,28 @@ export const AnalysisHubScreen: FC = () => {
       <div data-og="analysis-hub">
         <TileHubGrid sections={sections} className="mt-4 sm:mt-6" />
       </div>
+
+      {/* Curated reports — a few flagship anomaly reports, with a link to the
+          full /reports hub for the rest (mirrors the procurement hub's featured
+          sectors → all sectors strip). */}
+      <FeaturedStrip
+        className="mt-8"
+        heading={t("reports_hub_title")}
+        action={{ to: "/reports", label: t("reports_hub_see_all") }}
+        tiles={FEATURED_REPORTS.map((r) => {
+          const stat = r.statId ? stats?.[r.statId] : undefined;
+          return {
+            to: r.to,
+            title: t(r.titleKey),
+            desc: t(r.descKey),
+            accent: r.accent,
+            scene: REPORT_SCENES[r.id],
+            cta: t("reports_hub_view"),
+            metric: formatAnalysisMetric(stat, i18n.language),
+            metricCaption: analysisMetricCaption(stat, t, i18n.language),
+          };
+        })}
+      />
     </>
   );
 };

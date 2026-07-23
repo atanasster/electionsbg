@@ -35,6 +35,10 @@ export interface SectorStat {
   /** Caption qualifier the tile abbreviates. 'adjusted' = the figure is a
    *  годишен уточнен план (the НАП/АМ second-level agencies), not ЗДБРБ-приет. */
   note?: "adjusted";
+  /** The selected `y:<year>` scope has no datum for this sector, so value/year
+   *  are a fall-back to the latest available year (e.g. НЗОК before 2022). The
+   *  tile shows a "no data for <year>" notice, not the misleading number. */
+  unavailable?: boolean;
 }
 
 /** Tile-ready string for a sector stat: a compact € for euro figures, a
@@ -44,6 +48,9 @@ export const formatSectorMetric = (
   stat: SectorStat | undefined,
   lang: string,
 ): string | undefined => {
+  // No datum for the selected year → a dash, so the tile carries the
+  // "no data for <year>" caption instead of a misleading fall-back number.
+  if (stat?.unavailable) return "—";
   if (!stat || !stat.value) return undefined;
   if (stat.kind === "score")
     return stat.value.toLocaleString(lang, {
@@ -96,8 +103,17 @@ export const sectorMetricCaption = (
   stat: SectorStat | undefined,
   t: TFunction,
   period?: string,
+  selectedYear?: number | null,
 ): string | undefined => {
-  if (!stat || !stat.value) return undefined;
+  if (!stat) return undefined;
+  // Fall-back year (no datum for the selected year): say so plainly. Pairs with
+  // the "—" from formatSectorMetric so the tile is honest about the gap.
+  if (stat.unavailable)
+    return selectedYear
+      ? t("sector_metric_no_data_year", { year: selectedYear }) ||
+          `няма данни за ${selectedYear}`
+      : t("sector_metric_no_data") || "няма данни";
+  if (!stat.value) return undefined;
   const label = t(BASIS_LABEL_KEY[stat.basis]);
   if (stat.basis === "procurement")
     return period ? `${label} ${period}` : label;

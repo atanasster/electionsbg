@@ -130,6 +130,7 @@ export const electionsMenu: MenuItem[] = [
     subMenu: [
       { title: "menu_overview", link: "/", mobileOnly: true },
       { title: "analysis_hub_nav", link: "/analysis" },
+      { title: "reports_hub_nav", link: "/reports" },
       { title: "-" },
       {
         title: "menu_header_analysis",

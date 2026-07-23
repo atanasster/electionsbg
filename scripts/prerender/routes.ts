@@ -3075,6 +3075,62 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "reports",
+    title: "Доклади за аномалии по избори | electionsbg.com",
+    description:
+      "Доклади за аномалии по избори: скрининг на риска, проблемни секции, концентрация на вота, невалидни бюлетини, най-голям ръст и спад, повторно преброяване и флаш памет от машините (СУЕМГ).",
+    breadcrumbName: "Доклади",
+    ogImage: "/og/reports-hub.png",
+    bodyHtml: `
+<h1>Доклади за аномалии по избори</h1>
+<p>Систематични справки за необичайни резултати за избрания вот. Част от <a href="${SITE_URL}/analysis">анализите</a>.</p>
+<h2>Рискови сигнали</h2>
+<ul>
+<li><a href="${SITE_URL}/risk-score">Скрининг на риска</a> — секции по съставен рисков резултат.</li>
+<li><a href="${SITE_URL}/reports/section/problem_sections">Проблемни секции</a> — необичайно висока подкрепа за една партия.</li>
+<li><a href="${SITE_URL}/reports/settlement/concentrated">Концентрация на вота</a> — места, където една партия събира почти всичко.</li>
+<li><a href="${SITE_URL}/reports/settlement/additional_voters">Допълнителни избиратели</a> — дописани в изборния ден.</li>
+</ul>
+<h2>Гласове и активност</h2>
+<ul>
+<li><a href="${SITE_URL}/reports/municipality/turnout">Изборна активност</a> — по общини, места и секции.</li>
+<li><a href="${SITE_URL}/reports/settlement/invalid_ballots">Невалидни бюлетини</a> — места с необичайно много.</li>
+<li><a href="${SITE_URL}/reports/municipality/top_gainers">Най-голям ръст</a> и <a href="${SITE_URL}/reports/municipality/top_losers">спад</a> спрямо предишните избори.</li>
+</ul>
+<h2>Преброяване и машини</h2>
+<ul>
+<li><a href="${SITE_URL}/reports/section/recount">Повторно преброяване</a> — разлики машина/ръка.</li>
+<li><a href="${SITE_URL}/reports/section/missing_flash_memory">Флаш памет (СУЕМГ)</a> — липсваща, добавена или разместена.</li>
+</ul>`.trim(),
+    english: {
+      title: "Election anomaly reports | electionsbg.com",
+      description:
+        "Election anomaly reports: risk screening, problem sections, vote concentration, invalid ballots, biggest gainers and losers, recount differences and machine flash memory (СУЕМГ).",
+      breadcrumbName: "Reports",
+      bodyHtml: `
+<h1>Election anomaly reports</h1>
+<p>Systematic reports of unusual results for the selected vote. Part of the <a href="${SITE_URL}/en/analysis">analyses</a>.</p>
+<h2>Risk signals</h2>
+<ul>
+<li><a href="${SITE_URL}/en/risk-score">Risk screening</a> — sections by composite risk score.</li>
+<li><a href="${SITE_URL}/en/reports/section/problem_sections">Problem sections</a> — unusually high single-party support.</li>
+<li><a href="${SITE_URL}/en/reports/settlement/concentrated">Vote concentration</a> — places where one party takes almost everything.</li>
+<li><a href="${SITE_URL}/en/reports/settlement/additional_voters">Additional voters</a> — added on election day.</li>
+</ul>
+<h2>Votes & turnout</h2>
+<ul>
+<li><a href="${SITE_URL}/en/reports/municipality/turnout">Turnout</a> — by municipality, settlement and section.</li>
+<li><a href="${SITE_URL}/en/reports/settlement/invalid_ballots">Invalid ballots</a> — places with unusually many.</li>
+<li><a href="${SITE_URL}/en/reports/municipality/top_gainers">Biggest gainers</a> and <a href="${SITE_URL}/en/reports/municipality/top_losers">losers</a> versus the previous election.</li>
+</ul>
+<h2>Recount & machines</h2>
+<ul>
+<li><a href="${SITE_URL}/en/reports/section/recount">Recount</a> — machine vs manual differences.</li>
+<li><a href="${SITE_URL}/en/reports/section/missing_flash_memory">Flash memory (СУЕМГ)</a> — missing, added or moved.</li>
+</ul>`.trim(),
+    },
+  }),
+  staticPage({
     path: "analysis",
     title:
       "Анализи на изборите — риск, Бенфорд, изгубени гласове | electionsbg.com",

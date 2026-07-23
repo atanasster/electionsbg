@@ -129,7 +129,8 @@ export const ProcurementScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const stat = useProcurementHubStats();
   const sectorStats = useSectorStats();
-  const sectorPeriod = scopeProcurementPeriod(useScopeWindow());
+  const sectorWin = useScopeWindow();
+  const sectorPeriod = scopeProcurementPeriod(sectorWin);
   const watchCount = useWatchlist().length;
   const title = t("procurement_index_title") || "Public procurement";
 
@@ -234,6 +235,7 @@ export const ProcurementScreen: FC = () => {
             sectorStats?.[s.id],
             t,
             sectorPeriod,
+            sectorWin.year,
           ),
         }))}
       />

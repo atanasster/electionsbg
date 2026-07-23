@@ -542,6 +542,16 @@ const captures: Capture[] = [
     settleMs: 2500,
   },
   {
+    slug: "reports-hub",
+    routePath: "reports",
+    // The anomaly-reports tile hub. Anchor on the tiles wrapper and top-align so
+    // the card leads with the first cluster of report tiles.
+    waitFor: '[data-og="reports-hub"] a',
+    anchor: '[data-og="reports-hub"]',
+    leftAlign: true,
+    settleMs: 3000,
+  },
+  {
     slug: "analysis-hub",
     routePath: "analysis",
     // The election-analysis tile hub. Anchor on the tiles wrapper and top-align
