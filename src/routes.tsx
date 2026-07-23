@@ -48,6 +48,12 @@ const ReportsHubScreen = lazy(() =>
   })),
 );
 
+const PartyDemographicsScreen = lazy(() =>
+  import("@/screens/PartyDemographicsScreen").then((m) => ({
+    default: m.PartyDemographicsScreen,
+  })),
+);
+
 const MunicipalitiesScreen = lazy(() =>
   import("@/screens/MunicipalitiesScreen").then((m) => ({
     default: m.MunicipalitiesScreen,
@@ -2997,6 +3003,14 @@ export const AuthRoutes = () => {
             element={
               <LayoutScreen>
                 <ObservationsScreen />
+              </LayoutScreen>
+            }
+          />
+          <Route
+            path="party-demographics"
+            element={
+              <LayoutScreen>
+                <PartyDemographicsScreen />
               </LayoutScreen>
             }
           />

@@ -1,6 +1,7 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import type { CensusMetric } from "@/data/census/censusTypes";
 import type {
   DemographicCleavageRow,
   DemographicCleavagesPayload,
@@ -8,21 +9,27 @@ import type {
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useTooltip } from "@/ux/useTooltip";
 import { METRIC_BY_KEY } from "@/screens/components/demographics/censusMetrics";
+import {
+  fmtR,
+  xPct,
+} from "@/screens/components/demographics/demographicsFormat";
 import { partyHref } from "@/lib/utils";
-
-const fmtR = (r: number) => `${r > 0 ? "+" : ""}${r.toFixed(2)}`;
-// Maps r in [-1, 1] to a 0..100 horizontal position in the row track.
-const xPct = (r: number) => 50 + Math.max(-1, Math.min(1, r)) * 50;
 
 // The demographic-cleavages dot plot — a colour-dot per party on a −1…+1 track
 // for each census metric, sorted by spread. Shared by the home
 // DemographicCleavagesTile (a curated subset of rows) and the /party-demographics
 // analysis page (the full metric set). Presentation only: the caller wraps it in
 // a StatCard and decides which `rows` to pass.
+//
+// Each row is clickable. By default it Links to the /demographics census explorer
+// for that metric; when `onMetricSelect` is given the row becomes a button that
+// calls it instead, so a host page can drive its own embedded scatter without
+// navigating away.
 export const DemographicCleavagesPlot: FC<{
   payload: DemographicCleavagesPayload;
   rows: DemographicCleavageRow[];
-}> = ({ payload, rows }) => {
+  onMetricSelect?: (metric: CensusMetric) => void;
+}> = ({ payload, rows, onMetricSelect }) => {
   const { t, i18n } = useTranslation();
   const { tooltip, ...tooltipEvents } = useTooltip();
   const { displayNameFor } = useCanonicalParties();
@@ -71,13 +78,10 @@ export const DemographicCleavagesPlot: FC<{
         {rows.map((row) => {
           const def = METRIC_BY_KEY[row.metric];
           const label = def ? t(def.i18nKey) : row.metric;
-          const scatterTo = `/demographics?scatter=${row.metric}#scatter`;
-          return (
-            <Link
-              key={row.metric}
-              to={scatterTo}
-              className="grid grid-cols-[minmax(0,1fr)_minmax(160px,2.5fr)_auto] gap-x-3 items-center text-xs hover:bg-muted/50 rounded px-1 py-0.5 -mx-1 group"
-            >
+          const rowClass =
+            "grid grid-cols-[minmax(0,1fr)_minmax(160px,2.5fr)_auto] gap-x-3 items-center text-xs hover:bg-muted/50 rounded px-1 py-0.5 -mx-1 group text-left w-full";
+          const inner: ReactNode = (
+            <>
               <span className="leading-tight group-hover:underline">
                 {label}
               </span>
@@ -131,6 +135,24 @@ export const DemographicCleavagesPlot: FC<{
               <span className="text-xs font-semibold tabular-nums text-right w-12 text-muted-foreground">
                 {row.spread.toFixed(2)}
               </span>
+            </>
+          );
+          return onMetricSelect ? (
+            <button
+              key={row.metric}
+              type="button"
+              onClick={() => onMetricSelect(row.metric)}
+              className={rowClass}
+            >
+              {inner}
+            </button>
+          ) : (
+            <Link
+              key={row.metric}
+              to={`/demographics?scatter=${row.metric}#scatter`}
+              className={rowClass}
+            >
+              {inner}
             </Link>
           );
         })}

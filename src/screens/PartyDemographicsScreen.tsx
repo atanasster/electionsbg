@@ -1,48 +1,45 @@
-import { FC, useMemo } from "react";
+import { FC, useMemo, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
 import { ArrowRight, Users } from "lucide-react";
 import { SEO } from "@/ux/SEO";
 import { H1 } from "@/ux/H1";
 import { Hint } from "@/ux/Hint";
+import { Link } from "@/ux/Link";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { useDemographicCleavages } from "@/data/dashboard/useDemographicCleavages";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
+import { useSearchParam } from "@/screens/utils/useSearchParam";
+import type { CensusMetric } from "@/data/census/censusTypes";
 import { METRIC_BY_KEY } from "@/screens/components/demographics/censusMetrics";
+import { fmtR } from "@/screens/components/demographics/demographicsFormat";
+import { computeCleavageKpis } from "@/screens/components/demographics/cleavageKpis";
 import { DemographicCleavagesPlot } from "@/screens/components/demographics/DemographicCleavagesPlot";
 import { VoteDemographicScatter } from "@/screens/components/demographics/VoteDemographicScatter";
-
-const fmtR = (r: number) => `${r > 0 ? "+" : ""}${r.toFixed(2)}`;
 
 export const PartyDemographicsScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const { data: payload } = useDemographicCleavages();
   const { displayNameFor } = useCanonicalParties();
+  const [, setScatterMetric] = useSearchParam("scatter", { replace: true });
+  const scatterRef = useRef<HTMLDivElement>(null);
   const isBg = i18n.language === "bg";
 
-  // Headline figures from the cleavages payload (rows are pre-sorted by spread
-  // desc, so rows[0] is the most polarizing dimension). `strongest` scans every
-  // party×metric cell for the single sharpest correlation.
-  const kpis = useMemo(() => {
-    if (!payload || payload.rows.length === 0) return undefined;
-    const top = payload.rows[0];
-    let best = { r: 0, metric: top.metric, partyIdx: 0 };
-    for (const row of payload.rows) {
-      row.rs.forEach((r, i) => {
-        if (Math.abs(r) > Math.abs(best.r))
-          best = { r, metric: row.metric, partyIdx: i };
-      });
-    }
-    return { top, best };
-  }, [payload]);
+  const kpis = useMemo(() => computeCleavageKpis(payload), [payload]);
 
   const title = t("party_demographics_title");
-  const metricLabel = (m: string) => {
-    const def = METRIC_BY_KEY[m as keyof typeof METRIC_BY_KEY];
+  const metricLabel = (m: CensusMetric) => {
+    const def = METRIC_BY_KEY[m];
     return def ? t(def.i18nKey) : m;
   };
   const partyName = (p: NonNullable<typeof payload>["parties"][number]) =>
     isBg ? p.nickName : (displayNameFor(p.nickName) ?? p.nickName);
+
+  // Clicking a dot-plot row drives the embedded scatter below (setting the
+  // ?scatter param preserves the selected election) and scrolls it into view.
+  const onMetricSelect = (metric: CensusMetric) => {
+    setScatterMetric(metric);
+    scatterRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <div className="pb-12">
@@ -61,7 +58,10 @@ export const PartyDemographicsScreen: FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-3">
         <StatCard
           label={
-            <Hint text={t("party_demographics_kpi_polarizing_hint")}>
+            <Hint
+              text={t("party_demographics_kpi_polarizing_hint")}
+              underline={false}
+            >
               <span>{t("party_demographics_kpi_polarizing")}</span>
             </Hint>
           }
@@ -76,7 +76,10 @@ export const PartyDemographicsScreen: FC = () => {
 
         <StatCard
           label={
-            <Hint text={t("party_demographics_kpi_strongest_hint")}>
+            <Hint
+              text={t("party_demographics_kpi_strongest_hint")}
+              underline={false}
+            >
               <span>{t("party_demographics_kpi_strongest")}</span>
             </Hint>
           }
@@ -93,7 +96,10 @@ export const PartyDemographicsScreen: FC = () => {
 
         <StatCard
           label={
-            <Hint text={t("party_demographics_kpi_parties_hint")}>
+            <Hint
+              text={t("party_demographics_kpi_parties_hint")}
+              underline={false}
+            >
               <span>{t("party_demographics_kpi_parties")}</span>
             </Hint>
           }
@@ -107,7 +113,8 @@ export const PartyDemographicsScreen: FC = () => {
         </StatCard>
       </div>
 
-      {/* Hero — the full cleavages dot plot (all census metrics × 4%+ parties). */}
+      {/* Hero — the full cleavages dot plot (all census metrics × 4%+ parties).
+          Clicking a row drives the scatter below. */}
       <div data-og="party-demographics">
         <StatCard
           label={
@@ -118,7 +125,11 @@ export const PartyDemographicsScreen: FC = () => {
           }
         >
           {payload && payload.rows.length > 0 ? (
-            <DemographicCleavagesPlot payload={payload} rows={payload.rows} />
+            <DemographicCleavagesPlot
+              payload={payload}
+              rows={payload.rows}
+              onMetricSelect={onMetricSelect}
+            />
           ) : (
             <div className="text-sm text-muted-foreground py-12 text-center">
               {t("loading")}
@@ -127,9 +138,9 @@ export const PartyDemographicsScreen: FC = () => {
         </StatCard>
       </div>
 
-      {/* Drill-down: per-municipality scatter for a chosen metric (URL-driven,
-          deep-linked from the dot-plot rows via ?scatter=<metric>). */}
-      <div className="mt-3">
+      {/* Drill-down: per-municipality scatter for the chosen metric (URL-driven
+          via ?scatter=<metric>, set by clicking a dot-plot row above). */}
+      <div id="scatter" ref={scatterRef} className="mt-3 scroll-mt-24">
         <StatCard
           label={
             <div className="flex items-center gap-2">
