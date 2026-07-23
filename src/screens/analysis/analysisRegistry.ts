@@ -38,6 +38,14 @@ export const ANALYSIS_CLUSTERS: { labelKey: string; analyses: Analysis[] }[] = [
         statId: "risk",
       },
       {
+        id: "polls",
+        titleKey: "polls_title",
+        descKey: "polls_desc",
+        to: "/polls",
+        accent: TILE_ACCENTS.azure,
+        statId: "polls",
+      },
+      {
         id: "benford",
         titleKey: "benford_title",
         descKey: "benford_desc",
@@ -61,14 +69,6 @@ export const ANALYSIS_CLUSTERS: { labelKey: string; analyses: Analysis[] }[] = [
         accent: TILE_ACCENTS.teal,
         statId: "persistence",
       },
-      {
-        id: "compare",
-        titleKey: "compare_title",
-        descKey: "compare_desc",
-        to: "/compare",
-        accent: TILE_ACCENTS.steel,
-        statId: "turnout",
-      },
     ],
   },
   {
@@ -82,12 +82,12 @@ export const ANALYSIS_CLUSTERS: { labelKey: string; analyses: Analysis[] }[] = [
         accent: TILE_ACCENTS.plum,
       },
       {
-        id: "polls",
-        titleKey: "polls_title",
-        descKey: "polls_desc",
-        to: "/polls",
-        accent: TILE_ACCENTS.azure,
-        statId: "polls",
+        id: "compare",
+        titleKey: "compare_title",
+        descKey: "compare_desc",
+        to: "/compare",
+        accent: TILE_ACCENTS.steel,
+        statId: "turnout",
       },
       {
         id: "financing",

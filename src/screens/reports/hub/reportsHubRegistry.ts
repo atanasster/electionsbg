@@ -26,6 +26,11 @@ export interface ReportEntry {
   statId?: string;
   /** Spotlighted in the /analysis hub's curated "Доклади" strip. */
   featured?: boolean;
+  /** Gate the tile to elections that actually have this capability (an
+   *  electionStats flag). Recount reports only exist where a recount happened;
+   *  flash-memory (СУЕМГ) reports only where machines were used. Omit for
+   *  always-shown reports. */
+  requires?: "hasRecount" | "hasSuemg";
 }
 
 export const REPORT_CLUSTERS: { labelKey: string; reports: ReportEntry[] }[] = [
@@ -116,6 +121,7 @@ export const REPORT_CLUSTERS: { labelKey: string; reports: ReportEntry[] }[] = [
         descKey: "reports_recount_desc",
         to: "/reports/section/recount",
         accent: TILE_ACCENTS.steel,
+        requires: "hasRecount",
       },
       {
         id: "flash",
@@ -123,6 +129,7 @@ export const REPORT_CLUSTERS: { labelKey: string; reports: ReportEntry[] }[] = [
         descKey: "reports_flash_memory_desc",
         to: "/reports/section/missing_flash_memory",
         accent: TILE_ACCENTS.indigo,
+        requires: "hasSuemg",
       },
     ],
   },

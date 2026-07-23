@@ -9,6 +9,7 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
 import { TileHubGrid, TileHubSection } from "@/ux/infographic";
+import { useElectionContext } from "@/data/ElectionContext";
 import {
   useAnalysisStats,
   formatAnalysisMetric,
@@ -20,24 +21,30 @@ import { REPORT_SCENES } from "./reportsHubScenes";
 export const ReportsHubScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const stats = useAnalysisStats();
+  const { electionStats } = useElectionContext();
   const cta = t("reports_hub_view");
 
   const sections: TileHubSection[] = REPORT_CLUSTERS.map((cluster) => ({
     heading: t(cluster.labelKey),
-    tiles: cluster.reports.map((r) => {
-      const stat = r.statId ? stats?.[r.statId] : undefined;
-      return {
-        to: r.to,
-        title: t(r.titleKey),
-        desc: t(r.descKey),
-        accent: r.accent,
-        scene: REPORT_SCENES[r.id],
-        cta,
-        metric: formatAnalysisMetric(stat, i18n.language),
-        metricCaption: analysisMetricCaption(stat, t, i18n.language),
-      };
-    }),
-  }));
+    // A capability-gated report (recount / flash-memory) only shows for
+    // elections that actually have it, so cycles with no recount or no machine
+    // vote don't surface an empty report.
+    tiles: cluster.reports
+      .filter((r) => !r.requires || !!electionStats?.[r.requires])
+      .map((r) => {
+        const stat = r.statId ? stats?.[r.statId] : undefined;
+        return {
+          to: r.to,
+          title: t(r.titleKey),
+          desc: t(r.descKey),
+          accent: r.accent,
+          scene: REPORT_SCENES[r.id],
+          cta,
+          metric: formatAnalysisMetric(stat, i18n.language),
+          metricCaption: analysisMetricCaption(stat, t, i18n.language),
+        };
+      }),
+  })).filter((section) => section.tiles.length > 0);
 
   return (
     <>
