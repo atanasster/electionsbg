@@ -1551,14 +1551,24 @@ const DB_ROUTES = {
        SELECT jsonb_build_object(
          'product', (SELECT to_jsonb(p) FROM p),
          'chains', COALESCE((
-            SELECT jsonb_agg(to_jsonb(x) ORDER BY x.price_eur, x.eik COLLATE "C")
+            SELECT jsonb_agg(to_jsonb(x)
+                     ORDER BY COALESCE(x.promo_eur, x.price_eur), x.eik COLLATE "C")
               FROM (SELECT panel.eik,
                            MIN(panel.chain COLLATE "C") AS chain,
-                           MIN(panel.price_eur)         AS price_eur,
-                           MIN(panel.promo_eur)         AS promo_eur,
+                           -- ONE store per chain — the cheapest by EFFECTIVE
+                           -- price (promo wins) — and every field of the row
+                           -- comes from that same store: regular, promo, label,
+                           -- settlement. Taking MIN(price_eur) and
+                           -- MIN(promo_eur) independently paired a promo from
+                           -- one store with a regular from another, so the UI's
+                           -- €/kg and "+X €" gap described no real shelf.
+                           (array_agg(panel.price_eur
+                              ORDER BY COALESCE(panel.promo_eur, panel.price_eur),
+                                       panel.store_id))[1] AS price_eur,
+                           (array_agg(panel.promo_eur
+                              ORDER BY COALESCE(panel.promo_eur, panel.price_eur),
+                                       panel.store_id))[1] AS promo_eur,
                            COUNT(DISTINCT panel.store_id) AS stores,
-                           -- the cheapest store's label + settlement (effective
-                           -- price, so a promo store wins) → a directions link
                            (array_agg(panel.store COLLATE "C"
                               ORDER BY COALESCE(panel.promo_eur, panel.price_eur),
                                        panel.store_id))[1] AS store,

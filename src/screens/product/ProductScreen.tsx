@@ -39,6 +39,13 @@ import type { ChainLadderRow } from "@/data/prices/fetchPricePayload";
 
 const CONFIDENCE_MIN = 55; // gate the cross-chain ladder
 
+/** What a shopper actually pays today — the promo price when one is running.
+ *  Every ladder derivation (sort order, cheapest/dearest bounds, the +X € gap,
+ *  the €/kg unit price) must read this, not the regular `price_eur`: mixing the
+ *  two put promo rows in the wrong slot and badged the wrong row "най-евтино". */
+const shownPrice = (row: ChainLadderRow): number =>
+  row.promo_eur ?? row.price_eur;
+
 /** €/kg or €/L, when the pack size is known. */
 const unitPrice = (
   price: number,
@@ -122,7 +129,7 @@ export const ProductScreen: FC = () => {
   }
 
   const p = data.product;
-  const chains = [...data.chains].sort((a, b) => a.price_eur - b.price_eur);
+  const chains = [...data.chains].sort((a, b) => shownPrice(a) - shownPrice(b));
   const cheapest = chains[0];
   const dearest = chains[chains.length - 1];
   const catName =
@@ -238,8 +245,8 @@ export const ProductScreen: FC = () => {
                 <LadderRow
                   key={c.eik}
                   row={c}
-                  best={cheapest.price_eur}
-                  worst={dearest.price_eur}
+                  best={shownPrice(cheapest)}
+                  worst={shownPrice(dearest)}
                   qty={p.net_qty}
                   unit={p.net_unit}
                   lang={lang}
@@ -258,7 +265,12 @@ export const ProductScreen: FC = () => {
                     {c.chain}
                   </Link>
                   <span className="tabular-nums shrink-0 pl-3">
-                    {fmtEur(c.price_eur, lang)}
+                    {fmtEur(shownPrice(c), lang)}
+                    {c.promo_eur != null && (
+                      <span className="ml-1 text-xs text-amber-600 dark:text-amber-400">
+                        {T("промо", "promo")}
+                      </span>
+                    )}
                   </span>
                 </div>
               ))}
@@ -309,8 +321,9 @@ const LadderRow: FC<{
   lang: "bg" | "en";
   T: (bg: string, en: string) => string;
 }> = ({ row, best, worst, qty, unit, lang, T }) => {
-  const save = row.price_eur - best;
-  const up = unitPrice(row.price_eur, qty, unit, lang);
+  const paid = shownPrice(row);
+  const save = paid - best;
+  const up = unitPrice(paid, qty, unit, lang);
   // The chain's cheapest store for this product — a directions link built from
   // free-text label + settlement (no coordinates; Google geocodes + routes from
   // the user's location). Same affordance as the my-area price tile.
@@ -351,7 +364,7 @@ const LadderRow: FC<{
       </div>
       <div className="text-right shrink-0 pl-3">
         <div className="tabular-nums font-medium">
-          {fmtEur(row.promo_eur ?? row.price_eur, lang)}
+          {fmtEur(paid, lang)}
           {row.promo_eur != null && (
             <span className="ml-1 text-xs text-amber-600 dark:text-amber-400">
               {T("промо", "promo")}
