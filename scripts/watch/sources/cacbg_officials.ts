@@ -12,7 +12,11 @@
 
 import type { WatchSource, Fingerprint, WatchState } from "../types";
 import { fetchText, sha256Short } from "../fingerprint";
-import { REGISTER_ROOT, latestRegisterYear } from "../../lib/cacbg_register";
+import {
+  REGISTER_ROOT,
+  latestRegisterYear,
+  extractDeclarationXmlFiles,
+} from "../../lib/cacbg_register";
 
 // The year is discovered from the register root on every run rather than
 // pinned — a pinned constant kept fingerprinting the previous cycle's
@@ -41,22 +45,8 @@ const categoryMatches = (name: string): boolean => {
   return false;
 };
 
-// Pull <xmlFile> values for every Person under a matching Category. Regex is
-// permissive on whitespace and attribute order because the upstream XML is
-// machine-generated and sometimes adds incidental attributes.
-const extractXmlFiles = (xml: string): string[] => {
-  const out: string[] = [];
-  // Capture each <Category Name="..."> ... </Category> block in turn.
-  const catRe = /<Category\s+Name="([^"]+)"[^>]*>([\s\S]*?)<\/Category>/g;
-  for (const cm of xml.matchAll(catRe)) {
-    if (!categoryMatches(cm[1])) continue;
-    const xmlFiles = Array.from(
-      cm[2].matchAll(/<xmlFile>\s*([^<\s]+)\s*<\/xmlFile>/g),
-    ).map((m) => m[1]);
-    out.push(...xmlFiles);
-  }
-  return out;
-};
+const extractXmlFiles = (xml: string): string[] =>
+  extractDeclarationXmlFiles(xml, categoryMatches);
 
 export const cacbgOfficials: WatchSource = {
   id: "cacbg_officials",

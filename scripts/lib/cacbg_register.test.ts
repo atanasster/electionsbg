@@ -6,6 +6,7 @@ import {
   REGISTER_ROOT,
   parseRegisterYears,
   latestRegisterYear,
+  extractDeclarationXmlFiles,
   __resetRegisterYearCache,
 } from "./cacbg_register";
 
@@ -99,5 +100,61 @@ describe("latestRegisterYear", () => {
       .mockResolvedValue(ROOT_HTML);
     await expect(latestRegisterYear(fetchHtml)).rejects.toThrow("boom");
     await expect(latestRegisterYear(fetchHtml)).resolves.toBe(2025);
+  });
+});
+
+// Regression cover for the self-closing-<Category/> defect. The upstream
+// list.xml interleaves ~41 empty nav categories with the real ones; a regex
+// scan mis-attributed and skipped whole categories. Shapes below are lifted
+// from the real 2025 file.
+describe("extractDeclarationXmlFiles", () => {
+  const decl = (file: string, sent = "True") =>
+    `<Declaration><Sent>${sent}</Sent><xmlFile>${file}</xmlFile></Declaration>`;
+  const person = (name: string, decls: string) =>
+    `<Person><Name>${name}</Name><Position><Name>роля</Name>${decls}</Position></Person>`;
+  const cat = (name: string, people: string) =>
+    `<Category Name="${name}"><Institution Name="и">${people}</Institution></Category>`;
+
+  const wanted = (n: string) => n === "ЦЕЛЕВА";
+
+  it("does not let a self-closing category swallow the next category", () => {
+    // The empty in-scope nav entry is immediately followed by an out-of-scope
+    // category — the old regex attributed b.xml/c.xml to the empty one.
+    const xml =
+      `<Category Name="ЦЕЛЕВА" />` +
+      cat("ДРУГА", person("Друг", decl("b.xml") + decl("c.xml")));
+    expect(extractDeclarationXmlFiles(xml, wanted)).toEqual([]);
+  });
+
+  it("still finds a real in-scope category that follows an empty one", () => {
+    // The old regex consumed through to the next </Category> and skipped this.
+    const xml =
+      `<Category Name="ЦЕЛЕВА" />` +
+      cat("ДРУГА", person("Друг", decl("b.xml"))) +
+      cat("ЦЕЛЕВА", person("Иван", decl("a.xml")));
+    expect(extractDeclarationXmlFiles(xml, wanted)).toEqual(["a.xml"]);
+  });
+
+  it("keeps every declaration a person filed", () => {
+    const xml = cat("ЦЕЛЕВА", person("Иван", decl("a.xml") + decl("b.xml")));
+    expect(extractDeclarationXmlFiles(xml, wanted)).toEqual(["a.xml", "b.xml"]);
+  });
+
+  it("skips unsent declarations, matching the ingest", () => {
+    const xml = cat(
+      "ЦЕЛЕВА",
+      person("Иван", decl("a.xml") + decl("b.xml", "False")),
+    );
+    expect(extractDeclarationXmlFiles(xml, wanted)).toEqual(["a.xml"]);
+  });
+
+  it("skips a declaration whose person has no name", () => {
+    const xml = cat("ЦЕЛЕВА", person("", decl("a.xml")));
+    expect(extractDeclarationXmlFiles(xml, wanted)).toEqual([]);
+  });
+
+  it("returns nothing when no category matches", () => {
+    const xml = cat("ДРУГА", person("Друг", decl("b.xml")));
+    expect(extractDeclarationXmlFiles(xml, wanted)).toEqual([]);
   });
 });

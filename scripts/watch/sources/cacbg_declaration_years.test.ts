@@ -21,14 +21,22 @@ const mockedFetchText = vi.mocked(fetchText);
 const rootHtml = (years: number[]): string =>
   years.map((y) => `<a href="${y}/index.html">За ${y} година</a>`).join("");
 
-// Minimal list.xml in the shape both extractors walk.
+// list.xml in the real nesting: Category > Institution > Person > Position >
+// Declaration, with the Sent flag the ingest filters on. One person per file.
 const listXml = (categories: { name: string; files: string[] }[]): string =>
   categories
     .map(
       (c) =>
-        `<Category Name="${c.name}">` +
-        c.files.map((f) => `<xmlFile>${f}</xmlFile>`).join("") +
-        `</Category>`,
+        `<Category Name="${c.name}"><Institution Name="Институция">` +
+        c.files
+          .map(
+            (f) =>
+              `<Person><Name>Лице ${f}</Name><Position><Name>роля</Name>` +
+              `<Declaration><Sent>True</Sent><xmlFile>${f}</xmlFile></Declaration>` +
+              `</Position></Person>`,
+          )
+          .join("") +
+        `</Institution></Category>`,
     )
     .join("");
 
