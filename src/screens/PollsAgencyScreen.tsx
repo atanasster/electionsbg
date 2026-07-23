@@ -1,7 +1,7 @@
 import { FC, useMemo } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft } from "lucide-react";
+import { ElectionsBreadcrumb } from "@/screens/components/ElectionsBreadcrumb";
 import { Title } from "@/ux/Title";
 import {
   useAgencies,
@@ -85,15 +85,14 @@ export const PollsAgencyScreen: FC = () => {
   if (!profile || !agency) {
     return (
       <>
+        <ElectionsBreadcrumb
+          hub="analysis"
+          section={{ labelKey: "polls_title", to: "/polls" }}
+          current={title ?? undefined}
+          className="mt-4 mb-1"
+        />
         <Title>{title ?? ""}</Title>
         <section className="w-full max-w-7xl mx-auto px-4 pb-12">
-          <Link
-            to="/polls"
-            className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
-          >
-            <ArrowLeft className="h-3.5 w-3.5" />
-            {t("polls_back")}
-          </Link>
           <div className="mt-4 rounded-xl border bg-card p-4 shadow-sm text-sm text-muted-foreground">
             {t("polls_agency_not_found")}
           </div>
@@ -104,16 +103,14 @@ export const PollsAgencyScreen: FC = () => {
 
   return (
     <>
+      <ElectionsBreadcrumb
+        hub="analysis"
+        section={{ labelKey: "polls_title", to: "/polls" }}
+        current={title ?? undefined}
+        className="mt-4 mb-1"
+      />
       <Title>{title ?? ""}</Title>
       <section className="w-full max-w-7xl mx-auto px-4 pb-12">
-        <Link
-          to="/polls"
-          className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" />
-          {t("polls_back")}
-        </Link>
-
         <div className="mt-3">
           <AgencyProfileCard
             profile={profile}

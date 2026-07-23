@@ -14,6 +14,7 @@ import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { localDate } from "@/data/utils";
 import { RiskBandBadge } from "@/screens/components/riskScore/RiskBandBadge";
 import { StatCard } from "@/screens/dashboard/StatCard";
+import { ElectionsBreadcrumb } from "@/screens/components/ElectionsBreadcrumb";
 
 const stripPrefix = (s?: string) => (s ?? "").replace(/^\d+\.\s*/, "");
 const HEADER_CLASS =
@@ -73,6 +74,12 @@ export const RiskClusterScreen: FC = () => {
           count: locus.electionCount,
           sections: locus.sectionCount,
         })}
+      />
+      <ElectionsBreadcrumb
+        hub="analysis"
+        section={{ labelKey: "risk_analysis_title", to: "/risk-analysis" }}
+        current={location}
+        className="mt-4 mb-1"
       />
       <H1>{location}</H1>
       <div className="flex items-center justify-center gap-2 pb-3 flex-wrap">

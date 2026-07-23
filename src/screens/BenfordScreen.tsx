@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ChevronLeft, Sigma } from "lucide-react";
+import { Sigma } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { SEO } from "@/ux/SEO";
 import { H1 } from "@/ux/H1";
@@ -10,6 +10,7 @@ import { useElectionContext } from "@/data/ElectionContext";
 import { formatThousands } from "@/data/utils";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { MethodologyCallout } from "@/screens/components/MethodologyCallout";
+import { ElectionsBreadcrumb } from "@/screens/components/ElectionsBreadcrumb";
 import { BenfordChart } from "@/screens/components/benford/BenfordChart";
 
 // Benford's law screen — section-level first-digit (and second-digit)
@@ -220,13 +221,12 @@ export const BenfordDetailScreen = () => {
         }
         description={t("benford_description")}
       />
-      <Link
-        to="/benford"
-        className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-2 mt-4"
-      >
-        <ChevronLeft className="h-4 w-4" />
-        {t("benford_title")}
-      </Link>
+      <ElectionsBreadcrumb
+        hub="analysis"
+        section={{ labelKey: "benford_title", to: "/benford" }}
+        current={entry ? partyLabel(entry, displayNameFor) : undefined}
+        className="mt-4 mb-1"
+      />
       {entry && (
         <div className="flex items-center gap-2 mt-1">
           <span

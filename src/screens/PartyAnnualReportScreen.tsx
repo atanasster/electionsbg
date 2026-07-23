@@ -6,7 +6,7 @@
 import { FC, useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft, ExternalLink, FileCheck2 } from "lucide-react";
+import { ExternalLink, FileCheck2 } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { Caption } from "@/ux/Caption";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -22,6 +22,7 @@ import {
 } from "@/screens/components/financing/ComplianceStrip";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { CANONICAL_ID_BY_GFOPP_SLUG } from "@/data/financing/partyAliases";
+import { ElectionsBreadcrumb } from "@/screens/components/ElectionsBreadcrumb";
 
 const formatDate = (iso: string, locale: string): string => {
   const d = new Date(iso);
@@ -97,15 +98,15 @@ export const PartyAnnualReportScreen: FC = () => {
 
   return (
     <div className="w-full pb-12">
-      <div className="pt-4 md:pt-8">
-        <Link
-          to="/financing/annual-reports"
-          className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" />
-          {t("annual_reports_back_to_index") || "All parties"}
-        </Link>
-      </div>
+      <ElectionsBreadcrumb
+        hub="analysis"
+        section={{
+          labelKey: "annual_reports_title",
+          to: "/financing/annual-reports",
+        }}
+        current={party.name}
+        className="mt-4 mb-1"
+      />
 
       <Title
         className="w-auto flex justify-center pt-2 pb-1 md:pt-4 md:pb-2"

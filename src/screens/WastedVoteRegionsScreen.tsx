@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { ChevronLeft } from "lucide-react";
 import { SEO } from "@/ux/SEO";
 import { H1 } from "@/ux/H1";
 import { useRegionWastedVotes } from "@/data/wastedVote/useWastedVote";
@@ -35,13 +34,6 @@ export const WastedVoteRegionsScreen = () => {
         title={t("wasted_votes_regions_full")}
         description={t("wasted_votes_description")}
       />
-      <Link
-        to="/wasted-vote"
-        className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-2 mt-4"
-      >
-        <ChevronLeft className="h-4 w-4" />
-        {t("wasted_votes_title")}
-      </Link>
       <H1 className="text-xl md:text-2xl font-bold text-foreground">
         {t("wasted_votes_regions_full")}
       </H1>

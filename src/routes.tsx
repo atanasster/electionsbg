@@ -8,6 +8,7 @@ import {
   useParams,
 } from "react-router-dom";
 import { Layout } from "./layout/Layout";
+import { HubBreadcrumb } from "@/screens/components/HubBreadcrumb";
 import { ROADS_AWARDER_PATH } from "./screens/components/procurement/sectorPacks";
 import { CabinetAnchorProvider } from "@/data/macro/cabinetAnchorContext";
 import { AreaAnchorProvider } from "@/data/area/AreaAnchorProvider";
@@ -1353,6 +1354,7 @@ const RouteFallback: FC = () => (
 const LayoutScreen: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Layout>
+      <HubBreadcrumb />
       <Suspense fallback={<RouteFallback />}>{children}</Suspense>
     </Layout>
   );
