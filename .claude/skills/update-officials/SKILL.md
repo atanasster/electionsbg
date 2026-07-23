@@ -220,6 +220,21 @@ Merge semantics (`scripts/officials/merge.ts`): a run is **authoritative for its
 
 > Before this was fixed, backfilling **destroyed** the current year — per-slug files were overwritten with the run's year alone and `index.json` was stamped `years: [targetYear]`. If you are on an older checkout, do not backfill.
 
+### Year coverage (backfilled 2026-07-23)
+
+All ten published years are loaded: 2015–2020 and 2022–2025, totalling 4,212 declarations across 1,495 officials, 822 of whom have more than one year on file.
+
+Two years carry upstream rot — `list.xml` lists declarations whose XML 404s:
+
+| Year | Missing | Note |
+|---|---|---|
+| 2024 | 1 / 654 (0.2%) | within the default tolerance |
+| 2018 | 54 / 382 (14.1%) | genuinely gone upstream (absent under the `2018`, `2018y` and `2018f1` folders alike) — needs `--max-missing 0.2` to load |
+
+```bash
+npx tsx scripts/officials/index.ts --year 2018 --max-missing 0.2
+```
+
 ## Data-integrity contract
 
 Fails loud rather than write partial data:
@@ -228,6 +243,8 @@ Fails loud rather than write partial data:
 |---|---|---|
 | HTTP non-200 on list.xml | Upstream registry down or year doesn't exist | Throws |
 | Per-declaration fetch fails | Network error fetching one official's XML | Throws (no partial writes) |
+| Per-declaration fetch 404s | `list.xml` references a declaration whose file is gone upstream | Skipped + logged `[missing]`, not retried (a 404 is permanent) and not cached, so a later run retries it if upstream restores the file |
+| `> 5%` of a year's declarations missing upstream | Year is rotted, or we're being rate-limited into 404s | Throws — writing it would publish a partial cohort as complete. Override per run with `--max-missing <0-1>` once you've confirmed the rot is real |
 | Zero declarations match the category filter | Upstream renamed categories or shifted XML schema | Throws — investigate `CATEGORY_MAP` in `scripts/officials/index.ts` |
 | `assets-rankings.json` total drops > 20% | Likely a regression in category filtering | Inspect diff; do NOT commit until cause is identified |
 | Zero entries in the `Кметове…` category | Upstream renamed the municipal category | `municipal.ts` throws |

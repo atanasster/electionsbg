@@ -897,6 +897,7 @@ async function main(): Promise<void> {
   }
 
   let bridgeBRoles = 0;
+  let aliasesInserted = 0;
   await withTx(async (c) => {
     // Rebuild only the derived tables. CASCADE clears the FK-linked person_link_evidence
     // and person_review_candidate; person_link_override is human-authored (fold-keyed, no
@@ -938,12 +939,35 @@ async function main(): Promise<void> {
       ],
       roleRows,
     );
+    // person_alias is keyed on (person_id, alias_fold, source) where alias_fold
+    // is GENERATED from translit_bg_latin(alias_raw). One person can hold
+    // several officials slugs — slugify() folds in the institution, so a
+    // minister who moves ministries gets one slug per posting — and the
+    // ten-year officials backfill made that ordinary rather than rare. Those
+    // rows carry the same name for the same person and source, so they collide
+    // on the fold. Dedupe through a staging table using the same PG function
+    // rather than approximating the transliteration in JS.
+    await c.query(
+      `CREATE TEMP TABLE tmp_person_alias (
+         person_id bigint NOT NULL,
+         alias_raw text   NOT NULL,
+         source    text   NOT NULL
+       ) ON COMMIT DROP`,
+    );
     await copyRows(
       c,
-      "person_alias",
+      "tmp_person_alias",
       ["person_id", "alias_raw", "source"],
       aliasRows,
     );
+    const aliasIns = await c.query(
+      `INSERT INTO person_alias (person_id, alias_raw, source)
+       SELECT DISTINCT ON (person_id, translit_bg_latin(alias_raw), source)
+              person_id, alias_raw, source
+         FROM tmp_person_alias
+        ORDER BY person_id, translit_bg_latin(alias_raw), source, alias_raw`,
+    );
+    aliasesInserted = aliasIns.rowCount ?? 0;
     await copyRows(
       c,
       "person_review_candidate",
@@ -985,7 +1009,8 @@ async function main(): Promise<void> {
 
   console.log(
     `  ${personRows.length} persons, ${roleRows.length} roles (+${bridgeBRoles} tr bridge-B), ` +
-      `${aliasRows.length} aliases; ${reviewGroups.size} review group(s) over ${reviewRows.length} person(s)`,
+      `${aliasesInserted} aliases (${aliasRows.length - aliasesInserted} dup folds collapsed); ` +
+      `${reviewGroups.size} review group(s) over ${reviewRows.length} person(s)`,
   );
   await end();
 }
