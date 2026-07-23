@@ -35,7 +35,7 @@ export const bnbFdi: WatchSource = {
   cadence: "monthly",
 
   async fingerprint(): Promise<Fingerprint> {
-    const text = await fetchText(DOWNLOAD_URL);
+    const text = await fetchText(DOWNLOAD_URL, { insecureTls: true });
     if (!text) throw new Error("БНБ FDI: empty download");
     const period = latestPeriod(text);
     const value = createHash("sha256").update(text).digest("hex");

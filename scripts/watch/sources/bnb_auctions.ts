@@ -53,7 +53,7 @@ export const bnbAuctions: WatchSource = {
 
     const allIds: string[] = [];
     for (const y of years) {
-      const html = await fetchText(indexUrl(y));
+      const html = await fetchText(indexUrl(y), { insecureTls: true });
       if (!html) continue;
       allIds.push(...parseAuctionIds(html));
     }
