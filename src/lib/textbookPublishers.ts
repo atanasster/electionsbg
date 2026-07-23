@@ -96,6 +96,33 @@ export const publisherGroupLabel = (
 ): string =>
   lang === "bg" ? PUBLISHER_GROUP_LABEL[id].bg : PUBLISHER_GROUP_LABEL[id].en;
 
+/** Bucket a CPV-22112 contractor into a publisher group. Known EIKs map
+ *  directly; unknown ones fall through to a name-derived bucket so the tail is
+ *  still labelled.
+ *
+ *  Lives here rather than in the market generator because two surfaces bucket
+ *  the same contractors: the national market on /sector/edu (built offline) and
+ *  a single school's suppliers on its /company/:eik page (computed in the
+ *  browser). Two copies of this rule would eventually label the same supplier
+ *  differently on the two pages. */
+export const publisherGroupOf = (
+  eik: string,
+  name: string,
+): PublisherGroupId => {
+  const byEik = PUBLISHER_GROUP_BY_EIK[eik];
+  if (byEik) return byEik;
+  const n = name.toLowerCase();
+  if (/просвета/.test(n)) return "prosveta";
+  if (/клет|klett|анубис|булвест/.test(n)) return "klett";
+  if (/архимед/.test(n)) return "arhimed";
+  if (/педагог\s*6/.test(n)) return "pedagog6";
+  if (/домино/.test(n)) return "domino";
+  if (/бит\s*и\s*техника/.test(n)) return "bit";
+  if (/рива/.test(n)) return "riva";
+  if (/колибри/.test(n)) return "kolibri";
+  return "other";
+};
+
 /** HHI concentration band on the U.S. DOJ/FTC scale (0-10,000). */
 export type HhiBand = "competitive" | "moderate" | "high";
 export const hhiBand = (hhi: number): HhiBand =>

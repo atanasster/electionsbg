@@ -14,7 +14,7 @@ import fs from "node:fs";
 import path from "node:path";
 import {
   TEXTBOOK_CPV_PREFIX,
-  PUBLISHER_GROUP_BY_EIK,
+  publisherGroupOf,
   cleanPublisherName,
   type PublisherGroupId,
 } from "../../src/lib/textbookPublishers";
@@ -40,23 +40,6 @@ type Contract = {
 };
 
 const round = (n: number) => Math.round(n);
-
-// Bucket a contractor into a publisher group. Known EIKs map directly; unknown
-// ones fall through to a name-derived bucket so the tail is still labelled.
-const groupOf = (eik: string, name: string): PublisherGroupId => {
-  const byEik = PUBLISHER_GROUP_BY_EIK[eik];
-  if (byEik) return byEik;
-  const n = name.toLowerCase();
-  if (/просвета/.test(n)) return "prosveta";
-  if (/клет|klett|анубис|булвест/.test(n)) return "klett";
-  if (/архимед/.test(n)) return "arhimed";
-  if (/педагог\s*6/.test(n)) return "pedagog6";
-  if (/домино/.test(n)) return "domino";
-  if (/бит\s*и\s*техника/.test(n)) return "bit";
-  if (/рива/.test(n)) return "riva";
-  if (/колибри/.test(n)) return "kolibri";
-  return "other";
-};
 
 const buyerType = (
   name: string,
@@ -104,7 +87,7 @@ const summarize = (rows: SummaryInput[]) => {
     totalContracts += 1;
     const key = c.contractorEik || c.contractorName || "—";
     supplierKeys.add(key);
-    const gid = groupOf(c.contractorEik, c.contractorName);
+    const gid = publisherGroupOf(c.contractorEik, c.contractorName);
     let g = byGroup.get(gid);
     if (!g) {
       g = { eur: 0, n: 0, entities: new Map() };

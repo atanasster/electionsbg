@@ -91,6 +91,7 @@ interface NgoBoardLink {
   confidence: string;
 }
 import { SchoolIdentityTile } from "../components/procurement/mon/SchoolIdentityTile";
+import { SchoolTextbookSuppliersTile } from "../components/procurement/mon/SchoolTextbookSuppliersTile";
 import {
   CabinetTimelineTile,
   type CabinetRow,
@@ -784,6 +785,12 @@ export const CompanyDbScreen: FC = () => {
               Self-hides unless the EIK matched a school; links to its report
               card on /school/:id. */}
           <SchoolIdentityTile eik={eik} />
+          {/* …and what a school spends its own procurement on that is specific to
+              being a school: which publishers it buys textbooks from. The market
+              blob behind /sector/edu is aggregate-only, so this is computed from
+              the school's own CPV-22112 rows. Self-hides unless the EIK is a
+              school with textbook contracts. */}
+          <SchoolTextbookSuppliersTile eik={eik} />
           {/* Money IN — НЗОК hospital-care reimbursement. Self-hides unless this
               EIK is a matched hospital; sits above the ЗОП (money-out) tiles. */}
           <NzokHospitalReimbursementTile eik={eik} />
