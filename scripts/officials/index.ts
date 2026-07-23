@@ -264,6 +264,7 @@ const cmd = command({
     const indexBySlug = new Map<string, OfficialIndexEntry>();
     let processed = 0;
     let missing = 0;
+    const parseFailures: string[] = [];
 
     for (const entry of entries) {
       if (processed >= cap) break;
@@ -283,49 +284,62 @@ const cmd = command({
         console.warn(`  [missing] ${entry.declarantName} — ${entry.sourceUrl}`);
         continue;
       }
-      // Existing parser keys on mpId — pass 0 as a sentinel and strip it.
-      const parsed = parseDeclarationXml({
-        xml,
-        mpId: 0,
-        institution: entry.institution,
-        sourceUrl: entry.sourceUrl,
-      });
       const slug = slugify(entry.declarantName, entry.institution);
-      const decl: OfficialDeclaration = {
-        slug,
-        declarantName: parsed.declarantName,
-        institution: parsed.institution,
-        positionTitle: entry.positionTitle,
-        declarationYear: parsed.declarationYear,
-        fiscalYear: parsed.fiscalYear,
-        declarationType: parsed.declarationType,
-        filedAt: parsed.filedAt,
-        entryNumber: parsed.entryNumber,
-        controlHash: parsed.controlHash,
-        sourceUrl: parsed.sourceUrl,
-        ownershipStakes: parsed.ownershipStakes,
-        income: parsed.income,
-        assets: parsed.assets,
-      };
-      const arr = declsBySlug.get(slug) ?? [];
-      arr.push(decl);
-      declsBySlug.set(slug, arr);
-
-      // Index entry uses the latest declaration we've seen for each slug —
-      // they're functionally identical for the executive (same person same
-      // role same year), so keeping the most recent fiscalYear is fine.
-      const priorIdx = indexBySlug.get(slug);
-      if (!priorIdx || decl.declarationYear > priorIdx.latestDeclarationYear) {
-        indexBySlug.set(slug, {
-          slug,
-          name: entry.declarantName,
-          normalizedName: norm,
-          category: entry.category,
-          categoryRaw: entry.categoryRaw,
+      try {
+        // Existing parser keys on mpId — pass 0 as a sentinel and strip it.
+        const parsed = parseDeclarationXml({
+          xml,
+          mpId: 0,
           institution: entry.institution,
-          positionTitle: entry.positionTitle,
-          latestDeclarationYear: decl.declarationYear,
+          sourceUrl: entry.sourceUrl,
         });
+        const decl: OfficialDeclaration = {
+          slug,
+          declarantName: parsed.declarantName,
+          institution: parsed.institution,
+          positionTitle: entry.positionTitle,
+          declarationYear: parsed.declarationYear,
+          fiscalYear: parsed.fiscalYear,
+          declarationType: parsed.declarationType,
+          filedAt: parsed.filedAt,
+          entryNumber: parsed.entryNumber,
+          controlHash: parsed.controlHash,
+          sourceUrl: parsed.sourceUrl,
+          ownershipStakes: parsed.ownershipStakes,
+          income: parsed.income,
+          assets: parsed.assets,
+        };
+        const arr = declsBySlug.get(slug) ?? [];
+        arr.push(decl);
+        declsBySlug.set(slug, arr);
+
+        // Index entry uses the latest declaration we've seen for each slug —
+        // they're functionally identical for the executive (same person same
+        // role same year), so keeping the most recent fiscalYear is fine.
+        const priorIdx = indexBySlug.get(slug);
+        if (
+          !priorIdx ||
+          decl.declarationYear > priorIdx.latestDeclarationYear
+        ) {
+          indexBySlug.set(slug, {
+            slug,
+            name: entry.declarantName,
+            normalizedName: norm,
+            category: entry.category,
+            categoryRaw: entry.categoryRaw,
+            institution: entry.institution,
+            positionTitle: entry.positionTitle,
+            latestDeclarationYear: decl.declarationYear,
+          });
+        }
+      } catch (err) {
+        // Same posture as the missing-file branch above and as the municipal
+        // ingest: an isolated malformed declaration is an upstream fact, not a
+        // reason to discard a whole year's work — this loop only writes AFTER
+        // it completes. The rate check below still fails loud when the failures
+        // look systemic (a schema change) rather than incidental.
+        const msg = err instanceof Error ? err.message : String(err);
+        parseFailures.push(`${entry.sourceUrl}: ${msg}`);
       }
       processed++;
       await sleep(150);
@@ -349,6 +363,26 @@ const cmd = command({
           `${missing}/${entries.length} declarations missing upstream for ${targetYear} — above the ${(tolerance * 100).toFixed(0)}% tolerance; refusing to write a partial cohort. Pass --max-missing to accept a known-incomplete year.`,
         );
       }
+    }
+
+    // Fail loud if parse failures look systemic rather than isolated — same
+    // threshold as the municipal ingest.
+    if (parseFailures.length > Math.max(20, processed * 0.02)) {
+      console.error(
+        parseFailures.slice(0, 10).join("\n") +
+          (parseFailures.length > 10
+            ? `\n… and ${parseFailures.length - 10} more`
+            : ""),
+      );
+      throw new Error(
+        `${parseFailures.length}/${processed} declarations failed to parse — likely an upstream schema change, not isolated bad records`,
+      );
+    }
+    if (parseFailures.length > 0) {
+      console.warn(
+        `  skipped ${parseFailures.length} unparseable declaration(s):`,
+      );
+      for (const f of parseFailures) console.warn(`    ${f}`);
     }
 
     if (dryRun) {

@@ -19,19 +19,17 @@ import type {
   OfficialDeclaration,
   OfficialIndexEntry,
 } from "../../src/data/dataTypes";
-import { REGISTER_BASE } from "./shared";
+import { registerFolderYear } from "../lib/cacbg_register";
 
-// The register folder a declaration came from, recovered from its sourceUrl
-// (https://register.cacbg.bg/<year>/<file>.xml).
+// Which run owns a row: the register folder it came from, NOT
+// decl.declarationYear. The parsed year comes from inside the XML and does not
+// reliably equal the folder, so keying replacement on it would strand or
+// clobber the wrong rows.
 //
-// This is deliberately NOT decl.declarationYear: the parsed year comes from
-// inside the XML and does not reliably equal the folder. The live 2025 folder
-// contains rows parsing to 2026 (one-off entry/exit filings) and even 2005, so
-// keying replacement on the parsed year would strand or clobber the wrong rows.
-export const folderYearFromSourceUrl = (url: string): number | null => {
-  const m = new RegExp(`^${REGISTER_BASE}/(\\d{4})/`).exec(url);
-  return m ? Number(m[1]) : null;
-};
+// Bare years only — see registerFolderYear's `allowSuffixed` note for why the
+// ownership test and the dating test must differ.
+export const folderYearFromSourceUrl = (url: string): number | null =>
+  registerFolderYear(url);
 
 // Newest first, with deterministic tie-breaks so re-running an unchanged year
 // reproduces byte-identical output.

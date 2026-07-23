@@ -8,6 +8,7 @@ import {
   latestRegisterYear,
   extractDeclarationXmlFiles,
   __resetRegisterYearCache,
+  registerFolderYear,
 } from "./cacbg_register";
 
 // Trimmed from the real register root — keeps the shapes that matter: plain
@@ -156,5 +157,47 @@ describe("extractDeclarationXmlFiles", () => {
   it("returns nothing when no category matches", () => {
     const xml = cat("ДРУГА", person("Друг", decl("b.xml")));
     expect(extractDeclarationXmlFiles(xml, wanted)).toEqual([]);
+  });
+});
+
+// The `at(...)` helper builds a per-declaration source URL — the shape
+// registerFolderYear recovers a year from.
+const at = (folder: string) =>
+  `https://register.cacbg.bg/${folder}/F7431F58-230F-48F4-8F7A-AB8FCA424301155913.xml`;
+
+describe("registerFolderYear", () => {
+  it("reads a bare year folder in both modes", () => {
+    expect(registerFolderYear(at("2025"))).toBe(2025);
+    expect(registerFolderYear(at("2025"), { allowSuffixed: true })).toBe(2025);
+  });
+
+  // The merge drops the rows a run owns before re-adding them. If `2021_nc`
+  // answered to a `--year 2021` run, those rows would be dropped and never
+  // re-fetched — there is no plain /2021/ listing to fetch them from.
+  it("does not attribute a suffixed folder to a bare-year run by default", () => {
+    expect(registerFolderYear(at("2021_nc"))).toBeNull();
+    expect(registerFolderYear(at("2021_nonc"))).toBeNull();
+    expect(registerFolderYear(at("2024f1"))).toBeNull();
+  });
+
+  it("reads suffixed folders when asked to date a filing", () => {
+    expect(registerFolderYear(at("2021_nc"), { allowSuffixed: true })).toBe(
+      2021,
+    );
+    expect(registerFolderYear(at("2024f1"), { allowSuffixed: true })).toBe(
+      2024,
+    );
+  });
+
+  it("rejects a foreign host", () => {
+    expect(
+      registerFolderYear("https://example.invalid/2025/x.xml", {
+        allowSuffixed: true,
+      }),
+    ).toBeNull();
+  });
+
+  it("rejects an implausible year", () => {
+    expect(registerFolderYear(at("1999"), { allowSuffixed: true })).toBeNull();
   });
 });

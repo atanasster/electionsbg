@@ -23,6 +23,7 @@ import type {
   MpOwnershipStake,
 } from "../../src/data/dataTypes";
 import { toEur } from "../../src/lib/currency";
+import { registerFolderYear } from "../lib/cacbg_register";
 
 const text = ($: CheerioAPI, sel: string): string | null => {
   const el = $(sel).first();
@@ -688,6 +689,95 @@ const parseIncomeRow = (row: ReturnType<CheerioAPI>): MpIncomeRecord => ({
   amountEurSpouse: toEur(toNumber(cellByNum(row, 4)), "BGN"),
 });
 
+// The register itself starts in 2005 (see MIN_PLAUSIBLE_YEAR in
+// scripts/lib/cacbg_register.ts) — a filing cannot predate it.
+const MIN_DECLARATION_YEAR = 2005;
+
+// Which year a filing belongs to, in descending order of trustworthiness.
+//
+// `DeclarationData > Year` is the fiscal year the filing covers, and an annual
+// filed in year N covers N-1 — so an annual's own year is fiscal+1. But that
+// element is EMPTY on every one-off filing (Entry / Vacate / Other), which is
+// ~40% of the corpus. Those used to fall through to `new Date().getFullYear()`,
+// stamping a 2023 incompatibility filing with whatever year the pipeline
+// happened to run in. Because every consumer sorts newest-first on this field,
+// one wall-clock row jumped ahead of the declarant's real filings and became
+// their "latest declaration" — which is how ~29% of the officials index came to
+// claim a 2026 that does not exist.
+//
+// So: never consult the clock. Fall through to the filing date, then to the
+// register folder the XML was published in, which is always knowable from the
+// source URL.
+export const resolveDeclarationYear = ({
+  declType,
+  fiscalYear,
+  filedAt,
+  sourceUrl,
+}: {
+  declType: string;
+  fiscalYear: number | null;
+  filedAt: string | null;
+  sourceUrl: string;
+}): number => {
+  const folderYear = registerFolderYear(sourceUrl, { allowSuffixed: true });
+
+  // Finiteness, not nullishness. `<Year>` is read with `Number(...)`, so any
+  // non-numeric content ("2023 г.", "н/д", a stray NBSP) arrives as NaN — and
+  // `NaN != null` is true, which would take this rung and then fail out of the
+  // whole chain even when `filedAt` and the folder are both perfectly good.
+  const fy =
+    fiscalYear != null && Number.isFinite(fiscalYear) ? fiscalYear : null;
+  if (fiscalYear != null && fy == null) {
+    console.warn(
+      `[parse] unusable <Year> "${fiscalYear}" — dating from filedAt/folder instead (${sourceUrl})`,
+    );
+  }
+
+  const filedYear = filedAt != null ? Number(filedAt.slice(0, 4)) : null;
+
+  const derived =
+    fy != null
+      ? declType === "Annualy"
+        ? fy + 1
+        : fy
+      : filedYear != null && Number.isFinite(filedYear)
+        ? filedYear
+        : folderYear;
+
+  if (derived == null || !Number.isFinite(derived)) {
+    throw new Error(
+      `cannot resolve declarationYear for ${sourceUrl} (type=${declType}, fiscalYear=${fiscalYear}, filedAt=${filedAt})`,
+    );
+  }
+
+  // A filing cannot declare a year later than the folder that published it —
+  // except for the +1 an ANNUAL legitimately carries, since an annual filed in
+  // folder N covers fiscal N-1. Granting that +1 to a one-off filing would leave
+  // a typo'd `Year` still resolving to a future year, i.e. the very defect this
+  // function exists to close, merely narrowed.
+  //
+  // The bound is two-sided: `registerFolderYear` already refuses anything below
+  // 2005, but a typo'd `Year` of 1900 would otherwise pass straight through and
+  // strand the row at the bottom of the declarant's history. Clamp and say so,
+  // rather than silently trusting or silently rewriting.
+  if (folderYear != null) {
+    const maxYear = folderYear + (declType === "Annualy" ? 1 : 0);
+    if (derived > maxYear) {
+      console.warn(
+        `[parse] declarationYear ${derived} exceeds register folder ${folderYear} — clamping to ${maxYear} (${sourceUrl})`,
+      );
+      return maxYear;
+    }
+    if (derived < MIN_DECLARATION_YEAR) {
+      console.warn(
+        `[parse] declarationYear ${derived} precedes the register itself — clamping to ${MIN_DECLARATION_YEAR} (${sourceUrl})`,
+      );
+      return MIN_DECLARATION_YEAR;
+    }
+  }
+  return derived;
+};
+
 export type ParseInput = {
   xml: string;
   mpId: number;
@@ -712,11 +802,12 @@ export const parseDeclarationXml = ({
   const entryNumber = text($, "DeclarationData > EntryNumber");
   const controlHash = text($, "DeclarationData > ControlHash");
 
-  // Annual declaration filed in year N covers fiscal year N-1.
-  const declarationYear =
-    fiscalYear != null && declType === "Annualy"
-      ? fiscalYear + 1
-      : (fiscalYear ?? new Date().getFullYear());
+  const declarationYear = resolveDeclarationYear({
+    declType,
+    fiscalYear,
+    filedAt,
+    sourceUrl,
+  });
 
   const ownershipStakes: MpOwnershipStake[] = [];
 

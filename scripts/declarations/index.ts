@@ -35,8 +35,9 @@ import { buildCarMakes } from "./build_car_makes";
 import { buildDataProvenance } from "./build_data_provenance";
 import { buildCompaniesBySettlement } from "../parliament/build_companies_by_settlement";
 import { buildCompaniesByObshtina } from "../parliament/build_companies_by_obshtina";
-
-const REGISTER_BASE = "https://register.cacbg.bg";
+// Shared with the officials ingest and registerFolderYear() — see
+// scripts/lib/cacbg_register.ts for why this must not be redeclared.
+import { REGISTER_BASE } from "../lib/cacbg_register";
 
 const UA = "electionsbg.com data pipeline";
 
@@ -205,6 +206,7 @@ export const parseFinancialDeclarations = async ({
     console.log(`[declarations]   ${entries.length} parliament declarants`);
 
     let processed = 0;
+    let parseFailures = 0;
     for (const entry of entries) {
       if (processed >= limit) break;
       const norm = normalize(entry.declarantName);
@@ -227,20 +229,35 @@ export const parseFinancialDeclarations = async ({
       }
 
       const xml = await fetchDeclaration(dataFolder, entry);
-      const decl = parseDeclarationXml({
-        xml,
-        mpId: mp.id,
-        institution: entry.institution,
-        sourceUrl: entry.sourceUrl,
-      });
+      try {
+        const decl = parseDeclarationXml({
+          xml,
+          mpId: mp.id,
+          institution: entry.institution,
+          sourceUrl: entry.sourceUrl,
+        });
 
-      const existing = byMp.get(mp.id) ?? [];
-      existing.push(decl);
-      byMp.set(mp.id, existing);
+        const existing = byMp.get(mp.id) ?? [];
+        existing.push(decl);
+        byMp.set(mp.id, existing);
+      } catch (err) {
+        // Isolated malformed declaration — skip it rather than abandoning the
+        // run, which writes only after the loop. Matches the officials and
+        // municipal ingests.
+        const msg = err instanceof Error ? err.message : String(err);
+        console.warn(`[declarations]   unparseable ${entry.sourceUrl}: ${msg}`);
+        parseFailures++;
+      }
 
       processed++;
       // Politeness — only when we actually hit the network
       await sleep(150);
+    }
+
+    if (parseFailures > 0) {
+      console.warn(
+        `[declarations]   skipped ${parseFailures}/${processed} unparseable declaration(s) for ${year}`,
+      );
     }
   }
 

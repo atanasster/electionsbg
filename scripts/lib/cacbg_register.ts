@@ -27,6 +27,18 @@ import { load } from "cheerio";
 
 export const REGISTER_ROOT = "https://register.cacbg.bg/";
 
+// The same origin without the trailing slash — what per-declaration source URLs
+// are built from. Exported so the ingests derive it from here instead of each
+// declaring its own copy: a private copy that drifts would not fail loudly, it
+// would just make `registerFolderYear` silently return null and disable the
+// declaration-year fallback that depends on it.
+export const REGISTER_BASE = REGISTER_ROOT.replace(/\/$/, "");
+
+const REGISTER_BASE_ESCAPED = REGISTER_BASE.replace(
+  /[.*+?^${}()|[\]\\]/g,
+  "\\$&",
+);
+
 // Oldest year worth believing. Guards against a stray 4-digit href being read
 // as a declaration year if the root page is ever restructured.
 const MIN_PLAUSIBLE_YEAR = 2005;
@@ -74,6 +86,46 @@ export const latestRegisterYear = async (
 
 export const __resetRegisterYearCache = (): void => {
   cached = null;
+};
+
+// The register folder year a declaration came from, recovered from its
+// source URL (https://register.cacbg.bg/<YYYY>/<GUID>.xml).
+//
+// This is the only year that is ALWAYS knowable for a filing: the year inside
+// the XML (`DeclarationData > Year`) is absent on one-off entry/exit/change
+// filings, and the filing date is absent on some rows too. Callers use it as
+// the terminal fallback when deriving `declarationYear`, and as the upper
+// bound when sanity-checking a parsed year — a filing cannot be published in a
+// folder that predates the year it declares (beyond the +1 an annual filing
+// legitimately carries, since an annual filed in folder N covers fiscal N-1).
+//
+// `allowSuffixed` selects between the two things callers legitimately want:
+//
+//   false (default) — only bare `<YYYY>` folders. This is the OWNERSHIP test
+//     the merge uses: "did the run targeting year N produce this row?" A run
+//     can only ever target a bare year (that is all `latestRegisterYear`
+//     returns), so a `2021_nc` row must NOT answer to a `--year 2021` run or
+//     the merge would drop rows it cannot re-fetch.
+//   true — also `2021_nc`, `2021_nonc`, `2024f1`. This is the DATING test:
+//     those folders hold real declarations, and a filing cached under one
+//     still needs a plausible year for sorting and bounds-checking.
+// Compiled once: this runs per declaration, ~10k times on a full re-derive.
+// The suffix is a bounded character class rather than `[^/]*` so a malformed
+// path segment cannot be read as a year with junk appended — the real suffixes
+// are `_nc`, `_nonc`, `y`, `y4`, `f1`.
+const BARE_YEAR_RE = new RegExp(`^${REGISTER_BASE_ESCAPED}/(\\d{4})/`);
+const SUFFIXED_YEAR_RE = new RegExp(
+  `^${REGISTER_BASE_ESCAPED}/(\\d{4})[a-z0-9_]*/`,
+);
+
+export const registerFolderYear = (
+  sourceUrl: string,
+  { allowSuffixed = false }: { allowSuffixed?: boolean } = {},
+): number | null => {
+  const m = (allowSuffixed ? SUFFIXED_YEAR_RE : BARE_YEAR_RE).exec(sourceUrl);
+  if (!m) return null;
+  const year = Number(m[1]);
+  return year >= MIN_PLAUSIBLE_YEAR ? year : null;
 };
 
 // Collect the <xmlFile> of every declaration under a category the caller

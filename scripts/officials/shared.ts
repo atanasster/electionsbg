@@ -10,12 +10,16 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { Agent } from "undici";
+import { REGISTER_BASE } from "../lib/cacbg_register";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export const ROOT = path.resolve(__dirname, "../..");
-export const REGISTER_BASE = "https://register.cacbg.bg";
+// Re-exported, not redeclared: registerFolderYear() matches source URLs against
+// this exact origin, so a private copy drifting here would silently disable the
+// declaration-year fallback rather than fail.
+export { REGISTER_BASE };
 // Raw per-declaration XML cache (gitignored). Shared by both ingests — keyed
 // on the registry's GUID xmlFile name, so executive and municipal never
 // collide even though they land in the same year directory.
