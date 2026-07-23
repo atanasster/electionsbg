@@ -2,7 +2,11 @@ import path from "path";
 import { command, run, string, option, boolean, optional, flag } from "cmd-ts";
 import { fileURLToPath } from "url";
 import { runStats } from "./stats/collect_stats";
-import { generateReports, generateSummariesOnly } from "./reports";
+import {
+  generateReports,
+  generateSummariesOnly,
+  generateAllAnalysisStats,
+} from "./reports";
 import { generateCanonicalParties } from "./parsers/canonicalParties";
 import { parseElections } from "./parsers/parse_elections";
 import { generateAllSearchFIles } from "./search";
@@ -80,6 +84,11 @@ const app = command({
       type: optional(boolean),
       long: "reports",
       short: "r",
+      defaultValue: () => false,
+    }),
+    analysisStats: flag({
+      type: optional(boolean),
+      long: "analysisStats",
       defaultValue: () => false,
     }),
     stats: flag({
@@ -271,6 +280,7 @@ const app = command({
     stats,
     date,
     reports,
+    analysisStats,
     search,
     financing,
     erik,
@@ -482,6 +492,13 @@ const app = command({
     }
     if (prevoteFlows) {
       generatePrevoteFlows({ publicFolder, stringify });
+    }
+    // Regenerate the /analysis hub blobs LAST — after every upstream source this
+    // run may have rewritten (national summary, risk, benford, the vote-flow
+    // transitions from `--flows`, polls, financing) — so no metric is dropped
+    // for want of a not-yet-generated file. `--analysisStats` runs it alone.
+    if (reports || all || summary || analysisStats) {
+      generateAllAnalysisStats(stringify, election);
     }
   },
 });

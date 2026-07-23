@@ -237,3 +237,8 @@ export const generateSummariesOnly = (
     });
   generateRegionHistory({ publicFolder, stringify });
 };
+
+export {
+  generateAnalysisStats,
+  generateAllAnalysisStats,
+} from "./analysis_stats";
