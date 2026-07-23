@@ -12,15 +12,17 @@
 
 import type { WatchSource, Fingerprint, WatchState } from "../types";
 import { fetchText, sha256Short } from "../fingerprint";
+import { REGISTER_ROOT, latestRegisterYear } from "../../lib/cacbg_register";
 
-// Year the upstream registry currently publishes filings under. Bump when
-// the new year's list.xml goes live (early January each year). Keeping a
-// single source of truth here matches scripts/officials/index.ts default.
-const YEAR = 2025;
-const PAGE = `https://register.cacbg.bg/${YEAR}/list.xml`;
+// The year is discovered from the register root on every run rather than
+// pinned — a pinned constant kept fingerprinting the previous cycle's
+// list.xml after a new folder went live, so the new filings read as
+// "unchanged" until someone bumped it by hand. Shared with cacbg_local.ts
+// and scripts/officials/index.ts, which resolves the same way.
+const listUrl = (year: number): string => `${REGISTER_ROOT}${year}/list.xml`;
 
 // Substring match against verbatim Category Name in list.xml. Must stay in
-// sync with CATEGORY_MAP at scripts/officials/index.ts:64 — if you change the
+// sync with CATEGORY_MAP at scripts/officials/index.ts:58 — if you change the
 // scope on the ingest side, mirror it here so the watcher tracks the same
 // slice.
 const CATEGORY_SUBSTRINGS = [
@@ -59,28 +61,36 @@ const extractXmlFiles = (xml: string): string[] => {
 export const cacbgOfficials: WatchSource = {
   id: "cacbg_officials",
   label: "Сметна палата declarations — executive (officials)",
-  url: PAGE,
+  // Static, for the data map — the probed URL is resolved per run.
+  url: REGISTER_ROOT,
   cadence: "weekly",
 
   async fingerprint(): Promise<Fingerprint> {
     // register.cacbg.bg serves an incomplete TLS chain; same workaround as
     // cacbg_declarations.
-    const xml = await fetchText(PAGE, { insecureTls: true });
-    if (!xml) throw new Error("empty officials list.xml");
+    const year = await latestRegisterYear((u) =>
+      fetchText(u, { insecureTls: true }),
+    );
+    const xml = await fetchText(listUrl(year), { insecureTls: true });
+    if (!xml) throw new Error(`empty officials list.xml for ${year}`);
     const files = extractXmlFiles(xml);
     if (files.length === 0) {
       throw new Error(
-        "officials list.xml yielded zero declaration xmlFile entries — upstream schema may have changed",
+        `officials list.xml for ${year} yielded zero declaration xmlFile entries — upstream schema may have changed`,
       );
     }
     // Stable order — sort so the hash is independent of upstream emission
     // order shuffling.
     files.sort();
+    // The year is deliberately NOT folded into the hash: a new cycle brings a
+    // wholly new set of xmlFile GUIDs, so the file set alone already flips the
+    // fingerprint. Hashing the year too would spuriously mark the current
+    // cycle as changed on the first run after this change landed.
     const value = sha256Short(files.join("\n"));
     return {
       value,
-      detail: `${files.length} declarations in scope, hash ${value}`,
-      meta: { count: files.length, year: YEAR },
+      detail: `${files.length} declarations in scope for ${year}, hash ${value}`,
+      meta: { count: files.length, year },
     };
   },
 
@@ -88,6 +98,13 @@ export const cacbgOfficials: WatchSource = {
     if (!prev) return curr.detail;
     const prevCount = (prev.meta?.count as number | undefined) ?? 0;
     const currCount = (curr.meta?.count as number | undefined) ?? 0;
+    const prevYear = prev.meta?.year as number | undefined;
+    const currYear = curr.meta?.year as number | undefined;
+    // A year rollover is the headline — the counts belong to different cycles,
+    // so a delta between them would be meaningless.
+    if (prevYear && currYear && prevYear !== currYear) {
+      return `new declaration year ${prevYear} → ${currYear} (${currCount} declarations in scope) — run /update-officials (executive leg: scripts/officials/index.ts)`;
+    }
     const delta = currCount - prevCount;
     if (delta === 0)
       return `${currCount} declarations (content changed, no net add/remove)`;

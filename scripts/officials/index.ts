@@ -5,8 +5,8 @@
 // under data/officials/ keyed on a slug (no parliament.bg id to anchor on).
 //
 // CLI:
-//   tsx scripts/officials/index.ts                # year 2025 (default), full set
-//   tsx scripts/officials/index.ts --year 2024    # earlier year
+//   tsx scripts/officials/index.ts                # newest published year, full set
+//   tsx scripts/officials/index.ts --year 2024    # pin an earlier year
 //   tsx scripts/officials/index.ts --limit 20     # cap declarations processed
 //   tsx scripts/officials/index.ts --dry-run      # no writes
 //   tsx scripts/officials/index.ts --name "Дончев" # debug: substring filter
@@ -35,6 +35,7 @@ import type {
   OfficialIndexFile,
 } from "../../src/data/dataTypes";
 import { parseDeclarationXml } from "../declarations/parse_declaration";
+import { latestRegisterYear } from "../lib/cacbg_register";
 import {
   ROOT,
   REGISTER_BASE,
@@ -191,7 +192,8 @@ const cmd = command({
     year: option({
       type: optional(number),
       long: "year",
-      description: "Single declaration year to ingest (default 2025)",
+      description:
+        "Single declaration year to ingest (default: newest published on the register)",
     }),
     limit: option({
       type: optional(number),
@@ -210,7 +212,10 @@ const cmd = command({
     }),
   },
   handler: async ({ year, limit, name, dryRun }) => {
-    const targetYear = year ?? 2025;
+    // Default to whatever the register root currently advertises rather than a
+    // pinned constant, so a new cycle is picked up without a code change. The
+    // cacbg_officials watcher resolves the year the same way.
+    const targetYear = year ?? (await latestRegisterYear(fetchText));
     const cap = limit ?? Infinity;
     const filter = name ? normalize(name) : null;
 

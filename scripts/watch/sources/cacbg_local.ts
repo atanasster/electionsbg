@@ -19,12 +19,12 @@
 
 import type { WatchSource, Fingerprint, WatchState } from "../types";
 import { fetchText, sha256Short } from "../fingerprint";
+import { REGISTER_ROOT, latestRegisterYear } from "../../lib/cacbg_register";
 
-// Year the upstream registry currently publishes filings under. Bump when
-// the new year's list.xml goes live (early January each year). Kept in sync
-// with cacbg_officials.ts and scripts/officials/index.ts.
-const YEAR = 2025;
-const PAGE = `https://register.cacbg.bg/${YEAR}/list.xml`;
+// The year is discovered from the register root on every run rather than
+// pinned — see the note in cacbg_officials.ts. Shared with that source and
+// with scripts/officials/index.ts, which resolves the same way.
+const listUrl = (year: number): string => `${REGISTER_ROOT}${year}/list.xml`;
 
 // Substring match against the verbatim Category Name in list.xml. Every
 // municipal-tier category label begins with "Кметове" (e.g. "Кметове, и
@@ -59,28 +59,33 @@ const extractXmlFiles = (xml: string): string[] => {
 export const cacbgLocal: WatchSource = {
   id: "cacbg_local",
   label: "Сметна палата declarations — municipal (mayors & councillors)",
-  url: PAGE,
+  // Static, for the data map — the probed URL is resolved per run.
+  url: REGISTER_ROOT,
   cadence: "weekly",
 
   async fingerprint(): Promise<Fingerprint> {
     // register.cacbg.bg serves an incomplete TLS chain; same workaround as
     // cacbg_declarations / cacbg_officials.
-    const xml = await fetchText(PAGE, { insecureTls: true });
-    if (!xml) throw new Error("empty municipal list.xml");
+    const year = await latestRegisterYear((u) =>
+      fetchText(u, { insecureTls: true }),
+    );
+    const xml = await fetchText(listUrl(year), { insecureTls: true });
+    if (!xml) throw new Error(`empty municipal list.xml for ${year}`);
     const files = extractXmlFiles(xml);
     if (files.length === 0) {
       throw new Error(
-        "municipal list.xml yielded zero declaration xmlFile entries — upstream schema may have changed",
+        `municipal list.xml for ${year} yielded zero declaration xmlFile entries — upstream schema may have changed`,
       );
     }
     // Stable order — sort so the hash is independent of upstream emission
     // order shuffling.
     files.sort();
+    // Year deliberately not folded into the hash — see cacbg_officials.ts.
     const value = sha256Short(files.join("\n"));
     return {
       value,
-      detail: `${files.length} declarations in scope, hash ${value}`,
-      meta: { count: files.length, year: YEAR },
+      detail: `${files.length} declarations in scope for ${year}, hash ${value}`,
+      meta: { count: files.length, year },
     };
   },
 
@@ -88,6 +93,12 @@ export const cacbgLocal: WatchSource = {
     if (!prev) return curr.detail;
     const prevCount = (prev.meta?.count as number | undefined) ?? 0;
     const currCount = (curr.meta?.count as number | undefined) ?? 0;
+    const prevYear = prev.meta?.year as number | undefined;
+    const currYear = curr.meta?.year as number | undefined;
+    // A year rollover is the headline — the counts belong to different cycles.
+    if (prevYear && currYear && prevYear !== currYear) {
+      return `new declaration year ${prevYear} → ${currYear} (${currCount} declarations in scope) — run /update-officials (municipal leg: scripts/officials/municipal.ts)`;
+    }
     const delta = currCount - prevCount;
     if (delta === 0)
       return `${currCount} declarations (content changed, no net add/remove)`;

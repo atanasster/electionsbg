@@ -10,8 +10,8 @@
 // ranking page. The output is staged for the cross-MP connections graph.
 //
 // CLI:
-//   tsx scripts/officials/municipal.ts                # year 2025 (default)
-//   tsx scripts/officials/municipal.ts --year 2024    # earlier year
+//   tsx scripts/officials/municipal.ts                # newest published year
+//   tsx scripts/officials/municipal.ts --year 2024    # pin an earlier year
 //   tsx scripts/officials/municipal.ts --limit 20     # cap declarations (debug)
 //   tsx scripts/officials/municipal.ts --dry-run      # no writes
 //   tsx scripts/officials/municipal.ts --name "Манолов" # debug: name filter
@@ -35,6 +35,7 @@ import type {
   OfficialDeclaration,
 } from "../../src/data/dataTypes";
 import { parseDeclarationXml } from "../declarations/parse_declaration";
+import { latestRegisterYear } from "../lib/cacbg_register";
 import {
   ROOT,
   REGISTER_BASE,
@@ -133,7 +134,8 @@ const cmd = command({
     year: option({
       type: optional(number),
       long: "year",
-      description: "Single declaration year to ingest (default 2025)",
+      description:
+        "Single declaration year to ingest (default: newest published on the register)",
     }),
     limit: option({
       type: optional(number),
@@ -152,7 +154,10 @@ const cmd = command({
     }),
   },
   handler: async ({ year, limit, name, dryRun }) => {
-    const targetYear = year ?? 2025;
+    // Default to whatever the register root currently advertises rather than a
+    // pinned constant, so a new cycle is picked up without a code change. The
+    // cacbg_local watcher resolves the year the same way.
+    const targetYear = year ?? (await latestRegisterYear(fetchText));
     const cap = limit ?? Infinity;
     const filter = name ? normalize(name) : null;
 

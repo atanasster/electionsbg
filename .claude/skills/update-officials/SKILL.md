@@ -23,7 +23,8 @@ The municipal tier (mayors, deputy-mayors, municipal-council chairs, councillors
 | User asks to "refresh officials" / "update cabinet declarations" | Run the executive ingest; run the municipal ingest too if the municipal watcher also flipped |
 | `data/officials/assets-rankings.json` missing (fresh clone) | Cold-start executive ingest |
 | `data/officials/municipal/index.json` missing (fresh clone) | Cold-start municipal ingest (Step 1b — ~30–50 min) |
-| Adding a new year of filings | Re-run the relevant ingest with `--year <YYYY>` after the upstream publishes that year's list.xml |
+| Watcher reports `new declaration year <prev> → <curr>` | The register opened a new cycle. Re-run the flagged ingest with no `--year` — it resolves the newest published year itself. Expect a cold-start-sized run (the whole cycle is new declarations). |
+| Adding a new year of filings | Only needed to pin a *non-newest* year: `--year <YYYY>`. The newest is the default. |
 
 ## Step 1 — Ingest
 
@@ -185,7 +186,8 @@ git commit -m "officials: refresh declarations for FY <year>"
 ## CLI flags
 
 ```bash
-# Single year (default 2025)
+# Pin a single year. Omitted, both ingests resolve the newest year the
+# register root advertises — no constant to bump when a new cycle publishes.
 npx tsx scripts/officials/index.ts --year 2024
 
 # Cap declarations processed (debug)
