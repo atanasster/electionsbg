@@ -94,5 +94,101 @@
         "fundsOrigin": null
       }
     ]
+  },
+  {
+    "slug": "kristiyan-georgiev-panov-4cefd3",
+    "declarantName": "Кристиян Георгиев Панов",
+    "institution": "Агенция по заетостта при МТСП",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-15",
+    "entryNumber": "Г13269",
+    "controlHash": "1C13634D",
+    "sourceUrl": "https://register.cacbg.bg/2024/AD6755D9-873F-4DFF-AACD-083740649105195173.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 41585.41386521323,
+        "amountEurSpouse": 9927.754457186975
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10500,
+        "valueEur": 5368.564752560294,
+        "holderName": "Кристиян Георгиев Панов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 6000,
+        "valueEur": 5544.96045157299,
+        "holderName": "Боряна Стоянова Димитрова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит, лихва 4.77 %",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 53125,
+        "valueEur": 27162.38118854911,
+        "holderName": "Кристиян Георгиев Панов",
+        "isSpouse": false,
+        "legalBasis": "банков кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит, лихва 7.38 %",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 56633,
+        "valueEur": 28955.99310778544,
+        "holderName": "Кристиян Георгиев Панов",
+        "isSpouse": false,
+        "legalBasis": "банков кредит",
+        "fundsOrigin": null
+      }
+    ]
   }
 ]

@@ -82,5 +82,53 @@
         "fundsOrigin": null
       }
     ]
+  },
+  {
+    "slug": "encho-marinov-vasilev-252851",
+    "declarantName": "Енчо Маринов Василев",
+    "institution": "ЦСМП",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-08",
+    "entryNumber": "Г9606",
+    "controlHash": "05EAC4CE",
+    "sourceUrl": "https://register.cacbg.bg/2024/0687D531-3ED3-49F0-8863-D4764339B2E3191263.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 46476.943292617456,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 12393.715200196337,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Енчо Маринов Василев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
   }
 ]

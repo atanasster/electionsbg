@@ -412,5 +412,83 @@
         "fundsOrigin": null
       }
     ]
+  },
+  {
+    "slug": "nikolai-stefanov-boichev-c9ef11",
+    "declarantName": "Николай Стефанов Бойчев",
+    "institution": "ИА по рибарство и аквакултури при МЗГ",
+    "positionTitle": null,
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-04",
+    "entryNumber": "Г2715",
+    "controlHash": "27E807C8",
+    "sourceUrl": "https://register.cacbg.bg/2022/A2C198B1-2524-41F1-9BA0-D32703585095134856.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 3250.793780645557,
+        "amountEurSpouse": 1303.794297050357
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Шкода",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2017,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 3900,
+        "valueEur": 1994.038336665252,
+        "holderName": "Николай Стефанов Бойчев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 103000,
+        "valueEur": 52663.063763210506,
+        "holderName": "николай Стефанов Бойчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "продажба на имот"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16171,
+        "valueEur": 8268.10101082405,
+        "holderName": "Златияна Велчева Бойчева",
+        "isSpouse": true,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ]
   }
 ]

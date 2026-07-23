@@ -52,5 +52,59 @@
         "fundsOrigin": "заплата"
       }
     ]
+  },
+  {
+    "slug": "zhelyu-dechev-vladimirov-f8d56b",
+    "declarantName": "Желю Дечев Владимиров",
+    "institution": "Фонд \"Научни изследвания\"",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-29",
+    "entryNumber": "Г4894",
+    "controlHash": "F0A0C353",
+    "sourceUrl": "https://register.cacbg.bg/2024/08B3C9B3-5D6A-4DD0-956D-91227F11DBF5186096.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 74153.17282176876,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 65430.53332856128,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 8722.639493207487,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "вноски за апартамент",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22000,
+        "valueEur": 11248.421386316806,
+        "holderName": "Желю Дечев Владимиров",
+        "isSpouse": false,
+        "legalBasis": "дотовор за строеж",
+        "fundsOrigin": null
+      }
+    ]
   }
 ]

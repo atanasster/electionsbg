@@ -82,5 +82,173 @@
         "fundsOrigin": null
       }
     ]
+  },
+  {
+    "slug": "ivaila-simeonova-kasrova-4ffd9f",
+    "declarantName": "Ивайла Симеонова Касърова",
+    "institution": "Държавна агенция за закрила на детето",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-08",
+    "entryNumber": "Г13442",
+    "controlHash": "07499612",
+    "sourceUrl": "https://register.cacbg.bg/2024/24D12E28-29AF-4AED-881A-0BB65C529196195402.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 33429.79706825235,
+        "amountEurSpouse": 20860.708752805713
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 4294.851802048235,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 69204,
+        "valueEur": 35383.4433463031,
+        "holderName": "Ивайла Симеонова Касърова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 35042,
+        "valueEur": 35042,
+        "holderName": "Ивайла Симеонова Касърова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "наем,заплата"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18815,
+        "valueEur": 9619.956744706851,
+        "holderName": "Радко Мичев Касъров",
+        "isSpouse": true,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      }
+    ]
+  },
+  {
+    "slug": "ivaila-simeonova-kasrova-4ffd9f",
+    "declarantName": "Ивайла Симеонова Касърова",
+    "institution": "Държавна агенция за закрила на детето",
+    "positionTitle": null,
+    "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": "2023-05-10",
+    "entryNumber": "Г6268",
+    "controlHash": "DADF0201",
+    "sourceUrl": "https://register.cacbg.bg/2023/24D12E28-29AF-4AED-881A-0BB65C529196152853.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27583.68569865479,
+        "amountEurSpouse": 19715.92623080738
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 3681.3015446127733,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "сузуки",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 36320,
+        "valueEur": 18570.121125046655,
+        "holderName": "Ивайла Симеонова Касърова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 48220,
+        "valueEur": 24654.494511281657,
+        "holderName": "Ивайла Симеонова Касърова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата наем"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 35042,
+        "valueEur": 35042,
+        "holderName": "Ивайла Симеонова Касърова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата наем спестявания"
+      }
+    ]
   }
 ]

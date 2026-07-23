@@ -58,5 +58,83 @@
         "fundsOrigin": null
       }
     ]
+  },
+  {
+    "slug": "silviya-laleva-moeva-6fb0cc",
+    "declarantName": "Силвия Лалева Моева",
+    "institution": "ЦСМП",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-03-18",
+    "entryNumber": "Г7476",
+    "controlHash": "8C3446D0",
+    "sourceUrl": "https://register.cacbg.bg/2024/D18A4AD2-4096-4384-AFD9-236FF76CFA99189072.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28248.87643609107,
+        "amountEurSpouse": 6650.88479060041
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Силвия Лалева Моева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Силвия Лалева Моева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 31500,
+        "valueEur": 16105.694257680883,
+        "holderName": "Силвия Лалева Моева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ]
   }
 ]

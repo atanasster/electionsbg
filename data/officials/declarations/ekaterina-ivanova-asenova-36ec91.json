@@ -40,5 +40,143 @@
         "fundsOrigin": "заплата"
       }
     ]
+  },
+  {
+    "slug": "ekaterina-ivanova-asenova-36ec91",
+    "declarantName": "Екатерина Иванова Асенова",
+    "institution": "ИА “ГИТ”",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-24",
+    "entryNumber": "Г5349",
+    "controlHash": "0900D322",
+    "sourceUrl": "https://register.cacbg.bg/2024/73277AF7-8D20-4029-9B9B-681676764B2E186587.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 51114.871946948355,
+        "amountEurSpouse": 41071.56552461103
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Чирпан",
+        "municipality": "Чирпан",
+        "areaSqm": 185,
+        "builtAreaSqm": 185,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Екатерина Иванова Асенова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес МЛ 280 ЦДИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 16000,
+        "valueEur": 8180.6700991394955,
+        "holderName": "Екатерина Иванова Асенова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес МЛ 280 ЦДИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 16000,
+        "valueEur": 8180.6700991394955,
+        "holderName": "Валери Славчев Асенов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 67592,
+        "valueEur": 34559.2408338148,
+        "holderName": "Екатерина Иванова Асенова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  },
+  {
+    "slug": "ekaterina-ivanova-asenova-36ec91",
+    "declarantName": "Екатерина Иванова Асенова",
+    "institution": "ИА “ГИТ”",
+    "positionTitle": null,
+    "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": "2023-03-22",
+    "entryNumber": "Г382",
+    "controlHash": "D06C624D",
+    "sourceUrl": "https://register.cacbg.bg/2023/73277AF7-8D20-4029-9B9B-681676764B2E146156.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31324.297101486325,
+        "amountEurSpouse": 24927.01308395924
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20880,
+        "valueEur": 10675.774479377042,
+        "holderName": "Екатерина Иванова Асенова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
   }
 ]

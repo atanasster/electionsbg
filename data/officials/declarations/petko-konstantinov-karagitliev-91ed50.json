@@ -40,5 +40,47 @@
         "fundsOrigin": "Попупко продажба на имот"
       }
     ]
+  },
+  {
+    "slug": "petko-konstantinov-karagitliev-91ed50",
+    "declarantName": "Петко Константинов Карагитлиев",
+    "institution": "Област - Стара Загора",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-14",
+    "entryNumber": "Г4902",
+    "controlHash": "2A58CB7F",
+    "sourceUrl": "https://register.cacbg.bg/2024/A8DF9ACB-64DD-4DF2-97E8-6F19D11AD97A186104.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25177.546105745387,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Петко Константинов Карагитлиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
   }
 ]

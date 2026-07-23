@@ -52,6 +52,10 @@ import {
 const OUT_DIR = path.join(ROOT, "data", "officials");
 const DECL_DIR = path.join(OUT_DIR, "declarations");
 
+// Share of a year's listed declarations that may be missing upstream before
+// the run is treated as broken rather than merely incomplete.
+const MAX_MISSING_RATE = 0.05;
+
 const readJsonOr = <T>(file: string, fallback: T): T => {
   if (!fs.existsSync(file)) return fallback;
   try {
@@ -235,8 +239,14 @@ const cmd = command({
       long: "dry-run",
       description: "Parse only; do not write any output files",
     }),
+    maxMissing: option({
+      type: optional(number),
+      long: "max-missing",
+      description:
+        "Share of listed declarations allowed to be missing upstream, 0-1 (default 0.05). Raise deliberately to accept a known-incomplete historical year, e.g. 2018 is 14% rotted upstream.",
+    }),
   },
-  handler: async ({ year, limit, name, dryRun }) => {
+  handler: async ({ year, limit, name, dryRun, maxMissing }) => {
     // Default to whatever the register root currently advertises rather than a
     // pinned constant, so a new cycle is picked up without a code change. The
     // cacbg_officials watcher resolves the year the same way.
@@ -253,6 +263,7 @@ const cmd = command({
     const declsBySlug = new Map<string, OfficialDeclaration[]>();
     const indexBySlug = new Map<string, OfficialIndexEntry>();
     let processed = 0;
+    let missing = 0;
 
     for (const entry of entries) {
       if (processed >= cap) break;
@@ -263,6 +274,15 @@ const cmd = command({
         entry.xmlFile,
         entry.sourceUrl,
       );
+      // list.xml sometimes references a declaration whose file is gone (the
+      // 2018 and 2024 folders both do). Skip it rather than abandoning the
+      // year — the tolerance check after the loop still fails loud if the
+      // rot is widespread rather than incidental.
+      if (xml == null) {
+        missing++;
+        console.warn(`  [missing] ${entry.declarantName} — ${entry.sourceUrl}`);
+        continue;
+      }
       // Existing parser keys on mpId — pass 0 as a sentinel and strip it.
       const parsed = parseDeclarationXml({
         xml,
@@ -314,6 +334,22 @@ const cmd = command({
     console.log(
       `  processed ${processed} declaration(s) for ${declsBySlug.size} unique official(s)`,
     );
+
+    // Isolated missing files are an upstream fact; a high rate means the year
+    // is broken (or we are being rate-limited into 404s) and writing it would
+    // publish a partial cohort as if it were complete.
+    if (missing > 0) {
+      const rate = missing / entries.length;
+      console.warn(
+        `  [warn] ${missing} declaration(s) listed but missing upstream (${(rate * 100).toFixed(1)}%)`,
+      );
+      const tolerance = maxMissing ?? MAX_MISSING_RATE;
+      if (rate > tolerance) {
+        throw new Error(
+          `${missing}/${entries.length} declarations missing upstream for ${targetYear} — above the ${(tolerance * 100).toFixed(0)}% tolerance; refusing to write a partial cohort. Pass --max-missing to accept a known-incomplete year.`,
+        );
+      }
+    }
 
     if (dryRun) {
       console.log("  --dry-run: not writing");

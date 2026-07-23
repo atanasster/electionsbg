@@ -1,0 +1,122 @@
+[
+  {
+    "slug": "ivelin-ventsislavov-zanev-eb1fbc",
+    "declarantName": "ИВЕЛИН ВЕНЦИСЛАВОВ ЗАНЕВ",
+    "institution": "ИА \"Проучване и подържане на р. Дунав\"",
+    "positionTitle": null,
+    "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": "2023-04-05",
+    "entryNumber": "Г1130",
+    "controlHash": "736B70C1",
+    "sourceUrl": "https://register.cacbg.bg/2023/65C6F479-98FE-40F3-8FC5-330D176E54AE147057.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17846.13182127281,
+        "amountEurSpouse": 1694.421294284268
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 12245.440554649433,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Русе, ул. Алеи Възраждане 50",
+        "municipality": "Русе",
+        "areaSqm": 82,
+        "builtAreaSqm": 82,
+        "acquiredYear": 2022,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 95000,
+        "valueEur": 48572.728713640754,
+        "holderName": "Ивелин Венциславов Занев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Русе, ул. Алеи Възраждане 50",
+        "municipality": "Русе",
+        "areaSqm": 82,
+        "builtAreaSqm": 82,
+        "acquiredYear": 2022,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Диляна Валентинова Занева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 49000,
+        "valueEur": 25053.302178614707,
+        "holderName": "ИВЕЛИН ВЕНЦИСЛАВОВ ЗАНЕВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 178000,
+        "valueEur": 91009.9548529269,
+        "holderName": "ДИЛЯНА ВАЛЕНТИНОВА ЗАНЕВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "debt",
+        "description": "ЖИЛИЩЕН ИПОТЕЧЕН КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 100000,
+        "valueEur": 51129.188119621846,
+        "holderName": "ИВЕЛИН ВЕНЦИСЛАВОВ ЗАНЕВ",
+        "isSpouse": false,
+        "legalBasis": "ИПОТЕКА",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

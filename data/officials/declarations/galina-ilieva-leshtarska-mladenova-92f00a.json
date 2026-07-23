@@ -70,5 +70,71 @@
         "fundsOrigin": "заплата"
       }
     ]
+  },
+  {
+    "slug": "galina-ilieva-leshtarska-mladenova-92f00a",
+    "declarantName": "Галина Илиева Лещарска - Младенова",
+    "institution": "ЦСМП",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-24",
+    "entryNumber": "Г7454",
+    "controlHash": "F71B289E",
+    "sourceUrl": "https://register.cacbg.bg/2024/3358B159-442C-4DE8-8F47-4719C30A5D1A189050.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 36828.86549444481,
+        "amountEurSpouse": 26100.939243185756
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 1409.120424576778,
+        "amountEurSpouse": 1369.2396578434732
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Галина Илиева Лещарска-Младенова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35000,
+        "valueEur": 17895.215841867648,
+        "holderName": "Емил Борисов Младенов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
   }
 ]

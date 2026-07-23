@@ -1,0 +1,115 @@
+[
+  {
+    "slug": "emil-iordanov-atanasov-f21786",
+    "declarantName": "Емил Йорданов Атанасов",
+    "institution": "Област - Кюстендил",
+    "positionTitle": null,
+    "declarationYear": 2022,
+    "fiscalYear": 2022,
+    "declarationType": "Vacate",
+    "filedAt": "2022-01-24",
+    "entryNumber": "Ф185",
+    "controlHash": "65D638C3",
+    "sourceUrl": "https://register.cacbg.bg/2022/495EC16E-7538-4B54-9E12-79B2CA3315A6131674.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 58,
+        "builtAreaSqm": 70,
+        "acquiredYear": 2009,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 33000,
+        "valueEur": 16872.63207947521,
+        "holderName": "Емил Йорданов Атанасов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Шевролет",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2010,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 45000,
+        "valueEur": 23008.13465382983,
+        "holderName": "Емил Йорданов Атанасов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ]
+  },
+  {
+    "slug": "emil-iordanov-atanasov-f21786",
+    "declarantName": "Емил Йорданов Атанасов",
+    "institution": "Област - Кюстендил",
+    "positionTitle": null,
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2021-01-24",
+    "entryNumber": "Г259",
+    "controlHash": "CD7559E8",
+    "sourceUrl": "https://register.cacbg.bg/2022/495EC16E-7538-4B54-9E12-79B2CA3315A6131673.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 3579.0431683735296,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 58,
+        "builtAreaSqm": 70,
+        "acquiredYear": 2009,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 33000,
+        "valueEur": 16872.63207947521,
+        "holderName": "Емил Йорданов Атанасов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Шевролет",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2010,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 45000,
+        "valueEur": 23008.13465382983,
+        "holderName": "Емил Йорданов Атанасов",
+        "isSpouse": false,
+        "legalBasis": "други",
+        "fundsOrigin": "заеми"
+      }
+    ]
+  }
+]

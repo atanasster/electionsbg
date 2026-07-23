@@ -130,5 +130,107 @@
         "fundsOrigin": null
       }
     ]
+  },
+  {
+    "slug": "nikolai-krasimirov-georgiev-d402dd",
+    "declarantName": "николай красимиров георгиев",
+    "institution": "ИА по рибарство и аквакултури при МЗГ",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-08",
+    "entryNumber": "Г13883",
+    "controlHash": "F1D0930E",
+    "sourceUrl": "https://register.cacbg.bg/2024/243DF0AC-48FC-4888-9E8A-588340274ABA196057.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17197.30242403481,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 11388.004069883375,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.чешма",
+        "municipality": "Златарица",
+        "areaSqm": 900,
+        "builtAreaSqm": 100,
+        "acquiredYear": 2001,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "марин петков маринов",
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "real_estate",
+        "description": "право на ползване",
+        "detail": null,
+        "location": "гр.варна",
+        "municipality": "Варна",
+        "areaSqm": 93,
+        "builtAreaSqm": 93,
+        "acquiredYear": 2017,
+        "share": "по 1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Стефан Н. Георгиев и Красимир Н. Георгиев",
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с.чешма",
+        "municipality": "Златарица",
+        "areaSqm": 2,
+        "builtAreaSqm": null,
+        "acquiredYear": 2010,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 500,
+        "valueEur": 255.64594059810923,
+        "holderName": "пламен маринов маринов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "договорна цена",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 75000,
+        "valueEur": 38346.89108971639,
+        "holderName": "николай красимиров георгиев",
+        "isSpouse": false,
+        "legalBasis": "договор за поръчка на нов автомобил",
+        "fundsOrigin": null
+      }
+    ]
   }
 ]

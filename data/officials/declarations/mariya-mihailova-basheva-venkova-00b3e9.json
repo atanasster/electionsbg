@@ -94,5 +94,149 @@
         "fundsOrigin": "заплата"
       }
     ]
+  },
+  {
+    "slug": "mariya-mihailova-basheva-venkova-00b3e9",
+    "declarantName": "Мария Михайлова Башева - Венкова",
+    "institution": "Област - Габрово",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-13",
+    "entryNumber": "Г7941",
+    "controlHash": "E87F5FB1",
+    "sourceUrl": "https://register.cacbg.bg/2024/5E167984-3353-46F2-9640-5F2FE2F2AF36189557.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 11945.82351226845,
+        "amountEurSpouse": 5681.986675733576
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 16813.833513137644,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 3262.042202031874,
+        "amountEurSpouse": 639.1148514952731
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Гергини",
+        "municipality": "Габрово",
+        "areaSqm": 735,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Мария Михайлова Башева - Венкова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Гергини",
+        "municipality": "Габрово",
+        "areaSqm": 735,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Пламен Венков Венков",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18000,
+        "valueEur": 9203.253861531934,
+        "holderName": "Пламен Венков Венков",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 110000,
+        "valueEur": 56242.106931584036,
+        "holderName": "Мария Михайлова Башева-Венкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 46100,
+        "valueEur": 46098.076008651056,
+        "holderName": "Мария Михайлова Башева-Венкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "Пламен Венков Венков",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
   }
 ]

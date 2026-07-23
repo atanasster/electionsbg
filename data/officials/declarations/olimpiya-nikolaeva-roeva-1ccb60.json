@@ -82,5 +82,89 @@
         "fundsOrigin": null
       }
     ]
+  },
+  {
+    "slug": "olimpiya-nikolaeva-roeva-1ccb60",
+    "declarantName": "Олимпия Николаева Роева",
+    "institution": "Фонд \"Научни изследвания\"",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-30",
+    "entryNumber": "Г4847",
+    "controlHash": "A37D6B9F",
+    "sourceUrl": "https://register.cacbg.bg/2024/EB5260DF-E241-43C0-B818-9E1066589B6B186049.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 32805.50968131177,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 4427.787691159252,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 61000,
+        "valueEur": 60818.16926829019,
+        "holderName": "Олимпия Николаева Роева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17530,
+        "valueEur": 8962.94667736971,
+        "holderName": "Олимпия Николаева Роева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Олимпия Николаева Роева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
   }
 ]

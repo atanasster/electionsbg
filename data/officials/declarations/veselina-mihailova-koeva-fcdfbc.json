@@ -100,5 +100,34 @@
         "fundsOrigin": "застрахователно обезщтетение"
       }
     ]
+  },
+  {
+    "slug": "veselina-mihailova-koeva-fcdfbc",
+    "declarantName": "Веселина  Михайлова Коева",
+    "institution": "ЦСМП",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-16",
+    "entryNumber": "Г7742",
+    "controlHash": "0E00647F",
+    "sourceUrl": "https://register.cacbg.bg/2024/04C11557-EFEB-4D71-B0F4-184C92AD14D5189352.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 36855.45267226702,
+        "amountEurSpouse": 10445.181840957548
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 10824.049124923946,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": []
   }
 ]

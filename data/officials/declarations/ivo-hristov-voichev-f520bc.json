@@ -46,5 +46,71 @@
         "fundsOrigin": "заплата"
       }
     ]
+  },
+  {
+    "slug": "ivo-hristov-voichev-f520bc",
+    "declarantName": "Иво Христов Войчев",
+    "institution": "ЦКОДУХЗ",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-02",
+    "entryNumber": "Г7752",
+    "controlHash": "24E350D5",
+    "sourceUrl": "https://register.cacbg.bg/2024/A34942CD-9D20-45AA-8FC0-6E2878B5EFFA189364.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24637.110587320985,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6217.309275346017,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Дачиа Дъстър",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 3700,
+        "valueEur": 1891.7799604260083,
+        "holderName": "Иво Христов Войчев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 71000,
+        "valueEur": 36301.72356493151,
+        "holderName": "Иво Христов Войчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
   }
 ]

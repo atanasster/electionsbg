@@ -174,6 +174,7 @@ const cmd = command({
     const indexBySlug = new Map<string, MunicipalIndexEntry>();
     const parseFailures: string[] = [];
     let processed = 0;
+    let missing = 0;
 
     for (const entry of entries) {
       if (processed >= cap) break;
@@ -185,6 +186,14 @@ const cmd = command({
         entry.xmlFile,
         entry.sourceUrl,
       );
+      // list.xml sometimes references a declaration whose file is gone. Skip
+      // it rather than abandoning the run; the tolerance check after the loop
+      // still fails loud if the rot is widespread.
+      if (xml == null) {
+        missing++;
+        console.warn(`  [missing] ${entry.declarantName} — ${entry.sourceUrl}`);
+        continue;
+      }
       // Slug disambiguator = municipality + role, so two people with the same
       // legal name in one municipality (or one person across two roles) do
       // not collide. Same person's multiple declarations share a slug.
@@ -251,6 +260,20 @@ const cmd = command({
     console.log(
       `  processed ${processed} declaration(s) for ${declsBySlug.size} unique official(s)`,
     );
+
+    // Same tolerance as the executive ingest: isolated missing files are an
+    // upstream fact, a high rate means the year is broken.
+    if (missing > 0) {
+      const rate = missing / entries.length;
+      console.warn(
+        `  [warn] ${missing} declaration(s) listed but missing upstream (${(rate * 100).toFixed(1)}%)`,
+      );
+      if (rate > 0.05) {
+        throw new Error(
+          `${missing}/${entries.length} declarations missing upstream for ${targetYear} — above the 5% tolerance; refusing to write a partial cohort`,
+        );
+      }
+    }
 
     // Fail loud if parse failures look systemic rather than isolated.
     if (parseFailures.length > Math.max(20, processed * 0.02)) {

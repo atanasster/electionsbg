@@ -1,0 +1,104 @@
+[
+  {
+    "slug": "borislav-iliev-borisov-d79fac",
+    "declarantName": "БОРИСЛАВ ИЛИЕВ БОРИСОВ",
+    "institution": "Област - Враца",
+    "positionTitle": null,
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2021-01-17",
+    "entryNumber": "Г231",
+    "controlHash": "EE0AAA9C",
+    "sourceUrl": "https://register.cacbg.bg/2022/146404AC-E6D1-40D3-BF26-A923B38CA7E4131584.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 9162.350511036235,
+        "amountEurSpouse": 30520.54626424587
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 11446.80263622094,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 194967,
+        "valueEur": 99685.04420118313,
+        "holderName": "БОРИСЛАВ ИЛИЕВ БОРИСОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 195125,
+        "valueEur": 99765.82831841214,
+        "holderName": "РУМЯНА ДИМИТРОВА БОРИСОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 34857,
+        "valueEur": 17822.101102856588,
+        "holderName": "БОРИСЛАВ ИЛИЕВ БОРИСОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 42941,
+        "valueEur": 21955.38467044682,
+        "holderName": "РУМЯНА ДИМИТРОВА БОРИСОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

@@ -381,5 +381,77 @@
         "fundsOrigin": "заплата"
       }
     ]
+  },
+  {
+    "slug": "nikolai-rafailov-nikolov-b365fa",
+    "declarantName": "Николай Рафаилов Николов",
+    "institution": "НЦТХ",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-30",
+    "entryNumber": "Г7408",
+    "controlHash": "349CA94F",
+    "sourceUrl": "https://register.cacbg.bg/2024/02543E82-29D1-4F06-AD7F-43D9223771D4189003.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 36153.44891938461,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5366.008293154313,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 2454.2010297418487,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10000,
+        "valueEur": 9999.846612435642,
+        "holderName": "Никалай Рафаилов Николов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 94789,
+        "valueEur": 48464.846126708355,
+        "holderName": "Николай Рафаилов Николов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ]
   }
 ]

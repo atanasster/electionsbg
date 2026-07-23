@@ -27,5 +27,71 @@
       }
     ],
     "assets": []
+  },
+  {
+    "slug": "albena-ivanova-rapatinska-fa42af",
+    "declarantName": "Албена Иванова Рапатинска",
+    "institution": "ЦСМП",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-25",
+    "entryNumber": "Г7493",
+    "controlHash": "14455196",
+    "sourceUrl": "https://register.cacbg.bg/2024/50F1BD77-EDA9-4130-B264-6803B3A7A279189089.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 50569.834801593184,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 6227.535112969941,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Кюстендил, ул.\"Рила\" 54",
+        "municipality": "Кюстендил",
+        "areaSqm": 305,
+        "builtAreaSqm": 321,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Албена Иванова Рапатинска",
+        "isSpouse": false,
+        "legalBasis": "делба",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11401,
+        "valueEur": 5829.238737518087,
+        "holderName": "Албена Иванова Рапатинска",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ]
   }
 ]

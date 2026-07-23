@@ -363,5 +363,107 @@
         "fundsOrigin": null
       }
     ]
+  },
+  {
+    "slug": "veselina-nikolova-mincheva-7fde13",
+    "declarantName": "Веселина Николова Минчева",
+    "institution": "Министерство на иновациите и растежа",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-05",
+    "entryNumber": "Г2350",
+    "controlHash": "526F320B",
+    "sourceUrl": "https://register.cacbg.bg/2024/4822F56B-AA15-4ACB-BC3F-FE7E9064D0DC183385.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 13087.026991098408,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 4888.461676117045,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Веселина Николова Минчева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "възнаграждения /хонорари/ от предходен период"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 12000,
+        "valueEur": 11999.509159794052,
+        "holderName": "Веселина Николова Минчева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "възнаграждения /хонорари/ от предходен период"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35403,
+        "valueEur": 18101.26646998972,
+        "holderName": "Веселина Николова Минчева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати и възнаграждения /хонорари/ от предходен период"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 11425,
+        "valueEur": 11424.817085329501,
+        "holderName": "Веселина Николова Минчева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "възнаграждения /хонорари/ от предходен период"
+      }
+    ]
   }
 ]

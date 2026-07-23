@@ -82,5 +82,107 @@
         "fundsOrigin": "заплата"
       }
     ]
+  },
+  {
+    "slug": "zhoro-hristoforov-borisov-9c3684",
+    "declarantName": "Жоро Христофоров Борисов",
+    "institution": "ЦКОДУХЗ",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-23",
+    "entryNumber": "Г7496",
+    "controlHash": "3AF58D44",
+    "sourceUrl": "https://register.cacbg.bg/2024/86D675C5-D677-4774-9B54-36561516865B189092.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21914.992611832316,
+        "amountEurSpouse": 13257.798479417945
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 2619.3483073682273,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Видин",
+        "municipality": "Видин",
+        "areaSqm": 66,
+        "builtAreaSqm": null,
+        "acquiredYear": 1996,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 15500,
+        "valueEur": 7925.024158541387,
+        "holderName": "Жоро Христофоров Борисов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Видин",
+        "municipality": "Видин",
+        "areaSqm": 70,
+        "builtAreaSqm": null,
+        "acquiredYear": 1995,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 13500,
+        "valueEur": 6902.44039614895,
+        "holderName": "Жоро Христофоров Борисов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Деу Ланос",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2011,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 3500,
+        "valueEur": 1789.5215841867648,
+        "holderName": "Жоро Христофоров Борисов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11259,
+        "valueEur": 5756.635290388224,
+        "holderName": "Жоро Христофоров Борисов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
   }
 ]

@@ -118,5 +118,101 @@
         "fundsOrigin": null
       }
     ]
+  },
+  {
+    "slug": "georgi-shterev-tahov-e2edde",
+    "declarantName": "ГЕОРГИ ЩЕРЕВ ТАХОВ",
+    "institution": "Министерство на земеделието и храните",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-14",
+    "entryNumber": "Г3866",
+    "controlHash": "DE10E37B",
+    "sourceUrl": "https://register.cacbg.bg/2024/C5221E91-F9D7-4699-92E6-30DACBDCFD14185000.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 75414.52989267983,
+        "amountEurSpouse": 10361.329972441368
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 105000,
+        "valueEur": 53685.647525602944,
+        "holderName": "Георги Щерев Тахов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 241704,
+        "valueEur": 123581.29285265079,
+        "holderName": "Георги Щерев Тахов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 13046,
+        "valueEur": 13007.265457631798,
+        "holderName": "Георги Щерев Тахов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3500,
+        "valueEur": 1789.5215841867648,
+        "holderName": "Светла Йорданова Тахова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
   }
 ]

@@ -76,5 +76,65 @@
         "fundsOrigin": "заплата"
       }
     ]
+  },
+  {
+    "slug": "miroslava-tsvetanova-hristova-b14bf9",
+    "declarantName": "Мирослава Цветанова Христова",
+    "institution": "ЦСМП",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-03-15",
+    "entryNumber": "Г7483",
+    "controlHash": "1D2A1807",
+    "sourceUrl": "https://register.cacbg.bg/2024/1D017447-DC57-44E6-991C-AD67C8B51E71189079.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 36768.53305246366,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 1886.6670416140462,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 71.58086336747058,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 58000,
+        "valueEur": 29654.92910938067,
+        "holderName": "Мирослава Цветанова Христова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
   }
 ]

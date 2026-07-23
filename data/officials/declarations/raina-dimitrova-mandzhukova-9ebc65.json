@@ -82,5 +82,106 @@
         "fundsOrigin": null
       }
     ]
+  },
+  {
+    "slug": "raina-dimitrova-mandzhukova-9ebc65",
+    "declarantName": "Райна Димитрова Манджукова",
+    "institution": "Държавна агенция за българите в чужбина",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-08",
+    "entryNumber": "Г4700",
+    "controlHash": "B6A0F018",
+    "sourceUrl": "https://register.cacbg.bg/2024/07DBD2DC-5233-4F62-AEB1-1C8E11EA92B9185894.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29236.18105868097,
+        "amountEurSpouse": 19451.588328228936
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3509,
+        "valueEur": 1794.1232111175307,
+        "holderName": "Райна Димитрова Манджукова",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 24004,
+        "valueEur": 12273.050316234028,
+        "holderName": "Райна Димитрова Манджукова",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21000,
+        "valueEur": 10737.129505120589,
+        "holderName": "Петко Божидаров Манджуков",
+        "isSpouse": true,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      }
+    ]
+  },
+  {
+    "slug": "raina-dimitrova-mandzhukova-9ebc65",
+    "declarantName": "Райна Димитрова Манджукова",
+    "institution": "Държавна агенция за българите в чужбина",
+    "positionTitle": null,
+    "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": "2023-04-27",
+    "entryNumber": "Г1506",
+    "controlHash": "08623643",
+    "sourceUrl": "https://register.cacbg.bg/2023/07DBD2DC-5233-4F62-AEB1-1C8E11EA92B9147501.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 8927.156245685976,
+        "amountEurSpouse": 21065.2255052842
+      }
+    ],
+    "assets": []
   }
 ]

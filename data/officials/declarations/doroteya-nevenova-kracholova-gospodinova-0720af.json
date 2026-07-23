@@ -178,5 +178,101 @@
         "fundsOrigin": null
       }
     ]
+  },
+  {
+    "slug": "doroteya-nevenova-kracholova-gospodinova-0720af",
+    "declarantName": "Доротея Невенова Крачолова-Господинова",
+    "institution": "Национален военноисторически музей",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-13",
+    "entryNumber": "Г197",
+    "controlHash": "12987EF6",
+    "sourceUrl": "https://register.cacbg.bg/2024/8B13D436-8190-492D-B828-3673FB4AD743180958.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25264.465725548744,
+        "amountEurSpouse": 4441.59257195155
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 53355,
+        "valueEur": 27279.978321224236,
+        "holderName": "Доротея Невенова Крачолова-Господинова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 29500,
+        "valueEur": 15083.110495288445,
+        "holderName": "Господин Георгиев Господинов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Жилищен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 146386,
+        "valueEur": 74845.97332078964,
+        "holderName": "Доротея Невенова Крачолова-Господинова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16400,
+        "valueEur": 8385.186851617984,
+        "holderName": "Господин Георгиев Господинов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ]
   }
 ]

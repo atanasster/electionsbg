@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "valeri-simeonov-simeonov-ac4dfa",
+    "declarantName": "ВАЛЕРИ СИМЕОНОВ СИМЕОНОВ",
+    "institution": "Министерски съвет",
+    "positionTitle": null,
+    "declarationYear": 2018,
+    "fiscalYear": 2017,
+    "declarationType": "Annualy",
+    "filedAt": "2018-06-06",
+    "entryNumber": "Г86",
+    "controlHash": "C24E7369",
+    "sourceUrl": "https://register.cacbg.bg/2018/D586BCA2-3BC8-46B5-815C-2F7774C07CD987790.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 33607.215351027444,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 4141.46423768937,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ДИВИДЕНТИ ОТ СКАТ ТРАНС ЕООД",
+        "amountEurDeclarant": 40903.35049569748,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ДИВИДЕНТИ ОТ СКАТ ТЕЛЕКОМ ООД",
+        "amountEurDeclarant": 7669.378217943277,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 156565,
+        "valueEur": 80050.41337948595,
+        "holderName": "ВАЛЕРИ СИМЕОНОВ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21000,
+        "valueEur": 10737.129505120589,
+        "holderName": "ВАЛЕРИ СИМЕОНОВ СИМЕОНОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

@@ -88,5 +88,47 @@
         "fundsOrigin": "заплата"
       }
     ]
+  },
+  {
+    "slug": "deyana-robertova-kostova-7437e2",
+    "declarantName": "Деяна Робертова Костова",
+    "institution": "Национален военноисторически музей",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г196",
+    "controlHash": "E4065511",
+    "sourceUrl": "https://register.cacbg.bg/2024/C6994C59-428D-40B8-8EFA-A04E39B9AA2D180957.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23453.46988235174,
+        "amountEurSpouse": 88502.06817565944
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 85000,
+        "valueEur": 43459.80990167857,
+        "holderName": "Илиан Владимиров Костов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
   }
 ]

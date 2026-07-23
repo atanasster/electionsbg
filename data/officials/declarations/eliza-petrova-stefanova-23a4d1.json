@@ -268,5 +268,89 @@
         "fundsOrigin": "заплата"
       }
     ]
+  },
+  {
+    "slug": "eliza-petrova-stefanova-23a4d1",
+    "declarantName": "Елиза Петрова Стефанова",
+    "institution": "Национална агенция за оценяване и акредитация",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-03",
+    "entryNumber": "Г4641",
+    "controlHash": "C7471743",
+    "sourceUrl": "https://register.cacbg.bg/2024/2571C174-7C85-4019-BE5E-3AF973E24A95185834.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 63762.18792021801,
+        "amountEurSpouse": 48104.89664234622
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2113.169344983971,
+        "amountEurSpouse": 29176.359908581013
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 191300,
+        "valueEur": 97810.13687283659,
+        "holderName": "Елиза Петрова Стефанова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 265450,
+        "valueEur": 135722.4298635362,
+        "holderName": "Красен Стефанов Стефанов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5000,
+        "valueEur": 4999.923306217821,
+        "holderName": "Красен Стефанов Стефанов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
   }
 ]

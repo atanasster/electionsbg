@@ -100,5 +100,125 @@
         "fundsOrigin": "заплата"
       }
     ]
+  },
+  {
+    "slug": "bozhin-maksimov-bozhinov-70fede",
+    "declarantName": "Божин Максимов Божинов",
+    "institution": "Фонд \"Научни изследвания\"",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-28",
+    "entryNumber": "Г14264",
+    "controlHash": "D3C41BA8",
+    "sourceUrl": "https://register.cacbg.bg/2024/FAF09309-8C71-4813-89B5-933A5C1AA355196835.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 16635.392646600165,
+        "amountEurSpouse": 15645.531564604285
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 11903.386286129162,
+        "amountEurSpouse": 148.27464554690337
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14800,
+        "valueEur": 7567.119841704033,
+        "holderName": "Божин Максимов Божинов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 55600,
+        "valueEur": 28427.82859450975,
+        "holderName": "Божин Максимов Божинов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 19800,
+        "valueEur": 18406.507723063867,
+        "holderName": "Божин Максимов Божинов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 52500,
+        "valueEur": 52663.063763210506,
+        "holderName": "Божин Максимов Божинов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 32100,
+        "valueEur": 16412.469386398614,
+        "holderName": "Божин Максимов Божинов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ]
   }
 ]

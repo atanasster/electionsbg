@@ -76,5 +76,83 @@
         "fundsOrigin": "заплата"
       }
     ]
+  },
+  {
+    "slug": "borislav-raichev-dimitrachkov-2d0afa",
+    "declarantName": "БОРИСЛАВ РАЙЧЕВ ДИМИТРАЧКОВ",
+    "institution": "ИА за насърчаване на малките и средните предприятия",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-10",
+    "entryNumber": "Г13443",
+    "controlHash": "3A7A95DC",
+    "sourceUrl": "https://register.cacbg.bg/2024/F82F96F9-D9D0-4414-9348-11623D1BBD07195403.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 46429.904439547405,
+        "amountEurSpouse": 19344.21703317773
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 32772,
+        "valueEur": 32771.76441715282,
+        "holderName": "БОРИСЛАВ РАЙЧЕВ ДИМИТРАЧКОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5438,
+        "valueEur": 2780.4052499450363,
+        "holderName": "БОРИСЛАВ РАЙЧЕВ ДИМИТРАЧКОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17500,
+        "valueEur": 8947.607920933824,
+        "holderName": "РОСИЦА ИЛИЕВА ДИМИТРАЧКОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      }
+    ]
   }
 ]

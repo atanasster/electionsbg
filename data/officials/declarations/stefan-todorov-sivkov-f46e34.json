@@ -340,5 +340,77 @@
         "fundsOrigin": "заплата"
       }
     ]
+  },
+  {
+    "slug": "stefan-todorov-sivkov-f46e34",
+    "declarantName": "Стефан Тодоров Сивков",
+    "institution": "Фонд \"Научни изследвания\"",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-09",
+    "entryNumber": "Г13446",
+    "controlHash": "2597A21F",
+    "sourceUrl": "https://register.cacbg.bg/2024/4701D90C-E830-4C83-BEF9-16EAB99078AF195408.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 51973.842307358005,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 3614.833600057265,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 227.52488713231722,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 199615,
+        "valueEur": 102061.52886498315,
+        "holderName": "Стефан Тодоров Сивков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 2563,
+        "valueEur": 2544.699692713579,
+        "holderName": "Стефан Тодоров Сивков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
   }
 ]

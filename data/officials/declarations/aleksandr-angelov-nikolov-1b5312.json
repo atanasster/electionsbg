@@ -1,0 +1,116 @@
+[
+  {
+    "slug": "aleksandr-angelov-nikolov-1b5312",
+    "declarantName": "Александър Ангелов Николов",
+    "institution": "Министерство на енергетиката",
+    "positionTitle": null,
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-16",
+    "entryNumber": "Г8561",
+    "controlHash": "D98799D0",
+    "sourceUrl": "https://register.cacbg.bg/2022/97CEDA4B-BE01-439E-8F7F-A0DB5EE4604C141081.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове от капитала",
+        "shareSize": "250",
+        "companyName": "СИТИ КЕПИТЪЛ ООД",
+        "registeredOffice": "София (столица)",
+        "valueEur": 1278.2297029905462,
+        "holderName": "Александър Ангелов Николов",
+        "legalBasis": "реституция",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "11",
+        "itemType": "дялове от капитала",
+        "shareSize": "100",
+        "companyName": "Булсан Груп ООД",
+        "registeredOffice": "София (столица)",
+        "valueEur": 51.12918811962185,
+        "holderName": null,
+        "transfereeName": "Александър Ангелов Николов",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 1833.4926859696395,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 48286.405260170875,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 63110.29077169284,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45098,
+        "valueEur": 23058.241258187063,
+        "holderName": "Александър Ангелов Николов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "receivable",
+        "description": "паричен заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 330000,
+        "valueEur": 168726.3207947521,
+        "holderName": "Александър Николов Ангелов",
+        "isSpouse": true,
+        "legalBasis": "заем",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Жилищен кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 88156,
+        "valueEur": 88154.90098832721,
+        "holderName": "Александър Николов Ангелов",
+        "isSpouse": true,
+        "legalBasis": "Договор за заем",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -82,5 +82,71 @@
         "fundsOrigin": "заплата"
       }
     ]
+  },
+  {
+    "slug": "petya-ivanova-balulova-2c901d",
+    "declarantName": "Петя Иванова Балулова",
+    "institution": "ЦКОДУХЗ",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г7507",
+    "controlHash": "DA2687F1",
+    "sourceUrl": "https://register.cacbg.bg/2024/0977FA14-8C00-48D4-87B1-D5BEBF689B90189103.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21451.250875587346,
+        "amountEurSpouse": 14307.480711513783
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2147.4259010241176
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 42737,
+        "valueEur": 21851.08112668279,
+        "holderName": "Петя Иванова Балулова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 157000,
+        "valueEur": 80272.8253478063,
+        "holderName": "Пламен Георгиев Балулов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата; прехвърляне на имоти"
+      }
+    ]
   }
 ]

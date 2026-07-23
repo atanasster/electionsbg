@@ -76,5 +76,83 @@
         "fundsOrigin": null
       }
     ]
+  },
+  {
+    "slug": "iliyan-vlev-iliev-36af6c",
+    "declarantName": "Илиян Вълев Илиев",
+    "institution": "ЦСМП",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-25",
+    "entryNumber": "Г7409",
+    "controlHash": "5F90DB40",
+    "sourceUrl": "https://register.cacbg.bg/2024/BC557DB1-11B6-48E2-9ABA-63BC9CB70EBB189004.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 36634.063287709054,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Илиян Вълев Илиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Илиян Вълев Илиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Илиян Вълен Илиев",
+        "isSpouse": true,
+        "legalBasis": "договор за кредит",
+        "fundsOrigin": null
+      }
+    ]
   }
 ]

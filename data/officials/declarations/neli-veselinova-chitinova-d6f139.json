@@ -148,5 +148,89 @@
         "fundsOrigin": null
       }
     ]
+  },
+  {
+    "slug": "neli-veselinova-chitinova-d6f139",
+    "declarantName": "НЕЛИ ВЕСЕЛИНОВА ЧИТИНОВА",
+    "institution": "Област - Ловеч",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-07",
+    "entryNumber": "Г7815",
+    "controlHash": "A41D0CAF",
+    "sourceUrl": "https://register.cacbg.bg/2024/E99DC9CA-55F7-412A-B778-D227C7F7A983189430.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15652.689650941033,
+        "amountEurSpouse": 15491.632708364225
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 3410.3168475787775,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 14257,
+        "valueEur": 14256.862815275357,
+        "holderName": "НЕЛИ ВЕСЕЛИНОВА ЧИТИНОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "НЕЛИ ВЕСЕЛИНОВА ЧИТИНОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14970,
+        "valueEur": 7654.039461507391,
+        "holderName": "НЕЛИ ВЕСЕЛИНОВА ЧИТИНОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ]
   }
 ]

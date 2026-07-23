@@ -1,0 +1,102 @@
+[
+  {
+    "slug": "borislav-ivanov-blgarinov-8bcae7",
+    "declarantName": "Борислав Иванов Българинов",
+    "institution": "Област - Русе",
+    "positionTitle": null,
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-16",
+    "entryNumber": "Г7355",
+    "controlHash": "3D1F1983",
+    "sourceUrl": "https://register.cacbg.bg/2022/C1A0FA0C-B2B6-491F-A308-D4E61CB4EB63139691.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 10467.167391848985,
+        "amountEurSpouse": 10675.263187495846
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1994.038336665252,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": []
+  },
+  {
+    "slug": "borislav-ivanov-blgarinov-8bcae7",
+    "declarantName": "Борислав Иванов Българинов",
+    "institution": "Област - Русе",
+    "positionTitle": null,
+    "declarationYear": 2022,
+    "fiscalYear": 2022,
+    "declarationType": "Vacate",
+    "filedAt": "2022-02-14",
+    "entryNumber": "Ф235",
+    "controlHash": "23B532CE",
+    "sourceUrl": "https://register.cacbg.bg/2022/C1A0FA0C-B2B6-491F-A308-D4E61CB4EB63131844.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Русе",
+        "municipality": "Русе",
+        "areaSqm": 1000,
+        "builtAreaSqm": 180,
+        "acquiredYear": 2004,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Борислав Иванов Българинов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "vehicle",
+        "description": "лек",
+        "detail": "Хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2013,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Борислав Иванов Българинов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Борислав Иванов Българинов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

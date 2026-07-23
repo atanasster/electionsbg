@@ -136,5 +136,143 @@
         "fundsOrigin": null
       }
     ]
+  },
+  {
+    "slug": "rumen-georgiev-rusev-558623",
+    "declarantName": "Румен Георгиев Русев",
+    "institution": "Област - Добрич",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-02",
+    "entryNumber": "Г7920",
+    "controlHash": "BB2A1284",
+    "sourceUrl": "https://register.cacbg.bg/2024/04D63E9D-7066-4BB9-B87F-DEA4A1FA81BB189536.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17518.905017307232,
+        "amountEurSpouse": 32159.748035360946
+      },
+      {
+        "parent": null,
+        "category": "рента",
+        "amountEurDeclarant": 2863.2345346988236,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Добрич",
+        "municipality": "Добрич",
+        "areaSqm": 230,
+        "builtAreaSqm": 160,
+        "acquiredYear": 2016,
+        "share": "не",
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Румен Георгиев Русев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Дончево",
+        "municipality": "Добричка",
+        "areaSqm": 56,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2005,
+        "share": "не",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Румен Георгиев Русев",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "vehicle",
+        "description": "лека кола",
+        "detail": "Фолксваген \"Тигуан\"",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2019,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4500,
+        "valueEur": 2300.8134653829834,
+        "holderName": "Катерина Руменова Русева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "лека кола",
+        "detail": "Шкода \"Фабия\"",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Румен Георгиев Русев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "кредит 4.52%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20870,
+        "valueEur": 10670.66156056508,
+        "holderName": "Румен Георгиев Русев",
+        "isSpouse": false,
+        "legalBasis": "потребителски",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит 4.2 %",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11788,
+        "valueEur": 6027.108695541024,
+        "holderName": "Катерина Руменова Русева",
+        "isSpouse": true,
+        "legalBasis": "потребителски",
+        "fundsOrigin": null
+      }
+    ]
   }
 ]

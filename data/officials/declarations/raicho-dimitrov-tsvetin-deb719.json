@@ -1,0 +1,144 @@
+[
+  {
+    "slug": "raicho-dimitrov-tsvetin-deb719",
+    "declarantName": "Райчо Димитров Цветин",
+    "institution": "Област - Кюстендил",
+    "positionTitle": null,
+    "declarationYear": 2020,
+    "fiscalYear": 2019,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г2200",
+    "controlHash": "8611B35B",
+    "sourceUrl": "https://register.cacbg.bg/2020/67D23B88-F016-4B4D-91BF-B13C7DF95481112239.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 11897.762075436005,
+        "amountEurSpouse": 7859.5787977482705
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 16.36134019827899
+      }
+    ],
+    "assets": []
+  },
+  {
+    "slug": "raicho-dimitrov-tsvetin-deb719",
+    "declarantName": "Райчо Димитров Цветин",
+    "institution": "Област - Кюстендил",
+    "positionTitle": null,
+    "declarationYear": 2019,
+    "fiscalYear": 2018,
+    "declarationType": "Annualy",
+    "filedAt": "2019-05-07",
+    "entryNumber": "Г1130",
+    "controlHash": "DC2D57FD",
+    "sourceUrl": "https://register.cacbg.bg/2019/67D23B88-F016-4B4D-91BF-B13C7DF9548195463.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 10676.285771258239,
+        "amountEurSpouse": 5449.860161670493
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 29.65492910938067
+      }
+    ],
+    "assets": []
+  },
+  {
+    "slug": "raicho-dimitrov-tsvetin-deb719",
+    "declarantName": "РАЙЧО ДИМИТРОВ ЦВЕТИН",
+    "institution": "Област - Кюстендил",
+    "positionTitle": null,
+    "declarationYear": 2018,
+    "fiscalYear": 2017,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г131",
+    "controlHash": "56E0F1C2",
+    "sourceUrl": "https://register.cacbg.bg/2018/67D23B88-F016-4B4D-91BF-B13C7DF9548187843.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 8029.838994186612,
+        "amountEurSpouse": 6133.9686987110335
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 196.33608237934789,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Бобошево",
+        "municipality": "Бобошево",
+        "areaSqm": 72,
+        "builtAreaSqm": 144,
+        "acquiredYear": 2017,
+        "share": "4/6",
+        "currency": "BGN",
+        "amount": 4600,
+        "valueEur": 2351.942653502605,
+        "holderName": "Райчо Димитров Цветин",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18450,
+        "valueEur": 9433.335208070232,
+        "holderName": "Райчо Димитров Цветин- кредитополучател",
+        "isSpouse": true,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18450,
+        "valueEur": 9433.335208070232,
+        "holderName": "Емилия Дахилова Халилова -Цветина-солидарен длъжник",
+        "isSpouse": true,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

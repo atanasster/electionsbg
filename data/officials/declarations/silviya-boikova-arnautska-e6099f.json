@@ -1,6 +1,22 @@
 [
   {
     "slug": "silviya-boikova-arnautska-e6099f",
+    "declarantName": "(unknown)",
+    "institution": "Област - област София",
+    "positionTitle": null,
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2024-04-27",
+    "entryNumber": "В880",
+    "controlHash": "1F2DD364",
+    "sourceUrl": "https://register.cacbg.bg/2024/09D463F7-7455-47EA-B01F-DEA40013CEAA181132.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": []
+  },
+  {
+    "slug": "silviya-boikova-arnautska-e6099f",
     "declarantName": "Силвия Бойкова Арнаутска",
     "institution": "Област - област София",
     "positionTitle": null,
@@ -27,5 +43,58 @@
       }
     ],
     "assets": []
+  },
+  {
+    "slug": "silviya-boikova-arnautska-e6099f",
+    "declarantName": "Силвия Бойкова Арнаутска",
+    "institution": "Област - област София",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2024,
+    "declarationType": "Entry",
+    "filedAt": "2024-05-27",
+    "entryNumber": "В879",
+    "controlHash": "FE025743",
+    "sourceUrl": "https://register.cacbg.bg/2024/09D463F7-7455-47EA-B01F-DEA40013CEAA181131.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "гр.Ихтиман",
+        "municipality": "Ихтиман",
+        "areaSqm": 70,
+        "builtAreaSqm": 70,
+        "acquiredYear": 2017,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Силвия Бойкова Арнаутска",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "vehicle",
+        "description": "автомобил",
+        "detail": "фолсваген тауран 2005г",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Георги Иванов Арнаутски",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ]
   }
 ]

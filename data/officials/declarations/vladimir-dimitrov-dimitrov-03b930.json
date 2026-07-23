@@ -40,5 +40,53 @@
         "fundsOrigin": null
       }
     ]
+  },
+  {
+    "slug": "vladimir-dimitrov-dimitrov-03b930",
+    "declarantName": "Владимир Димитров Димитров",
+    "institution": "Област - Разград",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-14",
+    "entryNumber": "Г7966",
+    "controlHash": "37B5AA75",
+    "sourceUrl": "https://register.cacbg.bg/2024/279C2D84-F1C1-47C8-A5AA-E3A97969D943189582.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 13577.355905165581,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 3149.557988168706,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Банков заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 70000,
+        "valueEur": 35790.431683735296,
+        "holderName": "Владимир Димитров Димитров",
+        "isSpouse": false,
+        "legalBasis": "Потребителски кредит",
+        "fundsOrigin": null
+      }
+    ]
   }
 ]

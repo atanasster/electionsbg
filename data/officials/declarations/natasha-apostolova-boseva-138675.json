@@ -88,5 +88,119 @@
         "fundsOrigin": "доход от наем"
       }
     ]
+  },
+  {
+    "slug": "natasha-apostolova-boseva-138675",
+    "declarantName": "Наташа Апостолова Босева",
+    "institution": "Агенция по вписванията",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-18",
+    "entryNumber": "Г4552",
+    "controlHash": "4167FE22",
+    "sourceUrl": "https://register.cacbg.bg/2024/B112BF57-7A0D-4D72-8C82-D23C4E5C3B1E185739.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 45843.96394369654,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 5346.067909787661,
+        "amountEurSpouse": 5346.067909787661
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 48.57272871364076
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 81.80670099139496
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19892,
+        "valueEur": 10170.618100755179,
+        "holderName": "Наташа Апостолова Босева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 53961,
+        "valueEur": 27589.821201229144,
+        "holderName": "Наташа Апостолова Босева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 4695,
+        "valueEur": 4680.87717235138,
+        "holderName": "Красимир Асенов Босев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "доход от отдаване под наем на нед имот"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 68677,
+        "valueEur": 35113.9925249127,
+        "holderName": "Красимир Асенов Босев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "доход от отдаване под наем на нед имот"
+      }
+    ]
   }
 ]

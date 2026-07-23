@@ -1,0 +1,100 @@
+[
+  {
+    "slug": "georgi-dimitrov-palagachev-40636e",
+    "declarantName": "(unknown)",
+    "institution": "ИА “Автомобилна администрация”",
+    "positionTitle": null,
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2022-03-15",
+    "entryNumber": "В399",
+    "controlHash": "5C510B86",
+    "sourceUrl": "https://register.cacbg.bg/2022/D7E76543-1DC6-4308-9EA0-C4F28370CAC0131911.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": []
+  },
+  {
+    "slug": "georgi-dimitrov-palagachev-40636e",
+    "declarantName": "Георги Димитров Палагачев",
+    "institution": "ИА “Автомобилна администрация”",
+    "positionTitle": null,
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-13",
+    "entryNumber": "Г4502",
+    "controlHash": "F8E9642B",
+    "sourceUrl": "https://register.cacbg.bg/2022/D7E76543-1DC6-4308-9EA0-C4F28370CAC0136735.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 16137.394354315047,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2198.5550891437397,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": []
+  },
+  {
+    "slug": "georgi-dimitrov-palagachev-40636e",
+    "declarantName": "Георги Димитров Палагачев",
+    "institution": "ИА “Автомобилна администрация”",
+    "positionTitle": null,
+    "declarationYear": 2022,
+    "fiscalYear": 2022,
+    "declarationType": "Entry",
+    "filedAt": "2022-03-15",
+    "entryNumber": "В398",
+    "controlHash": "4465197A",
+    "sourceUrl": "https://register.cacbg.bg/2022/D7E76543-1DC6-4308-9EA0-C4F28370CAC0131910.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Смолян",
+        "municipality": "Смолян",
+        "areaSqm": 80,
+        "builtAreaSqm": 80,
+        "acquiredYear": 2019,
+        "share": "1",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Георги Димитров Палагачев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "security",
+        "description": "акции",
+        "detail": "\"АРЗ\" АД",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "13",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Георги Димитров Палагачев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

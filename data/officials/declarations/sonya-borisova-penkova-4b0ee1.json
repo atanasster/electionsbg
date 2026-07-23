@@ -64,5 +64,77 @@
         "fundsOrigin": "заплата, награда, хонорар"
       }
     ]
+  },
+  {
+    "slug": "sonya-borisova-penkova-4b0ee1",
+    "declarantName": "Соня Борисова Пенкова",
+    "institution": "Национален военноисторически музей",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г104",
+    "controlHash": "C929275B",
+    "sourceUrl": "https://register.cacbg.bg/2024/E42E183B-C444-4698-88D1-2D8A8B0EF6F8180864.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 37779.35710158858,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5703.460934743817,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1124.8421386316807,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 36000,
+        "valueEur": 18406.507723063867,
+        "holderName": "Соня борисова Пенкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 36000,
+        "valueEur": 18406.507723063867,
+        "holderName": "Соня Борисова Пенкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
   }
 ]

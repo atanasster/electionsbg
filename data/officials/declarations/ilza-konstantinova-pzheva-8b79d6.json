@@ -88,5 +88,95 @@
         "fundsOrigin": "заплата"
       }
     ]
+  },
+  {
+    "slug": "ilza-konstantinova-pzheva-8b79d6",
+    "declarantName": "Илза Константинова Пъжева",
+    "institution": "Фонд \"Научни изследвания\"",
+    "positionTitle": null,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-02",
+    "entryNumber": "Г13841",
+    "controlHash": "9B2A69BC",
+    "sourceUrl": "https://register.cacbg.bg/2024/FB911B39-5407-4D60-A381-3508DA436C87195988.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29384.96699610907,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 4339.845487593502,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1243.4618550692035,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Илза Константинова Пъжева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 2945,
+        "valueEur": 2942.996068165434,
+        "holderName": "Илза Константинова Пъжева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "security",
+        "description": "Акции \"Терафонд\"",
+        "detail": "0,23",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "4844",
+        "currency": "BGN",
+        "amount": 2,
+        "valueEur": 1.022583762392437,
+        "holderName": "Илза Константинова Пъжева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ]
   }
 ]
