@@ -33,8 +33,11 @@ export interface DirectorySchool {
   /** Ascending ДЗИ БЕЛ series. `n` is that year's cohort — absent on payloads
    *  built before it was added, so treat it as optional. */
   series: { year: number; score: number; n?: number }[];
-  /** Latest ДЗИ Maths, if any. */
-  mathLatest: { year: number; score: number } | null;
+  /** Newest ДЗИ Maths result, if any, with that year's cohort (`n` absent on
+   *  payloads built before it was added). The second matura is elective, so
+   *  this is often older than the school's latest БЕЛ year and often a handful
+   *  of pupils — /school/:id says both rather than printing a bare average. */
+  mathLatest: { year: number; score: number; n?: number } | null;
   /** Socioeconomic context of the school's obshtina (mean 0). */
   ses: number | null;
   predicted: number | null;

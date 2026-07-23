@@ -17,6 +17,7 @@ import {
 import { Title } from "@/ux/Title";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { MaturaTrendChart } from "./MaturaTrendChart";
+import { mathsCaveat, mathsCaveatText } from "./mathsCaveat";
 import {
   useSchoolDirectory,
   MIN_RANK_COHORT,
@@ -113,6 +114,12 @@ export const SchoolScreen: FC = () => {
   // Positive = the school outpaced the country over its own span.
   const relDelta = delta != null && natDelta != null ? delta - natDelta : null;
   const mathLatest = school.mathLatest;
+  // Maths is elective and thinly taken, so its line usually needs qualifying —
+  // an older year, a handful of pupils, or both.
+  const mathsNote = mathsCaveatText(
+    mathsCaveat(mathLatest, school.latestYear, MIN_RANK_COHORT),
+    bg,
+  );
 
   return (
     <div className="mx-auto w-full">
@@ -208,11 +215,25 @@ export const SchoolScreen: FC = () => {
             )}
             {mathLatest && (
               <div className="mt-3 border-t pt-2 text-sm text-muted-foreground">
-                {bg ? "Матура по математика" : "Maths matura"} (
-                {mathLatest.year}):{" "}
-                <span className="font-semibold tabular-nums text-foreground">
-                  {fmtScore(mathLatest.score, lang)}
-                </span>
+                <div>
+                  {bg ? "Матура по математика" : "Maths matura"}{" "}
+                  <span className="text-xs">
+                    ({mathLatest.year}
+                    {mathLatest.n != null
+                      ? ` · ${mathLatest.n} ${bg ? "зрелостници" : "graduates"}`
+                      : ""}
+                    )
+                  </span>
+                  :{" "}
+                  <span className="font-semibold tabular-nums text-foreground">
+                    {fmtScore(mathLatest.score, lang)}
+                  </span>
+                </div>
+                {mathsNote && (
+                  <p className="mt-1 text-xs text-muted-foreground/80">
+                    {mathsNote}
+                  </p>
+                )}
               </div>
             )}
           </CardContent>

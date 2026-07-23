@@ -253,6 +253,30 @@ test.skipIf(skip)("every series point carries its cohort", async () => {
   );
 });
 
+test.skipIf(skip)("the maths line carries its cohort", async () => {
+  // /school/:id qualifies the ДЗИ Maths figure when the group was under the
+  // ranking floor — which is most of them (108 of 152 schools). Without `n` the
+  // card would print a 1-pupil average unqualified, exactly like a 145-pupil
+  // one. The index has a count wherever it has a maths score, so the payload
+  // must too.
+  const [r] = await allRows<{ withMath: number; missing: number }>(
+    `SELECT count(*) FILTER (WHERE s -> 'mathLatest' <> 'null'::jsonb)::int AS "withMath",
+            count(*) FILTER (
+              WHERE s -> 'mathLatest' <> 'null'::jsonb
+                AND NOT (s -> 'mathLatest' ? 'n')
+            )::int AS missing
+     FROM school_payloads,
+          jsonb_array_elements(payload -> 'schools') AS s
+     WHERE kind = 'directory' AND key = ''`,
+  );
+  assert.ok(r.withMath > 0, "no school carries a mathLatest — parser change?");
+  assert.equal(
+    r.missing,
+    0,
+    `${r.missing}/${r.withMath} maths results have no cohort count`,
+  );
+});
+
 test.skipIf(skip)("matched ЕИК is resolvable and non-blank", async () => {
   const [r] = await allRows<{ blank: number }>(
     "SELECT count(*)::int AS blank FROM schools WHERE eik IS NOT NULL AND btrim(eik) = ''",

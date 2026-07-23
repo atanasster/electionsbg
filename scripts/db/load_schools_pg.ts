@@ -70,7 +70,11 @@ type DirSchool = {
    *  interval on the point: the median school-year is 31 examinees but 12% are
    *  under 10, where a 0.4 swing is noise. /school/:id marks those. */
   series: { year: number; score: number; n?: number }[];
-  mathLatest: { year: number; score: number } | null;
+  /** Newest year with a ДЗИ Maths result, with that year's cohort. The second
+   *  matura is by chosen subject, so only ~10% of schools have maths in any
+   *  year and the median maths group is 7 pupils — the card needs `n` to say so
+   *  rather than printing a 1-pupil average like a school statistic. */
+  mathLatest: { year: number; score: number; n?: number } | null;
   ses: number | null;
   predicted: number | null;
   residual: number | null;
@@ -136,13 +140,17 @@ const buildDirectory = () => {
           ? (rec.countsByYear?.[String(last.year)]?.dzi_bel ?? null)
           : null;
       // latest maths (any year, newest first)
-      let mathLatest: { year: number; score: number } | null = null;
+      let mathLatest: { year: number; score: number; n?: number } | null = null;
       for (const y of Object.keys(rec.scoresByYear)
         .map(Number)
         .sort((a, b) => b - a)) {
         const m = rec.scoresByYear[String(y)]?.dzi_math;
         if (typeof m === "number") {
-          mathLatest = { year: y, score: m };
+          const mn = rec.countsByYear?.[String(y)]?.dzi_math;
+          mathLatest =
+            typeof mn === "number"
+              ? { year: y, score: m, n: mn }
+              : { year: y, score: m };
           break;
         }
       }
