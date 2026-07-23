@@ -82,6 +82,9 @@ const SKILL_LINKS: Record<string, DataChangeLink[]> = {
       labelKey: "data_changes_link_municipalities_demographics",
     },
   ],
+  "update-officials": [
+    { to: "/officials/assets", labelKey: "data_changes_link_officials" },
+  ],
 };
 
 export const linksForSkill = (skill: string): DataChangeLink[] =>
