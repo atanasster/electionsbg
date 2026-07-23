@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-07-22T20:56:20.000Z",
+  "lastSuccessfulIngest": "2026-07-23T06:28:17.736Z",
   "skill": "update-macro",
-  "summary": "Eurobarometer institutional-trust refresh: added 2025 + 2026 to EB_TRUST_{GOVERNMENT,PARLIAMENT,EU} from Standard EB 104 (Autumn 2025) + 105 (Spring 2026) data-annex QA6 — BG tend-to-trust gov 22 / parl 16 / EU 52 (2026). macro.json re-generated + stamped."
+  "summary": "eurobarometer STD105 (Spring 2026) already wired + published in 08be31dad; re-stamp to clear watcher flip"
 }

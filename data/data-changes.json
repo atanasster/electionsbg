@@ -1,6 +1,20 @@
 {
-  "updatedAt": "2026-07-22T20:56:06.106Z",
+  "updatedAt": "2026-07-23T06:58:20.866Z",
   "entries": [
+    {
+      "timestamp": "2026-07-23T06:58:20.866Z",
+      "date": "2026-07-23",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-07-22 (+2 daily archives; 1,402,361 store rows, 241 settlements, 210 chains)",
+      "source": "КЗП Колко струва (retail prices)"
+    },
+    {
+      "timestamp": "2026-07-23T06:53:40.554Z",
+      "date": "2026-07-23",
+      "skill": "update-procurement",
+      "summary": "ЦАИС ЕОП gap-fill through 2026-07-22: +6 infra-buyer rows (~€786k); current-value annex fold reapplied; tenders refreshed",
+      "source": "data.egov.bg АОП / ЦАИС ЕОП"
+    },
     {
       "timestamp": "2026-07-22T20:56:06.106Z",
       "date": "2026-07-22",

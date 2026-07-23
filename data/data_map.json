@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-07-22T20:27:19.691Z",
+  "generatedAt": "2026-07-23T06:59:03.753Z",
   "nodes": [
     {
       "id": "src:water",
@@ -403,7 +403,7 @@
       "url": "https://data.egov.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-22T06:08:50.925Z",
+      "freshness": "2026-07-23T06:08:55.136Z",
       "skills": [
         "update-procurement",
         "update-connections",
@@ -425,7 +425,7 @@
           "label": "data.egov.bg Commerce Registry (Търговски регистър)",
           "url": "https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=1",
           "cadence": "daily",
-          "freshness": "2026-07-22T06:08:50.925Z"
+          "freshness": "2026-07-23T06:08:55.136Z"
         },
         {
           "id": "egov_budget_execution",
@@ -503,7 +503,7 @@
       "url": "https://storage.eop.bg/",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-22T06:08:50.925Z",
+      "freshness": "2026-07-23T06:08:55.136Z",
       "skills": [
         "update-procurement"
       ],
@@ -513,7 +513,7 @@
           "label": "ЦАИС ЕОП open data (storage.eop.bg — договори + поръчки + OCDS обявления)",
           "url": "https://storage.eop.bg",
           "cadence": "daily",
-          "freshness": "2026-07-22T06:08:50.925Z"
+          "freshness": "2026-07-23T06:08:55.136Z"
         }
       ],
       "x": 28,
@@ -1139,7 +1139,7 @@
       "url": "https://ec.europa.eu/eurostat/",
       "origin": "eu",
       "cadence": "weekly",
-      "freshness": "2026-07-18T06:08:52.941Z",
+      "freshness": "2026-07-23T06:08:55.136Z",
       "skills": [
         "update-macro",
         "update-regional",
@@ -1199,7 +1199,8 @@
           "id": "eurobarometer",
           "label": "Standard Eurobarometer (institutional trust)",
           "url": "https://data.europa.eu/api/hub/search/search?q=%22Standard+Eurobarometer%22&filter=dataset&limit=100",
-          "cadence": "monthly"
+          "cadence": "monthly",
+          "freshness": "2026-07-23T06:08:55.136Z"
         }
       ],
       "x": 28,
@@ -1465,7 +1466,7 @@
       "url": "https://kolkostruva.bg/opendata",
       "origin": "state",
       "cadence": "daily",
-      "freshness": "2026-07-22T06:08:50.925Z",
+      "freshness": "2026-07-23T06:08:55.136Z",
       "skills": [
         "update-prices"
       ],
@@ -1475,7 +1476,7 @@
           "label": "КЗП Колко струва (retail prices, kolkostruva.bg)",
           "url": "https://kolkostruva.bg/opendata",
           "cadence": "daily",
-          "freshness": "2026-07-22T06:08:50.925Z"
+          "freshness": "2026-07-23T06:08:55.136Z"
         }
       ],
       "x": 28,

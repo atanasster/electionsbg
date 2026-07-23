@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-07-21T09:49:13.702Z",
+  "lastSuccessfulIngest": "2026-07-23T06:58:28.821Z",
   "skill": "update-prices",
-  "summary": "backfilled 07-18..07-20 through a real feed dip (--force declined; bounded backfill); price_current on 07-20 (210 chains, 1.39M rows); catalog 114,575 products"
+  "summary": "loaded 2026-07-21 + 2026-07-22 (+36,060 facts); catalog 114,635 products; payloads rebuilt in PG"
 }
