@@ -78,6 +78,16 @@ Then publish for prod. `/education` + `/school/:id` are **served from Postgres**
 procurement/funds — they reach prod via a **Cloud SQL load, not `bucket:sync`**.
 Emit these in the Next-steps output (do NOT auto-run them; Cloud SQL is prod):
 
+> Three parts of the directory blob exist ONLY after this load runs, and each
+> self-hides on an older payload rather than erroring, so a skipped load looks
+> like a missing feature rather than a failure: `byOblastYear` (the per-oblast
+> series behind the /education "По области" change column + dumbbell — without
+> it the table falls back to latest-year-only), per-year `n` on every
+> `schools[].series` point (the cohort bars and the sub-10 hollow dots on
+> /school/:id — without them both switch off), and the `risk` blob. The
+> reconciliation and coverage of all three are asserted by
+> `scripts/db/tests/schools_pg.data.test.ts` (`npm run test:data`).
+
 ```bash
 # Cloud SQL (proxy on :5434) — publishes the schools tables + the 'directory'
 # AND 'risk' school_payloads blobs (same loader writes both). Until this runs,
