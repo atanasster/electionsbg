@@ -14,6 +14,8 @@ import { Wallet } from "lucide-react";
 import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder } from "@/data/parliament/nsFolders";
 import { useMpEntry } from "@/data/parliament/useMpEntry";
+import { useMpAssets } from "@/data/parliament/useMpAssets";
+import { useMpDeclarations } from "@/data/parliament/useMpDeclarations";
 import { CandidateMpProvider } from "@/data/candidates/CandidateMpContext";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { MpScorecardTile } from "@/screens/components/candidates/MpScorecardTile";
@@ -30,6 +32,12 @@ export const PersonMpSections: FC<{
   const { t } = useTranslation();
   const { selected } = useElectionContext();
   const { entry } = useMpEntry(mpId);
+  const { rollup: mpAssetRollup, isLoading: mpAssetsLoading } =
+    useMpAssets(name);
+  const { isLoading: mpDeclsLoading } = useMpDeclarations(name);
+  // Mirrors MpAssetsSummary's own in-flight branch so the reserved-height card
+  // still shows while the queries settle.
+  const assetsPending = mpAssetsLoading || mpDeclsLoading;
   const linkSlug = `mp-${mpId}`;
 
   // Roll-call only exists for the parliament the MP actually sat in; skip the block (and its
@@ -60,14 +68,20 @@ export const PersonMpSections: FC<{
       )}
       {/* Declared ASSETS/wealth (property, bank, vehicles). The declared company STAKES that
           used to live here moved into the unified <PersonCompanies> "Фирми" section, folded
-          onto the registry company they belong to. Self-hides when the assets tile is empty. */}
-      <DashboardSection
-        id="declarations"
-        title={t("mp_section_assets") || "Assets & declarations"}
-        icon={Wallet}
-      >
-        <MpAssetsSummary name={name} linkSlug={linkSlug} />
-      </DashboardSection>
+          onto the registry company they belong to.
+          Gated on the same condition MpAssetsSummary uses internally — it returns null once
+          the queries settle with no rollup, and the heading used to render regardless, leaving
+          a bare "Имущество и декларации" with nothing under it for every MP who never filed
+          as one (e.g. a minister who only ever filed in the officials register). */}
+      {(mpAssetRollup || assetsPending) && (
+        <DashboardSection
+          id="declarations"
+          title={t("mp_section_assets") || "Assets & declarations"}
+          icon={Wallet}
+        >
+          <MpAssetsSummary name={name} linkSlug={linkSlug} />
+        </DashboardSection>
+      )}
     </CandidateMpProvider>
   );
 };

@@ -40,6 +40,7 @@ import { magistrateRoleKey } from "@/lib/magistrateRole";
 import { formatEurCompact } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { PersonScreen } from "@/screens/dev/PersonScreen";
+import { useMpAssets } from "@/data/parliament/useMpAssets";
 
 // "2021_11_14" -> "14.11.2021"; anything else passes through.
 const fmtElection = (d: string): string => {
@@ -124,6 +125,11 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
   const officialSlug = p.roles.find(
     (r) => r.source === "official_exec" || r.source === "official_muni",
   )?.ref;
+
+  // Does the MP register carry declared assets for this person? Same query
+  // PersonMpSections/MpAssetsSummary run, deduped by React Query, so it costs
+  // nothing extra and both sides agree on which declarations block to show.
+  const { rollup: mpAssetRollup } = useMpAssets(p.name);
 
   // Local office role → localized heading; unknown role codes pass through.
   const roleLabel = (role: string): string => {
@@ -337,8 +343,13 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
         />
       )}
 
-      {/* Non-MP official: declared assets (Court of Audit). MPs get theirs above. */}
-      {mpId == null && officialSlug && (
+      {/* Official's declared assets (Court of Audit). Normally an MP's declarations come from
+          PersonMpSections above, so this is the non-MP counterpart — but the two registers are
+          separate, and someone can hold an mp id while having filed ONLY in the officials
+          register: a minister who stood for parliament without ever taking a seat files as a
+          cabinet member, not as an MP. Gating purely on `mpId == null` hid their declarations
+          entirely. Fall back whenever the MP side has nothing, so exactly one block renders. */}
+      {officialSlug && !mpAssetRollup && (
         <PersonOfficialAssets slug={officialSlug} />
       )}
 

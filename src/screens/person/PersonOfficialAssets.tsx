@@ -44,7 +44,14 @@ export const PersonOfficialAssets: FC<{ slug: string }> = ({ slug }) => {
       sourceUrl: latest.sourceUrl,
       ...cur,
       deltaNet: prev ? cur.net - prev.net : null,
-      prevYear: declarations[1]?.declarationYear ?? null,
+      // Label the comparison by the FISCAL year each filing covers, not the year
+      // it was filed. An official who files an annual and an exit declaration in
+      // the same calendar year has two rows sharing a declarationYear, which
+      // rendered as "+X vs 2023" on a card already headlined 2023. Their fiscal
+      // years are what actually differ (2022 → 2023). Fall back to the filing
+      // year, and drop the comparison if even that can't distinguish them.
+      prevYear:
+        declarations[1]?.fiscalYear ?? declarations[1]?.declarationYear ?? null,
     };
   }, [declarations]);
 
@@ -72,19 +79,21 @@ export const PersonOfficialAssets: FC<{ slug: string }> = ({ slug }) => {
           <div className="text-2xl font-bold text-foreground">
             {formatEurCompact(summary.net)}
           </div>
-          {summary.deltaNet != null && summary.prevYear != null && (
-            <div
-              className={
-                summary.deltaNet >= 0
-                  ? "mt-0.5 text-xs text-emerald-600 dark:text-emerald-400"
-                  : "mt-0.5 text-xs text-red-600 dark:text-red-400"
-              }
-            >
-              {summary.deltaNet >= 0 ? "+" : "−"}
-              {formatEurCompact(Math.abs(summary.deltaNet))} {t("dashboard_vs")}{" "}
-              {summary.prevYear}
-            </div>
-          )}
+          {summary.deltaNet != null &&
+            summary.prevYear != null &&
+            summary.prevYear !== summary.year && (
+              <div
+                className={
+                  summary.deltaNet >= 0
+                    ? "mt-0.5 text-xs text-emerald-600 dark:text-emerald-400"
+                    : "mt-0.5 text-xs text-red-600 dark:text-red-400"
+                }
+              >
+                {summary.deltaNet >= 0 ? "+" : "−"}
+                {formatEurCompact(Math.abs(summary.deltaNet))}{" "}
+                {t("dashboard_vs")} {summary.prevYear}
+              </div>
+            )}
         </StatCard>
         <StatCard label={t("officials_col_assets") || "Assets (€)"}>
           <div className="text-2xl font-bold text-foreground">
