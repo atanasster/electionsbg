@@ -30,6 +30,14 @@ import type {
 export type DeclarationLike = {
   declarationYear: number;
   fiscalYear?: number | null;
+  /** Registry filing date, ISO. Absent on a good share of the corpus. */
+  filedAt?: string | null;
+  /** Registry entry number ("Г3810", "В998"). The rung that actually separates
+   *  an annual from an entry/exit filing when both share a year and neither
+   *  carries a filing date — see byRecency. */
+  entryNumber?: string | null;
+  /** Unique per filing; the terminal ordering tie-break and the dedup key. */
+  sourceUrl: string;
   assets?: MpAsset[];
   income?: MpIncomeRecord[];
   ownershipStakes?: MpOwnershipStake[];
@@ -100,6 +108,24 @@ export const priorAssetDeclaration = <T extends DeclarationLike>(
     ) ?? null
   );
 };
+
+/** Newest-first ordering for a filing history — the ONE definition.
+ *
+ *  Every producer and consumer must agree on it, because "the latest filing" is
+ *  literally the head of this sort. It lived only in scripts/officials/merge.ts
+ *  until a second copy in the client dropped the `entryNumber` rung; annual
+ *  (Г…) and entry/vacate (Ф…) filings routinely share a year with a null
+ *  `filedAt`, so that rung is what actually decides the winner. The result was
+ *  32 declarants showing one net worth on /person and a different one on
+ *  /officials, up to 4.8x apart.
+ *
+ *  `sourceUrl` is the terminal tie-break: opaque, but unique and stable, so the
+ *  order is deterministic across runs and renders. */
+export const byRecency = (a: DeclarationLike, b: DeclarationLike): number =>
+  b.declarationYear - a.declarationYear ||
+  (b.filedAt ?? "").localeCompare(a.filedAt ?? "") ||
+  (a.entryNumber ?? "").localeCompare(b.entryNumber ?? "") ||
+  a.sourceUrl.localeCompare(b.sourceUrl);
 
 export type DeclarationTotals = {
   assetsEur: number;

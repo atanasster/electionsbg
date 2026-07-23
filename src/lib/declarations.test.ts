@@ -39,7 +39,12 @@ const decl = (
   declarationYear: number,
   fiscalYear: number | null,
   assets: MpAsset[] | undefined,
-) => ({ declarationYear, fiscalYear, assets });
+) => ({
+  declarationYear,
+  fiscalYear,
+  assets,
+  sourceUrl: `https://register.cacbg.bg/${declarationYear}/${fiscalYear}-${assets?.length ?? 0}.xml`,
+});
 
 describe("hasDeclaredAssets", () => {
   it("distinguishes a filing with an asset table from one without", () => {
@@ -174,13 +179,9 @@ describe("latestDeclarationWith — per-section filings", () => {
   // the wealth, income and interests sections at once.
   it("resolves wealth, income and stakes to different filings", () => {
     const decls = [
-      {
-        declarationYear: 2025,
-        fiscalYear: null,
-        ownershipStakes: [stake("АЛФА")],
-      },
-      { declarationYear: 2024, fiscalYear: 2023, assets: [asset("cash", 5)] },
-      { declarationYear: 2023, fiscalYear: 2022, income: [income(44888)] },
+      { ...decl(2025, null, undefined), ownershipStakes: [stake("АЛФА")] },
+      decl(2024, 2023, [asset("cash", 5)]),
+      { ...decl(2023, 2022, undefined), income: [income(44888)] },
     ];
     expect(latestAssetDeclaration(decls)?.declarationYear).toBe(2024);
     expect(
@@ -192,9 +193,7 @@ describe("latestDeclarationWith — per-section filings", () => {
   });
 
   it("ignores an income table whose every row is zero", () => {
-    const decls = [
-      { declarationYear: 2025, fiscalYear: 2024, income: [income(0)] },
-    ];
+    const decls = [{ ...decl(2025, 2024, undefined), income: [income(0)] }];
     expect(latestDeclarationWith(decls, hasDeclaredIncome)).toBeNull();
   });
 
@@ -203,11 +202,7 @@ describe("latestDeclarationWith — per-section filings", () => {
   // basis values table-10 stakes.
   it("does not treat a stakes-only filing as a wealth snapshot", () => {
     const decls = [
-      {
-        declarationYear: 2025,
-        fiscalYear: null,
-        ownershipStakes: [stake("АЛФА")],
-      },
+      { ...decl(2025, null, undefined), ownershipStakes: [stake("АЛФА")] },
     ];
     expect(latestAssetDeclaration(decls)).toBeNull();
   });

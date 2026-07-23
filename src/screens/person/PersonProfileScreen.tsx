@@ -120,11 +120,28 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
     return { election: r.ref.slice(0, i), slug: r.ref.slice(i + 1) };
   });
 
-  // An official's declaration slug = person_role.ref (Court-of-Audit roster slug). Used for
-  // the non-MP declared-wealth block (MPs get their assets via PersonMpSections instead).
-  const officialSlug = p.roles.find(
-    (r) => r.source === "official_exec" || r.source === "official_muni",
-  )?.ref;
+  // Every official declaration slug this person holds (person_role.ref IS the Court-of-Audit
+  // roster slug). Used for the non-MP declared-wealth block; MPs get their assets via
+  // PersonMpSections instead.
+  //
+  // ALL of them, not the first: the slug is name+institution hashed, so changing post mints
+  // a new one, and 112 people in the roster hold more than one. Picking with `.find()` hid
+  // the other post's whole filing history and made which one you saw depend on role order.
+  // Sorted so the fetch order — and therefore the render — is deterministic.
+  const officialSlugs = useMemo(
+    () =>
+      [
+        ...new Set(
+          p.roles
+            .filter(
+              (r) =>
+                r.source === "official_exec" || r.source === "official_muni",
+            )
+            .map((r) => r.ref),
+        ),
+      ].sort(),
+    [p.roles],
+  );
 
   // Does the MP register carry declared assets for this person? Same query
   // PersonMpSections/MpAssetsSummary run, deduped by React Query, so it costs
@@ -349,8 +366,8 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
           register: a minister who stood for parliament without ever taking a seat files as a
           cabinet member, not as an MP. Gating purely on `mpId == null` hid their declarations
           entirely. Fall back whenever the MP side has nothing, so exactly one block renders. */}
-      {officialSlug && !mpAssetRollup && (
-        <PersonOfficialAssets slug={officialSlug} />
+      {officialSlugs.length > 0 && !mpAssetRollup && (
+        <PersonOfficialAssets slugs={officialSlugs} />
       )}
 
       {/* Magistrate: the ИВСС declaration (court/position, declared wealth + companies) — the

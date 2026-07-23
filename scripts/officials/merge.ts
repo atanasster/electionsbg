@@ -20,6 +20,10 @@ import type {
   OfficialIndexEntry,
 } from "../../src/data/dataTypes";
 import { registerFolderYear } from "../lib/cacbg_register";
+// Newest-first ordering is shared with the client: "the latest filing" is the
+// head of this sort, so a second copy that drifts silently disagrees about who
+// is worth what. See src/lib/declarations.ts.
+import { byRecency } from "../../src/lib/declarations";
 
 // Which run owns a row: the register folder it came from, NOT
 // decl.declarationYear. The parsed year comes from inside the XML and does not
@@ -30,14 +34,6 @@ import { registerFolderYear } from "../lib/cacbg_register";
 // ownership test and the dating test must differ.
 export const folderYearFromSourceUrl = (url: string): number | null =>
   registerFolderYear(url);
-
-// Newest first, with deterministic tie-breaks so re-running an unchanged year
-// reproduces byte-identical output.
-const byRecency = (a: OfficialDeclaration, b: OfficialDeclaration): number =>
-  b.declarationYear - a.declarationYear ||
-  (b.filedAt ?? "").localeCompare(a.filedAt ?? "") ||
-  (a.entryNumber ?? "").localeCompare(b.entryNumber ?? "") ||
-  a.sourceUrl.localeCompare(b.sourceUrl);
 
 export const mergeDeclarations = (
   existing: OfficialDeclaration[],

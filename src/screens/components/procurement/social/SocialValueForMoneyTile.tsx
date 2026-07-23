@@ -148,7 +148,13 @@ export const SocialValueForMoneyTile: FC = () => {
       const w = text.length * fs * 0.55;
       const nearRight = cx + w / 2 > W - PAD.r;
       const nearLeft = cx - w / 2 < PAD.l;
-      const anchor = nearRight ? "end" : nearLeft ? "start" : "middle";
+      // `as const` so the union survives the object literal — without it the
+      // inferred type widens to `string` and no longer satisfies SVG's
+      // textAnchor.
+      const anchor = (nearRight ? "end" : nearLeft ? "start" : "middle") as
+        | "end"
+        | "start"
+        | "middle";
       const lx = cx + (nearRight ? -9 : nearLeft ? 9 : 0);
       const x0 =
         anchor === "end" ? lx - w : anchor === "start" ? lx : lx - w / 2;

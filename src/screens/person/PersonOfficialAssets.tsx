@@ -10,8 +10,9 @@
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Wallet, ExternalLink } from "lucide-react";
-import { useOfficialDeclarations } from "@/data/officials/useOfficial";
+import { Wallet, ExternalLink, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useOfficialDeclarationsForSlugs } from "@/data/officials/useOfficial";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatEurCompact } from "@/lib/currency";
@@ -21,9 +22,13 @@ import {
   priorAssetDeclaration,
 } from "@/lib/declarations";
 
-export const PersonOfficialAssets: FC<{ slug: string }> = ({ slug }) => {
+export const PersonOfficialAssets: FC<{ slugs: readonly string[] }> = ({
+  slugs,
+}) => {
   const { t } = useTranslation();
-  const { declarations } = useOfficialDeclarations(slug);
+  // Every official identity this person holds, merged into one timeline — see
+  // useOfficialDeclarationsForSlugs for why a person can have several.
+  const { declarations } = useOfficialDeclarationsForSlugs(slugs);
 
   const summary = useMemo(() => {
     // The newest filing is frequently an incompatibility declaration, which
@@ -49,6 +54,24 @@ export const PersonOfficialAssets: FC<{ slug: string }> = ({ slug }) => {
         : null,
     };
   }, [declarations]);
+
+  // Each identity with the institution it filed under, so the links below name
+  // the post rather than repeating one label. Taken from the merged timeline:
+  // the declaration shard carries the institution, and `slug` on each row is the
+  // identity it came from. An identity whose shard has not loaded (or does not
+  // exist) still gets a link, just without a label.
+  const identities = useMemo(() => {
+    const institutionBySlug = new Map<string, string>();
+    for (const d of declarations) {
+      if (!institutionBySlug.has(d.slug) && d.institution) {
+        institutionBySlug.set(d.slug, d.institution);
+      }
+    }
+    return slugs.map((slug) => ({
+      slug,
+      institution: institutionBySlug.get(slug) ?? null,
+    }));
+  }, [declarations, slugs]);
 
   if (!summary) return null;
 
@@ -100,6 +123,26 @@ export const PersonOfficialAssets: FC<{ slug: string }> = ({ slug }) => {
             {formatEurCompact(summary.debts)}
           </div>
         </StatCard>
+      </div>
+
+      {/* Out to the full filing history, per official identity. This block is a
+          three-card summary; /officials/:slug carries the category breakdown,
+          the income table, the declared interests and every filing on record.
+          One link per identity, because a change of post mints a new slug and
+          each has its own page — labelled by institution, since four links all
+          reading "Пълни декларации" say nothing about which post is which, and
+          the Offices-held section above dedupes the identities away. */}
+      <div className="mt-3 flex flex-col gap-1">
+        {identities.map((id) => (
+          <Link
+            key={id.slug}
+            to={`/officials/${id.slug}`}
+            className="inline-flex items-center gap-1 text-xs text-primary hover:underline"
+          >
+            {id.institution ?? t("official_view_full") ?? "Full declarations"}
+            <ArrowRight className="h-3 w-3 shrink-0" />
+          </Link>
+        ))}
       </div>
     </DashboardSection>
   );
