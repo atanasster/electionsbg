@@ -103,7 +103,6 @@ interface Group {
   canonKey: string;
   canon: Canon;
   skuIds: number[];
-  chains: Set<string>;
   titles: Map<string, number>;
   pid: number;
 }
@@ -158,14 +157,12 @@ export const rebuildCatalog = async (): Promise<void> => {
         canonKey: key,
         canon: c,
         skuIds: [],
-        chains: new Set(),
         titles: new Map(),
         pid,
       };
       groups.set(key, g);
     }
     g.skuIds.push(skuId);
-    g.chains.add(s.eik);
     g.titles.set(c.title, (g.titles.get(c.title) ?? 0) + 1);
   }
 
@@ -248,7 +245,7 @@ export const rebuildCatalog = async (): Promise<void> => {
           g.canon.netUnit,
           g.canon.unitPriced,
           g.canon.attrs, // jsonb — copyRows renders objects to JSON text
-          g.chains.size,
+          0, // chain_count: seeded 0, recomputed live from price_current in step 7
           g.skuIds.length,
           g.canon.confidence,
         ]);
@@ -321,19 +318,33 @@ export const rebuildCatalog = async (): Promise<void> => {
       // A real advertised price, useful as-is. From price_current, never
       // price_facts (whose open runs include every delisted SKU — design §3.2).
       //
+      // chain_count = how many chains carry a LIVE price for it today — the same
+      // number the /product ladder shows and the "N вериги" search caption prints.
+      // It is a live-facing column like current_min_eur, NOT the all-time count of
+      // chains ever matched: a chain whose SKU was matched historically but that
+      // did not report today is absent from the ladder, so counting it here would
+      // print "13 вериги" above a 4-row ladder. Computed from price_current with
+      // the SAME unit-outlier guard as the ladder, so search caption == ladder.
+      //
       // Blanket-reset first (like pct_since_euro below): a product that still
       // forms a group but whose every SKU was delisted is absent from the
       // price_current subquery, so a conditional-only UPDATE would leave its
       // PRIOR-run price advertised for something no longer on any shelf
-      // (FINDING-004).
+      // (FINDING-004). chain_count resets to 0 for the same reason: a delisted
+      // product must fall out of search (`WHERE chain_count > 0`), not linger at
+      // its stale all-time count.
       // Unit-outlier guard (mirrors build_product_days.ts): a per-kg product's
       // cheapest price ignores store-facts below half its cross-store median, so
       // a per-piece listing (a single banana at €0.76) cannot masquerade as the
       // "cheapest БАНАНИ". Packaged goods keep the raw min (legit pack spreads).
-      await c.query(`UPDATE price_products p SET current_min_eur = NULL`);
+      // The guard also gates the chain count, so a chain present only via a
+      // spurious per-piece row is not counted toward "N вериги".
+      await c.query(
+        `UPDATE price_products p SET current_min_eur = NULL, chain_count = 0`,
+      );
       await c.query(`
         WITH cur AS (
-          SELECT k.product_id, pc.price_eur, p.unit_priced
+          SELECT k.product_id, k.eik, pc.price_eur, p.unit_priced
             FROM price_current pc
             JOIN price_skus k ON k.sku_id = pc.sku_id
             JOIN price_products p ON p.product_id = k.product_id
@@ -344,8 +355,12 @@ export const rebuildCatalog = async (): Promise<void> => {
                  percentile_cont(0.5) WITHIN GROUP (ORDER BY price_eur) AS m
             FROM cur GROUP BY product_id
         )
-        UPDATE price_products p SET current_min_eur = x.m
-          FROM (SELECT cur.product_id, min(cur.price_eur) AS m
+        UPDATE price_products p
+           SET current_min_eur = x.m,
+               chain_count      = x.cc
+          FROM (SELECT cur.product_id,
+                       min(cur.price_eur)      AS m,
+                       count(DISTINCT cur.eik) AS cc
                   FROM cur JOIN med USING (product_id)
                  WHERE NOT cur.unit_priced OR cur.price_eur >= 0.5 * med.m
                  GROUP BY cur.product_id) x
