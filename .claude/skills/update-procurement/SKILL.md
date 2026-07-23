@@ -147,7 +147,7 @@ npx tsx scripts/procurement/by_id_shards.ts            # prefix-sharded per-cont
 **Current (post-annex) value — the headline basis.** `amountEur` is the CURRENT contract value ("текуща стойност"), matching SIGMA's default list value. It is derived from the ЦАИС ЕОП `анекси` feed and must be (re)applied AFTER every base normalization (`procurement:ingest` and any re-ingest reset `amountEur` back to `toEur(amount)` = the signing value):
 
 ```bash
-npx tsx scripts/procurement/ingest_anexi.ts --apply            # fetch+cache annex feed (~30d incremental; --backfill --from 2020-01-01 once for full history)
+npx tsx scripts/procurement/ingest_anexi.ts                    # fetch+cache annex feed (~30d incremental by default; --backfill --from 2020-01-01 once for full history; no --apply flag)
 npx tsx scripts/procurement/anexi_current_value.ts --apply     # FLIP amountEur → current value in place; original signing value kept in signingAmountEur
 npx tsx scripts/procurement/rebuild_from_cache.ts              # rebuild rollups/by-id/index from the FLIPPED shards (this pass is flip-aware; see below)
 npx tsx scripts/procurement/rebuild_derived.ts                 # link-dependent files (mp_connected/pep/flow/top_contractors) with the TR-namesake filter
