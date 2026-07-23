@@ -18,6 +18,7 @@ import { Title } from "@/ux/Title";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { MaturaTrendChart } from "./MaturaTrendChart";
 import { mathsCaveat, mathsCaveatText } from "./mathsCaveat";
+import { SchoolProcurementTile } from "./SchoolProcurementTile";
 import {
   useSchoolDirectory,
   MIN_RANK_COHORT,
@@ -153,19 +154,6 @@ export const SchoolScreen: FC = () => {
           {bg ? "община " : ""}
           {school.obshtinaName}
         </Link>
-        {school.eik && (
-          <>
-            {" · "}
-            <Link
-              to={`/company/${school.eik}`}
-              className="text-primary hover:underline"
-            >
-              {bg
-                ? "обществени поръчки на училището"
-                : "the school's own procurement"}
-            </Link>
-          </>
-        )}
       </div>
 
       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -313,6 +301,10 @@ export const SchoolScreen: FC = () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* The school as a public buyer. Self-hides when the ЕИК has no contracts,
+          which is most schools. */}
+      <SchoolProcurementTile eik={school.eik} />
 
       {/* Постижение спрямо подобни училища — the honest, context-adjusted signal.
           Show raw AND expected side by side (the CVA lesson: don't force one number). */}
