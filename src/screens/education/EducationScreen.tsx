@@ -20,15 +20,16 @@ import {
 import { Title } from "@/ux/Title";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { Input } from "@/components/ui/input";
-import { Sparkline } from "@/ux/Sparkline";
 import { useRegions } from "@/data/regions/useRegions";
 import {
   useSchoolDirectory,
   MIN_RANK_COHORT,
 } from "@/data/schools/useSchoolDirectory";
+import { DZI_BEL_OFFICIAL_AVG } from "@/data/schools/maturaCalendar";
 import { useTextbookMarket } from "@/data/education/useTextbookMarket";
 import { formatEurCompact } from "@/lib/currency";
 import { MON_AWARDER_PATH } from "@/screens/components/procurement/sectorPacks";
+import { MaturaTrendChart } from "./MaturaTrendChart";
 import { searchSchools } from "./searchSchools";
 
 // Leaflet + react-leaflet are heavy; keep them out of the /education chunk until
@@ -55,13 +56,6 @@ const fmt = (v: number, lang: string): string =>
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });
-
-// Rebase the narrow matura band to the series range so the sparkline shape reads.
-const rebase = (scores: number[]): number[] => {
-  if (scores.length === 0) return scores;
-  const lo = Math.min(...scores);
-  return scores.map((s) => s - lo + 0.15);
-};
 
 export const EducationScreen: FC = () => {
   const { i18n } = useTranslation();
@@ -103,6 +97,10 @@ export const EducationScreen: FC = () => {
 
   const national = dir.nationalByYear;
   const latest = national[national.length - 1];
+  // МОН announces its own national average on a different basis — quote it so
+  // the tile doesn't silently contradict the figure the press reported.
+  const officialAvg =
+    dir.latestYear != null ? DZI_BEL_OFFICIAL_AVG[dir.latestYear] : undefined;
   const top = dir.rankable.slice(0, 8);
   const bottom = [...dir.rankable].reverse().slice(0, 8);
 
@@ -149,31 +147,19 @@ export const EducationScreen: FC = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="flex items-end justify-between gap-4">
-              <div>
-                <div className="text-4xl font-bold tabular-nums">
-                  {latest?.avg != null ? fmt(latest.avg, lang) : "—"}
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  {latest?.year} ·{" "}
-                  {latest?.examinees != null
-                    ? `${latest.examinees.toLocaleString(bg ? "bg-BG" : "en-US")} ${bg ? "зрелостници" : "graduates"}`
-                    : ""}
-                </div>
+            <div>
+              <div className="text-4xl font-bold tabular-nums">
+                {latest?.avg != null ? fmt(latest.avg, lang) : "—"}
               </div>
-              <div className="w-40 text-primary">
-                <Sparkline
-                  values={rebase(national.map((n) => n.avg ?? 0))}
-                  ariaLabel={bg ? "Национален тренд" : "National trend"}
-                />
+              <div className="text-sm text-muted-foreground">
+                {latest?.year} ·{" "}
+                {latest?.examinees != null
+                  ? `${latest.examinees.toLocaleString(bg ? "bg-BG" : "en-US")} ${bg ? "зрелостници" : "graduates"}`
+                  : ""}
               </div>
             </div>
-            <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs tabular-nums text-muted-foreground">
-              {national.map((n) => (
-                <span key={n.year}>
-                  {n.year}: {n.avg != null ? fmt(n.avg, lang) : "—"}
-                </span>
-              ))}
+            <div className="mt-2">
+              <MaturaTrendChart national={national} lang={lang} />
             </div>
           </CardContent>
         </Card>
@@ -436,7 +422,11 @@ export const EducationScreen: FC = () => {
       <p className="mt-4 text-[11px] text-muted-foreground/80">
         {bg
           ? "Средният успех е претеглен по броя зрелостници. Училища с под 10 зрелостници не се класират (малка, несигурна извадка). Оценката на напредъка 7→12 клас — още по-справедливото сравнение с подобни по състав училища — предстои."
-          : "Averages are weighted by the number of graduates. Schools with fewer than 10 graduates are not ranked (small, noisy sample). A context-adjusted comparison to similar schools is coming."}
+          : "Averages are weighted by the number of graduates. Schools with fewer than 10 graduates are not ranked (small, noisy sample). A context-adjusted comparison to similar schools is coming."}{" "}
+        {officialAvg != null &&
+          (bg
+            ? `Числата тук са изчислени от регистъра на МОН по училища; официално обявеният от министерството успех за ${dir.latestYear} г. е ${fmt(officialAvg, lang)}. Разликата е методологична: МОН смята оценката от средния брой точки, а тук всеки скъсан зрелостник влиза с 2,00 независимо от точките си — затова разликата расте с дела на слабите оценки.`
+            : `The figures here are computed from МОН's per-school register; the ministry's own announced average for ${dir.latestYear} is ${fmt(officialAvg, lang)}. The difference is methodological: МОН converts the mean points to a grade, while here every failing graduate enters as a flat 2.00 whatever their points — so the gap grows with the failure rate.`)}
       </p>
     </div>
   );
