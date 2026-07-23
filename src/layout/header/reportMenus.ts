@@ -58,124 +58,19 @@ export type MenuItem = {
   columns?: number;
 };
 
-const buildLocationReportSubMenu = (
-  scope: "municipality" | "settlement" | "section",
-): MenuItem[] => {
-  const items: MenuItem[] = [
-    { title: "wasted_votes_title", link: `/reports/${scope}/wasted-votes` },
-    {
-      title: "concentrated_party_votes",
-      link: `/reports/${scope}/concentrated`,
-    },
-    { title: "top_gainers", link: `/reports/${scope}/top_gainers` },
-    { title: "top_losers", link: `/reports/${scope}/top_losers` },
-    { title: "voter_turnout", link: `/reports/${scope}/turnout` },
-    { title: "invalid_ballots", link: `/reports/${scope}/invalid_ballots` },
-    { title: "additional_voters", link: `/reports/${scope}/additional_voters` },
-    { title: "support_no_one", link: `/reports/${scope}/supports_no_one` },
-  ];
-  if (scope === "section") {
-    items.push({
-      title: "problem_sections",
-      link: `/reports/section/problem_sections`,
-    });
-  }
-  items.push(
-    { title: "-", category: "recount" },
-    { title: "voting_recount", category: "recount" },
-    {
-      title: "votes_recount",
-      link: `/reports/${scope}/recount`,
-      category: "recount",
-    },
-  );
-  if (scope === "section") {
-    items.push({
-      title: "zero_votes",
-      link: `/reports/section/recount_zero_votes`,
-      category: "recount",
-    });
-  }
-  items.push(
-    { title: "-", category: "suemg" },
-    { title: "flash_memory", category: "suemg" },
-    {
-      title: "missing_flash_memory",
-      link: `/reports/${scope}/missing_flash_memory`,
-      category: "suemg",
-    },
-    {
-      title: "flash_memory_removed",
-      link: `/reports/${scope}/flash_memory_removed`,
-      category: "suemg",
-    },
-    {
-      title: "flash_memory_added",
-      link: `/reports/${scope}/flash_memory_added`,
-      category: "suemg",
-    },
-    {
-      title: "flash_memory_moved",
-      link: `/reports/${scope}/flash_memory`,
-      category: "suemg",
-    },
-  );
-  return items;
-};
-
 export const electionsMenu: MenuItem[] = [
   {
     title: "nav_elections",
     link: "/",
+    // The two hubs ARE the elections navigation now — the analyses hub fronts
+    // risk / Benford / wasted votes / loyalty / comparison + the simulator,
+    // polls and financing dossiers; the reports hub fronts the anomaly-report
+    // matrix. The old per-analysis / per-report leaf lists lived here before and
+    // now live inside the hubs (depth in the hubs, not the dropdown).
     subMenu: [
       { title: "menu_overview", link: "/", mobileOnly: true },
       { title: "analysis_hub_nav", link: "/parliamentary/analysis" },
       { title: "reports_hub_nav", link: "/parliamentary/reports" },
-      { title: "-" },
-      {
-        title: "menu_header_analysis",
-        group: true,
-        subMenu: [
-          { title: "risk_analysis_title", link: "/risk-analysis" },
-          { title: "benford_title", link: "/benford" },
-          { title: "wasted_votes_title", link: "/wasted-vote" },
-          { title: "persistence_title", link: "/persistence" },
-          { title: "compare_title", link: "/compare" },
-        ],
-      },
-      { title: "-" },
-      {
-        title: "menu_header_tools_polls",
-        group: true,
-        subMenu: [
-          { title: "coalition_simulator", link: "/simulator" },
-          { title: "polls_title", link: "/polls" },
-        ],
-      },
-      // The financing dossier and its leading rule share the "financials"
-      // gate so both disappear together on cycles with no financing data.
-      { title: "-", category: "financials" },
-      {
-        title: "campaign_financing",
-        link: "/financing",
-        category: "financials",
-      },
-      { title: "-" },
-      {
-        title: "anomaly_reports_menu",
-        subMenu: [
-          { title: "risk_score_title", link: "/risk-score" },
-          {
-            title: "municipalities",
-            subMenu: buildLocationReportSubMenu("municipality"),
-          },
-          {
-            title: "settlements",
-            subMenu: buildLocationReportSubMenu("settlement"),
-          },
-          { title: "sections", subMenu: buildLocationReportSubMenu("section") },
-        ],
-      },
     ],
   },
 ];
