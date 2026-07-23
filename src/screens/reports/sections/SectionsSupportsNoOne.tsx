@@ -28,7 +28,7 @@ export const SectionsSupportsNoOne = () => {
 
   return (
     <Template
-      defaultThreshold={10}
+      defaultThreshold={5}
       votes={data}
       titleKey="support_no_one"
       ruleKey="support_no_one_over"

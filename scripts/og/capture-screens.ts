@@ -88,6 +88,101 @@ const captures: Capture[] = [
     settleMs: 1500,
   },
   {
+    slug: "polls",
+    routePath: "polls",
+    // The poll-accuracy trends chart is the page hero.
+    waitFor: ".recharts-surface",
+    anchor: ".recharts-wrapper",
+    centerOnAnchor: true,
+    settleMs: 1800,
+  },
+  {
+    slug: "compare",
+    routePath: "compare?elections=2026_04_19",
+    // Default "elections" mode — the two-election comparison table (renders only
+    // once both national summaries load, so the anchor's presence means data).
+    waitFor: '[data-og="compare-table"]',
+    anchor: '[data-og="compare-table"]',
+    leftAlign: true,
+    settleMs: 2500,
+  },
+  // Reports-hub tile destinations — each is the report's results table. One card
+  // per report type (the /og/reports-<slug>.png the report routes reference),
+  // captured at the grain the hub tile links to. recount + flash-memory use a
+  // cycle that actually has them (2024_10_27); the rest use the latest.
+  {
+    slug: "reports-concentrated",
+    routePath: "reports/settlement/concentrated?elections=2026_04_19",
+    waitFor: '[data-og="report-table"] table',
+    anchor: '[data-og="report-table"]',
+    leftAlign: true,
+    settleMs: 3000,
+  },
+  {
+    slug: "reports-additional_voters",
+    routePath: "reports/settlement/additional_voters?elections=2026_04_19",
+    waitFor: '[data-og="report-table"] table',
+    anchor: '[data-og="report-table"]',
+    leftAlign: true,
+    settleMs: 3000,
+  },
+  {
+    slug: "reports-supports_no_one",
+    routePath: "reports/settlement/supports_no_one?elections=2026_04_19",
+    waitFor: '[data-og="report-table"] table',
+    anchor: '[data-og="report-table"]',
+    leftAlign: true,
+    settleMs: 3000,
+  },
+  {
+    slug: "reports-turnout",
+    routePath: "reports/municipality/turnout?elections=2026_04_19",
+    waitFor: '[data-og="report-table"] table',
+    anchor: '[data-og="report-table"]',
+    leftAlign: true,
+    settleMs: 3000,
+  },
+  {
+    slug: "reports-invalid_ballots",
+    routePath: "reports/settlement/invalid_ballots?elections=2026_04_19",
+    waitFor: '[data-og="report-table"] table',
+    anchor: '[data-og="report-table"]',
+    leftAlign: true,
+    settleMs: 3000,
+  },
+  {
+    slug: "reports-top_gainers",
+    routePath: "reports/municipality/top_gainers?elections=2026_04_19",
+    waitFor: '[data-og="report-table"] table',
+    anchor: '[data-og="report-table"]',
+    leftAlign: true,
+    settleMs: 3000,
+  },
+  {
+    slug: "reports-top_losers",
+    routePath: "reports/municipality/top_losers?elections=2026_04_19",
+    waitFor: '[data-og="report-table"] table',
+    anchor: '[data-og="report-table"]',
+    leftAlign: true,
+    settleMs: 3000,
+  },
+  {
+    slug: "reports-recount",
+    routePath: "reports/section/recount?elections=2024_10_27",
+    waitFor: '[data-og="report-table"] table',
+    anchor: '[data-og="report-table"]',
+    leftAlign: true,
+    settleMs: 3000,
+  },
+  {
+    slug: "reports-missing_flash_memory",
+    routePath: "reports/section/missing_flash_memory?elections=2024_10_27",
+    waitFor: '[data-og="report-table"] table',
+    anchor: '[data-og="report-table"]',
+    leftAlign: true,
+    settleMs: 3000,
+  },
+  {
     slug: "benford",
     routePath: "benford",
     // The first Recharts surface inside a BenfordChart panel.

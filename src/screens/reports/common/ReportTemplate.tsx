@@ -337,7 +337,7 @@ export const ReportTemplate: FC<{
     ],
   );
   return (
-    <div className={`w-full`}>
+    <div className={`w-full`} data-og="report-table">
       <Title description="election anomalies report" className="md:py-8">
         {t(titleKey)}
       </Title>

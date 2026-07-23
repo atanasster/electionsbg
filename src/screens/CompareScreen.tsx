@@ -81,7 +81,9 @@ const CompareElections = () => {
       )}
 
       {leftData && rightData ? (
-        <CompareTable left={leftData} right={rightData} />
+        <div data-og="compare-table">
+          <CompareTable left={leftData} right={rightData} />
+        </div>
       ) : (
         <div className="text-sm text-muted-foreground py-12 text-center">
           {leftQuery.isLoading || rightQuery.isLoading

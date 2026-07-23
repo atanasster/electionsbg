@@ -2447,6 +2447,7 @@ export const buildPollsRoutes = (publicFolder: string): PrerenderRoute[] => {
         "Социологически проучвания преди парламентарни избори | electionsbg.com",
       description:
         "Точност на социологическите агенции преди българските парламентарни избори — средна абсолютна грешка по партии, профил на отклоненията и предупреждения по агенции.",
+      ogImage: "/og/polls.png",
       bodyHtml: buildPollsBody(publicFolder),
       jsonLd: [
         buildDatasetLd({
@@ -2653,6 +2654,22 @@ const SECTION_REPORTS: ReportEntry[] = [
   },
 ];
 
+// Report types fronted by a tile on the /parliamentary/reports hub get a
+// bespoke OG card (a screenshot of their results table, captured per slug into
+// /og/reports-<slug>.png). One card per report type, shared across the three
+// grains. Reports not listed here fall back to the default share image.
+const OG_REPORT_SLUGS = new Set([
+  "concentrated",
+  "additional_voters",
+  "supports_no_one",
+  "turnout",
+  "invalid_ballots",
+  "top_gainers",
+  "top_losers",
+  "recount",
+  "missing_flash_memory",
+]);
+
 const buildReportRoutes = (
   scope: "settlement" | "municipality" | "section",
   reports: ReportEntry[],
@@ -2670,7 +2687,9 @@ const buildReportRoutes = (
       path: `reports/${scope}/${r.slug}`,
       title,
       description: r.bgDesc,
-      ogImage: r.ogImage,
+      ogImage:
+        r.ogImage ??
+        (OG_REPORT_SLUGS.has(r.slug) ? `/og/reports-${r.slug}.png` : undefined),
       bodyHtml: `
 <h1>${r.bgTitle}</h1>
 <p>${r.bgBody}</p>
