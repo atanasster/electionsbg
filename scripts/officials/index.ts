@@ -37,6 +37,10 @@ import type {
 } from "../../src/data/dataTypes";
 import { parseDeclarationXml } from "../declarations/parse_declaration";
 import { latestRegisterYear } from "../lib/cacbg_register";
+import {
+  latestAssetDeclaration,
+  priorAssetDeclaration,
+} from "../../src/lib/declarations";
 import { mergeDeclarations, mergeIndexEntries, mergeYears } from "./merge";
 import {
   ROOT,
@@ -436,8 +440,21 @@ const cmd = command({
         [],
       );
       if (decls.length === 0) continue;
-      const latest = decls[0];
-      const prior = decls[1];
+      // Rank on the newest filing that DECLARES something, not simply the
+      // newest one. An incompatibility filing carries no asset tables, so
+      // reading decls[0] ranked 525 of 1495 officials at €0 while their real
+      // declarations sat one row below.
+      //
+      // Fall back to the newest filing when NOTHING in the history declares
+      // assets (46 executive officials): their totals are genuinely zero, and
+      // dropping the row instead would take them out of this file — which is
+      // also the roster `useOfficial` resolves a profile from and the sitemap
+      // enumerates, so they would become soft-404s.
+      const withAssets = latestAssetDeclaration(decls);
+      const latest = withAssets ?? decls[0];
+      const prior = withAssets
+        ? priorAssetDeclaration(decls, withAssets)
+        : null;
       const totals = aggregateAssets(latest.assets ?? []);
       let delta: OfficialAssetsRankingEntry["delta"] = null;
       if (prior) {
@@ -448,7 +465,7 @@ const cmd = command({
             ? null
             : abs / Math.abs(priorTotals.netWorthEur);
         delta = {
-          previousYear: prior.declarationYear,
+          previousYear: prior.fiscalYear ?? prior.declarationYear,
           absoluteEur: abs,
           pct,
         };

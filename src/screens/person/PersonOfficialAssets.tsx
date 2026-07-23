@@ -5,53 +5,48 @@
 // never on the unified person page.
 //
 // person_role.ref for an official IS the Court-of-Audit declaration slug, so this joins by
-// person_id → ref → the same per-slug shard OfficialProfileScreen reads. Self-gating: ~6% of
-// official slugs have a declaration on file, so most people render nothing here.
+// person_id → ref → the same per-slug shard OfficialProfileScreen reads. Self-gating: it
+// renders nothing for a declarant with no asset-bearing filing on record.
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Wallet, ExternalLink } from "lucide-react";
 import { useOfficialDeclarations } from "@/data/officials/useOfficial";
-import type { OfficialDeclaration } from "@/data/dataTypes";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { formatEurCompact } from "@/lib/currency";
-
-// Same basis as OfficialProfileScreen's summary: sum non-debt categories as assets, `debt` as
-// debts, net = assets − debts.
-const totalsOf = (assets?: OfficialDeclaration["assets"]) => {
-  let a = 0;
-  let d = 0;
-  for (const x of assets ?? []) {
-    const v = x.valueEur ?? 0;
-    if (x.category === "debt") d += v;
-    else a += v;
-  }
-  return { assets: a, debts: d, net: a - d };
-};
+import {
+  declarationTotals,
+  latestAssetDeclaration,
+  priorAssetDeclaration,
+} from "@/lib/declarations";
 
 export const PersonOfficialAssets: FC<{ slug: string }> = ({ slug }) => {
   const { t } = useTranslation();
   const { declarations } = useOfficialDeclarations(slug);
 
   const summary = useMemo(() => {
-    const latest = declarations[0];
-    if (!latest?.assets?.length) return null;
-    const cur = totalsOf(latest.assets);
-    const prev = declarations[1] ? totalsOf(declarations[1].assets) : null;
+    // The newest filing is frequently an incompatibility declaration, which
+    // carries no asset tables at all. Reading the wealth off `declarations[0]`
+    // hid this block outright for 28% of officials — ask instead for the newest
+    // filing that actually declares something.
+    const latest = latestAssetDeclaration(declarations);
+    if (!latest) return null;
+    const cur = declarationTotals(latest.assets);
+    const prevDecl = priorAssetDeclaration(declarations, latest);
+    const prev = prevDecl ? declarationTotals(prevDecl.assets) : null;
     return {
       year: latest.declarationYear,
       sourceUrl: latest.sourceUrl,
-      ...cur,
-      deltaNet: prev ? cur.net - prev.net : null,
-      // Label the comparison by the FISCAL year each filing covers, not the year
-      // it was filed. An official who files an annual and an exit declaration in
-      // the same calendar year has two rows sharing a declarationYear, which
-      // rendered as "+X vs 2023" on a card already headlined 2023. Their fiscal
-      // years are what actually differ (2022 → 2023). Fall back to the filing
-      // year, and drop the comparison if even that can't distinguish them.
-      prevYear:
-        declarations[1]?.fiscalYear ?? declarations[1]?.declarationYear ?? null,
+      assets: cur.assetsEur,
+      debts: cur.debtsEur,
+      net: cur.netEur,
+      deltaNet: prev ? cur.netEur - prev.netEur : null,
+      // Label the comparison by the FISCAL year the prior filing covers — see
+      // priorAssetDeclaration for why the filing year alone is not enough.
+      prevYear: prevDecl
+        ? (prevDecl.fiscalYear ?? prevDecl.declarationYear)
+        : null,
     };
   }, [declarations]);
 

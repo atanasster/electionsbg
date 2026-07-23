@@ -372,9 +372,12 @@ export const CandidateAssetsScreen: FC = () => {
 
   const latestDecl = useMemo(() => {
     if (!rollup || declarations.length === 0) return undefined;
-    return declarations.find(
-      (d) => d.declarationYear === rollup.latestDeclarationYear,
-    );
+    // Join on sourceUrl, not the year: the rollup now covers the newest filing
+    // that DECLARES assets, and a declarant can have an asset-less filing sharing
+    // that same year (an incompatibility filing alongside an annual). Matching by
+    // year could resolve to that sibling and render an empty breakdown. The URL is
+    // unique per filing.
+    return declarations.find((d) => d.sourceUrl === rollup.sourceUrl);
   }, [rollup, declarations]);
 
   const sections = useMemo(

@@ -555,6 +555,12 @@ export type OfficialAssetsRankingEntry = {
   netWorthEur: number;
   realEstateCount: number;
   realEstateUnvalued: number;
+  /** Change vs the prior ASSET-BEARING filing covering a different period.
+   * `previousYear` is that filing's fiscal year (falling back to its filing
+   * year), so the label matches the period actually compared — an official can
+   * file an annual and an exit declaration in the same calendar year, and
+   * differencing those two would read as "+X vs 2023" on a card already
+   * headlined 2023. null when there is only one period on record. */
   delta: {
     previousYear: number;
     absoluteEur: number;

@@ -38,8 +38,15 @@ import type {
   MpAssetCategory,
   MpOwnershipStake,
   OfficialCategoryKind,
-  OfficialDeclaration,
 } from "@/data/dataTypes";
+import {
+  declarationTotals,
+  hasDeclaredIncome,
+  hasDeclaredStakes,
+  latestAssetDeclaration,
+  latestDeclarationWith,
+  priorAssetDeclaration,
+} from "@/lib/declarations";
 
 const CATEGORY_ICONS: Record<OfficialCategoryKind, typeof Briefcase> = {
   cabinet: Landmark,
@@ -103,13 +110,34 @@ export const OfficialProfileScreen: FC = () => {
   const localContestObshtina =
     fromObshtina ?? councillorProfile?.obshtina ?? null;
 
-  const latest = declarations[0] ?? null;
+  // The newest filing, full stop: the page's identity and existence anchor, and
+  // what the header labels. 1,199 municipal and 46 executive declarants have
+  // filings but NO asset tables anywhere in their history — they still have a
+  // profile, a filing list, procurement links and council activity, so this must
+  // not be narrowed to asset-bearing filings or the page 404s for all of them.
+  const newest = declarations[0] ?? null;
+
+  // Each section reads the newest filing that carries ITS table. An
+  // incompatibility filing has interests but no assets; an exit filing may have
+  // assets but no income. One "latest" cannot answer all three.
+  const wealth = useMemo(
+    () => latestAssetDeclaration(declarations),
+    [declarations],
+  );
+  const incomeFiling = useMemo(
+    () => latestDeclarationWith(declarations, hasDeclaredIncome),
+    [declarations],
+  );
+  const stakesFiling = useMemo(
+    () => latestDeclarationWith(declarations, hasDeclaredStakes),
+    [declarations],
+  );
 
   // Per-category totals from the latest declaration. Mirrors the MP-side
   // rollup so the visual reads identically. `debt` is folded into the same
   // ordered list — the UI surfaces it as a negative pill.
   const byCategory = useMemo(() => {
-    if (!latest?.assets) return null;
+    if (!wealth?.assets) return null;
     const totals: Record<MpAssetCategory, { count: number; totalEur: number }> =
       {
         real_estate: { count: 0, totalEur: 0 },
@@ -121,63 +149,51 @@ export const OfficialProfileScreen: FC = () => {
         investment: { count: 0, totalEur: 0 },
         security: { count: 0, totalEur: 0 },
       };
-    for (const a of latest.assets) {
+    for (const a of wealth.assets) {
       const bucket = totals[a.category];
       if (!bucket) continue;
       bucket.count += 1;
       bucket.totalEur += a.valueEur ?? 0;
     }
     return totals;
-  }, [latest]);
+  }, [wealth]);
 
   // Headline net-worth numbers + YoY delta, computed from the declarations.
   // The executive rankings file precomputes these, but municipal officials
   // have no rankings entry — computing here makes the page work for both.
   const summary = useMemo(() => {
-    if (!latest?.assets) return null;
-    const totalsOf = (assets: OfficialDeclaration["assets"]) => {
-      let a = 0;
-      let d = 0;
-      let reUnvalued = 0;
-      for (const x of assets ?? []) {
-        const v = x.valueEur ?? 0;
-        if (x.category === "debt") d += v;
-        else a += v;
-        if (x.category === "real_estate" && x.valueEur == null) reUnvalued += 1;
-      }
-      return { assets: a, debts: d, net: a - d, reUnvalued };
-    };
-    const cur = totalsOf(latest.assets);
-    const prevDecl = declarations[1];
-    const prev = prevDecl ? totalsOf(prevDecl.assets) : null;
+    if (!wealth) return null;
+    const cur = declarationTotals(wealth.assets);
+    const prevDecl = priorAssetDeclaration(declarations, wealth);
+    const prev = prevDecl ? declarationTotals(prevDecl.assets) : null;
     return {
-      totalAssetsEur: cur.assets,
-      totalDebtsEur: cur.debts,
-      netWorthEur: cur.net,
-      realEstateUnvalued: cur.reUnvalued,
+      totalAssetsEur: cur.assetsEur,
+      totalDebtsEur: cur.debtsEur,
+      netWorthEur: cur.netEur,
+      realEstateUnvalued: cur.realEstateUnvalued,
       delta:
         prev && prevDecl
           ? {
-              previousYear: prevDecl.declarationYear,
-              absoluteEur: cur.net - prev.net,
+              previousYear: prevDecl.fiscalYear ?? prevDecl.declarationYear,
+              absoluteEur: cur.netEur - prev.netEur,
               pct:
-                prev.net === 0
+                prev.netEur === 0
                   ? null
-                  : (cur.net - prev.net) / Math.abs(prev.net),
+                  : (cur.netEur - prev.netEur) / Math.abs(prev.netEur),
             }
           : null,
     };
-  }, [latest, declarations]);
+  }, [wealth, declarations]);
 
   // Annual income rows from table 12 of the latest declaration — keep only
   // rows where the declarant or spouse has a non-zero amount.
   const incomeRows = useMemo(
     () =>
-      (latest?.income ?? []).filter(
+      (incomeFiling?.income ?? []).filter(
         (r) =>
           (r.amountEurDeclarant ?? 0) !== 0 || (r.amountEurSpouse ?? 0) !== 0,
       ),
-    [latest],
+    [incomeFiling],
   );
   const incomeTotalDeclarant = incomeRows.reduce(
     (s, r) => s + (r.amountEurDeclarant ?? 0),
@@ -191,12 +207,12 @@ export const OfficialProfileScreen: FC = () => {
   // Ownership stakes from tables 10 (current) + 11 (transferred). Sorted so
   // current holdings appear above transfers, then by company name.
   const ownershipStakes: MpOwnershipStake[] = useMemo(() => {
-    const stakes = latest?.ownershipStakes ?? [];
+    const stakes = stakesFiling?.ownershipStakes ?? [];
     return [...stakes].sort((a, b) => {
       if (a.table !== b.table) return a.table === "10" ? -1 : 1;
       return (a.companyName ?? "").localeCompare(b.companyName ?? "");
     });
-  }, [latest]);
+  }, [stakesFiling]);
 
   if (officialLoading || declsLoading) {
     return (
@@ -206,7 +222,7 @@ export const OfficialProfileScreen: FC = () => {
     );
   }
 
-  if (!official && !latest) {
+  if (!official && !newest) {
     return (
       <ErrorSection
         title={t("official_not_found_title") || "Official not found"}
@@ -220,12 +236,12 @@ export const OfficialProfileScreen: FC = () => {
 
   // Display fields fall back to the latest declaration — municipal officials
   // have no executive rankings entry, so `official` is null for them.
-  const displayName = official?.name ?? latest?.declarantName ?? "";
-  const institution = official?.institution ?? latest?.institution ?? "";
+  const displayName = official?.name ?? newest?.declarantName ?? "";
+  const institution = official?.institution ?? newest?.institution ?? "";
   const positionTitle =
-    official?.positionTitle ?? latest?.positionTitle ?? null;
+    official?.positionTitle ?? newest?.positionTitle ?? null;
   const latestYear =
-    official?.latestDeclarationYear ?? latest?.declarationYear ?? null;
+    official?.latestDeclarationYear ?? newest?.declarationYear ?? null;
   const delta = summary?.delta ?? null;
 
   const Icon = official ? CATEGORY_ICONS[official.category] : Landmark;
@@ -372,6 +388,14 @@ export const OfficialProfileScreen: FC = () => {
                 <span className="text-muted-foreground">—</span>
               )}
             </div>
+            {/* Name the period compared. The gap is not always one year — an
+                official with a filing hole compares across several — so an
+                unlabelled "YoY change" would overstate what it measures. */}
+            {delta && (
+              <div className="text-[10px] text-muted-foreground">
+                {t("dashboard_vs")} {delta.previousYear}
+              </div>
+            )}
           </div>
         </div>
 
@@ -484,7 +508,7 @@ export const OfficialProfileScreen: FC = () => {
               const subtitle = [s.itemType, s.registeredOffice]
                 .filter(Boolean)
                 .join(" · ");
-              const declarantBg = (latest?.declarantName ?? "").trim();
+              const declarantBg = (stakesFiling?.declarantName ?? "").trim();
               const holder = s.holderName?.trim() ?? null;
               const heldByOther = !!(
                 holder && holder.toLowerCase() !== declarantBg.toLowerCase()

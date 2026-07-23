@@ -95,11 +95,14 @@ export const MpAssetsSummary: FC<Props> = ({ name, linkSlug }) => {
 
   const lang = i18n.language;
   const declarantName = declarations[0]?.declarantName ?? null;
-  // Pull the asset rows from the latest declaration (the one the rollup
-  // covers) so we can list unvalued items underneath the header.
-  const latestDecl = declarations.find(
-    (d) => d.declarationYear === rollup.latestDeclarationYear,
-  );
+  // Pull the asset rows from the declaration the rollup covers so we can list
+  // unvalued items underneath the header.
+  // Join on sourceUrl, not the year: the rollup now covers the newest filing
+  // that DECLARES assets, and a declarant can have an asset-less filing sharing
+  // that same year (an incompatibility filing alongside an annual). Matching by
+  // year could resolve to that sibling and render an empty breakdown. The URL is
+  // unique per filing.
+  const latestDecl = declarations.find((d) => d.sourceUrl === rollup.sourceUrl);
   const unvaluedItems: MpAsset[] = (latestDecl?.assets ?? []).filter(
     (a) => a.category !== "debt" && a.valueEur == null,
   );

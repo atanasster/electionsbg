@@ -28,6 +28,10 @@ import type {
   MpAssetsRollup,
   MpDeclaration,
 } from "../../src/data/dataTypes";
+import {
+  latestAssetDeclaration,
+  priorAssetDeclaration,
+} from "../../src/lib/declarations";
 
 const ALL_CATEGORIES: MpAssetCategory[] = [
   "real_estate",
@@ -189,29 +193,31 @@ export const buildAssetsRankings = ({
       const bf = b.filedAt ?? "";
       return bf.localeCompare(af);
     });
-    const latest = sorted[0];
+    // The newest filing that actually declares assets — not simply the newest.
+    // An incompatibility filing has no asset tables, so reading sorted[0] made
+    // the zero-total guard below fire and the MP vanish from the leaderboard
+    // AND from their own profile (no mp-assets file is written at all, so the
+    // person page falls back to the thinner officials block or to nothing).
+    // That is the same defect as the officials' €0 rows, in a shape that hides
+    // rather than misstates.
+    const latest = latestAssetDeclaration(sorted);
+    if (!latest) continue;
     const totals = totalsForDeclaration(latest);
 
-    // Skip MPs whose latest declaration produced literally zero across
-    // every asset and debt category — they are noise on the leaderboard.
+    // A filing that declares every category as literally zero is noise on the
+    // leaderboard. Distinct from the case above: this MP filed an asset table
+    // and it summed to nothing, rather than filing no asset table at all.
     if (totals.totalAssetsEur === 0 && totals.totalDebtsEur === 0) continue;
 
     let previous: MpAssetsRollup["previous"] = null;
-    if (sorted.length > 1) {
-      // Find the most recent prior declaration that covers a different fiscal
-      // year (so we don't compare an Annual + a Vacate from the same year).
-      const latestFiscalYear = latest.fiscalYear ?? latest.declarationYear;
-      const prior = sorted.find(
-        (d) => (d.fiscalYear ?? d.declarationYear) !== latestFiscalYear,
-      );
-      if (prior) {
-        const t = totalsForDeclaration(prior);
-        previous = {
-          year: prior.fiscalYear ?? prior.declarationYear,
-          totalAssetsEur: t.totalAssetsEur,
-          netWorthEur: t.netWorthEur,
-        };
-      }
+    const prior = priorAssetDeclaration(sorted, latest);
+    if (prior) {
+      const t = totalsForDeclaration(prior);
+      previous = {
+        year: prior.fiscalYear ?? prior.declarationYear,
+        totalAssetsEur: t.totalAssetsEur,
+        netWorthEur: t.netWorthEur,
+      };
     }
 
     const rollup: MpAssetsRollup = {
