@@ -18,6 +18,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatCount } from "@/lib/currency";
 import { useCofog } from "@/data/macro/useCofog";
 import { usePovertyImpact } from "@/data/social/usePovertyImpact";
+import { useMeasuredWidth } from "@/ux/useMeasuredWidth";
+import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { useTooltip } from "@/ux/useTooltip";
 
 const GEO_NAME: Record<string, { bg: string; en: string }> = {
@@ -32,10 +34,20 @@ const geoName = (geo: string, bg: boolean): string =>
 
 const GEOS = ["BG", "EU27_2020", "RO", "HU", "HR"] as const;
 
-// SVG geometry (ContextScatter proportions: fixed viewBox, fluid width).
-const W = 460;
-const H = 300;
+// SVG geometry — drawn at the MEASURED width, in CSS pixels, like ContextScatter.
+// It used to stretch a 460-unit viewBox to the container: in the two-up grid on a
+// phone that squeezed it to ~0.72×, so the 9px tick and caption type landed at
+// ~6.5px. Real pixels keep the labels legible at every width.
 const PAD = { l: 42, r: 16, t: 14, b: 40 };
+// Known before the first measurement, so the reserved box is the final box and
+// the measure-then-draw pass costs no layout shift.
+const H_SMALL = 260;
+const H_WIDE = 300;
+// The plot width the dot radii were tuned against (the old 460-unit viewBox).
+const REF_PLOT_W = 460 - PAD.l - PAD.r;
+// Below this the 58px of axis gutters leave no usable plot and sx() would start
+// mapping points right-to-left.
+const MIN_PLOT_W = 140;
 
 /** A "nice" axis: round lo/hi + evenly-spaced tick values covering the data. */
 const niceScale = (
@@ -63,6 +75,8 @@ export const SocialValueForMoneyTile: FC = () => {
   const loc = bg ? "bg-BG" : "en-US";
   const { data: cofog } = useCofog();
   const { data: poverty } = usePovertyImpact();
+  const isSmall = useMediaQueryMatch("sm");
+  const [setPlotEl, plotWidth] = useMeasuredWidth();
   const { tooltip, onMouseEnter, onMouseMove, onMouseLeave } = useTooltip({
     maxHeight: 220,
     maxWidth: 240,
@@ -84,8 +98,18 @@ export const SocialValueForMoneyTile: FC = () => {
 
   const xs = niceScale(Math.min(...pts.map((p) => p.x)), Math.max(...pts.map((p) => p.x))); // prettier-ignore
   const ys = niceScale(Math.min(...pts.map((p) => p.y)), Math.max(...pts.map((p) => p.y)), 3); // prettier-ignore
-  const sx = (x: number) =>
-    PAD.l + ((x - xs.lo) / (xs.hi - xs.lo)) * (W - PAD.l - PAD.r);
+
+  // Draw ONLY at a measured width — never at a guessed fallback. The tile is a
+  // grid item, so an SVG wider than the column stretches the track, which makes
+  // the host measure that inflated width: the guess latches instead of
+  // correcting. An empty host always measures the true column width.
+  const W = plotWidth;
+  const H = isSmall ? H_SMALL : H_WIDE;
+  const plotW = W - PAD.l - PAD.r;
+  // Dot area still scales with the plot — only the text is pinned to real px.
+  const rScale = Math.max(0.7, Math.min(1.2, plotW / REF_PLOT_W));
+
+  const sx = (x: number) => PAD.l + ((x - xs.lo) / (xs.hi - xs.lo)) * plotW;
   const sy = (y: number) =>
     H - PAD.b - ((y - ys.lo) / (ys.hi - ys.lo)) * (H - PAD.t - PAD.b);
 
@@ -106,6 +130,54 @@ export const SocialValueForMoneyTile: FC = () => {
   const bgPt = pts.find((p) => p.geo === "BG");
   const euPt = pts.find((p) => p.geo === "EU27_2020");
 
+  // Label placement. RO/HU/HR cluster within ~1.5 points of GDP in the crowded
+  // bottom-left, and their labels printed on top of one another (a uniform
+  // viewBox scale preserved the overlap — it was just too small to read).
+  // Greedy pass: take each label above its dot, and if that box overlaps one
+  // already placed, step to the next slot. Five points, so O(n²) is free.
+  const LABEL_LH = 12;
+  const boxes: { x0: number; x1: number; y: number }[] = [];
+  const labels = pts
+    .map((p) => {
+      const cx = sx(p.x);
+      const cy = sy(p.y);
+      const fs = p.geo === "BG" ? 11 : 10;
+      const text = geoName(p.geo, bg);
+      // No text metrics available mid-render; 0.55em per character is a close
+      // enough box for both Cyrillic and Latin at these sizes.
+      const w = text.length * fs * 0.55;
+      const nearRight = cx + w / 2 > W - PAD.r;
+      const nearLeft = cx - w / 2 < PAD.l;
+      const anchor = nearRight ? "end" : nearLeft ? "start" : "middle";
+      const lx = cx + (nearRight ? -9 : nearLeft ? 9 : 0);
+      const x0 =
+        anchor === "end" ? lx - w : anchor === "start" ? lx : lx - w / 2;
+      return { p, cx, cy, lx, x0, w, anchor, fs, text };
+    })
+    // Top-most first, so the cluster underneath works around what is already down.
+    .sort((a, b) => a.cy - b.cy)
+    .map((l) => {
+      // Above the dot by default; below when that would leave the plot.
+      const slots =
+        l.cy < PAD.t + 20
+          ? [l.cy + 17, l.cy - 10, l.cy + 29, l.cy - 22]
+          : [l.cy - 10, l.cy + 17, l.cy - 22, l.cy + 29];
+      const ly =
+        slots.find(
+          (y) =>
+            y > PAD.t + 8 &&
+            y < H - PAD.b - 2 &&
+            !boxes.some(
+              (b) =>
+                b.x1 > l.x0 &&
+                b.x0 < l.x0 + l.w &&
+                Math.abs(b.y - y) < LABEL_LH,
+            ),
+        ) ?? slots[0];
+      boxes.push({ x0: l.x0, x1: l.x0 + l.w, y: ly });
+      return { ...l, ly };
+    });
+
   return (
     <>
       <Card id="social-value-for-money">
@@ -116,161 +188,165 @@ export const SocialValueForMoneyTile: FC = () => {
           </CardTitle>
         </CardHeader>
         <CardContent className="p-3 md:p-4 space-y-2">
-          <svg
-            viewBox={`0 0 ${W} ${H}`}
-            className="w-full"
-            role="img"
-            aria-label={
-              bg
-                ? "Разход за социална защита (% от БВП) спрямо намалението на бедността от трансферите, по държави"
-                : "Social-protection spend (% of GDP) vs the poverty-reduction effect of transfers, by country"
-            }
+          {/* Height reserved so the measure-then-draw pass costs no layout shift. */}
+          <div
+            ref={setPlotEl}
+            className="overflow-hidden"
+            style={{ height: H }}
           >
-            {/* Y gridlines + tick labels */}
-            {ys.ticks.map((g) => (
-              <g key={`y${g}`}>
-                <line
-                  x1={PAD.l}
-                  x2={W - PAD.r}
-                  y1={sy(g)}
-                  y2={sy(g)}
-                  className="stroke-border"
-                  strokeWidth={0.5}
-                />
-                <text
-                  x={PAD.l - 6}
-                  y={sy(g) + 3}
-                  textAnchor="end"
-                  className="fill-muted-foreground"
-                  style={{ fontSize: 9 }}
-                >
-                  {formatCount(g, loc, 0)}%
-                </text>
-              </g>
-            ))}
-            {/* X tick labels (on the baseline) */}
-            {xs.ticks.map((g) => (
-              <text
-                key={`x${g}`}
-                x={sx(g)}
-                y={H - PAD.b + 13}
-                textAnchor="middle"
-                className="fill-muted-foreground"
-                style={{ fontSize: 9 }}
+            {plotW > MIN_PLOT_W && (
+              <svg
+                width={W}
+                height={H}
+                viewBox={`0 0 ${W} ${H}`}
+                role="img"
+                aria-label={
+                  bg
+                    ? "Разход за социална защита (% от БВП) спрямо намалението на бедността от трансферите, по държави"
+                    : "Social-protection spend (% of GDP) vs the poverty-reduction effect of transfers, by country"
+                }
               >
-                {formatCount(g, loc, 0)}%
-              </text>
-            ))}
-
-            {/* trend line (more spend → more reduction) */}
-            <line
-              x1={sx(xs.lo)}
-              y1={sy(lineY(xs.lo))}
-              x2={sx(xs.hi)}
-              y2={sy(lineY(xs.hi))}
-              className="stroke-muted-foreground/50"
-              strokeWidth={1.25}
-              strokeDasharray="5 4"
-            />
-
-            {/* points */}
-            {pts.map((p) => {
-              const isBg = p.geo === "BG";
-              const isEu = p.geo === "EU27_2020";
-              const cx = sx(p.x);
-              const cy = sy(p.y);
-              const nearTop = cy < PAD.t + 20;
-              const nearRight = cx > W - PAD.r - 46;
-              const nearLeft = cx < PAD.l + 46;
-              const anchor = nearRight ? "end" : nearLeft ? "start" : "middle";
-              const lx = cx + (nearRight ? -9 : nearLeft ? 9 : 0);
-              const ly = cy + (nearTop ? 17 : -10);
-              const content = (
-                <div className="space-y-0.5">
-                  <div className="font-semibold">{geoName(p.geo, bg)}</div>
-                  <div className="text-[11px]">
-                    {bg ? "Разход: " : "Spend: "}
-                    <span className="tabular-nums">
-                      {formatCount(p.x, loc, 1)}% {bg ? "от БВП" : "of GDP"}
-                    </span>
-                  </div>
-                  <div className="text-[11px]">
-                    {bg ? "Намаление на бедността: " : "Poverty reduction: "}
-                    <span className="tabular-nums">
-                      {formatCount(p.y, loc, 0)}%
-                    </span>
-                  </div>
-                </div>
-              );
-              return (
-                <g
-                  key={p.geo}
-                  className="cursor-default"
-                  onMouseEnter={(e) =>
-                    onMouseEnter({ pageX: e.pageX, pageY: e.pageY }, content)
-                  }
-                  onMouseMove={(e) =>
-                    onMouseMove({ pageX: e.pageX, pageY: e.pageY })
-                  }
-                  onMouseLeave={onMouseLeave}
-                >
-                  {/* generous invisible hit area */}
-                  <circle cx={cx} cy={cy} r={11} fill="transparent" />
-                  <circle
-                    cx={cx}
-                    cy={cy}
-                    r={isBg ? 6 : 5}
-                    className={
-                      isBg
-                        ? "fill-primary"
-                        : isEu
-                          ? "fill-none stroke-muted-foreground"
-                          : "fill-primary/35"
-                    }
-                    strokeWidth={isEu ? 2 : 0}
-                  />
+                {/* Y gridlines + tick labels */}
+                {ys.ticks.map((g) => (
+                  <g key={`y${g}`}>
+                    <line
+                      x1={PAD.l}
+                      x2={W - PAD.r}
+                      y1={sy(g)}
+                      y2={sy(g)}
+                      className="stroke-border"
+                      strokeWidth={0.5}
+                    />
+                    <text
+                      x={PAD.l - 6}
+                      y={sy(g) + 3}
+                      textAnchor="end"
+                      className="fill-muted-foreground text-[10px]"
+                    >
+                      {formatCount(g, loc, 0)}%
+                    </text>
+                  </g>
+                ))}
+                {/* X tick labels (on the baseline) */}
+                {xs.ticks.map((g) => (
                   <text
-                    x={lx}
-                    y={ly}
-                    textAnchor={anchor}
-                    className={
-                      isBg ? "fill-foreground" : "fill-muted-foreground"
-                    }
-                    style={{
-                      fontSize: isBg ? 11 : 10,
-                      fontWeight: isBg ? 700 : 400,
-                    }}
+                    key={`x${g}`}
+                    x={sx(g)}
+                    y={H - PAD.b + 14}
+                    textAnchor="middle"
+                    className="fill-muted-foreground text-[10px]"
                   >
-                    {geoName(p.geo, bg)}
+                    {formatCount(g, loc, 0)}%
                   </text>
-                </g>
-              );
-            })}
+                ))}
 
-            {/* axis captions */}
-            <text
-              x={(PAD.l + W - PAD.r) / 2}
-              y={H - 3}
-              textAnchor="middle"
-              className="fill-muted-foreground"
-              style={{ fontSize: 9 }}
-            >
-              {bg
-                ? "Разход за соц. защита, % от БВП →"
-                : "Social-protection spend, % of GDP →"}{" "}
-              {/* prettier-ignore */}
-            </text>
-            <text
-              x={11}
-              y={(PAD.t + H - PAD.b) / 2}
-              textAnchor="middle"
-              transform={`rotate(-90 11 ${(PAD.t + H - PAD.b) / 2})`}
-              className="fill-muted-foreground"
-              style={{ fontSize: 9 }}
-            >
-              {bg ? "Намаление на бедността →" : "Poverty reduction →"}
-            </text>
-          </svg>
+                {/* trend line (more spend → more reduction) */}
+                <line
+                  x1={sx(xs.lo)}
+                  y1={sy(lineY(xs.lo))}
+                  x2={sx(xs.hi)}
+                  y2={sy(lineY(xs.hi))}
+                  className="stroke-muted-foreground/50"
+                  strokeWidth={1.25}
+                  strokeDasharray="5 4"
+                />
+
+                {/* points */}
+                {labels.map(({ p, cx, cy, lx, ly, anchor, fs, text }) => {
+                  const isBg = p.geo === "BG";
+                  const isEu = p.geo === "EU27_2020";
+                  const content = (
+                    <div className="space-y-0.5">
+                      <div className="font-semibold">{geoName(p.geo, bg)}</div>
+                      <div className="text-[11px]">
+                        {bg ? "Разход: " : "Spend: "}
+                        <span className="tabular-nums">
+                          {formatCount(p.x, loc, 1)}% {bg ? "от БВП" : "of GDP"}
+                        </span>
+                      </div>
+                      <div className="text-[11px]">
+                        {bg
+                          ? "Намаление на бедността: "
+                          : "Poverty reduction: "}
+                        <span className="tabular-nums">
+                          {formatCount(p.y, loc, 0)}%
+                        </span>
+                      </div>
+                    </div>
+                  );
+                  return (
+                    <g
+                      key={p.geo}
+                      className="cursor-default"
+                      onMouseEnter={(e) =>
+                        onMouseEnter(
+                          { pageX: e.pageX, pageY: e.pageY },
+                          content,
+                        )
+                      }
+                      onMouseMove={(e) =>
+                        onMouseMove({ pageX: e.pageX, pageY: e.pageY })
+                      }
+                      onMouseLeave={onMouseLeave}
+                    >
+                      {/* generous invisible hit area */}
+                      <circle
+                        cx={cx}
+                        cy={cy}
+                        r={11 * rScale}
+                        fill="transparent"
+                      />
+                      <circle
+                        cx={cx}
+                        cy={cy}
+                        r={(isBg ? 6 : 5) * rScale}
+                        className={
+                          isBg
+                            ? "fill-primary"
+                            : isEu
+                              ? "fill-none stroke-muted-foreground"
+                              : "fill-primary/35"
+                        }
+                        strokeWidth={isEu ? 2 : 0}
+                      />
+                      <text
+                        x={lx}
+                        y={ly}
+                        textAnchor={anchor}
+                        className={
+                          isBg ? "fill-foreground" : "fill-muted-foreground"
+                        }
+                        style={{ fontSize: fs, fontWeight: isBg ? 700 : 400 }}
+                      >
+                        {text}
+                      </text>
+                    </g>
+                  );
+                })}
+
+                {/* axis captions */}
+                <text
+                  x={(PAD.l + W - PAD.r) / 2}
+                  y={H - 4}
+                  textAnchor="middle"
+                  className="fill-muted-foreground text-[11px]"
+                >
+                  {bg
+                    ? "Разход за соц. защита, % от БВП →"
+                    : "Social-protection spend, % of GDP →"}
+                </text>
+                <text
+                  x={11}
+                  y={(PAD.t + H - PAD.b) / 2}
+                  textAnchor="middle"
+                  transform={`rotate(-90 11 ${(PAD.t + H - PAD.b) / 2})`}
+                  className="fill-muted-foreground text-[11px]"
+                >
+                  {bg ? "Намаление на бедността →" : "Poverty reduction →"}
+                </text>
+              </svg>
+            )}
+          </div>
 
           <p className="text-sm leading-snug">
             {bg ? (

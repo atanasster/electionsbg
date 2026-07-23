@@ -30,6 +30,8 @@ import { useTextbookMarket } from "@/data/education/useTextbookMarket";
 import { formatEurCompact } from "@/lib/currency";
 import { MON_AWARDER_PATH } from "@/screens/components/procurement/sectorPacks";
 import { MaturaTrendChart } from "./MaturaTrendChart";
+import { OblastTrendTable } from "./OblastTrendTable";
+import { buildOblastRows } from "./oblastRows";
 import { searchSchools } from "./searchSchools";
 
 // Leaflet + react-leaflet are heavy; keep them out of the /education chunk until
@@ -90,6 +92,19 @@ export const EducationScreen: FC = () => {
   const results = useMemo(
     () => (dir ? searchSchools(dir.schools, dq) : []),
     [dir, dq],
+  );
+
+  const oblastRows = useMemo(
+    () =>
+      dir
+        ? buildOblastRows(
+            dir.byOblast,
+            dir.byOblastYear,
+            dir.latestYear,
+            regionName,
+          )
+        : [],
+    [dir, regionName],
   );
 
   if (!dir) {
@@ -231,11 +246,14 @@ export const EducationScreen: FC = () => {
       {dir.regression && (
         <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-3">
           {/* min-w-0 pairs with the grid-cols-1 above: bare `grid` gives one
-              implicit `auto` column that sizes to max-content, and the scatter's
-              SVG carries a 640px intrinsic width from its viewBox — the track
-              grew to 713px and ran a third of the chart off the right edge of a
-              phone. grid-cols-1 caps the track (minmax(0,1fr)); this keeps the
-              item itself from re-imposing a min-content floor. */}
+              implicit `auto` column that sizes to max-content, and an SVG sized
+              from its own content can then push the track wider than the phone
+              (the scatter's old 640-unit viewBox grew it to 713px and ran a
+              third of the chart off the right edge). The scatter now draws at
+              its measured width, but both guards stay: grid-cols-1 caps the
+              track (minmax(0,1fr)) and this keeps the item itself from
+              re-imposing a min-content floor — without them the measurement it
+              reads back would be the inflated one. */}
           <Card className="min-w-0 lg:col-span-2">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -401,40 +419,11 @@ export const EducationScreen: FC = () => {
           <CardTitle>{bg ? "По области" : "By province"}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="text-left text-xs text-muted-foreground">
-                  <th className="py-1 pr-2">{bg ? "Област" : "Province"}</th>
-                  <th className="py-1 pr-2 text-right">
-                    {bg ? "Успех" : "Average"}
-                  </th>
-                  <th className="py-1 pr-2 text-right">
-                    {bg ? "Училища" : "Schools"}
-                  </th>
-                  <th className="py-1 text-right">
-                    {bg ? "Зрелостници" : "Graduates"}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {dir.byOblast.map((o) => (
-                  <tr key={o.oblast} className="border-t">
-                    <td className="py-1.5 pr-2">{regionName(o.oblast)}</td>
-                    <td className="py-1.5 pr-2 text-right font-semibold tabular-nums">
-                      {fmt(o.avg, lang)}
-                    </td>
-                    <td className="py-1.5 pr-2 text-right tabular-nums text-muted-foreground">
-                      {o.schools}
-                    </td>
-                    <td className="py-1.5 text-right tabular-nums text-muted-foreground">
-                      {o.examinees.toLocaleString(bg ? "bg-BG" : "en-US")}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <OblastTrendTable
+            rows={oblastRows}
+            nationalLatest={latest?.avg ?? null}
+            lang={lang}
+          />
         </CardContent>
       </Card>
 
