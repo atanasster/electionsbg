@@ -51,6 +51,11 @@ const MAP_LEGEND: { color: string; label: string }[] = [
   { color: "#94a3b8", label: "< 10" },
 ];
 
+// Over-performer rows: eight below lg (where the tile stacks under the scatter),
+// the full list on lg where it sits beside a scatter that's ~3x taller.
+const LEADERS_SM = 8;
+const LEADERS_LG = 18;
+
 const fmt = (v: number, lang: string): string =>
   v.toLocaleString(lang === "bg" ? "bg-BG" : "en-US", {
     minimumFractionDigits: 2,
@@ -135,9 +140,24 @@ export const EducationScreen: FC = () => {
         </span>
       </Title>
 
+      {/* Cross-link to the textbook market on the МОН pack. A slim strip rather
+          than a column beside the trend: it's a signpost, not a finding, and the
+          governments strip under the trend chart wants the full page width. */}
+      <Link to={MON_AWARDER_PATH} className="mt-4 block">
+        <Card className="transition-colors hover:border-primary/50">
+          <CardContent className="flex flex-wrap items-center gap-x-2 gap-y-1 p-4 text-sm text-muted-foreground">
+            <Library className="h-4 w-4 shrink-0" />
+            <span className="font-medium text-foreground">
+              {bg ? "Пазарът на учебници" : "The textbook market"}
+            </span>
+            <span>{textbookTeaser}</span>
+          </CardContent>
+        </Card>
+      </Link>
+
       {/* National headline + trend */}
-      <div className="mt-4 grid gap-4 lg:grid-cols-3">
-        <Card className="lg:col-span-2">
+      <div className="mt-4">
+        <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <TrendingUp className="h-5 w-5 text-muted-foreground" />
@@ -163,21 +183,6 @@ export const EducationScreen: FC = () => {
             </div>
           </CardContent>
         </Card>
-
-        {/* Cross-link to the textbook market on the МОН pack */}
-        <Link to={MON_AWARDER_PATH} className="block">
-          <Card className="h-full transition-colors hover:border-primary/50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Library className="h-5 w-5 text-muted-foreground" />
-                {bg ? "Пазарът на учебници" : "The textbook market"}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="text-sm text-muted-foreground">
-              {textbookTeaser}
-            </CardContent>
-          </Card>
-        </Link>
       </div>
 
       {/* School-finder map */}
@@ -224,8 +229,14 @@ export const EducationScreen: FC = () => {
 
       {/* Score vs context — the SEDA scatter + over-performers */}
       {dir.regression && (
-        <div className="mt-4 grid gap-4 lg:grid-cols-3">
-          <Card className="lg:col-span-2">
+        <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-3">
+          {/* min-w-0 pairs with the grid-cols-1 above: bare `grid` gives one
+              implicit `auto` column that sizes to max-content, and the scatter's
+              SVG carries a 640px intrinsic width from its viewBox — the track
+              grew to 713px and ran a third of the chart off the right edge of a
+              phone. grid-cols-1 caps the track (minmax(0,1fr)); this keeps the
+              item itself from re-imposing a min-content floor. */}
+          <Card className="min-w-0 lg:col-span-2">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Scale className="h-5 w-5 text-muted-foreground" />
@@ -277,9 +288,17 @@ export const EducationScreen: FC = () => {
               </p>
             </CardHeader>
             <CardContent>
+              {/* The scatter beside this scales with its width, so on lg the
+                  column next to it is far taller than eight rows. Render the
+                  longer list and let CSS drop the tail on narrow screens —
+                  cheaper than a media-query round trip, and the extra names are
+                  the point of the tile. */}
               <ol className="space-y-1">
-                {dir.byResidual.slice(0, 8).map((s, i) => (
-                  <li key={s.id} className="flex items-center gap-2 text-sm">
+                {dir.byResidual.slice(0, LEADERS_LG).map((s, i) => (
+                  <li
+                    key={s.id}
+                    className={`${i < LEADERS_SM ? "flex" : "hidden lg:flex"} items-center gap-2 text-sm`}
+                  >
                     <span className="w-4 shrink-0 text-right text-xs text-muted-foreground">
                       {i + 1}
                     </span>
@@ -353,7 +372,7 @@ export const EducationScreen: FC = () => {
       </Card>
 
       {/* Best / worst schools */}
-      <div className="mt-4 grid gap-4 lg:grid-cols-2">
+      <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-2">
         <RankList
           title={bg ? "Най-висок успех" : "Highest results"}
           hint={
