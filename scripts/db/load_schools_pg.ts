@@ -163,11 +163,20 @@ const buildDirectory = () => {
     }
   }
 
-  // National count-weighted average per year, from the raw index (per-year counts).
+  // National count-weighted average per year, from the raw index (per-year
+  // counts), and the same rollup per oblast in the same pass. The per-oblast
+  // series is what lets /education show whether a province gained more or less
+  // than the country did — every oblast rose over 2022-2026, so the level alone
+  // says nothing and only the spread carries information.
   const nat = new Map<number, { sum: number; n: number }>();
-  for (const recs of Object.values(
+  const obl = new Map<
+    string,
+    Map<number, { sum: number; n: number; schools: number }>
+  >();
+  for (const [obshtina, recs] of Object.entries(
     idx.schoolsByObshtina as Record<string, RawSchool[]>,
   )) {
+    const oblast = resolveMuni(obshtina).oblast;
     for (const rec of recs) {
       for (const y of Object.keys(rec.scoresByYear)) {
         const s = rec.scoresByYear[y]?.dzi_bel;
@@ -177,6 +186,14 @@ const buildDirectory = () => {
           a.sum += s * c;
           a.n += c;
           nat.set(Number(y), a);
+
+          const years = obl.get(oblast) ?? new Map();
+          const b = years.get(Number(y)) ?? { sum: 0, n: 0, schools: 0 };
+          b.sum += s * c;
+          b.n += c;
+          b.schools += 1;
+          years.set(Number(y), b);
+          obl.set(oblast, years);
         }
       }
     }
@@ -190,6 +207,26 @@ const buildDirectory = () => {
     .sort((a, b) => a.year - b.year);
   const latestYear: number | null =
     (idx.latestYear as number) ?? nationalByYear.at(-1)?.year ?? null;
+
+  // Per-oblast series. Note the rule differs from byOblast below, which only
+  // counts schools whose OWN latest year is the national latest year: here each
+  // year aggregates whoever reported that year. The two coincide today (the
+  // latest slice matches byOblast exactly, oblast for oblast) and diverge only
+  // once a school stops reporting — at which point per-year is the honest rule
+  // for a trend.
+  const byOblastYear = [...obl.entries()]
+    .map(([oblast, years]) => ({
+      oblast,
+      years: [...years.entries()]
+        .map(([year, a]) => ({
+          year,
+          avg: r2(a.sum / a.n),
+          examinees: a.n,
+          schools: a.schools,
+        }))
+        .sort((a, b) => a.year - b.year),
+    }))
+    .sort((a, b) => a.oblast.localeCompare(b.oblast));
 
   const rankable = schools.filter(
     (s) => s.latestScore != null && (s.latestN ?? 0) >= MIN_RANK_COHORT,
@@ -259,6 +296,7 @@ const buildDirectory = () => {
     schools: schools.sort((a, b) => a.id.localeCompare(b.id)),
     nationalByYear,
     byOblast,
+    byOblastYear,
     regression,
     nvoRegression,
     context: { weights: ctx.weights },

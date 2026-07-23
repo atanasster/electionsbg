@@ -157,6 +157,82 @@ test.skipIf(skip)("the SES + value-added regressions ran", async () => {
   );
 });
 
+test.skipIf(skip)(
+  "the per-oblast series' latest slice reconciles with byOblast",
+  async () => {
+    // byOblastYear aggregates whoever reported each year; byOblast counts only
+    // schools whose OWN latest year is the national one. Those rules coincide
+    // while every reporting school is current, and the /education table reads
+    // both — so a drift here means one of the two is wrong, not that the data
+    // moved. Compare on avg AND examinees, all 28 oblasts.
+    const [r] = await allRows<{ mismatches: number; compared: number }>(
+      `WITH d AS (
+         SELECT payload AS p FROM school_payloads WHERE kind = 'directory' AND key = ''
+       ),
+       cur AS (
+         SELECT o ->> 'oblast' AS ob,
+                (o ->> 'avg')::numeric AS avg,
+                (o ->> 'examinees')::int AS n
+         FROM d, jsonb_array_elements(p -> 'byOblast') AS o
+       ),
+       new AS (
+         SELECT o ->> 'oblast' AS ob,
+                (y ->> 'avg')::numeric AS avg,
+                (y ->> 'examinees')::int AS n
+         FROM d,
+              jsonb_array_elements(p -> 'byOblastYear') AS o,
+              jsonb_array_elements(o -> 'years') AS y
+         WHERE (y ->> 'year')::int = (p ->> 'latestYear')::int
+       )
+       SELECT count(*) FILTER (
+                WHERE cur.avg IS DISTINCT FROM new.avg
+                   OR cur.n IS DISTINCT FROM new.n
+              )::int AS mismatches,
+              count(*)::int AS compared
+       FROM cur FULL JOIN new USING (ob)`,
+    );
+    assert.ok(r.compared > 0, "no oblasts compared — byOblastYear is missing");
+    assert.equal(
+      r.mismatches,
+      0,
+      `${r.mismatches}/${r.compared} oblasts disagree between byOblast and the latest byOblastYear slice`,
+    );
+  },
+);
+
+test.skipIf(skip)("every oblast series is ordered and complete", async () => {
+  // The dumbbell reads first-vs-latest off the ends of each series, so an
+  // unsorted or single-point series would silently render a wrong change.
+  const [r] = await allRows<{
+    oblasts: number;
+    short: number;
+    unsorted: number;
+  }>(
+    `WITH d AS (
+       SELECT payload AS p FROM school_payloads WHERE kind = 'directory' AND key = ''
+     ),
+     s AS (
+       SELECT o ->> 'oblast' AS ob,
+              array_agg((y ->> 'year')::int ORDER BY ord) AS years
+       FROM d,
+            jsonb_array_elements(p -> 'byOblastYear') AS o,
+            jsonb_array_elements(o -> 'years') WITH ORDINALITY AS t(y, ord)
+       GROUP BY 1
+     )
+     SELECT count(*)::int AS oblasts,
+            count(*) FILTER (WHERE array_length(years, 1) < 2)::int AS short,
+            count(*) FILTER (WHERE years <> (SELECT array_agg(x ORDER BY x) FROM unnest(years) AS x))::int AS unsorted
+     FROM s`,
+  );
+  assert.equal(r.oblasts, 28, `expected 28 oblasts, got ${r.oblasts}`);
+  assert.equal(r.short, 0, `${r.short} oblasts carry fewer than 2 years`);
+  assert.equal(
+    r.unsorted,
+    0,
+    `${r.unsorted} oblast series are not year-sorted`,
+  );
+});
+
 test.skipIf(skip)("matched ЕИК is resolvable and non-blank", async () => {
   const [r] = await allRows<{ blank: number }>(
     "SELECT count(*)::int AS blank FROM schools WHERE eik IS NOT NULL AND btrim(eik) = ''",

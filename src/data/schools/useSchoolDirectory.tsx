@@ -63,6 +63,18 @@ interface DirectoryPayload {
     examinees: number;
     schools: number;
   }[];
+  /** Per-oblast matura series. Optional: the deployed payload predates this
+   *  field, so the UI must degrade to the latest-year-only byOblast until the
+   *  loader is re-run and shipped. */
+  byOblastYear?: {
+    oblast: string;
+    years: {
+      year: number;
+      avg: number;
+      examinees: number;
+      schools: number;
+    }[];
+  }[];
   regression: Regression | null;
   nvoRegression: Regression | null;
   context: { weights: Record<string, number> };
