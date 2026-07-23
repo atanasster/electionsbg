@@ -113,4 +113,17 @@ describe("generateAnalysisStats", () => {
     });
     expect(run().financing).toBeUndefined();
   });
+
+  it("reads the sharpest cleavage (rows[0].spread) as the demographics score", () => {
+    write(`${YEAR}/dashboard/demographic_cleavages.json`, {
+      rows: [
+        { metric: "religionMuslim", spread: 1.43 },
+        { metric: "age15_29", spread: 0.44 },
+      ],
+    });
+    expect(run().demographics).toMatchObject({ kind: "score", value: 1.43 });
+
+    write(`${YEAR}/dashboard/demographic_cleavages.json`, { rows: [] });
+    expect(run().demographics).toBeUndefined();
+  });
 });

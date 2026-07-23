@@ -164,6 +164,21 @@ export const generateAnalysisStats = ({
     };
   }
 
+  // party demographics → the sharpest cleavage, i.e. the spread of the most
+  // polarizing census metric. Rows are pre-sorted by spread desc, so rows[0] is
+  // the max. Same figure as the page's "sharpest cleavage" KPI.
+  const cleavages = readJson<{ rows?: { spread?: number }[] }>(
+    `${publicFolder}/${year}/dashboard/demographic_cleavages.json`,
+  );
+  const topSpread = cleavages?.rows?.[0]?.spread;
+  if (typeof topSpread === "number" && topSpread > 0) {
+    stats.demographics = {
+      kind: "score",
+      value: topSpread,
+      captionKey: "analysis_stat_demographics_caption",
+    };
+  }
+
   fs.writeFileSync(
     `${publicFolder}/${year}/analysis_stats.json`,
     stringify(stats),
