@@ -3,10 +3,13 @@
 // adds only the domain-unique tiles; the generic buy-side tiles (KPIs, top
 // contracts/contractors, "Какво купува" by CPV, money-flow) sit above it.
 //
-// The differentiator is the education money МОН does NOT spend itself: the €51M
-// textbook market, bought by 606 schools (not centrally), where two publisher
-// groups — Klett (Анубис+Булвест) and Просвета — hold ~74%. See
-// TextbookConcentrationTile + src/lib/textbookPublishers.ts.
+// The differentiator is the education money МОН does NOT spend itself: the
+// textbook market, bought by the schools rather than centrally, where two
+// publisher groups — Klett (Анубис+Булвест) and Просвета — hold about three
+// quarters of it. Every figure in the prose below is read from the market
+// payload, never typed in: the corpus grows with each АОП ingest (€51M → €61.9M
+// since this pack was written). See TextbookConcentrationTile +
+// src/lib/textbookPublishers.ts.
 //
 // Layout mirrors the НЗОК pack: stacked labelled bands (shared <PackSection>),
 // top-line first (the market) → drill-downs (provider + school risk). These are
@@ -22,6 +25,7 @@ import { useTranslation } from "react-i18next";
 import { GraduationCap, ArrowRight, Library, Clock } from "lucide-react";
 import type { ScopeWindow } from "@/data/procurement/useAwarderContracts";
 import { useTextbookMarket } from "@/data/education/useTextbookMarket";
+import { formatEurCompact } from "@/lib/currency";
 import { PackSection } from "../PackSection";
 import { TextbookConcentrationTile } from "./TextbookConcentrationTile";
 import { SchoolRiskTile } from "./SchoolRiskTile";
@@ -31,6 +35,7 @@ export const MonPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
 }) => {
   const { i18n } = useTranslation();
   const bg = i18n.language === "bg";
+  const lang = i18n.language;
   const { data: market, isLoading } = useTextbookMarket();
 
   // The textbook market is ANNUAL, so it can honour any scope window that sits
@@ -67,6 +72,20 @@ export const MonPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
       {label}
     </span>
   );
+  // Interpolated, never typed in. This copy carried "€51 млн. … 606 училища …
+  // ~74%" while the corpus had grown past €61.9M and 647 school buyers — the
+  // same drift the /education teaser was made data-driven to stop. Prose that
+  // quotes a figure has to read it from the same payload the tile below renders.
+  const marketTotal = market
+    ? formatEurCompact(market.total.eur, lang)
+    : bg
+      ? "милиони"
+      : "millions";
+  const marketSchools = market
+    ? market.total.schoolBuyers.toLocaleString(bg ? "bg-BG" : "en-US")
+    : "";
+  const marketTop2 = market ? Math.round(market.concentration.top2Pct) : 75;
+
   // Market band: no chip on an exact "Години" pick (it scopes precisely); a note
   // when a parliament window is approximated to its calendar year, or when the
   // window spans several years and the market stays on the full corpus.
@@ -107,8 +126,8 @@ export const MonPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
       </div>
       <p className="-mt-2 max-w-2xl text-sm leading-snug text-muted-foreground">
         {bg
-          ? "Голяма част от парите в образованието не се харчат от министерството: €51 млн. за учебници се купуват от самите училища, а успехът се мери по училища. Тук са пазарът на учебници (с концентрацията по доставчици) и рискът по училища."
-          : "Much of the education money is not spent by the ministry itself: the €51M textbook market is bought by the schools, and outcomes are measured per school. Below: the textbook market (with provider concentration) and the school risk index."}
+          ? `Голяма част от парите в образованието не се харчат от министерството: ${marketTotal} за учебници се купуват от самите училища, а успехът се мери по училища. Тук са пазарът на учебници (с концентрацията по доставчици) и рискът по училища.`
+          : `Much of the education money is not spent by the ministry itself: the ${marketTotal} textbook market is bought by the schools, and outcomes are measured per school. Below: the textbook market (with provider concentration) and the school risk index.`}
       </p>
 
       {/* ── Band 1 · Пазарът на учебници / The textbook market ──────────
@@ -121,8 +140,8 @@ export const MonPack: FC<{ eik: string; scopeWindow: ScopeWindow }> = ({
         note={marketNote}
         sub={
           bg
-            ? "€51 млн. за учебници (CPV 22112), купувани от 606 училища. Две издателски групи държат ~74% — концентрацията, не самата процедура, е сигналът. Изберете „Години“ горе, за да видите оборота за конкретна година; разгънете доставчик за юридическите лица."
-            : "€51M of textbooks (CPV 22112), bought by 606 schools. Two publisher groups hold ~74% — the concentration, not the procedure, is the signal. Pick a year in the scope above for that year's spend; expand a provider for its legal entities."
+            ? `${marketTotal} за учебници (CPV 22112), купувани от ${marketSchools} училища. Две издателски групи държат ~${marketTop2}% — концентрацията, не самата процедура, е сигналът. Изберете „Години“ горе, за да видите оборота за конкретна година; разгънете доставчик за юридическите лица.`
+            : `${marketTotal} of textbooks (CPV 22112), bought by ${marketSchools} schools. Two publisher groups hold ~${marketTop2}% — the concentration, not the procedure, is the signal. Pick a year in the scope above for that year's spend; expand a provider for its legal entities.`
         }
       >
         <div data-og="textbook-treemap">
