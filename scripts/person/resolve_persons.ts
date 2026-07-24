@@ -56,6 +56,9 @@ type Raw = {
   ref: string;
   role: string;
   hardId: string | null; // cross-source gold key (parliament MP id) — Tier 0
+  // The Сметна палата register's OWN per-person id (`cacbg:<GUID>`), recovered from the
+  // declaration source_url. A second, independent gold key — see `registerIdByRef`.
+  regId: string | null;
   display: string;
   given: string;
   patr: string | null;
@@ -116,6 +119,7 @@ const fields = (
   over: Partial<Raw>,
 ): Omit<Raw, "id" | "source" | "ref" | "role"> => ({
   hardId: null,
+  regId: null,
   display: p.displayName,
   given: p.given,
   patr: p.patronymic,
@@ -131,9 +135,44 @@ const fields = (
   ...over,
 });
 
+// The Сметна палата register (register.cacbg.bg) stamps every declaration filename with
+// its OWN per-person GUID — `<GUID><per-filing sequence>.xml` — so every filing by one
+// declarant, across years AND across tiers (exec / muni / mp), carries the same GUID. That
+// makes it a second gold key alongside the parliament MP id, and a strictly better one than
+// the name: the officials slug is `hash(rawName|institution)` (scripts/officials/shared.ts),
+// so the register merely re-casing a name between harvests ("Станислав Тодоров Трифонов" →
+// "СТАНИСЛАВ ТОДОРОВ ТРИФОНОВ") mints a SECOND slug for the same person and scatters their
+// declarations across two identities. The GUID is immune to that, and to marriage renames
+// that change the fold itself (MP 3861 "Галя Стоянова Желязкова" and MP 5334 "Галя Стоянова
+// Василева" are one person — different blocks, so no name-based tier could ever see them).
+//
+// Keyed on declaration.subject_ref, which IS person_role.ref (the officials slug / the MP
+// id) — the same join load_declarations_pg's phase 2 uses. A ref carrying MORE than one
+// GUID is two register persons collapsed onto one slug (the case
+// scripts/officials/_slug_collisions.json exists to split); it is SKIPPED rather than
+// guessed at, so an unlisted collision can never union two people through this key.
+async function registerIdByRef(): Promise<Map<string, string>> {
+  const present = await allRows<{ reg: string | null }>(
+    `SELECT to_regclass('public.declaration')::text AS reg`,
+  );
+  if (!present[0]?.reg) return new Map(); // cold bootstrap — declarations not loaded yet
+  const rows = await allRows<{ subject_ref: string; guid: string }>(
+    `SELECT subject_ref, min(guid) AS guid
+       FROM (SELECT subject_ref,
+                    upper(substring(source_url from
+                      '([0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12})')) AS guid
+               FROM declaration) d
+      WHERE guid IS NOT NULL
+      GROUP BY subject_ref
+     HAVING count(DISTINCT guid) = 1`,
+  );
+  return new Map(rows.map((r) => [r.subject_ref, `cacbg:${r.guid}`]));
+}
+
 async function collect(): Promise<Raw[]> {
   const out: Raw[] = [];
   let skipped = 0;
+  const regId = await registerIdByRef();
   const add = (
     name: string,
     r: Omit<Raw, keyof ReturnType<typeof fields>>,
@@ -218,7 +257,10 @@ async function collect(): Promise<Raw[]> {
         ref: o.slug,
         role: o.role ?? "official",
       },
-      { uics: refEik.get(`off:${o.slug}`) ?? [] },
+      {
+        uics: refEik.get(`off:${o.slug}`) ?? [],
+        regId: regId.get(o.slug) ?? null,
+      },
     );
 
   // MPs (data/parliament/index.json) — the mp id is the cross-source GOLD KEY (Tier 0),
@@ -247,6 +289,7 @@ async function collect(): Promise<Raw[]> {
         { id: `mp:${mp.id}`, source: "mp", ref: String(mp.id), role: "mp" },
         {
           hardId: `mp:${mp.id}`,
+          regId: regId.get(String(mp.id)) ?? null,
           place: region,
           cParty: mp.currentPartyGroupShort,
           cPlace: region,
@@ -688,10 +731,35 @@ async function main(): Promise<void> {
     ).map((r) => [r.key, r.public_default]),
   );
 
+  // GOLD-KEY ALIASING. A mention can carry TWO independent gold keys — the parliament MP
+  // id and the Сметна палата register person id — and when both sit on the SAME mention
+  // they name one identity by construction (that MP filed that declaration). Fold the two
+  // key spaces into one canonical key here, so the rest of the resolver keeps its simple
+  // single-hardId model: clusterBlock's Tier 0 and main()'s cross-block union then stitch
+  // an MP to their declarations, and a register person to every slug the officials ingest
+  // minted for them, without either tier learning about the second key space.
+  const kp = new Map<string, string>();
+  const kfind = (x: string): string => {
+    const p = kp.get(x);
+    if (p === undefined || p === x) return x;
+    const r = kfind(p);
+    kp.set(x, r);
+    return r;
+  };
+  const kunion = (a: string, b: string): void => {
+    const [ra, rb] = [kfind(a), kfind(b)];
+    // Smallest key wins, so the canonical representative is deterministic across runs.
+    if (ra !== rb) kp.set(ra > rb ? ra : rb, ra > rb ? rb : ra);
+  };
+  for (const r of raw) if (r.hardId && r.regId) kunion(r.hardId, r.regId);
+  const aliased = new Set(
+    raw.flatMap((r) => (r.hardId && r.regId ? [kfind(r.hardId)] : [])),
+  ).size;
+
   const mentions: M[] = raw.map((r) => ({
     id: r.id,
     source: r.source,
-    hardId: r.hardId,
+    hardId: ((k) => (k == null ? null : kfind(k)))(r.hardId ?? r.regId),
     givenFold: fold.get(r.given)!,
     familyFold: fold.get(r.family)!,
     patronymicFold: r.patr ? fold.get(r.patr)! : null,

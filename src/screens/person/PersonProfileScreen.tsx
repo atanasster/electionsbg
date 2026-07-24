@@ -18,6 +18,7 @@ import { PersonDeclarations } from "./PersonDeclarations";
 import { PersonMoneyTimeline } from "./PersonMoneyTimeline";
 import { PersonWealthTrajectory } from "./PersonWealthTrajectory";
 import { PersonAccumulationGap } from "./PersonAccumulationGap";
+import { PersonDeclarationEvents } from "./PersonDeclarationEvents";
 import { PersonCompanies } from "./PersonCompanies";
 import {
   PersonConnections,
@@ -338,6 +339,10 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
           nothing below two asset-bearing filings. See
           docs/methodology/accumulation-gap.md. */}
       <PersonAccumulationGap slug={p.slug} />
+
+      {/* Disposals + third-party expenses (T3.4) — register facts that are NOT part of
+          the estate, which is exactly why they are interesting. Self-hides when empty. */}
+      <PersonDeclarationEvents slug={p.slug} />
 
       {/* MP-only: voting scorecard + roll-call + declared assets (no PG equivalent). */}
       {mpId != null && (

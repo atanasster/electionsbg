@@ -70,7 +70,8 @@ type Props = {
     | "person-donations"
     | "person-money"
     | "person-wealth"
-    | "person-gap";
+    | "person-gap"
+    | "person-events";
   title?: ReactNode;
   subtitle?: ReactNode;
   icon?: LucideIcon;

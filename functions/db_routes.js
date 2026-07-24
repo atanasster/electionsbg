@@ -2180,6 +2180,28 @@ const DB_ROUTES = {
     const r = rows[0]?.r;
     return { body: Array.isArray(r) ? null : (r ?? null) };
   },
+  // Disposals + third-party expenses for one person (audit T3.4): what they transferred
+  // in the year before a filing, and what someone else paid for. Register facts about a
+  // filing, so public-figure gated but NOT cohort-gated like the accumulation gap.
+  "person-declaration-events": async (dbRows, q) => {
+    const slug = s(q, "slug");
+    if (!slug) return { body: [] };
+    const rows = await dbRows("SELECT person_declaration_events($1) AS r", [
+      slug,
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? [] };
+  },
+  // The site-wide feed, biggest declared value first. `kind` filters to one event kind.
+  // Every row resolves to a named public person — an unattributed filing never surfaces.
+  "declaration-events-feed": async (dbRows, q) => {
+    const kind = s(q, "kind") || null;
+    const lim = clampInt(q.limit, 50, 1, 200);
+    const rows = await dbRows("SELECT declaration_events_feed($1, $2) AS r", [
+      kind,
+      lim,
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? [] };
+  },
   // The person's public-contract take bucketed by cabinet tenure (the "money vs power"
   // timeline) → lazily loaded by the money section, kept off person_by_slug's hot path
   // (person-candidate-merge-v1). EIK-exact.
