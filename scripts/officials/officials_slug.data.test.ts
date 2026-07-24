@@ -17,6 +17,7 @@ import fs from "fs";
 import path from "path";
 import { describe, expect, it } from "vitest";
 import { officialSlug, ROOT, slugify } from "./shared";
+import { aliasedDeclarantName } from "./declarant_aliases";
 import { personGuidFromSourceUrl } from "./slug_identity";
 
 type Tree = {
@@ -135,6 +136,17 @@ for (const tree of TREES) {
         return hit;
       };
 
+      // The name the ingest would slug today: the register's listing name unless
+      // a person-GUID on this shard is aliased. A shard can carry two GUIDs (the
+      // known _slug_collisions pairs), so prefer whichever one the table names.
+      const nameOf = (row: Row): string => {
+        for (const guid of guidsOf(row.slug)) {
+          const aliased = aliasedDeclarantName(guid, row.name);
+          if (aliased !== row.name) return aliased;
+        }
+        return row.name;
+      };
+
       // The disambiguator is recovered against the RAW slugify, which is what the
       // on-disk slugs were minted with. After the step-3 rename migration they are
       // minted with officialSlug, so fall back to that rather than going blind.
@@ -167,7 +179,7 @@ for (const tree of TREES) {
         // disjoint is two different people sharing a profile.
         const byNewSlug = new Map<string, Row[]>();
         for (const row of rows) {
-          const slug = officialSlug(row.name, disOf(row));
+          const slug = officialSlug(nameOf(row), disOf(row));
           byNewSlug.set(slug, [...(byNewSlug.get(slug) ?? []), row]);
         }
 
@@ -193,7 +205,7 @@ for (const tree of TREES) {
       it("only ever reduces the fork", () => {
         const before = forkedGuids(rows, guidsOf, (r) => r.slug);
         const after = forkedGuids(rows, guidsOf, (r) =>
-          officialSlug(r.name, disOf(r)),
+          officialSlug(nameOf(r), disOf(r)),
         );
         expect(after.size).toBeLessThanOrEqual(before.size);
         for (const guid of after) expect(before.has(guid)).toBe(true);
@@ -221,7 +233,7 @@ for (const tree of TREES) {
           for (const row of owners) {
             const dis = disOf(row);
             const set = perDis.get(dis) ?? new Set<string>();
-            set.add(officialSlug(row.name, dis));
+            set.add(officialSlug(nameOf(row), dis));
             perDis.set(dis, set);
           }
           if ([...perDis.values()].some((slugs) => slugs.size > 1))
@@ -229,8 +241,12 @@ for (const tree of TREES) {
         }
 
         const BASELINE: Record<string, number> = {
-          // 270 before the rule; canonicalisation closes 233 of them.
-          executive: 37,
+          // 270 before the rule. Canonicalisation closes 233; the alias table
+          // closes 36 of the remaining 37. The one left is EDDF7B29… — folding
+          // it would deepen a pre-existing two-people-on-one-slug collision
+          // rather than heal a fork, so it is documented under `_notListed` in
+          // ./_declarant_guid_aliases.json instead of aliased.
+          executive: 1,
           municipal: 0,
         };
         expect(stillForked.size).toBeLessThanOrEqual(BASELINE[tree.label]);

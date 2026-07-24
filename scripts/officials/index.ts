@@ -50,11 +50,13 @@ import {
   type FilingLike,
   type SlugCollisions,
 } from "./slug_identity";
+import { aliasedDeclarantName } from "./declarant_aliases";
 import { categorise, categoriseRaw, isCaretakerTitle } from "./categorise";
 import {
   ROOT,
   REGISTER_BASE,
   sleep,
+  canonicalDeclarantName,
   normalize,
   officialSlug,
   fetchText,
@@ -276,10 +278,15 @@ const cmd = command({
       // and institution are then the only identity evidence there is, and they
       // put it on the right person's profile.
       const guid = personGuid(entry.xmlFile);
+      // One spelling per register person, where the register used several and
+      // canonicalisation cannot reconcile them — see ./declarant_aliases.ts.
+      // Drives the index row too, so the profile shows one name rather than
+      // whichever spelling the newest filing happened to carry.
+      const declarantName = aliasedDeclarantName(guid, entry.declarantName);
       const slug =
         guid && SLUG_COLLISION_GUIDS.has(guid)
-          ? officialSlug(entry.declarantName, `${entry.institution}|${guid}`)
-          : officialSlug(entry.declarantName, entry.institution);
+          ? officialSlug(declarantName, `${entry.institution}|${guid}`)
+          : officialSlug(declarantName, entry.institution);
       // Two DIFFERENT register people landing on one slug would merge into a
       // single profile publishing neither person's holdings correctly. Listed
       // GUIDs are already separated above; anything else is new and must be seen
@@ -335,8 +342,8 @@ const cmd = command({
         ) {
           indexBySlug.set(slug, {
             slug,
-            name: entry.declarantName,
-            normalizedName: norm,
+            name: declarantName,
+            normalizedName: canonicalDeclarantName(declarantName),
             category: entry.category,
             categoryRaw: entry.categoryRaw,
             institution: entry.institution,

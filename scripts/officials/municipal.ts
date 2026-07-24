@@ -40,12 +40,15 @@ import {
   ROOT,
   REGISTER_BASE,
   sleep,
+  canonicalDeclarantName,
   normalize,
   officialSlug,
   fetchText,
   fetchDeclaration,
   writeJson,
 } from "./shared";
+import { aliasedDeclarantName } from "./declarant_aliases";
+import { personGuid } from "./slug_identity";
 import { emitShards } from "./build_municipal_shards";
 import { decorateCandidateLinks } from "./candidate_links";
 import { MUNICIPAL_CATEGORY_SUBSTRING } from "../watch/sources/cacbg_local";
@@ -202,11 +205,20 @@ const cmd = command({
         console.warn(`  [missing] ${entry.declarantName} — ${entry.sourceUrl}`);
         continue;
       }
+      // One spelling per register person — see ./declarant_aliases.ts. The
+      // municipal tree has no forked declarant today (it is effectively
+      // single-year, so it has not crossed the register's 2023→2024 re-spelling
+      // yet), but the GUID space is shared with the executive tier: 537 people
+      // file in both, and an alias added for one must hold for the other.
+      const declarantName = aliasedDeclarantName(
+        personGuid(entry.xmlFile),
+        entry.declarantName,
+      );
       // Slug disambiguator = municipality + role, so two people with the same
       // legal name in one municipality (or one person across two roles) do
       // not collide. Same person's multiple declarations share a slug.
       const slug = officialSlug(
-        entry.declarantName,
+        declarantName,
         `${entry.municipality}|${entry.role}`,
       );
       try {
@@ -249,8 +261,8 @@ const cmd = command({
         ) {
           indexBySlug.set(slug, {
             slug,
-            name: entry.declarantName,
-            normalizedName: norm,
+            name: declarantName,
+            normalizedName: canonicalDeclarantName(declarantName),
             role: entry.role,
             roleRaw: entry.roleRaw,
             municipality: entry.municipality,

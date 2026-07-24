@@ -1,0 +1,190 @@
+{
+  "_comment": "Register person-GUID → the one declarant name that person's profile is published under. register.cacbg.bg re-spells declarants between folder years; scripts/officials/shared.ts canonicalDeclarantName() levels the mechanical drift (case, inner whitespace, hyphen spacing, a 'д-р' prefix), which folds 233 of the 270 forked people back together. What is left over is here: 36 register people whose spellings differ by more than that — a genuine typo ('Натгалия', 'Симееон', 'Маритн'), a swapped patronymic and surname, or a real name change (marriage, divorce, a legal rename). No textual rule can close those without also merging two same-named strangers, so they are resolved by the register's OWN per-person id instead. Keyed on the GUID because it is stable across every filing one declarant ever makes, including across institutions and across the exec/municipal tiers. Both ingests substitute `name` for the register's listing name before slugging AND in the index row, so one person shows one name.",
+  "_whatBelongsHere": "ONLY a GUID proven to be ONE person under two or more spellings — which the GUID itself proves, since register.cacbg.bg issues it per declarant. The danger runs the other way from scripts/officials/_slug_collisions.json: listing a GUID here MERGES spellings, so an entry whose `name` collides with a DIFFERENT person's canonical name under the same institution publishes one official's property under another's name. Before adding, check that no second GUID already sits on the target slug — the corpus gate in scripts/officials/officials_slug.data.test.ts fails if one does. EDDF7B29… is the worked example of a case that does NOT belong here; see _notListed.",
+  "_howToAdd": "Run the officials ingest, or `npx vitest run scripts/officials/officials_slug.data.test.ts`. The corpus gate pins how many register people are still forked WITHIN one institution; when it rises, a new spelling has landed. Find it by grouping data/officials/declarations by the person-GUID in each filing's sourceUrl (scripts/officials/slug_identity.ts personGuid()), take the spelling from the most recent declaration year as `name`, list the ones it replaces in `folds`, and say why in `reason`. Prefer the newest spelling: it is the person's current legal name, and a marriage rename should not leave the profile under the maiden name. Do NOT strip a trailing digit as though it were noise — see _notListed and the TITLE_PREFIX note in scripts/officials/shared.ts.",
+  "_notListed": {
+    "EDDF7B29-447A-4C2B-A359-78366EFBAF43": "Иван Георгиев Иванов / …Иванов1, Училища. Folding the digit suffix here would NOT just reunite one person: the bare-named slug ivan-georgiev-ivanov-b749dc already carries a SECOND register person (2E6D233C…), so the merge would pull a stranger's property into the profile. Resolving it means deciding which of the two GUIDs is the second person and listing it in ./_slug_collisions.json — a call that needs both declarations opened and compared, per that file's _howToAdd. Left forked until then."
+  },
+  "aliases": {
+    "3BBBBC01-1BF9-4AC7-A145-6833073BD930": {
+      "name": "Августина Кирилова Цветкова-Карабашева",
+      "folds": ["Августина Кирилова Цветкова"],
+      "reason": "name change — surname extended"
+    },
+    "75AB005B-9CED-48D9-9D69-18D4078F7E75": {
+      "name": "Айсел Исмаил Руфад",
+      "folds": ["Айсел Исмаил Руфат"],
+      "reason": "spelling drift — Руфат/Руфад"
+    },
+    "E0E23F39-808C-4A61-AA69-1A12958E11DE": {
+      "name": "Александър Алексиев Тодоров",
+      "folds": ["Алексансър Алексиев Тодоров"],
+      "reason": "register typo — Алексансър"
+    },
+    "A75E6AC8-9455-4868-8854-3A4BA664AAE7": {
+      "name": "Анна Иванова Младенова",
+      "folds": ["Анна Иванова Димитрова"],
+      "reason": "name change — Димитрова → Младенова"
+    },
+    "71DA5780-0B28-44FF-B8AC-D17600DF0DA0": {
+      "name": "Атанас Петров Атанасов",
+      "folds": ["Атанас Петров Атанасов1"],
+      "reason": "register disambiguation suffix on one person"
+    },
+    "F82F96F9-D9D0-4414-9348-11623D1BBD07": {
+      "name": "Борислав Райчев Димитрачков",
+      "folds": ["Борислав Райчев Димтрачков"],
+      "reason": "register typo — Димтрачков"
+    },
+    "337165AC-A1D6-4381-8242-EDF46DE18D76": {
+      "name": "Веселина Иванова Инкова",
+      "folds": ["Веселина Иванова Колева"],
+      "reason": "name change — Колева → Инкова"
+    },
+    "B2AEC1A5-5C07-4749-B3B2-48B64938D934": {
+      "name": "Виолета Андреева Андреева",
+      "folds": ["Виолета Андреева Дъчева"],
+      "reason": "name change — Дъчева → Андреева"
+    },
+    "F8462CC8-B546-4CDF-86F5-E09B2FD08A6C": {
+      "name": "Георги Христов Христов",
+      "folds": ["Георги Христов Христов1"],
+      "reason": "register disambiguation suffix on one person"
+    },
+    "66C87020-9F54-44B1-969B-21C808E919BC": {
+      "name": "Гинка Иванова Йорданова",
+      "folds": ["Гинка Иванова Чернева"],
+      "reason": "name change — Чернева → Йорданова"
+    },
+    "9992BCFD-BF52-4C77-AFD8-EFC668BADB1C": {
+      "name": "Денис Хюсеинов Шенгов",
+      "folds": ["Денислав Йосков Шенгов"],
+      "reason": "name change — given name and patronymic both changed"
+    },
+    "21B74EE4-CAB3-41B4-B57A-BCB9BECBBA42": {
+      "name": "Деница Антонова Величкова",
+      "folds": ["Деница Антонова Кирова"],
+      "reason": "name change — Кирова → Величкова"
+    },
+    "67B3D456-ECCE-494C-9DE0-1D85B538410F": {
+      "name": "Деян Георгиев Чолаков",
+      "folds": ["Деян Георгиев Чолкаов"],
+      "reason": "register typo — Чолкаов"
+    },
+    "BC7650BB-45FD-4300-AC81-091CC064BCB6": {
+      "name": "Драгомир Христов Златев",
+      "folds": ["Драгомир Златев Христов"],
+      "reason": "register field swap — patronymic and surname exchanged"
+    },
+    "E76BBFDF-A654-4EB6-98EA-0B18E2762C5B": {
+      "name": "Евгения Константинова Христова",
+      "folds": ["Енгения Константинова Христова"],
+      "reason": "register typo — Енгения"
+    },
+    "1E1DF65A-0074-4597-960E-10EB23C45A4C": {
+      "name": "Жулиета Дончева Нешкова",
+      "folds": ["Жулиета Дончевва Нешкова"],
+      "reason": "register typo — Дончевва"
+    },
+    "1919D56E-30CD-4820-9848-A87F020D5B37": {
+      "name": "Здравко Иванов Пехливанов",
+      "folds": ["Задравко Иванов Пехливанов"],
+      "reason": "register typo — Задравко"
+    },
+    "664FBE2A-F332-4EDD-BDAB-CA737B8D1D58": {
+      "name": "Златина Христова Димова",
+      "folds": ["Златина Христова Димова - Саманлиева"],
+      "reason": "name change — surname shortened"
+    },
+    "6D5049E9-B0B4-4A41-8E34-3F7CC991897A": {
+      "name": "Иван Любомиров Любомиров",
+      "folds": ["Иван Любомиров Христов"],
+      "reason": "name change — Христов → Любомиров"
+    },
+    "25917608-8E0F-4344-9E46-A2C2933F5B7E": {
+      "name": "Иваница Димитрова Дединска",
+      "folds": ["Иваница Димитрова Бояджиева"],
+      "reason": "name change — Бояджиева → Дединска"
+    },
+    "D9FC35A4-0917-40FF-BB80-A909535166D6": {
+      "name": "Ивилина Вергинова Алексиева-Робинсън",
+      "folds": ["Ивилина Вергинова Алексиева"],
+      "reason": "name change — surname extended"
+    },
+    "6333DB6C-8817-4E76-A033-2C1BA2042FD9": {
+      "name": "Йоана Георгиева Кръстева",
+      "folds": ["Йоана Георгиева Николова"],
+      "reason": "name change — Николова → Кръстева"
+    },
+    "F2222A19-6745-44E1-BA1C-6665931E9ECA": {
+      "name": "Клара Василева Каравасилева-Стоянова",
+      "folds": ["Клара Василева Каравасилева"],
+      "reason": "name change — surname extended"
+    },
+    "8B2A5B35-108A-442C-8658-410DCF980C20": {
+      "name": "Кремена Ангелова Алексиева",
+      "folds": ["Кремена Ангелова Пашкулова"],
+      "reason": "name change — Пашкулова → Алексиева"
+    },
+    "1BBAD226-75DD-4983-8BDC-FD6F65BD5918": {
+      "name": "Маргарита Георгиева Андонова",
+      "folds": ["Маргарига Георгиева Андонова"],
+      "reason": "register typo — Маргарига"
+    },
+    "226B2E07-539A-4812-A6FA-96CC6B3BB94E": {
+      "name": "Мартин Руменов Ангелов",
+      "folds": ["Маритн Руменов Ангелов"],
+      "reason": "register typo — Маритн"
+    },
+    "1C354066-1493-434F-A2A2-72880DCCA014": {
+      "name": "Мая Божидарова Манолова - Найденова",
+      "folds": ["Мая Божидарова Манолова"],
+      "reason": "name change — surname extended"
+    },
+    "7515A8D9-F3E5-476B-8979-41B288573F78": {
+      "name": "Наталия Василева Илиева",
+      "folds": ["Натгалия Василева Илиева"],
+      "reason": "register typo — Натгалия"
+    },
+    "9A23131C-31EC-42C7-A3C7-213D89C26863": {
+      "name": "Пенка Михайлова Стефанова",
+      "folds": ["Пенка Михаилова Стефанова"],
+      "reason": "orthography — Михаилова/Михайлова"
+    },
+    "DCEFB563-C727-46BD-BF0C-DA0C4BD22928": {
+      "name": "Петър Илиянов Кичашки",
+      "folds": ["Петър Илиянов Кирашки"],
+      "reason": "register typo — Кирашки/Кичашки"
+    },
+    "70FCF5BD-B99B-4DD7-8BAE-3C66DF610D4B": {
+      "name": "Силвия Георгиева Александрова",
+      "folds": ["Силвия Георгиева Алексанрова"],
+      "reason": "register typo — Алексанрова"
+    },
+    "7E4AA41E-389B-4D70-B80A-0F2A02D0D30B": {
+      "name": "Симеон Николов Николов",
+      "folds": ["Симееон Николов Николов"],
+      "reason": "register typo — Симееон"
+    },
+    "A8E2CBDD-4A27-4D57-864B-28A556845988": {
+      "name": "Снежанка Георгиева Дичева",
+      "folds": ["Снежанка Георгиева Дичев"],
+      "reason": "register typo — Дичев/Дичева"
+    },
+    "F7384047-0712-4968-9515-DC553B86AD92": {
+      "name": "Таня Петрова Бурдева",
+      "folds": ["Таня Бурдева Петрова"],
+      "reason": "register field swap — patronymic and surname exchanged"
+    },
+    "F06F3A1C-B845-4F01-8A5B-B2386CDDC19C": {
+      "name": "Христо Тотев Христов",
+      "folds": ["Христо Тотев Христов1"],
+      "reason": "register disambiguation suffix on one person"
+    },
+    "8FFA96CC-28D2-4D54-BF5B-94393F000D23": {
+      "name": "Цветанка Маринова Митева",
+      "folds": ["Цветанка Марнова Митева"],
+      "reason": "register typo — Марнова"
+    }
+  }
+}
