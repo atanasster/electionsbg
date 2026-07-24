@@ -15,8 +15,8 @@ import { toEur } from "@/lib/currency";
 import { canonicalJson, writeStableJson } from "./validate";
 import { buildRollups, writeRollups } from "./rollups";
 import {
-  buildEikLinkageMap,
   buildMpConnected,
+  buildNamesakeFilteredLinkageMap,
   writeMpConnected,
 } from "./cross_reference";
 import {
@@ -160,7 +160,7 @@ const main = async (): Promise<void> => {
   let crossRefSummary: ProcurementIndex["crossReference"] | undefined;
   if (fs.existsSync(COMPANIES_INDEX)) {
     console.log("→ cross-referencing contractors against MP-companies graph");
-    const linkageMap = buildEikLinkageMap(COMPANIES_INDEX);
+    const linkageMap = buildNamesakeFilteredLinkageMap(COMPANIES_INDEX);
     const mpConnected = buildMpConnected(CONTRACTORS_DIR, linkageMap);
     writeMpConnected(DERIVED_DIR, mpConnected);
     console.log(`  ${mpConnected.entries.length} MP↔contractor pair(s)`);

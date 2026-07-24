@@ -23,9 +23,8 @@ import { fileURLToPath } from "url";
 import { canonicalJson, dropSyntheticLegacyTwins } from "./validate";
 import { buildRollups, writeRollups } from "./rollups";
 import {
-  buildEikLinkageMap,
   buildMpConnected,
-  buildTrNamesakeCounts,
+  buildNamesakeFilteredLinkageMap,
   writeMpConnected,
 } from "./cross_reference";
 import {
@@ -80,7 +79,6 @@ const OFFICIALS_COMPANY_LINKS = path.resolve(
   __dirname,
   "../../data/officials/derived/company_links.json",
 );
-const TR_SQLITE = path.resolve(__dirname, "../../raw_data/tr/state.sqlite");
 const MP_CONNECTED_FILE = path.join(DERIVED_DIR, "mp_connected.json");
 const ELECTIONS_INDEX = path.resolve(
   __dirname,
@@ -270,11 +268,7 @@ const main = async (): Promise<void> => {
     );
   } else if (fs.existsSync(COMPANIES_INDEX)) {
     console.log("→ cross-referencing contractors against MP-companies graph");
-    const trNamesake = buildTrNamesakeCounts(TR_SQLITE);
-    if (trNamesake.size === 0) {
-      console.log("  WARNING: TR SQLite absent — MP namesake filter skipped");
-    }
-    const linkageMap = buildEikLinkageMap(COMPANIES_INDEX, trNamesake);
+    const linkageMap = buildNamesakeFilteredLinkageMap(COMPANIES_INDEX);
     mpConnected = buildMpConnected(CONTRACTORS_DIR, linkageMap);
     writeMpConnected(DERIVED_DIR, mpConnected);
     console.log(`  ${mpConnected.entries.length} MP↔contractor pair(s)`);

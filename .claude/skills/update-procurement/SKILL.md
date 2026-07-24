@@ -150,8 +150,11 @@ npx tsx scripts/procurement/by_id_shards.ts            # prefix-sharded per-cont
 npx tsx scripts/procurement/ingest_anexi.ts                    # fetch+cache annex feed (~30d incremental by default; --backfill --from 2020-01-01 once for full history; no --apply flag)
 npx tsx scripts/procurement/anexi_current_value.ts --apply     # FLIP amountEur → current value in place; original signing value kept in signingAmountEur
 npx tsx scripts/procurement/rebuild_from_cache.ts              # rebuild rollups/by-id/index from the FLIPPED shards (this pass is flip-aware; see below)
-npx tsx scripts/procurement/rebuild_derived.ts                 # link-dependent files (mp_connected/pep/flow/top_contractors) with the TR-namesake filter
+npx tsx scripts/procurement/rebuild_derived.ts                 # link-dependent files (mp_connected/pep/flow/top_contractors)
 ```
+
+- Every builder that writes `derived/mp_connected.json` goes through `buildNamesakeFilteredLinkageMap` (`cross_reference.ts`), which is the ONLY sanctioned way to construct the linkage map — it bundles the TR-namesake counts with `buildEikLinkageMap`. `rebuild_from_cache.ts` used to call `buildEikLinkageMap` bare and published the inflated 134 MPs / €2,964M instead of the correct 54 / €1,958M whenever it ran last. `cross_reference.test.ts` now fails on any builder that reaches past the helper.
+
 
 - ORDER MATTERS. Run the fold LAST (after `eop_field_map` and any `procurement:ingest`), because base normalization recomputes `amountEur = toEur(amount)` and drops the flip. `rebuild_from_cache.ts`'s euro-backfill is now **flip-aware** (it refreshes `signingAmountEur` from the native amount and leaves the current `amountEur` intact when a row is annexed), so the fold → rebuild order preserves the current basis; the reconcile then holds (`index.json.totals.totalEur` == PG `SUM(amount_eur)` to the euro).
 - Do NOT use `rebuild_derived` for rollups — it doesn't rebuild them; and do NOT rely on `procurement:ingest` alone for the current basis (it rebuilds rollups from the signed shards before the fold runs).

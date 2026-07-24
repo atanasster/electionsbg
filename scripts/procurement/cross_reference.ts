@@ -12,6 +12,7 @@
 
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
 import { DatabaseSync } from "node:sqlite";
 import type {
   ContractorRollup,
@@ -30,8 +31,9 @@ import { normalize } from "../officials/shared";
 // (common Bulgarian names recur thousands of times), so attributing all of
 // them to one MP is the classic false positive. Mirrors the officials-side
 // guard in build_officials_company_links.ts. Returns an empty map when the
-// TR SQLite is absent (callers then skip the filter — declared stakes still
-// stand on their own).
+// TR SQLite is absent — no name then counts as unique, so buildEikLinkageMap
+// drops every name-matched role and only declared stakes stand. That errs
+// conservative (under- not over-linking), which is the right way to fail.
 export const buildTrNamesakeCounts = (
   sqlitePath: string,
 ): Map<string, number> => {
@@ -53,6 +55,13 @@ export const buildTrNamesakeCounts = (
   for (const [name, set] of uicsByName) counts.set(name, set.size);
   return counts;
 };
+
+// The TR state mirror every procurement builder reads the namesake counts from.
+// Single source of truth so no caller can quietly skip the filter.
+export const TR_SQLITE_PATH = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "../../raw_data/tr/state.sqlite",
+);
 
 interface CompaniesIndex {
   generatedAt: string;
@@ -209,6 +218,34 @@ export const buildEikLinkageMap = (
     totalCompanies: idx.companies.length,
     companiesWithUic: withUic,
   };
+};
+
+// The ONLY entry point procurement builders should use to construct the linkage
+// map. It bundles the two steps that must never come apart: build the TR
+// namesake counts, then hand them to buildEikLinkageMap. Calling
+// buildEikLinkageMap directly without the counts keeps every name-only match —
+// the inflation mode that once took the headline from 38 MPs / €533M to a false
+// 55 / €711M — and it fails silently, because the map still builds. A rebuild
+// script that skipped it published the inflated figure (134 MPs / €2,964M vs the
+// correct 54 / €1,958M) until rebuild_derived happened to run afterwards.
+//
+// Degrades conservatively: with no TR mirror on disk the counts come back empty,
+// so no name reads as unique and every name-matched role is dropped — only
+// declared stakes stand. The caller is told so, because that under-links.
+export const buildNamesakeFilteredLinkageMap = (
+  companiesIndexPath: string,
+  trSqlitePath: string = TR_SQLITE_PATH,
+  log: (msg: string) => void = console.log,
+): EikLinkageMap => {
+  const trNamesake = buildTrNamesakeCounts(trSqlitePath);
+  if (trNamesake.size === 0) {
+    log(
+      `  no TR SQLite at ${path.relative(process.cwd(), trSqlitePath)} — ` +
+        `namesake counts unavailable; dropping ALL name-matched MP roles ` +
+        `(declared stakes stand)`,
+    );
+  }
+  return buildEikLinkageMap(companiesIndexPath, trNamesake);
 };
 
 // Source-agnostic: emit (mpId, contractor) records for every linkage whose

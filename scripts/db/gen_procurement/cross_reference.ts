@@ -23,8 +23,7 @@ import { readContractsFromPg } from "../lib/rows";
 import { stripVolatile } from "../lib/canonical";
 import { buildRollupsFromRows } from "../../procurement/rollups";
 import {
-  buildTrNamesakeCounts,
-  buildEikLinkageMap,
+  buildNamesakeFilteredLinkageMap,
   buildMpConnectedFrom,
   writeMpConnected,
 } from "../../procurement/cross_reference";
@@ -76,8 +75,7 @@ const main = async (): Promise<void> => {
 
   // mp_connected — needs companies-index.json + TR namesake counts.
   if (fs.existsSync(COMPANIES_INDEX)) {
-    const trNamesake = buildTrNamesakeCounts(TR_DB);
-    const linkageMap = buildEikLinkageMap(COMPANIES_INDEX, trNamesake);
+    const linkageMap = buildNamesakeFilteredLinkageMap(COMPANIES_INDEX, TR_DB);
     const mp = buildMpConnectedFrom(getContractor, linkageMap);
     results.push(
       byteCmp("mp_connected", mp, path.join(DERIVED_DIR, "mp_connected.json")),

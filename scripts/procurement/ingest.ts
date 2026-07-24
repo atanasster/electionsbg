@@ -32,9 +32,8 @@ import {
 } from "./validate";
 import { buildRollups, writeRollups } from "./rollups";
 import {
-  buildEikLinkageMap,
   buildMpConnected,
-  buildTrNamesakeCounts,
+  buildNamesakeFilteredLinkageMap,
   writeMpConnected,
 } from "./cross_reference";
 import {
@@ -91,7 +90,6 @@ const OFFICIALS_COMPANY_LINKS = path.resolve(
   __dirname,
   "../../data/officials/derived/company_links.json",
 );
-const TR_SQLITE = path.resolve(__dirname, "../../raw_data/tr/state.sqlite");
 const ELECTIONS_INDEX = path.resolve(
   __dirname,
   "../../src/data/json/elections.json",
@@ -456,14 +454,7 @@ const main = async (args: {
   let crossRefSummary: ProcurementIndex["crossReference"] | undefined;
   if (fs.existsSync(COMPANIES_INDEX)) {
     console.log(`→ cross-referencing contractors against MP-companies graph`);
-    const trNamesake = buildTrNamesakeCounts(TR_SQLITE);
-    if (trNamesake.size === 0) {
-      console.log(
-        `  no TR SQLite at ${path.relative(process.cwd(), TR_SQLITE)} — ` +
-          `keeping all name-matched MP roles (namesake filter skipped)`,
-      );
-    }
-    const linkageMap = buildEikLinkageMap(COMPANIES_INDEX, trNamesake);
+    const linkageMap = buildNamesakeFilteredLinkageMap(COMPANIES_INDEX);
     console.log(
       `  EIK linkage map: ${linkageMap.byEik.size} EIK(s) from ` +
         `${linkageMap.companiesWithUic}/${linkageMap.totalCompanies} TR-enriched companies`,
