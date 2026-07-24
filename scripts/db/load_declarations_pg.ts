@@ -86,6 +86,12 @@ const STAKE_PROC_SCHEMA = path.join(
   ROOT,
   "scripts/db/schema/pg/096_stake_procurement.sql",
 );
+// Peer benchmarks (T3.9). Reads person_wealth_year (090) and person_role, so it must be
+// applied after 090 and after the resolve — its matview is built by its own CREATE ... AS.
+const COHORT_SCHEMA = path.join(
+  ROOT,
+  "scripts/db/schema/pg/097_cohort_benchmark.sql",
+);
 // recent_updates changelog (feedback_pg_changelog_required) — every PG-migrated
 // dataset wires in. Applied here so a fresh bootstrap has the tables.
 const INGEST_TRACKING = path.join(
@@ -546,6 +552,9 @@ const resolve = async () => {
   await exec(fs.readFileSync(EVENTS_SCHEMA, "utf-8"));
   await exec(fs.readFileSync(STAKE_PROC_SCHEMA, "utf-8"));
   await exec("REFRESH MATERIALIZED VIEW person_wealth_year");
+  // 097 reads person_wealth_year, so it is built from the REFRESHED matview, not the stale
+  // pre-reload one — apply it after the refresh above, never before.
+  await exec(fs.readFileSync(COHORT_SCHEMA, "utf-8"));
   const [{ n: wealthRows }] = await allRows<{ n: string }>(
     "SELECT count(*) n FROM person_wealth_year",
   );

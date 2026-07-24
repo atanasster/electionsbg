@@ -41,6 +41,15 @@ import {
   priorAssetDeclaration,
 } from "../../src/lib/declarations";
 import { mergeDeclarations, mergeIndexEntries, mergeYears } from "./merge";
+import {
+  foreignPersonGuids,
+  formatCollisions,
+  personGuid,
+  personGuidFilings,
+  recordCollision,
+  type FilingLike,
+  type SlugCollisions,
+} from "./slug_identity";
 import { categorise, categoriseRaw, isCaretakerTitle } from "./categorise";
 import {
   ROOT,
@@ -66,10 +75,40 @@ const SLUG_COLLISION_GUIDS: Set<string> = new Set(
   ).guids.map((g) => g.toUpperCase()),
 );
 
-// The register's own per-person id, recovered from the declaration filename
-// (a GUID followed by a per-filing sequence number).
-const personGuid = (xmlFile: string): string =>
-  xmlFile.slice(0, 36).toUpperCase();
+// Report a slug claimed by two register person-GUIDs — WITHOUT prescribing the
+// remedy, because the right remedy depends on something this run cannot see.
+//
+// Two person ids on one slug mean one of two things:
+//   1. two genuinely different people with the same legal name inside the same
+//      group label ("Училища", "Процедури по ЗОП", "Държавни предприятия"), or
+//   2. one person whose id the register RE-ISSUED between folders.
+//
+// Only case 1 belongs in ./_slug_collisions.json. Listing case 2 splits one
+// person's history into two profiles, each publishing part of their wealth —
+// which is how 66 entries got in there and left the ombudsman with four
+// profiles. Case 2 is real and not rare: Николай Стефанов Петров, зам. обл.
+// управител of Област - Велико Търново, filed under FBEA081E… in 2014 and
+// 68B238E8… in 2016 with a byte-identical property list.
+//
+// The two are told apart by the declared HOLDINGS, not by the name or the
+// institution: the slug is slugify(name, institution), so a shared slug already
+// implies both are identical and neither can ever discriminate.
+const warnCollisions = (collisions: SlugCollisions): void => {
+  console.warn(
+    `  [warn] ${collisions.size} slug collision(s) — one slug, two register person-GUIDs. Their filings MERGE into one profile.`,
+  );
+  console.warn(
+    `         Open both URLs and compare the declared property/income first:`,
+  );
+  console.warn(
+    `           · same holdings → ONE person, the register re-issued the id. Change nothing; the merge is correct.`,
+  );
+  console.warn(
+    `           · different holdings → two people. Add the second GUID to scripts/officials/_slug_collisions.json and re-run.`,
+  );
+  for (const line of formatCollisions(collisions))
+    console.warn(`         ${line}`);
+};
 
 const OUT_DIR = path.join(ROOT, "data", "officials");
 const DECL_DIR = path.join(OUT_DIR, "declarations");
@@ -254,9 +293,11 @@ const cmd = command({
     let processed = 0;
     let missing = 0;
     const parseFailures: string[] = [];
-    // slug → the register GUID that claimed it, for collision detection.
-    const slugOwner = new Map<string, string>();
-    const slugCollisions = new Set<string>();
+    // slug → every filing that claimed it, for the collision check after the
+    // loop. Kept separate from `declsBySlug` so an entry that fails to parse
+    // still counts towards the check.
+    const claimsBySlug = new Map<string, FilingLike[]>();
+    const slugCollisions: SlugCollisions = new Map();
 
     for (const entry of entries) {
       if (processed >= cap) break;
@@ -276,20 +317,22 @@ const cmd = command({
         console.warn(`  [missing] ${entry.declarantName} — ${entry.sourceUrl}`);
         continue;
       }
+      // null when the filename carries a per-document guid rather than a person
+      // id — see ./slug_identity.ts. Such a filing takes the bare slug: the name
+      // and institution are then the only identity evidence there is, and they
+      // put it on the right person's profile.
       const guid = personGuid(entry.xmlFile);
-      const slug = SLUG_COLLISION_GUIDS.has(guid)
-        ? slugify(entry.declarantName, `${entry.institution}|${guid}`)
-        : slugify(entry.declarantName, entry.institution);
+      const slug =
+        guid && SLUG_COLLISION_GUIDS.has(guid)
+          ? slugify(entry.declarantName, `${entry.institution}|${guid}`)
+          : slugify(entry.declarantName, entry.institution);
       // Two DIFFERENT register people landing on one slug would merge into a
       // single profile publishing neither person's holdings correctly. Listed
-      // GUIDs are already separated above; anything else is new and must be
-      // seen rather than silently merged.
-      const claimed = slugOwner.get(slug);
-      if (claimed && claimed !== guid) {
-        slugCollisions.add(`${slug}: ${claimed} vs ${guid}`);
-      } else if (!claimed) {
-        slugOwner.set(slug, guid);
-      }
+      // GUIDs are already separated above; anything else is new and must be seen
+      // rather than silently merged. Resolved after the loop, over every claim.
+      const claims = claimsBySlug.get(slug) ?? [];
+      claims.push({ sourceUrl: entry.sourceUrl, declarationYear: entry.year });
+      claimsBySlug.set(slug, claims);
       try {
         // Existing parser keys on mpId — pass 0 as a sentinel and strip it.
         const parsed = parseDeclarationXml({
@@ -383,15 +426,17 @@ const cmd = command({
       }
     }
 
-    if (slugCollisions.size > 0) {
-      console.warn(
-        `  [warn] ${slugCollisions.size} slug collision(s) — two different register people share a slug and their filings will MERGE.`,
-      );
-      console.warn(
-        `         Add the second GUID of each pair to scripts/officials/_slug_collisions.json and re-run:`,
-      );
-      for (const c of slugCollisions) console.warn(`           ${c}`);
+    // A slug claimed by two register person-GUIDs within this one run. Bare-guid
+    // filings contribute no id at all, so they cannot manufacture a pair — which
+    // is what made 56 of the corpus's 59 multi-guid shards look like collisions
+    // when every one of them was a single person.
+    for (const [slug, claims] of claimsBySlug.entries()) {
+      const competing = personGuidFilings(claims);
+      if (competing.size > 1) {
+        recordCollision(slugCollisions, slug, ...competing.values());
+      }
     }
+    if (slugCollisions.size > 0) warnCollisions(slugCollisions);
 
     // Fail loud if parse failures look systemic rather than isolated — same
     // threshold as the municipal ingest.
@@ -422,29 +467,26 @@ const cmd = command({
     // DIFFERENT years, so the per-run map above never sees them together — they
     // meet only here, when this year's rows merge into a shard an earlier run
     // wrote. Compare against what is already on disk.
+    const crossYear: SlugCollisions = new Map();
     for (const [slug, decls] of declsBySlug.entries()) {
       const existing = readJsonOr<OfficialDeclaration[]>(
         path.join(DECL_DIR, `${slug}.json`),
         [],
       );
       if (existing.length === 0) continue;
-      const incomingGuids = new Set(
-        decls.map((d) => personGuid(d.sourceUrl.split("/").pop() ?? "")),
+      const foreign = foreignPersonGuids(
+        existing.map((e) => e.sourceUrl),
+        decls.map((d) => d.sourceUrl),
       );
-      for (const e of existing) {
-        const g = personGuid(e.sourceUrl.split("/").pop() ?? "");
-        if (g && !incomingGuids.has(g)) {
-          slugCollisions.add(
-            `${slug}: ${g} vs ${[...incomingGuids][0]} (cross-year)`,
-          );
-          break;
-        }
-      }
+      if (foreign.length === 0) continue;
+      // One filing per competing id — from this run and from the shard alike —
+      // so the operator can open them side by side and compare the holdings.
+      const filings = personGuidFilings([...decls, ...existing]);
+      recordCollision(crossYear, slug, ...filings.values());
     }
-    if (slugCollisions.size > 0) {
-      console.warn(
-        `  [warn] ${slugCollisions.size} slug collision(s) total after the cross-year check`,
-      );
+    if (crossYear.size > 0) {
+      console.warn(`  cross-year check:`);
+      warnCollisions(crossYear);
     }
 
     // 1. Per-official files. This run is authoritative for targetYear and

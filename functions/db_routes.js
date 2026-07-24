@@ -2180,6 +2180,18 @@ const DB_ROUTES = {
     const r = rows[0]?.r;
     return { body: Array.isArray(r) ? null : (r ?? null) };
   },
+  // Declared wealth against peers in the same office, same year (audit T3.9). Object-shaped,
+  // so a missing-migration array degrades to null rather than a shape the client can't read.
+  // `percentile` is null below a 20-peer floor — 097 enforces it, not the client.
+  "person-cohort-benchmark": async (dbRows, q) => {
+    const slug = s(q, "slug");
+    if (!slug) return { body: null };
+    const rows = await dbRows("SELECT person_cohort_benchmark($1) AS r", [
+      slug,
+    ]).catch(missingMigrationEmpty);
+    const r = rows[0]?.r;
+    return { body: Array.isArray(r) ? null : (r ?? null) };
+  },
   // Declared company stakes whose company holds public contracts (audit T3.8). The
   // declaration form carries no EIK, so every row here is a RESOLVED link that passed
   // all three of 096's gates — unique TRADING-company name in the TR, the registry

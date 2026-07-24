@@ -20,6 +20,7 @@ import { PersonWealthTrajectory } from "./PersonWealthTrajectory";
 import { PersonAccumulationGap } from "./PersonAccumulationGap";
 import { PersonDeclarationEvents } from "./PersonDeclarationEvents";
 import { PersonStakeProcurement } from "./PersonStakeProcurement";
+import { PersonCohortBenchmark } from "./PersonCohortBenchmark";
 import { PersonCompanies } from "./PersonCompanies";
 import {
   PersonConnections,
@@ -340,6 +341,11 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
           nothing below two asset-bearing filings. See
           docs/methodology/accumulation-gap.md. */}
       <PersonAccumulationGap slug={p.slug} />
+
+      {/* Declared wealth against peers in the SAME office and year (T3.9). Not the
+          accumulation gap: both sides are self-declared and no origin is implied. The
+          percentile is withheld server-side below 20 peers. Self-hides without a cohort. */}
+      <PersonCohortBenchmark slug={p.slug} />
 
       {/* Declared company stakes that hold public contracts (T3.8). Every row passed all
           three of 096's gates (unique TR trading-company name, the registry independently
