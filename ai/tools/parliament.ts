@@ -412,7 +412,33 @@ export const mpSimilarity = async (
   const d = await fetchData<DerivedFile<SimilarityEntry>>(
     "/parliament/votes/derived/similarity.json",
   );
-  const entry = d.byNs[idx.ns]?.entries?.find((e) => e.mpId === mp.id);
+  // The similar-MP list is empty when the MP has too few shared votes in the current
+  // assembly under the overlap gate — most often because they left after the opening
+  // session (e.g. a party leader who ceded their seat, so `overlap` never clears the bar).
+  // Fall back to the most recent EARLIER assembly where they WERE active, so "who votes
+  // like X" still answers for a well-known figure instead of "no data". The names of the
+  // similar MPs are that assembly's, so `rowNames` follows the assembly we actually read;
+  // the deep-link and the person's name stay the CURRENT MP (so /parliament/similarity/:id
+  // still resolves them). Newest-first, first hit wins.
+  let entry = d.byNs[idx.ns]?.entries?.find((e) => e.mpId === mp.id);
+  let dataNs = idx.ns;
+  let rowNames = names;
+  if (!entry?.topK?.length) {
+    const older = Object.keys(d.byNs)
+      .filter((n) => Number(n) < Number(idx.ns))
+      .sort((a, b) => Number(b) - Number(a));
+    for (const ns of older) {
+      const nm = idx.mpProfileByNs[ns]?.mpNames ?? {};
+      const m = findMp(query, nm);
+      const e = m && d.byNs[ns]?.entries?.find((x) => x.mpId === m.id);
+      if (e?.topK?.length) {
+        entry = e;
+        dataNs = ns;
+        rowNames = nm;
+        break;
+      }
+    }
+  }
   if (!entry?.topK?.length) {
     return {
       tool: "mpSimilarity",
@@ -427,7 +453,7 @@ export const mpSimilarity = async (
     };
   }
   const rows: Row[] = entry.topK.slice(0, 10).map((k) => ({
-    mp: titleCase(names[String(k.mpId)] ?? `#${k.mpId}`),
+    mp: titleCase(rowNames[String(k.mpId)] ?? `#${k.mpId}`),
     score: round2(k.score * 100),
     overlap: k.overlap,
   }));
@@ -436,8 +462,8 @@ export const mpSimilarity = async (
     domain: "people",
     kind: "table",
     title: bg
-      ? `Кой гласува като ${titleCase(mp.name)}? (${idx.ns}-о НС)`
-      : `Who votes like ${titleCase(mp.name)}? (${idx.ns}th Assembly)`,
+      ? `Кой гласува като ${titleCase(mp.name)}? (${dataNs}-о НС)`
+      : `Who votes like ${titleCase(mp.name)}? (${dataNs}th Assembly)`,
     columns: [
       { key: "mp", label: bg ? "Депутат" : "MP" },
       {
@@ -457,9 +483,12 @@ export const mpSimilarity = async (
     viz: "none",
     facts: {
       mp: titleCase(mp.name),
-      ns: idx.ns,
+      // the assembly the similarity was actually read from (may be an earlier one than the
+      // current НС when the MP has since left parliament)
+      ns: dataNs,
       closest: rows[0] ? `${rows[0].mp} (${rows[0].score}%)` : "—",
-      // deep-link key (hidden from the UI; consumed by ai/render/links.ts)
+      // deep-link key (hidden from the UI; consumed by ai/render/links.ts). Stays the CURRENT
+      // MP id so /parliament/similarity/:id resolves the person, even on a fallback.
       mp_id: mp.id,
     },
     provenance: ["parliament/votes/derived/similarity.json"],
