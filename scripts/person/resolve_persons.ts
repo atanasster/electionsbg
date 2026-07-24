@@ -1259,6 +1259,30 @@ async function main(): Promise<void> {
     );
   });
 
+  // person_role is now rebuilt and committed. Two matviews read it and are otherwise
+  // invalidated SILENTLY by this run — they return well-formed but stale data, so nothing
+  // surfaces the staleness:
+  //   · declaration_stake_company (096) — resolves declared stakes to companies, joins
+  //     person + tr_*; a re-resolution changes which person a name folds to.
+  //   · person_cohort_wealth (097) — the peer-benchmark distribution, cohort assigned from
+  //     person_role itself.
+  // Both are owned by the declarations loader (load_declarations_pg --resolve) and may not
+  // exist yet on a machine that has never run it, so each refresh is guarded on the object
+  // existing. CONCURRENTLY is legal — 096 has a UNIQUE (declaration_id, seq, uic) index and
+  // 097 a UNIQUE (person_id, period_year) — and keeps /person pages served during the
+  // rebuild. (The declarations loader builds them fresh via CREATE … AS on its own path;
+  // this covers the person-resolution path the loader does not run.)
+  for (const mv of ["declaration_stake_company", "person_cohort_wealth"]) {
+    const [{ present }] = await allRows<{ present: boolean }>(
+      "SELECT to_regclass($1) IS NOT NULL AS present",
+      [`public.${mv}`],
+    );
+    if (present) {
+      await exec(`REFRESH MATERIALIZED VIEW CONCURRENTLY ${mv}`);
+      console.log(`  refreshed ${mv}`);
+    }
+  }
+
   const ovCount =
     overrides.merges.length +
     overrides.foldSplits.length +
