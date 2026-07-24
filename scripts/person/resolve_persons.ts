@@ -752,6 +752,7 @@ async function main(): Promise<void> {
     if (ra !== rb) kp.set(ra > rb ? ra : rb, ra > rb ? rb : ra);
   };
   for (const r of raw) if (r.hardId && r.regId) kunion(r.hardId, r.regId);
+  const regKeyed = raw.filter((r) => r.regId).length;
   const aliased = new Set(
     raw.flatMap((r) => (r.hardId && r.regId ? [kfind(r.hardId)] : [])),
   ).size;
@@ -995,12 +996,19 @@ async function main(): Promise<void> {
   let bridgeBRoles = 0;
   let aliasesInserted = 0;
   await withTx(async (c) => {
-    // Rebuild only the derived tables. CASCADE clears the FK-linked person_link_evidence
-    // and person_review_candidate; person_link_override is human-authored (fold-keyed, no
-    // FK) and MUST survive rebuilds.
-    await c.query(
-      `TRUNCATE person, person_role, person_alias, person_review_candidate RESTART IDENTITY CASCADE`,
-    );
+    // Rebuild only the derived tables. DELETE, not TRUNCATE … CASCADE: five tables carry
+    // an FK to person and they do NOT want the same treatment. person_role / person_alias
+    // / person_review_candidate / person_link_evidence are ON DELETE CASCADE — derived,
+    // rebuilt below. But `declaration` is ON DELETE SET NULL on purpose: the filings are
+    // an INGESTED corpus that outlives any one resolve, and phase 2 of
+    // load_declarations_pg re-attaches person_id afterwards. TRUNCATE ignores per-FK
+    // delete actions and truncates every referencing table outright, so it wiped the whole
+    // declaration tree (declaration + its four ON DELETE CASCADE children) on every run —
+    // silently, because phase 2 then reports "filled 0; 0/0 still NULL" and the wealth
+    // matview refreshes to 0 rows, both of which read like success. DELETE honours SET
+    // NULL. person_link_override is human-authored (fold-keyed, no FK) and survives either
+    // way. The person_id sequence is re-set by the setval at the end of this tx.
+    await c.query(`DELETE FROM person`);
     await copyRows(
       c,
       "person",
@@ -1105,6 +1113,7 @@ async function main(): Promise<void> {
 
   const summary =
     `${personRows.length} persons, ${roleRows.length} roles (+${bridgeBRoles} tr bridge-B), ` +
+    `${regKeyed} mention(s) keyed by the register person id (${aliased} aliased to an MP id); ` +
     `${aliasesInserted} aliases (${aliasRows.length - aliasesInserted} dup folds collapsed); ` +
     `${reviewGroups.size} review group(s) over ${reviewRows.length} person(s)`;
   console.log(`  ${summary}`);

@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-07-24T13:29:17.814Z",
+  "lastSuccessfulIngest": "2026-07-24T14:44:09.677Z",
   "skill": "update-persons",
-  "summary": "re-derived after officials/TR/declarations refresh: 59,901 persons, 115,893 roles, 70,325 aliases; person_elections 67,065 candidate_person rows. 7 name-ambiguous curated items held (2 sanctions, 3 ДС, 2 regulator seats)"
+  "summary": "db:resolve:persons: 59384 persons, 115893 roles (+13990 tr bridge-B), 20804 mention(s) keyed by the register person id (768 aliased to an MP id); 70076 aliases (199 dup folds collapsed); 3234 review group(s) over 13597 person(s). person-elections load runs separately."
 }
