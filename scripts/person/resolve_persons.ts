@@ -88,6 +88,17 @@ const hash6 = (s: string): string => {
 const kebab = (s: string): string =>
   s.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
 
+// Sofia's 24 район shards (obshtinaCode S2***) each REPLICATE the city-wide
+// Столичен общински съвет slate for display purposes — the council is elected
+// city-wide and only the parent `SOF` shard is authoritative for it. So the
+// council block on a район shard is NOT that район's own body and must not
+// contribute councillor roles: doing so mints 25 councillor identities per
+// seat (SOF + 24 районa), which surfaced as one councillor holding "Общински
+// съветник — Изгрев / Лозенец / Триадица / …" across every район. The район
+// shard's own office is its кмет на район (`mayor`), which we still take.
+export const councilShardReplicatesSofia = (obshtinaCode: string): boolean =>
+  /^S2\d{3}$/.test(obshtinaCode);
+
 // A TR role that is board membership of a ЮЛНЦ (association / foundation / читалище) is
 // the `ngo` facet, not a company (`tr`) officership — the two carry different meaning on a
 // profile (civic board seat vs business interest). These role codes only ever occur on
@@ -674,6 +685,9 @@ async function collect(): Promise<Raw[]> {
       }[];
     };
     const place = d.obshtinaName ?? d.obshtinaCode;
+    // The council on a Sofia район shard is a replica of the city-wide СОС —
+    // skip it (see councilShardReplicatesSofia). The район's own кмет stands.
+    const councilIsReplica = councilShardReplicatesSofia(d.obshtinaCode);
     const mayor = d.mayor?.elected;
     if (mayor?.candidateName)
       add(
@@ -686,7 +700,9 @@ async function collect(): Promise<Raw[]> {
         },
         { place, cParty: mayor.primaryCanonicalId ?? null, cPlace: place },
       );
-    for (const party of Array.isArray(d.council) ? d.council : [])
+    for (const party of councilIsReplica || !Array.isArray(d.council)
+      ? []
+      : d.council)
       for (const c of party.candidates ?? [])
         if (c.isElected && c.name)
           add(
@@ -1259,7 +1275,14 @@ async function main(): Promise<void> {
   await end();
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
+// Direct-run entry point. Guarded so importing this module (e.g. from a unit
+// test, for the exported pure helpers) does not kick off the full resolve.
+if (
+  process.argv[1] &&
+  fileURLToPath(import.meta.url) === path.resolve(process.argv[1])
+) {
+  main().catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });
+}
