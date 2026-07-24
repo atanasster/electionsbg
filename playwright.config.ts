@@ -65,6 +65,13 @@ export default defineConfig({
       testMatch: /ui\.spec\.ts$/,
       use: { ...devices["Desktop Chrome"] },
     },
+    // DB-backed person surfaces (D3) — mocks /api/db so the self-hiding sections can be
+    // exercised against the static emulator.
+    {
+      name: "person",
+      testMatch: /person-sections\.spec\.ts$/,
+      use: { ...devices["Desktop Chrome"] },
+    },
     {
       // Pixel 7 uses Chromium under the hood, so we don't need to install
       // WebKit. Real iOS-rendering differences are out of scope for these
