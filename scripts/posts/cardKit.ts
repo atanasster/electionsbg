@@ -207,6 +207,12 @@ export type BarCardSpec = {
    * Use "none" to keep the caller's order (e.g. a time series by date).
    */
   sort?: "asc" | "desc" | "none";
+  /**
+   * Decimal places for the bar values. Default 1 (e.g. "10,4%"). Set 0 for
+   * whole-number magnitudes like seat counts, where a trailing ",0" reads
+   * wrong ("125" not "125,0").
+   */
+  decimals?: number;
 };
 
 /**
@@ -291,6 +297,7 @@ export const renderBarCard = (spec: BarCardSpec): Buffer => {
   const X0 = 80 + GUTTER + 24; // bars start here
   const signedW = spec.signed ?? true;
   const unitW = spec.unit ?? "%";
+  const decW = spec.decimals ?? 1;
   // Reserve room for the value label after the bar — and, where present, the
   // trailing muted note. Sized to the WIDEST value(+note) string rather than a
   // fixed "+10,4%" guess, so long units (" млн. лв.") and per-bar notes don't
@@ -298,7 +305,7 @@ export const renderBarCard = (spec: BarCardSpec): Buffer => {
   const VALUE_W = Math.max(
     130,
     ...rows.map((r) => {
-      const num = Math.abs(r.value).toFixed(1).replace(".", ",");
+      const num = Math.abs(r.value).toFixed(decW).replace(".", ",");
       const sign = !signedW ? "" : r.value >= 0 ? "+" : "−";
       ctx.font = `700 34px ${FONT}`;
       let vw = 18 + ctx.measureText(`${sign}${num}${unitW}`).width;
@@ -346,7 +353,9 @@ export const renderBarCard = (spec: BarCardSpec): Buffer => {
     // signed:false so a share like 30,1% doesn't read as "+30,1%".
     const signed = spec.signed ?? true;
     const sign = !signed ? "" : up ? "+" : "−"; // real minus sign, not a hyphen
-    const num = Math.abs(row.value).toFixed(1).replace(".", ",");
+    const num = Math.abs(row.value)
+      .toFixed(spec.decimals ?? 1)
+      .replace(".", ",");
     const valText = `${sign}${num}${unit}`;
     ctx.fillText(valText, X0 + w + 18, by);
 
