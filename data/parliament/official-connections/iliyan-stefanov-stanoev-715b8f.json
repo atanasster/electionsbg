@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iliyan-stefanov-stanoev-715b8f",
+  "nodes": [
+    {
+      "id": "official:iliyan-stefanov-stanoev-715b8f",
+      "type": "official",
+      "slug": "iliyan-stefanov-stanoev-715b8f",
+      "label": "Илиян Стефанов Станоев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Балчик"
+    },
+    {
+      "id": "company:tr:202836213",
+      "type": "company",
+      "label": "Глобъл Парти",
+      "slug": null,
+      "uic": "202836213",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iliyan-stefanov-stanoev-715b8f",
+      "target": "company:tr:202836213",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

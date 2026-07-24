@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iordan-stefanov-stefanov-baebff",
+  "nodes": [
+    {
+      "id": "official:iordan-stefanov-stefanov-baebff",
+      "type": "official",
+      "slug": "iordan-stefanov-stefanov-baebff",
+      "label": "Йордан Стефанов Стефанов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207068269",
+      "type": "company",
+      "label": "22 СПРИНГС",
+      "slug": null,
+      "uic": "207068269",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЛАМЕНА ДИМОВА АНДРЕЕВА",
+      "type": "person",
+      "label": "Пламена Димова Андреева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordan-stefanov-stefanov-baebff",
+      "target": "company:tr:207068269",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iordan-stefanov-stefanov-baebff",
+      "target": "company:tr:207068269",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЛАМЕНА ДИМОВА АНДРЕЕВА",
+      "target": "company:tr:207068269",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕНА ДИМОВА АНДРЕЕВА",
+      "target": "company:tr:207068269",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

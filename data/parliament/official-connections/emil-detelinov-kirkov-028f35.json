@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:emil-detelinov-kirkov-028f35",
+  "nodes": [
+    {
+      "id": "official:emil-detelinov-kirkov-028f35",
+      "type": "official",
+      "slug": "emil-detelinov-kirkov-028f35",
+      "label": "Емил Детелинов Кирков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кирково"
+    },
+    {
+      "id": "company:tr:206962024",
+      "type": "company",
+      "label": "СУЗИ 2022",
+      "slug": null,
+      "uic": "206962024",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-detelinov-kirkov-028f35",
+      "target": "company:tr:206962024",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:emil-detelinov-kirkov-028f35",
+      "target": "company:tr:206962024",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

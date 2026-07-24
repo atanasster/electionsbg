@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:krasimir-vlov-kunchev-7d4553",
+  "nodes": [
+    {
+      "id": "official:krasimir-vlov-kunchev-7d4553",
+      "type": "official",
+      "slug": "krasimir-vlov-kunchev-7d4553",
+      "label": "Красимир Вълов Кунчев",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202104448",
+      "type": "company",
+      "label": "Балдуин ООД",
+      "slug": null,
+      "uic": "202104448",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krasimir-vlov-kunchev-7d4553",
+      "target": "company:tr:202104448",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

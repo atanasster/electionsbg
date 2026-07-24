@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:snezhina-kirilova-asenova-562170",
+  "nodes": [
+    {
+      "id": "official:snezhina-kirilova-asenova-562170",
+      "type": "official",
+      "slug": "snezhina-kirilova-asenova-562170",
+      "label": "Снежина Кирилова Асенова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Годеч"
+    },
+    {
+      "id": "company:tr:200771770",
+      "type": "company",
+      "label": "СНЕЖИНА - 83",
+      "slug": null,
+      "uic": "200771770",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:snezhina-kirilova-asenova-562170",
+      "target": "company:tr:200771770",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:snezhina-kirilova-asenova-562170",
+      "target": "company:tr:200771770",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

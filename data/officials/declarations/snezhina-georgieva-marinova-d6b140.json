@@ -6,92 +6,6 @@
     "positionTitle": "Упълномощено лице по ЗОП",
     "category": "procurement_officer",
     "declarationYear": 2023,
-    "fiscalYear": 2022,
-    "declarationType": "Annualy",
-    "filedAt": "2023-05-10",
-    "entryNumber": "Г5928",
-    "controlHash": "FA641043",
-    "sourceUrl": "https://register.cacbg.bg/2023/91DE4544-5EC2-4E28-AEB8-6C414135C3FB152480.xml",
-    "ownershipStakes": [],
-    "income": [
-      {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 22437.532914414853,
-        "amountEurSpouse": 9919.06249520664
-      },
-      {
-        "parent": null,
-        "category": "необлагаем доход",
-        "amountEurDeclarant": 1039.4563944719123,
-        "amountEurSpouse": null
-      }
-    ],
-    "assets": [
-      {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 54046,
-        "valueEur": 27633.281011130824,
-        "holderName": "Снежина Георгиева Маринова",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "investment",
-        "description": null,
-        "detail": "EUR",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "EUR",
-        "amount": 7462,
-        "valueEur": 7461.793714177613,
-        "holderName": "Снежина Георгиева Маринова",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      },
-      {
-        "category": "investment",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 23486,
-        "valueEur": 12008.201121774388,
-        "holderName": "Снежина Георгиева Маринова",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      }
-    ],
-    "events": []
-  },
-  {
-    "slug": "snezhina-georgieva-marinova-d6b140",
-    "declarantName": "Снежина Георгиева Маринова",
-    "institution": "Процедури по ЗОП",
-    "positionTitle": "Упълномощено лице по ЗОП",
-    "category": "procurement_officer",
-    "declarationYear": 2023,
     "fiscalYear": 2023,
     "declarationType": "Vacate",
     "filedAt": "2023-03-13",
@@ -280,6 +194,92 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "snezhina-georgieva-marinova-d6b140",
+    "declarantName": "Снежина Георгиева Маринова",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
+    "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": "2023-05-10",
+    "entryNumber": "Г5928",
+    "controlHash": "FA641043",
+    "sourceUrl": "https://register.cacbg.bg/2023/91DE4544-5EC2-4E28-AEB8-6C414135C3FB152480.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22437.532914414853,
+        "amountEurSpouse": 9919.06249520664
+      },
+      {
+        "parent": null,
+        "category": "необлагаем доход",
+        "amountEurDeclarant": 1039.4563944719123,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 54046,
+        "valueEur": 27633.281011130824,
+        "holderName": "Снежина Георгиева Маринова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 7462,
+        "valueEur": 7461.793714177613,
+        "holderName": "Снежина Георгиева Маринова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 23486,
+        "valueEur": 12008.201121774388,
+        "holderName": "Снежина Георгиева Маринова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

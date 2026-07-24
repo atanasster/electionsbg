@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iosif-ivanov-advokatov-3810e1",
+  "nodes": [
+    {
+      "id": "official:iosif-ivanov-advokatov-3810e1",
+      "type": "official",
+      "slug": "iosif-ivanov-advokatov-3810e1",
+      "label": "Йосиф Иванов Адвокатов",
+      "tier": "executive",
+      "role": "revenue_agency",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206274782",
+      "type": "company",
+      "label": "АВА-65",
+      "slug": null,
+      "uic": "206274782",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВА ХРИСТОВА АДВОКАТОВА",
+      "type": "person",
+      "label": "Венцислава Христова Адвокатова"
+    },
+    {
+      "id": "person:АНТОАНЕТА ВЕЛИКОВА АДВОКАТОВА",
+      "type": "person",
+      "label": "Антоанета Великова Адвокатова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iosif-ivanov-advokatov-3810e1",
+      "target": "company:tr:206274782",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВА ХРИСТОВА АДВОКАТОВА",
+      "target": "company:tr:206274782",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАНЕТА ВЕЛИКОВА АДВОКАТОВА",
+      "target": "company:tr:206274782",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВА ХРИСТОВА АДВОКАТОВА",
+      "target": "company:tr:206274782",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

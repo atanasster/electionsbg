@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vasil-markov-kushtinarov-8586a2",
+  "nodes": [
+    {
+      "id": "official:vasil-markov-kushtinarov-8586a2",
+      "type": "official",
+      "slug": "vasil-markov-kushtinarov-8586a2",
+      "label": "Васил Марков Кущинаров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204304942",
+      "type": "company",
+      "label": "Катерина фешън ЕООД",
+      "slug": null,
+      "uic": "204304942",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vasil-markov-kushtinarov-8586a2",
+      "target": "company:tr:204304942",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

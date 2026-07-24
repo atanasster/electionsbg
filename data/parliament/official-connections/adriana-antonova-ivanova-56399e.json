@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:adriana-antonova-ivanova-56399e",
+  "nodes": [
+    {
+      "id": "official:adriana-antonova-ivanova-56399e",
+      "type": "official",
+      "slug": "adriana-antonova-ivanova-56399e",
+      "label": "Адриана Антонова Иванова",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131078400",
+      "type": "company",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪР АКВА 2003",
+      "slug": null,
+      "uic": "131078400",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:adriana-antonova-ivanova-56399e",
+      "target": "company:tr:131078400",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivailo-ivanov-pavlov-25cebb",
+  "nodes": [
+    {
+      "id": "official:ivailo-ivanov-pavlov-25cebb",
+      "type": "official",
+      "slug": "ivailo-ivanov-pavlov-25cebb",
+      "label": "Ивайло Иванов Павлов",
+      "tier": "executive",
+      "role": "revenue_agency",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201764259",
+      "type": "company",
+      "label": "СИСКОНТРОЛ",
+      "slug": null,
+      "uic": "201764259",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЪР КОСЕВ ПЕТРОВ",
+      "type": "person",
+      "label": "Петър Косев Петров"
+    },
+    {
+      "id": "person:КРИСТИЯН ПЕТРОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Кристиян Петров Петров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivailo-ivanov-pavlov-25cebb",
+      "target": "company:tr:201764259",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivailo-ivanov-pavlov-25cebb",
+      "target": "company:tr:201764259",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР КОСЕВ ПЕТРОВ",
+      "target": "company:tr:201764259",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР КОСЕВ ПЕТРОВ",
+      "target": "company:tr:201764259",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИЯН ПЕТРОВ ПЕТРОВ",
+      "target": "company:tr:201764259",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИЯН ПЕТРОВ ПЕТРОВ",
+      "target": "company:tr:201764259",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

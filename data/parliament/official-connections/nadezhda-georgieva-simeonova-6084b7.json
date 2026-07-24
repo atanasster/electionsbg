@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nadezhda-georgieva-simeonova-6084b7",
+  "nodes": [
+    {
+      "id": "official:nadezhda-georgieva-simeonova-6084b7",
+      "type": "official",
+      "slug": "nadezhda-georgieva-simeonova-6084b7",
+      "label": "Надежда Георгиева Симеонова",
+      "tier": "executive",
+      "role": "inspectorate",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208302999",
+      "type": "company",
+      "label": "ПреСтил",
+      "slug": null,
+      "uic": "208302999",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nadezhda-georgieva-simeonova-6084b7",
+      "target": "company:tr:208302999",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nadezhda-georgieva-simeonova-6084b7",
+      "target": "company:tr:208302999",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

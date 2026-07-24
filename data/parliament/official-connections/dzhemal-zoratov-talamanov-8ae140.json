@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dzhemal-zoratov-talamanov-8ae140",
+  "nodes": [
+    {
+      "id": "official:dzhemal-zoratov-talamanov-8ae140",
+      "type": "official",
+      "slug": "dzhemal-zoratov-talamanov-8ae140",
+      "label": "Джемал Зоратов Таламанов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Гърмен"
+    },
+    {
+      "id": "company:tr:202988534",
+      "type": "company",
+      "label": "СЕРВИЗ ЕМ И ЕС",
+      "slug": null,
+      "uic": "202988534",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dzhemal-zoratov-talamanov-8ae140",
+      "target": "company:tr:202988534",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dzhemal-zoratov-talamanov-8ae140",
+      "target": "company:tr:202988534",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tihomir-radoslavov-stoikov-8ff6ae",
+  "nodes": [
+    {
+      "id": "official:tihomir-radoslavov-stoikov-8ff6ae",
+      "type": "official",
+      "slug": "tihomir-radoslavov-stoikov-8ff6ae",
+      "label": "Тихомир Радославов Стойков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Плевен"
+    },
+    {
+      "id": "company:tr:208564357",
+      "type": "company",
+      "label": "ОБЕДИНЕНИЕ ЗА ПЛЕВЕН",
+      "slug": null,
+      "uic": "208564357",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:danail-nikolaev-radentsov-1baf11",
+      "type": "official",
+      "slug": "danail-nikolaev-radentsov-1baf11",
+      "label": "Данаил Николаев Раденцов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Плевен"
+    },
+    {
+      "id": "official:zahari-velichkov-donchev-0d2925",
+      "type": "official",
+      "slug": "zahari-velichkov-donchev-0d2925",
+      "label": "Захари Величков Дончев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Плевен"
+    },
+    {
+      "id": "person:СНЕЖАНА ВАЛЕРИЕВА ХИНКОВА",
+      "type": "person",
+      "label": "Снежана Валериева Хинкова"
+    },
+    {
+      "id": "person:МАРИНА ЕМИЛОВА МАРИНОВА-ДОНЧЕВА",
+      "type": "person",
+      "label": "Марина Емилова Маринова-Дончева"
+    },
+    {
+      "id": "person:МИРЕНА НИКОЛАЕВА МАРИНОВА-СТОЙКОВА",
+      "type": "person",
+      "label": "Мирена Николаева Маринова-Стойкова"
+    },
+    {
+      "id": "person:НАЙДЕН НИКОЛАЕВ ПАЛУКОВ",
+      "type": "person",
+      "label": "Найден Николаев Палуков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tihomir-radoslavov-stoikov-8ff6ae",
+      "target": "company:tr:208564357",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:danail-nikolaev-radentsov-1baf11",
+      "target": "company:tr:208564357",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:danail-nikolaev-radentsov-1baf11",
+      "target": "company:tr:208564357",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zahari-velichkov-donchev-0d2925",
+      "target": "company:tr:208564357",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СНЕЖАНА ВАЛЕРИЕВА ХИНКОВА",
+      "target": "company:tr:208564357",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНА ЕМИЛОВА МАРИНОВА-ДОНЧЕВА",
+      "target": "company:tr:208564357",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРЕНА НИКОЛАЕВА МАРИНОВА-СТОЙКОВА",
+      "target": "company:tr:208564357",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАЙДЕН НИКОЛАЕВ ПАЛУКОВ",
+      "target": "company:tr:208564357",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

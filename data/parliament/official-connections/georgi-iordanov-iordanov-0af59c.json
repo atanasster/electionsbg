@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "officialNodeId": "official:georgi-iordanov-iordanov-0af59c",
   "nodes": [
     {
@@ -64,15 +64,6 @@
       "id": "official:georgi-iordanov-iordanov-545891",
       "type": "official",
       "slug": "georgi-iordanov-iordanov-545891",
-      "label": "ГЕОРГИ ЙОРДАНОВ ЙОРДАНОВ",
-      "tier": "executive",
-      "role": "agency_head",
-      "municipality": null
-    },
-    {
-      "id": "official:georgi-iordanov-iordanov-da64b8",
-      "type": "official",
-      "slug": "georgi-iordanov-iordanov-da64b8",
       "label": "Георги Йорданов Йорданов",
       "tier": "executive",
       "role": "agency_head",
@@ -121,14 +112,6 @@
       "confidence": "high"
     },
     {
-      "source": "official:georgi-iordanov-iordanov-545891",
-      "target": "company:Вита-фармаси-ЕООД",
-      "kind": "declared_stake",
-      "role": "declared_share",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
       "source": "mp:2838",
       "target": "company:Вита-трейдинг-ЕООД",
       "kind": "declared_stake",
@@ -137,26 +120,10 @@
       "confidence": "high"
     },
     {
-      "source": "official:georgi-iordanov-iordanov-545891",
-      "target": "company:Вита-трейдинг-ЕООД",
-      "kind": "declared_stake",
-      "role": "declared_share",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
       "source": "mp:2838",
       "target": "company:Глобофарм-ЕООД",
       "kind": "declared_stake",
       "role": "current_share",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "official:georgi-iordanov-iordanov-da64b8",
-      "target": "company:Глобофарм-ЕООД",
-      "kind": "declared_stake",
-      "role": "declared_share",
       "isCurrent": true,
       "confidence": "high"
     },
@@ -173,14 +140,6 @@
       "target": "company:ММ-93-Изола-ООД",
       "kind": "declared_stake",
       "role": "current_share",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "official:georgi-iordanov-iordanov-545891",
-      "target": "company:ММ-93-Изола-ООД",
-      "kind": "declared_stake",
-      "role": "declared_share",
       "isCurrent": true,
       "confidence": "high"
     }

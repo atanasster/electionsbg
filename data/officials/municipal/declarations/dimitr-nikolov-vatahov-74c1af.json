@@ -1,0 +1,100 @@
+[
+  {
+    "slug": "dimitr-nikolov-vatahov-74c1af",
+    "declarantName": "ДИМИТЪР НИКОЛОВ ВАТАХОВ",
+    "institution": "Копривщица",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г13007",
+    "controlHash": "D062D70F",
+    "sourceUrl": "https://register.cacbg.bg/2025/6305AB22-7235-46E7-8A28-645011410F4D216193.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 72486.36128906909,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 58032.65109953319,
+        "amountEurSpouse": 6786.888430998604
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "Къща сдвор",
+        "detail": null,
+        "location": "Копривщица",
+        "municipality": "Копривщица",
+        "areaSqm": 213,
+        "builtAreaSqm": 90,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 9900,
+        "valueEur": 5061.789623842563,
+        "holderName": "Димитър Николов Ватахов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22332,
+        "valueEur": 11418.170290873952,
+        "holderName": "Димитър Николов Ватахов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22332,
+        "valueEur": 11418.170290873952,
+        "holderName": "Димитър Николов Ватахов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Мерцедес С200",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

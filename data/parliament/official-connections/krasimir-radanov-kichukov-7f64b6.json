@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:krasimir-radanov-kichukov-7f64b6",
+  "nodes": [
+    {
+      "id": "official:krasimir-radanov-kichukov-7f64b6",
+      "type": "official",
+      "slug": "krasimir-radanov-kichukov-7f64b6",
+      "label": "Красимир Раданов Кичуков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ардино"
+    },
+    {
+      "id": "company:tr:207624844",
+      "type": "company",
+      "label": "ЕТ Краси - Красимир Кичуков",
+      "slug": null,
+      "uic": "207624844",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krasimir-radanov-kichukov-7f64b6",
+      "target": "company:tr:207624844",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:daniel-aloshev-chandrov-52f2c4",
+  "nodes": [
+    {
+      "id": "official:daniel-aloshev-chandrov-52f2c4",
+      "type": "official",
+      "slug": "daniel-aloshev-chandrov-52f2c4",
+      "label": "Даниел Альошев Чандъров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Неделино"
+    },
+    {
+      "id": "company:tr:120590449",
+      "type": "company",
+      "label": "НОВА ПАРТНЕРС",
+      "slug": null,
+      "uic": "120590449",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РОМАН ДИМИТРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Роман Димитров Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniel-aloshev-chandrov-52f2c4",
+      "target": "company:tr:120590449",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РОМАН ДИМИТРОВ ГЕОРГИЕВ",
+      "target": "company:tr:120590449",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

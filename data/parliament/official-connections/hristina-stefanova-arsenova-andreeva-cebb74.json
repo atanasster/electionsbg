@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hristina-stefanova-arsenova-andreeva-cebb74",
+  "nodes": [
+    {
+      "id": "official:hristina-stefanova-arsenova-andreeva-cebb74",
+      "type": "official",
+      "slug": "hristina-stefanova-arsenova-andreeva-cebb74",
+      "label": "Христина Стефанова Арсенова-Андреева",
+      "tier": "executive",
+      "role": "cultural_institute",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208740855",
+      "type": "company",
+      "label": "ДНИ НА КУКЛИТЕ",
+      "slug": null,
+      "uic": "208740855",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТИНА СТЕФАНОВА АРСЕНОВА - АНДРЕЕВА",
+      "type": "person",
+      "label": "Христина Стефанова Арсенова - Андреева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristina-stefanova-arsenova-andreeva-cebb74",
+      "target": "company:tr:208740855",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristina-stefanova-arsenova-andreeva-cebb74",
+      "target": "company:tr:208740855",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТИНА СТЕФАНОВА АРСЕНОВА - АНДРЕЕВА",
+      "target": "company:tr:208740855",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА СТЕФАНОВА АРСЕНОВА - АНДРЕЕВА",
+      "target": "company:tr:208740855",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

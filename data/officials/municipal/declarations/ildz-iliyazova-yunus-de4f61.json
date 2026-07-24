@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "ildz-iliyazova-yunus-de4f61",
+    "declarantName": "ИЛДЪЗ ИЛИЯЗОВА ЮНУС",
+    "institution": "Добричка",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г8559",
+    "controlHash": "60C662A6",
+    "sourceUrl": "https://register.cacbg.bg/2025/402803E4-C2BB-4A3C-AAF0-01C8908356F7211581.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6855.912834960093,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 314.4445069356744,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "гараж",
+        "detail": null,
+        "location": "Добрич",
+        "municipality": "Добрич",
+        "areaSqm": 22,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "БИЛГИН АНИС ЮНУС",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "ДИВИДЕНТИ"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 248077,
+        "valueEur": 126839.7560115143,
+        "holderName": "БИЛГИН АНИС ЮНУС",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "ДИВИДЕНТИ И ПРОДАЖБА НА ЗЕМЕДЕЛСКА ЗЕМЯ"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Фелдфебел Дянково и Подслон",
+        "municipality": "Добричка",
+        "areaSqm": 80,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 40903.35049569748,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

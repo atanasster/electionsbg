@@ -1,0 +1,134 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:antoaneta-veselinkova-georgieva-e8c029",
+  "nodes": [
+    {
+      "id": "official:antoaneta-veselinkova-georgieva-e8c029",
+      "type": "official",
+      "slug": "antoaneta-veselinkova-georgieva-e8c029",
+      "label": "Антоанета Веселинкова Георгиева",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Никола Козлево"
+    },
+    {
+      "id": "company:tr:127580009",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО &quot;ЦАНКО ЦЕРКОВСКИ&quot;",
+      "slug": null,
+      "uic": "127580009",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РЕФАТ ХЮСЕИН ТАЛИБ",
+      "type": "person",
+      "label": "Рефат Хюсеин Талиб"
+    },
+    {
+      "id": "person:ЖИВКО ХРИСТОВ ЖЕКОВ",
+      "type": "person",
+      "label": "Живко Христов Жеков"
+    },
+    {
+      "id": "person:СЛАВКА ИВАНОВА БОЗАДЖИЕВА",
+      "type": "person",
+      "label": "Славка Иванова Бозаджиева"
+    },
+    {
+      "id": "person:ЕМИЛИЯ ЦВЕТАНОВА МИНЧЕВА",
+      "type": "person",
+      "label": "Емилия Цветанова Минчева"
+    },
+    {
+      "id": "person:ДЕНИЦА ИВАНОВА УЗУНОВА",
+      "type": "person",
+      "label": "Деница Иванова Узунова"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ВАЛЕРИЕВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Валентин Валериев Ангелов"
+    },
+    {
+      "id": "person:МИГЛЕНА ИВАНОВА КИРИЛОВА",
+      "type": "person",
+      "label": "Миглена Иванова Кирилова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:antoaneta-veselinkova-georgieva-e8c029",
+      "target": "company:tr:127580009",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РЕФАТ ХЮСЕИН ТАЛИБ",
+      "target": "company:tr:127580009",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ХРИСТОВ ЖЕКОВ",
+      "target": "company:tr:127580009",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВКА ИВАНОВА БОЗАДЖИЕВА",
+      "target": "company:tr:127580009",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ ЦВЕТАНОВА МИНЧЕВА",
+      "target": "company:tr:127580009",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕФАТ ХЮСЕИН ТАЛИБ",
+      "target": "company:tr:127580009",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИЦА ИВАНОВА УЗУНОВА",
+      "target": "company:tr:127580009",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ВАЛЕРИЕВ АНГЕЛОВ",
+      "target": "company:tr:127580009",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИГЛЕНА ИВАНОВА КИРИЛОВА",
+      "target": "company:tr:127580009",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

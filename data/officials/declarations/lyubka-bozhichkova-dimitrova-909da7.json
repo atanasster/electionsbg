@@ -1,0 +1,88 @@
+[
+  {
+    "slug": "lyubka-bozhichkova-dimitrova-909da7",
+    "declarantName": "Любка Божичкова Димитрова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г14918",
+    "controlHash": "D2CDCFC5",
+    "sourceUrl": "https://register.cacbg.bg/2025/7CD89C81-1B47-434D-AE20-B2270B8B6B25218432.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове",
+        "shareSize": "100%",
+        "companyName": "БЕРМАР",
+        "registeredOffice": "Радомир",
+        "valueEur": 1.022583762392437,
+        "holderName": "Симеон Спасов Димитров",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28274.441030150883,
+        "amountEurSpouse": 7837.5932468568335
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 3020.712434107259,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 3527.4026883727115,
+        "amountEurSpouse": 3527.4026883727115
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Джип",
+        "detail": "Шкода Кодиак",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Симеон Спасов Димитров",
+        "isSpouse": true,
+        "legalBasis": "Договор",
+        "fundsOrigin": "продажба на имот"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 140000,
+        "valueEur": 71580.86336747059,
+        "holderName": "Любка Божичкова Димитрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "продажба на имот"
+      }
+    ],
+    "events": []
+  }
+]

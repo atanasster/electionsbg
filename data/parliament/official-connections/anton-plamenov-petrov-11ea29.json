@@ -1,0 +1,120 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:anton-plamenov-petrov-11ea29",
+  "nodes": [
+    {
+      "id": "official:anton-plamenov-petrov-11ea29",
+      "type": "official",
+      "slug": "anton-plamenov-petrov-11ea29",
+      "label": "Антон Пламенов Петров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207035917",
+      "type": "company",
+      "label": "БЪЛГАРИЯ ХЕЛИ МЕД СЪРВИЗ",
+      "slug": null,
+      "uic": "207035917",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:dimcho-zhelyazkov-dobrev-408063",
+      "type": "official",
+      "slug": "dimcho-zhelyazkov-dobrev-408063",
+      "label": "Димчо Желязков Добрев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:МИНИСТЕРСТВО НА ТРАНСПОРТА И СЪОБЩЕНИЯТА",
+      "type": "person",
+      "label": "Министерство На  Транспорта И Съобщенията"
+    },
+    {
+      "id": "person:НИКОЛАЙ ДРАГАНОВ МЛАДЕНОВ",
+      "type": "person",
+      "label": "Николай Драганов Младенов"
+    },
+    {
+      "id": "person:КОЛЬО АТАНАСОВ КОЛЕВ",
+      "type": "person",
+      "label": "Кольо Атанасов Колев"
+    },
+    {
+      "id": "person:ЛЮБОМИР СВЕТОСЛАВОВ АЛЕКСИЕВ",
+      "type": "person",
+      "label": "Любомир Светославов Алексиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:anton-plamenov-petrov-11ea29",
+      "target": "company:tr:207035917",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:anton-plamenov-petrov-11ea29",
+      "target": "company:tr:207035917",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimcho-zhelyazkov-dobrev-408063",
+      "target": "company:tr:207035917",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimcho-zhelyazkov-dobrev-408063",
+      "target": "company:tr:207035917",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИНИСТЕРСТВО НА ТРАНСПОРТА И СЪОБЩЕНИЯТА",
+      "target": "company:tr:207035917",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДРАГАНОВ МЛАДЕНОВ",
+      "target": "company:tr:207035917",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОЛЬО АТАНАСОВ КОЛЕВ",
+      "target": "company:tr:207035917",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР СВЕТОСЛАВОВ АЛЕКСИЕВ",
+      "target": "company:tr:207035917",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

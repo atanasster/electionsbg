@@ -1,0 +1,53 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivailo-ilkov-marinov-ad7184",
+  "nodes": [
+    {
+      "id": "official:ivailo-ilkov-marinov-ad7184",
+      "type": "official",
+      "slug": "ivailo-ilkov-marinov-ad7184",
+      "label": "Ивайло Илков Маринов",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203247214",
+      "type": "company",
+      "label": "Рикар БГ",
+      "slug": null,
+      "uic": "203247214",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:148059372",
+      "type": "company",
+      "label": "Авес инвест",
+      "slug": null,
+      "uic": "148059372",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivailo-ilkov-marinov-ad7184",
+      "target": "company:tr:203247214",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivailo-ilkov-marinov-ad7184",
+      "target": "company:tr:148059372",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

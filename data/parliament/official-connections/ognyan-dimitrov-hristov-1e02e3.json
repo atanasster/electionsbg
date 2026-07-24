@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ognyan-dimitrov-hristov-1e02e3",
+  "nodes": [
+    {
+      "id": "official:ognyan-dimitrov-hristov-1e02e3",
+      "type": "official",
+      "slug": "ognyan-dimitrov-hristov-1e02e3",
+      "label": "Огнян Димитров Христов",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203814742",
+      "type": "company",
+      "label": "СЪРВЪР 1 БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "203814742",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КОНСТАНТИН ОГНЯНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Константин Огнянов Христов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ognyan-dimitrov-hristov-1e02e3",
+      "target": "company:tr:203814742",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КОНСТАНТИН ОГНЯНОВ ХРИСТОВ",
+      "target": "company:tr:203814742",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН ОГНЯНОВ ХРИСТОВ",
+      "target": "company:tr:203814742",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

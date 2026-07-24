@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:2815",
   "nodes": [
     {
@@ -32,9 +32,9 @@
       "seat": null
     },
     {
-      "id": "official:nadya-spasova-klisurska-zhekova-33fb68",
+      "id": "official:nadya-spasova-klisurska-zhekova-1406ec",
       "type": "official",
-      "slug": "nadya-spasova-klisurska-zhekova-33fb68",
+      "slug": "nadya-spasova-klisurska-zhekova-1406ec",
       "label": "Надя Спасова Клисурска - Жекова",
       "tier": "executive",
       "role": "deputy_minister",
@@ -246,21 +246,21 @@
       "nsFolders": []
     },
     {
-      "id": "official:mariana-nedelchova-bozhkova-630ced",
+      "id": "official:mariana-nedelchova-bozhkova-9f9d89",
       "type": "official",
-      "slug": "mariana-nedelchova-bozhkova-630ced",
+      "slug": "mariana-nedelchova-bozhkova-9f9d89",
       "label": "Мариана Неделчова Божкова",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "school",
       "municipality": null
     },
     {
-      "id": "official:pavlina-ivanova-markovska-dbbbfa",
+      "id": "official:pavlina-ivanova-markovska-e1e50c",
       "type": "official",
-      "slug": "pavlina-ivanova-markovska-dbbbfa",
+      "slug": "pavlina-ivanova-markovska-e1e50c",
       "label": "Павлина Иванова Марковска",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "social_care",
       "municipality": null
     },
     {
@@ -1512,7 +1512,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:nadya-spasova-klisurska-zhekova-33fb68",
+      "source": "official:nadya-spasova-klisurska-zhekova-1406ec",
       "target": "company:ЙОАН-НИ-ООД",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -1672,7 +1672,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:mariana-nedelchova-bozhkova-630ced",
+      "source": "official:mariana-nedelchova-bozhkova-9f9d89",
       "target": "company:tr:131049199",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -1680,7 +1680,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:pavlina-ivanova-markovska-dbbbfa",
+      "source": "official:pavlina-ivanova-markovska-e1e50c",
       "target": "company:tr:131049199",
       "kind": "tr_role",
       "role": "ngo_board",

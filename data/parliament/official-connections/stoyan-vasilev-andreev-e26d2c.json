@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stoyan-vasilev-andreev-e26d2c",
+  "nodes": [
+    {
+      "id": "official:stoyan-vasilev-andreev-e26d2c",
+      "type": "official",
+      "slug": "stoyan-vasilev-andreev-e26d2c",
+      "label": "Стоян Василев Андреев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Чепеларе"
+    },
+    {
+      "id": "company:tr:205125860",
+      "type": "company",
+      "label": "ХАММЪР КЪМПАНИ",
+      "slug": null,
+      "uic": "205125860",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СИМЕОН ВАСИЛЕВ ПИЩАЛОВ",
+      "type": "person",
+      "label": "Симеон Василев Пищалов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stoyan-vasilev-andreev-e26d2c",
+      "target": "company:tr:205125860",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СИМЕОН ВАСИЛЕВ ПИЩАЛОВ",
+      "target": "company:tr:205125860",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,124 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stoyan-andreev-stoyanov-6d682a",
+  "nodes": [
+    {
+      "id": "official:stoyan-andreev-stoyanov-6d682a",
+      "type": "official",
+      "slug": "stoyan-andreev-stoyanov-6d682a",
+      "label": "Стоян Андреев Стоянов",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:148097608",
+      "type": "company",
+      "label": "\"Криейт инвест\" ЕООД",
+      "slug": null,
+      "uic": "148097608",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203989443",
+      "type": "company",
+      "label": "Вива инвест-Варна",
+      "slug": null,
+      "uic": "203989443",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204906450",
+      "type": "company",
+      "label": "Гранд строй-Варна",
+      "slug": null,
+      "uic": "204906450",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204065321",
+      "type": "company",
+      "label": "Билд строй-Варна ООД",
+      "slug": null,
+      "uic": "204065321",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202186705",
+      "type": "company",
+      "label": "Ес ай ай Боровец",
+      "slug": null,
+      "uic": "202186705",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:bozhidar-kostadinov-chaparov-7de0f3",
+      "type": "official",
+      "slug": "bozhidar-kostadinov-chaparov-7de0f3",
+      "label": "Божидар Костадинов Чапаров",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stoyan-andreev-stoyanov-6d682a",
+      "target": "company:tr:148097608",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stoyan-andreev-stoyanov-6d682a",
+      "target": "company:tr:203989443",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stoyan-andreev-stoyanov-6d682a",
+      "target": "company:tr:204906450",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stoyan-andreev-stoyanov-6d682a",
+      "target": "company:tr:204065321",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stoyan-andreev-stoyanov-6d682a",
+      "target": "company:tr:202186705",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:bozhidar-kostadinov-chaparov-7de0f3",
+      "target": "company:tr:148097608",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

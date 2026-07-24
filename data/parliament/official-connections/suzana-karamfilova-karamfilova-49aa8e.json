@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:suzana-karamfilova-karamfilova-49aa8e",
+  "nodes": [
+    {
+      "id": "official:suzana-karamfilova-karamfilova-49aa8e",
+      "type": "official",
+      "slug": "suzana-karamfilova-karamfilova-49aa8e",
+      "label": "Сузана Карамфилова Карамфилова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хаджидимово"
+    },
+    {
+      "id": "company:tr:203793206",
+      "type": "company",
+      "label": "Ерамикс ЕООД",
+      "slug": null,
+      "uic": "203793206",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204988508",
+      "type": "company",
+      "label": "Ерамих ЕООД",
+      "slug": null,
+      "uic": "204988508",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:suzana-karamfilova-karamfilova-49aa8e",
+      "target": "company:tr:203793206",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:suzana-karamfilova-karamfilova-49aa8e",
+      "target": "company:tr:204988508",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:suzana-karamfilova-karamfilova-49aa8e",
+      "target": "company:tr:204988508",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

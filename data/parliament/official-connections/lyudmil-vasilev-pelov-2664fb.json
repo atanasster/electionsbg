@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:lyudmil-vasilev-pelov-2664fb",
+  "nodes": [
+    {
+      "id": "official:lyudmil-vasilev-pelov-2664fb",
+      "type": "official",
+      "slug": "lyudmil-vasilev-pelov-2664fb",
+      "label": "Людмил Василев Пелов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175857499",
+      "type": "company",
+      "label": "ФЕХТОВАЛЕН КЛУБ ТАМПЛИЕР",
+      "slug": null,
+      "uic": "175857499",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lyudmil-vasilev-pelov-2664fb",
+      "target": "company:tr:175857499",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:lyudmil-vasilev-pelov-2664fb",
+      "target": "company:tr:175857499",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

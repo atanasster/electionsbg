@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:velichka-ivanova-grozeva-b0ddbd",
+  "nodes": [
+    {
+      "id": "official:velichka-ivanova-grozeva-b0ddbd",
+      "type": "official",
+      "slug": "velichka-ivanova-grozeva-b0ddbd",
+      "label": "Величка Иванова Грозева",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207928929",
+      "type": "company",
+      "label": "СЪНИ РЕНТАЛС",
+      "slug": null,
+      "uic": "207928929",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТО ТАНЕВ ГРОЗЕВ",
+      "type": "person",
+      "label": "Христо Танев Грозев"
+    },
+    {
+      "id": "person:ИВАН ТАНЕВ ГРОЗЕВ",
+      "type": "person",
+      "label": "Иван Танев Грозев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:velichka-ivanova-grozeva-b0ddbd",
+      "target": "company:tr:207928929",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО ТАНЕВ ГРОЗЕВ",
+      "target": "company:tr:207928929",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ТАНЕВ ГРОЗЕВ",
+      "target": "company:tr:207928929",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ТАНЕВ ГРОЗЕВ",
+      "target": "company:tr:207928929",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

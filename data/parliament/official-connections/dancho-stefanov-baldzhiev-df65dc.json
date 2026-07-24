@@ -1,0 +1,160 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dancho-stefanov-baldzhiev-df65dc",
+  "nodes": [
+    {
+      "id": "official:dancho-stefanov-baldzhiev-df65dc",
+      "type": "official",
+      "slug": "dancho-stefanov-baldzhiev-df65dc",
+      "label": "Данчо Стефанов Балджиев",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206975751",
+      "type": "company",
+      "label": "СЪЮЗ НА ИЛЮЗИОНИСТИТЕ В БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "206975751",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТО РАНГЕЛОВ КАРАНДЖУЛОВ",
+      "type": "person",
+      "label": "Христо Рангелов Каранджулов"
+    },
+    {
+      "id": "person:ИВАЙЛО АЛЕКСАНДРОВ РАНГЕЛОВ",
+      "type": "person",
+      "label": "Ивайло Александров Рангелов"
+    },
+    {
+      "id": "person:ЙОРДАН ХРИСТОВ ГРИВНЕВ",
+      "type": "person",
+      "label": "Йордан Христов Гривнев"
+    },
+    {
+      "id": "person:СТЕФАНКА НЕДЕВА КАРАЙОНЧЕВА-СЕНКО",
+      "type": "person",
+      "label": "Стефанка Недева Карайончева-Сенко"
+    },
+    {
+      "id": "person:ДЕЯН ДИМЧЕВ ЧИЛОВ",
+      "type": "person",
+      "label": "Деян Димчев Чилов"
+    },
+    {
+      "id": "person:ХРИСТО ЖИВКОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Христо Живков Христов"
+    },
+    {
+      "id": "person:ЮРИЙ РАЙКОВ ЗАХАРИЕВ",
+      "type": "person",
+      "label": "Юрий Райков Захариев"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ЛЮБОМИРОВ САВОВ",
+      "type": "person",
+      "label": "Веселин Любомиров Савов"
+    },
+    {
+      "id": "person:ПЕТЪР ИВАНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Петър Иванов Петров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dancho-stefanov-baldzhiev-df65dc",
+      "target": "company:tr:206975751",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО РАНГЕЛОВ КАРАНДЖУЛОВ",
+      "target": "company:tr:206975751",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО РАНГЕЛОВ КАРАНДЖУЛОВ",
+      "target": "company:tr:206975751",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО АЛЕКСАНДРОВ РАНГЕЛОВ",
+      "target": "company:tr:206975751",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ХРИСТОВ ГРИВНЕВ",
+      "target": "company:tr:206975751",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАНКА НЕДЕВА КАРАЙОНЧЕВА-СЕНКО",
+      "target": "company:tr:206975751",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЯН ДИМЧЕВ ЧИЛОВ",
+      "target": "company:tr:206975751",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ЖИВКОВ ХРИСТОВ",
+      "target": "company:tr:206975751",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮРИЙ РАЙКОВ ЗАХАРИЕВ",
+      "target": "company:tr:206975751",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ЛЮБОМИРОВ САВОВ",
+      "target": "company:tr:206975751",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ИВАНОВ ПЕТРОВ",
+      "target": "company:tr:206975751",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

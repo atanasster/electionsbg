@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rumen-rumenov-dimitrov-cbda84",
+  "nodes": [
+    {
+      "id": "official:rumen-rumenov-dimitrov-cbda84",
+      "type": "official",
+      "slug": "rumen-rumenov-dimitrov-cbda84",
+      "label": "Румен Руменов Димитров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202547753",
+      "type": "company",
+      "label": "Ер Ес Ер 5 ООД",
+      "slug": null,
+      "uic": "202547753",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:АРКАНДИС ПРОПЪРТИ ДИВЕЛЪПМЪНТ",
+      "type": "company",
+      "label": "Аркандис Пропърти Дивелъпмънт ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rumen-rumenov-dimitrov-cbda84",
+      "target": "company:tr:202547753",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:rumen-rumenov-dimitrov-cbda84",
+      "target": "company:tr:202547753",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "company:name:АРКАНДИС ПРОПЪРТИ ДИВЕЛЪПМЪНТ",
+      "target": "company:tr:202547753",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

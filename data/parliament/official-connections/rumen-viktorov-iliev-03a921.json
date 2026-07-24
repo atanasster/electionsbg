@@ -1,0 +1,82 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rumen-viktorov-iliev-03a921",
+  "nodes": [
+    {
+      "id": "official:rumen-viktorov-iliev-03a921",
+      "type": "official",
+      "slug": "rumen-viktorov-iliev-03a921",
+      "label": "Румен Викторов Илиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202089131",
+      "type": "company",
+      "label": "ОБЩИНСКИ ГОРИ ЕЛИН ПЕЛИН",
+      "slug": null,
+      "uic": "202089131",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:vasil-angelov-mladenov-c70e12",
+      "type": "official",
+      "slug": "vasil-angelov-mladenov-c70e12",
+      "label": "Васил Ангелов Младенов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:stefan-evgeniev-kisov-21af4c",
+      "type": "official",
+      "slug": "stefan-evgeniev-kisov-21af4c",
+      "label": "Стефан Евгениев Кисьов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:СТОЯН НИКОЛАЕВ КОЛЕВ",
+      "type": "person",
+      "label": "Стоян Николаев Колев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rumen-viktorov-iliev-03a921",
+      "target": "company:tr:202089131",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vasil-angelov-mladenov-c70e12",
+      "target": "company:tr:202089131",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stefan-evgeniev-kisov-21af4c",
+      "target": "company:tr:202089131",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОЯН НИКОЛАЕВ КОЛЕВ",
+      "target": "company:tr:202089131",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

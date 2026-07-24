@@ -1,0 +1,186 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:izabela-atanasova-ivanova-9e79fa",
+  "nodes": [
+    {
+      "id": "official:izabela-atanasova-ivanova-9e79fa",
+      "type": "official",
+      "slug": "izabela-atanasova-ivanova-9e79fa",
+      "label": "Изабела Атанасова Иванова",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205846611",
+      "type": "company",
+      "label": "ОБЕДИНЕНИЕ НА СВОБОДНИТЕ АДВОКАТИ",
+      "slug": null,
+      "uic": "205846611",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РОСЕН ПЕНЧЕВ РАШКОВ",
+      "type": "person",
+      "label": "Росен Пенчев Рашков"
+    },
+    {
+      "id": "person:ИРИНА ПЕТКОВА АЛЕКСОВА",
+      "type": "person",
+      "label": "Ирина Петкова Алексова"
+    },
+    {
+      "id": "person:ИВАНКА ЕМИЛОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Иванка Емилова Георгиева"
+    },
+    {
+      "id": "person:ГЕОРГИ ДИАНОВ ГАЙДАРОВ",
+      "type": "person",
+      "label": "Георги Дианов Гайдаров"
+    },
+    {
+      "id": "person:ЕМИЛ АЛЕКСАНДРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Емил Александров Георгиев"
+    },
+    {
+      "id": "person:МАРИНЕЛА ИВАНОВА ПЕТРОВА-АШИКОВА",
+      "type": "person",
+      "label": "Маринела Иванова Петрова-Ашикова"
+    },
+    {
+      "id": "person:АСЕН СТОЯНОВ КАРАГЬОЗОВ",
+      "type": "person",
+      "label": "Асен Стоянов Карагьозов"
+    },
+    {
+      "id": "person:САМИР ГАСАН ФАЛХУД",
+      "type": "person",
+      "label": "Самир Гасан Фалхуд"
+    },
+    {
+      "id": "person:ДИАНА МИЛАНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Диана Миланова Димитрова"
+    },
+    {
+      "id": "person:СТАНИСЛАВ КИРИЛОВ ЧЕРКЕЗОВ",
+      "type": "person",
+      "label": "Станислав  Кирилов Черкезов"
+    },
+    {
+      "id": "person:ТЕОДОР АРТУРОВ БОЖИНОВ",
+      "type": "person",
+      "label": "Теодор Артуров Божинов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:izabela-atanasova-ivanova-9e79fa",
+      "target": "company:tr:205846611",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РОСЕН ПЕНЧЕВ РАШКОВ",
+      "target": "company:tr:205846611",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА ПЕТКОВА АЛЕКСОВА",
+      "target": "company:tr:205846611",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ЕМИЛОВА ГЕОРГИЕВА",
+      "target": "company:tr:205846611",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ДИАНОВ ГАЙДАРОВ",
+      "target": "company:tr:205846611",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ АЛЕКСАНДРОВ ГЕОРГИЕВ",
+      "target": "company:tr:205846611",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНЕЛА ИВАНОВА ПЕТРОВА-АШИКОВА",
+      "target": "company:tr:205846611",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН СТОЯНОВ КАРАГЬОЗОВ",
+      "target": "company:tr:205846611",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САМИР ГАСАН ФАЛХУД",
+      "target": "company:tr:205846611",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА МИЛАНОВА ДИМИТРОВА",
+      "target": "company:tr:205846611",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ЕМИЛОВА ГЕОРГИЕВА",
+      "target": "company:tr:205846611",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВ КИРИЛОВ ЧЕРКЕЗОВ",
+      "target": "company:tr:205846611",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОР АРТУРОВ БОЖИНОВ",
+      "target": "company:tr:205846611",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+[
+  {
+    "slug": "ivan-nikolov-radev-8df400",
+    "declarantName": "Иван Николов Радев",
+    "institution": "Стрелча",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-05",
+    "entryNumber": "Г7531",
+    "controlHash": "E4132F1B",
+    "sourceUrl": "https://register.cacbg.bg/2025/5E9B30E5-2546-41B2-BB3A-67BA0C36295E210526.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4106.696389768027,
+        "amountEurSpouse": 7296.135144670038
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 4969.757085227244,
+        "amountEurSpouse": 41263.81127194082
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Стрелча",
+        "municipality": "Стрелча",
+        "areaSqm": 450,
+        "builtAreaSqm": 665,
+        "acquiredYear": 2024,
+        "share": "1.1",
+        "currency": "BGN",
+        "amount": 70000,
+        "valueEur": 35790.431683735296,
+        "holderName": "Десислава Йорданова Богданова - Радева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13723,
+        "valueEur": 7016.458485655707,
+        "holderName": "Иван Николов Радев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

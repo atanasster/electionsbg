@@ -1,0 +1,119 @@
+[
+  {
+    "slug": "plamen-kirilov-tonchev-6b4b57",
+    "declarantName": "Пламен Кирилов Тончев",
+    "institution": "Комисия по досиетата",
+    "positionTitle": "Председател",
+    "category": "agency_head",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-24",
+    "entryNumber": "Г3264",
+    "controlHash": "61C2D00E",
+    "sourceUrl": "https://register.cacbg.bg/2025/7348F2D3-5EEE-44D5-BF60-597FCC62E506218145.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 73077.41470373192,
+        "amountEurSpouse": 52312.3175327099
+      },
+      {
+        "parent": null,
+        "category": "Годишен необлагаем доход от ДАНС",
+        "amountEurDeclarant": 5215.177188201428,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 267675,
+        "valueEur": 136860.05429919777,
+        "holderName": "Пламен Кирилов Тончев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания и от предходни години"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 162762,
+        "valueEur": 83218.88916725891,
+        "holderName": "Малина Чавдарова Тончева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания и от предходни години"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 103,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 103,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Волво",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Волво",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
+  }
+]

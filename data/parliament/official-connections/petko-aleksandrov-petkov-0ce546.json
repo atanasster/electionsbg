@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:petko-aleksandrov-petkov-0ce546",
+  "nodes": [
+    {
+      "id": "official:petko-aleksandrov-petkov-0ce546",
+      "type": "official",
+      "slug": "petko-aleksandrov-petkov-0ce546",
+      "label": "Петко Александров Петков",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Чипровци"
+    },
+    {
+      "id": "company:tr:206989402",
+      "type": "company",
+      "label": "ВЕНЦИ И МИТКО АВТОСЕРВИЗ",
+      "slug": null,
+      "uic": "206989402",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petko-aleksandrov-petkov-0ce546",
+      "target": "company:tr:206989402",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petko-aleksandrov-petkov-0ce546",
+      "target": "company:tr:206989402",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

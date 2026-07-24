@@ -1,0 +1,225 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariya-metodieva-yankova-aab379",
+  "nodes": [
+    {
+      "id": "official:mariya-metodieva-yankova-aab379",
+      "type": "official",
+      "slug": "mariya-metodieva-yankova-aab379",
+      "label": "Мария Методиева Янкова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206819802",
+      "type": "company",
+      "label": "Терра Терма ЕООД",
+      "slug": null,
+      "uic": "206819802",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203206309",
+      "type": "company",
+      "label": "Алфамед София ЕООД",
+      "slug": null,
+      "uic": "203206309",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204903080",
+      "type": "company",
+      "label": "Тера Ферара ООД",
+      "slug": null,
+      "uic": "204903080",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:131155423",
+      "type": "company",
+      "label": "Бютимед ООД",
+      "slug": null,
+      "uic": "131155423",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201389282",
+      "type": "company",
+      "label": "Промед Финанс ООД",
+      "slug": null,
+      "uic": "201389282",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯ МЕТОДИЕВА ЯНКОВА",
+      "type": "person",
+      "label": "Мария Методиева Янкова"
+    },
+    {
+      "id": "person:ВИОЛЕТА СТЕФАНОВА СТРАТИЕВА",
+      "type": "person",
+      "label": "Виолета Стефанова Стратиева"
+    },
+    {
+      "id": "person:ИВАН ПЕТКОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Иван Петков Петков"
+    },
+    {
+      "id": "person:АНЕТА ДИМИТРОВА ЯНКОВА",
+      "type": "person",
+      "label": "Анета Димитрова Янкова"
+    },
+    {
+      "id": "person:ЕМИЛ МЕТОДИЕВ ЯНКОВ",
+      "type": "person",
+      "label": "Емил Методиев Янков"
+    },
+    {
+      "id": "person:ДРАГА ТОДОРОВА ПОПОВА",
+      "type": "person",
+      "label": "Драга Тодорова Попова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-metodieva-yankova-aab379",
+      "target": "company:tr:206819802",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mariya-metodieva-yankova-aab379",
+      "target": "company:tr:203206309",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mariya-metodieva-yankova-aab379",
+      "target": "company:tr:204903080",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mariya-metodieva-yankova-aab379",
+      "target": "company:tr:131155423",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mariya-metodieva-yankova-aab379",
+      "target": "company:tr:201389282",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ МЕТОДИЕВА ЯНКОВА",
+      "target": "company:tr:206819802",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ МЕТОДИЕВА ЯНКОВА",
+      "target": "company:tr:206819802",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ МЕТОДИЕВА ЯНКОВА",
+      "target": "company:tr:203206309",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА СТЕФАНОВА СТРАТИЕВА",
+      "target": "company:tr:203206309",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ МЕТОДИЕВА ЯНКОВА",
+      "target": "company:tr:204903080",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ПЕТКОВ ПЕТКОВ",
+      "target": "company:tr:204903080",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕТА ДИМИТРОВА ЯНКОВА",
+      "target": "company:tr:131155423",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕТА ДИМИТРОВА ЯНКОВА",
+      "target": "company:tr:131155423",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ МЕТОДИЕВА ЯНКОВА",
+      "target": "company:tr:131155423",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ МЕТОДИЕВ ЯНКОВ",
+      "target": "company:tr:131155423",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГА ТОДОРОВА ПОПОВА",
+      "target": "company:tr:201389282",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

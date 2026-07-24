@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:minka-hristova-salagorova-1946ed",
+  "nodes": [
+    {
+      "id": "official:minka-hristova-salagorova-1946ed",
+      "type": "official",
+      "slug": "minka-hristova-salagorova-1946ed",
+      "label": "Минка Христова Салагьорова",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Петрич"
+    },
+    {
+      "id": "company:tr:201051284",
+      "type": "company",
+      "label": "\"БИ ЕС КОНСУЛТИНГ\" ООД",
+      "slug": null,
+      "uic": "201051284",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:minka-hristova-salagorova-1946ed",
+      "target": "company:tr:201051284",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

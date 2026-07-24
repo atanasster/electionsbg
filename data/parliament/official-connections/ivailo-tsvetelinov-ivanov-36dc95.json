@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivailo-tsvetelinov-ivanov-36dc95",
+  "nodes": [
+    {
+      "id": "official:ivailo-tsvetelinov-ivanov-36dc95",
+      "type": "official",
+      "slug": "ivailo-tsvetelinov-ivanov-36dc95",
+      "label": "Ивайло Цветелинов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Каспичан"
+    },
+    {
+      "id": "company:tr:205207994",
+      "type": "company",
+      "label": "\"Ивайло Иванов 92\"ЕООД",
+      "slug": null,
+      "uic": "205207994",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivailo-tsvetelinov-ivanov-36dc95",
+      "target": "company:tr:205207994",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,202 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:sarkis-harutyun-karadzhiyan-ca775e",
+  "nodes": [
+    {
+      "id": "official:sarkis-harutyun-karadzhiyan-ca775e",
+      "type": "official",
+      "slug": "sarkis-harutyun-karadzhiyan-ca775e",
+      "label": "Саркис Харутюн Караджиян",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204219357",
+      "type": "company",
+      "label": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ ДОБРИЧ",
+      "slug": null,
+      "uic": "204219357",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Добрич, 9300"
+    },
+    {
+      "id": "mp:5098",
+      "type": "mp",
+      "mpId": 5098,
+      "label": "Стоян Тонев Петров",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "official:mariya-kamenova-todorova-d99d1e",
+      "type": "official",
+      "slug": "mariya-kamenova-todorova-d99d1e",
+      "label": "Мария Каменова Тодорова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:mihail-mitkov-teodosiev-fefa70",
+      "type": "official",
+      "slug": "mihail-mitkov-teodosiev-fefa70",
+      "label": "Михаил Митков Теодосиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:nikolai-dinev-nikolov-623798",
+      "type": "official",
+      "slug": "nikolai-dinev-nikolov-623798",
+      "label": "Николай Динев Николов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ТОДОР ИЛИЕВ ГИКИНСКИ",
+      "type": "person",
+      "label": "Тодор Илиев Гикински"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ СВИЛЕНОВ КОЛЕВ",
+      "type": "person",
+      "label": "Венцислав Свиленов Колев"
+    },
+    {
+      "id": "person:ЮЛИЯН ХРИСТОВ ИВАНОВ",
+      "type": "person",
+      "label": "Юлиян Христов Иванов"
+    },
+    {
+      "id": "person:НИКОЛАЙ ДИМИТРОВ ДЪРЛЯНОВ",
+      "type": "person",
+      "label": "Николай Димитров Дърлянов"
+    },
+    {
+      "id": "person:ХАРИ ПАВЛОВ ПАВЛОВ",
+      "type": "person",
+      "label": "Хари Павлов Павлов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sarkis-harutyun-karadzhiyan-ca775e",
+      "target": "company:tr:204219357",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:sarkis-harutyun-karadzhiyan-ca775e",
+      "target": "company:tr:204219357",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5098",
+      "target": "company:tr:204219357",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mariya-kamenova-todorova-d99d1e",
+      "target": "company:tr:204219357",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mihail-mitkov-teodosiev-fefa70",
+      "target": "company:tr:204219357",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-dinev-nikolov-623798",
+      "target": "company:tr:204219357",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-dinev-nikolov-623798",
+      "target": "company:tr:204219357",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТОДОР ИЛИЕВ ГИКИНСКИ",
+      "target": "company:tr:204219357",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ СВИЛЕНОВ КОЛЕВ",
+      "target": "company:tr:204219357",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЯН ХРИСТОВ ИВАНОВ",
+      "target": "company:tr:204219357",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ИЛИЕВ ГИКИНСКИ",
+      "target": "company:tr:204219357",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДИМИТРОВ ДЪРЛЯНОВ",
+      "target": "company:tr:204219357",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАРИ ПАВЛОВ ПАВЛОВ",
+      "target": "company:tr:204219357",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАРИ ПАВЛОВ ПАВЛОВ",
+      "target": "company:tr:204219357",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

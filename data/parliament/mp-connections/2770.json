@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:2770",
   "nodes": [
     {
@@ -24,18 +24,18 @@
       "seat": "БЪЛГАРИЯ, гр. Горна Оряховица, 5100"
     },
     {
-      "id": "official:klavdiya-georgieva-grigorova-gancheva-aac7ef",
+      "id": "official:klavdiya-georgieva-grigorova-gancheva-456516",
       "type": "official",
-      "slug": "klavdiya-georgieva-grigorova-gancheva-aac7ef",
+      "slug": "klavdiya-georgieva-grigorova-gancheva-456516",
       "label": "Клавдия Георгиева Григорова-Ганчева",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:radoslav-radoev-radev-1d02f8",
+      "id": "official:radoslav-radoev-radev-15b0b0",
       "type": "official",
-      "slug": "radoslav-radoev-radev-1d02f8",
+      "slug": "radoslav-radoev-radev-15b0b0",
       "label": "Радослав Радоев Радев",
       "tier": "executive",
       "role": "state_enterprise",
@@ -87,7 +87,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:klavdiya-georgieva-grigorova-gancheva-aac7ef",
+      "source": "official:klavdiya-georgieva-grigorova-gancheva-456516",
       "target": "company:tr:206974197",
       "kind": "tr_role",
       "role": "representative",
@@ -95,7 +95,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:klavdiya-georgieva-grigorova-gancheva-aac7ef",
+      "source": "official:klavdiya-georgieva-grigorova-gancheva-456516",
       "target": "company:tr:206974197",
       "kind": "tr_role",
       "role": "director",
@@ -103,7 +103,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:radoslav-radoev-radev-1d02f8",
+      "source": "official:radoslav-radoev-radev-15b0b0",
       "target": "company:tr:206974197",
       "kind": "tr_role",
       "role": "director",

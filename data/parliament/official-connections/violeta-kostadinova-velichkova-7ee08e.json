@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:violeta-kostadinova-velichkova-7ee08e",
+  "nodes": [
+    {
+      "id": "official:violeta-kostadinova-velichkova-7ee08e",
+      "type": "official",
+      "slug": "violeta-kostadinova-velichkova-7ee08e",
+      "label": "Виолета Костадинова Величкова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130523915",
+      "type": "company",
+      "label": "СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА РЕХАБИЛИТАЦИЯ - ЗДРАВЕ",
+      "slug": null,
+      "uic": "130523915",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЪР ИВАНОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Петър Иванов Стефанов"
+    },
+    {
+      "id": "person:ИВО НИКОЛОВ ВЕЛЕВ",
+      "type": "person",
+      "label": "Иво Николов Велев"
+    },
+    {
+      "id": "person:ВЕСКА ДИМИТРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Веска Димитрова Димитрова"
+    },
+    {
+      "id": "person:ВАНЯ СЪБЕВА БОЮКЛИЕВА",
+      "type": "person",
+      "label": "Ваня Събева Боюклиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:violeta-kostadinova-velichkova-7ee08e",
+      "target": "company:tr:130523915",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:violeta-kostadinova-velichkova-7ee08e",
+      "target": "company:tr:130523915",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР ИВАНОВ СТЕФАНОВ",
+      "target": "company:tr:130523915",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО НИКОЛОВ ВЕЛЕВ",
+      "target": "company:tr:130523915",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСКА ДИМИТРОВА ДИМИТРОВА",
+      "target": "company:tr:130523915",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ СЪБЕВА БОЮКЛИЕВА",
+      "target": "company:tr:130523915",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

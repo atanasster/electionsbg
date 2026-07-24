@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivailo-toshev-todorov-5d1e91",
+  "nodes": [
+    {
+      "id": "official:ivailo-toshev-todorov-5d1e91",
+      "type": "official",
+      "slug": "ivailo-toshev-todorov-5d1e91",
+      "label": "Ивайло Тошев Тодоров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Мездра"
+    },
+    {
+      "id": "company:tr:207648628",
+      "type": "company",
+      "label": "Индивидуална практика за първична дентална помощ - ВИВОДЕНТ",
+      "slug": null,
+      "uic": "207648628",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivailo-toshev-todorov-5d1e91",
+      "target": "company:tr:207648628",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivailo-toshev-todorov-5d1e91",
+      "target": "company:tr:207648628",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

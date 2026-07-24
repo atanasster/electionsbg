@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:bozhanka-petrova-bogdanova-25f555",
+  "nodes": [
+    {
+      "id": "official:bozhanka-petrova-bogdanova-25f555",
+      "type": "official",
+      "slug": "bozhanka-petrova-bogdanova-25f555",
+      "label": "Божанка Петрова Богданова",
+      "tier": "executive",
+      "role": "party_leader",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176932500",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ТРАКИЙСКОТО СДРУЖЕНИЕ НАЦИОНАЛНА ИНИЦИАТИВА ЗАВРЪЩАНЕ КЪМ КОРЕНИТЕ И ПО ОБРАТНИЯ ПЪТ НА ДЕДИТЕ НИ&quot;",
+      "slug": null,
+      "uic": "176932500",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕВЕЛИНА КОНСТАНТИНОВА БОГДАНОВА",
+      "type": "person",
+      "label": "Евелина Константинова Богданова"
+    },
+    {
+      "id": "person:КРЕМЕНА МИТКОВА БОГДАНОВА",
+      "type": "person",
+      "label": "Кремена Миткова Богданова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:bozhanka-petrova-bogdanova-25f555",
+      "target": "company:tr:176932500",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕВЕЛИНА КОНСТАНТИНОВА БОГДАНОВА",
+      "target": "company:tr:176932500",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРЕМЕНА МИТКОВА БОГДАНОВА",
+      "target": "company:tr:176932500",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

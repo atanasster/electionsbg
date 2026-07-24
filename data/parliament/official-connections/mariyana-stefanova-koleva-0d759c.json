@@ -1,0 +1,147 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariyana-stefanova-koleva-0d759c",
+  "nodes": [
+    {
+      "id": "official:mariyana-stefanova-koleva-0d759c",
+      "type": "official",
+      "slug": "mariyana-stefanova-koleva-0d759c",
+      "label": "Марияна Стефанова Колева",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000124756",
+      "type": "company",
+      "label": "ПРОСВЕЩЕНИЕ - 1897",
+      "slug": null,
+      "uic": "000124756",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОРДАНКА АТАНАСОВА ЯНКОВА",
+      "type": "person",
+      "label": "Йорданка Атанасова Янкова"
+    },
+    {
+      "id": "person:ПЛАМЕН ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Пламен Иванов Иванов"
+    },
+    {
+      "id": "person:МАРИАНА ПЕТКОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Мариана Петкова Илиева"
+    },
+    {
+      "id": "person:МАРИЯ МИНЧЕВА ИЛИЕВА",
+      "type": "person",
+      "label": "Мария Минчева Илиева"
+    },
+    {
+      "id": "person:ЦВЕТАМИЛА ПЕТКОВА РАЙКОВА",
+      "type": "person",
+      "label": "Цветамила Петкова Райкова"
+    },
+    {
+      "id": "person:МИЛКА ЙОРДАНОВА АЛЕКСИЕВА",
+      "type": "person",
+      "label": "Милка Йорданова Алексиева"
+    },
+    {
+      "id": "person:АТАНАСКА НЕДЯЛКОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Атанаска Недялкова Георгиева"
+    },
+    {
+      "id": "person:НЕВЯНКА НИКОЛАЕВА ЦОНЕВА",
+      "type": "person",
+      "label": "Невянка Николаева Цонева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariyana-stefanova-koleva-0d759c",
+      "target": "company:tr:000124756",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАНКА АТАНАСОВА ЯНКОВА",
+      "target": "company:tr:000124756",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ИВАНОВ ИВАНОВ",
+      "target": "company:tr:000124756",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ИВАНОВ ИВАНОВ",
+      "target": "company:tr:000124756",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ПЕТКОВА ИЛИЕВА",
+      "target": "company:tr:000124756",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ МИНЧЕВА ИЛИЕВА",
+      "target": "company:tr:000124756",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАМИЛА ПЕТКОВА РАЙКОВА",
+      "target": "company:tr:000124756",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКА ЙОРДАНОВА АЛЕКСИЕВА",
+      "target": "company:tr:000124756",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАСКА НЕДЯЛКОВА ГЕОРГИЕВА",
+      "target": "company:tr:000124756",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЯНКА НИКОЛАЕВА ЦОНЕВА",
+      "target": "company:tr:000124756",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

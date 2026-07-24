@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:2724",
   "nodes": [
     {
@@ -25,36 +25,36 @@
       "seat": null
     },
     {
-      "id": "official:valeri-andreev-marenski-485f51",
+      "id": "official:valeri-andreev-marenski-c917db",
       "type": "official",
-      "slug": "valeri-andreev-marenski-485f51",
+      "slug": "valeri-andreev-marenski-c917db",
       "label": "Валери Андреев Маренски",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:ilko-hristov-chamov-c91edc",
+      "id": "official:ilko-hristov-chamov-4bec5f",
       "type": "official",
-      "slug": "ilko-hristov-chamov-c91edc",
+      "slug": "ilko-hristov-chamov-4bec5f",
       "label": "Илко Христов Чамов",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:tasko-mihailov-ermenkov-7386c9",
+      "id": "official:tasko-mihailov-ermenkov-d3f1d3",
       "type": "official",
-      "slug": "tasko-mihailov-ermenkov-7386c9",
+      "slug": "tasko-mihailov-ermenkov-d3f1d3",
       "label": "Таско Михайлов Ерменков",
       "tier": "executive",
       "role": "regulator",
       "municipality": null
     },
     {
-      "id": "official:stanislav-chavdarov-mladenov-0b1bfc",
+      "id": "official:stanislav-chavdarov-mladenov-1cf0e1",
       "type": "official",
-      "slug": "stanislav-chavdarov-mladenov-0b1bfc",
+      "slug": "stanislav-chavdarov-mladenov-1cf0e1",
       "label": "Станислав Чавдаров Младенов",
       "tier": "municipal",
       "role": "councillor",
@@ -101,7 +101,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:valeri-andreev-marenski-485f51",
+      "source": "official:valeri-andreev-marenski-c917db",
       "target": "company:tr:117001983",
       "kind": "tr_role",
       "role": "director",
@@ -109,7 +109,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:ilko-hristov-chamov-c91edc",
+      "source": "official:ilko-hristov-chamov-4bec5f",
       "target": "company:tr:117001983",
       "kind": "tr_role",
       "role": "director",
@@ -117,7 +117,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:tasko-mihailov-ermenkov-7386c9",
+      "source": "official:tasko-mihailov-ermenkov-d3f1d3",
       "target": "company:tr:117001983",
       "kind": "tr_role",
       "role": "director",
@@ -125,7 +125,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:stanislav-chavdarov-mladenov-0b1bfc",
+      "source": "official:stanislav-chavdarov-mladenov-1cf0e1",
       "target": "company:tr:117001983",
       "kind": "tr_role",
       "role": "director",

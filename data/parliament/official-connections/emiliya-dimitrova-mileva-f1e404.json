@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:emiliya-dimitrova-mileva-f1e404",
+  "nodes": [
+    {
+      "id": "official:emiliya-dimitrova-mileva-f1e404",
+      "type": "official",
+      "slug": "emiliya-dimitrova-mileva-f1e404",
+      "label": "Емилия Димитрова Милева",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:126508195",
+      "type": "company",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪР - ДИМИТРОВГРАД",
+      "slug": null,
+      "uic": "126508195",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emiliya-dimitrova-mileva-f1e404",
+      "target": "company:tr:126508195",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

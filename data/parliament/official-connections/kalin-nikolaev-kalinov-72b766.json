@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:kalin-nikolaev-kalinov-72b766",
+  "nodes": [
+    {
+      "id": "official:kalin-nikolaev-kalinov-72b766",
+      "type": "official",
+      "slug": "kalin-nikolaev-kalinov-72b766",
+      "label": "Калин Николаев Калинов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Казанлък"
+    },
+    {
+      "id": "company:tr:207259819",
+      "type": "company",
+      "label": "България за чиста Розова долина",
+      "slug": null,
+      "uic": "207259819",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОЯНА НЕДЕЛЧЕВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Бояна Неделчева Йорданова"
+    },
+    {
+      "id": "person:СТАНИМИР ЙОРДАНОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Станимир Йорданов Стефанов"
+    },
+    {
+      "id": "person:КЪНЬО РАЧЕВ РАЧКОВ",
+      "type": "person",
+      "label": "Къньо Рачев Рачков"
+    },
+    {
+      "id": "person:НИКОЛАЙ ВЕЛИЧКОВ МАРКОВ",
+      "type": "person",
+      "label": "Николай Величков Марков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kalin-nikolaev-kalinov-72b766",
+      "target": "company:tr:207259819",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОЯНА НЕДЕЛЧЕВА ЙОРДАНОВА",
+      "target": "company:tr:207259819",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯНА НЕДЕЛЧЕВА ЙОРДАНОВА",
+      "target": "company:tr:207259819",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИР ЙОРДАНОВ СТЕФАНОВ",
+      "target": "company:tr:207259819",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЪНЬО РАЧЕВ РАЧКОВ",
+      "target": "company:tr:207259819",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ВЕЛИЧКОВ МАРКОВ",
+      "target": "company:tr:207259819",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

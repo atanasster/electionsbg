@@ -1,0 +1,147 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:borislava-nikolaeva-hristova-408a54",
+  "nodes": [
+    {
+      "id": "official:borislava-nikolaeva-hristova-408a54",
+      "type": "official",
+      "slug": "borislava-nikolaeva-hristova-408a54",
+      "label": "Борислава Николаева Христова",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Мездра"
+    },
+    {
+      "id": "company:tr:000380015",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ПРОСВЕТА - 1930 Г.&quot;",
+      "slug": null,
+      "uic": "000380015",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯ ГЕОРГИЕВА АСЕНОВА",
+      "type": "person",
+      "label": "Мария Георгиева Асенова"
+    },
+    {
+      "id": "person:ТАТЯНА САВЕВА СИМЕОНОВА",
+      "type": "person",
+      "label": "Татяна Савева Симеонова"
+    },
+    {
+      "id": "person:ИВАНКА ДИМИТРОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Иванка Димитрова Тодорова"
+    },
+    {
+      "id": "person:НЕЛИ ДИМИТРОВА ИВАНОВА",
+      "type": "person",
+      "label": "Нели Димитрова Иванова"
+    },
+    {
+      "id": "person:ЕЛЗА НИКОЛОВА СТОИЛОВА",
+      "type": "person",
+      "label": "Елза Николова Стоилова"
+    },
+    {
+      "id": "person:АНТОАНЕТА ВАСИЛЕВА МАНОВА",
+      "type": "person",
+      "label": "Антоанета Василева Манова"
+    },
+    {
+      "id": "person:СЕВДА ИСАКИЕВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Севда Исакиева Михайлова"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА СТОЙОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Десислава Стойова Тодорова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:borislava-nikolaeva-hristova-408a54",
+      "target": "company:tr:000380015",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА АСЕНОВА",
+      "target": "company:tr:000380015",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА САВЕВА СИМЕОНОВА",
+      "target": "company:tr:000380015",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ДИМИТРОВА ТОДОРОВА",
+      "target": "company:tr:000380015",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ ДИМИТРОВА ИВАНОВА",
+      "target": "company:tr:000380015",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА АСЕНОВА",
+      "target": "company:tr:000380015",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЗА НИКОЛОВА СТОИЛОВА",
+      "target": "company:tr:000380015",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАНЕТА ВАСИЛЕВА МАНОВА",
+      "target": "company:tr:000380015",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВДА ИСАКИЕВА МИХАЙЛОВА",
+      "target": "company:tr:000380015",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА СТОЙОВА ТОДОРОВА",
+      "target": "company:tr:000380015",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

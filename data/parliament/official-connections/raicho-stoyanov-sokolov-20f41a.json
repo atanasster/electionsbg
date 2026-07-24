@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:raicho-stoyanov-sokolov-20f41a",
+  "nodes": [
+    {
+      "id": "official:raicho-stoyanov-sokolov-20f41a",
+      "type": "official",
+      "slug": "raicho-stoyanov-sokolov-20f41a",
+      "label": "Райчо Стоянов Соколов",
+      "tier": "executive",
+      "role": "revenue_agency",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175364588",
+      "type": "company",
+      "label": "ЛИАН-07 ЕООД",
+      "slug": null,
+      "uic": "175364588",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:200397753",
+      "type": "company",
+      "label": "ЕТ Мелди",
+      "slug": null,
+      "uic": "200397753",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛИЛИ ДИМИТРОВА СОКОЛОВА",
+      "type": "person",
+      "label": "Лили Димитрова Соколова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:raicho-stoyanov-sokolov-20f41a",
+      "target": "company:tr:175364588",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:raicho-stoyanov-sokolov-20f41a",
+      "target": "company:tr:200397753",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛИ ДИМИТРОВА СОКОЛОВА",
+      "target": "company:tr:175364588",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛИ ДИМИТРОВА СОКОЛОВА",
+      "target": "company:tr:175364588",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

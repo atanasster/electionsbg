@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-nikolov-ilchev-fb0f2a",
+  "nodes": [
+    {
+      "id": "official:ivan-nikolov-ilchev-fb0f2a",
+      "type": "official",
+      "slug": "ivan-nikolov-ilchev-fb0f2a",
+      "label": "Иван Николов Илчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Симеоновград"
+    },
+    {
+      "id": "company:tr:126747544",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ МАРИЦА-СИМЕОНОВГРАД",
+      "slug": null,
+      "uic": "126747544",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТОЙЧО ДИМИТРОВ КОЛЕВ",
+      "type": "person",
+      "label": "Стойчо Димитров Колев"
+    },
+    {
+      "id": "person:ТОНИ ИВАНОВ КАРАНЕЙЧЕВ",
+      "type": "person",
+      "label": "Тони Иванов Каранейчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-nikolov-ilchev-fb0f2a",
+      "target": "company:tr:126747544",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОЙЧО ДИМИТРОВ КОЛЕВ",
+      "target": "company:tr:126747544",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОНИ ИВАНОВ КАРАНЕЙЧЕВ",
+      "target": "company:tr:126747544",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

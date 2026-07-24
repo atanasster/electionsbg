@@ -1,0 +1,90 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:denis-mehmedov-sabriev-c15a9e",
+  "nodes": [
+    {
+      "id": "official:denis-mehmedov-sabriev-c15a9e",
+      "type": "official",
+      "slug": "denis-mehmedov-sabriev-c15a9e",
+      "label": "Денис Мехмедов Сабриев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Омуртаг"
+    },
+    {
+      "id": "company:tr:202104681",
+      "type": "company",
+      "label": "\"Голдън Стар Солюшънс\" ЕООД",
+      "slug": null,
+      "uic": "202104681",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202519167",
+      "type": "company",
+      "label": "\"Меда Трейд\" ЕООД",
+      "slug": null,
+      "uic": "202519167",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АФИЗЕ ИСМАИЛОВА МУСТАФОВА",
+      "type": "person",
+      "label": "Афизе Исмаилова Мустафова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:denis-mehmedov-sabriev-c15a9e",
+      "target": "company:tr:202104681",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:denis-mehmedov-sabriev-c15a9e",
+      "target": "company:tr:202519167",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:denis-mehmedov-sabriev-c15a9e",
+      "target": "company:tr:202519167",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:denis-mehmedov-sabriev-c15a9e",
+      "target": "company:tr:202519167",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АФИЗЕ ИСМАИЛОВА МУСТАФОВА",
+      "target": "company:tr:202519167",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АФИЗЕ ИСМАИЛОВА МУСТАФОВА",
+      "target": "company:tr:202519167",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

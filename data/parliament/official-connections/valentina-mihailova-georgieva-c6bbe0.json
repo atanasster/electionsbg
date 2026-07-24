@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:valentina-mihailova-georgieva-c6bbe0",
+  "nodes": [
+    {
+      "id": "official:valentina-mihailova-georgieva-c6bbe0",
+      "type": "official",
+      "slug": "valentina-mihailova-georgieva-c6bbe0",
+      "label": "Валентина Михайлова Георгиева",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207452191",
+      "type": "company",
+      "label": "НЕТРА",
+      "slug": null,
+      "uic": "207452191",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valentina-mihailova-georgieva-c6bbe0",
+      "target": "company:tr:207452191",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:valentina-mihailova-georgieva-c6bbe0",
+      "target": "company:tr:207452191",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

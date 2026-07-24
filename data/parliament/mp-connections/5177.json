@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:5177",
   "nodes": [
     {
@@ -34,27 +34,27 @@
       "seat": null
     },
     {
-      "id": "official:boiko-georgiev-mirazchiiski-331554",
+      "id": "official:boiko-georgiev-mirazchiiski-d0c566",
       "type": "official",
-      "slug": "boiko-georgiev-mirazchiiski-331554",
+      "slug": "boiko-georgiev-mirazchiiski-d0c566",
       "label": "Бойко Георгиев Миразчийски",
       "tier": "executive",
       "role": "hospital_head",
       "municipality": null
     },
     {
-      "id": "official:miroslav-obreikov-obreikov-39500a",
+      "id": "official:miroslav-obreikov-obreikov-222b15",
       "type": "official",
-      "slug": "miroslav-obreikov-obreikov-39500a",
+      "slug": "miroslav-obreikov-obreikov-222b15",
       "label": "Мирослав Обрейков Обрейков",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:rositsa-antonova-ivanova-88e340",
+      "id": "official:rositsa-antonova-ivanova-4d64b4",
       "type": "official",
-      "slug": "rositsa-antonova-ivanova-88e340",
+      "slug": "rositsa-antonova-ivanova-4d64b4",
       "label": "Росица Антонова Иванова",
       "tier": "executive",
       "role": "hospital_head",
@@ -176,7 +176,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:boiko-georgiev-mirazchiiski-331554",
+      "source": "official:boiko-georgiev-mirazchiiski-d0c566",
       "target": "company:tr:102274111",
       "kind": "tr_role",
       "role": "representative",
@@ -184,7 +184,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:boiko-georgiev-mirazchiiski-331554",
+      "source": "official:boiko-georgiev-mirazchiiski-d0c566",
       "target": "company:tr:102274111",
       "kind": "tr_role",
       "role": "director",
@@ -192,7 +192,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:miroslav-obreikov-obreikov-39500a",
+      "source": "official:miroslav-obreikov-obreikov-222b15",
       "target": "company:tr:102274111",
       "kind": "tr_role",
       "role": "representative",
@@ -200,7 +200,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:miroslav-obreikov-obreikov-39500a",
+      "source": "official:miroslav-obreikov-obreikov-222b15",
       "target": "company:tr:102274111",
       "kind": "tr_role",
       "role": "director",
@@ -208,7 +208,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:rositsa-antonova-ivanova-88e340",
+      "source": "official:rositsa-antonova-ivanova-4d64b4",
       "target": "company:tr:102274111",
       "kind": "tr_role",
       "role": "director",

@@ -1,0 +1,254 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitr-boyanov-mladenov-f2a253",
+  "nodes": [
+    {
+      "id": "official:dimitr-boyanov-mladenov-f2a253",
+      "type": "official",
+      "slug": "dimitr-boyanov-mladenov-f2a253",
+      "label": "Димитър Боянов Младенов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:121758166",
+      "type": "company",
+      "label": "Агроводинвест",
+      "slug": null,
+      "uic": "121758166",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:atanas-asenov-kostov-ed51bb",
+      "type": "official",
+      "slug": "atanas-asenov-kostov-ed51bb",
+      "label": "Атанас Асенов Костов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:galya-viktorova-bogdanova-edf2c7",
+      "type": "official",
+      "slug": "galya-viktorova-bogdanova-edf2c7",
+      "label": "Галя Викторова Богданова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:ivan-nikolov-yakimov-23c4c0",
+      "type": "official",
+      "slug": "ivan-nikolov-yakimov-23c4c0",
+      "label": "Иван Николов Якимов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:tihomir-georgiev-dimov-9c235f",
+      "type": "official",
+      "slug": "tihomir-georgiev-dimov-9c235f",
+      "label": "Тихомир Георгиев Димов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ВЪЛКО ЛЮБЕНОВ СТОИЛОВ",
+      "type": "person",
+      "label": "Вълко Любенов Стоилов"
+    },
+    {
+      "id": "person:РАДОСЛАВ АНГЕЛОВ АНТОНОВ",
+      "type": "person",
+      "label": "Радослав Ангелов Антонов"
+    },
+    {
+      "id": "person:ЛЮДМИЛ ДИМИТРОВ ВЕСЕЛИНОВ",
+      "type": "person",
+      "label": "Людмил Димитров Веселинов"
+    },
+    {
+      "id": "person:АНГЕЛ БОРИСОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Ангел Борисов Ангелов"
+    },
+    {
+      "id": "person:EЛЕНА БОРИСОВА САВОВА",
+      "type": "person",
+      "label": "Eлена Борисова Савова"
+    },
+    {
+      "id": "person:ЕВГЕНИ НИКОЛОВ КОЛЕВ",
+      "type": "person",
+      "label": "Евгени Николов Колев"
+    },
+    {
+      "id": "person:ВАСИЛ ИВАНОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Васил Иванов Йорданов"
+    },
+    {
+      "id": "person:ЕМИЛ ЦВЕТАНОВ ЦАНОВ",
+      "type": "person",
+      "label": "Емил Цветанов Цанов"
+    },
+    {
+      "id": "person:РАЛИЦА ГЕОРГИЕВА МИЛЕВА",
+      "type": "person",
+      "label": "Ралица Георгиева Милева"
+    },
+    {
+      "id": "person:ДИНКО КОЛЕВ ГОСПОДИНОВ",
+      "type": "person",
+      "label": "Динко Колев Господинов"
+    },
+    {
+      "id": "person:МАГДАЛИНА ЖИВКОВА ВЪЛКОВА",
+      "type": "person",
+      "label": "Магдалина Живкова Вълкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-boyanov-mladenov-f2a253",
+      "target": "company:tr:121758166",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:atanas-asenov-kostov-ed51bb",
+      "target": "company:tr:121758166",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:galya-viktorova-bogdanova-edf2c7",
+      "target": "company:tr:121758166",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:galya-viktorova-bogdanova-edf2c7",
+      "target": "company:tr:121758166",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-nikolov-yakimov-23c4c0",
+      "target": "company:tr:121758166",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tihomir-georgiev-dimov-9c235f",
+      "target": "company:tr:121758166",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЪЛКО ЛЮБЕНОВ СТОИЛОВ",
+      "target": "company:tr:121758166",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ АНГЕЛОВ АНТОНОВ",
+      "target": "company:tr:121758166",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ ДИМИТРОВ ВЕСЕЛИНОВ",
+      "target": "company:tr:121758166",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ БОРИСОВ АНГЕЛОВ",
+      "target": "company:tr:121758166",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:EЛЕНА БОРИСОВА САВОВА",
+      "target": "company:tr:121758166",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИ НИКОЛОВ КОЛЕВ",
+      "target": "company:tr:121758166",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ИВАНОВ ЙОРДАНОВ",
+      "target": "company:tr:121758166",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ЦВЕТАНОВ ЦАНОВ",
+      "target": "company:tr:121758166",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЛИЦА ГЕОРГИЕВА МИЛЕВА",
+      "target": "company:tr:121758166",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИНКО КОЛЕВ ГОСПОДИНОВ",
+      "target": "company:tr:121758166",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАГДАЛИНА ЖИВКОВА ВЪЛКОВА",
+      "target": "company:tr:121758166",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

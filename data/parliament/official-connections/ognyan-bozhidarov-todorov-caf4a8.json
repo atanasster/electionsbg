@@ -1,0 +1,289 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ognyan-bozhidarov-todorov-caf4a8",
+  "nodes": [
+    {
+      "id": "official:ognyan-bozhidarov-todorov-caf4a8",
+      "type": "official",
+      "slug": "ognyan-bozhidarov-todorov-caf4a8",
+      "label": "Огнян Божидаров Тодоров",
+      "tier": "executive",
+      "role": "revenue_agency",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000677995",
+      "type": "company",
+      "label": "Институт на вътрешните одитори в България",
+      "slug": null,
+      "uic": "000677995",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СНЕЖИНА БОРИСЛАВОВА СТАВРЕВА",
+      "type": "person",
+      "label": "Снежина Бориславова Ставрева"
+    },
+    {
+      "id": "person:ТОДОР ДИМИТРОВ ЯНКУЛОВ",
+      "type": "person",
+      "label": "Тодор Димитров Янкулов"
+    },
+    {
+      "id": "person:АНДРЕАНА СПИРИДОНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Андреана Спиридонова Иванова"
+    },
+    {
+      "id": "person:ДЕНИСЛАВ АЛИПИЕВ СОКОЛОВ",
+      "type": "person",
+      "label": "Денислав Алипиев Соколов"
+    },
+    {
+      "id": "person:ЙОРДАН АТАНАСОВ КАРАБИНОВ",
+      "type": "person",
+      "label": "Йордан Атанасов Карабинов"
+    },
+    {
+      "id": "person:ЕЛЕНА ЛАВЕВА КЮРКЧИЙСКА",
+      "type": "person",
+      "label": "Елена Лавева Кюркчийска"
+    },
+    {
+      "id": "person:ПОЛЯ ВЛАДОВА СТАТКОВА",
+      "type": "person",
+      "label": "Поля Владова Статкова"
+    },
+    {
+      "id": "person:ТОЛЯ ВИЛЬОВА КИРИЛОВА",
+      "type": "person",
+      "label": "Толя Вильова Кирилова"
+    },
+    {
+      "id": "person:РОМАН СЛАВЧЕВ НИКОВ",
+      "type": "person",
+      "label": "Роман Славчев Ников"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ЕМИЛОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Валентин Емилов Ангелов"
+    },
+    {
+      "id": "person:ЦВЕТАН ЛИЛОВ ЦВЕТКОВ",
+      "type": "person",
+      "label": "Цветан Лилов Цветков"
+    },
+    {
+      "id": "person:ЛЮДМИЛ ГЕОРГИЕВ СПАСОВ",
+      "type": "person",
+      "label": "Людмил Георгиев Спасов"
+    },
+    {
+      "id": "person:ВЕСЕЛИН СЕРЬОЖЕВ УРУЧЕВ",
+      "type": "person",
+      "label": "Веселин Серьожев Уручев"
+    },
+    {
+      "id": "person:МИЛЕН ТОДОРОВ ЧАНОВ",
+      "type": "person",
+      "label": "Милен Тодоров Чанов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ognyan-bozhidarov-todorov-caf4a8",
+      "target": "company:tr:000677995",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СНЕЖИНА БОРИСЛАВОВА СТАВРЕВА",
+      "target": "company:tr:000677995",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ДИМИТРОВ ЯНКУЛОВ",
+      "target": "company:tr:000677995",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРЕАНА СПИРИДОНОВА ИВАНОВА",
+      "target": "company:tr:000677995",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИСЛАВ АЛИПИЕВ СОКОЛОВ",
+      "target": "company:tr:000677995",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН АТАНАСОВ КАРАБИНОВ",
+      "target": "company:tr:000677995",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ЛАВЕВА КЮРКЧИЙСКА",
+      "target": "company:tr:000677995",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖИНА БОРИСЛАВОВА СТАВРЕВА",
+      "target": "company:tr:000677995",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН АТАНАСОВ КАРАБИНОВ",
+      "target": "company:tr:000677995",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПОЛЯ ВЛАДОВА СТАТКОВА",
+      "target": "company:tr:000677995",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРЕАНА СПИРИДОНОВА ИВАНОВА",
+      "target": "company:tr:000677995",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПОЛЯ ВЛАДОВА СТАТКОВА",
+      "target": "company:tr:000677995",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОЛЯ ВИЛЬОВА КИРИЛОВА",
+      "target": "company:tr:000677995",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОМАН СЛАВЧЕВ НИКОВ",
+      "target": "company:tr:000677995",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ЕМИЛОВ АНГЕЛОВ",
+      "target": "company:tr:000677995",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПОЛЯ ВЛАДОВА СТАТКОВА",
+      "target": "company:tr:000677995",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРЕАНА СПИРИДОНОВА ИВАНОВА",
+      "target": "company:tr:000677995",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН ЛИЛОВ ЦВЕТКОВ",
+      "target": "company:tr:000677995",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН АТАНАСОВ КАРАБИНОВ",
+      "target": "company:tr:000677995",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ ГЕОРГИЕВ СПАСОВ",
+      "target": "company:tr:000677995",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН ЛИЛОВ ЦВЕТКОВ",
+      "target": "company:tr:000677995",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН СЕРЬОЖЕВ УРУЧЕВ",
+      "target": "company:tr:000677995",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН ТОДОРОВ ЧАНОВ",
+      "target": "company:tr:000677995",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН ЛИЛОВ ЦВЕТКОВ",
+      "target": "company:tr:000677995",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

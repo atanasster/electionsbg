@@ -1,0 +1,106 @@
+[
+  {
+    "slug": "zdravka-stoyancheva-velikova-4d6855",
+    "declarantName": "Здравка Стоянчева Великова",
+    "institution": "Русе",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2024-03-20",
+    "entryNumber": "Г949",
+    "controlHash": "26A731F5",
+    "sourceUrl": "https://register.cacbg.bg/2025/657C3D4D-AFC3-4081-9438-532070A7EFD2203246.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 34137.42503182792,
+        "amountEurSpouse": 21688.49030846239
+      },
+      {
+        "parent": null,
+        "category": "наследство и продажба на апартамент",
+        "amountEurDeclarant": 68280.9855662302,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия съпруг",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 15136.284850932852
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 32211,
+        "valueEur": 16469.222785211394,
+        "holderName": "Здравка Стоянчева Великова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 101144,
+        "valueEur": 51714.106031710326,
+        "holderName": "Георги Ангелов Великов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "receivable",
+        "description": "парично",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 162000,
+        "valueEur": 82829.28475378739,
+        "holderName": "Здравка Стоянчева Великова",
+        "isSpouse": false,
+        "legalBasis": "захранване сметка",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Русе",
+        "municipality": "Русе",
+        "areaSqm": 84,
+        "builtAreaSqm": 84,
+        "currency": "BGN",
+        "valueEur": 59000.015338756435,
+        "legalBasis": "продажба"
+      }
+    ]
+  }
+]

@@ -1,0 +1,139 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:antonio-georgiev-velev-75c1f2",
+  "nodes": [
+    {
+      "id": "official:antonio-georgiev-velev-75c1f2",
+      "type": "official",
+      "slug": "antonio-georgiev-velev-75c1f2",
+      "label": "Антонио Георгиев Велев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Велинград"
+    },
+    {
+      "id": "company:tr:207244183",
+      "type": "company",
+      "label": "Скай Софт ънлимитид ООД",
+      "slug": null,
+      "uic": "207244183",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206032601",
+      "type": "company",
+      "label": "Пюр сорс ООД",
+      "slug": null,
+      "uic": "206032601",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИЛЧО ЛЮБЧОВ АНЧЕВ",
+      "type": "person",
+      "label": "Милчо Любчов Анчев"
+    },
+    {
+      "id": "person:ВЛАДИМИР РУМЕНОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Владимир Руменов Илиев"
+    },
+    {
+      "id": "company:name:СПАРТАКУС СИСТЕМИ‘‘",
+      "type": "company",
+      "label": "„Спартакус Системи‘‘ ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН ИВОВ ТОПЧИЙСКИ",
+      "type": "person",
+      "label": "Иван Ивов Топчийски"
+    },
+    {
+      "id": "person:ЯНА ДИМИТРОВА ДЕЛЧЕВА",
+      "type": "person",
+      "label": "Яна Димитрова Делчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:antonio-georgiev-velev-75c1f2",
+      "target": "company:tr:207244183",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:antonio-georgiev-velev-75c1f2",
+      "target": "company:tr:206032601",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:antonio-georgiev-velev-75c1f2",
+      "target": "company:tr:207244183",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛЧО ЛЮБЧОВ АНЧЕВ",
+      "target": "company:tr:207244183",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР РУМЕНОВ ИЛИЕВ",
+      "target": "company:tr:207244183",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:СПАРТАКУС СИСТЕМИ‘‘",
+      "target": "company:tr:207244183",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЧО ЛЮБЧОВ АНЧЕВ",
+      "target": "company:tr:207244183",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ИВОВ ТОПЧИЙСКИ",
+      "target": "company:tr:207244183",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНА ДИМИТРОВА ДЕЛЧЕВА",
+      "target": "company:tr:207244183",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

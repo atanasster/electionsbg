@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariya-georgieva-spasova-897fa6",
+  "nodes": [
+    {
+      "id": "official:mariya-georgieva-spasova-897fa6",
+      "type": "official",
+      "slug": "mariya-georgieva-spasova-897fa6",
+      "label": "Мария Георгиева Спасова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208531294",
+      "type": "company",
+      "label": "Е И Д СЕРВИЗ",
+      "slug": null,
+      "uic": "208531294",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-georgieva-spasova-897fa6",
+      "target": "company:tr:208531294",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariya-georgieva-spasova-897fa6",
+      "target": "company:tr:208531294",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

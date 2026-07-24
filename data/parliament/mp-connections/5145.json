@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:5145",
   "nodes": [
     {
@@ -24,18 +24,18 @@
       "seat": null
     },
     {
-      "id": "official:georgi-zlatev-cholakov-586094",
+      "id": "official:georgi-zlatev-cholakov-475b92",
       "type": "official",
-      "slug": "georgi-zlatev-cholakov-586094",
+      "slug": "georgi-zlatev-cholakov-475b92",
       "label": "Георги Златев Чолаков",
       "tier": "executive",
       "role": "procurement_officer",
       "municipality": null
     },
     {
-      "id": "official:elena-margaritova-noneva-9f6b71",
+      "id": "official:elena-margaritova-noneva-1c4d2a",
       "type": "official",
-      "slug": "elena-margaritova-noneva-9f6b71",
+      "slug": "elena-margaritova-noneva-1c4d2a",
       "label": "Елена Маргаритова Нонева",
       "tier": "executive",
       "role": "party_leader",
@@ -140,7 +140,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:georgi-zlatev-cholakov-586094",
+      "source": "official:georgi-zlatev-cholakov-475b92",
       "target": "company:tr:000703244",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -148,7 +148,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:elena-margaritova-noneva-9f6b71",
+      "source": "official:elena-margaritova-noneva-1c4d2a",
       "target": "company:tr:000703244",
       "kind": "tr_role",
       "role": "ngo_board",

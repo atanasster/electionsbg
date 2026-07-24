@@ -1,0 +1,232 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ventsislav-petrov-chavdarov-db04ea",
+  "nodes": [
+    {
+      "id": "official:ventsislav-petrov-chavdarov-db04ea",
+      "type": "official",
+      "slug": "ventsislav-petrov-chavdarov-db04ea",
+      "label": "Венцислав Петров Чавдаров",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Раковски"
+    },
+    {
+      "id": "company:tr:000459306",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ СВ. СВ. КИРИЛ И МЕТОДИЙ - ГР. РАКОВСКИ - 1908",
+      "slug": null,
+      "uic": "000459306",
+      "legalForm": "CC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:4807",
+      "type": "mp",
+      "mpId": 4807,
+      "label": "Младен Николов Шишков",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50"
+      ]
+    },
+    {
+      "id": "person:ВАЛЕНТИН ИВАНОВ РОМАНОВ",
+      "type": "person",
+      "label": "Валентин Иванов Романов"
+    },
+    {
+      "id": "person:АНГЕЛ ИВАНОВ ГАДЖЕВ",
+      "type": "person",
+      "label": "Ангел Иванов Гаджев"
+    },
+    {
+      "id": "person:ТИНКА СТЕФАНОВА СИЛИКЧИЙСКА",
+      "type": "person",
+      "label": "Тинка Стефанова Силикчийска"
+    },
+    {
+      "id": "person:БОЖИДАР ЙОСИФОВ СТРЕХИН",
+      "type": "person",
+      "label": "Божидар Йосифов Стрехин"
+    },
+    {
+      "id": "person:ВЕНЕТА АТАНАСОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Венета Атанасова Петкова"
+    },
+    {
+      "id": "person:ИВАН ЙОСИФОВ ГАДЖЕВ",
+      "type": "person",
+      "label": "Иван Йосифов Гаджев"
+    },
+    {
+      "id": "person:АННА ЙОСИФОВА ВЛАСОВА",
+      "type": "person",
+      "label": "Анна Йосифова Власова"
+    },
+    {
+      "id": "person:СИЛВИЯ НИКОЛАЕВА ХАМБАРЛИЙСКА",
+      "type": "person",
+      "label": "Силвия Николаева Хамбарлийска"
+    },
+    {
+      "id": "person:АНИ ГЕОРГИЕВА ЙОВЧЕВА",
+      "type": "person",
+      "label": "Ани Георгиева Йовчева"
+    },
+    {
+      "id": "person:ИВАН СЛАВОВ БОЙКИН",
+      "type": "person",
+      "label": "Иван Славов Бойкин"
+    },
+    {
+      "id": "person:МИРОСЛАВА КЪНЧЕВА ГИДИШКА",
+      "type": "person",
+      "label": "Мирослава Кънчева Гидишка"
+    },
+    {
+      "id": "person:ТАНЯ АНГЕЛОВА ЧОНКОВА",
+      "type": "person",
+      "label": "Таня Ангелова Чонкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ventsislav-petrov-chavdarov-db04ea",
+      "target": "company:tr:000459306",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ventsislav-petrov-chavdarov-db04ea",
+      "target": "company:tr:000459306",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4807",
+      "target": "company:tr:000459306",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ИВАНОВ РОМАНОВ",
+      "target": "company:tr:000459306",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ИВАНОВ РОМАНОВ",
+      "target": "company:tr:000459306",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ИВАНОВ ГАДЖЕВ",
+      "target": "company:tr:000459306",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИНКА СТЕФАНОВА СИЛИКЧИЙСКА",
+      "target": "company:tr:000459306",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЖИДАР ЙОСИФОВ СТРЕХИН",
+      "target": "company:tr:000459306",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕТА АТАНАСОВА ПЕТКОВА",
+      "target": "company:tr:000459306",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ЙОСИФОВ ГАДЖЕВ",
+      "target": "company:tr:000459306",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА ЙОСИФОВА ВЛАСОВА",
+      "target": "company:tr:000459306",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ НИКОЛАЕВА ХАМБАРЛИЙСКА",
+      "target": "company:tr:000459306",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНИ ГЕОРГИЕВА ЙОВЧЕВА",
+      "target": "company:tr:000459306",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН СЛАВОВ БОЙКИН",
+      "target": "company:tr:000459306",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВА КЪНЧЕВА ГИДИШКА",
+      "target": "company:tr:000459306",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ АНГЕЛОВА ЧОНКОВА",
+      "target": "company:tr:000459306",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:grozdan-georgiev-genov-834a49",
+  "nodes": [
+    {
+      "id": "official:grozdan-georgiev-genov-834a49",
+      "type": "official",
+      "slug": "grozdan-georgiev-genov-834a49",
+      "label": "Гроздан Георгиев Генов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Берковица"
+    },
+    {
+      "id": "company:tr:208883561",
+      "type": "company",
+      "label": "БОГАТЕЯ 26",
+      "slug": null,
+      "uic": "208883561",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:grozdan-georgiev-genov-834a49",
+      "target": "company:tr:208883561",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:grozdan-georgiev-genov-834a49",
+      "target": "company:tr:208883561",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

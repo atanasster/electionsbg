@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hyuliya-ahmedova-mustafova-be0ecc",
+  "nodes": [
+    {
+      "id": "official:hyuliya-ahmedova-mustafova-be0ecc",
+      "type": "official",
+      "slug": "hyuliya-ahmedova-mustafova-be0ecc",
+      "label": "Хюлия Ахмедова Мустафова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Провадия"
+    },
+    {
+      "id": "company:tr:200656056",
+      "type": "company",
+      "label": "БЕКАН ЛАЙТ",
+      "slug": null,
+      "uic": "200656056",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛА АТАНАСОВ ИГОРОВ",
+      "type": "person",
+      "label": "Никола Атанасов Игоров"
+    },
+    {
+      "id": "person:СЕВИЛ БУРХАНОВА МУСТАФОВА",
+      "type": "person",
+      "label": "Севил Бурханова Мустафова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hyuliya-ahmedova-mustafova-be0ecc",
+      "target": "company:tr:200656056",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛА АТАНАСОВ ИГОРОВ",
+      "target": "company:tr:200656056",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА АТАНАСОВ ИГОРОВ",
+      "target": "company:tr:200656056",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВИЛ БУРХАНОВА МУСТАФОВА",
+      "target": "company:tr:200656056",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

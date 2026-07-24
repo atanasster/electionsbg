@@ -1,0 +1,80 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:sevim-hakk-yumerova-ae93b8",
+  "nodes": [
+    {
+      "id": "official:sevim-hakk-yumerova-ae93b8",
+      "type": "official",
+      "slug": "sevim-hakk-yumerova-ae93b8",
+      "label": "Севим Хаккъ Юмерова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205920104",
+      "type": "company",
+      "label": "ИНДУСТРИАЛНА ЗОНА - КАЗАНЛЪК",
+      "slug": null,
+      "uic": "205920104",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:3481",
+      "type": "mp",
+      "mpId": 3481,
+      "label": "Светослав Бончев Колев",
+      "partyGroupShort": "ПП ИСБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "45"
+      ]
+    },
+    {
+      "id": "person:ИВЕЛИН ЕМИЛОВ НЕДЯЛКОВ",
+      "type": "person",
+      "label": "Ивелин Емилов Недялков"
+    },
+    {
+      "id": "person:ПЛАМЕН ГЕОРГИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Пламен Георгиев Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sevim-hakk-yumerova-ae93b8",
+      "target": "company:tr:205920104",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3481",
+      "target": "company:tr:205920104",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВЕЛИН ЕМИЛОВ НЕДЯЛКОВ",
+      "target": "company:tr:205920104",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:205920104",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

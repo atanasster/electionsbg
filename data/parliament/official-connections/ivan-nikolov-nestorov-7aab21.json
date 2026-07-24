@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-nikolov-nestorov-7aab21",
+  "nodes": [
+    {
+      "id": "official:ivan-nikolov-nestorov-7aab21",
+      "type": "official",
+      "slug": "ivan-nikolov-nestorov-7aab21",
+      "label": "Иван Николов Несторов",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207252041",
+      "type": "company",
+      "label": "СОФИЯ МЮЗИК ЕНТЪРПРАЙСИС СМЕ - ИВЕНТС",
+      "slug": null,
+      "uic": "207252041",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛА ХРИСТОВ ДУРЧЕВ",
+      "type": "person",
+      "label": "Никола Христов Дурчев"
+    },
+    {
+      "id": "person:ДАНИЪЛ РУМЕНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Даниъл Руменов Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-nikolov-nestorov-7aab21",
+      "target": "company:tr:207252041",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛА ХРИСТОВ ДУРЧЕВ",
+      "target": "company:tr:207252041",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ХРИСТОВ ДУРЧЕВ",
+      "target": "company:tr:207252041",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЪЛ РУМЕНОВ ГЕОРГИЕВ",
+      "target": "company:tr:207252041",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

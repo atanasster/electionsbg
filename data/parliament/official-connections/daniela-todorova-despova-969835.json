@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:daniela-todorova-despova-969835",
+  "nodes": [
+    {
+      "id": "official:daniela-todorova-despova-969835",
+      "type": "official",
+      "slug": "daniela-todorova-despova-969835",
+      "label": "Даниела Тодорова Деспова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Симеоновград"
+    },
+    {
+      "id": "company:tr:207280304",
+      "type": "company",
+      "label": "АГРОСОЛАР 76",
+      "slug": null,
+      "uic": "207280304",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniela-todorova-despova-969835",
+      "target": "company:tr:207280304",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:daniela-todorova-despova-969835",
+      "target": "company:tr:207280304",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

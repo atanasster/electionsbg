@@ -1,0 +1,51 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:slavi-hristov-pachalov-3a8fe7",
+  "nodes": [
+    {
+      "id": "official:slavi-hristov-pachalov-3a8fe7",
+      "type": "official",
+      "slug": "slavi-hristov-pachalov-3a8fe7",
+      "label": "Слави Христов Пачалов",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204906750",
+      "type": "company",
+      "label": "Пачалов ЕООД",
+      "slug": null,
+      "uic": "204906750",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:slavi-hristov-pachalov-3a8fe7",
+      "target": "company:tr:204906750",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:slavi-hristov-pachalov-3a8fe7",
+      "target": "company:tr:204906750",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:slavi-hristov-pachalov-3a8fe7",
+      "target": "company:tr:204906750",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

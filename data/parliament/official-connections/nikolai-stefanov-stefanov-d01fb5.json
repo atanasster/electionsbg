@@ -1,0 +1,82 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-stefanov-stefanov-d01fb5",
+  "nodes": [
+    {
+      "id": "official:nikolai-stefanov-stefanov-d01fb5",
+      "type": "official",
+      "slug": "nikolai-stefanov-stefanov-d01fb5",
+      "label": "Николай Стефанов Стефанов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Варна"
+    },
+    {
+      "id": "company:tr:208058616",
+      "type": "company",
+      "label": "Резиденшъл Парк Варна",
+      "slug": null,
+      "uic": "208058616",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ СТЕФАНОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Николай Стефанов Стефанов"
+    },
+    {
+      "id": "person:ЖИВКО НИКОЛАЕВ КОМАРОВ",
+      "type": "person",
+      "label": "Живко Николаев Комаров"
+    },
+    {
+      "id": "person:СИС ИММО",
+      "type": "person",
+      "label": "Сис Иммо"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-stefanov-stefanov-d01fb5",
+      "target": "company:tr:208058616",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ СТЕФАНОВ СТЕФАНОВ",
+      "target": "company:tr:208058616",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО НИКОЛАЕВ КОМАРОВ",
+      "target": "company:tr:208058616",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ СТЕФАНОВ СТЕФАНОВ",
+      "target": "company:tr:208058616",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИС ИММО",
+      "target": "company:tr:208058616",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

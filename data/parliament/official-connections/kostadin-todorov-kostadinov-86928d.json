@@ -1,0 +1,75 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:kostadin-todorov-kostadinov-86928d",
+  "nodes": [
+    {
+      "id": "official:kostadin-todorov-kostadinov-86928d",
+      "type": "official",
+      "slug": "kostadin-todorov-kostadinov-86928d",
+      "label": "Костадин Тодоров Костадинов",
+      "tier": "executive",
+      "role": "party_leader",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208035610",
+      "type": "company",
+      "label": "ФОНДАЦИЯ ВЪЗРАЖДАНЕ",
+      "slug": null,
+      "uic": "208035610",
+      "legalForm": "Фондация",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1303"
+    },
+    {
+      "id": "mp:5258",
+      "type": "mp",
+      "mpId": 5258,
+      "label": "Костадин Тодоров Костадинов",
+      "partyGroupShort": "ПГ на ВЪЗРАЖДАНЕ",
+      "isCurrent": true,
+      "nsFolders": [
+        "47",
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kostadin-todorov-kostadinov-86928d",
+      "target": "company:tr:208035610",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kostadin-todorov-kostadinov-86928d",
+      "target": "company:tr:208035610",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5258",
+      "target": "company:tr:208035610",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5258",
+      "target": "company:tr:208035610",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

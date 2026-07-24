@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dragomir-mitkov-monev-d39cfe",
+  "nodes": [
+    {
+      "id": "official:dragomir-mitkov-monev-d39cfe",
+      "type": "official",
+      "slug": "dragomir-mitkov-monev-d39cfe",
+      "label": "Драгомир Митков Монев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202572938",
+      "type": "company",
+      "label": "Мейдейин ООД",
+      "slug": null,
+      "uic": "202572938",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dragomir-mitkov-monev-d39cfe",
+      "target": "company:tr:202572938",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:veneta-petrova-petkova-38ba92",
+  "nodes": [
+    {
+      "id": "official:veneta-petrova-petkova-38ba92",
+      "type": "official",
+      "slug": "veneta-petrova-petkova-38ba92",
+      "label": "Венета Петрова Петкова",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:101614963",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ \"БЪЛГАРСКА АСОЦИАЦИЯ НА ЛИЦА С ИНТЕЛЕКТУАЛНИ ЗАТРУДНЕНИЯ\"",
+      "slug": null,
+      "uic": "101614963",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНГЕЛИНА ТОДОРОВА ИВАНОВА",
+      "type": "person",
+      "label": "Ангелина Тодорова Иванова"
+    },
+    {
+      "id": "person:ЛИЛЯНА ИЛИЕВА КОЦЕЛОВА",
+      "type": "person",
+      "label": "Лиляна Илиева Коцелова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veneta-petrova-petkova-38ba92",
+      "target": "company:tr:101614963",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:veneta-petrova-petkova-38ba92",
+      "target": "company:tr:101614963",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНГЕЛИНА ТОДОРОВА ИВАНОВА",
+      "target": "company:tr:101614963",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛЯНА ИЛИЕВА КОЦЕЛОВА",
+      "target": "company:tr:101614963",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛИНА ТОДОРОВА ИВАНОВА",
+      "target": "company:tr:101614963",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛЯНА ИЛИЕВА КОЦЕЛОВА",
+      "target": "company:tr:101614963",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

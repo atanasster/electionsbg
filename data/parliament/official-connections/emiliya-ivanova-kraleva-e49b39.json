@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:emiliya-ivanova-kraleva-e49b39",
+  "nodes": [
+    {
+      "id": "official:emiliya-ivanova-kraleva-e49b39",
+      "type": "official",
+      "slug": "emiliya-ivanova-kraleva-e49b39",
+      "label": "Емилия Иванова Кралева",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202403183",
+      "type": "company",
+      "label": "Атанас Кралев ЕООД",
+      "slug": null,
+      "uic": "202403183",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:emiliya-ivanova-kraleva-a7b026",
+      "type": "official",
+      "slug": "emiliya-ivanova-kraleva-a7b026",
+      "label": "Емилия Иванова Кралева",
+      "tier": "executive",
+      "role": "diplomat",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emiliya-ivanova-kraleva-e49b39",
+      "target": "company:tr:202403183",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:emiliya-ivanova-kraleva-a7b026",
+      "target": "company:tr:202403183",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

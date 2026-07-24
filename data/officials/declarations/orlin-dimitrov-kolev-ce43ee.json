@@ -1,0 +1,71 @@
+[
+  {
+    "slug": "orlin-dimitrov-kolev-ce43ee",
+    "declarantName": "Орлин Димитров Колев",
+    "institution": "Конституционния  съд",
+    "positionTitle": "Съдия",
+    "category": "regulator",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-03-28",
+    "entryNumber": "Г1556",
+    "controlHash": "65388E51",
+    "sourceUrl": "https://register.cacbg.bg/2025/A07C8FAB-0E1C-45FD-B1D2-1757922773B8204061.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 67012.47040898238,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 38162.314720604554,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 324.67034455959873,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 200000,
+        "valueEur": 102258.37623924369,
+        "holderName": "Орлин Димитров Колев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Чепинци, район Нови Искър",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 519,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 76693.78217943278,
+        "legalBasis": "възмездно - продажба"
+      }
+    ]
+  }
+]

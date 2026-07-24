@@ -1,0 +1,155 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ani-aleksandrova-aleksandrova-naidenova-0c49a6",
+  "nodes": [
+    {
+      "id": "official:ani-aleksandrova-aleksandrova-naidenova-0c49a6",
+      "type": "official",
+      "slug": "ani-aleksandrova-aleksandrova-naidenova-0c49a6",
+      "label": "Ани Александрова Александрова-Найденова",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201324911",
+      "type": "company",
+      "label": "Ен Джи Сълюшънс ЕООД",
+      "slug": null,
+      "uic": "201324911",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205521991",
+      "type": "company",
+      "label": "Венанди ООД",
+      "slug": null,
+      "uic": "205521991",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206544516",
+      "type": "company",
+      "label": "Ейдос Консулт АД",
+      "slug": null,
+      "uic": "206544516",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ПЕТРОВ НАЙДЕНОВ",
+      "type": "person",
+      "label": "Георги Петров Найденов"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ ВЕНЦИСЛАВОВ КОНЖАГЮЛОВ",
+      "type": "person",
+      "label": "Венцислав Венциславов Конжагюлов"
+    },
+    {
+      "id": "person:ПЕТЯ ГЕОРГИЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Петя Георгиева Георгиева"
+    },
+    {
+      "id": "person:КОНСТАНТИН КОНСТАНТИНОВ ПОПОВ",
+      "type": "person",
+      "label": "Константин Константинов Попов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ani-aleksandrova-aleksandrova-naidenova-0c49a6",
+      "target": "company:tr:201324911",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ani-aleksandrova-aleksandrova-naidenova-0c49a6",
+      "target": "company:tr:205521991",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ani-aleksandrova-aleksandrova-naidenova-0c49a6",
+      "target": "company:tr:206544516",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕТРОВ НАЙДЕНОВ",
+      "target": "company:tr:206544516",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ ВЕНЦИСЛАВОВ КОНЖАГЮЛОВ",
+      "target": "company:tr:206544516",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ГЕОРГИЕВА ГЕОРГИЕВА",
+      "target": "company:tr:206544516",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕТРОВ НАЙДЕНОВ",
+      "target": "company:tr:206544516",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ГЕОРГИЕВА ГЕОРГИЕВА",
+      "target": "company:tr:206544516",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕТРОВ НАЙДЕНОВ",
+      "target": "company:tr:206544516",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН КОНСТАНТИНОВ ПОПОВ",
+      "target": "company:tr:206544516",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН КОНСТАНТИНОВ ПОПОВ",
+      "target": "company:tr:206544516",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

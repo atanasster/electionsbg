@@ -1,0 +1,316 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitr-atanasov-tsvetkov-79569b",
+  "nodes": [
+    {
+      "id": "official:dimitr-atanasov-tsvetkov-79569b",
+      "type": "official",
+      "slug": "dimitr-atanasov-tsvetkov-79569b",
+      "label": "Димитър Атанасов Цветков",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000893797",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ЗАРЯ-1858&quot;",
+      "slug": null,
+      "uic": "000893797",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРАСИМИР ДОЙЧЕВ КРЪСТЕВ",
+      "type": "person",
+      "label": "Красимир Дойчев Кръстев"
+    },
+    {
+      "id": "person:ВЕНЕЛИН ДИНКОВ ИВАНОВ",
+      "type": "person",
+      "label": "Венелин Динков Иванов"
+    },
+    {
+      "id": "person:ЛЕНА ВАСИЛЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Лена Василева Иванова"
+    },
+    {
+      "id": "person:ДИМИТЪР МИХОВ МИХОВ",
+      "type": "person",
+      "label": "Димитър Михов Михов"
+    },
+    {
+      "id": "person:МИЛЕНА МИТКОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Милена Миткова Петкова"
+    },
+    {
+      "id": "person:ВАЛЕРИ МАРИНОВ СЛАВОВ",
+      "type": "person",
+      "label": "Валери Маринов Славов"
+    },
+    {
+      "id": "person:МАРИЯ ГЕОРГИЕВА ПЕТКОВА",
+      "type": "person",
+      "label": "Мария Георгиева Петкова"
+    },
+    {
+      "id": "person:СВЕТОСЛАВ ИВАНОВ ГРОЗЕВ",
+      "type": "person",
+      "label": "Светослав Иванов Грозев"
+    },
+    {
+      "id": "person:ВАСИЛКА РАНГЕЛОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Василка Рангелова Атанасова"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ТОДОРОВ МИЛУШЕВ",
+      "type": "person",
+      "label": "Александър Тодоров Милушев"
+    },
+    {
+      "id": "person:МИРОСЛАВ КИРИЛОВ МИЛУШЕВ",
+      "type": "person",
+      "label": "Мирослав Кирилов Милушев"
+    },
+    {
+      "id": "person:ДАНИЕЛ ДЕЛЧЕВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Даниел Делчев Димитров"
+    },
+    {
+      "id": "person:БОРЯНА ТОДОРОВА БОЖИНОВА",
+      "type": "person",
+      "label": "Боряна Тодорова Божинова"
+    },
+    {
+      "id": "person:ВЛАДИМИРА ВЪЛЧЕВА ДЕМИРЕВА",
+      "type": "person",
+      "label": "Владимира Вълчева Демирева"
+    },
+    {
+      "id": "person:РУМЯНА СТЕФАНОВА ГРОЗЕВА",
+      "type": "person",
+      "label": "Румяна Стефанова Грозева"
+    },
+    {
+      "id": "person:ТАТЯНА ГРОЗДАНОВА ГРОЗЕВА",
+      "type": "person",
+      "label": "Татяна Грозданова Грозева"
+    },
+    {
+      "id": "person:МЕТИН НЕЖДЕТ МЕХМЕД",
+      "type": "person",
+      "label": "Метин Неждет Мехмед"
+    },
+    {
+      "id": "person:НИКОЛАЙ БЛАГОВ СТОИМЕНОВ",
+      "type": "person",
+      "label": "Николай Благов Стоименов"
+    },
+    {
+      "id": "person:СЛАВЕЙКА ДИМОВА ДИМОВА",
+      "type": "person",
+      "label": "Славейка Димова Димова"
+    },
+    {
+      "id": "person:ДИЛЯНА ГЕОРГИЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Диляна Георгиева Димитрова"
+    },
+    {
+      "id": "person:РОСЕН ПЕТКОВ БОЖИЛОВ",
+      "type": "person",
+      "label": "Росен Петков Божилов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-atanasov-tsvetkov-79569b",
+      "target": "company:tr:000893797",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРАСИМИР ДОЙЧЕВ КРЪСТЕВ",
+      "target": "company:tr:000893797",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕЛИН ДИНКОВ ИВАНОВ",
+      "target": "company:tr:000893797",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЕНА ВАСИЛЕВА ИВАНОВА",
+      "target": "company:tr:000893797",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР МИХОВ МИХОВ",
+      "target": "company:tr:000893797",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА МИТКОВА ПЕТКОВА",
+      "target": "company:tr:000893797",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ МАРИНОВ СЛАВОВ",
+      "target": "company:tr:000893797",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА ПЕТКОВА",
+      "target": "company:tr:000893797",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ИВАНОВ ГРОЗЕВ",
+      "target": "company:tr:000893797",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛКА РАНГЕЛОВА АТАНАСОВА",
+      "target": "company:tr:000893797",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ТОДОРОВ МИЛУШЕВ",
+      "target": "company:tr:000893797",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ КИРИЛОВ МИЛУШЕВ",
+      "target": "company:tr:000893797",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ КИРИЛОВ МИЛУШЕВ",
+      "target": "company:tr:000893797",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛ ДЕЛЧЕВ ДИМИТРОВ",
+      "target": "company:tr:000893797",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРЯНА ТОДОРОВА БОЖИНОВА",
+      "target": "company:tr:000893797",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИРА ВЪЛЧЕВА ДЕМИРЕВА",
+      "target": "company:tr:000893797",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА СТЕФАНОВА ГРОЗЕВА",
+      "target": "company:tr:000893797",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА ГРОЗДАНОВА ГРОЗЕВА",
+      "target": "company:tr:000893797",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕТИН НЕЖДЕТ МЕХМЕД",
+      "target": "company:tr:000893797",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ БЛАГОВ СТОИМЕНОВ",
+      "target": "company:tr:000893797",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВЕЙКА ДИМОВА ДИМОВА",
+      "target": "company:tr:000893797",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЛЯНА ГЕОРГИЕВА ДИМИТРОВА",
+      "target": "company:tr:000893797",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН ПЕТКОВ БОЖИЛОВ",
+      "target": "company:tr:000893797",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

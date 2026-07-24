@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-vasilev-todorov-0010ad",
+  "nodes": [
+    {
+      "id": "official:nikolai-vasilev-todorov-0010ad",
+      "type": "official",
+      "slug": "nikolai-vasilev-todorov-0010ad",
+      "label": "Николай Василев Тодоров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Троян"
+    },
+    {
+      "id": "company:tr:110016858",
+      "type": "company",
+      "label": "ЕТ \"ВАСИЛ ВАСИЛЕВ 51\"",
+      "slug": null,
+      "uic": "110016858",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-vasilev-todorov-0010ad",
+      "target": "company:tr:110016858",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

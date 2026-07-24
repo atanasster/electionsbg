@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:galinka-ivanova-pavlova-95b8fc",
+  "nodes": [
+    {
+      "id": "official:galinka-ivanova-pavlova-95b8fc",
+      "type": "official",
+      "slug": "galinka-ivanova-pavlova-95b8fc",
+      "label": "Галинка Иванова Павлова",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:813152934",
+      "type": "company",
+      "label": "ДИАГНОСТИЧНО -  КОНСУЛТАТИВЕН ЦЕНТЪР V  ВАРНА - СВЕТА ЕКАТЕРИНА",
+      "slug": null,
+      "uic": "813152934",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:galinka-ivanova-pavlova-95b8fc",
+      "target": "company:tr:813152934",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

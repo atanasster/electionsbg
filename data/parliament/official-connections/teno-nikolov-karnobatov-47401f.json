@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:teno-nikolov-karnobatov-47401f",
+  "nodes": [
+    {
+      "id": "official:teno-nikolov-karnobatov-47401f",
+      "type": "official",
+      "slug": "teno-nikolov-karnobatov-47401f",
+      "label": "Теньо Николов Карнобатов",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206961125",
+      "type": "company",
+      "label": "СПОРТЕН КЛУБ \"МОНЕК\"",
+      "slug": null,
+      "uic": "206961125",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БЕКИР ЕРГЮН СЮЛЕЙМАН",
+      "type": "person",
+      "label": "Бекир Ергюн Сюлейман"
+    },
+    {
+      "id": "person:ШУКРИ МЕХМЕД ИСМАИЛ",
+      "type": "person",
+      "label": "Шукри Мехмед Исмаил"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:teno-nikolov-karnobatov-47401f",
+      "target": "company:tr:206961125",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БЕКИР ЕРГЮН СЮЛЕЙМАН",
+      "target": "company:tr:206961125",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЕКИР ЕРГЮН СЮЛЕЙМАН",
+      "target": "company:tr:206961125",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ШУКРИ МЕХМЕД ИСМАИЛ",
+      "target": "company:tr:206961125",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

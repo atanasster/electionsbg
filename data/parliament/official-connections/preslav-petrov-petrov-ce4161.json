@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:preslav-petrov-petrov-ce4161",
+  "nodes": [
+    {
+      "id": "official:preslav-petrov-petrov-ce4161",
+      "type": "official",
+      "slug": "preslav-petrov-petrov-ce4161",
+      "label": "Преслав Петров Петров",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Вълчидол"
+    },
+    {
+      "id": "company:tr:208307793",
+      "type": "company",
+      "label": "Вендеса",
+      "slug": null,
+      "uic": "208307793",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:preslav-petrov-petrov-ce4161",
+      "target": "company:tr:208307793",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:preslav-petrov-petrov-ce4161",
+      "target": "company:tr:208307793",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

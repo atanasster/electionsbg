@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:5113",
   "nodes": [
     {
@@ -2078,9 +2078,9 @@
       "label": "Георги Иванов Георгиев"
     },
     {
-      "id": "official:yalchn-ismail-rasim-67b1a8",
+      "id": "official:yalchn-ismail-rasim-e0101b",
       "type": "official",
-      "slug": "yalchn-ismail-rasim-67b1a8",
+      "slug": "yalchn-ismail-rasim-e0101b",
       "label": "Ялчън Исмаил Расим",
       "tier": "executive",
       "role": "security_service",
@@ -2277,12 +2277,12 @@
       "label": "Тодор Димитров Пасков"
     },
     {
-      "id": "official:mariyana-ivanova-georgieva-04df06",
+      "id": "official:mariyana-ivanova-georgieva-a57d85",
       "type": "official",
-      "slug": "mariyana-ivanova-georgieva-04df06",
+      "slug": "mariyana-ivanova-georgieva-a57d85",
       "label": "Марияна Иванова Георгиева",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "school",
       "municipality": null
     },
     {
@@ -3104,18 +3104,18 @@
       "label": "Божик Иванов Даламангов"
     },
     {
-      "id": "official:aleksandra-emilova-levyanska-17eb66",
+      "id": "official:aleksandra-emilova-levyanska-a2b46a",
       "type": "official",
-      "slug": "aleksandra-emilova-levyanska-17eb66",
+      "slug": "aleksandra-emilova-levyanska-a2b46a",
       "label": "Александра Емилова Левянска",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:slavi-hristov-ivanov-94f8a2",
+      "id": "official:slavi-hristov-ivanov-672446",
       "type": "official",
-      "slug": "slavi-hristov-ivanov-94f8a2",
+      "slug": "slavi-hristov-ivanov-672446",
       "label": "Слави Христов Иванов",
       "tier": "executive",
       "role": "state_enterprise",
@@ -3162,9 +3162,9 @@
       "label": "Стефан Олегов Радев"
     },
     {
-      "id": "official:genadi-todorov-todorov-65dc04",
+      "id": "official:genadi-todorov-todorov-ba634b",
       "type": "official",
-      "slug": "genadi-todorov-todorov-65dc04",
+      "slug": "genadi-todorov-todorov-ba634b",
       "label": "Генади Тодоров Тодоров",
       "tier": "municipal",
       "role": "councillor",
@@ -7441,7 +7441,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:yalchn-ismail-rasim-67b1a8",
+      "source": "official:yalchn-ismail-rasim-e0101b",
       "target": "company:tr:127533205",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -7945,7 +7945,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:mariyana-ivanova-georgieva-04df06",
+      "source": "official:mariyana-ivanova-georgieva-a57d85",
       "target": "company:tr:200090708",
       "kind": "tr_owner",
       "role": "partner",
@@ -10353,7 +10353,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:aleksandra-emilova-levyanska-17eb66",
+      "source": "official:aleksandra-emilova-levyanska-a2b46a",
       "target": "company:tr:204870926",
       "kind": "tr_role",
       "role": "representative",
@@ -10361,7 +10361,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:aleksandra-emilova-levyanska-17eb66",
+      "source": "official:aleksandra-emilova-levyanska-a2b46a",
       "target": "company:tr:204870926",
       "kind": "tr_role",
       "role": "director",
@@ -10369,7 +10369,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:slavi-hristov-ivanov-94f8a2",
+      "source": "official:slavi-hristov-ivanov-672446",
       "target": "company:tr:204870926",
       "kind": "tr_role",
       "role": "director",
@@ -10465,7 +10465,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:genadi-todorov-todorov-65dc04",
+      "source": "official:genadi-todorov-todorov-ba634b",
       "target": "company:tr:176388439",
       "kind": "tr_role",
       "role": "ngo_board",

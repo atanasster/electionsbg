@@ -1,0 +1,165 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivo-penchev-penchev-e100e6",
+  "nodes": [
+    {
+      "id": "official:ivo-penchev-penchev-e100e6",
+      "type": "official",
+      "slug": "ivo-penchev-penchev-e100e6",
+      "label": "Иво Пенчев Пенчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Добрич"
+    },
+    {
+      "id": "company:tr:124684433",
+      "type": "company",
+      "label": "тойс център еоод",
+      "slug": null,
+      "uic": "124684433",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202244578",
+      "type": "company",
+      "label": "грил парти еоод",
+      "slug": null,
+      "uic": "202244578",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201785506",
+      "type": "company",
+      "label": "феликс вентура еоод",
+      "slug": null,
+      "uic": "201785506",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207532029",
+      "type": "company",
+      "label": "добрич север оод",
+      "slug": null,
+      "uic": "207532029",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИАН НИКОЛОВ КОЛЕВ",
+      "type": "person",
+      "label": "Мариан Николов Колев"
+    },
+    {
+      "id": "person:НИКОЛА МАРИАНОВ КОЛЕВ",
+      "type": "person",
+      "label": "Никола Марианов Колев"
+    },
+    {
+      "id": "person:ИВО ПЕНЕВ ПЕНЧЕВ",
+      "type": "person",
+      "label": "Иво Пенев Пенчев"
+    },
+    {
+      "id": "person:НИКОЛАЙ ПЕНЧЕВ ПЕНЧЕВ",
+      "type": "person",
+      "label": "Николай Пенчев Пенчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivo-penchev-penchev-e100e6",
+      "target": "company:tr:124684433",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivo-penchev-penchev-e100e6",
+      "target": "company:tr:202244578",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivo-penchev-penchev-e100e6",
+      "target": "company:tr:201785506",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivo-penchev-penchev-e100e6",
+      "target": "company:tr:207532029",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivo-penchev-penchev-e100e6",
+      "target": "company:tr:207532029",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИАН НИКОЛОВ КОЛЕВ",
+      "target": "company:tr:207532029",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА МАРИАНОВ КОЛЕВ",
+      "target": "company:tr:207532029",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАН НИКОЛОВ КОЛЕВ",
+      "target": "company:tr:207532029",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА МАРИАНОВ КОЛЕВ",
+      "target": "company:tr:207532029",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ПЕНЕВ ПЕНЧЕВ",
+      "target": "company:tr:207532029",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ПЕНЧЕВ ПЕНЧЕВ",
+      "target": "company:tr:207532029",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

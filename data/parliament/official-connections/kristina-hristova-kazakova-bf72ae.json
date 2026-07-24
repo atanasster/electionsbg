@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:kristina-hristova-kazakova-bf72ae",
+  "nodes": [
+    {
+      "id": "official:kristina-hristova-kazakova-bf72ae",
+      "type": "official",
+      "slug": "kristina-hristova-kazakova-bf72ae",
+      "label": "Кристина Христова Казакова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207384687",
+      "type": "company",
+      "label": "Тенис Клуб - \"Козлодуй 2023\"",
+      "slug": null,
+      "uic": "207384687",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ АСЕНОВ КАЗАКОВ",
+      "type": "person",
+      "label": "Николай Асенов Казаков"
+    },
+    {
+      "id": "person:ХРИСТО КРЪСТЕВ СТОЯНОВА",
+      "type": "person",
+      "label": "Христо Кръстев Стоянова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kristina-hristova-kazakova-bf72ae",
+      "target": "company:tr:207384687",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ АСЕНОВ КАЗАКОВ",
+      "target": "company:tr:207384687",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО КРЪСТЕВ СТОЯНОВА",
+      "target": "company:tr:207384687",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ АСЕНОВ КАЗАКОВ",
+      "target": "company:tr:207384687",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

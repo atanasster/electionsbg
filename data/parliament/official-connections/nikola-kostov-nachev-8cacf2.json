@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikola-kostov-nachev-8cacf2",
+  "nodes": [
+    {
+      "id": "official:nikola-kostov-nachev-8cacf2",
+      "type": "official",
+      "slug": "nikola-kostov-nachev-8cacf2",
+      "label": "Никола Костов Начев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202712888",
+      "type": "company",
+      "label": "\"Начев Лийгъл Кънсалтинг\" ЕООД",
+      "slug": null,
+      "uic": "202712888",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikola-kostov-nachev-8cacf2",
+      "target": "company:tr:202712888",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariyana-georgieva-stefanova-e82809",
+  "nodes": [
+    {
+      "id": "official:mariyana-georgieva-stefanova-e82809",
+      "type": "official",
+      "slug": "mariyana-georgieva-stefanova-e82809",
+      "label": "Марияна Георгиева Стефанова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206218456",
+      "type": "company",
+      "label": "УГОРЕЛЕЦ",
+      "slug": null,
+      "uic": "206218456",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПАВЛИН КОЛЕВ ТОДОРОВ",
+      "type": "person",
+      "label": "Павлин Колев Тодоров"
+    },
+    {
+      "id": "person:РАДОСЛАВ ДАНКОВ ДАНКОВ",
+      "type": "person",
+      "label": "Радослав Данков Данков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariyana-georgieva-stefanova-e82809",
+      "target": "company:tr:206218456",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariyana-georgieva-stefanova-e82809",
+      "target": "company:tr:206218456",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПАВЛИН КОЛЕВ ТОДОРОВ",
+      "target": "company:tr:206218456",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ДАНКОВ ДАНКОВ",
+      "target": "company:tr:206218456",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

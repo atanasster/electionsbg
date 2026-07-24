@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:5099",
   "nodes": [
     {
@@ -24,18 +24,18 @@
       "seat": null
     },
     {
-      "id": "official:zhivka-ilieva-hristova-a3a689",
+      "id": "official:zhivka-ilieva-hristova-7cf621",
       "type": "official",
-      "slug": "zhivka-ilieva-hristova-a3a689",
+      "slug": "zhivka-ilieva-hristova-7cf621",
       "label": "Живка Илиева Христова",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "kindergarten",
       "municipality": null
     },
     {
-      "id": "official:vladimir-nachev-nachev-afbde8",
+      "id": "official:vladimir-nachev-nachev-5e2ac9",
       "type": "official",
-      "slug": "vladimir-nachev-nachev-afbde8",
+      "slug": "vladimir-nachev-nachev-5e2ac9",
       "label": "Владимир Начев Начев",
       "tier": "municipal",
       "role": "councillor",
@@ -173,7 +173,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:zhivka-ilieva-hristova-a3a689",
+      "source": "official:zhivka-ilieva-hristova-7cf621",
       "target": "company:tr:000842977",
       "kind": "tr_role",
       "role": "trustee",
@@ -181,7 +181,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:vladimir-nachev-nachev-afbde8",
+      "source": "official:vladimir-nachev-nachev-5e2ac9",
       "target": "company:tr:000842977",
       "kind": "tr_role",
       "role": "trustee",

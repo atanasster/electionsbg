@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:petr-hristov-kostov-4658cc",
+  "nodes": [
+    {
+      "id": "official:petr-hristov-kostov-4658cc",
+      "type": "official",
+      "slug": "petr-hristov-kostov-4658cc",
+      "label": "Петър Христов Костов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Самоков"
+    },
+    {
+      "id": "company:tr:200113847",
+      "type": "company",
+      "label": "Ен Еф Ар Солюшънс",
+      "slug": null,
+      "uic": "200113847",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petr-hristov-kostov-4658cc",
+      "target": "company:tr:200113847",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petr-hristov-kostov-4658cc",
+      "target": "company:tr:200113847",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

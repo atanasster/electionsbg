@@ -1,0 +1,119 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rumen-aleksandrov-arabadzhiev-312d39",
+  "nodes": [
+    {
+      "id": "official:rumen-aleksandrov-arabadzhiev-312d39",
+      "type": "official",
+      "slug": "rumen-aleksandrov-arabadzhiev-312d39",
+      "label": "Румен Александров Арабаджиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:117021078",
+      "type": "company",
+      "label": "ПРИСТАНИЩЕН КОМПЛЕКС-РУСЕ",
+      "slug": null,
+      "uic": "117021078",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:venetka-metodieva-serafimova-f073d2",
+      "type": "official",
+      "slug": "venetka-metodieva-serafimova-f073d2",
+      "label": "Венетка Методиева Серафимова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:ivailo-hristov-bashalov-16eb80",
+      "type": "official",
+      "slug": "ivailo-hristov-bashalov-16eb80",
+      "label": "Ивайло Христов Башалов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:kaloyan-ivanov-nikolaev-aea066",
+      "type": "official",
+      "slug": "kaloyan-ivanov-nikolaev-aea066",
+      "label": "Калоян Иванов Николаев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:petr-nenkov-dragoshinov-93dddd",
+      "type": "official",
+      "slug": "petr-nenkov-dragoshinov-93dddd",
+      "label": "Петър Ненков Драгошинов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rumen-aleksandrov-arabadzhiev-312d39",
+      "target": "company:tr:117021078",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:venetka-metodieva-serafimova-f073d2",
+      "target": "company:tr:117021078",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:venetka-metodieva-serafimova-f073d2",
+      "target": "company:tr:117021078",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivailo-hristov-bashalov-16eb80",
+      "target": "company:tr:117021078",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivailo-hristov-bashalov-16eb80",
+      "target": "company:tr:117021078",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kaloyan-ivanov-nikolaev-aea066",
+      "target": "company:tr:117021078",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petr-nenkov-dragoshinov-93dddd",
+      "target": "company:tr:117021078",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

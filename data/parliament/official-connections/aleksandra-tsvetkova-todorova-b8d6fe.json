@@ -1,0 +1,178 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:aleksandra-tsvetkova-todorova-b8d6fe",
+  "nodes": [
+    {
+      "id": "official:aleksandra-tsvetkova-todorova-b8d6fe",
+      "type": "official",
+      "slug": "aleksandra-tsvetkova-todorova-b8d6fe",
+      "label": "Александра Цветкова Тодорова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000762883",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;СВЕТЛИНА - 1896&quot;",
+      "slug": null,
+      "uic": "000762883",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БИЛЯНА ЛЮДМИЛОВА ГРОЗДАНОВА",
+      "type": "person",
+      "label": "Биляна Людмилова Грозданова"
+    },
+    {
+      "id": "person:БОЙКО БОРИСОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Бойко Борисов Георгиев"
+    },
+    {
+      "id": "person:АЛБЕНА ТОШКОВА ЗЛАКЬОВА",
+      "type": "person",
+      "label": "Албена Тошкова Злакьова"
+    },
+    {
+      "id": "person:НИКОЛИНКА ТОНЧЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Николинка Тончева Иванова"
+    },
+    {
+      "id": "person:МЕТОДИ КИРИЛОВ МЛАДЕНОВ",
+      "type": "person",
+      "label": "Методи Кирилов Младенов"
+    },
+    {
+      "id": "person:ЛЮДМИЛА БОЖИДАРОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Людмила Божидарова Петрова"
+    },
+    {
+      "id": "person:РУМЕН КРЪСТЕВ СТОЯНОВ",
+      "type": "person",
+      "label": "Румен Кръстев Стоянов"
+    },
+    {
+      "id": "person:ИЛИЯНА ГЕОРГИЕВА ХРИСТОВА",
+      "type": "person",
+      "label": "Илияна Георгиева Христова"
+    },
+    {
+      "id": "person:СЛАВЧО ЗЛАТКОВ МИТРОВ",
+      "type": "person",
+      "label": "Славчо Златков Митров"
+    },
+    {
+      "id": "person:МАРИО МИЛЧЕВ ВУТОВ",
+      "type": "person",
+      "label": "Марио Милчев Вутов"
+    },
+    {
+      "id": "person:МАРИАНА БОЖИДАРОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Мариана Божидарова Стоянова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandra-tsvetkova-todorova-b8d6fe",
+      "target": "company:tr:000762883",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БИЛЯНА ЛЮДМИЛОВА ГРОЗДАНОВА",
+      "target": "company:tr:000762883",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЙКО БОРИСОВ ГЕОРГИЕВ",
+      "target": "company:tr:000762883",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕНА ТОШКОВА ЗЛАКЬОВА",
+      "target": "company:tr:000762883",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛИНКА ТОНЧЕВА ИВАНОВА",
+      "target": "company:tr:000762883",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕТОДИ КИРИЛОВ МЛАДЕНОВ",
+      "target": "company:tr:000762883",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛА БОЖИДАРОВА ПЕТРОВА",
+      "target": "company:tr:000762883",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН КРЪСТЕВ СТОЯНОВ",
+      "target": "company:tr:000762883",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯНА ГЕОРГИЕВА ХРИСТОВА",
+      "target": "company:tr:000762883",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВЧО ЗЛАТКОВ МИТРОВ",
+      "target": "company:tr:000762883",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИО МИЛЧЕВ ВУТОВ",
+      "target": "company:tr:000762883",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА БОЖИДАРОВА СТОЯНОВА",
+      "target": "company:tr:000762883",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

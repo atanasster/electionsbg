@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:atanas-dimitrov-zapryanov-0d5467",
+  "nodes": [
+    {
+      "id": "official:atanas-dimitrov-zapryanov-0d5467",
+      "type": "official",
+      "slug": "atanas-dimitrov-zapryanov-0d5467",
+      "label": "Атанас Димитров Запрянов",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130349914",
+      "type": "company",
+      "label": "Юнити прес",
+      "slug": null,
+      "uic": "130349914",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:atanas-dimitrov-zapryanov-0d5467",
+      "target": "company:tr:130349914",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stanislav-iordanov-stanchev-33952c",
+  "nodes": [
+    {
+      "id": "official:stanislav-iordanov-stanchev-33952c",
+      "type": "official",
+      "slug": "stanislav-iordanov-stanchev-33952c",
+      "label": "Станислав Йорданов Станчев",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:117622506",
+      "type": "company",
+      "label": "ДИН-ФАРМ",
+      "slug": null,
+      "uic": "117622506",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЪР МИНКОВ ДИНОВ",
+      "type": "person",
+      "label": "Петър Минков Динов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stanislav-iordanov-stanchev-33952c",
+      "target": "company:tr:117622506",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР МИНКОВ ДИНОВ",
+      "target": "company:tr:117622506",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,299 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vladimir-mihailov-panteleev-a4d4d5",
+  "nodes": [
+    {
+      "id": "official:vladimir-mihailov-panteleev-a4d4d5",
+      "type": "official",
+      "slug": "vladimir-mihailov-panteleev-a4d4d5",
+      "label": "Владимир Михайлов Пантелеев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200482827",
+      "type": "company",
+      "label": "\"ВЕЗА\" ЕООД",
+      "slug": null,
+      "uic": "200482827",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206112887",
+      "type": "company",
+      "label": "\"МЕДИК СИСТЕМС\" ООД",
+      "slug": null,
+      "uic": "206112887",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:122017149",
+      "type": "company",
+      "label": "ЕКО АНТРАЦИТ",
+      "slug": null,
+      "uic": "122017149",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:kostadin-iordanov-haralanov-352cc2",
+      "type": "official",
+      "slug": "kostadin-iordanov-haralanov-352cc2",
+      "label": "Костадин Йорданов Хараланов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ХРИСТИЯН ПЛАМЕНОВ СУЛТАНОВ",
+      "type": "person",
+      "label": "Християн Пламенов Султанов"
+    },
+    {
+      "id": "person:АЛБЕНА САВОВА НИНЧЕВА",
+      "type": "person",
+      "label": "Албена Савова Нинчева"
+    },
+    {
+      "id": "person:ГЕОРГИ БОНЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Георги Бонев Иванов"
+    },
+    {
+      "id": "person:СТОЯН ВЛАДИМИРОВ КАРАСЛАВОВ",
+      "type": "person",
+      "label": "Стоян Владимиров Караславов"
+    },
+    {
+      "id": "person:ИВАН ТОДОРОВ КАРЧЕВ - НЕЗАВИСИМ ЧЛЕН",
+      "type": "person",
+      "label": "Иван Тодоров Карчев - Независим Член"
+    },
+    {
+      "id": "person:СТОЯН ВЛАДИМИРОВ КАРАСЛАВОВ - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "type": "person",
+      "label": "Стоян Владимиров Караславов - Представител На Държавата"
+    },
+    {
+      "id": "person:ТАНЯ ЦВЯТКОВА ИГНЕВА-ДАНОВА - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "type": "person",
+      "label": "Таня Цвяткова Игнева-Данова - Представител На Държавата"
+    },
+    {
+      "id": "person:КОСТАДИН ЙОРДАНОВ ХАРАЛАНОВ - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "type": "person",
+      "label": "Костадин Йорданов Хараланов - Представител На Държавата"
+    },
+    {
+      "id": "person:ВЛАДИМИР МИХАЙЛОВ ПАНТЕЛЕЕВ - НЕЗАВИСИМ ЧЛЕН",
+      "type": "person",
+      "label": "Владимир Михайлов Пантелеев - Независим Член"
+    },
+    {
+      "id": "person:ГОРАН ВЛАДИМИРОВ ПЕТРОВ - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "type": "person",
+      "label": "Горан Владимиров Петров - Представител На Държавата"
+    },
+    {
+      "id": "person:ПЛАМЕН ОГНЯНОВ ЦЪРНОРЕЧКИ",
+      "type": "person",
+      "label": "Пламен Огнянов Църноречки"
+    },
+    {
+      "id": "person:ГОРАН ВЛАДИМИРОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Горан Владимиров Петров"
+    },
+    {
+      "id": "person:ИВА ЕНЧЕВА БОТЕВА",
+      "type": "person",
+      "label": "Ива Енчева Ботева"
+    },
+    {
+      "id": "person:КАЛОЯН ВАСИЛЕВ БОГЕВ",
+      "type": "person",
+      "label": "Калоян Василев Богев"
+    },
+    {
+      "id": "person:СТЕЛА БОРИСОВА ДИНЕВА",
+      "type": "person",
+      "label": "Стела Борисова Динева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-mihailov-panteleev-a4d4d5",
+      "target": "company:tr:200482827",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vladimir-mihailov-panteleev-a4d4d5",
+      "target": "company:tr:206112887",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vladimir-mihailov-panteleev-a4d4d5",
+      "target": "company:tr:122017149",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kostadin-iordanov-haralanov-352cc2",
+      "target": "company:tr:122017149",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kostadin-iordanov-haralanov-352cc2",
+      "target": "company:tr:122017149",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТИЯН ПЛАМЕНОВ СУЛТАНОВ",
+      "target": "company:tr:122017149",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕНА САВОВА НИНЧЕВА",
+      "target": "company:tr:122017149",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ БОНЕВ ИВАНОВ",
+      "target": "company:tr:122017149",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ВЛАДИМИРОВ КАРАСЛАВОВ",
+      "target": "company:tr:122017149",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ТОДОРОВ КАРЧЕВ - НЕЗАВИСИМ ЧЛЕН",
+      "target": "company:tr:122017149",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ВЛАДИМИРОВ КАРАСЛАВОВ - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "target": "company:tr:122017149",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ЦВЯТКОВА ИГНЕВА-ДАНОВА - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "target": "company:tr:122017149",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН ЙОРДАНОВ ХАРАЛАНОВ - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "target": "company:tr:122017149",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР МИХАЙЛОВ ПАНТЕЛЕЕВ - НЕЗАВИСИМ ЧЛЕН",
+      "target": "company:tr:122017149",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГОРАН ВЛАДИМИРОВ ПЕТРОВ - ПРЕДСТАВИТЕЛ НА ДЪРЖАВАТА",
+      "target": "company:tr:122017149",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ОГНЯНОВ ЦЪРНОРЕЧКИ",
+      "target": "company:tr:122017149",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ОГНЯНОВ ЦЪРНОРЕЧКИ",
+      "target": "company:tr:122017149",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГОРАН ВЛАДИМИРОВ ПЕТРОВ",
+      "target": "company:tr:122017149",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВА ЕНЧЕВА БОТЕВА",
+      "target": "company:tr:122017149",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛОЯН ВАСИЛЕВ БОГЕВ",
+      "target": "company:tr:122017149",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕЛА БОРИСОВА ДИНЕВА",
+      "target": "company:tr:122017149",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

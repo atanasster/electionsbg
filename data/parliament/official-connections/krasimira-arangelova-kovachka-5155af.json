@@ -1,0 +1,234 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:krasimira-arangelova-kovachka-5155af",
+  "nodes": [
+    {
+      "id": "official:krasimira-arangelova-kovachka-5155af",
+      "type": "official",
+      "slug": "krasimira-arangelova-kovachka-5155af",
+      "label": "Красимира Арангелова Ковачка",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176903298",
+      "type": "company",
+      "label": "БЪЛГАРСКА БОЛНИЧНА АСОЦИАЦИЯ",
+      "slug": null,
+      "uic": "176903298",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:2396",
+      "type": "mp",
+      "mpId": 2396,
+      "label": "Красимира Арангелова Ковачка",
+      "partyGroupShort": "КП ББЦ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:3228",
+      "type": "mp",
+      "mpId": 3228,
+      "label": "Алисе Кямилова Муртезова",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:ИВАН РУМЕНОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Иван Руменов Тодоров"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА СТАЙКОВА СПИРИДОНОВА",
+      "type": "person",
+      "label": "Цветелина Стайкова Спиридонова"
+    },
+    {
+      "id": "person:АЛИСЕ КЯМИЛОВА МУРТЕЗОВА",
+      "type": "person",
+      "label": "Алисе Кямилова Муртезова"
+    },
+    {
+      "id": "person:СВИЛЕНА ПЕТРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Свилена Петрова Димитрова"
+    },
+    {
+      "id": "person:ДИМИТЪР СТЕФАНОВ ГУГУТКОВ",
+      "type": "person",
+      "label": "Димитър Стефанов Гугутков"
+    },
+    {
+      "id": "person:ЕЛЕНА ВЕЛИНОВА ХРИСТЕВА",
+      "type": "person",
+      "label": "Елена Велинова Христева"
+    },
+    {
+      "id": "person:АНДРЕЙ ПЪРВАНОВ МАРКОВ",
+      "type": "person",
+      "label": "Андрей Първанов Марков"
+    },
+    {
+      "id": "person:МИХАИЛ КИРИЛОВ ЗОРТЕВ",
+      "type": "person",
+      "label": "Михаил Кирилов Зортев"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА АСЕНОВА МАЛИНОВА",
+      "type": "person",
+      "label": "Десислава Асенова Малинова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krasimira-arangelova-kovachka-5155af",
+      "target": "company:tr:176903298",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2396",
+      "target": "company:tr:176903298",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3228",
+      "target": "company:tr:176903298",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3228",
+      "target": "company:tr:176903298",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН РУМЕНОВ ТОДОРОВ",
+      "target": "company:tr:176903298",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА СТАЙКОВА СПИРИДОНОВА",
+      "target": "company:tr:176903298",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛИСЕ КЯМИЛОВА МУРТЕЗОВА",
+      "target": "company:tr:176903298",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВИЛЕНА ПЕТРОВА ДИМИТРОВА",
+      "target": "company:tr:176903298",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР СТЕФАНОВ ГУГУТКОВ",
+      "target": "company:tr:176903298",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛИСЕ КЯМИЛОВА МУРТЕЗОВА",
+      "target": "company:tr:176903298",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА СТАЙКОВА СПИРИДОНОВА",
+      "target": "company:tr:176903298",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ВЕЛИНОВА ХРИСТЕВА",
+      "target": "company:tr:176903298",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВИЛЕНА ПЕТРОВА ДИМИТРОВА",
+      "target": "company:tr:176903298",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРЕЙ ПЪРВАНОВ МАРКОВ",
+      "target": "company:tr:176903298",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН РУМЕНОВ ТОДОРОВ",
+      "target": "company:tr:176903298",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ КИРИЛОВ ЗОРТЕВ",
+      "target": "company:tr:176903298",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРЕЙ ПЪРВАНОВ МАРКОВ",
+      "target": "company:tr:176903298",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА АСЕНОВА МАЛИНОВА",
+      "target": "company:tr:176903298",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,190 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:aleksandrina-georgieva-velichkova-006516",
+  "nodes": [
+    {
+      "id": "official:aleksandrina-georgieva-velichkova-006516",
+      "type": "official",
+      "slug": "aleksandrina-georgieva-velichkova-006516",
+      "label": "Александрина Георгиева Величкова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:103599809",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;УЧИЛИЩНО НАСТОЯТЕЛСТВО&quot;КАПИТАН ПЕТКО ВОЙВОДА&quot;&quot;",
+      "slug": null,
+      "uic": "103599809",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИЛЕНА МЕТОДИЕВА ЦАНЕВА",
+      "type": "person",
+      "label": "Милена Методиева Цанева"
+    },
+    {
+      "id": "person:НЕЛИ ВЪЛЕВА ПЕЙКОВА",
+      "type": "person",
+      "label": "Нели Вълева Пейкова"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА БЛАГОВЕСТОВА ИВАНОВА",
+      "type": "person",
+      "label": "Цветелина Благовестова Иванова"
+    },
+    {
+      "id": "person:ИВЕЛИНА НЕДЕВА НИКОЛОВА",
+      "type": "person",
+      "label": "Ивелина Недева Николова"
+    },
+    {
+      "id": "person:ЛИЛЯНА ДИМИТРОВА ШОПОВА",
+      "type": "person",
+      "label": "Лиляна Димитрова Шопова"
+    },
+    {
+      "id": "person:ИРИНА РАЙЧЕВА ПЕНЕВА",
+      "type": "person",
+      "label": "Ирина Райчева Пенева"
+    },
+    {
+      "id": "person:ДИЯНА НИКОЛАЕВА ВЕЛИКОВА",
+      "type": "person",
+      "label": "Дияна Николаева Великова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandrina-georgieva-velichkova-006516",
+      "target": "company:tr:103599809",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aleksandrina-georgieva-velichkova-006516",
+      "target": "company:tr:103599809",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛЕНА МЕТОДИЕВА ЦАНЕВА",
+      "target": "company:tr:103599809",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ ВЪЛЕВА ПЕЙКОВА",
+      "target": "company:tr:103599809",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА БЛАГОВЕСТОВА ИВАНОВА",
+      "target": "company:tr:103599809",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИНА НЕДЕВА НИКОЛОВА",
+      "target": "company:tr:103599809",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ ВЪЛЕВА ПЕЙКОВА",
+      "target": "company:tr:103599809",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА МЕТОДИЕВА ЦАНЕВА",
+      "target": "company:tr:103599809",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИНА НЕДЕВА НИКОЛОВА",
+      "target": "company:tr:103599809",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА БЛАГОВЕСТОВА ИВАНОВА",
+      "target": "company:tr:103599809",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛЯНА ДИМИТРОВА ШОПОВА",
+      "target": "company:tr:103599809",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА РАЙЧЕВА ПЕНЕВА",
+      "target": "company:tr:103599809",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯНА НИКОЛАЕВА ВЕЛИКОВА",
+      "target": "company:tr:103599809",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛЯНА ДИМИТРОВА ШОПОВА",
+      "target": "company:tr:103599809",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА РАЙЧЕВА ПЕНЕВА",
+      "target": "company:tr:103599809",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯНА НИКОЛАЕВА ВЕЛИКОВА",
+      "target": "company:tr:103599809",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

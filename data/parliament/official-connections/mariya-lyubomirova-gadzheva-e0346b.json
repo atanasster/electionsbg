@@ -1,0 +1,78 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariya-lyubomirova-gadzheva-e0346b",
+  "nodes": [
+    {
+      "id": "official:mariya-lyubomirova-gadzheva-e0346b",
+      "type": "official",
+      "slug": "mariya-lyubomirova-gadzheva-e0346b",
+      "label": "Мария Любомирова Гаджева",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Трявна"
+    },
+    {
+      "id": "company:tr:203414994",
+      "type": "company",
+      "label": "ЛОНО ПРОЕКТ ЕООД",
+      "slug": null,
+      "uic": "203414994",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204945873",
+      "type": "company",
+      "label": "ЛОНОАРХ ЕООД",
+      "slug": null,
+      "uic": "204945873",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:konstantin-tihomirov-brnekov-442017",
+      "type": "official",
+      "slug": "konstantin-tihomirov-brnekov-442017",
+      "label": "Константин Тихомиров Брънеков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Трявна"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-lyubomirova-gadzheva-e0346b",
+      "target": "company:tr:203414994",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mariya-lyubomirova-gadzheva-e0346b",
+      "target": "company:tr:204945873",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:konstantin-tihomirov-brnekov-442017",
+      "target": "company:tr:203414994",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:konstantin-tihomirov-brnekov-442017",
+      "target": "company:tr:204945873",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

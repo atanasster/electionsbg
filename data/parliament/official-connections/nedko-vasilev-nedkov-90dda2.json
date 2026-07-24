@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nedko-vasilev-nedkov-90dda2",
+  "nodes": [
+    {
+      "id": "official:nedko-vasilev-nedkov-90dda2",
+      "type": "official",
+      "slug": "nedko-vasilev-nedkov-90dda2",
+      "label": "Недко Василев Недков",
+      "tier": "executive",
+      "role": "cultural_institute",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208130154",
+      "type": "company",
+      "label": "ТОРОС 2025",
+      "slug": null,
+      "uic": "208130154",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПАВЛИН ВАСИЛЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Павлин Василев Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nedko-vasilev-nedkov-90dda2",
+      "target": "company:tr:208130154",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nedko-vasilev-nedkov-90dda2",
+      "target": "company:tr:208130154",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПАВЛИН ВАСИЛЕВ ИВАНОВ",
+      "target": "company:tr:208130154",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИН ВАСИЛЕВ ИВАНОВ",
+      "target": "company:tr:208130154",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

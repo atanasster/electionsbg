@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitr-bogdanov-yarkov-6fb05d",
+  "nodes": [
+    {
+      "id": "official:dimitr-bogdanov-yarkov-6fb05d",
+      "type": "official",
+      "slug": "dimitr-bogdanov-yarkov-6fb05d",
+      "label": "Димитър Богданов Яръков",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200052497",
+      "type": "company",
+      "label": "\"Харити 2008\" ЕООД",
+      "slug": null,
+      "uic": "200052497",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-bogdanov-yarkov-6fb05d",
+      "target": "company:tr:200052497",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rosen-vanev-petkov-f72785",
+  "nodes": [
+    {
+      "id": "official:rosen-vanev-petkov-f72785",
+      "type": "official",
+      "slug": "rosen-vanev-petkov-f72785",
+      "label": "Росен Ванев Петков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:121663601",
+      "type": "company",
+      "label": "Многопрофилна болница за активно лечение &quot;Национална кардиологична болница&quot;",
+      "slug": null,
+      "uic": "121663601",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТЕЛА ЦВЕТАНОВА ЗДРАВКОВА-НИНОВА",
+      "type": "person",
+      "label": "Стела Цветанова Здравкова-Нинова"
+    },
+    {
+      "id": "person:ВАЛЕНТИН СТЕФАНОВ ГОВЕДАРСКИ",
+      "type": "person",
+      "label": "Валентин Стефанов Говедарски"
+    },
+    {
+      "id": "person:ДИЯНА ИВАНОВА ПАНТИЛЕЕВА",
+      "type": "person",
+      "label": "Дияна Иванова Пантилеева"
+    },
+    {
+      "id": "person:КРАСИМИР РОСЕНОВ ДЖИНСОВ",
+      "type": "person",
+      "label": "Красимир Росенов Джинсов"
+    },
+    {
+      "id": "person:ЛУЧИЯ АЛЕКСАНДРОВА ДОБРЕВА",
+      "type": "person",
+      "label": "Лучия Александрова Добрева"
+    },
+    {
+      "id": "person:ДИМИТЪР БОГДАНОВ МАСЛАРОВ",
+      "type": "person",
+      "label": "Димитър Богданов Масларов"
+    },
+    {
+      "id": "person:МАРИО ДРАГАНОВ СТАНКЕВ",
+      "type": "person",
+      "label": "Марио Драганов Станкев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rosen-vanev-petkov-f72785",
+      "target": "company:tr:121663601",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕЛА ЦВЕТАНОВА ЗДРАВКОВА-НИНОВА",
+      "target": "company:tr:121663601",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН СТЕФАНОВ ГОВЕДАРСКИ",
+      "target": "company:tr:121663601",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯНА ИВАНОВА ПАНТИЛЕЕВА",
+      "target": "company:tr:121663601",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР РОСЕНОВ ДЖИНСОВ",
+      "target": "company:tr:121663601",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР РОСЕНОВ ДЖИНСОВ",
+      "target": "company:tr:121663601",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛУЧИЯ АЛЕКСАНДРОВА ДОБРЕВА",
+      "target": "company:tr:121663601",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР БОГДАНОВ МАСЛАРОВ",
+      "target": "company:tr:121663601",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИО ДРАГАНОВ СТАНКЕВ",
+      "target": "company:tr:121663601",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

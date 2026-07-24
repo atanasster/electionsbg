@@ -1,0 +1,89 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:elena-georgieva-danova-kotseva-a4a14c",
+  "nodes": [
+    {
+      "id": "official:elena-georgieva-danova-kotseva-a4a14c",
+      "type": "official",
+      "slug": "elena-georgieva-danova-kotseva-a4a14c",
+      "label": "Елена Георгиева Данова-Коцева",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208764258",
+      "type": "company",
+      "label": "АДАПТИВ БЪЛГАРИЯ - СДРУЖЕНИЕ",
+      "slug": null,
+      "uic": "208764258",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:gergana-iordanova-cholakova-a767b1",
+      "type": "official",
+      "slug": "gergana-iordanova-cholakova-a767b1",
+      "label": "Гергана Йорданова Чолакова",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "person:ГЕРГАНА АНГЕЛОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Гергана Ангелова Петрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:elena-georgieva-danova-kotseva-a4a14c",
+      "target": "company:tr:208764258",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:elena-georgieva-danova-kotseva-a4a14c",
+      "target": "company:tr:208764258",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:gergana-iordanova-cholakova-a767b1",
+      "target": "company:tr:208764258",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:gergana-iordanova-cholakova-a767b1",
+      "target": "company:tr:208764258",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕРГАНА АНГЕЛОВА ПЕТРОВА",
+      "target": "company:tr:208764258",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА АНГЕЛОВА ПЕТРОВА",
+      "target": "company:tr:208764258",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:svetoslav-ivanov-tsvetkov-5fb44c",
+  "nodes": [
+    {
+      "id": "official:svetoslav-ivanov-tsvetkov-5fb44c",
+      "type": "official",
+      "slug": "svetoslav-ivanov-tsvetkov-5fb44c",
+      "label": "Светослав Иванов Цветков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Горна Малина"
+    },
+    {
+      "id": "company:tr:202068075",
+      "type": "company",
+      "label": "НЮ МЕДИКЪЛ",
+      "slug": null,
+      "uic": "202068075",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetoslav-ivanov-tsvetkov-5fb44c",
+      "target": "company:tr:202068075",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

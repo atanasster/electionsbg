@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariela-nikolaeva-kirova-abb158",
+  "nodes": [
+    {
+      "id": "official:mariela-nikolaeva-kirova-abb158",
+      "type": "official",
+      "slug": "mariela-nikolaeva-kirova-abb158",
+      "label": "Мариела Николаева Кирова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бургас"
+    },
+    {
+      "id": "company:tr:207702129",
+      "type": "company",
+      "label": "\"ФЕМИЛИ КЕЪР\" ООД",
+      "slug": null,
+      "uic": "207702129",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРИСТИЯН НИКОЛАЕВ КИРОВ",
+      "type": "person",
+      "label": "Кристиян Николаев Киров"
+    },
+    {
+      "id": "person:МАРИЕЛА НИКОЛАЕВА КИРОВА",
+      "type": "person",
+      "label": "Мариела Николаева Кирова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariela-nikolaeva-kirova-abb158",
+      "target": "company:tr:207702129",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИЯН НИКОЛАЕВ КИРОВ",
+      "target": "company:tr:207702129",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЕЛА НИКОЛАЕВА КИРОВА",
+      "target": "company:tr:207702129",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИЯН НИКОЛАЕВ КИРОВ",
+      "target": "company:tr:207702129",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЕЛА НИКОЛАЕВА КИРОВА",
+      "target": "company:tr:207702129",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

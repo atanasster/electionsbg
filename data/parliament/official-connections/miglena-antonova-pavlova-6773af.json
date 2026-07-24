@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:miglena-antonova-pavlova-6773af",
+  "nodes": [
+    {
+      "id": "official:miglena-antonova-pavlova-6773af",
+      "type": "official",
+      "slug": "miglena-antonova-pavlova-6773af",
+      "label": "Миглена Антонова Павлова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130141470",
+      "type": "company",
+      "label": "МР Интер Консултинг",
+      "slug": null,
+      "uic": "130141470",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:miglena-antonova-pavlova-99b779",
+      "type": "official",
+      "slug": "miglena-antonova-pavlova-99b779",
+      "label": "Миглена  Антонова Павлова",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miglena-antonova-pavlova-6773af",
+      "target": "company:tr:130141470",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:miglena-antonova-pavlova-99b779",
+      "target": "company:tr:130141470",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

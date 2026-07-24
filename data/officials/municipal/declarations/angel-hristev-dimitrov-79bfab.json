@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "angel-hristev-dimitrov-79bfab",
+    "declarantName": "Ангел Христев Димитров",
+    "institution": "Асеновград",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-03-20",
+    "entryNumber": "Г1464",
+    "controlHash": "6F182C58",
+    "sourceUrl": "https://register.cacbg.bg/2025/3D11D3B3-ECC0-40C4-B4A1-881B0C875F29203946.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 9532.014541141101,
+        "amountEurSpouse": 5577.6831319695475
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 24953.088969900247,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Автомобил",
+        "detail": "Мини купър",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 4250,
+        "valueEur": 2172.9904950839286,
+        "holderName": "Ангел Христев Димитров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Автомобил",
+        "detail": "Мини купър",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 4250,
+        "valueEur": 2172.9904950839286,
+        "holderName": "Елеонора Томова Димитрова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит, 4,91%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11330,
+        "valueEur": 5792.937013953156,
+        "holderName": "Ангел Христев Димитров",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

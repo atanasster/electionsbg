@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:897",
   "nodes": [
     {
@@ -135,12 +135,12 @@
       "label": "Емил Георгиев Андреев"
     },
     {
-      "id": "official:violeta-zlateva-bozhanova-72f034",
+      "id": "official:violeta-zlateva-bozhanova-d14d12",
       "type": "official",
-      "slug": "violeta-zlateva-bozhanova-72f034",
+      "slug": "violeta-zlateva-bozhanova-d14d12",
       "label": "Виолета Златева Божанова",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "agri_academy",
       "municipality": null
     },
     {
@@ -149,7 +149,7 @@
       "slug": "martin-dimitrov-banov-03bd10",
       "label": "МАРТИН ДИМИТРОВ БАНОВ",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "agri_academy",
       "municipality": null
     },
     {
@@ -565,7 +565,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:violeta-zlateva-bozhanova-72f034",
+      "source": "official:violeta-zlateva-bozhanova-d14d12",
       "target": "company:tr:207484221",
       "kind": "tr_role",
       "role": "ngo_board",

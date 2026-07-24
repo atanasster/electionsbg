@@ -1,0 +1,203 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:anna-pavlova-milkova-7d3596",
+  "nodes": [
+    {
+      "id": "official:anna-pavlova-milkova-7d3596",
+      "type": "official",
+      "slug": "anna-pavlova-milkova-7d3596",
+      "label": "Анна Павлова Милкова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000084009",
+      "type": "company",
+      "label": "&quot;ВАСИЛ ЛЕВСКИ-1927&quot;",
+      "slug": null,
+      "uic": "000084009",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:galina-georgieva-kuleva-ac4c91",
+      "type": "official",
+      "slug": "galina-georgieva-kuleva-ac4c91",
+      "label": "Галина Георгиева Кулева",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "person:ВЕСЕЛИНА ПАНЧЕВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Веселина Панчева Василева"
+    },
+    {
+      "id": "person:БОЖАНКА ВЕСЕЛИНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Божанка Веселинова Димитрова"
+    },
+    {
+      "id": "person:МАРИНКА ПАНЧЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Маринка Панчева Иванова"
+    },
+    {
+      "id": "person:МАРГАРИТА ТОДОРОВА КЮЧУКОВА",
+      "type": "person",
+      "label": "Маргарита Тодорова Кючукова"
+    },
+    {
+      "id": "person:ВИОЛЕТА СТАНЕВА ХРИСТОВА",
+      "type": "person",
+      "label": "Виолета Станева Христова"
+    },
+    {
+      "id": "person:ВЕЛИКО РАЙКОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Велико Райков Василев"
+    },
+    {
+      "id": "person:ЙОРДАНКА ЙОРДАНОВА КОСТОВА",
+      "type": "person",
+      "label": "Йорданка Йорданова Костова"
+    },
+    {
+      "id": "person:СТЕФКА ЛЮБЧЕВА ТОДОРОВА",
+      "type": "person",
+      "label": "Стефка Любчева Тодорова"
+    },
+    {
+      "id": "person:ТОДОРКА ИВАНОВА КАЛИНОВА",
+      "type": "person",
+      "label": "Тодорка Иванова Калинова"
+    },
+    {
+      "id": "person:МАРИЯ ИВАНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Мария Иванова Иванова"
+    },
+    {
+      "id": "person:ДОБРИНКА РАДЕВА ДИМОВА",
+      "type": "person",
+      "label": "Добринка Радева Димова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:anna-pavlova-milkova-7d3596",
+      "target": "company:tr:000084009",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:galina-georgieva-kuleva-ac4c91",
+      "target": "company:tr:000084009",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА ПАНЧЕВА ВАСИЛЕВА",
+      "target": "company:tr:000084009",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЖАНКА ВЕСЕЛИНОВА ДИМИТРОВА",
+      "target": "company:tr:000084009",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНКА ПАНЧЕВА ИВАНОВА",
+      "target": "company:tr:000084009",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА ТОДОРОВА КЮЧУКОВА",
+      "target": "company:tr:000084009",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА СТАНЕВА ХРИСТОВА",
+      "target": "company:tr:000084009",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИКО РАЙКОВ ВАСИЛЕВ",
+      "target": "company:tr:000084009",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА ПАНЧЕВА ВАСИЛЕВА",
+      "target": "company:tr:000084009",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА ЙОРДАНОВА КОСТОВА",
+      "target": "company:tr:000084009",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА ЛЮБЧЕВА ТОДОРОВА",
+      "target": "company:tr:000084009",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОРКА ИВАНОВА КАЛИНОВА",
+      "target": "company:tr:000084009",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ИВАНОВА ИВАНОВА",
+      "target": "company:tr:000084009",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИНКА РАДЕВА ДИМОВА",
+      "target": "company:tr:000084009",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

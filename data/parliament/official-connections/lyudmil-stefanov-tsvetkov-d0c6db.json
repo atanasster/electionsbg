@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:lyudmil-stefanov-tsvetkov-d0c6db",
+  "nodes": [
+    {
+      "id": "official:lyudmil-stefanov-tsvetkov-d0c6db",
+      "type": "official",
+      "slug": "lyudmil-stefanov-tsvetkov-d0c6db",
+      "label": "Людмил Стефанов Цветков",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:103517178",
+      "type": "company",
+      "label": "ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН ЦЕНТЪР СВЕТИ ИВАН РИЛСКИ-АСПАРУХОВО-ВАРНА",
+      "slug": null,
+      "uic": "103517178",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lyudmil-stefanov-tsvetkov-d0c6db",
+      "target": "company:tr:103517178",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

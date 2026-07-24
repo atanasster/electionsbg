@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:3232",
   "nodes": [
     {
@@ -26,18 +26,18 @@
       "seat": null
     },
     {
-      "id": "official:lilyana-staneva-stoyanova-007854",
+      "id": "official:lilyana-staneva-stoyanova-198219",
       "type": "official",
-      "slug": "lilyana-staneva-stoyanova-007854",
+      "slug": "lilyana-staneva-stoyanova-198219",
       "label": "Лиляна Станева Стоянова",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "school",
       "municipality": null
     },
     {
-      "id": "official:galya-eneva-zaharieva-eceb0d",
+      "id": "official:galya-eneva-zaharieva-4ce10d",
       "type": "official",
-      "slug": "galya-eneva-zaharieva-eceb0d",
+      "slug": "galya-eneva-zaharieva-4ce10d",
       "label": "Галя Енева Захариева",
       "tier": "municipal",
       "role": "mayor",
@@ -77,7 +77,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:lilyana-staneva-stoyanova-007854",
+      "source": "official:lilyana-staneva-stoyanova-198219",
       "target": "company:tr:177020504",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -85,7 +85,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:galya-eneva-zaharieva-eceb0d",
+      "source": "official:galya-eneva-zaharieva-4ce10d",
       "target": "company:tr:177020504",
       "kind": "tr_role",
       "role": "ngo_representative",
@@ -93,7 +93,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:galya-eneva-zaharieva-eceb0d",
+      "source": "official:galya-eneva-zaharieva-4ce10d",
       "target": "company:tr:177020504",
       "kind": "tr_role",
       "role": "ngo_board",

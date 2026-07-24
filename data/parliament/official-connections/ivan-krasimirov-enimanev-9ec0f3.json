@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-krasimirov-enimanev-9ec0f3",
+  "nodes": [
+    {
+      "id": "official:ivan-krasimirov-enimanev-9ec0f3",
+      "type": "official",
+      "slug": "ivan-krasimirov-enimanev-9ec0f3",
+      "label": "Иван Красимиров Ениманев",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Сливо поле"
+    },
+    {
+      "id": "company:tr:117008230",
+      "type": "company",
+      "label": "Сдружение &quot;Русенска стопанска камара&quot;",
+      "slug": null,
+      "uic": "117008230",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАЙЛО ИВАНОВ ПЕНЕВ",
+      "type": "person",
+      "label": "Ивайло Иванов Пенев"
+    },
+    {
+      "id": "person:ИВЕЛИН БОРИСОВ ИВАНОВ",
+      "type": "person",
+      "label": "Ивелин Борисов Иванов"
+    },
+    {
+      "id": "person:КРАСИМИР ИВАНОВ ЕНИМАНЕВ",
+      "type": "person",
+      "label": "Красимир Иванов Ениманев"
+    },
+    {
+      "id": "person:ПЛАМЕН ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Пламен Иванов Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-krasimirov-enimanev-9ec0f3",
+      "target": "company:tr:117008230",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-krasimirov-enimanev-9ec0f3",
+      "target": "company:tr:117008230",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАЙЛО ИВАНОВ ПЕНЕВ",
+      "target": "company:tr:117008230",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИН БОРИСОВ ИВАНОВ",
+      "target": "company:tr:117008230",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ИВАНОВ ЕНИМАНЕВ",
+      "target": "company:tr:117008230",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ИВАНОВ ИВАНОВ",
+      "target": "company:tr:117008230",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

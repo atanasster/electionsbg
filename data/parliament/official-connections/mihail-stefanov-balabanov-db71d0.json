@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mihail-stefanov-balabanov-db71d0",
+  "nodes": [
+    {
+      "id": "official:mihail-stefanov-balabanov-db71d0",
+      "type": "official",
+      "slug": "mihail-stefanov-balabanov-db71d0",
+      "label": "Михаил Стефанов Балабанов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208241539",
+      "type": "company",
+      "label": "БЛОММА",
+      "slug": null,
+      "uic": "208241539",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mihail-stefanov-balabanov-db71d0",
+      "target": "company:tr:208241539",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mihail-stefanov-balabanov-db71d0",
+      "target": "company:tr:208241539",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:anna-prvanova-mancheva-dimova-a9acc3",
+  "nodes": [
+    {
+      "id": "official:anna-prvanova-mancheva-dimova-a9acc3",
+      "type": "official",
+      "slug": "anna-prvanova-mancheva-dimova-a9acc3",
+      "label": "Анна Първанова Манчева-Димова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:121003449",
+      "type": "company",
+      "label": "ЛОЗАНА",
+      "slug": null,
+      "uic": "121003449",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:yuli-blagoev-andreev-04dc81",
+      "type": "official",
+      "slug": "yuli-blagoev-andreev-04dc81",
+      "label": "Юли Благоев Андреев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:АННА ПЪРВАНОВА МАНЧЕВА - ДИМОВА",
+      "type": "person",
+      "label": "Анна Първанова Манчева - Димова"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ЛЮБОМИРОВА БЕЛЧИНСКА",
+      "type": "person",
+      "label": "Десислава Любомирова Белчинска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:anna-prvanova-mancheva-dimova-a9acc3",
+      "target": "company:tr:121003449",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yuli-blagoev-andreev-04dc81",
+      "target": "company:tr:121003449",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АННА ПЪРВАНОВА МАНЧЕВА - ДИМОВА",
+      "target": "company:tr:121003449",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ЛЮБОМИРОВА БЕЛЧИНСКА",
+      "target": "company:tr:121003449",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:1475",
   "nodes": [
     {
@@ -42,27 +42,27 @@
       "seat": null
     },
     {
-      "id": "official:denis-hyuseinov-shengov-c67235",
+      "id": "official:denis-hyuseinov-shengov-2c4bc8",
       "type": "official",
-      "slug": "denis-hyuseinov-shengov-c67235",
+      "slug": "denis-hyuseinov-shengov-2c4bc8",
       "label": "Денис Хюсеинов Шенгов",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:shaban-shaban-hadzhioli-d8b1cd",
+      "id": "official:shaban-shaban-hadzhioli-c9ee22",
       "type": "official",
-      "slug": "shaban-shaban-hadzhioli-d8b1cd",
+      "slug": "shaban-shaban-hadzhioli-c9ee22",
       "label": "Шабан Шабан Хаджиоли",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "medical_center",
       "municipality": null
     },
     {
-      "id": "official:abedin-rakipov-kamburov-911bd7",
+      "id": "official:abedin-rakipov-kamburov-534133",
       "type": "official",
-      "slug": "abedin-rakipov-kamburov-911bd7",
+      "slug": "abedin-rakipov-kamburov-534133",
       "label": "Абедин Ракипов Камбуров",
       "tier": "municipal",
       "role": "councillor",
@@ -311,7 +311,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:denis-hyuseinov-shengov-c67235",
+      "source": "official:denis-hyuseinov-shengov-2c4bc8",
       "target": "company:tr:101149770",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -319,7 +319,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:shaban-shaban-hadzhioli-d8b1cd",
+      "source": "official:shaban-shaban-hadzhioli-c9ee22",
       "target": "company:tr:101149770",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -327,7 +327,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:abedin-rakipov-kamburov-911bd7",
+      "source": "official:abedin-rakipov-kamburov-534133",
       "target": "company:tr:101149770",
       "kind": "tr_role",
       "role": "ngo_board",

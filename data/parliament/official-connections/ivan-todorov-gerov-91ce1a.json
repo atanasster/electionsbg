@@ -1,0 +1,71 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-todorov-gerov-91ce1a",
+  "nodes": [
+    {
+      "id": "official:ivan-todorov-gerov-91ce1a",
+      "type": "official",
+      "slug": "ivan-todorov-gerov-91ce1a",
+      "label": "Иван Тодоров Геров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Гоце Делчев"
+    },
+    {
+      "id": "company:tr:811147671",
+      "type": "company",
+      "label": "Гама Пропърти Мениджмънт ООД",
+      "slug": null,
+      "uic": "811147671",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205666054",
+      "type": "company",
+      "label": "Гама Венчър Капитал ООД",
+      "slug": null,
+      "uic": "205666054",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:811200024",
+      "type": "company",
+      "label": "Гама-Комерс ООД",
+      "slug": null,
+      "uic": "811200024",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-todorov-gerov-91ce1a",
+      "target": "company:tr:811147671",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivan-todorov-gerov-91ce1a",
+      "target": "company:tr:205666054",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivan-todorov-gerov-91ce1a",
+      "target": "company:tr:811200024",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

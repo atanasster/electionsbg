@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:yusmen-salihov-zabanov-c38696",
+  "nodes": [
+    {
+      "id": "official:yusmen-salihov-zabanov-c38696",
+      "type": "official",
+      "slug": "yusmen-salihov-zabanov-c38696",
+      "label": "Юсмен Салихов Забанов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Борино"
+    },
+    {
+      "id": "company:tr:208615403",
+      "type": "company",
+      "label": "\"Борино Нет\"",
+      "slug": null,
+      "uic": "208615403",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЮСМЕН ЮСМЕНОВ ЗАБАНОВ",
+      "type": "person",
+      "label": "Юсмен Юсменов Забанов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yusmen-salihov-zabanov-c38696",
+      "target": "company:tr:208615403",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yusmen-salihov-zabanov-c38696",
+      "target": "company:tr:208615403",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЮСМЕН ЮСМЕНОВ ЗАБАНОВ",
+      "target": "company:tr:208615403",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮСМЕН ЮСМЕНОВ ЗАБАНОВ",
+      "target": "company:tr:208615403",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

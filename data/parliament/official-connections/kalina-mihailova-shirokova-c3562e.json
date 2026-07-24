@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:kalina-mihailova-shirokova-c3562e",
+  "nodes": [
+    {
+      "id": "official:kalina-mihailova-shirokova-c3562e",
+      "type": "official",
+      "slug": "kalina-mihailova-shirokova-c3562e",
+      "label": "Калина Михайлова Широкова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Велико Търново"
+    },
+    {
+      "id": "company:tr:208084212",
+      "type": "company",
+      "label": "СТРОЙ МОНТАЖ 24",
+      "slug": null,
+      "uic": "208084212",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kalina-mihailova-shirokova-c3562e",
+      "target": "company:tr:208084212",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kalina-mihailova-shirokova-c3562e",
+      "target": "company:tr:208084212",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

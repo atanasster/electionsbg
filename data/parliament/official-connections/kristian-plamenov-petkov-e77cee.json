@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:kristian-plamenov-petkov-e77cee",
+  "nodes": [
+    {
+      "id": "official:kristian-plamenov-petkov-e77cee",
+      "type": "official",
+      "slug": "kristian-plamenov-petkov-e77cee",
+      "label": "Кристиан Пламенов Петков",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207819762",
+      "type": "company",
+      "label": "Вет Асист",
+      "slug": null,
+      "uic": "207819762",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kristian-plamenov-petkov-e77cee",
+      "target": "company:tr:207819762",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kristian-plamenov-petkov-e77cee",
+      "target": "company:tr:207819762",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

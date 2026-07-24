@@ -1,0 +1,73 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:radoslav-stefanov-stoyanov-f356e5",
+  "nodes": [
+    {
+      "id": "official:radoslav-stefanov-stoyanov-f356e5",
+      "type": "official",
+      "slug": "radoslav-stefanov-stoyanov-f356e5",
+      "label": "Радослав Стефанов Стоянов",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207332936",
+      "type": "company",
+      "label": "Сдружение с нестопанска цел \"Пенчо Семов\"",
+      "slug": null,
+      "uic": "207332936",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:stiliyana-ivanova-sbeva-tincheva-67337a",
+      "type": "official",
+      "slug": "stiliyana-ivanova-sbeva-tincheva-67337a",
+      "label": "Стилияна Иванова Събева-Тинчева",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ ВАНЮШЕВ ВЕЛИНОВ",
+      "type": "person",
+      "label": "Венцислав Ванюшев Велинов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:radoslav-stefanov-stoyanov-f356e5",
+      "target": "company:tr:207332936",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:radoslav-stefanov-stoyanov-f356e5",
+      "target": "company:tr:207332936",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stiliyana-ivanova-sbeva-tincheva-67337a",
+      "target": "company:tr:207332936",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ ВАНЮШЕВ ВЕЛИНОВ",
+      "target": "company:tr:207332936",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

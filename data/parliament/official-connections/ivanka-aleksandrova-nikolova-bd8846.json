@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivanka-aleksandrova-nikolova-bd8846",
+  "nodes": [
+    {
+      "id": "official:ivanka-aleksandrova-nikolova-bd8846",
+      "type": "official",
+      "slug": "ivanka-aleksandrova-nikolova-bd8846",
+      "label": "Иванка Александрова Николова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204398888",
+      "type": "company",
+      "label": "ОМЕГА-56",
+      "slug": null,
+      "uic": "204398888",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕЛЕНА НИКОЛАЕВА НИКОЛОВА",
+      "type": "person",
+      "label": "Елена Николаева Николова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivanka-aleksandrova-nikolova-bd8846",
+      "target": "company:tr:204398888",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivanka-aleksandrova-nikolova-bd8846",
+      "target": "company:tr:204398888",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕЛЕНА НИКОЛАЕВА НИКОЛОВА",
+      "target": "company:tr:204398888",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА НИКОЛАЕВА НИКОЛОВА",
+      "target": "company:tr:204398888",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

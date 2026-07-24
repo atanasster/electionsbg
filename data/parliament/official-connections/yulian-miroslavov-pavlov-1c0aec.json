@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:yulian-miroslavov-pavlov-1c0aec",
+  "nodes": [
+    {
+      "id": "official:yulian-miroslavov-pavlov-1c0aec",
+      "type": "official",
+      "slug": "yulian-miroslavov-pavlov-1c0aec",
+      "label": "Юлиан Мирославов Павлов",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Свищов"
+    },
+    {
+      "id": "company:tr:204591875",
+      "type": "company",
+      "label": "БРИАПРОДЖЕКТ ООД",
+      "slug": null,
+      "uic": "204591875",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yulian-miroslavov-pavlov-1c0aec",
+      "target": "company:tr:204591875",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

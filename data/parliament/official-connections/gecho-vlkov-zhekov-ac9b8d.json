@@ -1,0 +1,107 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:gecho-vlkov-zhekov-ac9b8d",
+  "nodes": [
+    {
+      "id": "official:gecho-vlkov-zhekov-ac9b8d",
+      "type": "official",
+      "slug": "gecho-vlkov-zhekov-ac9b8d",
+      "label": "Гечо Вълков Жеков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:116503980",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ &quot;СВ.ИВАН РИЛСКИ&quot; - РАЗГРАД",
+      "slug": null,
+      "uic": "116503980",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:ivian-borislavov-benishev-222782",
+      "type": "official",
+      "slug": "ivian-borislavov-benishev-222782",
+      "label": "Ивиан Бориславов Бенишев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "official:stanimir-krasimirov-georgiev-15f10a",
+      "type": "official",
+      "slug": "stanimir-krasimirov-georgiev-15f10a",
+      "label": "Станимир Красимиров Георгиев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "official:teodor-ivanov-garvalov-1e0909",
+      "type": "official",
+      "slug": "teodor-ivanov-garvalov-1e0909",
+      "label": "Теодор Иванов Гарвалов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:ДАНИЕЛ ПЕТРОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Даниел Петров Петров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gecho-vlkov-zhekov-ac9b8d",
+      "target": "company:tr:116503980",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivian-borislavov-benishev-222782",
+      "target": "company:tr:116503980",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stanimir-krasimirov-georgiev-15f10a",
+      "target": "company:tr:116503980",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stanimir-krasimirov-georgiev-15f10a",
+      "target": "company:tr:116503980",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:teodor-ivanov-garvalov-1e0909",
+      "target": "company:tr:116503980",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАНИЕЛ ПЕТРОВ ПЕТРОВ",
+      "target": "company:tr:116503980",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

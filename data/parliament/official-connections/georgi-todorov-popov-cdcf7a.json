@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-todorov-popov-cdcf7a",
+  "nodes": [
+    {
+      "id": "official:georgi-todorov-popov-cdcf7a",
+      "type": "official",
+      "slug": "georgi-todorov-popov-cdcf7a",
+      "label": "Георги Тодоров Попов",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200929685",
+      "type": "company",
+      "label": "АНОНС 21",
+      "slug": null,
+      "uic": "200929685",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-todorov-popov-cdcf7a",
+      "target": "company:tr:200929685",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-todorov-popov-cdcf7a",
+      "target": "company:tr:200929685",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

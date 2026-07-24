@@ -1,0 +1,154 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mladen-lyubomirov-kichev-aab683",
+  "nodes": [
+    {
+      "id": "official:mladen-lyubomirov-kichev-aab683",
+      "type": "official",
+      "slug": "mladen-lyubomirov-kichev-aab683",
+      "label": "Младен Любомиров Кичев",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Калояново"
+    },
+    {
+      "id": "company:tr:177172234",
+      "type": "company",
+      "label": "МЕСТНА ИНИЦИАТИВНА ГРУПА КАЛОЯНОВО - СЪЕДИНЕНИЕ",
+      "slug": null,
+      "uic": "177172234",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОВКО АТАНАСОВ КАНТАРСКИ",
+      "type": "person",
+      "label": "Йовко Атанасов Кантарски"
+    },
+    {
+      "id": "person:НИКОЛА НЕДЕЛЧЕВ БОЖИЛОВ",
+      "type": "person",
+      "label": "Никола Неделчев Божилов"
+    },
+    {
+      "id": "company:name:ДИЕКС ЕООД, ПРЕДСТАВЛЯВАНО ОТ ПЕТЯ АНГЕЛОВА СТОИЛОВА",
+      "type": "company",
+      "label": "ДИЕКС ЕООД, представлявано от ПЕТЯ АНГЕЛОВА СТОИЛОВА",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:ЛУКИВИ-ИС ООД, ПРЕДСТАВЛЯВАНО ОТ СТОЯН ИВАНОВ ЛУКОВ",
+      "type": "company",
+      "label": "ЛУКИВИ-ИС ООД, представлявано от СТОЯН ИВАНОВ ЛУКОВ",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОБЩИНА КАЛОЯНОВО ЧРЕЗ КМЕТА МЛАДЕН ЛЮБОМИРОВ КИЧЕВ",
+      "type": "person",
+      "label": "Община Калояново Чрез Кмета Младен Любомиров Кичев"
+    },
+    {
+      "id": "person:ВЕЛИЧКА ИЛИЕВА КИРОВА",
+      "type": "person",
+      "label": "Величка Илиева Кирова"
+    },
+    {
+      "id": "company:name:ДИЕКС ЕООД, ПРЕДСТАВЛЯВАНО ОТ УПРАВИТЕЛЯ СИ АТАНАС ПЕТРОВ СТОИЛОВ",
+      "type": "company",
+      "label": "ДИЕКС ЕООД, представлявано от управителя си Атанас Петров Стоилов",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОБЩИНА СЪЕДИНЕНИЕ ЧРЕЗ КМЕТА ГЕОРГИ ЛЮБЕНОВ РУМЕНОВ",
+      "type": "person",
+      "label": "Община Съединение Чрез Кмета Георги Любенов Руменов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mladen-lyubomirov-kichev-aab683",
+      "target": "company:tr:177172234",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОВКО АТАНАСОВ КАНТАРСКИ",
+      "target": "company:tr:177172234",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА НЕДЕЛЧЕВ БОЖИЛОВ",
+      "target": "company:tr:177172234",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ДИЕКС ЕООД, ПРЕДСТАВЛЯВАНО ОТ ПЕТЯ АНГЕЛОВА СТОИЛОВА",
+      "target": "company:tr:177172234",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ЛУКИВИ-ИС ООД, ПРЕДСТАВЛЯВАНО ОТ СТОЯН ИВАНОВ ЛУКОВ",
+      "target": "company:tr:177172234",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА КАЛОЯНОВО ЧРЕЗ КМЕТА МЛАДЕН ЛЮБОМИРОВ КИЧЕВ",
+      "target": "company:tr:177172234",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИЧКА ИЛИЕВА КИРОВА",
+      "target": "company:tr:177172234",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ДИЕКС ЕООД, ПРЕДСТАВЛЯВАНО ОТ УПРАВИТЕЛЯ СИ АТАНАС ПЕТРОВ СТОИЛОВ",
+      "target": "company:tr:177172234",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА СЪЕДИНЕНИЕ ЧРЕЗ КМЕТА ГЕОРГИ ЛЮБЕНОВ РУМЕНОВ",
+      "target": "company:tr:177172234",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

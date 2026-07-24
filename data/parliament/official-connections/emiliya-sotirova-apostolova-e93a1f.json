@@ -1,0 +1,126 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:emiliya-sotirova-apostolova-e93a1f",
+  "nodes": [
+    {
+      "id": "official:emiliya-sotirova-apostolova-e93a1f",
+      "type": "official",
+      "slug": "emiliya-sotirova-apostolova-e93a1f",
+      "label": "Емилия Сотирова Апостолова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000343390",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ОТЕЦ ПАИСИЙ-1930 Г&quot; - С. ВЕЛИЧКОВО",
+      "slug": null,
+      "uic": "000343390",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛИЛЯНА ГРОЗДАНОВА САРАФСКА",
+      "type": "person",
+      "label": "Лиляна Грозданова Сарафска"
+    },
+    {
+      "id": "person:БИЛЯНА ГЕОРГИЕВА ВЕНЧЕВА",
+      "type": "person",
+      "label": "Биляна Георгиева Венчева"
+    },
+    {
+      "id": "person:ДИМИТЪР НИКОЛАЕВ ШАЛДЪРОВ",
+      "type": "person",
+      "label": "Димитър Николаев Шалдъров"
+    },
+    {
+      "id": "person:ЙОРДАН ИВАНОВ ЧАЛЪКОВ",
+      "type": "person",
+      "label": "Йордан Иванов Чалъков"
+    },
+    {
+      "id": "person:ИВАНКА СТОИМЕНОВА КОНСУЛОВА",
+      "type": "person",
+      "label": "Иванка Стоименова Консулова"
+    },
+    {
+      "id": "person:ЙОРДАНКА ПЕТРОВА ВЕНЧЕВА",
+      "type": "person",
+      "label": "Йорданка Петрова Венчева"
+    },
+    {
+      "id": "person:ХРИСТИНА ИВАНОВА ГУГЛЕВА",
+      "type": "person",
+      "label": "Христина Иванова Гуглева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emiliya-sotirova-apostolova-e93a1f",
+      "target": "company:tr:000343390",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛИЛЯНА ГРОЗДАНОВА САРАФСКА",
+      "target": "company:tr:000343390",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИЛЯНА ГЕОРГИЕВА ВЕНЧЕВА",
+      "target": "company:tr:000343390",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР НИКОЛАЕВ ШАЛДЪРОВ",
+      "target": "company:tr:000343390",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ИВАНОВ ЧАЛЪКОВ",
+      "target": "company:tr:000343390",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА СТОИМЕНОВА КОНСУЛОВА",
+      "target": "company:tr:000343390",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА ПЕТРОВА ВЕНЧЕВА",
+      "target": "company:tr:000343390",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА ИВАНОВА ГУГЛЕВА",
+      "target": "company:tr:000343390",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

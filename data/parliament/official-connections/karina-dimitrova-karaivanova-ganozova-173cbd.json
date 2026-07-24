@@ -1,0 +1,228 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:karina-dimitrova-karaivanova-ganozova-173cbd",
+  "nodes": [
+    {
+      "id": "official:karina-dimitrova-karaivanova-ganozova-173cbd",
+      "type": "official",
+      "slug": "karina-dimitrova-karaivanova-ganozova-173cbd",
+      "label": "Карина Димитрова Караиванова-Ганозова",
+      "tier": "executive",
+      "role": "international",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175327305",
+      "type": "company",
+      "label": "ДРУЖЕСТВО ЗА КАСОВИ УСЛУГИ",
+      "slug": null,
+      "uic": "175327305",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1632"
+    },
+    {
+      "id": "mp:4160",
+      "type": "mp",
+      "mpId": 4160,
+      "label": "Андрей Атанасов Гюров",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47",
+        "48",
+        "49"
+      ]
+    },
+    {
+      "id": "mp:4325",
+      "type": "mp",
+      "mpId": 4325,
+      "label": "Петър Пандушев Чобанов",
+      "partyGroupShort": "ДПС",
+      "isCurrent": false,
+      "nsFolders": [
+        "42",
+        "43",
+        "46",
+        "47",
+        "48"
+      ]
+    },
+    {
+      "id": "person:АННА ВАЛЕРИЕВА МАНОЛОВА",
+      "type": "person",
+      "label": "Анна Валериева Манолова"
+    },
+    {
+      "id": "person:ВЛАДИМИР ГОСПОДИНОВ ВЛАЕВ",
+      "type": "person",
+      "label": "Владимир Господинов Влаев"
+    },
+    {
+      "id": "person:ИВАЙЛО СТАНЕВ МАТЕЕВ",
+      "type": "person",
+      "label": "Ивайло Станев Матеев"
+    },
+    {
+      "id": "person:ИВАЙЛО РУСИНОВ ГЛАВЧОВСКИ",
+      "type": "person",
+      "label": "Ивайло Русинов Главчовски"
+    },
+    {
+      "id": "person:КАЛИН ДИМИТРОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Калин Димитров Христов"
+    },
+    {
+      "id": "person:ЕМИЛ СТЕФАНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Емил Стефанов Христов"
+    },
+    {
+      "id": "person:ИРИНА ИВАНОВА МАРЦЕВА",
+      "type": "person",
+      "label": "Ирина Иванова Марцева"
+    },
+    {
+      "id": "person:ТАТЯНА ВАСИЛЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Татяна Василева Иванова"
+    },
+    {
+      "id": "person:ДЖЕЙМС БОРИСЛАВОВ ЙОЛОВСКИ",
+      "type": "person",
+      "label": "Джеймс Бориславов Йоловски"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:karina-dimitrova-karaivanova-ganozova-173cbd",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4160",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4325",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АННА ВАЛЕРИЕВА МАНОЛОВА",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ГОСПОДИНОВ ВЛАЕВ",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО СТАНЕВ МАТЕЕВ",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО РУСИНОВ ГЛАВЧОВСКИ",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА ВАЛЕРИЕВА МАНОЛОВА",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ГОСПОДИНОВ ВЛАЕВ",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН ДИМИТРОВ ХРИСТОВ",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ СТЕФАНОВ ХРИСТОВ",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА ИВАНОВА МАРЦЕВА",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА ВАЛЕРИЕВА МАНОЛОВА",
+      "target": "company:tr:175327305",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ГОСПОДИНОВ ВЛАЕВ",
+      "target": "company:tr:175327305",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА ВАСИЛЕВА ИВАНОВА",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖЕЙМС БОРИСЛАВОВ ЙОЛОВСКИ",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

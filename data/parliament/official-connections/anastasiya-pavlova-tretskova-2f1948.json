@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:anastasiya-pavlova-tretskova-2f1948",
+  "nodes": [
+    {
+      "id": "official:anastasiya-pavlova-tretskova-2f1948",
+      "type": "official",
+      "slug": "anastasiya-pavlova-tretskova-2f1948",
+      "label": "Анастасия Павлова Трецкова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бяла/Варна/"
+    },
+    {
+      "id": "company:tr:205418297",
+      "type": "company",
+      "label": "Бест Сървис 2018 ООД",
+      "slug": null,
+      "uic": "205418297",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:anastasiya-pavlova-tretskova-2f1948",
+      "target": "company:tr:205418297",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

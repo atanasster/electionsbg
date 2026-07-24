@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:3271",
   "nodes": [
     {
@@ -24,63 +24,63 @@
       "seat": null
     },
     {
-      "id": "official:vladimir-dobrev-trifonov-7c14ca",
+      "id": "official:vladimir-dobrev-trifonov-025ebe",
       "type": "official",
-      "slug": "vladimir-dobrev-trifonov-7c14ca",
+      "slug": "vladimir-dobrev-trifonov-025ebe",
       "label": "Владимир Добрев Трифонов",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:geno-ivanov-georgiev-e22ed0",
+      "id": "official:geno-ivanov-georgiev-caa806",
       "type": "official",
-      "slug": "geno-ivanov-georgiev-e22ed0",
+      "slug": "geno-ivanov-georgiev-caa806",
       "label": "Гено Иванов Георгиев",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:ivan-denchev-kolarov-a83f0f",
+      "id": "official:ivan-denchev-kolarov-bd912b",
       "type": "official",
-      "slug": "ivan-denchev-kolarov-a83f0f",
+      "slug": "ivan-denchev-kolarov-bd912b",
       "label": "Иван Денчев Коларов",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:ivelina-petrova-krushkova-efc6ef",
+      "id": "official:ivelina-petrova-krushkova-78ca18",
       "type": "official",
-      "slug": "ivelina-petrova-krushkova-efc6ef",
+      "slug": "ivelina-petrova-krushkova-78ca18",
       "label": "Ивелина Петрова Крушкова",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:kalin-yankov-yankov-b8c929",
+      "id": "official:kalin-yankov-yankov-2221f7",
       "type": "official",
-      "slug": "kalin-yankov-yankov-b8c929",
+      "slug": "kalin-yankov-yankov-2221f7",
       "label": "Калин Янков Янков",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:kamen-mitev-manev-2225d1",
+      "id": "official:kamen-mitev-manev-d9126a",
       "type": "official",
-      "slug": "kamen-mitev-manev-2225d1",
+      "slug": "kamen-mitev-manev-d9126a",
       "label": "Камен Митев Манев",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:konstantina-hristova-atanasovska-a13aaf",
+      "id": "official:konstantina-hristova-atanasovska-29c480",
       "type": "official",
-      "slug": "konstantina-hristova-atanasovska-a13aaf",
+      "slug": "konstantina-hristova-atanasovska-29c480",
       "label": "Константина Христова Атанасовска",
       "tier": "executive",
       "role": "state_enterprise",
@@ -284,7 +284,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:vladimir-dobrev-trifonov-7c14ca",
+      "source": "official:vladimir-dobrev-trifonov-025ebe",
       "target": "company:tr:831646048",
       "kind": "tr_role",
       "role": "director",
@@ -292,7 +292,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:geno-ivanov-georgiev-e22ed0",
+      "source": "official:geno-ivanov-georgiev-caa806",
       "target": "company:tr:831646048",
       "kind": "tr_role",
       "role": "director",
@@ -300,7 +300,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:ivan-denchev-kolarov-a83f0f",
+      "source": "official:ivan-denchev-kolarov-bd912b",
       "target": "company:tr:831646048",
       "kind": "tr_role",
       "role": "director",
@@ -308,7 +308,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:ivelina-petrova-krushkova-efc6ef",
+      "source": "official:ivelina-petrova-krushkova-78ca18",
       "target": "company:tr:831646048",
       "kind": "tr_role",
       "role": "director",
@@ -316,7 +316,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:kalin-yankov-yankov-b8c929",
+      "source": "official:kalin-yankov-yankov-2221f7",
       "target": "company:tr:831646048",
       "kind": "tr_role",
       "role": "director",
@@ -324,7 +324,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:kamen-mitev-manev-2225d1",
+      "source": "official:kamen-mitev-manev-d9126a",
       "target": "company:tr:831646048",
       "kind": "tr_role",
       "role": "director",
@@ -332,7 +332,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:konstantina-hristova-atanasovska-a13aaf",
+      "source": "official:konstantina-hristova-atanasovska-29c480",
       "target": "company:tr:831646048",
       "kind": "tr_role",
       "role": "director",

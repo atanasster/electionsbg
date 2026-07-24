@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:magda-nikolova-raikova-e73b67",
+  "nodes": [
+    {
+      "id": "official:magda-nikolova-raikova-e73b67",
+      "type": "official",
+      "slug": "magda-nikolova-raikova-e73b67",
+      "label": "Магда Николова Райкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208036502",
+      "type": "company",
+      "label": "АРМИРА - ИВАЙЛОВГРАД",
+      "slug": null,
+      "uic": "208036502",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:katina-dimitrova-georgieva-93c5b7",
+      "type": "official",
+      "slug": "katina-dimitrova-georgieva-93c5b7",
+      "label": "Катина Димитрова Георгиева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ОБЩИНА ИВАЙЛОВГРАД",
+      "type": "person",
+      "label": "Община Ивайловград"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:magda-nikolova-raikova-e73b67",
+      "target": "company:tr:208036502",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:katina-dimitrova-georgieva-93c5b7",
+      "target": "company:tr:208036502",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОБЩИНА ИВАЙЛОВГРАД",
+      "target": "company:tr:208036502",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

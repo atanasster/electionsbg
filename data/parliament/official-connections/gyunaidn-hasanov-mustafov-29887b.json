@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:gyunaidn-hasanov-mustafov-29887b",
+  "nodes": [
+    {
+      "id": "official:gyunaidn-hasanov-mustafov-29887b",
+      "type": "official",
+      "slug": "gyunaidn-hasanov-mustafov-29887b",
+      "label": "Гюнайдън Хасанов Мустафов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сливо поле"
+    },
+    {
+      "id": "company:tr:206498225",
+      "type": "company",
+      "label": "ЕВРО ПЛАСТ 2009",
+      "slug": null,
+      "uic": "206498225",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХАСАН ГЮНАЙДЪНОВ ХАСАНОВ",
+      "type": "person",
+      "label": "Хасан Гюнайдънов Хасанов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gyunaidn-hasanov-mustafov-29887b",
+      "target": "company:tr:206498225",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХАСАН ГЮНАЙДЪНОВ ХАСАНОВ",
+      "target": "company:tr:206498225",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАСАН ГЮНАЙДЪНОВ ХАСАНОВ",
+      "target": "company:tr:206498225",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

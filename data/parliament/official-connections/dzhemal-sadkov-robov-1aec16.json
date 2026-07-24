@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dzhemal-sadkov-robov-1aec16",
+  "nodes": [
+    {
+      "id": "official:dzhemal-sadkov-robov-1aec16",
+      "type": "official",
+      "slug": "dzhemal-sadkov-robov-1aec16",
+      "label": "Джемал Садъков Робов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Гърмен"
+    },
+    {
+      "id": "company:tr:175750604",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ &quot;РОДОПА - РИБНОВО&quot;",
+      "slug": null,
+      "uic": "175750604",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИБРАХИМ МУСТАФОВ КЪДРИЕВ",
+      "type": "person",
+      "label": "Ибрахим Мустафов Къдриев"
+    },
+    {
+      "id": "person:ЯВОР АЛЬОШИЕВ КИСЕЛОВ",
+      "type": "person",
+      "label": "Явор Альошиев Киселов"
+    },
+    {
+      "id": "person:КЪДРИ КЪДРИЕВ КИСЕЛОВ",
+      "type": "person",
+      "label": "Къдри Къдриев Киселов"
+    },
+    {
+      "id": "person:ДЖЕМАЛ ДЖЕМАЛОВ ЧУМОВ",
+      "type": "person",
+      "label": "Джемал Джемалов Чумов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dzhemal-sadkov-robov-1aec16",
+      "target": "company:tr:175750604",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dzhemal-sadkov-robov-1aec16",
+      "target": "company:tr:175750604",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИБРАХИМ МУСТАФОВ КЪДРИЕВ",
+      "target": "company:tr:175750604",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯВОР АЛЬОШИЕВ КИСЕЛОВ",
+      "target": "company:tr:175750604",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЪДРИ КЪДРИЕВ КИСЕЛОВ",
+      "target": "company:tr:175750604",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖЕМАЛ ДЖЕМАЛОВ ЧУМОВ",
+      "target": "company:tr:175750604",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

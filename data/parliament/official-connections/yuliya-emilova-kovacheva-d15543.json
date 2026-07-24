@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:yuliya-emilova-kovacheva-d15543",
+  "nodes": [
+    {
+      "id": "official:yuliya-emilova-kovacheva-d15543",
+      "type": "official",
+      "slug": "yuliya-emilova-kovacheva-d15543",
+      "label": "Юлия Емилова Ковачева",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200111839",
+      "type": "company",
+      "label": "Агропропъл",
+      "slug": null,
+      "uic": "200111839",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yuliya-emilova-kovacheva-d15543",
+      "target": "company:tr:200111839",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:angelin-nikolaev-tsachev-63f078",
+  "nodes": [
+    {
+      "id": "official:angelin-nikolaev-tsachev-63f078",
+      "type": "official",
+      "slug": "angelin-nikolaev-tsachev-63f078",
+      "label": "Ангелин Николаев Цачев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206858164",
+      "type": "company",
+      "label": "Йозона ЕООД",
+      "slug": null,
+      "uic": "206858164",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОВКА ЗАХАРИЕВА ЦАЧЕВА",
+      "type": "person",
+      "label": "Йовка Захариева Цачева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:angelin-nikolaev-tsachev-63f078",
+      "target": "company:tr:206858164",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОВКА ЗАХАРИЕВА ЦАЧЕВА",
+      "target": "company:tr:206858164",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОВКА ЗАХАРИЕВА ЦАЧЕВА",
+      "target": "company:tr:206858164",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

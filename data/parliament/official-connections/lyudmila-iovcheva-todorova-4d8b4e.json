@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:lyudmila-iovcheva-todorova-4d8b4e",
+  "nodes": [
+    {
+      "id": "official:lyudmila-iovcheva-todorova-4d8b4e",
+      "type": "official",
+      "slug": "lyudmila-iovcheva-todorova-4d8b4e",
+      "label": "Людмила Йовчева Тодорова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000770111",
+      "type": "company",
+      "label": "СПЕЦИАЛИЗИРАНА БОЛНИЦА ПО ПНЕВМОФТИЗИАТРИЧНИ ЗАБОЛЯВАНИЯ ЗА  ПРОДЪЛЖИТЕЛНО ЛЕЧЕНИЕ И РЕХАБИЛИТАЦИЯ - ЦАР ФЕРДИНАНД І",
+      "slug": null,
+      "uic": "000770111",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lyudmila-iovcheva-todorova-4d8b4e",
+      "target": "company:tr:000770111",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

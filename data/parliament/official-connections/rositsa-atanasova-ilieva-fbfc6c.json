@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rositsa-atanasova-ilieva-fbfc6c",
+  "nodes": [
+    {
+      "id": "official:rositsa-atanasova-ilieva-fbfc6c",
+      "type": "official",
+      "slug": "rositsa-atanasova-ilieva-fbfc6c",
+      "label": "Росица Атанасова Илиева",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206193743",
+      "type": "company",
+      "label": "ДИВЕС МАРКЕТ",
+      "slug": null,
+      "uic": "206193743",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rositsa-atanasova-ilieva-fbfc6c",
+      "target": "company:tr:206193743",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rositsa-atanasova-ilieva-fbfc6c",
+      "target": "company:tr:206193743",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

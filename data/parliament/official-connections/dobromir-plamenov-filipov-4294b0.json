@@ -1,0 +1,404 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dobromir-plamenov-filipov-4294b0",
+  "nodes": [
+    {
+      "id": "official:dobromir-plamenov-filipov-4294b0",
+      "type": "official",
+      "slug": "dobromir-plamenov-filipov-4294b0",
+      "label": "Добромир Пламенов Филипов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206830453",
+      "type": "company",
+      "label": "Медикъл и Бюти Център оод",
+      "slug": null,
+      "uic": "206830453",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204557842",
+      "type": "company",
+      "label": "АДМИШЪН ИНТЕРНЕШЪНЪЛ ООд",
+      "slug": null,
+      "uic": "204557842",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203895976",
+      "type": "company",
+      "label": "ОРТО ХЕЛП ООД",
+      "slug": null,
+      "uic": "203895976",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204223322",
+      "type": "company",
+      "label": "КЪРИ ЕКСПРЕС оод",
+      "slug": null,
+      "uic": "204223322",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203891077",
+      "type": "company",
+      "label": "ИНФИНИТИ ЕСКЕЙП оод",
+      "slug": null,
+      "uic": "203891077",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201994573",
+      "type": "company",
+      "label": "ИНТЕРНЕШЪНЪЛ АДМИШЪН СЪРВИСИЗ оод",
+      "slug": null,
+      "uic": "201994573",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205091422",
+      "type": "company",
+      "label": "ИННОВЕЙТ ФЮЧЪР оод",
+      "slug": null,
+      "uic": "205091422",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204849241",
+      "type": "company",
+      "label": "ИАС ЮРЪП оод",
+      "slug": null,
+      "uic": "204849241",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203171485",
+      "type": "company",
+      "label": "ВАРНА МЕД оод",
+      "slug": null,
+      "uic": "203171485",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:dobromir-plamenov-filipov-83a912",
+      "type": "official",
+      "slug": "dobromir-plamenov-filipov-83a912",
+      "label": "Добромир Пламенов Филипов",
+      "tier": "executive",
+      "role": "social_fund",
+      "municipality": null
+    },
+    {
+      "id": "person:БЕНДЖАМИН МОГХАДДАМ",
+      "type": "person",
+      "label": "Бенджамин Могхаддам"
+    },
+    {
+      "id": "person:СЕВЕРИНА СТОЙЧЕВА СТОЕВА",
+      "type": "person",
+      "label": "Северина Стойчева Стоева"
+    },
+    {
+      "id": "person:ДОБРОМИР ПЛАМЕНОВ ФИЛИПОВ",
+      "type": "person",
+      "label": "Добромир Пламенов Филипов"
+    },
+    {
+      "id": "company:name:,,ЕМ БИ СИ МЕДИКЪЛ",
+      "type": "company",
+      "label": ",,ЕМ БИ СИ МЕДИКЪЛ'' ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТАНЯ ДЪБЕВА ФИЛИПОВА",
+      "type": "person",
+      "label": "Таня Дъбева Филипова"
+    },
+    {
+      "id": "person:НЕЛИ АТАНАСОВА БАЛИНОВА",
+      "type": "person",
+      "label": "Нели Атанасова Балинова"
+    },
+    {
+      "id": "person:БИЛЯНА ПЛАМЕНОВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Биляна Пламенова Михайлова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dobromir-plamenov-filipov-4294b0",
+      "target": "company:tr:206830453",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dobromir-plamenov-filipov-4294b0",
+      "target": "company:tr:204557842",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dobromir-plamenov-filipov-4294b0",
+      "target": "company:tr:203895976",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dobromir-plamenov-filipov-4294b0",
+      "target": "company:tr:204223322",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dobromir-plamenov-filipov-4294b0",
+      "target": "company:tr:203891077",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dobromir-plamenov-filipov-4294b0",
+      "target": "company:tr:201994573",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dobromir-plamenov-filipov-4294b0",
+      "target": "company:tr:205091422",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dobromir-plamenov-filipov-4294b0",
+      "target": "company:tr:204849241",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dobromir-plamenov-filipov-4294b0",
+      "target": "company:tr:203171485",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dobromir-plamenov-filipov-83a912",
+      "target": "company:tr:206830453",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЕНДЖАМИН МОГХАДДАМ",
+      "target": "company:tr:206830453",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВЕРИНА СТОЙЧЕВА СТОЕВА",
+      "target": "company:tr:206830453",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРОМИР ПЛАМЕНОВ ФИЛИПОВ",
+      "target": "company:tr:206830453",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:,,ЕМ БИ СИ МЕДИКЪЛ",
+      "target": "company:tr:206830453",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЕНДЖАМИН МОГХАДДАМ",
+      "target": "company:tr:206830453",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dobromir-plamenov-filipov-83a912",
+      "target": "company:tr:204557842",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dobromir-plamenov-filipov-83a912",
+      "target": "company:tr:203895976",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВЕРИНА СТОЙЧЕВА СТОЕВА",
+      "target": "company:tr:203895976",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dobromir-plamenov-filipov-83a912",
+      "target": "company:tr:204223322",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ДЪБЕВА ФИЛИПОВА",
+      "target": "company:tr:204223322",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dobromir-plamenov-filipov-83a912",
+      "target": "company:tr:203891077",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВЕРИНА СТОЙЧЕВА СТОЕВА",
+      "target": "company:tr:203891077",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dobromir-plamenov-filipov-83a912",
+      "target": "company:tr:201994573",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВЕРИНА СТОЙЧЕВА СТОЕВА",
+      "target": "company:tr:201994573",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dobromir-plamenov-filipov-83a912",
+      "target": "company:tr:205091422",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВЕРИНА СТОЙЧЕВА СТОЕВА",
+      "target": "company:tr:205091422",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dobromir-plamenov-filipov-83a912",
+      "target": "company:tr:204849241",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВЕРИНА СТОЙЧЕВА СТОЕВА",
+      "target": "company:tr:204849241",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dobromir-plamenov-filipov-83a912",
+      "target": "company:tr:203171485",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ АТАНАСОВА БАЛИНОВА",
+      "target": "company:tr:203171485",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИЛЯНА ПЛАМЕНОВА МИХАЙЛОВА",
+      "target": "company:tr:203171485",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

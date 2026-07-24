@@ -1,0 +1,66 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:angel-penchov-gerov-e1c576",
+  "nodes": [
+    {
+      "id": "official:angel-penchov-gerov-e1c576",
+      "type": "official",
+      "slug": "angel-penchov-gerov-e1c576",
+      "label": "Ангел Пенчов Геров",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131503698",
+      "type": "company",
+      "label": "ИНДСТРОЙ ООД",
+      "slug": null,
+      "uic": "131503698",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203454165",
+      "type": "company",
+      "label": "ХИМГАРД И СИЕ ООД",
+      "slug": null,
+      "uic": "203454165",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРАСИМИРА ИВАНОВА ГЮЛЕМЕТОВА",
+      "type": "person",
+      "label": "Красимира Иванова Гюлеметова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:angel-penchov-gerov-e1c576",
+      "target": "company:tr:131503698",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:angel-penchov-gerov-e1c576",
+      "target": "company:tr:203454165",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ИВАНОВА ГЮЛЕМЕТОВА",
+      "target": "company:tr:203454165",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

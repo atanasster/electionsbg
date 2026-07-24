@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:darina-hristova-koleva-2d7dc0",
+  "nodes": [
+    {
+      "id": "official:darina-hristova-koleva-2d7dc0",
+      "type": "official",
+      "slug": "darina-hristova-koleva-2d7dc0",
+      "label": "Дарина Христова Колева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205478458",
+      "type": "company",
+      "label": "ГАЗОВ ХЪБ БАЛКАН",
+      "slug": null,
+      "uic": "205478458",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЛАДИМИР АСЕНОВ МАЛИНОВ",
+      "type": "person",
+      "label": "Владимир Асенов Малинов"
+    },
+    {
+      "id": "person:ЗАХАРИ КОНСТАНТИНОВ ДЕЧЕВ",
+      "type": "person",
+      "label": "Захари Константинов Дечев"
+    },
+    {
+      "id": "person:КИРИЛ ДИМЧОВ РАВНАЧКИ",
+      "type": "person",
+      "label": "Кирил Димчов Равначки"
+    },
+    {
+      "id": "person:ПЕТЯ ТОДОРОВА ИВАНОВА",
+      "type": "person",
+      "label": "Петя Тодорова Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:darina-hristova-koleva-2d7dc0",
+      "target": "company:tr:205478458",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЛАДИМИР АСЕНОВ МАЛИНОВ",
+      "target": "company:tr:205478458",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗАХАРИ КОНСТАНТИНОВ ДЕЧЕВ",
+      "target": "company:tr:205478458",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ДИМЧОВ РАВНАЧКИ",
+      "target": "company:tr:205478458",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ТОДОРОВА ИВАНОВА",
+      "target": "company:tr:205478458",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ТОДОРОВА ИВАНОВА",
+      "target": "company:tr:205478458",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "yuli-stanchev-gornishki-2c4c05",
+    "declarantName": "Юли Станчев Горнишки",
+    "institution": "Кнежа",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г6823",
+    "controlHash": "40777DD0",
+    "sourceUrl": "https://register.cacbg.bg/2025/45A9DC72-F26F-4EC7-A1F1-85254FB3136B209801.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4599.070471359985,
+        "amountEurSpouse": 16799.006048582956
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 16266.751200257691,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "бмв Х3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 161319,
+        "valueEur": 82481.09498269277,
+        "holderName": "Юли Станчев Горнишки",
+        "isSpouse": false,
+        "legalBasis": "Лизингов договор",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6837,
+        "valueEur": 3495.702591738546,
+        "holderName": "Юли Станчев Горнишки",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35199,
+        "valueEur": 17996.962926225693,
+        "holderName": "Нина Иванова Горнишка",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Лизингов договор",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 102237,
+        "valueEur": 52272.94805785779,
+        "holderName": "Юли Станчев Горнишки",
+        "isSpouse": false,
+        "legalBasis": "лизингов договор 2.99",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

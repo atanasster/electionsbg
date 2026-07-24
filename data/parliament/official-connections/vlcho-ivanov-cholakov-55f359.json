@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vlcho-ivanov-cholakov-55f359",
+  "nodes": [
+    {
+      "id": "official:vlcho-ivanov-cholakov-55f359",
+      "type": "official",
+      "slug": "vlcho-ivanov-cholakov-55f359",
+      "label": "Вълчо Иванов Чолаков",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:102841138",
+      "type": "company",
+      "label": "Чолаков и партньори ООД",
+      "slug": null,
+      "uic": "102841138",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:200045816",
+      "type": "company",
+      "label": "Терс ООД",
+      "slug": null,
+      "uic": "200045816",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vlcho-ivanov-cholakov-55f359",
+      "target": "company:tr:102841138",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vlcho-ivanov-cholakov-55f359",
+      "target": "company:tr:200045816",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vlcho-ivanov-cholakov-55f359",
+      "target": "company:tr:102841138",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vlcho-ivanov-cholakov-55f359",
+      "target": "company:tr:200045816",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

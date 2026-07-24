@@ -1,0 +1,273 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mihail-aleksandrov-ivanov-388e5c",
+  "nodes": [
+    {
+      "id": "official:mihail-aleksandrov-ivanov-388e5c",
+      "type": "official",
+      "slug": "mihail-aleksandrov-ivanov-388e5c",
+      "label": "Михаил Александров Иванов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205677435",
+      "type": "company",
+      "label": "ТРАНСПОРТНО СТРОИТЕЛСТВО И ВЪЗСТАНОВЯВАНЕ",
+      "slug": null,
+      "uic": "205677435",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:vano-todorov-todorov-38fa6b",
+      "type": "official",
+      "slug": "vano-todorov-todorov-38fa6b",
+      "label": "Ваньо Тодоров Тодоров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:georgi-dimitrov-stamov-ce57cc",
+      "type": "official",
+      "slug": "georgi-dimitrov-stamov-ce57cc",
+      "label": "Георги Димитров Стамов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:marin-marinov-hristov-35e694",
+      "type": "official",
+      "slug": "marin-marinov-hristov-35e694",
+      "label": "Марин Маринов Христов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:todor-angelov-esev-0c49c0",
+      "type": "official",
+      "slug": "todor-angelov-esev-0c49c0",
+      "label": "Тодор Ангелов Есев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:БОЖИДАР НИКОЛОВ ДЖЕЛЕБОВ",
+      "type": "person",
+      "label": "Божидар Николов Джелебов"
+    },
+    {
+      "id": "person:ТОДОР ХРИСТОВ КОНДАКОВ",
+      "type": "person",
+      "label": "Тодор Христов Кондаков"
+    },
+    {
+      "id": "person:ИВО АЛЕКСАНДРОВ ЯНАКИЕВ",
+      "type": "person",
+      "label": "Иво Александров Янакиев"
+    },
+    {
+      "id": "person:НИКОЛА МАРИНОВ МИХАЛЕВ",
+      "type": "person",
+      "label": "Никола Маринов Михалев"
+    },
+    {
+      "id": "person:СВЕТЛОЗАР ЦВЕТАНОВ ВЕШКОВ",
+      "type": "person",
+      "label": "Светлозар Цветанов Вешков"
+    },
+    {
+      "id": "person:НЕВЕН ПЕТРОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Невен Петров Петров"
+    },
+    {
+      "id": "person:БРАНИСЛАВ КРАСИМИРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Бранислав Красимиров Георгиев"
+    },
+    {
+      "id": "person:ОКТАЙ МЕМИШ МУСТАФОВ",
+      "type": "person",
+      "label": "Октай Мемиш Мустафов"
+    },
+    {
+      "id": "person:СИМЕОН ПАВЛОВ ТОНЕВ",
+      "type": "person",
+      "label": "Симеон Павлов Тонев"
+    },
+    {
+      "id": "person:КАЛОЯН ГЕОРГИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Калоян Георгиев Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mihail-aleksandrov-ivanov-388e5c",
+      "target": "company:tr:205677435",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mihail-aleksandrov-ivanov-388e5c",
+      "target": "company:tr:205677435",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vano-todorov-todorov-38fa6b",
+      "target": "company:tr:205677435",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-dimitrov-stamov-ce57cc",
+      "target": "company:tr:205677435",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:marin-marinov-hristov-35e694",
+      "target": "company:tr:205677435",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:todor-angelov-esev-0c49c0",
+      "target": "company:tr:205677435",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:todor-angelov-esev-0c49c0",
+      "target": "company:tr:205677435",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:todor-angelov-esev-0c49c0",
+      "target": "company:tr:205677435",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОЖИДАР НИКОЛОВ ДЖЕЛЕБОВ",
+      "target": "company:tr:205677435",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ХРИСТОВ КОНДАКОВ",
+      "target": "company:tr:205677435",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО АЛЕКСАНДРОВ ЯНАКИЕВ",
+      "target": "company:tr:205677435",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО АЛЕКСАНДРОВ ЯНАКИЕВ",
+      "target": "company:tr:205677435",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА МАРИНОВ МИХАЛЕВ",
+      "target": "company:tr:205677435",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛОЗАР ЦВЕТАНОВ ВЕШКОВ",
+      "target": "company:tr:205677435",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЕН ПЕТРОВ ПЕТРОВ",
+      "target": "company:tr:205677435",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БРАНИСЛАВ КРАСИМИРОВ ГЕОРГИЕВ",
+      "target": "company:tr:205677435",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОКТАЙ МЕМИШ МУСТАФОВ",
+      "target": "company:tr:205677435",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН ПАВЛОВ ТОНЕВ",
+      "target": "company:tr:205677435",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛОЯН ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:205677435",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛОЯН ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:205677435",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

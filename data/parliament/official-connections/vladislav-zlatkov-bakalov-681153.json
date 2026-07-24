@@ -1,0 +1,102 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vladislav-zlatkov-bakalov-681153",
+  "nodes": [
+    {
+      "id": "official:vladislav-zlatkov-bakalov-681153",
+      "type": "official",
+      "slug": "vladislav-zlatkov-bakalov-681153",
+      "label": "Владислав Златков Бакалов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Варна"
+    },
+    {
+      "id": "company:tr:205725613",
+      "type": "company",
+      "label": "Варна Пропъртис груп ООД",
+      "slug": null,
+      "uic": "205725613",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206291461",
+      "type": "company",
+      "label": "Варна Шорт Стей ООД",
+      "slug": null,
+      "uic": "206291461",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205046103",
+      "type": "company",
+      "label": "Етаж БГ ООД",
+      "slug": null,
+      "uic": "205046103",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202587192",
+      "type": "company",
+      "label": "УайнГлас ООД",
+      "slug": null,
+      "uic": "202587192",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИРОСЛАВ КРАСИМИРОВ РИЗОВ",
+      "type": "person",
+      "label": "Мирослав Красимиров Ризов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladislav-zlatkov-bakalov-681153",
+      "target": "company:tr:205725613",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vladislav-zlatkov-bakalov-681153",
+      "target": "company:tr:206291461",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vladislav-zlatkov-bakalov-681153",
+      "target": "company:tr:205046103",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vladislav-zlatkov-bakalov-681153",
+      "target": "company:tr:202587192",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ КРАСИМИРОВ РИЗОВ",
+      "target": "company:tr:202587192",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

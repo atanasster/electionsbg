@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "elena-georgieva-lazarova-891e80",
+    "declarantName": "Елена Георгиева Лазарова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-06-26",
+    "entryNumber": "Г15407",
+    "controlHash": "2707B1F1",
+    "sourceUrl": "https://register.cacbg.bg/2025/FA71C86B-870A-4D8F-9C41-6755210977AB219473.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "фолксваген тигуан",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 36000,
+        "valueEur": 18406.507723063867,
+        "holderName": "Лазар Ганчев Лазаров",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 29500,
+        "valueEur": 15083.110495288445,
+        "holderName": "Елена Георгиева Лазарова",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит с 7,5 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "elena-georgieva-lazarova-891e80",
+    "declarantName": "Елена Георгиева Лазарова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-09",
+    "entryNumber": "Г10246",
+    "controlHash": "58C0E9FD",
+    "sourceUrl": "https://register.cacbg.bg/2024/FA71C86B-870A-4D8F-9C41-6755210977AB191938.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 12679.527361785022,
+        "amountEurSpouse": 18406.507723063867
+      }
+    ],
+    "assets": [],
+    "events": []
+  }
+]

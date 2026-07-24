@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:manuel-stoyanov-genchev-af0111",
+  "nodes": [
+    {
+      "id": "official:manuel-stoyanov-genchev-af0111",
+      "type": "official",
+      "slug": "manuel-stoyanov-genchev-af0111",
+      "label": "Мануел Стоянов Генчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Провадия"
+    },
+    {
+      "id": "company:tr:206694505",
+      "type": "company",
+      "label": "АЛВИ-21",
+      "slug": null,
+      "uic": "206694505",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:manuel-stoyanov-genchev-af0111",
+      "target": "company:tr:206694505",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:manuel-stoyanov-genchev-af0111",
+      "target": "company:tr:206694505",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hamdi-sami-avdzh-9671ee",
+  "nodes": [
+    {
+      "id": "official:hamdi-sami-avdzh-9671ee",
+      "type": "official",
+      "slug": "hamdi-sami-avdzh-9671ee",
+      "label": "Хамди Сами Авджъ",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Нови пазар"
+    },
+    {
+      "id": "company:tr:127618901",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ДРУЖЕСТВО НА НЕВРОЛОЗИТЕ ОТ ШУМЕНСКА ОБЛАСТ&quot;",
+      "slug": null,
+      "uic": "127618901",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАЙЛО КИРИЛОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Ивайло Кирилов Петров"
+    },
+    {
+      "id": "person:АННА ВЯЧЕСЛАВОВНА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Анна Вячеславовна Георгиева"
+    },
+    {
+      "id": "person:СЪБИНА МИЛЧЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Събина Милчева Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hamdi-sami-avdzh-9671ee",
+      "target": "company:tr:127618901",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАЙЛО КИРИЛОВ ПЕТРОВ",
+      "target": "company:tr:127618901",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО КИРИЛОВ ПЕТРОВ",
+      "target": "company:tr:127618901",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА ВЯЧЕСЛАВОВНА ГЕОРГИЕВА",
+      "target": "company:tr:127618901",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА ВЯЧЕСЛАВОВНА ГЕОРГИЕВА",
+      "target": "company:tr:127618901",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЪБИНА МИЛЧЕВА ГЕОРГИЕВА",
+      "target": "company:tr:127618901",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

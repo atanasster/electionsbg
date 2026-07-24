@@ -1,0 +1,53 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:zeinel-faik-selyaidin-68179e",
+  "nodes": [
+    {
+      "id": "official:zeinel-faik-selyaidin-68179e",
+      "type": "official",
+      "slug": "zeinel-faik-selyaidin-68179e",
+      "label": "Зейнел Фаик Селяйдин",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Павел баня"
+    },
+    {
+      "id": "company:tr:202399962",
+      "type": "company",
+      "label": "ЕКСПЕРИА",
+      "slug": null,
+      "uic": "202399962",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:148032051",
+      "type": "company",
+      "label": "ЕВРОГОЛ",
+      "slug": null,
+      "uic": "148032051",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zeinel-faik-selyaidin-68179e",
+      "target": "company:tr:202399962",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:zeinel-faik-selyaidin-68179e",
+      "target": "company:tr:148032051",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

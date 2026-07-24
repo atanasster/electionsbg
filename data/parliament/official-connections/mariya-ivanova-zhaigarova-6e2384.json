@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariya-ivanova-zhaigarova-6e2384",
+  "nodes": [
+    {
+      "id": "official:mariya-ivanova-zhaigarova-6e2384",
+      "type": "official",
+      "slug": "mariya-ivanova-zhaigarova-6e2384",
+      "label": "Мария Иванова Жайгарова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203598761",
+      "type": "company",
+      "label": "Финанс Консулт МИ ЕООД",
+      "slug": null,
+      "uic": "203598761",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-ivanova-zhaigarova-6e2384",
+      "target": "company:tr:203598761",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

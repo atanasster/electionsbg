@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:andrei-dimitrov-andreev-1922b6",
+  "nodes": [
+    {
+      "id": "official:andrei-dimitrov-andreev-1922b6",
+      "type": "official",
+      "slug": "andrei-dimitrov-andreev-1922b6",
+      "label": "Андрей Димитров Андреев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207940479",
+      "type": "company",
+      "label": "\"Кракра М\" ООД",
+      "slug": null,
+      "uic": "207940479",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:МЕДИЦИНСКИ ЦЕНТЪР ПО ОФТАЛМОЛОГИЯ АНДРЕЕВ И КО",
+      "type": "company",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪР ПО ОФТАЛМОЛОГИЯ АНДРЕЕВ И КО ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:andrei-dimitrov-andreev-1922b6",
+      "target": "company:tr:207940479",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:andrei-dimitrov-andreev-1922b6",
+      "target": "company:tr:207940479",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:andrei-dimitrov-andreev-1922b6",
+      "target": "company:tr:207940479",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "company:name:МЕДИЦИНСКИ ЦЕНТЪР ПО ОФТАЛМОЛОГИЯ АНДРЕЕВ И КО",
+      "target": "company:tr:207940479",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

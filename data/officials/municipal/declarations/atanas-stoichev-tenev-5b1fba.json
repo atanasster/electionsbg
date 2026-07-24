@@ -1,0 +1,172 @@
+[
+  {
+    "slug": "atanas-stoichev-tenev-5b1fba",
+    "declarantName": "АТАНАС СТОЙЧЕВ ТЕНЕВ",
+    "institution": "Костинброд",
+    "positionTitle": "Председател на ОбС",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-06-16",
+    "entryNumber": "Г15068",
+    "controlHash": "47E3C35B",
+    "sourceUrl": "https://register.cacbg.bg/2025/E4E79235-F963-4675-B8A4-A78761C89E51218659.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31478.195957726388,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 12271.005148709244,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6068.523337917917
+      },
+      {
+        "parent": null,
+        "category": "ДИВИДЕНТ",
+        "amountEurDeclarant": 23045.458961157157,
+        "amountEurSpouse": 12916.766794660067
+      },
+      {
+        "parent": null,
+        "category": "ДОХДИ ОТ РЕНТА, АРЕНДА",
+        "amountEurDeclarant": 843.6316039737605,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ПЕНСИЯ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2877.5507073723174
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "РЕМАРКЕ ЗА ЛЕК АВТОМОБИЛ",
+        "detail": "ФЕНДТ ТГ2",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "ВИОЛЕТА ГЕОРГИЕВА ТЕНЕВА",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "СТОПАНСКА ДЕЙНОСТ"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 34721,
+        "valueEur": 17752.565407013903,
+        "holderName": "АТАНАС СТОЙЧЕВ ТЕНЕВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТА И ДИВИДЕНТ"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4774,
+        "valueEur": 2440.907440830747,
+        "holderName": "ВИОЛЕТА ГЕОРГИЕВА ТЕНЕВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "СТОПАНСКА ДЕЙНОСТ"
+      },
+      {
+        "category": "debt",
+        "description": "БАНКОВ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6637,
+        "valueEur": 3393.444215499302,
+        "holderName": "АТАНАС СТОЙЧЕВ ТЕНЕВ",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР, 4,2%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТНА КАРТА",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4000,
+        "valueEur": 2045.1675247848739,
+        "holderName": "АТАНАС СТОЙЧЕВ ТЕНЕВ",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР, 12%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "КОМАНДИРОВЪЧНИ ПАРИ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 465.27561188855884,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "КОМАНДИРОВЪЧНИ ПАРИ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 10.22583762392437,
+        "legalBasis": null
+      }
+    ]
+  }
+]

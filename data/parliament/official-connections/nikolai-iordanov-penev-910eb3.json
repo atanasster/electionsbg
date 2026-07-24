@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-iordanov-penev-910eb3",
+  "nodes": [
+    {
+      "id": "official:nikolai-iordanov-penev-910eb3",
+      "type": "official",
+      "slug": "nikolai-iordanov-penev-910eb3",
+      "label": "Николай Йорданов Пенев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пещера"
+    },
+    {
+      "id": "company:tr:206876493",
+      "type": "company",
+      "label": "ЕЛЕКТРО-ЧЕРНОГОРОВО",
+      "slug": null,
+      "uic": "206876493",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВИКТОРИЯ МИЛАНОВА ПЕНЕВА",
+      "type": "person",
+      "label": "Виктория Миланова Пенева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-iordanov-penev-910eb3",
+      "target": "company:tr:206876493",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-iordanov-penev-910eb3",
+      "target": "company:tr:206876493",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВИКТОРИЯ МИЛАНОВА ПЕНЕВА",
+      "target": "company:tr:206876493",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

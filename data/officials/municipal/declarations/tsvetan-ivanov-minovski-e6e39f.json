@@ -1,0 +1,111 @@
+[
+  {
+    "slug": "tsvetan-ivanov-minovski-e6e39f",
+    "declarantName": "Цветан Иванов Миньовски",
+    "institution": "Ботевград",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г12048",
+    "controlHash": "A9AF9D46",
+    "sourceUrl": "https://register.cacbg.bg/2025/8778741F-A690-417A-9145-70B29BED57CE215203.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 2351.431361621409,
+        "amountEurSpouse": 5951.437497123983
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5278.066089588563,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": 920.3253861531933,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 27732,
+        "valueEur": 28216.153755694515,
+        "holderName": "Цветан  Иванов Миньовски",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5411,
+        "valueEur": 5394.6406385013015,
+        "holderName": "Цветан  Иванов Миньовски",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредитк",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 47966,
+        "valueEur": 24524.626373457817,
+        "holderName": "Цветан Иванов Миньовки",
+        "isSpouse": true,
+        "legalBasis": "дог.потр.кредит-3.85%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Цветан Иванов Миньовки",
+        "isSpouse": true,
+        "legalBasis": "гог.кр. Карта -19 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

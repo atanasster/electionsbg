@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:teodor-atanasov-atanasov-3a586f",
+  "nodes": [
+    {
+      "id": "official:teodor-atanasov-atanasov-3a586f",
+      "type": "official",
+      "slug": "teodor-atanasov-atanasov-3a586f",
+      "label": "Теодор Атанасов Атанасов",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206980951",
+      "type": "company",
+      "label": "5-ТЕ КАРС",
+      "slug": null,
+      "uic": "206980951",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЪР НЕДЕЛЧЕВ ЦОНЕВ",
+      "type": "person",
+      "label": "Петър Неделчев Цонев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:teodor-atanasov-atanasov-3a586f",
+      "target": "company:tr:206980951",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР НЕДЕЛЧЕВ ЦОНЕВ",
+      "target": "company:tr:206980951",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР НЕДЕЛЧЕВ ЦОНЕВ",
+      "target": "company:tr:206980951",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

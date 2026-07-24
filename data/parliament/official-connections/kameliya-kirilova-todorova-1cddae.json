@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:kameliya-kirilova-todorova-1cddae",
+  "nodes": [
+    {
+      "id": "official:kameliya-kirilova-todorova-1cddae",
+      "type": "official",
+      "slug": "kameliya-kirilova-todorova-1cddae",
+      "label": "Камелия Кирилова Тодорова",
+      "tier": "executive",
+      "role": "political_cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201040544",
+      "type": "company",
+      "label": "\"КД АДВАЙЗИНГ\" ЕООД",
+      "slug": null,
+      "uic": "201040544",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДАНИЕЛА КИРИЛОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Даниела Кирилова Тодорова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kameliya-kirilova-todorova-1cddae",
+      "target": "company:tr:201040544",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА КИРИЛОВА ТОДОРОВА",
+      "target": "company:tr:201040544",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА КИРИЛОВА ТОДОРОВА",
+      "target": "company:tr:201040544",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

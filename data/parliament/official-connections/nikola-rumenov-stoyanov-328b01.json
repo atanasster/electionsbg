@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikola-rumenov-stoyanov-328b01",
+  "nodes": [
+    {
+      "id": "official:nikola-rumenov-stoyanov-328b01",
+      "type": "official",
+      "slug": "nikola-rumenov-stoyanov-328b01",
+      "label": "Никола Руменов Стоянов",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206670600",
+      "type": "company",
+      "label": "Майван Имобилиен",
+      "slug": null,
+      "uic": "206670600",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206451599",
+      "type": "company",
+      "label": "Пет Зона",
+      "slug": null,
+      "uic": "206451599",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РАЙНА ИВАНОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Райна Иванова Стоянова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikola-rumenov-stoyanov-328b01",
+      "target": "company:tr:206670600",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikola-rumenov-stoyanov-328b01",
+      "target": "company:tr:206451599",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЙНА ИВАНОВА СТОЯНОВА",
+      "target": "company:tr:206670600",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЙНА ИВАНОВА СТОЯНОВА",
+      "target": "company:tr:206670600",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

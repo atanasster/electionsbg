@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:zhana-sergeeva-yaneva-86299f",
+  "nodes": [
+    {
+      "id": "official:zhana-sergeeva-yaneva-86299f",
+      "type": "official",
+      "slug": "zhana-sergeeva-yaneva-86299f",
+      "label": "Жана Сергеева Янева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175145053",
+      "type": "company",
+      "label": "ЛИМСТОК ООД",
+      "slug": null,
+      "uic": "175145053",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕНИЦА ГЕОРГИЕВА СТОЯНОВА",
+      "type": "person",
+      "label": "Деница Георгиева Стоянова"
+    },
+    {
+      "id": "person:ЖАНА СЕРГЕЕВА ЯНЕВА",
+      "type": "person",
+      "label": "Жана Сергеева Янева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zhana-sergeeva-yaneva-86299f",
+      "target": "company:tr:175145053",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИЦА ГЕОРГИЕВА СТОЯНОВА",
+      "target": "company:tr:175145053",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖАНА СЕРГЕЕВА ЯНЕВА",
+      "target": "company:tr:175145053",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИЦА ГЕОРГИЕВА СТОЯНОВА",
+      "target": "company:tr:175145053",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

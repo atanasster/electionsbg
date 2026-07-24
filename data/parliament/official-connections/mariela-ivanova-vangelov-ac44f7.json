@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariela-ivanova-vangelov-ac44f7",
+  "nodes": [
+    {
+      "id": "official:mariela-ivanova-vangelov-ac44f7",
+      "type": "official",
+      "slug": "mariela-ivanova-vangelov-ac44f7",
+      "label": "Мариела Иванова Вангелов",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:128057549",
+      "type": "company",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪР  №1 - ЕЛХОВО",
+      "slug": null,
+      "uic": "128057549",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariela-ivanova-vangelov-ac44f7",
+      "target": "company:tr:128057549",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

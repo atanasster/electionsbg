@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-vasilev-yanchev-8e7b0c",
+  "nodes": [
+    {
+      "id": "official:nikolai-vasilev-yanchev-8e7b0c",
+      "type": "official",
+      "slug": "nikolai-vasilev-yanchev-8e7b0c",
+      "label": "Николай Василев Янчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201358422",
+      "type": "company",
+      "label": "Вега Интеграл ЕООД",
+      "slug": null,
+      "uic": "201358422",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-vasilev-yanchev-8e7b0c",
+      "target": "company:tr:201358422",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

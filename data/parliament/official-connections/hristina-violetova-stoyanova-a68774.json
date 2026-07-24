@@ -1,0 +1,123 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hristina-violetova-stoyanova-a68774",
+  "nodes": [
+    {
+      "id": "official:hristina-violetova-stoyanova-a68774",
+      "type": "official",
+      "slug": "hristina-violetova-stoyanova-a68774",
+      "label": "Христина Виолетова Стоянова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Мездра"
+    },
+    {
+      "id": "company:tr:200514530",
+      "type": "company",
+      "label": "АЛКАНТАРА - БЪЛГАРИЯ ООД",
+      "slug": null,
+      "uic": "200514530",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205376446",
+      "type": "company",
+      "label": "ХРИСИ-ВИБ ЕООД",
+      "slug": null,
+      "uic": "205376446",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:106518147",
+      "type": "company",
+      "label": "ЖЕЛЕЗНИЧАРСКИ КЛУБ ПО ХУДОЖЕСТВЕНА ГИМНАСТИКА - АНЕЛИЯ",
+      "slug": null,
+      "uic": "106518147",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГРАЦИЕЛА КИРИЛОВА БОРИСОВА",
+      "type": "person",
+      "label": "Грациела Кирилова Борисова"
+    },
+    {
+      "id": "person:ЛИЛИЯ ЛЮБЕНОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Лилия Любенова Николова"
+    },
+    {
+      "id": "person:ВЕСЕЛКА ЦЕНКОВА РАДОВЕНСКА",
+      "type": "person",
+      "label": "Веселка Ценкова Радовенска"
+    },
+    {
+      "id": "person:ИВА КИРОВА КИРОВА",
+      "type": "person",
+      "label": "Ива Кирова Кирова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristina-violetova-stoyanova-a68774",
+      "target": "company:tr:200514530",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:hristina-violetova-stoyanova-a68774",
+      "target": "company:tr:205376446",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:hristina-violetova-stoyanova-a68774",
+      "target": "company:tr:106518147",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГРАЦИЕЛА КИРИЛОВА БОРИСОВА",
+      "target": "company:tr:106518147",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛИЯ ЛЮБЕНОВА НИКОЛОВА",
+      "target": "company:tr:106518147",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛКА ЦЕНКОВА РАДОВЕНСКА",
+      "target": "company:tr:106518147",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВА КИРОВА КИРОВА",
+      "target": "company:tr:106518147",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

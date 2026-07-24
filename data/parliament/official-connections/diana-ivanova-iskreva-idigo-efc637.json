@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:diana-ivanova-iskreva-idigo-efc637",
+  "nodes": [
+    {
+      "id": "official:diana-ivanova-iskreva-idigo-efc637",
+      "type": "official",
+      "slug": "diana-ivanova-iskreva-idigo-efc637",
+      "label": "Диана Иванова Искрева-Идиго",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:123125761",
+      "type": "company",
+      "label": "ЗЕМЯ ЗАВИНАГИ",
+      "slug": null,
+      "uic": "123125761",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНГЕЛ АТАНАСОВ ГЯУРОВ",
+      "type": "person",
+      "label": "Ангел Атанасов Гяуров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:diana-ivanova-iskreva-idigo-efc637",
+      "target": "company:tr:123125761",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:diana-ivanova-iskreva-idigo-efc637",
+      "target": "company:tr:123125761",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНГЕЛ АТАНАСОВ ГЯУРОВ",
+      "target": "company:tr:123125761",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ АТАНАСОВ ГЯУРОВ",
+      "target": "company:tr:123125761",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

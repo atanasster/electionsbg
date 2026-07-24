@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:silviya-peeva-peeva-9d4359",
+  "nodes": [
+    {
+      "id": "official:silviya-peeva-peeva-9d4359",
+      "type": "official",
+      "slug": "silviya-peeva-peeva-9d4359",
+      "label": "Силвия Пеева Пеева",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201981768",
+      "type": "company",
+      "label": "МИСИС БЕЙКЪР",
+      "slug": null,
+      "uic": "201981768",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРТИН ЕМИЛОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Мартин Емилов Михайлов"
+    },
+    {
+      "id": "person:ЕМИЛ ПЕТРОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Емил Петров Михайлов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:silviya-peeva-peeva-9d4359",
+      "target": "company:tr:201981768",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРТИН ЕМИЛОВ МИХАЙЛОВ",
+      "target": "company:tr:201981768",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ПЕТРОВ МИХАЙЛОВ",
+      "target": "company:tr:201981768",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

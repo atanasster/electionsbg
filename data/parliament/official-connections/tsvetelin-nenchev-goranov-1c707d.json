@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tsvetelin-nenchev-goranov-1c707d",
+  "nodes": [
+    {
+      "id": "official:tsvetelin-nenchev-goranov-1c707d",
+      "type": "official",
+      "slug": "tsvetelin-nenchev-goranov-1c707d",
+      "label": "Цветелин Ненчев Горанов",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207660573",
+      "type": "company",
+      "label": "ГЕНЕРАЛ ИВАН ВИНАРОВ ЗА ГРАД ПЛЕВЕН",
+      "slug": null,
+      "uic": "207660573",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НАТАЛИЯ ТЕОДОСИЕВА БОТЕВА",
+      "type": "person",
+      "label": "Наталия Теодосиева Ботева"
+    },
+    {
+      "id": "person:КАЛИН ОГНЯНОВ КОНСТАНТИНОВ",
+      "type": "person",
+      "label": "Калин Огнянов Константинов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetelin-nenchev-goranov-1c707d",
+      "target": "company:tr:207660573",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tsvetelin-nenchev-goranov-1c707d",
+      "target": "company:tr:207660573",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НАТАЛИЯ ТЕОДОСИЕВА БОТЕВА",
+      "target": "company:tr:207660573",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН ОГНЯНОВ КОНСТАНТИНОВ",
+      "target": "company:tr:207660573",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+[
+  {
+    "slug": "petr-ivanov-petrov-bf0895",
+    "declarantName": "Петър Иванов Петров",
+    "institution": "РДПБЗН",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-15",
+    "entryNumber": "Г3667",
+    "controlHash": "83CA8027",
+    "sourceUrl": "https://register.cacbg.bg/2025/499F18FD-FB1B-4DCF-94E7-892E0DF8EBCF206466.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23864.5485548335,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доход от пенсия от НОИ",
+        "amountEurDeclarant": 14370.880904782112,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "petr-ivanov-petrov-bf0895",
+    "declarantName": "Петър Иванов Петров",
+    "institution": "РДПБЗН",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-09",
+    "entryNumber": "Г217",
+    "controlHash": "A05001C2",
+    "sourceUrl": "https://register.cacbg.bg/2024/499F18FD-FB1B-4DCF-94E7-892E0DF8EBCF180985.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21059.090002709847,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "НОИ пенсия за осигурителен стаж и възраст",
+        "amountEurDeclarant": 12609.48037406114,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20500,
+        "valueEur": 10481.48356452248,
+        "holderName": "Петър Иванов Петров",
+        "isSpouse": false,
+        "legalBasis": "текущи нужди",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

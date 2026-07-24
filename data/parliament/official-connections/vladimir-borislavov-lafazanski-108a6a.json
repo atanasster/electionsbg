@@ -1,0 +1,51 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vladimir-borislavov-lafazanski-108a6a",
+  "nodes": [
+    {
+      "id": "official:vladimir-borislavov-lafazanski-108a6a",
+      "type": "official",
+      "slug": "vladimir-borislavov-lafazanski-108a6a",
+      "label": "Владимир Бориславов Лафазански",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Балчик"
+    },
+    {
+      "id": "company:tr:202377571",
+      "type": "company",
+      "label": "Балчик НЕТ ЕООД",
+      "slug": null,
+      "uic": "202377571",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-borislavov-lafazanski-108a6a",
+      "target": "company:tr:202377571",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vladimir-borislavov-lafazanski-108a6a",
+      "target": "company:tr:202377571",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vladimir-borislavov-lafazanski-108a6a",
+      "target": "company:tr:202377571",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

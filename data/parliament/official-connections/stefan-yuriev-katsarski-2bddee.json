@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stefan-yuriev-katsarski-2bddee",
+  "nodes": [
+    {
+      "id": "official:stefan-yuriev-katsarski-2bddee",
+      "type": "official",
+      "slug": "stefan-yuriev-katsarski-2bddee",
+      "label": "Стефан Юриев Кацарски",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Криводол"
+    },
+    {
+      "id": "company:tr:206775505",
+      "type": "company",
+      "label": "ДК КАЦАРСКИ",
+      "slug": null,
+      "uic": "206775505",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stefan-yuriev-katsarski-2bddee",
+      "target": "company:tr:206775505",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stefan-yuriev-katsarski-2bddee",
+      "target": "company:tr:206775505",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+[
+  {
+    "slug": "valentin-georgiev-hristov-3b7ecb",
+    "declarantName": "Валентин Георгиев Христов",
+    "institution": "Димитровград",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-02",
+    "entryNumber": "Г6385",
+    "controlHash": "D408F8BE",
+    "sourceUrl": "https://register.cacbg.bg/2025/0425367F-5023-4E57-A70F-7177522E9F96209343.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6796.602976741332,
+        "amountEurSpouse": 23650.82854849348
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 33452.293911024986,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 808.8637560524177,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Димитровград",
+        "municipality": "Димитровград",
+        "areaSqm": 72,
+        "builtAreaSqm": 84,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 150000,
+        "valueEur": 76693.78217943278,
+        "holderName": "Валентин Георгиев Христов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Димитровград",
+        "municipality": "Димитровград",
+        "areaSqm": 72,
+        "builtAreaSqm": 84,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 150000,
+        "valueEur": 76693.78217943278,
+        "holderName": "Таня Петрова Христова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "ипотека",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 109000,
+        "valueEur": 55730.81505038781,
+        "holderName": "Валентин Георгиев Христов",
+        "isSpouse": false,
+        "legalBasis": "ипотека",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ипотека",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 109000,
+        "valueEur": 55730.81505038781,
+        "holderName": "Таня Петрова Христова",
+        "isSpouse": true,
+        "legalBasis": "ипотека",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

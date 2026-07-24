@@ -1,0 +1,141 @@
+[
+  {
+    "slug": "petr-ivanov-kamenski-249062",
+    "declarantName": "ПЕТЪР ИВАНОВ КАМЕНСКИ",
+    "institution": "Панагюрище",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г11956",
+    "controlHash": "84FBBB94",
+    "sourceUrl": "https://register.cacbg.bg/2025/CB5165E5-A2A4-40FC-B3D1-CB47D6884ABB215110.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27328.55104993788,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "РАЙНА ПЕТРОВА КАМЕНСКА   ДИВИДЕНТ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 143161.72673494118
+      },
+      {
+        "parent": null,
+        "category": "РАЙНА ПЕТРОВА КАМЕНСКА ЛИЧЕН ТРУД",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 10225.83762392437
+      },
+      {
+        "parent": null,
+        "category": "РАЙНА ПЕТРОВА КАМЕНСКА ОТ ОГЛЕДИ И ЩЕТИ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 368.1301544612773
+      },
+      {
+        "parent": null,
+        "category": "ПЕТЪР ИВАНОВ КАМЕНСКИ ПЕНСИИ ОТ НОЙ",
+        "amountEurDeclarant": 8723.150785088683,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ТОЙОТА РАВ-4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 35204,
+        "valueEur": 17999.519385631676,
+        "holderName": "ПЕТЪР ИВАНОВ КАМЕНСКИ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ СИО",
+        "detail": "ТОЙОТА РАВ-4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2 СИО",
+        "currency": "BGN",
+        "amount": 35204,
+        "valueEur": 17999.519385631676,
+        "holderName": "РАЙНА ПЕТРОВА КАМЕНСКА",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ СИО",
+        "detail": "ДЖИП ГРАНД ЧЕРОКИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2 СИО",
+        "currency": "BGN",
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
+        "holderName": "ПЕТЪР ИВАНОВ КАМЕНСКИ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ДЖИП ГРАНД ЧЕРОКИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
+        "holderName": "РАЙНА ПЕТРОВА КАМЕНСКА",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 23130,
+        "valueEur": 11826.181212068534,
+        "holderName": "ПЕТЪР ИВАНОВ КАМЕНСКИ",
+        "isSpouse": false,
+        "legalBasis": "4,5",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

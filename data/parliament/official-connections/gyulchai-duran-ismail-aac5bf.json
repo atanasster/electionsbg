@@ -1,0 +1,168 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:gyulchai-duran-ismail-aac5bf",
+  "nodes": [
+    {
+      "id": "official:gyulchai-duran-ismail-aac5bf",
+      "type": "official",
+      "slug": "gyulchai-duran-ismail-aac5bf",
+      "label": "Гюлчай Дуран Исмаил",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:116043627",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО &quot;ОСМИ МАРТ&quot;",
+      "slug": null,
+      "uic": "116043627",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ФАЙЗЕ ИСМАИЛ ЕМУРЛА",
+      "type": "person",
+      "label": "Файзе Исмаил Емурла"
+    },
+    {
+      "id": "person:ГАНКА ПЕТРОВА ПЕНЧЕВА",
+      "type": "person",
+      "label": "Ганка Петрова Пенчева"
+    },
+    {
+      "id": "person:ВИОЛЕТА ЙОРДАНОВА ДЕШКОВА",
+      "type": "person",
+      "label": "Виолета Йорданова Дешкова"
+    },
+    {
+      "id": "person:ШЕРФИДИН МЕХМЕДАЛИ ХАМДИ",
+      "type": "person",
+      "label": "Шерфидин Мехмедали Хамди"
+    },
+    {
+      "id": "person:ХАЛИМЕ АХМЕД САЛИ",
+      "type": "person",
+      "label": "Халиме Ахмед Сали"
+    },
+    {
+      "id": "person:ВЕЛИ ХЮСЕИН ВЕЛИ",
+      "type": "person",
+      "label": "Вели Хюсеин Вели"
+    },
+    {
+      "id": "person:РАМАДАН ЕКРЕМ РАМАДАН",
+      "type": "person",
+      "label": "Рамадан Екрем Рамадан"
+    },
+    {
+      "id": "person:АЛДИН КЕМАЛ ХЮСЕИН",
+      "type": "person",
+      "label": "Алдин Кемал Хюсеин"
+    },
+    {
+      "id": "person:АЙЛЯН НУРИДИН МЕХМЕД",
+      "type": "person",
+      "label": "Айлян Нуридин Мехмед"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gyulchai-duran-ismail-aac5bf",
+      "target": "company:tr:116043627",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ФАЙЗЕ ИСМАИЛ ЕМУРЛА",
+      "target": "company:tr:116043627",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФАЙЗЕ ИСМАИЛ ЕМУРЛА",
+      "target": "company:tr:116043627",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАНКА ПЕТРОВА ПЕНЧЕВА",
+      "target": "company:tr:116043627",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ЙОРДАНОВА ДЕШКОВА",
+      "target": "company:tr:116043627",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ШЕРФИДИН МЕХМЕДАЛИ ХАМДИ",
+      "target": "company:tr:116043627",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАЛИМЕ АХМЕД САЛИ",
+      "target": "company:tr:116043627",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИ ХЮСЕИН ВЕЛИ",
+      "target": "company:tr:116043627",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИ ХЮСЕИН ВЕЛИ",
+      "target": "company:tr:116043627",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАМАДАН ЕКРЕМ РАМАДАН",
+      "target": "company:tr:116043627",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛДИН КЕМАЛ ХЮСЕИН",
+      "target": "company:tr:116043627",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙЛЯН НУРИДИН МЕХМЕД",
+      "target": "company:tr:116043627",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

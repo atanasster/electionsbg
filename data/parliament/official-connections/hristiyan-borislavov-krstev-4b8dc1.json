@@ -1,0 +1,91 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hristiyan-borislavov-krstev-4b8dc1",
+  "nodes": [
+    {
+      "id": "official:hristiyan-borislavov-krstev-4b8dc1",
+      "type": "official",
+      "slug": "hristiyan-borislavov-krstev-4b8dc1",
+      "label": "Християн Бориславов Кръстев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175403856",
+      "type": "company",
+      "label": "БДЖ-ТОВАРНИ ПРЕВОЗИ",
+      "slug": null,
+      "uic": "175403856",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:dian-nikolov-boev-7fa310",
+      "type": "official",
+      "slug": "dian-nikolov-boev-7fa310",
+      "label": "Диан Николов Боев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:АНГЕЛ ГЕОРГИЕВ СТОЯНОВ",
+      "type": "person",
+      "label": "Ангел Георгиев Стоянов"
+    },
+    {
+      "id": "person:ГЕОРГИ ДРУМЕВ ДРУМЕВ",
+      "type": "person",
+      "label": "Георги Друмев Друмев"
+    },
+    {
+      "id": "person:ЧАВДАР КИРИЛОВ ТРЕНДАФИЛОВ",
+      "type": "person",
+      "label": "Чавдар Кирилов Трендафилов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristiyan-borislavov-krstev-4b8dc1",
+      "target": "company:tr:175403856",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dian-nikolov-boev-7fa310",
+      "target": "company:tr:175403856",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНГЕЛ ГЕОРГИЕВ СТОЯНОВ",
+      "target": "company:tr:175403856",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ДРУМЕВ ДРУМЕВ",
+      "target": "company:tr:175403856",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЧАВДАР КИРИЛОВ ТРЕНДАФИЛОВ",
+      "target": "company:tr:175403856",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

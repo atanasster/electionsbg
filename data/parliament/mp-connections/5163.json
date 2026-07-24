@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:5163",
   "nodes": [
     {
@@ -34,18 +34,18 @@
       "seat": null
     },
     {
-      "id": "official:georgi-dinchev-bozhev-77799e",
+      "id": "official:georgi-dinchev-bozhev-10b680",
       "type": "official",
-      "slug": "georgi-dinchev-bozhev-77799e",
+      "slug": "georgi-dinchev-bozhev-10b680",
       "label": "Георги Динчев Божев",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:valentin-tsvetanov-revanski-8ab1d3",
+      "id": "official:valentin-tsvetanov-revanski-743230",
       "type": "official",
-      "slug": "valentin-tsvetanov-revanski-8ab1d3",
+      "slug": "valentin-tsvetanov-revanski-743230",
       "label": "Валентин Цветанов Ревански",
       "tier": "municipal",
       "role": "mayor",
@@ -62,9 +62,9 @@
       "label": "Бистра Димитрова Петкова"
     },
     {
-      "id": "official:denislav-violinov-zahariev-02c519",
+      "id": "official:denislav-violinov-zahariev-1e31cd",
       "type": "official",
-      "slug": "denislav-violinov-zahariev-02c519",
+      "slug": "denislav-violinov-zahariev-1e31cd",
       "label": "Денислав Виолинов Захариев",
       "tier": "municipal",
       "role": "council_chair",
@@ -167,7 +167,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:georgi-dinchev-bozhev-77799e",
+      "source": "official:georgi-dinchev-bozhev-10b680",
       "target": "company:tr:207174952",
       "kind": "tr_role",
       "role": "ngo_representative",
@@ -175,7 +175,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:georgi-dinchev-bozhev-77799e",
+      "source": "official:georgi-dinchev-bozhev-10b680",
       "target": "company:tr:207174952",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -183,7 +183,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:valentin-tsvetanov-revanski-8ab1d3",
+      "source": "official:valentin-tsvetanov-revanski-743230",
       "target": "company:tr:207174952",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -215,7 +215,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:denislav-violinov-zahariev-02c519",
+      "source": "official:denislav-violinov-zahariev-1e31cd",
       "target": "company:tr:823085028",
       "kind": "tr_role",
       "role": "ngo_board",

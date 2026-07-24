@@ -1,0 +1,190 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:myuzeien-yusufova-deliyusein-20d84a",
+  "nodes": [
+    {
+      "id": "official:myuzeien-yusufova-deliyusein-20d84a",
+      "type": "official",
+      "slug": "myuzeien-yusufova-deliyusein-20d84a",
+      "label": "Мюзейен Юсуфова Делиюсеин",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:108063574",
+      "type": "company",
+      "label": "РОДОПСКА ИСКРА 1921",
+      "slug": null,
+      "uic": "108063574",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:yuksel-sabri-ismail-708a07",
+      "type": "official",
+      "slug": "yuksel-sabri-ismail-708a07",
+      "label": "Юксел Сабри Исмаил",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ардино"
+    },
+    {
+      "id": "person:ВЛАДИМИР ИВАНОВ ГРОЗДЕВ",
+      "type": "person",
+      "label": "Владимир Иванов Гроздев"
+    },
+    {
+      "id": "person:ГЮНЕР ШЮКРИ МЮМЮН",
+      "type": "person",
+      "label": "Гюнер Шюкри Мюмюн"
+    },
+    {
+      "id": "person:КЪЙМЕТ ШЕВКЕД СОЛАК",
+      "type": "person",
+      "label": "Къймет Шевкед Солак"
+    },
+    {
+      "id": "person:БАХАР ДЕЛЕВЕРОВ РЕДЖЕБОВ",
+      "type": "person",
+      "label": "Бахар Делеверов Реджебов"
+    },
+    {
+      "id": "person:СВЕТЛА ВЛАДИМИРОВА КАРАМИТЕВА",
+      "type": "person",
+      "label": "Светла Владимирова Карамитева"
+    },
+    {
+      "id": "person:ТАНЕР ГЮНЕРОВ ЧОБАНОВ",
+      "type": "person",
+      "label": "Танер Гюнеров Чобанов"
+    },
+    {
+      "id": "person:МЕТИН МУСТАФОВ МЮМЮН",
+      "type": "person",
+      "label": "Метин Мустафов Мюмюн"
+    },
+    {
+      "id": "person:ЕМИНЕ ХАСАНОВА ЕМИНОВА",
+      "type": "person",
+      "label": "Емине Хасанова Еминова"
+    },
+    {
+      "id": "person:СЮЛБИЕ ХАЗИМ АЛИ",
+      "type": "person",
+      "label": "Сюлбие Хазим Али"
+    },
+    {
+      "id": "person:МЕХРИБАН ФАИКОВА АРДАЛИЕВА",
+      "type": "person",
+      "label": "Мехрибан Фаикова Ардалиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:myuzeien-yusufova-deliyusein-20d84a",
+      "target": "company:tr:108063574",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yuksel-sabri-ismail-708a07",
+      "target": "company:tr:108063574",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yuksel-sabri-ismail-708a07",
+      "target": "company:tr:108063574",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЛАДИМИР ИВАНОВ ГРОЗДЕВ",
+      "target": "company:tr:108063574",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮНЕР ШЮКРИ МЮМЮН",
+      "target": "company:tr:108063574",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЪЙМЕТ ШЕВКЕД СОЛАК",
+      "target": "company:tr:108063574",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БАХАР ДЕЛЕВЕРОВ РЕДЖЕБОВ",
+      "target": "company:tr:108063574",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА ВЛАДИМИРОВА КАРАМИТЕВА",
+      "target": "company:tr:108063574",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЕР ГЮНЕРОВ ЧОБАНОВ",
+      "target": "company:tr:108063574",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕТИН МУСТАФОВ МЮМЮН",
+      "target": "company:tr:108063574",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИНЕ ХАСАНОВА ЕМИНОВА",
+      "target": "company:tr:108063574",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЮЛБИЕ ХАЗИМ АЛИ",
+      "target": "company:tr:108063574",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕХРИБАН ФАИКОВА АРДАЛИЕВА",
+      "target": "company:tr:108063574",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

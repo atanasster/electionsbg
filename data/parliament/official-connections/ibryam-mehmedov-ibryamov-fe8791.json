@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ibryam-mehmedov-ibryamov-fe8791",
+  "nodes": [
+    {
+      "id": "official:ibryam-mehmedov-ibryamov-fe8791",
+      "type": "official",
+      "slug": "ibryam-mehmedov-ibryamov-fe8791",
+      "label": "Ибрям Мехмедов Ибрямов",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207172175",
+      "type": "company",
+      "label": "ЛЮБЛЕН СТРОЙ ИНЖЕНЕРИНГ",
+      "slug": null,
+      "uic": "207172175",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ФЕРХАД МЕХМЕДОВ АЛИЕВ",
+      "type": "person",
+      "label": "Ферхад Мехмедов Алиев"
+    },
+    {
+      "id": "person:МЕТИН МЕХМЕДОВ АЛИЕВ",
+      "type": "person",
+      "label": "Метин Мехмедов Алиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ibryam-mehmedov-ibryamov-fe8791",
+      "target": "company:tr:207172175",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ibryam-mehmedov-ibryamov-fe8791",
+      "target": "company:tr:207172175",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ФЕРХАД МЕХМЕДОВ АЛИЕВ",
+      "target": "company:tr:207172175",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФЕРХАД МЕХМЕДОВ АЛИЕВ",
+      "target": "company:tr:207172175",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕТИН МЕХМЕДОВ АЛИЕВ",
+      "target": "company:tr:207172175",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

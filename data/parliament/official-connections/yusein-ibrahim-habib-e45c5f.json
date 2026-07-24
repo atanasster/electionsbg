@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:yusein-ibrahim-habib-e45c5f",
+  "nodes": [
+    {
+      "id": "official:yusein-ibrahim-habib-e45c5f",
+      "type": "official",
+      "slug": "yusein-ibrahim-habib-e45c5f",
+      "label": "Юсеин Ибрахим Хабиб",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Крумовград"
+    },
+    {
+      "id": "company:tr:208525977",
+      "type": "company",
+      "label": "ДЕЛУКС ГРУП 08",
+      "slug": null,
+      "uic": "208525977",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yusein-ibrahim-habib-e45c5f",
+      "target": "company:tr:208525977",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yusein-ibrahim-habib-e45c5f",
+      "target": "company:tr:208525977",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

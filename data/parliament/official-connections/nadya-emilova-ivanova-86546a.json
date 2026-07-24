@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nadya-emilova-ivanova-86546a",
+  "nodes": [
+    {
+      "id": "official:nadya-emilova-ivanova-86546a",
+      "type": "official",
+      "slug": "nadya-emilova-ivanova-86546a",
+      "label": "Надя Емилова Иванова",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000190119",
+      "type": "company",
+      "label": "ЦЕНТЪР ЗА ПСИХИЧНО ЗДРАВЕ - ВРАЦА",
+      "slug": null,
+      "uic": "000190119",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nadya-emilova-ivanova-86546a",
+      "target": "company:tr:000190119",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

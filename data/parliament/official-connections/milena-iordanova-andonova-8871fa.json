@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:milena-iordanova-andonova-8871fa",
+  "nodes": [
+    {
+      "id": "official:milena-iordanova-andonova-8871fa",
+      "type": "official",
+      "slug": "milena-iordanova-andonova-8871fa",
+      "label": "Милена Йорданова Андонова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204098218",
+      "type": "company",
+      "label": "ФРУКТИС - ЦВЕТИ",
+      "slug": null,
+      "uic": "204098218",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТЪР НИКОЛОВ КОЛЕВ",
+      "type": "person",
+      "label": "Димитър Николов Колев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milena-iordanova-andonova-8871fa",
+      "target": "company:tr:204098218",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР НИКОЛОВ КОЛЕВ",
+      "target": "company:tr:204098218",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР НИКОЛОВ КОЛЕВ",
+      "target": "company:tr:204098218",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

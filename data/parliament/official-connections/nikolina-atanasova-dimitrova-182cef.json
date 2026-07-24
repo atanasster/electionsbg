@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolina-atanasova-dimitrova-182cef",
+  "nodes": [
+    {
+      "id": "official:nikolina-atanasova-dimitrova-182cef",
+      "type": "official",
+      "slug": "nikolina-atanasova-dimitrova-182cef",
+      "label": "Николина Атанасова Димитрова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208186936",
+      "type": "company",
+      "label": "НИКИ НИКОЛ КОНСУЛТ",
+      "slug": null,
+      "uic": "208186936",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolina-atanasova-dimitrova-182cef",
+      "target": "company:tr:208186936",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolina-atanasova-dimitrova-182cef",
+      "target": "company:tr:208186936",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "venelin-veskov-markov-35703d",
+    "declarantName": "Венелин Весков Марков",
+    "institution": "Район \"Одесос\" - Варна",
+    "positionTitle": "Главен архитект",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-15",
+    "entryNumber": "Г14558",
+    "controlHash": "D7F0F287",
+    "sourceUrl": "https://register.cacbg.bg/2025/A7D60C7A-36DB-4C48-9CEA-08ACC2796183217887.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21912.436152426337,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивидент от \"Фронтон\" ООД - гр. Варна",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6493.406891191975
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Варна",
+        "municipality": "Варна",
+        "areaSqm": 55,
+        "builtAreaSqm": 55,
+        "acquiredYear": 1997,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 413190,
+        "valueEur": 211260.6923914655,
+        "holderName": "Венелин Весков Марков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр. Варна",
+        "municipality": "Варна",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "acquiredYear": 2021,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Петя Венциславова Маркова",
+        "isSpouse": true,
+        "legalBasis": "наследство и давност",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2017,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 6000,
+        "valueEur": 3067.751287177311,
+        "holderName": "Венелин Весков Марков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
+        "holderName": "Венелин Весков Марков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "дарения"
+      }
+    ],
+    "events": []
+  }
+]

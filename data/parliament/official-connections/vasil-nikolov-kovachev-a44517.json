@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vasil-nikolov-kovachev-a44517",
+  "nodes": [
+    {
+      "id": "official:vasil-nikolov-kovachev-a44517",
+      "type": "official",
+      "slug": "vasil-nikolov-kovachev-a44517",
+      "label": "Васил Николов Ковачев",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000463240",
+      "type": "company",
+      "label": "ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН ЦЕНТЪР I - ПЛОВДИВ",
+      "slug": null,
+      "uic": "000463240",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vasil-nikolov-kovachev-a44517",
+      "target": "company:tr:000463240",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

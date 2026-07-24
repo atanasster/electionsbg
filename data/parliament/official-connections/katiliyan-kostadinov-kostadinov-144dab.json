@@ -1,0 +1,160 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:katiliyan-kostadinov-kostadinov-144dab",
+  "nodes": [
+    {
+      "id": "official:katiliyan-kostadinov-kostadinov-144dab",
+      "type": "official",
+      "slug": "katiliyan-kostadinov-kostadinov-144dab",
+      "label": "Катилиян Костадинов Костадинов",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000924118",
+      "type": "company",
+      "label": "Народно читалище Пробуда 1906",
+      "slug": null,
+      "uic": "000924118",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАНКА РАЧЕВА СЕМЕРДЖИЕВА",
+      "type": "person",
+      "label": "Иванка Рачева Семерджиева"
+    },
+    {
+      "id": "person:ЕВГЕНИ ХРИСТОВ ЯНЕВ",
+      "type": "person",
+      "label": "Евгени Христов Янев"
+    },
+    {
+      "id": "person:ГАЛЯ ЦВЯТКОВА ЯНЧЕВА",
+      "type": "person",
+      "label": "Галя Цвяткова Янчева"
+    },
+    {
+      "id": "person:РОСИЦА АНТОНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Росица Антонова Георгиева"
+    },
+    {
+      "id": "person:ГАЛИН ИВАНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Галин Иванов Георгиев"
+    },
+    {
+      "id": "person:ГАЛЕН ИВАНОВ ДИМОВ",
+      "type": "person",
+      "label": "Гален Иванов Димов"
+    },
+    {
+      "id": "person:ЕМИЛИЯ ЦВЕТАНОВА МИНЧЕВА",
+      "type": "person",
+      "label": "Емилия Цветанова Минчева"
+    },
+    {
+      "id": "person:НЕВЯНКА ЙОРДАНОВА ДОБРЕВА",
+      "type": "person",
+      "label": "Невянка Йорданова Добрева"
+    },
+    {
+      "id": "person:ВАСИЛКА БЕЛЧЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Василка Белчева Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:katiliyan-kostadinov-kostadinov-144dab",
+      "target": "company:tr:000924118",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАНКА РАЧЕВА СЕМЕРДЖИЕВА",
+      "target": "company:tr:000924118",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА РАЧЕВА СЕМЕРДЖИЕВА",
+      "target": "company:tr:000924118",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИ ХРИСТОВ ЯНЕВ",
+      "target": "company:tr:000924118",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛЯ ЦВЯТКОВА ЯНЧЕВА",
+      "target": "company:tr:000924118",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА АНТОНОВА ГЕОРГИЕВА",
+      "target": "company:tr:000924118",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИН ИВАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:000924118",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛЕН ИВАНОВ ДИМОВ",
+      "target": "company:tr:000924118",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ ЦВЕТАНОВА МИНЧЕВА",
+      "target": "company:tr:000924118",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЯНКА ЙОРДАНОВА ДОБРЕВА",
+      "target": "company:tr:000924118",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛКА БЕЛЧЕВА ИВАНОВА",
+      "target": "company:tr:000924118",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

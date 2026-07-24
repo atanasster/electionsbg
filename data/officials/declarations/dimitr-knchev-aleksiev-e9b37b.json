@@ -1,0 +1,106 @@
+[
+  {
+    "slug": "dimitr-knchev-aleksiev-e9b37b",
+    "declarantName": "ДИМИТЪР КЪНЧЕВ АЛЕКСИЕВ",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-05",
+    "entryNumber": "Г5839",
+    "controlHash": "02C2C688",
+    "sourceUrl": "https://register.cacbg.bg/2025/4D270B4F-8B11-4FD9-ADB6-F9543C543A27208783.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 34708.5380631241,
+        "amountEurSpouse": 6252.07712326736
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 511.29188119621847,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ТОВАРЕН АВТОМОБИЛ",
+        "detail": "РЕНО МАСТЕР",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "ДИМИТЪР КЪНЧЕВ АЛЕКСИЕВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "СПЕСТЯВАНИЯ"
+      },
+      {
+        "category": "vehicle",
+        "description": "ТОВАРЕН АВТОМОБИЛ",
+        "detail": "РЕНО МАСТЕР",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "ТЕМЕНУЖКА ЗЛАТЕВА АЛЕКСИЕВА",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "СПЕСТЯВАНИЯ"
+      },
+      {
+        "category": "debt",
+        "description": "ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 47000,
+        "valueEur": 24030.71841622227,
+        "holderName": "ДИМИТЪР КЪНЧЕВ АЛЕКСИЕВ",
+        "isSpouse": false,
+        "legalBasis": "ЗА СТРИТЕЛСТВО",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ИПОТЕЧЕН ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 65000,
+        "valueEur": 33233.972277754205,
+        "holderName": "ТЕМЕНУЖКА ЗЛАТЕВА АЛЕКСИЕВА",
+        "isSpouse": true,
+        "legalBasis": "ЗА ЗАКУПУВАНЕ НА ЖИЛИЩЕ",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

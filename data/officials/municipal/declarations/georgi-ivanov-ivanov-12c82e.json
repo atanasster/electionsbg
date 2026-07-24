@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "georgi-ivanov-ivanov-12c82e",
+    "declarantName": "ГЕОРГИ ИВАНОВ ИВАНОВ",
+    "institution": "Бяла/Варна/",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-30",
+    "entryNumber": "Г7018",
+    "controlHash": "D0857D1A",
+    "sourceUrl": "https://register.cacbg.bg/2025/2AA39D0F-50E6-48CF-B3FD-424A41B70FD9210005.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Парична вноска",
+        "shareSize": "100%",
+        "companyName": "\"АМБУЛАТОРИЯ ЗА ИНДИВИДУАЛНА ПРАКТИКА ЗА ПЪРВИЧНА МЕДИЦИНСКА ПОМОЩ АИППМП \"ДОКТОР ИВАНОВ, ГЕОРГИ ИВАНОВ\"\" ЕООД",
+        "registeredOffice": "гр. Бяла, ул. Йордан Ноев № 8",
+        "valueEur": 51.12918811962185,
+        "holderName": "ГЕОРГИ ИВАНОВ ИВАНОВ",
+        "legalBasis": "УЧРЕДЯВАНЕ",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 3537.6285259966357,
+        "amountEurSpouse": 2905.1604689569135
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 2451.1332784546717,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 8430.18053716325,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр.Бяла",
+        "municipality": "Бяла (Варна)",
+        "areaSqm": 752,
+        "builtAreaSqm": 274,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
+        "holderName": "ГЕОРГИ ИВАНОВ ИВАНОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "ЗАПЛАТА И СПЕСТЯВАНИЯ"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр.Бяла",
+        "municipality": "Бяла (Варна)",
+        "areaSqm": 752,
+        "builtAreaSqm": 274,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
+        "holderName": "ЮЛИЯ НИКОЛАЕВНА СУРИКОВА",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "ЗАПЛАТА И СПЕСТЯВАНИЯ"
+      }
+    ],
+    "events": []
+  }
+]

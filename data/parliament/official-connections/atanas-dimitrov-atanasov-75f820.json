@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:atanas-dimitrov-atanasov-75f820",
+  "nodes": [
+    {
+      "id": "official:atanas-dimitrov-atanasov-75f820",
+      "type": "official",
+      "slug": "atanas-dimitrov-atanasov-75f820",
+      "label": "Атанас Димитров Атанасов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Девня"
+    },
+    {
+      "id": "company:tr:148012903",
+      "type": "company",
+      "label": "Строй-Инвест 2006 ООД",
+      "slug": null,
+      "uic": "148012903",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:atanas-dimitrov-atanasov-75f820",
+      "target": "company:tr:148012903",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

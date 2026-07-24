@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:gerasim-slavchev-petkov-799e3f",
+  "nodes": [
+    {
+      "id": "official:gerasim-slavchev-petkov-799e3f",
+      "type": "official",
+      "slug": "gerasim-slavchev-petkov-799e3f",
+      "label": "Герасим Славчев Петков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Плевен"
+    },
+    {
+      "id": "company:tr:206804661",
+      "type": "company",
+      "label": "НАЧАЛО 2022",
+      "slug": null,
+      "uic": "206804661",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СЕБАСТИАН ГЕРАСИМОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Себастиан Герасимов Петков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gerasim-slavchev-petkov-799e3f",
+      "target": "company:tr:206804661",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СЕБАСТИАН ГЕРАСИМОВ ПЕТКОВ",
+      "target": "company:tr:206804661",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕБАСТИАН ГЕРАСИМОВ ПЕТКОВ",
+      "target": "company:tr:206804661",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

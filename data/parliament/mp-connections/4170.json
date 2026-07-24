@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:4170",
   "nodes": [
     {
@@ -51,18 +51,18 @@
       "label": "Христина Христова Дачева"
     },
     {
-      "id": "official:ivailo-vanev-vlchev-ba8d72",
+      "id": "official:ivailo-vanev-vlchev-341a5e",
       "type": "official",
-      "slug": "ivailo-vanev-vlchev-ba8d72",
+      "slug": "ivailo-vanev-vlchev-341a5e",
       "label": "Ивайло Ванев Вълчев",
       "tier": "executive",
       "role": "party_leader",
       "municipality": null
     },
     {
-      "id": "official:ivailo-vanev-vlchev-954c7d",
+      "id": "official:ivailo-vanev-vlchev-65db26",
       "type": "official",
-      "slug": "ivailo-vanev-vlchev-954c7d",
+      "slug": "ivailo-vanev-vlchev-65db26",
       "label": "Ивайло Ванев Вълчев",
       "tier": "executive",
       "role": "mep",
@@ -127,7 +127,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:ivailo-vanev-vlchev-ba8d72",
+      "source": "official:ivailo-vanev-vlchev-341a5e",
       "target": "company:Солво-ООД",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -135,7 +135,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:ivailo-vanev-vlchev-954c7d",
+      "source": "official:ivailo-vanev-vlchev-65db26",
       "target": "company:Солво-ООД",
       "kind": "declared_stake",
       "role": "declared_share",

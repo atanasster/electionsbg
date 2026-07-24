@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mihail-emilov-mihailov-2e5841",
+  "nodes": [
+    {
+      "id": "official:mihail-emilov-mihailov-2e5841",
+      "type": "official",
+      "slug": "mihail-emilov-mihailov-2e5841",
+      "label": "Михаил Емилов Михайлов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130167458",
+      "type": "company",
+      "label": "БИЛДИНГМОНИТОР-2001",
+      "slug": null,
+      "uic": "130167458",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЛАМЕН МАРКОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Пламен Марков Илиев"
+    },
+    {
+      "id": "person:СПАС ИВАНОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Спас Иванов Михайлов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mihail-emilov-mihailov-2e5841",
+      "target": "company:tr:130167458",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЛАМЕН МАРКОВ ИЛИЕВ",
+      "target": "company:tr:130167458",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СПАС ИВАНОВ МИХАЙЛОВ",
+      "target": "company:tr:130167458",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

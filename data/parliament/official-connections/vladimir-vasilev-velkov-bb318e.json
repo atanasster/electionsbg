@@ -1,0 +1,111 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vladimir-vasilev-velkov-bb318e",
+  "nodes": [
+    {
+      "id": "official:vladimir-vasilev-velkov-bb318e",
+      "type": "official",
+      "slug": "vladimir-vasilev-velkov-bb318e",
+      "label": "Владимир Василев Велков",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Златарица"
+    },
+    {
+      "id": "company:tr:205216467",
+      "type": "company",
+      "label": "СП СЕТ",
+      "slug": null,
+      "uic": "205216467",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТО ЦАНКОВ ЯНКОВ",
+      "type": "person",
+      "label": "Христо Цанков Янков"
+    },
+    {
+      "id": "person:ПАВЕЛ ВЕСЕЛИНОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Павел Веселинов Петков"
+    },
+    {
+      "id": "person:ИВАН МИРОСЛАВОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Иван Мирославов Илиев"
+    },
+    {
+      "id": "person:НИКОЛАЙ МИЛАДИНОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Николай Миладинов Илиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-vasilev-velkov-bb318e",
+      "target": "company:tr:205216467",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vladimir-vasilev-velkov-bb318e",
+      "target": "company:tr:205216467",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО ЦАНКОВ ЯНКОВ",
+      "target": "company:tr:205216467",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЕЛ ВЕСЕЛИНОВ ПЕТКОВ",
+      "target": "company:tr:205216467",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН МИРОСЛАВОВ ИЛИЕВ",
+      "target": "company:tr:205216467",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ МИЛАДИНОВ ИЛИЕВ",
+      "target": "company:tr:205216467",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН МИРОСЛАВОВ ИЛИЕВ",
+      "target": "company:tr:205216467",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ МИЛАДИНОВ ИЛИЕВ",
+      "target": "company:tr:205216467",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

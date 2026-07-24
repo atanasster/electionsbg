@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:lyubomir-nikolov-popov-14cf99",
+  "nodes": [
+    {
+      "id": "official:lyubomir-nikolov-popov-14cf99",
+      "type": "official",
+      "slug": "lyubomir-nikolov-popov-14cf99",
+      "label": "Любомир Николов Попов",
+      "tier": "executive",
+      "role": "diplomat",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202658006",
+      "type": "company",
+      "label": "ЕвърКлийн",
+      "slug": null,
+      "uic": "202658006",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТЕФАН МИНКОВ АРНАУДОВ",
+      "type": "person",
+      "label": "Стефан Минков Арнаудов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lyubomir-nikolov-popov-14cf99",
+      "target": "company:tr:202658006",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФАН МИНКОВ АРНАУДОВ",
+      "target": "company:tr:202658006",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

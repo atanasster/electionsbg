@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:1701",
   "nodes": [
     {
@@ -69,18 +69,18 @@
       "nsFolders": []
     },
     {
-      "id": "official:nelka-nencheva-vasileva-259142",
+      "id": "official:nelka-nencheva-vasileva-33fb70",
       "type": "official",
-      "slug": "nelka-nencheva-vasileva-259142",
+      "slug": "nelka-nencheva-vasileva-33fb70",
       "label": "Нелка Ненчева Василева",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "kindergarten",
       "municipality": null
     },
     {
-      "id": "official:antoaneta-zdravkova-draganova-495e5b",
+      "id": "official:antoaneta-zdravkova-draganova-1d80f8",
       "type": "official",
-      "slug": "antoaneta-zdravkova-draganova-495e5b",
+      "slug": "antoaneta-zdravkova-draganova-1d80f8",
       "label": "Антоанета Здравкова Драганова",
       "tier": "municipal",
       "role": "councillor",
@@ -745,7 +745,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:nelka-nencheva-vasileva-259142",
+      "source": "official:nelka-nencheva-vasileva-33fb70",
       "target": "company:tr:130341567",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -753,7 +753,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:antoaneta-zdravkova-draganova-495e5b",
+      "source": "official:antoaneta-zdravkova-draganova-1d80f8",
       "target": "company:tr:130341567",
       "kind": "tr_role",
       "role": "ngo_board",

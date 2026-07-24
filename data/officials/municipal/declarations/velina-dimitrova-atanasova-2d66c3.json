@@ -1,0 +1,100 @@
+[
+  {
+    "slug": "velina-dimitrova-atanasova-2d66c3",
+    "declarantName": "Велина Димитрова Атанасова",
+    "institution": "Стара Загора",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-07",
+    "entryNumber": "Г7346",
+    "controlHash": "3598B332",
+    "sourceUrl": "https://register.cacbg.bg/2025/386D50F1-7DF3-4564-B8C4-97D6488C855A210334.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 8445.519293599136,
+        "amountEurSpouse": 47111.96780906316
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 17117.540890568198,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "ВЕЛИНА ДИМИТРОВА АТАНАСОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "доход от свободна професия-адвокат"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 191633,
+        "valueEur": 97980.39706927494,
+        "holderName": "ВЕЛИНА ДИМИТРОВА АТАНАСОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "доходи от свободна професия-адвокат, наследяване и спестявания от минали години"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 234450,
+        "valueEur": 119872.38154645343,
+        "holderName": "ГЕНЧО КОЛЕВ АТАНАСОВ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и спестявания от минали години"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС",
+        "detail": "ОПЕЛ АСТРА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 240.30718416222268,
+        "legalBasis": "БРАКУВАНО"
+      }
+    ]
+  }
+]

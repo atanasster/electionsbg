@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rafi-bahtishenov-rafiev-abbc91",
+  "nodes": [
+    {
+      "id": "official:rafi-bahtishenov-rafiev-abbc91",
+      "type": "official",
+      "slug": "rafi-bahtishenov-rafiev-abbc91",
+      "label": "Рафи Бахтишенов Рафиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Опака"
+    },
+    {
+      "id": "company:tr:205477566",
+      "type": "company",
+      "label": "РНГ ГРУП ЕООД",
+      "slug": null,
+      "uic": "205477566",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206054747",
+      "type": "company",
+      "label": "ЛАРГО БГ 0913",
+      "slug": null,
+      "uic": "206054747",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rafi-bahtishenov-rafiev-abbc91",
+      "target": "company:tr:205477566",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:rafi-bahtishenov-rafiev-abbc91",
+      "target": "company:tr:206054747",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:rafi-bahtishenov-rafiev-abbc91",
+      "target": "company:tr:206054747",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rafi-bahtishenov-rafiev-abbc91",
+      "target": "company:tr:206054747",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

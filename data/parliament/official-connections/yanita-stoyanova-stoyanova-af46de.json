@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:yanita-stoyanova-stoyanova-af46de",
+  "nodes": [
+    {
+      "id": "official:yanita-stoyanova-stoyanova-af46de",
+      "type": "official",
+      "slug": "yanita-stoyanova-stoyanova-af46de",
+      "label": "Янита Стоянова Стоянова",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204074625",
+      "type": "company",
+      "label": "Актив Баланс Акаунтинг ООД",
+      "slug": null,
+      "uic": "204074625",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yanita-stoyanova-stoyanova-af46de",
+      "target": "company:tr:204074625",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

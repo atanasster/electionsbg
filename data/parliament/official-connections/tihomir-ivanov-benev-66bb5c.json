@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tihomir-ivanov-benev-66bb5c",
+  "nodes": [
+    {
+      "id": "official:tihomir-ivanov-benev-66bb5c",
+      "type": "official",
+      "slug": "tihomir-ivanov-benev-66bb5c",
+      "label": "Тихомир Иванов Бенев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203720884",
+      "type": "company",
+      "label": "Многопрофилна болница за активно лечение &quot;КАРДИОЛАЙФ&quot;",
+      "slug": null,
+      "uic": "203720884",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tihomir-ivanov-benev-66bb5c",
+      "target": "company:tr:203720884",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

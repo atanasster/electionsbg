@@ -1,0 +1,232 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:neli-ivailova-mineva-e9441e",
+  "nodes": [
+    {
+      "id": "official:neli-ivailova-mineva-e9441e",
+      "type": "official",
+      "slug": "neli-ivailova-mineva-e9441e",
+      "label": "Нели Ивайлова Минева",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Мездра"
+    },
+    {
+      "id": "company:tr:000183651",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ ПРОСВЕТА 1925 - МЕЗДРА",
+      "slug": null,
+      "uic": "000183651",
+      "legalForm": "CC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:3235",
+      "type": "mp",
+      "mpId": 3235,
+      "label": "Мирослав Иванов Аспарухов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "official:ivan-krstev-ivanchev-ad7f8d",
+      "type": "official",
+      "slug": "ivan-krstev-ivanchev-ad7f8d",
+      "label": "Иван Кръстев Иванчев",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "official:kalin-ganchov-stoichev-39ad15",
+      "type": "official",
+      "slug": "kalin-ganchov-stoichev-39ad15",
+      "label": "Калин Ганчов Стойчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ВАЛЕНТИН МАРКОВ ВЪЛЧЕВ",
+      "type": "person",
+      "label": "Валентин Марков Вълчев"
+    },
+    {
+      "id": "person:МОНИКА ЦВЕТАНОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Моника Цветанова Петкова"
+    },
+    {
+      "id": "person:МИРОСЛАВ ИВАНОВ АСПАРУХОВ",
+      "type": "person",
+      "label": "Мирослав Иванов Аспарухов"
+    },
+    {
+      "id": "person:ВИКТОРИЯ ДАНЧЕВА ДАНКОВА",
+      "type": "person",
+      "label": "Виктория Данчева Данкова"
+    },
+    {
+      "id": "person:МИРОСЛАВ БОГДАНОВ ГЕТОВ",
+      "type": "person",
+      "label": "Мирослав Богданов Гетов"
+    },
+    {
+      "id": "person:НИКОДИМ ИВАНЧОВ НАНОВ",
+      "type": "person",
+      "label": "Никодим Иванчов Нанов"
+    },
+    {
+      "id": "person:ДАРИНА ИВАНОВА ВАТОВА",
+      "type": "person",
+      "label": "Дарина Иванова Ватова"
+    },
+    {
+      "id": "person:ЯНА ВЕНЕЛИНОВА НИНОВА",
+      "type": "person",
+      "label": "Яна Венелинова Нинова"
+    },
+    {
+      "id": "person:ДАНИЕЛА ПЕТКОВА БЪРЗАШКА",
+      "type": "person",
+      "label": "Даниела Петкова Бързашка"
+    },
+    {
+      "id": "person:БИЛЯНА ВАЛЕНТИНОВА КОСТОВА",
+      "type": "person",
+      "label": "Биляна Валентинова Костова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:neli-ivailova-mineva-e9441e",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3235",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3235",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-krstev-ivanchev-ad7f8d",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kalin-ganchov-stoichev-39ad15",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИН МАРКОВ ВЪЛЧЕВ",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МОНИКА ЦВЕТАНОВА ПЕТКОВА",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ИВАНОВ АСПАРУХОВ",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ИВАНОВ АСПАРУХОВ",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОРИЯ ДАНЧЕВА ДАНКОВА",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ БОГДАНОВ ГЕТОВ",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОДИМ ИВАНЧОВ НАНОВ",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАРИНА ИВАНОВА ВАТОВА",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНА ВЕНЕЛИНОВА НИНОВА",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ПЕТКОВА БЪРЗАШКА",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИЛЯНА ВАЛЕНТИНОВА КОСТОВА",
+      "target": "company:tr:000183651",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

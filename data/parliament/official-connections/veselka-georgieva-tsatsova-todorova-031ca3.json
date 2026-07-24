@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:veselka-georgieva-tsatsova-todorova-031ca3",
+  "nodes": [
+    {
+      "id": "official:veselka-georgieva-tsatsova-todorova-031ca3",
+      "type": "official",
+      "slug": "veselka-georgieva-tsatsova-todorova-031ca3",
+      "label": "Д-Р Веселка Георгиева Цацова-тодорова",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:124573671",
+      "type": "company",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪР - ДОБРИЧ",
+      "slug": null,
+      "uic": "124573671",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕСЕЛКА ГЕОРГИЕВА ЦАЦОВА-ТОДОРОВА",
+      "type": "person",
+      "label": "Веселка Георгиева Цацова-Тодорова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veselka-georgieva-tsatsova-todorova-031ca3",
+      "target": "company:tr:124573671",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕСЕЛКА ГЕОРГИЕВА ЦАЦОВА-ТОДОРОВА",
+      "target": "company:tr:124573671",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

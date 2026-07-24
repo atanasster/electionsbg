@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:emil-nikolaev-keleshev-d5b984",
+  "nodes": [
+    {
+      "id": "official:emil-nikolaev-keleshev-d5b984",
+      "type": "official",
+      "slug": "emil-nikolaev-keleshev-d5b984",
+      "label": "Емил Николаев Келешев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Смолян"
+    },
+    {
+      "id": "company:tr:205981527",
+      "type": "company",
+      "label": "\"Кейсис.бг - Дизайн\" ЕООД",
+      "slug": null,
+      "uic": "205981527",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-nikolaev-keleshev-d5b984",
+      "target": "company:tr:205981527",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

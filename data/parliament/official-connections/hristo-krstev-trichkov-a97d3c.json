@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hristo-krstev-trichkov-a97d3c",
+  "nodes": [
+    {
+      "id": "official:hristo-krstev-trichkov-a97d3c",
+      "type": "official",
+      "slug": "hristo-krstev-trichkov-a97d3c",
+      "label": "Христо Кръстев Тричков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Велинград"
+    },
+    {
+      "id": "company:tr:204882864",
+      "type": "company",
+      "label": "МЕТАЛ ЕКСПРЕС ПРО",
+      "slug": null,
+      "uic": "204882864",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:aleksandr-krstev-trichkov-75ef5b",
+      "type": "official",
+      "slug": "aleksandr-krstev-trichkov-75ef5b",
+      "label": "Александър Кръстев Тричков",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Дългопол"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-krstev-trichkov-a97d3c",
+      "target": "company:tr:204882864",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-krstev-trichkov-a97d3c",
+      "target": "company:tr:204882864",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aleksandr-krstev-trichkov-75ef5b",
+      "target": "company:tr:204882864",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:aleksandr-hristov-kanazirski-a0045a",
+  "nodes": [
+    {
+      "id": "official:aleksandr-hristov-kanazirski-a0045a",
+      "type": "official",
+      "slug": "aleksandr-hristov-kanazirski-a0045a",
+      "label": "Александър Христов Каназирски",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202674505",
+      "type": "company",
+      "label": "Протеус Мениджмънт ООД",
+      "slug": null,
+      "uic": "202674505",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandr-hristov-kanazirski-a0045a",
+      "target": "company:tr:202674505",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

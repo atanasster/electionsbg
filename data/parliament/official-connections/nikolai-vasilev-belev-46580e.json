@@ -1,0 +1,71 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-vasilev-belev-46580e",
+  "nodes": [
+    {
+      "id": "official:nikolai-vasilev-belev-46580e",
+      "type": "official",
+      "slug": "nikolai-vasilev-belev-46580e",
+      "label": "Николай Василев Белев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204447837",
+      "type": "company",
+      "label": "Паркмед ООД",
+      "slug": null,
+      "uic": "204447837",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204416368",
+      "type": "company",
+      "label": "Никбел ЕООД",
+      "slug": null,
+      "uic": "204416368",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204047063",
+      "type": "company",
+      "label": "Правимед ООД",
+      "slug": null,
+      "uic": "204047063",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-vasilev-belev-46580e",
+      "target": "company:tr:204447837",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-vasilev-belev-46580e",
+      "target": "company:tr:204416368",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-vasilev-belev-46580e",
+      "target": "company:tr:204047063",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

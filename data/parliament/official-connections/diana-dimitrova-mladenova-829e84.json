@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:diana-dimitrova-mladenova-829e84",
+  "nodes": [
+    {
+      "id": "official:diana-dimitrova-mladenova-829e84",
+      "type": "official",
+      "slug": "diana-dimitrova-mladenova-829e84",
+      "label": "Диана Димитрова Младенова",
+      "tier": "executive",
+      "role": "political_cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:833172830",
+      "type": "company",
+      "label": "СТАТИС",
+      "slug": null,
+      "uic": "833172830",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АСЯ ТОДОРОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Ася Тодорова Тодорова"
+    },
+    {
+      "id": "person:ЕВГЕНИ МАРГАРИТОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Евгени Маргаритов Димитров"
+    },
+    {
+      "id": "person:ЛЮБКА ГРИГОРОВА ИВАНОВА",
+      "type": "person",
+      "label": "Любка Григорова Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:diana-dimitrova-mladenova-829e84",
+      "target": "company:tr:833172830",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АСЯ ТОДОРОВА ТОДОРОВА",
+      "target": "company:tr:833172830",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИ МАРГАРИТОВ ДИМИТРОВ",
+      "target": "company:tr:833172830",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБКА ГРИГОРОВА ИВАНОВА",
+      "target": "company:tr:833172830",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

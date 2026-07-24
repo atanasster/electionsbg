@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:milena-ivanova-nikolova-3a909d",
+  "nodes": [
+    {
+      "id": "official:milena-ivanova-nikolova-3a909d",
+      "type": "official",
+      "slug": "milena-ivanova-nikolova-3a909d",
+      "label": "Милена Иванова Николова",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208031163",
+      "type": "company",
+      "label": "ВИБО АДВАЙЗ",
+      "slug": null,
+      "uic": "208031163",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РОСИЦА МИТОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Росица Митова Николова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milena-ivanova-nikolova-3a909d",
+      "target": "company:tr:208031163",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:milena-ivanova-nikolova-3a909d",
+      "target": "company:tr:208031163",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РОСИЦА МИТОВА НИКОЛОВА",
+      "target": "company:tr:208031163",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА МИТОВА НИКОЛОВА",
+      "target": "company:tr:208031163",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

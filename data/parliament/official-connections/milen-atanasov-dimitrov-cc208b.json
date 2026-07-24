@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:milen-atanasov-dimitrov-cc208b",
+  "nodes": [
+    {
+      "id": "official:milen-atanasov-dimitrov-cc208b",
+      "type": "official",
+      "slug": "milen-atanasov-dimitrov-cc208b",
+      "label": "Милен Атанасов Димитров",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207811281",
+      "type": "company",
+      "label": "ИВМ Електро Груп",
+      "slug": null,
+      "uic": "207811281",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milen-atanasov-dimitrov-cc208b",
+      "target": "company:tr:207811281",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:milen-atanasov-dimitrov-cc208b",
+      "target": "company:tr:207811281",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

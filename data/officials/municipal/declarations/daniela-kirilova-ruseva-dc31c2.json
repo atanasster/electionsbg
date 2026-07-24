@@ -1,0 +1,94 @@
+[
+  {
+    "slug": "daniela-kirilova-ruseva-dc31c2",
+    "declarantName": "Даниела Кирилова Русева",
+    "institution": "Шумен",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-30",
+    "entryNumber": "Г14535",
+    "controlHash": "6EF37173",
+    "sourceUrl": "https://register.cacbg.bg/2025/3CAAFF71-C476-4121-9194-E67041D7F85D217857.xml",
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "ЕООД",
+        "shareSize": "100",
+        "companyName": "ФИЧОЗА",
+        "registeredOffice": "Шумен",
+        "valueEur": 51.12918811962185,
+        "holderName": null,
+        "transfereeName": "Даниела Кирилова Русева",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21166.97258964225,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 9752.38134193667,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 51.12918811962185,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 9362.776928465153,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 143709,
+        "valueEur": 73477.24495482736,
+        "holderName": "Даниела Кирилова Русева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "security",
+        "description": "акция",
+        "detail": "КЕРАМАТ АД",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "42806",
+        "currency": "BGN",
+        "amount": 42806,
+        "valueEur": 21886.360266485328,
+        "holderName": "Даниела Кирилова Русева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "спестявания"
+      }
+    ],
+    "events": []
+  }
+]

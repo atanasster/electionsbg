@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivailo-ivanov-iordanov-b8e780",
+  "nodes": [
+    {
+      "id": "official:ivailo-ivanov-iordanov-b8e780",
+      "type": "official",
+      "slug": "ivailo-ivanov-iordanov-b8e780",
+      "label": "Ивайло Иванов Йорданов",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205302816",
+      "type": "company",
+      "label": "ТРАНСПОРТЕР - 2018",
+      "slug": null,
+      "uic": "205302816",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТЕЛА ИВАЙЛОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Стела Ивайлова Йорданова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivailo-ivanov-iordanov-b8e780",
+      "target": "company:tr:205302816",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivailo-ivanov-iordanov-b8e780",
+      "target": "company:tr:205302816",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕЛА ИВАЙЛОВА ЙОРДАНОВА",
+      "target": "company:tr:205302816",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

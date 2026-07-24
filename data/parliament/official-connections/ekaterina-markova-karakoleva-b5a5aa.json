@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ekaterina-markova-karakoleva-b5a5aa",
+  "nodes": [
+    {
+      "id": "official:ekaterina-markova-karakoleva-b5a5aa",
+      "type": "official",
+      "slug": "ekaterina-markova-karakoleva-b5a5aa",
+      "label": "Екатерина Маркова Караколева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:107027467",
+      "type": "company",
+      "label": "ОБЩИНСКИ ПЪТНИЧЕСКИ ТРАНСПОРТ",
+      "slug": null,
+      "uic": "107027467",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕТЕЛИН ЦВЕТАНОВ ЦВЕТКОВ",
+      "type": "person",
+      "label": "Детелин Цветанов Цветков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ekaterina-markova-karakoleva-b5a5aa",
+      "target": "company:tr:107027467",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕТЕЛИН ЦВЕТАНОВ ЦВЕТКОВ",
+      "target": "company:tr:107027467",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

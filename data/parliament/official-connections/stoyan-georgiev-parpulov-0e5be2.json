@@ -1,0 +1,82 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stoyan-georgiev-parpulov-0e5be2",
+  "nodes": [
+    {
+      "id": "official:stoyan-georgiev-parpulov-0e5be2",
+      "type": "official",
+      "slug": "stoyan-georgiev-parpulov-0e5be2",
+      "label": "Стоян Георгиев Парпулов",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:112650747",
+      "type": "company",
+      "label": "ОБЩИНСКИ ШАХМАТЕН КЛУБ-ПАЗАРДЖИК",
+      "slug": null,
+      "uic": "112650747",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЛАМЕН ХРИСТОВ ТОПАЛОВ",
+      "type": "person",
+      "label": "Пламен Христов Топалов"
+    },
+    {
+      "id": "person:КРАСИМИР ДИМИТРОВ БРАНКОВ",
+      "type": "person",
+      "label": "Красимир Димитров Бранков"
+    },
+    {
+      "id": "person:НИКОЛАЙ ИВАНОВ НИНОВ",
+      "type": "person",
+      "label": "Николай Иванов Нинов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stoyan-georgiev-parpulov-0e5be2",
+      "target": "company:tr:112650747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЛАМЕН ХРИСТОВ ТОПАЛОВ",
+      "target": "company:tr:112650747",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ХРИСТОВ ТОПАЛОВ",
+      "target": "company:tr:112650747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ДИМИТРОВ БРАНКОВ",
+      "target": "company:tr:112650747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ИВАНОВ НИНОВ",
+      "target": "company:tr:112650747",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

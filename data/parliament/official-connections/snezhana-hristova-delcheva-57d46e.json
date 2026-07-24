@@ -1,0 +1,126 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:snezhana-hristova-delcheva-57d46e",
+  "nodes": [
+    {
+      "id": "official:snezhana-hristova-delcheva-57d46e",
+      "type": "official",
+      "slug": "snezhana-hristova-delcheva-57d46e",
+      "label": "Снежана Христова Делчева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Елхово"
+    },
+    {
+      "id": "company:tr:000962764",
+      "type": "company",
+      "label": "РАЗВИТИЕ - 1893",
+      "slug": null,
+      "uic": "000962764",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИНКА АНГЕЛОВА ШИГУЛОВА",
+      "type": "person",
+      "label": "Минка Ангелова Шигулова"
+    },
+    {
+      "id": "person:МАРИЯ ВАСИЛЕВА КАКЪРОВА",
+      "type": "person",
+      "label": "Мария Василева Какърова"
+    },
+    {
+      "id": "person:ЙОВКА ДРАГОЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Йовка Драгоева Иванова"
+    },
+    {
+      "id": "person:ИВАНА ГЕОРГИЕВА БОРДИНЯШКА",
+      "type": "person",
+      "label": "Ивана Георгиева Бординяшка"
+    },
+    {
+      "id": "person:МИЛЕНА ДИМИТРОВА ВЪЛЕВА",
+      "type": "person",
+      "label": "Милена Димитрова Вълева"
+    },
+    {
+      "id": "person:ПЕНКА ИВАНОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Пенка Иванова Стоянова"
+    },
+    {
+      "id": "person:ТАНЯ ИВАНОВА БАКЪРДЖИЕВА",
+      "type": "person",
+      "label": "Таня Иванова Бакърджиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:snezhana-hristova-delcheva-57d46e",
+      "target": "company:tr:000962764",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИНКА АНГЕЛОВА ШИГУЛОВА",
+      "target": "company:tr:000962764",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ВАСИЛЕВА КАКЪРОВА",
+      "target": "company:tr:000962764",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОВКА ДРАГОЕВА ИВАНОВА",
+      "target": "company:tr:000962764",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНА ГЕОРГИЕВА БОРДИНЯШКА",
+      "target": "company:tr:000962764",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ДИМИТРОВА ВЪЛЕВА",
+      "target": "company:tr:000962764",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ИВАНОВА СТОЯНОВА",
+      "target": "company:tr:000962764",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ИВАНОВА БАКЪРДЖИЕВА",
+      "target": "company:tr:000962764",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:pencho-vasilev-chanev-bb3ded",
+  "nodes": [
+    {
+      "id": "official:pencho-vasilev-chanev-bb3ded",
+      "type": "official",
+      "slug": "pencho-vasilev-chanev-bb3ded",
+      "label": "Пенчо Василев Чанев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Златарица"
+    },
+    {
+      "id": "company:tr:203514119",
+      "type": "company",
+      "label": "Ставрак 2015 ООД",
+      "slug": null,
+      "uic": "203514119",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТОЯН НИКОЛОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Стоян Николов Илиев"
+    },
+    {
+      "id": "person:ПЕНЧО ВАСИЛЕВ ЧАНЕВ",
+      "type": "person",
+      "label": "Пенчо Василев Чанев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:pencho-vasilev-chanev-bb3ded",
+      "target": "company:tr:203514119",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН НИКОЛОВ ИЛИЕВ",
+      "target": "company:tr:203514119",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНЧО ВАСИЛЕВ ЧАНЕВ",
+      "target": "company:tr:203514119",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН НИКОЛОВ ИЛИЕВ",
+      "target": "company:tr:203514119",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

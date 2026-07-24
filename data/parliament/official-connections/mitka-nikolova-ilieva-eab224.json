@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mitka-nikolova-ilieva-eab224",
+  "nodes": [
+    {
+      "id": "official:mitka-nikolova-ilieva-eab224",
+      "type": "official",
+      "slug": "mitka-nikolova-ilieva-eab224",
+      "label": "Митка Николова Илиева",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208385945",
+      "type": "company",
+      "label": "Звезда 25 - Митка Николова",
+      "slug": null,
+      "uic": "208385945",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mitka-nikolova-ilieva-eab224",
+      "target": "company:tr:208385945",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mitka-nikolova-ilieva-eab224",
+      "target": "company:tr:208385945",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

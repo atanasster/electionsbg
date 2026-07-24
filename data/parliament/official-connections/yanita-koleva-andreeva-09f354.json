@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:yanita-koleva-andreeva-09f354",
+  "nodes": [
+    {
+      "id": "official:yanita-koleva-andreeva-09f354",
+      "type": "official",
+      "slug": "yanita-koleva-andreeva-09f354",
+      "label": "Янита Колева Андреева",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:118502097",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ-ДУЛОВО",
+      "slug": null,
+      "uic": "118502097",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yanita-koleva-andreeva-09f354",
+      "target": "company:tr:118502097",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

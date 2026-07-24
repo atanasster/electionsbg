@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:marianna-iordanova-savova-9fac3e",
+  "nodes": [
+    {
+      "id": "official:marianna-iordanova-savova-9fac3e",
+      "type": "official",
+      "slug": "marianna-iordanova-savova-9fac3e",
+      "label": "Марианна Йорданова Савова",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205077764",
+      "type": "company",
+      "label": "ВЕГА АРТ ЦЕНТЪР",
+      "slug": null,
+      "uic": "205077764",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТРОСЛАВА НИКОЛАЕВА СТАМАТОВА",
+      "type": "person",
+      "label": "Петрослава Николаева Стаматова"
+    },
+    {
+      "id": "person:МАРИАНА ГИНЧЕВА СТОЯНОВА",
+      "type": "person",
+      "label": "Мариана Гинчева Стоянова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:marianna-iordanova-savova-9fac3e",
+      "target": "company:tr:205077764",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТРОСЛАВА НИКОЛАЕВА СТАМАТОВА",
+      "target": "company:tr:205077764",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ГИНЧЕВА СТОЯНОВА",
+      "target": "company:tr:205077764",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

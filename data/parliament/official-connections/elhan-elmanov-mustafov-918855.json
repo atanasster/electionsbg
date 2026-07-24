@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:elhan-elmanov-mustafov-918855",
+  "nodes": [
+    {
+      "id": "official:elhan-elmanov-mustafov-918855",
+      "type": "official",
+      "slug": "elhan-elmanov-mustafov-918855",
+      "label": "Елхан Елманов Мустафов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Омуртаг"
+    },
+    {
+      "id": "company:tr:205475184",
+      "type": "company",
+      "label": "ЕЛАЙ ЕМ",
+      "slug": null,
+      "uic": "205475184",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:elhan-elmanov-mustafov-918855",
+      "target": "company:tr:205475184",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitr-ivov-chehlarov-af355e",
+  "nodes": [
+    {
+      "id": "official:dimitr-ivov-chehlarov-af355e",
+      "type": "official",
+      "slug": "dimitr-ivov-chehlarov-af355e",
+      "label": "Димитър Ивов Чехларов",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Раднево"
+    },
+    {
+      "id": "company:tr:206905849",
+      "type": "company",
+      "label": "АРХИТЕКТУРНО СТУДИО ЧЕХЛАРОВ",
+      "slug": null,
+      "uic": "206905849",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВЕЛИНА ТОТЕВА ЧЕХЛАРОВА",
+      "type": "person",
+      "label": "Ивелина Тотева Чехларова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-ivov-chehlarov-af355e",
+      "target": "company:tr:206905849",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВЕЛИНА ТОТЕВА ЧЕХЛАРОВА",
+      "target": "company:tr:206905849",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИНА ТОТЕВА ЧЕХЛАРОВА",
+      "target": "company:tr:206905849",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariya-ivanova-dimova-c12a21",
+  "nodes": [
+    {
+      "id": "official:mariya-ivanova-dimova-c12a21",
+      "type": "official",
+      "slug": "mariya-ivanova-dimova-c12a21",
+      "label": "Мария Иванова Димова",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200577598",
+      "type": "company",
+      "label": "Еффект груп ЕООД",
+      "slug": null,
+      "uic": "200577598",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-ivanova-dimova-c12a21",
+      "target": "company:tr:200577598",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

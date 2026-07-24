@@ -1,0 +1,142 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:pembe-ahmedova-piloeva-af242e",
+  "nodes": [
+    {
+      "id": "official:pembe-ahmedova-piloeva-af242e",
+      "type": "official",
+      "slug": "pembe-ahmedova-piloeva-af242e",
+      "label": "Пембе Ахмедова Пильоева",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000016225",
+      "type": "company",
+      "label": "СВ.СВ. КИРИЛ И МЕТОДИЙ - 1926",
+      "slug": null,
+      "uic": "000016225",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БИСЕР МЛАДЕНОВ УШЕВ",
+      "type": "person",
+      "label": "Бисер Младенов Ушев"
+    },
+    {
+      "id": "person:АЙШЕ АХМЕДОВА ДЖУДЖЕВА",
+      "type": "person",
+      "label": "Айше Ахмедова Джуджева"
+    },
+    {
+      "id": "person:ЗАЙРА КЕМИЛОВА ИБИШЕВА",
+      "type": "person",
+      "label": "Зайра Кемилова Ибишева"
+    },
+    {
+      "id": "person:КАТЯ ГЕОРГИЕВА ДЖАЛОВА",
+      "type": "person",
+      "label": "Катя Георгиева Джалова"
+    },
+    {
+      "id": "person:АНИТА СЪБИНОВА ПЕТЕВА",
+      "type": "person",
+      "label": "Анита Събинова Петева"
+    },
+    {
+      "id": "person:АЛИ ЮМЕРОВ СКЕНДЕРОВ",
+      "type": "person",
+      "label": "Али Юмеров Скендеров"
+    },
+    {
+      "id": "person:АСИБЕ ЮСЕИН ЧИТАКОВА",
+      "type": "person",
+      "label": "Асибе Юсеин Читакова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:pembe-ahmedova-piloeva-af242e",
+      "target": "company:tr:000016225",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БИСЕР МЛАДЕНОВ УШЕВ",
+      "target": "company:tr:000016225",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙШЕ АХМЕДОВА ДЖУДЖЕВА",
+      "target": "company:tr:000016225",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИСЕР МЛАДЕНОВ УШЕВ",
+      "target": "company:tr:000016225",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙШЕ АХМЕДОВА ДЖУДЖЕВА",
+      "target": "company:tr:000016225",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗАЙРА КЕМИЛОВА ИБИШЕВА",
+      "target": "company:tr:000016225",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ ГЕОРГИЕВА ДЖАЛОВА",
+      "target": "company:tr:000016225",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНИТА СЪБИНОВА ПЕТЕВА",
+      "target": "company:tr:000016225",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛИ ЮМЕРОВ СКЕНДЕРОВ",
+      "target": "company:tr:000016225",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСИБЕ ЮСЕИН ЧИТАКОВА",
+      "target": "company:tr:000016225",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

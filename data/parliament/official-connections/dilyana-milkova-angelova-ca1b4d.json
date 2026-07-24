@@ -1,0 +1,155 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dilyana-milkova-angelova-ca1b4d",
+  "nodes": [
+    {
+      "id": "official:dilyana-milkova-angelova-ca1b4d",
+      "type": "official",
+      "slug": "dilyana-milkova-angelova-ca1b4d",
+      "label": "Диляна Милкова Ангелова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:120547056",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ&quot;УЧИЛИЩНО НАСТОЯТЕЛСТВО&quot;ВАСИЛ ДЕЧЕВ&quot;&quot;",
+      "slug": null,
+      "uic": "120547056",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕЛИЧКА КРЪСТЕВА КАРАИВАНОВА",
+      "type": "person",
+      "label": "Величка Кръстева Караиванова"
+    },
+    {
+      "id": "person:ДАНИЕЛА ТРАЯНОВА КЪТЕВА",
+      "type": "person",
+      "label": "Даниела Траянова Кътева"
+    },
+    {
+      "id": "person:ЕЛЕНА МИТКОВА КОНДИЛОВА",
+      "type": "person",
+      "label": "Елена Миткова Кондилова"
+    },
+    {
+      "id": "person:НИНА НЕДКОВА КАВАРДЖИЕВА",
+      "type": "person",
+      "label": "Нина Недкова Каварджиева"
+    },
+    {
+      "id": "person:ЕМИЛИЯ ДИМИТРОВА МИНКОВА",
+      "type": "person",
+      "label": "Емилия Димитрова Минкова"
+    },
+    {
+      "id": "person:ДЕНИЦА СТАНКОВА ГАДЖЕВА",
+      "type": "person",
+      "label": "Деница Станкова Гаджева"
+    },
+    {
+      "id": "person:ДАРИНА КРУМОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Дарина Крумова Петкова"
+    },
+    {
+      "id": "person:МАРИЯ КОСТАДИНОВА ПЕТКОВСКА",
+      "type": "person",
+      "label": "Мария Костадинова Петковска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dilyana-milkova-angelova-ca1b4d",
+      "target": "company:tr:120547056",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕЛИЧКА КРЪСТЕВА КАРАИВАНОВА",
+      "target": "company:tr:120547056",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИЧКА КРЪСТЕВА КАРАИВАНОВА",
+      "target": "company:tr:120547056",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ТРАЯНОВА КЪТЕВА",
+      "target": "company:tr:120547056",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА МИТКОВА КОНДИЛОВА",
+      "target": "company:tr:120547056",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА НЕДКОВА КАВАРДЖИЕВА",
+      "target": "company:tr:120547056",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ ДИМИТРОВА МИНКОВА",
+      "target": "company:tr:120547056",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ ДИМИТРОВА МИНКОВА",
+      "target": "company:tr:120547056",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИЦА СТАНКОВА ГАДЖЕВА",
+      "target": "company:tr:120547056",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАРИНА КРУМОВА ПЕТКОВА",
+      "target": "company:tr:120547056",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ КОСТАДИНОВА ПЕТКОВСКА",
+      "target": "company:tr:120547056",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

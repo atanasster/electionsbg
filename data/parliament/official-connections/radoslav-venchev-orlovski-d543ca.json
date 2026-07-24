@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:radoslav-venchev-orlovski-d543ca",
+  "nodes": [
+    {
+      "id": "official:radoslav-venchev-orlovski-d543ca",
+      "type": "official",
+      "slug": "radoslav-venchev-orlovski-d543ca",
+      "label": "Радослав Венчев Орловски",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207883430",
+      "type": "company",
+      "label": "РЪСТ ОЙЛ",
+      "slug": null,
+      "uic": "207883430",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕНИЦА ВАЛЕРИЕВА ОРЛОВСКА",
+      "type": "person",
+      "label": "Деница Валериева Орловска"
+    },
+    {
+      "id": "person:ИСКРЕН КРАСИМИРОВ ЦЕНКОВ",
+      "type": "person",
+      "label": "Искрен Красимиров Ценков"
+    },
+    {
+      "id": "person:ТИНКА ГЕРГОВА ОРЛОВСКА",
+      "type": "person",
+      "label": "Тинка Гергова Орловска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:radoslav-venchev-orlovski-d543ca",
+      "target": "company:tr:207883430",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕНИЦА ВАЛЕРИЕВА ОРЛОВСКА",
+      "target": "company:tr:207883430",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИСКРЕН КРАСИМИРОВ ЦЕНКОВ",
+      "target": "company:tr:207883430",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИНКА ГЕРГОВА ОРЛОВСКА",
+      "target": "company:tr:207883430",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

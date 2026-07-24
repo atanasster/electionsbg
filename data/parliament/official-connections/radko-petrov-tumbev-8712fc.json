@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:radko-petrov-tumbev-8712fc",
+  "nodes": [
+    {
+      "id": "official:radko-petrov-tumbev-8712fc",
+      "type": "official",
+      "slug": "radko-petrov-tumbev-8712fc",
+      "label": "Радко Петров Тумбев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Разлог"
+    },
+    {
+      "id": "company:tr:176865278",
+      "type": "company",
+      "label": "ВОЛЕЙБОЛЕН КЛУБ &quot;ПИРИН-РАЗЛОГ",
+      "slug": null,
+      "uic": "176865278",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТЪР СПАСОВ КРЪНЧЕВ",
+      "type": "person",
+      "label": "Димитър Спасов Крънчев"
+    },
+    {
+      "id": "person:ТОДОР ПЕТРОВ КОКОВ",
+      "type": "person",
+      "label": "Тодор Петров Коков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:radko-petrov-tumbev-8712fc",
+      "target": "company:tr:176865278",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР СПАСОВ КРЪНЧЕВ",
+      "target": "company:tr:176865278",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ПЕТРОВ КОКОВ",
+      "target": "company:tr:176865278",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

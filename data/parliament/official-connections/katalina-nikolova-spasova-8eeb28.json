@@ -1,0 +1,82 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:katalina-nikolova-spasova-8eeb28",
+  "nodes": [
+    {
+      "id": "official:katalina-nikolova-spasova-8eeb28",
+      "type": "official",
+      "slug": "katalina-nikolova-spasova-8eeb28",
+      "label": "Каталина Николова Спасова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:112038839",
+      "type": "company",
+      "label": "СПОРТЕН КЛУБ ПО ЛЕКА АТЛЕТИКА &quot;ХЕБЪР&quot;",
+      "slug": null,
+      "uic": "112038839",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СЕВКА СВЕТОСЛАВОВА ЯНКОВА",
+      "type": "person",
+      "label": "Севка Светославова Янкова"
+    },
+    {
+      "id": "person:ВАСИЛ ИВАНОВ ТОМОВ",
+      "type": "person",
+      "label": "Васил Иванов Томов"
+    },
+    {
+      "id": "person:ЗАХАРИНКА ДИМИТРОВА ЙОСИФОВА",
+      "type": "person",
+      "label": "Захаринка Димитрова Йосифова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:katalina-nikolova-spasova-8eeb28",
+      "target": "company:tr:112038839",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:katalina-nikolova-spasova-8eeb28",
+      "target": "company:tr:112038839",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СЕВКА СВЕТОСЛАВОВА ЯНКОВА",
+      "target": "company:tr:112038839",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ИВАНОВ ТОМОВ",
+      "target": "company:tr:112038839",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗАХАРИНКА ДИМИТРОВА ЙОСИФОВА",
+      "target": "company:tr:112038839",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

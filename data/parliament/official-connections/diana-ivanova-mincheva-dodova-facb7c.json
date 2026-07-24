@@ -1,0 +1,71 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:diana-ivanova-mincheva-dodova-facb7c",
+  "nodes": [
+    {
+      "id": "official:diana-ivanova-mincheva-dodova-facb7c",
+      "type": "official",
+      "slug": "diana-ivanova-mincheva-dodova-facb7c",
+      "label": "Диана Иванова Минчева-Додова",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Каварна"
+    },
+    {
+      "id": "company:tr:201621834",
+      "type": "company",
+      "label": "Додис Фууд ЕООД",
+      "slug": null,
+      "uic": "201621834",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:130869422",
+      "type": "company",
+      "label": "Наспет ЕООД",
+      "slug": null,
+      "uic": "130869422",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205886901",
+      "type": "company",
+      "label": "Лекса БГ ЕООД",
+      "slug": null,
+      "uic": "205886901",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:diana-ivanova-mincheva-dodova-facb7c",
+      "target": "company:tr:201621834",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:diana-ivanova-mincheva-dodova-facb7c",
+      "target": "company:tr:130869422",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:diana-ivanova-mincheva-dodova-facb7c",
+      "target": "company:tr:205886901",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

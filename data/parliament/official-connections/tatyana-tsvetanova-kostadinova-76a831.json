@@ -1,0 +1,78 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tatyana-tsvetanova-kostadinova-76a831",
+  "nodes": [
+    {
+      "id": "official:tatyana-tsvetanova-kostadinova-76a831",
+      "type": "official",
+      "slug": "tatyana-tsvetanova-kostadinova-76a831",
+      "label": "Татяна Цветанова Костадинова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207103909",
+      "type": "company",
+      "label": "БИОКОМПОСТ - БАЛКАН",
+      "slug": null,
+      "uic": "207103909",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:angel-plamenov-petkov-52bb5f",
+      "type": "official",
+      "slug": "angel-plamenov-petkov-52bb5f",
+      "label": "Ангел Пламенов Петков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ОБЩИНА ЧИПРОВЦИ",
+      "type": "person",
+      "label": "Община Чипровци"
+    },
+    {
+      "id": "person:ОБЩИНА ГЕОРГИ ДАМЯНОВО",
+      "type": "person",
+      "label": "Община Георги Дамяново"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tatyana-tsvetanova-kostadinova-76a831",
+      "target": "company:tr:207103909",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:angel-plamenov-petkov-52bb5f",
+      "target": "company:tr:207103909",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОБЩИНА ЧИПРОВЦИ",
+      "target": "company:tr:207103909",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ГЕОРГИ ДАМЯНОВО",
+      "target": "company:tr:207103909",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

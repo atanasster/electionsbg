@@ -1,0 +1,51 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:spas-atanasov-shumanov-e9771d",
+  "nodes": [
+    {
+      "id": "official:spas-atanasov-shumanov-e9771d",
+      "type": "official",
+      "slug": "spas-atanasov-shumanov-e9771d",
+      "label": "Спас Атанасов Шуманов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пловдив"
+    },
+    {
+      "id": "company:tr:207482918",
+      "type": "company",
+      "label": "РЕЦИКЛИРАНЕ И ВЪЗСТАНОВЯВАНЕ",
+      "slug": null,
+      "uic": "207482918",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:spas-atanasov-shumanov-e9771d",
+      "target": "company:tr:207482918",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:spas-atanasov-shumanov-e9771d",
+      "target": "company:tr:207482918",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:spas-atanasov-shumanov-e9771d",
+      "target": "company:tr:207482918",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

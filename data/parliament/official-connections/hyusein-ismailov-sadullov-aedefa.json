@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hyusein-ismailov-sadullov-aedefa",
+  "nodes": [
+    {
+      "id": "official:hyusein-ismailov-sadullov-aedefa",
+      "type": "official",
+      "slug": "hyusein-ismailov-sadullov-aedefa",
+      "label": "Хюсеин Исмаилов Садуллов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Котел"
+    },
+    {
+      "id": "company:tr:204371923",
+      "type": "company",
+      "label": "Дениз Перде ЕООД",
+      "slug": null,
+      "uic": "204371923",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hyusein-ismailov-sadullov-aedefa",
+      "target": "company:tr:204371923",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

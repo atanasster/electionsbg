@@ -1,0 +1,244 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:sevgin-nazm-shukri-9df5e2",
+  "nodes": [
+    {
+      "id": "official:sevgin-nazm-shukri-9df5e2",
+      "type": "official",
+      "slug": "sevgin-nazm-shukri-9df5e2",
+      "label": "Севгин Назъм Шукри",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Лозница"
+    },
+    {
+      "id": "company:tr:175893805",
+      "type": "company",
+      "label": "&quot;МЕСТНА ИНИЦИАТИВНА ГРУПА - ЛОЗНИЦА - САМУИЛ ХИТРИНО&quot;",
+      "slug": null,
+      "uic": "175893805",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:svetoslava-dimitrova-borisova-6ef55f",
+      "type": "official",
+      "slug": "svetoslava-dimitrova-borisova-6ef55f",
+      "label": "Светослава Димитрова Борисова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хитрино"
+    },
+    {
+      "id": "company:name:НЕСИ-ИНА ПРЕДСТАВЛЯВАНА ОТ ЕРОЛ ИБРЯМОВ РЕДЖЕБОВ",
+      "type": "company",
+      "label": "\"НЕСИ-ИНА\" ЕООД представлявана от Ерол Ибрямов Реджебов",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОБЩИНА ЛОЗНИЦА, ПРЕДСТАВЛЯВАНА ОТ АЙХАН МУСТАФОВ ХАШИМОВ",
+      "type": "person",
+      "label": "Община  Лозница, Представлявана От Айхан Мустафов Хашимов"
+    },
+    {
+      "id": "person:БЕХИДЖЕ СЮЛЕЙМАНОВА МУСТАФА",
+      "type": "person",
+      "label": "Бехидже Сюлейманова Мустафа"
+    },
+    {
+      "id": "person:СЕЙНУР ФЕЙЗУЛА МУСТАФА",
+      "type": "person",
+      "label": "Сейнур Фейзула Мустафа"
+    },
+    {
+      "id": "person:ОБЩИНА ХИТРИНО, ПРЕДСТАВЛЯВАНА ОТ НУРИДИН БАСРИ ИСМАИЛ",
+      "type": "person",
+      "label": "Община Хитрино, Представлявана От Нуридин Басри Исмаил"
+    },
+    {
+      "id": "person:ОБЩИНА САМУИЛ, ПРЕДСТАВЛЯВАНА ОТ БЕЙТУЛА САЛИ МЮМУН",
+      "type": "person",
+      "label": "Община Самуил, Представлявана От Бейтула Сали Мюмун"
+    },
+    {
+      "id": "person:КИРИЛ МЕТОДИЕВ КИРИЛОВ",
+      "type": "person",
+      "label": "Кирил Методиев Кирилов"
+    },
+    {
+      "id": "person:АЙХАН МУСТАФОВ ХАШИМОВ",
+      "type": "person",
+      "label": "Айхан Мустафов Хашимов"
+    },
+    {
+      "id": "person:ОБЩИНА САМУИЛ, ПРЕДСТАВЛЯВАНА ОТ ДЖЕВДЕТ АХМЕД АЗИС",
+      "type": "person",
+      "label": "Община Самуил, Представлявана От Джевдет Ахмед Азис"
+    },
+    {
+      "id": "person:ОБЩИНА ЛОЗНИЦА, ПРЕДСТАВЛЯВАНА ОТ СЕВГИН НАЗЪМ ШУКРИ",
+      "type": "person",
+      "label": "Община Лозница, Представлявана От Севгин Назъм Шукри"
+    },
+    {
+      "id": "person:ГЕОРГИ ХРИСТОВ МИНКОВ",
+      "type": "person",
+      "label": "Георги Христов Минков"
+    },
+    {
+      "id": "company:name:СИ - МЕЛ 2020 ЕООД, ПРЕДСТАВЛЯВАНА ОТ НЕВЗАТ АХМЕД АХМЕД",
+      "type": "company",
+      "label": "„СИ - МЕЛ 2020“ ЕООД, представлявана от НЕВЗАТ АХМЕД АХМЕД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:НЕДЖИБ 1980 ЕООД, ПРЕДСТАВЛЯВАНА ОТ НЕДЖИБ АЛИЕВ ХАСАНОВ",
+      "type": "company",
+      "label": "\"Неджиб 1980\" ЕООД, представлявана от НЕДЖИБ АЛИЕВ ХАСАНОВ",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sevgin-nazm-shukri-9df5e2",
+      "target": "company:tr:175893805",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:sevgin-nazm-shukri-9df5e2",
+      "target": "company:tr:175893805",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:svetoslava-dimitrova-borisova-6ef55f",
+      "target": "company:tr:175893805",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "company:name:НЕСИ-ИНА ПРЕДСТАВЛЯВАНА ОТ ЕРОЛ ИБРЯМОВ РЕДЖЕБОВ",
+      "target": "company:tr:175893805",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ЛОЗНИЦА, ПРЕДСТАВЛЯВАНА ОТ АЙХАН МУСТАФОВ ХАШИМОВ",
+      "target": "company:tr:175893805",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЕХИДЖЕ СЮЛЕЙМАНОВА МУСТАФА",
+      "target": "company:tr:175893805",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕЙНУР ФЕЙЗУЛА МУСТАФА",
+      "target": "company:tr:175893805",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ХИТРИНО, ПРЕДСТАВЛЯВАНА ОТ НУРИДИН БАСРИ ИСМАИЛ",
+      "target": "company:tr:175893805",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА САМУИЛ, ПРЕДСТАВЛЯВАНА ОТ БЕЙТУЛА САЛИ МЮМУН",
+      "target": "company:tr:175893805",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ МЕТОДИЕВ КИРИЛОВ",
+      "target": "company:tr:175893805",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙХАН МУСТАФОВ ХАШИМОВ",
+      "target": "company:tr:175893805",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА САМУИЛ, ПРЕДСТАВЛЯВАНА ОТ ДЖЕВДЕТ АХМЕД АЗИС",
+      "target": "company:tr:175893805",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ЛОЗНИЦА, ПРЕДСТАВЛЯВАНА ОТ СЕВГИН НАЗЪМ ШУКРИ",
+      "target": "company:tr:175893805",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ХРИСТОВ МИНКОВ",
+      "target": "company:tr:175893805",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:СИ - МЕЛ 2020 ЕООД, ПРЕДСТАВЛЯВАНА ОТ НЕВЗАТ АХМЕД АХМЕД",
+      "target": "company:tr:175893805",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:НЕДЖИБ 1980 ЕООД, ПРЕДСТАВЛЯВАНА ОТ НЕДЖИБ АЛИЕВ ХАСАНОВ",
+      "target": "company:tr:175893805",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

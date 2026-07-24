@@ -1,0 +1,112 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:evelina-apostolova-rusinova-886b69",
+  "nodes": [
+    {
+      "id": "official:evelina-apostolova-rusinova-886b69",
+      "type": "official",
+      "slug": "evelina-apostolova-rusinova-886b69",
+      "label": "Евелина Апостолова Русинова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:115044199",
+      "type": "company",
+      "label": "ВАЛВИНИ",
+      "slug": null,
+      "uic": "115044199",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203159472",
+      "type": "company",
+      "label": "ТОП ФИШ ТУРС ООД",
+      "slug": null,
+      "uic": "203159472",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:evelina-apostolova-rusinova-440b80",
+      "type": "official",
+      "slug": "evelina-apostolova-rusinova-440b80",
+      "label": "Евелина Апостолова Русинова",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "person:ЛЮБОМИР ИВАНОВ СЛАВОВ",
+      "type": "person",
+      "label": "Любомир Иванов Славов"
+    },
+    {
+      "id": "person:ИВАЙЛО ЛЮБОМИРОВ СЛАВОВ",
+      "type": "person",
+      "label": "Ивайло Любомиров Славов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:evelina-apostolova-rusinova-886b69",
+      "target": "company:tr:115044199",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:evelina-apostolova-rusinova-886b69",
+      "target": "company:tr:203159472",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:evelina-apostolova-rusinova-440b80",
+      "target": "company:tr:115044199",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ИВАНОВ СЛАВОВ",
+      "target": "company:tr:203159472",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ЛЮБОМИРОВ СЛАВОВ",
+      "target": "company:tr:203159472",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ИВАНОВ СЛАВОВ",
+      "target": "company:tr:203159472",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ЛЮБОМИРОВ СЛАВОВ",
+      "target": "company:tr:203159472",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

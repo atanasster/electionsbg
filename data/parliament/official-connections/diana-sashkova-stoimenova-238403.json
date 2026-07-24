@@ -1,0 +1,146 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:diana-sashkova-stoimenova-238403",
+  "nodes": [
+    {
+      "id": "official:diana-sashkova-stoimenova-238403",
+      "type": "official",
+      "slug": "diana-sashkova-stoimenova-238403",
+      "label": "Диана Сашкова Стоименова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Костенец"
+    },
+    {
+      "id": "company:tr:176015917",
+      "type": "company",
+      "label": "Местна инициативна група Костенец - Долна баня",
+      "slug": null,
+      "uic": "176015917",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:АНАСТАСИЯ КАЙТАЗОВА , ПРЕДСТАВЛЯВАНА ОТ ВЛАДИМИР АНГЕЛОВ КАЙТАЗОВ",
+      "type": "company",
+      "label": "ЕТ \"Анастасия Кайтазова\", представлявана от Владимир Ангелов Кайтазов",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОУ \"СВ.СВ. КИРИЛ И МЕТОДИЙ\", ПРЕДСТАВЛЯВАНО ОТ АНЕТА ИВАНОВА КИРОВА",
+      "type": "person",
+      "label": "Оу \"св.св. Кирил И Методий\", Представлявано От Анета Иванова Кирова"
+    },
+    {
+      "id": "person:ДАНИЕЛА ХРИСТОВА МАНДАЖИЕВА",
+      "type": "person",
+      "label": "Даниела Христова Мандажиева"
+    },
+    {
+      "id": "company:name:ГРОЗДАНОВ ЕООД, ПРЕДСТАВЛЯВАНО ОТ МИТКО МИТКОВ ГРОЗДАНОВ",
+      "type": "company",
+      "label": "\"Грозданов\" ЕООД, представлявано от Митко Митков Грозданов",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОРДАН ЛЮБОМИРОВ МИТЕВ",
+      "type": "person",
+      "label": "Йордан Любомиров Митев"
+    },
+    {
+      "id": "company:name:ЛЕКСИКУМ ЕООД, ПРЕДСТАВЛЯВАНО ОТ ДИАНА САШКОВА СТОИМЕНОВА",
+      "type": "company",
+      "label": "„Лексикум“ ЕООД, представлявано от Диана Сашкова Стоименова",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:КОСТЕНЕЦРТ ЕООД, ПРЕДСТАВЛЯВАНО ОТ МИЛЕНА ГЕОРГИЕВА БАХЧАВАНОВА",
+      "type": "company",
+      "label": "„КостенецРТ“ ЕООД, представлявано от Милена Георгиева Бахчаванова",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:diana-sashkova-stoimenova-238403",
+      "target": "company:tr:176015917",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "company:name:АНАСТАСИЯ КАЙТАЗОВА , ПРЕДСТАВЛЯВАНА ОТ ВЛАДИМИР АНГЕЛОВ КАЙТАЗОВ",
+      "target": "company:tr:176015917",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОУ \"СВ.СВ. КИРИЛ И МЕТОДИЙ\", ПРЕДСТАВЛЯВАНО ОТ АНЕТА ИВАНОВА КИРОВА",
+      "target": "company:tr:176015917",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ХРИСТОВА МАНДАЖИЕВА",
+      "target": "company:tr:176015917",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ГРОЗДАНОВ ЕООД, ПРЕДСТАВЛЯВАНО ОТ МИТКО МИТКОВ ГРОЗДАНОВ",
+      "target": "company:tr:176015917",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ЛЮБОМИРОВ МИТЕВ",
+      "target": "company:tr:176015917",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ЛЕКСИКУМ ЕООД, ПРЕДСТАВЛЯВАНО ОТ ДИАНА САШКОВА СТОИМЕНОВА",
+      "target": "company:tr:176015917",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:КОСТЕНЕЦРТ ЕООД, ПРЕДСТАВЛЯВАНО ОТ МИЛЕНА ГЕОРГИЕВА БАХЧАВАНОВА",
+      "target": "company:tr:176015917",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

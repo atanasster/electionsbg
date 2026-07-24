@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-ivanov-ivanov-568d83",
+  "nodes": [
+    {
+      "id": "official:nikolai-ivanov-ivanov-568d83",
+      "type": "official",
+      "slug": "nikolai-ivanov-ivanov-568d83",
+      "label": "Николай Иванов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стамболийски"
+    },
+    {
+      "id": "company:tr:160106272",
+      "type": "company",
+      "label": "ИРНИ-Л",
+      "slug": null,
+      "uic": "160106272",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Николай Иванов Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-ivanov-ivanov-568d83",
+      "target": "company:tr:160106272",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ИВАНОВ ИВАНОВ",
+      "target": "company:tr:160106272",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

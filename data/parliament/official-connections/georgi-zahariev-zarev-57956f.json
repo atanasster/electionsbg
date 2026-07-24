@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-zahariev-zarev-57956f",
+  "nodes": [
+    {
+      "id": "official:georgi-zahariev-zarev-57956f",
+      "type": "official",
+      "slug": "georgi-zahariev-zarev-57956f",
+      "label": "Георги Захариев Зарев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208624441",
+      "type": "company",
+      "label": "ФУУД СЪРВИС ГРУП",
+      "slug": null,
+      "uic": "208624441",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-zahariev-zarev-57956f",
+      "target": "company:tr:208624441",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-zahariev-zarev-57956f",
+      "target": "company:tr:208624441",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

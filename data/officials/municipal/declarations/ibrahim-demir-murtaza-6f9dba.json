@@ -1,0 +1,106 @@
+[
+  {
+    "slug": "ibrahim-demir-murtaza-6f9dba",
+    "declarantName": "Ибрахим Демир Муртаза",
+    "institution": "Дулово",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-02",
+    "entryNumber": "Г5950",
+    "controlHash": "6A13D940",
+    "sourceUrl": "https://register.cacbg.bg/2025/F2FB1E1D-7915-4171-A263-A1846CE663B5208896.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5951.437497123983,
+        "amountEurSpouse": 3303.9681362899637
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 13913.785962992693,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Социална помощ за дете с увреждане",
+        "amountEurDeclarant": 3589.269005997454,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Автомобил",
+        "detail": "БМВ Х3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Ибрахим Демир Муртаза",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Ибрахим Демир Муртаза",
+        "isSpouse": false,
+        "legalBasis": "5,1328%-кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 62000,
+        "valueEur": 31700.096634165548,
+        "holderName": "Ибрахим Демир Муртаза",
+        "isSpouse": false,
+        "legalBasis": "3,2968",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "е200",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-kalinov-tserovski-9a5218",
+  "nodes": [
+    {
+      "id": "official:ivan-kalinov-tserovski-9a5218",
+      "type": "official",
+      "slug": "ivan-kalinov-tserovski-9a5218",
+      "label": "Иван Калинов Церовски",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Долна баня"
+    },
+    {
+      "id": "company:tr:206575465",
+      "type": "company",
+      "label": "ЦЕРОВСКИ ГРУП",
+      "slug": null,
+      "uic": "206575465",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-kalinov-tserovski-9a5218",
+      "target": "company:tr:206575465",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-kalinov-tserovski-9a5218",
+      "target": "company:tr:206575465",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

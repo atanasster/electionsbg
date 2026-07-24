@@ -1,0 +1,82 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:valerii-ivanov-radev-b1a19e",
+  "nodes": [
+    {
+      "id": "official:valerii-ivanov-radev-b1a19e",
+      "type": "official",
+      "slug": "valerii-ivanov-radev-b1a19e",
+      "label": "Валерий Иванов Радев",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176466051",
+      "type": "company",
+      "label": "РОТАРИ КЛУБ ПРОВАДИЯ",
+      "slug": null,
+      "uic": "176466051",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРАСИМИР ГЕОРГИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Красимир Георгиев Георгиев"
+    },
+    {
+      "id": "person:ЖИВКО ПАНКОВ ИВАНОВ",
+      "type": "person",
+      "label": "Живко Панков Иванов"
+    },
+    {
+      "id": "person:ЖИВКО ЙОРДАНОВ ЖЕКОВ",
+      "type": "person",
+      "label": "Живко Йорданов Жеков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valerii-ivanov-radev-b1a19e",
+      "target": "company:tr:176466051",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРАСИМИР ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:176466051",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ПАНКОВ ИВАНОВ",
+      "target": "company:tr:176466051",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ЙОРДАНОВ ЖЕКОВ",
+      "target": "company:tr:176466051",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ПАНКОВ ИВАНОВ",
+      "target": "company:tr:176466051",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:860",
   "nodes": [
     {
@@ -52,45 +52,45 @@
       "label": "Любов Николова Димитрова-Момчева"
     },
     {
-      "id": "official:aleksandr-miladinov-aleksandrov-331a89",
+      "id": "official:aleksandr-miladinov-aleksandrov-0acd95",
       "type": "official",
-      "slug": "aleksandr-miladinov-aleksandrov-331a89",
+      "slug": "aleksandr-miladinov-aleksandrov-0acd95",
       "label": "Александър Миладинов Александров",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:ivan-hristov-dipchikov-d76c42",
+      "id": "official:ivan-hristov-dipchikov-fcb8cb",
       "type": "official",
-      "slug": "ivan-hristov-dipchikov-d76c42",
+      "slug": "ivan-hristov-dipchikov-fcb8cb",
       "label": "Иван Христов Дипчиков",
       "tier": "executive",
       "role": "procurement_officer",
       "municipality": null
     },
     {
-      "id": "official:kiril-vasilev-karagozov-cb6e33",
+      "id": "official:kiril-vasilev-karagozov-d01f1c",
       "type": "official",
-      "slug": "kiril-vasilev-karagozov-cb6e33",
+      "slug": "kiril-vasilev-karagozov-d01f1c",
       "label": "Кирил Василев Карагьозов",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:stefan-todorov-semov-9a92b3",
+      "id": "official:stefan-todorov-semov-4cbdbd",
       "type": "official",
-      "slug": "stefan-todorov-semov-9a92b3",
+      "slug": "stefan-todorov-semov-4cbdbd",
       "label": "Стефан Тодоров Семов",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:tihomir-iliev-todorov-f053cf",
+      "id": "official:tihomir-iliev-todorov-f746af",
       "type": "official",
-      "slug": "tihomir-iliev-todorov-f053cf",
+      "slug": "tihomir-iliev-todorov-f746af",
       "label": "Тихомир Илиев Тодоров",
       "tier": "executive",
       "role": "state_enterprise",
@@ -233,7 +233,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:aleksandr-miladinov-aleksandrov-331a89",
+      "source": "official:aleksandr-miladinov-aleksandrov-0acd95",
       "target": "company:tr:103061301",
       "kind": "tr_role",
       "role": "director",
@@ -241,7 +241,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:ivan-hristov-dipchikov-d76c42",
+      "source": "official:ivan-hristov-dipchikov-fcb8cb",
       "target": "company:tr:103061301",
       "kind": "tr_role",
       "role": "director",
@@ -249,7 +249,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:kiril-vasilev-karagozov-cb6e33",
+      "source": "official:kiril-vasilev-karagozov-d01f1c",
       "target": "company:tr:103061301",
       "kind": "tr_role",
       "role": "director",
@@ -257,7 +257,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:stefan-todorov-semov-9a92b3",
+      "source": "official:stefan-todorov-semov-4cbdbd",
       "target": "company:tr:103061301",
       "kind": "tr_role",
       "role": "director",
@@ -265,7 +265,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:tihomir-iliev-todorov-f053cf",
+      "source": "official:tihomir-iliev-todorov-f746af",
       "target": "company:tr:103061301",
       "kind": "tr_role",
       "role": "director",

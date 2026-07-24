@@ -1,0 +1,71 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivilina-dimitrova-staneva-c7269e",
+  "nodes": [
+    {
+      "id": "official:ivilina-dimitrova-staneva-c7269e",
+      "type": "official",
+      "slug": "ivilina-dimitrova-staneva-c7269e",
+      "label": "ИВИЛИНА ДИМИТРОВА СТАНЕВА",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204324336",
+      "type": "company",
+      "label": "Д2 Рикамбиауто",
+      "slug": null,
+      "uic": "204324336",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204459736",
+      "type": "company",
+      "label": "Д2 Рикамбиауто 17",
+      "slug": null,
+      "uic": "204459736",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204656445",
+      "type": "company",
+      "label": "МИРИАУТО",
+      "slug": null,
+      "uic": "204656445",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivilina-dimitrova-staneva-c7269e",
+      "target": "company:tr:204324336",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivilina-dimitrova-staneva-c7269e",
+      "target": "company:tr:204459736",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivilina-dimitrova-staneva-c7269e",
+      "target": "company:tr:204656445",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

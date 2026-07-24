@@ -1,0 +1,115 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:yuzdzhan-faik-yumer-3e214e",
+  "nodes": [
+    {
+      "id": "official:yuzdzhan-faik-yumer-3e214e",
+      "type": "official",
+      "slug": "yuzdzhan-faik-yumer-3e214e",
+      "label": "Юзджан Фаик Юмер",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Айтос"
+    },
+    {
+      "id": "company:tr:206806954",
+      "type": "company",
+      "label": "Сън Енерджи АА ООД",
+      "slug": null,
+      "uic": "206806954",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:ruzhdi-hikmet-hadzhen-935a70",
+      "type": "official",
+      "slug": "ruzhdi-hikmet-hadzhen-935a70",
+      "label": "Ружди Хикмет Хаджен",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Сунгурларе"
+    },
+    {
+      "id": "person:АЛИХАН АЛИОСМАН КАМБУР",
+      "type": "person",
+      "label": "Алихан Алиосман Камбур"
+    },
+    {
+      "id": "person:ЮЗДЖАН ФАИК ЮМЕР",
+      "type": "person",
+      "label": "Юзджан Фаик Юмер"
+    },
+    {
+      "id": "person:МЮМЮН РАХИМ РАМАДАН",
+      "type": "person",
+      "label": "Мюмюн Рахим Рамадан"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yuzdzhan-faik-yumer-3e214e",
+      "target": "company:tr:206806954",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ruzhdi-hikmet-hadzhen-935a70",
+      "target": "company:tr:206806954",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛИХАН АЛИОСМАН КАМБУР",
+      "target": "company:tr:206806954",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЗДЖАН ФАИК ЮМЕР",
+      "target": "company:tr:206806954",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЗДЖАН ФАИК ЮМЕР",
+      "target": "company:tr:206806954",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЮМЮН РАХИМ РАМАДАН",
+      "target": "company:tr:206806954",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ruzhdi-hikmet-hadzhen-935a70",
+      "target": "company:tr:206806954",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ruzhdi-hikmet-hadzhen-935a70",
+      "target": "company:tr:206806954",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "rositsa-dimitrova-marinova-e24b50",
+    "declarantName": "Росица Димитрова Маринова",
+    "institution": "Ловеч",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г12001",
+    "controlHash": "DF812F57",
+    "sourceUrl": "https://register.cacbg.bg/2025/C4E1238D-8516-4995-94DE-407102CD3CE9215155.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20549.843289038414,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6214.752815940035,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Ловеч",
+        "municipality": "Ловеч",
+        "areaSqm": 59,
+        "builtAreaSqm": 59,
+        "acquiredYear": 1993,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 197000,
+        "valueEur": 100724.50059565504,
+        "holderName": "Росица Димитрова Маринова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18284,
+        "valueEur": 9348.460755791659,
+        "holderName": "Росица Димитрова Маринова",
+        "isSpouse": false,
+        "legalBasis": "потребителски кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 138134,
+        "valueEur": 70626.79271715845,
+        "holderName": "Димитър Вилиянов Маринов",
+        "isSpouse": true,
+        "legalBasis": "ипотека",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "georgi-blagoev-iordanov-e8c506",
+    "declarantName": "ГЕОРГИ БЛАГОЕВ ЙОРДАНОВ",
+    "institution": "Садово",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г12351",
+    "controlHash": "EE6983B6",
+    "sourceUrl": "https://register.cacbg.bg/2025/F1139C01-B1B6-438F-A10B-2A7394698837215515.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 3006.3962614337647,
+        "amountEurSpouse": 0
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 13202.578956248753,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "СПЕЦИАЛИЗИРАНО РЕМАРКЕ",
+        "detail": "КОРС ЗНАП АТ 4020",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "ГЕОРГИ БЛАГОЕВ ЙОРДАНОВ, СИО",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 150000,
+        "valueEur": 76693.78217943278,
+        "holderName": "ГЕОРГИ БЛАГОЕВ ЙОРДАНОВ",
+        "isSpouse": false,
+        "legalBasis": "3%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ФОЛКСФАГЕН ТУРАН",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1118.706636057326,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

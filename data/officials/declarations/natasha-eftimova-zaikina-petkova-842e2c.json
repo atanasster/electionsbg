@@ -1,0 +1,138 @@
+[
+  {
+    "slug": "natasha-eftimova-zaikina-petkova-842e2c",
+    "declarantName": "Наташа Ефтимова Зайкина-Петкова",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г10881",
+    "controlHash": "8CDB4070",
+    "sourceUrl": "https://register.cacbg.bg/2025/64F7C0A7-5DDD-4873-ADAF-A24FC03E9482213995.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24297.612778206694,
+        "amountEurSpouse": 5127.746276516875
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "natasha-eftimova-zaikina-petkova-842e2c",
+    "declarantName": "Наташа Ефтимова Зайкина-Петкова",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-14",
+    "entryNumber": "Г11017",
+    "controlHash": "35E228A2",
+    "sourceUrl": "https://register.cacbg.bg/2024/64F7C0A7-5DDD-4873-ADAF-A24FC03E9482192743.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17542.93573572345,
+        "amountEurSpouse": 5053.097661862227
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Шумен",
+        "municipality": "Шумен",
+        "areaSqm": 30,
+        "builtAreaSqm": 25,
+        "acquiredYear": 2012,
+        "share": "30",
+        "currency": "BGN",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Наташа Ефтимова Зайкина-Петкова",
+        "isSpouse": false,
+        "legalBasis": "други",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Шумен",
+        "municipality": "Шумен",
+        "areaSqm": 30,
+        "builtAreaSqm": 25,
+        "acquiredYear": 2012,
+        "share": "30",
+        "currency": "BGN",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Стилиян Кръстев Петков",
+        "isSpouse": true,
+        "legalBasis": "други",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "vehicle",
+        "description": "МПС",
+        "detail": "Шкода",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": "няма",
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Стилиян Кръстев Петков",
+        "isSpouse": true,
+        "legalBasis": "други",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечн кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Наташа Ефтимова Зайкина-Петкова",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Магистратура",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": null
+      }
+    ]
+  }
+]

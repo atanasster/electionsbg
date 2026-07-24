@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:plamen-nedelchev-mollov-7b1c50",
+  "nodes": [
+    {
+      "id": "official:plamen-nedelchev-mollov-7b1c50",
+      "type": "official",
+      "slug": "plamen-nedelchev-mollov-7b1c50",
+      "label": "Пламен Неделчев Моллов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:119625732",
+      "type": "company",
+      "label": "ПЛАМО ЕООД",
+      "slug": null,
+      "uic": "119625732",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:plamen-nedelchev-mollov-7b1c50",
+      "target": "company:tr:119625732",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

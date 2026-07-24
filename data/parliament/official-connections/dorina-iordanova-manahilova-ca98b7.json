@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dorina-iordanova-manahilova-ca98b7",
+  "nodes": [
+    {
+      "id": "official:dorina-iordanova-manahilova-ca98b7",
+      "type": "official",
+      "slug": "dorina-iordanova-manahilova-ca98b7",
+      "label": "Дорина Йорданова Манахилова",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:115566051",
+      "type": "company",
+      "label": "МЕДИКУС ГРУП",
+      "slug": null,
+      "uic": "115566051",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dorina-iordanova-manahilova-ca98b7",
+      "target": "company:tr:115566051",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

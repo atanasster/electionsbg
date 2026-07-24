@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:radostin-ivanov-milanov-555cf9",
+  "nodes": [
+    {
+      "id": "official:radostin-ivanov-milanov-555cf9",
+      "type": "official",
+      "slug": "radostin-ivanov-milanov-555cf9",
+      "label": "Радостин Иванов Миланов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:833066300",
+      "type": "company",
+      "label": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ",
+      "slug": null,
+      "uic": "833066300",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РОСЕН ВАЛЕРИЕВ НАЙДЕНОВ",
+      "type": "person",
+      "label": "Росен Валериев Найденов"
+    },
+    {
+      "id": "person:РУМЕН ТЕНЕВ РАЙКОВ",
+      "type": "person",
+      "label": "Румен Тенев Райков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:radostin-ivanov-milanov-555cf9",
+      "target": "company:tr:833066300",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РОСЕН ВАЛЕРИЕВ НАЙДЕНОВ",
+      "target": "company:tr:833066300",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ТЕНЕВ РАЙКОВ",
+      "target": "company:tr:833066300",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

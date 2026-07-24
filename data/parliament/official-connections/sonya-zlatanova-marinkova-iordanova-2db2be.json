@@ -1,0 +1,173 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:sonya-zlatanova-marinkova-iordanova-2db2be",
+  "nodes": [
+    {
+      "id": "official:sonya-zlatanova-marinkova-iordanova-2db2be",
+      "type": "official",
+      "slug": "sonya-zlatanova-marinkova-iordanova-2db2be",
+      "label": "Соня Златанова Маринкова-Йорданова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000762837",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ГРАДИЩЕ 1907&quot;",
+      "slug": null,
+      "uic": "000762837",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИНА СТОЯНОВА КОПРИНДЖИЙСКА",
+      "type": "person",
+      "label": "Нина Стоянова Копринджийска"
+    },
+    {
+      "id": "person:АДЕЛИНА БОЖИЛОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Аделина Божилова Ангелова"
+    },
+    {
+      "id": "person:БОРИСЛАВ ПЕТРОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Борислав Петров Петров"
+    },
+    {
+      "id": "person:ПЕТЪР ГЕОРГИЕВ ВЕСЕЛИНОВ",
+      "type": "person",
+      "label": "Петър Георгиев Веселинов"
+    },
+    {
+      "id": "person:НИКОЛАЙ ВЕЛИЧКОВ ИВАНОВ",
+      "type": "person",
+      "label": "Николай Величков Иванов"
+    },
+    {
+      "id": "person:СИМОНА ЕМИЛОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Симона Емилова Василева"
+    },
+    {
+      "id": "person:ЦВЕТОСЛАВА ГЕОРГИЕВА ПЕТКОВА",
+      "type": "person",
+      "label": "Цветослава Георгиева Петкова"
+    },
+    {
+      "id": "person:ЕЛЕОНОРА СОКОЛОВА БЛАГОЕВА-МИТРОВА",
+      "type": "person",
+      "label": "Елеонора Соколова Благоева-Митрова"
+    },
+    {
+      "id": "person:ВАЛЕРИ ИВАНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Валери Иванов Петров"
+    },
+    {
+      "id": "person:ИЛИЯ ТРАЙКОВ БОГДАНОВ",
+      "type": "person",
+      "label": "Илия Трайков Богданов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sonya-zlatanova-marinkova-iordanova-2db2be",
+      "target": "company:tr:000762837",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИНА СТОЯНОВА КОПРИНДЖИЙСКА",
+      "target": "company:tr:000762837",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АДЕЛИНА БОЖИЛОВА АНГЕЛОВА",
+      "target": "company:tr:000762837",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ ПЕТРОВ ПЕТРОВ",
+      "target": "company:tr:000762837",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ГЕОРГИЕВ ВЕСЕЛИНОВ",
+      "target": "company:tr:000762837",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ВЕЛИЧКОВ ИВАНОВ",
+      "target": "company:tr:000762837",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМОНА ЕМИЛОВА ВАСИЛЕВА",
+      "target": "company:tr:000762837",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА СТОЯНОВА КОПРИНДЖИЙСКА",
+      "target": "company:tr:000762837",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТОСЛАВА ГЕОРГИЕВА ПЕТКОВА",
+      "target": "company:tr:000762837",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕОНОРА СОКОЛОВА БЛАГОЕВА-МИТРОВА",
+      "target": "company:tr:000762837",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ ИВАНОВ ПЕТРОВ",
+      "target": "company:tr:000762837",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ТРАЙКОВ БОГДАНОВ",
+      "target": "company:tr:000762837",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

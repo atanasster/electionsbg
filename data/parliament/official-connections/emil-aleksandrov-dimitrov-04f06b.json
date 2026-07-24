@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:emil-aleksandrov-dimitrov-04f06b",
+  "nodes": [
+    {
+      "id": "official:emil-aleksandrov-dimitrov-04f06b",
+      "type": "official",
+      "slug": "emil-aleksandrov-dimitrov-04f06b",
+      "label": "Емил Александров Димитров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община"
+    },
+    {
+      "id": "company:tr:202050114",
+      "type": "company",
+      "label": "ДИМИТРОВ 07",
+      "slug": null,
+      "uic": "202050114",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯН АЛЕКСАНДРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Мариян Александров Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-aleksandrov-dimitrov-04f06b",
+      "target": "company:tr:202050114",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:emil-aleksandrov-dimitrov-04f06b",
+      "target": "company:tr:202050114",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯН АЛЕКСАНДРОВ ДИМИТРОВ",
+      "target": "company:tr:202050114",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯН АЛЕКСАНДРОВ ДИМИТРОВ",
+      "target": "company:tr:202050114",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

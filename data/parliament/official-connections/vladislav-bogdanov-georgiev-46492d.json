@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vladislav-bogdanov-georgiev-46492d",
+  "nodes": [
+    {
+      "id": "official:vladislav-bogdanov-georgiev-46492d",
+      "type": "official",
+      "slug": "vladislav-bogdanov-georgiev-46492d",
+      "label": "Владислав Богданов Георгиев",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131045382",
+      "type": "company",
+      "label": "ПРЕДПРИЯТИЕ ЗА УПРАВЛЕНИЕ НА ДЕЙНОСТИТЕ ПО ОПАЗВАНЕ НА ОКОЛНАТА СРЕДА (ПУДООС)",
+      "slug": null,
+      "uic": "131045382",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:galina-simeonova-simeonova-a73d4f",
+      "type": "official",
+      "slug": "galina-simeonova-simeonova-a73d4f",
+      "label": "Галина Симеонова Симеонова",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "official:magdalena-lyubcheva-georgieva-29a460",
+      "type": "official",
+      "slug": "magdalena-lyubcheva-georgieva-29a460",
+      "label": "Магдалена Любчева Георгиева",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "person:РЕНЕТА ГЕОРГИЕВА КОЛЕВА",
+      "type": "person",
+      "label": "Ренета Георгиева Колева"
+    },
+    {
+      "id": "person:ИРИНА АНТОНИЕВА КЬОСЕВА",
+      "type": "person",
+      "label": "Ирина Антониева Кьосева"
+    },
+    {
+      "id": "person:СВЕТЛА БОРИСОВА СТОЯНОВА-КИРЧЕВА",
+      "type": "person",
+      "label": "Светла Борисова Стоянова-Кирчева"
+    },
+    {
+      "id": "person:МАРТИН ОВАНЕС КАФЕДЖИЯН",
+      "type": "person",
+      "label": "Мартин Ованес Кафеджиян"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladislav-bogdanov-georgiev-46492d",
+      "target": "company:tr:131045382",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:galina-simeonova-simeonova-a73d4f",
+      "target": "company:tr:131045382",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:magdalena-lyubcheva-georgieva-29a460",
+      "target": "company:tr:131045382",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РЕНЕТА ГЕОРГИЕВА КОЛЕВА",
+      "target": "company:tr:131045382",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА АНТОНИЕВА КЬОСЕВА",
+      "target": "company:tr:131045382",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА БОРИСОВА СТОЯНОВА-КИРЧЕВА",
+      "target": "company:tr:131045382",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ОВАНЕС КАФЕДЖИЯН",
+      "target": "company:tr:131045382",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

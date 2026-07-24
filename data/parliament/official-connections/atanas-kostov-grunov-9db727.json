@@ -1,0 +1,219 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:atanas-kostov-grunov-9db727",
+  "nodes": [
+    {
+      "id": "official:atanas-kostov-grunov-9db727",
+      "type": "official",
+      "slug": "atanas-kostov-grunov-9db727",
+      "label": "Атанас Костов Грунов",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:119084369",
+      "type": "company",
+      "label": "Сдружение &quot;Федерация на културно-просветните дружества на каракачаните в България&quot;",
+      "slug": null,
+      "uic": "119084369",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:4820",
+      "type": "mp",
+      "mpId": 4820,
+      "label": "Мария Щерева Белова",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "43",
+        "44",
+        "45",
+        "47",
+        "48",
+        "49",
+        "50"
+      ]
+    },
+    {
+      "id": "person:НИКОЛА КОСТОВ КЪЧЕВ",
+      "type": "person",
+      "label": "Никола Костов Къчев"
+    },
+    {
+      "id": "person:ХРИСТО ГЕОРГИЕВ КОТОВ",
+      "type": "person",
+      "label": "Христо Георгиев Котов"
+    },
+    {
+      "id": "person:ВАНГЕЛ ГЕОРГИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Вангел Георгиев Георгиев"
+    },
+    {
+      "id": "person:КОСТАДИНКА ЯНЕВА БЛЕЦОВА",
+      "type": "person",
+      "label": "Костадинка Янева Блецова"
+    },
+    {
+      "id": "person:ХРИСТО ЩЕРЕВ КОЗАРОВ",
+      "type": "person",
+      "label": "Христо Щерев Козаров"
+    },
+    {
+      "id": "person:АТАНАС ДИМИТРОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Атанас Димитров Атанасов"
+    },
+    {
+      "id": "person:КОСТАДИН ГЕОРГИЕВ СКЕВОВ",
+      "type": "person",
+      "label": "Костадин Георгиев Скевов"
+    },
+    {
+      "id": "person:ЕВТИХИЙ ХРИСТОВ МАХЕРОВ",
+      "type": "person",
+      "label": "Евтихий Христов Махеров"
+    },
+    {
+      "id": "person:ГЕОРГИ ХРИСТОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Георги Христов Петров"
+    },
+    {
+      "id": "person:ХРИСТО ЯНАКИЕВ АПОСТОЛОВ",
+      "type": "person",
+      "label": "Христо Янакиев Апостолов"
+    },
+    {
+      "id": "person:ПАНАЙОТА ДИМИТРОВА ВАНГЕЛОВА",
+      "type": "person",
+      "label": "Панайота  Димитрова  Вангелова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:atanas-kostov-grunov-9db727",
+      "target": "company:tr:119084369",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:atanas-kostov-grunov-9db727",
+      "target": "company:tr:119084369",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4820",
+      "target": "company:tr:119084369",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛА КОСТОВ КЪЧЕВ",
+      "target": "company:tr:119084369",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА КОСТОВ КЪЧЕВ",
+      "target": "company:tr:119084369",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ГЕОРГИЕВ КОТОВ",
+      "target": "company:tr:119084369",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНГЕЛ ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:119084369",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИНКА ЯНЕВА БЛЕЦОВА",
+      "target": "company:tr:119084369",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ЩЕРЕВ КОЗАРОВ",
+      "target": "company:tr:119084369",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ДИМИТРОВ АТАНАСОВ",
+      "target": "company:tr:119084369",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН ГЕОРГИЕВ СКЕВОВ",
+      "target": "company:tr:119084369",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВТИХИЙ ХРИСТОВ МАХЕРОВ",
+      "target": "company:tr:119084369",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ХРИСТОВ ПЕТРОВ",
+      "target": "company:tr:119084369",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ЯНАКИЕВ АПОСТОЛОВ",
+      "target": "company:tr:119084369",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАНАЙОТА ДИМИТРОВА ВАНГЕЛОВА",
+      "target": "company:tr:119084369",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

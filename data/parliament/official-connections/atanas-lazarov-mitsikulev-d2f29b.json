@@ -1,0 +1,86 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:atanas-lazarov-mitsikulev-d2f29b",
+  "nodes": [
+    {
+      "id": "official:atanas-lazarov-mitsikulev-d2f29b",
+      "type": "official",
+      "slug": "atanas-lazarov-mitsikulev-d2f29b",
+      "label": "Атанас Лазаров Мицикулев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130111826",
+      "type": "company",
+      "label": "ПАЗАРИ ЗАПАД",
+      "slug": null,
+      "uic": "130111826",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:galina-ivanova-bezhanska-353df0",
+      "type": "official",
+      "slug": "galina-ivanova-bezhanska-353df0",
+      "label": "Галина Иванова Бежанска",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:СТОЙЧО ТОДОРОВ ТОМОВ",
+      "type": "person",
+      "label": "Стойчо Тодоров Томов"
+    },
+    {
+      "id": "person:БОРИСЛАВ АЛЕКСАНДРОВ БОРИСОВ",
+      "type": "person",
+      "label": "Борислав Александров Борисов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:atanas-lazarov-mitsikulev-d2f29b",
+      "target": "company:tr:130111826",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:galina-ivanova-bezhanska-353df0",
+      "target": "company:tr:130111826",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:galina-ivanova-bezhanska-353df0",
+      "target": "company:tr:130111826",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОЙЧО ТОДОРОВ ТОМОВ",
+      "target": "company:tr:130111826",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ АЛЕКСАНДРОВ БОРИСОВ",
+      "target": "company:tr:130111826",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

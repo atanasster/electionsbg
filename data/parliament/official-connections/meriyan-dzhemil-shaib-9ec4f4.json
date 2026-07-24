@@ -1,0 +1,108 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:meriyan-dzhemil-shaib-9ec4f4",
+  "nodes": [
+    {
+      "id": "official:meriyan-dzhemil-shaib-9ec4f4",
+      "type": "official",
+      "slug": "meriyan-dzhemil-shaib-9ec4f4",
+      "label": "Мериян Джемил Шаиб",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176567538",
+      "type": "company",
+      "label": "НАСТОЯТЕЛСТВО ПРИ ЦЕЛОДНЕВНА ДЕТСКА ГРАДИНА ДЕТЕЛИНА-2013",
+      "slug": null,
+      "uic": "176567538",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МУСТАФА МЕХМЕД ЗЕКЕРИЕ",
+      "type": "person",
+      "label": "Мустафа Мехмед Зекерие"
+    },
+    {
+      "id": "person:ХАЙРИЕ МЕХМЕДОВА АДИЛОВА",
+      "type": "person",
+      "label": "Хайрие Мехмедова Адилова"
+    },
+    {
+      "id": "person:САМИР ДЖЕВАТ БАСРИ",
+      "type": "person",
+      "label": "Самир Джеват Басри"
+    },
+    {
+      "id": "person:САБИТ НЕДЖАТИН ТАЛИБ",
+      "type": "person",
+      "label": "Сабит Неджатин Талиб"
+    },
+    {
+      "id": "person:ФЕРАД НАДЖИ ИБРЯМ",
+      "type": "person",
+      "label": "Ферад Наджи Ибрям"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:meriyan-dzhemil-shaib-9ec4f4",
+      "target": "company:tr:176567538",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МУСТАФА МЕХМЕД ЗЕКЕРИЕ",
+      "target": "company:tr:176567538",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МУСТАФА МЕХМЕД ЗЕКЕРИЕ",
+      "target": "company:tr:176567538",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАЙРИЕ МЕХМЕДОВА АДИЛОВА",
+      "target": "company:tr:176567538",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САМИР ДЖЕВАТ БАСРИ",
+      "target": "company:tr:176567538",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САБИТ НЕДЖАТИН ТАЛИБ",
+      "target": "company:tr:176567538",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФЕРАД НАДЖИ ИБРЯМ",
+      "target": "company:tr:176567538",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

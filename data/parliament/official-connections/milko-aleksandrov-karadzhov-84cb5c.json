@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:milko-aleksandrov-karadzhov-84cb5c",
+  "nodes": [
+    {
+      "id": "official:milko-aleksandrov-karadzhov-84cb5c",
+      "type": "official",
+      "slug": "milko-aleksandrov-karadzhov-84cb5c",
+      "label": "Милко Александров Караджов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Златоград"
+    },
+    {
+      "id": "company:tr:176414777",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ&quot;ПЛУВЕН КЛУБ - ЗЛАТОГРАД&quot;",
+      "slug": null,
+      "uic": "176414777",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАКЛИН ЙОРДАНОВ ДРАГАНОВ",
+      "type": "person",
+      "label": "Ваклин Йорданов Драганов"
+    },
+    {
+      "id": "person:ЕМА ДЕЯНОВА ЧИНГАРОВА",
+      "type": "person",
+      "label": "Ема Деянова Чингарова"
+    },
+    {
+      "id": "person:ИДАР ВАСКОВ ВУНЦОВ",
+      "type": "person",
+      "label": "Идар Васков Вунцов"
+    },
+    {
+      "id": "person:ЛЮБОМИР ЕМИЛОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Любомир Емилов Ангелов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milko-aleksandrov-karadzhov-84cb5c",
+      "target": "company:tr:176414777",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАКЛИН ЙОРДАНОВ ДРАГАНОВ",
+      "target": "company:tr:176414777",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАКЛИН ЙОРДАНОВ ДРАГАНОВ",
+      "target": "company:tr:176414777",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМА ДЕЯНОВА ЧИНГАРОВА",
+      "target": "company:tr:176414777",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИДАР ВАСКОВ ВУНЦОВ",
+      "target": "company:tr:176414777",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ЕМИЛОВ АНГЕЛОВ",
+      "target": "company:tr:176414777",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

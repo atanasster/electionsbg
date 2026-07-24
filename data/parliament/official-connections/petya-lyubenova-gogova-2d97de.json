@@ -1,0 +1,165 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:petya-lyubenova-gogova-2d97de",
+  "nodes": [
+    {
+      "id": "official:petya-lyubenova-gogova-2d97de",
+      "type": "official",
+      "slug": "petya-lyubenova-gogova-2d97de",
+      "label": "Петя Любенова Гогова",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176693768",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;БЪЛГАРСКИ ШНАУЦЕР КЛУБ&quot;",
+      "slug": null,
+      "uic": "176693768",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЛАМЕН ТОМОВ ЧОЛАКОВ",
+      "type": "person",
+      "label": "Пламен Томов Чолаков"
+    },
+    {
+      "id": "person:СЕДЕФ ЕНЧЕВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Седеф Енчев Димитров"
+    },
+    {
+      "id": "person:АНТОАНЕТА ХРИСТОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Антоанета Христова Петрова"
+    },
+    {
+      "id": "person:ТАТЯНА ЦВЕТАНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Татяна Цветанова Георгиева"
+    },
+    {
+      "id": "person:КРИСТИНА ВАЛЕРИЕВА НИКОВСКА",
+      "type": "person",
+      "label": "Кристина Валериева Никовска"
+    },
+    {
+      "id": "person:СИЛВИЯ СИМЕОНОВА ХАДРИАН",
+      "type": "person",
+      "label": "Силвия Симеонова Хадриан"
+    },
+    {
+      "id": "person:КИРИЛ СТЕФАНОВ ДИМЧЕВ,",
+      "type": "person",
+      "label": "Кирил Стефанов Димчев,"
+    },
+    {
+      "id": "person:МИЛЕНА СТЕФАНОВА ВАСИЛЕВА,",
+      "type": "person",
+      "label": "Милена Стефанова Василева,"
+    },
+    {
+      "id": "person:ГАЛИН ПЕТРОВ ГАВРИЛОВ",
+      "type": "person",
+      "label": "Галин Петров Гаврилов"
+    },
+    {
+      "id": "person:КИРИЛ СТЕФАНОВ ДИМЧЕВ",
+      "type": "person",
+      "label": "Кирил Стефанов Димчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petya-lyubenova-gogova-2d97de",
+      "target": "company:tr:176693768",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЛАМЕН ТОМОВ ЧОЛАКОВ",
+      "target": "company:tr:176693768",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕДЕФ ЕНЧЕВ ДИМИТРОВ",
+      "target": "company:tr:176693768",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАНЕТА ХРИСТОВА ПЕТРОВА",
+      "target": "company:tr:176693768",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА ЦВЕТАНОВА ГЕОРГИЕВА",
+      "target": "company:tr:176693768",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИНА ВАЛЕРИЕВА НИКОВСКА",
+      "target": "company:tr:176693768",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ СИМЕОНОВА ХАДРИАН",
+      "target": "company:tr:176693768",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ СТЕФАНОВ ДИМЧЕВ,",
+      "target": "company:tr:176693768",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА СТЕФАНОВА ВАСИЛЕВА,",
+      "target": "company:tr:176693768",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИН ПЕТРОВ ГАВРИЛОВ",
+      "target": "company:tr:176693768",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ СТЕФАНОВ ДИМЧЕВ",
+      "target": "company:tr:176693768",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

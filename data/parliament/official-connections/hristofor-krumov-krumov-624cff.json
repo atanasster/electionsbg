@@ -1,0 +1,98 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hristofor-krumov-krumov-624cff",
+  "nodes": [
+    {
+      "id": "official:hristofor-krumov-krumov-624cff",
+      "type": "official",
+      "slug": "hristofor-krumov-krumov-624cff",
+      "label": "Христофор Крумов Крумов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Шумен"
+    },
+    {
+      "id": "company:tr:206664106",
+      "type": "company",
+      "label": "РАЯ КОРЕКТ",
+      "slug": null,
+      "uic": "206664106",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207651300",
+      "type": "company",
+      "label": "РАЯ БИЛДИНГ",
+      "slug": null,
+      "uic": "207651300",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РАЛИЦА ВЕСКОВА КРУМОВА",
+      "type": "person",
+      "label": "Ралица Вескова Крумова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristofor-krumov-krumov-624cff",
+      "target": "company:tr:206664106",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:hristofor-krumov-krumov-624cff",
+      "target": "company:tr:207651300",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:hristofor-krumov-krumov-624cff",
+      "target": "company:tr:206664106",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristofor-krumov-krumov-624cff",
+      "target": "company:tr:206664106",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristofor-krumov-krumov-624cff",
+      "target": "company:tr:207651300",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristofor-krumov-krumov-624cff",
+      "target": "company:tr:207651300",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАЛИЦА ВЕСКОВА КРУМОВА",
+      "target": "company:tr:206664106",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

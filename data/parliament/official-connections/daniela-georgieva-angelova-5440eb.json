@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:daniela-georgieva-angelova-5440eb",
+  "nodes": [
+    {
+      "id": "official:daniela-georgieva-angelova-5440eb",
+      "type": "official",
+      "slug": "daniela-georgieva-angelova-5440eb",
+      "label": "Даниела Георгиева Ангелова",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205605910",
+      "type": "company",
+      "label": "Бъдущност",
+      "slug": null,
+      "uic": "205605910",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniela-georgieva-angelova-5440eb",
+      "target": "company:tr:205605910",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

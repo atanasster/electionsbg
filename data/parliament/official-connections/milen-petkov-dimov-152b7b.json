@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:milen-petkov-dimov-152b7b",
+  "nodes": [
+    {
+      "id": "official:milen-petkov-dimov-152b7b",
+      "type": "official",
+      "slug": "milen-petkov-dimov-152b7b",
+      "label": "Милен Петков Димов",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200646959",
+      "type": "company",
+      "label": "МД БЕРАТУНГ",
+      "slug": null,
+      "uic": "200646959",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milen-petkov-dimov-152b7b",
+      "target": "company:tr:200646959",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

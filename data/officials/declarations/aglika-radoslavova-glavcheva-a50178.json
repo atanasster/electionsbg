@@ -97,21 +97,14 @@
     "positionTitle": "Заместник-областен управител",
     "category": "regional_governor",
     "declarationYear": 2022,
-    "fiscalYear": 2021,
-    "declarationType": "Annualy",
-    "filedAt": "2022-01-27",
-    "entryNumber": "Г294",
-    "controlHash": "2DE282F6",
-    "sourceUrl": "https://register.cacbg.bg/2022/44673E5B-433C-450E-84F2-F775CDB97F9E131785.xml",
+    "fiscalYear": 2022,
+    "declarationType": "Vacate",
+    "filedAt": "2022-01-26",
+    "entryNumber": "Ф215",
+    "controlHash": "C2B28A33",
+    "sourceUrl": "https://register.cacbg.bg/2022/44673E5B-433C-450E-84F2-F775CDB97F9E131786.xml",
     "ownershipStakes": [],
-    "income": [
-      {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 9035.550124499574,
-        "amountEurSpouse": null
-      }
-    ],
+    "income": [],
     "assets": [
       {
         "category": "vehicle",
@@ -128,8 +121,8 @@
         "valueEur": 0,
         "holderName": "Александра Стефанова Тепелиева",
         "isSpouse": true,
-        "legalBasis": "наследство",
-        "fundsOrigin": "наследяване"
+        "legalBasis": null,
+        "fundsOrigin": null
       },
       {
         "category": "debt",
@@ -195,14 +188,21 @@
     "positionTitle": "Заместник-областен управител",
     "category": "regional_governor",
     "declarationYear": 2022,
-    "fiscalYear": 2022,
-    "declarationType": "Vacate",
-    "filedAt": "2022-01-26",
-    "entryNumber": "Ф215",
-    "controlHash": "C2B28A33",
-    "sourceUrl": "https://register.cacbg.bg/2022/44673E5B-433C-450E-84F2-F775CDB97F9E131786.xml",
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-01-27",
+    "entryNumber": "Г294",
+    "controlHash": "2DE282F6",
+    "sourceUrl": "https://register.cacbg.bg/2022/44673E5B-433C-450E-84F2-F775CDB97F9E131785.xml",
     "ownershipStakes": [],
-    "income": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 9035.550124499574,
+        "amountEurSpouse": null
+      }
+    ],
     "assets": [
       {
         "category": "vehicle",
@@ -219,8 +219,8 @@
         "valueEur": 0,
         "holderName": "Александра Стефанова Тепелиева",
         "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": null
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
       },
       {
         "category": "debt",

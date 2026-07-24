@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:emil-ivanov-peev-c4f20e",
+  "nodes": [
+    {
+      "id": "official:emil-ivanov-peev-c4f20e",
+      "type": "official",
+      "slug": "emil-ivanov-peev-c4f20e",
+      "label": "Емил Иванов Пеев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Плевен"
+    },
+    {
+      "id": "company:tr:203242815",
+      "type": "company",
+      "label": "спот вижън",
+      "slug": null,
+      "uic": "203242815",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕЛЧО СТАЙКОВ ГЕНЧЕВ",
+      "type": "person",
+      "label": "Делчо Стайков Генчев"
+    },
+    {
+      "id": "person:ИВАЙЛО ЕМИЛОВ ПЕЕВ",
+      "type": "person",
+      "label": "Ивайло Емилов Пеев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-ivanov-peev-c4f20e",
+      "target": "company:tr:203242815",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:emil-ivanov-peev-c4f20e",
+      "target": "company:tr:203242815",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕЛЧО СТАЙКОВ ГЕНЧЕВ",
+      "target": "company:tr:203242815",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ЕМИЛОВ ПЕЕВ",
+      "target": "company:tr:203242815",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

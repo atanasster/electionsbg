@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iskro-ferdov-beikov-f20868",
+  "nodes": [
+    {
+      "id": "official:iskro-ferdov-beikov-f20868",
+      "type": "official",
+      "slug": "iskro-ferdov-beikov-f20868",
+      "label": "Искро Фердов Бейков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пазарджик"
+    },
+    {
+      "id": "company:tr:206480743",
+      "type": "company",
+      "label": "БЕЙКОВ ТРАНС",
+      "slug": null,
+      "uic": "206480743",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iskro-ferdov-beikov-f20868",
+      "target": "company:tr:206480743",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iskro-ferdov-beikov-f20868",
+      "target": "company:tr:206480743",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

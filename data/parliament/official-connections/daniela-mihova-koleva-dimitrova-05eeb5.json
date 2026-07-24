@@ -1,0 +1,149 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:daniela-mihova-koleva-dimitrova-05eeb5",
+  "nodes": [
+    {
+      "id": "official:daniela-mihova-koleva-dimitrova-05eeb5",
+      "type": "official",
+      "slug": "daniela-mihova-koleva-dimitrova-05eeb5",
+      "label": "Даниела Михова Колева-Димитрова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:103552229",
+      "type": "company",
+      "label": "УЧЕНИЧЕСКО И СТОЛОВО ХРАНЕНЕ",
+      "slug": null,
+      "uic": "103552229",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:dobrinka-peneva-iordanova-3d024c",
+      "type": "official",
+      "slug": "dobrinka-peneva-iordanova-3d024c",
+      "label": "Добринка Пенева Йорданова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:mariyana-vasileva-danailova-3a099c",
+      "type": "official",
+      "slug": "mariyana-vasileva-danailova-3a099c",
+      "label": "Марияна Василева Данаилова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:petya-dancheva-zhelezarska-bdcaec",
+      "type": "official",
+      "slug": "petya-dancheva-zhelezarska-bdcaec",
+      "label": "Петя Данчева Железарска",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:БОЖАНКА ГЕОРГИЕВА БОГДАНОВА",
+      "type": "person",
+      "label": "Божанка Георгиева Богданова"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА ИВАНОВА КОВАЧЕВА",
+      "type": "person",
+      "label": "Валентина Иванова Ковачева"
+    },
+    {
+      "id": "person:ВЕЛИН СТОЯНОВ СЕРБЕЗОВ",
+      "type": "person",
+      "label": "Велин Стоянов Сербезов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniela-mihova-koleva-dimitrova-05eeb5",
+      "target": "company:tr:103552229",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:daniela-mihova-koleva-dimitrova-05eeb5",
+      "target": "company:tr:103552229",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dobrinka-peneva-iordanova-3d024c",
+      "target": "company:tr:103552229",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dobrinka-peneva-iordanova-3d024c",
+      "target": "company:tr:103552229",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariyana-vasileva-danailova-3a099c",
+      "target": "company:tr:103552229",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petya-dancheva-zhelezarska-bdcaec",
+      "target": "company:tr:103552229",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОЖАНКА ГЕОРГИЕВА БОГДАНОВА",
+      "target": "company:tr:103552229",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЖАНКА ГЕОРГИЕВА БОГДАНОВА",
+      "target": "company:tr:103552229",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ИВАНОВА КОВАЧЕВА",
+      "target": "company:tr:103552229",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИН СТОЯНОВ СЕРБЕЗОВ",
+      "target": "company:tr:103552229",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

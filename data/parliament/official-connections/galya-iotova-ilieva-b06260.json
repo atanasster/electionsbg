@@ -1,0 +1,160 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:galya-iotova-ilieva-b06260",
+  "nodes": [
+    {
+      "id": "official:galya-iotova-ilieva-b06260",
+      "type": "official",
+      "slug": "galya-iotova-ilieva-b06260",
+      "label": "Галя Йотова Илиева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бяла Слатина"
+    },
+    {
+      "id": "company:tr:000184015",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ&quot;ВАСИЛ ЛЕВСКИ-1899&quot;",
+      "slug": null,
+      "uic": "000184015",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВИОЛЕТА ЛЮБОМИРОВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Виолета Любомирова Кръстева"
+    },
+    {
+      "id": "person:ГАЛИНА ЦВЕТАНОВА ЦОКАНОВА",
+      "type": "person",
+      "label": "Галина Цветанова Цоканова"
+    },
+    {
+      "id": "person:БОЙКА ДИНОВА ЛАЛОВА",
+      "type": "person",
+      "label": "Бойка Динова Лалова"
+    },
+    {
+      "id": "person:КРАСИМИР МАРИНОВ КРЪСТЕВ",
+      "type": "person",
+      "label": "Красимир Маринов Кръстев"
+    },
+    {
+      "id": "person:ИЛОНКА СТОЯНОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Илонка Стоянова Петрова"
+    },
+    {
+      "id": "person:НИКОЛЕТА БОРИСЛАВОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Николета Бориславова Николова"
+    },
+    {
+      "id": "person:НИКОЛАЙ СТОЯНОВ НЕНОВ",
+      "type": "person",
+      "label": "Николай Стоянов Ненов"
+    },
+    {
+      "id": "person:ЦЕЦА ВАСИЛЕВА СИМЕОНОВА",
+      "type": "person",
+      "label": "Цеца Василева Симеонова"
+    },
+    {
+      "id": "person:ГЕОРГИ ГЕНОВ ЦАНКОВ",
+      "type": "person",
+      "label": "Георги Генов Цанков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:galya-iotova-ilieva-b06260",
+      "target": "company:tr:000184015",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВИОЛЕТА ЛЮБОМИРОВА КРЪСТЕВА",
+      "target": "company:tr:000184015",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ЛЮБОМИРОВА КРЪСТЕВА",
+      "target": "company:tr:000184015",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ЦВЕТАНОВА ЦОКАНОВА",
+      "target": "company:tr:000184015",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЙКА ДИНОВА ЛАЛОВА",
+      "target": "company:tr:000184015",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР МАРИНОВ КРЪСТЕВ",
+      "target": "company:tr:000184015",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛОНКА СТОЯНОВА ПЕТРОВА",
+      "target": "company:tr:000184015",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛЕТА БОРИСЛАВОВА НИКОЛОВА",
+      "target": "company:tr:000184015",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ СТОЯНОВ НЕНОВ",
+      "target": "company:tr:000184015",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦЕЦА ВАСИЛЕВА СИМЕОНОВА",
+      "target": "company:tr:000184015",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ГЕНОВ ЦАНКОВ",
+      "target": "company:tr:000184015",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

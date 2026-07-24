@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:3578",
   "nodes": [
     {
@@ -87,18 +87,18 @@
       ]
     },
     {
-      "id": "official:aglika-stefcheva-videnova-0d444a",
+      "id": "official:aglika-stefcheva-videnova-19e71e",
       "type": "official",
-      "slug": "aglika-stefcheva-videnova-0d444a",
+      "slug": "aglika-stefcheva-videnova-19e71e",
       "label": "Аглика Стефчева Виденова",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:vyara-emilova-iordanova-b25d24",
+      "id": "official:vyara-emilova-iordanova-a65379",
       "type": "official",
-      "slug": "vyara-emilova-iordanova-b25d24",
+      "slug": "vyara-emilova-iordanova-a65379",
       "label": "Вяра Емилова Йорданова",
       "tier": "executive",
       "role": "agency_head",
@@ -124,9 +124,9 @@
       "nsFolders": []
     },
     {
-      "id": "official:mariela-todorova-modeva-a61f2f",
+      "id": "official:mariela-todorova-modeva-51e648",
       "type": "official",
-      "slug": "mariela-todorova-modeva-a61f2f",
+      "slug": "mariela-todorova-modeva-51e648",
       "label": "Мариела Тодорова Модева",
       "tier": "executive",
       "role": "deputy_minister",
@@ -659,21 +659,21 @@
       "nsFolders": []
     },
     {
-      "id": "official:mariana-nedelchova-bozhkova-630ced",
+      "id": "official:mariana-nedelchova-bozhkova-9f9d89",
       "type": "official",
-      "slug": "mariana-nedelchova-bozhkova-630ced",
+      "slug": "mariana-nedelchova-bozhkova-9f9d89",
       "label": "Мариана Неделчова Божкова",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "school",
       "municipality": null
     },
     {
-      "id": "official:pavlina-ivanova-markovska-dbbbfa",
+      "id": "official:pavlina-ivanova-markovska-e1e50c",
       "type": "official",
-      "slug": "pavlina-ivanova-markovska-dbbbfa",
+      "slug": "pavlina-ivanova-markovska-e1e50c",
       "label": "Павлина Иванова Марковска",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "social_care",
       "municipality": null
     },
     {
@@ -2004,7 +2004,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:aglika-stefcheva-videnova-0d444a",
+      "source": "official:aglika-stefcheva-videnova-19e71e",
       "target": "company:tr:176936800",
       "kind": "tr_role",
       "role": "ngo_representative",
@@ -2012,7 +2012,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:aglika-stefcheva-videnova-0d444a",
+      "source": "official:aglika-stefcheva-videnova-19e71e",
       "target": "company:tr:176936800",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -2020,7 +2020,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:vyara-emilova-iordanova-b25d24",
+      "source": "official:vyara-emilova-iordanova-a65379",
       "target": "company:tr:176936800",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -2052,7 +2052,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:mariela-todorova-modeva-a61f2f",
+      "source": "official:mariela-todorova-modeva-51e648",
       "target": "company:tr:000702690",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -2756,7 +2756,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:mariana-nedelchova-bozhkova-630ced",
+      "source": "official:mariana-nedelchova-bozhkova-9f9d89",
       "target": "company:tr:131049199",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -2764,7 +2764,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:pavlina-ivanova-markovska-dbbbfa",
+      "source": "official:pavlina-ivanova-markovska-e1e50c",
       "target": "company:tr:131049199",
       "kind": "tr_role",
       "role": "ngo_board",

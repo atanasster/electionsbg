@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:3249",
   "nodes": [
     {
@@ -99,18 +99,18 @@
       "seat": null
     },
     {
-      "id": "official:vladimir-stoyanov-rusev-752b95",
+      "id": "official:vladimir-stoyanov-rusev-b6755b",
       "type": "official",
-      "slug": "vladimir-stoyanov-rusev-752b95",
+      "slug": "vladimir-stoyanov-rusev-b6755b",
       "label": "Владимир Стоянов Русев",
       "tier": "executive",
       "role": "political_cabinet",
       "municipality": null
     },
     {
-      "id": "official:irina-dimitrova-kneva-e05b1b",
+      "id": "official:irina-dimitrova-kneva-5a088b",
       "type": "official",
-      "slug": "irina-dimitrova-kneva-e05b1b",
+      "slug": "irina-dimitrova-kneva-5a088b",
       "label": "Ирина Димитрова Кънева",
       "tier": "executive",
       "role": "state_enterprise",
@@ -416,7 +416,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:vladimir-stoyanov-rusev-752b95",
+      "source": "official:vladimir-stoyanov-rusev-b6755b",
       "target": "company:tr:831622969",
       "kind": "tr_role",
       "role": "director",
@@ -424,7 +424,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:vladimir-stoyanov-rusev-752b95",
+      "source": "official:vladimir-stoyanov-rusev-b6755b",
       "target": "company:tr:831622969",
       "kind": "tr_role",
       "role": "representative",
@@ -432,7 +432,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:irina-dimitrova-kneva-e05b1b",
+      "source": "official:irina-dimitrova-kneva-5a088b",
       "target": "company:tr:831622969",
       "kind": "tr_role",
       "role": "director",

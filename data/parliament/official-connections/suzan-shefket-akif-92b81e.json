@@ -1,0 +1,215 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:suzan-shefket-akif-92b81e",
+  "nodes": [
+    {
+      "id": "official:suzan-shefket-akif-92b81e",
+      "type": "official",
+      "slug": "suzan-shefket-akif-92b81e",
+      "label": "Сузан Шефкет Акиф",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Главиница"
+    },
+    {
+      "id": "company:tr:000559915",
+      "type": "company",
+      "label": "ПЕНЬО ПЕНЕВ - 1959",
+      "slug": null,
+      "uic": "000559915",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЖЮНЕЙТ ГЮРСЕЛ МЮМЮН",
+      "type": "person",
+      "label": "Джюнейт Гюрсел Мюмюн"
+    },
+    {
+      "id": "person:ТАИР МЕСУТ МАХМУД",
+      "type": "person",
+      "label": "Таир Месут Махмуд"
+    },
+    {
+      "id": "person:ЕЛИС ЕРГЮН МУДИН",
+      "type": "person",
+      "label": "Елис Ергюн Мудин"
+    },
+    {
+      "id": "person:ГЮЛЯЙ ГЮНАЙ САЛИМ",
+      "type": "person",
+      "label": "Гюляй Гюнай Салим"
+    },
+    {
+      "id": "person:НЕРИХАН ЕРОЛ ИДРИС",
+      "type": "person",
+      "label": "Нерихан Ерол Идрис"
+    },
+    {
+      "id": "person:БИЛГИН ЛЮТФИ ЮМЕР",
+      "type": "person",
+      "label": "Билгин Лютфи Юмер"
+    },
+    {
+      "id": "person:АЛТУНАЙ САЛИ ШАБАН",
+      "type": "person",
+      "label": "Алтунай Сали Шабан"
+    },
+    {
+      "id": "person:АЙЛИН МЮМЮН ЕТЕМ",
+      "type": "person",
+      "label": "Айлин Мюмюн Етем"
+    },
+    {
+      "id": "person:АЙНЕЛ ЪРФАН ЮМЕР",
+      "type": "person",
+      "label": "Айнел Ърфан Юмер"
+    },
+    {
+      "id": "person:СЕЗГИН ЛЕВЕНТ ФАРИДИН",
+      "type": "person",
+      "label": "Сезгин Левент Фаридин"
+    },
+    {
+      "id": "person:ХЕДЖАБИ АЛИМ АКИФ",
+      "type": "person",
+      "label": "Хеджаби Алим Акиф"
+    },
+    {
+      "id": "person:СЕЛИНАЙ АЛТУНАЙ САЛИ",
+      "type": "person",
+      "label": "Селинай Алтунай Сали"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:suzan-shefket-akif-92b81e",
+      "target": "company:tr:000559915",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:suzan-shefket-akif-92b81e",
+      "target": "company:tr:000559915",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЖЮНЕЙТ ГЮРСЕЛ МЮМЮН",
+      "target": "company:tr:000559915",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАИР МЕСУТ МАХМУД",
+      "target": "company:tr:000559915",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИС ЕРГЮН МУДИН",
+      "target": "company:tr:000559915",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮЛЯЙ ГЮНАЙ САЛИМ",
+      "target": "company:tr:000559915",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕРИХАН ЕРОЛ ИДРИС",
+      "target": "company:tr:000559915",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИЛГИН ЛЮТФИ ЮМЕР",
+      "target": "company:tr:000559915",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛТУНАЙ САЛИ ШАБАН",
+      "target": "company:tr:000559915",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖЮНЕЙТ ГЮРСЕЛ МЮМЮН",
+      "target": "company:tr:000559915",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙЛИН МЮМЮН ЕТЕМ",
+      "target": "company:tr:000559915",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙНЕЛ ЪРФАН ЮМЕР",
+      "target": "company:tr:000559915",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕЗГИН ЛЕВЕНТ ФАРИДИН",
+      "target": "company:tr:000559915",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХЕДЖАБИ АЛИМ АКИФ",
+      "target": "company:tr:000559915",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕЛИНАЙ АЛТУНАЙ САЛИ",
+      "target": "company:tr:000559915",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕРИХАН ЕРОЛ ИДРИС",
+      "target": "company:tr:000559915",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

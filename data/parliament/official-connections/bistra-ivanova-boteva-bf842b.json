@@ -1,0 +1,117 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:bistra-ivanova-boteva-bf842b",
+  "nodes": [
+    {
+      "id": "official:bistra-ivanova-boteva-bf842b",
+      "type": "official",
+      "slug": "bistra-ivanova-boteva-bf842b",
+      "label": "Бистра Иванова Ботева",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176229814",
+      "type": "company",
+      "label": "ПРАВДА-2010 С. ГОРСКИ СЕНОВЕЦ",
+      "slug": null,
+      "uic": "176229814",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:katya-miteva-pavlova-baedb1",
+      "type": "official",
+      "slug": "katya-miteva-pavlova-baedb1",
+      "label": "Катя Митева Павлова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "person:РАДИНА БОГОМИЛОВА КОСЕВА",
+      "type": "person",
+      "label": "Радина Богомилова Косева"
+    },
+    {
+      "id": "person:СТЕЛКА ПЕТКОВА КУНДЕВСКА",
+      "type": "person",
+      "label": "Стелка Петкова Кундевска"
+    },
+    {
+      "id": "person:НАЙДЕН ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Найден Димитров Димитров"
+    },
+    {
+      "id": "person:ВИОЛЕТА ЯНКОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Виолета Янкова Тодорова"
+    },
+    {
+      "id": "person:КРИСТИНА СТЕФАНОВА КИРИЛОВА",
+      "type": "person",
+      "label": "Кристина Стефанова Кирилова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:bistra-ivanova-boteva-bf842b",
+      "target": "company:tr:176229814",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:katya-miteva-pavlova-baedb1",
+      "target": "company:tr:176229814",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАДИНА БОГОМИЛОВА КОСЕВА",
+      "target": "company:tr:176229814",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕЛКА ПЕТКОВА КУНДЕВСКА",
+      "target": "company:tr:176229814",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАЙДЕН ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:176229814",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ЯНКОВА ТОДОРОВА",
+      "target": "company:tr:176229814",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИНА СТЕФАНОВА КИРИЛОВА",
+      "target": "company:tr:176229814",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

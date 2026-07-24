@@ -5,48 +5,35 @@
     "institution": "ОДБХ",
     "positionTitle": "Директор",
     "category": "regional_director",
-    "declarationYear": 2023,
-    "fiscalYear": 2022,
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
     "declarationType": "Annualy",
-    "filedAt": "2023-05-05",
-    "entryNumber": "Г4768",
-    "controlHash": "E11488CD",
-    "sourceUrl": "https://register.cacbg.bg/2023/6A016237-7BF5-4AD2-B4DA-D9C908CE2F84151156.xml",
+    "filedAt": "2024-04-30",
+    "entryNumber": "Г10032",
+    "controlHash": "F91E2EBA",
+    "sourceUrl": "https://register.cacbg.bg/2024/6A016237-7BF5-4AD2-B4DA-D9C908CE2F84191709.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 12795.590618816565,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 19936.804323484146,
+        "amountEurSpouse": 18046.558238701728
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 4974.358712158009,
+        "amountEurDeclarant": 821.1347612011269,
+        "amountEurSpouse": 578.7824095141193
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 8576.921307066565,
         "amountEurSpouse": null
       }
     ],
-    "assets": [
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 1528,
-        "valueEur": 781.2539944678218,
-        "holderName": "Мая Стоилова Енчева-Димитрова",
-        "isSpouse": true,
-        "legalBasis": null,
-        "fundsOrigin": "рента"
-      }
-    ],
+    "assets": [],
     "events": []
   },
   {
@@ -98,6 +85,56 @@
         "legalBasis": null
       }
     ]
+  },
+  {
+    "slug": "venelin-dimitrov-dimitrov-741337",
+    "declarantName": "ВЕНЕЛИН ДИМИТРОВ ДИМИТРОВ",
+    "institution": "ОДБХ",
+    "positionTitle": "Директор",
+    "category": "regional_director",
+    "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": "2023-05-05",
+    "entryNumber": "Г4768",
+    "controlHash": "E11488CD",
+    "sourceUrl": "https://register.cacbg.bg/2023/6A016237-7BF5-4AD2-B4DA-D9C908CE2F84151156.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 12795.590618816565,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 4974.358712158009,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1528,
+        "valueEur": 781.2539944678218,
+        "holderName": "Мая Стоилова Енчева-Димитрова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "рента"
+      }
+    ],
+    "events": []
   },
   {
     "slug": "venelin-dimitrov-dimitrov-741337",

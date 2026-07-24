@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vasil-stanoev-stamberov-b1e905",
+  "nodes": [
+    {
+      "id": "official:vasil-stanoev-stamberov-b1e905",
+      "type": "official",
+      "slug": "vasil-stanoev-stamberov-b1e905",
+      "label": "Васил Станоев Стамберов",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:101617589",
+      "type": "company",
+      "label": "САНИ ЛЕС ООД",
+      "slug": null,
+      "uic": "101617589",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:vasil-stanoev-stamberov-ecd1c5",
+      "type": "official",
+      "slug": "vasil-stanoev-stamberov-ecd1c5",
+      "label": "Васил Станоев Стамберов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vasil-stanoev-stamberov-b1e905",
+      "target": "company:tr:101617589",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vasil-stanoev-stamberov-ecd1c5",
+      "target": "company:tr:101617589",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

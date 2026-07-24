@@ -1,0 +1,146 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivailo-vanev-vlchev-65db26",
+  "nodes": [
+    {
+      "id": "official:ivailo-vanev-vlchev-65db26",
+      "type": "official",
+      "slug": "ivailo-vanev-vlchev-65db26",
+      "label": "Ивайло Ванев Вълчев",
+      "tier": "executive",
+      "role": "mep",
+      "municipality": null
+    },
+    {
+      "id": "company:Солво-ООД",
+      "type": "company",
+      "label": "Солво ООД",
+      "slug": "Солво-ООД",
+      "uic": "121489392",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1784"
+    },
+    {
+      "id": "mp:4170",
+      "type": "mp",
+      "mpId": 4170,
+      "label": "Ивайло Ванев Вълчев",
+      "partyGroupShort": "ИТН",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46",
+        "49"
+      ]
+    },
+    {
+      "id": "person:КРАСИМИР ЛЮБЧЕВ ДАЧЕВ",
+      "type": "person",
+      "label": "Красимир Любчев Дачев"
+    },
+    {
+      "id": "person:ДОБРИ СТЕФАНОВ ДОБРЕВ",
+      "type": "person",
+      "label": "Добри Стефанов Добрев"
+    },
+    {
+      "id": "person:ПЕНКА ГЕОРГИЕВА ДОБРЕВА",
+      "type": "person",
+      "label": "Пенка Георгиева Добрева"
+    },
+    {
+      "id": "person:МАРИЯ ХРИСТОВА ВЪЛЧЕВА",
+      "type": "person",
+      "label": "Мария Христова Вълчева"
+    },
+    {
+      "id": "person:ХРИСТИНА ХРИСТОВА ДАЧЕВА",
+      "type": "person",
+      "label": "Христина Христова Дачева"
+    },
+    {
+      "id": "official:ivailo-vanev-vlchev-341a5e",
+      "type": "official",
+      "slug": "ivailo-vanev-vlchev-341a5e",
+      "label": "Ивайло Ванев Вълчев",
+      "tier": "executive",
+      "role": "party_leader",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivailo-vanev-vlchev-65db26",
+      "target": "company:Солво-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4170",
+      "target": "company:Солво-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ЛЮБЧЕВ ДАЧЕВ",
+      "target": "company:Солво-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИ СТЕФАНОВ ДОБРЕВ",
+      "target": "company:Солво-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ГЕОРГИЕВА ДОБРЕВА",
+      "target": "company:Солво-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ХРИСТОВА ВЪЛЧЕВА",
+      "target": "company:Солво-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА ХРИСТОВА ДАЧЕВА",
+      "target": "company:Солво-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ЛЮБЧЕВ ДАЧЕВ",
+      "target": "company:Солво-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivailo-vanev-vlchev-341a5e",
+      "target": "company:Солво-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

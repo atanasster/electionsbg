@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "iordan-stoyanov-glogov-0745a7",
+    "declarantName": "Йордан Стоянов Глогов",
+    "institution": "Невестино",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-07",
+    "entryNumber": "Г14036",
+    "controlHash": "CB7D9B8B",
+    "sourceUrl": "https://register.cacbg.bg/2025/97E75C6B-C09C-4F02-8327-10342AF785D6217298.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 32252.291865857464,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": 12566.020564159462,
+        "amountEurSpouse": 3115.301432128559
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек антомобил",
+        "detail": "Шкода",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 54000,
+        "valueEur": 27609.7615845958,
+        "holderName": "Йордан Стоянов Глогов",
+        "isSpouse": false,
+        "legalBasis": "лизинг",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Йордан Стоянов Глогов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16000,
+        "valueEur": 8180.6700991394955,
+        "holderName": "Снежана Кирилова Глогова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "пенсия"
+      },
+      {
+        "category": "debt",
+        "description": "договор за лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Йордан Стоянов Глогов",
+        "isSpouse": false,
+        "legalBasis": "0",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

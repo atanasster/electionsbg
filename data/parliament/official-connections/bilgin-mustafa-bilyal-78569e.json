@@ -1,0 +1,134 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:bilgin-mustafa-bilyal-78569e",
+  "nodes": [
+    {
+      "id": "official:bilgin-mustafa-bilyal-78569e",
+      "type": "official",
+      "slug": "bilgin-mustafa-bilyal-78569e",
+      "label": "Билгин Мустафа Билял",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Исперих"
+    },
+    {
+      "id": "company:tr:000499756",
+      "type": "company",
+      "label": "Народно Читалище &quot;Развитие - 1928 г.&quot; с. Лудогорци",
+      "slug": null,
+      "uic": "000499756",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОСМАН ИСЛЯМ ОСМАН",
+      "type": "person",
+      "label": "Осман Ислям Осман"
+    },
+    {
+      "id": "person:ВАЙДЕ ХАСАН ХАСАН",
+      "type": "person",
+      "label": "Вайде Хасан Хасан"
+    },
+    {
+      "id": "person:ШЕРИФЕ АХМЕД САЛИ",
+      "type": "person",
+      "label": "Шерифе Ахмед Сали"
+    },
+    {
+      "id": "person:МОАМЕР САЛИ АЛИ",
+      "type": "person",
+      "label": "Моамер Сали Али"
+    },
+    {
+      "id": "person:МЕЛИЧКАН ОРХАН МУХАРЕМ",
+      "type": "person",
+      "label": "Меличкан Орхан Мухарем"
+    },
+    {
+      "id": "person:АЛПЕР ЮСУФ АХМЕД",
+      "type": "person",
+      "label": "Алпер Юсуф Ахмед"
+    },
+    {
+      "id": "person:РЕЙШАН АХМЕД МУСА",
+      "type": "person",
+      "label": "Рейшан Ахмед Муса"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:bilgin-mustafa-bilyal-78569e",
+      "target": "company:tr:000499756",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОСМАН ИСЛЯМ ОСМАН",
+      "target": "company:tr:000499756",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОСМАН ИСЛЯМ ОСМАН",
+      "target": "company:tr:000499756",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЙДЕ ХАСАН ХАСАН",
+      "target": "company:tr:000499756",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ШЕРИФЕ АХМЕД САЛИ",
+      "target": "company:tr:000499756",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МОАМЕР САЛИ АЛИ",
+      "target": "company:tr:000499756",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕЛИЧКАН ОРХАН МУХАРЕМ",
+      "target": "company:tr:000499756",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛПЕР ЮСУФ АХМЕД",
+      "target": "company:tr:000499756",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕЙШАН АХМЕД МУСА",
+      "target": "company:tr:000499756",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

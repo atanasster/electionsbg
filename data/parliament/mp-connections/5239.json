@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:5239",
   "nodes": [
     {
@@ -75,27 +75,27 @@
       "nsFolders": []
     },
     {
-      "id": "official:georgi-slavchev-mihov-5e046e",
+      "id": "official:georgi-slavchev-mihov-54de71",
       "type": "official",
-      "slug": "georgi-slavchev-mihov-5e046e",
+      "slug": "georgi-slavchev-mihov-54de71",
       "label": "Георги Славчев Михов",
       "tier": "executive",
       "role": "academic",
       "municipality": null
     },
     {
-      "id": "official:stefan-venelinov-nachev-cbd57a",
+      "id": "official:stefan-venelinov-nachev-043c0b",
       "type": "official",
-      "slug": "stefan-venelinov-nachev-cbd57a",
+      "slug": "stefan-venelinov-nachev-043c0b",
       "label": "Стефан Венелинов Начев",
       "tier": "executive",
       "role": "party_leader",
       "municipality": null
     },
     {
-      "id": "official:chavdar-georgiev-georgiev-d227ea",
+      "id": "official:chavdar-georgiev-georgiev-a57143",
       "type": "official",
-      "slug": "chavdar-georgiev-georgiev-d227ea",
+      "slug": "chavdar-georgiev-georgiev-a57143",
       "label": "Чавдар Георгиев Георгиев",
       "tier": "executive",
       "role": "security_service",
@@ -202,9 +202,9 @@
       "label": "Паулина Любомирова Петрова-Ганева"
     },
     {
-      "id": "official:neli-konstantinova-tarinska-30192e",
+      "id": "official:neli-konstantinova-tarinska-fb475c",
       "type": "official",
-      "slug": "neli-konstantinova-tarinska-30192e",
+      "slug": "neli-konstantinova-tarinska-fb475c",
       "label": "Нели Константинова Таринска",
       "tier": "executive",
       "role": "hospital_head",
@@ -550,7 +550,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:georgi-slavchev-mihov-5e046e",
+      "source": "official:georgi-slavchev-mihov-54de71",
       "target": "company:tr:121300742",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -558,7 +558,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:stefan-venelinov-nachev-cbd57a",
+      "source": "official:stefan-venelinov-nachev-043c0b",
       "target": "company:tr:121300742",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -566,7 +566,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:chavdar-georgiev-georgiev-d227ea",
+      "source": "official:chavdar-georgiev-georgiev-a57143",
       "target": "company:tr:121300742",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -742,7 +742,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:neli-konstantinova-tarinska-30192e",
+      "source": "official:neli-konstantinova-tarinska-fb475c",
       "target": "company:tr:000664332",
       "kind": "tr_role",
       "role": "director",

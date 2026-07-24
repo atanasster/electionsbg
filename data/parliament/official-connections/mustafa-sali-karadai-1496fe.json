@@ -1,0 +1,99 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mustafa-sali-karadai-1496fe",
+  "nodes": [
+    {
+      "id": "official:mustafa-sali-karadai-1496fe",
+      "type": "official",
+      "slug": "mustafa-sali-karadai-1496fe",
+      "label": "Мустафа Сали Карадайъ",
+      "tier": "executive",
+      "role": "party_leader",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131070923",
+      "type": "company",
+      "label": "ЛИБЕРАЛНА  ИНТЕГРАЦИЯ",
+      "slug": null,
+      "uic": "131070923",
+      "legalForm": "FOUND",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "mp:4120",
+      "type": "mp",
+      "mpId": 4120,
+      "label": "Мустафа Сали Карадайъ",
+      "partyGroupShort": "ДПС",
+      "isCurrent": false,
+      "nsFolders": [
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48"
+      ]
+    },
+    {
+      "id": "person:ИЛХАН АХМЕТ КЮЧЮК",
+      "type": "person",
+      "label": "Илхан Ахмет Кючюк"
+    },
+    {
+      "id": "person:СЕВИНЧ ОСМАНОВА СОЛАКОВА",
+      "type": "person",
+      "label": "Севинч Османова Солакова"
+    },
+    {
+      "id": "person:БИРШЕН ИСМАИЛОВА ИБРЯМОВА",
+      "type": "person",
+      "label": "Биршен Исмаилова Ибрямова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mustafa-sali-karadai-1496fe",
+      "target": "company:tr:131070923",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4120",
+      "target": "company:tr:131070923",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИЛХАН АХМЕТ КЮЧЮК",
+      "target": "company:tr:131070923",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВИНЧ ОСМАНОВА СОЛАКОВА",
+      "target": "company:tr:131070923",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИРШЕН ИСМАИЛОВА ИБРЯМОВА",
+      "target": "company:tr:131070923",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

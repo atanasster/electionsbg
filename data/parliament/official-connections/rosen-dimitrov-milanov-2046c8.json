@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rosen-dimitrov-milanov-2046c8",
+  "nodes": [
+    {
+      "id": "official:rosen-dimitrov-milanov-2046c8",
+      "type": "official",
+      "slug": "rosen-dimitrov-milanov-2046c8",
+      "label": "Росен Димитров Миланов",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:117695162",
+      "type": "company",
+      "label": "\"Полис инженеринг\" ЕООД",
+      "slug": null,
+      "uic": "117695162",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rosen-dimitrov-milanov-2046c8",
+      "target": "company:tr:117695162",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:zhelo-ivanov-boichev-250801",
+  "nodes": [
+    {
+      "id": "official:zhelo-ivanov-boichev-250801",
+      "type": "official",
+      "slug": "zhelo-ivanov-boichev-250801",
+      "label": "Жельо Иванов Бойчев",
+      "tier": "executive",
+      "role": "regulator",
+      "municipality": null
+    },
+    {
+      "id": "company:Ивени-Консулт-ЕООД",
+      "type": "company",
+      "label": "Ивени Консулт ЕООД",
+      "slug": "Ивени-Консулт-ЕООД",
+      "uic": "131346345",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:tr:201830225",
+      "type": "company",
+      "label": "ЖИЛСТРОЙ-МЛАДОСТ 2",
+      "slug": null,
+      "uic": "201830225",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "mp:2671",
+      "type": "mp",
+      "mpId": 2671,
+      "label": "Жельо Иванов Бойчев",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "42",
+        "43"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zhelo-ivanov-boichev-250801",
+      "target": "company:Ивени-Консулт-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:zhelo-ivanov-boichev-250801",
+      "target": "company:tr:201830225",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2671",
+      "target": "company:Ивени-Консулт-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,151 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:veselina-angelova-atanasova-6925c9",
+  "nodes": [
+    {
+      "id": "official:veselina-angelova-atanasova-6925c9",
+      "type": "official",
+      "slug": "veselina-angelova-atanasova-6925c9",
+      "label": "Веселина Ангелова Атанасова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000183733",
+      "type": "company",
+      "label": "Развитие-1903",
+      "slug": null,
+      "uic": "000183733",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:lidiya-detelinova-nikolova-e86314",
+      "type": "official",
+      "slug": "lidiya-detelinova-nikolova-e86314",
+      "label": "Лидия Детелинова Николова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "person:АНЕЛИЯ СТЕФАНОВА БЕНКИНА",
+      "type": "person",
+      "label": "Анелия Стефанова Бенкина"
+    },
+    {
+      "id": "person:РАДОСТИНА ЕМИЛОВА ШИШМАНОВА",
+      "type": "person",
+      "label": "Радостина Емилова Шишманова"
+    },
+    {
+      "id": "person:ГАНКА БЛАГОЕВА МАРИНОВА",
+      "type": "person",
+      "label": "Ганка Благоева Маринова"
+    },
+    {
+      "id": "person:КРАСИМИРА ВАСИЛЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Красимира Василева Димитрова"
+    },
+    {
+      "id": "person:СВЕТЛАНА ЙОРДАНОВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Светлана Йорданова Кръстева"
+    },
+    {
+      "id": "person:ТЕОДОРА ПЕТКОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Теодора Петкова Тодорова"
+    },
+    {
+      "id": "person:ДЕТЕЛИНА МИХАЙЛОВА БЕШОВИШКА",
+      "type": "person",
+      "label": "Детелина Михайлова Бешовишка"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veselina-angelova-atanasova-6925c9",
+      "target": "company:tr:000183733",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:veselina-angelova-atanasova-6925c9",
+      "target": "company:tr:000183733",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:lidiya-detelinova-nikolova-e86314",
+      "target": "company:tr:000183733",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНЕЛИЯ СТЕФАНОВА БЕНКИНА",
+      "target": "company:tr:000183733",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИНА ЕМИЛОВА ШИШМАНОВА",
+      "target": "company:tr:000183733",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАНКА БЛАГОЕВА МАРИНОВА",
+      "target": "company:tr:000183733",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ВАСИЛЕВА ДИМИТРОВА",
+      "target": "company:tr:000183733",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА ЙОРДАНОВА КРЪСТЕВА",
+      "target": "company:tr:000183733",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ПЕТКОВА ТОДОРОВА",
+      "target": "company:tr:000183733",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕТЕЛИНА МИХАЙЛОВА БЕШОВИШКА",
+      "target": "company:tr:000183733",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

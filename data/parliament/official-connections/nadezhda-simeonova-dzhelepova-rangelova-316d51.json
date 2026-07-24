@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nadezhda-simeonova-dzhelepova-rangelova-316d51",
+  "nodes": [
+    {
+      "id": "official:nadezhda-simeonova-dzhelepova-rangelova-316d51",
+      "type": "official",
+      "slug": "nadezhda-simeonova-dzhelepova-rangelova-316d51",
+      "label": "Надежда Симеонова Джелепова-Рангелова",
+      "tier": "executive",
+      "role": "regulator",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:122053978",
+      "type": "company",
+      "label": "\"ГИС ПЕРФЕКТ\"  ООД",
+      "slug": null,
+      "uic": "122053978",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nadezhda-simeonova-dzhelepova-rangelova-316d51",
+      "target": "company:tr:122053978",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

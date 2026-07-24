@@ -1,0 +1,123 @@
+[
+  {
+    "slug": "blagovest-nikolaev-dimov-276c4c",
+    "declarantName": "(unknown)",
+    "institution": "Добрич",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2025-03-07",
+    "entryNumber": "Г323",
+    "controlHash": "92FF46CD",
+    "sourceUrl": "https://register.cacbg.bg/2025/2F9B10A8-60BE-4A2B-B033-77A2BE803168202209.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "security",
+        "description": "потребителски кредит",
+        "detail": "Благовест Николаев Димов",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "5000",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "5000",
+        "isSpouse": true,
+        "legalBasis": "заплата",
+        "fundsOrigin": null
+      },
+      {
+        "category": "security",
+        "description": "потребителски кредит",
+        "detail": "Благовест Николаев Димов",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "7500",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "7500",
+        "isSpouse": true,
+        "legalBasis": "заплата",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "blagovest-nikolaev-dimov-276c4c",
+    "declarantName": "Благовест Николаев Димов",
+    "institution": "Добрич",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-03-07",
+    "entryNumber": "Г320",
+    "controlHash": "B28ACDE0",
+    "sourceUrl": "https://register.cacbg.bg/2025/2F9B10A8-60BE-4A2B-B033-77A2BE803168202206.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14200.620708343773,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 3816.282601248575,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди Q5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 7400,
+        "valueEur": 3783.5599208520166,
+        "holderName": "Благовест Николаев Димов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Благовест Николаев Димов",
+        "isSpouse": false,
+        "legalBasis": "покупка и ремонт на автомобил",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

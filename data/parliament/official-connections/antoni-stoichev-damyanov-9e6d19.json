@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:antoni-stoichev-damyanov-9e6d19",
+  "nodes": [
+    {
+      "id": "official:antoni-stoichev-damyanov-9e6d19",
+      "type": "official",
+      "slug": "antoni-stoichev-damyanov-9e6d19",
+      "label": "Антони Стойчев Дамянов",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:113569935",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;КЛУБ ОЛИМПИЕЦ - ГР.РАДОМИР&quot;",
+      "slug": null,
+      "uic": "113569935",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДОРОТЕЯ ГЕОРГИЕВА АНДОНОВА-КОСТАДИНОВА",
+      "type": "person",
+      "label": "Доротея Георгиева Андонова-Костадинова"
+    },
+    {
+      "id": "person:ЕМИЛ МЕТОДИЕВ МИЛАНОВ",
+      "type": "person",
+      "label": "Емил Методиев Миланов"
+    },
+    {
+      "id": "person:ВЛАДИСЛАВ ВЛАДИМИРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Владислав Владимиров Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:antoni-stoichev-damyanov-9e6d19",
+      "target": "company:tr:113569935",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДОРОТЕЯ ГЕОРГИЕВА АНДОНОВА-КОСТАДИНОВА",
+      "target": "company:tr:113569935",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ МЕТОДИЕВ МИЛАНОВ",
+      "target": "company:tr:113569935",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВ ВЛАДИМИРОВ ДИМИТРОВ",
+      "target": "company:tr:113569935",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

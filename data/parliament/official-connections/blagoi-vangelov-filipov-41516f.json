@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:blagoi-vangelov-filipov-41516f",
+  "nodes": [
+    {
+      "id": "official:blagoi-vangelov-filipov-41516f",
+      "type": "official",
+      "slug": "blagoi-vangelov-filipov-41516f",
+      "label": "Благой Вангелов Филипов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Несебър"
+    },
+    {
+      "id": "company:tr:102004128",
+      "type": "company",
+      "label": "ОНИКС - 95",
+      "slug": null,
+      "uic": "102004128",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОРДАН ДИМИТРОВ ДИНЕВ",
+      "type": "person",
+      "label": "Йордан Димитров Динев"
+    },
+    {
+      "id": "person:ДИНКО ДИМИТРОВ ДИНЕВ",
+      "type": "person",
+      "label": "Динко Димитров Динев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:blagoi-vangelov-filipov-41516f",
+      "target": "company:tr:102004128",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАН ДИМИТРОВ ДИНЕВ",
+      "target": "company:tr:102004128",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИНКО ДИМИТРОВ ДИНЕВ",
+      "target": "company:tr:102004128",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

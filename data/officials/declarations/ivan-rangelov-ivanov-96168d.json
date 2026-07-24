@@ -1,0 +1,119 @@
+[
+  {
+    "slug": "ivan-rangelov-ivanov-96168d",
+    "declarantName": "ИВАН РАНГЕЛОВ ИВАНОВ",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2024,
+    "fiscalYear": 2024,
+    "declarationType": "Vacate",
+    "filedAt": "2024-05-15",
+    "entryNumber": "Ф754",
+    "controlHash": "0AC92103",
+    "sourceUrl": "https://register.cacbg.bg/2024/2B35C584-051B-4497-B601-E788C34A34D2196171.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "С.КОЗАРСКО",
+        "municipality": "Брацигово",
+        "areaSqm": 80,
+        "builtAreaSqm": 70,
+        "acquiredYear": 1992,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "ИВАН РАНГЕЛОВ ИВАНОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "vehicle",
+        "description": "ЛЕКА КОЛА",
+        "detail": "МИЦУБИШИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2016,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "ИВАН РАНГЕЛОВ ИВАНОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ivan-rangelov-ivanov-96168d",
+    "declarantName": "ИВАН РАНГЕЛОВ ИВАНОВ",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-15",
+    "entryNumber": "Г14690",
+    "controlHash": "4FEBA21C",
+    "sourceUrl": "https://register.cacbg.bg/2024/2B35C584-051B-4497-B601-E788C34A34D2197373.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18282.263795933184,
+        "amountEurSpouse": 19276.215212978634
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "С.КОЗАРСКО",
+        "municipality": "Брацигово",
+        "areaSqm": 80,
+        "builtAreaSqm": 70,
+        "acquiredYear": 1992,
+        "share": "40",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "ИВАН РАНГЕЛОВ ИВАНОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "ЛЕКА КОЛА",
+        "detail": "МИЦУБИШИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2016,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "ИВАН РАНГЕЛОВ ИВАНОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      }
+    ],
+    "events": []
+  }
+]

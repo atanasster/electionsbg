@@ -1,0 +1,53 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iliyan-emilov-hadzhiiski-ba41db",
+  "nodes": [
+    {
+      "id": "official:iliyan-emilov-hadzhiiski-ba41db",
+      "type": "official",
+      "slug": "iliyan-emilov-hadzhiiski-ba41db",
+      "label": "Илиян Емилов Хаджийски",
+      "tier": "executive",
+      "role": "revenue_agency",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203931447",
+      "type": "company",
+      "label": "Александра 008 ЕООД",
+      "slug": null,
+      "uic": "203931447",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201309592",
+      "type": "company",
+      "label": "Инвестикон ООД",
+      "slug": null,
+      "uic": "201309592",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iliyan-emilov-hadzhiiski-ba41db",
+      "target": "company:tr:203931447",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:iliyan-emilov-hadzhiiski-ba41db",
+      "target": "company:tr:201309592",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

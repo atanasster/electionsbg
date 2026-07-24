@@ -1,0 +1,207 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:penko-ivanov-riskov-1e6d64",
+  "nodes": [
+    {
+      "id": "official:penko-ivanov-riskov-1e6d64",
+      "type": "official",
+      "slug": "penko-ivanov-riskov-1e6d64",
+      "label": "Пенко Иванов Рисков",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:115111057",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ СОУ &quot;СВ. СОФРОНИЙ ВРАЧАНСКИ&quot;",
+      "slug": null,
+      "uic": "115111057",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАЛИН ТРАЙКОВ ГЕНАДИЕВ",
+      "type": "person",
+      "label": "Ивалин Трайков Генадиев"
+    },
+    {
+      "id": "person:КАЛИНА ТОДОРОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Калина Тодорова Тодорова"
+    },
+    {
+      "id": "person:МИРОСЛАВ ПЕТКОВ ВЪРШИЛОВ",
+      "type": "person",
+      "label": "Мирослав Петков Вършилов"
+    },
+    {
+      "id": "person:ДЕЛКА ЗАПРЯНОВА МАНЧЕВА",
+      "type": "person",
+      "label": "Делка Запрянова Манчева"
+    },
+    {
+      "id": "person:ПЕТЯ АТАНАСОВА МАТАНСКА",
+      "type": "person",
+      "label": "Петя Атанасова Матанска"
+    },
+    {
+      "id": "person:МАРИЯ ВАСИЛЕВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Мария Василева Ангелова"
+    },
+    {
+      "id": "person:ЦВЕТОМИРА ГЕОРГИЕВА МИЛАНОВА",
+      "type": "person",
+      "label": "Цветомира Георгиева Миланова"
+    },
+    {
+      "id": "person:ЯНКА ПЕЙЧЕВА МИХОВА-ЛАЗАРОВА",
+      "type": "person",
+      "label": "Янка Пейчева Михова-Лазарова"
+    },
+    {
+      "id": "person:ДИМИТЪР СТОЯНОВ ЖУЛЕВ",
+      "type": "person",
+      "label": "Димитър Стоянов Жулев"
+    },
+    {
+      "id": "person:ДИМИТЪР БЛАГОЕВ ШОПОВ",
+      "type": "person",
+      "label": "Димитър Благоев Шопов"
+    },
+    {
+      "id": "person:МИЛКО ДРАГАНОВ ПОПОВ",
+      "type": "person",
+      "label": "Милко Драганов Попов"
+    },
+    {
+      "id": "person:СПАСКА ИВАНОВА СЪБКОВА - АЛСАГИР",
+      "type": "person",
+      "label": "Спаска Иванова Събкова - Алсагир"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:penko-ivanov-riskov-1e6d64",
+      "target": "company:tr:115111057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАЛИН ТРАЙКОВ ГЕНАДИЕВ",
+      "target": "company:tr:115111057",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНА ТОДОРОВА ТОДОРОВА",
+      "target": "company:tr:115111057",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЛИН ТРАЙКОВ ГЕНАДИЕВ",
+      "target": "company:tr:115111057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНА ТОДОРОВА ТОДОРОВА",
+      "target": "company:tr:115111057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ПЕТКОВ ВЪРШИЛОВ",
+      "target": "company:tr:115111057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЛКА ЗАПРЯНОВА МАНЧЕВА",
+      "target": "company:tr:115111057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ АТАНАСОВА МАТАНСКА",
+      "target": "company:tr:115111057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ВАСИЛЕВА АНГЕЛОВА",
+      "target": "company:tr:115111057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТОМИРА ГЕОРГИЕВА МИЛАНОВА",
+      "target": "company:tr:115111057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКА ПЕЙЧЕВА МИХОВА-ЛАЗАРОВА",
+      "target": "company:tr:115111057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР СТОЯНОВ ЖУЛЕВ",
+      "target": "company:tr:115111057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР БЛАГОЕВ ШОПОВ",
+      "target": "company:tr:115111057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКО ДРАГАНОВ ПОПОВ",
+      "target": "company:tr:115111057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СПАСКА ИВАНОВА СЪБКОВА - АЛСАГИР",
+      "target": "company:tr:115111057",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

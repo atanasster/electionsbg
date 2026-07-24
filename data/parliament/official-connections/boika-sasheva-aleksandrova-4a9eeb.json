@@ -1,0 +1,155 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:boika-sasheva-aleksandrova-4a9eeb",
+  "nodes": [
+    {
+      "id": "official:boika-sasheva-aleksandrova-4a9eeb",
+      "type": "official",
+      "slug": "boika-sasheva-aleksandrova-4a9eeb",
+      "label": "Бойка Сашева Александрова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000153124",
+      "type": "company",
+      "label": "ХРИСТО БОТЕВ - 1926",
+      "slug": null,
+      "uic": "000153124",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НАДЯ ПЕТРОВА ИВАНОВА",
+      "type": "person",
+      "label": "Надя Петрова Иванова"
+    },
+    {
+      "id": "person:САШКА ИЛИЕВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Сашка Илиева Йорданова"
+    },
+    {
+      "id": "person:ЛЮБОМИРКА ЛЮБЕНОВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Любомирка Любенова Михайлова"
+    },
+    {
+      "id": "person:СТЕФКА НАЙДЕНОВА ЖИВКОВА",
+      "type": "person",
+      "label": "Стефка Найденова Живкова"
+    },
+    {
+      "id": "person:МАРИЙКА АРСЕНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Марийка Арсенова Димитрова"
+    },
+    {
+      "id": "person:ГИНКО ЦЕКОВ ЦОЛОВ",
+      "type": "person",
+      "label": "Гинко Цеков Цолов"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА ВЕСЕЛИНОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Валентина Веселинова Йорданова"
+    },
+    {
+      "id": "person:ЕВДОКИЯ КАМЕНОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Евдокия Каменова Николова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:boika-sasheva-aleksandrova-4a9eeb",
+      "target": "company:tr:000153124",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НАДЯ ПЕТРОВА ИВАНОВА",
+      "target": "company:tr:000153124",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САШКА ИЛИЕВА ЙОРДАНОВА",
+      "target": "company:tr:000153124",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЯ ПЕТРОВА ИВАНОВА",
+      "target": "company:tr:000153124",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИРКА ЛЮБЕНОВА МИХАЙЛОВА",
+      "target": "company:tr:000153124",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА НАЙДЕНОВА ЖИВКОВА",
+      "target": "company:tr:000153124",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЙКА АРСЕНОВА ДИМИТРОВА",
+      "target": "company:tr:000153124",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГИНКО ЦЕКОВ ЦОЛОВ",
+      "target": "company:tr:000153124",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ВЕСЕЛИНОВА ЙОРДАНОВА",
+      "target": "company:tr:000153124",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВДОКИЯ КАМЕНОВА НИКОЛОВА",
+      "target": "company:tr:000153124",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИРКА ЛЮБЕНОВА МИХАЙЛОВА",
+      "target": "company:tr:000153124",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

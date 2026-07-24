@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:marian-petrov-petrov-3b3d20",
+  "nodes": [
+    {
+      "id": "official:marian-petrov-petrov-3b3d20",
+      "type": "official",
+      "slug": "marian-petrov-petrov-3b3d20",
+      "label": "Мариан Петров Петров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Правец"
+    },
+    {
+      "id": "company:tr:177115774",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ „ОБЩИНСКИ ФУТБОЛЕН КЛУБ ПРАВЕЦ”",
+      "slug": null,
+      "uic": "177115774",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН ЕМИЛОВ КАСАПОВ",
+      "type": "person",
+      "label": "Иван Емилов Касапов"
+    },
+    {
+      "id": "person:БОРИСЛАВ МАРИНОВ БОРИСОВ",
+      "type": "person",
+      "label": "Борислав Маринов Борисов"
+    },
+    {
+      "id": "person:ПЛАМЕН АЛЕКСАНДРОВ ПАРИГВОЗДЕВ",
+      "type": "person",
+      "label": "Пламен Александров Паригвоздев"
+    },
+    {
+      "id": "person:ТЕОДОР КОСТОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Теодор Костов Тодоров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:marian-petrov-petrov-3b3d20",
+      "target": "company:tr:177115774",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ЕМИЛОВ КАСАПОВ",
+      "target": "company:tr:177115774",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ МАРИНОВ БОРИСОВ",
+      "target": "company:tr:177115774",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН АЛЕКСАНДРОВ ПАРИГВОЗДЕВ",
+      "target": "company:tr:177115774",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОР КОСТОВ ТОДОРОВ",
+      "target": "company:tr:177115774",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

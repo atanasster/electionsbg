@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:trifon-gatev-trifonov-a11372",
+  "nodes": [
+    {
+      "id": "official:trifon-gatev-trifonov-a11372",
+      "type": "official",
+      "slug": "trifon-gatev-trifonov-a11372",
+      "label": "Трифон Гатев Трифонов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Севлиево"
+    },
+    {
+      "id": "company:tr:107577564",
+      "type": "company",
+      "label": "Трифо 1 ООД",
+      "slug": null,
+      "uic": "107577564",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201873753",
+      "type": "company",
+      "label": "Трифо Н-1 ЕООД",
+      "slug": null,
+      "uic": "201873753",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИРЕНА ДИМИТРОВА ТРИФОНОВА",
+      "type": "person",
+      "label": "Ирена Димитрова Трифонова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:trifon-gatev-trifonov-a11372",
+      "target": "company:tr:107577564",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:trifon-gatev-trifonov-a11372",
+      "target": "company:tr:201873753",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:trifon-gatev-trifonov-a11372",
+      "target": "company:tr:107577564",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИРЕНА ДИМИТРОВА ТРИФОНОВА",
+      "target": "company:tr:107577564",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:krasimir-genov-stefanov-e8af48",
+  "nodes": [
+    {
+      "id": "official:krasimir-genov-stefanov-e8af48",
+      "type": "official",
+      "slug": "krasimir-genov-stefanov-e8af48",
+      "label": "Красимир Генов Стефанов",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Хитрино"
+    },
+    {
+      "id": "company:tr:127633846",
+      "type": "company",
+      "label": "СТУДИО Г",
+      "slug": null,
+      "uic": "127633846",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krasimir-genov-stefanov-e8af48",
+      "target": "company:tr:127633846",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

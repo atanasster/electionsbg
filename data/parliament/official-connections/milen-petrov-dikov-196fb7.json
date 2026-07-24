@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:milen-petrov-dikov-196fb7",
+  "nodes": [
+    {
+      "id": "official:milen-petrov-dikov-196fb7",
+      "type": "official",
+      "slug": "milen-petrov-dikov-196fb7",
+      "label": "Милен Петров Диков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Оряхово"
+    },
+    {
+      "id": "company:tr:206775245",
+      "type": "company",
+      "label": "Футболен клуб \"Оряхово 2021\"",
+      "slug": null,
+      "uic": "206775245",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИРОСЛАВ ПЕТРОВ ЦВЕТАНОВ",
+      "type": "person",
+      "label": "Мирослав Петров Цветанов"
+    },
+    {
+      "id": "person:ИВАЙЛО ВАГЕНЩАЙН РУСИНОВ",
+      "type": "person",
+      "label": "Ивайло Вагенщайн Русинов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milen-petrov-dikov-196fb7",
+      "target": "company:tr:206775245",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:milen-petrov-dikov-196fb7",
+      "target": "company:tr:206775245",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИРОСЛАВ ПЕТРОВ ЦВЕТАНОВ",
+      "target": "company:tr:206775245",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ВАГЕНЩАЙН РУСИНОВ",
+      "target": "company:tr:206775245",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

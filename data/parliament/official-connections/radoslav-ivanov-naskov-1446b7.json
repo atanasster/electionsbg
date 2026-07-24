@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:radoslav-ivanov-naskov-1446b7",
+  "nodes": [
+    {
+      "id": "official:radoslav-ivanov-naskov-1446b7",
+      "type": "official",
+      "slug": "radoslav-ivanov-naskov-1446b7",
+      "label": "Радослав Иванов Насков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Родопи"
+    },
+    {
+      "id": "company:tr:160102612",
+      "type": "company",
+      "label": "РАДИМПЕКС",
+      "slug": null,
+      "uic": "160102612",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:radoslav-ivanov-naskov-1446b7",
+      "target": "company:tr:160102612",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

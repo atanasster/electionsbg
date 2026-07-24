@@ -1,0 +1,264 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:evgeni-dimitrov-stoev-e5facb",
+  "nodes": [
+    {
+      "id": "official:evgeni-dimitrov-stoev-e5facb",
+      "type": "official",
+      "slug": "evgeni-dimitrov-stoev-e5facb",
+      "label": "Евгени Димитров Стоев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:104671179",
+      "type": "company",
+      "label": "ФСК ДАФИ ООД",
+      "slug": null,
+      "uic": "104671179",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:200783776",
+      "type": "company",
+      "label": "ФИНАНС КОНСУЛТ ДС ЕООД",
+      "slug": null,
+      "uic": "200783776",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204177950",
+      "type": "company",
+      "label": "ФИНАНС КОНСУЛТ Х и Д ООД",
+      "slug": null,
+      "uic": "204177950",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205074939",
+      "type": "company",
+      "label": "ДАФИ КЛАС ЕООД",
+      "slug": null,
+      "uic": "205074939",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202503397",
+      "type": "company",
+      "label": "ТУРИСТИНВЕСТ ЗФ ЕООД",
+      "slug": null,
+      "uic": "202503397",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206058603",
+      "type": "company",
+      "label": "ПЮЪР ЕНЕРДЖИ 2020 ЕООД",
+      "slug": null,
+      "uic": "206058603",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206029683",
+      "type": "company",
+      "label": "ДП ЛЕНД БЪЛГАРИЯ ЕООД",
+      "slug": null,
+      "uic": "206029683",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206658726",
+      "type": "company",
+      "label": "РЕЗОРТ ПРОПЪРТИ МЕНИДЖМЪНТ",
+      "slug": null,
+      "uic": "206658726",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Велико Търново, 5000"
+    },
+    {
+      "id": "official:hristo-evgeniev-stoev-fd0eff",
+      "type": "official",
+      "slug": "hristo-evgeniev-stoev-fd0eff",
+      "label": "Христо Евгениев Стоев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Велико Търново"
+    },
+    {
+      "id": "person:ДАФИНА МЕТОДИЕВА СТОЕВА",
+      "type": "person",
+      "label": "Дафина Методиева Стоева"
+    },
+    {
+      "id": "mp:2621",
+      "type": "mp",
+      "mpId": 2621,
+      "label": "Евгени Димитров Стоев",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "41",
+        "42"
+      ]
+    },
+    {
+      "id": "person:ЕВГЕНИ ДИМИТРОВ СТОЕВ",
+      "type": "person",
+      "label": "Евгени Димитров Стоев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:evgeni-dimitrov-stoev-e5facb",
+      "target": "company:tr:104671179",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:evgeni-dimitrov-stoev-e5facb",
+      "target": "company:tr:200783776",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:evgeni-dimitrov-stoev-e5facb",
+      "target": "company:tr:204177950",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:evgeni-dimitrov-stoev-e5facb",
+      "target": "company:tr:205074939",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:evgeni-dimitrov-stoev-e5facb",
+      "target": "company:tr:202503397",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:evgeni-dimitrov-stoev-e5facb",
+      "target": "company:tr:206058603",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:evgeni-dimitrov-stoev-e5facb",
+      "target": "company:tr:206029683",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:evgeni-dimitrov-stoev-e5facb",
+      "target": "company:tr:206658726",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:hristo-evgeniev-stoev-fd0eff",
+      "target": "company:tr:104671179",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАФИНА МЕТОДИЕВА СТОЕВА",
+      "target": "company:tr:104671179",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАФИНА МЕТОДИЕВА СТОЕВА",
+      "target": "company:tr:104671179",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:hristo-evgeniev-stoev-fd0eff",
+      "target": "company:tr:104671179",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-evgeniev-stoev-fd0eff",
+      "target": "company:tr:104671179",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2621",
+      "target": "company:tr:206658726",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕВГЕНИ ДИМИТРОВ СТОЕВ",
+      "target": "company:tr:206658726",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАФИНА МЕТОДИЕВА СТОЕВА",
+      "target": "company:tr:206658726",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАФИНА МЕТОДИЕВА СТОЕВА",
+      "target": "company:tr:206658726",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

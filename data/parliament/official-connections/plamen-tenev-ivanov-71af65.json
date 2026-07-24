@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:plamen-tenev-ivanov-71af65",
+  "nodes": [
+    {
+      "id": "official:plamen-tenev-ivanov-71af65",
+      "type": "official",
+      "slug": "plamen-tenev-ivanov-71af65",
+      "label": "Пламен Тенев Иванов",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:123630742",
+      "type": "company",
+      "label": "ДОБРОВОЛЧЕСКА СЛУЖБА ЗА ОБРАЗОВАТЕЛНО И СОЦИАЛНО ПРИОБЩАВАНЕ",
+      "slug": null,
+      "uic": "123630742",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИНА НИКОЛАЕВА ТОДАНОВА",
+      "type": "person",
+      "label": "Марина Николаева Тоданова"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ИВАНОВ КАЛЧЕВ",
+      "type": "person",
+      "label": "Валентин Иванов Калчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:plamen-tenev-ivanov-71af65",
+      "target": "company:tr:123630742",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:plamen-tenev-ivanov-71af65",
+      "target": "company:tr:123630742",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИНА НИКОЛАЕВА ТОДАНОВА",
+      "target": "company:tr:123630742",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ИВАНОВ КАЛЧЕВ",
+      "target": "company:tr:123630742",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

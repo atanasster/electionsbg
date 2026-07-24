@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:kostadin-nikiforov-shahov-afd6c4",
+  "nodes": [
+    {
+      "id": "official:kostadin-nikiforov-shahov-afd6c4",
+      "type": "official",
+      "slug": "kostadin-nikiforov-shahov-afd6c4",
+      "label": "Костадин Никифоров Шахов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000190083",
+      "type": "company",
+      "label": "СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ НА ПНЕВМО-ФТИЗИАТРИЧНИ ЗАБОЛЯВАНИЯ - ВРАЦА /СБАЛПФЗ - Враца/",
+      "slug": null,
+      "uic": "000190083",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kostadin-nikiforov-shahov-afd6c4",
+      "target": "company:tr:000190083",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

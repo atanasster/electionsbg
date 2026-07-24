@@ -1,0 +1,75 @@
+[
+  {
+    "slug": "stefka-genova-ivanova-474c42",
+    "declarantName": "Стефка Генова Иванова",
+    "institution": "Карнобат",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-09",
+    "entryNumber": "Г8726",
+    "controlHash": "71377576",
+    "sourceUrl": "https://register.cacbg.bg/2025/83BDDFCC-C66B-4E3E-A406-41B51FB5C0BC211751.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29795.53437670963,
+        "amountEurSpouse": 5114.4526876057735
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1462.806072102381,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Необлагаеми доходи",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1201.5359208111136
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 116713,
+        "valueEur": 59674.40933005425,
+        "holderName": "Стефка Генова Иванова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и извътр.правоотн."
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 31638,
+        "valueEur": 31638.230316540805,
+        "holderName": "Стефка Генова Иванова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

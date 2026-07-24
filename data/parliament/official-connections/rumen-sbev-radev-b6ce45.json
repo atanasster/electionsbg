@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rumen-sbev-radev-b6ce45",
+  "nodes": [
+    {
+      "id": "official:rumen-sbev-radev-b6ce45",
+      "type": "official",
+      "slug": "rumen-sbev-radev-b6ce45",
+      "label": "Румен Събев Радев",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200751807",
+      "type": "company",
+      "label": "Студио 24 ЕООД",
+      "slug": null,
+      "uic": "200751807",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rumen-sbev-radev-b6ce45",
+      "target": "company:tr:200751807",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

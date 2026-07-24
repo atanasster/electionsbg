@@ -1,0 +1,125 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hristo-hristov-dunchev-202d01",
+  "nodes": [
+    {
+      "id": "official:hristo-hristov-dunchev-202d01",
+      "type": "official",
+      "slug": "hristo-hristov-dunchev-202d01",
+      "label": "Христо Христов Дунчев",
+      "tier": "executive",
+      "role": "party_leader",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206656878",
+      "type": "company",
+      "label": "БЪЛГАРСКА ГРАЖДАНСКА МРЕЖА / МРЕЖАТА",
+      "slug": null,
+      "uic": "206656878",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:veselin-malinov-penev-ab46ec",
+      "type": "official",
+      "slug": "veselin-malinov-penev-ab46ec",
+      "label": "Веселин Малинов Пенев",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "person:ДИМИТЪР НИКОЛОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Димитър Николов Илиев"
+    },
+    {
+      "id": "person:ЯНКО ВЪЛКОВ ТОПАЛОВ",
+      "type": "person",
+      "label": "Янко Вълков Топалов"
+    },
+    {
+      "id": "person:РУМЯНА МЕТОДИЕВА ЧЕНАЛОВА",
+      "type": "person",
+      "label": "Румяна Методиева Ченалова"
+    },
+    {
+      "id": "person:ВАЛЕРИ МЕТОДИЕВ ГРИГОРОВ",
+      "type": "person",
+      "label": "Валери Методиев Григоров"
+    },
+    {
+      "id": "person:ПЕТЬО АСПАРУХОВ ЩЪРКЕЛОВ",
+      "type": "person",
+      "label": "Петьо Аспарухов Щъркелов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-hristov-dunchev-202d01",
+      "target": "company:tr:206656878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:veselin-malinov-penev-ab46ec",
+      "target": "company:tr:206656878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР НИКОЛОВ ИЛИЕВ",
+      "target": "company:tr:206656878",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКО ВЪЛКОВ ТОПАЛОВ",
+      "target": "company:tr:206656878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР НИКОЛОВ ИЛИЕВ",
+      "target": "company:tr:206656878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА МЕТОДИЕВА ЧЕНАЛОВА",
+      "target": "company:tr:206656878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ МЕТОДИЕВ ГРИГОРОВ",
+      "target": "company:tr:206656878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЬО АСПАРУХОВ ЩЪРКЕЛОВ",
+      "target": "company:tr:206656878",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

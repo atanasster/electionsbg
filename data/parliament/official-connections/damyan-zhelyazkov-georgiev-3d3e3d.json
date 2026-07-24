@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:damyan-zhelyazkov-georgiev-3d3e3d",
+  "nodes": [
+    {
+      "id": "official:damyan-zhelyazkov-georgiev-3d3e3d",
+      "type": "official",
+      "slug": "damyan-zhelyazkov-georgiev-3d3e3d",
+      "label": "Дамян Желязков Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стара Загора"
+    },
+    {
+      "id": "company:tr:123077188",
+      "type": "company",
+      "label": "ДОК-КОМ",
+      "slug": null,
+      "uic": "123077188",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:damyan-zhelyazkov-georgiev-3d3e3d",
+      "target": "company:tr:123077188",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:damyan-zhelyazkov-georgiev-3d3e3d",
+      "target": "company:tr:123077188",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

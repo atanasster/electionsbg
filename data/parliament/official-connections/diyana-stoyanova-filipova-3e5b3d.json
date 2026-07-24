@@ -1,0 +1,137 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:diyana-stoyanova-filipova-3e5b3d",
+  "nodes": [
+    {
+      "id": "official:diyana-stoyanova-filipova-3e5b3d",
+      "type": "official",
+      "slug": "diyana-stoyanova-filipova-3e5b3d",
+      "label": "Дияна Стоянова Филипова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:104598610",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ БЪЛГАРСКО УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОСНОВНО УЧИЛИЩЕ &quot;ФИЛИП ТОТЮ&quot;",
+      "slug": null,
+      "uic": "104598610",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНТОН САШЕВ АНТОНОВ",
+      "type": "person",
+      "label": "Антон Сашев Антонов"
+    },
+    {
+      "id": "person:ПЕПА КОЛЕВА АЛЕКСАНДРОВА",
+      "type": "person",
+      "label": "Пепа Колева Александрова"
+    },
+    {
+      "id": "person:МЮМЮНЕ МЕХМЕДОВА ОСМАНОВА",
+      "type": "person",
+      "label": "Мюмюне Мехмедова Османова"
+    },
+    {
+      "id": "person:ГЮЛТЕБЕР РЕДЖЕБОВА АЛИЕВА",
+      "type": "person",
+      "label": "Гюлтебер Реджебова Алиева"
+    },
+    {
+      "id": "person:РУМЯНА МИНЧЕВА МИНКОВА",
+      "type": "person",
+      "label": "Румяна Минчева Минкова"
+    },
+    {
+      "id": "person:НАТАЛИЯ ЦВЕТАНОВА ТОМОВА",
+      "type": "person",
+      "label": "Наталия Цветанова Томова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:diyana-stoyanova-filipova-3e5b3d",
+      "target": "company:tr:104598610",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНТОН САШЕВ АНТОНОВ",
+      "target": "company:tr:104598610",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕПА КОЛЕВА АЛЕКСАНДРОВА",
+      "target": "company:tr:104598610",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕПА КОЛЕВА АЛЕКСАНДРОВА",
+      "target": "company:tr:104598610",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН САШЕВ АНТОНОВ",
+      "target": "company:tr:104598610",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЮМЮНЕ МЕХМЕДОВА ОСМАНОВА",
+      "target": "company:tr:104598610",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮЛТЕБЕР РЕДЖЕБОВА АЛИЕВА",
+      "target": "company:tr:104598610",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА МИНЧЕВА МИНКОВА",
+      "target": "company:tr:104598610",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАЛИЯ ЦВЕТАНОВА ТОМОВА",
+      "target": "company:tr:104598610",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА МИНЧЕВА МИНКОВА",
+      "target": "company:tr:104598610",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:docho-stoyanov-dochev-1239d2",
+  "nodes": [
+    {
+      "id": "official:docho-stoyanov-dochev-1239d2",
+      "type": "official",
+      "slug": "docho-stoyanov-dochev-1239d2",
+      "label": "Дочо Стоянов Дочев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176047644",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ НПГГСД &quot;САВА МЛАДЕНОВ&quot;",
+      "slug": null,
+      "uic": "176047644",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯ ПЕТЬОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Мария Петьова Николова"
+    },
+    {
+      "id": "person:РАДОСЛАВА ТЕНЧЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Радослава Тенчева Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:docho-stoyanov-dochev-1239d2",
+      "target": "company:tr:176047644",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯ ПЕТЬОВА НИКОЛОВА",
+      "target": "company:tr:176047644",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ПЕТЬОВА НИКОЛОВА",
+      "target": "company:tr:176047644",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВА ТЕНЧЕВА ГЕОРГИЕВА",
+      "target": "company:tr:176047644",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

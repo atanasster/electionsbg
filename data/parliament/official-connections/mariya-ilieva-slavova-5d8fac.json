@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariya-ilieva-slavova-5d8fac",
+  "nodes": [
+    {
+      "id": "official:mariya-ilieva-slavova-5d8fac",
+      "type": "official",
+      "slug": "mariya-ilieva-slavova-5d8fac",
+      "label": "Мария Илиева Славова",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203975828",
+      "type": "company",
+      "label": "МИА КОНСУЛТ 3 ООД",
+      "slug": null,
+      "uic": "203975828",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:mariya-ilieva-slavova-f4bd69",
+      "type": "official",
+      "slug": "mariya-ilieva-slavova-f4bd69",
+      "label": "Мария Илиева Славова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ямбол"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-ilieva-slavova-5d8fac",
+      "target": "company:tr:203975828",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mariya-ilieva-slavova-f4bd69",
+      "target": "company:tr:203975828",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,212 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariya-iordanova-gvozdeikova-zlateva-99d9b9",
+  "nodes": [
+    {
+      "id": "official:mariya-iordanova-gvozdeikova-zlateva-99d9b9",
+      "type": "official",
+      "slug": "mariya-iordanova-gvozdeikova-zlateva-99d9b9",
+      "label": "Мария Йорданова Гвоздейкова-Златева",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Твърдица"
+    },
+    {
+      "id": "company:tr:177154115",
+      "type": "company",
+      "label": "МЕСТНА ИНИЦИАТИВНА ГРУПА ТВЪРДИЦА - СЛИВЕН- ДОЛИНАТА НА ПРАСКОВИТЕ",
+      "slug": null,
+      "uic": "177154115",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АТАНАС ХРИСТОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Атанас Христов Атанасов"
+    },
+    {
+      "id": "person:ЗКПУ \"ТВЪРДИЦА 2005\"",
+      "type": "person",
+      "label": "Зкпу \"твърдица 2005\""
+    },
+    {
+      "id": "person:ОБЩИНА ТВЪРДИЦА",
+      "type": "person",
+      "label": "Община Твърдица"
+    },
+    {
+      "id": "person:СДРУЖЕНИЕ \"ОБЩИНСКИ ФУТБОЛЕН КЛУБ \"ТВЪРДИЦА\"\"",
+      "type": "person",
+      "label": "Сдружение \"общински Футболен Клуб \"твърдица\"\""
+    },
+    {
+      "id": "person:АГЛИКА - СТРОЙ",
+      "type": "person",
+      "label": "Аглика - Строй"
+    },
+    {
+      "id": "person:СВ.СВ.КИРИЛ И МЕТОДИЙ - 1914",
+      "type": "person",
+      "label": "Св.св.кирил И Методий - 1914"
+    },
+    {
+      "id": "person:НАРОДНО ЧИТАЛИЩЕ \"ПРОБУДА - 1928\"",
+      "type": "person",
+      "label": "Народно Читалище \"пробуда - 1928\""
+    },
+    {
+      "id": "person:НАРОДНО ЧИТАЛИЩЕ \" ХРИСТО БОТЕВ 1936\" С. БЯЛА",
+      "type": "person",
+      "label": "Народно Читалище \" Христо Ботев 1936\" С. Бяла"
+    },
+    {
+      "id": "person:ОБЩИНА СЛИВЕН",
+      "type": "person",
+      "label": "Община Сливен"
+    },
+    {
+      "id": "person:МАРИЯ ЙОРДАНОВА ГВОЗДЕЙКОВА - ЗЛАТЕВА",
+      "type": "person",
+      "label": "Мария Йорданова Гвоздейкова - Златева"
+    },
+    {
+      "id": "person:АГЛИКА ИНДЪСТРИ",
+      "type": "person",
+      "label": "Аглика Индъстри"
+    },
+    {
+      "id": "person:НАРОДНО ЧИТАЛИЩЕ \"ПРОСВЕТА 1910\"",
+      "type": "person",
+      "label": "Народно Читалище \"просвета 1910\""
+    },
+    {
+      "id": "person:ЗП ПЕТЪР ЯНКОВ КРЪЛЕВ",
+      "type": "person",
+      "label": "Зп Петър Янков Крълев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-iordanova-gvozdeikova-zlateva-99d9b9",
+      "target": "company:tr:177154115",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АТАНАС ХРИСТОВ АТАНАСОВ",
+      "target": "company:tr:177154115",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗКПУ \"ТВЪРДИЦА 2005\"",
+      "target": "company:tr:177154115",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ТВЪРДИЦА",
+      "target": "company:tr:177154115",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СДРУЖЕНИЕ \"ОБЩИНСКИ ФУТБОЛЕН КЛУБ \"ТВЪРДИЦА\"\"",
+      "target": "company:tr:177154115",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АГЛИКА - СТРОЙ",
+      "target": "company:tr:177154115",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВ.СВ.КИРИЛ И МЕТОДИЙ - 1914",
+      "target": "company:tr:177154115",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ХРИСТОВ АТАНАСОВ",
+      "target": "company:tr:177154115",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАРОДНО ЧИТАЛИЩЕ \"ПРОБУДА - 1928\"",
+      "target": "company:tr:177154115",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАРОДНО ЧИТАЛИЩЕ \" ХРИСТО БОТЕВ 1936\" С. БЯЛА",
+      "target": "company:tr:177154115",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА СЛИВЕН",
+      "target": "company:tr:177154115",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ЙОРДАНОВА ГВОЗДЕЙКОВА - ЗЛАТЕВА",
+      "target": "company:tr:177154115",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АГЛИКА ИНДЪСТРИ",
+      "target": "company:tr:177154115",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАРОДНО ЧИТАЛИЩЕ \"ПРОСВЕТА 1910\"",
+      "target": "company:tr:177154115",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗП ПЕТЪР ЯНКОВ КРЪЛЕВ",
+      "target": "company:tr:177154115",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

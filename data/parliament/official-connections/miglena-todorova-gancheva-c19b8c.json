@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:miglena-todorova-gancheva-c19b8c",
+  "nodes": [
+    {
+      "id": "official:miglena-todorova-gancheva-c19b8c",
+      "type": "official",
+      "slug": "miglena-todorova-gancheva-c19b8c",
+      "label": "Миглена Тодорова Ганчева",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204767463",
+      "type": "company",
+      "label": "Карпе Дием Бутик",
+      "slug": null,
+      "uic": "204767463",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРТИН АНГЕЛОВ БЪБАРОВ",
+      "type": "person",
+      "label": "Мартин Ангелов Бъбаров"
+    },
+    {
+      "id": "person:ИВАН КОСТАДИНОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Иван Костадинов Николов"
+    },
+    {
+      "id": "person:ИВА ТОДОРОВА ГАНЧЕВА-САВОВА",
+      "type": "person",
+      "label": "Ива Тодорова Ганчева-Савова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miglena-todorova-gancheva-c19b8c",
+      "target": "company:tr:204767463",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРТИН АНГЕЛОВ БЪБАРОВ",
+      "target": "company:tr:204767463",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КОСТАДИНОВ НИКОЛОВ",
+      "target": "company:tr:204767463",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВА ТОДОРОВА ГАНЧЕВА-САВОВА",
+      "target": "company:tr:204767463",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

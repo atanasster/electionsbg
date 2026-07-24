@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-mitov-isaev-d2f4b8",
+  "nodes": [
+    {
+      "id": "official:nikolai-mitov-isaev-d2f4b8",
+      "type": "official",
+      "slug": "nikolai-mitov-isaev-d2f4b8",
+      "label": "Николай Митов Исаев",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201995337",
+      "type": "company",
+      "label": "\"Ай Ен Стил\" ЕООД",
+      "slug": null,
+      "uic": "201995337",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНЕТА СТЕФКОВА МАТЕВА",
+      "type": "person",
+      "label": "Анета Стефкова Матева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-mitov-isaev-d2f4b8",
+      "target": "company:tr:201995337",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕТА СТЕФКОВА МАТЕВА",
+      "target": "company:tr:201995337",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕТА СТЕФКОВА МАТЕВА",
+      "target": "company:tr:201995337",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

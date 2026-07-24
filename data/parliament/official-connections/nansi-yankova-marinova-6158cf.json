@@ -1,0 +1,134 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nansi-yankova-marinova-6158cf",
+  "nodes": [
+    {
+      "id": "official:nansi-yankova-marinova-6158cf",
+      "type": "official",
+      "slug": "nansi-yankova-marinova-6158cf",
+      "label": "Нанси Янкова Маринова",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176549935",
+      "type": "company",
+      "label": "ДИМИТЪР ДАНАИЛОВ - 2013",
+      "slug": null,
+      "uic": "176549935",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИНА НЕНОВА МАРИНОВА",
+      "type": "person",
+      "label": "Нина Ненова Маринова"
+    },
+    {
+      "id": "person:ДАФИНА ИВАНОВА КАРЕВА",
+      "type": "person",
+      "label": "Дафина Иванова Карева"
+    },
+    {
+      "id": "person:ЕВГЕНИ ВАСИЛЕВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Евгени Василев Василев"
+    },
+    {
+      "id": "person:НИКОЛА ПАНАЙОТОВ РАДЕВСКИ",
+      "type": "person",
+      "label": "Никола Панайотов Радевски"
+    },
+    {
+      "id": "person:ВАСИЛ ВЪЧКОВ ТАНЕВ",
+      "type": "person",
+      "label": "Васил Въчков Танев"
+    },
+    {
+      "id": "person:ВАСИЛ НИКОЛОВ ИВАНОВ",
+      "type": "person",
+      "label": "Васил Николов Иванов"
+    },
+    {
+      "id": "person:НЕДЕЛИНА ТОТЕВА МЕНДЕВА",
+      "type": "person",
+      "label": "Неделина Тотева Мендева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nansi-yankova-marinova-6158cf",
+      "target": "company:tr:176549935",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИНА НЕНОВА МАРИНОВА",
+      "target": "company:tr:176549935",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАФИНА ИВАНОВА КАРЕВА",
+      "target": "company:tr:176549935",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА НЕНОВА МАРИНОВА",
+      "target": "company:tr:176549935",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИ ВАСИЛЕВ ВАСИЛЕВ",
+      "target": "company:tr:176549935",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ПАНАЙОТОВ РАДЕВСКИ",
+      "target": "company:tr:176549935",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ВЪЧКОВ ТАНЕВ",
+      "target": "company:tr:176549935",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ НИКОЛОВ ИВАНОВ",
+      "target": "company:tr:176549935",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЕЛИНА ТОТЕВА МЕНДЕВА",
+      "target": "company:tr:176549935",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

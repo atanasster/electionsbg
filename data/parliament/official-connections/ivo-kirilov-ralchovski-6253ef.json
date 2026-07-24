@@ -1,0 +1,116 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivo-kirilov-ralchovski-6253ef",
+  "nodes": [
+    {
+      "id": "official:ivo-kirilov-ralchovski-6253ef",
+      "type": "official",
+      "slug": "ivo-kirilov-ralchovski-6253ef",
+      "label": "Иво Кирилов Ралчовски",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Враца"
+    },
+    {
+      "id": "company:tr:175703394",
+      "type": "company",
+      "label": "Професор Андрей Николов",
+      "slug": null,
+      "uic": "175703394",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:САШО ПЕТРОВ АЛЕКСАНДРОВ",
+      "type": "person",
+      "label": "Сашо Петров Александров"
+    },
+    {
+      "id": "person:ГЕОРГИ БОРИСОВ МОГИЛСКИ",
+      "type": "person",
+      "label": "Георги Борисов Могилски"
+    },
+    {
+      "id": "person:ВЕЛИСЛАВ МИЛЧОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Велислав Милчов Петков"
+    },
+    {
+      "id": "person:ДИМИТЪР АЛЕКСАНДРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Александров Димитров"
+    },
+    {
+      "id": "person:ЙОНЧО КОСТОВ ЙОНЧЕВ",
+      "type": "person",
+      "label": "Йончо Костов Йончев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivo-kirilov-ralchovski-6253ef",
+      "target": "company:tr:175703394",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivo-kirilov-ralchovski-6253ef",
+      "target": "company:tr:175703394",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:САШО ПЕТРОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:175703394",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ БОРИСОВ МОГИЛСКИ",
+      "target": "company:tr:175703394",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИСЛАВ МИЛЧОВ ПЕТКОВ",
+      "target": "company:tr:175703394",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР АЛЕКСАНДРОВ ДИМИТРОВ",
+      "target": "company:tr:175703394",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САШО ПЕТРОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:175703394",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОНЧО КОСТОВ ЙОНЧЕВ",
+      "target": "company:tr:175703394",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

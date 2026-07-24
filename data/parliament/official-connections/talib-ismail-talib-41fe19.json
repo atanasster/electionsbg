@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:talib-ismail-talib-41fe19",
+  "nodes": [
+    {
+      "id": "official:talib-ismail-talib-41fe19",
+      "type": "official",
+      "slug": "talib-ismail-talib-41fe19",
+      "label": "Талиб Исмаил Талиб",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Нови пазар"
+    },
+    {
+      "id": "company:tr:203722166",
+      "type": "company",
+      "label": "Нери Консулт ЕООД",
+      "slug": null,
+      "uic": "203722166",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:talib-ismail-talib-41fe19",
+      "target": "company:tr:203722166",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

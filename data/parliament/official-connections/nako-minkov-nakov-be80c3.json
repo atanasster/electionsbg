@@ -1,0 +1,249 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nako-minkov-nakov-be80c3",
+  "nodes": [
+    {
+      "id": "official:nako-minkov-nakov-be80c3",
+      "type": "official",
+      "slug": "nako-minkov-nakov-be80c3",
+      "label": "Нако Минков Наков",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000761429",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ХРИСТО Г. ДАНОВ-1922&quot;",
+      "slug": null,
+      "uic": "000761429",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОРДАНКА ДИМИТРОВА МЛАДЕНСКА",
+      "type": "person",
+      "label": "Йорданка Димитрова Младенска"
+    },
+    {
+      "id": "person:ЕМИЛИЯ ИВАНОВА ГАЙДАРОВА",
+      "type": "person",
+      "label": "Емилия Иванова Гайдарова"
+    },
+    {
+      "id": "person:ПЕТЯ СТОЯНОВА ДЕЛЧЕВА-ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Петя Стоянова Делчева-Георгиева"
+    },
+    {
+      "id": "person:ВИКТОРИЯ ИВАНОВА ДОШОЛОВА-ПЕДАКОВА",
+      "type": "person",
+      "label": "Виктория Иванова Дошолова-Педакова"
+    },
+    {
+      "id": "person:МАРИЯ НИКОЛОВА ИВАНОВА",
+      "type": "person",
+      "label": "Мария Николова Иванова"
+    },
+    {
+      "id": "person:АННА РУМЕНОВА ЛЯНЧОВА",
+      "type": "person",
+      "label": "Анна Руменова Лянчова"
+    },
+    {
+      "id": "person:МАРИЯ ДИМИТРОВА ПАШОВА",
+      "type": "person",
+      "label": "Мария Димитрова Пашова"
+    },
+    {
+      "id": "person:ВАСИЛКА ВАСИЛЕВА МИШЕВА",
+      "type": "person",
+      "label": "Василка Василева Мишева"
+    },
+    {
+      "id": "person:ПЕТЯ СТОЯНОВА ДЕЛЧЕВА",
+      "type": "person",
+      "label": "Петя Стоянова Делчева"
+    },
+    {
+      "id": "person:РОСИЦА ИВАНОВА ГЕНЧЕВА",
+      "type": "person",
+      "label": "Росица Иванова Генчева"
+    },
+    {
+      "id": "person:СТОЯНКА ИВАНОВА ГЕРОВА",
+      "type": "person",
+      "label": "Стоянка Иванова Герова"
+    },
+    {
+      "id": "person:ПЕТЪР СТОЯНОВ ДОШОЛОВ",
+      "type": "person",
+      "label": "Петър Стоянов Дошолов"
+    },
+    {
+      "id": "person:МАРИЯ ГЕОРГИЕВА РОГАЧЕВА",
+      "type": "person",
+      "label": "Мария Георгиева Рогачева"
+    },
+    {
+      "id": "person:ИВАНКА ЛУЛЧЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Иванка Лулчева Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nako-minkov-nakov-be80c3",
+      "target": "company:tr:000761429",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАНКА ДИМИТРОВА МЛАДЕНСКА",
+      "target": "company:tr:000761429",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ ИВАНОВА ГАЙДАРОВА",
+      "target": "company:tr:000761429",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА ДИМИТРОВА МЛАДЕНСКА",
+      "target": "company:tr:000761429",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ СТОЯНОВА ДЕЛЧЕВА-ГЕОРГИЕВА",
+      "target": "company:tr:000761429",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОРИЯ ИВАНОВА ДОШОЛОВА-ПЕДАКОВА",
+      "target": "company:tr:000761429",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ НИКОЛОВА ИВАНОВА",
+      "target": "company:tr:000761429",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА РУМЕНОВА ЛЯНЧОВА",
+      "target": "company:tr:000761429",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ДИМИТРОВА ПАШОВА",
+      "target": "company:tr:000761429",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА РУМЕНОВА ЛЯНЧОВА",
+      "target": "company:tr:000761429",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛКА ВАСИЛЕВА МИШЕВА",
+      "target": "company:tr:000761429",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА РУМЕНОВА ЛЯНЧОВА",
+      "target": "company:tr:000761429",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ СТОЯНОВА ДЕЛЧЕВА",
+      "target": "company:tr:000761429",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ИВАНОВА ГЕНЧЕВА",
+      "target": "company:tr:000761429",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯНКА ИВАНОВА ГЕРОВА",
+      "target": "company:tr:000761429",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР СТОЯНОВ ДОШОЛОВ",
+      "target": "company:tr:000761429",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА РОГАЧЕВА",
+      "target": "company:tr:000761429",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯНКА ИВАНОВА ГЕРОВА",
+      "target": "company:tr:000761429",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ЛУЛЧЕВА ГЕОРГИЕВА",
+      "target": "company:tr:000761429",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:atanas-slavchev-kunchev-b7cc19",
+  "nodes": [
+    {
+      "id": "official:atanas-slavchev-kunchev-b7cc19",
+      "type": "official",
+      "slug": "atanas-slavchev-kunchev-b7cc19",
+      "label": "Атанас Славчев Кунчев",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Район \"Южен\" - Пловдив"
+    },
+    {
+      "id": "company:tr:202701532",
+      "type": "company",
+      "label": "ВАНЕСА 86",
+      "slug": null,
+      "uic": "202701532",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТАНЯ ДИМИТРОВА ФИЛЕВА-КУНЧЕВА",
+      "type": "person",
+      "label": "Таня Димитрова Филева-Кунчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:atanas-slavchev-kunchev-b7cc19",
+      "target": "company:tr:202701532",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:atanas-slavchev-kunchev-b7cc19",
+      "target": "company:tr:202701532",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТАНЯ ДИМИТРОВА ФИЛЕВА-КУНЧЕВА",
+      "target": "company:tr:202701532",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ДИМИТРОВА ФИЛЕВА-КУНЧЕВА",
+      "target": "company:tr:202701532",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

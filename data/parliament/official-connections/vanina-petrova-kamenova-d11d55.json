@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vanina-petrova-kamenova-d11d55",
+  "nodes": [
+    {
+      "id": "official:vanina-petrova-kamenova-d11d55",
+      "type": "official",
+      "slug": "vanina-petrova-kamenova-d11d55",
+      "label": "Ванина Петрова Каменова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207565940",
+      "type": "company",
+      "label": "ПиП Логистик",
+      "slug": null,
+      "uic": "207565940",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЛАМЕН СТОЯНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Пламен Стоянов Стоянов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vanina-petrova-kamenova-d11d55",
+      "target": "company:tr:207565940",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЛАМЕН СТОЯНОВ СТОЯНОВ",
+      "target": "company:tr:207565940",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН СТОЯНОВ СТОЯНОВ",
+      "target": "company:tr:207565940",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

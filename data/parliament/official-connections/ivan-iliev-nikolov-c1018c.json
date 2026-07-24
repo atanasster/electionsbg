@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-iliev-nikolov-c1018c",
+  "nodes": [
+    {
+      "id": "official:ivan-iliev-nikolov-c1018c",
+      "type": "official",
+      "slug": "ivan-iliev-nikolov-c1018c",
+      "label": "Иван Илиев Николов",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:104524994",
+      "type": "company",
+      "label": "КОМПЛЕКСЕН ОНКОЛОГИЧЕН ЦЕНТЪР-ВЕЛИКО ТЪРНОВО",
+      "slug": null,
+      "uic": "104524994",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-iliev-nikolov-c1018c",
+      "target": "company:tr:104524994",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

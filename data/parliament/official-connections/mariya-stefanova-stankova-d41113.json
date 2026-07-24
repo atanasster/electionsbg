@@ -1,0 +1,85 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariya-stefanova-stankova-d41113",
+  "nodes": [
+    {
+      "id": "official:mariya-stefanova-stankova-d41113",
+      "type": "official",
+      "slug": "mariya-stefanova-stankova-d41113",
+      "label": "Мария Стефанова Станкова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204994361",
+      "type": "company",
+      "label": "ПАРИЖ 90",
+      "slug": null,
+      "uic": "204994361",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЙКА ГЕОРГИЕВА СТАНКОВА",
+      "type": "person",
+      "label": "Марийка Георгиева Станкова"
+    },
+    {
+      "id": "person:ВАНЯ АНГЕЛОВА КАЛЧИШКОВА",
+      "type": "person",
+      "label": "Ваня Ангелова Калчишкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-stefanova-stankova-d41113",
+      "target": "company:tr:204994361",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariya-stefanova-stankova-d41113",
+      "target": "company:tr:204994361",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЙКА ГЕОРГИЕВА СТАНКОВА",
+      "target": "company:tr:204994361",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЙКА ГЕОРГИЕВА СТАНКОВА",
+      "target": "company:tr:204994361",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ АНГЕЛОВА КАЛЧИШКОВА",
+      "target": "company:tr:204994361",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ АНГЕЛОВА КАЛЧИШКОВА",
+      "target": "company:tr:204994361",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

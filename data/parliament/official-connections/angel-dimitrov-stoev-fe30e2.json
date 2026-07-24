@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:angel-dimitrov-stoev-fe30e2",
+  "nodes": [
+    {
+      "id": "official:angel-dimitrov-stoev-fe30e2",
+      "type": "official",
+      "slug": "angel-dimitrov-stoev-fe30e2",
+      "label": "Ангел Димитров Стоев",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:825387979",
+      "type": "company",
+      "label": "ТЕМПОДЕМ",
+      "slug": null,
+      "uic": "825387979",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:angel-dimitrov-stoev-fe30e2",
+      "target": "company:tr:825387979",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

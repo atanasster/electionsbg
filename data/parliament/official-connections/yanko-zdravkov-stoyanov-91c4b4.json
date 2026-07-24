@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:yanko-zdravkov-stoyanov-91c4b4",
+  "nodes": [
+    {
+      "id": "official:yanko-zdravkov-stoyanov-91c4b4",
+      "type": "official",
+      "slug": "yanko-zdravkov-stoyanov-91c4b4",
+      "label": "Янко Здравков Стоянов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Петрич"
+    },
+    {
+      "id": "company:tr:204009850",
+      "type": "company",
+      "label": "ЗИКИ КОНСУЛТ ЕООД",
+      "slug": null,
+      "uic": "204009850",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yanko-zdravkov-stoyanov-91c4b4",
+      "target": "company:tr:204009850",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

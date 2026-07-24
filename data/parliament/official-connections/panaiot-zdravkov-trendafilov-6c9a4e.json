@@ -1,0 +1,212 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:panaiot-zdravkov-trendafilov-6c9a4e",
+  "nodes": [
+    {
+      "id": "official:panaiot-zdravkov-trendafilov-6c9a4e",
+      "type": "official",
+      "slug": "panaiot-zdravkov-trendafilov-6c9a4e",
+      "label": "Панайот Здравков Трендафилов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:102266140",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ НА ЛОВЦИТЕ И РИБОЛОВЦИТЕ ЛЕБЕД",
+      "slug": null,
+      "uic": "102266140",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НЕНЧО ВАСИЛЕВ НОНЧЕВ",
+      "type": "person",
+      "label": "Ненчо Василев Нончев"
+    },
+    {
+      "id": "person:ЯНИСЛАВ ПАНАЙОТОВ ЖЕЛЕВ",
+      "type": "person",
+      "label": "Янислав Панайотов Желев"
+    },
+    {
+      "id": "person:КОНСТАНТИН АНГЕЛОВ ГРИГОРОВ",
+      "type": "person",
+      "label": "Константин Ангелов Григоров"
+    },
+    {
+      "id": "person:ГЕОРГИ МИХАЙЛОВ АВДЖИЕВ",
+      "type": "person",
+      "label": "Георги Михайлов Авджиев"
+    },
+    {
+      "id": "person:КРАСИМИР ИВАНОВ СТОЙЧЕВ",
+      "type": "person",
+      "label": "Красимир Иванов Стойчев"
+    },
+    {
+      "id": "person:ХРИСТО ТОДОРОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Христо Тодоров Тодоров"
+    },
+    {
+      "id": "person:ИВАН ХРИСТОВ ЦАРЕВ",
+      "type": "person",
+      "label": "Иван Христов Царев"
+    },
+    {
+      "id": "person:САХАК МЪГЪРДИЧ САХАКЯН",
+      "type": "person",
+      "label": "Сахак Мъгърдич Сахакян"
+    },
+    {
+      "id": "person:СТОЯН ТОДОРОВ МАРИНОВ",
+      "type": "person",
+      "label": "Стоян Тодоров Маринов"
+    },
+    {
+      "id": "person:НЕВЕН ВАСИЛЕВ КАРАВАСИЛЕВ",
+      "type": "person",
+      "label": "Невен Василев Каравасилев"
+    },
+    {
+      "id": "person:ДЕНЧО КРАСИМИРОВ КАВАЛДЖИЕВ",
+      "type": "person",
+      "label": "Денчо Красимиров Кавалджиев"
+    },
+    {
+      "id": "person:НИКОЛАЙ ВАСИЛЕВ ВЪЛЧАНОВ",
+      "type": "person",
+      "label": "Николай Василев Вълчанов"
+    },
+    {
+      "id": "person:АТАНАС СТОЙЧЕВ КАРАИВАНОВ",
+      "type": "person",
+      "label": "Атанас Стойчев Караиванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:panaiot-zdravkov-trendafilov-6c9a4e",
+      "target": "company:tr:102266140",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НЕНЧО ВАСИЛЕВ НОНЧЕВ",
+      "target": "company:tr:102266140",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНИСЛАВ ПАНАЙОТОВ ЖЕЛЕВ",
+      "target": "company:tr:102266140",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН АНГЕЛОВ ГРИГОРОВ",
+      "target": "company:tr:102266140",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ МИХАЙЛОВ АВДЖИЕВ",
+      "target": "company:tr:102266140",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ИВАНОВ СТОЙЧЕВ",
+      "target": "company:tr:102266140",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ТОДОРОВ ТОДОРОВ",
+      "target": "company:tr:102266140",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ХРИСТОВ ЦАРЕВ",
+      "target": "company:tr:102266140",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САХАК МЪГЪРДИЧ САХАКЯН",
+      "target": "company:tr:102266140",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ТОДОРОВ МАРИНОВ",
+      "target": "company:tr:102266140",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЕН ВАСИЛЕВ КАРАВАСИЛЕВ",
+      "target": "company:tr:102266140",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНЧО КРАСИМИРОВ КАВАЛДЖИЕВ",
+      "target": "company:tr:102266140",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ВАСИЛЕВ ВЪЛЧАНОВ",
+      "target": "company:tr:102266140",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ТОДОРОВ МАРИНОВ",
+      "target": "company:tr:102266140",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС СТОЙЧЕВ КАРАИВАНОВ",
+      "target": "company:tr:102266140",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

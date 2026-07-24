@@ -1,0 +1,125 @@
+[
+  {
+    "slug": "sergei-penchev-michev-92fafd",
+    "declarantName": "Сергей Пенчев Мичев",
+    "institution": "Ръководителите на задграничните представителства на Р.България",
+    "positionTitle": "Извънреден и пълномощен посланик",
+    "category": "diplomat",
+    "declarationYear": 2018,
+    "fiscalYear": 2017,
+    "declarationType": "Annualy",
+    "filedAt": "2018-06-06",
+    "entryNumber": "Г768",
+    "controlHash": "6314D88F",
+    "sourceUrl": "https://register.cacbg.bg/2018/4D8B662F-E669-4755-BB8D-44691EE6E53E88610.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7711.304152201367,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1050.1935239770328,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Командировъчни",
+        "amountEurDeclarant": 43056.91189929595,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 90,
+        "builtAreaSqm": null,
+        "acquiredYear": 2017,
+        "share": null,
+        "currency": "BGN",
+        "amount": 196000,
+        "valueEur": 100213.20871445883,
+        "holderName": "Сергей Пенчев Мичев",
+        "isSpouse": false,
+        "legalBasis": "покупка",
+        "fundsOrigin": "продажба имот и спестявания"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 12000,
+        "valueEur": 12000.020451675247,
+        "holderName": "Сергей Пенчев Мичев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "командировъчни"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2636,
+        "valueEur": 1347.765398833232,
+        "holderName": "Сергей Пенчев Мичев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 7694,
+        "valueEur": 7693.920228240696,
+        "holderName": "Сергей Пенчев Мичеив",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "командировъчни"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 38,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 25053.302178614707,
+        "legalBasis": "продажба"
+      }
+    ]
+  }
+]

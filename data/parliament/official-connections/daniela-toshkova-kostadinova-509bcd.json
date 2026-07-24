@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:daniela-toshkova-kostadinova-509bcd",
+  "nodes": [
+    {
+      "id": "official:daniela-toshkova-kostadinova-509bcd",
+      "type": "official",
+      "slug": "daniela-toshkova-kostadinova-509bcd",
+      "label": "Даниела Тошкова Костадинова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:113026117",
+      "type": "company",
+      "label": "ВОДОСНАБДЯВАНЕ",
+      "slug": null,
+      "uic": "113026117",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniela-toshkova-kostadinova-509bcd",
+      "target": "company:tr:113026117",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,194 @@
+[
+  {
+    "slug": "todor-kirilov-mitov-a2994e",
+    "declarantName": "Тодор Кирилов Митов",
+    "institution": "Смолян",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-05",
+    "entryNumber": "Г7885",
+    "controlHash": "A1D68535",
+    "sourceUrl": "https://register.cacbg.bg/2025/A224D915-6542-48DD-BAD5-41CE0226D2D8210889.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "ООД",
+        "shareSize": "25%",
+        "companyName": "\"АДП - Смолян\" ООД",
+        "registeredOffice": "Смолян",
+        "valueEur": 639.1148514952731,
+        "holderName": "Тодор Кирилов Митов",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "itemType": "ООД",
+        "shareSize": "25%",
+        "companyName": "\"АДП - За дома\" ООД",
+        "registeredOffice": "Смолян",
+        "valueEur": 639.1148514952731,
+        "holderName": "Тодор Кирилов Митов",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "itemType": "ООД",
+        "shareSize": "20%",
+        "companyName": "\"Уел-тех\" ООД",
+        "registeredOffice": "Смолян",
+        "valueEur": 194.29091485456303,
+        "holderName": "Тодор Кирилов Митов",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4906.868183840109,
+        "amountEurSpouse": 11791.924656028386
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5724.423901872862,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 613.5502574354622
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "Поземлен имот",
+        "detail": null,
+        "location": "с. Широка лъка",
+        "municipality": "Смолян",
+        "areaSqm": 177,
+        "builtAreaSqm": 91,
+        "acquiredYear": 2021,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Златка Филипова Митова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "гр. Смолян",
+        "municipality": "Смолян",
+        "areaSqm": 113,
+        "builtAreaSqm": 113,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 90000,
+        "valueEur": 46016.26930765966,
+        "holderName": "Тодор Кирилов Митов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автотмобил",
+        "detail": "Опел Мерива",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2017,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 300,
+        "valueEur": 153.38756435886555,
+        "holderName": "Тодор Кирилов Митов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автотмобил",
+        "detail": "Форд Консул",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2016,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Тодор Кирилов Митов",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12548,
+        "valueEur": 6415.690525250149,
+        "holderName": "Тодор Кирилов Митов",
+        "isSpouse": false,
+        "legalBasis": "Банков кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 85669,
+        "valueEur": 43801.864170198845,
+        "holderName": "Златка Филипова Терзийска",
+        "isSpouse": true,
+        "legalBasis": "Банков кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Форд С-макс",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

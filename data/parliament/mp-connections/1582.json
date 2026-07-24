@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:1582",
   "nodes": [
     {
@@ -22,18 +22,18 @@
       "seat": null
     },
     {
-      "id": "official:georgi-nikolov-gelov-cb8320",
+      "id": "official:georgi-nikolov-gelov-2bde95",
       "type": "official",
-      "slug": "georgi-nikolov-gelov-cb8320",
+      "slug": "georgi-nikolov-gelov-2bde95",
       "label": "Георги Николов Гелов",
       "tier": "executive",
       "role": "hospital_head",
       "municipality": null
     },
     {
-      "id": "official:milena-georgieva-lazova-d49938",
+      "id": "official:milena-georgieva-lazova-af4046",
       "type": "official",
-      "slug": "milena-georgieva-lazova-d49938",
+      "slug": "milena-georgieva-lazova-af4046",
       "label": "Милена Георгиева Лазова",
       "tier": "executive",
       "role": "hospital_head",
@@ -50,7 +50,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:georgi-nikolov-gelov-cb8320",
+      "source": "official:georgi-nikolov-gelov-2bde95",
       "target": "company:tr:126529015",
       "kind": "tr_role",
       "role": "director",
@@ -58,7 +58,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:milena-georgieva-lazova-d49938",
+      "source": "official:milena-georgieva-lazova-af4046",
       "target": "company:tr:126529015",
       "kind": "tr_role",
       "role": "director",

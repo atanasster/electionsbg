@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-gospodinov-gospodinov-cffddb",
+  "nodes": [
+    {
+      "id": "official:georgi-gospodinov-gospodinov-cffddb",
+      "type": "official",
+      "slug": "georgi-gospodinov-gospodinov-cffddb",
+      "label": "Георги Господинов Господинов",
+      "tier": "executive",
+      "role": "revenue_agency",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208532548",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ ДОБРИЧ ЮНАЙТЕД",
+      "slug": null,
+      "uic": "208532548",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КАЛОЯН САШЕВ КОНДУЗОВ",
+      "type": "person",
+      "label": "Калоян Сашев Кондузов"
+    },
+    {
+      "id": "person:ЙОРДАН ДИМОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Йордан Димов Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-gospodinov-gospodinov-cffddb",
+      "target": "company:tr:208532548",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КАЛОЯН САШЕВ КОНДУЗОВ",
+      "target": "company:tr:208532548",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛОЯН САШЕВ КОНДУЗОВ",
+      "target": "company:tr:208532548",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ДИМОВ ДИМИТРОВ",
+      "target": "company:tr:208532548",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

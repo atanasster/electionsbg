@@ -1,0 +1,90 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mihail-vladimirov-vladov-49fed8",
+  "nodes": [
+    {
+      "id": "official:mihail-vladimirov-vladov-49fed8",
+      "type": "official",
+      "slug": "mihail-vladimirov-vladov-49fed8",
+      "label": "Михаил Владимиров Владов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:831844304",
+      "type": "company",
+      "label": "МИВЛАМА",
+      "slug": null,
+      "uic": "831844304",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЛАДИМИР МИХАЙЛОВ ВЛАДОВ",
+      "type": "person",
+      "label": "Владимир Михайлов Владов"
+    },
+    {
+      "id": "person:МАЙЯ ВЛАДИМИРОВА ПЕЕВА",
+      "type": "person",
+      "label": "Майя Владимирова Пеева"
+    },
+    {
+      "id": "person:ВЛАДИСЛАВА ВЛАДИМИРОВА ВЛАДОВА",
+      "type": "person",
+      "label": "Владислава Владимирова Владова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mihail-vladimirov-vladov-49fed8",
+      "target": "company:tr:831844304",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЛАДИМИР МИХАЙЛОВ ВЛАДОВ",
+      "target": "company:tr:831844304",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЙЯ ВЛАДИМИРОВА ПЕЕВА",
+      "target": "company:tr:831844304",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР МИХАЙЛОВ ВЛАДОВ",
+      "target": "company:tr:831844304",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВА ВЛАДИМИРОВА ВЛАДОВА",
+      "target": "company:tr:831844304",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЙЯ ВЛАДИМИРОВА ПЕЕВА",
+      "target": "company:tr:831844304",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

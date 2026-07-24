@@ -1,0 +1,95 @@
+[
+  {
+    "slug": "galina-iordanova-dyakova-0f4510",
+    "declarantName": "Галина Йорданова Дякова",
+    "institution": "Селскостопанска академия",
+    "positionTitle": "Директор",
+    "category": "agri_academy",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-05",
+    "entryNumber": "Г15424",
+    "controlHash": "4635B205",
+    "sourceUrl": "https://register.cacbg.bg/2025/72683AB6-059F-498D-ADF5-42BB0D67D072219541.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29391.102498683424,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 9034.527540737181,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1427.526932299842,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Инвалидна пенсия  и социална помощ на съпруг - Красимир Генков Дяков",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3397.5345505488717
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 49243,
+        "valueEur": 25177.546105745387,
+        "holderName": "Галина Йорданова Дякова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9197,
+        "valueEur": 4702.3514313616215,
+        "holderName": "Красимир Генков Дяков",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "пенсия"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "с. Басарбово, м.Гълъбец",
+        "municipality": "Русе",
+        "areaSqm": 760,
+        "builtAreaSqm": 34,
+        "currency": "BGN",
+        "valueEur": 3067.751287177311,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "dragomir-angelov-marinov-8c5310",
+    "declarantName": "(unknown)",
+    "institution": "Козлодуй",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2025-07-01",
+    "entryNumber": "Г15451",
+    "controlHash": "E14C7CC8",
+    "sourceUrl": "https://register.cacbg.bg/2025/DDD7E04C-498B-4A24-AD4D-66CB4D7F9C06219623.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "security",
+        "description": "Потребителски кредит-предсрочно погасен",
+        "detail": "Драгомир Ангелов Маринов",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "35087",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Банка ДСК",
+        "isSpouse": true,
+        "legalBasis": "Работни заплати",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "dragomir-angelov-marinov-8c5310",
+    "declarantName": "Драгомир Ангелов Маринов",
+    "institution": "Козлодуй",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-17",
+    "entryNumber": "Г2875",
+    "controlHash": "D52F637C",
+    "sourceUrl": "https://register.cacbg.bg/2025/DDD7E04C-498B-4A24-AD4D-66CB4D7F9C06205588.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4775.977462253877,
+        "amountEurSpouse": 14119.83659111477
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 49396.93122612906,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Козлодуй",
+        "municipality": "Козлодуй",
+        "areaSqm": 68,
+        "builtAreaSqm": 68,
+        "acquiredYear": 2024,
+        "share": "СИО",
+        "currency": "BGN",
+        "amount": 96681,
+        "valueEur": 49432.2103659316,
+        "holderName": "Драгомир Ангелов Маринов и Ния Василева Маринова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 96681,
+        "valueEur": 49432.2103659316,
+        "holderName": "Драгомир Ангелов Маринов",
+        "isSpouse": false,
+        "legalBasis": "Договор за кредит за покупка на имот (апартамент). Лихвен процент в размер на 2.71.",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

@@ -1,0 +1,86 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:konstantin-hristov-georgiev-51f342",
+  "nodes": [
+    {
+      "id": "official:konstantin-hristov-georgiev-51f342",
+      "type": "official",
+      "slug": "konstantin-hristov-georgiev-51f342",
+      "label": "Константин Христов Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пловдив"
+    },
+    {
+      "id": "company:tr:206814680",
+      "type": "company",
+      "label": "Сън Енерджи Правище ООД",
+      "slug": null,
+      "uic": "206814680",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:georgi-petrov-tityukov-417848",
+      "type": "official",
+      "slug": "georgi-petrov-tityukov-417848",
+      "label": "Георги Петров Титюков",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "person:ЕДУАРД МЪГЪРДИЧ САРАФЯН",
+      "type": "person",
+      "label": "Едуард Мъгърдич Сарафян"
+    },
+    {
+      "id": "person:КРИСТИНА ДАНАИЛОВА ТИТЮКОВА",
+      "type": "person",
+      "label": "Кристина Данаилова Титюкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:konstantin-hristov-georgiev-51f342",
+      "target": "company:tr:206814680",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-petrov-tityukov-417848",
+      "target": "company:tr:206814680",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕДУАРД МЪГЪРДИЧ САРАФЯН",
+      "target": "company:tr:206814680",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИНА ДАНАИЛОВА ТИТЮКОВА",
+      "target": "company:tr:206814680",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕДУАРД МЪГЪРДИЧ САРАФЯН",
+      "target": "company:tr:206814680",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

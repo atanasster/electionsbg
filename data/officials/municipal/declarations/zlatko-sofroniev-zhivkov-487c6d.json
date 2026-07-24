@@ -1,0 +1,148 @@
+[
+  {
+    "slug": "zlatko-sofroniev-zhivkov-487c6d",
+    "declarantName": "Златко Софрониев Живков",
+    "institution": "Монтана",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г8739",
+    "controlHash": "0F7FDD2E",
+    "sourceUrl": "https://register.cacbg.bg/2025/1CC9143D-6A7E-4ED4-9CD1-C16DF7FBFB4A211764.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 40315.36483232183,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2492.547920831565,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4269.287207988425
+      },
+      {
+        "parent": null,
+        "category": "доходи от дивиденти Алба",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 10225.83762392437
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Златко Софрониев Живков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 251430,
+        "valueEur": 128554.11768916521,
+        "holderName": "Златко Софрониев Живков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20360,
+        "valueEur": 10409.902701155008,
+        "holderName": "Албена Орлинова Живкова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 51856,
+        "valueEur": 26513.551791311107,
+        "holderName": "Златко Софрониев Живков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "доброволен пенсионен фонд"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 146693,
+        "valueEur": 75002.93992831688,
+        "holderName": "Златко Софрониев Живков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестовна застраховка живот"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "командировки да Брюксел",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "EUR",
+        "valueEur": 28464.13031807468,
+        "legalBasis": null
+      }
+    ]
+  }
+]

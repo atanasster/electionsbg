@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:galin-hristov-petrov-bd0347",
+  "nodes": [
+    {
+      "id": "official:galin-hristov-petrov-bd0347",
+      "type": "official",
+      "slug": "galin-hristov-petrov-bd0347",
+      "label": "Галин Христов Петров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Георги Дамяново"
+    },
+    {
+      "id": "company:tr:203969031",
+      "type": "company",
+      "label": "4М Консулт",
+      "slug": null,
+      "uic": "203969031",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ДЕТЕЛИНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Александър Детелинов Христов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:galin-hristov-petrov-bd0347",
+      "target": "company:tr:203969031",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ДЕТЕЛИНОВ ХРИСТОВ",
+      "target": "company:tr:203969031",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:petr-krasimirov-radev-329fc1",
+  "nodes": [
+    {
+      "id": "official:petr-krasimirov-radev-329fc1",
+      "type": "official",
+      "slug": "petr-krasimirov-radev-329fc1",
+      "label": "Петър Красимиров Радев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:103747763",
+      "type": "company",
+      "label": "ХИРОН-МЕД",
+      "slug": null,
+      "uic": "103747763",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАСИЛ ИВАНОВ ГОШЕВ",
+      "type": "person",
+      "label": "Васил Иванов Гошев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petr-krasimirov-radev-329fc1",
+      "target": "company:tr:103747763",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАСИЛ ИВАНОВ ГОШЕВ",
+      "target": "company:tr:103747763",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

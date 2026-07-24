@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tsvetan-rachev-georgiev-0e3070",
+  "nodes": [
+    {
+      "id": "official:tsvetan-rachev-georgiev-0e3070",
+      "type": "official",
+      "slug": "tsvetan-rachev-georgiev-0e3070",
+      "label": "Цветан Рачев Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Макреш"
+    },
+    {
+      "id": "company:tr:202509343",
+      "type": "company",
+      "label": "РВР Партнер Груп ООД",
+      "slug": null,
+      "uic": "202509343",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:aleksandra-tsvetanova-racheva-9119b1",
+      "type": "official",
+      "slug": "aleksandra-tsvetanova-racheva-9119b1",
+      "label": "Александра Цветанова Рачева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Видин"
+    },
+    {
+      "id": "person:КОРНЕЛИЯ ГЕОРГИЕВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Корнелия Георгиева Василева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetan-rachev-georgiev-0e3070",
+      "target": "company:tr:202509343",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aleksandra-tsvetanova-racheva-9119b1",
+      "target": "company:tr:202509343",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОРНЕЛИЯ ГЕОРГИЕВА ВАСИЛЕВА",
+      "target": "company:tr:202509343",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

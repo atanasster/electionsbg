@@ -1,0 +1,86 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:emiliyan-ilchev-evtimov-58c7e7",
+  "nodes": [
+    {
+      "id": "official:emiliyan-ilchev-evtimov-58c7e7",
+      "type": "official",
+      "slug": "emiliyan-ilchev-evtimov-58c7e7",
+      "label": "Емилиян Илчев Евтимов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207941104",
+      "type": "company",
+      "label": "СПОРТЕН КЛУБ АВТО МОТО ШОУ",
+      "slug": null,
+      "uic": "207941104",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:miroslav-pepiev-iliev-a540bc",
+      "type": "official",
+      "slug": "miroslav-pepiev-iliev-a540bc",
+      "label": "Мирослав Пепиев Илиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ЕЛИЗАБЕТА ТОНЕВА НИКОЛОВА",
+      "type": "person",
+      "label": "Елизабета Тонева Николова"
+    },
+    {
+      "id": "person:АЛБЕНА ИВАНОВА ПАНЧЕВА",
+      "type": "person",
+      "label": "Албена Иванова Панчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emiliyan-ilchev-evtimov-58c7e7",
+      "target": "company:tr:207941104",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:emiliyan-ilchev-evtimov-58c7e7",
+      "target": "company:tr:207941104",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:miroslav-pepiev-iliev-a540bc",
+      "target": "company:tr:207941104",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕЛИЗАБЕТА ТОНЕВА НИКОЛОВА",
+      "target": "company:tr:207941104",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕНА ИВАНОВА ПАНЧЕВА",
+      "target": "company:tr:207941104",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

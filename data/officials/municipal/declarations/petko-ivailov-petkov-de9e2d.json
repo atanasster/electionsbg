@@ -1,0 +1,112 @@
+[
+  {
+    "slug": "petko-ivailov-petkov-de9e2d",
+    "declarantName": "(unknown)",
+    "institution": "Червен бряг",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2025-01-07",
+    "entryNumber": "Г13038",
+    "controlHash": "B1463EB7",
+    "sourceUrl": "https://register.cacbg.bg/2025/5BA8F172-B076-4DA9-9E28-9831B090DE9E216228.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "ПВСОЛ ООД ЕИК 208115526",
+        "detail": null,
+        "location": "50%- 50лв.-регистрирана 07.01.2025 г.",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": null,
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ПВСОЛ ООД ЕИК 208115526",
+        "detail": null,
+        "location": "50%- 50лв.-регистрирана 07.01.2025 г. - управител",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "petko-ivailov-petkov-de9e2d",
+    "declarantName": "Петко Ивайлов Петков",
+    "institution": "Червен бряг",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-02",
+    "entryNumber": "Г7775",
+    "controlHash": "BD54E6A1",
+    "sourceUrl": "https://register.cacbg.bg/2025/5BA8F172-B076-4DA9-9E28-9831B090DE9E210777.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "ДЯЛ",
+        "shareSize": "50%",
+        "companyName": "ПВСОЛ ООД",
+        "registeredOffice": "Плевен",
+        "valueEur": null,
+        "holderName": "Петко Ивайлов Петков",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6142.660660691369,
+        "amountEurSpouse": 12555.28343465434
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 146.22947802211849,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40824,
+        "valueEur": 20872.979757954425,
+        "holderName": "Поля Пламенова Виткова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТА"
+      }
+    ],
+    "events": []
+  }
+]

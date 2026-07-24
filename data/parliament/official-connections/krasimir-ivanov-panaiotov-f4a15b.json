@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:krasimir-ivanov-panaiotov-f4a15b",
+  "nodes": [
+    {
+      "id": "official:krasimir-ivanov-panaiotov-f4a15b",
+      "type": "official",
+      "slug": "krasimir-ivanov-panaiotov-f4a15b",
+      "label": "Красимир Иванов Панайотов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201472931",
+      "type": "company",
+      "label": "\"Аиленеи\" ЕООД",
+      "slug": null,
+      "uic": "201472931",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krasimir-ivanov-panaiotov-f4a15b",
+      "target": "company:tr:201472931",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

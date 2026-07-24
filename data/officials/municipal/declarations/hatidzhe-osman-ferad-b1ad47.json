@@ -1,0 +1,135 @@
+[
+  {
+    "slug": "hatidzhe-osman-ferad-b1ad47",
+    "declarantName": "Хатидже Осман Ферад",
+    "institution": "Руен",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-06-16",
+    "entryNumber": "Г15309",
+    "controlHash": "E6908188",
+    "sourceUrl": "https://register.cacbg.bg/2025/7B427779-E874-4574-BD01-86A2FBF156FC219170.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Еднолично дружество с ограничена отговорност",
+        "shareSize": "100%",
+        "companyName": "Рен Трейдинг",
+        "registeredOffice": "Разбойна",
+        "valueEur": 51.12918811962185,
+        "holderName": "Ренгин Мюмюн Ферад",
+        "legalBasis": "други",
+        "fundsOrigin": "собствени средства"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31991.021714566195,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 37111.09861286513
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "поземлен имот, лозя",
+        "detail": null,
+        "location": "Разбойна",
+        "municipality": "Руен",
+        "areaSqm": 2,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
+        "holderName": "Ренгин Мюмюн Ферад, Хатидже Осман Ферад",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 82000,
+        "valueEur": 41925.93425808992,
+        "holderName": "Ренгин Мюмюн Ферад",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "оубсидии и доходи от стопанска дейност"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6119,
+        "valueEur": 3128.595021039661,
+        "holderName": "Хатидже Осман Ферад",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Хатидже Осман Ферад",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Хатидже Осман Ферад",
+        "isSpouse": false,
+        "legalBasis": "договор за лизинг",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

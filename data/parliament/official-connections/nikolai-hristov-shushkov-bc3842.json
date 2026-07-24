@@ -1,0 +1,70 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-hristov-shushkov-bc3842",
+  "nodes": [
+    {
+      "id": "official:nikolai-hristov-shushkov-bc3842",
+      "type": "official",
+      "slug": "nikolai-hristov-shushkov-bc3842",
+      "label": "Николай Христов Шушков",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200250504",
+      "type": "company",
+      "label": "\"Софродин\" ООД",
+      "slug": null,
+      "uic": "200250504",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:101532410",
+      "type": "company",
+      "label": "\"Транс династи\" ООД",
+      "slug": null,
+      "uic": "101532410",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:nikolai-hristov-shushkov-0b665a",
+      "type": "official",
+      "slug": "nikolai-hristov-shushkov-0b665a",
+      "label": "Николай Христов Шушков",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-hristov-shushkov-bc3842",
+      "target": "company:tr:200250504",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-hristov-shushkov-bc3842",
+      "target": "company:tr:101532410",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-hristov-shushkov-0b665a",
+      "target": "company:tr:101532410",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

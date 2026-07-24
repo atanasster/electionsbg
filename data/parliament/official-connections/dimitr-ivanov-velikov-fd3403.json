@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitr-ivanov-velikov-fd3403",
+  "nodes": [
+    {
+      "id": "official:dimitr-ivanov-velikov-fd3403",
+      "type": "official",
+      "slug": "dimitr-ivanov-velikov-fd3403",
+      "label": "Димитър Иванов Великов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200116925",
+      "type": "company",
+      "label": "РИБАРНИК НЕВРОКОП",
+      "slug": null,
+      "uic": "200116925",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕРОНИКА ИВАНОВА КАЦИЛОВА",
+      "type": "person",
+      "label": "Вероника Иванова Кацилова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-ivanov-velikov-fd3403",
+      "target": "company:tr:200116925",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕРОНИКА ИВАНОВА КАЦИЛОВА",
+      "target": "company:tr:200116925",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

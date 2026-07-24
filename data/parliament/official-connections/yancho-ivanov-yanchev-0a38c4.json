@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:yancho-ivanov-yanchev-0a38c4",
+  "nodes": [
+    {
+      "id": "official:yancho-ivanov-yanchev-0a38c4",
+      "type": "official",
+      "slug": "yancho-ivanov-yanchev-0a38c4",
+      "label": "Янчо Иванов Янчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Долни Чифлик"
+    },
+    {
+      "id": "company:tr:206333679",
+      "type": "company",
+      "label": "ИМОТНИК",
+      "slug": null,
+      "uic": "206333679",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yancho-ivanov-yanchev-0a38c4",
+      "target": "company:tr:206333679",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yancho-ivanov-yanchev-0a38c4",
+      "target": "company:tr:206333679",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

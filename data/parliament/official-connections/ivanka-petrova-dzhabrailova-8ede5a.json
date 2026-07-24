@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivanka-petrova-dzhabrailova-8ede5a",
+  "nodes": [
+    {
+      "id": "official:ivanka-petrova-dzhabrailova-8ede5a",
+      "type": "official",
+      "slug": "ivanka-petrova-dzhabrailova-8ede5a",
+      "label": "Иванка Петрова Джабраилова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:110507565",
+      "type": "company",
+      "label": "НАЦИОНАЛНО ИЗЛОЖЕНИЕ НА ХУДОЖЕСТВЕНИТЕ ЗАНАЯТИ И ИЗКУСТВАТА - ОРЕШАК",
+      "slug": null,
+      "uic": "110507565",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:doroteya-todorova-gyurdzhiiska-ivanova-4f415c",
+      "type": "official",
+      "slug": "doroteya-todorova-gyurdzhiiska-ivanova-4f415c",
+      "label": "Доротея Тодорова Гюрджийска-Иванова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ДОРОТЕЯ ТОДОРОВА ГЮРДЖИЙСКА - ИВАНОВА",
+      "type": "person",
+      "label": "Доротея Тодорова Гюрджийска - Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivanka-petrova-dzhabrailova-8ede5a",
+      "target": "company:tr:110507565",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:doroteya-todorova-gyurdzhiiska-ivanova-4f415c",
+      "target": "company:tr:110507565",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДОРОТЕЯ ТОДОРОВА ГЮРДЖИЙСКА - ИВАНОВА",
+      "target": "company:tr:110507565",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

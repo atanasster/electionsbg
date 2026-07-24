@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hristo-krstev-yakimov-0b33e6",
+  "nodes": [
+    {
+      "id": "official:hristo-krstev-yakimov-0b33e6",
+      "type": "official",
+      "slug": "hristo-krstev-yakimov-0b33e6",
+      "label": "Христо Кръстев Якимов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201328272",
+      "type": "company",
+      "label": "Медицински Център Дева Мария",
+      "slug": null,
+      "uic": "201328272",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-krstev-yakimov-0b33e6",
+      "target": "company:tr:201328272",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

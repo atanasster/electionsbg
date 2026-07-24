@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:beiti-izetov-ahmedov-acd241",
+  "nodes": [
+    {
+      "id": "official:beiti-izetov-ahmedov-acd241",
+      "type": "official",
+      "slug": "beiti-izetov-ahmedov-acd241",
+      "label": "Бейти Изетов Ахмедов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Суворово"
+    },
+    {
+      "id": "company:tr:205953665",
+      "type": "company",
+      "label": "ВОЛЕЙБОЛЕН КЛУБ РОДИНА - СУВОРОВО",
+      "slug": null,
+      "uic": "205953665",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:bistra-velikova-boicheva-455d01",
+      "type": "official",
+      "slug": "bistra-velikova-boicheva-455d01",
+      "label": "Бистра Великова Бойчева",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "person:ДЖЕЙХАН ИСМАИЛ КАДИР",
+      "type": "person",
+      "label": "Джейхан Исмаил Кадир"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:beiti-izetov-ahmedov-acd241",
+      "target": "company:tr:205953665",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:bistra-velikova-boicheva-455d01",
+      "target": "company:tr:205953665",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЖЕЙХАН ИСМАИЛ КАДИР",
+      "target": "company:tr:205953665",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

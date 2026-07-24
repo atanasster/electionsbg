@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:aneliya-marinova-racheva-kotova-ccd31e",
+  "nodes": [
+    {
+      "id": "official:aneliya-marinova-racheva-kotova-ccd31e",
+      "type": "official",
+      "slug": "aneliya-marinova-racheva-kotova-ccd31e",
+      "label": "Анелия Маринова Рачева-Котова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204588122",
+      "type": "company",
+      "label": "НАДЕЖДА ИНВЕСТМЪНТ",
+      "slug": null,
+      "uic": "204588122",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТЪР ГЕОРГИЕВ МИЛАНОВ",
+      "type": "person",
+      "label": "Димитър Георгиев Миланов"
+    },
+    {
+      "id": "person:БОЯН НИКОЛОВ ИКОНОМОВ",
+      "type": "person",
+      "label": "Боян Николов Икономов"
+    },
+    {
+      "id": "person:СВИЛЕНА ПЕТРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Свилена Петрова Димитрова"
+    },
+    {
+      "id": "person:ГЕОРГИ СТАМЕНОВ СТАМЕНОВ",
+      "type": "person",
+      "label": "Георги Стаменов Стаменов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aneliya-marinova-racheva-kotova-ccd31e",
+      "target": "company:tr:204588122",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР ГЕОРГИЕВ МИЛАНОВ",
+      "target": "company:tr:204588122",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯН НИКОЛОВ ИКОНОМОВ",
+      "target": "company:tr:204588122",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВИЛЕНА ПЕТРОВА ДИМИТРОВА",
+      "target": "company:tr:204588122",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ СТАМЕНОВ СТАМЕНОВ",
+      "target": "company:tr:204588122",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

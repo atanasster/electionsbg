@@ -1,0 +1,76 @@
+[
+  {
+    "slug": "ahmed-ridvanov-kemilov-2916e7",
+    "declarantName": "Ахмед Ридванов Кемилов",
+    "institution": "Ветрино",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-15",
+    "entryNumber": "Г14026",
+    "controlHash": "DF2E7DE4",
+    "sourceUrl": "https://register.cacbg.bg/2025/58113630-5D97-4A5C-91CB-FA528FF9AC52217288.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 3747.2581972870853,
+        "amountEurSpouse": 5882.92438504369
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 4508.060516507058,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 70000,
+        "valueEur": 7158.086336747059,
+        "holderName": "Емел Ибрям Кемилова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "продажба на недвижим имот"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.  Варна",
+        "municipality": "Варна",
+        "areaSqm": 59,
+        "builtAreaSqm": 59,
+        "currency": "BGN",
+        "valueEur": 60332.44198115378,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.  Варна",
+        "municipality": "Варна",
+        "areaSqm": 59,
+        "builtAreaSqm": 59,
+        "currency": "BGN",
+        "valueEur": 60332.44198115378,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vladimir-vachev-hadzhiiski-11522a",
+  "nodes": [
+    {
+      "id": "official:vladimir-vachev-hadzhiiski-11522a",
+      "type": "official",
+      "slug": "vladimir-vachev-hadzhiiski-11522a",
+      "label": "Владимир Вачев Хаджийски",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Троян"
+    },
+    {
+      "id": "company:tr:207247101",
+      "type": "company",
+      "label": "ХЕМА-ВХ",
+      "slug": null,
+      "uic": "207247101",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-vachev-hadzhiiski-11522a",
+      "target": "company:tr:207247101",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vladimir-vachev-hadzhiiski-11522a",
+      "target": "company:tr:207247101",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

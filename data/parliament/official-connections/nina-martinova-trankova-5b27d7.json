@@ -1,0 +1,186 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nina-martinova-trankova-5b27d7",
+  "nodes": [
+    {
+      "id": "official:nina-martinova-trankova-5b27d7",
+      "type": "official",
+      "slug": "nina-martinova-trankova-5b27d7",
+      "label": "Нина Мартинова Транкова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:114086291",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;САМОРАЗВИТИЕ - 1887&quot;",
+      "slug": null,
+      "uic": "114086291",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СНЕЖАНА НИКОЛОВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Снежана Николова Михайлова"
+    },
+    {
+      "id": "person:ТАНЯ СТАНЕВА ФИЧЕВА",
+      "type": "person",
+      "label": "Таня Станева Фичева"
+    },
+    {
+      "id": "person:ВИОЛЕТА СПАСОВА НИКОВА",
+      "type": "person",
+      "label": "Виолета Спасова Никова"
+    },
+    {
+      "id": "person:НИНА ПАВЛОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Нина Павлова Петкова"
+    },
+    {
+      "id": "person:СТАНИМИР ПЕТРОВ МИРАЗЧИЙСКИ",
+      "type": "person",
+      "label": "Станимир Петров Миразчийски"
+    },
+    {
+      "id": "person:САШО КИРИЛОВ ПЕЧЕНЯКОВ",
+      "type": "person",
+      "label": "Сашо Кирилов Печеняков"
+    },
+    {
+      "id": "person:ДЕНИЦА НИКОЛОВА ГАВРИЛОВА",
+      "type": "person",
+      "label": "Деница Николова Гаврилова"
+    },
+    {
+      "id": "person:ПЛАМЕН ТОДОРОВ РУМПОЛОВ",
+      "type": "person",
+      "label": "Пламен Тодоров Румполов"
+    },
+    {
+      "id": "person:ЙОВЧО НИКОЛОВ ЖЕЛЕВ",
+      "type": "person",
+      "label": "Йовчо Николов Желев"
+    },
+    {
+      "id": "person:АНТОАНЕТА ЦВЕТАНОВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Антоанета Цветанова Михайлова"
+    },
+    {
+      "id": "person:СТОЯНКА ИВАНОВА ТАНКОВА",
+      "type": "person",
+      "label": "Стоянка Иванова Танкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nina-martinova-trankova-5b27d7",
+      "target": "company:tr:114086291",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СНЕЖАНА НИКОЛОВА МИХАЙЛОВА",
+      "target": "company:tr:114086291",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ СТАНЕВА ФИЧЕВА",
+      "target": "company:tr:114086291",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНА НИКОЛОВА МИХАЙЛОВА",
+      "target": "company:tr:114086291",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА СПАСОВА НИКОВА",
+      "target": "company:tr:114086291",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА ПАВЛОВА ПЕТКОВА",
+      "target": "company:tr:114086291",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИР ПЕТРОВ МИРАЗЧИЙСКИ",
+      "target": "company:tr:114086291",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САШО КИРИЛОВ ПЕЧЕНЯКОВ",
+      "target": "company:tr:114086291",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИЦА НИКОЛОВА ГАВРИЛОВА",
+      "target": "company:tr:114086291",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ТОДОРОВ РУМПОЛОВ",
+      "target": "company:tr:114086291",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОВЧО НИКОЛОВ ЖЕЛЕВ",
+      "target": "company:tr:114086291",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАНЕТА ЦВЕТАНОВА МИХАЙЛОВА",
+      "target": "company:tr:114086291",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯНКА ИВАНОВА ТАНКОВА",
+      "target": "company:tr:114086291",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

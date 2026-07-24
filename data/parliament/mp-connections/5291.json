@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:5291",
   "nodes": [
     {
@@ -38,12 +38,12 @@
       "seat": "БЪЛГАРИЯ, гр. София, 1124"
     },
     {
-      "id": "official:rosen-miroslavov-bogomilov-141f2e",
+      "id": "official:rosen-miroslavov-bogomilov-237837",
       "type": "official",
-      "slug": "rosen-miroslavov-bogomilov-141f2e",
+      "slug": "rosen-miroslavov-bogomilov-237837",
       "label": "Росен Мирославов Богомилов",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "school",
       "municipality": null
     },
     {
@@ -105,7 +105,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:rosen-miroslavov-bogomilov-141f2e",
+      "source": "official:rosen-miroslavov-bogomilov-237837",
       "target": "company:tr:175935973",
       "kind": "tr_role",
       "role": "ngo_board",

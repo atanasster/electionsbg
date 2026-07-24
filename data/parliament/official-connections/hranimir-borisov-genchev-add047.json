@@ -1,0 +1,70 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hranimir-borisov-genchev-add047",
+  "nodes": [
+    {
+      "id": "official:hranimir-borisov-genchev-add047",
+      "type": "official",
+      "slug": "hranimir-borisov-genchev-add047",
+      "label": "Хранимир Борисов Генчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202103168",
+      "type": "company",
+      "label": "РСР Консулт ЕООД",
+      "slug": null,
+      "uic": "202103168",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:129004631",
+      "type": "company",
+      "label": "СНАБДЯВАНЕ И ТЪРГОВИЯ - МО",
+      "slug": null,
+      "uic": "129004631",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:radost-ivanova-vlcheva-gencheva-4ae5f0",
+      "type": "official",
+      "slug": "radost-ivanova-vlcheva-gencheva-4ae5f0",
+      "label": "Радост Иванова Вълчева-Генчева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hranimir-borisov-genchev-add047",
+      "target": "company:tr:202103168",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:hranimir-borisov-genchev-add047",
+      "target": "company:tr:129004631",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:radost-ivanova-vlcheva-gencheva-4ae5f0",
+      "target": "company:tr:202103168",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

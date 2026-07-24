@@ -1,0 +1,142 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:petya-koleva-kasabova-6494ec",
+  "nodes": [
+    {
+      "id": "official:petya-koleva-kasabova-6494ec",
+      "type": "official",
+      "slug": "petya-koleva-kasabova-6494ec",
+      "label": "Петя Колева Касабова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Чепеларе"
+    },
+    {
+      "id": "company:tr:176041673",
+      "type": "company",
+      "label": "Младежка организация за граждаска активност",
+      "slug": null,
+      "uic": "176041673",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДАРИНА ЕФРЕМОВА СОФТЕВА",
+      "type": "person",
+      "label": "Дарина Ефремова Софтева"
+    },
+    {
+      "id": "person:МАРТИН МЕНКОВ КИЧУКОВ",
+      "type": "person",
+      "label": "Мартин Менков Кичуков"
+    },
+    {
+      "id": "person:ВЛАДИСЛАВ АНТОНОВ ЗЛАТЕВ",
+      "type": "person",
+      "label": "Владислав Антонов Златев"
+    },
+    {
+      "id": "person:РАДА КОСТАДИНОВА КУЗМАНОВА",
+      "type": "person",
+      "label": "Рада Костадинова Кузманова"
+    },
+    {
+      "id": "person:МАРИЯ СТЕФАНОВА МАРГАРИТОВА",
+      "type": "person",
+      "label": "Мария Стефанова Маргаритова"
+    },
+    {
+      "id": "person:СТАНИМИР ЛЮБЕНОВ ИЛЧЕВ",
+      "type": "person",
+      "label": "Станимир Любенов Илчев"
+    },
+    {
+      "id": "person:ИВАНА НИКОЛАЕВА ГЕНЧЕВА",
+      "type": "person",
+      "label": "Ивана Николаева Генчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petya-koleva-kasabova-6494ec",
+      "target": "company:tr:176041673",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petya-koleva-kasabova-6494ec",
+      "target": "company:tr:176041673",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАРИНА ЕФРЕМОВА СОФТЕВА",
+      "target": "company:tr:176041673",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН МЕНКОВ КИЧУКОВ",
+      "target": "company:tr:176041673",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАРИНА ЕФРЕМОВА СОФТЕВА",
+      "target": "company:tr:176041673",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВ АНТОНОВ ЗЛАТЕВ",
+      "target": "company:tr:176041673",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДА КОСТАДИНОВА КУЗМАНОВА",
+      "target": "company:tr:176041673",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ СТЕФАНОВА МАРГАРИТОВА",
+      "target": "company:tr:176041673",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИР ЛЮБЕНОВ ИЛЧЕВ",
+      "target": "company:tr:176041673",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНА НИКОЛАЕВА ГЕНЧЕВА",
+      "target": "company:tr:176041673",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

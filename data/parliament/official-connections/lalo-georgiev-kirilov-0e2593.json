@@ -1,0 +1,101 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:lalo-georgiev-kirilov-0e2593",
+  "nodes": [
+    {
+      "id": "official:lalo-georgiev-kirilov-0e2593",
+      "type": "official",
+      "slug": "lalo-georgiev-kirilov-0e2593",
+      "label": "Лало Георгиев Кирилов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пирдоп"
+    },
+    {
+      "id": "company:tr:207084191",
+      "type": "company",
+      "label": "ЛАЙФХОЛИК",
+      "slug": null,
+      "uic": "207084191",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Хасково, 6300"
+    },
+    {
+      "id": "mp:2711",
+      "type": "mp",
+      "mpId": 2711,
+      "label": "Лало Георгиев Кирилов",
+      "partyGroupShort": "БВ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:2794",
+      "type": "mp",
+      "mpId": 2794,
+      "label": "Красимир Христов Янков",
+      "partyGroupShort": "БВ",
+      "isCurrent": false,
+      "nsFolders": [
+        "42",
+        "43"
+      ]
+    },
+    {
+      "id": "person:ЛАЛО ГЕОРГИЕВ КИРИЛОВ",
+      "type": "person",
+      "label": "Лало Георгиев Кирилов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lalo-georgiev-kirilov-0e2593",
+      "target": "company:tr:207084191",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2711",
+      "target": "company:tr:207084191",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2794",
+      "target": "company:tr:207084191",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2794",
+      "target": "company:tr:207084191",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2794",
+      "target": "company:tr:207084191",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛАЛО ГЕОРГИЕВ КИРИЛОВ",
+      "target": "company:tr:207084191",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

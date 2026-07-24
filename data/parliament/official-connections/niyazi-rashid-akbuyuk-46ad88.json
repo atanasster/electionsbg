@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:niyazi-rashid-akbuyuk-46ad88",
+  "nodes": [
+    {
+      "id": "official:niyazi-rashid-akbuyuk-46ad88",
+      "type": "official",
+      "slug": "niyazi-rashid-akbuyuk-46ad88",
+      "label": "Ниязи Рашид Акбуюк",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Завет"
+    },
+    {
+      "id": "company:tr:207044243",
+      "type": "company",
+      "label": "\"РАЙН АГРО\" ЕООД",
+      "slug": null,
+      "uic": "207044243",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:niyazi-rashid-akbuyuk-46ad88",
+      "target": "company:tr:207044243",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

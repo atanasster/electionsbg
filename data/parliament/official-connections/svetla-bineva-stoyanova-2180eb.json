@@ -1,0 +1,129 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:svetla-bineva-stoyanova-2180eb",
+  "nodes": [
+    {
+      "id": "official:svetla-bineva-stoyanova-2180eb",
+      "type": "official",
+      "slug": "svetla-bineva-stoyanova-2180eb",
+      "label": "Светла Бинева Стоянова",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207327526",
+      "type": "company",
+      "label": "ДОМ НА ДОБРОТО",
+      "slug": null,
+      "uic": "207327526",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ НИКОЛАЕВ ГРОЗЕВ",
+      "type": "person",
+      "label": "Георги Николаев Грозев"
+    },
+    {
+      "id": "person:БОЯНА КОЛЕВА ГИДИКОВА",
+      "type": "person",
+      "label": "Бояна Колева Гидикова"
+    },
+    {
+      "id": "person:ИВАН АТАНАСОВ ПАСКОВ",
+      "type": "person",
+      "label": "Иван Атанасов Пасков"
+    },
+    {
+      "id": "person:КАЛИНКА ИВАНОВА БАРЪМОВА",
+      "type": "person",
+      "label": "Калинка Иванова Баръмова"
+    },
+    {
+      "id": "person:НАДЯ ГЕОРГИЕВА ГРОЗЕВА",
+      "type": "person",
+      "label": "Надя Георгиева Грозева"
+    },
+    {
+      "id": "person:НИКОЛА ПЕТРОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Никола Петров Николов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetla-bineva-stoyanova-2180eb",
+      "target": "company:tr:207327526",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:svetla-bineva-stoyanova-2180eb",
+      "target": "company:tr:207327526",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ НИКОЛАЕВ ГРОЗЕВ",
+      "target": "company:tr:207327526",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯНА КОЛЕВА ГИДИКОВА",
+      "target": "company:tr:207327526",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ НИКОЛАЕВ ГРОЗЕВ",
+      "target": "company:tr:207327526",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АТАНАСОВ ПАСКОВ",
+      "target": "company:tr:207327526",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНКА ИВАНОВА БАРЪМОВА",
+      "target": "company:tr:207327526",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЯ ГЕОРГИЕВА ГРОЗЕВА",
+      "target": "company:tr:207327526",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ПЕТРОВ НИКОЛОВ",
+      "target": "company:tr:207327526",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

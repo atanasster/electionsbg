@@ -1,0 +1,100 @@
+[
+  {
+    "slug": "georgi-stoyanov-georgiev-9f63c9",
+    "declarantName": "Георги Стоянов Георгиев",
+    "institution": "Тунджа",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г11390",
+    "controlHash": "8B707659",
+    "sourceUrl": "https://register.cacbg.bg/2025/2FEFE43C-C019-42FD-8FED-7C2BDDE57A60214526.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5259.148289984303,
+        "amountEurSpouse": 2220.5406400351767
+      },
+      {
+        "parent": null,
+        "category": "Обезщетение",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 12526.651089307354
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Георги Стоянов Георгиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 177900,
+        "valueEur": 90958.82566480727,
+        "holderName": "Георги Стоянов Георгиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 37000,
+        "valueEur": 18917.799604260083,
+        "holderName": "Иванка Антонова Георгиева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с дворно място, навес и складово помещение",
+        "detail": null,
+        "location": "с. Крумово",
+        "municipality": "Тунджа",
+        "areaSqm": 1515,
+        "builtAreaSqm": 222,
+        "currency": "BGN",
+        "valueEur": 12782.297029905461,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

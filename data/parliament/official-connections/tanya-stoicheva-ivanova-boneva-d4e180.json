@@ -1,0 +1,108 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tanya-stoicheva-ivanova-boneva-d4e180",
+  "nodes": [
+    {
+      "id": "official:tanya-stoicheva-ivanova-boneva-d4e180",
+      "type": "official",
+      "slug": "tanya-stoicheva-ivanova-boneva-d4e180",
+      "label": "Таня Стойчева Иванова-Бонева",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202503899",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ПИРДОП",
+      "slug": null,
+      "uic": "202503899",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СНЕЖАНКА ГЕОРГИЕВА ЯНЕВА",
+      "type": "person",
+      "label": "Снежанка Георгиева Янева"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ТОДОРОВ ГОСПОДИНОВ",
+      "type": "person",
+      "label": "Веселин Тодоров Господинов"
+    },
+    {
+      "id": "person:ЮЛИЯ ДИМИТРОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Юлия Димитрова Илиева"
+    },
+    {
+      "id": "person:ТАНЯ СТОЙЧЕВА ИВАНОВА - БОНЕВА",
+      "type": "person",
+      "label": "Таня Стойчева Иванова - Бонева"
+    },
+    {
+      "id": "person:СНЕЖАНКА ГЕОРГИЕВА ДИЧЕВ",
+      "type": "person",
+      "label": "Снежанка Георгиева Дичев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tanya-stoicheva-ivanova-boneva-d4e180",
+      "target": "company:tr:202503899",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СНЕЖАНКА ГЕОРГИЕВА ЯНЕВА",
+      "target": "company:tr:202503899",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ТОДОРОВ ГОСПОДИНОВ",
+      "target": "company:tr:202503899",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЯ ДИМИТРОВА ИЛИЕВА",
+      "target": "company:tr:202503899",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ СТОЙЧЕВА ИВАНОВА - БОНЕВА",
+      "target": "company:tr:202503899",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЯ ДИМИТРОВА ИЛИЕВА",
+      "target": "company:tr:202503899",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНКА ГЕОРГИЕВА ДИЧЕВ",
+      "target": "company:tr:202503899",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

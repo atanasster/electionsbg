@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:veselin-todorov-kalfov-579dc6",
+  "nodes": [
+    {
+      "id": "official:veselin-todorov-kalfov-579dc6",
+      "type": "official",
+      "slug": "veselin-todorov-kalfov-579dc6",
+      "label": "Веселин Тодоров Калфов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000900131",
+      "type": "company",
+      "label": "СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ НА ПНЕВМО-ФТИЗИАТРИЧНИ ЗАБОЛЯВАНИЯ ХАСКОВО",
+      "slug": null,
+      "uic": "000900131",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veselin-todorov-kalfov-579dc6",
+      "target": "company:tr:000900131",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

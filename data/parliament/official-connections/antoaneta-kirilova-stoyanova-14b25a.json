@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:antoaneta-kirilova-stoyanova-14b25a",
+  "nodes": [
+    {
+      "id": "official:antoaneta-kirilova-stoyanova-14b25a",
+      "type": "official",
+      "slug": "antoaneta-kirilova-stoyanova-14b25a",
+      "label": "Антоанета Кирилова Стоянова",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175447685",
+      "type": "company",
+      "label": "ТИЙМ БИЛДИНГ",
+      "slug": null,
+      "uic": "175447685",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:antoaneta-kirilova-stoyanova-14b25a",
+      "target": "company:tr:175447685",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mano-nikolov-lazarov-279a6b",
+  "nodes": [
+    {
+      "id": "official:mano-nikolov-lazarov-279a6b",
+      "type": "official",
+      "slug": "mano-nikolov-lazarov-279a6b",
+      "label": "Мано Николов Лазаров",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Доспат"
+    },
+    {
+      "id": "company:tr:200785600",
+      "type": "company",
+      "label": "Хидротест ООД",
+      "slug": null,
+      "uic": "200785600",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОРИСЛАВ ИВАНОВ РЕВАЛСКИ",
+      "type": "person",
+      "label": "Борислав Иванов Ревалски"
+    },
+    {
+      "id": "person:КРАСИМИР ГЕОРГИЕВ БЕЧЕВ",
+      "type": "person",
+      "label": "Красимир Георгиев Бечев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mano-nikolov-lazarov-279a6b",
+      "target": "company:tr:200785600",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mano-nikolov-lazarov-279a6b",
+      "target": "company:tr:200785600",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОРИСЛАВ ИВАНОВ РЕВАЛСКИ",
+      "target": "company:tr:200785600",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ГЕОРГИЕВ БЕЧЕВ",
+      "target": "company:tr:200785600",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

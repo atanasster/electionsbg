@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:elena-mitkova-shopova-178e65",
+  "nodes": [
+    {
+      "id": "official:elena-mitkova-shopova-178e65",
+      "type": "official",
+      "slug": "elena-mitkova-shopova-178e65",
+      "label": "Елена Миткова Шопова",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206516196",
+      "type": "company",
+      "label": "Дар Елена Миткова",
+      "slug": null,
+      "uic": "206516196",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:elena-mitkova-shopova-178e65",
+      "target": "company:tr:206516196",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:elena-mitkova-shopova-178e65",
+      "target": "company:tr:206516196",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

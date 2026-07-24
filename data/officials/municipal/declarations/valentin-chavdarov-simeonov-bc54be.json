@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "valentin-chavdarov-simeonov-bc54be",
+    "declarantName": "ВАЛЕНТИН ЧАВДАРОВ СИМЕОНОВ",
+    "institution": "Лъки",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-22",
+    "entryNumber": "Г3745",
+    "controlHash": "FAD0C00E",
+    "sourceUrl": "https://register.cacbg.bg/2025/5904269E-1DEA-4FC6-BE96-F71CBEF79396206553.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 48296.1198059136,
+        "amountEurSpouse": 16589.376377292505
+      },
+      {
+        "parent": null,
+        "category": "ПЕНСИЯ ЗА ОСИГУРИТЕЛЕН СТАЖ И ВЪЗРАСТ",
+        "amountEurDeclarant": 10870.065394231606,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16500,
+        "valueEur": 8436.316039737605,
+        "holderName": "ВАЛЕНТИН ЧАВДАРОВ СИМЕОНОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 61501,
+        "valueEur": 31444.961985448634,
+        "holderName": "МИНКА АСЕНОВА СИМЕОНОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ИПОТЕЧЕН КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 43678,
+        "valueEur": 22332.20678688843,
+        "holderName": "ВАЛЕНТИН ЧАВДАРОВ СИМЕОНОВ",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР ЗА КРЕДИТ - 2,93%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

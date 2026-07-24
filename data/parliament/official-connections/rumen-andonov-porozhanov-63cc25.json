@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rumen-andonov-porozhanov-63cc25",
+  "nodes": [
+    {
+      "id": "official:rumen-andonov-porozhanov-63cc25",
+      "type": "official",
+      "slug": "rumen-andonov-porozhanov-63cc25",
+      "label": "Румен Андонов Порожанов",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204654259",
+      "type": "company",
+      "label": "ВиТиПи Груп ЕООД",
+      "slug": null,
+      "uic": "204654259",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rumen-andonov-porozhanov-63cc25",
+      "target": "company:tr:204654259",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

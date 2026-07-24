@@ -1,0 +1,108 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iordanka-mironova-danevska-5ba8d6",
+  "nodes": [
+    {
+      "id": "official:iordanka-mironova-danevska-5ba8d6",
+      "type": "official",
+      "slug": "iordanka-mironova-danevska-5ba8d6",
+      "label": "Йорданка Миронова Даневска",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Русе"
+    },
+    {
+      "id": "company:tr:117002804",
+      "type": "company",
+      "label": "МЕГАХИМ",
+      "slug": null,
+      "uic": "117002804",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЛАМЕН ВЕЛИКОВ ВЕЛИКОВ",
+      "type": "person",
+      "label": "Пламен Великов Великов"
+    },
+    {
+      "id": "person:ДЕНИЦА ПЛАМЕНОВА ВЕЛИКОВА - ВАКАШИНСКА",
+      "type": "person",
+      "label": "Деница Пламенова Великова - Вакашинска"
+    },
+    {
+      "id": "person:ДЕНИЦА ПЛАМЕНОВА ВЕЛИКОВА-ВАКАШИНСКА",
+      "type": "person",
+      "label": "Деница Пламенова Великова-Вакашинска"
+    },
+    {
+      "id": "person:КИРИЛ ИВАНОВ ГРОЗЕВ",
+      "type": "person",
+      "label": "Кирил Иванов Грозев"
+    },
+    {
+      "id": "person:ДИАН НИКОЛОВ БОШНАКОВ",
+      "type": "person",
+      "label": "Диан Николов Бошнаков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordanka-mironova-danevska-5ba8d6",
+      "target": "company:tr:117002804",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЛАМЕН ВЕЛИКОВ ВЕЛИКОВ",
+      "target": "company:tr:117002804",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИЦА ПЛАМЕНОВА ВЕЛИКОВА - ВАКАШИНСКА",
+      "target": "company:tr:117002804",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ВЕЛИКОВ ВЕЛИКОВ",
+      "target": "company:tr:117002804",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИЦА ПЛАМЕНОВА ВЕЛИКОВА-ВАКАШИНСКА",
+      "target": "company:tr:117002804",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ИВАНОВ ГРОЗЕВ",
+      "target": "company:tr:117002804",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАН НИКОЛОВ БОШНАКОВ",
+      "target": "company:tr:117002804",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

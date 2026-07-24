@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:momchil-zlatkov-daskalov-a4c732",
+  "nodes": [
+    {
+      "id": "official:momchil-zlatkov-daskalov-a4c732",
+      "type": "official",
+      "slug": "momchil-zlatkov-daskalov-a4c732",
+      "label": "Момчил Златков Даскалов",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Район Сердика"
+    },
+    {
+      "id": "company:tr:206917958",
+      "type": "company",
+      "label": "Ай Дийл България",
+      "slug": null,
+      "uic": "206917958",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАГДАЛИНА СТОЯНОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Магдалина Стоянова Тодорова"
+    },
+    {
+      "id": "person:ДИМИТЪР ГЕОРГИЕВ КАМЕНАРОВ",
+      "type": "person",
+      "label": "Димитър Георгиев Каменаров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:momchil-zlatkov-daskalov-a4c732",
+      "target": "company:tr:206917958",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАГДАЛИНА СТОЯНОВА ТОДОРОВА",
+      "target": "company:tr:206917958",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ГЕОРГИЕВ КАМЕНАРОВ",
+      "target": "company:tr:206917958",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ГЕОРГИЕВ КАМЕНАРОВ",
+      "target": "company:tr:206917958",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:irina-borisova-tsvetkova-1aa947",
+  "nodes": [
+    {
+      "id": "official:irina-borisova-tsvetkova-1aa947",
+      "type": "official",
+      "slug": "irina-borisova-tsvetkova-1aa947",
+      "label": "Ирина Борисова Цветкова",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Годеч"
+    },
+    {
+      "id": "company:tr:131415928",
+      "type": "company",
+      "label": "АРХПРОЕКТИ",
+      "slug": null,
+      "uic": "131415928",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДАНИЕЛА БОЖИНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Даниела Божинова Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:irina-borisova-tsvetkova-1aa947",
+      "target": "company:tr:131415928",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:irina-borisova-tsvetkova-1aa947",
+      "target": "company:tr:131415928",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАНИЕЛА БОЖИНОВА ИВАНОВА",
+      "target": "company:tr:131415928",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

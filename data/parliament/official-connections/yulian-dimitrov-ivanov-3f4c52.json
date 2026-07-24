@@ -1,0 +1,53 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:yulian-dimitrov-ivanov-3f4c52",
+  "nodes": [
+    {
+      "id": "official:yulian-dimitrov-ivanov-3f4c52",
+      "type": "official",
+      "slug": "yulian-dimitrov-ivanov-3f4c52",
+      "label": "Юлиан Димитров Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Долни Чифлик"
+    },
+    {
+      "id": "company:tr:103768337",
+      "type": "company",
+      "label": "\"Шери Ю\" ЕООД",
+      "slug": null,
+      "uic": "103768337",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:177024292",
+      "type": "company",
+      "label": "СЕВЕРОИЗТОЧНО ГОРСКО СДРУЖЕНИЕ - БРАНШОВА ОРГАНИЗАЦИЯ НА ФИЗИЧЕСКИ И ЮРИДИЧЕСКИ ЛИЦА ИЗВЪРШВАЩИ ДЕЙНОСТИ В ГОРСКИЯ СЕКТОР",
+      "slug": null,
+      "uic": "177024292",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yulian-dimitrov-ivanov-3f4c52",
+      "target": "company:tr:103768337",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:yulian-dimitrov-ivanov-3f4c52",
+      "target": "company:tr:177024292",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

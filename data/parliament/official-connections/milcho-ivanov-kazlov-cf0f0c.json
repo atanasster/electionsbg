@@ -1,0 +1,805 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:milcho-ivanov-kazlov-cf0f0c",
+  "nodes": [
+    {
+      "id": "official:milcho-ivanov-kazlov-cf0f0c",
+      "type": "official",
+      "slug": "milcho-ivanov-kazlov-cf0f0c",
+      "label": "Милчо Иванов Казълов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Крумовград"
+    },
+    {
+      "id": "company:tr:108561826",
+      "type": "company",
+      "label": "ВЪЗРАЖДАНЕ - 2003",
+      "slug": null,
+      "uic": "108561826",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АСЕН АЛЬОШЕВ ХАНДЕВ",
+      "type": "person",
+      "label": "Асен Альошев Хандев"
+    },
+    {
+      "id": "person:МИТКО АЛЬОШЕВ ХАНДЕВ",
+      "type": "person",
+      "label": "Митко Альошев Хандев"
+    },
+    {
+      "id": "person:ЧАВДАР СПИРОВ КЮЧУКОВ",
+      "type": "person",
+      "label": "Чавдар Спиров Кючуков"
+    },
+    {
+      "id": "person:АНЕТА ФИЛИПОВА АНТОНОВА",
+      "type": "person",
+      "label": "Анета Филипова Антонова"
+    },
+    {
+      "id": "person:ВИОЛЕТА ФИЛИПОВА КЮЧУКОВА",
+      "type": "person",
+      "label": "Виолета Филипова Кючукова"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР СТЕФАНОВ ТЮРДИЕВ",
+      "type": "person",
+      "label": "Александър Стефанов Тюрдиев"
+    },
+    {
+      "id": "person:АНГЕЛИНА СТЕФАНОВА ТЮРДИЕВА",
+      "type": "person",
+      "label": "Ангелина Стефанова Тюрдиева"
+    },
+    {
+      "id": "person:АХМЕД САЛИЕВ АЛАМУДЖЕВ",
+      "type": "person",
+      "label": "Ахмед Салиев Аламуджев"
+    },
+    {
+      "id": "person:МАРИЯНА АСЕНОВА ХАНДЕВА",
+      "type": "person",
+      "label": "Марияна Асенова Хандева"
+    },
+    {
+      "id": "person:МИТКО АСЕНОВ ХАРИТОВ",
+      "type": "person",
+      "label": "Митко Асенов Харитов"
+    },
+    {
+      "id": "person:АСЕН ХРИСТОВ ЧЕЛЕБИЕВ",
+      "type": "person",
+      "label": "Асен Христов Челебиев"
+    },
+    {
+      "id": "person:ГЕОРГИ ДИМИТРОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Георги Димитров Стоянов"
+    },
+    {
+      "id": "person:РОСИЦА ИЛИЕВА БОЯДЖИЕВА",
+      "type": "person",
+      "label": "Росица Илиева Бояджиева"
+    },
+    {
+      "id": "person:ХАСАН АЛИЕВ КАФАДАРОВ",
+      "type": "person",
+      "label": "Хасан Алиев Кафадаров"
+    },
+    {
+      "id": "person:АНДРЕЙ АСЕНОВ ЧЕЛЕБИЕВ",
+      "type": "person",
+      "label": "Андрей Асенов Челебиев"
+    },
+    {
+      "id": "person:ЗОЯ АЛЬОШЕВА МОЛЛОВА",
+      "type": "person",
+      "label": "Зоя Альошева Моллова"
+    },
+    {
+      "id": "person:МИТКО ХУБЕНОВ МОЛЛОВ",
+      "type": "person",
+      "label": "Митко Хубенов Моллов"
+    },
+    {
+      "id": "person:КРАСИМИР СЪБОТИНОВ ХОРОЧЕВ",
+      "type": "person",
+      "label": "Красимир Съботинов Хорочев"
+    },
+    {
+      "id": "person:СТЕФАН АЛЕКСАНДРОВ МИТЕВ",
+      "type": "person",
+      "label": "Стефан Александров Митев"
+    },
+    {
+      "id": "person:НИКОЛАЙ АНДРЕЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Николай Андреев Иванов"
+    },
+    {
+      "id": "person:КОЛЬО ГЕОРГИЕВ ПАПАЗОВ",
+      "type": "person",
+      "label": "Кольо Георгиев Папазов"
+    },
+    {
+      "id": "person:АСЕН ИВАНОВ КАЗЪЛОВ",
+      "type": "person",
+      "label": "Асен Иванов Казълов"
+    },
+    {
+      "id": "person:САМУИЛ НИКОЛАЕВ СЕМЕРДЖИЕВ",
+      "type": "person",
+      "label": "Самуил Николаев Семерджиев"
+    },
+    {
+      "id": "person:СВЕТОСЛАВ АЛЕКСАНДРОВ ДАЙОВ",
+      "type": "person",
+      "label": "Светослав Александров Дайов"
+    },
+    {
+      "id": "person:КРАСИМИР АСЕНОВ ДАЙОВ",
+      "type": "person",
+      "label": "Красимир Асенов Дайов"
+    },
+    {
+      "id": "person:ИВАН АСЕНОВ КАЗЪЛОВ",
+      "type": "person",
+      "label": "Иван Асенов Казълов"
+    },
+    {
+      "id": "person:МИТКО ЙОСИФОВ СЕМЕРДЖИЕВ",
+      "type": "person",
+      "label": "Митко Йосифов Семерджиев"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ДИМОВ АСЕНОВ",
+      "type": "person",
+      "label": "Веселин Димов Асенов"
+    },
+    {
+      "id": "person:НЕДЯЛКА ФИЛИПОВА МУТЕВА",
+      "type": "person",
+      "label": "Недялка Филипова Мутева"
+    },
+    {
+      "id": "person:БИСЕР АЛЕКСИЕВ МУТЕВ",
+      "type": "person",
+      "label": "Бисер Алексиев Мутев"
+    },
+    {
+      "id": "person:РАДКА АСЕНОВА ТЮРДИЕВА",
+      "type": "person",
+      "label": "Радка Асенова Тюрдиева"
+    },
+    {
+      "id": "person:КАТЯ МИЛАДИНОВА ХАНДЕВА",
+      "type": "person",
+      "label": "Катя Миладинова Хандева"
+    },
+    {
+      "id": "person:АНТОН ДИМИТРОВ ЧЕРНЕВ",
+      "type": "person",
+      "label": "Антон Димитров Чернев"
+    },
+    {
+      "id": "person:АНЕТА ТОДОРОВА УЗУНОВА",
+      "type": "person",
+      "label": "Анета Тодорова Узунова"
+    },
+    {
+      "id": "person:АНТОН АСЕНОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Антон Асенов Василев"
+    },
+    {
+      "id": "person:СТЕФАН ЙОРГОВ МУТЕВ",
+      "type": "person",
+      "label": "Стефан Йоргов Мутев"
+    },
+    {
+      "id": "person:СТЕФАН САМУИЛОВ ТАШЕВ",
+      "type": "person",
+      "label": "Стефан Самуилов Ташев"
+    },
+    {
+      "id": "person:АЛЬОША БЛАГОЕВ МУРАЛИЕВ",
+      "type": "person",
+      "label": "Альоша Благоев Муралиев"
+    },
+    {
+      "id": "person:СЕРГЕЙ АСЕНОВ БОЯДЖИЕВ",
+      "type": "person",
+      "label": "Сергей Асенов Бояджиев"
+    },
+    {
+      "id": "person:ЯСЕН ХУБЕНОВ ШАНКОВ",
+      "type": "person",
+      "label": "Ясен Хубенов Шанков"
+    },
+    {
+      "id": "person:ИВАН ЮЛИЯНОВ ЧАУШЕВ",
+      "type": "person",
+      "label": "Иван Юлиянов Чаушев"
+    },
+    {
+      "id": "person:АСЕН ХАРИТОНОВ БОЯДЖИЕВ",
+      "type": "person",
+      "label": "Асен Харитонов Бояджиев"
+    },
+    {
+      "id": "person:ЛИЛЯНА ЙОСИФОВА БЕЗОВА",
+      "type": "person",
+      "label": "Лиляна Йосифова Безова"
+    },
+    {
+      "id": "person:АНГЕЛ АСЕНОВ РАЙКОВ",
+      "type": "person",
+      "label": "Ангел Асенов Райков"
+    },
+    {
+      "id": "person:АСЕН ИВАНОВ ДАНАИЛОВ",
+      "type": "person",
+      "label": "Асен Иванов Данаилов"
+    },
+    {
+      "id": "person:ДИЯНА ИЛИЕВА ДАНАИЛОВА",
+      "type": "person",
+      "label": "Дияна Илиева Данаилова"
+    },
+    {
+      "id": "person:АЛБЕНА АЛЬОШЕВА ВРАНЧЕВА",
+      "type": "person",
+      "label": "Албена Альошева Вранчева"
+    },
+    {
+      "id": "person:ЕМИЛ ДИМИТРОВ МУТЕВ",
+      "type": "person",
+      "label": "Емил Димитров Мутев"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ МАРИНОВ СТОЕВ",
+      "type": "person",
+      "label": "Венцислав Маринов Стоев"
+    },
+    {
+      "id": "person:МИТКО АСЕНОВ ПЕХЛИВАНОВ",
+      "type": "person",
+      "label": "Митко Асенов Пехливанов"
+    },
+    {
+      "id": "person:РОСИЦА ЦВЕТАНОВА ПЕХЛИВАНОВА",
+      "type": "person",
+      "label": "Росица Цветанова Пехливанова"
+    },
+    {
+      "id": "person:АСЕН АТАНАСОВ ПЕХЛИВАНОВ",
+      "type": "person",
+      "label": "Асен Атанасов Пехливанов"
+    },
+    {
+      "id": "person:РОСИЦА НИКОЛОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Росица Николова Петрова"
+    },
+    {
+      "id": "person:ЮРИ ИЛИЕВ ЧАУШЕВ",
+      "type": "person",
+      "label": "Юри Илиев Чаушев"
+    },
+    {
+      "id": "person:ХРИСТИНА МИЛАДИНОВА УЗУНОВА",
+      "type": "person",
+      "label": "Христина Миладинова Узунова"
+    },
+    {
+      "id": "person:ПЛАМЕН АРСОВ СТОЕВ",
+      "type": "person",
+      "label": "Пламен Арсов Стоев"
+    },
+    {
+      "id": "person:ХАСАН ЙОСКОВ ЛУДКОВ",
+      "type": "person",
+      "label": "Хасан Йосков Лудков"
+    },
+    {
+      "id": "person:ДИМИТЪР НИКОЛОВ АНТОНОВ",
+      "type": "person",
+      "label": "Димитър Николов Антонов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milcho-ivanov-kazlov-cf0f0c",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АСЕН АЛЬОШЕВ ХАНДЕВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКО АЛЬОШЕВ ХАНДЕВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЧАВДАР СПИРОВ КЮЧУКОВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕТА ФИЛИПОВА АНТОНОВА",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ФИЛИПОВА КЮЧУКОВА",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР СТЕФАНОВ ТЮРДИЕВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛИНА СТЕФАНОВА ТЮРДИЕВА",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АХМЕД САЛИЕВ АЛАМУДЖЕВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА АСЕНОВА ХАНДЕВА",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКО АСЕНОВ ХАРИТОВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН ХРИСТОВ ЧЕЛЕБИЕВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ДИМИТРОВ СТОЯНОВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ИЛИЕВА БОЯДЖИЕВА",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАСАН АЛИЕВ КАФАДАРОВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРЕЙ АСЕНОВ ЧЕЛЕБИЕВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗОЯ АЛЬОШЕВА МОЛЛОВА",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКО ХУБЕНОВ МОЛЛОВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР СЪБОТИНОВ ХОРОЧЕВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН АЛЕКСАНДРОВ МИТЕВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ АНДРЕЕВ ИВАНОВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОЛЬО ГЕОРГИЕВ ПАПАЗОВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН ИВАНОВ КАЗЪЛОВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САМУИЛ НИКОЛАЕВ СЕМЕРДЖИЕВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ АЛЕКСАНДРОВ ДАЙОВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР АСЕНОВ ДАЙОВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АСЕНОВ КАЗЪЛОВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКО ЙОСИФОВ СЕМЕРДЖИЕВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ДИМОВ АСЕНОВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЯЛКА ФИЛИПОВА МУТЕВА",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИСЕР АЛЕКСИЕВ МУТЕВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА АСЕНОВА ТЮРДИЕВА",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ МИЛАДИНОВА ХАНДЕВА",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН ДИМИТРОВ ЧЕРНЕВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕТА ТОДОРОВА УЗУНОВА",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН АСЕНОВ ВАСИЛЕВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ЙОРГОВ МУТЕВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН САМУИЛОВ ТАШЕВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЬОША БЛАГОЕВ МУРАЛИЕВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕРГЕЙ АСЕНОВ БОЯДЖИЕВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯСЕН ХУБЕНОВ ШАНКОВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ЮЛИЯНОВ ЧАУШЕВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН ХАРИТОНОВ БОЯДЖИЕВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛЯНА ЙОСИФОВА БЕЗОВА",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ АСЕНОВ РАЙКОВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН ИВАНОВ ДАНАИЛОВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯНА ИЛИЕВА ДАНАИЛОВА",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕНА АЛЬОШЕВА ВРАНЧЕВА",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ДИМИТРОВ МУТЕВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ МАРИНОВ СТОЕВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКО АСЕНОВ ПЕХЛИВАНОВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ЦВЕТАНОВА ПЕХЛИВАНОВА",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН АТАНАСОВ ПЕХЛИВАНОВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА НИКОЛОВА ПЕТРОВА",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮРИ ИЛИЕВ ЧАУШЕВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА МИЛАДИНОВА УЗУНОВА",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН АРСОВ СТОЕВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАСАН ЙОСКОВ ЛУДКОВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР НИКОЛОВ АНТОНОВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР НИКОЛОВ АНТОНОВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР НИКОЛОВ АНТОНОВ",
+      "target": "company:tr:108561826",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

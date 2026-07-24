@@ -1,0 +1,134 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:eser-hikmet-sadk-318fe3",
+  "nodes": [
+    {
+      "id": "official:eser-hikmet-sadk-318fe3",
+      "type": "official",
+      "slug": "eser-hikmet-sadk-318fe3",
+      "label": "Есер Хикмет Садък",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Върбица"
+    },
+    {
+      "id": "company:tr:000923354",
+      "type": "company",
+      "label": "ХРИСТО БОТЕВ 1923",
+      "slug": null,
+      "uic": "000923354",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:nyulfer-dzhevdetova-shabanova-685fd0",
+      "type": "official",
+      "slug": "nyulfer-dzhevdetova-shabanova-685fd0",
+      "label": "Нюлфер Джевдетова Шабанова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "official:fatme-mehmedova-tokucheva-9a729e",
+      "type": "official",
+      "slug": "fatme-mehmedova-tokucheva-9a729e",
+      "label": "Фатме Мехмедова Токучева",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "person:СЕНИХА МЕХМЕДОВА МЕХМЕДОВА",
+      "type": "person",
+      "label": "Сениха Мехмедова Мехмедова"
+    },
+    {
+      "id": "person:СЕВГЮЛ ХАЛИЛОВА АЛИОСМАН",
+      "type": "person",
+      "label": "Севгюл Халилова Алиосман"
+    },
+    {
+      "id": "person:ХЮСЕИН ИСМАИЛ ХЮСЕИН",
+      "type": "person",
+      "label": "Хюсеин Исмаил Хюсеин"
+    },
+    {
+      "id": "person:ФАТМЕ ХАЛИЛОВА АХМЕД",
+      "type": "person",
+      "label": "Фатме Халилова Ахмед"
+    },
+    {
+      "id": "person:ХАЛИМЕ МУСТАФОВА БЕКИРОВА",
+      "type": "person",
+      "label": "Халиме Мустафова Бекирова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:eser-hikmet-sadk-318fe3",
+      "target": "company:tr:000923354",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nyulfer-dzhevdetova-shabanova-685fd0",
+      "target": "company:tr:000923354",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:fatme-mehmedova-tokucheva-9a729e",
+      "target": "company:tr:000923354",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СЕНИХА МЕХМЕДОВА МЕХМЕДОВА",
+      "target": "company:tr:000923354",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВГЮЛ ХАЛИЛОВА АЛИОСМАН",
+      "target": "company:tr:000923354",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХЮСЕИН ИСМАИЛ ХЮСЕИН",
+      "target": "company:tr:000923354",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФАТМЕ ХАЛИЛОВА АХМЕД",
+      "target": "company:tr:000923354",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАЛИМЕ МУСТАФОВА БЕКИРОВА",
+      "target": "company:tr:000923354",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

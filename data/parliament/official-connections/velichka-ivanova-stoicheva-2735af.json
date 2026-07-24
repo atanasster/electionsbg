@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:velichka-ivanova-stoicheva-2735af",
+  "nodes": [
+    {
+      "id": "official:velichka-ivanova-stoicheva-2735af",
+      "type": "official",
+      "slug": "velichka-ivanova-stoicheva-2735af",
+      "label": "Величка Иванова Стойчева",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208858729",
+      "type": "company",
+      "label": "ИНДИВИДУАЛНА ПРАКТИКА ЗА СПЕЦИАЛИЗИРАНА МЕДИЦИНСКА ПОМОЩ ПО АНЕСТЕЗИОЛОГИЯ И ИНТЕНЗИВНО ЛЕЧЕНИЕ - Д-Р ВЕЛИЧКА СТОЙЧЕВА",
+      "slug": null,
+      "uic": "208858729",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:velichka-ivanova-stoicheva-2735af",
+      "target": "company:tr:208858729",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:velichka-ivanova-stoicheva-2735af",
+      "target": "company:tr:208858729",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

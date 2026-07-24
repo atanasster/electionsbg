@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mitko-dimchev-salabashev-a86836",
+  "nodes": [
+    {
+      "id": "official:mitko-dimchev-salabashev-a86836",
+      "type": "official",
+      "slug": "mitko-dimchev-salabashev-a86836",
+      "label": "Митко Димчев Салабашев",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:115515822",
+      "type": "company",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪР 1 - ПЪРВОМАЙ",
+      "slug": null,
+      "uic": "115515822",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕЛЕНА ПЕТРОВА КОЛАРОВА",
+      "type": "person",
+      "label": "Елена Петрова Коларова"
+    },
+    {
+      "id": "person:ДИМИТЪР САВОВ КЕРТИКОВ",
+      "type": "person",
+      "label": "Димитър Савов Кертиков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mitko-dimchev-salabashev-a86836",
+      "target": "company:tr:115515822",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕЛЕНА ПЕТРОВА КОЛАРОВА",
+      "target": "company:tr:115515822",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР САВОВ КЕРТИКОВ",
+      "target": "company:tr:115515822",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

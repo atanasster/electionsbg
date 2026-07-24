@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "marin-ganchev-nedelchev-52e29d",
+    "declarantName": "Марин Ганчев Неделчев",
+    "institution": "Силистра",
+    "positionTitle": "Главен архитект",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-30",
+    "entryNumber": "Г4718",
+    "controlHash": "F7985D30",
+    "sourceUrl": "https://register.cacbg.bg/2025/4443CCF6-3AAA-4235-9BF8-B508B8476411207594.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19030.28381812325,
+        "amountEurSpouse": 10268.786141944853
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 1136.6018518991937,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 18000,
+        "valueEur": 9203.253861531934,
+        "holderName": "Марин Ганчев Неделчев и Красимира Минчева Неделчева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 32303,
+        "valueEur": 16516.261638281445,
+        "holderName": "Марин Ганчев Неделчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Банков Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14463,
+        "valueEur": 7394.814477740908,
+        "holderName": "Марин Ганчев Неделчев",
+        "isSpouse": false,
+        "legalBasis": "Банков кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

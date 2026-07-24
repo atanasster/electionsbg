@@ -1,0 +1,89 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:pavel-nikolaev-hriskov-ec3c27",
+  "nodes": [
+    {
+      "id": "official:pavel-nikolaev-hriskov-ec3c27",
+      "type": "official",
+      "slug": "pavel-nikolaev-hriskov-ec3c27",
+      "label": "Павел Николаев Хрисков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Панагюрище"
+    },
+    {
+      "id": "company:tr:204180747",
+      "type": "company",
+      "label": "Хрисков ЕООД",
+      "slug": null,
+      "uic": "204180747",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203325741",
+      "type": "company",
+      "label": "Сензорс ЕООД",
+      "slug": null,
+      "uic": "203325741",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203082499",
+      "type": "company",
+      "label": "Интелексис ООД",
+      "slug": null,
+      "uic": "203082499",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204261124",
+      "type": "company",
+      "label": "Ем Ем Ес Джи ООД",
+      "slug": null,
+      "uic": "204261124",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:pavel-nikolaev-hriskov-ec3c27",
+      "target": "company:tr:204180747",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:pavel-nikolaev-hriskov-ec3c27",
+      "target": "company:tr:203325741",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:pavel-nikolaev-hriskov-ec3c27",
+      "target": "company:tr:203082499",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:pavel-nikolaev-hriskov-ec3c27",
+      "target": "company:tr:204261124",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

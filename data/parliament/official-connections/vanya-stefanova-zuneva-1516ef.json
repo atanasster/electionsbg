@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vanya-stefanova-zuneva-1516ef",
+  "nodes": [
+    {
+      "id": "official:vanya-stefanova-zuneva-1516ef",
+      "type": "official",
+      "slug": "vanya-stefanova-zuneva-1516ef",
+      "label": "Ваня Стефанова Зунева",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205464138",
+      "type": "company",
+      "label": "\"Стело\" ООД",
+      "slug": null,
+      "uic": "205464138",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vanya-stefanova-zuneva-1516ef",
+      "target": "company:tr:205464138",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vanya-stefanova-zuneva-1516ef",
+      "target": "company:tr:205464138",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

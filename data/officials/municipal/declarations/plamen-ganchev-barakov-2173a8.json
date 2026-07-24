@@ -1,0 +1,64 @@
+[
+  {
+    "slug": "plamen-ganchev-barakov-2173a8",
+    "declarantName": "Пламен Ганчев Бараков",
+    "institution": "Гълъбово",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-08",
+    "entryNumber": "Г2080",
+    "controlHash": "D6C4E5B4",
+    "sourceUrl": "https://register.cacbg.bg/2025/0DCDE9E8-C1DB-4C52-A042-B51AA275F1C1204668.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26820.326920028838,
+        "amountEurSpouse": 13502.195998629737
+      },
+      {
+        "parent": null,
+        "category": "Доход от наем на земеделска земя",
+        "amountEurDeclarant": 274.05244832117313,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Пламен Ганчев Бараков",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит за текущо потребление",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "гр.Козани, Гърция",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
+  }
+]

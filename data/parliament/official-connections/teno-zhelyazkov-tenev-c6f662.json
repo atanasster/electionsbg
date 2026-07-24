@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:teno-zhelyazkov-tenev-c6f662",
+  "nodes": [
+    {
+      "id": "official:teno-zhelyazkov-tenev-c6f662",
+      "type": "official",
+      "slug": "teno-zhelyazkov-tenev-c6f662",
+      "label": "Теньо Желязков Тенев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Раднево"
+    },
+    {
+      "id": "company:tr:204835793",
+      "type": "company",
+      "label": "ДЖЕПЕТО УДУЪРК",
+      "slug": null,
+      "uic": "204835793",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РОСЕН ЦВЕТКОВ БОГДАНОВ",
+      "type": "person",
+      "label": "Росен Цветков Богданов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:teno-zhelyazkov-tenev-c6f662",
+      "target": "company:tr:204835793",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:teno-zhelyazkov-tenev-c6f662",
+      "target": "company:tr:204835793",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РОСЕН ЦВЕТКОВ БОГДАНОВ",
+      "target": "company:tr:204835793",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

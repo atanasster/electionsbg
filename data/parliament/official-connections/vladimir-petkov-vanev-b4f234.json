@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vladimir-petkov-vanev-b4f234",
+  "nodes": [
+    {
+      "id": "official:vladimir-petkov-vanev-b4f234",
+      "type": "official",
+      "slug": "vladimir-petkov-vanev-b4f234",
+      "label": "Владимир Петков Ванев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Дряново"
+    },
+    {
+      "id": "company:tr:207732236",
+      "type": "company",
+      "label": "Ванев 22",
+      "slug": null,
+      "uic": "207732236",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-petkov-vanev-b4f234",
+      "target": "company:tr:207732236",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vladimir-petkov-vanev-b4f234",
+      "target": "company:tr:207732236",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:marin-dimitrov-darakchiev-bc607a",
+  "nodes": [
+    {
+      "id": "official:marin-dimitrov-darakchiev-bc607a",
+      "type": "official",
+      "slug": "marin-dimitrov-darakchiev-bc607a",
+      "label": "Марин Димитров Даракчиев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:120503871",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - Д-Р БРАТАН ШУКЕРОВ",
+      "slug": null,
+      "uic": "120503871",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:2661",
+      "type": "mp",
+      "mpId": 2661,
+      "label": "Недялко Живков Славов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "41"
+      ]
+    },
+    {
+      "id": "person:СТЕФАН ДИМИТРОВ РАЙКОВ",
+      "type": "person",
+      "label": "Стефан Димитров Райков"
+    },
+    {
+      "id": "person:ВАНЯ ГЕОРГИЕВА ВЕЛИЧКОВА",
+      "type": "person",
+      "label": "Ваня Георгиева Величкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:marin-dimitrov-darakchiev-bc607a",
+      "target": "company:tr:120503871",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2661",
+      "target": "company:tr:120503871",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФАН ДИМИТРОВ РАЙКОВ",
+      "target": "company:tr:120503871",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ГЕОРГИЕВА ВЕЛИЧКОВА",
+      "target": "company:tr:120503871",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

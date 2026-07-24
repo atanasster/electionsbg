@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:miroslav-krasimirov-orloev-9b1270",
+  "nodes": [
+    {
+      "id": "official:miroslav-krasimirov-orloev-9b1270",
+      "type": "official",
+      "slug": "miroslav-krasimirov-orloev-9b1270",
+      "label": "Мирослав Красимиров Орлоев",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Добрич"
+    },
+    {
+      "id": "company:tr:118040697",
+      "type": "company",
+      "label": "Агенция за икономическо развитие и инвестиции-Силистра",
+      "slug": null,
+      "uic": "118040697",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕЛЕНА ЛЮБЕНОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Елена Любенова Стоянова"
+    },
+    {
+      "id": "person:ЛЮДМИЛ КРАЛЕВ СТОЯНОВ",
+      "type": "person",
+      "label": "Людмил Кралев Стоянов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miroslav-krasimirov-orloev-9b1270",
+      "target": "company:tr:118040697",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕЛЕНА ЛЮБЕНОВА СТОЯНОВА",
+      "target": "company:tr:118040697",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ КРАЛЕВ СТОЯНОВ",
+      "target": "company:tr:118040697",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ЛЮБЕНОВА СТОЯНОВА",
+      "target": "company:tr:118040697",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ КРАЛЕВ СТОЯНОВ",
+      "target": "company:tr:118040697",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

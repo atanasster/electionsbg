@@ -1,0 +1,111 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:gergana-georgieva-yaneva-693b23",
+  "nodes": [
+    {
+      "id": "official:gergana-georgieva-yaneva-693b23",
+      "type": "official",
+      "slug": "gergana-georgieva-yaneva-693b23",
+      "label": "Гергана Георгиева Янева",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176813178",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ЧАР-ЧЕРНОМОРСКА АСОЦИАЦИЯ ЗА РАЗВИТИЕ - БУРГАС&quot;",
+      "slug": null,
+      "uic": "176813178",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕРГАНА ГЕОРГИЕВА ЯНЕВА - УПРАВИТЕЛ",
+      "type": "person",
+      "label": "Гергана Георгиева Янева - Управител"
+    },
+    {
+      "id": "person:КРАСИМИРА ВАСИЛЕВА ЯТАКЧИЕВА",
+      "type": "person",
+      "label": "Красимира Василева Ятакчиева"
+    },
+    {
+      "id": "person:АННА МИРОСЛАВОВА ДОБРЕВА",
+      "type": "person",
+      "label": "Анна Мирославова Добрева"
+    },
+    {
+      "id": "person:АННА МИРОСЛАВОВА ДОБРЕВА-БАКАЛОВА",
+      "type": "person",
+      "label": "Анна Мирославова Добрева-Бакалова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gergana-georgieva-yaneva-693b23",
+      "target": "company:tr:176813178",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕРГАНА ГЕОРГИЕВА ЯНЕВА - УПРАВИТЕЛ",
+      "target": "company:tr:176813178",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ВАСИЛЕВА ЯТАКЧИЕВА",
+      "target": "company:tr:176813178",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ВАСИЛЕВА ЯТАКЧИЕВА",
+      "target": "company:tr:176813178",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА МИРОСЛАВОВА ДОБРЕВА",
+      "target": "company:tr:176813178",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА МИРОСЛАВОВА ДОБРЕВА",
+      "target": "company:tr:176813178",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА МИРОСЛАВОВА ДОБРЕВА-БАКАЛОВА",
+      "target": "company:tr:176813178",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА МИРОСЛАВОВА ДОБРЕВА-БАКАЛОВА",
+      "target": "company:tr:176813178",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

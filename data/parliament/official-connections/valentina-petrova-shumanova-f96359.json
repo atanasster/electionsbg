@@ -1,0 +1,168 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:valentina-petrova-shumanova-f96359",
+  "nodes": [
+    {
+      "id": "official:valentina-petrova-shumanova-f96359",
+      "type": "official",
+      "slug": "valentina-petrova-shumanova-f96359",
+      "label": "Валентина Петрова Шуманова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Септември"
+    },
+    {
+      "id": "company:tr:000343668",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ ВЪЗРАЖДАНЕ 1926",
+      "slug": null,
+      "uic": "000343668",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН ОГНЯНОВ КАМЕНАРСКИ",
+      "type": "person",
+      "label": "Иван Огнянов Каменарски"
+    },
+    {
+      "id": "person:ЕМИЛ БОРИСОВ ГЮРОВ",
+      "type": "person",
+      "label": "Емил Борисов Гюров"
+    },
+    {
+      "id": "person:СТЕФАН ДИМИТРОВ ПОПОВ",
+      "type": "person",
+      "label": "Стефан Димитров Попов"
+    },
+    {
+      "id": "person:СТОЯН ИВАНОВ БАЛАБАНОВ",
+      "type": "person",
+      "label": "Стоян Иванов Балабанов"
+    },
+    {
+      "id": "person:ХРИСТИНА ИВАНОВА ШИКОВА",
+      "type": "person",
+      "label": "Христина Иванова Шикова"
+    },
+    {
+      "id": "person:ВИТЯ ГЕОРГИЕВ ПОСТАЛКОВ",
+      "type": "person",
+      "label": "Витя Георгиев Посталков"
+    },
+    {
+      "id": "person:МАРГАРИТА НИКОЛАЕВА ПЕРОСТИЙСКА",
+      "type": "person",
+      "label": "Маргарита Николаева Перостийска"
+    },
+    {
+      "id": "person:КРЪСТИНА ИВАНОВА МЕСТАНОВА",
+      "type": "person",
+      "label": "Кръстина Иванова Местанова"
+    },
+    {
+      "id": "person:ВЕСКА АНГЕЛОВА КАРАИВАНОВА",
+      "type": "person",
+      "label": "Веска Ангелова Караиванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valentina-petrova-shumanova-f96359",
+      "target": "company:tr:000343668",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:valentina-petrova-shumanova-f96359",
+      "target": "company:tr:000343668",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ОГНЯНОВ КАМЕНАРСКИ",
+      "target": "company:tr:000343668",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ БОРИСОВ ГЮРОВ",
+      "target": "company:tr:000343668",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ДИМИТРОВ ПОПОВ",
+      "target": "company:tr:000343668",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ИВАНОВ БАЛАБАНОВ",
+      "target": "company:tr:000343668",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА ИВАНОВА ШИКОВА",
+      "target": "company:tr:000343668",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИТЯ ГЕОРГИЕВ ПОСТАЛКОВ",
+      "target": "company:tr:000343668",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА НИКОЛАЕВА ПЕРОСТИЙСКА",
+      "target": "company:tr:000343668",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРЪСТИНА ИВАНОВА МЕСТАНОВА",
+      "target": "company:tr:000343668",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСКА АНГЕЛОВА КАРАИВАНОВА",
+      "target": "company:tr:000343668",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ОГНЯНОВ КАМЕНАРСКИ",
+      "target": "company:tr:000343668",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

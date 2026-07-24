@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:kostadin-iliev-partenov-340268",
+  "nodes": [
+    {
+      "id": "official:kostadin-iliev-partenov-340268",
+      "type": "official",
+      "slug": "kostadin-iliev-partenov-340268",
+      "label": "Костадин Илиев Партенов",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:102680489",
+      "type": "company",
+      "label": "ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН ЦЕНТЪР &quot;СВ.ГЕОРГИ ПОБЕДОНОСЕЦ&quot;",
+      "slug": null,
+      "uic": "102680489",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kostadin-iliev-partenov-340268",
+      "target": "company:tr:102680489",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

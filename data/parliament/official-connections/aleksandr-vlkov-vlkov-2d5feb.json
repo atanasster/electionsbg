@@ -1,0 +1,153 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:aleksandr-vlkov-vlkov-2d5feb",
+  "nodes": [
+    {
+      "id": "official:aleksandr-vlkov-vlkov-2d5feb",
+      "type": "official",
+      "slug": "aleksandr-vlkov-vlkov-2d5feb",
+      "label": "Александър Вълков Вълков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:114532352",
+      "type": "company",
+      "label": "УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - Д-Р ГЕОРГИ СТРАНСКИ",
+      "slug": null,
+      "uic": "114532352",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:2926",
+      "type": "mp",
+      "mpId": 2926,
+      "label": "Калин Николов Поповски",
+      "partyGroupShort": "ВМРО",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "official:ventsislav-tsvetanov-grozev-71b80a",
+      "type": "official",
+      "slug": "ventsislav-tsvetanov-grozev-71b80a",
+      "label": "Венцислав Цветанов Грозев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "official:diyan-lyubomirov-svrakov-2ed465",
+      "type": "official",
+      "slug": "diyan-lyubomirov-svrakov-2ed465",
+      "label": "Диян Любомиров Свраков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "official:tsvetan-hristoforov-lukanov-3bd5d3",
+      "type": "official",
+      "slug": "tsvetan-hristoforov-lukanov-3bd5d3",
+      "label": "Цветан Христофоров Луканов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:ДИМИТЪР ЖИВКОВ СТОЙКОВ",
+      "type": "person",
+      "label": "Димитър Живков Стойков"
+    },
+    {
+      "id": "person:ДОБРОМИР ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Добромир Димитров Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandr-vlkov-vlkov-2d5feb",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aleksandr-vlkov-vlkov-2d5feb",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2926",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ventsislav-tsvetanov-grozev-71b80a",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:diyan-lyubomirov-svrakov-2ed465",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tsvetan-hristoforov-lukanov-3bd5d3",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tsvetan-hristoforov-lukanov-3bd5d3",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР ЖИВКОВ СТОЙКОВ",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ЖИВКОВ СТОЙКОВ",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРОМИР ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:petr-andreev-stoyanov-91d5e9",
+  "nodes": [
+    {
+      "id": "official:petr-andreev-stoyanov-91d5e9",
+      "type": "official",
+      "slug": "petr-andreev-stoyanov-91d5e9",
+      "label": "Петър Андреев Стоянов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хасково"
+    },
+    {
+      "id": "company:tr:206457068",
+      "type": "company",
+      "label": "ФикПро ЕООД",
+      "slug": null,
+      "uic": "206457068",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petr-andreev-stoyanov-91d5e9",
+      "target": "company:tr:206457068",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

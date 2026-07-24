@@ -1,0 +1,168 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitrina-angelova-kolova-3cf51f",
+  "nodes": [
+    {
+      "id": "official:dimitrina-angelova-kolova-3cf51f",
+      "type": "official",
+      "slug": "dimitrina-angelova-kolova-3cf51f",
+      "label": "Димитрина Ангелова Колова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000312758",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;РАЗУМ - 1883 &quot;",
+      "slug": null,
+      "uic": "000312758",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СВЕТОСЛАВ СТЕФАНОВ БОЦЕВ",
+      "type": "person",
+      "label": "Светослав Стефанов Боцев"
+    },
+    {
+      "id": "person:ИВО ГЕОРГИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Иво Георгиев Георгиев"
+    },
+    {
+      "id": "person:НИНА ИВАНОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Нина Иванова Петрова"
+    },
+    {
+      "id": "person:ДЕЯН ГЕОРГИЕВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Деян Георгиев Димитров"
+    },
+    {
+      "id": "person:ЖУЛИЕТА ЛЮБОМИРОВА КАЛЧЕВА",
+      "type": "person",
+      "label": "Жулиета Любомирова Калчева"
+    },
+    {
+      "id": "person:РАШКО КАМЕНОВ ГРИГОРОВ",
+      "type": "person",
+      "label": "Рашко Каменов Григоров"
+    },
+    {
+      "id": "person:ДАНИЕЛА ПЕНЧЕВА ВАСИЛЕВА-ДАНАИЛОВА",
+      "type": "person",
+      "label": "Даниела Пенчева Василева-Данаилова"
+    },
+    {
+      "id": "person:СТАНЧО ВЕНЕЛИНОВ МАНЧЕВСКИ",
+      "type": "person",
+      "label": "Станчо Венелинов Манчевски"
+    },
+    {
+      "id": "person:БОЙКА ДИМИТРОВА СЕРАФИМОВА",
+      "type": "person",
+      "label": "Бойка Димитрова Серафимова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitrina-angelova-kolova-3cf51f",
+      "target": "company:tr:000312758",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ СТЕФАНОВ БОЦЕВ",
+      "target": "company:tr:000312758",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:000312758",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА ИВАНОВА ПЕТРОВА",
+      "target": "company:tr:000312758",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:000312758",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ СТЕФАНОВ БОЦЕВ",
+      "target": "company:tr:000312758",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЯН ГЕОРГИЕВ ДИМИТРОВ",
+      "target": "company:tr:000312758",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖУЛИЕТА ЛЮБОМИРОВА КАЛЧЕВА",
+      "target": "company:tr:000312758",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАШКО КАМЕНОВ ГРИГОРОВ",
+      "target": "company:tr:000312758",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ПЕНЧЕВА ВАСИЛЕВА-ДАНАИЛОВА",
+      "target": "company:tr:000312758",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНЧО ВЕНЕЛИНОВ МАНЧЕВСКИ",
+      "target": "company:tr:000312758",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЙКА ДИМИТРОВА СЕРАФИМОВА",
+      "target": "company:tr:000312758",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:emil-georgiev-tsvetkov-8d2d34",
+  "nodes": [
+    {
+      "id": "official:emil-georgiev-tsvetkov-8d2d34",
+      "type": "official",
+      "slug": "emil-georgiev-tsvetkov-8d2d34",
+      "label": "Емил Георгиев Цветков",
+      "tier": "executive",
+      "role": "diplomat",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206562471",
+      "type": "company",
+      "label": "МЕТАЛ ЕМ",
+      "slug": null,
+      "uic": "206562471",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-georgiev-tsvetkov-8d2d34",
+      "target": "company:tr:206562471",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:emil-georgiev-tsvetkov-8d2d34",
+      "target": "company:tr:206562471",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

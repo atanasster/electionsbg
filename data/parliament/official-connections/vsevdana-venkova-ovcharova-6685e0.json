@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vsevdana-venkova-ovcharova-6685e0",
+  "nodes": [
+    {
+      "id": "official:vsevdana-venkova-ovcharova-6685e0",
+      "type": "official",
+      "slug": "vsevdana-venkova-ovcharova-6685e0",
+      "label": "Всевдана Венкова Овчарова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200462966",
+      "type": "company",
+      "label": "СВИЛЕНГРАД-ГАЗ",
+      "slug": null,
+      "uic": "200462966",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НЕЛИ ХРИСТОВА АДАМОВА",
+      "type": "person",
+      "label": "Нели Христова Адамова"
+    },
+    {
+      "id": "person:МАСУД АБДУС САТАР",
+      "type": "person",
+      "label": "Масуд Абдус Сатар"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vsevdana-venkova-ovcharova-6685e0",
+      "target": "company:tr:200462966",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НЕЛИ ХРИСТОВА АДАМОВА",
+      "target": "company:tr:200462966",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАСУД АБДУС САТАР",
+      "target": "company:tr:200462966",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

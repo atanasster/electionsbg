@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:galina-dimitrova-stefanova-e45b7f",
+  "nodes": [
+    {
+      "id": "official:galina-dimitrova-stefanova-e45b7f",
+      "type": "official",
+      "slug": "galina-dimitrova-stefanova-e45b7f",
+      "label": "Галина Димитрова Стефанова",
+      "tier": "executive",
+      "role": "party_leader",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207073711",
+      "type": "company",
+      "label": "ГЕГАРА",
+      "slug": null,
+      "uic": "207073711",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:galina-dimitrova-stefanova-e45b7f",
+      "target": "company:tr:207073711",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:galina-dimitrova-stefanova-e45b7f",
+      "target": "company:tr:207073711",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

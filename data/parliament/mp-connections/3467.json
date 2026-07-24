@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:3467",
   "nodes": [
     {
@@ -24,72 +24,72 @@
       "seat": null
     },
     {
-      "id": "official:georgi-markov-klisurski-d3bb76",
+      "id": "official:georgi-markov-klisurski-d7370d",
       "type": "official",
-      "slug": "georgi-markov-klisurski-d3bb76",
+      "slug": "georgi-markov-klisurski-d7370d",
       "label": "Георги Марков Клисурски",
       "tier": "executive",
       "role": "deputy_minister",
       "municipality": null
     },
     {
-      "id": "official:anna-ilieva-stoikova-1a1801",
+      "id": "official:anna-ilieva-stoikova-f4a348",
       "type": "official",
-      "slug": "anna-ilieva-stoikova-1a1801",
+      "slug": "anna-ilieva-stoikova-f4a348",
       "label": "Анна Илиева Стойкова",
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Столична община"
     },
     {
-      "id": "official:ventsi-ventsislavov-stoichev-83dc07",
+      "id": "official:ventsi-ventsislavov-stoichev-c4d7a6",
       "type": "official",
-      "slug": "ventsi-ventsislavov-stoichev-83dc07",
+      "slug": "ventsi-ventsislavov-stoichev-c4d7a6",
       "label": "Венци Венциславов Стойчев",
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Столична община"
     },
     {
-      "id": "official:veselin-iordanov-kalanovski-773e55",
+      "id": "official:veselin-iordanov-kalanovski-8bd0d5",
       "type": "official",
-      "slug": "veselin-iordanov-kalanovski-773e55",
+      "slug": "veselin-iordanov-kalanovski-8bd0d5",
       "label": "Веселин Йорданов Калановски",
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Столична община"
     },
     {
-      "id": "official:eno-enev-savov-d6e240",
+      "id": "official:eno-enev-savov-cfd1ee",
       "type": "official",
-      "slug": "eno-enev-savov-d6e240",
+      "slug": "eno-enev-savov-cfd1ee",
       "label": "Еньо Енев Савов",
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Столична община"
     },
     {
-      "id": "official:nikolai-velov-velchev-9f08a6",
+      "id": "official:nikolai-velov-velchev-3986ef",
       "type": "official",
-      "slug": "nikolai-velov-velchev-9f08a6",
+      "slug": "nikolai-velov-velchev-3986ef",
       "label": "Николай Вельов Велчев",
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Столична община"
     },
     {
-      "id": "official:tatyana-nikolova-georgieva-6e7c90",
+      "id": "official:tatyana-nikolova-georgieva-6e8675",
       "type": "official",
-      "slug": "tatyana-nikolova-georgieva-6e7c90",
+      "slug": "tatyana-nikolova-georgieva-6e8675",
       "label": "Татяна Николова Георгиева",
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Столична община"
     },
     {
-      "id": "official:hristo-nikolaev-koparanov-2acbdf",
+      "id": "official:hristo-nikolaev-koparanov-e5c57b",
       "type": "official",
-      "slug": "hristo-nikolaev-koparanov-2acbdf",
+      "slug": "hristo-nikolaev-koparanov-e5c57b",
       "label": "Христо Николаев Копаранов",
       "tier": "municipal",
       "role": "councillor",
@@ -861,7 +861,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:georgi-markov-klisurski-d3bb76",
+      "source": "official:georgi-markov-klisurski-d7370d",
       "target": "company:tr:176909251",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -869,7 +869,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:anna-ilieva-stoikova-1a1801",
+      "source": "official:anna-ilieva-stoikova-f4a348",
       "target": "company:tr:176909251",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -877,7 +877,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:ventsi-ventsislavov-stoichev-83dc07",
+      "source": "official:ventsi-ventsislavov-stoichev-c4d7a6",
       "target": "company:tr:176909251",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -885,7 +885,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:veselin-iordanov-kalanovski-773e55",
+      "source": "official:veselin-iordanov-kalanovski-8bd0d5",
       "target": "company:tr:176909251",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -893,7 +893,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:eno-enev-savov-d6e240",
+      "source": "official:eno-enev-savov-cfd1ee",
       "target": "company:tr:176909251",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -901,7 +901,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:nikolai-velov-velchev-9f08a6",
+      "source": "official:nikolai-velov-velchev-3986ef",
       "target": "company:tr:176909251",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -909,7 +909,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:tatyana-nikolova-georgieva-6e7c90",
+      "source": "official:tatyana-nikolova-georgieva-6e8675",
       "target": "company:tr:176909251",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -917,7 +917,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:hristo-nikolaev-koparanov-2acbdf",
+      "source": "official:hristo-nikolaev-koparanov-e5c57b",
       "target": "company:tr:176909251",
       "kind": "tr_role",
       "role": "ngo_board",

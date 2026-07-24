@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:denis-aleksandrov-indzhov-a60feb",
+  "nodes": [
+    {
+      "id": "official:denis-aleksandrov-indzhov-a60feb",
+      "type": "official",
+      "slug": "denis-aleksandrov-indzhov-a60feb",
+      "label": "Денис Александров Инджов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Рудозем"
+    },
+    {
+      "id": "company:tr:206641794",
+      "type": "company",
+      "label": "ФК РУДОЗЕМ",
+      "slug": null,
+      "uic": "206641794",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БИСЕР ИЛИЕВ КАБАКОВ",
+      "type": "person",
+      "label": "Бисер Илиев Кабаков"
+    },
+    {
+      "id": "person:СТАНИМИР ЮЛИЯНОВ ХАДЖИЙСКИ",
+      "type": "person",
+      "label": "Станимир Юлиянов Хаджийски"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:denis-aleksandrov-indzhov-a60feb",
+      "target": "company:tr:206641794",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БИСЕР ИЛИЕВ КАБАКОВ",
+      "target": "company:tr:206641794",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИСЕР ИЛИЕВ КАБАКОВ",
+      "target": "company:tr:206641794",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИР ЮЛИЯНОВ ХАДЖИЙСКИ",
+      "target": "company:tr:206641794",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

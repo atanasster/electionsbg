@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:zapryan-trifonov-hristev-da190c",
+  "nodes": [
+    {
+      "id": "official:zapryan-trifonov-hristev-da190c",
+      "type": "official",
+      "slug": "zapryan-trifonov-hristev-da190c",
+      "label": "Запрян Трифонов Христев",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206142332",
+      "type": "company",
+      "label": "НАЦИОНАЛНО ДВИЖЕНИЕ ЗА СОЦИАЛНО И ГРАЖДАНСКО РАЗВИТИЕ",
+      "slug": null,
+      "uic": "206142332",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МЛАДЕН ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Младен Иванов Иванов"
+    },
+    {
+      "id": "person:СИМЕОН РАНГЕЛОВ ИВАНОВ",
+      "type": "person",
+      "label": "Симеон Рангелов Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zapryan-trifonov-hristev-da190c",
+      "target": "company:tr:206142332",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МЛАДЕН ИВАНОВ ИВАНОВ",
+      "target": "company:tr:206142332",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЛАДЕН ИВАНОВ ИВАНОВ",
+      "target": "company:tr:206142332",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН РАНГЕЛОВ ИВАНОВ",
+      "target": "company:tr:206142332",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

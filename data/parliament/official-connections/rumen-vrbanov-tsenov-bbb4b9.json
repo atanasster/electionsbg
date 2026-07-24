@@ -1,0 +1,241 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rumen-vrbanov-tsenov-bbb4b9",
+  "nodes": [
+    {
+      "id": "official:rumen-vrbanov-tsenov-bbb4b9",
+      "type": "official",
+      "slug": "rumen-vrbanov-tsenov-bbb4b9",
+      "label": "Румен Върбанов Ценов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Монтана"
+    },
+    {
+      "id": "company:tr:111585392",
+      "type": "company",
+      "label": "РОТАРИ КЛУБ - МОНТАНА",
+      "slug": null,
+      "uic": "111585392",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАЛЕРИЯ ИВАНОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Валерия Иванова Тодорова"
+    },
+    {
+      "id": "person:МАЯ ВЛАДИМИРОВА ГРИГОРОВА",
+      "type": "person",
+      "label": "Мая Владимирова Григорова"
+    },
+    {
+      "id": "person:МАРИУС ТОДОРОВ КОНОВ",
+      "type": "person",
+      "label": "Мариус Тодоров Конов"
+    },
+    {
+      "id": "person:ЛЮДМИЛ ТОДОРОВ АНТОВ",
+      "type": "person",
+      "label": "Людмил Тодоров Антов"
+    },
+    {
+      "id": "person:БОРИС НАЙДЕНОВ ЦВЕТКОВ",
+      "type": "person",
+      "label": "Борис Найденов Цветков"
+    },
+    {
+      "id": "person:КИРИЛ ПЕТКОВ КИРИЛОВ",
+      "type": "person",
+      "label": "Кирил Петков Кирилов"
+    },
+    {
+      "id": "person:ХРИСТО СЛАВОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Христо Славов Петров"
+    },
+    {
+      "id": "person:ГЕОРГИ БОРИСОВ СЛАВЧЕВ",
+      "type": "person",
+      "label": "Георги Борисов Славчев"
+    },
+    {
+      "id": "person:ТОДОР ВЛАДИМИРОВ ЦВЕТКОВ",
+      "type": "person",
+      "label": "Тодор Владимиров Цветков"
+    },
+    {
+      "id": "person:ВАЛЕРИ НИКОЛОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Валери Николов Николов"
+    },
+    {
+      "id": "person:ЦВЕТАН СТАНЕВ СТАНЕВ",
+      "type": "person",
+      "label": "Цветан Станев Станев"
+    },
+    {
+      "id": "person:ДИМИТЪР ЛЮБЕНОВ АНАНИЕВ",
+      "type": "person",
+      "label": "Димитър Любенов Ананиев"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ЗАМФИРОВА ЗАМФИРОВА",
+      "type": "person",
+      "label": "Десислава Замфирова Замфирова"
+    },
+    {
+      "id": "person:РАДОСЛАВ ВАСИЛЕВ РАЙКОВ",
+      "type": "person",
+      "label": "Радослав Василев Райков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rumen-vrbanov-tsenov-bbb4b9",
+      "target": "company:tr:111585392",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rumen-vrbanov-tsenov-bbb4b9",
+      "target": "company:tr:111585392",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕРИЯ ИВАНОВА ТОДОРОВА",
+      "target": "company:tr:111585392",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЯ ВЛАДИМИРОВА ГРИГОРОВА",
+      "target": "company:tr:111585392",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИЯ ИВАНОВА ТОДОРОВА",
+      "target": "company:tr:111585392",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИУС ТОДОРОВ КОНОВ",
+      "target": "company:tr:111585392",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ ТОДОРОВ АНТОВ",
+      "target": "company:tr:111585392",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИС НАЙДЕНОВ ЦВЕТКОВ",
+      "target": "company:tr:111585392",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ПЕТКОВ КИРИЛОВ",
+      "target": "company:tr:111585392",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО СЛАВОВ ПЕТРОВ",
+      "target": "company:tr:111585392",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ БОРИСОВ СЛАВЧЕВ",
+      "target": "company:tr:111585392",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ВЛАДИМИРОВ ЦВЕТКОВ",
+      "target": "company:tr:111585392",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ НИКОЛОВ НИКОЛОВ",
+      "target": "company:tr:111585392",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ НИКОЛОВ НИКОЛОВ",
+      "target": "company:tr:111585392",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН СТАНЕВ СТАНЕВ",
+      "target": "company:tr:111585392",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ЛЮБЕНОВ АНАНИЕВ",
+      "target": "company:tr:111585392",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ЗАМФИРОВА ЗАМФИРОВА",
+      "target": "company:tr:111585392",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ВАСИЛЕВ РАЙКОВ",
+      "target": "company:tr:111585392",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariya-vasileva-nikovska-8ef184",
+  "nodes": [
+    {
+      "id": "official:mariya-vasileva-nikovska-8ef184",
+      "type": "official",
+      "slug": "mariya-vasileva-nikovska-8ef184",
+      "label": "Мария Василева Никовска",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206870585",
+      "type": "company",
+      "label": "Компост 2022",
+      "slug": null,
+      "uic": "206870585",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СЪБО ДИМИТРОВ ГОЗАНСКИ",
+      "type": "person",
+      "label": "Събо Димитров Гозански"
+    },
+    {
+      "id": "person:ОБЩИНА КРИЧИМ",
+      "type": "person",
+      "label": "Община Кричим"
+    },
+    {
+      "id": "person:ОБЩИНА ПЕРУЩИЦА",
+      "type": "person",
+      "label": "Община Перущица"
+    },
+    {
+      "id": "person:МАРИЯ ДАВИДОВА ПАРОВА",
+      "type": "person",
+      "label": "Мария Давидова Парова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-vasileva-nikovska-8ef184",
+      "target": "company:tr:206870585",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СЪБО ДИМИТРОВ ГОЗАНСКИ",
+      "target": "company:tr:206870585",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА КРИЧИМ",
+      "target": "company:tr:206870585",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ПЕРУЩИЦА",
+      "target": "company:tr:206870585",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ДАВИДОВА ПАРОВА",
+      "target": "company:tr:206870585",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:4911",
   "nodes": [
     {
@@ -77,18 +77,18 @@
       ]
     },
     {
-      "id": "official:aglika-stefcheva-videnova-0d444a",
+      "id": "official:aglika-stefcheva-videnova-19e71e",
       "type": "official",
-      "slug": "aglika-stefcheva-videnova-0d444a",
+      "slug": "aglika-stefcheva-videnova-19e71e",
       "label": "Аглика Стефчева Виденова",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:vyara-emilova-iordanova-b25d24",
+      "id": "official:vyara-emilova-iordanova-a65379",
       "type": "official",
-      "slug": "vyara-emilova-iordanova-b25d24",
+      "slug": "vyara-emilova-iordanova-a65379",
       "label": "Вяра Емилова Йорданова",
       "tier": "executive",
       "role": "agency_head",
@@ -143,18 +143,18 @@
       "nsFolders": []
     },
     {
-      "id": "official:nelka-nencheva-vasileva-259142",
+      "id": "official:nelka-nencheva-vasileva-33fb70",
       "type": "official",
-      "slug": "nelka-nencheva-vasileva-259142",
+      "slug": "nelka-nencheva-vasileva-33fb70",
       "label": "Нелка Ненчева Василева",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "kindergarten",
       "municipality": null
     },
     {
-      "id": "official:antoaneta-zdravkova-draganova-495e5b",
+      "id": "official:antoaneta-zdravkova-draganova-1d80f8",
       "type": "official",
-      "slug": "antoaneta-zdravkova-draganova-495e5b",
+      "slug": "antoaneta-zdravkova-draganova-1d80f8",
       "label": "Антоанета Здравкова Драганова",
       "tier": "municipal",
       "role": "councillor",
@@ -881,7 +881,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:aglika-stefcheva-videnova-0d444a",
+      "source": "official:aglika-stefcheva-videnova-19e71e",
       "target": "company:tr:176936800",
       "kind": "tr_role",
       "role": "ngo_representative",
@@ -889,7 +889,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:aglika-stefcheva-videnova-0d444a",
+      "source": "official:aglika-stefcheva-videnova-19e71e",
       "target": "company:tr:176936800",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -897,7 +897,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:vyara-emilova-iordanova-b25d24",
+      "source": "official:vyara-emilova-iordanova-a65379",
       "target": "company:tr:176936800",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -953,7 +953,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:nelka-nencheva-vasileva-259142",
+      "source": "official:nelka-nencheva-vasileva-33fb70",
       "target": "company:tr:130341567",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -961,7 +961,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:antoaneta-zdravkova-draganova-495e5b",
+      "source": "official:antoaneta-zdravkova-draganova-1d80f8",
       "target": "company:tr:130341567",
       "kind": "tr_role",
       "role": "ngo_board",

@@ -1,0 +1,81 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-hristov-borisov-8a1eda",
+  "nodes": [
+    {
+      "id": "official:georgi-hristov-borisov-8a1eda",
+      "type": "official",
+      "slug": "georgi-hristov-borisov-8a1eda",
+      "label": "Георги Христов Борисов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Аксаково"
+    },
+    {
+      "id": "company:tr:208108001",
+      "type": "company",
+      "label": "АГРО 66",
+      "slug": null,
+      "uic": "208108001",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Водица, 9141"
+    },
+    {
+      "id": "mp:1708",
+      "type": "mp",
+      "mpId": 1708,
+      "label": "Георги Христов Борисов",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:ГЕОРГИ ХРИСТОВ БОРИСОВ",
+      "type": "person",
+      "label": "Георги Христов Борисов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-hristov-borisov-8a1eda",
+      "target": "company:tr:208108001",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:1708",
+      "target": "company:tr:208108001",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1708",
+      "target": "company:tr:208108001",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ХРИСТОВ БОРИСОВ",
+      "target": "company:tr:208108001",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ХРИСТОВ БОРИСОВ",
+      "target": "company:tr:208108001",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

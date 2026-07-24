@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tsvetelina-milcheva-vladimirova-dimitrova-140ace",
+  "nodes": [
+    {
+      "id": "official:tsvetelina-milcheva-vladimirova-dimitrova-140ace",
+      "type": "official",
+      "slug": "tsvetelina-milcheva-vladimirova-dimitrova-140ace",
+      "label": "Цветелина Милчева Владимирова-Димитрова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ботевград"
+    },
+    {
+      "id": "company:tr:206818892",
+      "type": "company",
+      "label": "Д-р Цветелина Владимирова - Амбулатория, индивидуална практика за специализирана медицинска помощ по ендокринни болести",
+      "slug": null,
+      "uic": "206818892",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetelina-milcheva-vladimirova-dimitrova-140ace",
+      "target": "company:tr:206818892",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tsvetelina-milcheva-vladimirova-dimitrova-140ace",
+      "target": "company:tr:206818892",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

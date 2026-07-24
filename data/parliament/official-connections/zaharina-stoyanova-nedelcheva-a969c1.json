@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:zaharina-stoyanova-nedelcheva-a969c1",
+  "nodes": [
+    {
+      "id": "official:zaharina-stoyanova-nedelcheva-a969c1",
+      "type": "official",
+      "slug": "zaharina-stoyanova-nedelcheva-a969c1",
+      "label": "Захарина Стоянова Неделчева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Приморско"
+    },
+    {
+      "id": "company:tr:102245871",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ПРОФЕСИОНАЛНА ГИМНАЗИЯ ПО МЕХАНОЕЛЕКТРОТЕХНИКА И ЕЛЕКТРОНИКА",
+      "slug": null,
+      "uic": "102245871",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАНКА ВЕЛКОВА ЧОЧОРОВА",
+      "type": "person",
+      "label": "Иванка Велкова Чочорова"
+    },
+    {
+      "id": "person:КРЕМЕНА ГЕОРГИЕВА НЕДЕЛЧЕВА",
+      "type": "person",
+      "label": "Кремена Георгиева Неделчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zaharina-stoyanova-nedelcheva-a969c1",
+      "target": "company:tr:102245871",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zaharina-stoyanova-nedelcheva-a969c1",
+      "target": "company:tr:102245871",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАНКА ВЕЛКОВА ЧОЧОРОВА",
+      "target": "company:tr:102245871",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРЕМЕНА ГЕОРГИЕВА НЕДЕЛЧЕВА",
+      "target": "company:tr:102245871",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

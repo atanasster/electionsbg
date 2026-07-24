@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivanka-nikolova-krdzhiiska-e0c579",
+  "nodes": [
+    {
+      "id": "official:ivanka-nikolova-krdzhiiska-e0c579",
+      "type": "official",
+      "slug": "ivanka-nikolova-krdzhiiska-e0c579",
+      "label": "Иванка Николова Кърджийска",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Септември"
+    },
+    {
+      "id": "company:tr:176915705",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ КАРАБУНАР",
+      "slug": null,
+      "uic": "176915705",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН ОГНЯНОВ КАМЕНАРСКИ",
+      "type": "person",
+      "label": "Иван Огнянов Каменарски"
+    },
+    {
+      "id": "person:БОРЯНА НИКОЛАЕВА МАРИНОВА",
+      "type": "person",
+      "label": "Боряна Николаева Маринова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivanka-nikolova-krdzhiiska-e0c579",
+      "target": "company:tr:176915705",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ОГНЯНОВ КАМЕНАРСКИ",
+      "target": "company:tr:176915705",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ОГНЯНОВ КАМЕНАРСКИ",
+      "target": "company:tr:176915705",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРЯНА НИКОЛАЕВА МАРИНОВА",
+      "target": "company:tr:176915705",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

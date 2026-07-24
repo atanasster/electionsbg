@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:zhivko-dimitrov-zhechev-1c048f",
+  "nodes": [
+    {
+      "id": "official:zhivko-dimitrov-zhechev-1c048f",
+      "type": "official",
+      "slug": "zhivko-dimitrov-zhechev-1c048f",
+      "label": "Живко Димитров Жечев",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176709140",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ КЛУБ ЗА ПЛАНИНАРСТВО И ЕКСТРЕМНИ СПОРТОВЕ &quot;ХЕМУС АДВЕНЧЪР&quot;",
+      "slug": null,
+      "uic": "176709140",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВЕЛИН КИРИЛОВ ПЕНЧЕВ",
+      "type": "person",
+      "label": "Ивелин Кирилов Пенчев"
+    },
+    {
+      "id": "person:ГАЛИНА АВРАМОВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Галина Аврамова Стефанова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zhivko-dimitrov-zhechev-1c048f",
+      "target": "company:tr:176709140",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zhivko-dimitrov-zhechev-1c048f",
+      "target": "company:tr:176709140",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВЕЛИН КИРИЛОВ ПЕНЧЕВ",
+      "target": "company:tr:176709140",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА АВРАМОВА СТЕФАНОВА",
+      "target": "company:tr:176709140",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

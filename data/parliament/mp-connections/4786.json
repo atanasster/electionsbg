@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:4786",
   "nodes": [
     {
@@ -52,11 +52,6 @@
       "label": "Аксиния Борисова Борисова"
     },
     {
-      "id": "person:ДАНИЕЛА ПЕТРОВА МИРКОВСКА",
-      "type": "person",
-      "label": "Даниела Петрова Мирковска"
-    },
-    {
       "id": "person:ДИАНА ГЕОРГИЕВА ПРОДАНОВА",
       "type": "person",
       "label": "Диана Георгиева Проданова"
@@ -90,6 +85,15 @@
       "id": "person:ДАНИЕЛА ПЕТРОВА ЙОРДАНОВА",
       "type": "person",
       "label": "Даниела Петрова Йорданова"
+    },
+    {
+      "id": "official:daniela-petrova-mirkovska-069768",
+      "type": "official",
+      "slug": "daniela-petrova-mirkovska-069768",
+      "label": "Даниела Петрова Мирковска",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
     }
   ],
   "edges": [
@@ -119,14 +123,6 @@
     },
     {
       "source": "person:АКСИНИЯ БОРИСОВА БОРИСОВА",
-      "target": "company:Клуб-Амарант-ООД",
-      "kind": "tr_owner",
-      "role": "partner",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ДАНИЕЛА ПЕТРОВА МИРКОВСКА",
       "target": "company:Клуб-Амарант-ООД",
       "kind": "tr_owner",
       "role": "partner",
@@ -196,6 +192,14 @@
       "role": "partner",
       "isCurrent": true,
       "confidence": "high"
+    },
+    {
+      "source": "official:daniela-petrova-mirkovska-069768",
+      "target": "company:Клуб-Амарант-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
     }
   ],
   "paths": []

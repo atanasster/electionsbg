@@ -1,0 +1,128 @@
+[
+  {
+    "slug": "dobromir-prodanov-prodanov-a3a3c1",
+    "declarantName": "ДОБРОМИР ПРОДАНОВ ПРОДАНОВ",
+    "institution": "Габрово",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-11",
+    "entryNumber": "Г1904",
+    "controlHash": "083A3ED6",
+    "sourceUrl": "https://register.cacbg.bg/2025/787A106D-08F9-4D1C-8A43-F4E18A14EF68204471.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дружествени дялове",
+        "shareSize": "100%",
+        "companyName": "\"ВАВИ-М\" ЕООД",
+        "registeredOffice": "Габрово",
+        "valueEur": 2556.4594059810925,
+        "holderName": "Добромир Проданов Проданов",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "table": "10",
+        "itemType": "дружествени дялове",
+        "shareSize": "216 дяла",
+        "companyName": "\"СТИВ-98\" ООД",
+        "registeredOffice": "Габрово",
+        "valueEur": 11043.90463383832,
+        "holderName": "Добромир Проданов Проданов",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "спестявания"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6534.310241687673,
+        "amountEurSpouse": 5392.08417909532
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2886.7539612338496,
+        "amountEurSpouse": 590.5421227816323
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10890,
+        "valueEur": 10890.517069479454,
+        "holderName": "Добромир Проданов Проданов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати и спестявания"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Юлияна Русева Проданова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплати и спестявания"
+      },
+      {
+        "category": "debt",
+        "description": "банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 38292,
+        "valueEur": 19578.3887147656,
+        "holderName": "Добромир Проданов Проданов",
+        "isSpouse": false,
+        "legalBasis": "банков кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 7000,
+        "valueEur": 6737.804410403767,
+        "holderName": "Добромир Проданов Проданов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      }
+    ],
+    "events": []
+  }
+]

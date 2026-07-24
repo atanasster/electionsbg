@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:5093",
   "nodes": [
     {
@@ -84,18 +84,18 @@
       "seat": null
     },
     {
-      "id": "official:alfidin-raifov-ahmedov-c9e5d7",
+      "id": "official:alfidin-raifov-ahmedov-e2d8b9",
       "type": "official",
-      "slug": "alfidin-raifov-ahmedov-c9e5d7",
+      "slug": "alfidin-raifov-ahmedov-e2d8b9",
       "label": "Алфидин Раифов Ахмедов",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "cultural_institute",
       "municipality": null
     },
     {
-      "id": "official:nikolai-evgeniev-petrov-0992db",
+      "id": "official:nikolai-evgeniev-petrov-1f3d4a",
       "type": "official",
-      "slug": "nikolai-evgeniev-petrov-0992db",
+      "slug": "nikolai-evgeniev-petrov-1f3d4a",
       "label": "Николай Евгениев Петров",
       "tier": "executive",
       "role": "state_enterprise",
@@ -152,9 +152,9 @@
       "label": "Христо Петров Цонев"
     },
     {
-      "id": "official:velina-kirilova-kulina-0573d3",
+      "id": "official:velina-kirilova-kulina-87ada7",
       "type": "official",
-      "slug": "velina-kirilova-kulina-0573d3",
+      "slug": "velina-kirilova-kulina-87ada7",
       "label": "Велина Кирилова Кулина",
       "tier": "municipal",
       "role": "councillor",
@@ -981,7 +981,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:alfidin-raifov-ahmedov-c9e5d7",
+      "source": "official:alfidin-raifov-ahmedov-e2d8b9",
       "target": "company:tr:000210486",
       "kind": "tr_role",
       "role": "trustee",
@@ -989,7 +989,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:nikolai-evgeniev-petrov-0992db",
+      "source": "official:nikolai-evgeniev-petrov-1f3d4a",
       "target": "company:tr:000210486",
       "kind": "tr_role",
       "role": "verifier",
@@ -1093,7 +1093,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:velina-kirilova-kulina-0573d3",
+      "source": "official:velina-kirilova-kulina-87ada7",
       "target": "company:tr:831831545",
       "kind": "tr_role",
       "role": "ngo_board",

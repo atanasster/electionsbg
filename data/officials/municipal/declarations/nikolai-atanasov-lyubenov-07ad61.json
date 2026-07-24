@@ -1,0 +1,70 @@
+[
+  {
+    "slug": "nikolai-atanasov-lyubenov-07ad61",
+    "declarantName": "Николай Атанасов Любенов",
+    "institution": "Левски",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-02",
+    "entryNumber": "Г5045",
+    "controlHash": "90CBFF78",
+    "sourceUrl": "https://register.cacbg.bg/2025/09245215-C178-45F0-8A59-200DB83D3A64207932.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Няма имущество",
+        "shareSize": "100%",
+        "companyName": "НЕК-МЛ ЕООД",
+        "registeredOffice": "гр.Левски",
+        "valueEur": 51.12918811962185,
+        "holderName": "Николай Атанасов Любенов",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5397.197097907282,
+        "amountEurSpouse": 14014.510463588349
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 48918,
+        "valueEur": 25011.376244356616,
+        "holderName": "Даринка Веселинова Любенова",
+        "isSpouse": true,
+        "legalBasis": "Ипотечен кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "магазин",
+        "detail": null,
+        "location": "гр.Левски",
+        "municipality": "Левски",
+        "areaSqm": 0,
+        "builtAreaSqm": 38,
+        "currency": "BGN",
+        "valueEur": 5963.197210391496,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

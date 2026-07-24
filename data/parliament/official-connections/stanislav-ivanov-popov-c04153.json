@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stanislav-ivanov-popov-c04153",
+  "nodes": [
+    {
+      "id": "official:stanislav-ivanov-popov-c04153",
+      "type": "official",
+      "slug": "stanislav-ivanov-popov-c04153",
+      "label": "Станислав Иванов Попов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Враца"
+    },
+    {
+      "id": "company:Камибо-ЕООД",
+      "type": "company",
+      "label": "Камибо ЕООД",
+      "slug": "Камибо-ЕООД",
+      "uic": "131157890",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "mp:2947",
+      "type": "mp",
+      "mpId": 2947,
+      "label": "Станислав Иванов Попов",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stanislav-ivanov-popov-c04153",
+      "target": "company:Камибо-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2947",
+      "target": "company:Камибо-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

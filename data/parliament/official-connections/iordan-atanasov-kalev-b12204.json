@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iordan-atanasov-kalev-b12204",
+  "nodes": [
+    {
+      "id": "official:iordan-atanasov-kalev-b12204",
+      "type": "official",
+      "slug": "iordan-atanasov-kalev-b12204",
+      "label": "Йордан Атанасов Калев",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204527450",
+      "type": "company",
+      "label": "КАНАС ГРУП",
+      "slug": null,
+      "uic": "204527450",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordan-atanasov-kalev-b12204",
+      "target": "company:tr:204527450",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iordan-atanasov-kalev-b12204",
+      "target": "company:tr:204527450",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:miloslav-sashev-grigorov-e3bcce",
+  "nodes": [
+    {
+      "id": "official:miloslav-sashev-grigorov-e3bcce",
+      "type": "official",
+      "slug": "miloslav-sashev-grigorov-e3bcce",
+      "label": "Милослав Сашев Григоров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пордим"
+    },
+    {
+      "id": "company:tr:207520991",
+      "type": "company",
+      "label": "&quot;Местна инициативна група Пордим - Плевен 2023&quot;",
+      "slug": null,
+      "uic": "207520991",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕТЕЛИН РАДОСЛАВОВ ВАСИЛЕВ - КМЕТ НА ОБЩИНА ПОРДИМ",
+      "type": "person",
+      "label": "Детелин Радославов Василев - Кмет На Община Пордим"
+    },
+    {
+      "id": "person:ОБЩИНА ПОРДИМ - ПРЕДСТАВЛЯВАНА ОТ ДЕТЕЛИН РАДОСЛАВОВ ВАСИЛЕВ - КМЕТ",
+      "type": "person",
+      "label": "Община Пордим - Представлявана От Детелин Радославов Василев - Кмет"
+    },
+    {
+      "id": "person:ОБЩИНА ПЛЕВЕН - ПРЕДСТАВЛЯВАНА ОТ КИРИЛ АНТИМОВ КИРИЛОВ",
+      "type": "person",
+      "label": "Община Плевен - Представлявана От Кирил Антимов Кирилов"
+    },
+    {
+      "id": "company:name:ВАЛЕО ИНВЕСТ ЕООД, ПРЕДСТАВЛЯВАНО ОТ ВАЛЕРИ МАРГАРИТОВ ПОПОВ",
+      "type": "company",
+      "label": "„ВАЛЕО ИНВЕСТ“ ЕООД, представлявано от Валери Маргаритов Попов",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИТКО СВЕТОСЛАВОВ НИКОЛОВ - ЗЕМЕДЕЛСКИ ПРОИЗВОДИТЕЛ",
+      "type": "person",
+      "label": "Митко Светославов Николов - Земеделски Производител"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miloslav-sashev-grigorov-e3bcce",
+      "target": "company:tr:207520991",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕТЕЛИН РАДОСЛАВОВ ВАСИЛЕВ - КМЕТ НА ОБЩИНА ПОРДИМ",
+      "target": "company:tr:207520991",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ПОРДИМ - ПРЕДСТАВЛЯВАНА ОТ ДЕТЕЛИН РАДОСЛАВОВ ВАСИЛЕВ - КМЕТ",
+      "target": "company:tr:207520991",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ПЛЕВЕН - ПРЕДСТАВЛЯВАНА ОТ КИРИЛ АНТИМОВ КИРИЛОВ",
+      "target": "company:tr:207520991",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ВАЛЕО ИНВЕСТ ЕООД, ПРЕДСТАВЛЯВАНО ОТ ВАЛЕРИ МАРГАРИТОВ ПОПОВ",
+      "target": "company:tr:207520991",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКО СВЕТОСЛАВОВ НИКОЛОВ - ЗЕМЕДЕЛСКИ ПРОИЗВОДИТЕЛ",
+      "target": "company:tr:207520991",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

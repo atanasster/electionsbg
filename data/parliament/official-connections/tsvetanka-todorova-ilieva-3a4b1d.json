@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tsvetanka-todorova-ilieva-3a4b1d",
+  "nodes": [
+    {
+      "id": "official:tsvetanka-todorova-ilieva-3a4b1d",
+      "type": "official",
+      "slug": "tsvetanka-todorova-ilieva-3a4b1d",
+      "label": "Цветанка Тодорова Илиева",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Кричим"
+    },
+    {
+      "id": "company:tr:207548813",
+      "type": "company",
+      "label": "ЕЕПЕС",
+      "slug": null,
+      "uic": "207548813",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПОЛИНА РУМЕНОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Полина Руменова Илиева"
+    },
+    {
+      "id": "person:СИЛВИЯ ГЕОРГИЕВА СТОЯНОВА",
+      "type": "person",
+      "label": "Силвия Георгиева Стоянова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetanka-todorova-ilieva-3a4b1d",
+      "target": "company:tr:207548813",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tsvetanka-todorova-ilieva-3a4b1d",
+      "target": "company:tr:207548813",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПОЛИНА РУМЕНОВА ИЛИЕВА",
+      "target": "company:tr:207548813",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ГЕОРГИЕВА СТОЯНОВА",
+      "target": "company:tr:207548813",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

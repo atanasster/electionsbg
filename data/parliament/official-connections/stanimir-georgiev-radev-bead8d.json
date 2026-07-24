@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stanimir-georgiev-radev-bead8d",
+  "nodes": [
+    {
+      "id": "official:stanimir-georgiev-radev-bead8d",
+      "type": "official",
+      "slug": "stanimir-georgiev-radev-bead8d",
+      "label": "Станимир Георгиев Радев",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:123755219",
+      "type": "company",
+      "label": "ИНВЕСТ ФУУД",
+      "slug": null,
+      "uic": "123755219",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕНКА ПЕТРОВА РАДЕВА",
+      "type": "person",
+      "label": "Пенка Петрова Радева"
+    },
+    {
+      "id": "person:ПЛАМЕН ГЕОРГИЕВ РАДЕВ",
+      "type": "person",
+      "label": "Пламен Георгиев Радев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stanimir-georgiev-radev-bead8d",
+      "target": "company:tr:123755219",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕНКА ПЕТРОВА РАДЕВА",
+      "target": "company:tr:123755219",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ГЕОРГИЕВ РАДЕВ",
+      "target": "company:tr:123755219",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ПЕТРОВА РАДЕВА",
+      "target": "company:tr:123755219",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

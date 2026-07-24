@@ -1,0 +1,197 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:borislav-georgiev-genov-0b6908",
+  "nodes": [
+    {
+      "id": "official:borislav-georgiev-genov-0b6908",
+      "type": "official",
+      "slug": "borislav-georgiev-genov-0b6908",
+      "label": "Борислав Георгиев Генов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:121040604",
+      "type": "company",
+      "label": "НАЦИОНАЛНО НАУЧНО-ТЕХНИЧЕСКО ДРУЖЕСТВО ПО ДЕФЕКТОСКОПИЯ",
+      "slug": null,
+      "uic": "121040604",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОРДАН НИКОЛАЕВ МИРЧЕВ",
+      "type": "person",
+      "label": "Йордан Николаев Мирчев"
+    },
+    {
+      "id": "person:РАЙЧО ЗАФИРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Райчо Зафиров Димитров"
+    },
+    {
+      "id": "person:ЮРИЙ СТЕФАНОВ ДАНЕВ",
+      "type": "person",
+      "label": "Юрий Стефанов Данев"
+    },
+    {
+      "id": "person:ЦВЕТОМИР РУМЕНОВ БОРИСОВ",
+      "type": "person",
+      "label": "Цветомир Руменов Борисов"
+    },
+    {
+      "id": "person:ПЕТЬО ВЕЛКОВ ЦОКОВ",
+      "type": "person",
+      "label": "Петьо Велков Цоков"
+    },
+    {
+      "id": "person:ПАВЕЛ ХРИСТОВ ЧУКАЧЕВ",
+      "type": "person",
+      "label": "Павел Христов Чукачев"
+    },
+    {
+      "id": "person:МАРИАНА ВЕСЕЛИНОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Мариана Веселинова Николова"
+    },
+    {
+      "id": "person:ДАНАИЛ КОНСТАНТИНОВ МИЛУШЕВ",
+      "type": "person",
+      "label": "Данаил Константинов Милушев"
+    },
+    {
+      "id": "person:ВАСИЛ ЦВЕТАНОВ НИЧЕВ",
+      "type": "person",
+      "label": "Васил Цветанов Ничев"
+    },
+    {
+      "id": "person:ДИМИТЪР ГЕНЧЕВ ДИМОВ",
+      "type": "person",
+      "label": "Димитър Генчев Димов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:borislav-georgiev-genov-0b6908",
+      "target": "company:tr:121040604",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАН НИКОЛАЕВ МИРЧЕВ",
+      "target": "company:tr:121040604",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЙЧО ЗАФИРОВ ДИМИТРОВ",
+      "target": "company:tr:121040604",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮРИЙ СТЕФАНОВ ДАНЕВ",
+      "target": "company:tr:121040604",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТОМИР РУМЕНОВ БОРИСОВ",
+      "target": "company:tr:121040604",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮРИЙ СТЕФАНОВ ДАНЕВ",
+      "target": "company:tr:121040604",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТОМИР РУМЕНОВ БОРИСОВ",
+      "target": "company:tr:121040604",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЬО ВЕЛКОВ ЦОКОВ",
+      "target": "company:tr:121040604",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЕЛ ХРИСТОВ ЧУКАЧЕВ",
+      "target": "company:tr:121040604",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ВЕСЕЛИНОВА НИКОЛОВА",
+      "target": "company:tr:121040604",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНАИЛ КОНСТАНТИНОВ МИЛУШЕВ",
+      "target": "company:tr:121040604",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ЦВЕТАНОВ НИЧЕВ",
+      "target": "company:tr:121040604",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ГЕНЧЕВ ДИМОВ",
+      "target": "company:tr:121040604",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЙЧО ЗАФИРОВ ДИМИТРОВ",
+      "target": "company:tr:121040604",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН НИКОЛАЕВ МИРЧЕВ",
+      "target": "company:tr:121040604",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

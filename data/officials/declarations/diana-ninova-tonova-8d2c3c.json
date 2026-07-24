@@ -1,0 +1,88 @@
+[
+  {
+    "slug": "diana-ninova-tonova-8d2c3c",
+    "declarantName": "Диана Нинова Тонова",
+    "institution": "Политически кабинет",
+    "positionTitle": "Началник кабинет",
+    "category": "political_cabinet",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-12",
+    "entryNumber": "Г7605",
+    "controlHash": "5BEC7A83",
+    "sourceUrl": "https://register.cacbg.bg/2022/FBC9F93A-313B-481B-B434-21536FBD4905139952.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 8774.791265089501,
+        "amountEurSpouse": 22449.80391956356
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2115.725804389952,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Диана Нинова Тонова Димитър Христов Тонов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "receivable",
+        "description": "договорен заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Димитър Христов Тонов",
+        "isSpouse": true,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "жилищен кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 4740,
+        "valueEur": 4740,
+        "holderName": "Диана нинова Тонова",
+        "isSpouse": false,
+        "legalBasis": "договор за ипотечен кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

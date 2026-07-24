@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:daniel-veskov-vasilev-57c160",
+  "nodes": [
+    {
+      "id": "official:daniel-veskov-vasilev-57c160",
+      "type": "official",
+      "slug": "daniel-veskov-vasilev-57c160",
+      "label": "Даниел Весков Василев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Елена"
+    },
+    {
+      "id": "company:tr:200917702",
+      "type": "company",
+      "label": "ДОНИС 09",
+      "slug": null,
+      "uic": "200917702",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОРДАН НЕДЕВ КАРОСЕРОВ",
+      "type": "person",
+      "label": "Йордан Недев Каросеров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniel-veskov-vasilev-57c160",
+      "target": "company:tr:200917702",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:daniel-veskov-vasilev-57c160",
+      "target": "company:tr:200917702",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАН НЕДЕВ КАРОСЕРОВ",
+      "target": "company:tr:200917702",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН НЕДЕВ КАРОСЕРОВ",
+      "target": "company:tr:200917702",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

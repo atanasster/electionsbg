@@ -1,0 +1,221 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dobromir-totev-totev-7c3f05",
+  "nodes": [
+    {
+      "id": "official:dobromir-totev-totev-7c3f05",
+      "type": "official",
+      "slug": "dobromir-totev-totev-7c3f05",
+      "label": "Добромир Тотев Тотев",
+      "tier": "executive",
+      "role": "political_cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131221873",
+      "type": "company",
+      "label": "Съюз на офицерите от резерва Атлантик",
+      "slug": null,
+      "uic": "131221873",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:todor-dimitrov-tagarev-fa5933",
+      "type": "official",
+      "slug": "todor-dimitrov-tagarev-fa5933",
+      "label": "Тодор Димитров Тагарев",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "person:БОЯН ТОДОРОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Боян Тодоров Тодоров"
+    },
+    {
+      "id": "person:ИВАН ГЕОРГИЕВ ГОЦЕВ",
+      "type": "person",
+      "label": "Иван Георгиев Гоцев"
+    },
+    {
+      "id": "person:ДИМИТЪР ИВАНОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Димитър Иванов Атанасов"
+    },
+    {
+      "id": "person:ВИЛИС МИЛЧЕВ ЦУРОВ",
+      "type": "person",
+      "label": "Вилис Милчев Цуров"
+    },
+    {
+      "id": "person:СТАНИМИР ГЕОРГИЕВ КАРАТОПРАКЛИЕВ",
+      "type": "person",
+      "label": "Станимир Георгиев Каратопраклиев"
+    },
+    {
+      "id": "person:МИХАИЛ ВАСИЛЕВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Михаил Василев Михайлов"
+    },
+    {
+      "id": "person:КАМЕЛИЯ ПЕТРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Камелия Петрова Димитрова"
+    },
+    {
+      "id": "person:ДЕЯН ДУНАВСКИ САВОВ",
+      "type": "person",
+      "label": "Деян Дунавски Савов"
+    },
+    {
+      "id": "person:ЗЛАТОГОР БОРИСОВ МИНЧЕВ",
+      "type": "person",
+      "label": "Златогор Борисов Минчев"
+    },
+    {
+      "id": "person:ИВАЙЛО ДИМИТРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Ивайло Димитров Иванов"
+    },
+    {
+      "id": "person:СЕРГЕЙ ПЕТРОВ ЛАЗАРОВ",
+      "type": "person",
+      "label": "Сергей Петров Лазаров"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ПЕТКОВ ТЕРЗИЕВ",
+      "type": "person",
+      "label": "Веселин Петков Терзиев"
+    },
+    {
+      "id": "person:ЛЮБОСЛАВ ВАСИЛЕВ КАРМИДЖАНОВ",
+      "type": "person",
+      "label": "Любослав Василев Кармиджанов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dobromir-totev-totev-7c3f05",
+      "target": "company:tr:131221873",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:todor-dimitrov-tagarev-fa5933",
+      "target": "company:tr:131221873",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОЯН ТОДОРОВ ТОДОРОВ",
+      "target": "company:tr:131221873",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ГЕОРГИЕВ ГОЦЕВ",
+      "target": "company:tr:131221873",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ИВАНОВ АТАНАСОВ",
+      "target": "company:tr:131221873",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИЛИС МИЛЧЕВ ЦУРОВ",
+      "target": "company:tr:131221873",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИР ГЕОРГИЕВ КАРАТОПРАКЛИЕВ",
+      "target": "company:tr:131221873",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ ВАСИЛЕВ МИХАЙЛОВ",
+      "target": "company:tr:131221873",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАМЕЛИЯ ПЕТРОВА ДИМИТРОВА",
+      "target": "company:tr:131221873",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЯН ДУНАВСКИ САВОВ",
+      "target": "company:tr:131221873",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТОГОР БОРИСОВ МИНЧЕВ",
+      "target": "company:tr:131221873",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ДИМИТРОВ ИВАНОВ",
+      "target": "company:tr:131221873",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕРГЕЙ ПЕТРОВ ЛАЗАРОВ",
+      "target": "company:tr:131221873",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ПЕТКОВ ТЕРЗИЕВ",
+      "target": "company:tr:131221873",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОСЛАВ ВАСИЛЕВ КАРМИДЖАНОВ",
+      "target": "company:tr:131221873",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

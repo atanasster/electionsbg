@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:meliz-lyutvi-veli-eac05e",
+  "nodes": [
+    {
+      "id": "official:meliz-lyutvi-veli-eac05e",
+      "type": "official",
+      "slug": "meliz-lyutvi-veli-eac05e",
+      "label": "Мелиз Лютви Вели",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кърджали"
+    },
+    {
+      "id": "company:tr:206181132",
+      "type": "company",
+      "label": "МС АКАУНТИНГ",
+      "slug": null,
+      "uic": "206181132",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СЮЛЕЙМАН СЕВДИ ШЕФКЕТ",
+      "type": "person",
+      "label": "Сюлейман Севди Шефкет"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:meliz-lyutvi-veli-eac05e",
+      "target": "company:tr:206181132",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:meliz-lyutvi-veli-eac05e",
+      "target": "company:tr:206181132",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СЮЛЕЙМАН СЕВДИ ШЕФКЕТ",
+      "target": "company:tr:206181132",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЮЛЕЙМАН СЕВДИ ШЕФКЕТ",
+      "target": "company:tr:206181132",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

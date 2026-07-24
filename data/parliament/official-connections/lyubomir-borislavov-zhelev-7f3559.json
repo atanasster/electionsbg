@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:lyubomir-borislavov-zhelev-7f3559",
+  "nodes": [
+    {
+      "id": "official:lyubomir-borislavov-zhelev-7f3559",
+      "type": "official",
+      "slug": "lyubomir-borislavov-zhelev-7f3559",
+      "label": "Любомир Бориславов Желев",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207159384",
+      "type": "company",
+      "label": "ЗЕД АЙ ТИ",
+      "slug": null,
+      "uic": "207159384",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lyubomir-borislavov-zhelev-7f3559",
+      "target": "company:tr:207159384",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:lyubomir-borislavov-zhelev-7f3559",
+      "target": "company:tr:207159384",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

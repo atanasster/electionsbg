@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vasil-angelov-popov-6f162f",
+  "nodes": [
+    {
+      "id": "official:vasil-angelov-popov-6f162f",
+      "type": "official",
+      "slug": "vasil-angelov-popov-6f162f",
+      "label": "Васил Ангелов Попов",
+      "tier": "executive",
+      "role": "international",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:177136010",
+      "type": "company",
+      "label": "АСОЦИАЦИЯ ЗА СОЦИАЛНА, ЗДРАВНА И ПРАВНА ПОМОЩ",
+      "slug": null,
+      "uic": "177136010",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДАРИНА ЯНЧЕВА БОЖИКОВА",
+      "type": "person",
+      "label": "Дарина Янчева Божикова"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ИВАНОВ КАЗАКОВ",
+      "type": "person",
+      "label": "Александър Иванов Казаков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vasil-angelov-popov-6f162f",
+      "target": "company:tr:177136010",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАРИНА ЯНЧЕВА БОЖИКОВА",
+      "target": "company:tr:177136010",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ИВАНОВ КАЗАКОВ",
+      "target": "company:tr:177136010",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

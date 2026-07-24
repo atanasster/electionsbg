@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tsvetan-iliev-dafov-aa9541",
+  "nodes": [
+    {
+      "id": "official:tsvetan-iliev-dafov-aa9541",
+      "type": "official",
+      "slug": "tsvetan-iliev-dafov-aa9541",
+      "label": "Цветан Илиев Дафов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:112059210",
+      "type": "company",
+      "label": "Специализирана болница за продължително лечение и рехабилитация на пневмофтизиатрични заболявания „Света Петка Българска”",
+      "slug": null,
+      "uic": "112059210",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetan-iliev-dafov-aa9541",
+      "target": "company:tr:112059210",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

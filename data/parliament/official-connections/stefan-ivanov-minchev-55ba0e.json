@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stefan-ivanov-minchev-55ba0e",
+  "nodes": [
+    {
+      "id": "official:stefan-ivanov-minchev-55ba0e",
+      "type": "official",
+      "slug": "stefan-ivanov-minchev-55ba0e",
+      "label": "Стефан Иванов Минчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Елена"
+    },
+    {
+      "id": "company:tr:200148061",
+      "type": "company",
+      "label": "СТИВМИ1",
+      "slug": null,
+      "uic": "200148061",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stefan-ivanov-minchev-55ba0e",
+      "target": "company:tr:200148061",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+[
+  {
+    "slug": "denka-dimitrova-mihailova-cb1003",
+    "declarantName": "Денка Димитрова Михайлова",
+    "institution": "Силистра",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-16",
+    "entryNumber": "Г3034",
+    "controlHash": "FF01268E",
+    "sourceUrl": "https://register.cacbg.bg/2025/769FA83F-B4CC-43C4-AEC4-272B1F3CEA47205749.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5828.216153755695,
+        "amountEurSpouse": 11171.727604137373
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 22081.162473221088,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2880.618458659495,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Арента от земеделска земя",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 613.5502574354622
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Хонда",
+        "detail": "CRV",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 8100,
+        "valueEur": 4141.46423768937,
+        "holderName": "Денка Димитрова Михайлова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16000,
+        "valueEur": 8180.6700991394955,
+        "holderName": "Денка Димитрова Михайлова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18000,
+        "valueEur": 9203.253861531934,
+        "holderName": "Михаил Николов Михайлов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит и лихва по него",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 124610,
+        "valueEur": 63712.081315860785,
+        "holderName": "Денка Димитрова Михайлова",
+        "isSpouse": false,
+        "legalBasis": "Договорна ипотека",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Пежо",
+        "detail": "307",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 613.5502574354622,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

@@ -1,0 +1,118 @@
+[
+  {
+    "slug": "rumen-petrov-bechev-a58a5f",
+    "declarantName": "Румен Петров Бечев",
+    "institution": "Културни институти и институции",
+    "positionTitle": "Директор",
+    "category": "cultural_institute",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-07-11",
+    "entryNumber": "Г4591",
+    "controlHash": "62A99B95",
+    "sourceUrl": "https://register.cacbg.bg/2024/2E436DAD-1175-42FE-80AF-E8ED7F5C8007185780.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "капиталова вноска",
+        "shareSize": "1",
+        "companyName": "Родопски Народен Театър \"Орфей\"",
+        "registeredOffice": "Смолян",
+        "valueEur": 0.5112918811962185,
+        "holderName": "Румен Петров Бечев",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 12670.835399804686,
+        "amountEurSpouse": 6135.502574354622
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2091.183794092534,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Арда",
+        "municipality": "Смолян",
+        "areaSqm": 250,
+        "builtAreaSqm": 100,
+        "acquiredYear": 2014,
+        "share": "1/2",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Румен Петров Бечев",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "Нива",
+        "detail": null,
+        "location": "с.Арда",
+        "municipality": "Смолян",
+        "areaSqm": 4,
+        "builtAreaSqm": null,
+        "acquiredYear": 2014,
+        "share": "1/2",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Румен Петров Бечев",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "Гори",
+        "detail": null,
+        "location": "с.Арда",
+        "municipality": "Смолян",
+        "areaSqm": 3,
+        "builtAreaSqm": null,
+        "acquiredYear": 2014,
+        "share": "1/2",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Румен Петров Бечев",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
+        "holderName": "Румен Петров Бечев",
+        "isSpouse": false,
+        "legalBasis": "ипотека",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

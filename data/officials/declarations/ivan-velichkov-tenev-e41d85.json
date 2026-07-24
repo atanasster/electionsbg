@@ -1,0 +1,150 @@
+[
+  {
+    "slug": "ivan-velichkov-tenev-e41d85",
+    "declarantName": "Иван Величков Тенев",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г4326",
+    "controlHash": "8937E024",
+    "sourceUrl": "https://register.cacbg.bg/2025/0A90925E-CB7D-487B-A84A-F45C1FE2CA74207173.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19289.483237295673,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "гр.Стара Загора",
+        "municipality": "Стара Загора",
+        "areaSqm": 46,
+        "builtAreaSqm": 46,
+        "acquiredYear": 2014,
+        "share": null,
+        "currency": "BGN",
+        "amount": 38000,
+        "valueEur": 19429.0914854563,
+        "holderName": "Иван Величков Тенев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "продаден имот"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген Туран",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Иван Величков Тенев",
+        "isSpouse": false,
+        "legalBasis": "покупко продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 43000,
+        "valueEur": 21985.550891437397,
+        "holderName": "Иван Величков Тенев",
+        "isSpouse": false,
+        "legalBasis": "заем",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ivan-velichkov-tenev-e41d85",
+    "declarantName": "Иван Величков Тенев",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г10186",
+    "controlHash": "86F3E8EB",
+    "sourceUrl": "https://register.cacbg.bg/2024/0A90925E-CB7D-487B-A84A-F45C1FE2CA74191874.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "гр.Стара Загора",
+        "municipality": "Стара Загора",
+        "areaSqm": 46,
+        "builtAreaSqm": 46,
+        "acquiredYear": 2014,
+        "share": null,
+        "currency": "BGN",
+        "amount": 38000,
+        "valueEur": 19429.0914854563,
+        "holderName": "Иван Величков Тенев",
+        "isSpouse": false,
+        "legalBasis": "Покупко продажба",
+        "fundsOrigin": "Продаден имот"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 49496,
+        "valueEur": 25306.90295168803,
+        "holderName": "Иван Величков Тенев",
+        "isSpouse": false,
+        "legalBasis": "Обзавецдане",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Магазин",
+        "detail": null,
+        "location": "гр. Стара Загора",
+        "municipality": "Стара Загора",
+        "areaSqm": 64,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "Покупко продажба"
+      }
+    ]
+  }
+]

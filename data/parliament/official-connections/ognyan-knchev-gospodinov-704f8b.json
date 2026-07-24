@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ognyan-knchev-gospodinov-704f8b",
+  "nodes": [
+    {
+      "id": "official:ognyan-knchev-gospodinov-704f8b",
+      "type": "official",
+      "slug": "ognyan-knchev-gospodinov-704f8b",
+      "label": "Огнян Кънчев Господинов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:124699951",
+      "type": "company",
+      "label": "Бестрейнинг ООД",
+      "slug": null,
+      "uic": "124699951",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ognyan-knchev-gospodinov-704f8b",
+      "target": "company:tr:124699951",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

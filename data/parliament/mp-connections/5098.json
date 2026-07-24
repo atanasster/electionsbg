@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:5098",
   "nodes": [
     {
@@ -54,36 +54,36 @@
       "label": "Димитър Михайлов Енчев"
     },
     {
-      "id": "official:mariya-kamenova-todorova-245537",
+      "id": "official:mariya-kamenova-todorova-d99d1e",
       "type": "official",
-      "slug": "mariya-kamenova-todorova-245537",
+      "slug": "mariya-kamenova-todorova-d99d1e",
       "label": "Мария Каменова Тодорова",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:mihail-mitkov-teodosiev-2095f2",
+      "id": "official:mihail-mitkov-teodosiev-fefa70",
       "type": "official",
-      "slug": "mihail-mitkov-teodosiev-2095f2",
+      "slug": "mihail-mitkov-teodosiev-fefa70",
       "label": "Михаил Митков Теодосиев",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:nikolai-dinev-nikolov-e7cfae",
+      "id": "official:nikolai-dinev-nikolov-623798",
       "type": "official",
-      "slug": "nikolai-dinev-nikolov-e7cfae",
+      "slug": "nikolai-dinev-nikolov-623798",
       "label": "Николай Динев Николов",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:sarkis-harutyun-karadzhiyan-a43370",
+      "id": "official:sarkis-harutyun-karadzhiyan-ca775e",
       "type": "official",
-      "slug": "sarkis-harutyun-karadzhiyan-a43370",
+      "slug": "sarkis-harutyun-karadzhiyan-ca775e",
       "label": "Саркис Харутюн Караджиян",
       "tier": "executive",
       "role": "state_enterprise",
@@ -229,7 +229,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:mariya-kamenova-todorova-245537",
+      "source": "official:mariya-kamenova-todorova-d99d1e",
       "target": "company:tr:204219357",
       "kind": "tr_role",
       "role": "director",
@@ -237,7 +237,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:mihail-mitkov-teodosiev-2095f2",
+      "source": "official:mihail-mitkov-teodosiev-fefa70",
       "target": "company:tr:204219357",
       "kind": "tr_role",
       "role": "director",
@@ -245,7 +245,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:nikolai-dinev-nikolov-e7cfae",
+      "source": "official:nikolai-dinev-nikolov-623798",
       "target": "company:tr:204219357",
       "kind": "tr_role",
       "role": "representative",
@@ -253,7 +253,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:nikolai-dinev-nikolov-e7cfae",
+      "source": "official:nikolai-dinev-nikolov-623798",
       "target": "company:tr:204219357",
       "kind": "tr_role",
       "role": "director",
@@ -261,7 +261,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:sarkis-harutyun-karadzhiyan-a43370",
+      "source": "official:sarkis-harutyun-karadzhiyan-ca775e",
       "target": "company:tr:204219357",
       "kind": "tr_role",
       "role": "director",
@@ -269,7 +269,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:sarkis-harutyun-karadzhiyan-a43370",
+      "source": "official:sarkis-harutyun-karadzhiyan-ca775e",
       "target": "company:tr:204219357",
       "kind": "tr_role",
       "role": "representative",

@@ -1,0 +1,100 @@
+[
+  {
+    "slug": "ivan-vladimirov-todorov-8e8358",
+    "declarantName": "ИВАН ВЛАДИМИРОВ ТОДОРОВ",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г8992",
+    "controlHash": "349318AC",
+    "sourceUrl": "https://register.cacbg.bg/2025/A3F7D515-868A-40C0-A130-2FBBFC90533E212021.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19734.332738530444,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди С3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 3600,
+        "valueEur": 1840.6507723063867,
+        "holderName": "Иван Владимиров Тодоров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Иван Владимиров Тодоров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12400,
+        "valueEur": 6340.0193268331095,
+        "holderName": "Иван Владимиров Тодоров",
+        "isSpouse": false,
+        "legalBasis": "Договор за банков кредит - 4,5%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Оувърдрафт",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Иван Владимиров Тодоров",
+        "isSpouse": false,
+        "legalBasis": "Договор за оувърдрафт",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mustafa-dzheit-neizir-c6dc5d",
+  "nodes": [
+    {
+      "id": "official:mustafa-dzheit-neizir-c6dc5d",
+      "type": "official",
+      "slug": "mustafa-dzheit-neizir-c6dc5d",
+      "label": "Мустафа Джеит Нейзир",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сатовча"
+    },
+    {
+      "id": "company:tr:206100899",
+      "type": "company",
+      "label": "Нейзир груп ЕООД",
+      "slug": null,
+      "uic": "206100899",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АСАН БАЙРЯМОВ МАЛАЕВ",
+      "type": "person",
+      "label": "Асан Байрямов Малаев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mustafa-dzheit-neizir-c6dc5d",
+      "target": "company:tr:206100899",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mustafa-dzheit-neizir-c6dc5d",
+      "target": "company:tr:206100899",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mustafa-dzheit-neizir-c6dc5d",
+      "target": "company:tr:206100899",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АСАН БАЙРЯМОВ МАЛАЕВ",
+      "target": "company:tr:206100899",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

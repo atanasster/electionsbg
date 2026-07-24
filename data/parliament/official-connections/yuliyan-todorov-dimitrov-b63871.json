@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:yuliyan-todorov-dimitrov-b63871",
+  "nodes": [
+    {
+      "id": "official:yuliyan-todorov-dimitrov-b63871",
+      "type": "official",
+      "slug": "yuliyan-todorov-dimitrov-b63871",
+      "label": "Юлиян Тодоров Димитров",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:106617792",
+      "type": "company",
+      "label": "КСВ",
+      "slug": null,
+      "uic": "106617792",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yuliyan-todorov-dimitrov-b63871",
+      "target": "company:tr:106617792",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yuliyan-todorov-dimitrov-b63871",
+      "target": "company:tr:106617792",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

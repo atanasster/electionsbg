@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hyusein-mehmedov-bobaismailov-ae16b4",
+  "nodes": [
+    {
+      "id": "official:hyusein-mehmedov-bobaismailov-ae16b4",
+      "type": "official",
+      "slug": "hyusein-mehmedov-bobaismailov-ae16b4",
+      "label": "Хюсеин Мехмедов Бобаисмаилов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Котел"
+    },
+    {
+      "id": "company:tr:201129669",
+      "type": "company",
+      "label": "Хюс млек ЕООД",
+      "slug": null,
+      "uic": "201129669",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hyusein-mehmedov-bobaismailov-ae16b4",
+      "target": "company:tr:201129669",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

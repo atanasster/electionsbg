@@ -1,63 +1,6 @@
 [
   {
     "slug": "liliya-simeonova-georgieva-8752c0",
-    "declarantName": "Лилия Симеонова Георгиева",
-    "institution": "Политически кабинет",
-    "positionTitle": "Началник кабинет",
-    "category": "political_cabinet",
-    "declarationYear": 2022,
-    "fiscalYear": 2021,
-    "declarationType": "Annualy",
-    "filedAt": "2022-05-12",
-    "entryNumber": "Г3536",
-    "controlHash": "1E34566E",
-    "sourceUrl": "https://register.cacbg.bg/2022/8985733D-F835-4B9D-9D75-FAF4E24391F7135712.xml",
-    "ownershipStakes": [],
-    "income": [
-      {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 13242.45972298206,
-        "amountEurSpouse": null
-      }
-    ],
-    "assets": [
-      {
-        "category": "real_estate",
-        "description": "къща с двор",
-        "detail": null,
-        "location": "Град Малко Търново",
-        "municipality": "Малко Търново",
-        "areaSqm": 335,
-        "builtAreaSqm": 83,
-        "acquiredYear": 2021,
-        "share": "1/2",
-        "currency": "BGN",
-        "amount": 12810,
-        "valueEur": 6549.648998123559,
-        "holderName": "Лилия Симеонова Георгиева",
-        "isSpouse": false,
-        "legalBasis": "покупко-продажба",
-        "fundsOrigin": "Заплата"
-      }
-    ],
-    "events": [
-      {
-        "kind": "third_party_expense",
-        "description": "Годишна такса дисертация",
-        "detail": null,
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 1329.358891110168,
-        "legalBasis": null
-      }
-    ]
-  },
-  {
-    "slug": "liliya-simeonova-georgieva-8752c0",
     "declarantName": "(unknown)",
     "institution": "Политически кабинет",
     "positionTitle": "Началник кабинет",
@@ -156,6 +99,63 @@
         "builtAreaSqm": null,
         "currency": "BGN",
         "valueEur": null,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "liliya-simeonova-georgieva-8752c0",
+    "declarantName": "Лилия Симеонова Георгиева",
+    "institution": "Политически кабинет",
+    "positionTitle": "Началник кабинет",
+    "category": "political_cabinet",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-12",
+    "entryNumber": "Г3536",
+    "controlHash": "1E34566E",
+    "sourceUrl": "https://register.cacbg.bg/2022/8985733D-F835-4B9D-9D75-FAF4E24391F7135712.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 13242.45972298206,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Град Малко Търново",
+        "municipality": "Малко Търново",
+        "areaSqm": 335,
+        "builtAreaSqm": 83,
+        "acquiredYear": 2021,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 12810,
+        "valueEur": 6549.648998123559,
+        "holderName": "Лилия Симеонова Георгиева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "Заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Годишна такса дисертация",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1329.358891110168,
         "legalBasis": null
       }
     ]

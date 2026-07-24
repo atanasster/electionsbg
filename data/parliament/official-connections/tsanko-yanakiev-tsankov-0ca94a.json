@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tsanko-yanakiev-tsankov-0ca94a",
+  "nodes": [
+    {
+      "id": "official:tsanko-yanakiev-tsankov-0ca94a",
+      "type": "official",
+      "slug": "tsanko-yanakiev-tsankov-0ca94a",
+      "label": "Цанко Янакиев Цанков",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208851777",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ НА ИКОНОМИЧЕСКИТЕ УЧИЛИЩА В БЪЛГАРИЯ  (СИУБ)",
+      "slug": null,
+      "uic": "208851777",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПАВЕЛ ГЕОРГИЕВ ЧЕПОВ",
+      "type": "person",
+      "label": "Павел Георгиев Чепов"
+    },
+    {
+      "id": "person:ЕМИЛ КИРИЛОВ РАЙКОВ",
+      "type": "person",
+      "label": "Емил Кирилов Райков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsanko-yanakiev-tsankov-0ca94a",
+      "target": "company:tr:208851777",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tsanko-yanakiev-tsankov-0ca94a",
+      "target": "company:tr:208851777",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПАВЕЛ ГЕОРГИЕВ ЧЕПОВ",
+      "target": "company:tr:208851777",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ КИРИЛОВ РАЙКОВ",
+      "target": "company:tr:208851777",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-yuliyanov-ivanov-ba20f7",
+  "nodes": [
+    {
+      "id": "official:georgi-yuliyanov-ivanov-ba20f7",
+      "type": "official",
+      "slug": "georgi-yuliyanov-ivanov-ba20f7",
+      "label": "Георги Юлиянов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Благоевград"
+    },
+    {
+      "id": "company:tr:208641864",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ НАЦИОНАЛНА МРЕЖА НА ЕКСПЕРТИТЕ ПО ЕТНИЧЕСКИ И ИНТЕГРАЦИОННИ ВЪПРОСИ",
+      "slug": null,
+      "uic": "208641864",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАНКА ИВАНОВА ЖЕЛЕВА",
+      "type": "person",
+      "label": "Иванка Иванова Желева"
+    },
+    {
+      "id": "person:ЮЛИЯН ПЕТРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Юлиян Петров Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-yuliyanov-ivanov-ba20f7",
+      "target": "company:tr:208641864",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-yuliyanov-ivanov-ba20f7",
+      "target": "company:tr:208641864",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАНКА ИВАНОВА ЖЕЛЕВА",
+      "target": "company:tr:208641864",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЯН ПЕТРОВ ГЕОРГИЕВ",
+      "target": "company:tr:208641864",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

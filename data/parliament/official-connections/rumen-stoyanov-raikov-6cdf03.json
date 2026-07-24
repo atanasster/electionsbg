@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rumen-stoyanov-raikov-6cdf03",
+  "nodes": [
+    {
+      "id": "official:rumen-stoyanov-raikov-6cdf03",
+      "type": "official",
+      "slug": "rumen-stoyanov-raikov-6cdf03",
+      "label": "Румен Стоянов Райков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Троян"
+    },
+    {
+      "id": "company:tr:206174180",
+      "type": "company",
+      "label": "\"Литик\" ЕООД",
+      "slug": null,
+      "uic": "206174180",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rumen-stoyanov-raikov-6cdf03",
+      "target": "company:tr:206174180",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

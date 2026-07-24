@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:lchezar-dimitrov-karadimov-e39250",
+  "nodes": [
+    {
+      "id": "official:lchezar-dimitrov-karadimov-e39250",
+      "type": "official",
+      "slug": "lchezar-dimitrov-karadimov-e39250",
+      "label": "Лъчезар Димитров Карадимов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:124141302",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ДОБРИЧ",
+      "slug": null,
+      "uic": "124141302",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РАДОСЛАВ СТОЯНОВ РАДЕВ",
+      "type": "person",
+      "label": "Радослав Стоянов Радев"
+    },
+    {
+      "id": "person:ГЕОРГИ МИКТОВ ЖЕЛЯЗКОВ",
+      "type": "person",
+      "label": "Георги Миктов Желязков"
+    },
+    {
+      "id": "person:ЯВОР ПЕТКОВ ЕНЧЕВ",
+      "type": "person",
+      "label": "Явор Петков Енчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lchezar-dimitrov-karadimov-e39250",
+      "target": "company:tr:124141302",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАДОСЛАВ СТОЯНОВ РАДЕВ",
+      "target": "company:tr:124141302",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ МИКТОВ ЖЕЛЯЗКОВ",
+      "target": "company:tr:124141302",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯВОР ПЕТКОВ ЕНЧЕВ",
+      "target": "company:tr:124141302",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

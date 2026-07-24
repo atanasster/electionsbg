@@ -1,0 +1,286 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:krasimir-nedkov-halov-57b06d",
+  "nodes": [
+    {
+      "id": "official:krasimir-nedkov-halov-57b06d",
+      "type": "official",
+      "slug": "krasimir-nedkov-halov-57b06d",
+      "label": "Красимир Недков Халов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Никопол"
+    },
+    {
+      "id": "company:tr:114548883",
+      "type": "company",
+      "label": "ЛОВНО-РИБАРСКО ДРУЖЕСТВО - НИКОПОЛ",
+      "slug": null,
+      "uic": "114548883",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:valeri-zdravkov-bosilkov-c3b9ad",
+      "type": "official",
+      "slug": "valeri-zdravkov-bosilkov-c3b9ad",
+      "label": "Валери Здравков Босилков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Белене"
+    },
+    {
+      "id": "person:ДИМЧО ДИМИТРОВ ВЕЛИКОВ - КС",
+      "type": "person",
+      "label": "Димчо Димитров Великов - Кс"
+    },
+    {
+      "id": "person:ЛЮДМИЛ ВЕЛИЧКОВ ГЕОРГИЕВ - КС",
+      "type": "person",
+      "label": "Людмил Величков Георгиев - Кс"
+    },
+    {
+      "id": "person:РУМЕН МАРИНОВ ПАВЛИКЯНОВ",
+      "type": "person",
+      "label": "Румен Маринов Павликянов"
+    },
+    {
+      "id": "person:ОГНЯН ГЕОРГИЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Огнян Георгиев Николов"
+    },
+    {
+      "id": "person:ПАВЕЛ ЛОРИНОВ КУНОВ",
+      "type": "person",
+      "label": "Павел Лоринов Кунов"
+    },
+    {
+      "id": "person:АНАТОЛИЙ ИВАНОВ МАНОЛОВ",
+      "type": "person",
+      "label": "Анатолий Иванов Манолов"
+    },
+    {
+      "id": "person:АНТОН РУМЕНОВ БУНЕВ",
+      "type": "person",
+      "label": "Антон Руменов Бунев"
+    },
+    {
+      "id": "person:РАДОСЛАВ ПЕТРОВ РЪЖГЕВ - КС",
+      "type": "person",
+      "label": "Радослав Петров Ръжгев - Кс"
+    },
+    {
+      "id": "person:МАРИО БОЯНОВ КАРАДЖОВ",
+      "type": "person",
+      "label": "Марио Боянов Караджов"
+    },
+    {
+      "id": "person:ВАЛЕНТИН КРЪСТЕВ МИЛАНОВ",
+      "type": "person",
+      "label": "Валентин Кръстев Миланов"
+    },
+    {
+      "id": "person:МАРИЯН ДИМИТРОВ КУКОВ",
+      "type": "person",
+      "label": "Мариян Димитров Куков"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ХРИСТОВ ТОМОВ",
+      "type": "person",
+      "label": "Валентин Христов Томов"
+    },
+    {
+      "id": "person:ПЕТЪР СИМЕОНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Петър Симеонов Петров"
+    },
+    {
+      "id": "person:ДЕТЕЛИН ГЕОРГИЕВ ДАКОВ",
+      "type": "person",
+      "label": "Детелин Георгиев Даков"
+    },
+    {
+      "id": "person:ЛЮБОМИР НИКОЛАЕВ ЛЮБЕНОВ",
+      "type": "person",
+      "label": "Любомир Николаев Любенов"
+    },
+    {
+      "id": "person:МИРОСЛАВ ЦВЕТАНОВ ПЛОСКОВ",
+      "type": "person",
+      "label": "Мирослав Цветанов Плосков"
+    },
+    {
+      "id": "person:АТАНАС ЛЮБОМИРОВ ТОШЕВ",
+      "type": "person",
+      "label": "Атанас Любомиров Тошев"
+    },
+    {
+      "id": "person:МАРИО АНГЕЛОВ МАНОЛОВ - КС",
+      "type": "person",
+      "label": "Марио Ангелов Манолов - Кс"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krasimir-nedkov-halov-57b06d",
+      "target": "company:tr:114548883",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:valeri-zdravkov-bosilkov-c3b9ad",
+      "target": "company:tr:114548883",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМЧО ДИМИТРОВ ВЕЛИКОВ - КС",
+      "target": "company:tr:114548883",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ ВЕЛИЧКОВ ГЕОРГИЕВ - КС",
+      "target": "company:tr:114548883",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН МАРИНОВ ПАВЛИКЯНОВ",
+      "target": "company:tr:114548883",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОГНЯН ГЕОРГИЕВ НИКОЛОВ",
+      "target": "company:tr:114548883",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЕЛ ЛОРИНОВ КУНОВ",
+      "target": "company:tr:114548883",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНАТОЛИЙ ИВАНОВ МАНОЛОВ",
+      "target": "company:tr:114548883",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН РУМЕНОВ БУНЕВ",
+      "target": "company:tr:114548883",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ПЕТРОВ РЪЖГЕВ - КС",
+      "target": "company:tr:114548883",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИО БОЯНОВ КАРАДЖОВ",
+      "target": "company:tr:114548883",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН КРЪСТЕВ МИЛАНОВ",
+      "target": "company:tr:114548883",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯН ДИМИТРОВ КУКОВ",
+      "target": "company:tr:114548883",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ХРИСТОВ ТОМОВ",
+      "target": "company:tr:114548883",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР СИМЕОНОВ ПЕТРОВ",
+      "target": "company:tr:114548883",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕТЕЛИН ГЕОРГИЕВ ДАКОВ",
+      "target": "company:tr:114548883",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР НИКОЛАЕВ ЛЮБЕНОВ",
+      "target": "company:tr:114548883",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ЦВЕТАНОВ ПЛОСКОВ",
+      "target": "company:tr:114548883",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ЛЮБОМИРОВ ТОШЕВ",
+      "target": "company:tr:114548883",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИО АНГЕЛОВ МАНОЛОВ - КС",
+      "target": "company:tr:114548883",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

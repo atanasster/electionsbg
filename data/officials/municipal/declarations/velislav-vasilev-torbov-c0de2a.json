@@ -1,0 +1,70 @@
+[
+  {
+    "slug": "velislav-vasilev-torbov-c0de2a",
+    "declarantName": "Велислав Василев Торбов",
+    "institution": "Козлодуй",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-02-11",
+    "entryNumber": "Г184",
+    "controlHash": "D9EAC61D",
+    "sourceUrl": "https://register.cacbg.bg/2025/09B5F08D-CA34-4F7A-BEC0-AAEECB9E8264201904.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4808.700142650435,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 4070.3946662030953,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от пенсия през 2024 г.",
+        "amountEurDeclarant": 18461.72724623306,
+        "amountEurSpouse": 11811.86503939504
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Джип",
+        "detail": "WEY 05",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 115000,
+        "valueEur": 58798.56633756513,
+        "holderName": "Зоя Иванова Торбова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Джип",
+        "detail": "Haval H6",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 19429.0914854563,
+        "legalBasis": "Продажба"
+      }
+    ]
+  }
+]

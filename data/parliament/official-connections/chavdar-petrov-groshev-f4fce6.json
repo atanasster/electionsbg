@@ -1,0 +1,324 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:chavdar-petrov-groshev-f4fce6",
+  "nodes": [
+    {
+      "id": "official:chavdar-petrov-groshev-f4fce6",
+      "type": "official",
+      "slug": "chavdar-petrov-groshev-f4fce6",
+      "label": "Чавдар Петров Грошев",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:101524359",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;АСОЦИАЦИЯ НА ПРОКУРОРИТЕ В БЪЛГАРИЯ&quot;",
+      "slug": null,
+      "uic": "101524359",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЛАДИМИР ВАЛЕНТИНОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Владимир Валентинов Николов"
+    },
+    {
+      "id": "person:ХРИСТО КРЪСТЕВ КОЛЕВ",
+      "type": "person",
+      "label": "Христо Кръстев Колев"
+    },
+    {
+      "id": "person:ЕЛИН ВАСИЛЕВ АЛЕКСОВ",
+      "type": "person",
+      "label": "Елин Василев Алексов"
+    },
+    {
+      "id": "person:РАЛИЦА ДИМИТРОВА ПЪРВАНОВА",
+      "type": "person",
+      "label": "Ралица Димитрова Първанова"
+    },
+    {
+      "id": "person:ИВАЙЛО ВОЛОДИЕВ ИЛИЕВ",
+      "type": "person",
+      "label": "Ивайло Володиев Илиев"
+    },
+    {
+      "id": "person:ВЕСЕЛИНА РАДКОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Веселина Радкова Николова"
+    },
+    {
+      "id": "person:ДАНИЕЛА БЛАГОЕВА АНГЕЛОВА-ОСОГОВСКА",
+      "type": "person",
+      "label": "Даниела Благоева Ангелова-Осоговска"
+    },
+    {
+      "id": "person:МИЛЧО ИВАНОВ ГЕНЖОВ",
+      "type": "person",
+      "label": "Милчо Иванов Генжов"
+    },
+    {
+      "id": "person:БЛАГА ДИМИТРОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Блага Димитрова Георгиева"
+    },
+    {
+      "id": "person:ВЛАДИМИР ЧАВДАРОВ СТАНКОВ",
+      "type": "person",
+      "label": "Владимир Чавдаров Станков"
+    },
+    {
+      "id": "person:ЕЛИЦА ГЕОРГИЕВА КАЛПАЧКА",
+      "type": "person",
+      "label": "Елица Георгиева Калпачка"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ЛЮБОМИРОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Десислава Любомирова Петрова"
+    },
+    {
+      "id": "person:МИРОСЛАВ ТОДОРОВ ОВЧАРОВ",
+      "type": "person",
+      "label": "Мирослав Тодоров Овчаров"
+    },
+    {
+      "id": "person:ДИАНА МИНЧЕВА ДАВИДКОВА",
+      "type": "person",
+      "label": "Диана Минчева Давидкова"
+    },
+    {
+      "id": "person:ПЛАМЕН КРАСИМИРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Пламен Красимиров Иванов"
+    },
+    {
+      "id": "person:АЛЕКСАНДРА ПЕТКОВА ДУХЛАКОВА",
+      "type": "person",
+      "label": "Александра Петкова Духлакова"
+    },
+    {
+      "id": "person:КРАСИМИР ИВАНОВ СТАЙКОВ",
+      "type": "person",
+      "label": "Красимир Иванов Стайков"
+    },
+    {
+      "id": "person:МАРИН АЛЕКСАНДРОВ МАЛЧЕВ",
+      "type": "person",
+      "label": "Марин Александров Малчев"
+    },
+    {
+      "id": "person:СВЕТОСЛАВА СТЕФАНОВА ПЕНЧЕВА",
+      "type": "person",
+      "label": "Светослава Стефанова Пенчева"
+    },
+    {
+      "id": "person:ХРИСТО АТАНАСОВ АНЧЕВ",
+      "type": "person",
+      "label": "Христо Атанасов Анчев"
+    },
+    {
+      "id": "person:ДИМИТЪР КОНСТАНТИНОВ КОСТОВ",
+      "type": "person",
+      "label": "Димитър Константинов Костов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:chavdar-petrov-groshev-f4fce6",
+      "target": "company:tr:101524359",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЛАДИМИР ВАЛЕНТИНОВ НИКОЛОВ",
+      "target": "company:tr:101524359",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО КРЪСТЕВ КОЛЕВ",
+      "target": "company:tr:101524359",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИН ВАСИЛЕВ АЛЕКСОВ",
+      "target": "company:tr:101524359",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЛИЦА ДИМИТРОВА ПЪРВАНОВА",
+      "target": "company:tr:101524359",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ВОЛОДИЕВ ИЛИЕВ",
+      "target": "company:tr:101524359",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА РАДКОВА НИКОЛОВА",
+      "target": "company:tr:101524359",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА БЛАГОЕВА АНГЕЛОВА-ОСОГОВСКА",
+      "target": "company:tr:101524359",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЧО ИВАНОВ ГЕНЖОВ",
+      "target": "company:tr:101524359",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ВАЛЕНТИНОВ НИКОЛОВ",
+      "target": "company:tr:101524359",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЛАГА ДИМИТРОВА ГЕОРГИЕВА",
+      "target": "company:tr:101524359",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ЧАВДАРОВ СТАНКОВ",
+      "target": "company:tr:101524359",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЦА ГЕОРГИЕВА КАЛПАЧКА",
+      "target": "company:tr:101524359",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ЛЮБОМИРОВА ПЕТРОВА",
+      "target": "company:tr:101524359",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ТОДОРОВ ОВЧАРОВ",
+      "target": "company:tr:101524359",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЦА ГЕОРГИЕВА КАЛПАЧКА",
+      "target": "company:tr:101524359",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА МИНЧЕВА ДАВИДКОВА",
+      "target": "company:tr:101524359",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН КРАСИМИРОВ ИВАНОВ",
+      "target": "company:tr:101524359",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДРА ПЕТКОВА ДУХЛАКОВА",
+      "target": "company:tr:101524359",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ИВАНОВ СТАЙКОВ",
+      "target": "company:tr:101524359",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН АЛЕКСАНДРОВ МАЛЧЕВ",
+      "target": "company:tr:101524359",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВА СТЕФАНОВА ПЕНЧЕВА",
+      "target": "company:tr:101524359",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО АТАНАСОВ АНЧЕВ",
+      "target": "company:tr:101524359",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР КОНСТАНТИНОВ КОСТОВ",
+      "target": "company:tr:101524359",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

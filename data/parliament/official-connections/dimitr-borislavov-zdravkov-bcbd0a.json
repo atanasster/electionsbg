@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitr-borislavov-zdravkov-bcbd0a",
+  "nodes": [
+    {
+      "id": "official:dimitr-borislavov-zdravkov-bcbd0a",
+      "type": "official",
+      "slug": "dimitr-borislavov-zdravkov-bcbd0a",
+      "label": "Димитър Бориславов Здравков",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203176863",
+      "type": "company",
+      "label": "\"Атлантика\" ООД",
+      "slug": null,
+      "uic": "203176863",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:dimitr-borislavov-zdravkov-40b185",
+      "type": "official",
+      "slug": "dimitr-borislavov-zdravkov-40b185",
+      "label": "Димитър Бориславов Здравков",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "official:dimitr-borislavov-zdravkov-493ed1",
+      "type": "official",
+      "slug": "dimitr-borislavov-zdravkov-493ed1",
+      "label": "Димитър Бориславов Здравков",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Садово"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-borislavov-zdravkov-bcbd0a",
+      "target": "company:tr:203176863",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dimitr-borislavov-zdravkov-40b185",
+      "target": "company:tr:203176863",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dimitr-borislavov-zdravkov-493ed1",
+      "target": "company:tr:203176863",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

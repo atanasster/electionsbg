@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-nikolov-novkirishki-257241",
+  "nodes": [
+    {
+      "id": "official:ivan-nikolov-novkirishki-257241",
+      "type": "official",
+      "slug": "ivan-nikolov-novkirishki-257241",
+      "label": "Иван Николов Новкиришки",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000410056",
+      "type": "company",
+      "label": "Многопрофилна болница за активно лечение - Червен бряг",
+      "slug": null,
+      "uic": "000410056",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-nikolov-novkirishki-257241",
+      "target": "company:tr:000410056",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

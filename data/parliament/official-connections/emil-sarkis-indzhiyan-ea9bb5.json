@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:emil-sarkis-indzhiyan-ea9bb5",
+  "nodes": [
+    {
+      "id": "official:emil-sarkis-indzhiyan-ea9bb5",
+      "type": "official",
+      "slug": "emil-sarkis-indzhiyan-ea9bb5",
+      "label": "Емил Саркис Инджиян",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Плевен"
+    },
+    {
+      "id": "company:tr:204744347",
+      "type": "company",
+      "label": "БЕНСТАР КОМПЮТЪРС",
+      "slug": null,
+      "uic": "204744347",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КЕВОРК САРКИС ИНДЖИЯН",
+      "type": "person",
+      "label": "Кеворк Саркис Инджиян"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-sarkis-indzhiyan-ea9bb5",
+      "target": "company:tr:204744347",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:emil-sarkis-indzhiyan-ea9bb5",
+      "target": "company:tr:204744347",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КЕВОРК САРКИС ИНДЖИЯН",
+      "target": "company:tr:204744347",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

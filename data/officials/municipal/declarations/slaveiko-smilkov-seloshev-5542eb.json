@@ -1,0 +1,160 @@
+[
+  {
+    "slug": "slaveiko-smilkov-seloshev-5542eb",
+    "declarantName": "СЛАВЕЙКО СМИЛКОВ СЕЛЬОШЕВ",
+    "institution": "Доспат",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-29",
+    "entryNumber": "Г14564",
+    "controlHash": "EA65E100",
+    "sourceUrl": "https://register.cacbg.bg/2025/22F09CF1-15F9-456F-B3B4-AA044B62333D217894.xml",
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "Дялове",
+        "shareSize": "100%",
+        "companyName": "Славена трейд ЕООД",
+        "registeredOffice": "гр.Доспат",
+        "valueEur": 102.2583762392437,
+        "holderName": null,
+        "transfereeName": "Вилдана Миленова Сельошева",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25770.133396051806,
+        "amountEurSpouse": 11402.831534438064
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1222.4988879401585,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 102.2583762392437
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22000,
+        "valueEur": 11248.421386316806,
+        "holderName": "СЛАВЕЙКО СМИЛКОВ СЕЛЬОШЕВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "ВИЛДАНА МИЛЕНОВА СЕЛЬОШЕВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10095,
+        "valueEur": 5161.4915406758255,
+        "holderName": "СЛАВЕЙКО СМИЛКОВ СЕЛЬОШЕВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1086,
+        "valueEur": 555.2629829790933,
+        "holderName": "ВИЛДАНА МИЛЕНОВА СЕЛЬОШЕВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "БАНКОВ ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 43052,
+        "valueEur": 22012.1380692596,
+        "holderName": "СЛАВЕЙКО СМИЛКОВ СЕЛЬОШЕВ",
+        "isSpouse": false,
+        "legalBasis": "Договор  5,06%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "БАНКОВ ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14696,
+        "valueEur": 7513.945486059627,
+        "holderName": "ВИЛАДАНА МИЛЕНОВА СЕЛЬОШЕВА",
+        "isSpouse": true,
+        "legalBasis": "Договор  6,35%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

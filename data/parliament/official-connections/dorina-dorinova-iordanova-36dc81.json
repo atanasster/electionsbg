@@ -1,0 +1,244 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dorina-dorinova-iordanova-36dc81",
+  "nodes": [
+    {
+      "id": "official:dorina-dorinova-iordanova-36dc81",
+      "type": "official",
+      "slug": "dorina-dorinova-iordanova-36dc81",
+      "label": "Дорина Доринова Йорданова",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Брегово"
+    },
+    {
+      "id": "company:tr:000152702",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ПРОСВЕТА - 1927&quot;",
+      "slug": null,
+      "uic": "000152702",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РОСИЦА КИРИЛОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Росица Кирилова Петрова"
+    },
+    {
+      "id": "person:ЙОВКО СТЕФАНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Йовко Стефанов Георгиев"
+    },
+    {
+      "id": "person:ТАНЯ РУМЕНОВА БЛАГОЕВА",
+      "type": "person",
+      "label": "Таня Руменова Благоева"
+    },
+    {
+      "id": "person:СЛАВИНКА ФИЛИПОВА МАТЕЕВА",
+      "type": "person",
+      "label": "Славинка Филипова Матеева"
+    },
+    {
+      "id": "person:ГЕОРГИЦА СЕВАСТАКИЕВА МИЛАНОВА",
+      "type": "person",
+      "label": "Георгица Севастакиева Миланова"
+    },
+    {
+      "id": "person:РАЛИЦА САШКОВА ИВАНОВА",
+      "type": "person",
+      "label": "Ралица Сашкова Иванова"
+    },
+    {
+      "id": "person:РУМЕН ЙОРДАНОВ ФИЛИПОВ",
+      "type": "person",
+      "label": "Румен Йорданов Филипов"
+    },
+    {
+      "id": "person:ТАТЯНА САШОВА КРУМОВА",
+      "type": "person",
+      "label": "Татяна Сашова Крумова"
+    },
+    {
+      "id": "person:ВИОЛЕТА ЗАМФИРОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Виолета Замфирова Петрова"
+    },
+    {
+      "id": "person:МИХАИЛ ГОШОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Михаил Гошов Петков"
+    },
+    {
+      "id": "person:ЕМАНУЕЛА ЙОРДАНОВА ЕМИЛОВА",
+      "type": "person",
+      "label": "Емануела Йорданова Емилова"
+    },
+    {
+      "id": "person:КРИСТИНА ЕРМИЛОВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Кристина Ермилова Кръстева"
+    },
+    {
+      "id": "person:ЕЛИЗАБЕТ ВАЛЕНТИНОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Елизабет Валентинова Василева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dorina-dorinova-iordanova-36dc81",
+      "target": "company:tr:000152702",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dorina-dorinova-iordanova-36dc81",
+      "target": "company:tr:000152702",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dorina-dorinova-iordanova-36dc81",
+      "target": "company:tr:000152702",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РОСИЦА КИРИЛОВА ПЕТРОВА",
+      "target": "company:tr:000152702",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОВКО СТЕФАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:000152702",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ РУМЕНОВА БЛАГОЕВА",
+      "target": "company:tr:000152702",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОВКО СТЕФАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:000152702",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВИНКА ФИЛИПОВА МАТЕЕВА",
+      "target": "company:tr:000152702",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИЦА СЕВАСТАКИЕВА МИЛАНОВА",
+      "target": "company:tr:000152702",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЛИЦА САШКОВА ИВАНОВА",
+      "target": "company:tr:000152702",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ЙОРДАНОВ ФИЛИПОВ",
+      "target": "company:tr:000152702",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА САШОВА КРУМОВА",
+      "target": "company:tr:000152702",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА КИРИЛОВА ПЕТРОВА",
+      "target": "company:tr:000152702",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ЗАМФИРОВА ПЕТРОВА",
+      "target": "company:tr:000152702",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ РУМЕНОВА БЛАГОЕВА",
+      "target": "company:tr:000152702",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ ГОШОВ ПЕТКОВ",
+      "target": "company:tr:000152702",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМАНУЕЛА ЙОРДАНОВА ЕМИЛОВА",
+      "target": "company:tr:000152702",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИНА ЕРМИЛОВА КРЪСТЕВА",
+      "target": "company:tr:000152702",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЗАБЕТ ВАЛЕНТИНОВА ВАСИЛЕВА",
+      "target": "company:tr:000152702",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

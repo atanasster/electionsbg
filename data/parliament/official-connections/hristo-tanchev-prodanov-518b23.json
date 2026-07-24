@@ -1,0 +1,59 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hristo-tanchev-prodanov-518b23",
+  "nodes": [
+    {
+      "id": "official:hristo-tanchev-prodanov-518b23",
+      "type": "official",
+      "slug": "hristo-tanchev-prodanov-518b23",
+      "label": "Христо Танчев Проданов",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:Теоли-ООД",
+      "type": "company",
+      "label": "Теоли ООД",
+      "slug": "Теоли-ООД",
+      "uic": "201004181",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "mp:4500",
+      "type": "mp",
+      "mpId": 4500,
+      "label": "Христо Танчев Проданов",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-tanchev-prodanov-518b23",
+      "target": "company:Теоли-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4500",
+      "target": "company:Теоли-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

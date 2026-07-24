@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-petkov-ivanov-296144",
+  "nodes": [
+    {
+      "id": "official:ivan-petkov-ivanov-296144",
+      "type": "official",
+      "slug": "ivan-petkov-ivanov-296144",
+      "label": "Иван Петков Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хасково"
+    },
+    {
+      "id": "company:tr:126667126",
+      "type": "company",
+      "label": "ФАММА  ЕООД",
+      "slug": null,
+      "uic": "126667126",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-petkov-ivanov-296144",
+      "target": "company:tr:126667126",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

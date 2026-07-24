@@ -1,0 +1,178 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitrichka-stoyanova-radusheva-dda75e",
+  "nodes": [
+    {
+      "id": "official:dimitrichka-stoyanova-radusheva-dda75e",
+      "type": "official",
+      "slug": "dimitrichka-stoyanova-radusheva-dda75e",
+      "label": "Димитричка Стоянова Радушева",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:124075400",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ&quot;Д-Р ЙОСИФ ЙОСИФОВ - 1884&quot;",
+      "slug": null,
+      "uic": "124075400",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИРИНА ДИМОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Ирина Димова Петрова"
+    },
+    {
+      "id": "person:ЙОВКА ИЛИЕВА СЛАВОВА",
+      "type": "person",
+      "label": "Йовка Илиева Славова"
+    },
+    {
+      "id": "person:ГЕОРГИ ВЪЛКОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Вълков Георгиев"
+    },
+    {
+      "id": "person:ДИМИТРИЧКА ЕНЧЕВА ПЕТКОВА",
+      "type": "person",
+      "label": "Димитричка Енчева Петкова"
+    },
+    {
+      "id": "person:СТАНКА КОСТАДИНОВА ПАСЕВА",
+      "type": "person",
+      "label": "Станка Костадинова Пасева"
+    },
+    {
+      "id": "person:МАРИЯ ИВАНОВА ГОЧЕВА",
+      "type": "person",
+      "label": "Мария Иванова Гочева"
+    },
+    {
+      "id": "person:АТАНАСКА НИКОЛАЕВА РУСЕВА",
+      "type": "person",
+      "label": "Атанаска Николаева Русева"
+    },
+    {
+      "id": "person:ЖЕЛЯЗКА ДИМИТРОВА ЩЕРЕВА",
+      "type": "person",
+      "label": "Желязка Димитрова Щерева"
+    },
+    {
+      "id": "person:КИНКА ИВАНОВА РАДЕВА",
+      "type": "person",
+      "label": "Кинка Иванова Радева"
+    },
+    {
+      "id": "person:ДИМИТРИЧКА ВЪЛЧЕВА КОЕВА",
+      "type": "person",
+      "label": "Димитричка Вълчева Коева"
+    },
+    {
+      "id": "person:НЕДЯЛКА ПЕНЕВА МИТЕВА",
+      "type": "person",
+      "label": "Недялка Пенева Митева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitrichka-stoyanova-radusheva-dda75e",
+      "target": "company:tr:124075400",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИРИНА ДИМОВА ПЕТРОВА",
+      "target": "company:tr:124075400",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОВКА ИЛИЕВА СЛАВОВА",
+      "target": "company:tr:124075400",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ВЪЛКОВ ГЕОРГИЕВ",
+      "target": "company:tr:124075400",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИЧКА ЕНЧЕВА ПЕТКОВА",
+      "target": "company:tr:124075400",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНКА КОСТАДИНОВА ПАСЕВА",
+      "target": "company:tr:124075400",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ИВАНОВА ГОЧЕВА",
+      "target": "company:tr:124075400",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАСКА НИКОЛАЕВА РУСЕВА",
+      "target": "company:tr:124075400",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕЛЯЗКА ДИМИТРОВА ЩЕРЕВА",
+      "target": "company:tr:124075400",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИНКА ИВАНОВА РАДЕВА",
+      "target": "company:tr:124075400",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИЧКА ВЪЛЧЕВА КОЕВА",
+      "target": "company:tr:124075400",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЯЛКА ПЕНЕВА МИТЕВА",
+      "target": "company:tr:124075400",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

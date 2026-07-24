@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:daniela-ivanova-tsankova-e5c8db",
+  "nodes": [
+    {
+      "id": "official:daniela-ivanova-tsankova-e5c8db",
+      "type": "official",
+      "slug": "daniela-ivanova-tsankova-e5c8db",
+      "label": "Даниела Иванова Цанкова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205951473",
+      "type": "company",
+      "label": "ДИОГЕН",
+      "slug": null,
+      "uic": "205951473",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРЧЕЛА ТАРАН",
+      "type": "person",
+      "label": "Марчела Таран"
+    },
+    {
+      "id": "person:МИРОСЛАВ СТАНЧЕВ ЦАНКОВ",
+      "type": "person",
+      "label": "Мирослав Станчев Цанков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniela-ivanova-tsankova-e5c8db",
+      "target": "company:tr:205951473",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРЧЕЛА ТАРАН",
+      "target": "company:tr:205951473",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ СТАНЧЕВ ЦАНКОВ",
+      "target": "company:tr:205951473",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ СТАНЧЕВ ЦАНКОВ",
+      "target": "company:tr:205951473",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

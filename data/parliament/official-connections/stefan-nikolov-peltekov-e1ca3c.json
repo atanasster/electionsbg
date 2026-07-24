@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stefan-nikolov-peltekov-e1ca3c",
+  "nodes": [
+    {
+      "id": "official:stefan-nikolov-peltekov-e1ca3c",
+      "type": "official",
+      "slug": "stefan-nikolov-peltekov-e1ca3c",
+      "label": "Стефан Николов Пелтеков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:121411430",
+      "type": "company",
+      "label": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ",
+      "slug": null,
+      "uic": "121411430",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:tsanko-plamenov-ivanov-cf45c7",
+      "type": "official",
+      "slug": "tsanko-plamenov-ivanov-cf45c7",
+      "label": "Цанко Пламенов Иванов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:РУМЕН РАЙНОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Румен Райнов Михайлов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stefan-nikolov-peltekov-e1ca3c",
+      "target": "company:tr:121411430",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tsanko-plamenov-ivanov-cf45c7",
+      "target": "company:tr:121411430",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РУМЕН РАЙНОВ МИХАЙЛОВ",
+      "target": "company:tr:121411430",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dobromir-iliev-dimitrov-d3fc64",
+  "nodes": [
+    {
+      "id": "official:dobromir-iliev-dimitrov-d3fc64",
+      "type": "official",
+      "slug": "dobromir-iliev-dimitrov-d3fc64",
+      "label": "Добромир Илиев Димитров",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176604142",
+      "type": "company",
+      "label": "ВОЕННО ИСТОРИЧЕСКА АСОЦИАЦИЯ &quot;МУЗЕЙ БОЙНА СЛАВА&quot;",
+      "slug": null,
+      "uic": "176604142",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТОШКО ИВАНОВ СТАНЕВ",
+      "type": "person",
+      "label": "Тошко Иванов Станев"
+    },
+    {
+      "id": "person:РАДИ ИВАНОВ РАДЕВ",
+      "type": "person",
+      "label": "Ради Иванов Радев"
+    },
+    {
+      "id": "person:ИВАН РАДЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Радев Иванов"
+    },
+    {
+      "id": "person:ЩИЛИЯН ПЕТКОВ АНДОНОВ",
+      "type": "person",
+      "label": "Щилиян Петков Андонов"
+    },
+    {
+      "id": "person:ГОСПОДИН ГЕОРГИЕВ МИХОВ",
+      "type": "person",
+      "label": "Господин Георгиев Михов"
+    },
+    {
+      "id": "person:НИКОЛАЙ КОЛЕВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Николай Колев Ангелов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dobromir-iliev-dimitrov-d3fc64",
+      "target": "company:tr:176604142",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТОШКО ИВАНОВ СТАНЕВ",
+      "target": "company:tr:176604142",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДИ ИВАНОВ РАДЕВ",
+      "target": "company:tr:176604142",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН РАДЕВ ИВАНОВ",
+      "target": "company:tr:176604142",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЩИЛИЯН ПЕТКОВ АНДОНОВ",
+      "target": "company:tr:176604142",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЩИЛИЯН ПЕТКОВ АНДОНОВ",
+      "target": "company:tr:176604142",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГОСПОДИН ГЕОРГИЕВ МИХОВ",
+      "target": "company:tr:176604142",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ КОЛЕВ АНГЕЛОВ",
+      "target": "company:tr:176604142",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

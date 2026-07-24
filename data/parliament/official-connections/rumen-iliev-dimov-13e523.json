@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rumen-iliev-dimov-13e523",
+  "nodes": [
+    {
+      "id": "official:rumen-iliev-dimov-13e523",
+      "type": "official",
+      "slug": "rumen-iliev-dimov-13e523",
+      "label": "Румен Илиев Димов",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:103514755",
+      "type": "company",
+      "label": "ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН ЦЕНТЪР &quot;ЧАЙКА&quot;",
+      "slug": null,
+      "uic": "103514755",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rumen-iliev-dimov-13e523",
+      "target": "company:tr:103514755",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

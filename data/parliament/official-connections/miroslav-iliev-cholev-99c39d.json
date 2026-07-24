@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:miroslav-iliev-cholev-99c39d",
+  "nodes": [
+    {
+      "id": "official:miroslav-iliev-cholev-99c39d",
+      "type": "official",
+      "slug": "miroslav-iliev-cholev-99c39d",
+      "label": "Мирослав Илиев Чолев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Благоевград"
+    },
+    {
+      "id": "company:tr:206754685",
+      "type": "company",
+      "label": "\"Хелиум диджитал\" ЕООД",
+      "slug": null,
+      "uic": "206754685",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОРДАН ГЕОРГИЕВ СТОЯНОВ",
+      "type": "person",
+      "label": "Йордан Георгиев Стоянов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miroslav-iliev-cholev-99c39d",
+      "target": "company:tr:206754685",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:miroslav-iliev-cholev-99c39d",
+      "target": "company:tr:206754685",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:miroslav-iliev-cholev-99c39d",
+      "target": "company:tr:206754685",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАН ГЕОРГИЕВ СТОЯНОВ",
+      "target": "company:tr:206754685",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

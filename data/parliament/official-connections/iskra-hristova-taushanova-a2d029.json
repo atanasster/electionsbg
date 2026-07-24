@@ -1,0 +1,199 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iskra-hristova-taushanova-a2d029",
+  "nodes": [
+    {
+      "id": "official:iskra-hristova-taushanova-a2d029",
+      "type": "official",
+      "slug": "iskra-hristova-taushanova-a2d029",
+      "label": "Искра Христова Таушанова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:114090560",
+      "type": "company",
+      "label": "НАУКА 1927",
+      "slug": null,
+      "uic": "114090560",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГАЛЯ ТОДОРОВА РУСАНОВА",
+      "type": "person",
+      "label": "Галя Тодорова Русанова"
+    },
+    {
+      "id": "person:НИНА МИТКОВА МИКОВА",
+      "type": "person",
+      "label": "Нина Миткова Микова"
+    },
+    {
+      "id": "person:МОНИКА РОСЕНОВА ПАЧЕВА",
+      "type": "person",
+      "label": "Моника Росенова Пачева"
+    },
+    {
+      "id": "person:ЦЕЦА МИХАЙЛОВА СИМЕОНОВА",
+      "type": "person",
+      "label": "Цеца Михайлова Симеонова"
+    },
+    {
+      "id": "person:АНАТОЛИ БОРИСЛАВОВ БОРИСОВ",
+      "type": "person",
+      "label": "Анатоли Бориславов Борисов"
+    },
+    {
+      "id": "person:ТОДОРИНА ИВАНОВА МАРИНОВА",
+      "type": "person",
+      "label": "Тодорина Иванова Маринова"
+    },
+    {
+      "id": "person:МАРИАНА ХРИСТОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Мариана Христова Димитрова"
+    },
+    {
+      "id": "person:ГЕНОВЕВА ТОДОРОВА ВИТАНОВА",
+      "type": "person",
+      "label": "Геновева Тодорова Витанова"
+    },
+    {
+      "id": "person:НИКОЛАЙ ТОДОРОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Николай Тодоров Христов"
+    },
+    {
+      "id": "person:ИВАН-АЛЕКСАНДЪР АНАТОЛИЕВ КОРНОВСКИ",
+      "type": "person",
+      "label": "Иван-Александър Анатолиев Корновски"
+    },
+    {
+      "id": "person:ИРИНА РУМЕНОВА КУШИНОВА",
+      "type": "person",
+      "label": "Ирина Руменова Кушинова"
+    },
+    {
+      "id": "person:СТАНИСЛАВА РАДОСЛАВОВА ТОМОВА",
+      "type": "person",
+      "label": "Станислава Радославова Томова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iskra-hristova-taushanova-a2d029",
+      "target": "company:tr:114090560",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГАЛЯ ТОДОРОВА РУСАНОВА",
+      "target": "company:tr:114090560",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА МИТКОВА МИКОВА",
+      "target": "company:tr:114090560",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МОНИКА РОСЕНОВА ПАЧЕВА",
+      "target": "company:tr:114090560",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦЕЦА МИХАЙЛОВА СИМЕОНОВА",
+      "target": "company:tr:114090560",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛЯ ТОДОРОВА РУСАНОВА",
+      "target": "company:tr:114090560",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНАТОЛИ БОРИСЛАВОВ БОРИСОВ",
+      "target": "company:tr:114090560",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОРИНА ИВАНОВА МАРИНОВА",
+      "target": "company:tr:114090560",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ХРИСТОВА ДИМИТРОВА",
+      "target": "company:tr:114090560",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕНОВЕВА ТОДОРОВА ВИТАНОВА",
+      "target": "company:tr:114090560",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ТОДОРОВ ХРИСТОВ",
+      "target": "company:tr:114090560",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН-АЛЕКСАНДЪР АНАТОЛИЕВ КОРНОВСКИ",
+      "target": "company:tr:114090560",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА РУМЕНОВА КУШИНОВА",
+      "target": "company:tr:114090560",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВА РАДОСЛАВОВА ТОМОВА",
+      "target": "company:tr:114090560",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

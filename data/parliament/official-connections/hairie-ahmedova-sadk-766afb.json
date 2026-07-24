@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hairie-ahmedova-sadk-766afb",
+  "nodes": [
+    {
+      "id": "official:hairie-ahmedova-sadk-766afb",
+      "type": "official",
+      "slug": "hairie-ahmedova-sadk-766afb",
+      "label": "Хайрие Ахмедова Садък",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:113061709",
+      "type": "company",
+      "label": "ПОЗИТИВНИ УМЕНИЯ НА ЛИЧНОСТТА В СОЦИУМА",
+      "slug": null,
+      "uic": "113061709",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕКАТЕРИНА ИВАНОВА ВЕЛЕВА",
+      "type": "person",
+      "label": "Екатерина Иванова Велева"
+    },
+    {
+      "id": "person:МАРИЯНА МИХАЙЛОВА ЕВТИМОВА",
+      "type": "person",
+      "label": "Марияна Михайлова Евтимова"
+    },
+    {
+      "id": "person:ВЕСЕЛИНА ГЕОРГИЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Веселина Георгиева Иванова"
+    },
+    {
+      "id": "person:МЮЖГЯН БАЙРЯМ АДЕМ",
+      "type": "person",
+      "label": "Мюжгян Байрям Адем"
+    },
+    {
+      "id": "person:АЙГЮЛ ФАХРИ ГАЗИ",
+      "type": "person",
+      "label": "Айгюл Фахри Гази"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hairie-ahmedova-sadk-766afb",
+      "target": "company:tr:113061709",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕКАТЕРИНА ИВАНОВА ВЕЛЕВА",
+      "target": "company:tr:113061709",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА МИХАЙЛОВА ЕВТИМОВА",
+      "target": "company:tr:113061709",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА ГЕОРГИЕВА ИВАНОВА",
+      "target": "company:tr:113061709",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЮЖГЯН БАЙРЯМ АДЕМ",
+      "target": "company:tr:113061709",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙГЮЛ ФАХРИ ГАЗИ",
+      "target": "company:tr:113061709",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

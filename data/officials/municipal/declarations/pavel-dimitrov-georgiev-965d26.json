@@ -1,0 +1,76 @@
+[
+  {
+    "slug": "pavel-dimitrov-georgiev-965d26",
+    "declarantName": "Павел Димитров Георгиев",
+    "institution": "Сливо поле",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г13897",
+    "controlHash": "023A51D4",
+    "sourceUrl": "https://register.cacbg.bg/2025/A86A6C7B-097A-4BE1-82DC-15D6B9C879DE217155.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялово участие",
+        "shareSize": "100",
+        "companyName": "ДЮП 2021 ЕООД",
+        "registeredOffice": "Ряхово",
+        "valueEur": 51.12918811962185,
+        "holderName": "Павел Димитров Георгиев",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6538.400576737242,
+        "amountEurSpouse": 17412.556306018418
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 209.11837940925335,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Павел Димитров Георгиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "върнат заем от ДЮП 2021 ЕООД"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Пежо 407",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 715.8086336747059,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

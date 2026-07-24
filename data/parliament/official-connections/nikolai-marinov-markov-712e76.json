@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-marinov-markov-712e76",
+  "nodes": [
+    {
+      "id": "official:nikolai-marinov-markov-712e76",
+      "type": "official",
+      "slug": "nikolai-marinov-markov-712e76",
+      "label": "Николай Маринов Марков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202858505",
+      "type": "company",
+      "label": "Дил Венчърс ООД",
+      "slug": null,
+      "uic": "202858505",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205871229",
+      "type": "company",
+      "label": "Дил Аналитикс ООД",
+      "slug": null,
+      "uic": "205871229",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВО ЗАХАРИЕВ МОРАВСКИ",
+      "type": "person",
+      "label": "Иво Захариев Моравски"
+    },
+    {
+      "id": "person:АНДРЕЙ АНДРЕЕВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Андрей Андреев Василев"
+    },
+    {
+      "id": "person:СТЕФАН МАРИНОВ МАРКОВ",
+      "type": "person",
+      "label": "Стефан Маринов Марков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-marinov-markov-712e76",
+      "target": "company:tr:202858505",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-marinov-markov-712e76",
+      "target": "company:tr:205871229",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-marinov-markov-712e76",
+      "target": "company:tr:205871229",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВО ЗАХАРИЕВ МОРАВСКИ",
+      "target": "company:tr:205871229",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРЕЙ АНДРЕЕВ ВАСИЛЕВ",
+      "target": "company:tr:205871229",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН МАРИНОВ МАРКОВ",
+      "target": "company:tr:205871229",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

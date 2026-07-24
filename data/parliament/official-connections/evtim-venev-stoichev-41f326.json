@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:evtim-venev-stoichev-41f326",
+  "nodes": [
+    {
+      "id": "official:evtim-venev-stoichev-41f326",
+      "type": "official",
+      "slug": "evtim-venev-stoichev-41f326",
+      "label": "Евтим Венев Стойчев",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208431798",
+      "type": "company",
+      "label": "ЯСНА 0524",
+      "slug": null,
+      "uic": "208431798",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЯНИТА АНГЕЛОВА СТОЙЧЕВА",
+      "type": "person",
+      "label": "Янита Ангелова Стойчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:evtim-venev-stoichev-41f326",
+      "target": "company:tr:208431798",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:evtim-venev-stoichev-41f326",
+      "target": "company:tr:208431798",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЯНИТА АНГЕЛОВА СТОЙЧЕВА",
+      "target": "company:tr:208431798",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНИТА АНГЕЛОВА СТОЙЧЕВА",
+      "target": "company:tr:208431798",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

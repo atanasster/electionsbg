@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivelina-vasileva-peneva-kmetova-ab83e5",
+  "nodes": [
+    {
+      "id": "official:ivelina-vasileva-peneva-kmetova-ab83e5",
+      "type": "official",
+      "slug": "ivelina-vasileva-peneva-kmetova-ab83e5",
+      "label": "Ивелина Василева Пенева-Кметова",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Павликени"
+    },
+    {
+      "id": "company:tr:206973978",
+      "type": "company",
+      "label": "АРХИ проект",
+      "slug": null,
+      "uic": "206973978",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГАНКА ПЕНЕВА МЕЧКОВА",
+      "type": "person",
+      "label": "Ганка Пенева Мечкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivelina-vasileva-peneva-kmetova-ab83e5",
+      "target": "company:tr:206973978",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivelina-vasileva-peneva-kmetova-ab83e5",
+      "target": "company:tr:206973978",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГАНКА ПЕНЕВА МЕЧКОВА",
+      "target": "company:tr:206973978",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

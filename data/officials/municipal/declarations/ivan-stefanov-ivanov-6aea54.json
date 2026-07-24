@@ -1,0 +1,117 @@
+[
+  {
+    "slug": "ivan-stefanov-ivanov-6aea54",
+    "declarantName": "ИВАН СТЕФАНОВ ИВАНОВ",
+    "institution": "Габрово",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г7513",
+    "controlHash": "AB8530B0",
+    "sourceUrl": "https://register.cacbg.bg/2025/04424E4A-C967-4D4E-BFDD-D4EBA4D2FC93210508.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5740.7852420711415,
+        "amountEurSpouse": 4970.779668989636
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 4546.407407596775,
+        "amountEurSpouse": 4196.683760858561
+      },
+      {
+        "parent": null,
+        "category": "ПРОДАЖБА НА ЗЕМЕДЕЛСКА ЗЕМЯ",
+        "amountEurDeclarant": 12595.164201387646,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ПРОДАЖБА НА ЗЕМЕДЕЛСКА ЗЕМЯ",
+        "amountEurDeclarant": 2556.4594059810925,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "НИКОЛАЕВСКА 139",
+        "municipality": "Габрово",
+        "areaSqm": 67,
+        "builtAreaSqm": 134,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22500,
+        "valueEur": 11504.067326914916,
+        "holderName": "ИВАН СТЕФАНОВ ИВАНОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "ПРОДАЖБА НА ЗЕМЯ"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "НИКОЛАЕВСКА 141",
+        "municipality": "Габрово",
+        "areaSqm": 26,
+        "builtAreaSqm": 78,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22500,
+        "valueEur": 11504.067326914916,
+        "holderName": "ИВАН СТЕФАНОВ ИВАНОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "ПРОДАЖБА НА ЗЕМЯ"
+      },
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ШКОДА ОКТАВИЯ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 61380,
+        "valueEur": 31383.09566782389,
+        "holderName": "ИВАН СТЕФАНОВ ИВАНОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "РОСИЦА ГЕОРГИЕВА ДОНЕВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

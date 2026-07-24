@@ -1,0 +1,142 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:anzhela-paraskevova-borisova-5b7d2a",
+  "nodes": [
+    {
+      "id": "official:anzhela-paraskevova-borisova-5b7d2a",
+      "type": "official",
+      "slug": "anzhela-paraskevova-borisova-5b7d2a",
+      "label": "Анжела Параскевова Борисова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ново село"
+    },
+    {
+      "id": "company:tr:000153313",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ЗОРА - 1927&quot;",
+      "slug": null,
+      "uic": "000153313",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛЮСИ ЛОЗАНОВА ПЪРВАНОВА",
+      "type": "person",
+      "label": "Люси Лозанова Първанова"
+    },
+    {
+      "id": "person:БОСИЛКА ВИТАНОВА АЛЕКСАНДРОВА",
+      "type": "person",
+      "label": "Босилка Витанова Александрова"
+    },
+    {
+      "id": "person:ВАНЯ МЕТОДИЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Ваня Методиева Георгиева"
+    },
+    {
+      "id": "person:ИЛКА ПЕНЧОВА МАРИНОВА",
+      "type": "person",
+      "label": "Илка Пенчова Маринова"
+    },
+    {
+      "id": "person:ВИОЛИНА ЗЛАТКОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Виолина Златкова Илиева"
+    },
+    {
+      "id": "person:ЛЮБИНКА ИВАНОВА КАМЕНОВА",
+      "type": "person",
+      "label": "Любинка Иванова Каменова"
+    },
+    {
+      "id": "person:САШО БОГДАНОВ АЛЕКСАНДРОВ",
+      "type": "person",
+      "label": "Сашо Богданов Александров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:anzhela-paraskevova-borisova-5b7d2a",
+      "target": "company:tr:000153313",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮСИ ЛОЗАНОВА ПЪРВАНОВА",
+      "target": "company:tr:000153313",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОСИЛКА ВИТАНОВА АЛЕКСАНДРОВА",
+      "target": "company:tr:000153313",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОСИЛКА ВИТАНОВА АЛЕКСАНДРОВА",
+      "target": "company:tr:000153313",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮСИ ЛОЗАНОВА ПЪРВАНОВА",
+      "target": "company:tr:000153313",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ МЕТОДИЕВА ГЕОРГИЕВА",
+      "target": "company:tr:000153313",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛКА ПЕНЧОВА МАРИНОВА",
+      "target": "company:tr:000153313",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛИНА ЗЛАТКОВА ИЛИЕВА",
+      "target": "company:tr:000153313",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБИНКА ИВАНОВА КАМЕНОВА",
+      "target": "company:tr:000153313",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САШО БОГДАНОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:000153313",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

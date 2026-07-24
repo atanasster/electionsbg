@@ -1,0 +1,72 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tsvetana-petkova-rasheva-a8c6c3",
+  "nodes": [
+    {
+      "id": "official:tsvetana-petkova-rasheva-a8c6c3",
+      "type": "official",
+      "slug": "tsvetana-petkova-rasheva-a8c6c3",
+      "label": "Цветана Петкова Рашева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Нова Загора"
+    },
+    {
+      "id": "company:tr:206984280",
+      "type": "company",
+      "label": "Сити Пойнт Рент ООД",
+      "slug": null,
+      "uic": "206984280",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТЪР СТОЯНОВ РАШЕВ",
+      "type": "person",
+      "label": "Димитър Стоянов Рашев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetana-petkova-rasheva-a8c6c3",
+      "target": "company:tr:206984280",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:tsvetana-petkova-rasheva-a8c6c3",
+      "target": "company:tr:206984280",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tsvetana-petkova-rasheva-a8c6c3",
+      "target": "company:tr:206984280",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР СТОЯНОВ РАШЕВ",
+      "target": "company:tr:206984280",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР СТОЯНОВ РАШЕВ",
+      "target": "company:tr:206984280",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

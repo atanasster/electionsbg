@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:920",
   "nodes": [
     {
@@ -62,18 +62,18 @@
       "label": "Кристиян Илиянов Цветанов"
     },
     {
-      "id": "official:violina-venelinova-vasova-bc3d0f",
+      "id": "official:violina-venelinova-vasova-056d76",
       "type": "official",
-      "slug": "violina-venelinova-vasova-bc3d0f",
+      "slug": "violina-venelinova-vasova-056d76",
       "label": "Виолина Венелинова Васова",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "medical_center",
       "municipality": null
     },
     {
-      "id": "official:georgi-bonev-ivanov-4782eb",
+      "id": "official:georgi-bonev-ivanov-ee9df4",
       "type": "official",
-      "slug": "georgi-bonev-ivanov-4782eb",
+      "slug": "georgi-bonev-ivanov-ee9df4",
       "label": "Георги Бонев Иванов",
       "tier": "executive",
       "role": "state_enterprise",
@@ -188,7 +188,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:violina-venelinova-vasova-bc3d0f",
+      "source": "official:violina-venelinova-vasova-056d76",
       "target": "company:tr:206628996",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -196,7 +196,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:georgi-bonev-ivanov-4782eb",
+      "source": "official:georgi-bonev-ivanov-ee9df4",
       "target": "company:tr:206628996",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -220,7 +220,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:violina-venelinova-vasova-bc3d0f",
+      "source": "official:violina-venelinova-vasova-056d76",
       "target": "company:tr:206628996",
       "kind": "tr_owner",
       "role": "partner",

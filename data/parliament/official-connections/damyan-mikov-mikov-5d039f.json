@@ -1,0 +1,53 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:damyan-mikov-mikov-5d039f",
+  "nodes": [
+    {
+      "id": "official:damyan-mikov-mikov-5d039f",
+      "type": "official",
+      "slug": "damyan-mikov-mikov-5d039f",
+      "label": "Дамян Миков Миков",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:160118118",
+      "type": "company",
+      "label": "Рос-Мари ЕООД",
+      "slug": null,
+      "uic": "160118118",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203246144",
+      "type": "company",
+      "label": "Микова ЕООД",
+      "slug": null,
+      "uic": "203246144",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:damyan-mikov-mikov-5d039f",
+      "target": "company:tr:160118118",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:damyan-mikov-mikov-5d039f",
+      "target": "company:tr:203246144",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:elisaveta-iordanova-sestrimska-32c64b",
+  "nodes": [
+    {
+      "id": "official:elisaveta-iordanova-sestrimska-32c64b",
+      "type": "official",
+      "slug": "elisaveta-iordanova-sestrimska-32c64b",
+      "label": "Елисавета Йорданова Сестримска",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Долна баня"
+    },
+    {
+      "id": "company:tr:130028316",
+      "type": "company",
+      "label": "ТУРИСТИЧЕСКО ДРУЖЕСТВО ИБЪР",
+      "slug": null,
+      "uic": "130028316",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕЛЕНА СТОЯНОВА СУХАРЕВА",
+      "type": "person",
+      "label": "Елена Стоянова Сухарева"
+    },
+    {
+      "id": "person:СВЕТЛА МИРЧОВА СТОИМЕНОВА",
+      "type": "person",
+      "label": "Светла Мирчова Стоименова"
+    },
+    {
+      "id": "person:ВЕСЕЛА БОРИСОВА УЗУНОВА",
+      "type": "person",
+      "label": "Весела Борисова Узунова"
+    },
+    {
+      "id": "person:НИКОЛАЙ ДИМИТРОВ БОЖИЛОВ",
+      "type": "person",
+      "label": "Николай Димитров Божилов"
+    },
+    {
+      "id": "person:МЕТОДИ ИВАНОВ ТРОЯНСКИ",
+      "type": "person",
+      "label": "Методи Иванов Троянски"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА АНГЕЛОВА АПОСТОЛОВА",
+      "type": "person",
+      "label": "Валентина Ангелова Апостолова"
+    },
+    {
+      "id": "person:АДРИАНА КИРИЛОВА БЛАГОЕВА",
+      "type": "person",
+      "label": "Адриана Кирилова Благоева"
+    },
+    {
+      "id": "person:НАТАЛИЯ АНГЕЛОВА СТОИЧКОВА",
+      "type": "person",
+      "label": "Наталия Ангелова Стоичкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:elisaveta-iordanova-sestrimska-32c64b",
+      "target": "company:tr:130028316",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕЛЕНА СТОЯНОВА СУХАРЕВА",
+      "target": "company:tr:130028316",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА МИРЧОВА СТОИМЕНОВА",
+      "target": "company:tr:130028316",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛА БОРИСОВА УЗУНОВА",
+      "target": "company:tr:130028316",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДИМИТРОВ БОЖИЛОВ",
+      "target": "company:tr:130028316",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕТОДИ ИВАНОВ ТРОЯНСКИ",
+      "target": "company:tr:130028316",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА АНГЕЛОВА АПОСТОЛОВА",
+      "target": "company:tr:130028316",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АДРИАНА КИРИЛОВА БЛАГОЕВА",
+      "target": "company:tr:130028316",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАЛИЯ АНГЕЛОВА СТОИЧКОВА",
+      "target": "company:tr:130028316",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

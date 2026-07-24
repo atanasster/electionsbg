@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:galina-hristova-langocheva-dba57a",
+  "nodes": [
+    {
+      "id": "official:galina-hristova-langocheva-dba57a",
+      "type": "official",
+      "slug": "galina-hristova-langocheva-dba57a",
+      "label": "Галина Христова Лангочева",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201096233",
+      "type": "company",
+      "label": "Хоризонт Консулт ООД",
+      "slug": null,
+      "uic": "201096233",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:galina-hristova-langocheva-dba57a",
+      "target": "company:tr:201096233",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

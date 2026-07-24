@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:milena-kostadinova-darakchieva-347790",
+  "nodes": [
+    {
+      "id": "official:milena-kostadinova-darakchieva-347790",
+      "type": "official",
+      "slug": "milena-kostadinova-darakchieva-347790",
+      "label": "Милена Костадинова Даракчиева",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201465118",
+      "type": "company",
+      "label": "САМОСТОЯТЕЛНА МЕДИКО-ДИАГНОСТИЧНА ЛАБОРАТОРИЯ РУДОЗЕМ",
+      "slug": null,
+      "uic": "201465118",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milena-kostadinova-darakchieva-347790",
+      "target": "company:tr:201465118",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

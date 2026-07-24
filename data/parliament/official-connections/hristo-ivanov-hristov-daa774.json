@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hristo-ivanov-hristov-daa774",
+  "nodes": [
+    {
+      "id": "official:hristo-ivanov-hristov-daa774",
+      "type": "official",
+      "slug": "hristo-ivanov-hristov-daa774",
+      "label": "Христо Иванов Христов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кюстендил"
+    },
+    {
+      "id": "company:tr:207136389",
+      "type": "company",
+      "label": "Виртус 22 ЕООД",
+      "slug": null,
+      "uic": "207136389",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТО ИВАНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Христо Иванов Христов"
+    },
+    {
+      "id": "person:СВЕТЛИН АЛЕКСАНДРОВ МИЛЕНКОВ",
+      "type": "person",
+      "label": "Светлин Александров Миленков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-ivanov-hristov-daa774",
+      "target": "company:tr:207136389",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ИВАНОВ ХРИСТОВ",
+      "target": "company:tr:207136389",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ИВАНОВ ХРИСТОВ",
+      "target": "company:tr:207136389",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛИН АЛЕКСАНДРОВ МИЛЕНКОВ",
+      "target": "company:tr:207136389",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

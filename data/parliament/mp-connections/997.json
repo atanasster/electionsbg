@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:997",
   "nodes": [
     {
@@ -42,9 +42,9 @@
       "seat": "БЪЛГАРИЯ, Смолян, 4700"
     },
     {
-      "id": "official:valentin-ventsislavov-kyulhanski-f281c5",
+      "id": "official:valentin-ventsislavov-kyulhanski-9dd262",
       "type": "official",
-      "slug": "valentin-ventsislavov-kyulhanski-f281c5",
+      "slug": "valentin-ventsislavov-kyulhanski-9dd262",
       "label": "Валентин Венциславов Кюлхански",
       "tier": "municipal",
       "role": "councillor",
@@ -281,21 +281,21 @@
       "nsFolders": []
     },
     {
-      "id": "official:mariana-nedelchova-bozhkova-630ced",
+      "id": "official:mariana-nedelchova-bozhkova-9f9d89",
       "type": "official",
-      "slug": "mariana-nedelchova-bozhkova-630ced",
+      "slug": "mariana-nedelchova-bozhkova-9f9d89",
       "label": "Мариана Неделчова Божкова",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "school",
       "municipality": null
     },
     {
-      "id": "official:pavlina-ivanova-markovska-dbbbfa",
+      "id": "official:pavlina-ivanova-markovska-e1e50c",
       "type": "official",
-      "slug": "pavlina-ivanova-markovska-dbbbfa",
+      "slug": "pavlina-ivanova-markovska-e1e50c",
       "label": "Павлина Иванова Марковска",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "social_care",
       "municipality": null
     },
     {
@@ -1648,7 +1648,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:valentin-ventsislavov-kyulhanski-f281c5",
+      "source": "official:valentin-ventsislavov-kyulhanski-9dd262",
       "target": "company:tr:176147518",
       "kind": "tr_role",
       "role": "ngo_representative",
@@ -1656,7 +1656,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:valentin-ventsislavov-kyulhanski-f281c5",
+      "source": "official:valentin-ventsislavov-kyulhanski-9dd262",
       "target": "company:tr:176147518",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -1856,7 +1856,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:mariana-nedelchova-bozhkova-630ced",
+      "source": "official:mariana-nedelchova-bozhkova-9f9d89",
       "target": "company:tr:131049199",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -1864,7 +1864,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:pavlina-ivanova-markovska-dbbbfa",
+      "source": "official:pavlina-ivanova-markovska-e1e50c",
       "target": "company:tr:131049199",
       "kind": "tr_role",
       "role": "ngo_board",

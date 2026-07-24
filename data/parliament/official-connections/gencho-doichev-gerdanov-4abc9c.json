@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:gencho-doichev-gerdanov-4abc9c",
+  "nodes": [
+    {
+      "id": "official:gencho-doichev-gerdanov-4abc9c",
+      "type": "official",
+      "slug": "gencho-doichev-gerdanov-4abc9c",
+      "label": "Генчо Дойчев Герданов",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207697632",
+      "type": "company",
+      "label": "Централ Апартмънтс",
+      "slug": null,
+      "uic": "207697632",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gencho-doichev-gerdanov-4abc9c",
+      "target": "company:tr:207697632",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:gencho-doichev-gerdanov-4abc9c",
+      "target": "company:tr:207697632",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rosen-andreev-karadimov-67e939",
+  "nodes": [
+    {
+      "id": "official:rosen-andreev-karadimov-67e939",
+      "type": "official",
+      "slug": "rosen-andreev-karadimov-67e939",
+      "label": "Росен Андреев Карадимов",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175216041",
+      "type": "company",
+      "label": "Би Ленд ООД",
+      "slug": null,
+      "uic": "175216041",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:rosen-andreev-karadimov-e17f12",
+      "type": "official",
+      "slug": "rosen-andreev-karadimov-e17f12",
+      "label": "Росен Андреев Карадимов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:rosen-andreev-karadimov-b99e1c",
+      "type": "official",
+      "slug": "rosen-andreev-karadimov-b99e1c",
+      "label": "Росен Андреев Карадимов",
+      "tier": "executive",
+      "role": "regulator",
+      "municipality": null
+    },
+    {
+      "id": "person:РОСЕН АНДРЕЕВ КАРАДИМОВ",
+      "type": "person",
+      "label": "Росен Андреев Карадимов"
+    },
+    {
+      "id": "person:НИНА ТОДОРОВА НЕНОВА",
+      "type": "person",
+      "label": "Нина Тодорова Ненова"
+    },
+    {
+      "id": "person:ФИНАНКО ЕСТЕЙТС",
+      "type": "person",
+      "label": "Финанко Естейтс"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rosen-andreev-karadimov-67e939",
+      "target": "company:tr:175216041",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:rosen-andreev-karadimov-e17f12",
+      "target": "company:tr:175216041",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:rosen-andreev-karadimov-b99e1c",
+      "target": "company:tr:175216041",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН АНДРЕЕВ КАРАДИМОВ",
+      "target": "company:tr:175216041",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА ТОДОРОВА НЕНОВА",
+      "target": "company:tr:175216041",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИНАНКО ЕСТЕЙТС",
+      "target": "company:tr:175216041",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

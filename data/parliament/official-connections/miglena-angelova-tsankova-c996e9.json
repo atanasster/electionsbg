@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:miglena-angelova-tsankova-c996e9",
+  "nodes": [
+    {
+      "id": "official:miglena-angelova-tsankova-c996e9",
+      "type": "official",
+      "slug": "miglena-angelova-tsankova-c996e9",
+      "label": "Миглена Ангелова Цанкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201346142",
+      "type": "company",
+      "label": "\"ПАРАЛЕЛ МХ ГРУП\" ООД",
+      "slug": null,
+      "uic": "201346142",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miglena-angelova-tsankova-c996e9",
+      "target": "company:tr:201346142",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

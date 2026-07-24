@@ -1,0 +1,103 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:radoslav-hristov-hitov-1bc619",
+  "nodes": [
+    {
+      "id": "official:radoslav-hristov-hitov-1bc619",
+      "type": "official",
+      "slug": "radoslav-hristov-hitov-1bc619",
+      "label": "Радослав Христов Хитов",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:820174330",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ЗНАНИЕ&quot;",
+      "slug": null,
+      "uic": "820174330",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:63",
+      "type": "mp",
+      "mpId": 63,
+      "label": "Донка Иванова Михайлова",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "official:ventseslav-iliev-georgiev-7aec19",
+      "type": "official",
+      "slug": "ventseslav-iliev-georgiev-7aec19",
+      "label": "Венцеслав Илиев Георгиев",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "person:РАЛИЦА СТОЯНОВА ПОПОВА",
+      "type": "person",
+      "label": "Ралица Стоянова Попова"
+    },
+    {
+      "id": "person:ПЕТЪР СТОЙНЕВ ПЕТКОВ",
+      "type": "person",
+      "label": "Петър Стойнев Петков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:radoslav-hristov-hitov-1bc619",
+      "target": "company:tr:820174330",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:63",
+      "target": "company:tr:820174330",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ventseslav-iliev-georgiev-7aec19",
+      "target": "company:tr:820174330",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАЛИЦА СТОЯНОВА ПОПОВА",
+      "target": "company:tr:820174330",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР СТОЙНЕВ ПЕТКОВ",
+      "target": "company:tr:820174330",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЛИЦА СТОЯНОВА ПОПОВА",
+      "target": "company:tr:820174330",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

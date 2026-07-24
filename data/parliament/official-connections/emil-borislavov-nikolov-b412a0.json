@@ -1,0 +1,139 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:emil-borislavov-nikolov-b412a0",
+  "nodes": [
+    {
+      "id": "official:emil-borislavov-nikolov-b412a0",
+      "type": "official",
+      "slug": "emil-borislavov-nikolov-b412a0",
+      "label": "Емил Бориславов Николов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Свищов"
+    },
+    {
+      "id": "company:tr:205438714",
+      "type": "company",
+      "label": "Асоциация на специалистите по устойчивост",
+      "slug": null,
+      "uic": "205438714",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИНА ДИМИТРОВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Марина Димитрова Стефанова"
+    },
+    {
+      "id": "person:ДАРИНКА ЙОРДАНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Даринка Йорданова Георгиева"
+    },
+    {
+      "id": "person:МИЛКА СТЕФАНОВА СЕМОВА",
+      "type": "person",
+      "label": "Милка Стефанова Семова"
+    },
+    {
+      "id": "person:БОРИС НИКОЛАЕВ КОЛЕВ",
+      "type": "person",
+      "label": "Борис Николаев Колев"
+    },
+    {
+      "id": "person:ВЕСЕЛА ЕМИЛОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Весела Емилова Петрова"
+    },
+    {
+      "id": "person:ЕВГЕНИ ПЕТРОВ СТАНИМИРОВ",
+      "type": "person",
+      "label": "Евгени Петров Станимиров"
+    },
+    {
+      "id": "person:ИВАНА ГЕОРГИЕВА РАДОМИРОВА",
+      "type": "person",
+      "label": "Ивана Георгиева Радомирова"
+    },
+    {
+      "id": "person:АНА ДИМЧОВА ФИНДЖИКОВА",
+      "type": "person",
+      "label": "Ана Димчова Финджикова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-borislavov-nikolov-b412a0",
+      "target": "company:tr:205438714",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИНА ДИМИТРОВА СТЕФАНОВА",
+      "target": "company:tr:205438714",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАРИНКА ЙОРДАНОВА ГЕОРГИЕВА",
+      "target": "company:tr:205438714",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКА СТЕФАНОВА СЕМОВА",
+      "target": "company:tr:205438714",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИС НИКОЛАЕВ КОЛЕВ",
+      "target": "company:tr:205438714",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛА ЕМИЛОВА ПЕТРОВА",
+      "target": "company:tr:205438714",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИ ПЕТРОВ СТАНИМИРОВ",
+      "target": "company:tr:205438714",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНА ГЕОРГИЕВА РАДОМИРОВА",
+      "target": "company:tr:205438714",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНА ДИМЧОВА ФИНДЖИКОВА",
+      "target": "company:tr:205438714",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

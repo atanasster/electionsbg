@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:proletka-tsvetkova-kirova-99c99b",
+  "nodes": [
+    {
+      "id": "official:proletka-tsvetkova-kirova-99c99b",
+      "type": "official",
+      "slug": "proletka-tsvetkova-kirova-99c99b",
+      "label": "Пролетка Цветкова Кирова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:105565474",
+      "type": "company",
+      "label": "България в Европа",
+      "slug": null,
+      "uic": "105565474",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НЕЛИ КАРАМФИЛОВА ПАВЛОВА",
+      "type": "person",
+      "label": "Нели Карамфилова Павлова"
+    },
+    {
+      "id": "person:ПЕТЪР ЦАНОВ МЛАДЕНОВ",
+      "type": "person",
+      "label": "Петър Цанов Младенов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:proletka-tsvetkova-kirova-99c99b",
+      "target": "company:tr:105565474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НЕЛИ КАРАМФИЛОВА ПАВЛОВА",
+      "target": "company:tr:105565474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ЦАНОВ МЛАДЕНОВ",
+      "target": "company:tr:105565474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mitko-ivanov-minchev-cdf79c",
+  "nodes": [
+    {
+      "id": "official:mitko-ivanov-minchev-cdf79c",
+      "type": "official",
+      "slug": "mitko-ivanov-minchev-cdf79c",
+      "label": "Митко Иванов Минчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Септември"
+    },
+    {
+      "id": "company:tr:208797265",
+      "type": "company",
+      "label": "КАМБИ 92",
+      "slug": null,
+      "uic": "208797265",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mitko-ivanov-minchev-cdf79c",
+      "target": "company:tr:208797265",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mitko-ivanov-minchev-cdf79c",
+      "target": "company:tr:208797265",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

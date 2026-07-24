@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:daniela-georgieva-sbeva-stoeva-3d2345",
+  "nodes": [
+    {
+      "id": "official:daniela-georgieva-sbeva-stoeva-3d2345",
+      "type": "official",
+      "slug": "daniela-georgieva-sbeva-stoeva-3d2345",
+      "label": "Даниела Георгиева Събева-Стоева",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000851111",
+      "type": "company",
+      "label": "ЦЕНТЪР ЗА ПСИХИЧНО ЗДРАВЕ Д-Р П.СТАНЧЕВ - ДОБРИЧ",
+      "slug": null,
+      "uic": "000851111",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:severina-georgieva-vasileva-d66148",
+      "type": "official",
+      "slug": "severina-georgieva-vasileva-d66148",
+      "label": "Северина Георгиева Василева",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniela-georgieva-sbeva-stoeva-3d2345",
+      "target": "company:tr:000851111",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:severina-georgieva-vasileva-d66148",
+      "target": "company:tr:000851111",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

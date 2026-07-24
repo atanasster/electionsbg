@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hristina-stefanova-pendicheva-3c317f",
+  "nodes": [
+    {
+      "id": "official:hristina-stefanova-pendicheva-3c317f",
+      "type": "official",
+      "slug": "hristina-stefanova-pendicheva-3c317f",
+      "label": "Христина Стефанова Пендичева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:030412611",
+      "type": "company",
+      "label": "БЪЛГАРСКА ФОНДОВА БОРСА",
+      "slug": null,
+      "uic": "030412611",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАНЮ ТОДОРОВ МОРАВЕНОВ",
+      "type": "person",
+      "label": "Маню Тодоров Моравенов"
+    },
+    {
+      "id": "person:РАДОСЛАВА ГЕОРГИЕВА МАСЛАРСКА",
+      "type": "person",
+      "label": "Радослава Георгиева Масларска"
+    },
+    {
+      "id": "person:АСЕН ВАСИЛЕВ ЯГОДИН",
+      "type": "person",
+      "label": "Асен Василев Ягодин"
+    },
+    {
+      "id": "person:ВАСИЛ ДИМИТРОВ ГОЛЕМАНСКИ",
+      "type": "person",
+      "label": "Васил Димитров Големански"
+    },
+    {
+      "id": "person:ГЕОРГИ ИВАНОВ КАРАДЖОВ",
+      "type": "person",
+      "label": "Георги Иванов Караджов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristina-stefanova-pendicheva-3c317f",
+      "target": "company:tr:030412611",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАНЮ ТОДОРОВ МОРАВЕНОВ",
+      "target": "company:tr:030412611",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВА ГЕОРГИЕВА МАСЛАРСКА",
+      "target": "company:tr:030412611",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН ВАСИЛЕВ ЯГОДИН",
+      "target": "company:tr:030412611",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ДИМИТРОВ ГОЛЕМАНСКИ",
+      "target": "company:tr:030412611",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ КАРАДЖОВ",
+      "target": "company:tr:030412611",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

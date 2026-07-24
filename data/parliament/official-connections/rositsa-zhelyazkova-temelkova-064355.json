@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rositsa-zhelyazkova-temelkova-064355",
+  "nodes": [
+    {
+      "id": "official:rositsa-zhelyazkova-temelkova-064355",
+      "type": "official",
+      "slug": "rositsa-zhelyazkova-temelkova-064355",
+      "label": "Росица Желязкова Темелкова",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202855943",
+      "type": "company",
+      "label": "БМ енд партнърс кънсълтинг ООД",
+      "slug": null,
+      "uic": "202855943",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rositsa-zhelyazkova-temelkova-064355",
+      "target": "company:tr:202855943",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariyana-atanasova-manolova-f7aeb9",
+  "nodes": [
+    {
+      "id": "official:mariyana-atanasova-manolova-f7aeb9",
+      "type": "official",
+      "slug": "mariyana-atanasova-manolova-f7aeb9",
+      "label": "Марияна Атанасова Манолова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000770047",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ЕЛИН ПЕЛИН",
+      "slug": null,
+      "uic": "000770047",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariyana-atanasova-manolova-f7aeb9",
+      "target": "company:tr:000770047",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

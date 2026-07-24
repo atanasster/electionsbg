@@ -1,0 +1,76 @@
+[
+  {
+    "slug": "diyana-todorova-iordanova-9a2d93",
+    "declarantName": "Дияна Тодорова Йорданова",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г12585",
+    "controlHash": "FFB0B167",
+    "sourceUrl": "https://register.cacbg.bg/2025/8DE169C5-AEA5-4F71-886C-D0428FE27905215754.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "ООД",
+        "shareSize": "50%",
+        "companyName": "\"Дани 84\" ООД",
+        "registeredOffice": "Шумен",
+        "valueEur": 1278.2297029905462,
+        "holderName": "Йордан Илиев Йорданов",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5470.823128799538,
+        "amountEurSpouse": 46016.26930765966
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Карайсен",
+        "municipality": "Левски",
+        "areaSqm": 1,
+        "builtAreaSqm": 1000,
+        "acquiredYear": 2001,
+        "share": "25%",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Дияна Тодорова Йорданова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Салманово",
+        "municipality": "Шумен",
+        "areaSqm": 1,
+        "builtAreaSqm": 95,
+        "acquiredYear": 2016,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Йордан Илиев Йорданов",
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "няма"
+      }
+    ],
+    "events": []
+  }
+]

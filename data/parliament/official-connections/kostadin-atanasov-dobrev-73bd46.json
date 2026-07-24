@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:kostadin-atanasov-dobrev-73bd46",
+  "nodes": [
+    {
+      "id": "official:kostadin-atanasov-dobrev-73bd46",
+      "type": "official",
+      "slug": "kostadin-atanasov-dobrev-73bd46",
+      "label": "Костадин Атанасов ДОБРЕВ",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:125549851",
+      "type": "company",
+      "label": "ТЕРЕМ - ХАН КРУМ",
+      "slug": null,
+      "uic": "125549851",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ЙОРДАНОВ ЦВЯТКОВ",
+      "type": "person",
+      "label": "Георги Йорданов Цвятков"
+    },
+    {
+      "id": "person:НИКОЛА ПЕТРОВ МИТЕВ",
+      "type": "person",
+      "label": "Никола Петров Митев"
+    },
+    {
+      "id": "person:НИКОЛАЙ ВИЧЕВ КАРАИВАНОВ",
+      "type": "person",
+      "label": "Николай Вичев Караиванов"
+    },
+    {
+      "id": "person:НИКОЛАЙ ПАСКАЛЕВ ПАСКАЛЕВ",
+      "type": "person",
+      "label": "Николай Паскалев Паскалев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kostadin-atanasov-dobrev-73bd46",
+      "target": "company:tr:125549851",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ЙОРДАНОВ ЦВЯТКОВ",
+      "target": "company:tr:125549851",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ПЕТРОВ МИТЕВ",
+      "target": "company:tr:125549851",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ВИЧЕВ КАРАИВАНОВ",
+      "target": "company:tr:125549851",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ПАСКАЛЕВ ПАСКАЛЕВ",
+      "target": "company:tr:125549851",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

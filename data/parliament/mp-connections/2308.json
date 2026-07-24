@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:2308",
   "nodes": [
     {
@@ -22,27 +22,27 @@
       "seat": "БЪЛГАРИЯ, гр. Поморие, 8200"
     },
     {
-      "id": "official:iva-dimitrova-kuseva-a71c5c",
+      "id": "official:iva-dimitrova-kuseva-8cf567",
       "type": "official",
-      "slug": "iva-dimitrova-kuseva-a71c5c",
+      "slug": "iva-dimitrova-kuseva-8cf567",
       "label": "Ива Димитрова Кусева",
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Поморие"
     },
     {
-      "id": "official:milen-todorov-manolov-8c442a",
+      "id": "official:milen-todorov-manolov-e02223",
       "type": "official",
-      "slug": "milen-todorov-manolov-8c442a",
+      "slug": "milen-todorov-manolov-e02223",
       "label": "Милен Тодоров Манолов",
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Поморие"
     },
     {
-      "id": "official:naiden-shterionov-pulakev-c84a22",
+      "id": "official:naiden-shterionov-pulakev-c9098e",
       "type": "official",
-      "slug": "naiden-shterionov-pulakev-c84a22",
+      "slug": "naiden-shterionov-pulakev-c9098e",
       "label": "Найден Щерионов Пулакев",
       "tier": "municipal",
       "role": "councillor",
@@ -59,7 +59,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:iva-dimitrova-kuseva-a71c5c",
+      "source": "official:iva-dimitrova-kuseva-8cf567",
       "target": "company:tr:207215235",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -67,7 +67,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:milen-todorov-manolov-8c442a",
+      "source": "official:milen-todorov-manolov-e02223",
       "target": "company:tr:207215235",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -75,7 +75,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:naiden-shterionov-pulakev-c84a22",
+      "source": "official:naiden-shterionov-pulakev-c9098e",
       "target": "company:tr:207215235",
       "kind": "tr_role",
       "role": "ngo_representative",
@@ -83,7 +83,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:naiden-shterionov-pulakev-c84a22",
+      "source": "official:naiden-shterionov-pulakev-c9098e",
       "target": "company:tr:207215235",
       "kind": "tr_role",
       "role": "ngo_board",

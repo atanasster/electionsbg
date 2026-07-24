@@ -1,0 +1,173 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:syuleiman-saliev-syuleimanov-cb20e3",
+  "nodes": [
+    {
+      "id": "official:syuleiman-saliev-syuleimanov-cb20e3",
+      "type": "official",
+      "slug": "syuleiman-saliev-syuleimanov-cb20e3",
+      "label": "Сюлейман Салиев Сюлейманов",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:125514220",
+      "type": "company",
+      "label": "ЛОВНО РИБАРСКО ДРУЖЕСТВО - ХАН ОМУРТАГ - 2001",
+      "slug": null,
+      "uic": "125514220",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МЕТИН САБРИЕВ АХМЕДОВ",
+      "type": "person",
+      "label": "Метин Сабриев Ахмедов"
+    },
+    {
+      "id": "person:АНДРЕЙ НЕДЯЛКОВ АНДРЕЕВ",
+      "type": "person",
+      "label": "Андрей Недялков Андреев"
+    },
+    {
+      "id": "person:СЕЙФЕТИН МУСТАФА ЕРЕДЖЕБ",
+      "type": "person",
+      "label": "Сейфетин Мустафа Ереджеб"
+    },
+    {
+      "id": "person:ГЮРДЖАН ХЮСЕИНОВ МЕХМЕДОВ",
+      "type": "person",
+      "label": "Гюрджан Хюсеинов Мехмедов"
+    },
+    {
+      "id": "person:СТАНИМИР ЖИВКОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Станимир Живков Василев"
+    },
+    {
+      "id": "person:ЕРДЖАН МУСТАФОВ ИСМАИЛОВ",
+      "type": "person",
+      "label": "Ерджан Мустафов Исмаилов"
+    },
+    {
+      "id": "person:ТАХСИН БЕЙСИМОВ ШЕРИФОВ",
+      "type": "person",
+      "label": "Тахсин Бейсимов Шерифов"
+    },
+    {
+      "id": "person:БИЛЯН ЕМИЛОВ БОЯНОВ",
+      "type": "person",
+      "label": "Билян Емилов Боянов"
+    },
+    {
+      "id": "person:ИСМАИЛ ИБРАХИМОВ МЕСТАНОВ",
+      "type": "person",
+      "label": "Исмаил Ибрахимов Местанов"
+    },
+    {
+      "id": "person:РЕЙХАН ХЮСЕИНОВ БАСРИЕВ",
+      "type": "person",
+      "label": "Рейхан Хюсеинов Басриев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:syuleiman-saliev-syuleimanov-cb20e3",
+      "target": "company:tr:125514220",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МЕТИН САБРИЕВ АХМЕДОВ",
+      "target": "company:tr:125514220",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕТИН САБРИЕВ АХМЕДОВ",
+      "target": "company:tr:125514220",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРЕЙ НЕДЯЛКОВ АНДРЕЕВ",
+      "target": "company:tr:125514220",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕЙФЕТИН МУСТАФА ЕРЕДЖЕБ",
+      "target": "company:tr:125514220",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮРДЖАН ХЮСЕИНОВ МЕХМЕДОВ",
+      "target": "company:tr:125514220",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИР ЖИВКОВ ВАСИЛЕВ",
+      "target": "company:tr:125514220",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕРДЖАН МУСТАФОВ ИСМАИЛОВ",
+      "target": "company:tr:125514220",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАХСИН БЕЙСИМОВ ШЕРИФОВ",
+      "target": "company:tr:125514220",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИЛЯН ЕМИЛОВ БОЯНОВ",
+      "target": "company:tr:125514220",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИСМАИЛ ИБРАХИМОВ МЕСТАНОВ",
+      "target": "company:tr:125514220",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕЙХАН ХЮСЕИНОВ БАСРИЕВ",
+      "target": "company:tr:125514220",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

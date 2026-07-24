@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:todorka-georgieva-rusinova-1e450c",
+  "nodes": [
+    {
+      "id": "official:todorka-georgieva-rusinova-1e450c",
+      "type": "official",
+      "slug": "todorka-georgieva-rusinova-1e450c",
+      "label": "Тодорка Георгиева Русинова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207971421",
+      "type": "company",
+      "label": "ПРИМА КЛАС",
+      "slug": null,
+      "uic": "207971421",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ПАНЧЕВ РУСИНОВ",
+      "type": "person",
+      "label": "Георги Панчев Русинов"
+    },
+    {
+      "id": "person:РОСИЦА ЖЕКОВА ЦОНЕВА",
+      "type": "person",
+      "label": "Росица Жекова Цонева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:todorka-georgieva-rusinova-1e450c",
+      "target": "company:tr:207971421",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:todorka-georgieva-rusinova-1e450c",
+      "target": "company:tr:207971421",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ПАНЧЕВ РУСИНОВ",
+      "target": "company:tr:207971421",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ЖЕКОВА ЦОНЕВА",
+      "target": "company:tr:207971421",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

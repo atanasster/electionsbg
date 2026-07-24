@@ -1,0 +1,73 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:filip-angelov-dimitrov-147bc2",
+  "nodes": [
+    {
+      "id": "official:filip-angelov-dimitrov-147bc2",
+      "type": "official",
+      "slug": "filip-angelov-dimitrov-147bc2",
+      "label": "Филип Ангелов Димитров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Лом"
+    },
+    {
+      "id": "company:tr:176670723",
+      "type": "company",
+      "label": "БЪДЕЩЕ ЗА СЕВЕРОЗАПАДНА БЪЛГАРИЯ - БЗСЗБ",
+      "slug": null,
+      "uic": "176670723",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:ivanka-doncheva-deleva-4d35e0",
+      "type": "official",
+      "slug": "ivanka-doncheva-deleva-4d35e0",
+      "label": "Иванка Дончева Делева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Монтана"
+    },
+    {
+      "id": "person:ИЛОНКА ВИКТОРОВА АВРАМОВА",
+      "type": "person",
+      "label": "Илонка Викторова Аврамова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:filip-angelov-dimitrov-147bc2",
+      "target": "company:tr:176670723",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivanka-doncheva-deleva-4d35e0",
+      "target": "company:tr:176670723",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivanka-doncheva-deleva-4d35e0",
+      "target": "company:tr:176670723",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИЛОНКА ВИКТОРОВА АВРАМОВА",
+      "target": "company:tr:176670723",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

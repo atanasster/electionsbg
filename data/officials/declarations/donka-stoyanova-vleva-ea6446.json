@@ -1,6 +1,192 @@
 [
   {
     "slug": "donka-stoyanova-vleva-ea6446",
+    "declarantName": "Донка Стоянова Вълва",
+    "institution": "Здравноосигурителна каса",
+    "positionTitle": "Директор на районна здравноосигурителна каса",
+    "category": "social_fund",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-11",
+    "entryNumber": "Г2046",
+    "controlHash": "C31EF265",
+    "sourceUrl": "https://register.cacbg.bg/2025/344B883C-5B12-433A-A155-C4995070BB66204628.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 34261.6689589586,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "донка стоянова вълева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Съдиско поле",
+        "municipality": "Нова Загора",
+        "areaSqm": 12,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 460.16269307659667,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "лозя",
+        "detail": null,
+        "location": "с. Съдиско поле",
+        "municipality": "Нова Загора",
+        "areaSqm": 2,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 204.5167524784874,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Коньово",
+        "municipality": "Нова Загора",
+        "areaSqm": 6,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 357.90431683735295,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "лозя",
+        "detail": null,
+        "location": "с. Коньово",
+        "municipality": "Нова Загора",
+        "areaSqm": 2,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "donka-stoyanova-vleva-ea6446",
+    "declarantName": "Донка Стоянова Вълева",
+    "institution": "Здравноосигурителна каса",
+    "positionTitle": "Директор на районна здравноосигурителна каса",
+    "category": "social_fund",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-09",
+    "entryNumber": "Г8408",
+    "controlHash": "68040977",
+    "sourceUrl": "https://register.cacbg.bg/2024/344B883C-5B12-433A-A155-C4995070BB66190032.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31867.800371197907,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18417,
+        "valueEur": 9416.462575990756,
+        "holderName": "Донка Стоянова Вълева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Стара загора, ул Старозагорско въстание 28, вх.0, ет.1, ап.2",
+        "municipality": "Стара Загора",
+        "areaSqm": 67,
+        "builtAreaSqm": 67,
+        "currency": "BGN",
+        "valueEur": 6391.148514952731,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. коньово, общ Нова Загора ул.П.Яворов 10",
+        "municipality": "Нова Загора",
+        "areaSqm": 1500,
+        "builtAreaSqm": 70,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Стара загора, ул Старозагорско въстание 28, вх.0, ет.1, ап.2",
+        "municipality": "Стара Загора",
+        "areaSqm": 67,
+        "builtAreaSqm": 67,
+        "currency": "BGN",
+        "valueEur": 6391.148514952731,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. коньово, общ Нова Загора ул.П.Яворов 10",
+        "municipality": "Нова Загора",
+        "areaSqm": 1500,
+        "builtAreaSqm": 70,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "donka-stoyanova-vleva-ea6446",
     "declarantName": "Донка Стоянова Вълева",
     "institution": "Здравноосигурителна каса",
     "positionTitle": "Директор на районна здравноосигурителна каса",

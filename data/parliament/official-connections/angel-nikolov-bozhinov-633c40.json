@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:angel-nikolov-bozhinov-633c40",
+  "nodes": [
+    {
+      "id": "official:angel-nikolov-bozhinov-633c40",
+      "type": "official",
+      "slug": "angel-nikolov-bozhinov-633c40",
+      "label": "Ангел Николов Божинов",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205929669",
+      "type": "company",
+      "label": "АФКЕА ЕООД",
+      "slug": null,
+      "uic": "205929669",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КЕРА ДОБРЕВА ГЕЛОНОВА",
+      "type": "person",
+      "label": "Кера Добрева Гелонова"
+    },
+    {
+      "id": "person:РУМЕН ЛОЗЕВ МИТЕВ",
+      "type": "person",
+      "label": "Румен Лозев Митев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:angel-nikolov-bozhinov-633c40",
+      "target": "company:tr:205929669",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:angel-nikolov-bozhinov-633c40",
+      "target": "company:tr:205929669",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КЕРА ДОБРЕВА ГЕЛОНОВА",
+      "target": "company:tr:205929669",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ЛОЗЕВ МИТЕВ",
+      "target": "company:tr:205929669",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ЛОЗЕВ МИТЕВ",
+      "target": "company:tr:205929669",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

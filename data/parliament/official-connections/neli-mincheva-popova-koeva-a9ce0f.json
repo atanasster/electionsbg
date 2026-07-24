@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:neli-mincheva-popova-koeva-a9ce0f",
+  "nodes": [
+    {
+      "id": "official:neli-mincheva-popova-koeva-a9ce0f",
+      "type": "official",
+      "slug": "neli-mincheva-popova-koeva-a9ce0f",
+      "label": "Нели Минчева Попова-Коева",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207646919",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ НА УЧИЛИЩА ПО ИЗКУСТВА И КУЛТУРА КЪМ МИНИСТЕРСТВО НА КУЛТУРАТА",
+      "slug": null,
+      "uic": "207646919",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НАЦИОНАЛНО УЧИЛИЩЕ ЗА МУЗИКАЛНО И ТАНЦОВО ИЗКУСТВО \"ДОБРИН ПЕТКОВ\" - ГР. ПЛОВДИВ",
+      "type": "person",
+      "label": "Национално Училище За Музикално И Танцово Изкуство \"добрин Петков\" - Гр. Пловдив"
+    },
+    {
+      "id": "person:НАЦИОНАЛНО УЧИЛИЩЕ ЗА МУЗИКАЛНО И СЦЕНИЧНО ИЗКУСТВО\" ПРОФ.ПАНЧО ВЛАДИГЕРОВ\"",
+      "type": "person",
+      "label": "Национално Училище За  Музикално И Сценично Изкуство\" Проф.панчо Владигеров\""
+    },
+    {
+      "id": "person:НАЦИОНАЛНО УЧИЛИЩЕ ЗА ФОЛКЛОРНИ ИЗКУСТВА \"ШИРОКА ЛЪКА\"",
+      "type": "person",
+      "label": "Национално Училище За Фолклорни Изкуства \"широка Лъка\""
+    },
+    {
+      "id": "person:НАЦИОНАЛЕН УЧЕБЕН КОМПЛЕКС ПО КУЛТУРА С ЛИЦЕЙ ЗА ИЗУЧАВАНЕ НА ИТАЛИАНСКИ ЕЗИК И КУЛТУРА С УЧАСТИЕТО НА РЕПУБЛИКА ИТАЛИЯ",
+      "type": "person",
+      "label": "Национален Учебен Комплекс По Култура С Лицей За Изучаване На Италиански Език И Култура С Участието На Република Италия"
+    },
+    {
+      "id": "person:НАЦИОНАЛНА ГИМНАЗИЯ ЗА ПРИЛОЖНИ ИЗКУСТВА \"ТРЕВНЕНСКА ШКОЛА\"",
+      "type": "person",
+      "label": "Национална Гимназия За Приложни Изкуства \"тревненска Школа\""
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:neli-mincheva-popova-koeva-a9ce0f",
+      "target": "company:tr:207646919",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НАЦИОНАЛНО УЧИЛИЩЕ ЗА МУЗИКАЛНО И ТАНЦОВО ИЗКУСТВО \"ДОБРИН ПЕТКОВ\" - ГР. ПЛОВДИВ",
+      "target": "company:tr:207646919",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАЦИОНАЛНО УЧИЛИЩЕ ЗА МУЗИКАЛНО И СЦЕНИЧНО ИЗКУСТВО\" ПРОФ.ПАНЧО ВЛАДИГЕРОВ\"",
+      "target": "company:tr:207646919",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАЦИОНАЛНО УЧИЛИЩЕ ЗА ФОЛКЛОРНИ ИЗКУСТВА \"ШИРОКА ЛЪКА\"",
+      "target": "company:tr:207646919",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАЦИОНАЛЕН УЧЕБЕН КОМПЛЕКС ПО КУЛТУРА С ЛИЦЕЙ ЗА ИЗУЧАВАНЕ НА ИТАЛИАНСКИ ЕЗИК И КУЛТУРА С УЧАСТИЕТО НА РЕПУБЛИКА ИТАЛИЯ",
+      "target": "company:tr:207646919",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАЦИОНАЛНА ГИМНАЗИЯ ЗА ПРИЛОЖНИ ИЗКУСТВА \"ТРЕВНЕНСКА ШКОЛА\"",
+      "target": "company:tr:207646919",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

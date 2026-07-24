@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iordan-pavlov-mihailov-bd4f2c",
+  "nodes": [
+    {
+      "id": "official:iordan-pavlov-mihailov-bd4f2c",
+      "type": "official",
+      "slug": "iordan-pavlov-mihailov-bd4f2c",
+      "label": "Йордан Павлов Михайлов",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000900163",
+      "type": "company",
+      "label": "ЦЕНТЪР ЗА ПСИХИЧНО ЗДРАВЕ - ХАСКОВО",
+      "slug": null,
+      "uic": "000900163",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordan-pavlov-mihailov-bd4f2c",
+      "target": "company:tr:000900163",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

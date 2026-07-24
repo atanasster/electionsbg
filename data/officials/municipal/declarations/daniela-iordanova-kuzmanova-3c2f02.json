@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "daniela-iordanova-kuzmanova-3c2f02",
+    "declarantName": "Даниела Йорданова Кузманова",
+    "institution": "Родопи",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-07",
+    "entryNumber": "Г8556",
+    "controlHash": "85AFFE74",
+    "sourceUrl": "https://register.cacbg.bg/2025/823A2E5A-DBBF-416D-B849-A0BE2A842372211578.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6500.564977528722,
+        "amountEurSpouse": 6055.741040888011
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 116034.62468619461
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 90000,
+        "valueEur": 46016.26930765966,
+        "holderName": "Костадин Георгиев Кузманов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 311894,
+        "valueEur": 159468.86999381336,
+        "holderName": "Костадин Георгиев Кузманов",
+        "isSpouse": true,
+        "legalBasis": "ИПОТЕЧЕН КРЕДИТ",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ЛИЗИНГ",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 10435,
+        "valueEur": 10403.255906699458,
+        "holderName": "Костадин Георгиев Кузманов",
+        "isSpouse": true,
+        "legalBasis": "ЛИЗИНГ ЗА АВТОМОБИЛ",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ЛИЗИНГ",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 42097,
+        "valueEur": 41971.43923551638,
+        "holderName": "Костадин Георгиев Кузманов",
+        "isSpouse": true,
+        "legalBasis": "ЛИЗИНГ ЗА АВТОМОБИЛ",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

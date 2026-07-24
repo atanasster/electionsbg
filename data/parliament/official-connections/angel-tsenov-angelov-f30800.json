@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:angel-tsenov-angelov-f30800",
+  "nodes": [
+    {
+      "id": "official:angel-tsenov-angelov-f30800",
+      "type": "official",
+      "slug": "angel-tsenov-angelov-f30800",
+      "label": "Ангел Ценов Ангелов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бяла Слатина"
+    },
+    {
+      "id": "company:tr:204807303",
+      "type": "company",
+      "label": "АНИ 25",
+      "slug": null,
+      "uic": "204807303",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:angel-tsenov-angelov-f30800",
+      "target": "company:tr:204807303",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:angel-tsenov-angelov-f30800",
+      "target": "company:tr:204807303",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

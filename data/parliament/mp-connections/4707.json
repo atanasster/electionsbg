@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:4707",
   "nodes": [
     {
@@ -92,27 +92,27 @@
       "label": "Любимка Иванова Любомирова-Георгиева"
     },
     {
-      "id": "official:aleksandr-georgiev-georgiev-721ae9",
+      "id": "official:aleksandr-georgiev-georgiev-0508b1",
       "type": "official",
-      "slug": "aleksandr-georgiev-georgiev-721ae9",
+      "slug": "aleksandr-georgiev-georgiev-0508b1",
       "label": "Александър Георгиев Георгиев",
       "tier": "executive",
       "role": "agency_head",
       "municipality": null
     },
     {
-      "id": "official:andrei-ivanov-tsekov-d7a65b",
+      "id": "official:andrei-ivanov-tsekov-d51b93",
       "type": "official",
-      "slug": "andrei-ivanov-tsekov-d7a65b",
+      "slug": "andrei-ivanov-tsekov-d51b93",
       "label": "Андрей Иванов Цеков",
       "tier": "executive",
       "role": "deputy_minister",
       "municipality": null
     },
     {
-      "id": "official:andrei-ivanov-tsekov-bf4781",
+      "id": "official:andrei-ivanov-tsekov-8401f4",
       "type": "official",
-      "slug": "andrei-ivanov-tsekov-bf4781",
+      "slug": "andrei-ivanov-tsekov-8401f4",
       "label": "Андрей Иванов Цеков",
       "tier": "executive",
       "role": "cabinet",
@@ -242,7 +242,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:aleksandr-georgiev-georgiev-721ae9",
+      "source": "official:aleksandr-georgiev-georgiev-0508b1",
       "target": "company:Веридея-ООД",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -250,7 +250,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:andrei-ivanov-tsekov-d7a65b",
+      "source": "official:andrei-ivanov-tsekov-d51b93",
       "target": "company:Веридея-ООД",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -258,7 +258,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:andrei-ivanov-tsekov-bf4781",
+      "source": "official:andrei-ivanov-tsekov-8401f4",
       "target": "company:Веридея-ООД",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -298,7 +298,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:andrei-ivanov-tsekov-bf4781",
+      "source": "official:andrei-ivanov-tsekov-8401f4",
       "target": "company:Интегрити-Европа-ООД",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -314,7 +314,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:andrei-ivanov-tsekov-d7a65b",
+      "source": "official:andrei-ivanov-tsekov-d51b93",
       "target": "company:Инфинитус-ЕООД",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -322,7 +322,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:andrei-ivanov-tsekov-bf4781",
+      "source": "official:andrei-ivanov-tsekov-8401f4",
       "target": "company:Инфинитус-ЕООД",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -346,7 +346,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:andrei-ivanov-tsekov-d7a65b",
+      "source": "official:andrei-ivanov-tsekov-d51b93",
       "target": "company:Пропърти-Тръст-ЕООД",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -354,7 +354,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:andrei-ivanov-tsekov-bf4781",
+      "source": "official:andrei-ivanov-tsekov-8401f4",
       "target": "company:Пропърти-Тръст-ЕООД",
       "kind": "declared_stake",
       "role": "declared_share",

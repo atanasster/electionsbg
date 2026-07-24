@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tatyana-spasova-vangelova-8cb754",
+  "nodes": [
+    {
+      "id": "official:tatyana-spasova-vangelova-8cb754",
+      "type": "official",
+      "slug": "tatyana-spasova-vangelova-8cb754",
+      "label": "Татяна Спасова Вангелова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207438238",
+      "type": "company",
+      "label": "ФОНДАЦИЯ \"ТЕ\"",
+      "slug": null,
+      "uic": "207438238",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tatyana-spasova-vangelova-8cb754",
+      "target": "company:tr:207438238",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tatyana-spasova-vangelova-8cb754",
+      "target": "company:tr:207438238",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

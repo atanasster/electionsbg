@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:3551",
   "nodes": [
     {
@@ -61,27 +61,27 @@
       "label": "Фани Георгиева Семерджиева-Цикова"
     },
     {
-      "id": "official:zlatomira-dimitrova-karageorgieva-mostrova-494a7b",
+      "id": "official:zlatomira-dimitrova-karageorgieva-mostrova-45ca38",
       "type": "official",
-      "slug": "zlatomira-dimitrova-karageorgieva-mostrova-494a7b",
+      "slug": "zlatomira-dimitrova-karageorgieva-mostrova-45ca38",
       "label": "Златомира Димитрова Карагеоргиева-Мострова",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:metodi-georgiev-smilov-e785b4",
+      "id": "official:metodi-georgiev-smilov-fb3639",
       "type": "official",
-      "slug": "metodi-georgiev-smilov-e785b4",
+      "slug": "metodi-georgiev-smilov-fb3639",
       "label": "Методи Георгиев Смилов",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:stanislav-ivanov-darachev-aaa028",
+      "id": "official:stanislav-ivanov-darachev-e2483c",
       "type": "official",
-      "slug": "stanislav-ivanov-darachev-aaa028",
+      "slug": "stanislav-ivanov-darachev-e2483c",
       "label": "Станислав Иванов Дарачев",
       "tier": "executive",
       "role": "state_enterprise",
@@ -183,7 +183,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:zlatomira-dimitrova-karageorgieva-mostrova-494a7b",
+      "source": "official:zlatomira-dimitrova-karageorgieva-mostrova-45ca38",
       "target": "company:tr:812115210",
       "kind": "tr_role",
       "role": "director",
@@ -191,7 +191,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:metodi-georgiev-smilov-e785b4",
+      "source": "official:metodi-georgiev-smilov-fb3639",
       "target": "company:tr:812115210",
       "kind": "tr_role",
       "role": "director",
@@ -199,7 +199,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:stanislav-ivanov-darachev-aaa028",
+      "source": "official:stanislav-ivanov-darachev-e2483c",
       "target": "company:tr:812115210",
       "kind": "tr_role",
       "role": "director",

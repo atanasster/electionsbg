@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:martin-georgiev-draganov-074682",
+  "nodes": [
+    {
+      "id": "official:martin-georgiev-draganov-074682",
+      "type": "official",
+      "slug": "martin-georgiev-draganov-074682",
+      "label": "Мартин Георгиев Драганов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Своге"
+    },
+    {
+      "id": "company:tr:205588463",
+      "type": "company",
+      "label": "ДС СПОРТ",
+      "slug": null,
+      "uic": "205588463",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЖЕНИ ИЛКОВА ГРОЗДЕВА",
+      "type": "person",
+      "label": "Жени Илкова Гроздева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:martin-georgiev-draganov-074682",
+      "target": "company:tr:205588463",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЖЕНИ ИЛКОВА ГРОЗДЕВА",
+      "target": "company:tr:205588463",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+[
+  {
+    "slug": "petr-nenov-babachev-37942e",
+    "declarantName": "Петър Ненов Бабачев",
+    "institution": "Панагюрище",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г6329",
+    "controlHash": "77593E2F",
+    "sourceUrl": "https://register.cacbg.bg/2025/76D253E6-7440-4245-8417-84DF78DD06CD209284.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6618.1621102038525,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 11543.436801767024,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "ул.\"Кръстьо Гешанов",
+        "municipality": "Панагюрище",
+        "areaSqm": 258,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Петър Ненов Бабачев",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "ул.\"Кръстьо Гешанов",
+        "municipality": "Панагюрище",
+        "areaSqm": 94,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Петър Ненов Бабачев",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15810,
+        "valueEur": 8083.524641712214,
+        "holderName": "Петър Ненов Бабачев",
+        "isSpouse": false,
+        "legalBasis": "5,5 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "ул. \"Кръстьо Гешанов\"",
+        "municipality": "Панагюрище",
+        "areaSqm": 258,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5140.5285735467805,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "ул. \"Кръстьо Гешанов\"",
+        "municipality": "Панагюрище",
+        "areaSqm": 94,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

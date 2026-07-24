@@ -1,0 +1,71 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:petya-tyankova-nikolova-961eb9",
+  "nodes": [
+    {
+      "id": "official:petya-tyankova-nikolova-961eb9",
+      "type": "official",
+      "slug": "petya-tyankova-nikolova-961eb9",
+      "label": "Петя Тянкова Николова",
+      "tier": "executive",
+      "role": "political_cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201815675",
+      "type": "company",
+      "label": "Био Лайф ООД",
+      "slug": null,
+      "uic": "201815675",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:175068436",
+      "type": "company",
+      "label": "\"АРОС КОНСУЛТ\" ЕООД",
+      "slug": null,
+      "uic": "175068436",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:175385810",
+      "type": "company",
+      "label": "\"НИКХАУС\"  ЕООД",
+      "slug": null,
+      "uic": "175385810",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petya-tyankova-nikolova-961eb9",
+      "target": "company:tr:201815675",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:petya-tyankova-nikolova-961eb9",
+      "target": "company:tr:175068436",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:petya-tyankova-nikolova-961eb9",
+      "target": "company:tr:175385810",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

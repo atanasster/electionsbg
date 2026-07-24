@@ -1,0 +1,66 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:atanas-dimchev-vlahov-45c749",
+  "nodes": [
+    {
+      "id": "official:atanas-dimchev-vlahov-45c749",
+      "type": "official",
+      "slug": "atanas-dimchev-vlahov-45c749",
+      "label": "Атанас Димчев Влахов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:160044550",
+      "type": "company",
+      "label": "УНИВЕРСИТЕТСКА  СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ ПО АКУШЕРСТВО И ГИНЕКОЛОГИЯ СЕЛЕНА",
+      "slug": null,
+      "uic": "160044550",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:ЕРГАНА ФИЛМС",
+      "type": "company",
+      "label": "„Ергана Филмс“ ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИКА ВАСИЛЕВА ТОШЕВА",
+      "type": "person",
+      "label": "Марика Василева Тошева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:atanas-dimchev-vlahov-45c749",
+      "target": "company:tr:160044550",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "company:name:ЕРГАНА ФИЛМС",
+      "target": "company:tr:160044550",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИКА ВАСИЛЕВА ТОШЕВА",
+      "target": "company:tr:160044550",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

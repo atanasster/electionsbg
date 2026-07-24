@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitrina-ivanova-kirisheva-af188f",
+  "nodes": [
+    {
+      "id": "official:dimitrina-ivanova-kirisheva-af188f",
+      "type": "official",
+      "slug": "dimitrina-ivanova-kirisheva-af188f",
+      "label": "Димитрина Иванова Киришева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:102070984",
+      "type": "company",
+      "label": "&quot;АВИЦЕНА&quot;",
+      "slug": null,
+      "uic": "102070984",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitrina-ivanova-kirisheva-af188f",
+      "target": "company:tr:102070984",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

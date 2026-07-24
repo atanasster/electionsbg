@@ -5,6 +5,118 @@
     "institution": "МБАЛ \"Св. Екатерина\" ЕООД, гр. Димитровград",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г10714",
+    "controlHash": "2192D944",
+    "sourceUrl": "https://register.cacbg.bg/2025/FB8D2F34-7A6C-43A6-BF2C-EC33B28130BC213818.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 38545.78363150171,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 49080.9528435498,
+        "amountEurSpouse": 46033.65323162034
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 5670.7382543472595
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Мицубиши - шогун",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
+        "holderName": "Алдин Хитов Карагьозов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "aldin-hitov-karagozov-64140c",
+    "declarantName": "АЛДИН ХИТОВ КАРАГЬОЗОВ",
+    "institution": "МБАЛ \"Св. Екатерина\" ЕООД, гр. Димитровград",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-30",
+    "entryNumber": "Г9823",
+    "controlHash": "2F6C85FE",
+    "sourceUrl": "https://register.cacbg.bg/2024/FB8D2F34-7A6C-43A6-BF2C-EC33B28130BC191485.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22692.667563131767,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 41406.46170679456,
+        "amountEurSpouse": 42523.63446720829
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 191.73445544858194,
+        "amountEurSpouse": 4430.344150565234
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Димитровград",
+        "municipality": "Димитровград",
+        "areaSqm": 95,
+        "builtAreaSqm": 95,
+        "acquiredYear": 2023,
+        "share": "5/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Алдин Хитов Карагьозов",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "безвъзмездно"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "aldin-hitov-karagozov-64140c",
+    "declarantName": "АЛДИН ХИТОВ КАРАГЬОЗОВ",
+    "institution": "МБАЛ \"Св. Екатерина\" ЕООД, гр. Димитровград",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2023,
     "fiscalYear": 2022,
     "declarationType": "Annualy",

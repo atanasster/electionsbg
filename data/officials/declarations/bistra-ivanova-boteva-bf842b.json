@@ -1,0 +1,77 @@
+[
+  {
+    "slug": "bistra-ivanova-boteva-bf842b",
+    "declarantName": "Бистра Иванова Ботева",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г10187",
+    "controlHash": "931F1C4E",
+    "sourceUrl": "https://register.cacbg.bg/2024/359B84ED-7DF3-49C0-91CD-32D8E6CD0914191876.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 10270.320017588441,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 24793.05461108583,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15380,
+        "valueEur": 7863.669132797841,
+        "holderName": "Бистра Иванова Ботева",
+        "isSpouse": false,
+        "legalBasis": "банков кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Горски Сеновец",
+        "municipality": "Стражица",
+        "areaSqm": 2000,
+        "builtAreaSqm": 45,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Горна Оряховица",
+        "municipality": "Горна Оряховица",
+        "areaSqm": 337,
+        "builtAreaSqm": 107,
+        "currency": "BGN",
+        "valueEur": 1278.2297029905462,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:todor-iotov-iotov-180fd1",
+  "nodes": [
+    {
+      "id": "official:todor-iotov-iotov-180fd1",
+      "type": "official",
+      "slug": "todor-iotov-iotov-180fd1",
+      "label": "Тодор Йотов Йотов",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208468565",
+      "type": "company",
+      "label": "Черноморски приятели 1922",
+      "slug": null,
+      "uic": "208468565",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ АСЕНОВ ДОЦИНСКИ",
+      "type": "person",
+      "label": "Николай Асенов Доцински"
+    },
+    {
+      "id": "person:РАДОСЛАВ МЛАДЕНОВ ПЕТЕВ",
+      "type": "person",
+      "label": "Радослав Младенов Петев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:todor-iotov-iotov-180fd1",
+      "target": "company:tr:208468565",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:todor-iotov-iotov-180fd1",
+      "target": "company:tr:208468565",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ АСЕНОВ ДОЦИНСКИ",
+      "target": "company:tr:208468565",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ МЛАДЕНОВ ПЕТЕВ",
+      "target": "company:tr:208468565",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iordanka-krasimirova-vladimirova-a9e1c6",
+  "nodes": [
+    {
+      "id": "official:iordanka-krasimirova-vladimirova-a9e1c6",
+      "type": "official",
+      "slug": "iordanka-krasimirova-vladimirova-a9e1c6",
+      "label": "Йорданка Красимирова Владимирова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Мездра"
+    },
+    {
+      "id": "company:tr:207667308",
+      "type": "company",
+      "label": "РУБЕА ЕООД",
+      "slug": null,
+      "uic": "207667308",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordanka-krasimirova-vladimirova-a9e1c6",
+      "target": "company:tr:207667308",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:iordanka-krasimirova-vladimirova-a9e1c6",
+      "target": "company:tr:207667308",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iordanka-krasimirova-vladimirova-a9e1c6",
+      "target": "company:tr:207667308",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

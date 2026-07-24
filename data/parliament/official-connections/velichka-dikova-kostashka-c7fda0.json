@@ -1,0 +1,285 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:velichka-dikova-kostashka-c7fda0",
+  "nodes": [
+    {
+      "id": "official:velichka-dikova-kostashka-c7fda0",
+      "type": "official",
+      "slug": "velichka-dikova-kostashka-c7fda0",
+      "label": "Величка Дикова Косташка",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:114085677",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ ЛАМБИ КАНДЕВ - 1893",
+      "slug": null,
+      "uic": "114085677",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИРОСЛАВ ГЕОРГИЕВ ШЕТОВСКИ",
+      "type": "person",
+      "label": "Мирослав Георгиев Шетовски"
+    },
+    {
+      "id": "person:НИКОЛИНКА ДИМИТРОВА СТОЙКОВА",
+      "type": "person",
+      "label": "Николинка Димитрова Стойкова"
+    },
+    {
+      "id": "person:ПЕНКА ДИЛКОВА МИНКОВСКА",
+      "type": "person",
+      "label": "Пенка Дилкова Минковска"
+    },
+    {
+      "id": "person:ЕМИЛИЯ ГЕОРГИЕВА ТОНЧЕВА",
+      "type": "person",
+      "label": "Емилия Георгиева Тончева"
+    },
+    {
+      "id": "person:ИРЕНА РУМЕНОВА САЛАШКА",
+      "type": "person",
+      "label": "Ирена Руменова Салашка"
+    },
+    {
+      "id": "person:ГЕРГАНА РАДОСЛАВОВА БОЖИНОВСКА",
+      "type": "person",
+      "label": "Гергана Радославова Божиновска"
+    },
+    {
+      "id": "person:ТАТЯНА ДИМИТРОВА ПЕЛОВСКА",
+      "type": "person",
+      "label": "Татяна Димитрова Пеловска"
+    },
+    {
+      "id": "person:ДАРИНА НИКОЛОВА ГЕРГОВА",
+      "type": "person",
+      "label": "Дарина Николова Гергова"
+    },
+    {
+      "id": "person:СНЕЖИНКА РАШЕВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Снежинка Рашева Йорданова"
+    },
+    {
+      "id": "person:ХРИСТО ГЕНКОВ ЙОРГОВСКИ",
+      "type": "person",
+      "label": "Христо Генков Йорговски"
+    },
+    {
+      "id": "person:ВАЛЕНТИН СПАСОВ РОГОЗАНСКИ",
+      "type": "person",
+      "label": "Валентин Спасов Рогозански"
+    },
+    {
+      "id": "person:ЦВЕТАНКА БОРИСОВА ИЛИЕВСКА",
+      "type": "person",
+      "label": "Цветанка Борисова Илиевска"
+    },
+    {
+      "id": "person:КРАСИМИР ДИМОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Красимир Димов Тодоров"
+    },
+    {
+      "id": "person:ИЛИЯНА ЙОРДАНОВА ТОНОВСКА",
+      "type": "person",
+      "label": "Илияна Йорданова Тоновска"
+    },
+    {
+      "id": "person:СИЛВИЯ ДРАГАНОВА ДОКОВСКА",
+      "type": "person",
+      "label": "Силвия Драганова Доковска"
+    },
+    {
+      "id": "person:КАТЯ ЕВГЕНИЕВА АЛЕКСАНДРОВА-ВЕЛИЧКОВА",
+      "type": "person",
+      "label": "Катя Евгениева Александрова-Величкова"
+    },
+    {
+      "id": "person:НЕЛИ ДИМИТРОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Нели Димитрова Петрова"
+    },
+    {
+      "id": "person:ВАЛЯ КОЛЕВА МИТОВСКА",
+      "type": "person",
+      "label": "Валя Колева Митовска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:velichka-dikova-kostashka-c7fda0",
+      "target": "company:tr:114085677",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИРОСЛАВ ГЕОРГИЕВ ШЕТОВСКИ",
+      "target": "company:tr:114085677",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛИНКА ДИМИТРОВА СТОЙКОВА",
+      "target": "company:tr:114085677",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ДИЛКОВА МИНКОВСКА",
+      "target": "company:tr:114085677",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ ГЕОРГИЕВА ТОНЧЕВА",
+      "target": "company:tr:114085677",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРЕНА РУМЕНОВА САЛАШКА",
+      "target": "company:tr:114085677",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА РАДОСЛАВОВА БОЖИНОВСКА",
+      "target": "company:tr:114085677",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА ДИМИТРОВА ПЕЛОВСКА",
+      "target": "company:tr:114085677",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАРИНА НИКОЛОВА ГЕРГОВА",
+      "target": "company:tr:114085677",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖИНКА РАШЕВА ЙОРДАНОВА",
+      "target": "company:tr:114085677",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ ГЕОРГИЕВА ТОНЧЕВА",
+      "target": "company:tr:114085677",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ГЕНКОВ ЙОРГОВСКИ",
+      "target": "company:tr:114085677",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРЕНА РУМЕНОВА САЛАШКА",
+      "target": "company:tr:114085677",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН СПАСОВ РОГОЗАНСКИ",
+      "target": "company:tr:114085677",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАНКА БОРИСОВА ИЛИЕВСКА",
+      "target": "company:tr:114085677",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ДИМОВ ТОДОРОВ",
+      "target": "company:tr:114085677",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯНА ЙОРДАНОВА ТОНОВСКА",
+      "target": "company:tr:114085677",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ДРАГАНОВА ДОКОВСКА",
+      "target": "company:tr:114085677",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ ЕВГЕНИЕВА АЛЕКСАНДРОВА-ВЕЛИЧКОВА",
+      "target": "company:tr:114085677",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ ДИМИТРОВА ПЕТРОВА",
+      "target": "company:tr:114085677",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЯ КОЛЕВА МИТОВСКА",
+      "target": "company:tr:114085677",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

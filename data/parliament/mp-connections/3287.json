@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:3287",
   "nodes": [
     {
@@ -24,27 +24,27 @@
       "seat": null
     },
     {
-      "id": "official:milena-nedelcheva-ivanova-6a79f6",
+      "id": "official:milena-nedelcheva-ivanova-0314ed",
       "type": "official",
-      "slug": "milena-nedelcheva-ivanova-6a79f6",
+      "slug": "milena-nedelcheva-ivanova-0314ed",
       "label": "Милена Неделчева Иванова",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "school",
       "municipality": null
     },
     {
-      "id": "official:elina-georgieva-dimitrova-7a8e8e",
+      "id": "official:elina-georgieva-dimitrova-6d8f81",
       "type": "official",
-      "slug": "elina-georgieva-dimitrova-7a8e8e",
+      "slug": "elina-georgieva-dimitrova-6d8f81",
       "label": "Елина Георгиева Димитрова",
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Провадия"
     },
     {
-      "id": "official:filcho-krstev-filev-4ad26f",
+      "id": "official:filcho-krstev-filev-375244",
       "type": "official",
-      "slug": "filcho-krstev-filev-4ad26f",
+      "slug": "filcho-krstev-filev-375244",
       "label": "Филчо Кръстев Филев",
       "tier": "municipal",
       "role": "councillor",
@@ -111,7 +111,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:milena-nedelcheva-ivanova-6a79f6",
+      "source": "official:milena-nedelcheva-ivanova-0314ed",
       "target": "company:tr:000083868",
       "kind": "tr_role",
       "role": "verifier",
@@ -119,7 +119,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:elina-georgieva-dimitrova-7a8e8e",
+      "source": "official:elina-georgieva-dimitrova-6d8f81",
       "target": "company:tr:000083868",
       "kind": "tr_role",
       "role": "trustee",
@@ -127,7 +127,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:filcho-krstev-filev-4ad26f",
+      "source": "official:filcho-krstev-filev-375244",
       "target": "company:tr:000083868",
       "kind": "tr_role",
       "role": "trustee",

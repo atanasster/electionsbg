@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:diana-petrova-kovacheva-2b158d",
+  "nodes": [
+    {
+      "id": "official:diana-petrova-kovacheva-2b158d",
+      "type": "official",
+      "slug": "diana-petrova-kovacheva-2b158d",
+      "label": "Диана Петрова Ковачева",
+      "tier": "executive",
+      "role": "regulator",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204591054",
+      "type": "company",
+      "label": "ДААД",
+      "slug": null,
+      "uic": "204591054",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТИЯНА ИВОВА МИНЧЕВА",
+      "type": "person",
+      "label": "Християна Ивова Минчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:diana-petrova-kovacheva-2b158d",
+      "target": "company:tr:204591054",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:diana-petrova-kovacheva-2b158d",
+      "target": "company:tr:204591054",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТИЯНА ИВОВА МИНЧЕВА",
+      "target": "company:tr:204591054",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИЯНА ИВОВА МИНЧЕВА",
+      "target": "company:tr:204591054",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

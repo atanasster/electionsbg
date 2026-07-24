@@ -1,0 +1,129 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-lakov-ivanov-ae5488",
+  "nodes": [
+    {
+      "id": "official:ivan-lakov-ivanov-ae5488",
+      "type": "official",
+      "slug": "ivan-lakov-ivanov-ae5488",
+      "label": "Иван Лаков Иванов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175764447",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ ВИХЪР - ЛОПЯН",
+      "slug": null,
+      "uic": "175764447",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДАНИЕЛА СТЕФАНОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Даниела Стефанова Николова"
+    },
+    {
+      "id": "person:ВАСИЛ НИКОЛАЕВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Васил Николаев Василев"
+    },
+    {
+      "id": "person:НИКОЛАЙ ВАСИЛЕВ МИКОВ",
+      "type": "person",
+      "label": "Николай Василев Миков"
+    },
+    {
+      "id": "person:ДАНАИЛ НИКОЛОВ ГЕТОВ",
+      "type": "person",
+      "label": "Данаил Николов Гетов"
+    },
+    {
+      "id": "person:ВАСИЛ СТЕФАНОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Васил Стефанов Василев"
+    },
+    {
+      "id": "person:ПЛАМЕН ЛАКОВ ИВАНОВ",
+      "type": "person",
+      "label": "Пламен Лаков Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-lakov-ivanov-ae5488",
+      "target": "company:tr:175764447",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАНИЕЛА СТЕФАНОВА НИКОЛОВА",
+      "target": "company:tr:175764447",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ НИКОЛАЕВ ВАСИЛЕВ",
+      "target": "company:tr:175764447",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА СТЕФАНОВА НИКОЛОВА",
+      "target": "company:tr:175764447",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ВАСИЛЕВ МИКОВ",
+      "target": "company:tr:175764447",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНАИЛ НИКОЛОВ ГЕТОВ",
+      "target": "company:tr:175764447",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ СТЕФАНОВ ВАСИЛЕВ",
+      "target": "company:tr:175764447",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ЛАКОВ ИВАНОВ",
+      "target": "company:tr:175764447",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ НИКОЛАЕВ ВАСИЛЕВ",
+      "target": "company:tr:175764447",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

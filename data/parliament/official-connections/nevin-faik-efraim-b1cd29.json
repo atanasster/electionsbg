@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nevin-faik-efraim-b1cd29",
+  "nodes": [
+    {
+      "id": "official:nevin-faik-efraim-b1cd29",
+      "type": "official",
+      "slug": "nevin-faik-efraim-b1cd29",
+      "label": "Невин Фаик Ефраим",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000923856",
+      "type": "company",
+      "label": "Пробуда 1930",
+      "slug": null,
+      "uic": "000923856",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РУЖДИ РЕДЖЕБ ОСМАН",
+      "type": "person",
+      "label": "Ружди Реджеб Осман"
+    },
+    {
+      "id": "person:ФАТМЕ САЛИ АХМЕД",
+      "type": "person",
+      "label": "Фатме Сали Ахмед"
+    },
+    {
+      "id": "person:РЕДЖЕБ ХЮСЕИН НАДАР",
+      "type": "person",
+      "label": "Реджеб Хюсеин Надар"
+    },
+    {
+      "id": "person:НАЗМИЕ КАБИЛ МЕХМЕД",
+      "type": "person",
+      "label": "Назмие Кабил Мехмед"
+    },
+    {
+      "id": "person:МЕЛЯТ ФЕЙМИ ХЮСМЕН",
+      "type": "person",
+      "label": "Мелят Фейми Хюсмен"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nevin-faik-efraim-b1cd29",
+      "target": "company:tr:000923856",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РУЖДИ РЕДЖЕБ ОСМАН",
+      "target": "company:tr:000923856",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФАТМЕ САЛИ АХМЕД",
+      "target": "company:tr:000923856",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕДЖЕБ ХЮСЕИН НАДАР",
+      "target": "company:tr:000923856",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАЗМИЕ КАБИЛ МЕХМЕД",
+      "target": "company:tr:000923856",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕЛЯТ ФЕЙМИ ХЮСМЕН",
+      "target": "company:tr:000923856",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

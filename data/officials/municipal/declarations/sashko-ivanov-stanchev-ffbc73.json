@@ -1,0 +1,81 @@
+[
+  {
+    "slug": "sashko-ivanov-stanchev-ffbc73",
+    "declarantName": "Сашко Иванов Станчев",
+    "institution": "Габрово",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-03-12",
+    "entryNumber": "Г425",
+    "controlHash": "D81A0AB8",
+    "sourceUrl": "https://register.cacbg.bg/2025/0C2B2D36-D379-4D17-845A-FD1D84DFA26A202435.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7059.918295557385,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 7577.856971209154,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "интеграционни добавки",
+        "amountEurDeclarant": 206.05062812207606,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия по инвалидност",
+        "amountEurDeclarant": 8258.897756962517,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 101338,
+        "valueEur": 51813.29665666239,
+        "holderName": "Сашко Иванов Станчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, пенсия, интеграционни добавки"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 58798,
+        "valueEur": 30062.940030575253,
+        "holderName": "Цеца Маринова Станчева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "наличност от предходни години"
+      }
+    ],
+    "events": []
+  }
+]

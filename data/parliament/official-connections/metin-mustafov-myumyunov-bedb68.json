@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:metin-mustafov-myumyunov-bedb68",
+  "nodes": [
+    {
+      "id": "official:metin-mustafov-myumyunov-bedb68",
+      "type": "official",
+      "slug": "metin-mustafov-myumyunov-bedb68",
+      "label": "Метин Мустафов Мюмюнов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ардино"
+    },
+    {
+      "id": "company:tr:108554593",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ ФУТБОЛЕН КЛУБ &quot;ЮНАК&quot;",
+      "slug": null,
+      "uic": "108554593",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ШАХИН МЕХМЕДОВ БАЙРАМОВ",
+      "type": "person",
+      "label": "Шахин Мехмедов Байрамов"
+    },
+    {
+      "id": "person:БАХАР ДЕЛЕВЕРОВ РЕДЖЕБОВ",
+      "type": "person",
+      "label": "Бахар Делеверов Реджебов"
+    },
+    {
+      "id": "person:МЕТИН АХМЕД СОЛАК",
+      "type": "person",
+      "label": "Метин Ахмед Солак"
+    },
+    {
+      "id": "person:НУРАЙ ЮСЕИНОВ КАРАБЕКИРОВ",
+      "type": "person",
+      "label": "Нурай Юсеинов Карабекиров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:metin-mustafov-myumyunov-bedb68",
+      "target": "company:tr:108554593",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ШАХИН МЕХМЕДОВ БАЙРАМОВ",
+      "target": "company:tr:108554593",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БАХАР ДЕЛЕВЕРОВ РЕДЖЕБОВ",
+      "target": "company:tr:108554593",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕТИН АХМЕД СОЛАК",
+      "target": "company:tr:108554593",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НУРАЙ ЮСЕИНОВ КАРАБЕКИРОВ",
+      "target": "company:tr:108554593",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

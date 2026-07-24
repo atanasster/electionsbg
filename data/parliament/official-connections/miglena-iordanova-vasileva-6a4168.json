@@ -1,0 +1,85 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:miglena-iordanova-vasileva-6a4168",
+  "nodes": [
+    {
+      "id": "official:miglena-iordanova-vasileva-6a4168",
+      "type": "official",
+      "slug": "miglena-iordanova-vasileva-6a4168",
+      "label": "Миглена Йорданова Василева",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175460953",
+      "type": "company",
+      "label": "ЦАНКО ЦЕРКОВСКИ-БЪДЕЩЕ",
+      "slug": null,
+      "uic": "175460953",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА КРУМОВА ИВАНОВА",
+      "type": "person",
+      "label": "Цветелина Крумова Иванова"
+    },
+    {
+      "id": "person:ЕЛЕНА ПЕТРОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Елена Петрова Николова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miglena-iordanova-vasileva-6a4168",
+      "target": "company:tr:175460953",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:miglena-iordanova-vasileva-6a4168",
+      "target": "company:tr:175460953",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА КРУМОВА ИВАНОВА",
+      "target": "company:tr:175460953",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА КРУМОВА ИВАНОВА",
+      "target": "company:tr:175460953",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ПЕТРОВА НИКОЛОВА",
+      "target": "company:tr:175460953",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА КРУМОВА ИВАНОВА",
+      "target": "company:tr:175460953",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:angel-iordanov-kiryakov-b9455b",
+  "nodes": [
+    {
+      "id": "official:angel-iordanov-kiryakov-b9455b",
+      "type": "official",
+      "slug": "angel-iordanov-kiryakov-b9455b",
+      "label": "Ангел Йорданов Киряков",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206355348",
+      "type": "company",
+      "label": "БЛЕК СИЙ МЕДИЯ 21",
+      "slug": null,
+      "uic": "206355348",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:angel-iordanov-kiryakov-b9455b",
+      "target": "company:tr:206355348",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:angel-iordanov-kiryakov-b9455b",
+      "target": "company:tr:206355348",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vela-kostadinova-veleva-45fd54",
+  "nodes": [
+    {
+      "id": "official:vela-kostadinova-veleva-45fd54",
+      "type": "official",
+      "slug": "vela-kostadinova-veleva-45fd54",
+      "label": "Вела Костадинова Велева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Велинград"
+    },
+    {
+      "id": "company:tr:207789529",
+      "type": "company",
+      "label": "Вел Авто ЕООД",
+      "slug": null,
+      "uic": "207789529",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vela-kostadinova-veleva-45fd54",
+      "target": "company:tr:207789529",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vela-kostadinova-veleva-45fd54",
+      "target": "company:tr:207789529",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vela-kostadinova-veleva-45fd54",
+      "target": "company:tr:207789529",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

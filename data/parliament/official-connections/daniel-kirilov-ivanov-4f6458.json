@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:daniel-kirilov-ivanov-4f6458",
+  "nodes": [
+    {
+      "id": "official:daniel-kirilov-ivanov-4f6458",
+      "type": "official",
+      "slug": "daniel-kirilov-ivanov-4f6458",
+      "label": "Даниел Кирилов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Лом"
+    },
+    {
+      "id": "company:tr:208456933",
+      "type": "company",
+      "label": "ДеАцтек",
+      "slug": null,
+      "uic": "208456933",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРИСТИАН КИРИЛОВ ВЕСЕЛИНОВ",
+      "type": "person",
+      "label": "Кристиан Кирилов Веселинов"
+    },
+    {
+      "id": "company:name:ЛАЙМ ЛАБС",
+      "type": "company",
+      "label": "Лайм Лабс ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЖИВКО ПЕТРОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Живко Петров Тодоров"
+    },
+    {
+      "id": "person:ЛАЙМ ЛАБС",
+      "type": "person",
+      "label": "Лайм Лабс"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniel-kirilov-ivanov-4f6458",
+      "target": "company:tr:208456933",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:daniel-kirilov-ivanov-4f6458",
+      "target": "company:tr:208456933",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРИСТИАН КИРИЛОВ ВЕСЕЛИНОВ",
+      "target": "company:tr:208456933",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ЛАЙМ ЛАБС",
+      "target": "company:tr:208456933",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ПЕТРОВ ТОДОРОВ",
+      "target": "company:tr:208456933",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛАЙМ ЛАБС",
+      "target": "company:tr:208456933",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

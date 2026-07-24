@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ertach-halil-salim-d1a32d",
+  "nodes": [
+    {
+      "id": "official:ertach-halil-salim-d1a32d",
+      "type": "official",
+      "slug": "ertach-halil-salim-d1a32d",
+      "label": "Ертач Халил Салим",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:828026941",
+      "type": "company",
+      "label": "СТРОИТЕЛСТВО,ОЗЕЛЕНЯВАНЕ И ЧИСТОТА",
+      "slug": null,
+      "uic": "828026941",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ertach-halil-salim-d1a32d",
+      "target": "company:tr:828026941",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

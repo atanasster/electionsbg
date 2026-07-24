@@ -1,0 +1,99 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rfk-nedzhat-hyusein-29248a",
+  "nodes": [
+    {
+      "id": "official:rfk-nedzhat-hyusein-29248a",
+      "type": "official",
+      "slug": "rfk-nedzhat-hyusein-29248a",
+      "label": "Ръфкъ Неджат Хюсеин",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Венец"
+    },
+    {
+      "id": "company:tr:127638462",
+      "type": "company",
+      "label": "Училищно настоятелство &quot;Светилник&quot; при ОУ&quot; П.Р.Славейков&quot;",
+      "slug": null,
+      "uic": "127638462",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:seher-mahmud-yusuf-723590",
+      "type": "official",
+      "slug": "seher-mahmud-yusuf-723590",
+      "label": "Сехер Махмуд Юсуф",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Венец"
+    },
+    {
+      "id": "person:ВЪЛЧО ИВАНОВ КУМАНОВ",
+      "type": "person",
+      "label": "Вълчо Иванов Куманов"
+    },
+    {
+      "id": "person:ФЕРДУН АХМЕД ОСМАН",
+      "type": "person",
+      "label": "Фердун Ахмед Осман"
+    },
+    {
+      "id": "person:ЕВШЕН ЮСУФ АКИФ",
+      "type": "person",
+      "label": "Евшен Юсуф Акиф"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rfk-nedzhat-hyusein-29248a",
+      "target": "company:tr:127638462",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:seher-mahmud-yusuf-723590",
+      "target": "company:tr:127638462",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:seher-mahmud-yusuf-723590",
+      "target": "company:tr:127638462",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЪЛЧО ИВАНОВ КУМАНОВ",
+      "target": "company:tr:127638462",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФЕРДУН АХМЕД ОСМАН",
+      "target": "company:tr:127638462",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВШЕН ЮСУФ АКИФ",
+      "target": "company:tr:127638462",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

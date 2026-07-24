@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:manol-hristov-kivshanov-664f6e",
+  "nodes": [
+    {
+      "id": "official:manol-hristov-kivshanov-664f6e",
+      "type": "official",
+      "slug": "manol-hristov-kivshanov-664f6e",
+      "label": "Манол Христов Кившанов",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205146420",
+      "type": "company",
+      "label": "МАНИПО",
+      "slug": null,
+      "uic": "205146420",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПАВЛИНА ИВАНОВА КИВШАНОВА",
+      "type": "person",
+      "label": "Павлина Иванова Кившанова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:manol-hristov-kivshanov-664f6e",
+      "target": "company:tr:205146420",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПАВЛИНА ИВАНОВА КИВШАНОВА",
+      "target": "company:tr:205146420",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

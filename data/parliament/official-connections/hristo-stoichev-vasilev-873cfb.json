@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hristo-stoichev-vasilev-873cfb",
+  "nodes": [
+    {
+      "id": "official:hristo-stoichev-vasilev-873cfb",
+      "type": "official",
+      "slug": "hristo-stoichev-vasilev-873cfb",
+      "label": "Христо Стойчев Василев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:822104625",
+      "type": "company",
+      "label": "ИНФРАСТРОЙ",
+      "slug": null,
+      "uic": "822104625",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЗВЕЗДЕЛИН ВЪЛКОВ ВУКЕВ",
+      "type": "person",
+      "label": "Звезделин Вълков Вукев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-stoichev-vasilev-873cfb",
+      "target": "company:tr:822104625",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЗВЕЗДЕЛИН ВЪЛКОВ ВУКЕВ",
+      "target": "company:tr:822104625",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

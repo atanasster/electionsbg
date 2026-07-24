@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ventsislav-kirilov-timushev-900f28",
+  "nodes": [
+    {
+      "id": "official:ventsislav-kirilov-timushev-900f28",
+      "type": "official",
+      "slug": "ventsislav-kirilov-timushev-900f28",
+      "label": "Венцислав Кирилов Тимушев",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204422816",
+      "type": "company",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪР ПРОФ. Д-Р ДИМИТЪР ШОЙЛЕВ",
+      "slug": null,
+      "uic": "204422816",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ventsislav-kirilov-timushev-900f28",
+      "target": "company:tr:204422816",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

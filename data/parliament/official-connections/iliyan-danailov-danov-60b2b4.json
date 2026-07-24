@@ -1,0 +1,99 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iliyan-danailov-danov-60b2b4",
+  "nodes": [
+    {
+      "id": "official:iliyan-danailov-danov-60b2b4",
+      "type": "official",
+      "slug": "iliyan-danailov-danov-60b2b4",
+      "label": "Илиян Данаилов Данов",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207383165",
+      "type": "company",
+      "label": "Младежко сдружение \"Надежда\"",
+      "slug": null,
+      "uic": "207383165",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:borislav-slavchev-shterev-39fe93",
+      "type": "official",
+      "slug": "borislav-slavchev-shterev-39fe93",
+      "label": "Борислав Славчев Щерев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Плевен"
+    },
+    {
+      "id": "person:ТОНИ НИКОЛАЕВ ДОРОВ",
+      "type": "person",
+      "label": "Тони Николаев Доров"
+    },
+    {
+      "id": "person:ИВАН ВЕЛИЧКОВ ЙОВОВ",
+      "type": "person",
+      "label": "Иван Величков Йовов"
+    },
+    {
+      "id": "person:КРИСТИЯН МИЛКОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Кристиян Милков Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iliyan-danailov-danov-60b2b4",
+      "target": "company:tr:207383165",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:borislav-slavchev-shterev-39fe93",
+      "target": "company:tr:207383165",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТОНИ НИКОЛАЕВ ДОРОВ",
+      "target": "company:tr:207383165",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОНИ НИКОЛАЕВ ДОРОВ",
+      "target": "company:tr:207383165",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ВЕЛИЧКОВ ЙОВОВ",
+      "target": "company:tr:207383165",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИЯН МИЛКОВ ГЕОРГИЕВ",
+      "target": "company:tr:207383165",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

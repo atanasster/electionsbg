@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-yankov-samarov-6d17b7",
+  "nodes": [
+    {
+      "id": "official:georgi-yankov-samarov-6d17b7",
+      "type": "official",
+      "slug": "georgi-yankov-samarov-6d17b7",
+      "label": "Георги Янков Самаров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Асеновград"
+    },
+    {
+      "id": "company:tr:205878057",
+      "type": "company",
+      "label": "САМАРОВ ГРУП",
+      "slug": null,
+      "uic": "205878057",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЯНКО ГЕОРГИЕВ САМАРОВ",
+      "type": "person",
+      "label": "Янко Георгиев Самаров"
+    },
+    {
+      "id": "person:ДОРА ИВАНОВА САМАРОВА",
+      "type": "person",
+      "label": "Дора Иванова Самарова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-yankov-samarov-6d17b7",
+      "target": "company:tr:205878057",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЯНКО ГЕОРГИЕВ САМАРОВ",
+      "target": "company:tr:205878057",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОРА ИВАНОВА САМАРОВА",
+      "target": "company:tr:205878057",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

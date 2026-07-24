@@ -1,0 +1,147 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:sezen-naid-posi-8d7a67",
+  "nodes": [
+    {
+      "id": "official:sezen-naid-posi-8d7a67",
+      "type": "official",
+      "slug": "sezen-naid-posi-8d7a67",
+      "label": "Сезен Наид Поси",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Тутракан"
+    },
+    {
+      "id": "company:tr:176685052",
+      "type": "company",
+      "label": "САКИН ТУНА",
+      "slug": null,
+      "uic": "176685052",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НЕХАТ НИЯЗИЕВ КАНТАРОВ",
+      "type": "person",
+      "label": "Нехат Ниязиев Кантаров"
+    },
+    {
+      "id": "person:ГЮНТАЧ ЕРГЮН МЕХМЕД",
+      "type": "person",
+      "label": "Гюнтач Ергюн Мехмед"
+    },
+    {
+      "id": "person:ТЮРКЯН ВЕДАТ ВЕЛИ",
+      "type": "person",
+      "label": "Тюркян Ведат Вели"
+    },
+    {
+      "id": "person:ШИРИН ШАМСАДИН ФЕРАДИН",
+      "type": "person",
+      "label": "Ширин Шамсадин Ферадин"
+    },
+    {
+      "id": "person:ОЯ БЕДРИЕВА ШЕЗАЛИЕВА",
+      "type": "person",
+      "label": "Оя Бедриева Шезалиева"
+    },
+    {
+      "id": "person:АЙСЕЛ ХАСАН МЕХМЕД",
+      "type": "person",
+      "label": "Айсел Хасан Мехмед"
+    },
+    {
+      "id": "person:ГИЗЕМ ВЕЖДИ СКЕНДЕР",
+      "type": "person",
+      "label": "Гизем Вежди Скендер"
+    },
+    {
+      "id": "person:ТОЛГА БЕЙСИМ ЮСНЮ",
+      "type": "person",
+      "label": "Толга Бейсим Юсню"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sezen-naid-posi-8d7a67",
+      "target": "company:tr:176685052",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НЕХАТ НИЯЗИЕВ КАНТАРОВ",
+      "target": "company:tr:176685052",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕХАТ НИЯЗИЕВ КАНТАРОВ",
+      "target": "company:tr:176685052",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮНТАЧ ЕРГЮН МЕХМЕД",
+      "target": "company:tr:176685052",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЮРКЯН ВЕДАТ ВЕЛИ",
+      "target": "company:tr:176685052",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ШИРИН ШАМСАДИН ФЕРАДИН",
+      "target": "company:tr:176685052",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОЯ БЕДРИЕВА ШЕЗАЛИЕВА",
+      "target": "company:tr:176685052",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙСЕЛ ХАСАН МЕХМЕД",
+      "target": "company:tr:176685052",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГИЗЕМ ВЕЖДИ СКЕНДЕР",
+      "target": "company:tr:176685052",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОЛГА БЕЙСИМ ЮСНЮ",
+      "target": "company:tr:176685052",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

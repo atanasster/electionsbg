@@ -1,0 +1,93 @@
+[
+  {
+    "slug": "ivan-dimitrov-bchvarov-47002a",
+    "declarantName": "Иван Димитров Бъчваров",
+    "institution": "Брезник",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г8925",
+    "controlHash": "B274D612",
+    "sourceUrl": "https://register.cacbg.bg/2025/6C3F3FD1-D030-41AC-BE49-7DB29150CB36211953.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 16694.702504818924,
+        "amountEurSpouse": 16942.167775317896
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 306.7751287177311,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 514.870924364592,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек Автомобил",
+        "detail": "БМВ ѝ1",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 7600,
+        "valueEur": 3885.8182970912603,
+        "holderName": "Иван Димитров Бъчваров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 20000,
+        "valueEur": 19940.38336665252,
+        "holderName": "Иван Димитров Бъчваров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Иван Димитров Бъчваров",
+        "isSpouse": false,
+        "legalBasis": "Потребителски Кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

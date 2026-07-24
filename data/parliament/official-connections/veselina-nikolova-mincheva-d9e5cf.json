@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:veselina-nikolova-mincheva-d9e5cf",
+  "nodes": [
+    {
+      "id": "official:veselina-nikolova-mincheva-d9e5cf",
+      "type": "official",
+      "slug": "veselina-nikolova-mincheva-d9e5cf",
+      "label": "Веселина Николова Минчева",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131237831",
+      "type": "company",
+      "label": "МИДБОЛКАН ИНФРАСТРАКЧУРАЛ ПРОДЖЕКТС",
+      "slug": null,
+      "uic": "131237831",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОФЕЛИЯ ГАНЧЕВА ЛОЗАНОВА",
+      "type": "person",
+      "label": "Офелия Ганчева Лозанова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veselina-nikolova-mincheva-d9e5cf",
+      "target": "company:tr:131237831",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:veselina-nikolova-mincheva-d9e5cf",
+      "target": "company:tr:131237831",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОФЕЛИЯ ГАНЧЕВА ЛОЗАНОВА",
+      "target": "company:tr:131237831",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:taksin-nuridinov-mustafov-b942f2",
+  "nodes": [
+    {
+      "id": "official:taksin-nuridinov-mustafov-b942f2",
+      "type": "official",
+      "slug": "taksin-nuridinov-mustafov-b942f2",
+      "label": "Таксин Нуридинов Мустафов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Каспичан"
+    },
+    {
+      "id": "company:tr:206472248",
+      "type": "company",
+      "label": "СПОРТЕН КЛУБ - КРАСИВО ТЯЛО гр. КАСПИЧАН",
+      "slug": null,
+      "uic": "206472248",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРТИН ВАЛЕНТИНОВ МАРИНОВ",
+      "type": "person",
+      "label": "Мартин Валентинов Маринов"
+    },
+    {
+      "id": "person:НУРИДИН МУСТАФОВ ЗЕКЕРИЕВ",
+      "type": "person",
+      "label": "Нуридин Мустафов Зекериев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:taksin-nuridinov-mustafov-b942f2",
+      "target": "company:tr:206472248",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:taksin-nuridinov-mustafov-b942f2",
+      "target": "company:tr:206472248",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРТИН ВАЛЕНТИНОВ МАРИНОВ",
+      "target": "company:tr:206472248",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НУРИДИН МУСТАФОВ ЗЕКЕРИЕВ",
+      "target": "company:tr:206472248",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

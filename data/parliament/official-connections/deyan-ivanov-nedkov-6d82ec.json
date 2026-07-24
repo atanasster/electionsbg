@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:deyan-ivanov-nedkov-6d82ec",
+  "nodes": [
+    {
+      "id": "official:deyan-ivanov-nedkov-6d82ec",
+      "type": "official",
+      "slug": "deyan-ivanov-nedkov-6d82ec",
+      "label": "Деян Иванов Недков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Русе"
+    },
+    {
+      "id": "company:tr:200105380",
+      "type": "company",
+      "label": "Брокер Инс Русе ЕООД",
+      "slug": null,
+      "uic": "200105380",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:deyan-ivanov-nedkov-6d82ec",
+      "target": "company:tr:200105380",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

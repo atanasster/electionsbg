@@ -1,0 +1,91 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vanya-tsokova-mineva-bc4957",
+  "nodes": [
+    {
+      "id": "official:vanya-tsokova-mineva-bc4957",
+      "type": "official",
+      "slug": "vanya-tsokova-mineva-bc4957",
+      "label": "Ваня Цокова Минева",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:121779239",
+      "type": "company",
+      "label": "Сдружение за учителска взаимопомощ",
+      "slug": null,
+      "uic": "121779239",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:snezhanka-atanasova-todorova-af09b4",
+      "type": "official",
+      "slug": "snezhanka-atanasova-todorova-af09b4",
+      "label": "Снежанка Атанасова Тодорова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "person:АНТОАНЕТА ЛЮБОМИРОВА КОСТАДИНОВА - КОЛЕВА",
+      "type": "person",
+      "label": "Антоанета Любомирова Костадинова - Колева"
+    },
+    {
+      "id": "person:ГЕРГАНА ВАСИЛЕВА КУКУЦОВА - ТРОСКОВА",
+      "type": "person",
+      "label": "Гергана Василева Кукуцова - Троскова"
+    },
+    {
+      "id": "person:БОЙКА ЙОРДАНОВА ХАРАЛАМПИЕВА - ПРЕДСЕДАТЕЛ НА УС",
+      "type": "person",
+      "label": "Бойка Йорданова Харалампиева - Председател На Ус"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vanya-tsokova-mineva-bc4957",
+      "target": "company:tr:121779239",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:snezhanka-atanasova-todorova-af09b4",
+      "target": "company:tr:121779239",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНТОАНЕТА ЛЮБОМИРОВА КОСТАДИНОВА - КОЛЕВА",
+      "target": "company:tr:121779239",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ВАСИЛЕВА КУКУЦОВА - ТРОСКОВА",
+      "target": "company:tr:121779239",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЙКА ЙОРДАНОВА ХАРАЛАМПИЕВА - ПРЕДСЕДАТЕЛ НА УС",
+      "target": "company:tr:121779239",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

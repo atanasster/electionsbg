@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:2404",
   "nodes": [
     {
@@ -24,9 +24,9 @@
       "seat": "БЪЛГАРИЯ, гр. Стара Загора, 6000"
     },
     {
-      "id": "official:plamen-veselinov-iordanov-68cdc6",
+      "id": "official:plamen-veselinov-iordanov-6a8cdf",
       "type": "official",
-      "slug": "plamen-veselinov-iordanov-68cdc6",
+      "slug": "plamen-veselinov-iordanov-6a8cdf",
       "label": "Пламен Веселинов Йорданов",
       "tier": "executive",
       "role": "state_enterprise",
@@ -51,7 +51,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:plamen-veselinov-iordanov-68cdc6",
+      "source": "official:plamen-veselinov-iordanov-6a8cdf",
       "target": "company:tr:207629791",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -59,7 +59,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:plamen-veselinov-iordanov-68cdc6",
+      "source": "official:plamen-veselinov-iordanov-6a8cdf",
       "target": "company:tr:207629791",
       "kind": "tr_role",
       "role": "manager",
@@ -67,7 +67,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:plamen-veselinov-iordanov-68cdc6",
+      "source": "official:plamen-veselinov-iordanov-6a8cdf",
       "target": "company:tr:207629791",
       "kind": "tr_owner",
       "role": "sole_owner",

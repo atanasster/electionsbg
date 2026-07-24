@@ -1,0 +1,162 @@
+[
+  {
+    "slug": "vesela-todorova-iotova-3e48eb",
+    "declarantName": "Весела Тодорова Йотова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-03",
+    "entryNumber": "Г1356",
+    "controlHash": "DCFC4423",
+    "sourceUrl": "https://register.cacbg.bg/2025/37ABA85C-66D1-4424-B9E7-A0D49EE1DCA8203797.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24654.494511281657,
+        "amountEurSpouse": 9828.052540353712
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Черни Вит",
+        "municipality": "Тетевен",
+        "areaSqm": 761,
+        "builtAreaSqm": 725,
+        "acquiredYear": 2024,
+        "share": "1/4",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Весела Тодорова Йотова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "debt",
+        "description": "кредит ипотечен",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 79930,
+        "valueEur": 40867.56006401374,
+        "holderName": "Весела ТодороваЙотова -съкредитор",
+        "isSpouse": true,
+        "legalBasis": "покупка на апартамент-2.85",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит потребителски",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 28704,
+        "valueEur": 14676.122157856256,
+        "holderName": "Весела ТодороваЙотова",
+        "isSpouse": true,
+        "legalBasis": "покупка на гараж - 3.95%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "vesela-todorova-iotova-3e48eb",
+    "declarantName": "Вессела Тодорова Йотова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-07",
+    "entryNumber": "Г9374",
+    "controlHash": "B8BEEBDA",
+    "sourceUrl": "https://register.cacbg.bg/2024/37ABA85C-66D1-4424-B9E7-A0D49EE1DCA8191029.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25652.536263376674,
+        "amountEurSpouse": 11248.421386316806
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "Поземлен имот с гараж",
+        "detail": null,
+        "location": "гр. Плевен",
+        "municipality": "Плевен",
+        "areaSqm": 228,
+        "builtAreaSqm": 25,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 58000,
+        "valueEur": 29654.92910938067,
+        "holderName": "Весела Тодорова Йотова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45000,
+        "valueEur": 23008.13465382983,
+        "holderName": "Кристина Йоткова Йотова",
+        "isSpouse": true,
+        "legalBasis": "покупка на поземлен имот",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45000,
+        "valueEur": 23008.13465382983,
+        "holderName": "Весела Тодорова Йотова",
+        "isSpouse": true,
+        "legalBasis": "съкредитор",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

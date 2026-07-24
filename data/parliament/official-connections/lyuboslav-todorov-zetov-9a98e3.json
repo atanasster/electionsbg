@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:lyuboslav-todorov-zetov-9a98e3",
+  "nodes": [
+    {
+      "id": "official:lyuboslav-todorov-zetov-9a98e3",
+      "type": "official",
+      "slug": "lyuboslav-todorov-zetov-9a98e3",
+      "label": "Любослав Тодоров Зетов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Самоков"
+    },
+    {
+      "id": "company:tr:206688064",
+      "type": "company",
+      "label": "ЛД ТРЕЙДИНГ",
+      "slug": null,
+      "uic": "206688064",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lyuboslav-todorov-zetov-9a98e3",
+      "target": "company:tr:206688064",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:lyuboslav-todorov-zetov-9a98e3",
+      "target": "company:tr:206688064",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -5,6 +5,228 @@
     "institution": "Български червен кръст",
     "positionTitle": "Член на НС",
     "category": "civil_society",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г11009",
+    "controlHash": "DF515F75",
+    "sourceUrl": "https://register.cacbg.bg/2025/16CA52B6-2FA6-4CFE-BC82-AFF9880E1590214128.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 619.6857600098168,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 3612.78843253248,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "АРЕНДА",
+        "amountEurDeclarant": 15785.62554005205,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ДИВИДЕНТИ",
+        "amountEurDeclarant": 16379.23541412086,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15436,
+        "valueEur": 7892.301478144828,
+        "holderName": "ИВАН ИВАНОВ ИВАНОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "АРЕНДА"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ivan-ivanov-ivanov-517f08",
+    "declarantName": "ИВАН ИВАНОВ ИВАНОВ",
+    "institution": "Български червен кръст",
+    "positionTitle": "Член на НС",
+    "category": "civil_society",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г10289",
+    "controlHash": "EDFCB0EE",
+    "sourceUrl": "https://register.cacbg.bg/2024/16CA52B6-2FA6-4CFE-BC82-AFF9880E1590191981.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4875.67937908714,
+        "amountEurSpouse": 37316.63794910601
+      },
+      {
+        "parent": null,
+        "category": "РЕНТА",
+        "amountEurDeclarant": 5842.532326429188,
+        "amountEurSpouse": 3249.7711968831645
+      },
+      {
+        "parent": null,
+        "category": "ДИВИДЕНТИ",
+        "amountEurDeclarant": 22496.842772633612,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 28381,
+        "valueEur": 14510.974880229876,
+        "holderName": "ИВАН ИВАНОВ ИВАНОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45249,
+        "valueEur": 23135.44633224769,
+        "holderName": "ПАВЛИНКА ДИМИТРОВА ИВАНОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 5307,
+        "valueEur": null,
+        "holderName": "ПАВЛИНКА ДИМИТРОВА ИВАНОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "debt",
+        "description": "ЖИЛИЩЕН/ИПОТЕЧЕН КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 241433,
+        "valueEur": 123442.73275284661,
+        "holderName": "ПАВЛИНКА ДИМИТРОВА ИВАНОВА",
+        "isSpouse": true,
+        "legalBasis": "Договор ипотечен кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ivan-ivanov-ivanov-517f08",
+    "declarantName": "(unknown)",
+    "institution": "Български червен кръст",
+    "positionTitle": "Член на НС",
+    "category": "civil_society",
+    "declarationYear": 2023,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": null,
+    "entryNumber": "Г8681",
+    "controlHash": "EF8C75F6",
+    "sourceUrl": "https://register.cacbg.bg/2023/16CA52B6-2FA6-4CFE-BC82-AFF9880E1590155669.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "ЧЕРВЕН ДЪБ ООД",
+        "detail": null,
+        "location": "500",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": null,
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ЧЕРВЕН ДЪБ ООД",
+        "detail": null,
+        "location": "УПРАВИТЕЛ",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "ivan-ivanov-ivanov-517f08",
+    "declarantName": "ИВАН ИВАНОВ ИВАНОВ",
+    "institution": "Български червен кръст",
+    "positionTitle": "Член на НС",
+    "category": "civil_society",
     "declarationYear": 2023,
     "fiscalYear": 2022,
     "declarationType": "Annualy",
@@ -108,56 +330,6 @@
       }
     ],
     "events": []
-  },
-  {
-    "slug": "ivan-ivanov-ivanov-517f08",
-    "declarantName": "(unknown)",
-    "institution": "Български червен кръст",
-    "positionTitle": "Член на НС",
-    "category": "civil_society",
-    "declarationYear": 2023,
-    "fiscalYear": null,
-    "declarationType": "Other",
-    "filedAt": null,
-    "entryNumber": "Г8681",
-    "controlHash": "EF8C75F6",
-    "sourceUrl": "https://register.cacbg.bg/2023/16CA52B6-2FA6-4CFE-BC82-AFF9880E1590155669.xml",
-    "ownershipStakes": [],
-    "income": [],
-    "assets": [
-      {
-        "category": "real_estate",
-        "description": "ЧЕРВЕН ДЪБ ООД",
-        "detail": null,
-        "location": "500",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": null,
-        "amount": null,
-        "valueEur": null,
-        "holderName": null,
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": null
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_property",
-        "description": "ЧЕРВЕН ДЪБ ООД",
-        "detail": null,
-        "location": "УПРАВИТЕЛ",
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": null,
-        "legalBasis": null
-      }
-    ]
   },
   {
     "slug": "ivan-ivanov-ivanov-517f08",

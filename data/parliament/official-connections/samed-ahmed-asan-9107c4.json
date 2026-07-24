@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:samed-ahmed-asan-9107c4",
+  "nodes": [
+    {
+      "id": "official:samed-ahmed-asan-9107c4",
+      "type": "official",
+      "slug": "samed-ahmed-asan-9107c4",
+      "label": "Самед Ахмед Асан",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Главиница"
+    },
+    {
+      "id": "company:tr:204281372",
+      "type": "company",
+      "label": "АСКО 2016",
+      "slug": null,
+      "uic": "204281372",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:samed-ahmed-asan-9107c4",
+      "target": "company:tr:204281372",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:samed-ahmed-asan-9107c4",
+      "target": "company:tr:204281372",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

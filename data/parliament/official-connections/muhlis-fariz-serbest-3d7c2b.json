@@ -1,0 +1,51 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:muhlis-fariz-serbest-3d7c2b",
+  "nodes": [
+    {
+      "id": "official:muhlis-fariz-serbest-3d7c2b",
+      "type": "official",
+      "slug": "muhlis-fariz-serbest-3d7c2b",
+      "label": "Мухлис Фариз Сербест",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стамболово"
+    },
+    {
+      "id": "company:tr:206989765",
+      "type": "company",
+      "label": "Скални ниши",
+      "slug": null,
+      "uic": "206989765",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:muhlis-fariz-serbest-3d7c2b",
+      "target": "company:tr:206989765",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:muhlis-fariz-serbest-3d7c2b",
+      "target": "company:tr:206989765",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:muhlis-fariz-serbest-3d7c2b",
+      "target": "company:tr:206989765",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

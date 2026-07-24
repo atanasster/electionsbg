@@ -1,0 +1,68 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:liliya-kirilova-hristova-2beeaf",
+  "nodes": [
+    {
+      "id": "official:liliya-kirilova-hristova-2beeaf",
+      "type": "official",
+      "slug": "liliya-kirilova-hristova-2beeaf",
+      "label": "Лилия Кирилова Христова",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Район \"Аспарухово\" - Варна"
+    },
+    {
+      "id": "company:tr:208454601",
+      "type": "company",
+      "label": "БЕТИ 21",
+      "slug": null,
+      "uic": "208454601",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Лясковец, 5140"
+    },
+    {
+      "id": "mp:1123",
+      "type": "mp",
+      "mpId": 1123,
+      "label": "Лилия Кирилова Христова",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:liliya-kirilova-hristova-2beeaf",
+      "target": "company:tr:208454601",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:liliya-kirilova-hristova-2beeaf",
+      "target": "company:tr:208454601",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1123",
+      "target": "company:tr:208454601",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1123",
+      "target": "company:tr:208454601",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

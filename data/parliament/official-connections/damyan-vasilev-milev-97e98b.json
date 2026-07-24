@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:damyan-vasilev-milev-97e98b",
+  "nodes": [
+    {
+      "id": "official:damyan-vasilev-milev-97e98b",
+      "type": "official",
+      "slug": "damyan-vasilev-milev-97e98b",
+      "label": "Дамян Василев Милев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Исперих"
+    },
+    {
+      "id": "company:tr:200134535",
+      "type": "company",
+      "label": "Мега шанс груп-Исперих ООД",
+      "slug": null,
+      "uic": "200134535",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАЙЛО ЦАНКОВ МЕТОДИЕВ",
+      "type": "person",
+      "label": "Ивайло Цанков Методиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:damyan-vasilev-milev-97e98b",
+      "target": "company:tr:200134535",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:damyan-vasilev-milev-97e98b",
+      "target": "company:tr:200134535",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАЙЛО ЦАНКОВ МЕТОДИЕВ",
+      "target": "company:tr:200134535",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

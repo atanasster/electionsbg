@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:lyubomir-krasimirov-andreev-0d7aa1",
+  "nodes": [
+    {
+      "id": "official:lyubomir-krasimirov-andreev-0d7aa1",
+      "type": "official",
+      "slug": "lyubomir-krasimirov-andreev-0d7aa1",
+      "label": "Любомир Красимиров Андреев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202764283",
+      "type": "company",
+      "label": "РОЯЛ ДЖЕЛИ БГ",
+      "slug": null,
+      "uic": "202764283",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРАСИМИР ЛАМБОВ АНДРЕЕВ",
+      "type": "person",
+      "label": "Красимир Ламбов Андреев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lyubomir-krasimirov-andreev-0d7aa1",
+      "target": "company:tr:202764283",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:lyubomir-krasimirov-andreev-0d7aa1",
+      "target": "company:tr:202764283",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРАСИМИР ЛАМБОВ АНДРЕЕВ",
+      "target": "company:tr:202764283",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ЛАМБОВ АНДРЕЕВ",
+      "target": "company:tr:202764283",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

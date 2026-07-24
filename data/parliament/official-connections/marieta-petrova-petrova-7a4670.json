@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:marieta-petrova-petrova-7a4670",
+  "nodes": [
+    {
+      "id": "official:marieta-petrova-petrova-7a4670",
+      "type": "official",
+      "slug": "marieta-petrova-petrova-7a4670",
+      "label": "Мариета Петрова Петрова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208192992",
+      "type": "company",
+      "label": "ЕСТА ВРАТИ",
+      "slug": null,
+      "uic": "208192992",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:marieta-petrova-petrova-7a4670",
+      "target": "company:tr:208192992",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:marieta-petrova-petrova-7a4670",
+      "target": "company:tr:208192992",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

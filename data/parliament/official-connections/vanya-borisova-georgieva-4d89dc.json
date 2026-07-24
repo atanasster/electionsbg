@@ -1,0 +1,138 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vanya-borisova-georgieva-4d89dc",
+  "nodes": [
+    {
+      "id": "official:vanya-borisova-georgieva-4d89dc",
+      "type": "official",
+      "slug": "vanya-borisova-georgieva-4d89dc",
+      "label": "Ваня Борисова Георгиева",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:106043803",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ ПРОСВЕТА - 1925",
+      "slug": null,
+      "uic": "106043803",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:katerina-nikolova-marinova-331c21",
+      "type": "official",
+      "slug": "katerina-nikolova-marinova-331c21",
+      "label": "Катерина Николова Маринова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "person:ИВАН ЦВЕТКОВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Цветков Иванов"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ВЕСЕЛИНОВА ГЕРГОВА",
+      "type": "person",
+      "label": "Десислава Веселинова Гергова"
+    },
+    {
+      "id": "person:СТЕФАН НИКОЛОВ ЦАЛОВ",
+      "type": "person",
+      "label": "Стефан Николов Цалов"
+    },
+    {
+      "id": "person:ЦВЕТАНА ИВАНОВА НАЧЕВА",
+      "type": "person",
+      "label": "Цветана Иванова Начева"
+    },
+    {
+      "id": "person:ПАУЛЕТА НИКОДИМОВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Паулета Никодимова Кръстева"
+    },
+    {
+      "id": "person:РОСИЦА ГЕОРГИЕВА МАРИНОВА",
+      "type": "person",
+      "label": "Росица Георгиева Маринова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vanya-borisova-georgieva-4d89dc",
+      "target": "company:tr:106043803",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:katerina-nikolova-marinova-331c21",
+      "target": "company:tr:106043803",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ЦВЕТКОВ ИВАНОВ",
+      "target": "company:tr:106043803",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ЦВЕТКОВ ИВАНОВ",
+      "target": "company:tr:106043803",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ВЕСЕЛИНОВА ГЕРГОВА",
+      "target": "company:tr:106043803",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН НИКОЛОВ ЦАЛОВ",
+      "target": "company:tr:106043803",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАНА ИВАНОВА НАЧЕВА",
+      "target": "company:tr:106043803",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАУЛЕТА НИКОДИМОВА КРЪСТЕВА",
+      "target": "company:tr:106043803",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ГЕОРГИЕВА МАРИНОВА",
+      "target": "company:tr:106043803",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

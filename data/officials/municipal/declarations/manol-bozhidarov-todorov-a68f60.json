@@ -1,0 +1,69 @@
+[
+  {
+    "slug": "manol-bozhidarov-todorov-a68f60",
+    "declarantName": "Манол Божидаров Тодоров",
+    "institution": "Бургас",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-03-31",
+    "entryNumber": "Г2039",
+    "controlHash": "61F477AA",
+    "sourceUrl": "https://register.cacbg.bg/2025/B88B4BCA-688B-433F-87C4-B58899493FE3204621.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28445.723810351617,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивиденти от \"Ютопия Кофи Шоп\"",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 27021.775921220145
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 52850,
+        "valueEur": 27021.775921220145,
+        "holderName": "Диана Дичева Дичева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "дивиденти от \"Ютопия Кофи Шоп\""
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Манол Божидаров Тодоров",
+        "isSpouse": false,
+        "legalBasis": "договор-5,86 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

@@ -1,0 +1,53 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivelina-gancheva-dimitrova-dc95b5",
+  "nodes": [
+    {
+      "id": "official:ivelina-gancheva-dimitrova-dc95b5",
+      "type": "official",
+      "slug": "ivelina-gancheva-dimitrova-dc95b5",
+      "label": "Ивелина Ганчева Димитрова",
+      "tier": "executive",
+      "role": "regulator",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:120613435",
+      "type": "company",
+      "label": "Ина Комерс",
+      "slug": null,
+      "uic": "120613435",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:107554850",
+      "type": "company",
+      "label": "Данас Комерс",
+      "slug": null,
+      "uic": "107554850",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivelina-gancheva-dimitrova-dc95b5",
+      "target": "company:tr:120613435",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivelina-gancheva-dimitrova-dc95b5",
+      "target": "company:tr:107554850",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

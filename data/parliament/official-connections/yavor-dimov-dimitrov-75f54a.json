@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:yavor-dimov-dimitrov-75f54a",
+  "nodes": [
+    {
+      "id": "official:yavor-dimov-dimitrov-75f54a",
+      "type": "official",
+      "slug": "yavor-dimov-dimitrov-75f54a",
+      "label": "Явор Димов Димитров",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200802835",
+      "type": "company",
+      "label": "ЕВОЛЮТА",
+      "slug": null,
+      "uic": "200802835",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМАНА ЯВОРОВА ДИМОВА",
+      "type": "person",
+      "label": "Димана Яворова Димова"
+    },
+    {
+      "id": "person:СТИЛИЯНА ЯВОРОВА ДИМОВА",
+      "type": "person",
+      "label": "Стилияна Яворова Димова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yavor-dimov-dimitrov-75f54a",
+      "target": "company:tr:200802835",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМАНА ЯВОРОВА ДИМОВА",
+      "target": "company:tr:200802835",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТИЛИЯНА ЯВОРОВА ДИМОВА",
+      "target": "company:tr:200802835",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+[
+  {
+    "slug": "elena-hristova-gerasimova-8e77c1",
+    "declarantName": "Елена Христова Герасмова",
+    "institution": "Златица",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г11024",
+    "controlHash": "9579CD06",
+    "sourceUrl": "https://register.cacbg.bg/2025/47E23284-C1C7-441D-AC2A-10EC4AF5C129214144.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6376.832342279237,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5289.825802856077,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 30000,
+        "valueEur": 30000.05112918812,
+        "holderName": "Елена Христова Герасимова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 70000,
+        "valueEur": 35790.431683735296,
+        "holderName": "Елена Христова Герасимова",
+        "isSpouse": true,
+        "legalBasis": "4,4%-банков кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

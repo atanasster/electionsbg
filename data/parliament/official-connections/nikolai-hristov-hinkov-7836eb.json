@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-hristov-hinkov-7836eb",
+  "nodes": [
+    {
+      "id": "official:nikolai-hristov-hinkov-7836eb",
+      "type": "official",
+      "slug": "nikolai-hristov-hinkov-7836eb",
+      "label": "Николай Христов Хинков",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200360580",
+      "type": "company",
+      "label": "ДАНИ-СЕВЛИЕВО",
+      "slug": null,
+      "uic": "200360580",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-hristov-hinkov-7836eb",
+      "target": "company:tr:200360580",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-hristov-hinkov-7836eb",
+      "target": "company:tr:200360580",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

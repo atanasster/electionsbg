@@ -1,0 +1,88 @@
+[
+  {
+    "slug": "mila-dimitrova-terzieva-nikolova-1b2e8e",
+    "declarantName": "Мила Димитрова Терзиева-Николова",
+    "institution": "Попово",
+    "positionTitle": "Главен архитект",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-29",
+    "entryNumber": "Г5642",
+    "controlHash": "A12DB715",
+    "sourceUrl": "https://register.cacbg.bg/2025/0E3D9232-724C-46BA-898B-3E4AA83A824D208583.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15132.705807764478,
+        "amountEurSpouse": 34475.38896529862
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 6432.563157329625,
+        "amountEurSpouse": 21048.864165085924
+      },
+      {
+        "parent": null,
+        "category": "Доходи от дивидент",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 14571.818614092226
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2300,
+        "valueEur": 1175.9713267513025,
+        "holderName": "Мила Димитрова Терзиева-Николова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати и хонорари"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 100000,
+        "valueEur": 51129.188119621846,
+        "holderName": "Иван Бончев Николов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплати"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Апартамент",
+        "detail": null,
+        "location": "Велико Търново",
+        "municipality": "Велико Търново",
+        "areaSqm": 46,
+        "builtAreaSqm": 46,
+        "currency": "BGN",
+        "valueEur": 69999.94887081189,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

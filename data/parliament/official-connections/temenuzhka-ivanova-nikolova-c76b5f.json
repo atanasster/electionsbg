@@ -1,0 +1,113 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:temenuzhka-ivanova-nikolova-c76b5f",
+  "nodes": [
+    {
+      "id": "official:temenuzhka-ivanova-nikolova-c76b5f",
+      "type": "official",
+      "slug": "temenuzhka-ivanova-nikolova-c76b5f",
+      "label": "Теменужка Иванова Николова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205139098",
+      "type": "company",
+      "label": "ОБЩЕСТВЕН ДАРИТЕЛСКИ ФОНД  ЗА ВРАЦА",
+      "slug": null,
+      "uic": "205139098",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕМИЛИЯН ВАЛЕНТИНОВ КАДИЙСКИ",
+      "type": "person",
+      "label": "Емилиян Валентинов Кадийски"
+    },
+    {
+      "id": "person:СПАСКА ЙОРДАНОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Спаска Йорданова Петрова"
+    },
+    {
+      "id": "person:МАРИНА ВАЛЕРИЕВА ТАШЕВА",
+      "type": "person",
+      "label": "Марина Валериева Ташева"
+    },
+    {
+      "id": "person:ДИМИТЪР ИВАНОВ",
+      "type": "person",
+      "label": "Димитър Иванов"
+    },
+    {
+      "id": "person:МАРИЯ ДИМИТРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Мария Димитрова Димитрова"
+    },
+    {
+      "id": "person:ИВАЙЛО ЕМИЛОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Ивайло Емилов Йорданов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:temenuzhka-ivanova-nikolova-c76b5f",
+      "target": "company:tr:205139098",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕМИЛИЯН ВАЛЕНТИНОВ КАДИЙСКИ",
+      "target": "company:tr:205139098",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СПАСКА ЙОРДАНОВА ПЕТРОВА",
+      "target": "company:tr:205139098",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНА ВАЛЕРИЕВА ТАШЕВА",
+      "target": "company:tr:205139098",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ИВАНОВ",
+      "target": "company:tr:205139098",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ДИМИТРОВА ДИМИТРОВА",
+      "target": "company:tr:205139098",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ЕМИЛОВ ЙОРДАНОВ",
+      "target": "company:tr:205139098",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

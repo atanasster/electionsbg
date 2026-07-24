@@ -1,0 +1,90 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariana-paskaleva-vlcheva-d5e44f",
+  "nodes": [
+    {
+      "id": "official:mariana-paskaleva-vlcheva-d5e44f",
+      "type": "official",
+      "slug": "mariana-paskaleva-vlcheva-d5e44f",
+      "label": "Мариана Паскалева Вълчева",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:126733366",
+      "type": "company",
+      "label": "ПРИРОДОЗАЩИТНО СДРУЖЕНИЕ \"БИОСФЕРА",
+      "slug": null,
+      "uic": "126733366",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ ГЕОРГИЕВ ТЕРЗИЕВ",
+      "type": "person",
+      "label": "Николай Георгиев Терзиев"
+    },
+    {
+      "id": "person:ДИМИТЪР ГЕОРГИЕВ ПЛАЧИЙСКИ",
+      "type": "person",
+      "label": "Димитър Георгиев Плачийски"
+    },
+    {
+      "id": "person:СТОЙЧО АНДОНОВ СТОЙЧЕВ",
+      "type": "person",
+      "label": "Стойчо Андонов Стойчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariana-paskaleva-vlcheva-d5e44f",
+      "target": "company:tr:126733366",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ ГЕОРГИЕВ ТЕРЗИЕВ",
+      "target": "company:tr:126733366",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ГЕОРГИЕВ ПЛАЧИЙСКИ",
+      "target": "company:tr:126733366",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ГЕОРГИЕВ ТЕРЗИЕВ",
+      "target": "company:tr:126733366",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ГЕОРГИЕВ ПЛАЧИЙСКИ",
+      "target": "company:tr:126733366",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЙЧО АНДОНОВ СТОЙЧЕВ",
+      "target": "company:tr:126733366",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

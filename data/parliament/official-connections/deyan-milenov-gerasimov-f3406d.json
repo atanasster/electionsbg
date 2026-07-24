@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:deyan-milenov-gerasimov-f3406d",
+  "nodes": [
+    {
+      "id": "official:deyan-milenov-gerasimov-f3406d",
+      "type": "official",
+      "slug": "deyan-milenov-gerasimov-f3406d",
+      "label": "Деян Миленов Герасимов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Русе"
+    },
+    {
+      "id": "company:tr:117605866",
+      "type": "company",
+      "label": "АСПРО МГ ООД",
+      "slug": null,
+      "uic": "117605866",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИЛЕН БОЖАНОВ ГЕРАСИМОВ",
+      "type": "person",
+      "label": "Милен Божанов Герасимов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:deyan-milenov-gerasimov-f3406d",
+      "target": "company:tr:117605866",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:deyan-milenov-gerasimov-f3406d",
+      "target": "company:tr:117605866",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛЕН БОЖАНОВ ГЕРАСИМОВ",
+      "target": "company:tr:117605866",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

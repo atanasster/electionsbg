@@ -1,0 +1,208 @@
+[
+  {
+    "slug": "mariya-toshkova-bozukova-ef0c20",
+    "declarantName": "МАРИЯ ТОШКОВА БОЗУКОВА",
+    "institution": "Гоце Делчев",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г2822",
+    "controlHash": "13BAB8A2",
+    "sourceUrl": "https://register.cacbg.bg/2025/51F1BB4A-162B-445C-87BA-23E9F1BD78A8205527.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4976.915171563991,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6265.370712178461,
+        "amountEurSpouse": 5289.825802856077
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 5521.95231691916
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1022.5837623924369
+      },
+      {
+        "parent": null,
+        "category": "Данъчно облекчение за дете",
+        "amountEurDeclarant": 306.7751287177311,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от дивидент след удържан данък",
+        "amountEurDeclarant": 27542.782348159093,
+        "amountEurSpouse": 31572.27366386649
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент с гараж",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 119,
+        "builtAreaSqm": 119,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 291745,
+        "valueEur": 149166.84987959077,
+        "holderName": "МАРИЯ ТОШКОВА БОЗУКОВА",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "стари суми и разпределен дивидент"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "МАРИЯ ТОШКОВА БОЗУКОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно и стари суми"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "КОСТАДИН ГЕОРГИЕВ БОЗУКОВ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно и стари суми"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 91976,
+        "valueEur": 47026.58206490339,
+        "holderName": "МАРИЯ ТОШКОВА БОЗУКОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТА И ДИВДИЕНТ"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 147847,
+        "valueEur": 75592.97075921732,
+        "holderName": "КОСТАДИН ГЕОРГИЕВ БОЗУКОВ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "ДИВИДЕНТ"
+      },
+      {
+        "category": "receivable",
+        "description": "ДОП. ПАРИЧНИ СРЕДСТВА",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 93963,
+        "valueEur": 48042.519032840275,
+        "holderName": "КОСТАДИН ГЕОРГИЕВ БОЗУКОВ",
+        "isSpouse": true,
+        "legalBasis": "ПРОТОКОЛИ",
+        "fundsOrigin": null
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 7445,
+        "valueEur": 7444.921082098137,
+        "holderName": "МАРИЯ ТОШКОВА БОЗУКОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "депозит от предходни години"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ОПЕЛ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "МАЗДА 3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 766.9378217943278,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

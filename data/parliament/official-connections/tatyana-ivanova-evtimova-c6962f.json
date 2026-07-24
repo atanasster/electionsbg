@@ -1,0 +1,132 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tatyana-ivanova-evtimova-c6962f",
+  "nodes": [
+    {
+      "id": "official:tatyana-ivanova-evtimova-c6962f",
+      "type": "official",
+      "slug": "tatyana-ivanova-evtimova-c6962f",
+      "label": "Татяна Иванова Евтимова",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207544241",
+      "type": "company",
+      "label": "ИНВЕСТМЪНТ ПРОДЖЕКТ МЕНИДЖМЪНТ",
+      "slug": null,
+      "uic": "207544241",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРТИНА ВЛАДИМИРОВА НЕНОВА",
+      "type": "person",
+      "label": "Мартина Владимирова Ненова"
+    },
+    {
+      "id": "person:МАРИН АТАНАСОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Марин Атанасов Атанасов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ДАВИДКОВ ЕВТИМОВ",
+      "type": "person",
+      "label": "Александър Давидков Евтимов"
+    },
+    {
+      "id": "person:СТОЯН ЗАХАРИЕВ СТОЯНОВ",
+      "type": "person",
+      "label": "Стоян Захариев Стоянов"
+    },
+    {
+      "id": "person:ИВАН ДИМИТРОВ МИНЕВ",
+      "type": "person",
+      "label": "Иван Димитров Минев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tatyana-ivanova-evtimova-c6962f",
+      "target": "company:tr:207544241",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tatyana-ivanova-evtimova-c6962f",
+      "target": "company:tr:207544241",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРТИНА ВЛАДИМИРОВА НЕНОВА",
+      "target": "company:tr:207544241",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИНА ВЛАДИМИРОВА НЕНОВА",
+      "target": "company:tr:207544241",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН АТАНАСОВ АТАНАСОВ",
+      "target": "company:tr:207544241",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ДАВИДКОВ ЕВТИМОВ",
+      "target": "company:tr:207544241",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ЗАХАРИЕВ СТОЯНОВ",
+      "target": "company:tr:207544241",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ДАВИДКОВ ЕВТИМОВ",
+      "target": "company:tr:207544241",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ЗАХАРИЕВ СТОЯНОВ",
+      "target": "company:tr:207544241",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ МИНЕВ",
+      "target": "company:tr:207544241",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

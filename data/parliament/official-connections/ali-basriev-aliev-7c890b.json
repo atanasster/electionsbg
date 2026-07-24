@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ali-basriev-aliev-7c890b",
+  "nodes": [
+    {
+      "id": "official:ali-basriev-aliev-7c890b",
+      "type": "official",
+      "slug": "ali-basriev-aliev-7c890b",
+      "label": "Али Басриев Алиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Руен"
+    },
+    {
+      "id": "company:tr:203390012",
+      "type": "company",
+      "label": "Али Коч",
+      "slug": null,
+      "uic": "203390012",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ФЕРИДЕ МУСТАФА ИСМАИЛ",
+      "type": "person",
+      "label": "Фериде Мустафа Исмаил"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ali-basriev-aliev-7c890b",
+      "target": "company:tr:203390012",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ali-basriev-aliev-7c890b",
+      "target": "company:tr:203390012",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ФЕРИДЕ МУСТАФА ИСМАИЛ",
+      "target": "company:tr:203390012",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФЕРИДЕ МУСТАФА ИСМАИЛ",
+      "target": "company:tr:203390012",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

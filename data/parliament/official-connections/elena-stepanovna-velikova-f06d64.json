@@ -1,0 +1,186 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:elena-stepanovna-velikova-f06d64",
+  "nodes": [
+    {
+      "id": "official:elena-stepanovna-velikova-f06d64",
+      "type": "official",
+      "slug": "elena-stepanovna-velikova-f06d64",
+      "label": "Елена Степановна Великова",
+      "tier": "executive",
+      "role": "cultural_institute",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:117590318",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ ЗА БЪЛГАРО-КИТАЙСКО ПРИЯТЕЛСТВО",
+      "slug": null,
+      "uic": "117590318",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯ ВЕЛИКОВА НЕДЕЛЧЕВА",
+      "type": "person",
+      "label": "Мария Великова Неделчева"
+    },
+    {
+      "id": "person:МАРИЯ КОСТАДИНОВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Мария Костадинова Стефанова"
+    },
+    {
+      "id": "person:ГЕНО СТОЯНОВ ГЕНОВ",
+      "type": "person",
+      "label": "Гено Стоянов Генов"
+    },
+    {
+      "id": "person:ТОДОР РАДОСЛАВОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Тодор Радославов Тодоров"
+    },
+    {
+      "id": "person:ЕЛИЗАВЕТА ГРИГОРИЕВА ЛЕФТЕРОВА-МАДЖАР",
+      "type": "person",
+      "label": "Елизавета Григориева Лефтерова-Маджар"
+    },
+    {
+      "id": "person:ИВАНКА ЙОРДАНОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Иванка Йорданова Йорданова"
+    },
+    {
+      "id": "person:СИЛВИЯ ВЕЛИКОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Силвия Великова Димитрова"
+    },
+    {
+      "id": "person:ВИДА ДИНЕВА БЪЧВАРОВА",
+      "type": "person",
+      "label": "Вида Динева Бъчварова"
+    },
+    {
+      "id": "person:ХРИСТО СТЕФАНОВ ЛЪВЧИЕВ",
+      "type": "person",
+      "label": "Христо Стефанов Лъвчиев"
+    },
+    {
+      "id": "person:МАРИЯ ПАНТЕЛЕЙМОНОВА АРНАУДОВА",
+      "type": "person",
+      "label": "Мария Пантелеймонова Арнаудова"
+    },
+    {
+      "id": "person:НИКОЛАЙ ВАСИЛЕВ МИКОВ",
+      "type": "person",
+      "label": "Николай Василев Миков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:elena-stepanovna-velikova-f06d64",
+      "target": "company:tr:117590318",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯ ВЕЛИКОВА НЕДЕЛЧЕВА",
+      "target": "company:tr:117590318",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ВЕЛИКОВА НЕДЕЛЧЕВА",
+      "target": "company:tr:117590318",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ КОСТАДИНОВА СТЕФАНОВА",
+      "target": "company:tr:117590318",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕНО СТОЯНОВ ГЕНОВ",
+      "target": "company:tr:117590318",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР РАДОСЛАВОВ ТОДОРОВ",
+      "target": "company:tr:117590318",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЗАВЕТА ГРИГОРИЕВА ЛЕФТЕРОВА-МАДЖАР",
+      "target": "company:tr:117590318",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ЙОРДАНОВА ЙОРДАНОВА",
+      "target": "company:tr:117590318",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ВЕЛИКОВА ДИМИТРОВА",
+      "target": "company:tr:117590318",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИДА ДИНЕВА БЪЧВАРОВА",
+      "target": "company:tr:117590318",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО СТЕФАНОВ ЛЪВЧИЕВ",
+      "target": "company:tr:117590318",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ПАНТЕЛЕЙМОНОВА АРНАУДОВА",
+      "target": "company:tr:117590318",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ВАСИЛЕВ МИКОВ",
+      "target": "company:tr:117590318",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

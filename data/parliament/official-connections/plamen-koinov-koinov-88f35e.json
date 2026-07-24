@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:plamen-koinov-koinov-88f35e",
+  "nodes": [
+    {
+      "id": "official:plamen-koinov-koinov-88f35e",
+      "type": "official",
+      "slug": "plamen-koinov-koinov-88f35e",
+      "label": "Пламен Койнов Койнов",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000812186",
+      "type": "company",
+      "label": "Медицински център &quot;Дерма Гард - Стара Загора&quot;",
+      "slug": null,
+      "uic": "000812186",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:plamen-koinov-koinov-88f35e",
+      "target": "company:tr:000812186",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

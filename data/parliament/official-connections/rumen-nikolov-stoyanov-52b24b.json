@@ -1,0 +1,82 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rumen-nikolov-stoyanov-52b24b",
+  "nodes": [
+    {
+      "id": "official:rumen-nikolov-stoyanov-52b24b",
+      "type": "official",
+      "slug": "rumen-nikolov-stoyanov-52b24b",
+      "label": "Румен Николов Стоянов",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201326015",
+      "type": "company",
+      "label": "Грийнхаус Инженеринг",
+      "slug": null,
+      "uic": "201326015",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТАНИСЛАВ АНГЕЛОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Станислав Ангелов Ангелов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ИВАНОВ АЛЕКСАНДРОВ",
+      "type": "person",
+      "label": "Александър Иванов Александров"
+    },
+    {
+      "id": "person:ГЕОРГИ ИВАНОВ КАМИЛОВ",
+      "type": "person",
+      "label": "Георги Иванов Камилов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rumen-nikolov-stoyanov-52b24b",
+      "target": "company:tr:201326015",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТАНИСЛАВ АНГЕЛОВ АНГЕЛОВ",
+      "target": "company:tr:201326015",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ИВАНОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:201326015",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ КАМИЛОВ",
+      "target": "company:tr:201326015",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ИВАНОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:201326015",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

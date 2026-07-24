@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ilko-kirilov-iliev-ff3ad4",
+  "nodes": [
+    {
+      "id": "official:ilko-kirilov-iliev-ff3ad4",
+      "type": "official",
+      "slug": "ilko-kirilov-iliev-ff3ad4",
+      "label": "Илко Кирилов Илиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:815123415",
+      "type": "company",
+      "label": "ВОДОСНАБДЯВАНЕ  и  КАНАЛИЗАЦИЯ -  ВИДИН",
+      "slug": null,
+      "uic": "815123415",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТОЯН ВЕЛКОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Стоян Велков Стоянов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ilko-kirilov-iliev-ff3ad4",
+      "target": "company:tr:815123415",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОЯН ВЕЛКОВ СТОЯНОВ",
+      "target": "company:tr:815123415",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

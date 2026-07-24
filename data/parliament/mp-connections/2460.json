@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:2460",
   "nodes": [
     {
@@ -24,21 +24,21 @@
       "seat": null
     },
     {
-      "id": "official:kristiana-dobromirova-dobreva-stankova-b88317",
+      "id": "official:kristiana-dobromirova-dobreva-stankova-b48081",
       "type": "official",
-      "slug": "kristiana-dobromirova-dobreva-stankova-b88317",
+      "slug": "kristiana-dobromirova-dobreva-stankova-b48081",
       "label": "Кристиана Добромирова Добрева-Станкова",
       "tier": "executive",
       "role": "regional_director",
       "municipality": null
     },
     {
-      "id": "official:stefan-panaiotov-dondev-1efe04",
+      "id": "official:stefan-panaiotov-dondev-da288f",
       "type": "official",
-      "slug": "stefan-panaiotov-dondev-1efe04",
+      "slug": "stefan-panaiotov-dondev-da288f",
       "label": "Стефан Панайотов Дондев",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "school",
       "municipality": null
     },
     {
@@ -244,7 +244,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:kristiana-dobromirova-dobreva-stankova-b88317",
+      "source": "official:kristiana-dobromirova-dobreva-stankova-b48081",
       "target": "company:tr:831513442",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -252,7 +252,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:stefan-panaiotov-dondev-1efe04",
+      "source": "official:stefan-panaiotov-dondev-da288f",
       "target": "company:tr:831513442",
       "kind": "tr_role",
       "role": "ngo_board",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:3799",
   "nodes": [
     {
@@ -48,27 +48,27 @@
       ]
     },
     {
-      "id": "official:irena-kostova-georgieva-3fafc6",
+      "id": "official:irena-kostova-georgieva-2a6972",
       "type": "official",
-      "slug": "irena-kostova-georgieva-3fafc6",
+      "slug": "irena-kostova-georgieva-2a6972",
       "label": "Ирена Костова Георгиева",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:lozko-stefanov-lozev-6ca13c",
+      "id": "official:lozko-stefanov-lozev-676688",
       "type": "official",
-      "slug": "lozko-stefanov-lozev-6ca13c",
+      "slug": "lozko-stefanov-lozev-676688",
       "label": "Лозко Стефанов Лозев",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:manol-trifonov-genov-ff91a1",
+      "id": "official:manol-trifonov-genov-bd4d0d",
       "type": "official",
-      "slug": "manol-trifonov-genov-ff91a1",
+      "slug": "manol-trifonov-genov-bd4d0d",
       "label": "Манол Трифонов Генов",
       "tier": "executive",
       "role": "cabinet",
@@ -242,7 +242,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:irena-kostova-georgieva-3fafc6",
+      "source": "official:irena-kostova-georgieva-2a6972",
       "target": "company:tr:206086428",
       "kind": "tr_role",
       "role": "representative",
@@ -250,7 +250,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:lozko-stefanov-lozev-6ca13c",
+      "source": "official:lozko-stefanov-lozev-676688",
       "target": "company:tr:206086428",
       "kind": "tr_role",
       "role": "representative",
@@ -258,7 +258,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:manol-trifonov-genov-ff91a1",
+      "source": "official:manol-trifonov-genov-bd4d0d",
       "target": "company:tr:206086428",
       "kind": "tr_role",
       "role": "director",

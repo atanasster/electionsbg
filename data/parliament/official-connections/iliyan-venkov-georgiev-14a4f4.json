@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iliyan-venkov-georgiev-14a4f4",
+  "nodes": [
+    {
+      "id": "official:iliyan-venkov-georgiev-14a4f4",
+      "type": "official",
+      "slug": "iliyan-venkov-georgiev-14a4f4",
+      "label": "Илиян Венков Георгиев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:104509202",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ Д-Р ДИМИТЪР ПАВЛОВИЧ",
+      "slug": null,
+      "uic": "104509202",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iliyan-venkov-georgiev-14a4f4",
+      "target": "company:tr:104509202",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:kiril-blagoev-tsenkin-bf23c7",
+  "nodes": [
+    {
+      "id": "official:kiril-blagoev-tsenkin-bf23c7",
+      "type": "official",
+      "slug": "kiril-blagoev-tsenkin-bf23c7",
+      "label": "Кирил Благоев Ценкин",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:177241641",
+      "type": "company",
+      "label": "Хандбален клуб ЗВЕЗДА - СОФИЯ",
+      "slug": null,
+      "uic": "177241641",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЦАКО ХРИСТОВ ЦАКОВ",
+      "type": "person",
+      "label": "Цако Христов Цаков"
+    },
+    {
+      "id": "person:ИВАЙЛО ЛАЗАРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Ивайло Лазаров Иванов"
+    },
+    {
+      "id": "person:ДИМИТЪР АСЕНОВ АСЕНОВ",
+      "type": "person",
+      "label": "Димитър Асенов Асенов"
+    },
+    {
+      "id": "person:ТЕОДОР ЙОРДАНОВ КОСЕВ",
+      "type": "person",
+      "label": "Теодор Йорданов Косев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kiril-blagoev-tsenkin-bf23c7",
+      "target": "company:tr:177241641",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦАКО ХРИСТОВ ЦАКОВ",
+      "target": "company:tr:177241641",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ЛАЗАРОВ ИВАНОВ",
+      "target": "company:tr:177241641",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР АСЕНОВ АСЕНОВ",
+      "target": "company:tr:177241641",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОР ЙОРДАНОВ КОСЕВ",
+      "target": "company:tr:177241641",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

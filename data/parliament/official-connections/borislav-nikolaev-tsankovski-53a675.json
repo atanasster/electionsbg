@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:borislav-nikolaev-tsankovski-53a675",
+  "nodes": [
+    {
+      "id": "official:borislav-nikolaev-tsankovski-53a675",
+      "type": "official",
+      "slug": "borislav-nikolaev-tsankovski-53a675",
+      "label": "Борислав Николаев Цанковски",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кнежа"
+    },
+    {
+      "id": "company:tr:207930378",
+      "type": "company",
+      "label": "КНЕЖА ТАКСИ ООД",
+      "slug": null,
+      "uic": "207930378",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕРГАНА МАЛИНОВА ЦАНКОВСКА",
+      "type": "person",
+      "label": "Гергана Малинова Цанковска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:borislav-nikolaev-tsankovski-53a675",
+      "target": "company:tr:207930378",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:borislav-nikolaev-tsankovski-53a675",
+      "target": "company:tr:207930378",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:borislav-nikolaev-tsankovski-53a675",
+      "target": "company:tr:207930378",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕРГАНА МАЛИНОВА ЦАНКОВСКА",
+      "target": "company:tr:207930378",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,187 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:daniela-petrova-mirkovska-069768",
+  "nodes": [
+    {
+      "id": "official:daniela-petrova-mirkovska-069768",
+      "type": "official",
+      "slug": "daniela-petrova-mirkovska-069768",
+      "label": "Даниела Петрова Мирковска",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:Клуб-Амарант-ООД",
+      "type": "company",
+      "label": "Клуб Амарант ООД",
+      "slug": "Клуб-Амарант-ООД",
+      "uic": "206158977",
+      "legalForm": "OOD",
+      "status": "ceased",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "mp:4786",
+      "type": "mp",
+      "mpId": 4786,
+      "label": "Пламен Тачев Петров",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "48",
+        "49",
+        "50",
+        "51"
+      ]
+    },
+    {
+      "id": "person:АЛБЕНА КОНСТАНТИНОВА ЦВЕТКОВА",
+      "type": "person",
+      "label": "Албена Константинова Цветкова"
+    },
+    {
+      "id": "person:АКСИНИЯ БОРИСОВА БОРИСОВА",
+      "type": "person",
+      "label": "Аксиния Борисова Борисова"
+    },
+    {
+      "id": "person:ДИАНА ГЕОРГИЕВА ПРОДАНОВА",
+      "type": "person",
+      "label": "Диана Георгиева Проданова"
+    },
+    {
+      "id": "person:ЕМИЛИЯ МАРИНОВА МАДЖАРОВА",
+      "type": "person",
+      "label": "Емилия Маринова Маджарова"
+    },
+    {
+      "id": "person:ИВАНКА ПЕТРОВА ХАРБАЛИЕВА",
+      "type": "person",
+      "label": "Иванка Петрова Харбалиева"
+    },
+    {
+      "id": "person:ЛЮДМИЛА ВЛАДИМИРОВА СПАСОВА",
+      "type": "person",
+      "label": "Людмила Владимирова Спасова"
+    },
+    {
+      "id": "person:НЕЛИ АТАНАСОВА ТОПАЛОВА",
+      "type": "person",
+      "label": "Нели Атанасова Топалова"
+    },
+    {
+      "id": "person:СНЕЖИНА НИКОЛОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Снежина Николова Петрова"
+    },
+    {
+      "id": "person:ДАНИЕЛА ПЕТРОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Даниела Петрова Йорданова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniela-petrova-mirkovska-069768",
+      "target": "company:Клуб-Амарант-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4786",
+      "target": "company:Клуб-Амарант-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕНА КОНСТАНТИНОВА ЦВЕТКОВА",
+      "target": "company:Клуб-Амарант-ООД",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АКСИНИЯ БОРИСОВА БОРИСОВА",
+      "target": "company:Клуб-Амарант-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА ГЕОРГИЕВА ПРОДАНОВА",
+      "target": "company:Клуб-Амарант-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ МАРИНОВА МАДЖАРОВА",
+      "target": "company:Клуб-Амарант-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ПЕТРОВА ХАРБАЛИЕВА",
+      "target": "company:Клуб-Амарант-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛА ВЛАДИМИРОВА СПАСОВА",
+      "target": "company:Клуб-Амарант-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ АТАНАСОВА ТОПАЛОВА",
+      "target": "company:Клуб-Амарант-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖИНА НИКОЛОВА ПЕТРОВА",
+      "target": "company:Клуб-Амарант-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ПЕТРОВА ЙОРДАНОВА",
+      "target": "company:Клуб-Амарант-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕНА КОНСТАНТИНОВА ЦВЕТКОВА",
+      "target": "company:Клуб-Амарант-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

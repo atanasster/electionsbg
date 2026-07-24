@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:bogomil-stoyanov-bogdanov-eff328",
+  "nodes": [
+    {
+      "id": "official:bogomil-stoyanov-bogdanov-eff328",
+      "type": "official",
+      "slug": "bogomil-stoyanov-bogdanov-eff328",
+      "label": "Богомил Стоянов Богданов",
+      "tier": "executive",
+      "role": "inspectorate",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208556734",
+      "type": "company",
+      "label": "ХОУММЕД.БГ",
+      "slug": null,
+      "uic": "208556734",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ЛЮБОМИРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Георги Любомиров Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:bogomil-stoyanov-bogdanov-eff328",
+      "target": "company:tr:208556734",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ЛЮБОМИРОВ ИВАНОВ",
+      "target": "company:tr:208556734",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЛЮБОМИРОВ ИВАНОВ",
+      "target": "company:tr:208556734",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rumen-bonchev-popov-1b30a5",
+  "nodes": [
+    {
+      "id": "official:rumen-bonchev-popov-1b30a5",
+      "type": "official",
+      "slug": "rumen-bonchev-popov-1b30a5",
+      "label": "Румен Бончев Попов",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:160109681",
+      "type": "company",
+      "label": "КОНТАБИЛИТА ООД",
+      "slug": null,
+      "uic": "160109681",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205407219",
+      "type": "company",
+      "label": "КОНТЕА ЕООД",
+      "slug": null,
+      "uic": "205407219",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rumen-bonchev-popov-1b30a5",
+      "target": "company:tr:160109681",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:rumen-bonchev-popov-1b30a5",
+      "target": "company:tr:205407219",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

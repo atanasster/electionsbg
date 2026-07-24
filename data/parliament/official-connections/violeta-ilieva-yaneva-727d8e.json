@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:violeta-ilieva-yaneva-727d8e",
+  "nodes": [
+    {
+      "id": "official:violeta-ilieva-yaneva-727d8e",
+      "type": "official",
+      "slug": "violeta-ilieva-yaneva-727d8e",
+      "label": "Виолета Илиева Янева",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206749243",
+      "type": "company",
+      "label": "АПИАРИЯ КАД",
+      "slug": null,
+      "uic": "206749243",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:violeta-ilieva-yaneva-727d8e",
+      "target": "company:tr:206749243",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:violeta-ilieva-yaneva-727d8e",
+      "target": "company:tr:206749243",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-todorov-karchev-a1968b",
+  "nodes": [
+    {
+      "id": "official:ivan-todorov-karchev-a1968b",
+      "type": "official",
+      "slug": "ivan-todorov-karchev-a1968b",
+      "label": "Иван Тодоров Карчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131313713",
+      "type": "company",
+      "label": "Кей Си Консултинг ЕООД",
+      "slug": null,
+      "uic": "131313713",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-todorov-karchev-a1968b",
+      "target": "company:tr:131313713",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

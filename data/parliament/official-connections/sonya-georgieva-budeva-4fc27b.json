@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:sonya-georgieva-budeva-4fc27b",
+  "nodes": [
+    {
+      "id": "official:sonya-georgieva-budeva-4fc27b",
+      "type": "official",
+      "slug": "sonya-georgieva-budeva-4fc27b",
+      "label": "Соня Георгиева Будева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Велико Търново"
+    },
+    {
+      "id": "company:tr:205416346",
+      "type": "company",
+      "label": "\"Петров Трюфели\" ЕООД",
+      "slug": null,
+      "uic": "205416346",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sonya-georgieva-budeva-4fc27b",
+      "target": "company:tr:205416346",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

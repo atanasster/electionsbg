@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:aneliya-nikolaeva-georgieva-c1c437",
+  "nodes": [
+    {
+      "id": "official:aneliya-nikolaeva-georgieva-c1c437",
+      "type": "official",
+      "slug": "aneliya-nikolaeva-georgieva-c1c437",
+      "label": "Анелия Николаева Георгиева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Челопеч"
+    },
+    {
+      "id": "company:tr:207112580",
+      "type": "company",
+      "label": "КОЛОНАДА ТУР",
+      "slug": null,
+      "uic": "207112580",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aneliya-nikolaeva-georgieva-c1c437",
+      "target": "company:tr:207112580",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aneliya-nikolaeva-georgieva-c1c437",
+      "target": "company:tr:207112580",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

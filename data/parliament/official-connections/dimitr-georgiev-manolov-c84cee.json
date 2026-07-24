@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitr-georgiev-manolov-c84cee",
+  "nodes": [
+    {
+      "id": "official:dimitr-georgiev-manolov-c84cee",
+      "type": "official",
+      "slug": "dimitr-georgiev-manolov-c84cee",
+      "label": "Димитър Георгиев Манолов",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207574170",
+      "type": "company",
+      "label": "ДИАТИВ ЕЛЕКТРИК",
+      "slug": null,
+      "uic": "207574170",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН ТРЕНДАФИЛОВ БОТЕВ",
+      "type": "person",
+      "label": "Иван Трендафилов Ботев"
+    },
+    {
+      "id": "person:НИНА МИЛКОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Нина Милкова Петкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-georgiev-manolov-c84cee",
+      "target": "company:tr:207574170",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ТРЕНДАФИЛОВ БОТЕВ",
+      "target": "company:tr:207574170",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ТРЕНДАФИЛОВ БОТЕВ",
+      "target": "company:tr:207574170",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА МИЛКОВА ПЕТКОВА",
+      "target": "company:tr:207574170",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

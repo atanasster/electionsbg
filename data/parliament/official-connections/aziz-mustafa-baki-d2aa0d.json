@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:aziz-mustafa-baki-d2aa0d",
+  "nodes": [
+    {
+      "id": "official:aziz-mustafa-baki-d2aa0d",
+      "type": "official",
+      "slug": "aziz-mustafa-baki-d2aa0d",
+      "label": "Азиз Мустафа Баки",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Търговище"
+    },
+    {
+      "id": "company:tr:205174868",
+      "type": "company",
+      "label": "НЕСС ГРУП ИНТЕРНЕШЕНЪЛ",
+      "slug": null,
+      "uic": "205174868",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aziz-mustafa-baki-d2aa0d",
+      "target": "company:tr:205174868",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aziz-mustafa-baki-d2aa0d",
+      "target": "company:tr:205174868",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

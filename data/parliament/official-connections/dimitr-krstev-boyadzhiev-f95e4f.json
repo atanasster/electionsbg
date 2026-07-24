@@ -1,0 +1,155 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitr-krstev-boyadzhiev-f95e4f",
+  "nodes": [
+    {
+      "id": "official:dimitr-krstev-boyadzhiev-f95e4f",
+      "type": "official",
+      "slug": "dimitr-krstev-boyadzhiev-f95e4f",
+      "label": "Димитър Кръстев Бояджиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Гоце Делчев"
+    },
+    {
+      "id": "company:tr:207238287",
+      "type": "company",
+      "label": "КЛУБ НА ПРИВЪРЖЕНИЦИТЕ НА ЦСКА \"АРМЕЙЦИ ГОЦЕ ДЕЛЧЕВ\"",
+      "slug": null,
+      "uic": "207238287",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КОСТАДИН ГЕОРГИЕВ ЯНЕВ",
+      "type": "person",
+      "label": "Костадин Георгиев Янев"
+    },
+    {
+      "id": "person:КРИСТИАН ГЕОРГИЕВ ТЪНГЪЛОВ",
+      "type": "person",
+      "label": "Кристиан Георгиев Тънгълов"
+    },
+    {
+      "id": "person:ГЕОРГИ ГЕОРГИЕВ АВРАМОВ",
+      "type": "person",
+      "label": "Георги Георгиев Аврамов"
+    },
+    {
+      "id": "person:ТОМА РОЗЕНОВ ТЕРЗИЕВ",
+      "type": "person",
+      "label": "Тома Розенов Терзиев"
+    },
+    {
+      "id": "person:ДИМИТЪР ИВАНОВ КЪНДЕВ",
+      "type": "person",
+      "label": "Димитър Иванов Къндев"
+    },
+    {
+      "id": "person:ДИМИТЪР АТАНАСОВ ПОЛИМЕРОВ",
+      "type": "person",
+      "label": "Димитър Атанасов Полимеров"
+    },
+    {
+      "id": "person:ЖУЛИЕН ВАДИМОВ МАНОВ",
+      "type": "person",
+      "label": "Жулиен Вадимов Манов"
+    },
+    {
+      "id": "person:ГЕОРГИ ТОДОРОВ ТЕРЗИЕВ",
+      "type": "person",
+      "label": "Георги Тодоров Терзиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-krstev-boyadzhiev-f95e4f",
+      "target": "company:tr:207238287",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КОСТАДИН ГЕОРГИЕВ ЯНЕВ",
+      "target": "company:tr:207238287",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИАН ГЕОРГИЕВ ТЪНГЪЛОВ",
+      "target": "company:tr:207238287",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ГЕОРГИЕВ АВРАМОВ",
+      "target": "company:tr:207238287",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОМА РОЗЕНОВ ТЕРЗИЕВ",
+      "target": "company:tr:207238287",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИАН ГЕОРГИЕВ ТЪНГЪЛОВ",
+      "target": "company:tr:207238287",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ИВАНОВ КЪНДЕВ",
+      "target": "company:tr:207238287",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР АТАНАСОВ ПОЛИМЕРОВ",
+      "target": "company:tr:207238287",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН ГЕОРГИЕВ ЯНЕВ",
+      "target": "company:tr:207238287",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖУЛИЕН ВАДИМОВ МАНОВ",
+      "target": "company:tr:207238287",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ТОДОРОВ ТЕРЗИЕВ",
+      "target": "company:tr:207238287",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

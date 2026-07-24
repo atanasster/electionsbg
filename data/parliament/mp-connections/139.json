@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:139",
   "nodes": [
     {
@@ -24,27 +24,27 @@
       "seat": "БЪЛГАРИЯ, гр. София, 1080"
     },
     {
-      "id": "official:valya-stefanova-petrova-21ff1c",
+      "id": "official:valya-stefanova-petrova-271eb4",
       "type": "official",
-      "slug": "valya-stefanova-petrova-21ff1c",
+      "slug": "valya-stefanova-petrova-271eb4",
       "label": "Валя Стефанова Петрова",
       "tier": "executive",
       "role": "political_cabinet",
       "municipality": null
     },
     {
-      "id": "official:nikola-vaskov-vasilev-3c1f65",
+      "id": "official:nikola-vaskov-vasilev-e57937",
       "type": "official",
-      "slug": "nikola-vaskov-vasilev-3c1f65",
+      "slug": "nikola-vaskov-vasilev-e57937",
       "label": "Никола Васков Василев",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:yuliya-evgenieva-varadinova-milkova-3403b3",
+      "id": "official:yuliya-evgenieva-varadinova-milkova-87dd19",
       "type": "official",
-      "slug": "yuliya-evgenieva-varadinova-milkova-3403b3",
+      "slug": "yuliya-evgenieva-varadinova-milkova-87dd19",
       "label": "Юлия Евгениева Варадинова-Милкова",
       "tier": "executive",
       "role": "state_enterprise",
@@ -244,7 +244,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:valya-stefanova-petrova-21ff1c",
+      "source": "official:valya-stefanova-petrova-271eb4",
       "target": "company:tr:130822878",
       "kind": "tr_role",
       "role": "director",
@@ -252,7 +252,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:nikola-vaskov-vasilev-3c1f65",
+      "source": "official:nikola-vaskov-vasilev-e57937",
       "target": "company:tr:130822878",
       "kind": "tr_role",
       "role": "director",
@@ -260,7 +260,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:yuliya-evgenieva-varadinova-milkova-3403b3",
+      "source": "official:yuliya-evgenieva-varadinova-milkova-87dd19",
       "target": "company:tr:130822878",
       "kind": "tr_role",
       "role": "director",

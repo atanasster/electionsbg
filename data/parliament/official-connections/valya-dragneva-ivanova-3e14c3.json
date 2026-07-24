@@ -1,0 +1,126 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:valya-dragneva-ivanova-3e14c3",
+  "nodes": [
+    {
+      "id": "official:valya-dragneva-ivanova-3e14c3",
+      "type": "official",
+      "slug": "valya-dragneva-ivanova-3e14c3",
+      "label": "Валя Драгнева Иванова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000084443",
+      "type": "company",
+      "label": "Н. Й. ВАПЦАРОВ - 1925",
+      "slug": null,
+      "uic": "000084443",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СЕМРА АХМЕДОВА ФАЗЛОВА",
+      "type": "person",
+      "label": "Семра Ахмедова Фазлова"
+    },
+    {
+      "id": "person:ПЕНКА ДИМИТРОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Пенка Димитрова Петкова"
+    },
+    {
+      "id": "person:НУРИЕ ТАХИР БАЙРЯМ",
+      "type": "person",
+      "label": "Нурие Тахир Байрям"
+    },
+    {
+      "id": "person:СЕВИМ ХЮСЕИНОВА ФАЗЛОВА",
+      "type": "person",
+      "label": "Севим Хюсеинова Фазлова"
+    },
+    {
+      "id": "person:КУРТИ МАРИНОВ КУРТЕВ",
+      "type": "person",
+      "label": "Курти Маринов Куртев"
+    },
+    {
+      "id": "person:ЕЛМАЗ ВЕЛИЕВА АХМЕДОВА",
+      "type": "person",
+      "label": "Елмаз Велиева Ахмедова"
+    },
+    {
+      "id": "person:НЕДРЕД МЕХМЕДОВА ЮСРЕФОВА",
+      "type": "person",
+      "label": "Недред Мехмедова Юсрефова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valya-dragneva-ivanova-3e14c3",
+      "target": "company:tr:000084443",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СЕМРА АХМЕДОВА ФАЗЛОВА",
+      "target": "company:tr:000084443",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ДИМИТРОВА ПЕТКОВА",
+      "target": "company:tr:000084443",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НУРИЕ ТАХИР БАЙРЯМ",
+      "target": "company:tr:000084443",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВИМ ХЮСЕИНОВА ФАЗЛОВА",
+      "target": "company:tr:000084443",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КУРТИ МАРИНОВ КУРТЕВ",
+      "target": "company:tr:000084443",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛМАЗ ВЕЛИЕВА АХМЕДОВА",
+      "target": "company:tr:000084443",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДРЕД МЕХМЕДОВА ЮСРЕФОВА",
+      "target": "company:tr:000084443",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

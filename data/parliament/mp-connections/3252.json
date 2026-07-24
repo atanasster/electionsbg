@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:3252",
   "nodes": [
     {
@@ -48,12 +48,21 @@
       "seat": "БЪЛГАРИЯ, гр. София, 1000"
     },
     {
-      "id": "official:maya-bozhidarova-manolova-naidenova-884930",
+      "id": "official:maya-bozhidarova-manolova-naidenova-dbf3e0",
       "type": "official",
-      "slug": "maya-bozhidarova-manolova-naidenova-884930",
+      "slug": "maya-bozhidarova-manolova-naidenova-dbf3e0",
       "label": "Мая Божидарова Манолова - Найденова",
       "tier": "executive",
       "role": "regulator",
+      "municipality": null
+    },
+    {
+      "id": "official:maya-bozhidarova-manolova-naidenova-755122",
+      "type": "official",
+      "slug": "maya-bozhidarova-manolova-naidenova-755122",
+      "label": "Мая Божидарова Манолова - Найденова",
+      "tier": "executive",
+      "role": "party_leader",
       "municipality": null
     },
     {
@@ -121,7 +130,15 @@
       "confidence": "medium"
     },
     {
-      "source": "official:maya-bozhidarova-manolova-naidenova-884930",
+      "source": "official:maya-bozhidarova-manolova-naidenova-dbf3e0",
+      "target": "company:А-н-Консулт-2017-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:maya-bozhidarova-manolova-naidenova-755122",
       "target": "company:А-н-Консулт-2017-ЕООД",
       "kind": "declared_stake",
       "role": "declared_share",

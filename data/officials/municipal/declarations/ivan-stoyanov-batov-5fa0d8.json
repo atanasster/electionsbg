@@ -1,0 +1,100 @@
+[
+  {
+    "slug": "ivan-stoyanov-batov-5fa0d8",
+    "declarantName": "Иван Стоянов Батов",
+    "institution": "Велики Преслав",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-02",
+    "entryNumber": "Г1431",
+    "controlHash": "355CF4E7",
+    "sourceUrl": "https://register.cacbg.bg/2025/14DC5F2C-AAA6-4025-B40F-AC9589EEA2DF203908.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5609.89452048491,
+        "amountEurSpouse": 4405.802140267815
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "С. Драгоево",
+        "municipality": "Велики Преслав",
+        "areaSqm": 625,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 720,
+        "valueEur": 368.1301544612773,
+        "holderName": "Миглена Радославова Батова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "С. Драгоево",
+        "municipality": "Велики Преслав",
+        "areaSqm": 625,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 720,
+        "valueEur": 368.1301544612773,
+        "holderName": "Иван Стоянов Батов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Драгоево",
+        "municipality": "Велики Преслав",
+        "areaSqm": 3,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 3195.5742574763653,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Драгоево",
+        "municipality": "Велики Преслав",
+        "areaSqm": 3,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 3195.5742574763653,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "ВАЗ 2105",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 255.64594059810923,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

@@ -1,0 +1,202 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tsvetana-nikolova-radeva-2651ee",
+  "nodes": [
+    {
+      "id": "official:tsvetana-nikolova-radeva-2651ee",
+      "type": "official",
+      "slug": "tsvetana-nikolova-radeva-2651ee",
+      "label": "Цветана Николова Радева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Златица"
+    },
+    {
+      "id": "company:tr:000761728",
+      "type": "company",
+      "label": "Народно читалище &quot;Просвета 1915&quot;",
+      "slug": null,
+      "uic": "000761728",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЗАХАРИ НИКОЛОВ ЗАХАРИЕВ",
+      "type": "person",
+      "label": "Захари Николов Захариев"
+    },
+    {
+      "id": "person:МАРИЯ КОСТОВА ЧЕРНЕВА",
+      "type": "person",
+      "label": "Мария Костова Чернева"
+    },
+    {
+      "id": "person:ПАВЛИНА АТАНАСОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Павлина Атанасова Йорданова"
+    },
+    {
+      "id": "person:ЯГОДА ИВАНОВА ДРЪНЧИЛОВА",
+      "type": "person",
+      "label": "Ягода Иванова Дрънчилова"
+    },
+    {
+      "id": "person:ИВАНКА НЕДКОВА МИНДИЛОВА",
+      "type": "person",
+      "label": "Иванка Недкова Миндилова"
+    },
+    {
+      "id": "person:СТАНКА ЙОРДАНОВА ГРАДИНАРОВА",
+      "type": "person",
+      "label": "Станка Йорданова Градинарова"
+    },
+    {
+      "id": "person:МАНЯ ЦВЕТКОВА АЛЕКСИЕВА",
+      "type": "person",
+      "label": "Маня Цветкова Алексиева"
+    },
+    {
+      "id": "person:НЕНКА ГЕОРГИЕВА ПЕТРОВА",
+      "type": "person",
+      "label": "Ненка Георгиева Петрова"
+    },
+    {
+      "id": "person:ВЕСЕЛИНА ЛАЛОВА ИВАНОВА",
+      "type": "person",
+      "label": "Веселина Лалова Иванова"
+    },
+    {
+      "id": "person:ВАНЯ ПЕТРОВА ДАМЯНОВА",
+      "type": "person",
+      "label": "Ваня Петрова Дамянова"
+    },
+    {
+      "id": "person:АНЖЕЛА БУДИНЧОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Анжела Будинчова Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetana-nikolova-radeva-2651ee",
+      "target": "company:tr:000761728",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tsvetana-nikolova-radeva-2651ee",
+      "target": "company:tr:000761728",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЗАХАРИ НИКОЛОВ ЗАХАРИЕВ",
+      "target": "company:tr:000761728",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ КОСТОВА ЧЕРНЕВА",
+      "target": "company:tr:000761728",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗАХАРИ НИКОЛОВ ЗАХАРИЕВ",
+      "target": "company:tr:000761728",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА АТАНАСОВА ЙОРДАНОВА",
+      "target": "company:tr:000761728",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯГОДА ИВАНОВА ДРЪНЧИЛОВА",
+      "target": "company:tr:000761728",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА НЕДКОВА МИНДИЛОВА",
+      "target": "company:tr:000761728",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНКА ЙОРДАНОВА ГРАДИНАРОВА",
+      "target": "company:tr:000761728",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАНЯ ЦВЕТКОВА АЛЕКСИЕВА",
+      "target": "company:tr:000761728",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕНКА ГЕОРГИЕВА ПЕТРОВА",
+      "target": "company:tr:000761728",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА ЛАЛОВА ИВАНОВА",
+      "target": "company:tr:000761728",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ПЕТРОВА ДАМЯНОВА",
+      "target": "company:tr:000761728",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗАХАРИ НИКОЛОВ ЗАХАРИЕВ",
+      "target": "company:tr:000761728",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЖЕЛА БУДИНЧОВА ГЕОРГИЕВА",
+      "target": "company:tr:000761728",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

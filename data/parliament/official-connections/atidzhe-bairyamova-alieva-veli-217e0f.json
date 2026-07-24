@@ -1,0 +1,132 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:atidzhe-bairyamova-alieva-veli-217e0f",
+  "nodes": [
+    {
+      "id": "official:atidzhe-bairyamova-alieva-veli-217e0f",
+      "type": "official",
+      "slug": "atidzhe-bairyamova-alieva-veli-217e0f",
+      "label": "Атидже Байрямова Алиева - Вели",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:М-БЕТ-строй-ЕООД",
+      "type": "company",
+      "label": "М БЕТ строй ЕООД",
+      "slug": "М-БЕТ-строй-ЕООД",
+      "uic": "202442364",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1510"
+    },
+    {
+      "id": "mp:5208",
+      "type": "mp",
+      "mpId": 5208,
+      "label": "Атидже Байрямова Алиева-Вели",
+      "partyGroupShort": "ПГ на ДПС",
+      "isCurrent": true,
+      "nsFolders": [
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "person:ВЕЛИНА МИТКОВА АРНАУДОВА - ИДРИЗ",
+      "type": "person",
+      "label": "Велина Миткова Арнаудова - Идриз"
+    },
+    {
+      "id": "person:МЕТИН МЕХМЕД ВЕЛИ",
+      "type": "person",
+      "label": "Метин Мехмед Вели"
+    },
+    {
+      "id": "official:atidzhe-bairyamova-alieva-veli-208ec6",
+      "type": "official",
+      "slug": "atidzhe-bairyamova-alieva-veli-208ec6",
+      "label": "Атидже Байрямова Алиева - Вели",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "official:atidzhe-bairyamova-alieva-veli-92b594",
+      "type": "official",
+      "slug": "atidzhe-bairyamova-alieva-veli-92b594",
+      "label": "Атидже Байрямова Алиева-Вели",
+      "tier": "executive",
+      "role": "mep",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:atidzhe-bairyamova-alieva-veli-217e0f",
+      "target": "company:М-БЕТ-строй-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5208",
+      "target": "company:М-БЕТ-строй-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИНА МИТКОВА АРНАУДОВА - ИДРИЗ",
+      "target": "company:М-БЕТ-строй-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕТИН МЕХМЕД ВЕЛИ",
+      "target": "company:М-БЕТ-строй-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИНА МИТКОВА АРНАУДОВА - ИДРИЗ",
+      "target": "company:М-БЕТ-строй-ЕООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕТИН МЕХМЕД ВЕЛИ",
+      "target": "company:М-БЕТ-строй-ЕООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:atidzhe-bairyamova-alieva-veli-208ec6",
+      "target": "company:М-БЕТ-строй-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:atidzhe-bairyamova-alieva-veli-92b594",
+      "target": "company:М-БЕТ-строй-ЕООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

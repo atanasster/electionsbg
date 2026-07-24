@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:3235",
   "nodes": [
     {
@@ -52,9 +52,9 @@
       "seat": null
     },
     {
-      "id": "official:miroslav-ivanov-asparuhov-400c50",
+      "id": "official:miroslav-ivanov-asparuhov-95f8e2",
       "type": "official",
-      "slug": "miroslav-ivanov-asparuhov-400c50",
+      "slug": "miroslav-ivanov-asparuhov-95f8e2",
       "label": "Мирослав Иванов Аспарухов",
       "tier": "municipal",
       "role": "councillor",
@@ -91,27 +91,27 @@
       "label": "Живка Цонкова Хараланова"
     },
     {
-      "id": "official:ivan-krstev-ivanchev-0f30c9",
+      "id": "official:ivan-krstev-ivanchev-ad7f8d",
       "type": "official",
-      "slug": "ivan-krstev-ivanchev-0f30c9",
+      "slug": "ivan-krstev-ivanchev-ad7f8d",
       "label": "Иван Кръстев Иванчев",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "school",
       "municipality": null
     },
     {
-      "id": "official:kalin-ganchov-stoichev-c893e1",
+      "id": "official:kalin-ganchov-stoichev-39ad15",
       "type": "official",
-      "slug": "kalin-ganchov-stoichev-c893e1",
+      "slug": "kalin-ganchov-stoichev-39ad15",
       "label": "Калин Ганчов Стойчев",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:neli-ivailova-mineva-e91ba6",
+      "id": "official:neli-ivailova-mineva-e9441e",
       "type": "official",
-      "slug": "neli-ivailova-mineva-e91ba6",
+      "slug": "neli-ivailova-mineva-e9441e",
       "label": "Нели Ивайлова Минева",
       "tier": "municipal",
       "role": "deputy_mayor",
@@ -244,7 +244,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:miroslav-ivanov-asparuhov-400c50",
+      "source": "official:miroslav-ivanov-asparuhov-95f8e2",
       "target": "company:ФОЛКЛОР-М-ЕООД",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -316,7 +316,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:ivan-krstev-ivanchev-0f30c9",
+      "source": "official:ivan-krstev-ivanchev-ad7f8d",
       "target": "company:tr:000183651",
       "kind": "tr_role",
       "role": "trustee",
@@ -324,7 +324,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:kalin-ganchov-stoichev-c893e1",
+      "source": "official:kalin-ganchov-stoichev-39ad15",
       "target": "company:tr:000183651",
       "kind": "tr_role",
       "role": "trustee",
@@ -332,7 +332,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:neli-ivailova-mineva-e91ba6",
+      "source": "official:neli-ivailova-mineva-e9441e",
       "target": "company:tr:000183651",
       "kind": "tr_role",
       "role": "trustee",

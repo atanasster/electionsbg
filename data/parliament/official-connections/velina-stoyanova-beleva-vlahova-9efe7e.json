@@ -1,0 +1,124 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:velina-stoyanova-beleva-vlahova-9efe7e",
+  "nodes": [
+    {
+      "id": "official:velina-stoyanova-beleva-vlahova-9efe7e",
+      "type": "official",
+      "slug": "velina-stoyanova-beleva-vlahova-9efe7e",
+      "label": "Велина Стоянова Белева-Влахова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205956730",
+      "type": "company",
+      "label": "Ради класик карс ООД",
+      "slug": null,
+      "uic": "205956730",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207266895",
+      "type": "company",
+      "label": "\"Електрик аутос\"ООД",
+      "slug": null,
+      "uic": "207266895",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНАСТАС КОСТАДИНОВ КАЛОЯНОВ",
+      "type": "person",
+      "label": "Анастас Костадинов Калоянов"
+    },
+    {
+      "id": "person:РАДОСЛАВ ЙОНЧЕВ ВЛАХОВ",
+      "type": "person",
+      "label": "Радослав Йончев Влахов"
+    },
+    {
+      "id": "person:ГОРАН ВЛАДИМИРОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Горан Владимиров Петров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:velina-stoyanova-beleva-vlahova-9efe7e",
+      "target": "company:tr:205956730",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:velina-stoyanova-beleva-vlahova-9efe7e",
+      "target": "company:tr:207266895",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:velina-stoyanova-beleva-vlahova-9efe7e",
+      "target": "company:tr:205956730",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:velina-stoyanova-beleva-vlahova-9efe7e",
+      "target": "company:tr:207266895",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНАСТАС КОСТАДИНОВ КАЛОЯНОВ",
+      "target": "company:tr:205956730",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ЙОНЧЕВ ВЛАХОВ",
+      "target": "company:tr:205956730",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ЙОНЧЕВ ВЛАХОВ",
+      "target": "company:tr:207266895",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГОРАН ВЛАДИМИРОВ ПЕТРОВ",
+      "target": "company:tr:207266895",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ЙОНЧЕВ ВЛАХОВ",
+      "target": "company:tr:207266895",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

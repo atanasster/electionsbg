@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:simo-petrov-ivanov-9b2593",
+  "nodes": [
+    {
+      "id": "official:simo-petrov-ivanov-9b2593",
+      "type": "official",
+      "slug": "simo-petrov-ivanov-9b2593",
+      "label": "Симо Петров Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ябланица"
+    },
+    {
+      "id": "company:tr:202488739",
+      "type": "company",
+      "label": "Матро ЕООД",
+      "slug": null,
+      "uic": "202488739",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:simo-petrov-ivanov-9b2593",
+      "target": "company:tr:202488739",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

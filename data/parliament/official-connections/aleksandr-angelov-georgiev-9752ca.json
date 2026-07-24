@@ -1,0 +1,159 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:aleksandr-angelov-georgiev-9752ca",
+  "nodes": [
+    {
+      "id": "official:aleksandr-angelov-georgiev-9752ca",
+      "type": "official",
+      "slug": "aleksandr-angelov-georgiev-9752ca",
+      "label": "Александър Ангелов Георгиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203740812",
+      "type": "company",
+      "label": "Фонд мениджър на финансови инструменти в България",
+      "slug": null,
+      "uic": "203740812",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1756"
+    },
+    {
+      "id": "mp:4838",
+      "type": "mp",
+      "mpId": 4838,
+      "label": "Александър Руменов Ненков",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "41",
+        "42",
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51"
+      ]
+    },
+    {
+      "id": "official:pavel-nikolaev-lisev-210547",
+      "type": "official",
+      "slug": "pavel-nikolaev-lisev-210547",
+      "label": "Павел Николаев Лисев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ВЛАДИМИР АНДОНОВ ДАНАИЛОВ",
+      "type": "person",
+      "label": "Владимир Андонов Данаилов"
+    },
+    {
+      "id": "person:МАРТИН МЕТОДИЕВ ГИКОВ",
+      "type": "person",
+      "label": "Мартин Методиев Гиков"
+    },
+    {
+      "id": "person:РЕПУБЛИКА БЪЛГАРИЯ, МИНИСТЕРСТВО НА ИНОВАЦИИТЕ И РАСТЕЖА",
+      "type": "person",
+      "label": "Република България, Министерство На Иновациите И Растежа"
+    },
+    {
+      "id": "person:КАМЕН МИНЧЕВ СЛАВОВ",
+      "type": "person",
+      "label": "Камен Минчев Славов"
+    },
+    {
+      "id": "person:ВИКТОРИЯ ТОДОРОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Виктория Тодорова Христова"
+    },
+    {
+      "id": "person:БИСЕР ХРИСТОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Бисер Христов Петков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandr-angelov-georgiev-9752ca",
+      "target": "company:tr:203740812",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4838",
+      "target": "company:tr:203740812",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:pavel-nikolaev-lisev-210547",
+      "target": "company:tr:203740812",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЛАДИМИР АНДОНОВ ДАНАИЛОВ",
+      "target": "company:tr:203740812",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН МЕТОДИЕВ ГИКОВ",
+      "target": "company:tr:203740812",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕПУБЛИКА БЪЛГАРИЯ, МИНИСТЕРСТВО НА ИНОВАЦИИТЕ И РАСТЕЖА",
+      "target": "company:tr:203740812",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАМЕН МИНЧЕВ СЛАВОВ",
+      "target": "company:tr:203740812",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОРИЯ ТОДОРОВА ХРИСТОВА",
+      "target": "company:tr:203740812",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИСЕР ХРИСТОВ ПЕТКОВ",
+      "target": "company:tr:203740812",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

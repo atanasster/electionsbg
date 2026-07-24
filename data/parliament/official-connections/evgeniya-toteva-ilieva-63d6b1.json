@@ -1,0 +1,107 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:evgeniya-toteva-ilieva-63d6b1",
+  "nodes": [
+    {
+      "id": "official:evgeniya-toteva-ilieva-63d6b1",
+      "type": "official",
+      "slug": "evgeniya-toteva-ilieva-63d6b1",
+      "label": "Евгения Тотева Илиева",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207193408",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;АСОЦИАЦИЯ НА УЧИЛИЩАТА ПО СТРОИТЕЛСТВО В БЪЛГАРИЯ&quot;",
+      "slug": null,
+      "uic": "207193408",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:daniela-emilova-simeonova-c13f08",
+      "type": "official",
+      "slug": "daniela-emilova-simeonova-c13f08",
+      "label": "Даниела Емилова Симеонова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "official:margarita-tsvetkova-topalova-4767a5",
+      "type": "official",
+      "slug": "margarita-tsvetkova-topalova-4767a5",
+      "label": "Маргарита Цветкова Топалова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "official:petya-mihailova-ivanova-5ac692",
+      "type": "official",
+      "slug": "petya-mihailova-ivanova-5ac692",
+      "label": "Петя Михайлова Иванова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА БОРИСОВА МЛАДЕНОВА",
+      "type": "person",
+      "label": "Цветелина Борисова Младенова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:evgeniya-toteva-ilieva-63d6b1",
+      "target": "company:tr:207193408",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:daniela-emilova-simeonova-c13f08",
+      "target": "company:tr:207193408",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:margarita-tsvetkova-topalova-4767a5",
+      "target": "company:tr:207193408",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:margarita-tsvetkova-topalova-4767a5",
+      "target": "company:tr:207193408",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petya-mihailova-ivanova-5ac692",
+      "target": "company:tr:207193408",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА БОРИСОВА МЛАДЕНОВА",
+      "target": "company:tr:207193408",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

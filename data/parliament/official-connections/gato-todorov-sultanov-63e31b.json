@@ -1,0 +1,173 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:gato-todorov-sultanov-63e31b",
+  "nodes": [
+    {
+      "id": "official:gato-todorov-sultanov-63e31b",
+      "type": "official",
+      "slug": "gato-todorov-sultanov-63e31b",
+      "label": "Гатьо Тодоров Султанов",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Хисаря"
+    },
+    {
+      "id": "company:tr:202286335",
+      "type": "company",
+      "label": "ГАМА КОНСУЛТ 2012 ООД",
+      "slug": null,
+      "uic": "202286335",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:130334875",
+      "type": "company",
+      "label": "АСОЦИАЦИЯ НА ЗАСТРАХОВАТЕЛНИТЕ БРОКЕРИ В БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "130334875",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РУМЯНА ИЛИЕВА БОНЧЕВА",
+      "type": "person",
+      "label": "Румяна Илиева Бончева"
+    },
+    {
+      "id": "person:СТЕФАН ВЕНЦИСЛАВОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Стефан Венциславов Йорданов"
+    },
+    {
+      "id": "person:АТАНАС ХРИСТОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Атанас Христов Христов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ЦВЕТАНОВ ВЪЛЧЕВ",
+      "type": "person",
+      "label": "Александър Цветанов Вълчев"
+    },
+    {
+      "id": "person:БОРИС СТОЯНОВ РУСИНОВ",
+      "type": "person",
+      "label": "Борис Стоянов Русинов"
+    },
+    {
+      "id": "person:ДИМИТРИЯ СТЕФАНОВА ПАНДЪРСКА",
+      "type": "person",
+      "label": "Димитрия Стефанова Пандърска"
+    },
+    {
+      "id": "person:ИВАН АНГЕЛОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Иван Ангелов Георгиев"
+    },
+    {
+      "id": "person:ВАСИЛ ИВАНОВ ДОСЕВ",
+      "type": "person",
+      "label": "Васил Иванов Досев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gato-todorov-sultanov-63e31b",
+      "target": "company:tr:202286335",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:gato-todorov-sultanov-63e31b",
+      "target": "company:tr:130334875",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РУМЯНА ИЛИЕВА БОНЧЕВА",
+      "target": "company:tr:130334875",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ВЕНЦИСЛАВОВ ЙОРДАНОВ",
+      "target": "company:tr:130334875",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА ИЛИЕВА БОНЧЕВА",
+      "target": "company:tr:130334875",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ХРИСТОВ ХРИСТОВ",
+      "target": "company:tr:130334875",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ЦВЕТАНОВ ВЪЛЧЕВ",
+      "target": "company:tr:130334875",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИС СТОЯНОВ РУСИНОВ",
+      "target": "company:tr:130334875",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИС СТОЯНОВ РУСИНОВ",
+      "target": "company:tr:130334875",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИЯ СТЕФАНОВА ПАНДЪРСКА",
+      "target": "company:tr:130334875",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АНГЕЛОВ ГЕОРГИЕВ",
+      "target": "company:tr:130334875",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ИВАНОВ ДОСЕВ",
+      "target": "company:tr:130334875",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

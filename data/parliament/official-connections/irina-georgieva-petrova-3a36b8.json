@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:irina-georgieva-petrova-3a36b8",
+  "nodes": [
+    {
+      "id": "official:irina-georgieva-petrova-3a36b8",
+      "type": "official",
+      "slug": "irina-georgieva-petrova-3a36b8",
+      "label": "Ирина Георгиева Петрова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207905065",
+      "type": "company",
+      "label": "КАРМА 666 - ЗАЛОЖНА КЪЩА",
+      "slug": null,
+      "uic": "207905065",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:irina-georgieva-petrova-3a36b8",
+      "target": "company:tr:207905065",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:irina-georgieva-petrova-3a36b8",
+      "target": "company:tr:207905065",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

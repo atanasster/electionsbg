@@ -1,0 +1,249 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:paulina-dimitrova-shishkova-3869ce",
+  "nodes": [
+    {
+      "id": "official:paulina-dimitrova-shishkova-3869ce",
+      "type": "official",
+      "slug": "paulina-dimitrova-shishkova-3869ce",
+      "label": "Паулина Димитрова Шишкова",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205181670",
+      "type": "company",
+      "label": "\"АГРО 82\" ЕООД",
+      "slug": null,
+      "uic": "205181670",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207581040",
+      "type": "company",
+      "label": "\"СТОУН КЪЛЕКШЪН\" ООД",
+      "slug": null,
+      "uic": "207581040",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207084597",
+      "type": "company",
+      "label": "\"РГП СТОУН\" ООД",
+      "slug": null,
+      "uic": "207084597",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202102625",
+      "type": "company",
+      "label": "\"КАТАВИНОС ГРУП\" ООД",
+      "slug": null,
+      "uic": "202102625",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛЮДМИЛ СТОЯНОВ ЛИБЧЕВ",
+      "type": "person",
+      "label": "Людмил Стоянов Либчев"
+    },
+    {
+      "id": "person:МАРИН ГЕОРГИЕВ ШИШКОВ",
+      "type": "person",
+      "label": "Марин Георгиев Шишков"
+    },
+    {
+      "id": "person:ВЕЛИЗАР ЛЮБЕНОВ РАДЕВ",
+      "type": "person",
+      "label": "Велизар Любенов Радев"
+    },
+    {
+      "id": "person:РУМЕН ЕЛЕНКОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Румен Еленков Петров"
+    },
+    {
+      "id": "person:ПЛАМЕН ДАКОВ ГЕНОВ",
+      "type": "person",
+      "label": "Пламен Даков Генов"
+    },
+    {
+      "id": "person:ВЕСЕЛИН АТАНАСОВ РУБИЕВ",
+      "type": "person",
+      "label": "Веселин Атанасов Рубиев"
+    },
+    {
+      "id": "person:МИЛА ВАЛЕРИЕВА БОРИСОВА",
+      "type": "person",
+      "label": "Мила Валериева Борисова"
+    },
+    {
+      "id": "person:ФИЛИПА ПЕТРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Филипа Петрова Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:paulina-dimitrova-shishkova-3869ce",
+      "target": "company:tr:205181670",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:paulina-dimitrova-shishkova-3869ce",
+      "target": "company:tr:207581040",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:paulina-dimitrova-shishkova-3869ce",
+      "target": "company:tr:207084597",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:paulina-dimitrova-shishkova-3869ce",
+      "target": "company:tr:202102625",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ СТОЯНОВ ЛИБЧЕВ",
+      "target": "company:tr:207581040",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН ГЕОРГИЕВ ШИШКОВ",
+      "target": "company:tr:207581040",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ СТОЯНОВ ЛИБЧЕВ",
+      "target": "company:tr:207581040",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН ГЕОРГИЕВ ШИШКОВ",
+      "target": "company:tr:207581040",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИЗАР ЛЮБЕНОВ РАДЕВ",
+      "target": "company:tr:207084597",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИЗАР ЛЮБЕНОВ РАДЕВ",
+      "target": "company:tr:207084597",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН ГЕОРГИЕВ ШИШКОВ",
+      "target": "company:tr:207084597",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ЕЛЕНКОВ ПЕТРОВ",
+      "target": "company:tr:207084597",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ДАКОВ ГЕНОВ",
+      "target": "company:tr:207084597",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН АТАНАСОВ РУБИЕВ",
+      "target": "company:tr:202102625",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛА ВАЛЕРИЕВА БОРИСОВА",
+      "target": "company:tr:202102625",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН АТАНАСОВ РУБИЕВ",
+      "target": "company:tr:202102625",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН ГЕОРГИЕВ ШИШКОВ",
+      "target": "company:tr:202102625",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛА ВАЛЕРИЕВА БОРИСОВА",
+      "target": "company:tr:202102625",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИЛИПА ПЕТРОВА ДИМИТРОВА",
+      "target": "company:tr:202102625",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

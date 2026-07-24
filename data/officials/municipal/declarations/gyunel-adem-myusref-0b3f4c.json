@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "gyunel-adem-myusref-0b3f4c",
+    "declarantName": "ГЮНЕЛ АДЕМ МЮСРЕФ",
+    "institution": "Исперих",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-03-24",
+    "entryNumber": "Г1269",
+    "controlHash": "4FF3F4DD",
+    "sourceUrl": "https://register.cacbg.bg/2025/1BDD9772-10C5-459F-9654-EAAE8AB2C9ED203690.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7055.827960507815,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 22588.36401936774,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ГР. ВАРНА",
+        "municipality": "Варна",
+        "areaSqm": 27,
+        "builtAreaSqm": 27,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 89000,
+        "valueEur": 45504.97742646345,
+        "holderName": "ГЮНЕЛ АДЕМ МЮСРЕФ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "ГР. ВАРНА",
+        "municipality": "Варна",
+        "areaSqm": 12,
+        "builtAreaSqm": 12,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 1173,
+        "valueEur": 599.7453766431643,
+        "holderName": "ГЮНЕЛ АДЕМ МЮСРЕФ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ ЗАЕМ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "ГЮНЕЛ АДЕМ МЮСРЕФ",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР, 5,40 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

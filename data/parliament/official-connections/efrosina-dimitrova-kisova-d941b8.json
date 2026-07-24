@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:efrosina-dimitrova-kisova-d941b8",
+  "nodes": [
+    {
+      "id": "official:efrosina-dimitrova-kisova-d941b8",
+      "type": "official",
+      "slug": "efrosina-dimitrova-kisova-d941b8",
+      "label": "Ефросина Димитрова Кисьова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:119055061",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО НА ГПЗЕ \"ЗАХАРИЙ СТОЯНОВ\"",
+      "slug": null,
+      "uic": "119055061",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИРОСЛАВ ЕМИЛОВ КОЖЛЕЕВ",
+      "type": "person",
+      "label": "Мирослав Емилов Кожлеев"
+    },
+    {
+      "id": "person:КРЕМЕНА ЙОРДАНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Кремена Йорданова Димитрова"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ИЛИЕВА БОНЕВА",
+      "type": "person",
+      "label": "Десислава Илиева Бонева"
+    },
+    {
+      "id": "person:ДАНИЕЛА ВЕНЦИСЛАВОВА ПИЕР",
+      "type": "person",
+      "label": "Даниела Венциславова Пиер"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ИВАНОВА ПЪРВАНОВА-МИТЕВА",
+      "type": "person",
+      "label": "Десислава Иванова Първанова-Митева"
+    },
+    {
+      "id": "person:ПЛАМЕН ГЕОРГИЕВ ПАНАЙОТОВ",
+      "type": "person",
+      "label": "Пламен Георгиев Панайотов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:efrosina-dimitrova-kisova-d941b8",
+      "target": "company:tr:119055061",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИРОСЛАВ ЕМИЛОВ КОЖЛЕЕВ",
+      "target": "company:tr:119055061",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ЕМИЛОВ КОЖЛЕЕВ",
+      "target": "company:tr:119055061",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРЕМЕНА ЙОРДАНОВА ДИМИТРОВА",
+      "target": "company:tr:119055061",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ИЛИЕВА БОНЕВА",
+      "target": "company:tr:119055061",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ВЕНЦИСЛАВОВА ПИЕР",
+      "target": "company:tr:119055061",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ИВАНОВА ПЪРВАНОВА-МИТЕВА",
+      "target": "company:tr:119055061",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ГЕОРГИЕВ ПАНАЙОТОВ",
+      "target": "company:tr:119055061",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

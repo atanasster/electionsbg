@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "ivan-vasilev-stoyanov-a5e57d",
+    "declarantName": "Иван Василев Стоянов",
+    "institution": "Пловдив",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-23",
+    "entryNumber": "Г5385",
+    "controlHash": "052EA33A",
+    "sourceUrl": "https://register.cacbg.bg/2025/32509C0C-26EB-4502-B721-14E4545B834C208309.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27788.20245113328,
+        "amountEurSpouse": 18048.603406226513
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4312.235726008907
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12200,
+        "valueEur": 6237.760950593865,
+        "holderName": "Иван Василев Стоянов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 28600,
+        "valueEur": 14622.94780221185,
+        "holderName": "Боряна Георгиева Узунова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 48468,
+        "valueEur": 24781.29489781832,
+        "holderName": "Иван Василев Стоянов",
+        "isSpouse": false,
+        "legalBasis": "Нотариален акт за ипотека",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "CHF",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "CHF",
+        "amount": 4589,
+        "valueEur": 4903.800432552932,
+        "holderName": "Иван Василев Стоянов",
+        "isSpouse": false,
+        "legalBasis": "Договор за потребителски кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

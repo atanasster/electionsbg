@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:maya-angelova-angelova-80ad4d",
+  "nodes": [
+    {
+      "id": "official:maya-angelova-angelova-80ad4d",
+      "type": "official",
+      "slug": "maya-angelova-angelova-80ad4d",
+      "label": "Мая Ангелова Ангелова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176854987",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОУ СВЕТИ СВЕТИ КИРИЛ И МЕТОДИЙ -  С. МАРКОВО",
+      "slug": null,
+      "uic": "176854987",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕЛЕНА ЦВЕТАНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Елена Цветанова Иванова"
+    },
+    {
+      "id": "person:ДИМИТРИЯ ДИМИТРОВА СЛАВОВА",
+      "type": "person",
+      "label": "Димитрия Димитрова Славова"
+    },
+    {
+      "id": "person:БОЯНА ВЕНЕЛИНОВА РАДЕВА",
+      "type": "person",
+      "label": "Бояна Венелинова Радева"
+    },
+    {
+      "id": "person:ИРИНА ГЕОРГИЕВА БОНЕВА",
+      "type": "person",
+      "label": "Ирина Георгиева Бонева"
+    },
+    {
+      "id": "person:РАДОСЛАВА ОГНЯНОВА ГУЛЕВА",
+      "type": "person",
+      "label": "Радослава Огнянова Гулева"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА НИКОЛАЕВА АНГЕЛИНОВА",
+      "type": "person",
+      "label": "Десислава Николаева Ангелинова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:maya-angelova-angelova-80ad4d",
+      "target": "company:tr:176854987",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕЛЕНА ЦВЕТАНОВА ИВАНОВА",
+      "target": "company:tr:176854987",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ЦВЕТАНОВА ИВАНОВА",
+      "target": "company:tr:176854987",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИЯ ДИМИТРОВА СЛАВОВА",
+      "target": "company:tr:176854987",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯНА ВЕНЕЛИНОВА РАДЕВА",
+      "target": "company:tr:176854987",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА ГЕОРГИЕВА БОНЕВА",
+      "target": "company:tr:176854987",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВА ОГНЯНОВА ГУЛЕВА",
+      "target": "company:tr:176854987",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА НИКОЛАЕВА АНГЕЛИНОВА",
+      "target": "company:tr:176854987",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

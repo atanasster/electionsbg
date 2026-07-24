@@ -1,0 +1,129 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitr-veselinov-nikolov-ba4638",
+  "nodes": [
+    {
+      "id": "official:dimitr-veselinov-nikolov-ba4638",
+      "type": "official",
+      "slug": "dimitr-veselinov-nikolov-ba4638",
+      "label": "Димитър Веселинов Николов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Балчик"
+    },
+    {
+      "id": "company:tr:124698179",
+      "type": "company",
+      "label": "РОТАРИ КЛУБ - БАЛЧИК",
+      "slug": null,
+      "uic": "124698179",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РАДОСЛАВ БОЖАНОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Радослав Божанов Петков"
+    },
+    {
+      "id": "person:ЖУЛИЕН ТОШЕВ ЖЕЛЕВ",
+      "type": "person",
+      "label": "Жулиен Тошев Желев"
+    },
+    {
+      "id": "person:ЖЕКО ЦВЕТАНОВ ЖЕКОВ",
+      "type": "person",
+      "label": "Жеко Цветанов Жеков"
+    },
+    {
+      "id": "person:ВАНЯ ТОДОРОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Ваня Тодорова Георгиева"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ГЕОРГИЕВ КИРЯКОВ",
+      "type": "person",
+      "label": "Веселин Георгиев Киряков"
+    },
+    {
+      "id": "person:ИВАН СТОЯНОВ НОНЕВ",
+      "type": "person",
+      "label": "Иван Стоянов Нонев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-veselinov-nikolov-ba4638",
+      "target": "company:tr:124698179",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-veselinov-nikolov-ba4638",
+      "target": "company:tr:124698179",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАДОСЛАВ БОЖАНОВ ПЕТКОВ",
+      "target": "company:tr:124698179",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖУЛИЕН ТОШЕВ ЖЕЛЕВ",
+      "target": "company:tr:124698179",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕКО ЦВЕТАНОВ ЖЕКОВ",
+      "target": "company:tr:124698179",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ БОЖАНОВ ПЕТКОВ",
+      "target": "company:tr:124698179",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ТОДОРОВА ГЕОРГИЕВА",
+      "target": "company:tr:124698179",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ГЕОРГИЕВ КИРЯКОВ",
+      "target": "company:tr:124698179",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН СТОЯНОВ НОНЕВ",
+      "target": "company:tr:124698179",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

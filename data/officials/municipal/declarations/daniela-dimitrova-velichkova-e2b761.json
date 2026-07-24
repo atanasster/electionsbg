@@ -1,0 +1,69 @@
+[
+  {
+    "slug": "daniela-dimitrova-velichkova-e2b761",
+    "declarantName": "Даниела Димитрова Величкова",
+    "institution": "Район Красна поляна",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г7298",
+    "controlHash": "62CC9AA2",
+    "sourceUrl": "https://register.cacbg.bg/2025/C4F567B3-8D4C-4221-B64B-2EA65B855EC9210286.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 39971.77668815797,
+        "amountEurSpouse": 3197.1081331199543
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1225.0553473461396,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 3500,
+        "valueEur": 1789.5215841867648,
+        "holderName": "Даниела Димитрова Величкова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 27978,
+        "valueEur": 14304.924252107801,
+        "holderName": "Даниела Димитрова Величкова",
+        "isSpouse": false,
+        "legalBasis": "Договор  за ипотека",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

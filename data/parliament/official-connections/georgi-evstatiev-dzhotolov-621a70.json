@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-evstatiev-dzhotolov-621a70",
+  "nodes": [
+    {
+      "id": "official:georgi-evstatiev-dzhotolov-621a70",
+      "type": "official",
+      "slug": "georgi-evstatiev-dzhotolov-621a70",
+      "label": "Георги Евстатиев Джотолов",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Ботевград"
+    },
+    {
+      "id": "company:tr:175046112",
+      "type": "company",
+      "label": "ДЖОТО ДИЗАЙН",
+      "slug": null,
+      "uic": "175046112",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕМИЛИЯН ГЕОРГИЕВ ДЖОТОЛОВ",
+      "type": "person",
+      "label": "Емилиян Георгиев Джотолов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-evstatiev-dzhotolov-621a70",
+      "target": "company:tr:175046112",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯН ГЕОРГИЕВ ДЖОТОЛОВ",
+      "target": "company:tr:175046112",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

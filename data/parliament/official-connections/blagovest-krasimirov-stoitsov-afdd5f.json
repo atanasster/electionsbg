@@ -1,0 +1,73 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:blagovest-krasimirov-stoitsov-afdd5f",
+  "nodes": [
+    {
+      "id": "official:blagovest-krasimirov-stoitsov-afdd5f",
+      "type": "official",
+      "slug": "blagovest-krasimirov-stoitsov-afdd5f",
+      "label": "Благовест Красимиров Стоицов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Благоевград"
+    },
+    {
+      "id": "company:tr:205786000",
+      "type": "company",
+      "label": "Футболен клуб &quot;Спортист Падеш&quot;",
+      "slug": null,
+      "uic": "205786000",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:georgi-blagoev-bezhanski-99f34b",
+      "type": "official",
+      "slug": "georgi-blagoev-bezhanski-99f34b",
+      "label": "Георги Благоев Бежански",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Благоевград"
+    },
+    {
+      "id": "person:КРАСИМИР ИВАНОВ КЬОСЕВ",
+      "type": "person",
+      "label": "Красимир Иванов Кьосев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:blagovest-krasimirov-stoitsov-afdd5f",
+      "target": "company:tr:205786000",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-blagoev-bezhanski-99f34b",
+      "target": "company:tr:205786000",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРАСИМИР ИВАНОВ КЬОСЕВ",
+      "target": "company:tr:205786000",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ИВАНОВ КЬОСЕВ",
+      "target": "company:tr:205786000",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

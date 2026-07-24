@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "temenuzhka-ivanova-nikolova-c76b5f",
+    "declarantName": "Теменужка Иванова Николова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-07",
+    "entryNumber": "Г14174",
+    "controlHash": "8BA4D84D",
+    "sourceUrl": "https://register.cacbg.bg/2025/B1FF37DB-2985-407E-8C3B-954FC47ACDB1217442.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20664.883962307562,
+        "amountEurSpouse": 0
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "temenuzhka-ivanova-nikolova-c76b5f",
+    "declarantName": "Теменужка Иванова Николова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-07",
+    "entryNumber": "Г14741",
+    "controlHash": "4C734259",
+    "sourceUrl": "https://register.cacbg.bg/2024/B1FF37DB-2985-407E-8C3B-954FC47ACDB1197432.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Варна",
+        "municipality": "Варна",
+        "areaSqm": 80,
+        "builtAreaSqm": 80,
+        "acquiredYear": 2023,
+        "share": "13",
+        "currency": "BGN",
+        "amount": 22100,
+        "valueEur": 11299.550574436429,
+        "holderName": "Теменужка Иванова Николова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Теменужка Иванова Николова",
+        "isSpouse": false,
+        "legalBasis": "строителство",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

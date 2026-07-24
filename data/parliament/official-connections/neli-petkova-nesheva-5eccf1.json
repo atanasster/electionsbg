@@ -1,0 +1,90 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:neli-petkova-nesheva-5eccf1",
+  "nodes": [
+    {
+      "id": "official:neli-petkova-nesheva-5eccf1",
+      "type": "official",
+      "slug": "neli-petkova-nesheva-5eccf1",
+      "label": "Нели Петкова Нешева",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:106518890",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ХРИСТО БОТЕВ",
+      "slug": null,
+      "uic": "106518890",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КЕТИ ДИТКОВА ЦЕНОВА- СРЕДКОВА",
+      "type": "person",
+      "label": "Кети Диткова Ценова- Средкова"
+    },
+    {
+      "id": "person:ПЛАМЕН СТОЯНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Пламен Стоянов Димитров"
+    },
+    {
+      "id": "person:КЕТИ ДИТКОВА ЦЕНОВА-СРЕДКОВА",
+      "type": "person",
+      "label": "Кети Диткова Ценова-Средкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:neli-petkova-nesheva-5eccf1",
+      "target": "company:tr:106518890",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КЕТИ ДИТКОВА ЦЕНОВА- СРЕДКОВА",
+      "target": "company:tr:106518890",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН СТОЯНОВ ДИМИТРОВ",
+      "target": "company:tr:106518890",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЕТИ ДИТКОВА ЦЕНОВА- СРЕДКОВА",
+      "target": "company:tr:106518890",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЕТИ ДИТКОВА ЦЕНОВА-СРЕДКОВА",
+      "target": "company:tr:106518890",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЕТИ ДИТКОВА ЦЕНОВА-СРЕДКОВА",
+      "target": "company:tr:106518890",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:diana-stoyanova-dragneva-1ed16d",
+  "nodes": [
+    {
+      "id": "official:diana-stoyanova-dragneva-1ed16d",
+      "type": "official",
+      "slug": "diana-stoyanova-dragneva-1ed16d",
+      "label": "Диана Стоянова Драгнева",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200265082",
+      "type": "company",
+      "label": "НЕДРА",
+      "slug": null,
+      "uic": "200265082",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:diana-stoyanova-dragneva-1ed16d",
+      "target": "company:tr:200265082",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

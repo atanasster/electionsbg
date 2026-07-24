@@ -1,0 +1,78 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:anatolii-stefanov-asenov-6f3c7b",
+  "nodes": [
+    {
+      "id": "official:anatolii-stefanov-asenov-6f3c7b",
+      "type": "official",
+      "slug": "anatolii-stefanov-asenov-6f3c7b",
+      "label": "Анатолий Стефанов Асенов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205443197",
+      "type": "company",
+      "label": "ДУНАВСКИ ИНДУСТРИАЛЕН ТЕХНОЛОГИЧЕН ПАРК - СВИЩОВ",
+      "slug": null,
+      "uic": "205443197",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:ivo-milev-maev-630f04",
+      "type": "official",
+      "slug": "ivo-milev-maev-630f04",
+      "label": "Иво Милев Маев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ТЕОДОРА ДИМИТРОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Теодора Димитрова Петрова"
+    },
+    {
+      "id": "person:ГЕРГАНА ТОДОРОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Гергана Тодорова Тодорова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:anatolii-stefanov-asenov-6f3c7b",
+      "target": "company:tr:205443197",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivo-milev-maev-630f04",
+      "target": "company:tr:205443197",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТЕОДОРА ДИМИТРОВА ПЕТРОВА",
+      "target": "company:tr:205443197",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ТОДОРОВА ТОДОРОВА",
+      "target": "company:tr:205443197",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

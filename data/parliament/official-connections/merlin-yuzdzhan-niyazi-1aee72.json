@@ -1,0 +1,150 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:merlin-yuzdzhan-niyazi-1aee72",
+  "nodes": [
+    {
+      "id": "official:merlin-yuzdzhan-niyazi-1aee72",
+      "type": "official",
+      "slug": "merlin-yuzdzhan-niyazi-1aee72",
+      "label": "Мерлин Юзджан Ниязи",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000559515",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;СТЕФАН КАРАДЖА - 1950 Г.&quot;",
+      "slug": null,
+      "uic": "000559515",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:ruia-levent-idriz-85e7f4",
+      "type": "official",
+      "slug": "ruia-levent-idriz-85e7f4",
+      "label": "Руйа Левент Идриз",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "official:nedret-yusein-alil-e0da21",
+      "type": "official",
+      "slug": "nedret-yusein-alil-e0da21",
+      "label": "Недрет Юсеин Алил",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Главиница"
+    },
+    {
+      "id": "person:МИТХАТ ДЖЕЛИЛ РАШИД",
+      "type": "person",
+      "label": "Митхат Джелил Рашид"
+    },
+    {
+      "id": "person:ШИНАР ЮСЕИН АЛИ",
+      "type": "person",
+      "label": "Шинар Юсеин Али"
+    },
+    {
+      "id": "person:НУРСЕС НААИМ ИДРИЗ",
+      "type": "person",
+      "label": "Нурсес Нааим Идриз"
+    },
+    {
+      "id": "person:АЙНУР МЮМЮН БЕЙТУЛА",
+      "type": "person",
+      "label": "Айнур Мюмюн Бейтула"
+    },
+    {
+      "id": "person:ЕМИНЕ ХЪЛМИ САЛИМ",
+      "type": "person",
+      "label": "Емине Хълми Салим"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:merlin-yuzdzhan-niyazi-1aee72",
+      "target": "company:tr:000559515",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ruia-levent-idriz-85e7f4",
+      "target": "company:tr:000559515",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ruia-levent-idriz-85e7f4",
+      "target": "company:tr:000559515",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nedret-yusein-alil-e0da21",
+      "target": "company:tr:000559515",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИТХАТ ДЖЕЛИЛ РАШИД",
+      "target": "company:tr:000559515",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТХАТ ДЖЕЛИЛ РАШИД",
+      "target": "company:tr:000559515",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ШИНАР ЮСЕИН АЛИ",
+      "target": "company:tr:000559515",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НУРСЕС НААИМ ИДРИЗ",
+      "target": "company:tr:000559515",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙНУР МЮМЮН БЕЙТУЛА",
+      "target": "company:tr:000559515",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИНЕ ХЪЛМИ САЛИМ",
+      "target": "company:tr:000559515",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

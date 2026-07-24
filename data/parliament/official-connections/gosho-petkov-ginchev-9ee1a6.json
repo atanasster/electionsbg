@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:gosho-petkov-ginchev-9ee1a6",
+  "nodes": [
+    {
+      "id": "official:gosho-petkov-ginchev-9ee1a6",
+      "type": "official",
+      "slug": "gosho-petkov-ginchev-9ee1a6",
+      "label": "Гошо Петков Гинчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175030948",
+      "type": "company",
+      "label": "Анди Инженеринг ЕООД",
+      "slug": null,
+      "uic": "175030948",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gosho-petkov-ginchev-9ee1a6",
+      "target": "company:tr:175030948",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:gosho-petkov-ginchev-9ee1a6",
+      "target": "company:tr:175030948",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

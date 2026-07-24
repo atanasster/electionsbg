@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:maya-karamfilova-spasova-8d08ca",
+  "nodes": [
+    {
+      "id": "official:maya-karamfilova-spasova-8d08ca",
+      "type": "official",
+      "slug": "maya-karamfilova-spasova-8d08ca",
+      "label": "Мая Карамфилова Спасова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206288068",
+      "type": "company",
+      "label": "КОЛОЕЗДАЧЕН СПОРТЕН КЛУБ ОМЕГА ТИЙМ",
+      "slug": null,
+      "uic": "206288068",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТАТЯНА СЛАВЧЕВА МЛАДЕНОВА-ДИМИТРОВА",
+      "type": "person",
+      "label": "Татяна Славчева Младенова-Димитрова"
+    },
+    {
+      "id": "person:ДИАНА КРАСИМИРОВА РАНГЕЛОВА",
+      "type": "person",
+      "label": "Диана Красимирова Рангелова"
+    },
+    {
+      "id": "person:ИЛКО МЛАДЕНОВ МЛАДЕНОВ",
+      "type": "person",
+      "label": "Илко Младенов Младенов"
+    },
+    {
+      "id": "person:МОМЧИЛ ЧАВДАРОВ ЦОНЕВ",
+      "type": "person",
+      "label": "Момчил Чавдаров Цонев"
+    },
+    {
+      "id": "person:КРАСИМИРА СЛАВЧЕВА СЕДЕФЧЕВА",
+      "type": "person",
+      "label": "Красимира Славчева Седефчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:maya-karamfilova-spasova-8d08ca",
+      "target": "company:tr:206288068",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТАТЯНА СЛАВЧЕВА МЛАДЕНОВА-ДИМИТРОВА",
+      "target": "company:tr:206288068",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА КРАСИМИРОВА РАНГЕЛОВА",
+      "target": "company:tr:206288068",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛКО МЛАДЕНОВ МЛАДЕНОВ",
+      "target": "company:tr:206288068",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МОМЧИЛ ЧАВДАРОВ ЦОНЕВ",
+      "target": "company:tr:206288068",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА СЛАВЧЕВА СЕДЕФЧЕВА",
+      "target": "company:tr:206288068",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

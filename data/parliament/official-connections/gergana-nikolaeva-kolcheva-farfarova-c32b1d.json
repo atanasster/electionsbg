@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:gergana-nikolaeva-kolcheva-farfarova-c32b1d",
+  "nodes": [
+    {
+      "id": "official:gergana-nikolaeva-kolcheva-farfarova-c32b1d",
+      "type": "official",
+      "slug": "gergana-nikolaeva-kolcheva-farfarova-c32b1d",
+      "label": "Гергана Николаева Колчева-Фарфарова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Разлог"
+    },
+    {
+      "id": "company:tr:200776059",
+      "type": "company",
+      "label": "\" НИКПРОМ - 2009\" ЕООД",
+      "slug": null,
+      "uic": "200776059",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gergana-nikolaeva-kolcheva-farfarova-c32b1d",
+      "target": "company:tr:200776059",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

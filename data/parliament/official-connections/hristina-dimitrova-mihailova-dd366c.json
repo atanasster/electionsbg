@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hristina-dimitrova-mihailova-dd366c",
+  "nodes": [
+    {
+      "id": "official:hristina-dimitrova-mihailova-dd366c",
+      "type": "official",
+      "slug": "hristina-dimitrova-mihailova-dd366c",
+      "label": "Христина Димитрова Михайлова",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130999006",
+      "type": "company",
+      "label": "БЪЛГАРСКИ ИНФОРМАЦИОНЕН КОНСОРЦИУМ",
+      "slug": null,
+      "uic": "130999006",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НАДЯ АНДОНОВА ТЕРЗИЕВА",
+      "type": "person",
+      "label": "Надя Андонова Терзиева"
+    },
+    {
+      "id": "person:PAДOCTИHA TOДOPOBA TOДOPOBA",
+      "type": "person",
+      "label": "Paдoctиha Toдopoba Toдopoba"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristina-dimitrova-mihailova-dd366c",
+      "target": "company:tr:130999006",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НАДЯ АНДОНОВА ТЕРЗИЕВА",
+      "target": "company:tr:130999006",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:PAДOCTИHA TOДOPOBA TOДOPOBA",
+      "target": "company:tr:130999006",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

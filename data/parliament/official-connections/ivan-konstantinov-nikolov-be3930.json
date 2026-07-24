@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-konstantinov-nikolov-be3930",
+  "nodes": [
+    {
+      "id": "official:ivan-konstantinov-nikolov-be3930",
+      "type": "official",
+      "slug": "ivan-konstantinov-nikolov-be3930",
+      "label": "Иван Константинов Николов",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208190048",
+      "type": "company",
+      "label": "АЙС 21",
+      "slug": null,
+      "uic": "208190048",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-konstantinov-nikolov-be3930",
+      "target": "company:tr:208190048",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-konstantinov-nikolov-be3930",
+      "target": "company:tr:208190048",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

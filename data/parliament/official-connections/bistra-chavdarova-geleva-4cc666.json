@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:bistra-chavdarova-geleva-4cc666",
+  "nodes": [
+    {
+      "id": "official:bistra-chavdarova-geleva-4cc666",
+      "type": "official",
+      "slug": "bistra-chavdarova-geleva-4cc666",
+      "label": "Бистра Чавдарова Гелева",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Район Лозенец"
+    },
+    {
+      "id": "company:tr:200448354",
+      "type": "company",
+      "label": "Интериор'С ЕООД",
+      "slug": null,
+      "uic": "200448354",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТЕФАН АТАНАСОВ ХАНДЖИЕВ",
+      "type": "person",
+      "label": "Стефан Атанасов Ханджиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:bistra-chavdarova-geleva-4cc666",
+      "target": "company:tr:200448354",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН АТАНАСОВ ХАНДЖИЕВ",
+      "target": "company:tr:200448354",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

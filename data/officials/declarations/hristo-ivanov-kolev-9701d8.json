@@ -6,56 +6,6 @@
     "positionTitle": "Директор",
     "category": "state_enterprise",
     "declarationYear": 2023,
-    "fiscalYear": 2022,
-    "declarationType": "Annualy",
-    "filedAt": "2023-04-25",
-    "entryNumber": "Г1437",
-    "controlHash": "5007934E",
-    "sourceUrl": "https://register.cacbg.bg/2023/443991D4-EAB6-49DA-87EE-0E61A8900DEC147411.xml",
-    "ownershipStakes": [],
-    "income": [
-      {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 31011.897762075438,
-        "amountEurSpouse": 15912.937218469908
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 2751.2616127168517,
-        "amountEurSpouse": null
-      }
-    ],
-    "assets": [
-      {
-        "category": "bank",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 16953,
-        "valueEur": 8667.931261919492,
-        "holderName": "ХРИСТО ИВАНОВ КОЛЕВ",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "заплата"
-      }
-    ],
-    "events": []
-  },
-  {
-    "slug": "hristo-ivanov-kolev-9701d8",
-    "declarantName": "ХРИСТО ИВАНОВ КОЛЕВ",
-    "institution": "Южноцентрално държавно предприятие",
-    "positionTitle": "Директор",
-    "category": "state_enterprise",
-    "declarationYear": 2023,
     "fiscalYear": 2023,
     "declarationType": "Vacate",
     "filedAt": "2023-02-28",
@@ -262,6 +212,56 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "hristo-ivanov-kolev-9701d8",
+    "declarantName": "ХРИСТО ИВАНОВ КОЛЕВ",
+    "institution": "Южноцентрално държавно предприятие",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": "2023-04-25",
+    "entryNumber": "Г1437",
+    "controlHash": "5007934E",
+    "sourceUrl": "https://register.cacbg.bg/2023/443991D4-EAB6-49DA-87EE-0E61A8900DEC147411.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31011.897762075438,
+        "amountEurSpouse": 15912.937218469908
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 2751.2616127168517,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16953,
+        "valueEur": 8667.931261919492,
+        "holderName": "ХРИСТО ИВАНОВ КОЛЕВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

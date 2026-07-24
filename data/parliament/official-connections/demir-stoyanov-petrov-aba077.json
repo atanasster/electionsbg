@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:demir-stoyanov-petrov-aba077",
+  "nodes": [
+    {
+      "id": "official:demir-stoyanov-petrov-aba077",
+      "type": "official",
+      "slug": "demir-stoyanov-petrov-aba077",
+      "label": "Демир Стоянов Петров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Несебър"
+    },
+    {
+      "id": "company:tr:102205446",
+      "type": "company",
+      "label": "МАРИНИ - ДИС",
+      "slug": null,
+      "uic": "102205446",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНТЪНИ ДЖОУЗЕФ ДИНКИН",
+      "type": "person",
+      "label": "Антъни Джоузеф Динкин"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:demir-stoyanov-petrov-aba077",
+      "target": "company:tr:102205446",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНТЪНИ ДЖОУЗЕФ ДИНКИН",
+      "target": "company:tr:102205446",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:svetlin-dimitrov-radev-f8e4f2",
+  "nodes": [
+    {
+      "id": "official:svetlin-dimitrov-radev-f8e4f2",
+      "type": "official",
+      "slug": "svetlin-dimitrov-radev-f8e4f2",
+      "label": "Светлин Димитров Радев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201753736",
+      "type": "company",
+      "label": "СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА РЕХАБИЛИТАЦИЯ ПО ФИЗИКАЛНА И РЕХАБИЛИТАЦИОННА МЕДИЦИНА - ДИМИНА",
+      "slug": null,
+      "uic": "201753736",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetlin-dimitrov-radev-f8e4f2",
+      "target": "company:tr:201753736",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

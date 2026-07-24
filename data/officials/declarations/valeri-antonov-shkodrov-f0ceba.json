@@ -1,0 +1,151 @@
+[
+  {
+    "slug": "valeri-antonov-shkodrov-f0ceba",
+    "declarantName": "ВАЛЕРИ АНТОНОВ ШКОДРОВ",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-23",
+    "entryNumber": "Г3821",
+    "controlHash": "8980F4ED",
+    "sourceUrl": "https://register.cacbg.bg/2025/9202ECB6-9459-4D50-97C8-0387ADEFB673206636.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19348.818660108496,
+        "amountEurSpouse": 16581.706999074562
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 690.244039614895,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Валери Антонов Шкодров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота РАВ4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 690.244039614895,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "valeri-antonov-shkodrov-f0ceba",
+    "declarantName": "Валери Антонов Шкодров",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-23",
+    "entryNumber": "Г304",
+    "controlHash": "E5FB8B04",
+    "sourceUrl": "https://register.cacbg.bg/2024/9202ECB6-9459-4D50-97C8-0387ADEFB673181077.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19599.86297377584,
+        "amountEurSpouse": 15977.871287381828
+      },
+      {
+        "parent": null,
+        "category": "Детски влог",
+        "amountEurDeclarant": 7925.024158541387,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Тойота Корола",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "да",
+        "currency": "BGN",
+        "amount": 54600,
+        "valueEur": 27916.53671331353,
+        "holderName": "Емине Хасанова Шкодрова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "receivable",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Валери Антонов Шкодров",
+        "isSpouse": false,
+        "legalBasis": "да",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Валери Антонов Шкодров",
+        "isSpouse": false,
+        "legalBasis": "да",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

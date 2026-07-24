@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitrina-aleksandrova-dimitrova-3c8ff5",
+  "nodes": [
+    {
+      "id": "official:dimitrina-aleksandrova-dimitrova-3c8ff5",
+      "type": "official",
+      "slug": "dimitrina-aleksandrova-dimitrova-3c8ff5",
+      "label": "Димитрина Александрова Димитрова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208878201",
+      "type": "company",
+      "label": "АЛЕКС АГРО 2003",
+      "slug": null,
+      "uic": "208878201",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitrina-aleksandrova-dimitrova-3c8ff5",
+      "target": "company:tr:208878201",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitrina-aleksandrova-dimitrova-3c8ff5",
+      "target": "company:tr:208878201",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

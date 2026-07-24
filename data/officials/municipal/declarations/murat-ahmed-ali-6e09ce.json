@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "murat-ahmed-ali-6e09ce",
+    "declarantName": "МУРАТ АХМЕД АЛИ",
+    "institution": "Първомай",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-03-13",
+    "entryNumber": "Г849",
+    "controlHash": "DA189620",
+    "sourceUrl": "https://register.cacbg.bg/2025/84E0466A-5543-4416-B53E-565F880CC4E1203096.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7397.882229028085,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 9402.657695198459,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 3476.784792134286,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "СУБСИДИИ ЗА РЕГИСТРИРАН ЗЕМЕДЕЛСКИ ПРОИЗВОДИТЕЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1895.8702954755781
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "С.ЕЗЕРОВО",
+        "municipality": "Първомай",
+        "areaSqm": 31,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 26177,
+        "valueEur": 13384.087574073412,
+        "holderName": "ПЕНКА ПЕТКОВА ДИМИТРОВА",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 24147,
+        "valueEur": 12346.165055245088,
+        "holderName": "ПЕНКА ПЕТКОВА ДИМИТРОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 55981,
+        "valueEur": 28622.63080124551,
+        "holderName": "ПЕНКА ПЕТКОВА ДИМИТРОВА",
+        "isSpouse": true,
+        "legalBasis": "потребителски, 4,59%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

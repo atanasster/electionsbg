@@ -1,0 +1,217 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-vitanov-vitanov-325bc6",
+  "nodes": [
+    {
+      "id": "official:nikolai-vitanov-vitanov-325bc6",
+      "type": "official",
+      "slug": "nikolai-vitanov-vitanov-325bc6",
+      "label": "Николай Витанов Витанов",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000703529",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;СЪЮЗ НА УЧЕНИТЕ В БЪЛГАРИЯ&quot;",
+      "slug": null,
+      "uic": "000703529",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДАМЯН НИКОЛОВ ДАМЯНОВ",
+      "type": "person",
+      "label": "Дамян Николов Дамянов"
+    },
+    {
+      "id": "person:ПЕТКО СТЕФАНОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Петко Стефанов Петков"
+    },
+    {
+      "id": "person:ДОРА ЖЕЛЯЗКОВА ЯНЧЕВА",
+      "type": "person",
+      "label": "Дора Желязкова Янчева"
+    },
+    {
+      "id": "person:ДИАНА ХРИСТОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Диана Христова Петкова"
+    },
+    {
+      "id": "person:СИМЕОН ВАСКОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Симеон Васков Василев"
+    },
+    {
+      "id": "person:АНГЕЛ САШЕВ ПОПОВ",
+      "type": "person",
+      "label": "Ангел Сашев Попов"
+    },
+    {
+      "id": "person:СТЕФКА ГЕОРГИЕВА ЧАНКОВА-ПЕТРОВА",
+      "type": "person",
+      "label": "Стефка Георгиева Чанкова-Петрова"
+    },
+    {
+      "id": "person:ИВАН МЛАДЕНОВ КРАЛОВ",
+      "type": "person",
+      "label": "Иван Младенов Кралов"
+    },
+    {
+      "id": "person:ДАНИЕЛА СТЕФАНОВА ДОКОВСКА",
+      "type": "person",
+      "label": "Даниела Стефанова Доковска"
+    },
+    {
+      "id": "person:ДИМИТЪР СТЕФАНОВ ТАШКОВ",
+      "type": "person",
+      "label": "Димитър Стефанов Ташков"
+    },
+    {
+      "id": "person:ЛЮБОМИР СТОЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Любомир Стоев Георгиев"
+    },
+    {
+      "id": "person:МИХАЕЛА ДИМИТРОВА ТОПАЛОВА",
+      "type": "person",
+      "label": "Михаела Димитрова Топалова"
+    },
+    {
+      "id": "person:ТЕОДОРА ИВАНОВА БАКЪРДЖИЕВА",
+      "type": "person",
+      "label": "Теодора Иванова Бакърджиева"
+    },
+    {
+      "id": "person:КРАСИМИРА БОРИСОВА СЛАВЕВА",
+      "type": "person",
+      "label": "Красимира Борисова Славева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-vitanov-vitanov-325bc6",
+      "target": "company:tr:000703529",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАМЯН НИКОЛОВ ДАМЯНОВ",
+      "target": "company:tr:000703529",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО СТЕФАНОВ ПЕТКОВ",
+      "target": "company:tr:000703529",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОРА ЖЕЛЯЗКОВА ЯНЧЕВА",
+      "target": "company:tr:000703529",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА ХРИСТОВА ПЕТКОВА",
+      "target": "company:tr:000703529",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН ВАСКОВ ВАСИЛЕВ",
+      "target": "company:tr:000703529",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ САШЕВ ПОПОВ",
+      "target": "company:tr:000703529",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА ГЕОРГИЕВА ЧАНКОВА-ПЕТРОВА",
+      "target": "company:tr:000703529",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН МЛАДЕНОВ КРАЛОВ",
+      "target": "company:tr:000703529",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА СТЕФАНОВА ДОКОВСКА",
+      "target": "company:tr:000703529",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР СТЕФАНОВ ТАШКОВ",
+      "target": "company:tr:000703529",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР СТОЕВ ГЕОРГИЕВ",
+      "target": "company:tr:000703529",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАЕЛА ДИМИТРОВА ТОПАЛОВА",
+      "target": "company:tr:000703529",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ИВАНОВА БАКЪРДЖИЕВА",
+      "target": "company:tr:000703529",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА БОРИСОВА СЛАВЕВА",
+      "target": "company:tr:000703529",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

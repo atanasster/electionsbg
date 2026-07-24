@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iliya-karamfilov-kostyanev-a2946c",
+  "nodes": [
+    {
+      "id": "official:iliya-karamfilov-kostyanev-a2946c",
+      "type": "official",
+      "slug": "iliya-karamfilov-kostyanev-a2946c",
+      "label": "Илия Карамфилов Костянев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204221884",
+      "type": "company",
+      "label": "Орион10-СИК ООД",
+      "slug": null,
+      "uic": "204221884",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iliya-karamfilov-kostyanev-a2946c",
+      "target": "company:tr:204221884",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ismail-aidn-sadk-9e450a",
+  "nodes": [
+    {
+      "id": "official:ismail-aidn-sadk-9e450a",
+      "type": "official",
+      "slug": "ismail-aidn-sadk-9e450a",
+      "label": "Исмаил Айдън Садък",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Котел"
+    },
+    {
+      "id": "company:tr:202537780",
+      "type": "company",
+      "label": "Агро трейд - АС ООД",
+      "slug": null,
+      "uic": "202537780",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ismail-aidn-sadk-9e450a",
+      "target": "company:tr:202537780",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

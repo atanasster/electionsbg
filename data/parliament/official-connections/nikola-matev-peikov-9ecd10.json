@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikola-matev-peikov-9ecd10",
+  "nodes": [
+    {
+      "id": "official:nikola-matev-peikov-9ecd10",
+      "type": "official",
+      "slug": "nikola-matev-peikov-9ecd10",
+      "label": "Никола Матев Пейков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Несебър"
+    },
+    {
+      "id": "company:tr:202300742",
+      "type": "company",
+      "label": "АТЛИЯ - АКРОТИРИЯ",
+      "slug": null,
+      "uic": "202300742",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikola-matev-peikov-9ecd10",
+      "target": "company:tr:202300742",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikola-matev-peikov-9ecd10",
+      "target": "company:tr:202300742",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

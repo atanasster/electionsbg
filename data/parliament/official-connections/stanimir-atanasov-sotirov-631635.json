@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stanimir-atanasov-sotirov-631635",
+  "nodes": [
+    {
+      "id": "official:stanimir-atanasov-sotirov-631635",
+      "type": "official",
+      "slug": "stanimir-atanasov-sotirov-631635",
+      "label": "Станимир Атанасов Сотиров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:128623901",
+      "type": "company",
+      "label": "Градински център ООД",
+      "slug": null,
+      "uic": "128623901",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:stanimir-atanasov-sotirov-e11974",
+      "type": "official",
+      "slug": "stanimir-atanasov-sotirov-e11974",
+      "label": "Станимир Атанасов Сотиров",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stanimir-atanasov-sotirov-631635",
+      "target": "company:tr:128623901",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stanimir-atanasov-sotirov-e11974",
+      "target": "company:tr:128623901",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

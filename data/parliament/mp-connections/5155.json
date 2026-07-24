@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:5155",
   "nodes": [
     {
@@ -27,12 +27,12 @@
       "seat": null
     },
     {
-      "id": "official:nadya-iordanova-petrova-dcc115",
+      "id": "official:nadya-iordanova-petrova-6ff4a9",
       "type": "official",
-      "slug": "nadya-iordanova-petrova-dcc115",
+      "slug": "nadya-iordanova-petrova-6ff4a9",
       "label": "Надя Йорданова Петрова",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "social_care",
       "municipality": null
     },
     {
@@ -59,7 +59,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:nadya-iordanova-petrova-dcc115",
+      "source": "official:nadya-iordanova-petrova-6ff4a9",
       "target": "company:tr:115622219",
       "kind": "tr_role",
       "role": "manager",
@@ -67,7 +67,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:nadya-iordanova-petrova-dcc115",
+      "source": "official:nadya-iordanova-petrova-6ff4a9",
       "target": "company:tr:115622219",
       "kind": "tr_owner",
       "role": "partner",

@@ -1,0 +1,82 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolina-georgieva-cholakova-343803",
+  "nodes": [
+    {
+      "id": "official:nikolina-georgieva-cholakova-343803",
+      "type": "official",
+      "slug": "nikolina-georgieva-cholakova-343803",
+      "label": "Николина Георгиева Чолакова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:147028915",
+      "type": "company",
+      "label": "АГЛЕЯ",
+      "slug": null,
+      "uic": "147028915",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕСИСЛАВА АНГЕЛОВА КОЙЧЕВА",
+      "type": "person",
+      "label": "Десислава Ангелова Койчева"
+    },
+    {
+      "id": "person:ГЕОРГИ НИКОЛОВ БЕЛАКОВ",
+      "type": "person",
+      "label": "Георги Николов Белаков"
+    },
+    {
+      "id": "person:АНГЕЛ АТАНАСОВ КОЙЧЕВ",
+      "type": "person",
+      "label": "Ангел Атанасов Койчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolina-georgieva-cholakova-343803",
+      "target": "company:tr:147028915",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА АНГЕЛОВА КОЙЧЕВА",
+      "target": "company:tr:147028915",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ НИКОЛОВ БЕЛАКОВ",
+      "target": "company:tr:147028915",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ АТАНАСОВ КОЙЧЕВ",
+      "target": "company:tr:147028915",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ НИКОЛОВ БЕЛАКОВ",
+      "target": "company:tr:147028915",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

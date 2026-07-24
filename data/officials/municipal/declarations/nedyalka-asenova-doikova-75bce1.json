@@ -1,0 +1,110 @@
+[
+  {
+    "slug": "nedyalka-asenova-doikova-75bce1",
+    "declarantName": "НЕДЯЛКА АСЕНОВА ДОЙКОВА",
+    "institution": "Доспат",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-01",
+    "entryNumber": "Г5245",
+    "controlHash": "EB345E0A",
+    "sourceUrl": "https://register.cacbg.bg/2025/DB6C6D90-C921-44F7-A75C-B614AB67D245208157.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "ФИРМА",
+        "shareSize": "100",
+        "companyName": "ИВАНИТА ЕООД",
+        "registeredOffice": "ЗМЕИЦА",
+        "valueEur": 51.12918811962185,
+        "holderName": "НЕДЯЛКА АСЕНОВА ДОЙКОВА",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "itemType": "ФИРМА",
+        "shareSize": "100",
+        "companyName": "ЕТ НЕДЯЛКА ДОЙКОВА - НЕЛИ",
+        "registeredOffice": "ЗМЕИЦА",
+        "valueEur": 51.12918811962185,
+        "holderName": "НЕДЯЛКА АСЕНОВА ДОЙКОВА",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 7158.086336747059
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 379.3785758475941,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "НИСАН",
+        "detail": "ЕКС ТРЕЙЛ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 1900,
+        "valueEur": 971.4545742728151,
+        "holderName": "НЕДЯЛКА АСЕНОВА ДОЙКОВА",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "ВЕНЕЛИН БОЙКОВ ДОЙКОВ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "НЕДЯЛКА АСЕНОВА ДОЙКОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

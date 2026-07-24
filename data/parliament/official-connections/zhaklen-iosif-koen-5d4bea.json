@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:zhaklen-iosif-koen-5d4bea",
+  "nodes": [
+    {
+      "id": "official:zhaklen-iosif-koen-5d4bea",
+      "type": "official",
+      "slug": "zhaklen-iosif-koen-5d4bea",
+      "label": "Жаклен Йосиф Коен",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:831712644",
+      "type": "company",
+      "label": "\"Маген\"ЕООД",
+      "slug": null,
+      "uic": "831712644",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zhaklen-iosif-koen-5d4bea",
+      "target": "company:tr:831712644",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

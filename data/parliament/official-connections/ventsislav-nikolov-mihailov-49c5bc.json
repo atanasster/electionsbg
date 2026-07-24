@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ventsislav-nikolov-mihailov-49c5bc",
+  "nodes": [
+    {
+      "id": "official:ventsislav-nikolov-mihailov-49c5bc",
+      "type": "official",
+      "slug": "ventsislav-nikolov-mihailov-49c5bc",
+      "label": "Венцислав Николов Михайлов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Свищов"
+    },
+    {
+      "id": "company:tr:201133023",
+      "type": "company",
+      "label": "ШЕРОЛЕС ЕООД",
+      "slug": null,
+      "uic": "201133023",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ventsislav-nikolov-mihailov-49c5bc",
+      "target": "company:tr:201133023",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

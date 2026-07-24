@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-hristov-stoyanov-2dd57d",
+  "nodes": [
+    {
+      "id": "official:georgi-hristov-stoyanov-2dd57d",
+      "type": "official",
+      "slug": "georgi-hristov-stoyanov-2dd57d",
+      "label": "Георги Христов Стоянов",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204964553",
+      "type": "company",
+      "label": "Енигма травел ЕООД",
+      "slug": null,
+      "uic": "204964553",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-hristov-stoyanov-2dd57d",
+      "target": "company:tr:204964553",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

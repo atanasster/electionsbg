@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:zlatina-georgieva-tabakova-0d4149",
+  "nodes": [
+    {
+      "id": "official:zlatina-georgieva-tabakova-0d4149",
+      "type": "official",
+      "slug": "zlatina-georgieva-tabakova-0d4149",
+      "label": "Златина Георгиева Табакова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Приморско"
+    },
+    {
+      "id": "company:tr:206360352",
+      "type": "company",
+      "label": "Индивидуална практика за първична медицинска помощ - д-р Златина Георгиева Табакова",
+      "slug": null,
+      "uic": "206360352",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zlatina-georgieva-tabakova-0d4149",
+      "target": "company:tr:206360352",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zlatina-georgieva-tabakova-0d4149",
+      "target": "company:tr:206360352",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

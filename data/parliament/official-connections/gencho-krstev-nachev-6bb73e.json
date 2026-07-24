@@ -1,0 +1,256 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:gencho-krstev-nachev-6bb73e",
+  "nodes": [
+    {
+      "id": "official:gencho-krstev-nachev-6bb73e",
+      "type": "official",
+      "slug": "gencho-krstev-nachev-6bb73e",
+      "label": "Генчо Кръстев Начев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200256795",
+      "type": "company",
+      "label": "Ел и Н Трейд Груп ООД",
+      "slug": null,
+      "uic": "200256795",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:200290178",
+      "type": "company",
+      "label": "Грийн Партнърс АД",
+      "slug": null,
+      "uic": "200290178",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:200133700",
+      "type": "company",
+      "label": "Кристална Вода АД",
+      "slug": null,
+      "uic": "200133700",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИНА АНГЕЛОВА КОЛЕВА",
+      "type": "person",
+      "label": "Марина Ангелова Колева"
+    },
+    {
+      "id": "person:ГЕНЧО КРЪСТЕВ НАЧЕВ",
+      "type": "person",
+      "label": "Генчо Кръстев Начев"
+    },
+    {
+      "id": "person:ЕЛЕОНОРА ТОДОРОВА КЮМУРДЖИЕВА",
+      "type": "person",
+      "label": "Елеонора Тодорова Кюмурджиева"
+    },
+    {
+      "id": "person:АКВА РЕНТ",
+      "type": "person",
+      "label": "Аква Рент"
+    },
+    {
+      "id": "person:ПЛАМЕН ЙОРДАНОВ ЦОНКОВ",
+      "type": "person",
+      "label": "Пламен Йорданов Цонков"
+    },
+    {
+      "id": "person:ИВАН ТЕНЕВ ТЕНЧЕВ",
+      "type": "person",
+      "label": "Иван Тенев Тенчев"
+    },
+    {
+      "id": "person:ТОНКА ИВАНОВА ТЕНЧЕВА",
+      "type": "person",
+      "label": "Тонка Иванова Тенчева"
+    },
+    {
+      "id": "person:ПЕТЪР СТОИЛОВ АНДРЕЕВ",
+      "type": "person",
+      "label": "Петър Стоилов Андреев"
+    },
+    {
+      "id": "person:НАСКО ЦВЕТКОВ БОГДАНОВ",
+      "type": "person",
+      "label": "Наско Цветков Богданов"
+    },
+    {
+      "id": "person:АТАНАС КИРИЛОВ ДАВЧЕВ",
+      "type": "person",
+      "label": "Атанас Кирилов Давчев"
+    },
+    {
+      "id": "person:САШКО ЗДРАВКОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Сашко Здравков Илиев"
+    },
+    {
+      "id": "person:ЕЛЕНА ИЛИЕВА ДЕЛЕВА",
+      "type": "person",
+      "label": "Елена Илиева Делева"
+    },
+    {
+      "id": "person:СНЕЖАНА СТОЙЧЕВА ВЕЛКОВА",
+      "type": "person",
+      "label": "Снежана Стойчева Велкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gencho-krstev-nachev-6bb73e",
+      "target": "company:tr:200256795",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:gencho-krstev-nachev-6bb73e",
+      "target": "company:tr:200290178",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:gencho-krstev-nachev-6bb73e",
+      "target": "company:tr:200133700",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНА АНГЕЛОВА КОЛЕВА",
+      "target": "company:tr:200256795",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕНЧО КРЪСТЕВ НАЧЕВ",
+      "target": "company:tr:200256795",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕОНОРА ТОДОРОВА КЮМУРДЖИЕВА",
+      "target": "company:tr:200256795",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АКВА РЕНТ",
+      "target": "company:tr:200256795",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ЙОРДАНОВ ЦОНКОВ",
+      "target": "company:tr:200290178",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ТЕНЕВ ТЕНЧЕВ",
+      "target": "company:tr:200133700",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОНКА ИВАНОВА ТЕНЧЕВА",
+      "target": "company:tr:200133700",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР СТОИЛОВ АНДРЕЕВ",
+      "target": "company:tr:200133700",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАСКО ЦВЕТКОВ БОГДАНОВ",
+      "target": "company:tr:200133700",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАСКО ЦВЕТКОВ БОГДАНОВ",
+      "target": "company:tr:200133700",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС КИРИЛОВ ДАВЧЕВ",
+      "target": "company:tr:200133700",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САШКО ЗДРАВКОВ ИЛИЕВ",
+      "target": "company:tr:200133700",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ИЛИЕВА ДЕЛЕВА",
+      "target": "company:tr:200133700",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНА СТОЙЧЕВА ВЕЛКОВА",
+      "target": "company:tr:200133700",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ИЛИЕВА ДЕЛЕВА",
+      "target": "company:tr:200133700",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

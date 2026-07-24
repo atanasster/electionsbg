@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-kirilov-kalistratov-c9e173",
+  "nodes": [
+    {
+      "id": "official:nikolai-kirilov-kalistratov-c9e173",
+      "type": "official",
+      "slug": "nikolai-kirilov-kalistratov-c9e173",
+      "label": "Николай Кирилов Калистратов",
+      "tier": "executive",
+      "role": "revenue_agency",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206567116",
+      "type": "company",
+      "label": "\"Т и Н Консулт\" ЕООД",
+      "slug": null,
+      "uic": "206567116",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТАМАРА ВЕНЕЛИНОВА КАЛИСТРАТОВА",
+      "type": "person",
+      "label": "Тамара Венелинова Калистратова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-kirilov-kalistratov-c9e173",
+      "target": "company:tr:206567116",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАМАРА ВЕНЕЛИНОВА КАЛИСТРАТОВА",
+      "target": "company:tr:206567116",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАМАРА ВЕНЕЛИНОВА КАЛИСТРАТОВА",
+      "target": "company:tr:206567116",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

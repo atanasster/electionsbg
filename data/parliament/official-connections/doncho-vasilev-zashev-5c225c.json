@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:doncho-vasilev-zashev-5c225c",
+  "nodes": [
+    {
+      "id": "official:doncho-vasilev-zashev-5c225c",
+      "type": "official",
+      "slug": "doncho-vasilev-zashev-5c225c",
+      "label": "Дончо Василев Зашев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Самоков"
+    },
+    {
+      "id": "company:tr:208084657",
+      "type": "company",
+      "label": "АКАУНТ МЕНИДЖМЪНТ БГ",
+      "slug": null,
+      "uic": "208084657",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СНЕЖАНКА АНГЕЛОВА ЗАШЕВА",
+      "type": "person",
+      "label": "Снежанка Ангелова Зашева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:doncho-vasilev-zashev-5c225c",
+      "target": "company:tr:208084657",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СНЕЖАНКА АНГЕЛОВА ЗАШЕВА",
+      "target": "company:tr:208084657",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНКА АНГЕЛОВА ЗАШЕВА",
+      "target": "company:tr:208084657",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

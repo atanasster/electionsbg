@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:yumer-lyutfi-sadula-fa2299",
+  "nodes": [
+    {
+      "id": "official:yumer-lyutfi-sadula-fa2299",
+      "type": "official",
+      "slug": "yumer-lyutfi-sadula-fa2299",
+      "label": "Юмер Лютфи Садула",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хитрино"
+    },
+    {
+      "id": "company:tr:201874428",
+      "type": "company",
+      "label": "Юки фермер 2012 ЕООД",
+      "slug": null,
+      "uic": "201874428",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yumer-lyutfi-sadula-fa2299",
+      "target": "company:tr:201874428",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

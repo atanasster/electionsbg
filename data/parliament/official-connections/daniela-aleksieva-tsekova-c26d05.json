@@ -1,0 +1,116 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:daniela-aleksieva-tsekova-c26d05",
+  "nodes": [
+    {
+      "id": "official:daniela-aleksieva-tsekova-c26d05",
+      "type": "official",
+      "slug": "daniela-aleksieva-tsekova-c26d05",
+      "label": "Даниела Алексиева Цекова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:121461642",
+      "type": "company",
+      "label": "НАЦИОНАЛНА СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА ФИЗИКАЛНА ТЕРАПИЯ И РЕХАБИЛИТАЦИЯ",
+      "slug": null,
+      "uic": "121461642",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:krasina-krasimirova-georgieva-9d697f",
+      "type": "official",
+      "slug": "krasina-krasimirova-georgieva-9d697f",
+      "label": "Красина Красимирова Георгиева",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "official:polya-stefanova-stefanova-buzova-4ffea3",
+      "type": "official",
+      "slug": "polya-stefanova-stefanova-buzova-4ffea3",
+      "label": "Поля Стефанова Стефанова-Бузова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:ЙОРДАН МЕТОДИЕВ ИВАНЧЕВ",
+      "type": "person",
+      "label": "Йордан Методиев Иванчев"
+    },
+    {
+      "id": "person:ПОЛЯ СТЕФАНОВА СТЕФАНОВА - БУЗОВА",
+      "type": "person",
+      "label": "Поля Стефанова Стефанова - Бузова"
+    },
+    {
+      "id": "person:БОРИСЛАВ МЕТОДИЕВ ПЪРВАНОВ",
+      "type": "person",
+      "label": "Борислав Методиев Първанов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniela-aleksieva-tsekova-c26d05",
+      "target": "company:tr:121461642",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:krasina-krasimirova-georgieva-9d697f",
+      "target": "company:tr:121461642",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:polya-stefanova-stefanova-buzova-4ffea3",
+      "target": "company:tr:121461642",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАН МЕТОДИЕВ ИВАНЧЕВ",
+      "target": "company:tr:121461642",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН МЕТОДИЕВ ИВАНЧЕВ",
+      "target": "company:tr:121461642",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПОЛЯ СТЕФАНОВА СТЕФАНОВА - БУЗОВА",
+      "target": "company:tr:121461642",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ МЕТОДИЕВ ПЪРВАНОВ",
+      "target": "company:tr:121461642",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

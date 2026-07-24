@@ -1,0 +1,448 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariya-taneva-dineva-bb527a",
+  "nodes": [
+    {
+      "id": "official:mariya-taneva-dineva-bb527a",
+      "type": "official",
+      "slug": "mariya-taneva-dineva-bb527a",
+      "label": "Мария Танева Динева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стара Загора"
+    },
+    {
+      "id": "company:tr:207262781",
+      "type": "company",
+      "label": "Рубин М ЕООД",
+      "slug": null,
+      "uic": "207262781",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206251869",
+      "type": "company",
+      "label": "Изгрев Б4 ООД",
+      "slug": null,
+      "uic": "206251869",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:123731969",
+      "type": "company",
+      "label": "Старозагорски имоти ООД",
+      "slug": null,
+      "uic": "123731969",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:123753047",
+      "type": "company",
+      "label": "Шаци ООД",
+      "slug": null,
+      "uic": "123753047",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:123562501",
+      "type": "company",
+      "label": "Рилас ООД",
+      "slug": null,
+      "uic": "123562501",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:123562483",
+      "type": "company",
+      "label": "Евробазар ООД",
+      "slug": null,
+      "uic": "123562483",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯ ТАНЕВА ДИНЕВА",
+      "type": "person",
+      "label": "Мария Танева Динева"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ЕВГЕНИЕВА ЖЕКОВА",
+      "type": "person",
+      "label": "Десислава Евгениева Жекова"
+    },
+    {
+      "id": "person:ПЕНКА ТЕНЕВА ЖЕКОВА",
+      "type": "person",
+      "label": "Пенка Тенева Жекова"
+    },
+    {
+      "id": "person:ГАЛИН ЕВГЕНИЕВ ЖЕКОВ",
+      "type": "person",
+      "label": "Галин Евгениев Жеков"
+    },
+    {
+      "id": "person:ЖУЛИЕТА КУНЕВА ЖЕЛЕВА",
+      "type": "person",
+      "label": "Жулиета Кунева Желева"
+    },
+    {
+      "id": "person:РУМЕН БОНЧЕВ БОЮКЛИЕВ",
+      "type": "person",
+      "label": "Румен Бончев Боюклиев"
+    },
+    {
+      "id": "person:ЮРИЙ ВЛАДИМИРОВИЧ БУНДОВ",
+      "type": "person",
+      "label": "Юрий Владимирович Бундов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-taneva-dineva-bb527a",
+      "target": "company:tr:207262781",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mariya-taneva-dineva-bb527a",
+      "target": "company:tr:206251869",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mariya-taneva-dineva-bb527a",
+      "target": "company:tr:123731969",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mariya-taneva-dineva-bb527a",
+      "target": "company:tr:123753047",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mariya-taneva-dineva-bb527a",
+      "target": "company:tr:123562501",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mariya-taneva-dineva-bb527a",
+      "target": "company:tr:123562483",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ТАНЕВА ДИНЕВА",
+      "target": "company:tr:207262781",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ТАНЕВА ДИНЕВА",
+      "target": "company:tr:207262781",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ЕВГЕНИЕВА ЖЕКОВА",
+      "target": "company:tr:206251869",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ТЕНЕВА ЖЕКОВА",
+      "target": "company:tr:206251869",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИН ЕВГЕНИЕВ ЖЕКОВ",
+      "target": "company:tr:206251869",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ЕВГЕНИЕВА ЖЕКОВА",
+      "target": "company:tr:206251869",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ТАНЕВА ДИНЕВА",
+      "target": "company:tr:206251869",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ТАНЕВА ДИНЕВА",
+      "target": "company:tr:206251869",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖУЛИЕТА КУНЕВА ЖЕЛЕВА",
+      "target": "company:tr:206251869",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖУЛИЕТА КУНЕВА ЖЕЛЕВА",
+      "target": "company:tr:206251869",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ЕВГЕНИЕВА ЖЕКОВА",
+      "target": "company:tr:123731969",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН БОНЧЕВ БОЮКЛИЕВ",
+      "target": "company:tr:123731969",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН БОНЧЕВ БОЮКЛИЕВ",
+      "target": "company:tr:123731969",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ТЕНЕВА ЖЕКОВА",
+      "target": "company:tr:123731969",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИН ЕВГЕНИЕВ ЖЕКОВ",
+      "target": "company:tr:123731969",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ЕВГЕНИЕВА ЖЕКОВА",
+      "target": "company:tr:123731969",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ТАНЕВА ДИНЕВА",
+      "target": "company:tr:123731969",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ЕВГЕНИЕВА ЖЕКОВА",
+      "target": "company:tr:123753047",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ТЕНЕВА ЖЕКОВА",
+      "target": "company:tr:123753047",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИН ЕВГЕНИЕВ ЖЕКОВ",
+      "target": "company:tr:123753047",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ЕВГЕНИЕВА ЖЕКОВА",
+      "target": "company:tr:123753047",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ТАНЕВА ДИНЕВА",
+      "target": "company:tr:123753047",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН БОНЧЕВ БОЮКЛИЕВ",
+      "target": "company:tr:123753047",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН БОНЧЕВ БОЮКЛИЕВ",
+      "target": "company:tr:123753047",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ТАНЕВА ДИНЕВА",
+      "target": "company:tr:123562501",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮРИЙ ВЛАДИМИРОВИЧ БУНДОВ",
+      "target": "company:tr:123562501",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ТАНЕВА ДИНЕВА",
+      "target": "company:tr:123562501",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ТЕНЕВА ЖЕКОВА",
+      "target": "company:tr:123562501",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИН ЕВГЕНИЕВ ЖЕКОВ",
+      "target": "company:tr:123562501",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ЕВГЕНИЕВА ЖЕКОВА",
+      "target": "company:tr:123562501",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ТАНЕВА ДИНЕВА",
+      "target": "company:tr:123562483",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮРИЙ ВЛАДИМИРОВИЧ БУНДОВ",
+      "target": "company:tr:123562483",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ТАНЕВА ДИНЕВА",
+      "target": "company:tr:123562483",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИН ЕВГЕНИЕВ ЖЕКОВ",
+      "target": "company:tr:123562483",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ТЕНЕВА ЖЕКОВА",
+      "target": "company:tr:123562483",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ЕВГЕНИЕВА ЖЕКОВА",
+      "target": "company:tr:123562483",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

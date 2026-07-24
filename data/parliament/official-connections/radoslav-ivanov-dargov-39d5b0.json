@@ -1,0 +1,51 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:radoslav-ivanov-dargov-39d5b0",
+  "nodes": [
+    {
+      "id": "official:radoslav-ivanov-dargov-39d5b0",
+      "type": "official",
+      "slug": "radoslav-ivanov-dargov-39d5b0",
+      "label": "Радослав Иванов Даргов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хисаря"
+    },
+    {
+      "id": "company:tr:207125930",
+      "type": "company",
+      "label": "ДАРГИ ИНЖЕНЕРИНГ ЕООД",
+      "slug": null,
+      "uic": "207125930",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:radoslav-ivanov-dargov-39d5b0",
+      "target": "company:tr:207125930",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:radoslav-ivanov-dargov-39d5b0",
+      "target": "company:tr:207125930",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:radoslav-ivanov-dargov-39d5b0",
+      "target": "company:tr:207125930",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

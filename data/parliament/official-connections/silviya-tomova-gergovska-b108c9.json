@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:silviya-tomova-gergovska-b108c9",
+  "nodes": [
+    {
+      "id": "official:silviya-tomova-gergovska-b108c9",
+      "type": "official",
+      "slug": "silviya-tomova-gergovska-b108c9",
+      "label": "Силвия Томова Герговска",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:816088636",
+      "type": "company",
+      "label": "АСПАРУХОВ ВАЛ",
+      "slug": null,
+      "uic": "816088636",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:silviya-tomova-gergovska-b108c9",
+      "target": "company:tr:816088636",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

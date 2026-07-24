@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-dimitrov-arabadzhiev-9cb82a",
+  "nodes": [
+    {
+      "id": "official:nikolai-dimitrov-arabadzhiev-9cb82a",
+      "type": "official",
+      "slug": "nikolai-dimitrov-arabadzhiev-9cb82a",
+      "label": "Николай Димитров Арабаджиев",
+      "tier": "executive",
+      "role": "international",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201591586",
+      "type": "company",
+      "label": "БОМАРТ 2011",
+      "slug": null,
+      "uic": "201591586",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-dimitrov-arabadzhiev-9cb82a",
+      "target": "company:tr:201591586",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

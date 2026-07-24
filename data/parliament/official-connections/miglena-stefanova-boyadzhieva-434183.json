@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:miglena-stefanova-boyadzhieva-434183",
+  "nodes": [
+    {
+      "id": "official:miglena-stefanova-boyadzhieva-434183",
+      "type": "official",
+      "slug": "miglena-stefanova-boyadzhieva-434183",
+      "label": "Миглена Стефанова Бояджиева",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000092550",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ-ДЕВНЯ",
+      "slug": null,
+      "uic": "000092550",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДОБРОМИР ПЛАМЕНОВ ФИЛИПОВ",
+      "type": "person",
+      "label": "Добромир Пламенов Филипов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miglena-stefanova-boyadzhieva-434183",
+      "target": "company:tr:000092550",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДОБРОМИР ПЛАМЕНОВ ФИЛИПОВ",
+      "target": "company:tr:000092550",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:kostadin-vasilev-petrov-e54bc1",
+  "nodes": [
+    {
+      "id": "official:kostadin-vasilev-petrov-e54bc1",
+      "type": "official",
+      "slug": "kostadin-vasilev-petrov-e54bc1",
+      "label": "Костадин Василев Петров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202375339",
+      "type": "company",
+      "label": "Общински футболен клуб „Пирин”",
+      "slug": null,
+      "uic": "202375339",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АТАНАС ДАФИНОВ ДАФИНОВ",
+      "type": "person",
+      "label": "Атанас Дафинов Дафинов"
+    },
+    {
+      "id": "person:ПЕТЪР ДИМИТРОВ ЗАНЕВ",
+      "type": "person",
+      "label": "Петър Димитров Занев"
+    },
+    {
+      "id": "person:ВЕНКО СТРАХИЛОВ ПОПОВ",
+      "type": "person",
+      "label": "Венко Страхилов Попов"
+    },
+    {
+      "id": "person:АДАЛБЕРТ ИВАНОВ ЗАФИРОВ",
+      "type": "person",
+      "label": "Адалберт Иванов Зафиров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kostadin-vasilev-petrov-e54bc1",
+      "target": "company:tr:202375339",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АТАНАС ДАФИНОВ ДАФИНОВ",
+      "target": "company:tr:202375339",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ДИМИТРОВ ЗАНЕВ",
+      "target": "company:tr:202375339",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНКО СТРАХИЛОВ ПОПОВ",
+      "target": "company:tr:202375339",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АДАЛБЕРТ ИВАНОВ ЗАФИРОВ",
+      "target": "company:tr:202375339",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

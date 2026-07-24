@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:4252",
   "nodes": [
     {
@@ -53,20 +53,6 @@
       "legalForm": "FOUND",
       "status": "ceased",
       "seat": "БЪЛГАРИЯ, София, 1618"
-    },
-    {
-      "id": "official:grozdan-spasov-karadzhov-039f80",
-      "type": "official",
-      "slug": "grozdan-spasov-karadzhov-039f80",
-      "label": "Гроздан Спасов Караджов",
-      "tier": "executive",
-      "role": "cabinet",
-      "municipality": null
-    },
-    {
-      "id": "person:ГРОЗДАН СПАСОВ КАРАДЖОВ",
-      "type": "person",
-      "label": "Гроздан Спасов Караджов"
     },
     {
       "id": "person:ПРОПЪРТИ БУЛИНВЕСТ",
@@ -136,22 +122,6 @@
       "confidence": "medium"
     },
     {
-      "source": "official:grozdan-spasov-karadzhov-039f80",
-      "target": "company:Раведас-ЕООД",
-      "kind": "declared_stake",
-      "role": "declared_share",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ГРОЗДАН СПАСОВ КАРАДЖОВ",
-      "target": "company:tr:130844885",
-      "kind": "tr_role",
-      "role": "manager",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
       "source": "person:ПРОПЪРТИ БУЛИНВЕСТ",
       "target": "company:tr:130844885",
       "kind": "tr_owner",
@@ -184,22 +154,6 @@
       "confidence": "high"
     },
     {
-      "source": "person:ГРОЗДАН СПАСОВ КАРАДЖОВ",
-      "target": "company:tr:130849715",
-      "kind": "tr_role",
-      "role": "ngo_representative",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ГРОЗДАН СПАСОВ КАРАДЖОВ",
-      "target": "company:tr:130849715",
-      "kind": "tr_role",
-      "role": "ngo_board",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
       "source": "person:НЕЛИ АНГЕЛОВА ОГНЯНОВА",
       "target": "company:tr:130849715",
       "kind": "tr_role",
@@ -228,14 +182,6 @@
       "target": "company:tr:121022905",
       "kind": "tr_role",
       "role": "ngo_representative",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ГРОЗДАН СПАСОВ КАРАДЖОВ",
-      "target": "company:tr:121022905",
-      "kind": "tr_role",
-      "role": "ngo_board",
       "isCurrent": true,
       "confidence": "high"
     },

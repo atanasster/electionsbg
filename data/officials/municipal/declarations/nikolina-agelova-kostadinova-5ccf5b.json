@@ -1,0 +1,154 @@
+[
+  {
+    "slug": "nikolina-agelova-kostadinova-5ccf5b",
+    "declarantName": "Николина Ангелова Костадинова",
+    "institution": "Рудозем",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-03-27",
+    "entryNumber": "Г1626",
+    "controlHash": "138AC3EF",
+    "sourceUrl": "https://register.cacbg.bg/2025/4133DB8A-9FDC-458C-BDD4-3E0AB97B6CFF204140.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 642.1826027824504,
+        "amountEurSpouse": 7653.5281696261945
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 15869.47740856823,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1227.1005148709244,
+        "amountEurSpouse": 2760.97615845958
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2045.1675247848739
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 14099.384915866922
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент с гараж и парко място",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 80,
+        "builtAreaSqm": 115,
+        "acquiredYear": 2024,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 203641,
+        "valueEur": 104119.98997867914,
+        "holderName": "Николина Ангелова Костадинова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата и заем"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "с. Средногорци",
+        "municipality": "Мадан",
+        "areaSqm": 53,
+        "builtAreaSqm": 53,
+        "acquiredYear": 2024,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 930,
+        "valueEur": 475.5014495124832,
+        "holderName": "Деан Василев Костадинов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 7113,
+        "valueEur": 6646.79445555084,
+        "holderName": "Николина Ангелова Костадинова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 51710,
+        "valueEur": 26438.90317665646,
+        "holderName": "Николина Ангелова Костадинова",
+        "isSpouse": false,
+        "legalBasis": "договор, 5.08 % лихва",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 57778,
+        "valueEur": 29541.422311755112,
+        "holderName": "Деан Василев Костадинов",
+        "isSpouse": true,
+        "legalBasis": "договор, 4.64 % лихва",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "гараж",
+        "detail": null,
+        "location": "с. Средногорци",
+        "municipality": "Мадан",
+        "areaSqm": 18,
+        "builtAreaSqm": 18,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

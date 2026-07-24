@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stefka-petkova-stefanova-03b3f6",
+  "nodes": [
+    {
+      "id": "official:stefka-petkova-stefanova-03b3f6",
+      "type": "official",
+      "slug": "stefka-petkova-stefanova-03b3f6",
+      "label": "Стефка Петкова Стефанова",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:119616154",
+      "type": "company",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪР &quot;СВЕТА ПЕТКА БЪЛГАРСКА&quot;",
+      "slug": null,
+      "uic": "119616154",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stefka-petkova-stefanova-03b3f6",
+      "target": "company:tr:119616154",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikodim-totev-ninov-a07372",
+  "nodes": [
+    {
+      "id": "official:nikodim-totev-ninov-a07372",
+      "type": "official",
+      "slug": "nikodim-totev-ninov-a07372",
+      "label": "Никодим Тотев Нинов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207815415",
+      "type": "company",
+      "label": "КОМПЛЕКС МАКСИМ",
+      "slug": null,
+      "uic": "207815415",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПОЛЯ ИВАНОВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Поля Иванова Стефанова"
+    },
+    {
+      "id": "person:РАДОСЛАВ ВАСИЛЕВ КОСТОВ",
+      "type": "person",
+      "label": "Радослав Василев Костов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikodim-totev-ninov-a07372",
+      "target": "company:tr:207815415",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПОЛЯ ИВАНОВА СТЕФАНОВА",
+      "target": "company:tr:207815415",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ВАСИЛЕВ КОСТОВ",
+      "target": "company:tr:207815415",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПОЛЯ ИВАНОВА СТЕФАНОВА",
+      "target": "company:tr:207815415",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ВАСИЛЕВ КОСТОВ",
+      "target": "company:tr:207815415",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

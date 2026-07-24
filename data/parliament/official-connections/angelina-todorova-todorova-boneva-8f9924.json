@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:angelina-todorova-todorova-boneva-8f9924",
+  "nodes": [
+    {
+      "id": "official:angelina-todorova-todorova-boneva-8f9924",
+      "type": "official",
+      "slug": "angelina-todorova-todorova-boneva-8f9924",
+      "label": "Ангелина Тодорова Тодорова-Бонева",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175369425",
+      "type": "company",
+      "label": "Ангелма Окстрот ЕООД",
+      "slug": null,
+      "uic": "175369425",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТОДОР ИВАНОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Тодор Иванов Тодоров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:angelina-todorova-todorova-boneva-8f9924",
+      "target": "company:tr:175369425",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ИВАНОВ ТОДОРОВ",
+      "target": "company:tr:175369425",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ИВАНОВ ТОДОРОВ",
+      "target": "company:tr:175369425",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

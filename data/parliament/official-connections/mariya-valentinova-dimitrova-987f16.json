@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariya-valentinova-dimitrova-987f16",
+  "nodes": [
+    {
+      "id": "official:mariya-valentinova-dimitrova-987f16",
+      "type": "official",
+      "slug": "mariya-valentinova-dimitrova-987f16",
+      "label": "Мария Валентинова Димитрова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Свиленград"
+    },
+    {
+      "id": "company:tr:207705456",
+      "type": "company",
+      "label": "ФАЙНЪЛ СЕЛЕКШЪН",
+      "slug": null,
+      "uic": "207705456",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-valentinova-dimitrova-987f16",
+      "target": "company:tr:207705456",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariya-valentinova-dimitrova-987f16",
+      "target": "company:tr:207705456",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

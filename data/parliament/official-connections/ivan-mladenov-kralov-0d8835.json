@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-mladenov-kralov-0d8835",
+  "nodes": [
+    {
+      "id": "official:ivan-mladenov-kralov-0d8835",
+      "type": "official",
+      "slug": "ivan-mladenov-kralov-0d8835",
+      "label": "Иван Младенов Кралов",
+      "tier": "executive",
+      "role": "academic",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:121806177",
+      "type": "company",
+      "label": "ТИВАКОМ ООД",
+      "slug": null,
+      "uic": "121806177",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-mladenov-kralov-0d8835",
+      "target": "company:tr:121806177",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

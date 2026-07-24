@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:938",
   "nodes": [
     {
@@ -31,63 +31,63 @@
       "nsFolders": []
     },
     {
-      "id": "official:emiliya-dimitrova-facheva-45ed4b",
+      "id": "official:emiliya-dimitrova-facheva-82c030",
       "type": "official",
-      "slug": "emiliya-dimitrova-facheva-45ed4b",
+      "slug": "emiliya-dimitrova-facheva-82c030",
       "label": "Емилия Димитрова Фачева",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:nadezhda-petrova-mazova-7d28a6",
+      "id": "official:nadezhda-petrova-mazova-3442f3",
       "type": "official",
-      "slug": "nadezhda-petrova-mazova-7d28a6",
+      "slug": "nadezhda-petrova-mazova-3442f3",
       "label": "Надежда Петрова Мазова",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:pavel-ivanov-masov-6cd57d",
+      "id": "official:pavel-ivanov-masov-e19cc2",
       "type": "official",
-      "slug": "pavel-ivanov-masov-6cd57d",
+      "slug": "pavel-ivanov-masov-e19cc2",
       "label": "Павел Иванов Масов",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:radoslav-stefanov-benevreshki-2c57c7",
+      "id": "official:radoslav-stefanov-benevreshki-e2bb9b",
       "type": "official",
-      "slug": "radoslav-stefanov-benevreshki-2c57c7",
+      "slug": "radoslav-stefanov-benevreshki-e2bb9b",
       "label": "Радослав Стефанов Беневрешки",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:stanislav-dochev-dochev-e7872a",
+      "id": "official:stanislav-dochev-dochev-0c377d",
       "type": "official",
-      "slug": "stanislav-dochev-dochev-e7872a",
+      "slug": "stanislav-dochev-dochev-0c377d",
       "label": "Станислав Дочев Дочев",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:tsvetiliya-ivanova-stoilkova-a0d7ed",
+      "id": "official:tsvetiliya-ivanova-stoilkova-50e652",
       "type": "official",
-      "slug": "tsvetiliya-ivanova-stoilkova-a0d7ed",
+      "slug": "tsvetiliya-ivanova-stoilkova-50e652",
       "label": "Цветилия Иванова Стоилкова",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:elena-georgieva-aleksandrova-georgieva-a42a47",
+      "id": "official:elena-georgieva-aleksandrova-georgieva-1d1d4c",
       "type": "official",
-      "slug": "elena-georgieva-aleksandrova-georgieva-a42a47",
+      "slug": "elena-georgieva-aleksandrova-georgieva-1d1d4c",
       "label": "Елена Георгиева Александрова-Георгиева",
       "tier": "municipal",
       "role": "councillor",
@@ -228,7 +228,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:emiliya-dimitrova-facheva-45ed4b",
+      "source": "official:emiliya-dimitrova-facheva-82c030",
       "target": "company:tr:121396123",
       "kind": "tr_role",
       "role": "director",
@@ -236,7 +236,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:nadezhda-petrova-mazova-7d28a6",
+      "source": "official:nadezhda-petrova-mazova-3442f3",
       "target": "company:tr:121396123",
       "kind": "tr_role",
       "role": "director",
@@ -244,7 +244,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:pavel-ivanov-masov-6cd57d",
+      "source": "official:pavel-ivanov-masov-e19cc2",
       "target": "company:tr:121396123",
       "kind": "tr_role",
       "role": "director",
@@ -252,7 +252,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:radoslav-stefanov-benevreshki-2c57c7",
+      "source": "official:radoslav-stefanov-benevreshki-e2bb9b",
       "target": "company:tr:121396123",
       "kind": "tr_role",
       "role": "director",
@@ -260,7 +260,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:stanislav-dochev-dochev-e7872a",
+      "source": "official:stanislav-dochev-dochev-0c377d",
       "target": "company:tr:121396123",
       "kind": "tr_role",
       "role": "director",
@@ -268,7 +268,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:tsvetiliya-ivanova-stoilkova-a0d7ed",
+      "source": "official:tsvetiliya-ivanova-stoilkova-50e652",
       "target": "company:tr:121396123",
       "kind": "tr_role",
       "role": "representative",
@@ -276,7 +276,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:tsvetiliya-ivanova-stoilkova-a0d7ed",
+      "source": "official:tsvetiliya-ivanova-stoilkova-50e652",
       "target": "company:tr:121396123",
       "kind": "tr_role",
       "role": "director",
@@ -284,7 +284,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:elena-georgieva-aleksandrova-georgieva-a42a47",
+      "source": "official:elena-georgieva-aleksandrova-georgieva-1d1d4c",
       "target": "company:tr:121396123",
       "kind": "tr_role",
       "role": "director",

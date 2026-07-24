@@ -1,0 +1,285 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:kremena-georgieva-stoicheva-77fc28",
+  "nodes": [
+    {
+      "id": "official:kremena-georgieva-stoicheva-77fc28",
+      "type": "official",
+      "slug": "kremena-georgieva-stoicheva-77fc28",
+      "label": "Кремена Георгиева Стойчева",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000283299",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ ПРОСВЕТА - 1905 Г",
+      "slug": null,
+      "uic": "000283299",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГАБРИЕЛА ВЛАДИМИРОВА МАРИНОВА",
+      "type": "person",
+      "label": "Габриела Владимирова Маринова"
+    },
+    {
+      "id": "person:ГАЛЯ ХРИСТОВА КЕРЕЗОВА",
+      "type": "person",
+      "label": "Галя Христова Керезова"
+    },
+    {
+      "id": "person:ЙОВКА ЛАЛЕВА ТОМОВА",
+      "type": "person",
+      "label": "Йовка Лалева Томова"
+    },
+    {
+      "id": "person:ДИМИТРИНА ИВАНОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Димитрина Иванова Христова"
+    },
+    {
+      "id": "person:ИВАН МИХАЙЛОВ ПЕНКОВ",
+      "type": "person",
+      "label": "Иван Михайлов Пенков"
+    },
+    {
+      "id": "person:ПАВЛИНА СТЕФАНОВА КОНИШЕВА",
+      "type": "person",
+      "label": "Павлина Стефанова Конишева"
+    },
+    {
+      "id": "person:ХАНДЕ ЮСЕИНОВА КОДЖАХАСАНОВА",
+      "type": "person",
+      "label": "Ханде Юсеинова Коджахасанова"
+    },
+    {
+      "id": "person:МАРТИНА АТАНАСОВА КОЙЧЕВА",
+      "type": "person",
+      "label": "Мартина Атанасова Койчева"
+    },
+    {
+      "id": "person:НАТАЛИЯ МИХАЙЛОВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Наталия Михайлова Стефанова"
+    },
+    {
+      "id": "person:ТЕМЕНУЖКА СТЕФАНОВА КОЙЧЕВА",
+      "type": "person",
+      "label": "Теменужка Стефанова Койчева"
+    },
+    {
+      "id": "person:МИГЛЕНА ПАВЛОВА БЛАГОЕВА",
+      "type": "person",
+      "label": "Миглена Павлова Благоева"
+    },
+    {
+      "id": "person:РАДОСЛАВ ПЕТРОВ ЛАКОВСКИ",
+      "type": "person",
+      "label": "Радослав Петров Лаковски"
+    },
+    {
+      "id": "person:ПЕТЯ ТОДОРОВА КОЛЕВА",
+      "type": "person",
+      "label": "Петя Тодорова Колева"
+    },
+    {
+      "id": "person:ЙОВКА КИРИЛОВА НЕДЯЛКОВА",
+      "type": "person",
+      "label": "Йовка Кирилова Недялкова"
+    },
+    {
+      "id": "person:НИВЕЛИНА СТЕФАНОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Нивелина Стефанова Василева"
+    },
+    {
+      "id": "person:СТЕЛИАНА МИХАЙЛОВА ПЕНКОВА",
+      "type": "person",
+      "label": "Стелиана Михайлова Пенкова"
+    },
+    {
+      "id": "person:РУМЯНКА ПЕТРОВА КУШ",
+      "type": "person",
+      "label": "Румянка Петрова Куш"
+    },
+    {
+      "id": "person:ЦЕНКА КИРИЛОВА ЦАНКОВА",
+      "type": "person",
+      "label": "Ценка Кирилова Цанкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kremena-georgieva-stoicheva-77fc28",
+      "target": "company:tr:000283299",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГАБРИЕЛА ВЛАДИМИРОВА МАРИНОВА",
+      "target": "company:tr:000283299",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛЯ ХРИСТОВА КЕРЕЗОВА",
+      "target": "company:tr:000283299",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОВКА ЛАЛЕВА ТОМОВА",
+      "target": "company:tr:000283299",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИНА ИВАНОВА ХРИСТОВА",
+      "target": "company:tr:000283299",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН МИХАЙЛОВ ПЕНКОВ",
+      "target": "company:tr:000283299",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА СТЕФАНОВА КОНИШЕВА",
+      "target": "company:tr:000283299",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАНДЕ ЮСЕИНОВА КОДЖАХАСАНОВА",
+      "target": "company:tr:000283299",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАНДЕ ЮСЕИНОВА КОДЖАХАСАНОВА",
+      "target": "company:tr:000283299",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИНА АТАНАСОВА КОЙЧЕВА",
+      "target": "company:tr:000283299",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАЛИЯ МИХАЙЛОВА СТЕФАНОВА",
+      "target": "company:tr:000283299",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИНА АТАНАСОВА КОЙЧЕВА",
+      "target": "company:tr:000283299",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕМЕНУЖКА СТЕФАНОВА КОЙЧЕВА",
+      "target": "company:tr:000283299",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИГЛЕНА ПАВЛОВА БЛАГОЕВА",
+      "target": "company:tr:000283299",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ПЕТРОВ ЛАКОВСКИ",
+      "target": "company:tr:000283299",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ТОДОРОВА КОЛЕВА",
+      "target": "company:tr:000283299",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОВКА КИРИЛОВА НЕДЯЛКОВА",
+      "target": "company:tr:000283299",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИВЕЛИНА СТЕФАНОВА ВАСИЛЕВА",
+      "target": "company:tr:000283299",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕЛИАНА МИХАЙЛОВА ПЕНКОВА",
+      "target": "company:tr:000283299",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНКА ПЕТРОВА КУШ",
+      "target": "company:tr:000283299",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦЕНКА КИРИЛОВА ЦАНКОВА",
+      "target": "company:tr:000283299",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

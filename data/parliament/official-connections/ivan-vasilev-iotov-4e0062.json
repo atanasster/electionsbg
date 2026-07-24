@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-vasilev-iotov-4e0062",
+  "nodes": [
+    {
+      "id": "official:ivan-vasilev-iotov-4e0062",
+      "type": "official",
+      "slug": "ivan-vasilev-iotov-4e0062",
+      "label": "Иван Василев Йотов",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Долни Дъбник"
+    },
+    {
+      "id": "company:tr:200567141",
+      "type": "company",
+      "label": "Ю ЕС Ю ЕНЕРДЖИ ООД",
+      "slug": null,
+      "uic": "200567141",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-vasilev-iotov-4e0062",
+      "target": "company:tr:200567141",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:martin-plamenov-stanchev-214f59",
+  "nodes": [
+    {
+      "id": "official:martin-plamenov-stanchev-214f59",
+      "type": "official",
+      "slug": "martin-plamenov-stanchev-214f59",
+      "label": "Мартин Пламенов Станчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205315272",
+      "type": "company",
+      "label": "Изтокът Среща Запада Консултинг ООД",
+      "slug": null,
+      "uic": "205315272",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:martin-plamenov-stanchev-214f59",
+      "target": "company:tr:205315272",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

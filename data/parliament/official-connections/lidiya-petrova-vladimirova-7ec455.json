@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:lidiya-petrova-vladimirova-7ec455",
+  "nodes": [
+    {
+      "id": "official:lidiya-petrova-vladimirova-7ec455",
+      "type": "official",
+      "slug": "lidiya-petrova-vladimirova-7ec455",
+      "label": "Лидия Петрова Владимирова",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Район Красна поляна"
+    },
+    {
+      "id": "company:tr:203640687",
+      "type": "company",
+      "label": "ЛИДИЗ",
+      "slug": null,
+      "uic": "203640687",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТЕФКА ДИМИТРОВА ЧОРЛЕВА",
+      "type": "person",
+      "label": "Стефка Димитрова Чорлева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lidiya-petrova-vladimirova-7ec455",
+      "target": "company:tr:203640687",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФКА ДИМИТРОВА ЧОРЛЕВА",
+      "target": "company:tr:203640687",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА ДИМИТРОВА ЧОРЛЕВА",
+      "target": "company:tr:203640687",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

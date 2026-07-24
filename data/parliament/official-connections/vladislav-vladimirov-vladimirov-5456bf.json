@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vladislav-vladimirov-vladimirov-5456bf",
+  "nodes": [
+    {
+      "id": "official:vladislav-vladimirov-vladimirov-5456bf",
+      "type": "official",
+      "slug": "vladislav-vladimirov-vladimirov-5456bf",
+      "label": "Владислав Владимиров Владимиров",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Район Нови Искър"
+    },
+    {
+      "id": "company:tr:207052628",
+      "type": "company",
+      "label": "БРАТЯ ВЛАДИМИРОВИ 2022",
+      "slug": null,
+      "uic": "207052628",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕЛИЗАР ВЛАДИМИРОВ ВЛАДИМИРОВ",
+      "type": "person",
+      "label": "Велизар Владимиров Владимиров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladislav-vladimirov-vladimirov-5456bf",
+      "target": "company:tr:207052628",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕЛИЗАР ВЛАДИМИРОВ ВЛАДИМИРОВ",
+      "target": "company:tr:207052628",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИЗАР ВЛАДИМИРОВ ВЛАДИМИРОВ",
+      "target": "company:tr:207052628",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

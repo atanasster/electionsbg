@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:pavlin-krasimirov-ganchev-a77cc7",
+  "nodes": [
+    {
+      "id": "official:pavlin-krasimirov-ganchev-a77cc7",
+      "type": "official",
+      "slug": "pavlin-krasimirov-ganchev-a77cc7",
+      "label": "Павлин Красимиров Ганчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Севлиево"
+    },
+    {
+      "id": "company:tr:202101612",
+      "type": "company",
+      "label": "ЕЛ ЕМ ПИ ИНЖЕНЕРИНГ ЕООД",
+      "slug": null,
+      "uic": "202101612",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:pavlin-krasimirov-ganchev-a77cc7",
+      "target": "company:tr:202101612",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

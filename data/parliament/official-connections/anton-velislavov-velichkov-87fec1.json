@@ -1,0 +1,84 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:anton-velislavov-velichkov-87fec1",
+  "nodes": [
+    {
+      "id": "official:anton-velislavov-velichkov-87fec1",
+      "type": "official",
+      "slug": "anton-velislavov-velichkov-87fec1",
+      "label": "Антон Велиславов Величков",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207698442",
+      "type": "company",
+      "label": "АГРО ЮНИЪН БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "207698442",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАЛЕРИЙ ЙОРДАНОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Валерий Йорданов Илиев"
+    },
+    {
+      "id": "company:name:ОАК - ИНТЕРАГРО - БЪЛГАРИЯ",
+      "type": "company",
+      "label": "\"ОАК - Интерагро - България\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:ХИМ АГРО - БЪЛГАРИЯ",
+      "type": "company",
+      "label": "\"Хим Агро - България\" ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:anton-velislavov-velichkov-87fec1",
+      "target": "company:tr:207698442",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕРИЙ ЙОРДАНОВ ИЛИЕВ",
+      "target": "company:tr:207698442",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ОАК - ИНТЕРАГРО - БЪЛГАРИЯ",
+      "target": "company:tr:207698442",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ХИМ АГРО - БЪЛГАРИЯ",
+      "target": "company:tr:207698442",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:petr-dimitrov-argirov-38686b",
+  "nodes": [
+    {
+      "id": "official:petr-dimitrov-argirov-38686b",
+      "type": "official",
+      "slug": "petr-dimitrov-argirov-38686b",
+      "label": "Петър Димитров Аргиров",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207083545",
+      "type": "company",
+      "label": "НАЦИОНАЛНО СДРУЖЕНИЕ НА МЕДИЦИНСКИТЕ ЦЕНТРОВЕ ОТ НЕОБЛАСТНИТЕ ОБЩИНИ",
+      "slug": null,
+      "uic": "207083545",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КАТЯ ПЕТРОВА ГАНОВА",
+      "type": "person",
+      "label": "Катя Петрова Ганова"
+    },
+    {
+      "id": "person:КРАСИМИР КОСТОВ ПЕЙЧЕВ",
+      "type": "person",
+      "label": "Красимир Костов Пейчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petr-dimitrov-argirov-38686b",
+      "target": "company:tr:207083545",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КАТЯ ПЕТРОВА ГАНОВА",
+      "target": "company:tr:207083545",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ ПЕТРОВА ГАНОВА",
+      "target": "company:tr:207083545",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР КОСТОВ ПЕЙЧЕВ",
+      "target": "company:tr:207083545",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

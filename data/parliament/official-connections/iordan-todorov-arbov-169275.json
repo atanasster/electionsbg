@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iordan-todorov-arbov-169275",
+  "nodes": [
+    {
+      "id": "official:iordan-todorov-arbov-169275",
+      "type": "official",
+      "slug": "iordan-todorov-arbov-169275",
+      "label": "Йордан Тодоров Арбов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201898805",
+      "type": "company",
+      "label": "Арбови ООД",
+      "slug": null,
+      "uic": "201898805",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАША БОЧЕВА АРБОВА",
+      "type": "person",
+      "label": "Маша Бочева Арбова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordan-todorov-arbov-169275",
+      "target": "company:tr:201898805",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАША БОЧЕВА АРБОВА",
+      "target": "company:tr:201898805",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

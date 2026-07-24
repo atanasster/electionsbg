@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tihomir-iliev-georgiev-67226e",
+  "nodes": [
+    {
+      "id": "official:tihomir-iliev-georgiev-67226e",
+      "type": "official",
+      "slug": "tihomir-iliev-georgiev-67226e",
+      "label": "Тихомир Илиев Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бойчиновци"
+    },
+    {
+      "id": "company:tr:208584819",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ ЛЕХЧЕВО",
+      "slug": null,
+      "uic": "208584819",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТОМИСЛАВ ВАЛЕРИЕВ ТОМОВ",
+      "type": "person",
+      "label": "Томислав Валериев Томов"
+    },
+    {
+      "id": "person:ПЕТКО АНГЕЛОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Петко Ангелов Петков"
+    },
+    {
+      "id": "person:РОСЕН ГОРАНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Росен Горанов Георгиев"
+    },
+    {
+      "id": "person:НИКОЛАЙ ГОРАНОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Николай Горанов Тодоров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tihomir-iliev-georgiev-67226e",
+      "target": "company:tr:208584819",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТОМИСЛАВ ВАЛЕРИЕВ ТОМОВ",
+      "target": "company:tr:208584819",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОМИСЛАВ ВАЛЕРИЕВ ТОМОВ",
+      "target": "company:tr:208584819",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО АНГЕЛОВ ПЕТКОВ",
+      "target": "company:tr:208584819",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН ГОРАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:208584819",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ГОРАНОВ ТОДОРОВ",
+      "target": "company:tr:208584819",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

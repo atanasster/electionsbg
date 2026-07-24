@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:magdalena-kostadinova-atanasova-52dfb8",
+  "nodes": [
+    {
+      "id": "official:magdalena-kostadinova-atanasova-52dfb8",
+      "type": "official",
+      "slug": "magdalena-kostadinova-atanasova-52dfb8",
+      "label": "Магдалена Костадинова Атанасова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206414138",
+      "type": "company",
+      "label": "ЕЛЕГАНС МПК",
+      "slug": null,
+      "uic": "206414138",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:magdalena-kostadinova-atanasova-52dfb8",
+      "target": "company:tr:206414138",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:magdalena-kostadinova-atanasova-52dfb8",
+      "target": "company:tr:206414138",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

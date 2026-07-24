@@ -1,0 +1,194 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:marina-ilieva-semova-996fdf",
+  "nodes": [
+    {
+      "id": "official:marina-ilieva-semova-996fdf",
+      "type": "official",
+      "slug": "marina-ilieva-semova-996fdf",
+      "label": "Марина Илиева Семова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Аксаково"
+    },
+    {
+      "id": "company:tr:000084728",
+      "type": "company",
+      "label": "Народно читалище Христо Ботев-1927 г.",
+      "slug": null,
+      "uic": "000084728",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТАНИСЛАВА АНДРЕЕВА МИТЕВА",
+      "type": "person",
+      "label": "Станислава Андреева Митева"
+    },
+    {
+      "id": "person:ЕКАТЕРИНА ПАНАЙОТОВА ДЯНКОВА",
+      "type": "person",
+      "label": "Екатерина Панайотова Дянкова"
+    },
+    {
+      "id": "person:МАРИН НЕДЕЛЧЕВ МАРИНОВ",
+      "type": "person",
+      "label": "Марин Неделчев Маринов"
+    },
+    {
+      "id": "person:ВИКТОРИЯ ЯНКОВА ЖЕКОВА",
+      "type": "person",
+      "label": "Виктория Янкова Жекова"
+    },
+    {
+      "id": "person:ВАСИЛКА КОСТАДИНОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Василка Костадинова Николова"
+    },
+    {
+      "id": "person:МАРИЯ МАРИНОВА СТОЙЧЕВА",
+      "type": "person",
+      "label": "Мария Маринова Стойчева"
+    },
+    {
+      "id": "person:ЛИЛЯНА НИКОЛОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Лиляна Николова Димитрова"
+    },
+    {
+      "id": "person:НИКОЛАЙ АТАНАСОВ АНДОНОВ",
+      "type": "person",
+      "label": "Николай Атанасов Андонов"
+    },
+    {
+      "id": "person:ГАЛЯ ЦОЛОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Галя Цолова Димитрова"
+    },
+    {
+      "id": "person:КСЕНИЯ АЛЕКСЕЕВНА АБРАШЕВА",
+      "type": "person",
+      "label": "Ксения Алексеевна Абрашева"
+    },
+    {
+      "id": "person:СТИЛЯНА НИКОЛАЕВА НИКОЛОВА",
+      "type": "person",
+      "label": "Стиляна Николаева Николова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:marina-ilieva-semova-996fdf",
+      "target": "company:tr:000084728",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТАНИСЛАВА АНДРЕЕВА МИТЕВА",
+      "target": "company:tr:000084728",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕКАТЕРИНА ПАНАЙОТОВА ДЯНКОВА",
+      "target": "company:tr:000084728",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН НЕДЕЛЧЕВ МАРИНОВ",
+      "target": "company:tr:000084728",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОРИЯ ЯНКОВА ЖЕКОВА",
+      "target": "company:tr:000084728",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛКА КОСТАДИНОВА НИКОЛОВА",
+      "target": "company:tr:000084728",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ МАРИНОВА СТОЙЧЕВА",
+      "target": "company:tr:000084728",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛЯНА НИКОЛОВА ДИМИТРОВА",
+      "target": "company:tr:000084728",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН НЕДЕЛЧЕВ МАРИНОВ",
+      "target": "company:tr:000084728",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ АТАНАСОВ АНДОНОВ",
+      "target": "company:tr:000084728",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ АТАНАСОВ АНДОНОВ",
+      "target": "company:tr:000084728",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛЯ ЦОЛОВА ДИМИТРОВА",
+      "target": "company:tr:000084728",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КСЕНИЯ АЛЕКСЕЕВНА АБРАШЕВА",
+      "target": "company:tr:000084728",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТИЛЯНА НИКОЛАЕВА НИКОЛОВА",
+      "target": "company:tr:000084728",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

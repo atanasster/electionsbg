@@ -1,0 +1,130 @@
+[
+  {
+    "slug": "dimitr-ivanov-gagov-189831",
+    "declarantName": "Димитър Иванов Гагов",
+    "institution": "Велинград",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г10109",
+    "controlHash": "2B4C31FD",
+    "sourceUrl": "https://register.cacbg.bg/2025/6C4BA191-096E-43D1-8D6F-6034E061B630213182.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 83916.29129321055,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 15817.83692856741,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "Рандолин дол",
+        "municipality": "Велинград",
+        "areaSqm": 14,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2024,
+        "share": "1/48",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Димитър Иванов Гагов",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Мицубиши Паджеро",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 2137,
+        "valueEur": 1092.630750116319,
+        "holderName": "Димитър Иванов Гагов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "товарен автомобил",
+        "detail": "Фиат дукато",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2025,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 978,
+        "valueEur": 500.04345980990166,
+        "holderName": "Димитър Иванов Гагов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 59800,
+        "valueEur": 30575.254495533867,
+        "holderName": "Димитър Иванов Гагов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "продажба на имоти и заплати"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "Рандолин дол",
+        "municipality": "Велинград",
+        "areaSqm": 14,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр.Банкя",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 760,
+        "builtAreaSqm": 106,
+        "currency": "BGN",
+        "valueEur": 25053.302178614707,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

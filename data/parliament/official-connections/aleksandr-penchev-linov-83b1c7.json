@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:aleksandr-penchev-linov-83b1c7",
+  "nodes": [
+    {
+      "id": "official:aleksandr-penchev-linov-83b1c7",
+      "type": "official",
+      "slug": "aleksandr-penchev-linov-83b1c7",
+      "label": "Александър Пенчев Линов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204440337",
+      "type": "company",
+      "label": "Метал Ривър",
+      "slug": null,
+      "uic": "204440337",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОЛЕГ МИНЧОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Олег Минчов Димитров"
+    },
+    {
+      "id": "person:ВЕСЕЛИН СПАСОВ СИМЕОНОВ",
+      "type": "person",
+      "label": "Веселин Спасов Симеонов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandr-penchev-linov-83b1c7",
+      "target": "company:tr:204440337",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aleksandr-penchev-linov-83b1c7",
+      "target": "company:tr:204440337",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОЛЕГ МИНЧОВ ДИМИТРОВ",
+      "target": "company:tr:204440337",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН СПАСОВ СИМЕОНОВ",
+      "target": "company:tr:204440337",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН СПАСОВ СИМЕОНОВ",
+      "target": "company:tr:204440337",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:atanas-dochev-dochev-8e0bf1",
+  "nodes": [
+    {
+      "id": "official:atanas-dochev-dochev-8e0bf1",
+      "type": "official",
+      "slug": "atanas-dochev-dochev-8e0bf1",
+      "label": "Атанас Дочев Дочев",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Сопот"
+    },
+    {
+      "id": "company:tr:208249863",
+      "type": "company",
+      "label": "БИМ АРТ ДИВЕЛЪПМЪНТ",
+      "slug": null,
+      "uic": "208249863",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТИНКА НЕШЕВА НЕШЕВА",
+      "type": "person",
+      "label": "Тинка Нешева Нешева"
+    },
+    {
+      "id": "person:КАТРИН САШКОВА ДОЧЕВА",
+      "type": "person",
+      "label": "Катрин Сашкова Дочева"
+    },
+    {
+      "id": "person:БОГДАН ГЕОРГИЕВ НЕШЕВ",
+      "type": "person",
+      "label": "Богдан Георгиев Нешев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:atanas-dochev-dochev-8e0bf1",
+      "target": "company:tr:208249863",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:atanas-dochev-dochev-8e0bf1",
+      "target": "company:tr:208249863",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТИНКА НЕШЕВА НЕШЕВА",
+      "target": "company:tr:208249863",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИНКА НЕШЕВА НЕШЕВА",
+      "target": "company:tr:208249863",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТРИН САШКОВА ДОЧЕВА",
+      "target": "company:tr:208249863",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОГДАН ГЕОРГИЕВ НЕШЕВ",
+      "target": "company:tr:208249863",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТРИН САШКОВА ДОЧЕВА",
+      "target": "company:tr:208249863",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОГДАН ГЕОРГИЕВ НЕШЕВ",
+      "target": "company:tr:208249863",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

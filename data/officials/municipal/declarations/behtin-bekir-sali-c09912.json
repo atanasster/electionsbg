@@ -1,0 +1,160 @@
+[
+  {
+    "slug": "behtin-bekir-sali-c09912",
+    "declarantName": "БЕХТИН БЕКИР САЛИ",
+    "institution": "Кайнарджа",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г11180",
+    "controlHash": "2C59E65C",
+    "sourceUrl": "https://register.cacbg.bg/2025/D847B371-044A-4D6A-9B87-EAC4A8C8CEAB214308.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4908.4020594836975,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5624.210693158403,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 5112.918811962185
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "КЪЩА",
+        "detail": null,
+        "location": "ГОЛЕШ",
+        "municipality": "КАЙНАРДЖА",
+        "areaSqm": 120,
+        "builtAreaSqm": 120,
+        "acquiredYear": 2003,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "БЕХТИН БЕКИР САЛИ",
+        "isSpouse": false,
+        "legalBasis": "ПОКУПКА",
+        "fundsOrigin": "СПЕСТЯВАНИЯ"
+      },
+      {
+        "category": "real_estate",
+        "description": "офис",
+        "detail": null,
+        "location": "СИЛИСТРА",
+        "municipality": "СИЛИСТРА",
+        "areaSqm": 37,
+        "builtAreaSqm": 37,
+        "acquiredYear": 2017,
+        "share": "1 / 1",
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "БЕХТИН БЕКИР САЛИ",
+        "isSpouse": false,
+        "legalBasis": "ПОКУПКА",
+        "fundsOrigin": "СПЕСТЯВАНИЯ"
+      },
+      {
+        "category": "real_estate",
+        "description": "производствени помещения",
+        "detail": null,
+        "location": "СИЛИСТРА",
+        "municipality": "СИЛИСТРА",
+        "areaSqm": 115,
+        "builtAreaSqm": 115,
+        "acquiredYear": 2020,
+        "share": "1 /1",
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "БЕХТИН БЕКИР САЛИ",
+        "isSpouse": false,
+        "legalBasis": "ПОКУПКА",
+        "fundsOrigin": "СПЕСТЯВАНИЯ"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди А 4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": "1 / 1",
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "БЕХТИН БЕКИР САЛИ",
+        "isSpouse": false,
+        "legalBasis": "ПОКУПКА",
+        "fundsOrigin": "СПЕСТЯВАНИЯ"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "НИСАН ТЕРАНО",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1 / 1",
+        "currency": "BGN",
+        "amount": 800,
+        "valueEur": 409.0335049569748,
+        "holderName": "БЕХТИН БЕКИР САЛИ",
+        "isSpouse": false,
+        "legalBasis": "ПОКУПКА",
+        "fundsOrigin": "СПЕСТЯВАНИЯ"
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБ. КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14000,
+        "valueEur": 7158.086336747059,
+        "holderName": "БЕХТИН БЕКИР САЛИ",
+        "isSpouse": false,
+        "legalBasis": "КРЕДИТ",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "АУДИ А 8",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1022.5837623924369,
+        "legalBasis": "ПРОДАЖБА"
+      }
+    ]
+  }
+]

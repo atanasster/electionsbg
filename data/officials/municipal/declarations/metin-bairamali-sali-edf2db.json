@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "metin-bairamali-sali-edf2db",
+    "declarantName": "Метин Байрамали Сали",
+    "institution": "Крумовград",
+    "positionTitle": "Председател на ОбС",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-07",
+    "entryNumber": "Г6864",
+    "controlHash": "E6BD92BF",
+    "sourceUrl": "https://register.cacbg.bg/2025/9868A965-92AE-4652-93C1-23D4E6250F3E209844.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 40714.17249965488,
+        "amountEurSpouse": 1328.3363073477756
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 464.7643200073626
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15004,
+        "valueEur": 7671.423385468062,
+        "holderName": "Метин Байрамали Сали",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5982,
+        "valueEur": 3058.548033315779,
+        "holderName": "Метин Байрамали Сали",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 64852,
+        "valueEur": 33158.301079337165,
+        "holderName": "Метин Байрамали Сали",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит - 2.85%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 64852,
+        "valueEur": 33158.301079337165,
+        "holderName": "Гюлшен Реджеб Сали",
+        "isSpouse": true,
+        "legalBasis": "договор за кредит - 2.85%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

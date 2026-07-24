@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iordan-todorov-ivanov-73a024",
+  "nodes": [
+    {
+      "id": "official:iordan-todorov-ivanov-73a024",
+      "type": "official",
+      "slug": "iordan-todorov-ivanov-73a024",
+      "label": "Йордан Тодоров Иванов",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176898488",
+      "type": "company",
+      "label": "ТУКСКОН",
+      "slug": null,
+      "uic": "176898488",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛЕОН БЕНЯМИН АНАВИ",
+      "type": "person",
+      "label": "Леон Бенямин Анави"
+    },
+    {
+      "id": "person:РАДОСЛАВ КИРИЛОВ КОЛЕВ",
+      "type": "person",
+      "label": "Радослав Кирилов Колев"
+    },
+    {
+      "id": "person:ДИМИТЪР ГЕОРГИЕВ ГАМИШЕВ",
+      "type": "person",
+      "label": "Димитър Георгиев Гамишев"
+    },
+    {
+      "id": "person:СТЕФАН АСЕНОВ САРЪЕВ",
+      "type": "person",
+      "label": "Стефан Асенов Саръев"
+    },
+    {
+      "id": "person:СТЕФАН ДРАГОМИРОВ КОЛЕВ",
+      "type": "person",
+      "label": "Стефан Драгомиров Колев"
+    },
+    {
+      "id": "person:ГЕОРГИ ЙОРДАНОВ КОЛЕВ",
+      "type": "person",
+      "label": "Георги Йорданов Колев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordan-todorov-ivanov-73a024",
+      "target": "company:tr:176898488",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЕОН БЕНЯМИН АНАВИ",
+      "target": "company:tr:176898488",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ КИРИЛОВ КОЛЕВ",
+      "target": "company:tr:176898488",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ГЕОРГИЕВ ГАМИШЕВ",
+      "target": "company:tr:176898488",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЕОН БЕНЯМИН АНАВИ",
+      "target": "company:tr:176898488",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН АСЕНОВ САРЪЕВ",
+      "target": "company:tr:176898488",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ДРАГОМИРОВ КОЛЕВ",
+      "target": "company:tr:176898488",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЙОРДАНОВ КОЛЕВ",
+      "target": "company:tr:176898488",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

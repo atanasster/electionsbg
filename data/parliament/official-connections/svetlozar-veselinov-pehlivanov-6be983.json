@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:svetlozar-veselinov-pehlivanov-6be983",
+  "nodes": [
+    {
+      "id": "official:svetlozar-veselinov-pehlivanov-6be983",
+      "type": "official",
+      "slug": "svetlozar-veselinov-pehlivanov-6be983",
+      "label": "Светлозар Веселинов Пехливанов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Златоград"
+    },
+    {
+      "id": "company:tr:120550180",
+      "type": "company",
+      "label": "РОДОПИ ЕКО ПРОДЖЕКТС",
+      "slug": null,
+      "uic": "120550180",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РУЖА ХИТОВА БОДУРОВА",
+      "type": "person",
+      "label": "Ружа Хитова Бодурова"
+    },
+    {
+      "id": "person:БОЖИДАР ДАНАИЛОВ КИСЬОВ",
+      "type": "person",
+      "label": "Божидар Данаилов Кисьов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetlozar-veselinov-pehlivanov-6be983",
+      "target": "company:tr:120550180",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РУЖА ХИТОВА БОДУРОВА",
+      "target": "company:tr:120550180",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЖИДАР ДАНАИЛОВ КИСЬОВ",
+      "target": "company:tr:120550180",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

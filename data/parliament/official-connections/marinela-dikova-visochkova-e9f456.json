@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:marinela-dikova-visochkova-e9f456",
+  "nodes": [
+    {
+      "id": "official:marinela-dikova-visochkova-e9f456",
+      "type": "official",
+      "slug": "marinela-dikova-visochkova-e9f456",
+      "label": "Маринела Дикова Височкова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205211633",
+      "type": "company",
+      "label": "БОЦА ВЕНДИНГ",
+      "slug": null,
+      "uic": "205211633",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ ДИКОВ НЕШЕВ",
+      "type": "person",
+      "label": "Николай Диков Нешев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:marinela-dikova-visochkova-e9f456",
+      "target": "company:tr:205211633",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДИКОВ НЕШЕВ",
+      "target": "company:tr:205211633",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДИКОВ НЕШЕВ",
+      "target": "company:tr:205211633",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

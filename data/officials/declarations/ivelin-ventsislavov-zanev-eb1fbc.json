@@ -5,6 +5,159 @@
     "institution": "ИА \"Проучване и подържане на р. Дунав\"",
     "positionTitle": "Изпълнителен директор",
     "category": "agency_head",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-05",
+    "entryNumber": "Г6274",
+    "controlHash": "52FB5AF5",
+    "sourceUrl": "https://register.cacbg.bg/2025/65C6F479-98FE-40F3-8FC5-330D176E54AE209229.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 40128.743295685206,
+        "amountEurSpouse": 6333.883824258754
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 3234.432440447278,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Русе, ул. Кремиковци",
+        "municipality": "Русе",
+        "areaSqm": 814,
+        "builtAreaSqm": 221,
+        "acquiredYear": 2024,
+        "share": "СИО",
+        "currency": "BGN",
+        "amount": 220000,
+        "valueEur": 112484.21386316807,
+        "holderName": "ИВЕЛИН ВЕНЦИСЛАВОВ ЗАНЕВ/ДИЛЯНА ВАЛЕНТИНОВА ЗАНЕВА",
+        "isSpouse": true,
+        "legalBasis": "СТРОИТЕЛСТВО",
+        "fundsOrigin": "ПРОДАЖБА НА ДРУГ ИМОТ"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "ИВЕЛИН ВЕНЦИСЛАВОВ ЗАНЕВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ЖИЛИЩЕН ИПОТЕЧЕН КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 88000,
+        "valueEur": 44993.685545267224,
+        "holderName": "ИВЕЛИН ВЕНЦИСЛАВОВ ЗАНЕВ/ДИЛЯНА ВАЛЕНТИНОВА ЗАНЕВА, СИО",
+        "isSpouse": true,
+        "legalBasis": "ИПОТЕКА, 2.84%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ivelin-ventsislavov-zanev-eb1fbc",
+    "declarantName": "ИВЕЛИН ВЕНЦИСЛАВОВ ЗАНЕВ",
+    "institution": "ИА \"Проучване и подържане на р. Дунав\"",
+    "positionTitle": "Изпълнителен директор",
+    "category": "agency_head",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-08",
+    "entryNumber": "Г13789",
+    "controlHash": "89DC417F",
+    "sourceUrl": "https://register.cacbg.bg/2024/65C6F479-98FE-40F3-8FC5-330D176E54AE195925.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 43103.439460484806,
+        "amountEurSpouse": 11310.287703941549
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 10382.292939570412,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "ivelin-ventsislavov-zanev-eb1fbc",
+    "declarantName": "ИВЕЛИН ВЕНЦИСЛАВОВ ЗАНЕВ",
+    "institution": "ИА \"Проучване и подържане на р. Дунав\"",
+    "positionTitle": "Изпълнителен директор",
+    "category": "agency_head",
     "declarationYear": 2023,
     "fiscalYear": 2022,
     "declarationType": "Annualy",

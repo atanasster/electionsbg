@@ -1,0 +1,267 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariyana-atanasova-dimitrova-bcde0a",
+  "nodes": [
+    {
+      "id": "official:mariyana-atanasova-dimitrova-bcde0a",
+      "type": "official",
+      "slug": "mariyana-atanasova-dimitrova-bcde0a",
+      "label": "Марияна Атанасова Димитрова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стамболийски"
+    },
+    {
+      "id": "company:tr:000455717",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;НИКОЛА ЙОНКОВ ВАПЦАРОВ - 1924 Г.&quot;",
+      "slug": null,
+      "uic": "000455717",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛЮБОМИР ГРОЗДАНОВ МАРКОВ",
+      "type": "person",
+      "label": "Любомир Грозданов Марков"
+    },
+    {
+      "id": "person:ЖАНЕТА РАНГЕЛОВА ИВАНОВА",
+      "type": "person",
+      "label": "Жанета Рангелова Иванова"
+    },
+    {
+      "id": "person:ВАЛЯ ТОДОРОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Валя Тодорова Стоянова"
+    },
+    {
+      "id": "person:ВАСИЛ ДИМИТРОВ ТОПУЗОВ",
+      "type": "person",
+      "label": "Васил Димитров Топузов"
+    },
+    {
+      "id": "person:ГЕРГАНА ХРИСТОВА МАРАДЖИЕВА",
+      "type": "person",
+      "label": "Гергана Христова Мараджиева"
+    },
+    {
+      "id": "person:ХРИСТИНА ДИМИТРОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Христина Димитрова Петрова"
+    },
+    {
+      "id": "person:БОЖУРКА НИКОЛОВА СКАЧКОВА",
+      "type": "person",
+      "label": "Божурка Николова Скачкова"
+    },
+    {
+      "id": "person:ЙОРДАНКА ВАСИЛЕВА БАНГОВА",
+      "type": "person",
+      "label": "Йорданка Василева Бангова"
+    },
+    {
+      "id": "person:КРАСИМИРА ЕВГЕНИЕВА ГРОЗДАНОВА",
+      "type": "person",
+      "label": "Красимира Евгениева Грозданова"
+    },
+    {
+      "id": "person:ДАНИЕЛА СТАНИСЛАВОВА КРЪСТЕВА-МАЛИНОВА",
+      "type": "person",
+      "label": "Даниела Станиславова Кръстева-Малинова"
+    },
+    {
+      "id": "person:НИКОЛАЙ ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Николай Иванов Иванов"
+    },
+    {
+      "id": "person:РУСКО ЕНЧЕВ РУСЕВ",
+      "type": "person",
+      "label": "Руско Енчев Русев"
+    },
+    {
+      "id": "person:ДИМИТЪР ПЕТРОВ КОСТОВ",
+      "type": "person",
+      "label": "Димитър Петров Костов"
+    },
+    {
+      "id": "person:НИКОЛА ИВАНОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Никола Иванов Михайлов"
+    },
+    {
+      "id": "person:МАРИЯ ИЛИЕВА ДРЯНКОВА",
+      "type": "person",
+      "label": "Мария Илиева Дрянкова"
+    },
+    {
+      "id": "person:НЕЛИ ИЛИЕВА ДАСКАЛОВА",
+      "type": "person",
+      "label": "Нели Илиева Даскалова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariyana-atanasova-dimitrova-bcde0a",
+      "target": "company:tr:000455717",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮБОМИР ГРОЗДАНОВ МАРКОВ",
+      "target": "company:tr:000455717",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖАНЕТА РАНГЕЛОВА ИВАНОВА",
+      "target": "company:tr:000455717",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЯ ТОДОРОВА СТОЯНОВА",
+      "target": "company:tr:000455717",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ДИМИТРОВ ТОПУЗОВ",
+      "target": "company:tr:000455717",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ХРИСТОВА МАРАДЖИЕВА",
+      "target": "company:tr:000455717",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА ДИМИТРОВА ПЕТРОВА",
+      "target": "company:tr:000455717",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЖУРКА НИКОЛОВА СКАЧКОВА",
+      "target": "company:tr:000455717",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА ВАСИЛЕВА БАНГОВА",
+      "target": "company:tr:000455717",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ЕВГЕНИЕВА ГРОЗДАНОВА",
+      "target": "company:tr:000455717",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖАНЕТА РАНГЕЛОВА ИВАНОВА",
+      "target": "company:tr:000455717",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА СТАНИСЛАВОВА КРЪСТЕВА-МАЛИНОВА",
+      "target": "company:tr:000455717",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА СТАНИСЛАВОВА КРЪСТЕВА-МАЛИНОВА",
+      "target": "company:tr:000455717",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ИВАНОВ ИВАНОВ",
+      "target": "company:tr:000455717",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУСКО ЕНЧЕВ РУСЕВ",
+      "target": "company:tr:000455717",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ПЕТРОВ КОСТОВ",
+      "target": "company:tr:000455717",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ИВАНОВ МИХАЙЛОВ",
+      "target": "company:tr:000455717",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ИВАНОВ ИВАНОВ",
+      "target": "company:tr:000455717",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ИЛИЕВА ДРЯНКОВА",
+      "target": "company:tr:000455717",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ ИЛИЕВА ДАСКАЛОВА",
+      "target": "company:tr:000455717",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

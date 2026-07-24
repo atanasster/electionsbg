@@ -1,0 +1,78 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:petr-hristov-bekov-274dc4",
+  "nodes": [
+    {
+      "id": "official:petr-hristov-bekov-274dc4",
+      "type": "official",
+      "slug": "petr-hristov-bekov-274dc4",
+      "label": "Петър Христов Беков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ихтиман"
+    },
+    {
+      "id": "company:tr:130844508",
+      "type": "company",
+      "label": "АМБУЛАТОРИЯ ЗА ГРУПОВА ПРАКТИКА ЗА ПЪРВИЧНА ИЗВЪНБОЛНИЧНА МЕДИЦИНСКА ПОМОЩ Д-Р ПЕТЪР БЕКОВ",
+      "slug": null,
+      "uic": "130844508",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:2380",
+      "type": "mp",
+      "mpId": 2380,
+      "label": "Петър Христов Беков",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:ГЕРГАНА ПЕТРОВА БЕКОВА",
+      "type": "person",
+      "label": "Гергана Петрова Бекова"
+    },
+    {
+      "id": "person:ЖАНЕТА РУСЕНОВА РУСЕНОВА",
+      "type": "person",
+      "label": "Жанета Русенова Русенова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petr-hristov-bekov-274dc4",
+      "target": "company:tr:130844508",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2380",
+      "target": "company:tr:130844508",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕРГАНА ПЕТРОВА БЕКОВА",
+      "target": "company:tr:130844508",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖАНЕТА РУСЕНОВА РУСЕНОВА",
+      "target": "company:tr:130844508",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

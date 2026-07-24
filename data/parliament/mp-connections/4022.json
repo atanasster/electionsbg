@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:4022",
   "nodes": [
     {
@@ -118,18 +118,22 @@
       "label": "Никола Ангелов Ангелов"
     },
     {
-      "id": "official:zyulbie-ismailova-mustafova-6da3b0",
+      "id": "official:zyulbie-ismailova-mustafova-39c6a3",
       "type": "official",
-      "slug": "zyulbie-ismailova-mustafova-6da3b0",
+      "slug": "zyulbie-ismailova-mustafova-39c6a3",
       "label": "Зюлбие Исмаилова Мустафова",
       "tier": "executive",
       "role": "hospital_head",
       "municipality": null
     },
     {
-      "id": "person:ПАВЛИНА СТОЯНОВА ПАВЛОВА",
-      "type": "person",
-      "label": "Павлина Стоянова Павлова"
+      "id": "official:pavlina-stoyanova-pavlova-0cc02d",
+      "type": "official",
+      "slug": "pavlina-stoyanova-pavlova-0cc02d",
+      "label": "Павлина Стоянова Павлова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
     },
     {
       "id": "person:МУСТАФА ШЕРИФОВ БОДЕВ",
@@ -315,7 +319,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:zyulbie-ismailova-mustafova-6da3b0",
+      "source": "official:zyulbie-ismailova-mustafova-39c6a3",
       "target": "company:tr:125550070",
       "kind": "tr_role",
       "role": "director",
@@ -323,20 +327,20 @@
       "confidence": "medium"
     },
     {
-      "source": "person:ПАВЛИНА СТОЯНОВА ПАВЛОВА",
+      "source": "official:pavlina-stoyanova-pavlova-0cc02d",
       "target": "company:tr:125550070",
       "kind": "tr_role",
       "role": "representative",
       "isCurrent": true,
-      "confidence": "high"
+      "confidence": "medium"
     },
     {
-      "source": "person:ПАВЛИНА СТОЯНОВА ПАВЛОВА",
+      "source": "official:pavlina-stoyanova-pavlova-0cc02d",
       "target": "company:tr:125550070",
       "kind": "tr_role",
       "role": "director",
       "isCurrent": true,
-      "confidence": "high"
+      "confidence": "medium"
     },
     {
       "source": "person:МУСТАФА ШЕРИФОВ БОДЕВ",

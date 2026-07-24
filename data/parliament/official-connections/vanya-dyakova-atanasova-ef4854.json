@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vanya-dyakova-atanasova-ef4854",
+  "nodes": [
+    {
+      "id": "official:vanya-dyakova-atanasova-ef4854",
+      "type": "official",
+      "slug": "vanya-dyakova-atanasova-ef4854",
+      "label": "Ваня Дякова Атанасова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:102245794",
+      "type": "company",
+      "label": "ОБЩИНСКИ ИМОТИ - КАРНОБАТ",
+      "slug": null,
+      "uic": "102245794",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vanya-dyakova-atanasova-ef4854",
+      "target": "company:tr:102245794",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

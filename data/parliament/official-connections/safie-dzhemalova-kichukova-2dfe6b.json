@@ -1,0 +1,207 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:safie-dzhemalova-kichukova-2dfe6b",
+  "nodes": [
+    {
+      "id": "official:safie-dzhemalova-kichukova-2dfe6b",
+      "type": "official",
+      "slug": "safie-dzhemalova-kichukova-2dfe6b",
+      "label": "Сафие Джемалова Кичукова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Върбица"
+    },
+    {
+      "id": "company:tr:000923525",
+      "type": "company",
+      "label": "Светлина 1956",
+      "slug": null,
+      "uic": "000923525",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЖЕМИЛЕ ИСУФОВА МУСОВА",
+      "type": "person",
+      "label": "Джемиле Исуфова Мусова"
+    },
+    {
+      "id": "person:ИБРАИМ МУСТАФОВ ДУРЛЬОВ",
+      "type": "person",
+      "label": "Ибраим Мустафов Дурльов"
+    },
+    {
+      "id": "person:ДАНИЕЛ ТРЕНДАФИЛОВ ПЕРУШИНСКИ",
+      "type": "person",
+      "label": "Даниел Трендафилов Перушински"
+    },
+    {
+      "id": "person:ЮСЕИН РАСИМОВ ЛЕШКОВ",
+      "type": "person",
+      "label": "Юсеин Расимов Лешков"
+    },
+    {
+      "id": "person:АТИДЖЕ ИБРАХИМОВА ВЕХОВА",
+      "type": "person",
+      "label": "Атидже Ибрахимова Вехова"
+    },
+    {
+      "id": "person:МУСА АХМЕДОВ АЯНСКИ",
+      "type": "person",
+      "label": "Муса Ахмедов Аянски"
+    },
+    {
+      "id": "person:АЙШЕ САЛИЕВА ДЪБЕВА",
+      "type": "person",
+      "label": "Айше Салиева Дъбева"
+    },
+    {
+      "id": "person:ИСУФ АЛИЕВ ГАЗИНОВ",
+      "type": "person",
+      "label": "Исуф Алиев Газинов"
+    },
+    {
+      "id": "person:МУСА АХМЕДОВ ЧОЛАКОВ",
+      "type": "person",
+      "label": "Муса Ахмедов Чолаков"
+    },
+    {
+      "id": "person:ИБРАХИМ САЛИЕВ КАЦАРОВ",
+      "type": "person",
+      "label": "Ибрахим Салиев Кацаров"
+    },
+    {
+      "id": "person:ХАФИЗЕ РИЗА ИБРАИМ",
+      "type": "person",
+      "label": "Хафизе Риза Ибраим"
+    },
+    {
+      "id": "person:МУСА ТАСИМОВ ДАГОНОВ",
+      "type": "person",
+      "label": "Муса Тасимов Дагонов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:safie-dzhemalova-kichukova-2dfe6b",
+      "target": "company:tr:000923525",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЖЕМИЛЕ ИСУФОВА МУСОВА",
+      "target": "company:tr:000923525",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИБРАИМ МУСТАФОВ ДУРЛЬОВ",
+      "target": "company:tr:000923525",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖЕМИЛЕ ИСУФОВА МУСОВА",
+      "target": "company:tr:000923525",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛ ТРЕНДАФИЛОВ ПЕРУШИНСКИ",
+      "target": "company:tr:000923525",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮСЕИН РАСИМОВ ЛЕШКОВ",
+      "target": "company:tr:000923525",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТИДЖЕ ИБРАХИМОВА ВЕХОВА",
+      "target": "company:tr:000923525",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МУСА АХМЕДОВ АЯНСКИ",
+      "target": "company:tr:000923525",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙШЕ САЛИЕВА ДЪБЕВА",
+      "target": "company:tr:000923525",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИСУФ АЛИЕВ ГАЗИНОВ",
+      "target": "company:tr:000923525",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МУСА АХМЕДОВ ЧОЛАКОВ",
+      "target": "company:tr:000923525",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИБРАХИМ САЛИЕВ КАЦАРОВ",
+      "target": "company:tr:000923525",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАФИЗЕ РИЗА ИБРАИМ",
+      "target": "company:tr:000923525",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАФИЗЕ РИЗА ИБРАИМ",
+      "target": "company:tr:000923525",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МУСА ТАСИМОВ ДАГОНОВ",
+      "target": "company:tr:000923525",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

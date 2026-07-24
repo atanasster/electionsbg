@@ -1,0 +1,104 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:chavdar-borisov-bozhurski-04eaa4",
+  "nodes": [
+    {
+      "id": "official:chavdar-borisov-bozhurski-04eaa4",
+      "type": "official",
+      "slug": "chavdar-borisov-bozhurski-04eaa4",
+      "label": "Чавдар Борисов Божурски",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:119097701",
+      "type": "company",
+      "label": "П Ч П - СЛИВЕН",
+      "slug": null,
+      "uic": "119097701",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:3459",
+      "type": "mp",
+      "mpId": 3459,
+      "label": "Чавдар Борисов Божурски",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:ЮЛИЯ ТОДОРОВА БОЖУРСКА",
+      "type": "person",
+      "label": "Юлия Тодорова Божурска"
+    },
+    {
+      "id": "person:АНДОН ПЕТРОВ НАЧЕВ",
+      "type": "person",
+      "label": "Андон Петров Начев"
+    },
+    {
+      "id": "person:ПЛАМЕН ДЕНЕВ ПЕТКОВ",
+      "type": "person",
+      "label": "Пламен Денев Петков"
+    },
+    {
+      "id": "person:ВАНЯ ИВАНОВА КРУМОВА",
+      "type": "person",
+      "label": "Ваня Иванова Крумова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:chavdar-borisov-bozhurski-04eaa4",
+      "target": "company:tr:119097701",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3459",
+      "target": "company:tr:119097701",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЮЛИЯ ТОДОРОВА БОЖУРСКА",
+      "target": "company:tr:119097701",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДОН ПЕТРОВ НАЧЕВ",
+      "target": "company:tr:119097701",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ДЕНЕВ ПЕТКОВ",
+      "target": "company:tr:119097701",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ИВАНОВА КРУМОВА",
+      "target": "company:tr:119097701",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:4912",
   "nodes": [
     {
@@ -31,12 +31,12 @@
       "seat": null
     },
     {
-      "id": "official:neli-slavcheva-spasova-e282bf",
+      "id": "official:neli-slavcheva-spasova-aa4d88",
       "type": "official",
-      "slug": "neli-slavcheva-spasova-e282bf",
+      "slug": "neli-slavcheva-spasova-aa4d88",
       "label": "Нели Славчева Спасова",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "school",
       "municipality": null
     },
     {
@@ -128,7 +128,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:neli-slavcheva-spasova-e282bf",
+      "source": "official:neli-slavcheva-spasova-aa4d88",
       "target": "company:tr:000762488",
       "kind": "tr_role",
       "role": "trustee",

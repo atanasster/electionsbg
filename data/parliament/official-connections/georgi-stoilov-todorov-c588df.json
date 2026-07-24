@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-stoilov-todorov-c588df",
+  "nodes": [
+    {
+      "id": "official:georgi-stoilov-todorov-c588df",
+      "type": "official",
+      "slug": "georgi-stoilov-todorov-c588df",
+      "label": "Георги Стоилов Тодоров",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131270962",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;АСОЦИАЦИЯ НА ЛИЦАТА ЗА ОЦЕНЯВАНЕ СЪОТВЕТСТВИЕТО НА СТРОИТЕЛНИ ПРОДУКТИ&quot;",
+      "slug": null,
+      "uic": "131270962",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВИКТОРИЯ ТЕНЕВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Виктория Тенева Василева"
+    },
+    {
+      "id": "person:АННА СТЕФАНОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Анна Стефанова Василева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-stoilov-todorov-c588df",
+      "target": "company:tr:131270962",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВИКТОРИЯ ТЕНЕВА ВАСИЛЕВА",
+      "target": "company:tr:131270962",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОРИЯ ТЕНЕВА ВАСИЛЕВА",
+      "target": "company:tr:131270962",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА СТЕФАНОВА ВАСИЛЕВА",
+      "target": "company:tr:131270962",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

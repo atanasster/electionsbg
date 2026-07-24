@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariya-ivanova-stoikova-61cdd1",
+  "nodes": [
+    {
+      "id": "official:mariya-ivanova-stoikova-61cdd1",
+      "type": "official",
+      "slug": "mariya-ivanova-stoikova-61cdd1",
+      "label": "Мария Иванова Стойкова",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207916948",
+      "type": "company",
+      "label": "ЕмМар- 22",
+      "slug": null,
+      "uic": "207916948",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕМИЛ ИВАНОВ СТОЙКОВ",
+      "type": "person",
+      "label": "Емил Иванов Стойков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-ivanova-stoikova-61cdd1",
+      "target": "company:tr:207916948",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕМИЛ ИВАНОВ СТОЙКОВ",
+      "target": "company:tr:207916948",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ИВАНОВ СТОЙКОВ",
+      "target": "company:tr:207916948",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ИВАНОВ СТОЙКОВ",
+      "target": "company:tr:207916948",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

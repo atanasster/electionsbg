@@ -1,0 +1,108 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:polikseniya-georgieva-miteva-516e0d",
+  "nodes": [
+    {
+      "id": "official:polikseniya-georgieva-miteva-516e0d",
+      "type": "official",
+      "slug": "polikseniya-georgieva-miteva-516e0d",
+      "label": "Поликсения Георгиева Митева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206728929",
+      "type": "company",
+      "label": "МОДУЛФОРМ",
+      "slug": null,
+      "uic": "206728929",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАЙЛО ГЕОРГИЕВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Ивайло Георгиев Василев"
+    },
+    {
+      "id": "person:БОРИСЛАВ СИМЕОНОВ КАМБУШЕВ",
+      "type": "person",
+      "label": "Борислав Симеонов Камбушев"
+    },
+    {
+      "id": "company:name:СТИЛ ТЮБС",
+      "type": "company",
+      "label": "Стил Тюбс ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛЮБОСЛАВА ХРИСТОВА ЯНКОВА-КАНЕВА",
+      "type": "person",
+      "label": "Любослава Христова Янкова-Канева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:polikseniya-georgieva-miteva-516e0d",
+      "target": "company:tr:206728929",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:polikseniya-georgieva-miteva-516e0d",
+      "target": "company:tr:206728929",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАЙЛО ГЕОРГИЕВ ВАСИЛЕВ",
+      "target": "company:tr:206728929",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ СИМЕОНОВ КАМБУШЕВ",
+      "target": "company:tr:206728929",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:СТИЛ ТЮБС",
+      "target": "company:tr:206728929",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ГЕОРГИЕВ ВАСИЛЕВ",
+      "target": "company:tr:206728929",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОСЛАВА ХРИСТОВА ЯНКОВА-КАНЕВА",
+      "target": "company:tr:206728929",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

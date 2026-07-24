@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:anna-blagoeva-smilyanova-12bd4f",
+  "nodes": [
+    {
+      "id": "official:anna-blagoeva-smilyanova-12bd4f",
+      "type": "official",
+      "slug": "anna-blagoeva-smilyanova-12bd4f",
+      "label": "Анна Благоева Смилянова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:101510103",
+      "type": "company",
+      "label": "СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА РЕХАБИЛИТАЦИЯ - МАРИКОСТИНОВО",
+      "slug": null,
+      "uic": "101510103",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:anna-blagoeva-smilyanova-12bd4f",
+      "target": "company:tr:101510103",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

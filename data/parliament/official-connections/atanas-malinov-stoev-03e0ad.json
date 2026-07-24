@@ -1,0 +1,134 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:atanas-malinov-stoev-03e0ad",
+  "nodes": [
+    {
+      "id": "official:atanas-malinov-stoev-03e0ad",
+      "type": "official",
+      "slug": "atanas-malinov-stoev-03e0ad",
+      "label": "Атанас Малинов Стоев",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176989742",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ПРОСВЕТА 1959&quot;",
+      "slug": null,
+      "uic": "176989742",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РУСКО АЛИПИЕВ КАРАКУШЕВ",
+      "type": "person",
+      "label": "Руско Алипиев Каракушев"
+    },
+    {
+      "id": "person:СТАНИМИРА НЕДКОВА БАЙРАКТАРОВА",
+      "type": "person",
+      "label": "Станимира Недкова Байрактарова"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА САЛИХОВА МОЛЛОВА",
+      "type": "person",
+      "label": "Десислава Салихова Моллова"
+    },
+    {
+      "id": "person:АЛБЕН ЦАНЕВ КЕХАЙОВ",
+      "type": "person",
+      "label": "Албен Цанев Кехайов"
+    },
+    {
+      "id": "person:БОРЯНА ИВАНОВА ШОМОВА",
+      "type": "person",
+      "label": "Боряна Иванова Шомова"
+    },
+    {
+      "id": "person:НИКОЛАЙ АНТИМОВ БАШЕВ",
+      "type": "person",
+      "label": "Николай Антимов Башев"
+    },
+    {
+      "id": "person:МАРГАРИТА АНТОНОВА ХАДЖИЕВА",
+      "type": "person",
+      "label": "Маргарита Антонова Хаджиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:atanas-malinov-stoev-03e0ad",
+      "target": "company:tr:176989742",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РУСКО АЛИПИЕВ КАРАКУШЕВ",
+      "target": "company:tr:176989742",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИРА НЕДКОВА БАЙРАКТАРОВА",
+      "target": "company:tr:176989742",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУСКО АЛИПИЕВ КАРАКУШЕВ",
+      "target": "company:tr:176989742",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА САЛИХОВА МОЛЛОВА",
+      "target": "company:tr:176989742",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕН ЦАНЕВ КЕХАЙОВ",
+      "target": "company:tr:176989742",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРЯНА ИВАНОВА ШОМОВА",
+      "target": "company:tr:176989742",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ АНТИМОВ БАШЕВ",
+      "target": "company:tr:176989742",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА АНТОНОВА ХАДЖИЕВА",
+      "target": "company:tr:176989742",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

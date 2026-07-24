@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:sbi-sevdalinov-dimitrov-053c24",
+  "nodes": [
+    {
+      "id": "official:sbi-sevdalinov-dimitrov-053c24",
+      "type": "official",
+      "slug": "sbi-sevdalinov-dimitrov-053c24",
+      "label": "Съби Севдалинов Димитров",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205187748",
+      "type": "company",
+      "label": "ГЕТ ДИПРЕШЪН ТИРЪПИ ЕООД",
+      "slug": null,
+      "uic": "205187748",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:sbi-sevdalinov-dimitrov-f4cbcb",
+      "type": "official",
+      "slug": "sbi-sevdalinov-dimitrov-f4cbcb",
+      "label": "Съби Севдалинов Димитров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:МИНА ЙОВЧЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Мина Йовчева Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sbi-sevdalinov-dimitrov-053c24",
+      "target": "company:tr:205187748",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:sbi-sevdalinov-dimitrov-f4cbcb",
+      "target": "company:tr:205187748",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИНА ЙОВЧЕВА ДИМИТРОВА",
+      "target": "company:tr:205187748",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

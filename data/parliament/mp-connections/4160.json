@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:4160",
   "nodes": [
     {
@@ -116,6 +116,15 @@
       ]
     },
     {
+      "id": "official:karina-dimitrova-karaivanova-ganozova-173cbd",
+      "type": "official",
+      "slug": "karina-dimitrova-karaivanova-ganozova-173cbd",
+      "label": "Карина Димитрова Караиванова-Ганозова",
+      "tier": "executive",
+      "role": "international",
+      "municipality": null
+    },
+    {
       "id": "person:АННА ВАЛЕРИЕВА МАНОЛОВА",
       "type": "person",
       "label": "Анна Валериева Манолова"
@@ -159,11 +168,6 @@
       "id": "person:ДЖЕЙМС БОРИСЛАВОВ ЙОЛОВСКИ",
       "type": "person",
       "label": "Джеймс Бориславов Йоловски"
-    },
-    {
-      "id": "person:КАРИНА ДИМИТРОВА КАРАИВАНОВА-ГАНОЗОВА",
-      "type": "person",
-      "label": "Карина Димитрова Караиванова-Ганозова"
     },
     {
       "id": "person:КИРИЛ ВИКТОРОВ СЛАТИНСКИ",
@@ -369,6 +373,14 @@
       "confidence": "medium"
     },
     {
+      "source": "official:karina-dimitrova-karaivanova-ganozova-173cbd",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
       "source": "person:АННА ВАЛЕРИЕВА МАНОЛОВА",
       "target": "company:tr:175327305",
       "kind": "tr_role",
@@ -466,14 +478,6 @@
     },
     {
       "source": "person:ДЖЕЙМС БОРИСЛАВОВ ЙОЛОВСКИ",
-      "target": "company:tr:175327305",
-      "kind": "tr_role",
-      "role": "director",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:КАРИНА ДИМИТРОВА КАРАИВАНОВА-ГАНОЗОВА",
       "target": "company:tr:175327305",
       "kind": "tr_role",
       "role": "director",

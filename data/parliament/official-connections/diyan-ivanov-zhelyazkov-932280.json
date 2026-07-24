@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:diyan-ivanov-zhelyazkov-932280",
+  "nodes": [
+    {
+      "id": "official:diyan-ivanov-zhelyazkov-932280",
+      "type": "official",
+      "slug": "diyan-ivanov-zhelyazkov-932280",
+      "label": "Диян Иванов Желязков",
+      "tier": "executive",
+      "role": "revenue_agency",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207252486",
+      "type": "company",
+      "label": "КиД Билд 2023",
+      "slug": null,
+      "uic": "207252486",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРАСИМИР НЕДЯЛКОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Красимир Недялков Михайлов"
+    },
+    {
+      "id": "person:СТАНИМИР ДИЯНОВ ЖЕЛЯЗКОВ",
+      "type": "person",
+      "label": "Станимир Диянов Желязков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:diyan-ivanov-zhelyazkov-932280",
+      "target": "company:tr:207252486",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:diyan-ivanov-zhelyazkov-932280",
+      "target": "company:tr:207252486",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРАСИМИР НЕДЯЛКОВ МИХАЙЛОВ",
+      "target": "company:tr:207252486",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИР ДИЯНОВ ЖЕЛЯЗКОВ",
+      "target": "company:tr:207252486",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

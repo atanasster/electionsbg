@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitr-iliev-sohulov-d9e8d1",
+  "nodes": [
+    {
+      "id": "official:dimitr-iliev-sohulov-d9e8d1",
+      "type": "official",
+      "slug": "dimitr-iliev-sohulov-d9e8d1",
+      "label": "Димитър Илиев Сохулов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Гоце Делчев"
+    },
+    {
+      "id": "company:tr:101684449",
+      "type": "company",
+      "label": "ВЪЗХОД",
+      "slug": null,
+      "uic": "101684449",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-iliev-sohulov-d9e8d1",
+      "target": "company:tr:101684449",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

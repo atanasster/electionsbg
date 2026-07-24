@@ -1,0 +1,78 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dancho-dimitrov-hadzhiev-5064b0",
+  "nodes": [
+    {
+      "id": "official:dancho-dimitrov-hadzhiev-5064b0",
+      "type": "official",
+      "slug": "dancho-dimitrov-hadzhiev-5064b0",
+      "label": "Данчо Димитров Хаджиев",
+      "tier": "executive",
+      "role": "party_leader",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:102663917",
+      "type": "company",
+      "label": "СКАТ ТВ ООД",
+      "slug": null,
+      "uic": "102663917",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:103975453",
+      "type": "company",
+      "label": "СКАТ ИНВЕСТ ООД",
+      "slug": null,
+      "uic": "103975453",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:valeri-simeonov-simeonov-36be98",
+      "type": "official",
+      "slug": "valeri-simeonov-simeonov-36be98",
+      "label": "Валери Симеонов Симеонов",
+      "tier": "executive",
+      "role": "party_leader",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dancho-dimitrov-hadzhiev-5064b0",
+      "target": "company:tr:102663917",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dancho-dimitrov-hadzhiev-5064b0",
+      "target": "company:tr:103975453",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:valeri-simeonov-simeonov-36be98",
+      "target": "company:tr:102663917",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:valeri-simeonov-simeonov-36be98",
+      "target": "company:tr:103975453",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

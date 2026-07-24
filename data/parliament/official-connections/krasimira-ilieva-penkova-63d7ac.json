@@ -1,0 +1,117 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:krasimira-ilieva-penkova-63d7ac",
+  "nodes": [
+    {
+      "id": "official:krasimira-ilieva-penkova-63d7ac",
+      "type": "official",
+      "slug": "krasimira-ilieva-penkova-63d7ac",
+      "label": "Красимира Илиева Пенкова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Априлци"
+    },
+    {
+      "id": "company:tr:131395297",
+      "type": "company",
+      "label": "Априлци",
+      "slug": null,
+      "uic": "131395297",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:petko-pavlov-pavlov-c3c85e",
+      "type": "official",
+      "slug": "petko-pavlov-pavlov-c3c85e",
+      "label": "Петко Павлов Павлов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Априлци"
+    },
+    {
+      "id": "person:КРАСИМИРА ГЕОРГИЕВА ДИМОВА",
+      "type": "person",
+      "label": "Красимира Георгиева Димова"
+    },
+    {
+      "id": "person:ИВАН ДИМИТРОВ ПИРОВ",
+      "type": "person",
+      "label": "Иван Димитров Пиров"
+    },
+    {
+      "id": "person:СТЕЛИЯНА ИЛИЕВА ХРИСТОВА",
+      "type": "person",
+      "label": "Стелияна Илиева Христова"
+    },
+    {
+      "id": "person:ВАСКО СТЕФАНОВ РАДЕВ",
+      "type": "person",
+      "label": "Васко Стефанов Радев"
+    },
+    {
+      "id": "person:ЙОНКА ТОДОРОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Йонка Тодорова Христова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krasimira-ilieva-penkova-63d7ac",
+      "target": "company:tr:131395297",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petko-pavlov-pavlov-c3c85e",
+      "target": "company:tr:131395297",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРАСИМИРА ГЕОРГИЕВА ДИМОВА",
+      "target": "company:tr:131395297",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ ПИРОВ",
+      "target": "company:tr:131395297",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕЛИЯНА ИЛИЕВА ХРИСТОВА",
+      "target": "company:tr:131395297",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСКО СТЕФАНОВ РАДЕВ",
+      "target": "company:tr:131395297",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОНКА ТОДОРОВА ХРИСТОВА",
+      "target": "company:tr:131395297",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

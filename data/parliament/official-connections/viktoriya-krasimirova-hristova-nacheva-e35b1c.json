@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:viktoriya-krasimirova-hristova-nacheva-e35b1c",
+  "nodes": [
+    {
+      "id": "official:viktoriya-krasimirova-hristova-nacheva-e35b1c",
+      "type": "official",
+      "slug": "viktoriya-krasimirova-hristova-nacheva-e35b1c",
+      "label": "Виктория Красимирова Христова-Начева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000179553",
+      "type": "company",
+      "label": "ТРОЛЕЙБУСЕН ТРАНСПОРТ-ВРАЦА",
+      "slug": null,
+      "uic": "000179553",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:viktoriya-krasimirova-hristova-nacheva-e35b1c",
+      "target": "company:tr:000179553",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

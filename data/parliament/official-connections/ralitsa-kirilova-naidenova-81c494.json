@@ -1,0 +1,139 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ralitsa-kirilova-naidenova-81c494",
+  "nodes": [
+    {
+      "id": "official:ralitsa-kirilova-naidenova-81c494",
+      "type": "official",
+      "slug": "ralitsa-kirilova-naidenova-81c494",
+      "label": "Ралица Кирилова Найденова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200430317",
+      "type": "company",
+      "label": "Ракон Проект ЕООД",
+      "slug": null,
+      "uic": "200430317",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:175197609",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ 12 СУ &quot;ЦАР ИВАН АСЕН ВТОРИ&quot;",
+      "slug": null,
+      "uic": "175197609",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕЛИНА СТАНЧЕВА ТОДОРОВА",
+      "type": "person",
+      "label": "Велина Станчева Тодорова"
+    },
+    {
+      "id": "person:ИВЕЛИНА ГЕНЧЕВА СТАНЧЕВА",
+      "type": "person",
+      "label": "Ивелина Генчева Станчева"
+    },
+    {
+      "id": "person:ИВАЙЛО ЕМИЛОВ ФИЛИПОВ",
+      "type": "person",
+      "label": "Ивайло Емилов Филипов"
+    },
+    {
+      "id": "person:АЛЕКСАНДРИНА КРАСИМИРОВА АЛЕКСОВА",
+      "type": "person",
+      "label": "Александрина Красимирова Алексова"
+    },
+    {
+      "id": "person:ФАНИ АНДРИАНОВА ДЖЕНЕВА-ИВАНОВА",
+      "type": "person",
+      "label": "Фани Андрианова Дженева-Иванова"
+    },
+    {
+      "id": "person:ГЕРГАНА ГЪЛЪБИНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Гергана Гълъбинова Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ralitsa-kirilova-naidenova-81c494",
+      "target": "company:tr:200430317",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ralitsa-kirilova-naidenova-81c494",
+      "target": "company:tr:175197609",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ralitsa-kirilova-naidenova-81c494",
+      "target": "company:tr:175197609",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕЛИНА СТАНЧЕВА ТОДОРОВА",
+      "target": "company:tr:175197609",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИНА ГЕНЧЕВА СТАНЧЕВА",
+      "target": "company:tr:175197609",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ЕМИЛОВ ФИЛИПОВ",
+      "target": "company:tr:175197609",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДРИНА КРАСИМИРОВА АЛЕКСОВА",
+      "target": "company:tr:175197609",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФАНИ АНДРИАНОВА ДЖЕНЕВА-ИВАНОВА",
+      "target": "company:tr:175197609",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ГЪЛЪБИНОВА ГЕОРГИЕВА",
+      "target": "company:tr:175197609",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

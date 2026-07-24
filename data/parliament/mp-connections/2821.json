@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:2821",
   "nodes": [
     {
@@ -78,18 +78,18 @@
       "nsFolders": []
     },
     {
-      "id": "official:dobrin-mladenov-dobrev-af1519",
+      "id": "official:dobrin-mladenov-dobrev-272c8a",
       "type": "official",
-      "slug": "dobrin-mladenov-dobrev-af1519",
+      "slug": "dobrin-mladenov-dobrev-272c8a",
       "label": "Добрин Младенов Добрев",
       "tier": "municipal",
       "role": "deputy_mayor",
       "municipality": "Разград"
     },
     {
-      "id": "official:stanislav-ivanov-vladimirov-88ff46",
+      "id": "official:stanislav-ivanov-vladimirov-70a197",
       "type": "official",
-      "slug": "stanislav-ivanov-vladimirov-88ff46",
+      "slug": "stanislav-ivanov-vladimirov-70a197",
       "label": "Станислав Иванов Владимиров",
       "tier": "municipal",
       "role": "mayor",
@@ -420,7 +420,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:dobrin-mladenov-dobrev-af1519",
+      "source": "official:dobrin-mladenov-dobrev-272c8a",
       "target": "company:tr:121399226",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -428,7 +428,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:stanislav-ivanov-vladimirov-88ff46",
+      "source": "official:stanislav-ivanov-vladimirov-70a197",
       "target": "company:tr:121399226",
       "kind": "tr_role",
       "role": "ngo_board",

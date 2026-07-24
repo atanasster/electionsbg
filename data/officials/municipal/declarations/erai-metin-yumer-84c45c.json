@@ -1,0 +1,75 @@
+[
+  {
+    "slug": "erai-metin-yumer-84c45c",
+    "declarantName": "Ерай Метин Юмер",
+    "institution": "Момчилград",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-29",
+    "entryNumber": "Г6717",
+    "controlHash": "B3B7A1DB",
+    "sourceUrl": "https://register.cacbg.bg/2025/579D5559-67CB-4686-BAD8-F6099AB8E642209685.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4129.704524421857,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 3291.6971311412544,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "обезщетения от Бюро по труда",
+        "amountEurDeclarant": 4372.568167990061,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Ерай Метин Юмер",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и заеми"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Ерай Метин Юмер",
+        "isSpouse": false,
+        "legalBasis": "5, 5% - договор за заем",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

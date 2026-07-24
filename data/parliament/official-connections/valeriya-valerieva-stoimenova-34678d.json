@@ -1,0 +1,152 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:valeriya-valerieva-stoimenova-34678d",
+  "nodes": [
+    {
+      "id": "official:valeriya-valerieva-stoimenova-34678d",
+      "type": "official",
+      "slug": "valeriya-valerieva-stoimenova-34678d",
+      "label": "Валерия Валериева Стоименова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бобошево"
+    },
+    {
+      "id": "company:tr:000253181",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ЛОЗА 1870&quot;",
+      "slug": null,
+      "uic": "000253181",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАСИЛ ИВАНОВ МАРИНОВ",
+      "type": "person",
+      "label": "Васил Иванов Маринов"
+    },
+    {
+      "id": "person:ХРИСТО ДИМИТРОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Христо Димитров Христов"
+    },
+    {
+      "id": "person:ЯНКО БОГОМИЛОВ ДЯКОВ",
+      "type": "person",
+      "label": "Янко Богомилов Дяков"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА РАДОЕВА АЛЕКСАНДРОВА",
+      "type": "person",
+      "label": "Десислава Радоева Александрова"
+    },
+    {
+      "id": "person:ГЕРГАНА ПЕТРОВА ГЕРГИНОВА",
+      "type": "person",
+      "label": "Гергана Петрова Гергинова"
+    },
+    {
+      "id": "person:СЕВДЕЛИН ГЕОРГИЕВ ЛУНДЖОВ",
+      "type": "person",
+      "label": "Севделин Георгиев Лунджов"
+    },
+    {
+      "id": "person:ЦВЕТАНКА НИКОЛОВА МАРИНОВА",
+      "type": "person",
+      "label": "Цветанка Николова Маринова"
+    },
+    {
+      "id": "person:МИГЛЕНА ВИКТОРОВА ЗАРЕВА",
+      "type": "person",
+      "label": "Миглена Викторова Зарева"
+    },
+    {
+      "id": "person:СПАСКА КИРИЛОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Спаска Кирилова Петкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valeriya-valerieva-stoimenova-34678d",
+      "target": "company:tr:000253181",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАСИЛ ИВАНОВ МАРИНОВ",
+      "target": "company:tr:000253181",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ДИМИТРОВ ХРИСТОВ",
+      "target": "company:tr:000253181",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКО БОГОМИЛОВ ДЯКОВ",
+      "target": "company:tr:000253181",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА РАДОЕВА АЛЕКСАНДРОВА",
+      "target": "company:tr:000253181",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ПЕТРОВА ГЕРГИНОВА",
+      "target": "company:tr:000253181",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВДЕЛИН ГЕОРГИЕВ ЛУНДЖОВ",
+      "target": "company:tr:000253181",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАНКА НИКОЛОВА МАРИНОВА",
+      "target": "company:tr:000253181",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИГЛЕНА ВИКТОРОВА ЗАРЕВА",
+      "target": "company:tr:000253181",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СПАСКА КИРИЛОВА ПЕТКОВА",
+      "target": "company:tr:000253181",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iordan-ivanov-shopov-622635",
+  "nodes": [
+    {
+      "id": "official:iordan-ivanov-shopov-622635",
+      "type": "official",
+      "slug": "iordan-ivanov-shopov-622635",
+      "label": "Йордан Иванов Шопов",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:109509640",
+      "type": "company",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪР 1 - БОБОВ ДОЛ",
+      "slug": null,
+      "uic": "109509640",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРАСИМИРА ИВАНОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Красимира Иванова Василева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordan-ivanov-shopov-622635",
+      "target": "company:tr:109509640",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРАСИМИРА ИВАНОВА ВАСИЛЕВА",
+      "target": "company:tr:109509640",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

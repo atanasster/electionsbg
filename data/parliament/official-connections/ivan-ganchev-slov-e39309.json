@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-ganchev-slov-e39309",
+  "nodes": [
+    {
+      "id": "official:ivan-ganchev-slov-e39309",
+      "type": "official",
+      "slug": "ivan-ganchev-slov-e39309",
+      "label": "Иван Ганчев Сълов",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207519455",
+      "type": "company",
+      "label": "АКСЕЛ СОЛАР",
+      "slug": null,
+      "uic": "207519455",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНГЕЛ ГЕОРГИЕВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Ангел Георгиев Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-ganchev-slov-e39309",
+      "target": "company:tr:207519455",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНГЕЛ ГЕОРГИЕВ ДИМИТРОВ",
+      "target": "company:tr:207519455",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ГЕОРГИЕВ ДИМИТРОВ",
+      "target": "company:tr:207519455",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

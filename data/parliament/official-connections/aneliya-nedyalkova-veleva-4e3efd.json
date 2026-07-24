@@ -1,0 +1,53 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:aneliya-nedyalkova-veleva-4e3efd",
+  "nodes": [
+    {
+      "id": "official:aneliya-nedyalkova-veleva-4e3efd",
+      "type": "official",
+      "slug": "aneliya-nedyalkova-veleva-4e3efd",
+      "label": "Анелия Недялкова Велева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Костинброд"
+    },
+    {
+      "id": "company:tr:202206104",
+      "type": "company",
+      "label": "АН 1 КА ЕООД",
+      "slug": null,
+      "uic": "202206104",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205432126",
+      "type": "company",
+      "label": "Нова Мода 2018 ЕООД",
+      "slug": null,
+      "uic": "205432126",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aneliya-nedyalkova-veleva-4e3efd",
+      "target": "company:tr:202206104",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:aneliya-nedyalkova-veleva-4e3efd",
+      "target": "company:tr:205432126",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

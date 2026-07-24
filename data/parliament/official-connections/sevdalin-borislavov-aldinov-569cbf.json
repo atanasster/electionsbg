@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:sevdalin-borislavov-aldinov-569cbf",
+  "nodes": [
+    {
+      "id": "official:sevdalin-borislavov-aldinov-569cbf",
+      "type": "official",
+      "slug": "sevdalin-borislavov-aldinov-569cbf",
+      "label": "Севдалин Бориславов Алдинов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Върбица"
+    },
+    {
+      "id": "company:tr:206799470",
+      "type": "company",
+      "label": "Баро строй 2022",
+      "slug": null,
+      "uic": "206799470",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НАЗИХА МУСТАФОВА НИЯЗИЕВА",
+      "type": "person",
+      "label": "Назиха Мустафова Ниязиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sevdalin-borislavov-aldinov-569cbf",
+      "target": "company:tr:206799470",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАЗИХА МУСТАФОВА НИЯЗИЕВА",
+      "target": "company:tr:206799470",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАЗИХА МУСТАФОВА НИЯЗИЕВА",
+      "target": "company:tr:206799470",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

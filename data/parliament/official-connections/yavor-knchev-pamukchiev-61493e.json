@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:yavor-knchev-pamukchiev-61493e",
+  "nodes": [
+    {
+      "id": "official:yavor-knchev-pamukchiev-61493e",
+      "type": "official",
+      "slug": "yavor-knchev-pamukchiev-61493e",
+      "label": "Явор Кънчев Памукчиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Севлиево"
+    },
+    {
+      "id": "company:tr:107534456",
+      "type": "company",
+      "label": "Памукчиев ООД",
+      "slug": null,
+      "uic": "107534456",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yavor-knchev-pamukchiev-61493e",
+      "target": "company:tr:107534456",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vanya-stoyanova-stoineva-64030f",
+  "nodes": [
+    {
+      "id": "official:vanya-stoyanova-stoineva-64030f",
+      "type": "official",
+      "slug": "vanya-stoyanova-stoineva-64030f",
+      "label": "Ваня Стоянова Стойнева",
+      "tier": "executive",
+      "role": "political_cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175054785",
+      "type": "company",
+      "label": "\"Болкан Боутс\" ООД",
+      "slug": null,
+      "uic": "175054785",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:130829709",
+      "type": "company",
+      "label": "\"Стойнев Аутдорс\" ЕООД",
+      "slug": null,
+      "uic": "130829709",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:vanya-stoyanova-stoineva-c11390",
+      "type": "official",
+      "slug": "vanya-stoyanova-stoineva-c11390",
+      "label": "Ваня Стоянова Стойнева",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "official:vanya-stoyanova-stoineva-db393c",
+      "type": "official",
+      "slug": "vanya-stoyanova-stoineva-db393c",
+      "label": "Ваня Стоянова Стойнева",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "official:vanya-stoyanova-stoineva-e684af",
+      "type": "official",
+      "slug": "vanya-stoyanova-stoineva-e684af",
+      "label": "Ваня Стоянова Стойнева",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vanya-stoyanova-stoineva-64030f",
+      "target": "company:tr:175054785",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vanya-stoyanova-stoineva-64030f",
+      "target": "company:tr:130829709",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vanya-stoyanova-stoineva-c11390",
+      "target": "company:tr:175054785",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vanya-stoyanova-stoineva-db393c",
+      "target": "company:tr:175054785",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vanya-stoyanova-stoineva-e684af",
+      "target": "company:tr:130829709",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vanya-stoyanova-stoineva-c11390",
+      "target": "company:tr:130829709",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vanya-stoyanova-stoineva-db393c",
+      "target": "company:tr:130829709",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

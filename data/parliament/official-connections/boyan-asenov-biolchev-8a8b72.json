@@ -1,0 +1,156 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:boyan-asenov-biolchev-8a8b72",
+  "nodes": [
+    {
+      "id": "official:boyan-asenov-biolchev-8a8b72",
+      "type": "official",
+      "slug": "boyan-asenov-biolchev-8a8b72",
+      "label": "Боян Асенов Биолчев",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:121546427",
+      "type": "company",
+      "label": "БЪЛГАРСКИ АНТАРКТИЧЕСКИ ИНСТИТУТ",
+      "slug": null,
+      "uic": "121546427",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, София, 1000"
+    },
+    {
+      "id": "mp:607",
+      "type": "mp",
+      "mpId": 607,
+      "label": "Мирослав Петров Севлиевски",
+      "partyGroupShort": "НВ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:РЕПУБЛИКА БЪЛГАРИЯ, ПРЕДСТАВЛЯВАНО ОТ МИНИСТЕРСТВО НА ВЪНШНИТЕ РАБОТИ",
+      "type": "person",
+      "label": "Република България, Представлявано От Министерство На Външните Работи"
+    },
+    {
+      "id": "person:НЕШО ХАЙНРИХ ЧИПЕВ",
+      "type": "person",
+      "label": "Нешо Хайнрих Чипев"
+    },
+    {
+      "id": "person:ВАЛЕНТИН БОГОМИЛОВ АНДРЕЕВ",
+      "type": "person",
+      "label": "Валентин Богомилов Андреев"
+    },
+    {
+      "id": "person:ХРИСТО ЦАНЕВ ПИМПИРЕВ",
+      "type": "person",
+      "label": "Христо Цанев Пимпирев"
+    },
+    {
+      "id": "person:ЙОРДАН ВЕЛИНОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Йордан Велинов Йорданов"
+    },
+    {
+      "id": "person:ДРАГОМИР МАТЕЕВ МАТЕЕВ",
+      "type": "person",
+      "label": "Драгомир Матеев Матеев"
+    },
+    {
+      "id": "person:ЕЛЕНА ГЕОРГИЕВА ПЕТРОВА",
+      "type": "person",
+      "label": "Елена Георгиева Петрова"
+    },
+    {
+      "id": "person:ЮРИЙ СТРАШИМИРОВ КУЧЕВ",
+      "type": "person",
+      "label": "Юрий Страшимиров Кучев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:boyan-asenov-biolchev-8a8b72",
+      "target": "company:tr:121546427",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:607",
+      "target": "company:tr:121546427",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РЕПУБЛИКА БЪЛГАРИЯ, ПРЕДСТАВЛЯВАНО ОТ МИНИСТЕРСТВО НА ВЪНШНИТЕ РАБОТИ",
+      "target": "company:tr:121546427",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕШО ХАЙНРИХ ЧИПЕВ",
+      "target": "company:tr:121546427",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН БОГОМИЛОВ АНДРЕЕВ",
+      "target": "company:tr:121546427",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ЦАНЕВ ПИМПИРЕВ",
+      "target": "company:tr:121546427",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ВЕЛИНОВ ЙОРДАНОВ",
+      "target": "company:tr:121546427",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГОМИР МАТЕЕВ МАТЕЕВ",
+      "target": "company:tr:121546427",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ГЕОРГИЕВА ПЕТРОВА",
+      "target": "company:tr:121546427",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮРИЙ СТРАШИМИРОВ КУЧЕВ",
+      "target": "company:tr:121546427",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

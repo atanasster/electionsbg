@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nadya-spasova-klisurska-zhekova-1406ec",
+  "nodes": [
+    {
+      "id": "official:nadya-spasova-klisurska-zhekova-1406ec",
+      "type": "official",
+      "slug": "nadya-spasova-klisurska-zhekova-1406ec",
+      "label": "Надя Спасова Клисурска - Жекова",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:ЙОАН-НИ-ООД",
+      "type": "company",
+      "label": "\"ЙОАН-НИ\" ООД",
+      "slug": "ЙОАН-НИ-ООД",
+      "uic": "201505783",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Пазарджик"
+    },
+    {
+      "id": "mp:2815",
+      "type": "mp",
+      "mpId": 2815,
+      "label": "Надя Спасова Клисурска-Жекова",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nadya-spasova-klisurska-zhekova-1406ec",
+      "target": "company:ЙОАН-НИ-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2815",
+      "target": "company:ЙОАН-НИ-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nurten-dzhevdzhetova-ahmed-58827b",
+  "nodes": [
+    {
+      "id": "official:nurten-dzhevdzhetova-ahmed-58827b",
+      "type": "official",
+      "slug": "nurten-dzhevdzhetova-ahmed-58827b",
+      "label": "Нуртен Джевджетова Ахмед",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Нови пазар"
+    },
+    {
+      "id": "company:tr:206466754",
+      "type": "company",
+      "label": "МАГ - Каспичан",
+      "slug": null,
+      "uic": "206466754",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВА ДАВИДОВА ИСМАИЛОВА",
+      "type": "person",
+      "label": "Венцислава Давидова Исмаилова"
+    },
+    {
+      "id": "person:ЕМИЛИЯН ЮРИЕВ МИРОСЛАВОВ",
+      "type": "person",
+      "label": "Емилиян Юриев Мирославов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nurten-dzhevdzhetova-ahmed-58827b",
+      "target": "company:tr:206466754",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВА ДАВИДОВА ИСМАИЛОВА",
+      "target": "company:tr:206466754",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯН ЮРИЕВ МИРОСЛАВОВ",
+      "target": "company:tr:206466754",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВА ДАВИДОВА ИСМАИЛОВА",
+      "target": "company:tr:206466754",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

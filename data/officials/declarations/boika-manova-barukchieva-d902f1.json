@@ -1,0 +1,100 @@
+[
+  {
+    "slug": "boika-manova-barukchieva-d902f1",
+    "declarantName": "Бойка Манова Барукчиева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г8817",
+    "controlHash": "06E85B1F",
+    "sourceUrl": "https://register.cacbg.bg/2025/D52723E8-2793-4D56-9DA3-9837641F0E5A211844.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Болнични",
+        "amountEurDeclarant": 360.460776243334,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребитевски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 28705,
+        "valueEur": 14676.633449737452,
+        "holderName": "Бойка Манова Барукчиева",
+        "isSpouse": false,
+        "legalBasis": "кредит 5%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "овърдрафт",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Бойка Манова Барукчиева",
+        "isSpouse": false,
+        "legalBasis": "овърдрафт 5%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Бойка Манова Барукчиева",
+        "isSpouse": false,
+        "legalBasis": "кредитна карта 9%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 9700,
+        "valueEur": 8927.156245685976,
+        "holderName": "Здравко Петров Барукчиев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заеми"
+      }
+    ],
+    "events": []
+  }
+]

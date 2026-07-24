@@ -1,0 +1,318 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:angel-kolov-lalyuv-685a1f",
+  "nodes": [
+    {
+      "id": "official:angel-kolov-lalyuv-685a1f",
+      "type": "official",
+      "slug": "angel-kolov-lalyuv-685a1f",
+      "label": "Ангел Кольов Лалюв",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Козлодуй"
+    },
+    {
+      "id": "company:tr:000183676",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ ХРАМ-ПАМЕТНИК ХРИСТО БОТЕВ-1879",
+      "slug": null,
+      "uic": "000183676",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:biserka-georgieva-dimitrova-be7c40",
+      "type": "official",
+      "slug": "biserka-georgieva-dimitrova-be7c40",
+      "label": "Бисерка Георгиева Димитрова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "official:zornitsa-miroslavova-simeonova-8d2435",
+      "type": "official",
+      "slug": "zornitsa-miroslavova-simeonova-8d2435",
+      "label": "Зорница Мирославова Симеонова",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Козлодуй"
+    },
+    {
+      "id": "official:svetoslav-tsvetanov-spasov-8e5b7f",
+      "type": "official",
+      "slug": "svetoslav-tsvetanov-spasov-8e5b7f",
+      "label": "Светослав Цветанов Спасов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Козлодуй"
+    },
+    {
+      "id": "person:СИЛВИЯ ПЕНКОВА МАРИНОВА",
+      "type": "person",
+      "label": "Силвия Пенкова Маринова"
+    },
+    {
+      "id": "person:НИНА ЛЪЧЕЗАРОВА КОЛАРОВА",
+      "type": "person",
+      "label": "Нина Лъчезарова Коларова"
+    },
+    {
+      "id": "person:ИВАЙЛО ГЕОРГИЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Ивайло Георгиев Иванов"
+    },
+    {
+      "id": "person:ТОДОР ЙОРДАНОВ ПЪРВОЛОВ",
+      "type": "person",
+      "label": "Тодор Йорданов Първолов"
+    },
+    {
+      "id": "person:ЦВЕТАН ЕМАНУИЛОВ БОШНЯКОВ",
+      "type": "person",
+      "label": "Цветан Емануилов Бошняков"
+    },
+    {
+      "id": "person:ИВАНКА МЛАДЕНОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Иванка Младенова Петрова"
+    },
+    {
+      "id": "person:ЛИЛИЯ ЙОНЧЕВА БРАТОВАНОВА",
+      "type": "person",
+      "label": "Лилия Йончева Братованова"
+    },
+    {
+      "id": "person:КОРНЕЛИЯ ВАСИЛЕВА ЛУКАНОВА",
+      "type": "person",
+      "label": "Корнелия Василева Луканова"
+    },
+    {
+      "id": "person:ЮЛИЯ КИРИЛОВА БОГОЕВА",
+      "type": "person",
+      "label": "Юлия Кирилова Богоева"
+    },
+    {
+      "id": "person:СВЕТЛА ВАЛЕНТИНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Светла Валентинова Димитрова"
+    },
+    {
+      "id": "person:ГЕРГАНА ДИМИТРОВА КОТЕВА-СТАНОЕВА",
+      "type": "person",
+      "label": "Гергана Димитрова Котева-Станоева"
+    },
+    {
+      "id": "person:СТЕЛА ЧАВДАРОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Стела Чавдарова Георгиева"
+    },
+    {
+      "id": "person:ПАВЛИНА СЕМЧОВА ЦЕНКОВА",
+      "type": "person",
+      "label": "Павлина Семчова Ценкова"
+    },
+    {
+      "id": "person:НЕДКО ДРАГОМИРОВ МАРИНОВ",
+      "type": "person",
+      "label": "Недко Драгомиров Маринов"
+    },
+    {
+      "id": "person:АННА-МИЛА КУЗМАНОВА НИКОЛЧЕВА",
+      "type": "person",
+      "label": "Анна-Мила Кузманова Николчева"
+    },
+    {
+      "id": "person:ЗОЯ МАРИНОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Зоя Маринова Илиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:angel-kolov-lalyuv-685a1f",
+      "target": "company:tr:000183676",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:angel-kolov-lalyuv-685a1f",
+      "target": "company:tr:000183676",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:biserka-georgieva-dimitrova-be7c40",
+      "target": "company:tr:000183676",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zornitsa-miroslavova-simeonova-8d2435",
+      "target": "company:tr:000183676",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zornitsa-miroslavova-simeonova-8d2435",
+      "target": "company:tr:000183676",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:svetoslav-tsvetanov-spasov-8e5b7f",
+      "target": "company:tr:000183676",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СИЛВИЯ ПЕНКОВА МАРИНОВА",
+      "target": "company:tr:000183676",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА ЛЪЧЕЗАРОВА КОЛАРОВА",
+      "target": "company:tr:000183676",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ГЕОРГИЕВ ИВАНОВ",
+      "target": "company:tr:000183676",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ЙОРДАНОВ ПЪРВОЛОВ",
+      "target": "company:tr:000183676",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН ЕМАНУИЛОВ БОШНЯКОВ",
+      "target": "company:tr:000183676",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА МЛАДЕНОВА ПЕТРОВА",
+      "target": "company:tr:000183676",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛИЯ ЙОНЧЕВА БРАТОВАНОВА",
+      "target": "company:tr:000183676",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОРНЕЛИЯ ВАСИЛЕВА ЛУКАНОВА",
+      "target": "company:tr:000183676",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЯ КИРИЛОВА БОГОЕВА",
+      "target": "company:tr:000183676",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА ВАЛЕНТИНОВА ДИМИТРОВА",
+      "target": "company:tr:000183676",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ДИМИТРОВА КОТЕВА-СТАНОЕВА",
+      "target": "company:tr:000183676",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕЛА ЧАВДАРОВА ГЕОРГИЕВА",
+      "target": "company:tr:000183676",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА СЕМЧОВА ЦЕНКОВА",
+      "target": "company:tr:000183676",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДКО ДРАГОМИРОВ МАРИНОВ",
+      "target": "company:tr:000183676",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛИЯ ЙОНЧЕВА БРАТОВАНОВА",
+      "target": "company:tr:000183676",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА-МИЛА КУЗМАНОВА НИКОЛЧЕВА",
+      "target": "company:tr:000183676",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗОЯ МАРИНОВА ИЛИЕВА",
+      "target": "company:tr:000183676",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

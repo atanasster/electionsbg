@@ -1,0 +1,70 @@
+[
+  {
+    "slug": "bilyana-nikolaeva-asenova-c4e457",
+    "declarantName": "Биляна Николаева Асенова",
+    "institution": "Разград",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-10",
+    "entryNumber": "Г13362",
+    "controlHash": "D2C087BE",
+    "sourceUrl": "https://register.cacbg.bg/2025/182B849C-3FEA-4A09-8B55-39A7D61164FB216569.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7338.061078928128,
+        "amountEurSpouse": 2908.2282202440906
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 15114.810591922611,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1441.33181309214,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 87562.3,
+        "valueEur": 44769.89308886764,
+        "holderName": "Биляна Николаева Асенова",
+        "isSpouse": false,
+        "legalBasis": "ипотека",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "М-СТ АРМЕНСКИ ЛОЗЯ",
+        "municipality": "Разград",
+        "areaSqm": 657,
+        "builtAreaSqm": 657,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

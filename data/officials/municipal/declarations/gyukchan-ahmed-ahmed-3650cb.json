@@ -1,0 +1,130 @@
+[
+  {
+    "slug": "gyukchan-ahmed-ahmed-3650cb",
+    "declarantName": "ГЮКЧАН АХМЕД АХМЕД",
+    "institution": "Лозница",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г10476",
+    "controlHash": "4C2EA1F4",
+    "sourceUrl": "https://register.cacbg.bg/2025/352C9399-A70C-47D0-BF7F-1AE4FFAB9C47213563.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25286.45127644018,
+        "amountEurSpouse": 8708.83461241519
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 27041.205012705603
+      },
+      {
+        "parent": null,
+        "category": "Субсидии",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 14059.504149133616
+      },
+      {
+        "parent": null,
+        "category": "хонорар",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 20.45167524784874
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "Лозница",
+        "municipality": "Лозница",
+        "areaSqm": 46,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 5060,
+        "valueEur": 2587.1369188528656,
+        "holderName": "Айтен Ехлиман Ахмед-СИО",
+        "isSpouse": true,
+        "legalBasis": "договор",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Айтен Ехлиман Ахмед",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Гюкчан Ахмед Ахмед",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Гюкчан Ахмед Ахмед",
+        "isSpouse": false,
+        "legalBasis": "договор - 4.5%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Автомобил",
+        "detail": "Тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

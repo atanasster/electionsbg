@@ -1,0 +1,221 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:svetlana-veskova-velikova-c96442",
+  "nodes": [
+    {
+      "id": "official:svetlana-veskova-velikova-c96442",
+      "type": "official",
+      "slug": "svetlana-veskova-velikova-c96442",
+      "label": "Светлана Вескова Великова",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:118019703",
+      "type": "company",
+      "label": "ТУРИСТИЧЕСКО ДРУЖЕСТВО-ДОЧО МИХАЙЛОВ",
+      "slug": null,
+      "uic": "118019703",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:nadezhda-drumeva-bobcheva-f7d931",
+      "type": "official",
+      "slug": "nadezhda-drumeva-bobcheva-f7d931",
+      "label": "Надежда Друмева Бобчева",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Столична община"
+    },
+    {
+      "id": "person:ДАНЧИ ВАСИЛЕВА КИРЯКОВА",
+      "type": "person",
+      "label": "Данчи Василева Кирякова"
+    },
+    {
+      "id": "person:ГАЛИНА БОРИСОВА УЗУНОВА",
+      "type": "person",
+      "label": "Галина Борисова Узунова"
+    },
+    {
+      "id": "person:ЕНЧО ГЕОРГИЕВ АНДРЕЕВ",
+      "type": "person",
+      "label": "Енчо Георгиев Андреев"
+    },
+    {
+      "id": "person:ЯНКА ДОБРЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Янка Добрева Георгиева"
+    },
+    {
+      "id": "person:НИНА КАЛИНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Нина Калинова Димитрова"
+    },
+    {
+      "id": "person:ПЕТЪР ЙОРДАНОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Петър Йорданов Атанасов"
+    },
+    {
+      "id": "person:КОСТАДИНКА ДИМИТРОВА ИВАНОВА",
+      "type": "person",
+      "label": "Костадинка Димитрова Иванова"
+    },
+    {
+      "id": "person:ВАСИЛКА НИКОЛОВА КИНДЖАКОВА",
+      "type": "person",
+      "label": "Василка Николова Кинджакова"
+    },
+    {
+      "id": "person:АНЕТА ДИМИТРОВА КОСТАДИНОВА",
+      "type": "person",
+      "label": "Анета Димитрова Костадинова"
+    },
+    {
+      "id": "person:ВИОЛЕТА АТАНАСОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Виолета Атанасова Йорданова"
+    },
+    {
+      "id": "person:ВЕЛИЧКА ИВАНОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Величка Иванова Христова"
+    },
+    {
+      "id": "person:КАТЯ ТОДОРОВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Катя Тодорова Кръстева"
+    },
+    {
+      "id": "person:ХРИСТИНА КУРТЕВА ХРИСТОВА",
+      "type": "person",
+      "label": "Христина Куртева Христова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetlana-veskova-velikova-c96442",
+      "target": "company:tr:118019703",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nadezhda-drumeva-bobcheva-f7d931",
+      "target": "company:tr:118019703",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАНЧИ ВАСИЛЕВА КИРЯКОВА",
+      "target": "company:tr:118019703",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА БОРИСОВА УЗУНОВА",
+      "target": "company:tr:118019703",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕНЧО ГЕОРГИЕВ АНДРЕЕВ",
+      "target": "company:tr:118019703",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКА ДОБРЕВА ГЕОРГИЕВА",
+      "target": "company:tr:118019703",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА КАЛИНОВА ДИМИТРОВА",
+      "target": "company:tr:118019703",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ЙОРДАНОВ АТАНАСОВ",
+      "target": "company:tr:118019703",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИНКА ДИМИТРОВА ИВАНОВА",
+      "target": "company:tr:118019703",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛКА НИКОЛОВА КИНДЖАКОВА",
+      "target": "company:tr:118019703",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕТА ДИМИТРОВА КОСТАДИНОВА",
+      "target": "company:tr:118019703",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА АТАНАСОВА ЙОРДАНОВА",
+      "target": "company:tr:118019703",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИЧКА ИВАНОВА ХРИСТОВА",
+      "target": "company:tr:118019703",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ ТОДОРОВА КРЪСТЕВА",
+      "target": "company:tr:118019703",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА КУРТЕВА ХРИСТОВА",
+      "target": "company:tr:118019703",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

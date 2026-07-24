@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stoyan-penev-novakov-db288e",
+  "nodes": [
+    {
+      "id": "official:stoyan-penev-novakov-db288e",
+      "type": "official",
+      "slug": "stoyan-penev-novakov-db288e",
+      "label": "Стоян Пенев Новаков",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203172060",
+      "type": "company",
+      "label": "Евразия лоджистикс",
+      "slug": null,
+      "uic": "203172060",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНЖЕЛО АНГЕЛОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Анжело Ангелов Георгиев"
+    },
+    {
+      "id": "person:ИЛИЯ ДИМОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Илия Димов Атанасов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stoyan-penev-novakov-db288e",
+      "target": "company:tr:203172060",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stoyan-penev-novakov-db288e",
+      "target": "company:tr:203172060",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНЖЕЛО АНГЕЛОВ ГЕОРГИЕВ",
+      "target": "company:tr:203172060",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ДИМОВ АТАНАСОВ",
+      "target": "company:tr:203172060",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ДИМОВ АТАНАСОВ",
+      "target": "company:tr:203172060",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

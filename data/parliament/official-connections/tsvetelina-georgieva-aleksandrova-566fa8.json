@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tsvetelina-georgieva-aleksandrova-566fa8",
+  "nodes": [
+    {
+      "id": "official:tsvetelina-georgieva-aleksandrova-566fa8",
+      "type": "official",
+      "slug": "tsvetelina-georgieva-aleksandrova-566fa8",
+      "label": "Цветелина Георгиева Александрова",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207742586",
+      "type": "company",
+      "label": "КОФИ ПЛЕЙС МОНТАНА",
+      "slug": null,
+      "uic": "207742586",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНИТА МАРИНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Анита Маринова Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetelina-georgieva-aleksandrova-566fa8",
+      "target": "company:tr:207742586",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tsvetelina-georgieva-aleksandrova-566fa8",
+      "target": "company:tr:207742586",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНИТА МАРИНОВА ДИМИТРОВА",
+      "target": "company:tr:207742586",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНИТА МАРИНОВА ДИМИТРОВА",
+      "target": "company:tr:207742586",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

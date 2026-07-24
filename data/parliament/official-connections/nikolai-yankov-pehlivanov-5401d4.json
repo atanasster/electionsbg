@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-yankov-pehlivanov-5401d4",
+  "nodes": [
+    {
+      "id": "official:nikolai-yankov-pehlivanov-5401d4",
+      "type": "official",
+      "slug": "nikolai-yankov-pehlivanov-5401d4",
+      "label": "Николай Янков Пехливанов",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:102894831",
+      "type": "company",
+      "label": "Ен Пи Инвест ООД",
+      "slug": null,
+      "uic": "102894831",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-yankov-pehlivanov-5401d4",
+      "target": "company:tr:102894831",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:aleksandr-dimitrov-penkov-3a96c1",
+  "nodes": [
+    {
+      "id": "official:aleksandr-dimitrov-penkov-3a96c1",
+      "type": "official",
+      "slug": "aleksandr-dimitrov-penkov-3a96c1",
+      "label": "Александър Димитров Пенков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200943736",
+      "type": "company",
+      "label": "БЕЗ ИМЕ ЕООД",
+      "slug": null,
+      "uic": "200943736",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯНА БОРИСОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Марияна Борисова Христова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandr-dimitrov-penkov-3a96c1",
+      "target": "company:tr:200943736",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА БОРИСОВА ХРИСТОВА",
+      "target": "company:tr:200943736",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА БОРИСОВА ХРИСТОВА",
+      "target": "company:tr:200943736",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

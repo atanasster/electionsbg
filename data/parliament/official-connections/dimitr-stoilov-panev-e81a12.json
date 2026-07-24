@@ -1,0 +1,187 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitr-stoilov-panev-e81a12",
+  "nodes": [
+    {
+      "id": "official:dimitr-stoilov-panev-e81a12",
+      "type": "official",
+      "slug": "dimitr-stoilov-panev-e81a12",
+      "label": "Димитър Стоилов Панев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206617423",
+      "type": "company",
+      "label": "АМК СТРОЙ ООД",
+      "slug": null,
+      "uic": "206617423",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205102370",
+      "type": "company",
+      "label": "КОКОИНВЕСТ 1 ООД",
+      "slug": null,
+      "uic": "205102370",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202043810",
+      "type": "company",
+      "label": "КОКОИНВЕСТ ООД",
+      "slug": null,
+      "uic": "202043810",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КИРИЛ НИКОЛАЕВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Кирил Николаев Димитров"
+    },
+    {
+      "id": "person:ГЕОРГИ АТАНАСОВ БОСТАНДЖИЕВ",
+      "type": "person",
+      "label": "Георги Атанасов Бостанджиев"
+    },
+    {
+      "id": "company:name:БОСТАН И САВОВ”",
+      "type": "company",
+      "label": "„БОСТАН И САВОВ” ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-stoilov-panev-e81a12",
+      "target": "company:tr:206617423",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dimitr-stoilov-panev-e81a12",
+      "target": "company:tr:205102370",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dimitr-stoilov-panev-e81a12",
+      "target": "company:tr:202043810",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dimitr-stoilov-panev-e81a12",
+      "target": "company:tr:206617423",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-stoilov-panev-e81a12",
+      "target": "company:tr:206617423",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-stoilov-panev-e81a12",
+      "target": "company:tr:205102370",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-stoilov-panev-e81a12",
+      "target": "company:tr:202043810",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КИРИЛ НИКОЛАЕВ ДИМИТРОВ",
+      "target": "company:tr:206617423",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ НИКОЛАЕВ ДИМИТРОВ",
+      "target": "company:tr:206617423",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ АТАНАСОВ БОСТАНДЖИЕВ",
+      "target": "company:tr:205102370",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ АТАНАСОВ БОСТАНДЖИЕВ",
+      "target": "company:tr:205102370",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:БОСТАН И САВОВ”",
+      "target": "company:tr:205102370",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ АТАНАСОВ БОСТАНДЖИЕВ",
+      "target": "company:tr:202043810",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ АТАНАСОВ БОСТАНДЖИЕВ",
+      "target": "company:tr:202043810",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:БОСТАН И САВОВ”",
+      "target": "company:tr:202043810",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

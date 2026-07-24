@@ -1,0 +1,200 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:plamen-blagov-iliev-79a145",
+  "nodes": [
+    {
+      "id": "official:plamen-blagov-iliev-79a145",
+      "type": "official",
+      "slug": "plamen-blagov-iliev-79a145",
+      "label": "Пламен Благов Илиев",
+      "tier": "executive",
+      "role": "academic",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:103878901",
+      "type": "company",
+      "label": "Билд Инвестмънт ООД",
+      "slug": null,
+      "uic": "103878901",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:103005797",
+      "type": "company",
+      "label": "Имоти и Инвестиции ООД",
+      "slug": null,
+      "uic": "103005797",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202039413",
+      "type": "company",
+      "label": "Билд Инвестмънт 2011 ООД",
+      "slug": null,
+      "uic": "202039413",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202039299",
+      "type": "company",
+      "label": "Ситиконсулт 2011 ООД",
+      "slug": null,
+      "uic": "202039299",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202039160",
+      "type": "company",
+      "label": "Сити Билд 2011 ООД",
+      "slug": null,
+      "uic": "202039160",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203570616",
+      "type": "company",
+      "label": "Прива Инвест 2015 ООД",
+      "slug": null,
+      "uic": "203570616",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203565843",
+      "type": "company",
+      "label": "Имоти и Инвестиции 2015 ООД",
+      "slug": null,
+      "uic": "203565843",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203638184",
+      "type": "company",
+      "label": "ПЛ Инвест ООД",
+      "slug": null,
+      "uic": "203638184",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203638113",
+      "type": "company",
+      "label": "ПЛ Консулт ООД",
+      "slug": null,
+      "uic": "203638113",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДАРИНА РУСЕВА БОБЕВА - ИЛИЕВА",
+      "type": "person",
+      "label": "Дарина Русева Бобева - Илиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:plamen-blagov-iliev-79a145",
+      "target": "company:tr:103878901",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:plamen-blagov-iliev-79a145",
+      "target": "company:tr:103005797",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:plamen-blagov-iliev-79a145",
+      "target": "company:tr:202039413",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:plamen-blagov-iliev-79a145",
+      "target": "company:tr:202039299",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:plamen-blagov-iliev-79a145",
+      "target": "company:tr:202039160",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:plamen-blagov-iliev-79a145",
+      "target": "company:tr:203570616",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:plamen-blagov-iliev-79a145",
+      "target": "company:tr:203565843",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:plamen-blagov-iliev-79a145",
+      "target": "company:tr:203638184",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:plamen-blagov-iliev-79a145",
+      "target": "company:tr:203638113",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:plamen-blagov-iliev-79a145",
+      "target": "company:tr:202039413",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАРИНА РУСЕВА БОБЕВА - ИЛИЕВА",
+      "target": "company:tr:202039413",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

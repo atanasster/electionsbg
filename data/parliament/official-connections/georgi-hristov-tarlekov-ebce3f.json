@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-hristov-tarlekov-ebce3f",
+  "nodes": [
+    {
+      "id": "official:georgi-hristov-tarlekov-ebce3f",
+      "type": "official",
+      "slug": "georgi-hristov-tarlekov-ebce3f",
+      "label": "Георги Христов Тарлеков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202766380",
+      "type": "company",
+      "label": "БЪЛГАРСКИ СПОРТЕН ТОТАЛИЗАТОР",
+      "slug": null,
+      "uic": "202766380",
+      "legalForm": "TPPD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1618"
+    },
+    {
+      "id": "mp:4796",
+      "type": "mp",
+      "mpId": 4796,
+      "label": "Александър Велиславов Тодоров",
+      "partyGroupShort": "МЕЧ",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46",
+        "47"
+      ]
+    },
+    {
+      "id": "person:ЛЮБОМИР СТЕФАНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Любомир Стефанов Петров"
+    },
+    {
+      "id": "person:АНГЕЛ НЕДКОВ ИВАНОВ",
+      "type": "person",
+      "label": "Ангел Недков Иванов"
+    },
+    {
+      "id": "person:ТЕРВЕЛ МИХАЙЛОВ ПЕНКОВ",
+      "type": "person",
+      "label": "Тервел Михайлов Пенков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-hristov-tarlekov-ebce3f",
+      "target": "company:tr:202766380",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4796",
+      "target": "company:tr:202766380",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮБОМИР СТЕФАНОВ ПЕТРОВ",
+      "target": "company:tr:202766380",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ НЕДКОВ ИВАНОВ",
+      "target": "company:tr:202766380",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕРВЕЛ МИХАЙЛОВ ПЕНКОВ",
+      "target": "company:tr:202766380",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:zdravko-aleksandrov-ognyanov-eb2cbb",
+  "nodes": [
+    {
+      "id": "official:zdravko-aleksandrov-ognyanov-eb2cbb",
+      "type": "official",
+      "slug": "zdravko-aleksandrov-ognyanov-eb2cbb",
+      "label": "Здравко Александров Огнянов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Доспат"
+    },
+    {
+      "id": "company:tr:208126056",
+      "type": "company",
+      "label": "ЗЕРО МАТ",
+      "slug": null,
+      "uic": "208126056",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1618"
+    },
+    {
+      "id": "mp:5241",
+      "type": "mp",
+      "mpId": 5241,
+      "label": "Здравко Александров Огнянов",
+      "partyGroupShort": "ПГ \"Прогресивна България\"",
+      "isCurrent": true,
+      "nsFolders": [
+        "52"
+      ]
+    },
+    {
+      "id": "person:РУМЕН ДЕТЕЛИНОВ КОЛЕВ",
+      "type": "person",
+      "label": "Румен Детелинов Колев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zdravko-aleksandrov-ognyanov-eb2cbb",
+      "target": "company:tr:208126056",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5241",
+      "target": "company:tr:208126056",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5241",
+      "target": "company:tr:208126056",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ДЕТЕЛИНОВ КОЛЕВ",
+      "target": "company:tr:208126056",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ДЕТЕЛИНОВ КОЛЕВ",
+      "target": "company:tr:208126056",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

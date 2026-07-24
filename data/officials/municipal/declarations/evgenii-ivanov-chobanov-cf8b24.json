@@ -1,0 +1,93 @@
+[
+  {
+    "slug": "evgenii-ivanov-chobanov-cf8b24",
+    "declarantName": "Евгений Иванов Чобанов",
+    "institution": "Стралджа",
+    "positionTitle": "Главен архитект",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-11",
+    "entryNumber": "Г12543",
+    "controlHash": "EDC39B2C",
+    "sourceUrl": "https://register.cacbg.bg/2025/3805E44E-C65E-4845-BF1D-EF1C51FC519E215712.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 3242.613110546418,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Девиденти от \" АКВАПРОЕКТ ЯМБОЛ \" ЕООД",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 10225.83762392437
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3562.1705362940543
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 13945,
+        "valueEur": 14259.930566562534,
+        "holderName": "Петя Атанасова Чобанова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 48770,
+        "valueEur": 49871.41009187915,
+        "holderName": "Евгений Иванов Чобанов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 12179,
+        "valueEur": 11122.13229166134,
+        "holderName": "Евгений Иванов Чобанов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

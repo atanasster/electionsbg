@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:evgeni-tsonkov-chobanov-08f091",
+  "nodes": [
+    {
+      "id": "official:evgeni-tsonkov-chobanov-08f091",
+      "type": "official",
+      "slug": "evgeni-tsonkov-chobanov-08f091",
+      "label": "Евгени Цонков Чобанов",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:124142386",
+      "type": "company",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪР І - КАВАРНА",
+      "slug": null,
+      "uic": "124142386",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:evgeni-tsonkov-chobanov-08f091",
+      "target": "company:tr:124142386",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

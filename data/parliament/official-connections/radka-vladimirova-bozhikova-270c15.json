@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:radka-vladimirova-bozhikova-270c15",
+  "nodes": [
+    {
+      "id": "official:radka-vladimirova-bozhikova-270c15",
+      "type": "official",
+      "slug": "radka-vladimirova-bozhikova-270c15",
+      "label": "Радка Владимирова Божикова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000022044",
+      "type": "company",
+      "label": "&quot;МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - Д-Р АСЕН ВЕЛЕВ&quot; ЕООД",
+      "slug": null,
+      "uic": "000022044",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:magdalena-nikolova-kotsakova-c4100b",
+      "type": "official",
+      "slug": "magdalena-nikolova-kotsakova-c4100b",
+      "label": "Магдалена Николова Коцакова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:radka-vladimirova-bozhikova-270c15",
+      "target": "company:tr:000022044",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:magdalena-nikolova-kotsakova-c4100b",
+      "target": "company:tr:000022044",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

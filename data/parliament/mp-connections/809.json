@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:809",
   "nodes": [
     {
@@ -22,18 +22,18 @@
       "seat": null
     },
     {
-      "id": "official:alosha-makov-dakov-4c797b",
+      "id": "official:alosha-makov-dakov-e407be",
       "type": "official",
-      "slug": "alosha-makov-dakov-4c797b",
+      "slug": "alosha-makov-dakov-e407be",
       "label": "Альоша Маков Даков",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:ivan-veselinov-terziiski-f30376",
+      "id": "official:ivan-veselinov-terziiski-e6bc20",
       "type": "official",
-      "slug": "ivan-veselinov-terziiski-f30376",
+      "slug": "ivan-veselinov-terziiski-e6bc20",
       "label": "Иван Веселинов Терзийски",
       "tier": "executive",
       "role": "state_enterprise",
@@ -157,7 +157,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:alosha-makov-dakov-4c797b",
+      "source": "official:alosha-makov-dakov-e407be",
       "target": "company:tr:201745141",
       "kind": "tr_role",
       "role": "director",
@@ -165,7 +165,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:ivan-veselinov-terziiski-f30376",
+      "source": "official:ivan-veselinov-terziiski-e6bc20",
       "target": "company:tr:201745141",
       "kind": "tr_role",
       "role": "director",

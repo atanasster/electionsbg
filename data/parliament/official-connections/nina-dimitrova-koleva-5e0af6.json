@@ -1,0 +1,142 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nina-dimitrova-koleva-5e0af6",
+  "nodes": [
+    {
+      "id": "official:nina-dimitrova-koleva-5e0af6",
+      "type": "official",
+      "slug": "nina-dimitrova-koleva-5e0af6",
+      "label": "Нина Димитрова Колева",
+      "tier": "executive",
+      "role": "political_cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000964098",
+      "type": "company",
+      "label": "ЧИТАЛИЩЕ &quot;ДОБРИ КЕРАНОВ - 1961&quot;",
+      "slug": null,
+      "uic": "000964098",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КОСТА ПАНАЙОТОВ КОСТОВ",
+      "type": "person",
+      "label": "Коста Панайотов Костов"
+    },
+    {
+      "id": "person:ДОНКА КЪНЧЕВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Донка Кънчева Йорданова"
+    },
+    {
+      "id": "person:КРАСИМИРА СТОЯНОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Красимира Стоянова Петрова"
+    },
+    {
+      "id": "person:ТАНЯ ИВАНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Таня Иванова Димитрова"
+    },
+    {
+      "id": "person:ДИМИТЪР ПЕТРОВ ЕЛЕКЧИЕВ",
+      "type": "person",
+      "label": "Димитър Петров Елекчиев"
+    },
+    {
+      "id": "person:ЯНКА АТАНАСОВА ИВАНОВА",
+      "type": "person",
+      "label": "Янка Атанасова Иванова"
+    },
+    {
+      "id": "person:ГАБРИЕЛА ЙОВЧЕВА ЙОВЧЕВА",
+      "type": "person",
+      "label": "Габриела Йовчева Йовчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nina-dimitrova-koleva-5e0af6",
+      "target": "company:tr:000964098",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КОСТА ПАНАЙОТОВ КОСТОВ",
+      "target": "company:tr:000964098",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА КЪНЧЕВА ЙОРДАНОВА",
+      "target": "company:tr:000964098",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА СТОЯНОВА ПЕТРОВА",
+      "target": "company:tr:000964098",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ИВАНОВА ДИМИТРОВА",
+      "target": "company:tr:000964098",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ПЕТРОВ ЕЛЕКЧИЕВ",
+      "target": "company:tr:000964098",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА КЪНЧЕВА ЙОРДАНОВА",
+      "target": "company:tr:000964098",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКА АТАНАСОВА ИВАНОВА",
+      "target": "company:tr:000964098",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКА АТАНАСОВА ИВАНОВА",
+      "target": "company:tr:000964098",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАБРИЕЛА ЙОВЧЕВА ЙОВЧЕВА",
+      "target": "company:tr:000964098",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

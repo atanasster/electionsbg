@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariyana-dimitrova-bivolarova-f2ebf8",
+  "nodes": [
+    {
+      "id": "official:mariyana-dimitrova-bivolarova-f2ebf8",
+      "type": "official",
+      "slug": "mariyana-dimitrova-bivolarova-f2ebf8",
+      "label": "Марияна Димитрова Биволарова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:118587200",
+      "type": "company",
+      "label": "ПРОФИНЕК",
+      "slug": null,
+      "uic": "118587200",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНАТОЛИ ИВАНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Анатоли Иванов Петров"
+    },
+    {
+      "id": "person:ВИЛИАН НЕКОВ БИВОЛАРОВ",
+      "type": "person",
+      "label": "Вилиан Неков Биволаров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariyana-dimitrova-bivolarova-f2ebf8",
+      "target": "company:tr:118587200",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariyana-dimitrova-bivolarova-f2ebf8",
+      "target": "company:tr:118587200",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНАТОЛИ ИВАНОВ ПЕТРОВ",
+      "target": "company:tr:118587200",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИЛИАН НЕКОВ БИВОЛАРОВ",
+      "target": "company:tr:118587200",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

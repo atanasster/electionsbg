@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:boris-iordanov-iordanov-9afbed",
+  "nodes": [
+    {
+      "id": "official:boris-iordanov-iordanov-9afbed",
+      "type": "official",
+      "slug": "boris-iordanov-iordanov-9afbed",
+      "label": "Борис Йорданов Йорданов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Иваново"
+    },
+    {
+      "id": "company:tr:206540628",
+      "type": "company",
+      "label": "Рик Карс Транс",
+      "slug": null,
+      "uic": "206540628",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДОБРИ ТОДОРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Добри Тодоров Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:boris-iordanov-iordanov-9afbed",
+      "target": "company:tr:206540628",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДОБРИ ТОДОРОВ ИВАНОВ",
+      "target": "company:tr:206540628",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИ ТОДОРОВ ИВАНОВ",
+      "target": "company:tr:206540628",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

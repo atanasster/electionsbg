@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-iordanov-gospodinov-70fe50",
+  "nodes": [
+    {
+      "id": "official:georgi-iordanov-gospodinov-70fe50",
+      "type": "official",
+      "slug": "georgi-iordanov-gospodinov-70fe50",
+      "label": "Георги Йорданов Господинов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стара Загора"
+    },
+    {
+      "id": "company:tr:204548156",
+      "type": "company",
+      "label": "\"Скай Мед\" ЕООД",
+      "slug": null,
+      "uic": "204548156",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-iordanov-gospodinov-70fe50",
+      "target": "company:tr:204548156",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

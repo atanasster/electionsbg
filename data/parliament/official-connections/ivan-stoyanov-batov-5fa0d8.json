@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-stoyanov-batov-5fa0d8",
+  "nodes": [
+    {
+      "id": "official:ivan-stoyanov-batov-5fa0d8",
+      "type": "official",
+      "slug": "ivan-stoyanov-batov-5fa0d8",
+      "label": "Иван Стоянов Батов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Велики Преслав"
+    },
+    {
+      "id": "company:tr:208166289",
+      "type": "company",
+      "label": "БАТОВИ ГРУП",
+      "slug": null,
+      "uic": "208166289",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИГЛЕНА РАДОСЛАВОВА БАТОВА",
+      "type": "person",
+      "label": "Миглена Радославова Батова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-stoyanov-batov-5fa0d8",
+      "target": "company:tr:208166289",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-stoyanov-batov-5fa0d8",
+      "target": "company:tr:208166289",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИГЛЕНА РАДОСЛАВОВА БАТОВА",
+      "target": "company:tr:208166289",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИГЛЕНА РАДОСЛАВОВА БАТОВА",
+      "target": "company:tr:208166289",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

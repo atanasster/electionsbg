@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:denitsa-andreeva-dimitrova-stoyanova-739225",
+  "nodes": [
+    {
+      "id": "official:denitsa-andreeva-dimitrova-stoyanova-739225",
+      "type": "official",
+      "slug": "denitsa-andreeva-dimitrova-stoyanova-739225",
+      "label": "Деница Андреева Димитрова-Стоянова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206172215",
+      "type": "company",
+      "label": "Д.Д.А.Р. ЕООД",
+      "slug": null,
+      "uic": "206172215",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:denitsa-andreeva-dimitrova-stoyanova-739225",
+      "target": "company:tr:206172215",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

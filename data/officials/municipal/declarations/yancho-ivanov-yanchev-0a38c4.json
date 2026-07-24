@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "yancho-ivanov-yanchev-0a38c4",
+    "declarantName": "Янчо Иванов Янчев",
+    "institution": "Долни Чифлик",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г12294",
+    "controlHash": "330C93C9",
+    "sourceUrl": "https://register.cacbg.bg/2025/31D62341-E994-4D6D-8DD4-6877FADBEF1F215455.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4000.85897036041,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 1367.7057821998844,
+        "amountEurSpouse": 5104.226849981849
+      }
+    ],
+    "assets": [
+      {
+        "category": "receivable",
+        "description": "Договор за паричен заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 36798,
+        "valueEur": 18814.51864425845,
+        "holderName": "Янчо Иванов Янчев",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4900,
+        "valueEur": 2505.3302178614704,
+        "holderName": "Янчо Иванов Янчев",
+        "isSpouse": false,
+        "legalBasis": "кредитна карта",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Самоходна машина",
+        "detail": "Kawasaki KVF650",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:malina-valentinova-krumova-a2ab27",
+  "nodes": [
+    {
+      "id": "official:malina-valentinova-krumova-a2ab27",
+      "type": "official",
+      "slug": "malina-valentinova-krumova-a2ab27",
+      "label": "Малина Валентинова Крумова",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200170442",
+      "type": "company",
+      "label": "Еспира ООД",
+      "slug": null,
+      "uic": "200170442",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:malina-valentinova-krumova-a2ab27",
+      "target": "company:tr:200170442",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:azim-kezimov-mutishev-7a68df",
+  "nodes": [
+    {
+      "id": "official:azim-kezimov-mutishev-7a68df",
+      "type": "official",
+      "slug": "azim-kezimov-mutishev-7a68df",
+      "label": "Азим Кезимов Мутишев",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207545934",
+      "type": "company",
+      "label": "СОЛАР ЕНЕРДЖИ 89 ЕООД",
+      "slug": null,
+      "uic": "207545934",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:azim-kezimov-mutishev-7a68df",
+      "target": "company:tr:207545934",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:azim-kezimov-mutishev-7a68df",
+      "target": "company:tr:207545934",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:azim-kezimov-mutishev-7a68df",
+      "target": "company:tr:207545934",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

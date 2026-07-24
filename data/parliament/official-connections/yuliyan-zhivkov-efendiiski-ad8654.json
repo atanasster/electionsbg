@@ -1,0 +1,230 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:yuliyan-zhivkov-efendiiski-ad8654",
+  "nodes": [
+    {
+      "id": "official:yuliyan-zhivkov-efendiiski-ad8654",
+      "type": "official",
+      "slug": "yuliyan-zhivkov-efendiiski-ad8654",
+      "label": "Юлиян Живков Ефендийски",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сандански"
+    },
+    {
+      "id": "company:tr:000694329",
+      "type": "company",
+      "label": "ИНТЕРНЕШЪНЪЛ АСЕТ БАНК",
+      "slug": null,
+      "uic": "000694329",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИРОСЛАВ ЮЛИЕВ ПЕТКОВ",
+      "type": "person",
+      "label": "Мирослав Юлиев Петков"
+    },
+    {
+      "id": "person:ДАВИДА СИМЕОНОВА БОРИСОВА",
+      "type": "person",
+      "label": "Давида Симеонова Борисова"
+    },
+    {
+      "id": "person:ГЕОРГИ ДИМОВ ТОТЕВ",
+      "type": "person",
+      "label": "Георги Димов Тотев"
+    },
+    {
+      "id": "person:ЗЛАТКО ТОДОРОВ КАШМЕРОВ",
+      "type": "person",
+      "label": "Златко Тодоров Кашмеров"
+    },
+    {
+      "id": "person:БЛАГОЙ ИВАНОВ МИТРЕВ",
+      "type": "person",
+      "label": "Благой Иванов Митрев"
+    },
+    {
+      "id": "person:БИЛЯНА ГЕОРГИЕВА СТОИЛОВА",
+      "type": "person",
+      "label": "Биляна Георгиева Стоилова"
+    },
+    {
+      "id": "person:ЖАНЕТА СТАНИМИРОВА ГЕОРГИЕВА - ПАНАЙОТОВА",
+      "type": "person",
+      "label": "Жанета Станимирова Георгиева - Панайотова"
+    },
+    {
+      "id": "person:КОНСТАНТИН ДИМИТРОВ ГЮРОВ",
+      "type": "person",
+      "label": "Константин Димитров Гюров"
+    },
+    {
+      "id": "person:КРАСИМИРА КИРИЛОВА УЗУНОВА",
+      "type": "person",
+      "label": "Красимира Кирилова Узунова"
+    },
+    {
+      "id": "person:ИЛКА НЕДЕЛЧЕВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Илка Неделчева Стефанова"
+    },
+    {
+      "id": "person:КИРИЛ ГЕОРГИЕВ БОЖИНОВ",
+      "type": "person",
+      "label": "Кирил Георгиев Божинов"
+    },
+    {
+      "id": "person:СУЗАНА МОХАМЕД ВЪЛЧЕВА",
+      "type": "person",
+      "label": "Сузана Мохамед Вълчева"
+    },
+    {
+      "id": "person:КАТЯ МЕТОДИЕВА ЕВТИМОВА",
+      "type": "person",
+      "label": "Катя Методиева Евтимова"
+    },
+    {
+      "id": "person:НИКОЛАЙ МИХАЙЛОВ АНЕВ",
+      "type": "person",
+      "label": "Николай Михайлов Анев"
+    },
+    {
+      "id": "person:ЛЮБОМИР ПЛАМЕНОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Любомир Пламенов Петков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yuliyan-zhivkov-efendiiski-ad8654",
+      "target": "company:tr:000694329",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИРОСЛАВ ЮЛИЕВ ПЕТКОВ",
+      "target": "company:tr:000694329",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАВИДА СИМЕОНОВА БОРИСОВА",
+      "target": "company:tr:000694329",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ДИМОВ ТОТЕВ",
+      "target": "company:tr:000694329",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТКО ТОДОРОВ КАШМЕРОВ",
+      "target": "company:tr:000694329",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЛАГОЙ ИВАНОВ МИТРЕВ",
+      "target": "company:tr:000694329",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИЛЯНА ГЕОРГИЕВА СТОИЛОВА",
+      "target": "company:tr:000694329",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖАНЕТА СТАНИМИРОВА ГЕОРГИЕВА - ПАНАЙОТОВА",
+      "target": "company:tr:000694329",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН ДИМИТРОВ ГЮРОВ",
+      "target": "company:tr:000694329",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА КИРИЛОВА УЗУНОВА",
+      "target": "company:tr:000694329",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛКА НЕДЕЛЧЕВА СТЕФАНОВА",
+      "target": "company:tr:000694329",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ГЕОРГИЕВ БОЖИНОВ",
+      "target": "company:tr:000694329",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СУЗАНА МОХАМЕД ВЪЛЧЕВА",
+      "target": "company:tr:000694329",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ МЕТОДИЕВА ЕВТИМОВА",
+      "target": "company:tr:000694329",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ МИХАЙЛОВ АНЕВ",
+      "target": "company:tr:000694329",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ПЛАМЕНОВ ПЕТКОВ",
+      "target": "company:tr:000694329",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

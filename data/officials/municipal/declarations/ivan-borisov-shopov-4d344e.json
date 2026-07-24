@@ -1,0 +1,69 @@
+[
+  {
+    "slug": "ivan-borisov-shopov-4d344e",
+    "declarantName": "Иван Борисов Шопов",
+    "institution": "Свищов",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г7358",
+    "controlHash": "64B3A72C",
+    "sourceUrl": "https://register.cacbg.bg/2025/017D8526-3477-442F-BB8B-E170EE0603A9210346.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29452.45752442697,
+        "amountEurSpouse": 23198.335233634825
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 7004.698772388193
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Пежо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 21514,
+        "valueEur": 10999.933532055444,
+        "holderName": "Иван Борисов Шопов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 41500,
+        "valueEur": 21218.613069643066,
+        "holderName": "Иван Борисов Шопов",
+        "isSpouse": false,
+        "legalBasis": "Договор",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

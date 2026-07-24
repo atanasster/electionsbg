@@ -1,0 +1,154 @@
+[
+  {
+    "slug": "evgeniya-danielova-angelova-4edb55",
+    "declarantName": "(unknown)",
+    "institution": "Хасково",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2025-05-21",
+    "entryNumber": "Г12278",
+    "controlHash": "4A16B4C9",
+    "sourceUrl": "https://register.cacbg.bg/2025/0A3C4D16-9AFC-40BC-AA4F-003D3AB2B150215439.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "Управителен съвет",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "Управителен съвет",
+        "amount": null,
+        "valueEur": null,
+        "holderName": null,
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Авиоклуб Хасково",
+        "detail": null,
+        "location": "Управителен съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "evgeniya-danielova-angelova-4edb55",
+    "declarantName": "Евгения Даниелова Ангелова",
+    "institution": "Хасково",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-15",
+    "entryNumber": "Г9444",
+    "controlHash": "402C2E03",
+    "sourceUrl": "https://register.cacbg.bg/2025/0A3C4D16-9AFC-40BC-AA4F-003D3AB2B150212484.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5038.781489188733,
+        "amountEurSpouse": 38971.17847665697
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 14793.20799865019,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 41000,
+        "valueEur": 39464.57514201132,
+        "holderName": "Евгения Даниелова Ангелова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "предходно декларирани"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 127000,
+        "valueEur": 64934.06891191975,
+        "holderName": "Евгения Даниелова Ангелова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "предходно декларирани и спестявания от заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 142000,
+        "valueEur": 72603.44712986302,
+        "holderName": "Георги Данчев Ангелов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "предходно декларирани и спестявания от заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 34000,
+        "valueEur": 17383.92396067143,
+        "holderName": "Георги Данчев Ангелов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "предходно декларирани и спестявания от заплата"
+      }
+    ],
+    "events": []
+  }
+]

@@ -1,0 +1,148 @@
+[
+  {
+    "slug": "angel-dimitrov-buhlarski-63f84a",
+    "declarantName": "(unknown)",
+    "institution": "Божурище",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г12203",
+    "controlHash": "38196074",
+    "sourceUrl": "https://register.cacbg.bg/2025/1ED5D63A-67A5-486A-9398-7E499D9E838E215363.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "security",
+        "description": "ипотечен кредит",
+        "detail": "Ангел Димитров Бухларски",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "8100",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "да - ЦКБ",
+        "isSpouse": true,
+        "legalBasis": "спестявания от заплати",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "angel-dimitrov-buhlarski-63f84a",
+    "declarantName": "Ангел Димитров Бухларски",
+    "institution": "Божурище",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г12199",
+    "controlHash": "085B6C95",
+    "sourceUrl": "https://register.cacbg.bg/2025/1ED5D63A-67A5-486A-9398-7E499D9E838E215358.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28571.501613125885,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Гурмазово",
+        "municipality": "Божурище",
+        "areaSqm": 500,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "Ангел Димитров Бухларски",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50600,
+        "valueEur": 25871.369188528657,
+        "holderName": "Ангел Димитров Бухларски",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 600,
+        "valueEur": 306.7751287177311,
+        "holderName": "Ангел Димитров Бухларски",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 8100,
+        "valueEur": 4141.46423768937,
+        "holderName": "Ангел Димитров Бухларски",
+        "isSpouse": false,
+        "legalBasis": "договор за ипотечен кредит - 3.1%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Роувър",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 102.2583762392437,
+        "legalBasis": "предаден за скрап"
+      }
+    ]
+  }
+]

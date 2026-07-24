@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-iordanov-banchev-3d29fa",
+  "nodes": [
+    {
+      "id": "official:ivan-iordanov-banchev-3d29fa",
+      "type": "official",
+      "slug": "ivan-iordanov-banchev-3d29fa",
+      "label": "Иван Йорданов Банчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Костенец"
+    },
+    {
+      "id": "company:tr:103133957",
+      "type": "company",
+      "label": "ЧЕРНОМОРСКИ ЦЕНТЪР ЗА ЕКОЛОГИЧНА ИНФОРМАЦИЯ И ОБРАЗОВАНИЕ",
+      "slug": null,
+      "uic": "103133957",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕМА ТОДОРОВА ГИЛЕВА",
+      "type": "person",
+      "label": "Ема Тодорова Гилева"
+    },
+    {
+      "id": "person:ГАНКА ЖЕЛЯЗКОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Ганка Желязкова Атанасова"
+    },
+    {
+      "id": "person:МИХАЕЛА ИВАНОВА КОЗОВСКА",
+      "type": "person",
+      "label": "Михаела Иванова Козовска"
+    },
+    {
+      "id": "person:РУМЯНКА ЛЮБЕНОВА ЕМАНУИЛИДУ",
+      "type": "person",
+      "label": "Румянка Любенова Емануилиду"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-iordanov-banchev-3d29fa",
+      "target": "company:tr:103133957",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕМА ТОДОРОВА ГИЛЕВА",
+      "target": "company:tr:103133957",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАНКА ЖЕЛЯЗКОВА АТАНАСОВА",
+      "target": "company:tr:103133957",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАЕЛА ИВАНОВА КОЗОВСКА",
+      "target": "company:tr:103133957",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНКА ЛЮБЕНОВА ЕМАНУИЛИДУ",
+      "target": "company:tr:103133957",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

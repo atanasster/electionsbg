@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mehridzhan-raimova-akifova-b00de4",
+  "nodes": [
+    {
+      "id": "official:mehridzhan-raimova-akifova-b00de4",
+      "type": "official",
+      "slug": "mehridzhan-raimova-akifova-b00de4",
+      "label": "Мехриджан Раимова Акифова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кубрат"
+    },
+    {
+      "id": "company:tr:000500009",
+      "type": "company",
+      "label": "ХРИСТО БОТЕВ-1927",
+      "slug": null,
+      "uic": "000500009",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РУСКА ПЕТРОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Руска Петрова Тодорова"
+    },
+    {
+      "id": "person:ЕМЕЛ РАИДИНОВА АЛИЕВА",
+      "type": "person",
+      "label": "Емел Раидинова Алиева"
+    },
+    {
+      "id": "person:ВЕЛИЧКА ПЕТРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Величка Петрова Димитрова"
+    },
+    {
+      "id": "person:МАРИОНЕЛА ПЕТРОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Марионела Петрова Стоянова"
+    },
+    {
+      "id": "person:ЙОРДАНКА ВАСИЛЕВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Йорданка Василева Йорданова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mehridzhan-raimova-akifova-b00de4",
+      "target": "company:tr:000500009",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РУСКА ПЕТРОВА ТОДОРОВА",
+      "target": "company:tr:000500009",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМЕЛ РАИДИНОВА АЛИЕВА",
+      "target": "company:tr:000500009",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИЧКА ПЕТРОВА ДИМИТРОВА",
+      "target": "company:tr:000500009",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИОНЕЛА ПЕТРОВА СТОЯНОВА",
+      "target": "company:tr:000500009",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА ВАСИЛЕВА ЙОРДАНОВА",
+      "target": "company:tr:000500009",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

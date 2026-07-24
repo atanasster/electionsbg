@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rumyana-iordanova-mileva-2c26b4",
+  "nodes": [
+    {
+      "id": "official:rumyana-iordanova-mileva-2c26b4",
+      "type": "official",
+      "slug": "rumyana-iordanova-mileva-2c26b4",
+      "label": "Румяна Йорданова Милева",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205077440",
+      "type": "company",
+      "label": "СТЕФ ПРО",
+      "slug": null,
+      "uic": "205077440",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rumyana-iordanova-mileva-2c26b4",
+      "target": "company:tr:205077440",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rumyana-iordanova-mileva-2c26b4",
+      "target": "company:tr:205077440",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

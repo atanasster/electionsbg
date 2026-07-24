@@ -1,0 +1,52 @@
+[
+  {
+    "slug": "ivan-dobrev-paskov-1adbca",
+    "declarantName": "ИВАН ДОБРЕВ ПАСКОВ",
+    "institution": "Агенция \"Митници\"",
+    "positionTitle": "Заместник-директор на териториална дирекция",
+    "category": "revenue_agency",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-01",
+    "entryNumber": "Г5254",
+    "controlHash": "8AE3AD1E",
+    "sourceUrl": "https://register.cacbg.bg/2025/13E543A5-8E81-47A2-8345-D93607E9079D208168.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23609.413906116584,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 219.85550891437396
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ЖИЛИЩЕН КРЕДИТ(ЛП 3,28%)",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 74495,
+        "valueEur": 38088.6886897123,
+        "holderName": "ИВАН ДОБРЕВ ПАСКОВ",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР ЗА ЖИЛИЩЕН КРЕДИТ",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

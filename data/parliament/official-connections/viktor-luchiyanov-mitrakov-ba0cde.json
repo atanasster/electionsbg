@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:viktor-luchiyanov-mitrakov-ba0cde",
+  "nodes": [
+    {
+      "id": "official:viktor-luchiyanov-mitrakov-ba0cde",
+      "type": "official",
+      "slug": "viktor-luchiyanov-mitrakov-ba0cde",
+      "label": "Виктор Лучиянов Митраков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Балчик"
+    },
+    {
+      "id": "company:tr:207662344",
+      "type": "company",
+      "label": "ДРИНКДЕЙ ООД",
+      "slug": null,
+      "uic": "207662344",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИХАЕЛ ГЕОРГИЕВ СТОЯНОВ",
+      "type": "person",
+      "label": "Михаел Георгиев Стоянов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:viktor-luchiyanov-mitrakov-ba0cde",
+      "target": "company:tr:207662344",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:viktor-luchiyanov-mitrakov-ba0cde",
+      "target": "company:tr:207662344",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИХАЕЛ ГЕОРГИЕВ СТОЯНОВ",
+      "target": "company:tr:207662344",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАЕЛ ГЕОРГИЕВ СТОЯНОВ",
+      "target": "company:tr:207662344",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

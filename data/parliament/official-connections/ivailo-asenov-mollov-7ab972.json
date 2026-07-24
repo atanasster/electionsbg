@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivailo-asenov-mollov-7ab972",
+  "nodes": [
+    {
+      "id": "official:ivailo-asenov-mollov-7ab972",
+      "type": "official",
+      "slug": "ivailo-asenov-mollov-7ab972",
+      "label": "Ивайло Асенов Моллов",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Сатовча"
+    },
+    {
+      "id": "company:tr:205428736",
+      "type": "company",
+      "label": "Д-Р ИВАЙЛО МОЛЛОВ - ИНДИВИДУАЛНА ПРАКТИКА ЗА ПЪРВИЧНА МЕДИЦИНСКА ПОМОЩ-ЛЕКАР ПО ДЕНТАЛНА МЕДИЦИНА",
+      "slug": null,
+      "uic": "205428736",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivailo-asenov-mollov-7ab972",
+      "target": "company:tr:205428736",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivailo-asenov-mollov-7ab972",
+      "target": "company:tr:205428736",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

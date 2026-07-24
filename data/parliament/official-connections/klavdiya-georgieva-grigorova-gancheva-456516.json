@@ -1,0 +1,194 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:klavdiya-georgieva-grigorova-gancheva-456516",
+  "nodes": [
+    {
+      "id": "official:klavdiya-georgieva-grigorova-gancheva-456516",
+      "type": "official",
+      "slug": "klavdiya-georgieva-grigorova-gancheva-456516",
+      "label": "Клавдия Георгиева Григорова-Ганчева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206974197",
+      "type": "company",
+      "label": "ИНДУСТРИАЛЕН ПАРК - РЯХОВЕЦ",
+      "slug": null,
+      "uic": "206974197",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Горна Оряховица, 5100"
+    },
+    {
+      "id": "mp:2770",
+      "type": "mp",
+      "mpId": 2770,
+      "label": "Клавдия Георгиева Григорова-Ганчева",
+      "partyGroupShort": "ГЕРБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "43"
+      ]
+    },
+    {
+      "id": "official:radoslav-radoev-radev-15b0b0",
+      "type": "official",
+      "slug": "radoslav-radoev-radev-15b0b0",
+      "label": "Радослав Радоев Радев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:КЛАВДИЯ ГЕОРГИЕВА ГРИГОРОВА - ГАНЧЕВА",
+      "type": "person",
+      "label": "Клавдия Георгиева Григорова - Ганчева"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА ВАСИЛЕВА ЦАНКОВА",
+      "type": "person",
+      "label": "Цветелина Василева Цанкова"
+    },
+    {
+      "id": "person:ОБЩИНА ГОРНА ОРЯХОВИЦА",
+      "type": "person",
+      "label": "Община Горна Оряховица"
+    },
+    {
+      "id": "person:ЕЛЕНА ХРИСТОВА ДОСЕВА",
+      "type": "person",
+      "label": "Елена Христова Досева"
+    },
+    {
+      "id": "person:ДАНИЕЛ МАРИНОВ МАРИНОВ",
+      "type": "person",
+      "label": "Даниел Маринов Маринов"
+    },
+    {
+      "id": "person:ЙОРДАН ДИМИТРОВ МАРКОВ",
+      "type": "person",
+      "label": "Йордан Димитров Марков"
+    },
+    {
+      "id": "person:КИРИЛ АСЕНОВ КИРИЛОВ",
+      "type": "person",
+      "label": "Кирил Асенов Кирилов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:klavdiya-georgieva-grigorova-gancheva-456516",
+      "target": "company:tr:206974197",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:klavdiya-georgieva-grigorova-gancheva-456516",
+      "target": "company:tr:206974197",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2770",
+      "target": "company:tr:206974197",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:radoslav-radoev-radev-15b0b0",
+      "target": "company:tr:206974197",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КЛАВДИЯ ГЕОРГИЕВА ГРИГОРОВА - ГАНЧЕВА",
+      "target": "company:tr:206974197",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЛАВДИЯ ГЕОРГИЕВА ГРИГОРОВА - ГАНЧЕВА",
+      "target": "company:tr:206974197",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА ВАСИЛЕВА ЦАНКОВА",
+      "target": "company:tr:206974197",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ГОРНА ОРЯХОВИЦА",
+      "target": "company:tr:206974197",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ХРИСТОВА ДОСЕВА",
+      "target": "company:tr:206974197",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ХРИСТОВА ДОСЕВА",
+      "target": "company:tr:206974197",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛ МАРИНОВ МАРИНОВ",
+      "target": "company:tr:206974197",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ДИМИТРОВ МАРКОВ",
+      "target": "company:tr:206974197",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ДИМИТРОВ МАРКОВ",
+      "target": "company:tr:206974197",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ АСЕНОВ КИРИЛОВ",
+      "target": "company:tr:206974197",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

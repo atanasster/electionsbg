@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:desislava-mitkova-kaloyanova-d60d9c",
+  "nodes": [
+    {
+      "id": "official:desislava-mitkova-kaloyanova-d60d9c",
+      "type": "official",
+      "slug": "desislava-mitkova-kaloyanova-d60d9c",
+      "label": "Десислава Миткова Калоянова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стара Загора"
+    },
+    {
+      "id": "company:tr:201964943",
+      "type": "company",
+      "label": "ДМК Консулт ЕООД",
+      "slug": null,
+      "uic": "201964943",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:desislava-mitkova-kaloyanova-d60d9c",
+      "target": "company:tr:201964943",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

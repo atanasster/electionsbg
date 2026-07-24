@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:desislava-radoslavova-stefanova-b8f01e",
+  "nodes": [
+    {
+      "id": "official:desislava-radoslavova-stefanova-b8f01e",
+      "type": "official",
+      "slug": "desislava-radoslavova-stefanova-b8f01e",
+      "label": "Десислава Радославова Стефанова",
+      "tier": "executive",
+      "role": "revenue_agency",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206392147",
+      "type": "company",
+      "label": "БАЛИС БГ",
+      "slug": null,
+      "uic": "206392147",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:desislava-radoslavova-stefanova-b8f01e",
+      "target": "company:tr:206392147",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:desislava-radoslavova-stefanova-b8f01e",
+      "target": "company:tr:206392147",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

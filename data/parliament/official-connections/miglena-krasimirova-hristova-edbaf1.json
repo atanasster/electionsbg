@@ -1,0 +1,208 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:miglena-krasimirova-hristova-edbaf1",
+  "nodes": [
+    {
+      "id": "official:miglena-krasimirova-hristova-edbaf1",
+      "type": "official",
+      "slug": "miglena-krasimirova-hristova-edbaf1",
+      "label": "Миглена Красимирова Христова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:831616457",
+      "type": "company",
+      "label": "МИНПРОЕКТ",
+      "slug": null,
+      "uic": "831616457",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:rumen-georgiev-bikov-d5987d",
+      "type": "official",
+      "slug": "rumen-georgiev-bikov-d5987d",
+      "label": "Румен Георгиев Биков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:РАДОСТ АЛЕКСАНДРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Радост Александрова Димитрова"
+    },
+    {
+      "id": "person:ЖАКЛЕН ЙОСИФ КОЕН",
+      "type": "person",
+      "label": "Жаклен Йосиф Коен"
+    },
+    {
+      "id": "person:ХУБЕН МИЛКОВ ХУБЕНОВ",
+      "type": "person",
+      "label": "Хубен Милков Хубенов"
+    },
+    {
+      "id": "person:ЛЮБЕН ИВАНОВ ТОТЕВ",
+      "type": "person",
+      "label": "Любен Иванов Тотев"
+    },
+    {
+      "id": "person:ДИМИТЪР КИНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Димитър Кинов Стоянов"
+    },
+    {
+      "id": "person:СЛАВЯН ПЕТРОВ ЛАЧЕВ",
+      "type": "person",
+      "label": "Славян Петров Лачев"
+    },
+    {
+      "id": "person:СТАНИСЛАВ НИКОЛОВ СТАНКОВ",
+      "type": "person",
+      "label": "Станислав Николов Станков"
+    },
+    {
+      "id": "company:tr:831373560",
+      "type": "company",
+      "label": "БЪЛГАРСКИ ЕНЕРГИЕН ХОЛДИНГ",
+      "slug": null,
+      "uic": "831373560",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КОСТАДИН ХРИСТОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Костадин Христов Христов"
+    },
+    {
+      "id": "person:АНТОН ЛЮБОМИРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Антон Любомиров Иванов"
+    },
+    {
+      "id": "person:ДИМИТЪР ДИМОВ ДИМОВ",
+      "type": "person",
+      "label": "Димитър Димов Димов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miglena-krasimirova-hristova-edbaf1",
+      "target": "company:tr:831616457",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rumen-georgiev-bikov-d5987d",
+      "target": "company:tr:831616457",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАДОСТ АЛЕКСАНДРОВА ДИМИТРОВА",
+      "target": "company:tr:831616457",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖАКЛЕН ЙОСИФ КОЕН",
+      "target": "company:tr:831616457",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХУБЕН МИЛКОВ ХУБЕНОВ",
+      "target": "company:tr:831616457",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБЕН ИВАНОВ ТОТЕВ",
+      "target": "company:tr:831616457",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР КИНОВ СТОЯНОВ",
+      "target": "company:tr:831616457",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВЯН ПЕТРОВ ЛАЧЕВ",
+      "target": "company:tr:831616457",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВ НИКОЛОВ СТАНКОВ",
+      "target": "company:tr:831616457",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:tr:831373560",
+      "target": "company:tr:831616457",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН ХРИСТОВ ХРИСТОВ",
+      "target": "company:tr:831616457",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН ЛЮБОМИРОВ ИВАНОВ",
+      "target": "company:tr:831616457",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН ХРИСТОВ ХРИСТОВ",
+      "target": "company:tr:831616457",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ДИМОВ ДИМОВ",
+      "target": "company:tr:831616457",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

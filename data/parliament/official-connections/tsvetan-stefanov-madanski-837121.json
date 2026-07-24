@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tsvetan-stefanov-madanski-837121",
+  "nodes": [
+    {
+      "id": "official:tsvetan-stefanov-madanski-837121",
+      "type": "official",
+      "slug": "tsvetan-stefanov-madanski-837121",
+      "label": "Цветан Стефанов Мадански",
+      "tier": "executive",
+      "role": "revenue_agency",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175000428",
+      "type": "company",
+      "label": "Хепи Травел 2005 ООД",
+      "slug": null,
+      "uic": "175000428",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetan-stefanov-madanski-837121",
+      "target": "company:tr:175000428",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

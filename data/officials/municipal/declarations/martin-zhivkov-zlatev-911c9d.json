@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "martin-zhivkov-zlatev-911c9d",
+    "declarantName": "Мартин Живков Златев",
+    "institution": "Варна",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г12679",
+    "controlHash": "F1F0A509",
+    "sourceUrl": "https://register.cacbg.bg/2025/47DFC22E-0BFB-4829-9529-3A37F89DD68F215854.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5566.43471058323,
+        "amountEurSpouse": 18092.574508009388
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 4414.494102248151,
+        "amountEurSpouse": 4414.494102248151
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 29155,
+        "valueEur": 14906.71479627575,
+        "holderName": "Мартин Живков Златев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, пенсия и дивидент"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 31918,
+        "valueEur": 16319.414264020901,
+        "holderName": "Илияна Тодорова Златева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, рента и дивидент"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Екскурзия",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1775.7167033944668,
+        "legalBasis": null
+      }
+    ]
+  }
+]

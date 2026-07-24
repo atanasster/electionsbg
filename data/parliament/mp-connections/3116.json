@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:3116",
   "nodes": [
     {
@@ -33,39 +33,39 @@
       "nsFolders": []
     },
     {
-      "id": "official:borislav-petrov-yurukov-070ccf",
+      "id": "official:borislav-petrov-yurukov-991d6a",
       "type": "official",
-      "slug": "borislav-petrov-yurukov-070ccf",
+      "slug": "borislav-petrov-yurukov-991d6a",
       "label": "Борислав Петров Юруков",
       "tier": "executive",
       "role": "academic",
       "municipality": null
     },
     {
-      "id": "official:diana-milkova-danova-d53cae",
+      "id": "official:diana-milkova-danova-257854",
       "type": "official",
-      "slug": "diana-milkova-danova-d53cae",
+      "slug": "diana-milkova-danova-257854",
       "label": "Диана Милкова Данова",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "school",
       "municipality": null
     },
     {
-      "id": "official:eleonora-stefanova-pavlova-a9b7fa",
+      "id": "official:eleonora-stefanova-pavlova-0c1bd5",
       "type": "official",
-      "slug": "eleonora-stefanova-pavlova-a9b7fa",
+      "slug": "eleonora-stefanova-pavlova-0c1bd5",
       "label": "Елеонора Стефанова Павлова",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "school",
       "municipality": null
     },
     {
-      "id": "official:tanya-todorova-petrova-acd586",
+      "id": "official:tanya-todorova-petrova-04ca54",
       "type": "official",
-      "slug": "tanya-todorova-petrova-acd586",
+      "slug": "tanya-todorova-petrova-04ca54",
       "label": "Таня Тодорова Петрова",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "school",
       "municipality": null
     },
     {
@@ -356,7 +356,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:borislav-petrov-yurukov-070ccf",
+      "source": "official:borislav-petrov-yurukov-991d6a",
       "target": "company:tr:000704509",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -364,7 +364,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:diana-milkova-danova-d53cae",
+      "source": "official:diana-milkova-danova-257854",
       "target": "company:tr:000704509",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -372,7 +372,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:eleonora-stefanova-pavlova-a9b7fa",
+      "source": "official:eleonora-stefanova-pavlova-0c1bd5",
       "target": "company:tr:000704509",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -380,7 +380,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:tanya-todorova-petrova-acd586",
+      "source": "official:tanya-todorova-petrova-04ca54",
       "target": "company:tr:000704509",
       "kind": "tr_role",
       "role": "ngo_board",

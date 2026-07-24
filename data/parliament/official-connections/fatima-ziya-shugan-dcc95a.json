@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:fatima-ziya-shugan-dcc95a",
+  "nodes": [
+    {
+      "id": "official:fatima-ziya-shugan-dcc95a",
+      "type": "official",
+      "slug": "fatima-ziya-shugan-dcc95a",
+      "label": "Фатима Зия Шуган",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Якоруда"
+    },
+    {
+      "id": "company:tr:206882891",
+      "type": "company",
+      "label": "АЙ-ДЖЕ 2022",
+      "slug": null,
+      "uic": "206882891",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:fatima-ziya-shugan-dcc95a",
+      "target": "company:tr:206882891",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:fatima-ziya-shugan-dcc95a",
+      "target": "company:tr:206882891",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:darina-todorova-spiridonova-3fee23",
+  "nodes": [
+    {
+      "id": "official:darina-todorova-spiridonova-3fee23",
+      "type": "official",
+      "slug": "darina-todorova-spiridonova-3fee23",
+      "label": "Дарина Тодорова Спиридонова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201950331",
+      "type": "company",
+      "label": "СБК - ДАРИНА СПИРИДОНОВА",
+      "slug": null,
+      "uic": "201950331",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:darina-todorova-spiridonova-3fee23",
+      "target": "company:tr:201950331",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

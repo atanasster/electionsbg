@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tihomir-dobrinov-georgiev-527eb6",
+  "nodes": [
+    {
+      "id": "official:tihomir-dobrinov-georgiev-527eb6",
+      "type": "official",
+      "slug": "tihomir-dobrinov-georgiev-527eb6",
+      "label": "Тихомир Добринов Георгиев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:103263000",
+      "type": "company",
+      "label": "СПЕЦИАЛИЗИРАНА ОЧНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ДОЦ. ГЕОРГИЕВ",
+      "slug": null,
+      "uic": "103263000",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДОБРИН ДОБРИНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Добрин Добринов Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tihomir-dobrinov-georgiev-527eb6",
+      "target": "company:tr:103263000",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДОБРИН ДОБРИНОВ ГЕОРГИЕВ",
+      "target": "company:tr:103263000",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИН ДОБРИНОВ ГЕОРГИЕВ",
+      "target": "company:tr:103263000",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

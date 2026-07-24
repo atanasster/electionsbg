@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:valerii-kolev-kolev-b66621",
+  "nodes": [
+    {
+      "id": "official:valerii-kolev-kolev-b66621",
+      "type": "official",
+      "slug": "valerii-kolev-kolev-b66621",
+      "label": "Валерий Колев Колев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207487000",
+      "type": "company",
+      "label": "МЪНКИС КОЛЕВИ",
+      "slug": null,
+      "uic": "207487000",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valerii-kolev-kolev-b66621",
+      "target": "company:tr:207487000",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:valerii-kolev-kolev-b66621",
+      "target": "company:tr:207487000",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

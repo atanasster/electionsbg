@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iliya-iliev-kalchev-80188b",
+  "nodes": [
+    {
+      "id": "official:iliya-iliev-kalchev-80188b",
+      "type": "official",
+      "slug": "iliya-iliev-kalchev-80188b",
+      "label": "Илия Илиев Калчев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206376189",
+      "type": "company",
+      "label": "Българска Медена Компания",
+      "slug": null,
+      "uic": "206376189",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДАМЯН СИМЕОНОВ ПИЛКОВ",
+      "type": "person",
+      "label": "Дамян Симеонов Пилков"
+    },
+    {
+      "id": "person:ХРИСТО ИВЕЛИНОВ ЖЕЛЯЗКОВ",
+      "type": "person",
+      "label": "Христо Ивелинов Желязков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iliya-iliev-kalchev-80188b",
+      "target": "company:tr:206376189",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iliya-iliev-kalchev-80188b",
+      "target": "company:tr:206376189",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАМЯН СИМЕОНОВ ПИЛКОВ",
+      "target": "company:tr:206376189",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ИВЕЛИНОВ ЖЕЛЯЗКОВ",
+      "target": "company:tr:206376189",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

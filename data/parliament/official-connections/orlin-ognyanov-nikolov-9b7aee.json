@@ -1,0 +1,204 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:orlin-ognyanov-nikolov-9b7aee",
+  "nodes": [
+    {
+      "id": "official:orlin-ognyanov-nikolov-9b7aee",
+      "type": "official",
+      "slug": "orlin-ognyanov-nikolov-9b7aee",
+      "label": "Орлин Огнянов Николов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Силистра"
+    },
+    {
+      "id": "company:tr:118515489",
+      "type": "company",
+      "label": "ЛОВНО-РИБАРСКО ДРУЖЕСТВО &quot;СОКОЛ-1",
+      "slug": null,
+      "uic": "118515489",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МЕТИН ОСМАН СЕИД",
+      "type": "person",
+      "label": "Метин Осман Сеид"
+    },
+    {
+      "id": "person:ТОДОР МИТКОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Тодор Митков Тодоров"
+    },
+    {
+      "id": "person:ДЕЯН ТОДОРОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Деян Тодоров Йорданов"
+    },
+    {
+      "id": "person:МИРОСЛАВ ЧЕРНИКОВ МАРИНОВ",
+      "type": "person",
+      "label": "Мирослав Черников Маринов"
+    },
+    {
+      "id": "person:МИРОСЛАВ ВАСИЛЕВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Мирослав Василев Димитров"
+    },
+    {
+      "id": "person:ДИМО ПЕТРОВ МИРЧЕВ",
+      "type": "person",
+      "label": "Димо Петров Мирчев"
+    },
+    {
+      "id": "person:НИКОЛАЙ ТОДОРОВ ЖЕЛЕВ",
+      "type": "person",
+      "label": "Николай Тодоров Желев"
+    },
+    {
+      "id": "person:ЙОРДАНКА РАДЕВА УЗУНСКА",
+      "type": "person",
+      "label": "Йорданка Радева Узунска"
+    },
+    {
+      "id": "person:КУРТИ ДОБРЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Курти Добрев Иванов"
+    },
+    {
+      "id": "person:МИЛЕН СЛАВЧЕВ САВОВ",
+      "type": "person",
+      "label": "Милен Славчев Савов"
+    },
+    {
+      "id": "person:ЯНКА СТОЯНОВА ГОСПОДИНОВА",
+      "type": "person",
+      "label": "Янка Стоянова Господинова"
+    },
+    {
+      "id": "person:ГЕОРГИ АТАНАСОВ ЧЕНЕВ",
+      "type": "person",
+      "label": "Георги Атанасов Ченев"
+    },
+    {
+      "id": "person:ГАЛИН СТАНЧЕВ ГАНЧЕВ",
+      "type": "person",
+      "label": "Галин Станчев Ганчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:orlin-ognyanov-nikolov-9b7aee",
+      "target": "company:tr:118515489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МЕТИН ОСМАН СЕИД",
+      "target": "company:tr:118515489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР МИТКОВ ТОДОРОВ",
+      "target": "company:tr:118515489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЯН ТОДОРОВ ЙОРДАНОВ",
+      "target": "company:tr:118515489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ЧЕРНИКОВ МАРИНОВ",
+      "target": "company:tr:118515489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ВАСИЛЕВ ДИМИТРОВ",
+      "target": "company:tr:118515489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМО ПЕТРОВ МИРЧЕВ",
+      "target": "company:tr:118515489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ТОДОРОВ ЖЕЛЕВ",
+      "target": "company:tr:118515489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА РАДЕВА УЗУНСКА",
+      "target": "company:tr:118515489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КУРТИ ДОБРЕВ ИВАНОВ",
+      "target": "company:tr:118515489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН СЛАВЧЕВ САВОВ",
+      "target": "company:tr:118515489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКА СТОЯНОВА ГОСПОДИНОВА",
+      "target": "company:tr:118515489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ АТАНАСОВ ЧЕНЕВ",
+      "target": "company:tr:118515489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИН СТАНЧЕВ ГАНЧЕВ",
+      "target": "company:tr:118515489",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

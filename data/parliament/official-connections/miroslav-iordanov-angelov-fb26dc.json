@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:miroslav-iordanov-angelov-fb26dc",
+  "nodes": [
+    {
+      "id": "official:miroslav-iordanov-angelov-fb26dc",
+      "type": "official",
+      "slug": "miroslav-iordanov-angelov-fb26dc",
+      "label": "Мирослав Йорданов Ангелов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ценово"
+    },
+    {
+      "id": "company:tr:203673203",
+      "type": "company",
+      "label": "\"ЮКЕМ\"",
+      "slug": null,
+      "uic": "203673203",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miroslav-iordanov-angelov-fb26dc",
+      "target": "company:tr:203673203",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

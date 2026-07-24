@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tashko-iliev-tashev-031038",
+  "nodes": [
+    {
+      "id": "official:tashko-iliev-tashev-031038",
+      "type": "official",
+      "slug": "tashko-iliev-tashev-031038",
+      "label": "Ташко Илиев Ташев",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Трекляно"
+    },
+    {
+      "id": "company:tr:206039873",
+      "type": "company",
+      "label": "Евро Инженеринг Консулт 55",
+      "slug": null,
+      "uic": "206039873",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tashko-iliev-tashev-031038",
+      "target": "company:tr:206039873",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

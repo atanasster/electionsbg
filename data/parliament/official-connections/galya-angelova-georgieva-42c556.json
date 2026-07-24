@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:galya-angelova-georgieva-42c556",
+  "nodes": [
+    {
+      "id": "official:galya-angelova-georgieva-42c556",
+      "type": "official",
+      "slug": "galya-angelova-georgieva-42c556",
+      "label": "Галя Ангелова Георгиева",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208816687",
+      "type": "company",
+      "label": "ЛЪКИ И ТРАНС КЛИМА",
+      "slug": null,
+      "uic": "208816687",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:galya-angelova-georgieva-42c556",
+      "target": "company:tr:208816687",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:galya-angelova-georgieva-42c556",
+      "target": "company:tr:208816687",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

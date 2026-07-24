@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:emil-hristov-shushkov-c8e102",
+  "nodes": [
+    {
+      "id": "official:emil-hristov-shushkov-c8e102",
+      "type": "official",
+      "slug": "emil-hristov-shushkov-c8e102",
+      "label": "Емил Христов Шушков",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205816109",
+      "type": "company",
+      "label": "ТОТАЛ СЕКЮРИТИ",
+      "slug": null,
+      "uic": "205816109",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ЕМИЛОВ БОЖИЛОВ",
+      "type": "person",
+      "label": "Георги Емилов Божилов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-hristov-shushkov-c8e102",
+      "target": "company:tr:205816109",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:emil-hristov-shushkov-c8e102",
+      "target": "company:tr:205816109",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ЕМИЛОВ БОЖИЛОВ",
+      "target": "company:tr:205816109",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

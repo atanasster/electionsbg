@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iva-ventsislavova-petrova-c05e81",
+  "nodes": [
+    {
+      "id": "official:iva-ventsislavova-petrova-c05e81",
+      "type": "official",
+      "slug": "iva-ventsislavova-petrova-c05e81",
+      "label": "Ива Венциславова Петрова",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207032223",
+      "type": "company",
+      "label": "ИК-ТРАНС 22",
+      "slug": null,
+      "uic": "207032223",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРИСТИАН РАДИОНОВ ТОНЧЕВ",
+      "type": "person",
+      "label": "Кристиан Радионов Тончев"
+    },
+    {
+      "id": "person:ЛЕНИКА РАДИОНОВА ТОНЧЕВА",
+      "type": "person",
+      "label": "Леника Радионова Тончева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iva-ventsislavova-petrova-c05e81",
+      "target": "company:tr:207032223",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРИСТИАН РАДИОНОВ ТОНЧЕВ",
+      "target": "company:tr:207032223",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЕНИКА РАДИОНОВА ТОНЧЕВА",
+      "target": "company:tr:207032223",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИАН РАДИОНОВ ТОНЧЕВ",
+      "target": "company:tr:207032223",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

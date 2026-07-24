@@ -1,0 +1,51 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:aleksandr-atanasov-chavdarov-41c877",
+  "nodes": [
+    {
+      "id": "official:aleksandr-atanasov-chavdarov-41c877",
+      "type": "official",
+      "slug": "aleksandr-atanasov-chavdarov-41c877",
+      "label": "Александър Атанасов Чавдаров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Котел"
+    },
+    {
+      "id": "company:tr:206952806",
+      "type": "company",
+      "label": "Евро Алплам ЕООД",
+      "slug": null,
+      "uic": "206952806",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandr-atanasov-chavdarov-41c877",
+      "target": "company:tr:206952806",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:aleksandr-atanasov-chavdarov-41c877",
+      "target": "company:tr:206952806",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aleksandr-atanasov-chavdarov-41c877",
+      "target": "company:tr:206952806",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

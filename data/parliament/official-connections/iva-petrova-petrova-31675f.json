@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iva-petrova-petrova-31675f",
+  "nodes": [
+    {
+      "id": "official:iva-petrova-petrova-31675f",
+      "type": "official",
+      "slug": "iva-petrova-petrova-31675f",
+      "label": "Ива Петрова Петрова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206898753",
+      "type": "company",
+      "label": "АМЕРАТАТ",
+      "slug": null,
+      "uic": "206898753",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iva-petrova-petrova-31675f",
+      "target": "company:tr:206898753",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iva-petrova-petrova-31675f",
+      "target": "company:tr:206898753",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

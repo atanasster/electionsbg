@@ -1,0 +1,75 @@
+[
+  {
+    "slug": "iliya-dimitrov-iliev-ac4c51",
+    "declarantName": "Илия Димитров Илиев",
+    "institution": "Генерал Тошево",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г13822",
+    "controlHash": "7CA70DA2",
+    "sourceUrl": "https://register.cacbg.bg/2025/B6DF15B1-2F66-47CF-B327-10F2338E81F3217077.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6862.559629415645,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 26365.7884376454,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "акциз от гориво",
+        "amountEurDeclarant": 360.97206812453027,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17396,
+        "valueEur": 8894.433565289417,
+        "holderName": "Илия Димитров Илиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и субсидии"
+      },
+      {
+        "category": "debt",
+        "description": "лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9562,
+        "valueEur": 4888.972967998241,
+        "holderName": "ЗП\"Илия Димитров Илиев\"",
+        "isSpouse": true,
+        "legalBasis": "договор за лизинг - 2%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

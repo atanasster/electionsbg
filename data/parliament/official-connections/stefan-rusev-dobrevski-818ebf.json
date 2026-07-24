@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stefan-rusev-dobrevski-818ebf",
+  "nodes": [
+    {
+      "id": "official:stefan-rusev-dobrevski-818ebf",
+      "type": "official",
+      "slug": "stefan-rusev-dobrevski-818ebf",
+      "label": "Стефан Русев Добревски",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Тетевен"
+    },
+    {
+      "id": "company:tr:110531178",
+      "type": "company",
+      "label": "Добревски 2 ООД",
+      "slug": null,
+      "uic": "110531178",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stefan-rusev-dobrevski-818ebf",
+      "target": "company:tr:110531178",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

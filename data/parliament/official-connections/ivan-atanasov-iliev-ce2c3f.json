@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-atanasov-iliev-ce2c3f",
+  "nodes": [
+    {
+      "id": "official:ivan-atanasov-iliev-ce2c3f",
+      "type": "official",
+      "slug": "ivan-atanasov-iliev-ce2c3f",
+      "label": "Иван Атанасов Илиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Долни Чифлик"
+    },
+    {
+      "id": "company:tr:207750049",
+      "type": "company",
+      "label": "БРОКЕРС АУТОГРУП",
+      "slug": null,
+      "uic": "207750049",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-atanasov-iliev-ce2c3f",
+      "target": "company:tr:207750049",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-atanasov-iliev-ce2c3f",
+      "target": "company:tr:207750049",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

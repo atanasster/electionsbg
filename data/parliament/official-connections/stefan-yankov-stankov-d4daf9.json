@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stefan-yankov-stankov-d4daf9",
+  "nodes": [
+    {
+      "id": "official:stefan-yankov-stankov-d4daf9",
+      "type": "official",
+      "slug": "stefan-yankov-stankov-d4daf9",
+      "label": "Стефан Янков Станков",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000090193",
+      "type": "company",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪP І - БЕЛОСЛАВ",
+      "slug": null,
+      "uic": "000090193",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stefan-yankov-stankov-d4daf9",
+      "target": "company:tr:000090193",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

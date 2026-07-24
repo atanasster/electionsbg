@@ -1,0 +1,137 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:yanko-dimitrov-angelov-3801d2",
+  "nodes": [
+    {
+      "id": "official:yanko-dimitrov-angelov-3801d2",
+      "type": "official",
+      "slug": "yanko-dimitrov-angelov-3801d2",
+      "label": "Янко Димитров Ангелов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сандански"
+    },
+    {
+      "id": "company:tr:202106560",
+      "type": "company",
+      "label": "Санпарк ООД",
+      "slug": null,
+      "uic": "202106560",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202134205",
+      "type": "company",
+      "label": "Санфотопарк",
+      "slug": null,
+      "uic": "202134205",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ РУМЕНОВ ТРАЙКОВ",
+      "type": "person",
+      "label": "Георги Руменов Трайков"
+    },
+    {
+      "id": "person:ЖИВКО КИРИЛОВ ИВАНОВ",
+      "type": "person",
+      "label": "Живко Кирилов Иванов"
+    },
+    {
+      "id": "company:name:САНЕЛ",
+      "type": "company",
+      "label": "\"Санел\" АД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yanko-dimitrov-angelov-3801d2",
+      "target": "company:tr:202106560",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:yanko-dimitrov-angelov-3801d2",
+      "target": "company:tr:202134205",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:yanko-dimitrov-angelov-3801d2",
+      "target": "company:tr:202106560",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yanko-dimitrov-angelov-3801d2",
+      "target": "company:tr:202134205",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ РУМЕНОВ ТРАЙКОВ",
+      "target": "company:tr:202106560",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО КИРИЛОВ ИВАНОВ",
+      "target": "company:tr:202106560",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:САНЕЛ",
+      "target": "company:tr:202106560",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ РУМЕНОВ ТРАЙКОВ",
+      "target": "company:tr:202134205",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО КИРИЛОВ ИВАНОВ",
+      "target": "company:tr:202134205",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:САНЕЛ",
+      "target": "company:tr:202134205",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "aksel-mehmed-kyuchyuk-70df61",
+    "declarantName": "Аксел Мехмед Кючюк",
+    "institution": "Исперих",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-03-31",
+    "entryNumber": "Г5068",
+    "controlHash": "260CE817",
+    "sourceUrl": "https://register.cacbg.bg/2025/DE6E658E-9BC1-4A98-8673-7FDF135E2A83207955.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 32428.687564870157,
+        "amountEurSpouse": 4295.874385810628
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 590.0308309004362,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Субсидии от Държавен фонд земеделие",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2395.4024634042835
+      },
+      {
+        "parent": null,
+        "category": "Продажба на продукция",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 540.9468103055991
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Шкода октавиа",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "СИО",
+        "currency": "BGN",
+        "amount": 61441,
+        "valueEur": 31414.28447257686,
+        "holderName": "Айшегюл Селимова Рюстемова - Кючюк",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 89000,
+        "valueEur": 45504.97742646345,
+        "holderName": "Аксел Мехмед Кючюк",
+        "isSpouse": false,
+        "legalBasis": "Договор за кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 43400,
+        "valueEur": 22190.06764391588,
+        "holderName": "Аксел Мехмед Кючюк",
+        "isSpouse": false,
+        "legalBasis": "Договор за кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

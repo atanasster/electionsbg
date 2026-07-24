@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:emil-ivanov-iordanov-1d5add",
+  "nodes": [
+    {
+      "id": "official:emil-ivanov-iordanov-1d5add",
+      "type": "official",
+      "slug": "emil-ivanov-iordanov-1d5add",
+      "label": "Емил Иванов Йорданов",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207671274",
+      "type": "company",
+      "label": "Семо-Груп 2024",
+      "slug": null,
+      "uic": "207671274",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-ivanov-iordanov-1d5add",
+      "target": "company:tr:207671274",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:emil-ivanov-iordanov-1d5add",
+      "target": "company:tr:207671274",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

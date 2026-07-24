@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:gergana-stoyanova-mladenova-db6cc3",
+  "nodes": [
+    {
+      "id": "official:gergana-stoyanova-mladenova-db6cc3",
+      "type": "official",
+      "slug": "gergana-stoyanova-mladenova-db6cc3",
+      "label": "Гергана Стоянова Младенова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206497130",
+      "type": "company",
+      "label": "СТРАТИДЖИК ЕНГЕЙДЖМЕНТ",
+      "slug": null,
+      "uic": "206497130",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1330"
+    },
+    {
+      "id": "mp:610",
+      "type": "mp",
+      "mpId": 610,
+      "label": "Николай Евтимов Младенов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gergana-stoyanova-mladenova-db6cc3",
+      "target": "company:tr:206497130",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:610",
+      "target": "company:tr:206497130",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:610",
+      "target": "company:tr:206497130",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

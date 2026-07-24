@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dilyan-sergeev-bchvarski-d9d6cb",
+  "nodes": [
+    {
+      "id": "official:dilyan-sergeev-bchvarski-d9d6cb",
+      "type": "official",
+      "slug": "dilyan-sergeev-bchvarski-d9d6cb",
+      "label": "Дилян Сергеев Бъчварски",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Грамада"
+    },
+    {
+      "id": "company:tr:204479070",
+      "type": "company",
+      "label": "ДИВАС 2017",
+      "slug": null,
+      "uic": "204479070",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИХАИЛ СЕРГЕЕВ БЪЧВАРСКИ",
+      "type": "person",
+      "label": "Михаил Сергеев Бъчварски"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dilyan-sergeev-bchvarski-d9d6cb",
+      "target": "company:tr:204479070",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dilyan-sergeev-bchvarski-d9d6cb",
+      "target": "company:tr:204479070",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИХАИЛ СЕРГЕЕВ БЪЧВАРСКИ",
+      "target": "company:tr:204479070",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ СЕРГЕЕВ БЪЧВАРСКИ",
+      "target": "company:tr:204479070",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

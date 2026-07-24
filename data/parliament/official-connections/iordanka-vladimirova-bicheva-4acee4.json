@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iordanka-vladimirova-bicheva-4acee4",
+  "nodes": [
+    {
+      "id": "official:iordanka-vladimirova-bicheva-4acee4",
+      "type": "official",
+      "slug": "iordanka-vladimirova-bicheva-4acee4",
+      "label": "Йорданка Владимирова Бичева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ихтиман"
+    },
+    {
+      "id": "company:tr:205175742",
+      "type": "company",
+      "label": "СИНМЕД БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "205175742",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МОНИКА ВАТАМАН",
+      "type": "person",
+      "label": "Моника Ватаман"
+    },
+    {
+      "id": "person:ВАЛЕНТИН БУСУИОК",
+      "type": "person",
+      "label": "Валентин Бусуиок"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordanka-vladimirova-bicheva-4acee4",
+      "target": "company:tr:205175742",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МОНИКА ВАТАМАН",
+      "target": "company:tr:205175742",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН БУСУИОК",
+      "target": "company:tr:205175742",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:emiliya-dobrinova-ivanova-94f437",
+  "nodes": [
+    {
+      "id": "official:emiliya-dobrinova-ivanova-94f437",
+      "type": "official",
+      "slug": "emiliya-dobrinova-ivanova-94f437",
+      "label": "Емилия Добринова Иванова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Трън"
+    },
+    {
+      "id": "company:tr:206590937",
+      "type": "company",
+      "label": "ЕМИ БЮТИ СТИЛ",
+      "slug": null,
+      "uic": "206590937",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВА ДОБРИНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Ива Добринова Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emiliya-dobrinova-ivanova-94f437",
+      "target": "company:tr:206590937",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВА ДОБРИНОВА ИВАНОВА",
+      "target": "company:tr:206590937",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВА ДОБРИНОВА ИВАНОВА",
+      "target": "company:tr:206590937",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

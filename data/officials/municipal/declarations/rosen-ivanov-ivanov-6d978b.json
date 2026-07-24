@@ -1,0 +1,94 @@
+[
+  {
+    "slug": "rosen-ivanov-ivanov-6d978b",
+    "declarantName": "Росен Иванов Иванов",
+    "institution": "Борово",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-07",
+    "entryNumber": "Г14101",
+    "controlHash": "E4AA8A85",
+    "sourceUrl": "https://register.cacbg.bg/2025/C9238743-89C7-4D45-BF18-1BB35FC72AEE217365.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 8770.189638158736,
+        "amountEurSpouse": 4935.5005291870975
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 4512,
+        "valueEur": 2306.948967957338,
+        "holderName": "Росен Иванов Иванов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 32000,
+        "valueEur": 16361.340198278991,
+        "holderName": "Росен Иванов Иванов",
+        "isSpouse": false,
+        "legalBasis": "3%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 27000,
+        "valueEur": 13804.8807922979,
+        "holderName": "Росен Иванов Иванов",
+        "isSpouse": false,
+        "legalBasis": "4,5%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Горно Абланово",
+        "municipality": "Борово",
+        "areaSqm": 1600,
+        "builtAreaSqm": 90,
+        "currency": "BGN",
+        "valueEur": 6135.502574354622,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

@@ -1,0 +1,53 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:asen-rumenov-angelov-aa17ae",
+  "nodes": [
+    {
+      "id": "official:asen-rumenov-angelov-aa17ae",
+      "type": "official",
+      "slug": "asen-rumenov-angelov-aa17ae",
+      "label": "Асен Руменов Ангелов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201148790",
+      "type": "company",
+      "label": "Левъл ейч ООД",
+      "slug": null,
+      "uic": "201148790",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201049988",
+      "type": "company",
+      "label": "Европул кънсалтинг ООД",
+      "slug": null,
+      "uic": "201049988",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:asen-rumenov-angelov-aa17ae",
+      "target": "company:tr:201148790",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:asen-rumenov-angelov-aa17ae",
+      "target": "company:tr:201049988",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

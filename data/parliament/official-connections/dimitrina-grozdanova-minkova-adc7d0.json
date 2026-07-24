@@ -1,0 +1,108 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitrina-grozdanova-minkova-adc7d0",
+  "nodes": [
+    {
+      "id": "official:dimitrina-grozdanova-minkova-adc7d0",
+      "type": "official",
+      "slug": "dimitrina-grozdanova-minkova-adc7d0",
+      "label": "Димитрина Грозданова Минкова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:010999642",
+      "type": "company",
+      "label": "МИКО-ГЕОТОН",
+      "slug": null,
+      "uic": "010999642",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАНЯ ДИМИТРОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Ваня Димитрова Петрова"
+    },
+    {
+      "id": "person:ПЕТЯ ГЕОРГИЕВА НИКОЛОВА",
+      "type": "person",
+      "label": "Петя Георгиева Николова"
+    },
+    {
+      "id": "person:ЦВЕТАН ЛАЛОВ ЦВЕТКОВ",
+      "type": "person",
+      "label": "Цветан Лалов Цветков"
+    },
+    {
+      "id": "person:НАДЯ ИВАНОВА АНДРЕЕВСКА",
+      "type": "person",
+      "label": "Надя Иванова Андреевска"
+    },
+    {
+      "id": "person:МИЛЕНА ДИМОВА РАШЕВА",
+      "type": "person",
+      "label": "Милена Димова Рашева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitrina-grozdanova-minkova-adc7d0",
+      "target": "company:tr:010999642",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitrina-grozdanova-minkova-adc7d0",
+      "target": "company:tr:010999642",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАНЯ ДИМИТРОВА ПЕТРОВА",
+      "target": "company:tr:010999642",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ГЕОРГИЕВА НИКОЛОВА",
+      "target": "company:tr:010999642",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН ЛАЛОВ ЦВЕТКОВ",
+      "target": "company:tr:010999642",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЯ ИВАНОВА АНДРЕЕВСКА",
+      "target": "company:tr:010999642",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ДИМОВА РАШЕВА",
+      "target": "company:tr:010999642",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

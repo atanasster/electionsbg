@@ -1,0 +1,72 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivailo-monev-turnaliev-e889a8",
+  "nodes": [
+    {
+      "id": "official:ivailo-monev-turnaliev-e889a8",
+      "type": "official",
+      "slug": "ivailo-monev-turnaliev-e889a8",
+      "label": "Ивайло Монев Турналиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Смолян"
+    },
+    {
+      "id": "company:tr:202369934",
+      "type": "company",
+      "label": "ИМТ Консулт ООД",
+      "slug": null,
+      "uic": "202369934",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЦВЕТОМИРА ХРИСТОВА ВАКЕВА",
+      "type": "person",
+      "label": "Цветомира Христова Вакева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivailo-monev-turnaliev-e889a8",
+      "target": "company:tr:202369934",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivailo-monev-turnaliev-e889a8",
+      "target": "company:tr:202369934",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivailo-monev-turnaliev-e889a8",
+      "target": "company:tr:202369934",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТОМИРА ХРИСТОВА ВАКЕВА",
+      "target": "company:tr:202369934",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТОМИРА ХРИСТОВА ВАКЕВА",
+      "target": "company:tr:202369934",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

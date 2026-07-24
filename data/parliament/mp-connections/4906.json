@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:4906",
   "nodes": [
     {
@@ -189,18 +189,18 @@
       "label": "Михайл Димитров Михайлов"
     },
     {
-      "id": "official:ivanka-plamenova-kuzmanova-f93529",
+      "id": "official:ivanka-plamenova-kuzmanova-96af54",
       "type": "official",
-      "slug": "ivanka-plamenova-kuzmanova-f93529",
+      "slug": "ivanka-plamenova-kuzmanova-96af54",
       "label": "Иванка Пламенова Кузманова",
       "tier": "executive",
       "role": "regional_director",
       "municipality": null
     },
     {
-      "id": "official:rosen-stefanov-federchev-3ea214",
+      "id": "official:rosen-stefanov-federchev-54d2b3",
       "type": "official",
-      "slug": "rosen-stefanov-federchev-3ea214",
+      "slug": "rosen-stefanov-federchev-54d2b3",
       "label": "Росен Стефанов Федерчев",
       "tier": "executive",
       "role": "regional_director",
@@ -726,7 +726,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:ivanka-plamenova-kuzmanova-f93529",
+      "source": "official:ivanka-plamenova-kuzmanova-96af54",
       "target": "company:tr:121000727",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -734,7 +734,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:rosen-stefanov-federchev-3ea214",
+      "source": "official:rosen-stefanov-federchev-54d2b3",
       "target": "company:tr:121000727",
       "kind": "tr_role",
       "role": "ngo_board",

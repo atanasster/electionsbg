@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iordan-nikolaev-kolev-9ff1d3",
+  "nodes": [
+    {
+      "id": "official:iordan-nikolaev-kolev-9ff1d3",
+      "type": "official",
+      "slug": "iordan-nikolaev-kolev-9ff1d3",
+      "label": "Йордан Николаев Колев",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206900122",
+      "type": "company",
+      "label": "ДЖОРДАН СВ",
+      "slug": null,
+      "uic": "206900122",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordan-nikolaev-kolev-9ff1d3",
+      "target": "company:tr:206900122",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iordan-nikolaev-kolev-9ff1d3",
+      "target": "company:tr:206900122",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

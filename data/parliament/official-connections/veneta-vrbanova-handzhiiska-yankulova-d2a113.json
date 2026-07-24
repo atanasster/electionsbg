@@ -1,0 +1,249 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:veneta-vrbanova-handzhiiska-yankulova-d2a113",
+  "nodes": [
+    {
+      "id": "official:veneta-vrbanova-handzhiiska-yankulova-d2a113",
+      "type": "official",
+      "slug": "veneta-vrbanova-handzhiiska-yankulova-d2a113",
+      "label": "Венета Върбанова Ханджийска-Янкулова",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175557181",
+      "type": "company",
+      "label": "АСОЦИАЦИЯ НА БЪЛГАРСКИТЕ АРХЕОЛОЗИ",
+      "slug": null,
+      "uic": "175557181",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНДРЕЙ ТЕНЕВ АЛАДЖОВ",
+      "type": "person",
+      "label": "Андрей Тенев Аладжов"
+    },
+    {
+      "id": "person:РУМЯНА ВАСИЛЕВА КОЛЕВА",
+      "type": "person",
+      "label": "Румяна Василева Колева"
+    },
+    {
+      "id": "person:МЕГЛЕНА ЖИВКОВА ПЪРВИН",
+      "type": "person",
+      "label": "Меглена Живкова Първин"
+    },
+    {
+      "id": "person:ДАНИЕЛА СТЕФАНОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Даниела Стефанова Стоянова"
+    },
+    {
+      "id": "person:МАРИЯ ГЕОРГИЕВА МАНОЛОВА-ВОЙКОВА",
+      "type": "person",
+      "label": "Мария Георгиева Манолова-Войкова"
+    },
+    {
+      "id": "person:ИВО ДИНЧЕВ ЧОЛАКОВ",
+      "type": "person",
+      "label": "Иво Динчев Чолаков"
+    },
+    {
+      "id": "person:АНЕТА БОРИСЛАВОВА БАКЪМСКА",
+      "type": "person",
+      "label": "Анета Бориславова Бакъмска"
+    },
+    {
+      "id": "person:ТАНЯ ЦВЕТАНОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Таня Цветанова Христова"
+    },
+    {
+      "id": "person:КАЛИН ЛЮБЕНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Калин Любенов Димитров"
+    },
+    {
+      "id": "person:МАРТИН ГЕОРГИЕВ ХРИСТОВ",
+      "type": "person",
+      "label": "Мартин Георгиев Христов"
+    },
+    {
+      "id": "person:СТАНИМИР ГЕОРГИЕВ СТОЙЧЕВ",
+      "type": "person",
+      "label": "Станимир Георгиев Стойчев"
+    },
+    {
+      "id": "person:ВАСИЛ ГЕОРГИЕВ ТЕНЕКЕДЖИЕВ",
+      "type": "person",
+      "label": "Васил Георгиев Тенекеджиев"
+    },
+    {
+      "id": "person:ИВАН ДИМИТРОВ ВЪЛЧЕВ",
+      "type": "person",
+      "label": "Иван Димитров Вълчев"
+    },
+    {
+      "id": "person:ТАНЯ ЙОРДАНОВА ДЖАНФЕЗОВА",
+      "type": "person",
+      "label": "Таня Йорданова Джанфезова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veneta-vrbanova-handzhiiska-yankulova-d2a113",
+      "target": "company:tr:175557181",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНДРЕЙ ТЕНЕВ АЛАДЖОВ",
+      "target": "company:tr:175557181",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА ВАСИЛЕВА КОЛЕВА",
+      "target": "company:tr:175557181",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕГЛЕНА ЖИВКОВА ПЪРВИН",
+      "target": "company:tr:175557181",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА ВАСИЛЕВА КОЛЕВА",
+      "target": "company:tr:175557181",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА СТЕФАНОВА СТОЯНОВА",
+      "target": "company:tr:175557181",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА МАНОЛОВА-ВОЙКОВА",
+      "target": "company:tr:175557181",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ДИНЧЕВ ЧОЛАКОВ",
+      "target": "company:tr:175557181",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРЕЙ ТЕНЕВ АЛАДЖОВ",
+      "target": "company:tr:175557181",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕТА БОРИСЛАВОВА БАКЪМСКА",
+      "target": "company:tr:175557181",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ЦВЕТАНОВА ХРИСТОВА",
+      "target": "company:tr:175557181",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН ЛЮБЕНОВ ДИМИТРОВ",
+      "target": "company:tr:175557181",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ГЕОРГИЕВ ХРИСТОВ",
+      "target": "company:tr:175557181",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИР ГЕОРГИЕВ СТОЙЧЕВ",
+      "target": "company:tr:175557181",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ГЕОРГИЕВ ХРИСТОВ",
+      "target": "company:tr:175557181",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН ЛЮБЕНОВ ДИМИТРОВ",
+      "target": "company:tr:175557181",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ГЕОРГИЕВ ТЕНЕКЕДЖИЕВ",
+      "target": "company:tr:175557181",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ ВЪЛЧЕВ",
+      "target": "company:tr:175557181",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ЙОРДАНОВА ДЖАНФЕЗОВА",
+      "target": "company:tr:175557181",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

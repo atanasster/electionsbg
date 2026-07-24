@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:daniela-stoyanova-shikleva-9b3295",
+  "nodes": [
+    {
+      "id": "official:daniela-stoyanova-shikleva-9b3295",
+      "type": "official",
+      "slug": "daniela-stoyanova-shikleva-9b3295",
+      "label": "Даниела Стоянова Шиклева",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207126975",
+      "type": "company",
+      "label": "ТЕРМИНАЛ ЗА БИЗНЕС",
+      "slug": null,
+      "uic": "207126975",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА ДИМИТРОВА ДЖОГОЛАНОВА",
+      "type": "person",
+      "label": "Цветелина Димитрова Джоголанова"
+    },
+    {
+      "id": "person:ЯНКА НЕНКОВА АСЕНОВА-КРЪСТЕВА",
+      "type": "person",
+      "label": "Янка Ненкова Асенова-Кръстева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniela-stoyanova-shikleva-9b3295",
+      "target": "company:tr:207126975",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА ДИМИТРОВА ДЖОГОЛАНОВА",
+      "target": "company:tr:207126975",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА ДИМИТРОВА ДЖОГОЛАНОВА",
+      "target": "company:tr:207126975",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКА НЕНКОВА АСЕНОВА-КРЪСТЕВА",
+      "target": "company:tr:207126975",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

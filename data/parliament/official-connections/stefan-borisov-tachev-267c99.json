@@ -1,0 +1,337 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stefan-borisov-tachev-267c99",
+  "nodes": [
+    {
+      "id": "official:stefan-borisov-tachev-267c99",
+      "type": "official",
+      "slug": "stefan-borisov-tachev-267c99",
+      "label": "Стефан Борисов Тачев",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Бобошево"
+    },
+    {
+      "id": "company:tr:177048197",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ МЕСТНА ИНИЦИАТИВНА ГРУПА НЕВЕСТИНО-КЮСТЕНДИЛ- ТРЕКЛЯНО - БОБОШЕВО - КОЧЕРИНОВО - РИЛА",
+      "slug": null,
+      "uic": "177048197",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:daniela-kostadinova-milanova-351e77",
+      "type": "official",
+      "slug": "daniela-kostadinova-milanova-351e77",
+      "label": "Даниела Костадинова Миланова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кочериново"
+    },
+    {
+      "id": "official:iordan-stoyanov-glogov-0745a7",
+      "type": "official",
+      "slug": "iordan-stoyanov-glogov-0745a7",
+      "label": "Йордан Стоянов Глогов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Невестино"
+    },
+    {
+      "id": "person:ИВАН МАНОЛОВ АНДОНОВ",
+      "type": "person",
+      "label": "Иван Манолов Андонов"
+    },
+    {
+      "id": "person:ВАСИЛКА ГЕОРГИЕВА ТОСКОВА",
+      "type": "person",
+      "label": "Василка Георгиева Тоскова"
+    },
+    {
+      "id": "person:СТЕФАН ТОДОРОВ КОТЕВ",
+      "type": "person",
+      "label": "Стефан Тодоров Котев"
+    },
+    {
+      "id": "person:ЙОРДАНКА АСЕНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Йорданка Асенова Иванова"
+    },
+    {
+      "id": "person:АНГЕЛ БОРИСОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Ангел Борисов Ангелов"
+    },
+    {
+      "id": "person:СТАНИСЛАВ НИКОЛАЕВ СТОЙОВ",
+      "type": "person",
+      "label": "Станислав Николаев Стойов"
+    },
+    {
+      "id": "person:МАРИЙКА ЙОРДАНОВА СИМОВА",
+      "type": "person",
+      "label": "Марийка Йорданова Симова"
+    },
+    {
+      "id": "person:АНТОН СТОЯНОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Антон Стоянов Тодоров"
+    },
+    {
+      "id": "person:СПАСКА АСЕНОВА МЕТОДИЕВА",
+      "type": "person",
+      "label": "Спаска Асенова Методиева"
+    },
+    {
+      "id": "person:СТАНИСЛАВА ГЕОРГИЕВА МИЛАДИНОВА",
+      "type": "person",
+      "label": "Станислава Георгиева Миладинова"
+    },
+    {
+      "id": "person:РАЙНА МАРИНОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Райна Маринова Петрова"
+    },
+    {
+      "id": "person:МИХАЛ СТОИЧКОВ СКРИНСККИ",
+      "type": "person",
+      "label": "Михал Стоичков Скринскки"
+    },
+    {
+      "id": "person:ДАНИЕЛ ЛЮБЕНОВ КЬОСЕВ",
+      "type": "person",
+      "label": "Даниел Любенов Кьосев"
+    },
+    {
+      "id": "person:БИЛЯНА БОРИСЛАВОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Биляна Бориславова Димитрова"
+    },
+    {
+      "id": "person:АНТОН ЖАН БАЛАБАНОВ",
+      "type": "person",
+      "label": "Антон Жан Балабанов"
+    },
+    {
+      "id": "person:СТЕФАН ИВАНЧОВ БОРИСОВ",
+      "type": "person",
+      "label": "Стефан Иванчов Борисов"
+    },
+    {
+      "id": "person:РАДКО КИРИЛОВ ПЕТРУНОВ",
+      "type": "person",
+      "label": "Радко Кирилов Петрунов"
+    },
+    {
+      "id": "person:КРАСИМИР ИВАНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Красимир Иванов Георгиев"
+    },
+    {
+      "id": "person:ПЪРВАН ГРИГОРОВ ЙОВЧЕВ",
+      "type": "person",
+      "label": "Първан Григоров Йовчев"
+    },
+    {
+      "id": "person:ВЯРА ИЛИЕВА ИЛКОВА",
+      "type": "person",
+      "label": "Вяра Илиева Илкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stefan-borisov-tachev-267c99",
+      "target": "company:tr:177048197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:daniela-kostadinova-milanova-351e77",
+      "target": "company:tr:177048197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iordan-stoyanov-glogov-0745a7",
+      "target": "company:tr:177048197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН МАНОЛОВ АНДОНОВ",
+      "target": "company:tr:177048197",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛКА ГЕОРГИЕВА ТОСКОВА",
+      "target": "company:tr:177048197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ТОДОРОВ КОТЕВ",
+      "target": "company:tr:177048197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА АСЕНОВА ИВАНОВА",
+      "target": "company:tr:177048197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ БОРИСОВ АНГЕЛОВ",
+      "target": "company:tr:177048197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВ НИКОЛАЕВ СТОЙОВ",
+      "target": "company:tr:177048197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЙКА ЙОРДАНОВА СИМОВА",
+      "target": "company:tr:177048197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН СТОЯНОВ ТОДОРОВ",
+      "target": "company:tr:177048197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СПАСКА АСЕНОВА МЕТОДИЕВА",
+      "target": "company:tr:177048197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН МАНОЛОВ АНДОНОВ",
+      "target": "company:tr:177048197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВА ГЕОРГИЕВА МИЛАДИНОВА",
+      "target": "company:tr:177048197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЙНА МАРИНОВА ПЕТРОВА",
+      "target": "company:tr:177048197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАЛ СТОИЧКОВ СКРИНСККИ",
+      "target": "company:tr:177048197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛ ЛЮБЕНОВ КЬОСЕВ",
+      "target": "company:tr:177048197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИЛЯНА БОРИСЛАВОВА ДИМИТРОВА",
+      "target": "company:tr:177048197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН ЖАН БАЛАБАНОВ",
+      "target": "company:tr:177048197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ИВАНЧОВ БОРИСОВ",
+      "target": "company:tr:177048197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКО КИРИЛОВ ПЕТРУНОВ",
+      "target": "company:tr:177048197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ИВАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:177048197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЪРВАН ГРИГОРОВ ЙОВЧЕВ",
+      "target": "company:tr:177048197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЯРА ИЛИЕВА ИЛКОВА",
+      "target": "company:tr:177048197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

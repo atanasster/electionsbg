@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:diyana-ivanova-ganeva-944782",
+  "nodes": [
+    {
+      "id": "official:diyana-ivanova-ganeva-944782",
+      "type": "official",
+      "slug": "diyana-ivanova-ganeva-944782",
+      "label": "Дияна Иванова Ганева",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206623903",
+      "type": "company",
+      "label": "САКАР-21",
+      "slug": null,
+      "uic": "206623903",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:diyana-ivanova-ganeva-944782",
+      "target": "company:tr:206623903",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:diyana-ivanova-ganeva-944782",
+      "target": "company:tr:206623903",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

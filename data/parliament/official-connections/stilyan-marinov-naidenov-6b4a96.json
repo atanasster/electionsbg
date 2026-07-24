@@ -1,0 +1,137 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stilyan-marinov-naidenov-6b4a96",
+  "nodes": [
+    {
+      "id": "official:stilyan-marinov-naidenov-6b4a96",
+      "type": "official",
+      "slug": "stilyan-marinov-naidenov-6b4a96",
+      "label": "Стилян Маринов Найденов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Велико Търново"
+    },
+    {
+      "id": "company:Питай-МЕ",
+      "type": "company",
+      "label": "Питай МЕ",
+      "slug": "Питай-МЕ",
+      "uic": "201146985",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:tr:206921530",
+      "type": "company",
+      "label": "ГРАДСКО РАЗВИТИЕ И КУЛТУРНО НАСЛЕДСТВО",
+      "slug": null,
+      "uic": "206921530",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "mp:4739",
+      "type": "mp",
+      "mpId": 4739,
+      "label": "Димитър Стойков Николов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51"
+      ]
+    },
+    {
+      "id": "official:nadezhda-stanimirova-nikolova-e2e44f",
+      "type": "official",
+      "slug": "nadezhda-stanimirova-nikolova-e2e44f",
+      "label": "Надежда Станимирова Николова",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "person:ДРАГОМИР СЪБЕВ ЙОСИФОВ",
+      "type": "person",
+      "label": "Драгомир Събев Йосифов"
+    },
+    {
+      "id": "person:МИЛЕН ВЛАДИМИРОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Милен Владимиров Николов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stilyan-marinov-naidenov-6b4a96",
+      "target": "company:Питай-МЕ",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stilyan-marinov-naidenov-6b4a96",
+      "target": "company:tr:206921530",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stilyan-marinov-naidenov-6b4a96",
+      "target": "company:tr:206921530",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4739",
+      "target": "company:Питай-МЕ",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nadezhda-stanimirova-nikolova-e2e44f",
+      "target": "company:Питай-МЕ",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГОМИР СЪБЕВ ЙОСИФОВ",
+      "target": "company:tr:206921530",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГОМИР СЪБЕВ ЙОСИФОВ",
+      "target": "company:tr:206921530",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН ВЛАДИМИРОВ НИКОЛОВ",
+      "target": "company:tr:206921530",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

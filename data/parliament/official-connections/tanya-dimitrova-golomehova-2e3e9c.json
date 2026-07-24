@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tanya-dimitrova-golomehova-2e3e9c",
+  "nodes": [
+    {
+      "id": "official:tanya-dimitrova-golomehova-2e3e9c",
+      "type": "official",
+      "slug": "tanya-dimitrova-golomehova-2e3e9c",
+      "label": "Таня Димитрова Голомехова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201690531",
+      "type": "company",
+      "label": "МАЯМИ БАГ",
+      "slug": null,
+      "uic": "201690531",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tanya-dimitrova-golomehova-2e3e9c",
+      "target": "company:tr:201690531",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tanya-dimitrova-golomehova-2e3e9c",
+      "target": "company:tr:201690531",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

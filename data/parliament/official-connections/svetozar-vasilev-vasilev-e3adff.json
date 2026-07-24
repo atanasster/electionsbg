@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:svetozar-vasilev-vasilev-e3adff",
+  "nodes": [
+    {
+      "id": "official:svetozar-vasilev-vasilev-e3adff",
+      "type": "official",
+      "slug": "svetozar-vasilev-vasilev-e3adff",
+      "label": "Светозар Василев Василев",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203107162",
+      "type": "company",
+      "label": "\"Д` Арт Бюти\" ЕООД",
+      "slug": null,
+      "uic": "203107162",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:svetozar-vasilev-vasilev-3abf3b",
+      "type": "official",
+      "slug": "svetozar-vasilev-vasilev-3abf3b",
+      "label": "Светозар Василев Василев",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetozar-vasilev-vasilev-e3adff",
+      "target": "company:tr:203107162",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:svetozar-vasilev-vasilev-3abf3b",
+      "target": "company:tr:203107162",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

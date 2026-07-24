@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivelin-vaskov-kirilov-35f420",
+  "nodes": [
+    {
+      "id": "official:ivelin-vaskov-kirilov-35f420",
+      "type": "official",
+      "slug": "ivelin-vaskov-kirilov-35f420",
+      "label": "Ивелин Васков Кирилов",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:117604270",
+      "type": "company",
+      "label": "Медицински център Канев",
+      "slug": null,
+      "uic": "117604270",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivelin-vaskov-kirilov-35f420",
+      "target": "company:tr:117604270",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+[
+  {
+    "slug": "zhelyazko-ivanov-ivanov-583bcb",
+    "declarantName": "ЖЕЛЯЗКО ИВАНОВ ИВАНОВ",
+    "institution": "Созопол",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г12834",
+    "controlHash": "62D55CB4",
+    "sourceUrl": "https://register.cacbg.bg/2025/7157FC39-6680-4727-8AA7-848C790D42DA216012.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "ДЯЛОВЕ",
+        "shareSize": "50",
+        "companyName": "ГРИЙН ПЛЕЙ ООД",
+        "registeredOffice": "Бургас",
+        "valueEur": 25.564594059810926,
+        "holderName": "ЖЕЛЯЗКО ИВАНОВ ИВАНОВ",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "СПЕСТЯВАНИЯ"
+      },
+      {
+        "table": "10",
+        "itemType": "ДЯЛОВЕ",
+        "shareSize": "50",
+        "companyName": "ГАРДЪН ТРЪСТ МЕНИДЖМЪНТ ООД",
+        "registeredOffice": "Бургас",
+        "valueEur": 204.5167524784874,
+        "holderName": "ЖЕЛЯЗКО ИВАНОВ ИВАНОВ",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "СПЕСТЯВАНИЯ"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 2129.0193933010537,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 5724.423901872862,
+        "amountEurSpouse": 8065.6294258703465
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 2556.4594059810925,
+        "amountEurSpouse": 2556.4594059810925
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 1000,
+        "valueEur": 889.6478732814202,
+        "holderName": "ЖЕЛЯЗКО ИВАНОВ ИВАНОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "СПЕСТЯВАНИЯ"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "ЕВДОКИЯ АТАНАСОВА ДЕЛИБАЛТОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "security",
+        "description": "АКЦИИ",
+        "detail": "АМЕРИ ТРЕЙД",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "5500",
+        "currency": "BGN",
+        "amount": 146000,
+        "valueEur": 74648.6146546479,
+        "holderName": "ЖЕЛЯЗКО ИВАНОВ ИВАНОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "ПРОДАЖБА И НАЕМИ ОТ НЕДВИЖИМИ ИМОТИ"
+      }
+    ],
+    "events": []
+  }
+]

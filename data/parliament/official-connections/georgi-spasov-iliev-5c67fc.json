@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-spasov-iliev-5c67fc",
+  "nodes": [
+    {
+      "id": "official:georgi-spasov-iliev-5c67fc",
+      "type": "official",
+      "slug": "georgi-spasov-iliev-5c67fc",
+      "label": "Георги Спасов Илиев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:817073726",
+      "type": "company",
+      "label": "СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА ПРОДЪЛЖИТЕЛНО ЛЕЧЕНИЕ И РЕХАБИЛИТАЦИЯ НА БЕЛОДРОБНИ БОЛЕСТИ &quot;ЦАРИЦА ЙОАННА&quot;",
+      "slug": null,
+      "uic": "817073726",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-spasov-iliev-5c67fc",
+      "target": "company:tr:817073726",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

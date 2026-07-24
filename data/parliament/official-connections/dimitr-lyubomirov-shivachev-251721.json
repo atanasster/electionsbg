@@ -1,0 +1,97 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitr-lyubomirov-shivachev-251721",
+  "nodes": [
+    {
+      "id": "official:dimitr-lyubomirov-shivachev-251721",
+      "type": "official",
+      "slug": "dimitr-lyubomirov-shivachev-251721",
+      "label": "Димитър Любомиров Шивачев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:831835134",
+      "type": "company",
+      "label": "СОФИЙСКИ ИМОТИ",
+      "slug": null,
+      "uic": "831835134",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:polina-vasileva-vitanova-cb0371",
+      "type": "official",
+      "slug": "polina-vasileva-vitanova-cb0371",
+      "label": "Полина Василева Витанова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:АНТОНИЯ КРАСИМИРОВА ТЕРЗИЕВА",
+      "type": "person",
+      "label": "Антония Красимирова Терзиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-lyubomirov-shivachev-251721",
+      "target": "company:tr:831835134",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-lyubomirov-shivachev-251721",
+      "target": "company:tr:831835134",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-lyubomirov-shivachev-251721",
+      "target": "company:tr:831835134",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:polina-vasileva-vitanova-cb0371",
+      "target": "company:tr:831835134",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:polina-vasileva-vitanova-cb0371",
+      "target": "company:tr:831835134",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:polina-vasileva-vitanova-cb0371",
+      "target": "company:tr:831835134",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНТОНИЯ КРАСИМИРОВА ТЕРЗИЕВА",
+      "target": "company:tr:831835134",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

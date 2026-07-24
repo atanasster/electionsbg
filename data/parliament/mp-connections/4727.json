@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:4727",
   "nodes": [
     {
@@ -24,36 +24,36 @@
       "seat": null
     },
     {
-      "id": "official:ivailo-borisov-filipov-002bc0",
+      "id": "official:ivailo-borisov-filipov-65173d",
       "type": "official",
-      "slug": "ivailo-borisov-filipov-002bc0",
+      "slug": "ivailo-borisov-filipov-65173d",
       "label": "Ивайло Борисов Филипов",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:nikolina-todorova-naidenova-0142cf",
+      "id": "official:nikolina-todorova-naidenova-640c03",
       "type": "official",
-      "slug": "nikolina-todorova-naidenova-0142cf",
+      "slug": "nikolina-todorova-naidenova-640c03",
       "label": "Николина Тодорова Найденова",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:yuliyana-petrova-kalcheva-e50609",
+      "id": "official:yuliyana-petrova-kalcheva-9ed43d",
       "type": "official",
-      "slug": "yuliyana-petrova-kalcheva-e50609",
+      "slug": "yuliyana-petrova-kalcheva-9ed43d",
       "label": "Юлияна Петрова Калчева",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:valentina-stefanova-nedyalkova-f07289",
+      "id": "official:valentina-stefanova-nedyalkova-7e7aff",
       "type": "official",
-      "slug": "valentina-stefanova-nedyalkova-f07289",
+      "slug": "valentina-stefanova-nedyalkova-7e7aff",
       "label": "Валентина Стефанова Недялкова",
       "tier": "municipal",
       "role": "councillor",
@@ -248,7 +248,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:ivailo-borisov-filipov-002bc0",
+      "source": "official:ivailo-borisov-filipov-65173d",
       "target": "company:tr:831641791",
       "kind": "tr_role",
       "role": "director",
@@ -256,7 +256,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:nikolina-todorova-naidenova-0142cf",
+      "source": "official:nikolina-todorova-naidenova-640c03",
       "target": "company:tr:831641791",
       "kind": "tr_role",
       "role": "director",
@@ -264,7 +264,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:yuliyana-petrova-kalcheva-e50609",
+      "source": "official:yuliyana-petrova-kalcheva-9ed43d",
       "target": "company:tr:831641791",
       "kind": "tr_role",
       "role": "director",
@@ -272,7 +272,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:valentina-stefanova-nedyalkova-f07289",
+      "source": "official:valentina-stefanova-nedyalkova-7e7aff",
       "target": "company:tr:831641791",
       "kind": "tr_role",
       "role": "director",

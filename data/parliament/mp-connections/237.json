@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:237",
   "nodes": [
     {
@@ -124,9 +124,9 @@
       "label": "Снежанка Христова Николова"
     },
     {
-      "id": "official:svetoslav-ivanov-spasov-f2805e",
+      "id": "official:svetoslav-ivanov-spasov-ef6061",
       "type": "official",
-      "slug": "svetoslav-ivanov-spasov-f2805e",
+      "slug": "svetoslav-ivanov-spasov-ef6061",
       "label": "Светослав Иванов Спасов",
       "tier": "executive",
       "role": "state_enterprise",
@@ -138,36 +138,36 @@
       "label": "Иванчо Спасов Иванов"
     },
     {
-      "id": "official:vasya-mihailova-nikolovska-07b050",
+      "id": "official:vasya-mihailova-nikolovska-36aeec",
       "type": "official",
-      "slug": "vasya-mihailova-nikolovska-07b050",
+      "slug": "vasya-mihailova-nikolovska-36aeec",
       "label": "Вася Михайлова Николовска",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:viktoriya-vitanova-petrova-43d465",
+      "id": "official:viktoriya-vitanova-petrova-40f707",
       "type": "official",
-      "slug": "viktoriya-vitanova-petrova-43d465",
+      "slug": "viktoriya-vitanova-petrova-40f707",
       "label": "Виктория Витанова Петрова",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:nadya-georgieva-stefanova-99bb25",
+      "id": "official:nadya-georgieva-stefanova-b1b5c8",
       "type": "official",
-      "slug": "nadya-georgieva-stefanova-99bb25",
+      "slug": "nadya-georgieva-stefanova-b1b5c8",
       "label": "Надя Георгиева Стефанова",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:hristo-velichkov-georgiev-0898ed",
+      "id": "official:hristo-velichkov-georgiev-1aa60e",
       "type": "official",
-      "slug": "hristo-velichkov-georgiev-0898ed",
+      "slug": "hristo-velichkov-georgiev-1aa60e",
       "label": "Христо Величков Георгиев",
       "tier": "executive",
       "role": "state_enterprise",
@@ -452,7 +452,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:svetoslav-ivanov-spasov-f2805e",
+      "source": "official:svetoslav-ivanov-spasov-ef6061",
       "target": "company:tr:207053048",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -476,7 +476,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:vasya-mihailova-nikolovska-07b050",
+      "source": "official:vasya-mihailova-nikolovska-36aeec",
       "target": "company:tr:000649348",
       "kind": "tr_role",
       "role": "director",
@@ -484,7 +484,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:viktoriya-vitanova-petrova-43d465",
+      "source": "official:viktoriya-vitanova-petrova-40f707",
       "target": "company:tr:000649348",
       "kind": "tr_role",
       "role": "director",
@@ -492,7 +492,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:nadya-georgieva-stefanova-99bb25",
+      "source": "official:nadya-georgieva-stefanova-b1b5c8",
       "target": "company:tr:000649348",
       "kind": "tr_role",
       "role": "director",
@@ -500,7 +500,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:hristo-velichkov-georgiev-0898ed",
+      "source": "official:hristo-velichkov-georgiev-1aa60e",
       "target": "company:tr:000649348",
       "kind": "tr_role",
       "role": "director",

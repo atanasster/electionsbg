@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:3908",
   "nodes": [
     {
@@ -26,18 +26,18 @@
       "seat": "Кюстендил"
     },
     {
-      "id": "official:dimitr-iordanov-dimitrov-b6cecd",
+      "id": "official:dimitr-iordanov-dimitrov-75e65e",
       "type": "official",
-      "slug": "dimitr-iordanov-dimitrov-b6cecd",
+      "slug": "dimitr-iordanov-dimitrov-75e65e",
       "label": "Димитър Йорданов Димитров",
       "tier": "executive",
       "role": "hospital_head",
       "municipality": null
     },
     {
-      "id": "official:boiko-lyubomirov-klechkov-298aa7",
+      "id": "official:boiko-lyubomirov-klechkov-b0d321",
       "type": "official",
-      "slug": "boiko-lyubomirov-klechkov-298aa7",
+      "slug": "boiko-lyubomirov-klechkov-b0d321",
       "label": "Бойко Любомиров Клечков",
       "tier": "municipal",
       "role": "deputy_mayor",
@@ -54,7 +54,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:dimitr-iordanov-dimitrov-b6cecd",
+      "source": "official:dimitr-iordanov-dimitrov-75e65e",
       "target": "company:Авто-груп-ООД",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -62,7 +62,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:boiko-lyubomirov-klechkov-298aa7",
+      "source": "official:boiko-lyubomirov-klechkov-b0d321",
       "target": "company:Авто-груп-ООД",
       "kind": "declared_stake",
       "role": "declared_share",

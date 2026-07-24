@@ -1,0 +1,90 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-dimitrov-dimitrov-9d3a78",
+  "nodes": [
+    {
+      "id": "official:nikolai-dimitrov-dimitrov-9d3a78",
+      "type": "official",
+      "slug": "nikolai-dimitrov-dimitrov-9d3a78",
+      "label": "Николай Димитров Димитров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205484753",
+      "type": "company",
+      "label": "Гросвенър Партнърс ООД",
+      "slug": null,
+      "uic": "205484753",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ ЕМИЛОВ МИРЧЕВ",
+      "type": "person",
+      "label": "Николай Емилов Мирчев"
+    },
+    {
+      "id": "person:ХРИСТИНА ГАЛИНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Христина Галинова Димитрова"
+    },
+    {
+      "id": "person:НИКОЛАЙ ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Николай Димитров Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-dimitrov-dimitrov-9d3a78",
+      "target": "company:tr:205484753",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЕМИЛОВ МИРЧЕВ",
+      "target": "company:tr:205484753",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА ГАЛИНОВА ДИМИТРОВА",
+      "target": "company:tr:205484753",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЕМИЛОВ МИРЧЕВ",
+      "target": "company:tr:205484753",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:205484753",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:205484753",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

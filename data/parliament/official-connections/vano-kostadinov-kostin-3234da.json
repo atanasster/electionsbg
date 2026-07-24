@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vano-kostadinov-kostin-3234da",
+  "nodes": [
+    {
+      "id": "official:vano-kostadinov-kostin-3234da",
+      "type": "official",
+      "slug": "vano-kostadinov-kostin-3234da",
+      "label": "Ваньо Костадинов Костин",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202563978",
+      "type": "company",
+      "label": "ТОРЛАЦИ",
+      "slug": null,
+      "uic": "202563978",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:vano-kostadinov-kostin-8bd186",
+      "type": "official",
+      "slug": "vano-kostadinov-kostin-8bd186",
+      "label": "Ваньо Костадинов Костин",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vano-kostadinov-kostin-3234da",
+      "target": "company:tr:202563978",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:vano-kostadinov-kostin-8bd186",
+      "target": "company:tr:202563978",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

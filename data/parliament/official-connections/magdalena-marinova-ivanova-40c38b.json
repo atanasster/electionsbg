@@ -1,0 +1,142 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:magdalena-marinova-ivanova-40c38b",
+  "nodes": [
+    {
+      "id": "official:magdalena-marinova-ivanova-40c38b",
+      "type": "official",
+      "slug": "magdalena-marinova-ivanova-40c38b",
+      "label": "Магдалена Маринова Иванова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000559257",
+      "type": "company",
+      "label": "ХРИСТО БОТЕВ - 1941",
+      "slug": null,
+      "uic": "000559257",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ ИЛИЕВ ИЛИЕВ",
+      "type": "person",
+      "label": "Николай Илиев Илиев"
+    },
+    {
+      "id": "person:БОЖИДАР АНГЕЛОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Божидар Ангелов Христов"
+    },
+    {
+      "id": "person:ИВАН ПЕНЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Иван Пенев Николов"
+    },
+    {
+      "id": "person:НЕВЗАД ХАКЪ ИБРЯМ",
+      "type": "person",
+      "label": "Невзад Хакъ Ибрям"
+    },
+    {
+      "id": "person:ПЕНКА ГЕОРГИЕВА НИКОЛОВА",
+      "type": "person",
+      "label": "Пенка Георгиева Николова"
+    },
+    {
+      "id": "person:АБИБЕ МЕХМЕД ШЕФКЕТ",
+      "type": "person",
+      "label": "Абибе Мехмед Шефкет"
+    },
+    {
+      "id": "person:ЯНКА ЛАЗАРОВА ГАНЕВА",
+      "type": "person",
+      "label": "Янка Лазарова Ганева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:magdalena-marinova-ivanova-40c38b",
+      "target": "company:tr:000559257",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ ИЛИЕВ ИЛИЕВ",
+      "target": "company:tr:000559257",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЖИДАР АНГЕЛОВ ХРИСТОВ",
+      "target": "company:tr:000559257",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ИЛИЕВ ИЛИЕВ",
+      "target": "company:tr:000559257",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ПЕНЕВ НИКОЛОВ",
+      "target": "company:tr:000559257",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЗАД ХАКЪ ИБРЯМ",
+      "target": "company:tr:000559257",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ГЕОРГИЕВА НИКОЛОВА",
+      "target": "company:tr:000559257",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЖИДАР АНГЕЛОВ ХРИСТОВ",
+      "target": "company:tr:000559257",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АБИБЕ МЕХМЕД ШЕФКЕТ",
+      "target": "company:tr:000559257",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКА ЛАЗАРОВА ГАНЕВА",
+      "target": "company:tr:000559257",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

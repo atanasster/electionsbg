@@ -1,0 +1,173 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:slava-ivanova-dineva-2355d9",
+  "nodes": [
+    {
+      "id": "official:slava-ivanova-dineva-2355d9",
+      "type": "official",
+      "slug": "slava-ivanova-dineva-2355d9",
+      "label": "Слава Иванова Динева",
+      "tier": "executive",
+      "role": "agri_academy",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:103200217",
+      "type": "company",
+      "label": "СЪЮЗ НА УЧЕНИТЕ-ВАРНА",
+      "slug": null,
+      "uic": "103200217",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НЕДКО ИВАНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Недко Иванов Димитров"
+    },
+    {
+      "id": "person:ПРЕСЛАВ ИЛИЕВ ПЕЕВ",
+      "type": "person",
+      "label": "Преслав Илиев Пеев"
+    },
+    {
+      "id": "person:НИКОЛА ЙОРДАНОВ КОЛЕВ",
+      "type": "person",
+      "label": "Никола Йорданов Колев"
+    },
+    {
+      "id": "person:МАРИЯ ПЕТРОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Мария Петрова Петрова"
+    },
+    {
+      "id": "person:ЗОРНИЦА ИВАНОВА ЗЛАТАРОВА-АНГЕЛОВА",
+      "type": "person",
+      "label": "Зорница Иванова Златарова-Ангелова"
+    },
+    {
+      "id": "person:ЙОАНА ДИМИТРОВА КИСЕЛОВА",
+      "type": "person",
+      "label": "Йоана Димитрова Киселова"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА ВЛАДИМИРОВА ГРЪНЧАРОВА",
+      "type": "person",
+      "label": "Валентина Владимирова Грънчарова"
+    },
+    {
+      "id": "person:БИСТРА КОНСТАНТИНОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Бистра Константинова Василева"
+    },
+    {
+      "id": "person:СЪБКА ДИМИТРОВА ПАШОВА",
+      "type": "person",
+      "label": "Събка Димитрова Пашова"
+    },
+    {
+      "id": "person:ТОНЧО ХРИСТОВ ПАПАНЧЕВ",
+      "type": "person",
+      "label": "Тончо Христов Папанчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:slava-ivanova-dineva-2355d9",
+      "target": "company:tr:103200217",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НЕДКО ИВАНОВ ДИМИТРОВ",
+      "target": "company:tr:103200217",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПРЕСЛАВ ИЛИЕВ ПЕЕВ",
+      "target": "company:tr:103200217",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ЙОРДАНОВ КОЛЕВ",
+      "target": "company:tr:103200217",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДКО ИВАНОВ ДИМИТРОВ",
+      "target": "company:tr:103200217",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ПЕТРОВА ПЕТРОВА",
+      "target": "company:tr:103200217",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗОРНИЦА ИВАНОВА ЗЛАТАРОВА-АНГЕЛОВА",
+      "target": "company:tr:103200217",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОАНА ДИМИТРОВА КИСЕЛОВА",
+      "target": "company:tr:103200217",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ВЛАДИМИРОВА ГРЪНЧАРОВА",
+      "target": "company:tr:103200217",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИСТРА КОНСТАНТИНОВА ВАСИЛЕВА",
+      "target": "company:tr:103200217",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЪБКА ДИМИТРОВА ПАШОВА",
+      "target": "company:tr:103200217",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОНЧО ХРИСТОВ ПАПАНЧЕВ",
+      "target": "company:tr:103200217",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

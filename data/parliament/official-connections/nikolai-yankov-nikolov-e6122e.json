@@ -1,0 +1,82 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-yankov-nikolov-e6122e",
+  "nodes": [
+    {
+      "id": "official:nikolai-yankov-nikolov-e6122e",
+      "type": "official",
+      "slug": "nikolai-yankov-nikolov-e6122e",
+      "label": "Николай Янков Николов",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201558355",
+      "type": "company",
+      "label": "Винарска изба Осмар",
+      "slug": null,
+      "uic": "201558355",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЖАКЛИНА ВИЧЕВА НИКОЛОВА",
+      "type": "person",
+      "label": "Жаклина Вичева Николова"
+    },
+    {
+      "id": "person:КАЛОЯН ВИЧЕВ ВИЧЕВ",
+      "type": "person",
+      "label": "Калоян Вичев Вичев"
+    },
+    {
+      "id": "person:ВИЧКО НИКОЛАЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Вичко Николаев Николов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-yankov-nikolov-e6122e",
+      "target": "company:tr:201558355",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖАКЛИНА ВИЧЕВА НИКОЛОВА",
+      "target": "company:tr:201558355",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖАКЛИНА ВИЧЕВА НИКОЛОВА",
+      "target": "company:tr:201558355",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛОЯН ВИЧЕВ ВИЧЕВ",
+      "target": "company:tr:201558355",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИЧКО НИКОЛАЕВ НИКОЛОВ",
+      "target": "company:tr:201558355",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

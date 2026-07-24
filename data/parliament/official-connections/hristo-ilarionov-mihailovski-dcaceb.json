@@ -1,0 +1,126 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hristo-ilarionov-mihailovski-dcaceb",
+  "nodes": [
+    {
+      "id": "official:hristo-ilarionov-mihailovski-dcaceb",
+      "type": "official",
+      "slug": "hristo-ilarionov-mihailovski-dcaceb",
+      "label": "Христо Иларионов Михайловски",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202380382",
+      "type": "company",
+      "label": "Корпоративно Управление ЕООД",
+      "slug": null,
+      "uic": "202380382",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206558918",
+      "type": "company",
+      "label": "БАКР ФинТех Солюшънс",
+      "slug": null,
+      "uic": "206558918",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201607432",
+      "type": "company",
+      "label": "БМР ООД",
+      "slug": null,
+      "uic": "201607432",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:121534058",
+      "type": "company",
+      "label": "Елприват",
+      "slug": null,
+      "uic": "121534058",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТО ИЛАРИОНОВ МИХАЙЛОВСКИ",
+      "type": "person",
+      "label": "Христо Иларионов Михайловски"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-ilarionov-mihailovski-dcaceb",
+      "target": "company:tr:202380382",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:hristo-ilarionov-mihailovski-dcaceb",
+      "target": "company:tr:206558918",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:hristo-ilarionov-mihailovski-dcaceb",
+      "target": "company:tr:201607432",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:hristo-ilarionov-mihailovski-dcaceb",
+      "target": "company:tr:121534058",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ИЛАРИОНОВ МИХАЙЛОВСКИ",
+      "target": "company:tr:206558918",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ИЛАРИОНОВ МИХАЙЛОВСКИ",
+      "target": "company:tr:206558918",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ИЛАРИОНОВ МИХАЙЛОВСКИ",
+      "target": "company:tr:206558918",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ИЛАРИОНОВ МИХАЙЛОВСКИ",
+      "target": "company:tr:201607432",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

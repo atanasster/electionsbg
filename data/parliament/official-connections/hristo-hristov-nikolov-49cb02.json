@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hristo-hristov-nikolov-49cb02",
+  "nodes": [
+    {
+      "id": "official:hristo-hristov-nikolov-49cb02",
+      "type": "official",
+      "slug": "hristo-hristov-nikolov-49cb02",
+      "label": "Христо Христов Николов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Болярово"
+    },
+    {
+      "id": "company:tr:208097341",
+      "type": "company",
+      "label": "Николови фууд груп",
+      "slug": null,
+      "uic": "208097341",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-hristov-nikolov-49cb02",
+      "target": "company:tr:208097341",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-hristov-nikolov-49cb02",
+      "target": "company:tr:208097341",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

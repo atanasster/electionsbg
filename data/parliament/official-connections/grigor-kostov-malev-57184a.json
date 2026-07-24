@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:grigor-kostov-malev-57184a",
+  "nodes": [
+    {
+      "id": "official:grigor-kostov-malev-57184a",
+      "type": "official",
+      "slug": "grigor-kostov-malev-57184a",
+      "label": "Григор Костов Малев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:119527829",
+      "type": "company",
+      "label": "СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА ПРОДЪЛЖИТЕЛНО ЛЕЧЕНИЕ И РЕХАБИЛИТАЦИЯ - КОТЕЛ",
+      "slug": null,
+      "uic": "119527829",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:tsvetan-georgiev-vlahov-c2366a",
+      "type": "official",
+      "slug": "tsvetan-georgiev-vlahov-c2366a",
+      "label": "Цветан Георгиев Влахов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:ЕВГЕНИ ГЕОРГИЕВ ЛЮБЕНОВ",
+      "type": "person",
+      "label": "Евгени Георгиев Любенов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:grigor-kostov-malev-57184a",
+      "target": "company:tr:119527829",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tsvetan-georgiev-vlahov-c2366a",
+      "target": "company:tr:119527829",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕВГЕНИ ГЕОРГИЕВ ЛЮБЕНОВ",
+      "target": "company:tr:119527829",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

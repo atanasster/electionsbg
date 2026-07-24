@@ -1,0 +1,134 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:shenai-hasan-mehmedali-86aedd",
+  "nodes": [
+    {
+      "id": "official:shenai-hasan-mehmedali-86aedd",
+      "type": "official",
+      "slug": "shenai-hasan-mehmedali-86aedd",
+      "label": "Шенай Хасан Мехмедали",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207009438",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ ТЕНИС КЛУБ - КЪРДЖАЛИ",
+      "slug": null,
+      "uic": "207009438",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СЕЛЯМИ РУШИДДИН МЕСТАН",
+      "type": "person",
+      "label": "Селями Рушиддин Местан"
+    },
+    {
+      "id": "person:ЙЪЛМАЗ ФЕИМ МУРАД",
+      "type": "person",
+      "label": "Йълмаз Феим Мурад"
+    },
+    {
+      "id": "person:ЕКРЕМ ФЕРАД МУСТАФА",
+      "type": "person",
+      "label": "Екрем Ферад Мустафа"
+    },
+    {
+      "id": "person:ИРИНА ТОДОРОВА ГУГУЛАНОВА",
+      "type": "person",
+      "label": "Ирина Тодорова Гугуланова"
+    },
+    {
+      "id": "person:НЕВИН МУСТАФА КАРАДЖА-ИСМАИЛ",
+      "type": "person",
+      "label": "Невин Мустафа Караджа-Исмаил"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА ТОДОРОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Цветелина Тодорова Йорданова"
+    },
+    {
+      "id": "person:ВАНЯ ВЕНЦИСЛАВОВА МАНДЕЛЕВА",
+      "type": "person",
+      "label": "Ваня Венциславова Манделева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:shenai-hasan-mehmedali-86aedd",
+      "target": "company:tr:207009438",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СЕЛЯМИ РУШИДДИН МЕСТАН",
+      "target": "company:tr:207009438",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕЛЯМИ РУШИДДИН МЕСТАН",
+      "target": "company:tr:207009438",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙЪЛМАЗ ФЕИМ МУРАД",
+      "target": "company:tr:207009438",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕКРЕМ ФЕРАД МУСТАФА",
+      "target": "company:tr:207009438",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА ТОДОРОВА ГУГУЛАНОВА",
+      "target": "company:tr:207009438",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВИН МУСТАФА КАРАДЖА-ИСМАИЛ",
+      "target": "company:tr:207009438",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА ТОДОРОВА ЙОРДАНОВА",
+      "target": "company:tr:207009438",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ВЕНЦИСЛАВОВА МАНДЕЛЕВА",
+      "target": "company:tr:207009438",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

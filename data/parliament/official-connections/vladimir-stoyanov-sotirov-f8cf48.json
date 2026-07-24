@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vladimir-stoyanov-sotirov-f8cf48",
+  "nodes": [
+    {
+      "id": "official:vladimir-stoyanov-sotirov-f8cf48",
+      "type": "official",
+      "slug": "vladimir-stoyanov-sotirov-f8cf48",
+      "label": "Владимир Стоянов Сотиров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Костенец"
+    },
+    {
+      "id": "company:tr:208473199",
+      "type": "company",
+      "label": "ВИ Трейд 8",
+      "slug": null,
+      "uic": "208473199",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВЕЛИН ПЕТЕВ ЦОНКОВ",
+      "type": "person",
+      "label": "Ивелин Петев Цонков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-stoyanov-sotirov-f8cf48",
+      "target": "company:tr:208473199",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВЕЛИН ПЕТЕВ ЦОНКОВ",
+      "target": "company:tr:208473199",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИН ПЕТЕВ ЦОНКОВ",
+      "target": "company:tr:208473199",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИН ПЕТЕВ ЦОНКОВ",
+      "target": "company:tr:208473199",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

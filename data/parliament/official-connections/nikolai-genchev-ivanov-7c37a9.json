@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-genchev-ivanov-7c37a9",
+  "nodes": [
+    {
+      "id": "official:nikolai-genchev-ivanov-7c37a9",
+      "type": "official",
+      "slug": "nikolai-genchev-ivanov-7c37a9",
+      "label": "Николай Генчев Иванов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203144812",
+      "type": "company",
+      "label": "Стела Сънрайз ЕООД",
+      "slug": null,
+      "uic": "203144812",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203567958",
+      "type": "company",
+      "label": "ЕУРОПАТЦ ООД",
+      "slug": null,
+      "uic": "203567958",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕНЧО НИКОЛОВ ИВАНОВ",
+      "type": "person",
+      "label": "Генчо Николов Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-genchev-ivanov-7c37a9",
+      "target": "company:tr:203144812",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-genchev-ivanov-7c37a9",
+      "target": "company:tr:203567958",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikolai-genchev-ivanov-7c37a9",
+      "target": "company:tr:203144812",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕНЧО НИКОЛОВ ИВАНОВ",
+      "target": "company:tr:203144812",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

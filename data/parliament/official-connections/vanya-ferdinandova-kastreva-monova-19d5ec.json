@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vanya-ferdinandova-kastreva-monova-19d5ec",
+  "nodes": [
+    {
+      "id": "official:vanya-ferdinandova-kastreva-monova-19d5ec",
+      "type": "official",
+      "slug": "vanya-ferdinandova-kastreva-monova-19d5ec",
+      "label": "Ваня Фердинандова Кастрева-Монова",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208639176",
+      "type": "company",
+      "label": "Архитекти на бъдещето",
+      "slug": null,
+      "uic": "208639176",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАНЯ ФЕРДИНАНДОВА МОНОВА-КАСТРЕВА",
+      "type": "person",
+      "label": "Ваня Фердинандова Монова-Кастрева"
+    },
+    {
+      "id": "person:АНАСТАСИЯ ЮРИЕВА ГЕНОВА",
+      "type": "person",
+      "label": "Анастасия Юриева Генова"
+    },
+    {
+      "id": "person:СЛАВА МОНИ МОНОВА-ДАНАИЛОВА",
+      "type": "person",
+      "label": "Слава Мони Монова-Данаилова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vanya-ferdinandova-kastreva-monova-19d5ec",
+      "target": "company:tr:208639176",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАНЯ ФЕРДИНАНДОВА МОНОВА-КАСТРЕВА",
+      "target": "company:tr:208639176",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНАСТАСИЯ ЮРИЕВА ГЕНОВА",
+      "target": "company:tr:208639176",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВА МОНИ МОНОВА-ДАНАИЛОВА",
+      "target": "company:tr:208639176",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

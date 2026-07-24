@@ -1,0 +1,126 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:daniela-stefanova-petkova-8f15b7",
+  "nodes": [
+    {
+      "id": "official:daniela-stefanova-petkova-8f15b7",
+      "type": "official",
+      "slug": "daniela-stefanova-petkova-8f15b7",
+      "label": "Даниела Стефанова Петкова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000457248",
+      "type": "company",
+      "label": "ИЗГРЕВ - 1927 г. - с. Граф Игнатиево",
+      "slug": null,
+      "uic": "000457248",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СОФКА ГЕОРГИЕВА КОМИТОВА",
+      "type": "person",
+      "label": "Софка Георгиева Комитова"
+    },
+    {
+      "id": "person:ЦВЕТАН АРГИРОВ БАХЧЕВАНСКИ",
+      "type": "person",
+      "label": "Цветан Аргиров Бахчевански"
+    },
+    {
+      "id": "person:АНА КОСТОВА ПАНЕВА",
+      "type": "person",
+      "label": "Ана Костова Панева"
+    },
+    {
+      "id": "person:ЛИЛЯНА ГЕОРГИЕВА МИНКОВА",
+      "type": "person",
+      "label": "Лиляна Георгиева Минкова"
+    },
+    {
+      "id": "person:СЛАВА МАТЕЕВА НЕНЧЕВА",
+      "type": "person",
+      "label": "Слава Матеева Ненчева"
+    },
+    {
+      "id": "person:КАРАМФИЛКА ЛУКОВА ТОДОРИЕВА",
+      "type": "person",
+      "label": "Карамфилка Лукова Тодориева"
+    },
+    {
+      "id": "person:ИВАНКА ДИМИТРОВА ДЕРНЕВА",
+      "type": "person",
+      "label": "Иванка Димитрова Дернева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniela-stefanova-petkova-8f15b7",
+      "target": "company:tr:000457248",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СОФКА ГЕОРГИЕВА КОМИТОВА",
+      "target": "company:tr:000457248",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН АРГИРОВ БАХЧЕВАНСКИ",
+      "target": "company:tr:000457248",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНА КОСТОВА ПАНЕВА",
+      "target": "company:tr:000457248",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛЯНА ГЕОРГИЕВА МИНКОВА",
+      "target": "company:tr:000457248",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВА МАТЕЕВА НЕНЧЕВА",
+      "target": "company:tr:000457248",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАРАМФИЛКА ЛУКОВА ТОДОРИЕВА",
+      "target": "company:tr:000457248",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ДИМИТРОВА ДЕРНЕВА",
+      "target": "company:tr:000457248",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:metin-bairamali-sali-edf2db",
+  "nodes": [
+    {
+      "id": "official:metin-bairamali-sali-edf2db",
+      "type": "official",
+      "slug": "metin-bairamali-sali-edf2db",
+      "label": "Метин Байрамали Сали",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Крумовград"
+    },
+    {
+      "id": "company:tr:205727753",
+      "type": "company",
+      "label": "Сдружение „ФОНД ЗА ПОДКРЕПА И НАСЪРЧАВАНЕ НА МИКРО, МАЛЪК И СРЕДЕН БИЗНЕС В ОБЩИНА КРУМОВГРАД“",
+      "slug": null,
+      "uic": "205727753",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИРЕНА ИВАНОВA ЦАКОВА",
+      "type": "person",
+      "label": "Ирена Ивановa Цакова"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ГЕОРГИЕВ КОЛОВ",
+      "type": "person",
+      "label": "Веселин Георгиев Колов"
+    },
+    {
+      "id": "person:КРАСЕН АТАНАСОВ КИСКИНОВ",
+      "type": "person",
+      "label": "Красен Атанасов Кискинов"
+    },
+    {
+      "id": "person:АБИДИН МЕХМЕД ХАДЖИМЕХМЕД",
+      "type": "person",
+      "label": "Абидин Мехмед Хаджимехмед"
+    },
+    {
+      "id": "person:ИВАН ТОДОРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Тодоров Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:metin-bairamali-sali-edf2db",
+      "target": "company:tr:205727753",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИРЕНА ИВАНОВA ЦАКОВА",
+      "target": "company:tr:205727753",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ГЕОРГИЕВ КОЛОВ",
+      "target": "company:tr:205727753",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСЕН АТАНАСОВ КИСКИНОВ",
+      "target": "company:tr:205727753",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АБИДИН МЕХМЕД ХАДЖИМЕХМЕД",
+      "target": "company:tr:205727753",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ТОДОРОВ ИВАНОВ",
+      "target": "company:tr:205727753",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

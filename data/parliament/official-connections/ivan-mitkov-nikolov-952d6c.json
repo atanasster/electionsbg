@@ -1,0 +1,103 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-mitkov-nikolov-952d6c",
+  "nodes": [
+    {
+      "id": "official:ivan-mitkov-nikolov-952d6c",
+      "type": "official",
+      "slug": "ivan-mitkov-nikolov-952d6c",
+      "label": "Иван Митков Николов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стара Загора"
+    },
+    {
+      "id": "company:tr:176396184",
+      "type": "company",
+      "label": "БАСКЕТБОЛЕН КЛУБ БЕРОЕ - СТАРА ЗАГОРА",
+      "slug": null,
+      "uic": "176396184",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЖЕЛЯЗКО ДИНКОВ ДИНЕВ",
+      "type": "person",
+      "label": "Желязко Динков Динев"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ГАНЧЕВ ТОТЕВ",
+      "type": "person",
+      "label": "Валентин Ганчев Тотев"
+    },
+    {
+      "id": "person:КРЕМЕНА ДИНЧЕВА ДИМОВА",
+      "type": "person",
+      "label": "Кремена Динчева Димова"
+    },
+    {
+      "id": "person:АЛБЕНА ХУБЕНОВА ЯНКУЛОВА",
+      "type": "person",
+      "label": "Албена Хубенова Янкулова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-mitkov-nikolov-952d6c",
+      "target": "company:tr:176396184",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-mitkov-nikolov-952d6c",
+      "target": "company:tr:176396184",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЖЕЛЯЗКО ДИНКОВ ДИНЕВ",
+      "target": "company:tr:176396184",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ГАНЧЕВ ТОТЕВ",
+      "target": "company:tr:176396184",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕЛЯЗКО ДИНКОВ ДИНЕВ",
+      "target": "company:tr:176396184",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРЕМЕНА ДИНЧЕВА ДИМОВА",
+      "target": "company:tr:176396184",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕНА ХУБЕНОВА ЯНКУЛОВА",
+      "target": "company:tr:176396184",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

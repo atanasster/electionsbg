@@ -1,0 +1,279 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:velichka-georgieva-tasedzhikova-c7b90f",
+  "nodes": [
+    {
+      "id": "official:velichka-georgieva-tasedzhikova-c7b90f",
+      "type": "official",
+      "slug": "velichka-georgieva-tasedzhikova-c7b90f",
+      "label": "Величка Георгиева Таседжикова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130584918",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;СЪЮЗ НА РЪКОВОДИТЕЛИТЕ В СИСТЕМАТА НА НАРОДНАТА ПРОСВЕТА В БЪЛГАРИЯ&quot;",
+      "slug": null,
+      "uic": "130584918",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:valentin-mihov-kraev-d5dec9",
+      "type": "official",
+      "slug": "valentin-mihov-kraev-d5dec9",
+      "label": "Валентин Михов Краев",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "official:valeri-lyubenov-stoilov-f15b76",
+      "type": "official",
+      "slug": "valeri-lyubenov-stoilov-f15b76",
+      "label": "Валери Любенов Стоилов",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "official:katerina-blagoeva-vasileva-c31ae5",
+      "type": "official",
+      "slug": "katerina-blagoeva-vasileva-c31ae5",
+      "label": "Катерина Благоева Василева",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "official:krasimir-todorov-dimitrov-e15881",
+      "type": "official",
+      "slug": "krasimir-todorov-dimitrov-e15881",
+      "label": "Красимир Тодоров Димитров",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "official:manya-kirkor-vrbanova-4a5714",
+      "type": "official",
+      "slug": "manya-kirkor-vrbanova-4a5714",
+      "label": "Маня Киркор Върбанова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "official:nataliya-marinova-vlcheva-9778be",
+      "type": "official",
+      "slug": "nataliya-marinova-vlcheva-9778be",
+      "label": "Наталия Маринова Вълчева",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "official:petya-ivanova-iosifova-d8394f",
+      "type": "official",
+      "slug": "petya-ivanova-iosifova-d8394f",
+      "label": "Петя Иванова Йосифова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "person:ДИЯН ВЕЛИЧКОВ СТАМАТОВ",
+      "type": "person",
+      "label": "Диян Величков Стаматов"
+    },
+    {
+      "id": "person:ДРАГОМИРА КОСТОВА МАКЕДОНСКА",
+      "type": "person",
+      "label": "Драгомира Костова Македонска"
+    },
+    {
+      "id": "person:ЕМИЛ ИВАНОВ ТЕРЗИЙСКИ",
+      "type": "person",
+      "label": "Емил Иванов Терзийски"
+    },
+    {
+      "id": "person:ЕМИЛ КИРИЛОВ РАЙКОВ",
+      "type": "person",
+      "label": "Емил Кирилов Райков"
+    },
+    {
+      "id": "person:ВЕСЕЛКА ДИМИТРОВА ИВАНОВА",
+      "type": "person",
+      "label": "Веселка Димитрова Иванова"
+    },
+    {
+      "id": "person:ВИКТОР ПЕТКОВ КРЪСТЕВ",
+      "type": "person",
+      "label": "Виктор Петков Кръстев"
+    },
+    {
+      "id": "person:КРАСИМИРА ТРЕНДАФИЛОВА БЛАГОЕВА",
+      "type": "person",
+      "label": "Красимира Трендафилова Благоева"
+    },
+    {
+      "id": "person:ЛИЛИЯ СТОЯНОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Лилия Стоянова Стоянова"
+    },
+    {
+      "id": "person:НИКОЛАЙ КИРИЛОВ КОЛЕВ",
+      "type": "person",
+      "label": "Николай Кирилов Колев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:velichka-georgieva-tasedzhikova-c7b90f",
+      "target": "company:tr:130584918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:valentin-mihov-kraev-d5dec9",
+      "target": "company:tr:130584918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:valeri-lyubenov-stoilov-f15b76",
+      "target": "company:tr:130584918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:katerina-blagoeva-vasileva-c31ae5",
+      "target": "company:tr:130584918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:krasimir-todorov-dimitrov-e15881",
+      "target": "company:tr:130584918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:manya-kirkor-vrbanova-4a5714",
+      "target": "company:tr:130584918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nataliya-marinova-vlcheva-9778be",
+      "target": "company:tr:130584918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petya-ivanova-iosifova-d8394f",
+      "target": "company:tr:130584918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИЯН ВЕЛИЧКОВ СТАМАТОВ",
+      "target": "company:tr:130584918",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГОМИРА КОСТОВА МАКЕДОНСКА",
+      "target": "company:tr:130584918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ИВАНОВ ТЕРЗИЙСКИ",
+      "target": "company:tr:130584918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ КИРИЛОВ РАЙКОВ",
+      "target": "company:tr:130584918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯН ВЕЛИЧКОВ СТАМАТОВ",
+      "target": "company:tr:130584918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛКА ДИМИТРОВА ИВАНОВА",
+      "target": "company:tr:130584918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОР ПЕТКОВ КРЪСТЕВ",
+      "target": "company:tr:130584918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ТРЕНДАФИЛОВА БЛАГОЕВА",
+      "target": "company:tr:130584918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛИЯ СТОЯНОВА СТОЯНОВА",
+      "target": "company:tr:130584918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ КИРИЛОВ КОЛЕВ",
+      "target": "company:tr:130584918",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

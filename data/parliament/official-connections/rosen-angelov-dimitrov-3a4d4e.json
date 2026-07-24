@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rosen-angelov-dimitrov-3a4d4e",
+  "nodes": [
+    {
+      "id": "official:rosen-angelov-dimitrov-3a4d4e",
+      "type": "official",
+      "slug": "rosen-angelov-dimitrov-3a4d4e",
+      "label": "Росен Ангелов Димитров",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208337053",
+      "type": "company",
+      "label": "ЕПСИЛОН СПОРТ",
+      "slug": null,
+      "uic": "208337053",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРАСИМИР САШОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Красимир Сашов Михайлов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rosen-angelov-dimitrov-3a4d4e",
+      "target": "company:tr:208337053",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rosen-angelov-dimitrov-3a4d4e",
+      "target": "company:tr:208337053",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРАСИМИР САШОВ МИХАЙЛОВ",
+      "target": "company:tr:208337053",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

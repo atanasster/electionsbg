@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nadezhda-peneva-koeva-ff6811",
+  "nodes": [
+    {
+      "id": "official:nadezhda-peneva-koeva-ff6811",
+      "type": "official",
+      "slug": "nadezhda-peneva-koeva-ff6811",
+      "label": "Надежда Пенева Коева",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200766524",
+      "type": "company",
+      "label": "ПИК 94",
+      "slug": null,
+      "uic": "200766524",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИНА ПЕНЕВА КОЕВА-СЛАНЧЕВА",
+      "type": "person",
+      "label": "Ина Пенева Коева-Сланчева"
+    },
+    {
+      "id": "person:ВАСИЛКА БОРИСЛАВОВА КОЕВА",
+      "type": "person",
+      "label": "Василка Бориславова Коева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nadezhda-peneva-koeva-ff6811",
+      "target": "company:tr:200766524",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИНА ПЕНЕВА КОЕВА-СЛАНЧЕВА",
+      "target": "company:tr:200766524",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛКА БОРИСЛАВОВА КОЕВА",
+      "target": "company:tr:200766524",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stoyan-danchev-delchev-4ef94a",
+  "nodes": [
+    {
+      "id": "official:stoyan-danchev-delchev-4ef94a",
+      "type": "official",
+      "slug": "stoyan-danchev-delchev-4ef94a",
+      "label": "Стоян Данчев Делчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ивайловград"
+    },
+    {
+      "id": "company:tr:205544709",
+      "type": "company",
+      "label": "СУИЙТ КЪЛЕКШЪН",
+      "slug": null,
+      "uic": "205544709",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИЛИЦА ИВАНОВА ДЕЛЧЕВА",
+      "type": "person",
+      "label": "Милица Иванова Делчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stoyan-danchev-delchev-4ef94a",
+      "target": "company:tr:205544709",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛИЦА ИВАНОВА ДЕЛЧЕВА",
+      "target": "company:tr:205544709",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

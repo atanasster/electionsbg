@@ -1,0 +1,108 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:bistra-dimitrova-spasova-iordanova-b33e70",
+  "nodes": [
+    {
+      "id": "official:bistra-dimitrova-spasova-iordanova-b33e70",
+      "type": "official",
+      "slug": "bistra-dimitrova-spasova-iordanova-b33e70",
+      "label": "Бистра Димитрова Спасова-Йорданова",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Район \"Вл.Варненчик\" - Варна"
+    },
+    {
+      "id": "company:tr:103196110",
+      "type": "company",
+      "label": "ВЛАДИСЛАВОВО",
+      "slug": null,
+      "uic": "103196110",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНДРИЯНА ЦОНЕВА РУСЕВА",
+      "type": "person",
+      "label": "Андрияна Цонева Русева"
+    },
+    {
+      "id": "person:БИСТРА ДИМИТРОВА СПАСОВА – ЙОРДАНОВА",
+      "type": "person",
+      "label": "Бистра Димитрова Спасова – Йорданова"
+    },
+    {
+      "id": "person:МАРГАРИТА ИВАНОВА КАДИЙСКА",
+      "type": "person",
+      "label": "Маргарита Иванова Кадийска"
+    },
+    {
+      "id": "person:ЯНКО ЯНКОВ СТАНЕВ",
+      "type": "person",
+      "label": "Янко Янков Станев"
+    },
+    {
+      "id": "person:ВАНЯ КУЗМАНОВА АВРАМОВА",
+      "type": "person",
+      "label": "Ваня Кузманова Аврамова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:bistra-dimitrova-spasova-iordanova-b33e70",
+      "target": "company:tr:103196110",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНДРИЯНА ЦОНЕВА РУСЕВА",
+      "target": "company:tr:103196110",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИСТРА ДИМИТРОВА СПАСОВА – ЙОРДАНОВА",
+      "target": "company:tr:103196110",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА ИВАНОВА КАДИЙСКА",
+      "target": "company:tr:103196110",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКО ЯНКОВ СТАНЕВ",
+      "target": "company:tr:103196110",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРИЯНА ЦОНЕВА РУСЕВА",
+      "target": "company:tr:103196110",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ КУЗМАНОВА АВРАМОВА",
+      "target": "company:tr:103196110",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

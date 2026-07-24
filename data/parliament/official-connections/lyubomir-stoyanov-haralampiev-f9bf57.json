@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:lyubomir-stoyanov-haralampiev-f9bf57",
+  "nodes": [
+    {
+      "id": "official:lyubomir-stoyanov-haralampiev-f9bf57",
+      "type": "official",
+      "slug": "lyubomir-stoyanov-haralampiev-f9bf57",
+      "label": "Любомир Стоянов Харалампиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203987346",
+      "type": "company",
+      "label": "БЛАГОЕВГРАД ИНВЕСТ 2016",
+      "slug": null,
+      "uic": "203987346",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИЛИЯ БЛАГОЕВ ИЛИЕВ",
+      "type": "person",
+      "label": "Илия Благоев Илиев"
+    },
+    {
+      "id": "person:БОРИСЛАВ ГЕОРГИЕВ ТОДОРОВ",
+      "type": "person",
+      "label": "Борислав Георгиев Тодоров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lyubomir-stoyanov-haralampiev-f9bf57",
+      "target": "company:tr:203987346",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИЛИЯ БЛАГОЕВ ИЛИЕВ",
+      "target": "company:tr:203987346",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ ГЕОРГИЕВ ТОДОРОВ",
+      "target": "company:tr:203987346",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

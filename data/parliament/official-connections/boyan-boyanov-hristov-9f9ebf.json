@@ -1,0 +1,129 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:boyan-boyanov-hristov-9f9ebf",
+  "nodes": [
+    {
+      "id": "official:boyan-boyanov-hristov-9f9ebf",
+      "type": "official",
+      "slug": "boyan-boyanov-hristov-9f9ebf",
+      "label": "Боян Боянов Христов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175729349",
+      "type": "company",
+      "label": "ДРУЖЕСТВО  ПО ХИРУРГИЯ НА РЪКАТА - БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "175729349",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛА ТЕОДОРОВ СИМЕОНОВ",
+      "type": "person",
+      "label": "Никола Теодоров Симеонов"
+    },
+    {
+      "id": "person:МАРГАРИТА МИХАЙЛОВА КЪТЕВА-ВРЪБЧЕВА",
+      "type": "person",
+      "label": "Маргарита Михайлова Кътева-Връбчева"
+    },
+    {
+      "id": "person:СЕВДАЛИН ПЕТРОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Севдалин Петров Ангелов"
+    },
+    {
+      "id": "person:ПЕТЯ ГЕОРГИЕВА СПАСОВА",
+      "type": "person",
+      "label": "Петя Георгиева Спасова"
+    },
+    {
+      "id": "person:ГЕОРГИ ХРИСТОВ ГАНЧЕВ",
+      "type": "person",
+      "label": "Георги Христов Ганчев"
+    },
+    {
+      "id": "person:КАЛИН ОГНЯНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Калин Огнянов Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:boyan-boyanov-hristov-9f9ebf",
+      "target": "company:tr:175729349",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛА ТЕОДОРОВ СИМЕОНОВ",
+      "target": "company:tr:175729349",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА МИХАЙЛОВА КЪТЕВА-ВРЪБЧЕВА",
+      "target": "company:tr:175729349",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВДАЛИН ПЕТРОВ АНГЕЛОВ",
+      "target": "company:tr:175729349",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ГЕОРГИЕВА СПАСОВА",
+      "target": "company:tr:175729349",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ТЕОДОРОВ СИМЕОНОВ",
+      "target": "company:tr:175729349",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ХРИСТОВ ГАНЧЕВ",
+      "target": "company:tr:175729349",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА МИХАЙЛОВА КЪТЕВА-ВРЪБЧЕВА",
+      "target": "company:tr:175729349",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН ОГНЯНОВ ДИМИТРОВ",
+      "target": "company:tr:175729349",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

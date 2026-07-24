@@ -1,0 +1,176 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:genadi-nikolaos-tsitlakidis-b281f4",
+  "nodes": [
+    {
+      "id": "official:genadi-nikolaos-tsitlakidis-b281f4",
+      "type": "official",
+      "slug": "genadi-nikolaos-tsitlakidis-b281f4",
+      "label": "Генади Николаос Цитлакидис",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Габрово"
+    },
+    {
+      "id": "company:tr:176406403",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ &quot;ЛОКОМОТИВ-1927&quot; ДРЯНОВО",
+      "slug": null,
+      "uic": "176406403",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЛАМЕН НИКОЛАЕВ ОБРЕШКОВ",
+      "type": "person",
+      "label": "Пламен Николаев Обрешков"
+    },
+    {
+      "id": "person:ПЕТЪР ИВАНОВ ГАНЧЕВ",
+      "type": "person",
+      "label": "Петър Иванов Ганчев"
+    },
+    {
+      "id": "person:НИКОЛАЙ ИВАНОВ МИНЧЕВ",
+      "type": "person",
+      "label": "Николай Иванов Минчев"
+    },
+    {
+      "id": "person:КРАСИМИР ГЕОРГИЕВ КРУМОВ",
+      "type": "person",
+      "label": "Красимир Георгиев Крумов"
+    },
+    {
+      "id": "person:НИКОЛА РОСЕНОВ ПЛОСКОВ",
+      "type": "person",
+      "label": "Никола Росенов Плосков"
+    },
+    {
+      "id": "person:ПЕТЪР ИВАНОВ ГЕНЧЕВ",
+      "type": "person",
+      "label": "Петър Иванов Генчев"
+    },
+    {
+      "id": "person:ИВАН ДЕНЧЕВ ШИПКАЛИЕВ",
+      "type": "person",
+      "label": "Иван Денчев Шипкалиев"
+    },
+    {
+      "id": "person:ПАРАШКЕВ ДИЛЯНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Парашкев Дилянов Димитров"
+    },
+    {
+      "id": "person:ИЛИЯ СТОЯНОВ СЕМОВ",
+      "type": "person",
+      "label": "Илия Стоянов Семов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:genadi-nikolaos-tsitlakidis-b281f4",
+      "target": "company:tr:176406403",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЛАМЕН НИКОЛАЕВ ОБРЕШКОВ",
+      "target": "company:tr:176406403",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН НИКОЛАЕВ ОБРЕШКОВ",
+      "target": "company:tr:176406403",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ИВАНОВ ГАНЧЕВ",
+      "target": "company:tr:176406403",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ИВАНОВ МИНЧЕВ",
+      "target": "company:tr:176406403",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ГЕОРГИЕВ КРУМОВ",
+      "target": "company:tr:176406403",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА РОСЕНОВ ПЛОСКОВ",
+      "target": "company:tr:176406403",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА РОСЕНОВ ПЛОСКОВ",
+      "target": "company:tr:176406403",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ИВАНОВ ГЕНЧЕВ",
+      "target": "company:tr:176406403",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДЕНЧЕВ ШИПКАЛИЕВ",
+      "target": "company:tr:176406403",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАРАШКЕВ ДИЛЯНОВ ДИМИТРОВ",
+      "target": "company:tr:176406403",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ СТОЯНОВ СЕМОВ",
+      "target": "company:tr:176406403",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ СТОЯНОВ СЕМОВ",
+      "target": "company:tr:176406403",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:lyudmila-stefanova-angelova-86c871",
+  "nodes": [
+    {
+      "id": "official:lyudmila-stefanova-angelova-86c871",
+      "type": "official",
+      "slug": "lyudmila-stefanova-angelova-86c871",
+      "label": "Людмила Стефанова Ангелова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208847348",
+      "type": "company",
+      "label": "БЕЛА 9302",
+      "slug": null,
+      "uic": "208847348",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lyudmila-stefanova-angelova-86c871",
+      "target": "company:tr:208847348",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:lyudmila-stefanova-angelova-86c871",
+      "target": "company:tr:208847348",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

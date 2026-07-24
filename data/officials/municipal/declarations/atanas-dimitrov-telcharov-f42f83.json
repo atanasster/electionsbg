@@ -1,0 +1,93 @@
+[
+  {
+    "slug": "atanas-dimitrov-telcharov-f42f83",
+    "declarantName": "АТАНАС ДИМИТРОВ ТЕЛЧАРОВ",
+    "institution": "Садово",
+    "positionTitle": "Председател на ОбС",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г8088",
+    "controlHash": "6B62C769",
+    "sourceUrl": "https://register.cacbg.bg/2025/6187ECD0-EFDD-4626-ACB3-A84B2CD96225211097.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове в дружеството",
+        "shareSize": "1/2",
+        "companyName": "Еко Грийн Енерджи ООД",
+        "registeredOffice": "с. Избеглии",
+        "valueEur": 2.5564594059810926,
+        "holderName": "Атанас Димитров Телчаров",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 9993.711109861286,
+        "amountEurSpouse": 1266.9812816042295
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 14265.043485374496,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 2381.5975826119857,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Други доходи",
+        "amountEurDeclarant": 5577.171840088351,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Катуница",
+        "municipality": "Садово",
+        "areaSqm": 8,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 1220,
+        "valueEur": 623.7760950593865,
+        "holderName": "Атанас Димитров Телчаров, СИО",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11000,
+        "valueEur": 5624.210693158403,
+        "holderName": "Атанас Димитров Телчаров, СИО",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

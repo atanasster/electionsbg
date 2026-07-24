@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariya-valentinova-madzharska-d5e35d",
+  "nodes": [
+    {
+      "id": "official:mariya-valentinova-madzharska-d5e35d",
+      "type": "official",
+      "slug": "mariya-valentinova-madzharska-d5e35d",
+      "label": "Мария Валентинова Маджарска",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204229913",
+      "type": "company",
+      "label": "„ЛЪЧ БГ”",
+      "slug": null,
+      "uic": "204229913",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОЛЕКСАНДР ДЕМУРА",
+      "type": "person",
+      "label": "Олександр  Демура"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-valentinova-madzharska-d5e35d",
+      "target": "company:tr:204229913",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОЛЕКСАНДР ДЕМУРА",
+      "target": "company:tr:204229913",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

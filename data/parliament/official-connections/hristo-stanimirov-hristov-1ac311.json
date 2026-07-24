@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hristo-stanimirov-hristov-1ac311",
+  "nodes": [
+    {
+      "id": "official:hristo-stanimirov-hristov-1ac311",
+      "type": "official",
+      "slug": "hristo-stanimirov-hristov-1ac311",
+      "label": "Христо Станимиров Христов",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:107591393",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ &quot;ДАН КОЛОВ&quot;",
+      "slug": null,
+      "uic": "107591393",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СИМЕОН РАДКОВ ЛАЛЕВ",
+      "type": "person",
+      "label": "Симеон Радков Лалев"
+    },
+    {
+      "id": "person:КОЛЬО ГАНКОВ КОЛЕВ",
+      "type": "person",
+      "label": "Кольо Ганков Колев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-stanimirov-hristov-1ac311",
+      "target": "company:tr:107591393",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СИМЕОН РАДКОВ ЛАЛЕВ",
+      "target": "company:tr:107591393",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОЛЬО ГАНКОВ КОЛЕВ",
+      "target": "company:tr:107591393",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

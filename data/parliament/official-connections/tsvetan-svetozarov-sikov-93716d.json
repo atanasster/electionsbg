@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tsvetan-svetozarov-sikov-93716d",
+  "nodes": [
+    {
+      "id": "official:tsvetan-svetozarov-sikov-93716d",
+      "type": "official",
+      "slug": "tsvetan-svetozarov-sikov-93716d",
+      "label": "Цветан Светозаров Съйков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:128000893",
+      "type": "company",
+      "label": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ",
+      "slug": null,
+      "uic": "128000893",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:hristina-georgieva-mikutseva-petrova-f76d09",
+      "type": "official",
+      "slug": "hristina-georgieva-mikutseva-petrova-f76d09",
+      "label": "Христина Георгиева Микуцева-Петрова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ХРИСТИНА ГЕОРГИЕВА МИКУЦЕВА - ПЕТРОВА",
+      "type": "person",
+      "label": "Христина Георгиева Микуцева - Петрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetan-svetozarov-sikov-93716d",
+      "target": "company:tr:128000893",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristina-georgieva-mikutseva-petrova-f76d09",
+      "target": "company:tr:128000893",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТИНА ГЕОРГИЕВА МИКУЦЕВА - ПЕТРОВА",
+      "target": "company:tr:128000893",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

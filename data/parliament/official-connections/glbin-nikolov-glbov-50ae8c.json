@@ -1,0 +1,131 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:glbin-nikolov-glbov-50ae8c",
+  "nodes": [
+    {
+      "id": "official:glbin-nikolov-glbov-50ae8c",
+      "type": "official",
+      "slug": "glbin-nikolov-glbov-50ae8c",
+      "label": "Гълъбин Николов Гълъбов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204710868",
+      "type": "company",
+      "label": "А+ Релакс ЕООД",
+      "slug": null,
+      "uic": "204710868",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:121769212",
+      "type": "company",
+      "label": "БЪЛГАРСКА АГЕНЦИЯ ЗА ЕКСПОРТНО ЗАСТРАХОВАНЕ /БАЕЗ/",
+      "slug": null,
+      "uic": "121769212",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕЯНА БОЖИДАРОВА КЪНЧЕВА",
+      "type": "person",
+      "label": "Деяна Божидарова Кънчева"
+    },
+    {
+      "id": "person:ВЕСЕЛИН БОРИСОВ РАШИН",
+      "type": "person",
+      "label": "Веселин Борисов Рашин"
+    },
+    {
+      "id": "person:БОЙКА МАРКОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Бойка Маркова Василева"
+    },
+    {
+      "id": "person:ЛИДИЯ СПАСОВА КОЦЕВА – СТАНКОВА",
+      "type": "person",
+      "label": "Лидия Спасова Коцева – Станкова"
+    },
+    {
+      "id": "person:СТОЯН ЦВЕТКОВ ЦВЕТКОВ",
+      "type": "person",
+      "label": "Стоян Цветков Цветков"
+    },
+    {
+      "id": "person:ВЛАДИМИР РАШКОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Владимир Рашков Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:glbin-nikolov-glbov-50ae8c",
+      "target": "company:tr:204710868",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:glbin-nikolov-glbov-50ae8c",
+      "target": "company:tr:121769212",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕЯНА БОЖИДАРОВА КЪНЧЕВА",
+      "target": "company:tr:204710868",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН БОРИСОВ РАШИН",
+      "target": "company:tr:121769212",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЙКА МАРКОВА ВАСИЛЕВА",
+      "target": "company:tr:121769212",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИДИЯ СПАСОВА КОЦЕВА – СТАНКОВА",
+      "target": "company:tr:121769212",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ЦВЕТКОВ ЦВЕТКОВ",
+      "target": "company:tr:121769212",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР РАШКОВ ГЕОРГИЕВ",
+      "target": "company:tr:121769212",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

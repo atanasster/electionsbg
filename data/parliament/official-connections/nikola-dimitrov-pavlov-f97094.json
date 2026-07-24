@@ -1,67 +1,54 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "officialNodeId": "official:nikola-dimitrov-pavlov-f97094",
   "nodes": [
     {
       "id": "official:nikola-dimitrov-pavlov-f97094",
       "type": "official",
       "slug": "nikola-dimitrov-pavlov-f97094",
-      "label": "НИКОЛА ДИМИТРОВ ПАВЛОВ",
+      "label": "Никола Димитров Павлов",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "company:tr:204636962",
+      "id": "company:tr:175142064",
       "type": "company",
-      "label": "САКАР ФОРЕСТ ООД",
+      "label": "МБЛ ИСТЕЙТС",
       "slug": null,
-      "uic": "204636962",
+      "uic": "175142064",
       "legalForm": null,
       "status": null,
       "seat": null
     },
     {
-      "id": "person:МИХАИЛ ХРИСТОВ ЛИСКОВ",
+      "id": "person:МИХАЕЛА РУМЕНОВА ИВАНОВА",
       "type": "person",
-      "label": "Михаил Христов Лисков"
-    },
-    {
-      "id": "person:ДАНАИЛ МАРКОВ ВЪЛКОВ",
-      "type": "person",
-      "label": "Данаил Марков Вълков"
+      "label": "Михаела Руменова Иванова"
     }
   ],
   "edges": [
     {
       "source": "official:nikola-dimitrov-pavlov-f97094",
-      "target": "company:tr:204636962",
-      "kind": "declared_stake",
-      "role": "declared_share",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:МИХАИЛ ХРИСТОВ ЛИСКОВ",
-      "target": "company:tr:204636962",
+      "target": "company:tr:175142064",
       "kind": "tr_role",
       "role": "manager",
       "isCurrent": true,
-      "confidence": "high"
+      "confidence": "medium"
     },
     {
-      "source": "person:ДАНАИЛ МАРКОВ ВЪЛКОВ",
-      "target": "company:tr:204636962",
+      "source": "official:nikola-dimitrov-pavlov-f97094",
+      "target": "company:tr:175142064",
       "kind": "tr_owner",
-      "role": "partner",
+      "role": "sole_owner",
       "isCurrent": true,
-      "confidence": "high"
+      "confidence": "medium"
     },
     {
-      "source": "person:МИХАИЛ ХРИСТОВ ЛИСКОВ",
-      "target": "company:tr:204636962",
-      "kind": "tr_owner",
-      "role": "partner",
+      "source": "person:МИХАЕЛА РУМЕНОВА ИВАНОВА",
+      "target": "company:tr:175142064",
+      "kind": "tr_role",
+      "role": "manager",
       "isCurrent": true,
       "confidence": "high"
     }

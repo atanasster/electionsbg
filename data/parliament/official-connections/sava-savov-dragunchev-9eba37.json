@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:sava-savov-dragunchev-9eba37",
+  "nodes": [
+    {
+      "id": "official:sava-savov-dragunchev-9eba37",
+      "type": "official",
+      "slug": "sava-savov-dragunchev-9eba37",
+      "label": "Сава Савов Драгунчев",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208454319",
+      "type": "company",
+      "label": "ДРУЖЕСТВО НА ГОВОРЕЩИТЕ АНГЛИЙСКИ В БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "208454319",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sava-savov-dragunchev-9eba37",
+      "target": "company:tr:208454319",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:sava-savov-dragunchev-9eba37",
+      "target": "company:tr:208454319",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

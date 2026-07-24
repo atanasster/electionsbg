@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-bozhilov-nikolov-3ea10c",
+  "nodes": [
+    {
+      "id": "official:nikolai-bozhilov-nikolov-3ea10c",
+      "type": "official",
+      "slug": "nikolai-bozhilov-nikolov-3ea10c",
+      "label": "Николай Божилов Николов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207325151",
+      "type": "company",
+      "label": "ДМП &quot;НИК - ЯН&quot;",
+      "slug": null,
+      "uic": "207325151",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-bozhilov-nikolov-3ea10c",
+      "target": "company:tr:207325151",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-bozhilov-nikolov-3ea10c",
+      "target": "company:tr:207325151",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

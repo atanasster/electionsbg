@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:atanas-andonov-boyadzhiev-542c7e",
+  "nodes": [
+    {
+      "id": "official:atanas-andonov-boyadzhiev-542c7e",
+      "type": "official",
+      "slug": "atanas-andonov-boyadzhiev-542c7e",
+      "label": "Атанас Андонов Бояджиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175487719",
+      "type": "company",
+      "label": "ЕМПАТИЯ",
+      "slug": null,
+      "uic": "175487719",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КАТЕРИНА КОНТРИДЗЕ",
+      "type": "person",
+      "label": "Катерина Контридзе"
+    },
+    {
+      "id": "person:КОСТАДИН ГЕОРГИЕВ ЧАКАЛОВ",
+      "type": "person",
+      "label": "Костадин Георгиев Чакалов"
+    },
+    {
+      "id": "person:ТАНЯ ТОДОРОВА ПЪРГОВА",
+      "type": "person",
+      "label": "Таня Тодорова Пъргова"
+    },
+    {
+      "id": "person:ГЕОРГИ ТОДОРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Тодоров Георгиев"
+    },
+    {
+      "id": "person:ИВАН ДИМИТРОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Иван Димитров Петков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:atanas-andonov-boyadzhiev-542c7e",
+      "target": "company:tr:175487719",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КАТЕРИНА КОНТРИДЗЕ",
+      "target": "company:tr:175487719",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН ГЕОРГИЕВ ЧАКАЛОВ",
+      "target": "company:tr:175487719",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ТОДОРОВА ПЪРГОВА",
+      "target": "company:tr:175487719",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ТОДОРОВ ГЕОРГИЕВ",
+      "target": "company:tr:175487719",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ ПЕТКОВ",
+      "target": "company:tr:175487719",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

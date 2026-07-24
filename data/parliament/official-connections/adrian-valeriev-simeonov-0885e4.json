@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:adrian-valeriev-simeonov-0885e4",
+  "nodes": [
+    {
+      "id": "official:adrian-valeriev-simeonov-0885e4",
+      "type": "official",
+      "slug": "adrian-valeriev-simeonov-0885e4",
+      "label": "Адриан Валериев Симеонов",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:113593256",
+      "type": "company",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪР - ПЕРНИК",
+      "slug": null,
+      "uic": "113593256",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:adrian-valeriev-simeonov-0885e4",
+      "target": "company:tr:113593256",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

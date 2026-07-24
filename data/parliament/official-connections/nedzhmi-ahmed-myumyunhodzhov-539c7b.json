@@ -1,0 +1,147 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nedzhmi-ahmed-myumyunhodzhov-539c7b",
+  "nodes": [
+    {
+      "id": "official:nedzhmi-ahmed-myumyunhodzhov-539c7b",
+      "type": "official",
+      "slug": "nedzhmi-ahmed-myumyunhodzhov-539c7b",
+      "label": "Неджми Ахмед Мюмюнходжов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Ардино"
+    },
+    {
+      "id": "company:tr:108513970",
+      "type": "company",
+      "label": "ТУРИСТИЧЕСКО ДРУЖЕСТВО - БЕЛИ БРЕЗИ",
+      "slug": null,
+      "uic": "108513970",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЖЕЙЛЯН РЪФКИЕВ МУТАЛИБОВ",
+      "type": "person",
+      "label": "Джейлян Ръфкиев Муталибов"
+    },
+    {
+      "id": "person:МУСТАФА ДЕМИРАЛИЕВ ХАЙРУЛОВ",
+      "type": "person",
+      "label": "Мустафа Демиралиев Хайрулов"
+    },
+    {
+      "id": "person:МЕХМЕД БЕКИРОВ ГЮЛЕСТАНОВ",
+      "type": "person",
+      "label": "Мехмед Бекиров Гюлестанов"
+    },
+    {
+      "id": "person:ЙОРДАНКА ЙОРДАНОВА КОЛЕВА",
+      "type": "person",
+      "label": "Йорданка Йорданова Колева"
+    },
+    {
+      "id": "person:БАХАР ДЕЛЕВЕРОВ РЕДЖЕБОВ",
+      "type": "person",
+      "label": "Бахар Делеверов Реджебов"
+    },
+    {
+      "id": "person:АГОП КИРКОР УЗУНБОХОСЯН",
+      "type": "person",
+      "label": "Агоп  Киркор  Узунбохосян"
+    },
+    {
+      "id": "person:ЛЕВЕНТ ФАИК ДЖЕБЕДЖИ",
+      "type": "person",
+      "label": "Левент  Фаик  Джебеджи"
+    },
+    {
+      "id": "person:ТАНЕР ГЮНЕРОВ ЧОБАНОВ",
+      "type": "person",
+      "label": "Танер Гюнеров Чобанов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nedzhmi-ahmed-myumyunhodzhov-539c7b",
+      "target": "company:tr:108513970",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nedzhmi-ahmed-myumyunhodzhov-539c7b",
+      "target": "company:tr:108513970",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЖЕЙЛЯН РЪФКИЕВ МУТАЛИБОВ",
+      "target": "company:tr:108513970",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МУСТАФА ДЕМИРАЛИЕВ ХАЙРУЛОВ",
+      "target": "company:tr:108513970",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕХМЕД БЕКИРОВ ГЮЛЕСТАНОВ",
+      "target": "company:tr:108513970",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА ЙОРДАНОВА КОЛЕВА",
+      "target": "company:tr:108513970",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БАХАР ДЕЛЕВЕРОВ РЕДЖЕБОВ",
+      "target": "company:tr:108513970",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АГОП КИРКОР УЗУНБОХОСЯН",
+      "target": "company:tr:108513970",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЕВЕНТ ФАИК ДЖЕБЕДЖИ",
+      "target": "company:tr:108513970",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЕР ГЮНЕРОВ ЧОБАНОВ",
+      "target": "company:tr:108513970",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:margarita-nikolova-dimitrova-eea121",
+  "nodes": [
+    {
+      "id": "official:margarita-nikolova-dimitrova-eea121",
+      "type": "official",
+      "slug": "margarita-nikolova-dimitrova-eea121",
+      "label": "Маргарита Николова Димитрова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204935982",
+      "type": "company",
+      "label": "СВЕЖЕСТ ДИМИТРОВИ",
+      "slug": null,
+      "uic": "204935982",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИТКО ИВАНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Митко Иванов Димитров"
+    },
+    {
+      "id": "person:НИКОЛАЙ МИТКОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Николай Митков Димитров"
+    },
+    {
+      "id": "person:РАДОМИР МИТКОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Радомир Митков Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:margarita-nikolova-dimitrova-eea121",
+      "target": "company:tr:204935982",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИТКО ИВАНОВ ДИМИТРОВ",
+      "target": "company:tr:204935982",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ МИТКОВ ДИМИТРОВ",
+      "target": "company:tr:204935982",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОМИР МИТКОВ ДИМИТРОВ",
+      "target": "company:tr:204935982",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:sevda-borisova-katsarova-c979b0",
+  "nodes": [
+    {
+      "id": "official:sevda-borisova-katsarova-c979b0",
+      "type": "official",
+      "slug": "sevda-borisova-katsarova-c979b0",
+      "label": "Севда Борисова Кацарова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000613163",
+      "type": "company",
+      "label": "ВЪЗСТАНОВИТЕЛЕН ЦЕНТЪР ЛЪКИ",
+      "slug": null,
+      "uic": "000613163",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sevda-borisova-katsarova-c979b0",
+      "target": "company:tr:000613163",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

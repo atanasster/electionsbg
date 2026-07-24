@@ -1,0 +1,203 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:verka-petrova-klimentova-ed6361",
+  "nodes": [
+    {
+      "id": "official:verka-petrova-klimentova-ed6361",
+      "type": "official",
+      "slug": "verka-petrova-klimentova-ed6361",
+      "label": "Верка Петрова Климентова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:112043028",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;РАЗВИТИЕ-1873&quot;",
+      "slug": null,
+      "uic": "112043028",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:velichka-vasileva-vasileva-2d6595",
+      "type": "official",
+      "slug": "velichka-vasileva-vasileva-2d6595",
+      "label": "Величка Василева Василева",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "person:ФАНЯ ЛЮБЕНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Фаня Любенова Иванова"
+    },
+    {
+      "id": "person:МАРИЯ КОСТАДИНОВА ЗЛАТКОВА",
+      "type": "person",
+      "label": "Мария Костадинова Златкова"
+    },
+    {
+      "id": "person:БОРЯНА ВАСИЛЕВА ЗАФИРОВА",
+      "type": "person",
+      "label": "Боряна Василева Зафирова"
+    },
+    {
+      "id": "person:ЕЛЕНА ДИМИТРОВА АЦИНОВА",
+      "type": "person",
+      "label": "Елена Димитрова Ацинова"
+    },
+    {
+      "id": "person:СОФИЯ ГЕОРГИЕВА ЯКИМОВА",
+      "type": "person",
+      "label": "София Георгиева Якимова"
+    },
+    {
+      "id": "person:НЕВЕНА ДИМИТРОВА ЛИЧЕВА",
+      "type": "person",
+      "label": "Невена Димитрова Личева"
+    },
+    {
+      "id": "person:АНА МЛАДЕНОВА ГАНЕВА",
+      "type": "person",
+      "label": "Ана Младенова Ганева"
+    },
+    {
+      "id": "person:СТОЯН ВАСИЛЕВ ЙОВЧЕВ",
+      "type": "person",
+      "label": "Стоян Василев Йовчев"
+    },
+    {
+      "id": "person:ЛИЛЯНА ЗАПРЯНОВА ДОГАНОВА",
+      "type": "person",
+      "label": "Лиляна Запрянова Доганова"
+    },
+    {
+      "id": "person:ВЕСЕЛА ГАВРАИЛОВА ХАМАМДЖИЕВА",
+      "type": "person",
+      "label": "Весела Гавраилова Хамамджиева"
+    },
+    {
+      "id": "person:МАРИЯ КОСТАДИНОВА АРГИРОВА",
+      "type": "person",
+      "label": "Мария Костадинова Аргирова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:verka-petrova-klimentova-ed6361",
+      "target": "company:tr:112043028",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:velichka-vasileva-vasileva-2d6595",
+      "target": "company:tr:112043028",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ФАНЯ ЛЮБЕНОВА ИВАНОВА",
+      "target": "company:tr:112043028",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ КОСТАДИНОВА ЗЛАТКОВА",
+      "target": "company:tr:112043028",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРЯНА ВАСИЛЕВА ЗАФИРОВА",
+      "target": "company:tr:112043028",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФАНЯ ЛЮБЕНОВА ИВАНОВА",
+      "target": "company:tr:112043028",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ДИМИТРОВА АЦИНОВА",
+      "target": "company:tr:112043028",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОФИЯ ГЕОРГИЕВА ЯКИМОВА",
+      "target": "company:tr:112043028",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЕНА ДИМИТРОВА ЛИЧЕВА",
+      "target": "company:tr:112043028",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНА МЛАДЕНОВА ГАНЕВА",
+      "target": "company:tr:112043028",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ВАСИЛЕВ ЙОВЧЕВ",
+      "target": "company:tr:112043028",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛЯНА ЗАПРЯНОВА ДОГАНОВА",
+      "target": "company:tr:112043028",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛА ГАВРАИЛОВА ХАМАМДЖИЕВА",
+      "target": "company:tr:112043028",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ КОСТАДИНОВА АРГИРОВА",
+      "target": "company:tr:112043028",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

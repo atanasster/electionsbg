@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:4838",
   "nodes": [
     {
@@ -74,18 +74,18 @@
       "label": "Йоана Ценкова Йорданова"
     },
     {
-      "id": "official:aleksandr-angelov-georgiev-c443fb",
+      "id": "official:aleksandr-angelov-georgiev-9752ca",
       "type": "official",
-      "slug": "aleksandr-angelov-georgiev-c443fb",
+      "slug": "aleksandr-angelov-georgiev-9752ca",
       "label": "Александър Ангелов Георгиев",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:pavel-nikolaev-lisev-d2a96b",
+      "id": "official:pavel-nikolaev-lisev-210547",
       "type": "official",
-      "slug": "pavel-nikolaev-lisev-d2a96b",
+      "slug": "pavel-nikolaev-lisev-210547",
       "label": "Павел Николаев Лисев",
       "tier": "executive",
       "role": "state_enterprise",
@@ -281,7 +281,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:aleksandr-angelov-georgiev-c443fb",
+      "source": "official:aleksandr-angelov-georgiev-9752ca",
       "target": "company:tr:203740812",
       "kind": "tr_role",
       "role": "representative",
@@ -289,7 +289,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:pavel-nikolaev-lisev-d2a96b",
+      "source": "official:pavel-nikolaev-lisev-210547",
       "target": "company:tr:203740812",
       "kind": "tr_role",
       "role": "representative",

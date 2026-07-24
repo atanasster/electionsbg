@@ -1,0 +1,93 @@
+[
+  {
+    "slug": "hristo-dyankov-mihov-5df9d4",
+    "declarantName": "ХРИСТО ДЯНКОВ МИХОВ",
+    "institution": "Тунджа",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-15",
+    "entryNumber": "Г11990",
+    "controlHash": "E84CC140",
+    "sourceUrl": "https://register.cacbg.bg/2025/56ADCC5B-92FA-409E-8025-2BFD42064DBC215144.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "ДЯЛОВЕ",
+        "shareSize": "1000ЛВ",
+        "companyName": "АДМИРАЛ 2021",
+        "registeredOffice": "ЧЕРНОМОРЕЦ",
+        "valueEur": 511.29188119621847,
+        "holderName": "ХРИСТО ДЯНКОВ МИХОВ",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5452.92791295767,
+        "amountEurSpouse": 26765.61868874084
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "СОФИЯ",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 80,
+        "builtAreaSqm": 80,
+        "acquiredYear": 1997,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 86404,
+        "valueEur": 44177.66370287806,
+        "holderName": "ХРИСТО ДЯНКОВ МИХОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "СЛЪНЧЕВ БРЯГ",
+        "municipality": "Несебър",
+        "areaSqm": 46,
+        "builtAreaSqm": 46,
+        "acquiredYear": 2005,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 8400,
+        "valueEur": 4294.851802048235,
+        "holderName": "ХРИСТО ДЯНКОВ МИХОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "БАНКОВ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 27200,
+        "valueEur": 13907.139168537144,
+        "holderName": "МИЛЕНА ДОЙЧИНОВА ДЯНКОВА",
+        "isSpouse": true,
+        "legalBasis": "КРЕДИТ",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

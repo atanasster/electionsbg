@@ -1,0 +1,106 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stanislav-ivanov-kovachev-898d90",
+  "nodes": [
+    {
+      "id": "official:stanislav-ivanov-kovachev-898d90",
+      "type": "official",
+      "slug": "stanislav-ivanov-kovachev-898d90",
+      "label": "Станислав Иванов Ковачев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Силистра"
+    },
+    {
+      "id": "company:tr:207414372",
+      "type": "company",
+      "label": "ЮС Билд",
+      "slug": null,
+      "uic": "207414372",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206653583",
+      "type": "company",
+      "label": "Лактоком 1991",
+      "slug": null,
+      "uic": "206653583",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЮМЮТ НЕЖДЕТ ГАЛИБ",
+      "type": "person",
+      "label": "Юмют Неждет Галиб"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stanislav-ivanov-kovachev-898d90",
+      "target": "company:tr:207414372",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stanislav-ivanov-kovachev-898d90",
+      "target": "company:tr:206653583",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stanislav-ivanov-kovachev-898d90",
+      "target": "company:tr:207414372",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stanislav-ivanov-kovachev-898d90",
+      "target": "company:tr:207414372",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stanislav-ivanov-kovachev-898d90",
+      "target": "company:tr:206653583",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stanislav-ivanov-kovachev-898d90",
+      "target": "company:tr:206653583",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЮМЮТ НЕЖДЕТ ГАЛИБ",
+      "target": "company:tr:207414372",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮМЮТ НЕЖДЕТ ГАЛИБ",
+      "target": "company:tr:207414372",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

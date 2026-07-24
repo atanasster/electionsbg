@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:borislav-vasilev-isaev-e14b53",
+  "nodes": [
+    {
+      "id": "official:borislav-vasilev-isaev-e14b53",
+      "type": "official",
+      "slug": "borislav-vasilev-isaev-e14b53",
+      "label": "Борислав Василев Исаев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175297965",
+      "type": "company",
+      "label": "ТРЕН",
+      "slug": null,
+      "uic": "175297965",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИКО СТАНИМИРОВ МИЛАНОВ",
+      "type": "person",
+      "label": "Мико Станимиров Миланов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:borislav-vasilev-isaev-e14b53",
+      "target": "company:tr:175297965",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИКО СТАНИМИРОВ МИЛАНОВ",
+      "target": "company:tr:175297965",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

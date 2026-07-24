@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:elena-hristova-doseva-74f404",
+  "nodes": [
+    {
+      "id": "official:elena-hristova-doseva-74f404",
+      "type": "official",
+      "slug": "elena-hristova-doseva-74f404",
+      "label": "Елена Христова Досева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208132529",
+      "type": "company",
+      "label": "ЕД АКАУНТ ЕООД",
+      "slug": null,
+      "uic": "208132529",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕСЕЛИНА ДИМИТРОВА ЦВЕТКОВА",
+      "type": "person",
+      "label": "Веселина Димитрова Цветкова"
+    },
+    {
+      "id": "person:ЕЛЕНА ХРИСТОВА ДОСЕВА",
+      "type": "person",
+      "label": "Елена Христова Досева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:elena-hristova-doseva-74f404",
+      "target": "company:tr:208132529",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА ДИМИТРОВА ЦВЕТКОВА",
+      "target": "company:tr:208132529",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ХРИСТОВА ДОСЕВА",
+      "target": "company:tr:208132529",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

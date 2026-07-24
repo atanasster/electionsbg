@@ -1,0 +1,116 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ani-nikiforova-simeonova-73dafd",
+  "nodes": [
+    {
+      "id": "official:ani-nikiforova-simeonova-73dafd",
+      "type": "official",
+      "slug": "ani-nikiforova-simeonova-73dafd",
+      "label": "Ани Никифорова Симеонова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Трекляно"
+    },
+    {
+      "id": "company:tr:000254511",
+      "type": "company",
+      "label": "Народно читалище Зинови Дойчинов - 1901",
+      "slug": null,
+      "uic": "000254511",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:kameliya-asenova-andonova-3fcc90",
+      "type": "official",
+      "slug": "kameliya-asenova-andonova-3fcc90",
+      "label": "Камелия Асенова Андонова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Трекляно"
+    },
+    {
+      "id": "official:stefka-ivanova-stamenkova-aa6e93",
+      "type": "official",
+      "slug": "stefka-ivanova-stamenkova-aa6e93",
+      "label": "Стефка Иванова Стаменкова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Трекляно"
+    },
+    {
+      "id": "person:СТЕФАН ИВАНЧОВ БОРИСОВ",
+      "type": "person",
+      "label": "Стефан Иванчов Борисов"
+    },
+    {
+      "id": "person:СИЛВИЯ МИЛЧОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Силвия Милчова Илиева"
+    },
+    {
+      "id": "person:МАЯ ПЪРВАНОВА БОЯНОВА",
+      "type": "person",
+      "label": "Мая Първанова Боянова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ani-nikiforova-simeonova-73dafd",
+      "target": "company:tr:000254511",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kameliya-asenova-andonova-3fcc90",
+      "target": "company:tr:000254511",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stefka-ivanova-stamenkova-aa6e93",
+      "target": "company:tr:000254511",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФАН ИВАНЧОВ БОРИСОВ",
+      "target": "company:tr:000254511",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ИВАНЧОВ БОРИСОВ",
+      "target": "company:tr:000254511",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ МИЛЧОВА ИЛИЕВА",
+      "target": "company:tr:000254511",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЯ ПЪРВАНОВА БОЯНОВА",
+      "target": "company:tr:000254511",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

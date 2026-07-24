@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-ventseslavov-gatev-acf65f",
+  "nodes": [
+    {
+      "id": "official:georgi-ventseslavov-gatev-acf65f",
+      "type": "official",
+      "slug": "georgi-ventseslavov-gatev-acf65f",
+      "label": "Георги Венцеславов Гатев",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Район \"Тракия\" - Пловдив"
+    },
+    {
+      "id": "company:tr:203437155",
+      "type": "company",
+      "label": "ГАТИКО 15",
+      "slug": null,
+      "uic": "203437155",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНИ ГЕНКОВА ГАТЕВА",
+      "type": "person",
+      "label": "Ани Генкова Гатева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-ventseslavov-gatev-acf65f",
+      "target": "company:tr:203437155",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-ventseslavov-gatev-acf65f",
+      "target": "company:tr:203437155",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНИ ГЕНКОВА ГАТЕВА",
+      "target": "company:tr:203437155",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНИ ГЕНКОВА ГАТЕВА",
+      "target": "company:tr:203437155",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nenko-kirkov-dervenkov-4aac39",
+  "nodes": [
+    {
+      "id": "official:nenko-kirkov-dervenkov-4aac39",
+      "type": "official",
+      "slug": "nenko-kirkov-dervenkov-4aac39",
+      "label": "Ненко Кирков Дервенков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:126004284",
+      "type": "company",
+      "label": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ",
+      "slug": null,
+      "uic": "126004284",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:bozhidar-atanasov-zhelyazkov-384d26",
+      "type": "official",
+      "slug": "bozhidar-atanasov-zhelyazkov-384d26",
+      "label": "Божидар Атанасов Желязков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:БОРИС КИРИЛОВ БУСАРОВ",
+      "type": "person",
+      "label": "Борис Кирилов Бусаров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nenko-kirkov-dervenkov-4aac39",
+      "target": "company:tr:126004284",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:bozhidar-atanasov-zhelyazkov-384d26",
+      "target": "company:tr:126004284",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОРИС КИРИЛОВ БУСАРОВ",
+      "target": "company:tr:126004284",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:bozhidar-petrov-kostadinov-4daf21",
+  "nodes": [
+    {
+      "id": "official:bozhidar-petrov-kostadinov-4daf21",
+      "type": "official",
+      "slug": "bozhidar-petrov-kostadinov-4daf21",
+      "label": "Божидар Петров Костадинов",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206260971",
+      "type": "company",
+      "label": "Център за професионални бизнес решения",
+      "slug": null,
+      "uic": "206260971",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЪР АТАНАСОВ КОСТАДИНОВ",
+      "type": "person",
+      "label": "Петър Атанасов Костадинов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:bozhidar-petrov-kostadinov-4daf21",
+      "target": "company:tr:206260971",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР АТАНАСОВ КОСТАДИНОВ",
+      "target": "company:tr:206260971",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

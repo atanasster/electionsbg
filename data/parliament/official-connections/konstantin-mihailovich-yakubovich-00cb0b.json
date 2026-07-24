@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:konstantin-mihailovich-yakubovich-00cb0b",
+  "nodes": [
+    {
+      "id": "official:konstantin-mihailovich-yakubovich-00cb0b",
+      "type": "official",
+      "slug": "konstantin-mihailovich-yakubovich-00cb0b",
+      "label": "Константин Михайлович Якубович",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Сунгурларе"
+    },
+    {
+      "id": "company:tr:102879103",
+      "type": "company",
+      "label": "\"Якубович\" ЕООД",
+      "slug": null,
+      "uic": "102879103",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:konstantin-mihailovich-yakubovich-ca7ae0",
+      "type": "official",
+      "slug": "konstantin-mihailovich-yakubovich-ca7ae0",
+      "label": "Константин Михайлович Якубович",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Ямбол"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:konstantin-mihailovich-yakubovich-00cb0b",
+      "target": "company:tr:102879103",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:konstantin-mihailovich-yakubovich-ca7ae0",
+      "target": "company:tr:102879103",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

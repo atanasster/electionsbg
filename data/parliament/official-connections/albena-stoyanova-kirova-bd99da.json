@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:albena-stoyanova-kirova-bd99da",
+  "nodes": [
+    {
+      "id": "official:albena-stoyanova-kirova-bd99da",
+      "type": "official",
+      "slug": "albena-stoyanova-kirova-bd99da",
+      "label": "Албена Стоянова Кирова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206266433",
+      "type": "company",
+      "label": "ХАНДБАЛЕН КЛУБ БЯЛА",
+      "slug": null,
+      "uic": "206266433",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ ГЕОРГИЕВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Венцислав Георгиев Ангелов"
+    },
+    {
+      "id": "person:ИВАЙЛО БОЯНОВ АСЕНОВ",
+      "type": "person",
+      "label": "Ивайло Боянов Асенов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:albena-stoyanova-kirova-bd99da",
+      "target": "company:tr:206266433",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ ГЕОРГИЕВ АНГЕЛОВ",
+      "target": "company:tr:206266433",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО БОЯНОВ АСЕНОВ",
+      "target": "company:tr:206266433",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

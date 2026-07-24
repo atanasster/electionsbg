@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-ivanov-radulov-2fd67d",
+  "nodes": [
+    {
+      "id": "official:nikolai-ivanov-radulov-2fd67d",
+      "type": "official",
+      "slug": "nikolai-ivanov-radulov-2fd67d",
+      "label": "Николай Иванов Радулов",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207140633",
+      "type": "company",
+      "label": "БИКФАРМ",
+      "slug": null,
+      "uic": "207140633",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИЛИЯ ТОДОРОВ МАНЧЕВ",
+      "type": "person",
+      "label": "Илия Тодоров Манчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-ivanov-radulov-2fd67d",
+      "target": "company:tr:207140633",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-ivanov-radulov-2fd67d",
+      "target": "company:tr:207140633",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИЛИЯ ТОДОРОВ МАНЧЕВ",
+      "target": "company:tr:207140633",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ТОДОРОВ МАНЧЕВ",
+      "target": "company:tr:207140633",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

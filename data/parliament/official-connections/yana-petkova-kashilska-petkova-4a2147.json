@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:yana-petkova-kashilska-petkova-4a2147",
+  "nodes": [
+    {
+      "id": "official:yana-petkova-kashilska-petkova-4a2147",
+      "type": "official",
+      "slug": "yana-petkova-kashilska-petkova-4a2147",
+      "label": "Яна Петкова Кашилска-Петкова",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000466329",
+      "type": "company",
+      "label": "Диагностично - консултативен център V - Пловдив - Св. архиеп. Лука",
+      "slug": null,
+      "uic": "000466329",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЯНА ПЕТКОВА КАШИЛСКА - ПЕТКОВА",
+      "type": "person",
+      "label": "Яна Петкова Кашилска - Петкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yana-petkova-kashilska-petkova-4a2147",
+      "target": "company:tr:000466329",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЯНА ПЕТКОВА КАШИЛСКА - ПЕТКОВА",
+      "target": "company:tr:000466329",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

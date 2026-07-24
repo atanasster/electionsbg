@@ -1,0 +1,69 @@
+[
+  {
+    "slug": "ivan-hristov-kolev-a8fd95",
+    "declarantName": "ИВАН ХРИСТОВ КОЛЕВ",
+    "institution": "Казанлък",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г11171",
+    "controlHash": "62101AF8",
+    "sourceUrl": "https://register.cacbg.bg/2025/597ABDCC-CF4F-436F-AC02-EBD64D86788E214297.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7444.4097902169415,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 37141.264833855705,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "ИВАН ХРИСТОВ КОЛЕВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 117000,
+        "valueEur": 59821.150099957566,
+        "holderName": "Иван Христов Колев",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит -5,8%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

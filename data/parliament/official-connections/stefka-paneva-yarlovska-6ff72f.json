@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stefka-paneva-yarlovska-6ff72f",
+  "nodes": [
+    {
+      "id": "official:stefka-paneva-yarlovska-6ff72f",
+      "type": "official",
+      "slug": "stefka-paneva-yarlovska-6ff72f",
+      "label": "Стефка Панева Ярловска",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130056874",
+      "type": "company",
+      "label": "МАЛЬОВИЦА",
+      "slug": null,
+      "uic": "130056874",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stefka-paneva-yarlovska-6ff72f",
+      "target": "company:tr:130056874",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

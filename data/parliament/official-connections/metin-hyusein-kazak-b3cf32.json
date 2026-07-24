@@ -1,0 +1,109 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:metin-hyusein-kazak-b3cf32",
+  "nodes": [
+    {
+      "id": "official:metin-hyusein-kazak-b3cf32",
+      "type": "official",
+      "slug": "metin-hyusein-kazak-b3cf32",
+      "label": "Метин Хюсеин Казак",
+      "tier": "executive",
+      "role": "diplomat",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203164220",
+      "type": "company",
+      "label": "Премиум Адвайс ЕООД",
+      "slug": null,
+      "uic": "203164220",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:130528677",
+      "type": "company",
+      "label": "ЕТНИЧЕСКА ИНТЕГРАЦИЯ",
+      "slug": null,
+      "uic": "130528677",
+      "legalForm": "Фондация",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "mp:2438",
+      "type": "mp",
+      "mpId": 2438,
+      "label": "Четин Хюсеин Казак",
+      "partyGroupShort": "ДПС",
+      "isCurrent": false,
+      "nsFolders": [
+        "39",
+        "40",
+        "41",
+        "42"
+      ]
+    },
+    {
+      "id": "person:МАРИЯ ГЕОРГИЕВА КАНТАРДЖИЕВА",
+      "type": "person",
+      "label": "Мария Георгиева Кантарджиева"
+    },
+    {
+      "id": "person:ВАНЯ ТОМЕВА ТОМЕВА",
+      "type": "person",
+      "label": "Ваня Томева Томева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:metin-hyusein-kazak-b3cf32",
+      "target": "company:tr:203164220",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:metin-hyusein-kazak-b3cf32",
+      "target": "company:tr:130528677",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2438",
+      "target": "company:tr:130528677",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2438",
+      "target": "company:tr:130528677",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА КАНТАРДЖИЕВА",
+      "target": "company:tr:130528677",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ТОМЕВА ТОМЕВА",
+      "target": "company:tr:130528677",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hristo-romanov-kunchev-d1841a",
+  "nodes": [
+    {
+      "id": "official:hristo-romanov-kunchev-d1841a",
+      "type": "official",
+      "slug": "hristo-romanov-kunchev-d1841a",
+      "label": "Христо Романов Кунчев",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207943436",
+      "type": "company",
+      "label": "ДОКТОР ХРИСТО КУНЧЕВ -АМБУЛАТОРИЯ ЗА ИНДИВИДУАЛНА ПРАКТИКА ЗА СПЕЦИАЛИЗИРАНА МЕДИЦИНСКА ПОМОЩ ПО АКУШЕРСТВО И ГИНЕКОЛОГИЯ",
+      "slug": null,
+      "uic": "207943436",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-romanov-kunchev-d1841a",
+      "target": "company:tr:207943436",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-romanov-kunchev-d1841a",
+      "target": "company:tr:207943436",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dariya-anastasova-mavrudieva-69c297",
+  "nodes": [
+    {
+      "id": "official:dariya-anastasova-mavrudieva-69c297",
+      "type": "official",
+      "slug": "dariya-anastasova-mavrudieva-69c297",
+      "label": "Дария Анастасова Маврудиева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130478555",
+      "type": "company",
+      "label": "СФСК ООД",
+      "slug": null,
+      "uic": "130478555",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206112499",
+      "type": "company",
+      "label": "К-А2М ЕООД",
+      "slug": null,
+      "uic": "206112499",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dariya-anastasova-mavrudieva-69c297",
+      "target": "company:tr:130478555",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dariya-anastasova-mavrudieva-69c297",
+      "target": "company:tr:206112499",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

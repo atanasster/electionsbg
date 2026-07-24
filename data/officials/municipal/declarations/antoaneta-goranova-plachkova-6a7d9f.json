@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "antoaneta-goranova-plachkova-6a7d9f",
+    "declarantName": "АНТОАНЕТА ГОРАНОВА ПЛАЧКОВА",
+    "institution": "Бобовдол",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-25",
+    "entryNumber": "Г6278",
+    "controlHash": "C6D8C9A2",
+    "sourceUrl": "https://register.cacbg.bg/2025/780740E0-EEE7-4301-A0AB-359546F11FBD209233.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6842.619246048992,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 23238.727292249325,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Сандански",
+        "municipality": "Сандански",
+        "areaSqm": 0,
+        "builtAreaSqm": 35,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 110000,
+        "valueEur": 56242.106931584036,
+        "holderName": "Антоанета Горанова Плачкова",
+        "isSpouse": false,
+        "legalBasis": "други",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 91000,
+        "valueEur": 46527.561188855885,
+        "holderName": "Антоанета Горанова Плачкова",
+        "isSpouse": false,
+        "legalBasis": "договор за ипотечен кредит ,2.8%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45000,
+        "valueEur": 23008.13465382983,
+        "holderName": "Антоанета Горанова Плачкова",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит за текущо потребление, 5.35%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

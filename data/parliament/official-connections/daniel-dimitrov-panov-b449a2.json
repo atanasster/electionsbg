@@ -1,0 +1,73 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:daniel-dimitrov-panov-b449a2",
+  "nodes": [
+    {
+      "id": "official:daniel-dimitrov-panov-b449a2",
+      "type": "official",
+      "slug": "daniel-dimitrov-panov-b449a2",
+      "label": "Даниел Димитров Панов",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:104680559",
+      "type": "company",
+      "label": "\"НИКАС 21\" ООД",
+      "slug": null,
+      "uic": "104680559",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:daniel-dimitrov-panov-6024d6",
+      "type": "official",
+      "slug": "daniel-dimitrov-panov-6024d6",
+      "label": "Даниел Димитров Панов",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "person:НИКОЛАЙ ПЕТРОВ НИКОЛАЕВ",
+      "type": "person",
+      "label": "Николай Петров Николаев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniel-dimitrov-panov-b449a2",
+      "target": "company:tr:104680559",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:daniel-dimitrov-panov-6024d6",
+      "target": "company:tr:104680559",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ПЕТРОВ НИКОЛАЕВ",
+      "target": "company:tr:104680559",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ПЕТРОВ НИКОЛАЕВ",
+      "target": "company:tr:104680559",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

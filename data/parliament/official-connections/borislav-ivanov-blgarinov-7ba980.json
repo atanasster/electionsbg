@@ -1,0 +1,128 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:borislav-ivanov-blgarinov-7ba980",
+  "nodes": [
+    {
+      "id": "official:borislav-ivanov-blgarinov-7ba980",
+      "type": "official",
+      "slug": "borislav-ivanov-blgarinov-7ba980",
+      "label": "Борислав Иванов Българинов",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206891709",
+      "type": "company",
+      "label": "МИСИЯ ГРАДЕЖ",
+      "slug": null,
+      "uic": "206891709",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Русе, 7000"
+    },
+    {
+      "id": "mp:229",
+      "type": "mp",
+      "mpId": 229,
+      "label": "Борислав Иванов Българинов",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:ИВАЙЛО БОРИСЛАВОВ БЪЛГАРИНОВ",
+      "type": "person",
+      "label": "Ивайло Бориславов Българинов"
+    },
+    {
+      "id": "person:НИКОЛАЙ РАДОСЛАВОВ ЧЕРНЕВ",
+      "type": "person",
+      "label": "Николай Радославов Чернев"
+    },
+    {
+      "id": "person:ВЕРОНИКА ПЛАМЕНОВА ГЕЧЕВА",
+      "type": "person",
+      "label": "Вероника Пламенова Гечева"
+    },
+    {
+      "id": "person:НЕЛИЯ МИРОСЛАВОВА ЗЛАТАНСКА",
+      "type": "person",
+      "label": "Нелия Мирославова Златанска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:borislav-ivanov-blgarinov-7ba980",
+      "target": "company:tr:206891709",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:borislav-ivanov-blgarinov-7ba980",
+      "target": "company:tr:206891709",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:229",
+      "target": "company:tr:206891709",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:229",
+      "target": "company:tr:206891709",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАЙЛО БОРИСЛАВОВ БЪЛГАРИНОВ",
+      "target": "company:tr:206891709",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ РАДОСЛАВОВ ЧЕРНЕВ",
+      "target": "company:tr:206891709",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРОНИКА ПЛАМЕНОВА ГЕЧЕВА",
+      "target": "company:tr:206891709",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРОНИКА ПЛАМЕНОВА ГЕЧЕВА",
+      "target": "company:tr:206891709",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИЯ МИРОСЛАВОВА ЗЛАТАНСКА",
+      "target": "company:tr:206891709",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:gospodin-dinkov-braikov-ccfd62",
+  "nodes": [
+    {
+      "id": "official:gospodin-dinkov-braikov-ccfd62",
+      "type": "official",
+      "slug": "gospodin-dinkov-braikov-ccfd62",
+      "label": "Господин Динков Брайков",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Елхово"
+    },
+    {
+      "id": "company:tr:208101245",
+      "type": "company",
+      "label": "МЕСТНА ИНИЦИАТИВНА  РИБАРСКА  ГРУПА  БОЛЯРОВО-ЕЛХОВО-ТОПОЛОВГРАД",
+      "slug": null,
+      "uic": "208101245",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:nina-krsteva-terzieva-95a6b6",
+      "type": "official",
+      "slug": "nina-krsteva-terzieva-95a6b6",
+      "label": "Нина Кръстева Терзиева",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Болярово"
+    },
+    {
+      "id": "official:haralambi-sevov-mochev-661b1a",
+      "type": "official",
+      "slug": "haralambi-sevov-mochev-661b1a",
+      "label": "Хараламби Севов Мочев",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Тополовград"
+    },
+    {
+      "id": "person:ИВАН ГЕОРГИЕВ СТАВРЕВ",
+      "type": "person",
+      "label": "Иван Георгиев Ставрев"
+    },
+    {
+      "id": "person:РАЙНА АТАНАСОВА ЗОТОВА",
+      "type": "person",
+      "label": "Райна Атанасова Зотова"
+    },
+    {
+      "id": "person:СТОЯН РОСЕНОВ ЖЕЛЯЗКОВ",
+      "type": "person",
+      "label": "Стоян Росенов Желязков"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР НИВЕЛИНОВ КОНДОВ",
+      "type": "person",
+      "label": "Александър Нивелинов Кондов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gospodin-dinkov-braikov-ccfd62",
+      "target": "company:tr:208101245",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nina-krsteva-terzieva-95a6b6",
+      "target": "company:tr:208101245",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nina-krsteva-terzieva-95a6b6",
+      "target": "company:tr:208101245",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:haralambi-sevov-mochev-661b1a",
+      "target": "company:tr:208101245",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ГЕОРГИЕВ СТАВРЕВ",
+      "target": "company:tr:208101245",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЙНА АТАНАСОВА ЗОТОВА",
+      "target": "company:tr:208101245",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН РОСЕНОВ ЖЕЛЯЗКОВ",
+      "target": "company:tr:208101245",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР НИВЕЛИНОВ КОНДОВ",
+      "target": "company:tr:208101245",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

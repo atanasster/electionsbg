@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:petr-ivanov-petkov-9a41df",
+  "nodes": [
+    {
+      "id": "official:petr-ivanov-petkov-9a41df",
+      "type": "official",
+      "slug": "petr-ivanov-petkov-9a41df",
+      "label": "Петър Иванов Петков",
+      "tier": "executive",
+      "role": "cultural_institute",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202764172",
+      "type": "company",
+      "label": "МАНЧИК",
+      "slug": null,
+      "uic": "202764172",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petr-ivanov-petkov-9a41df",
+      "target": "company:tr:202764172",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petr-ivanov-petkov-9a41df",
+      "target": "company:tr:202764172",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

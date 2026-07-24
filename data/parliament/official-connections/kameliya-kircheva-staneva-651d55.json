@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:kameliya-kircheva-staneva-651d55",
+  "nodes": [
+    {
+      "id": "official:kameliya-kircheva-staneva-651d55",
+      "type": "official",
+      "slug": "kameliya-kircheva-staneva-651d55",
+      "label": "Камелия Кирчева Станева",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:124517480",
+      "type": "company",
+      "label": "СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА РЕХАБИЛИТАЦИЯ - ТУЗЛАТА",
+      "slug": null,
+      "uic": "124517480",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:mariya-vasileva-staikova-cae8a8",
+      "type": "official",
+      "slug": "mariya-vasileva-staikova-cae8a8",
+      "label": "Мария Василева Стайкова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kameliya-kircheva-staneva-651d55",
+      "target": "company:tr:124517480",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariya-vasileva-staikova-cae8a8",
+      "target": "company:tr:124517480",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

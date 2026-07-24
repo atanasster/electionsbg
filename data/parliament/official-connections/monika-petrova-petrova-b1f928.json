@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:monika-petrova-petrova-b1f928",
+  "nodes": [
+    {
+      "id": "official:monika-petrova-petrova-b1f928",
+      "type": "official",
+      "slug": "monika-petrova-petrova-b1f928",
+      "label": "Моника Петрова Петрова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ловеч"
+    },
+    {
+      "id": "company:tr:206944211",
+      "type": "company",
+      "label": "АРТ ХАУС ЦЕНТЪР",
+      "slug": null,
+      "uic": "206944211",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:monika-petrova-petrova-b1f928",
+      "target": "company:tr:206944211",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:monika-petrova-petrova-b1f928",
+      "target": "company:tr:206944211",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

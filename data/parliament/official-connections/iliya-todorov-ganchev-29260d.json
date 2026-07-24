@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iliya-todorov-ganchev-29260d",
+  "nodes": [
+    {
+      "id": "official:iliya-todorov-ganchev-29260d",
+      "type": "official",
+      "slug": "iliya-todorov-ganchev-29260d",
+      "label": "Илия Тодоров Ганчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Първомай"
+    },
+    {
+      "id": "company:tr:206841752",
+      "type": "company",
+      "label": "ИлДоро Джулъри",
+      "slug": null,
+      "uic": "206841752",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТОДОР ИЛИЕВ ГАНЧЕВ",
+      "type": "person",
+      "label": "Тодор Илиев Ганчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iliya-todorov-ganchev-29260d",
+      "target": "company:tr:206841752",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТОДОР ИЛИЕВ ГАНЧЕВ",
+      "target": "company:tr:206841752",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ИЛИЕВ ГАНЧЕВ",
+      "target": "company:tr:206841752",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,196 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:krasimir-sokolov-minev-c08b17",
+  "nodes": [
+    {
+      "id": "official:krasimir-sokolov-minev-c08b17",
+      "type": "official",
+      "slug": "krasimir-sokolov-minev-c08b17",
+      "label": "Красимир Соколов Минев",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207801020",
+      "type": "company",
+      "label": "АРТ КЕЙК ЕООД",
+      "slug": null,
+      "uic": "207801020",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:104120197",
+      "type": "company",
+      "label": "ЛОВНО РИБАРСКО ДРУЖЕСТВО СОКОЛ-1896",
+      "slug": null,
+      "uic": "104120197",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМО ПЕТРОВ ГЪРМИДОЛОВ",
+      "type": "person",
+      "label": "Димо Петров Гърмидолов"
+    },
+    {
+      "id": "person:РУМЕН ИВАНОВ СТОЙКОВ",
+      "type": "person",
+      "label": "Румен Иванов Стойков"
+    },
+    {
+      "id": "person:КРАСИМИР ИВАНОВ МАРИНОВ",
+      "type": "person",
+      "label": "Красимир Иванов Маринов"
+    },
+    {
+      "id": "person:РУМЕН НИКОЛАЕВ КАРАГЕУРОВ",
+      "type": "person",
+      "label": "Румен Николаев Карагеуров"
+    },
+    {
+      "id": "person:КОЛЮ МИХНЕВ КОЛЕВ",
+      "type": "person",
+      "label": "Колю Михнев Колев"
+    },
+    {
+      "id": "person:СТЕФАН КОСТОВ КАРАЛИЕВ",
+      "type": "person",
+      "label": "Стефан Костов Каралиев"
+    },
+    {
+      "id": "person:ПЕЙЧО ЛЮЦКАНОВ БЕШЕВ",
+      "type": "person",
+      "label": "Пейчо Люцканов Бешев"
+    },
+    {
+      "id": "person:ДИНКО МИНЧЕВ ЧАВДАРОВ",
+      "type": "person",
+      "label": "Динко Минчев Чавдаров"
+    },
+    {
+      "id": "person:ЙОРДАН КОСТАДИНОВ АРМЕНЧЕВ",
+      "type": "person",
+      "label": "Йордан Костадинов Арменчев"
+    },
+    {
+      "id": "person:ТИХОМИР ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Тихомир Иванов Иванов"
+    },
+    {
+      "id": "person:ИЛИАН ЦЕНОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Илиан Ценов Илиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krasimir-sokolov-minev-c08b17",
+      "target": "company:tr:207801020",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:krasimir-sokolov-minev-c08b17",
+      "target": "company:tr:104120197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМО ПЕТРОВ ГЪРМИДОЛОВ",
+      "target": "company:tr:104120197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ИВАНОВ СТОЙКОВ",
+      "target": "company:tr:104120197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ИВАНОВ МАРИНОВ",
+      "target": "company:tr:104120197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН НИКОЛАЕВ КАРАГЕУРОВ",
+      "target": "company:tr:104120197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОЛЮ МИХНЕВ КОЛЕВ",
+      "target": "company:tr:104120197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН КОСТОВ КАРАЛИЕВ",
+      "target": "company:tr:104120197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕЙЧО ЛЮЦКАНОВ БЕШЕВ",
+      "target": "company:tr:104120197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИНКО МИНЧЕВ ЧАВДАРОВ",
+      "target": "company:tr:104120197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН КОСТАДИНОВ АРМЕНЧЕВ",
+      "target": "company:tr:104120197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР ИВАНОВ ИВАНОВ",
+      "target": "company:tr:104120197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИАН ЦЕНОВ ИЛИЕВ",
+      "target": "company:tr:104120197",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

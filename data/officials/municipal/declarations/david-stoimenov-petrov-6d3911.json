@@ -1,0 +1,111 @@
+[
+  {
+    "slug": "david-stoimenov-petrov-6d3911",
+    "declarantName": "Давид Стоименов Петров",
+    "institution": "Благоевград",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-15",
+    "entryNumber": "Г3057",
+    "controlHash": "43292C11",
+    "sourceUrl": "https://register.cacbg.bg/2025/AB4475F9-16CC-405B-931B-39BDF14E9AEC205774.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4264.1742891764625,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5244.320825429613,
+        "amountEurSpouse": 12994.483160601892
+      },
+      {
+        "parent": null,
+        "category": "Обещетения за временна неработоспособност",
+        "amountEurDeclarant": 3655.225658671766,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Бело Поле",
+        "municipality": "Благоевград",
+        "areaSqm": 120,
+        "builtAreaSqm": null,
+        "acquiredYear": 1993,
+        "share": "1/4",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Давид Стоименов Петров",
+        "isSpouse": false,
+        "legalBasis": "договор за гледане",
+        "fundsOrigin": "договор за гледане"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Бело Поле",
+        "municipality": "Благоевград",
+        "areaSqm": 60,
+        "builtAreaSqm": null,
+        "acquiredYear": 2018,
+        "share": "1/4",
+        "currency": "BGN",
+        "amount": 753,
+        "valueEur": 385.00278654075254,
+        "holderName": "Давид Стоименов Петров",
+        "isSpouse": false,
+        "legalBasis": "наследство, дарение и покупка",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фиат Пунто",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2014,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Димитрина Николова Петрова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14484,
+        "valueEur": 7405.551607246029,
+        "holderName": "Давид Стоименов Петров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заеми"
+      }
+    ],
+    "events": []
+  }
+]

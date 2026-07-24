@@ -1,0 +1,51 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:toncho-hristov-vrbanov-1eed26",
+  "nodes": [
+    {
+      "id": "official:toncho-hristov-vrbanov-1eed26",
+      "type": "official",
+      "slug": "toncho-hristov-vrbanov-1eed26",
+      "label": "Тончо Христов Върбанов",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204230207",
+      "type": "company",
+      "label": "\"Билки и мехлеми\" ЕООД",
+      "slug": null,
+      "uic": "204230207",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:toncho-hristov-vrbanov-1eed26",
+      "target": "company:tr:204230207",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:toncho-hristov-vrbanov-1eed26",
+      "target": "company:tr:204230207",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:toncho-hristov-vrbanov-1eed26",
+      "target": "company:tr:204230207",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

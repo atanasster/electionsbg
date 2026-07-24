@@ -1,0 +1,108 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:yahya-mustafa-santur-dcc6b8",
+  "nodes": [
+    {
+      "id": "official:yahya-mustafa-santur-dcc6b8",
+      "type": "official",
+      "slug": "yahya-mustafa-santur-dcc6b8",
+      "label": "Яхя Мустафа Сантур",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Белица"
+    },
+    {
+      "id": "company:tr:000014594",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ЗОРА 2011&quot;",
+      "slug": null,
+      "uic": "000014594",
+      "legalForm": "CC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:5295",
+      "type": "mp",
+      "mpId": 5295,
+      "label": "Фатима Исмаил Йълдъс",
+      "partyGroupShort": "ПГ на ДПС",
+      "isCurrent": true,
+      "nsFolders": [
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "person:ФАТИМЕ ШЕФКЕТОВА ГАГЪМОВА",
+      "type": "person",
+      "label": "Фатиме Шефкетова Гагъмова"
+    },
+    {
+      "id": "person:МЕДИЕ МУСТАФОВА АНЕВА",
+      "type": "person",
+      "label": "Медие Мустафова Анева"
+    },
+    {
+      "id": "person:ДЖЕМИЛЕ ДЖЕМАЛ АЛИ",
+      "type": "person",
+      "label": "Джемиле Джемал Али"
+    },
+    {
+      "id": "person:АНИФЕ АХМЕД ДЖИВГОВА",
+      "type": "person",
+      "label": "Анифе Ахмед Дживгова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yahya-mustafa-santur-dcc6b8",
+      "target": "company:tr:000014594",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5295",
+      "target": "company:tr:000014594",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ФАТИМЕ ШЕФКЕТОВА ГАГЪМОВА",
+      "target": "company:tr:000014594",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕДИЕ МУСТАФОВА АНЕВА",
+      "target": "company:tr:000014594",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖЕМИЛЕ ДЖЕМАЛ АЛИ",
+      "target": "company:tr:000014594",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНИФЕ АХМЕД ДЖИВГОВА",
+      "target": "company:tr:000014594",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+[
+  {
+    "slug": "simeon-radmilov-karastoyanov-07fafa",
+    "declarantName": "Симеон Радмилов Карастоянов",
+    "institution": "Цар Калоян",
+    "positionTitle": "Главен архитект",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-29",
+    "entryNumber": "Г4359",
+    "controlHash": "C3A9C387",
+    "sourceUrl": "https://register.cacbg.bg/2025/4B763CDC-215F-43F9-9D81-B260A57A021E207206.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15482.429454502691,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 4949.816701860591,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 168.7263207947521,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "гараж",
+        "detail": null,
+        "location": "гр.Разград, гаражна кооперация \"Хемус\"",
+        "municipality": "Разград",
+        "areaSqm": 18,
+        "builtAreaSqm": 18,
+        "acquiredYear": 2017,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3745,
+        "valueEur": 1914.7880950798383,
+        "holderName": "Симеон Радмилов Карастоянов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр.Разград, ул.\"Мраморно море\" №5",
+        "municipality": "Разград",
+        "areaSqm": 168,
+        "builtAreaSqm": 263,
+        "acquiredYear": 2023,
+        "share": null,
+        "currency": "BGN",
+        "amount": 586000,
+        "valueEur": 299617.04238098406,
+        "holderName": "Симеон Радмилов Карастоянов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Шкода Октавиа",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2021,
+        "share": null,
+        "currency": "BGN",
+        "amount": 59798,
+        "valueEur": 30574.231911771472,
+        "holderName": "Симеон Радмилов Карастоянов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба (договор за лизинг)",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит - 2,18%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 438981,
+        "valueEur": 224447.4212993972,
+        "holderName": "Симеон Радмилов Карастоянов",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит - 4,75%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 54671,
+        "valueEur": 27952.83843687846,
+        "holderName": "Симеон Радмилов Карастоянов",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

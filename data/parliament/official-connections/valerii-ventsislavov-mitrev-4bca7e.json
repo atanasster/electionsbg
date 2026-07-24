@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:valerii-ventsislavov-mitrev-4bca7e",
+  "nodes": [
+    {
+      "id": "official:valerii-ventsislavov-mitrev-4bca7e",
+      "type": "official",
+      "slug": "valerii-ventsislavov-mitrev-4bca7e",
+      "label": "Валерий Венциславов Митрев",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:126509849",
+      "type": "company",
+      "label": "&quot;Медицински център І - Свиленград&quot;",
+      "slug": null,
+      "uic": "126509849",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valerii-ventsislavov-mitrev-4bca7e",
+      "target": "company:tr:126509849",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

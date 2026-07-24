@@ -1,0 +1,64 @@
+[
+  {
+    "slug": "pavlina-yancheva-delcheva-d8e5a9",
+    "declarantName": "Павлина Янчева Делчева",
+    "institution": "Стара Загора",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г10523",
+    "controlHash": "73EF7A08",
+    "sourceUrl": "https://register.cacbg.bg/2025/E1EA928C-ED14-404C-B35C-E2EEE7B47266213617.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23549.592756016627,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 409.0335049569748,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит FL1508178",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18304,
+        "valueEur": 9358.686593415583,
+        "holderName": "Павлина Янчева Делчева",
+        "isSpouse": false,
+        "legalBasis": "потреб. Кредит / лихва 4,45",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "МПС",
+        "detail": "Фолксваген голф",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 51.12918811962185,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

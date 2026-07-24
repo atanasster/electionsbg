@@ -1,0 +1,153 @@
+[
+  {
+    "slug": "ismet-abil-abil-ac5462",
+    "declarantName": "Исмет Абил Абил",
+    "institution": "Тервел",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г11801",
+    "controlHash": "60DE8C82",
+    "sourceUrl": "https://register.cacbg.bg/2025/44186F9B-1BEC-4C55-89F2-317C7264002E214953.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6427.9615303988585,
+        "amountEurSpouse": 11983.659111476969
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 8986.977395785932,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 204.5167524784874
+      },
+      {
+        "parent": null,
+        "category": "Дивиденти",
+        "amountEurDeclarant": 45095.94392150647,
+        "amountEurSpouse": 920.3253861531933
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Кочмар",
+        "municipality": "Тервел",
+        "areaSqm": 10,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Мелекбер Мустафа Абил",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Кочмар",
+        "municipality": "Тервел",
+        "areaSqm": 10,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Исмет Абил Абил",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 37000,
+        "valueEur": 18917.799604260083,
+        "holderName": "Исмет Абил Абил",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "receivable",
+        "description": "парични средства",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 66875,
+        "valueEur": 34192.64455499711,
+        "holderName": "Мелекбер Мустафа Абил",
+        "isSpouse": true,
+        "legalBasis": "чл.134 от ТЗ",
+        "fundsOrigin": null
+      },
+      {
+        "category": "receivable",
+        "description": "парични средства",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 66875,
+        "valueEur": 34192.64455499711,
+        "holderName": "Мелекбер Мустафа Абил",
+        "isSpouse": true,
+        "legalBasis": "прехвърляне на имот",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 66000,
+        "valueEur": 33745.26415895042,
+        "holderName": "Мелекбер Мустафа Абил",
+        "isSpouse": true,
+        "legalBasis": "Ипотечен кредит, 2,6%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

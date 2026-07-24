@@ -1,0 +1,144 @@
+[
+  {
+    "slug": "ivan-angelov-ivanov-12c00b",
+    "declarantName": "ИВАН АНГЕЛОВ ИВАНОВ",
+    "institution": "Българските граждани заемащи длъжности в НАТО",
+    "positionTitle": "Представител",
+    "category": "international",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-01",
+    "entryNumber": "Г7402",
+    "controlHash": "5A91841E",
+    "sourceUrl": "https://register.cacbg.bg/2022/9A04242B-BFFF-4E21-87C4-22345A0F6B67139742.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 16872.63207947521,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Командировъчни срества за дългосрочна командировка на заеманата длъжност",
+        "amountEurDeclarant": 62609.22472812054,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дарвение от страна на роднина по права линия след продажба на имот",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 10225.83762392437
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Мини ван",
+        "detail": "Хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2021,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "Иван Ангелов Иванов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 84000,
+        "valueEur": 83851.86851617983,
+        "holderName": "Мария Стефанова Башева-Иванова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "По т.12 (от 2020)+Т.12 (от 2021)+спестявания"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ivan-angelov-ivanov-12c00b",
+    "declarantName": "Иван Ангелов Иванов",
+    "institution": "Българските граждани заемащи длъжности в НАТО",
+    "positionTitle": "Представител",
+    "category": "international",
+    "declarationYear": 2020,
+    "fiscalYear": 2019,
+    "declarationType": "Annualy",
+    "filedAt": "2020-05-06",
+    "entryNumber": "Г465",
+    "controlHash": "A3DC62D2",
+    "sourceUrl": "https://register.cacbg.bg/2020/9A04242B-BFFF-4E21-87C4-22345A0F6B67110271.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 8932.269164497937,
+        "amountEurSpouse": 6135.502574354622
+      },
+      {
+        "parent": null,
+        "category": "Командировъчни срества за дългосрочна командировка на заеманата длъжност",
+        "amountEurDeclarant": 9090.769647668765,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 12000,
+        "valueEur": 12271.005148709244,
+        "holderName": "Иван Ангелов Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "Иван Ангелов Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

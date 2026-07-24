@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tihomir-iordanov-yanakiev-be11e2",
+  "nodes": [
+    {
+      "id": "official:tihomir-iordanov-yanakiev-be11e2",
+      "type": "official",
+      "slug": "tihomir-iordanov-yanakiev-be11e2",
+      "label": "Тихомир Йорданов Янакиев",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Созопол"
+    },
+    {
+      "id": "company:tr:204985095",
+      "type": "company",
+      "label": "Магелан Созопол ООД",
+      "slug": null,
+      "uic": "204985095",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tihomir-iordanov-yanakiev-be11e2",
+      "target": "company:tr:204985095",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

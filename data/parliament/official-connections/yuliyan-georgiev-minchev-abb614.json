@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:yuliyan-georgiev-minchev-abb614",
+  "nodes": [
+    {
+      "id": "official:yuliyan-georgiev-minchev-abb614",
+      "type": "official",
+      "slug": "yuliyan-georgiev-minchev-abb614",
+      "label": "Юлиян Георгиев Минчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Варна"
+    },
+    {
+      "id": "company:tr:030026944",
+      "type": "company",
+      "label": "СД 'Перие\"- Минчеви и сие",
+      "slug": null,
+      "uic": "030026944",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yuliyan-georgiev-minchev-abb614",
+      "target": "company:tr:030026944",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

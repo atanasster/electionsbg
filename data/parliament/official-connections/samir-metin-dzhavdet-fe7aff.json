@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:samir-metin-dzhavdet-fe7aff",
+  "nodes": [
+    {
+      "id": "official:samir-metin-dzhavdet-fe7aff",
+      "type": "official",
+      "slug": "samir-metin-dzhavdet-fe7aff",
+      "label": "Самир Метин Джавдет",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:826043792",
+      "type": "company",
+      "label": "В и К Меден кладенец",
+      "slug": null,
+      "uic": "826043792",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:samir-metin-dzhavdet-fe7aff",
+      "target": "company:tr:826043792",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

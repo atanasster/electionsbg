@@ -1,0 +1,69 @@
+[
+  {
+    "slug": "ivan-iordanov-dimitrov1-7da26a",
+    "declarantName": "Иван Йорданов Димитров",
+    "institution": "Разлог",
+    "positionTitle": "Председател на ОбС",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-03",
+    "entryNumber": "Г5980",
+    "controlHash": "97032B49",
+    "sourceUrl": "https://register.cacbg.bg/2025/6AA59C77-AC98-4E29-983F-6D98C13E6460208926.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23525.562037600404,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 9468.61434787277,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Кредитни карти",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2184,
+        "valueEur": 1116.6614685325412,
+        "holderName": "Иван Йорданов Димитров",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Дълг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 307925,
+        "valueEur": 157439.55251734558,
+        "holderName": "Иван Йорданов Димитров",
+        "isSpouse": false,
+        "legalBasis": "цесия",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

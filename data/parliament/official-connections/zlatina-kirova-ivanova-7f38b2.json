@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:zlatina-kirova-ivanova-7f38b2",
+  "nodes": [
+    {
+      "id": "official:zlatina-kirova-ivanova-7f38b2",
+      "type": "official",
+      "slug": "zlatina-kirova-ivanova-7f38b2",
+      "label": "Златина Кирова Иванова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:102613775",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - АЙТОС",
+      "slug": null,
+      "uic": "102613775",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zlatina-kirova-ivanova-7f38b2",
+      "target": "company:tr:102613775",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

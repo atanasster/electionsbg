@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vasil-petkov-vlchev-1b9cea",
+  "nodes": [
+    {
+      "id": "official:vasil-petkov-vlchev-1b9cea",
+      "type": "official",
+      "slug": "vasil-petkov-vlchev-1b9cea",
+      "label": "Васил Петков Вълчев",
+      "tier": "executive",
+      "role": "diplomat",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202981714",
+      "type": "company",
+      "label": "Зео Минералс ЕООД",
+      "slug": null,
+      "uic": "202981714",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vasil-petkov-vlchev-1b9cea",
+      "target": "company:tr:202981714",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

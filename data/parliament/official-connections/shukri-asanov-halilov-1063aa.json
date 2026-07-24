@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:shukri-asanov-halilov-1063aa",
+  "nodes": [
+    {
+      "id": "official:shukri-asanov-halilov-1063aa",
+      "type": "official",
+      "slug": "shukri-asanov-halilov-1063aa",
+      "label": "Шукри Асанов Халилов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Рудозем"
+    },
+    {
+      "id": "company:tr:120612828",
+      "type": "company",
+      "label": "МУЛТИТРЕЙД",
+      "slug": null,
+      "uic": "120612828",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:shukri-asanov-halilov-1063aa",
+      "target": "company:tr:120612828",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:shukri-asanov-halilov-1063aa",
+      "target": "company:tr:120612828",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

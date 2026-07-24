@@ -1,0 +1,118 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:borislav-yankov-borisov-69c84c",
+  "nodes": [
+    {
+      "id": "official:borislav-yankov-borisov-69c84c",
+      "type": "official",
+      "slug": "borislav-yankov-borisov-69c84c",
+      "label": "Борислав Янков Борисов",
+      "tier": "executive",
+      "role": "academic",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131575676",
+      "type": "company",
+      "label": "Ербе ООД",
+      "slug": null,
+      "uic": "131575676",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201503162",
+      "type": "company",
+      "label": "Ербе 2000 ЕООД",
+      "slug": null,
+      "uic": "201503162",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:175269745",
+      "type": "company",
+      "label": "Три 3 АД",
+      "slug": null,
+      "uic": "175269745",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕЛМИРА РОСЕНОВА БАБАЧЕВА",
+      "type": "person",
+      "label": "Елмира Росенова Бабачева"
+    },
+    {
+      "id": "person:РУМЯНА НИКОЛОВА БОРИСОВА",
+      "type": "person",
+      "label": "Румяна Николова Борисова"
+    },
+    {
+      "id": "person:ВАСИЛКА ВЕЛИНОВА РАНГЕЛОВА",
+      "type": "person",
+      "label": "Василка Велинова Рангелова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:borislav-yankov-borisov-69c84c",
+      "target": "company:tr:131575676",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:borislav-yankov-borisov-69c84c",
+      "target": "company:tr:201503162",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:borislav-yankov-borisov-69c84c",
+      "target": "company:tr:175269745",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛМИРА РОСЕНОВА БАБАЧЕВА",
+      "target": "company:tr:175269745",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛМИРА РОСЕНОВА БАБАЧЕВА",
+      "target": "company:tr:175269745",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА НИКОЛОВА БОРИСОВА",
+      "target": "company:tr:175269745",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛКА ВЕЛИНОВА РАНГЕЛОВА",
+      "target": "company:tr:175269745",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

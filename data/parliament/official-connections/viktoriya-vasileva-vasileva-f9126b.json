@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:viktoriya-vasileva-vasileva-f9126b",
+  "nodes": [
+    {
+      "id": "official:viktoriya-vasileva-vasileva-f9126b",
+      "type": "official",
+      "slug": "viktoriya-vasileva-vasileva-f9126b",
+      "label": "Виктория Василева Василева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Раднево"
+    },
+    {
+      "id": "company:tr:123108616",
+      "type": "company",
+      "label": "ИРИДА",
+      "slug": null,
+      "uic": "123108616",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТАНИСЛАВ ДОНЧЕВ ГОЧЕВ",
+      "type": "person",
+      "label": "Станислав Дончев Гочев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:viktoriya-vasileva-vasileva-f9126b",
+      "target": "company:tr:123108616",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:viktoriya-vasileva-vasileva-f9126b",
+      "target": "company:tr:123108616",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТАНИСЛАВ ДОНЧЕВ ГОЧЕВ",
+      "target": "company:tr:123108616",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВ ДОНЧЕВ ГОЧЕВ",
+      "target": "company:tr:123108616",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

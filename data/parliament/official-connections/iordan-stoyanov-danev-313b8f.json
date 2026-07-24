@@ -1,0 +1,126 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iordan-stoyanov-danev-313b8f",
+  "nodes": [
+    {
+      "id": "official:iordan-stoyanov-danev-313b8f",
+      "type": "official",
+      "slug": "iordan-stoyanov-danev-313b8f",
+      "label": "Йордан Стоянов Данев",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:123561659",
+      "type": "company",
+      "label": "ЛОВНО СДРУЖЕНИЕ  СЪРНЕНА ГОРА - 2001",
+      "slug": null,
+      "uic": "123561659",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТАНЧО ЖЕЛЕВ СТАНЕВ",
+      "type": "person",
+      "label": "Станчо Желев Станев"
+    },
+    {
+      "id": "person:МИРОЛЮБ ВАЧЕВ СТОЕВ",
+      "type": "person",
+      "label": "Миролюб Вачев Стоев"
+    },
+    {
+      "id": "person:ЗЛАТИ ПЕТРОВ МАДЖАРОВ",
+      "type": "person",
+      "label": "Злати Петров Маджаров"
+    },
+    {
+      "id": "person:СТЕФАН ГАНЧЕВ КЕХАЙОВ",
+      "type": "person",
+      "label": "Стефан Ганчев Кехайов"
+    },
+    {
+      "id": "person:ТОНЬО ХРИСТОВ СТОЕВ",
+      "type": "person",
+      "label": "Тоньо Христов Стоев"
+    },
+    {
+      "id": "person:ПЕТЬО ГЕОРГИЕВ ПЕТКОВ",
+      "type": "person",
+      "label": "Петьо Георгиев Петков"
+    },
+    {
+      "id": "person:НИКОЛАЙ ДИМИТРОВ МИТЕВ",
+      "type": "person",
+      "label": "Николай Димитров Митев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordan-stoyanov-danev-313b8f",
+      "target": "company:tr:123561659",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТАНЧО ЖЕЛЕВ СТАНЕВ",
+      "target": "company:tr:123561659",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОЛЮБ ВАЧЕВ СТОЕВ",
+      "target": "company:tr:123561659",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТИ ПЕТРОВ МАДЖАРОВ",
+      "target": "company:tr:123561659",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ГАНЧЕВ КЕХАЙОВ",
+      "target": "company:tr:123561659",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОНЬО ХРИСТОВ СТОЕВ",
+      "target": "company:tr:123561659",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЬО ГЕОРГИЕВ ПЕТКОВ",
+      "target": "company:tr:123561659",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДИМИТРОВ МИТЕВ",
+      "target": "company:tr:123561659",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

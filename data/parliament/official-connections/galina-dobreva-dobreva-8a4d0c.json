@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:galina-dobreva-dobreva-8a4d0c",
+  "nodes": [
+    {
+      "id": "official:galina-dobreva-dobreva-8a4d0c",
+      "type": "official",
+      "slug": "galina-dobreva-dobreva-8a4d0c",
+      "label": "Галина Добрева Добрева",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207250300",
+      "type": "company",
+      "label": "РОЗОВА ФЕЕРИЯ",
+      "slug": null,
+      "uic": "207250300",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:galina-dobreva-dobreva-8a4d0c",
+      "target": "company:tr:207250300",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:galina-dobreva-dobreva-8a4d0c",
+      "target": "company:tr:207250300",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

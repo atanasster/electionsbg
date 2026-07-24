@@ -1,0 +1,75 @@
+[
+  {
+    "slug": "daniel-milchev-dotsov-2e0a47",
+    "declarantName": "Даниел Милчев Доцов",
+    "institution": "Берковица",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-06-11",
+    "entryNumber": "Г15081",
+    "controlHash": "0A9C65D1",
+    "sourceUrl": "https://register.cacbg.bg/2025/956B4966-7B78-404B-9FC9-F3C9A7B56F41218677.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4793.3613862145485,
+        "amountEurSpouse": 9795.841151838351
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 11401.297658794476,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 7675.513720517632,
+        "amountEurSpouse": 2162.7646574600044
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр. София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 18,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "0,0244",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Даниел Милчев Доцов и Инна Емилова Доцова",
+        "isSpouse": true,
+        "legalBasis": "прехвърляне на имот",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 24769,
+        "valueEur": 12664.188605349136,
+        "holderName": "Даниел Милчев Доцов",
+        "isSpouse": false,
+        "legalBasis": "банков кредит с ГЛП 4,84%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

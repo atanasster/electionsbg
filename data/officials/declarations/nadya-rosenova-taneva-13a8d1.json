@@ -1,0 +1,143 @@
+[
+  {
+    "slug": "nadya-rosenova-taneva-13a8d1",
+    "declarantName": "Надя Росенова Танева",
+    "institution": "Агенция за социално подпомагане",
+    "positionTitle": "Изпълнителен директор",
+    "category": "agency_head",
+    "declarationYear": 2024,
+    "fiscalYear": 2024,
+    "declarationType": "Vacate",
+    "filedAt": null,
+    "entryNumber": "Ф805",
+    "controlHash": "B06F00B4",
+    "sourceUrl": "https://register.cacbg.bg/2024/B9553D28-8C55-409D-A626-5FD9996A4D87196591.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "АПАРТАМЕНТ",
+        "detail": null,
+        "location": "Пловдив",
+        "municipality": "Пловдив",
+        "areaSqm": 120,
+        "builtAreaSqm": 120,
+        "acquiredYear": 2011,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Надя Росенова Танева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан Кашкай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "Надя росенова Танева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Надя Росенова Танева",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "nadya-rosenova-taneva-13a8d1",
+    "declarantName": "Надя Росенова Танева",
+    "institution": "Агенция за социално подпомагане",
+    "positionTitle": "Изпълнителен директор",
+    "category": "agency_head",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-25",
+    "entryNumber": "Г14133",
+    "controlHash": "F817F694",
+    "sourceUrl": "https://register.cacbg.bg/2024/B9553D28-8C55-409D-A626-5FD9996A4D87196590.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 34089.36359499548,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 5763.793376724971,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лека кола",
+        "detail": "нисан кашкай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "Надя Танева",
+        "isSpouse": true,
+        "legalBasis": "покупка",
+        "fundsOrigin": "кредит - Ти би ай"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Надя Росенова Танева",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

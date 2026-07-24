@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:yanko-vasilev-yankov-17eabd",
+  "nodes": [
+    {
+      "id": "official:yanko-vasilev-yankov-17eabd",
+      "type": "official",
+      "slug": "yanko-vasilev-yankov-17eabd",
+      "label": "Янко Василев Янков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Шумен"
+    },
+    {
+      "id": "company:tr:207217909",
+      "type": "company",
+      "label": "ЯНКОВ 2023",
+      "slug": null,
+      "uic": "207217909",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yanko-vasilev-yankov-17eabd",
+      "target": "company:tr:207217909",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yanko-vasilev-yankov-17eabd",
+      "target": "company:tr:207217909",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

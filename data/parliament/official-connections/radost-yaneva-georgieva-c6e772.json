@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:radost-yaneva-georgieva-c6e772",
+  "nodes": [
+    {
+      "id": "official:radost-yaneva-georgieva-c6e772",
+      "type": "official",
+      "slug": "radost-yaneva-georgieva-c6e772",
+      "label": "Радост Янева Георгиева",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Созопол"
+    },
+    {
+      "id": "company:tr:201991043",
+      "type": "company",
+      "label": "&quot;АПОЛОНИАН АРХИТЕКТС&quot;",
+      "slug": null,
+      "uic": "201991043",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:radost-yaneva-georgieva-c6e772",
+      "target": "company:tr:201991043",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:radost-yaneva-georgieva-c6e772",
+      "target": "company:tr:201991043",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

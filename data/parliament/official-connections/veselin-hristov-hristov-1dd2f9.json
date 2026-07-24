@@ -1,0 +1,51 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:veselin-hristov-hristov-1dd2f9",
+  "nodes": [
+    {
+      "id": "official:veselin-hristov-hristov-1dd2f9",
+      "type": "official",
+      "slug": "veselin-hristov-hristov-1dd2f9",
+      "label": "Веселин Христов Христов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Благоевград"
+    },
+    {
+      "id": "company:tr:207882549",
+      "type": "company",
+      "label": "\"СОНИК КОНСУЛТИНГ\" ЕООД",
+      "slug": null,
+      "uic": "207882549",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veselin-hristov-hristov-1dd2f9",
+      "target": "company:tr:207882549",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:veselin-hristov-hristov-1dd2f9",
+      "target": "company:tr:207882549",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:veselin-hristov-hristov-1dd2f9",
+      "target": "company:tr:207882549",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

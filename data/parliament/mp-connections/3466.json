@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:3466",
   "nodes": [
     {
@@ -104,9 +104,9 @@
       "seat": "БЪЛГАРИЯ, гр. Пловдив, 4000"
     },
     {
-      "id": "official:dimitr-andreev-delchev-0883a8",
+      "id": "official:dimitr-andreev-delchev-cfb907",
       "type": "official",
-      "slug": "dimitr-andreev-delchev-0883a8",
+      "slug": "dimitr-andreev-delchev-cfb907",
       "label": "Димитър Андреев Делчев",
       "tier": "executive",
       "role": "party_leader",
@@ -203,9 +203,9 @@
       "label": "Хармандип Сингх"
     },
     {
-      "id": "official:trifon-ruenov-panchev-ce9ce3",
+      "id": "official:trifon-ruenov-panchev-6a2f9e",
       "type": "official",
-      "slug": "trifon-ruenov-panchev-ce9ce3",
+      "slug": "trifon-ruenov-panchev-6a2f9e",
       "label": "Трифон Руенов Панчев",
       "tier": "municipal",
       "role": "mayor",
@@ -406,7 +406,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:dimitr-andreev-delchev-0883a8",
+      "source": "official:dimitr-andreev-delchev-cfb907",
       "target": "company:Левис-Дивелопмънт-ООД",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -646,7 +646,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:trifon-ruenov-panchev-ce9ce3",
+      "source": "official:trifon-ruenov-panchev-6a2f9e",
       "target": "company:tr:207785502",
       "kind": "tr_role",
       "role": "ngo_board",

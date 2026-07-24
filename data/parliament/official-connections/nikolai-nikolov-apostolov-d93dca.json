@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-nikolov-apostolov-d93dca",
+  "nodes": [
+    {
+      "id": "official:nikolai-nikolov-apostolov-d93dca",
+      "type": "official",
+      "slug": "nikolai-nikolov-apostolov-d93dca",
+      "label": "Николай Николов Апостолов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:103013300",
+      "type": "company",
+      "label": "\"АПОТРОН\" ЕООД",
+      "slug": null,
+      "uic": "103013300",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-nikolov-apostolov-d93dca",
+      "target": "company:tr:103013300",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

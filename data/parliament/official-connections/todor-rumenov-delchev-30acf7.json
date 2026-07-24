@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:todor-rumenov-delchev-30acf7",
+  "nodes": [
+    {
+      "id": "official:todor-rumenov-delchev-30acf7",
+      "type": "official",
+      "slug": "todor-rumenov-delchev-30acf7",
+      "label": "Тодор Руменов Делчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стара Загора"
+    },
+    {
+      "id": "company:tr:204039433",
+      "type": "company",
+      "label": "Фактор Електрик",
+      "slug": null,
+      "uic": "204039433",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:todor-rumenov-delchev-30acf7",
+      "target": "company:tr:204039433",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

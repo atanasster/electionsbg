@@ -1,0 +1,95 @@
+[
+  {
+    "slug": "ivan-velikov-petkov-2df454",
+    "declarantName": "Иван Великов Петков",
+    "institution": "Ръководителите на задграничните представителства на Р.България",
+    "positionTitle": "Извънреден и пълномощен посланик",
+    "category": "diplomat",
+    "declarationYear": 2018,
+    "fiscalYear": 2017,
+    "declarationType": "Annualy",
+    "filedAt": "2018-05-17",
+    "entryNumber": "Г693",
+    "controlHash": "A61E0BE1",
+    "sourceUrl": "https://register.cacbg.bg/2018/0F0B01DF-1517-42C5-9183-40257C8F4A5188502.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7362.603089225547,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 96,
+        "builtAreaSqm": null,
+        "acquiredYear": 2017,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 69000,
+        "valueEur": 35279.13980253907,
+        "holderName": "Людмила Белчева Петкова",
+        "isSpouse": true,
+        "legalBasis": "покупка наследствен дял",
+        "fundsOrigin": "продажба наследствен дял"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 15000,
+        "valueEur": 15000,
+        "holderName": "Иван Великов Петков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 8000,
+        "valueEur": 8000,
+        "holderName": "Иван Великов Петков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "продажба наследствен дял"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Варна",
+        "municipality": "Варна",
+        "areaSqm": 94,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 43971.10178287479,
+        "legalBasis": "продажба наследствен дял"
+      }
+    ]
+  }
+]

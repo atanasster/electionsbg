@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stoyan-hristov-iordanov-3ed523",
+  "nodes": [
+    {
+      "id": "official:stoyan-hristov-iordanov-3ed523",
+      "type": "official",
+      "slug": "stoyan-hristov-iordanov-3ed523",
+      "label": "Стоян Христов Йорданов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Лясковец"
+    },
+    {
+      "id": "company:tr:000129931",
+      "type": "company",
+      "label": "\"Стрела-92\" ООД",
+      "slug": null,
+      "uic": "000129931",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОРДАН СТОЯНОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Йордан Стоянов Йорданов"
+    },
+    {
+      "id": "person:КРАСИМИР НИКОЛОВ КАНДИЛАРОВ",
+      "type": "person",
+      "label": "Красимир Николов Кандиларов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stoyan-hristov-iordanov-3ed523",
+      "target": "company:tr:000129931",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН СТОЯНОВ ЙОРДАНОВ",
+      "target": "company:tr:000129931",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР НИКОЛОВ КАНДИЛАРОВ",
+      "target": "company:tr:000129931",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

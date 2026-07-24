@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "daniel-martinov-martinov-fb95f3",
+    "declarantName": "Даниел Мартинов Мартинов",
+    "institution": "Самоков",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г10508",
+    "controlHash": "A9CCE91F",
+    "sourceUrl": "https://register.cacbg.bg/2025/2C7ECA82-CA97-4E5C-B7BB-C6870DEAAEAC213600.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Капитал",
+        "shareSize": "100 %",
+        "companyName": "КОНЪР ГРУП ЕООД",
+        "registeredOffice": "София",
+        "valueEur": 1.022583762392437,
+        "holderName": "Даниел Мартинов Мартинов",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "11",
+        "itemType": "Капитал",
+        "shareSize": "100%",
+        "companyName": "КОНЪР ГРУП ЕООД",
+        "registeredOffice": "София",
+        "valueEur": 1.022583762392437,
+        "holderName": null,
+        "transfereeName": "Даниел Мартинов Мартинов",
+        "legalBasis": "безвъзмездно",
+        "fundsOrigin": null
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5288.291927212488,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "гр.Самоков ул. Димитър Димов 22",
+        "municipality": "Самоков",
+        "areaSqm": 578,
+        "builtAreaSqm": 120,
+        "acquiredYear": 2021,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 133500,
+        "valueEur": 68257.46613969517,
+        "holderName": "Даниел Мартинов Мартинов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "мотоциклет",
+        "detail": "Кавазаки",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 9500,
+        "valueEur": 4857.272871364075,
+        "holderName": "Даниел Мартинов Мартинов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Даниел Мартинов Мартинов",
+        "isSpouse": false,
+        "legalBasis": "Потребителски кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

@@ -1,0 +1,207 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tashko-vangelov-tashev-f376c7",
+  "nodes": [
+    {
+      "id": "official:tashko-vangelov-tashev-f376c7",
+      "type": "official",
+      "slug": "tashko-vangelov-tashev-f376c7",
+      "label": "Ташко Вангелов Ташев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Първомай"
+    },
+    {
+      "id": "company:tr:115877771",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ ЗА НАПОЯВАНЕ &quot;ЛИПА&quot;",
+      "slug": null,
+      "uic": "115877771",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТЪР ДИМОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Димитър Димов Георгиев"
+    },
+    {
+      "id": "person:ДИМИТЪР ДИМОВ ГЕОРГИЕВ,ПРЕДСЕДАТЕЛ",
+      "type": "person",
+      "label": "Димитър Димов Георгиев,председател"
+    },
+    {
+      "id": "person:ДЕЛЧО ИВАНОВ ИВАНОВ, ЧЛЕН НА УС",
+      "type": "person",
+      "label": "Делчо Иванов Иванов, Член На Ус"
+    },
+    {
+      "id": "person:ФАТМЕ ФАХМИЕВА ИСМАИЛОВА,ЧЛЕН НА УС",
+      "type": "person",
+      "label": "Фатме Фахмиева Исмаилова,член На Ус"
+    },
+    {
+      "id": "person:ДИМО ДИНКОВ ДИМОВ, ЧЛЕН НА УС",
+      "type": "person",
+      "label": "Димо Динков Димов, Член На Ус"
+    },
+    {
+      "id": "person:БИЛЯЛ МУСТАФА ХАДЖИБЕКИР, ЧЛЕН НА КС",
+      "type": "person",
+      "label": "Билял Мустафа Хаджибекир, Член На Кс"
+    },
+    {
+      "id": "person:ТАШКО ВАНГЕЛОВ ТАШЕВ, ЧЛЕН НА КС",
+      "type": "person",
+      "label": "Ташко Вангелов Ташев, Член На Кс"
+    },
+    {
+      "id": "person:ДИМО СТАЙКОВ АНГЕЛОВ,ЧЛЕН НА КС",
+      "type": "person",
+      "label": "Димо Стайков Ангелов,член На Кс"
+    },
+    {
+      "id": "person:НИКОЛАЙ ГЕОРГИЕВ НИКОЛОВ, ЧЛЕН НА УС",
+      "type": "person",
+      "label": "Николай Георгиев Николов, Член На Ус"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ПАНАЙОТОВ НЕДЕВ",
+      "type": "person",
+      "label": "Веселин Панайотов Недев"
+    },
+    {
+      "id": "person:НЕВРИЕ КЯЗИМ АЛИ",
+      "type": "person",
+      "label": "Неврие Кязим Али"
+    },
+    {
+      "id": "person:ДЕЛЧО ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Делчо Иванов Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tashko-vangelov-tashev-f376c7",
+      "target": "company:tr:115877771",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР ДИМОВ ГЕОРГИЕВ",
+      "target": "company:tr:115877771",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ДИМОВ ГЕОРГИЕВ,ПРЕДСЕДАТЕЛ",
+      "target": "company:tr:115877771",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЛЧО ИВАНОВ ИВАНОВ, ЧЛЕН НА УС",
+      "target": "company:tr:115877771",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФАТМЕ ФАХМИЕВА ИСМАИЛОВА,ЧЛЕН НА УС",
+      "target": "company:tr:115877771",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМО ДИНКОВ ДИМОВ, ЧЛЕН НА УС",
+      "target": "company:tr:115877771",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИЛЯЛ МУСТАФА ХАДЖИБЕКИР, ЧЛЕН НА КС",
+      "target": "company:tr:115877771",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАШКО ВАНГЕЛОВ ТАШЕВ, ЧЛЕН НА КС",
+      "target": "company:tr:115877771",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМО СТАЙКОВ АНГЕЛОВ,ЧЛЕН НА КС",
+      "target": "company:tr:115877771",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ГЕОРГИЕВ НИКОЛОВ, ЧЛЕН НА УС",
+      "target": "company:tr:115877771",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ПАНАЙОТОВ НЕДЕВ",
+      "target": "company:tr:115877771",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ПАНАЙОТОВ НЕДЕВ",
+      "target": "company:tr:115877771",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ДИМОВ ГЕОРГИЕВ",
+      "target": "company:tr:115877771",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВРИЕ КЯЗИМ АЛИ",
+      "target": "company:tr:115877771",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЛЧО ИВАНОВ ИВАНОВ",
+      "target": "company:tr:115877771",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

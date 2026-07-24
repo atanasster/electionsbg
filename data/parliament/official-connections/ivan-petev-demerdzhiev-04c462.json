@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-petev-demerdzhiev-04c462",
+  "nodes": [
+    {
+      "id": "official:ivan-petev-demerdzhiev-04c462",
+      "type": "official",
+      "slug": "ivan-petev-demerdzhiev-04c462",
+      "label": "Иван Петев Демерджиев",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205679436",
+      "type": "company",
+      "label": "А и Е Олд Таун ООД",
+      "slug": null,
+      "uic": "205679436",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-petev-demerdzhiev-04c462",
+      "target": "company:tr:205679436",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

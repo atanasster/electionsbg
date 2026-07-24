@@ -1,0 +1,181 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:adrianka-ivanova-dobreva-3b97e4",
+  "nodes": [
+    {
+      "id": "official:adrianka-ivanova-dobreva-3b97e4",
+      "type": "official",
+      "slug": "adrianka-ivanova-dobreva-3b97e4",
+      "label": "Адрианка Иванова Добрева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Угърчин"
+    },
+    {
+      "id": "company:tr:000283527",
+      "type": "company",
+      "label": "ВЪЛО РАДЕВ - 1923",
+      "slug": null,
+      "uic": "000283527",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:nevena-koleva-neicheva-e3485b",
+      "type": "official",
+      "slug": "nevena-koleva-neicheva-e3485b",
+      "label": "Невена Колева Нейчева",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "official:yanka-koleva-tsokova-atanasova-76303f",
+      "type": "official",
+      "slug": "yanka-koleva-tsokova-atanasova-76303f",
+      "label": "Янка Колева Цокова-Атанасова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "person:ПАВЛИНА ДИНОВА РАЙКОВА",
+      "type": "person",
+      "label": "Павлина Динова Райкова"
+    },
+    {
+      "id": "person:ПЕНКА БОРИСОВА ЦУЦУМАНОВА",
+      "type": "person",
+      "label": "Пенка Борисова Цуцуманова"
+    },
+    {
+      "id": "person:СТЕФАН ТОТКОВ СЪЕВ",
+      "type": "person",
+      "label": "Стефан Тотков Съев"
+    },
+    {
+      "id": "person:АТАНАСКА СТОЯНОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Атанаска Стоянова Петрова"
+    },
+    {
+      "id": "person:КОЛЬО МАРИНОВ КОЛЕВ",
+      "type": "person",
+      "label": "Кольо Маринов Колев"
+    },
+    {
+      "id": "person:ДАНИЕЛА МОТКОВА ТРИФОНОВА-НИКОЛОВА",
+      "type": "person",
+      "label": "Даниела Моткова Трифонова-Николова"
+    },
+    {
+      "id": "person:ПЕТЯ КОЛЕВА ДИКОВА",
+      "type": "person",
+      "label": "Петя Колева Дикова"
+    },
+    {
+      "id": "person:ВИОЛЕТА ЙОРДАНОВА КАЛЧЕВА",
+      "type": "person",
+      "label": "Виолета Йорданова Калчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:adrianka-ivanova-dobreva-3b97e4",
+      "target": "company:tr:000283527",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nevena-koleva-neicheva-e3485b",
+      "target": "company:tr:000283527",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nevena-koleva-neicheva-e3485b",
+      "target": "company:tr:000283527",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yanka-koleva-tsokova-atanasova-76303f",
+      "target": "company:tr:000283527",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПАВЛИНА ДИНОВА РАЙКОВА",
+      "target": "company:tr:000283527",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА БОРИСОВА ЦУЦУМАНОВА",
+      "target": "company:tr:000283527",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ТОТКОВ СЪЕВ",
+      "target": "company:tr:000283527",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАСКА СТОЯНОВА ПЕТРОВА",
+      "target": "company:tr:000283527",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОЛЬО МАРИНОВ КОЛЕВ",
+      "target": "company:tr:000283527",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА МОТКОВА ТРИФОНОВА-НИКОЛОВА",
+      "target": "company:tr:000283527",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ КОЛЕВА ДИКОВА",
+      "target": "company:tr:000283527",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ЙОРДАНОВА КАЛЧЕВА",
+      "target": "company:tr:000283527",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

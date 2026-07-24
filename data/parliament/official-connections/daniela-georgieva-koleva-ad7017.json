@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:daniela-georgieva-koleva-ad7017",
+  "nodes": [
+    {
+      "id": "official:daniela-georgieva-koleva-ad7017",
+      "type": "official",
+      "slug": "daniela-georgieva-koleva-ad7017",
+      "label": "Даниела Георгиева Колева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Брезово"
+    },
+    {
+      "id": "company:tr:206403864",
+      "type": "company",
+      "label": "Амбулатория за групова практика за извънболнична помощ по здравни грижи АБЕЛА- ВД",
+      "slug": null,
+      "uic": "206403864",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАЛЕНТИНА ИВАНОВА МУТАФЧИЕВА",
+      "type": "person",
+      "label": "Валентина Иванова Мутафчиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniela-georgieva-koleva-ad7017",
+      "target": "company:tr:206403864",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ИВАНОВА МУТАФЧИЕВА",
+      "target": "company:tr:206403864",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ИВАНОВА МУТАФЧИЕВА",
+      "target": "company:tr:206403864",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

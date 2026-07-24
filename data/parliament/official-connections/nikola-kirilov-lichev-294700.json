@@ -1,0 +1,207 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikola-kirilov-lichev-294700",
+  "nodes": [
+    {
+      "id": "official:nikola-kirilov-lichev-294700",
+      "type": "official",
+      "slug": "nikola-kirilov-lichev-294700",
+      "label": "Никола Кирилов Личев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Павликени"
+    },
+    {
+      "id": "company:tr:205527364",
+      "type": "company",
+      "label": "Нидек ООД",
+      "slug": null,
+      "uic": "205527364",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:000124197",
+      "type": "company",
+      "label": "БРАТСТВО - 1884",
+      "slug": null,
+      "uic": "000124197",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРАСИМИРА БОРИСОВА ЕНЕВА",
+      "type": "person",
+      "label": "Красимира Борисова Енева"
+    },
+    {
+      "id": "person:ПЕТЪР ИВАНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Петър Иванов Петров"
+    },
+    {
+      "id": "person:ВЕНЕТКА СТЕФАНОВА БОРИСОВА",
+      "type": "person",
+      "label": "Венетка Стефанова Борисова"
+    },
+    {
+      "id": "person:АНЕЛИЯ ИВАНОВА ХРИСТАНОВА",
+      "type": "person",
+      "label": "Анелия Иванова Христанова"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ВАЛЕНТИНОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Десислава Валентинова Йорданова"
+    },
+    {
+      "id": "person:АНЕТА ХРИСТОВА СЕРАФИМОВА",
+      "type": "person",
+      "label": "Анета Христова Серафимова"
+    },
+    {
+      "id": "person:ТОДОР ЙОРДАНОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Тодор Йорданов Тодоров"
+    },
+    {
+      "id": "person:АНДРИЯНА БОРИСОВА ТОНЕВА",
+      "type": "person",
+      "label": "Андрияна Борисова Тонева"
+    },
+    {
+      "id": "person:СНЕЖАНКА ИВАНОВА РАШЕВСКА",
+      "type": "person",
+      "label": "Снежанка Иванова Рашевска"
+    },
+    {
+      "id": "person:МАРИЯ АЛЕКСАНДРОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Мария Александрова Петкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikola-kirilov-lichev-294700",
+      "target": "company:tr:205527364",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikola-kirilov-lichev-294700",
+      "target": "company:tr:000124197",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРАСИМИРА БОРИСОВА ЕНЕВА",
+      "target": "company:tr:000124197",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ИВАНОВ ПЕТРОВ",
+      "target": "company:tr:000124197",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕТКА СТЕФАНОВА БОРИСОВА",
+      "target": "company:tr:000124197",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ИВАНОВ ПЕТРОВ",
+      "target": "company:tr:000124197",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА БОРИСОВА ЕНЕВА",
+      "target": "company:tr:000124197",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ ИВАНОВА ХРИСТАНОВА",
+      "target": "company:tr:000124197",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ВАЛЕНТИНОВА ЙОРДАНОВА",
+      "target": "company:tr:000124197",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕТА ХРИСТОВА СЕРАФИМОВА",
+      "target": "company:tr:000124197",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ЙОРДАНОВ ТОДОРОВ",
+      "target": "company:tr:000124197",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРИЯНА БОРИСОВА ТОНЕВА",
+      "target": "company:tr:000124197",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНКА ИВАНОВА РАШЕВСКА",
+      "target": "company:tr:000124197",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕТА ХРИСТОВА СЕРАФИМОВА",
+      "target": "company:tr:000124197",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ АЛЕКСАНДРОВА ПЕТКОВА",
+      "target": "company:tr:000124197",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

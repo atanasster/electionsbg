@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-ivanov-banski-048e29",
+  "nodes": [
+    {
+      "id": "official:georgi-ivanov-banski-048e29",
+      "type": "official",
+      "slug": "georgi-ivanov-banski-048e29",
+      "label": "Георги Иванов Бански",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Дупница"
+    },
+    {
+      "id": "company:tr:109561256",
+      "type": "company",
+      "label": "ДЕСИСЛАВА-БАНСКИ",
+      "slug": null,
+      "uic": "109561256",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛЮДМИЛА ИГНАТОВА БАНСКА",
+      "type": "person",
+      "label": "Людмила Игнатова Банска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-ivanov-banski-048e29",
+      "target": "company:tr:109561256",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮДМИЛА ИГНАТОВА БАНСКА",
+      "target": "company:tr:109561256",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

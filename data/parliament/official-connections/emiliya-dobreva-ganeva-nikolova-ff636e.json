@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:emiliya-dobreva-ganeva-nikolova-ff636e",
+  "nodes": [
+    {
+      "id": "official:emiliya-dobreva-ganeva-nikolova-ff636e",
+      "type": "official",
+      "slug": "emiliya-dobreva-ganeva-nikolova-ff636e",
+      "label": "Емилия Добрева Ганева-Николова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Добрич"
+    },
+    {
+      "id": "company:tr:834025616",
+      "type": "company",
+      "label": "\"Добричпроект\" ООД",
+      "slug": null,
+      "uic": "834025616",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:emiliya-dobreva-ganeva-nikolova-0d8b8e",
+      "type": "official",
+      "slug": "emiliya-dobreva-ganeva-nikolova-0d8b8e",
+      "label": "Емилия Добрева Ганева-Николова",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Тервел"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emiliya-dobreva-ganeva-nikolova-ff636e",
+      "target": "company:tr:834025616",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:emiliya-dobreva-ganeva-nikolova-0d8b8e",
+      "target": "company:tr:834025616",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

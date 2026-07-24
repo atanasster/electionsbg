@@ -1,0 +1,113 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:atanas-stoichev-tenev-5b1fba",
+  "nodes": [
+    {
+      "id": "official:atanas-stoichev-tenev-5b1fba",
+      "type": "official",
+      "slug": "atanas-stoichev-tenev-5b1fba",
+      "label": "Атанас Стойчев Тенев",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Костинброд"
+    },
+    {
+      "id": "company:tr:130226102",
+      "type": "company",
+      "label": "АМБУЛАТОРИЯ ЗА ГРУПОВА ПРАКТИКА ЗА ИЗВЪНБОЛНИЧНА ПЪРВИЧНА МЕДИЦИНСКА ПОМОЩ - АВИЦЕНА",
+      "slug": null,
+      "uic": "130226102",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОРДАНКА ЦВЕТАНОВА ОКСИЛОВА",
+      "type": "person",
+      "label": "Йорданка Цветанова Оксилова"
+    },
+    {
+      "id": "person:ПАВЛИНА НИКОЛАЕВА АЛАШКА",
+      "type": "person",
+      "label": "Павлина Николаева Алашка"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ЙОРДАНОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Веселин Йорданов Николов"
+    },
+    {
+      "id": "person:ИРИНА ЛЮБЕНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Ирина Любенова Георгиева"
+    },
+    {
+      "id": "person:ГЕРГАНА ДАРИНОВА МЛАДЕНОВА",
+      "type": "person",
+      "label": "Гергана Даринова Младенова"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ПЕТРОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Александър Петров Николов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:atanas-stoichev-tenev-5b1fba",
+      "target": "company:tr:130226102",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАНКА ЦВЕТАНОВА ОКСИЛОВА",
+      "target": "company:tr:130226102",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА НИКОЛАЕВА АЛАШКА",
+      "target": "company:tr:130226102",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ЙОРДАНОВ НИКОЛОВ",
+      "target": "company:tr:130226102",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА ЛЮБЕНОВА ГЕОРГИЕВА",
+      "target": "company:tr:130226102",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА ДАРИНОВА МЛАДЕНОВА",
+      "target": "company:tr:130226102",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ПЕТРОВ НИКОЛОВ",
+      "target": "company:tr:130226102",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

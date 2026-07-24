@@ -1,0 +1,170 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rosen-miroslavov-bogomilov-237837",
+  "nodes": [
+    {
+      "id": "official:rosen-miroslavov-bogomilov-237837",
+      "type": "official",
+      "slug": "rosen-miroslavov-bogomilov-237837",
+      "label": "Росен Мирославов Богомилов",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175935973",
+      "type": "company",
+      "label": "ЗАЕДНО В ЧАС",
+      "slug": null,
+      "uic": "175935973",
+      "legalForm": "FOUND",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1124"
+    },
+    {
+      "id": "mp:5291",
+      "type": "mp",
+      "mpId": 5291,
+      "label": "Николай Денков Денков",
+      "partyGroupShort": "ПГ на Продължаваме Промяната",
+      "isCurrent": true,
+      "nsFolders": [
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "person:ЕВГЕНИЯ КОНСТАНТИНОВА ПЕЕВА- КИРОВА",
+      "type": "person",
+      "label": "Евгения Константинова Пеева- Кирова"
+    },
+    {
+      "id": "person:МИРОСЛАВ ИВАНОВ СТОЙЧЕВ",
+      "type": "person",
+      "label": "Мирослав Иванов Стойчев"
+    },
+    {
+      "id": "person:ХРИСТО ЕМИЛОВ МАНОВ",
+      "type": "person",
+      "label": "Христо Емилов Манов"
+    },
+    {
+      "id": "person:ТАТЯНА ИВАНОВА МАРИНОВСКА- НАЙДЕНОВА",
+      "type": "person",
+      "label": "Татяна Иванова Мариновска- Найденова"
+    },
+    {
+      "id": "person:СВЕТОЗАР ГЕОРГИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Светозар Георгиев Георгиев"
+    },
+    {
+      "id": "person:МИНА ДИМИТРОВА САВОВА",
+      "type": "person",
+      "label": "Мина Димитрова Савова"
+    },
+    {
+      "id": "person:АТАНАС СТОЯНОВ ГАРОВ",
+      "type": "person",
+      "label": "Атанас Стоянов Гаров"
+    },
+    {
+      "id": "person:ТРАЯН ВАЛЕНТИНОВ ТРАЯНОВ",
+      "type": "person",
+      "label": "Траян Валентинов Траянов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rosen-miroslavov-bogomilov-237837",
+      "target": "company:tr:175935973",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5291",
+      "target": "company:tr:175935973",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕВГЕНИЯ КОНСТАНТИНОВА ПЕЕВА- КИРОВА",
+      "target": "company:tr:175935973",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ИВАНОВ СТОЙЧЕВ",
+      "target": "company:tr:175935973",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ЕМИЛОВ МАНОВ",
+      "target": "company:tr:175935973",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА ИВАНОВА МАРИНОВСКА- НАЙДЕНОВА",
+      "target": "company:tr:175935973",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОЗАР ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:175935973",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИНА ДИМИТРОВА САВОВА",
+      "target": "company:tr:175935973",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС СТОЯНОВ ГАРОВ",
+      "target": "company:tr:175935973",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТРАЯН ВАЛЕНТИНОВ ТРАЯНОВ",
+      "target": "company:tr:175935973",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТРАЯН ВАЛЕНТИНОВ ТРАЯНОВ",
+      "target": "company:tr:175935973",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

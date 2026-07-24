@@ -1,0 +1,116 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stoyan-mihalev-tyuiliev-04cd9c",
+  "nodes": [
+    {
+      "id": "official:stoyan-mihalev-tyuiliev-04cd9c",
+      "type": "official",
+      "slug": "stoyan-mihalev-tyuiliev-04cd9c",
+      "label": "Стоян Михалев Тюйлиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Димитровград"
+    },
+    {
+      "id": "company:tr:126526421",
+      "type": "company",
+      "label": "ТЕЦ МАРИЦА 3",
+      "slug": null,
+      "uic": "126526421",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЦВЕТАНА ГЕОРГИЕВА БЪНКОВА",
+      "type": "person",
+      "label": "Цветана Георгиева Бънкова"
+    },
+    {
+      "id": "person:ИЛИАН ДИМИТРОВ ПАВЛОВ",
+      "type": "person",
+      "label": "Илиан Димитров Павлов"
+    },
+    {
+      "id": "person:ЮЛИЯН КРАСИНОВ СЕМЕРДЖИЕВ",
+      "type": "person",
+      "label": "Юлиян Красинов Семерджиев"
+    },
+    {
+      "id": "person:ИВАН ДАМЯНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Иван Дамянов Георгиев"
+    },
+    {
+      "id": "person:КРАСИМИР ПАНТЕЛЕЕВ СТОЙНОВ",
+      "type": "person",
+      "label": "Красимир Пантелеев Стойнов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stoyan-mihalev-tyuiliev-04cd9c",
+      "target": "company:tr:126526421",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТАНА ГЕОРГИЕВА БЪНКОВА",
+      "target": "company:tr:126526421",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИАН ДИМИТРОВ ПАВЛОВ",
+      "target": "company:tr:126526421",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЯН КРАСИНОВ СЕМЕРДЖИЕВ",
+      "target": "company:tr:126526421",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДАМЯНОВ ГЕОРГИЕВ",
+      "target": "company:tr:126526421",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДАМЯНОВ ГЕОРГИЕВ",
+      "target": "company:tr:126526421",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИАН ДИМИТРОВ ПАВЛОВ",
+      "target": "company:tr:126526421",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ПАНТЕЛЕЕВ СТОЙНОВ",
+      "target": "company:tr:126526421",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

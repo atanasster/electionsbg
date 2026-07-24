@@ -1,0 +1,125 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-stiliyanov-stanev-17f0ec",
+  "nodes": [
+    {
+      "id": "official:georgi-stiliyanov-stanev-17f0ec",
+      "type": "official",
+      "slug": "georgi-stiliyanov-stanev-17f0ec",
+      "label": "Георги Стилиянов Станев",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207203877",
+      "type": "company",
+      "label": "Ученолюбие за България",
+      "slug": null,
+      "uic": "207203877",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:kiril-stiliyanov-stanev-238507",
+      "type": "official",
+      "slug": "kiril-stiliyanov-stanev-238507",
+      "label": "Кирил Стилиянов Станев",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "person:ДАНИИЛ СЛАВЕВ СТОЙЧЕВ",
+      "type": "person",
+      "label": "Даниил Славев Стойчев"
+    },
+    {
+      "id": "person:ДАРИНА МИЛУШЕВА ПЕНЕВА",
+      "type": "person",
+      "label": "Дарина Милушева Пенева"
+    },
+    {
+      "id": "person:СИМОНА ЮЛИАНОВА БОНЕВА",
+      "type": "person",
+      "label": "Симона Юлианова Бонева"
+    },
+    {
+      "id": "person:АЛЕКСАНДРИНА МЕТОДИЕВА ЛЮБОМИРОВА",
+      "type": "person",
+      "label": "Александрина Методиева Любомирова"
+    },
+    {
+      "id": "person:ЖИВКО ДОБРЕВ ЖЕЛЕВ",
+      "type": "person",
+      "label": "Живко Добрев Желев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-stiliyanov-stanev-17f0ec",
+      "target": "company:tr:207203877",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-stiliyanov-stanev-17f0ec",
+      "target": "company:tr:207203877",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kiril-stiliyanov-stanev-238507",
+      "target": "company:tr:207203877",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАНИИЛ СЛАВЕВ СТОЙЧЕВ",
+      "target": "company:tr:207203877",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАРИНА МИЛУШЕВА ПЕНЕВА",
+      "target": "company:tr:207203877",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМОНА ЮЛИАНОВА БОНЕВА",
+      "target": "company:tr:207203877",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДРИНА МЕТОДИЕВА ЛЮБОМИРОВА",
+      "target": "company:tr:207203877",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ДОБРЕВ ЖЕЛЕВ",
+      "target": "company:tr:207203877",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

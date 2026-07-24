@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:lazar-kirov-vlchev-642243",
+  "nodes": [
+    {
+      "id": "official:lazar-kirov-vlchev-642243",
+      "type": "official",
+      "slug": "lazar-kirov-vlchev-642243",
+      "label": "Лазар Киров Вълчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204410995",
+      "type": "company",
+      "label": "Градски транспорт - Перник",
+      "slug": null,
+      "uic": "204410995",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lazar-kirov-vlchev-642243",
+      "target": "company:tr:204410995",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

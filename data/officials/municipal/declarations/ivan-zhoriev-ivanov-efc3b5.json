@@ -1,0 +1,69 @@
+[
+  {
+    "slug": "ivan-zhoriev-ivanov-efc3b5",
+    "declarantName": "Иван Жориев Иванов",
+    "institution": "Казанлък",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-28",
+    "entryNumber": "Г4088",
+    "controlHash": "C60CFCCF",
+    "sourceUrl": "https://register.cacbg.bg/2025/657D1816-0D4C-4BE7-BFEA-014A62F30CE0206920.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6996.006810407857,
+        "amountEurSpouse": 8616.80207379987
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 43729.77201495018,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Ситроен C3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 4500,
+        "valueEur": 2300.8134653829834,
+        "holderName": "Иван Жориев Иванов",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": "трудово възнаграждение"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14585,
+        "valueEur": 7457.192087246846,
+        "holderName": "Иван Жориев Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:viktor-strahilov-sulov-f8ec77",
+  "nodes": [
+    {
+      "id": "official:viktor-strahilov-sulov-f8ec77",
+      "type": "official",
+      "slug": "viktor-strahilov-sulov-f8ec77",
+      "label": "Виктор Страхилов Сулов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Брегово"
+    },
+    {
+      "id": "company:tr:206945797",
+      "type": "company",
+      "label": "ВЕКА-АГРО",
+      "slug": null,
+      "uic": "206945797",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:viktor-strahilov-sulov-f8ec77",
+      "target": "company:tr:206945797",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:viktor-strahilov-sulov-f8ec77",
+      "target": "company:tr:206945797",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

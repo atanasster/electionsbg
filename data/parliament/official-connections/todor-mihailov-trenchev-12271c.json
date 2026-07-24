@@ -1,0 +1,71 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:todor-mihailov-trenchev-12271c",
+  "nodes": [
+    {
+      "id": "official:todor-mihailov-trenchev-12271c",
+      "type": "official",
+      "slug": "todor-mihailov-trenchev-12271c",
+      "label": "Тодор Михаилов Тренчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205641407",
+      "type": "company",
+      "label": "\"Тис 2019\" ЕООД",
+      "slug": null,
+      "uic": "205641407",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202267947",
+      "type": "company",
+      "label": "\"Би Джи Ти Груп\" ЕООД",
+      "slug": null,
+      "uic": "202267947",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205244761",
+      "type": "company",
+      "label": "\"Тренчев 2018\" ЕООД",
+      "slug": null,
+      "uic": "205244761",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:todor-mihailov-trenchev-12271c",
+      "target": "company:tr:205641407",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:todor-mihailov-trenchev-12271c",
+      "target": "company:tr:202267947",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:todor-mihailov-trenchev-12271c",
+      "target": "company:tr:205244761",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

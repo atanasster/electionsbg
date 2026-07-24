@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:miglena-georgieva-goranova-dd1c5b",
+  "nodes": [
+    {
+      "id": "official:miglena-georgieva-goranova-dd1c5b",
+      "type": "official",
+      "slug": "miglena-georgieva-goranova-dd1c5b",
+      "label": "Миглена Георгиева Горанова",
+      "tier": "executive",
+      "role": "party_leader",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204114512",
+      "type": "company",
+      "label": "Парк Енерго Про",
+      "slug": null,
+      "uic": "204114512",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miglena-georgieva-goranova-dd1c5b",
+      "target": "company:tr:204114512",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

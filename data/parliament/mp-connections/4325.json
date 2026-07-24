@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:4325",
   "nodes": [
     {
@@ -51,6 +51,15 @@
       ]
     },
     {
+      "id": "official:karina-dimitrova-karaivanova-ganozova-173cbd",
+      "type": "official",
+      "slug": "karina-dimitrova-karaivanova-ganozova-173cbd",
+      "label": "Карина Димитрова Караиванова-Ганозова",
+      "tier": "executive",
+      "role": "international",
+      "municipality": null
+    },
+    {
       "id": "person:АННА ВАЛЕРИЕВА МАНОЛОВА",
       "type": "person",
       "label": "Анна Валериева Манолова"
@@ -96,14 +105,9 @@
       "label": "Джеймс Бориславов Йоловски"
     },
     {
-      "id": "person:КАРИНА ДИМИТРОВА КАРАИВАНОВА-ГАНОЗОВА",
-      "type": "person",
-      "label": "Карина Димитрова Караиванова-Ганозова"
-    },
-    {
-      "id": "official:nikolai-nenov-nenovski-8a3d4d",
+      "id": "official:nikolai-nenov-nenovski-d96a14",
       "type": "official",
-      "slug": "nikolai-nenov-nenovski-8a3d4d",
+      "slug": "nikolai-nenov-nenovski-d96a14",
       "label": "Николай Ненов Неновски",
       "tier": "executive",
       "role": "central_bank",
@@ -174,6 +178,14 @@
     },
     {
       "source": "mp:4160",
+      "target": "company:tr:175327305",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:karina-dimitrova-karaivanova-ganozova-173cbd",
       "target": "company:tr:175327305",
       "kind": "tr_role",
       "role": "director",
@@ -285,15 +297,7 @@
       "confidence": "high"
     },
     {
-      "source": "person:КАРИНА ДИМИТРОВА КАРАИВАНОВА-ГАНОЗОВА",
-      "target": "company:tr:175327305",
-      "kind": "tr_role",
-      "role": "director",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "official:nikolai-nenov-nenovski-8a3d4d",
+      "source": "official:nikolai-nenov-nenovski-d96a14",
       "target": "company:tr:202815436",
       "kind": "tr_role",
       "role": "director",

@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:shermin-dzhemal-ismail-0d8a5a",
+  "nodes": [
+    {
+      "id": "official:shermin-dzhemal-ismail-0d8a5a",
+      "type": "official",
+      "slug": "shermin-dzhemal-ismail-0d8a5a",
+      "label": "Шермин Джемал Исмаил",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Джебел"
+    },
+    {
+      "id": "company:tr:201441964",
+      "type": "company",
+      "label": "ДЕМИ  75",
+      "slug": null,
+      "uic": "201441964",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СУНАЙ МЮМЮН ИСМАИЛ",
+      "type": "person",
+      "label": "Сунай Мюмюн Исмаил"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:shermin-dzhemal-ismail-0d8a5a",
+      "target": "company:tr:201441964",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СУНАЙ МЮМЮН ИСМАИЛ",
+      "target": "company:tr:201441964",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СУНАЙ МЮМЮН ИСМАИЛ",
+      "target": "company:tr:201441964",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

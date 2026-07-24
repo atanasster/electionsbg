@@ -1,0 +1,139 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:emiliya-georgieva-manolova-9c47b8",
+  "nodes": [
+    {
+      "id": "official:emiliya-georgieva-manolova-9c47b8",
+      "type": "official",
+      "slug": "emiliya-georgieva-manolova-9c47b8",
+      "label": "Емилия Георгиева Манолова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000455806",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ АЛЕКО КОНСТАНТИНОВ - 1954 г. - ГР.ПЛОВДИВ",
+      "slug": null,
+      "uic": "000455806",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН ДИМИТРОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Иван Димитров Христов"
+    },
+    {
+      "id": "person:АНАХИД ВАХАН ПАРСЕХЯН",
+      "type": "person",
+      "label": "Анахид Вахан Парсехян"
+    },
+    {
+      "id": "person:НЕЛИ АНГЕЛОВА ЙОНДРОВА",
+      "type": "person",
+      "label": "Нели Ангелова Йондрова"
+    },
+    {
+      "id": "person:НИКОЛА ДИМИТРОВ КАЛЧЕВ",
+      "type": "person",
+      "label": "Никола Димитров Калчев"
+    },
+    {
+      "id": "person:ПЕТКО СЪБЧЕВ ПЕТКОВ",
+      "type": "person",
+      "label": "Петко Събчев Петков"
+    },
+    {
+      "id": "person:КРАСИМИРА ТОДОРОВА СТОЕВА",
+      "type": "person",
+      "label": "Красимира Тодорова Стоева"
+    },
+    {
+      "id": "person:ГЕНКА ТОДОРОВА НОЖАРОВА",
+      "type": "person",
+      "label": "Генка Тодорова Ножарова"
+    },
+    {
+      "id": "person:МАРИЯНА ХРИСТОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Марияна Христова Ангелова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emiliya-georgieva-manolova-9c47b8",
+      "target": "company:tr:000455806",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ ХРИСТОВ",
+      "target": "company:tr:000455806",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНАХИД ВАХАН ПАРСЕХЯН",
+      "target": "company:tr:000455806",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ АНГЕЛОВА ЙОНДРОВА",
+      "target": "company:tr:000455806",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ДИМИТРОВ КАЛЧЕВ",
+      "target": "company:tr:000455806",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО СЪБЧЕВ ПЕТКОВ",
+      "target": "company:tr:000455806",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ТОДОРОВА СТОЕВА",
+      "target": "company:tr:000455806",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕНКА ТОДОРОВА НОЖАРОВА",
+      "target": "company:tr:000455806",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА ХРИСТОВА АНГЕЛОВА",
+      "target": "company:tr:000455806",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:krasimir-georgiev-mihailov-622382",
+  "nodes": [
+    {
+      "id": "official:krasimir-georgiev-mihailov-622382",
+      "type": "official",
+      "slug": "krasimir-georgiev-mihailov-622382",
+      "label": "Красимир Георгиев Михайлов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204092959",
+      "type": "company",
+      "label": "КАНТОРА К ЕНД К",
+      "slug": null,
+      "uic": "204092959",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ КРАСИМИРОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Георги Красимиров Михайлов"
+    },
+    {
+      "id": "person:НИКОЛИНА КРАСИМИРОВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Николина  Красимирова Михайлова"
+    },
+    {
+      "id": "person:СИЛВИЯ ИВАНОВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Силвия Иванова Михайлова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krasimir-georgiev-mihailov-622382",
+      "target": "company:tr:204092959",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ КРАСИМИРОВ МИХАЙЛОВ",
+      "target": "company:tr:204092959",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛИНА КРАСИМИРОВА МИХАЙЛОВА",
+      "target": "company:tr:204092959",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ИВАНОВА МИХАЙЛОВА",
+      "target": "company:tr:204092959",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

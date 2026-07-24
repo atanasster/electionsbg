@@ -1,0 +1,75 @@
+[
+  {
+    "slug": "nebi-redzhep-bozov-fa6794",
+    "declarantName": "(unknown)",
+    "institution": "Сърница",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": null,
+    "entryNumber": "Г15462",
+    "controlHash": "7F2EBE94",
+    "sourceUrl": "https://register.cacbg.bg/2025/25DFF525-883E-444C-8080-D7AE02534FC5219656.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Сдружение с нестопанска цел \"ТОЛЕРАНТНОСТ\"",
+        "detail": null,
+        "location": "Член на управителния съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "nebi-redzhep-bozov-fa6794",
+    "declarantName": "Неби Реджеп Бозов",
+    "institution": "Сърница",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-28",
+    "entryNumber": "Г4600",
+    "controlHash": "E9503613",
+    "sourceUrl": "https://register.cacbg.bg/2025/25DFF525-883E-444C-8080-D7AE02534FC5207465.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 37946.038254858555,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Неби Реджеп Бозов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

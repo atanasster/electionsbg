@@ -1,0 +1,194 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:deriya-mehmed-uruch-782eca",
+  "nodes": [
+    {
+      "id": "official:deriya-mehmed-uruch-782eca",
+      "type": "official",
+      "slug": "deriya-mehmed-uruch-782eca",
+      "label": "Дерия Мехмед Уруч",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000014975",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ОТЕЦ ПАИСИЙ - 1931&quot;",
+      "slug": null,
+      "uic": "000014975",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МУСТАФА МУСТАФА ВЕЛИШАВ",
+      "type": "person",
+      "label": "Мустафа Мустафа Велишав"
+    },
+    {
+      "id": "person:МУСТАФА МУСТАФА ГЕТА",
+      "type": "person",
+      "label": "Мустафа Мустафа Гета"
+    },
+    {
+      "id": "person:ЕЛЕНА ИЛИЕВА КУЗМОВА",
+      "type": "person",
+      "label": "Елена Илиева Кузмова"
+    },
+    {
+      "id": "person:ИБРАИМ ИБРАИМ КАРААЛИ",
+      "type": "person",
+      "label": "Ибраим Ибраим Караали"
+    },
+    {
+      "id": "person:МЕХМЕД БЕКИР РУНТ",
+      "type": "person",
+      "label": "Мехмед Бекир Рунт"
+    },
+    {
+      "id": "person:АЛИ АЛИ БАБЕЧКИ",
+      "type": "person",
+      "label": "Али Али Бабечки"
+    },
+    {
+      "id": "person:ИБРАИМ БЕКИР РУНТ",
+      "type": "person",
+      "label": "Ибраим Бекир Рунт"
+    },
+    {
+      "id": "person:ЕМИНЕ АСАН ВРАЖЕЛИ",
+      "type": "person",
+      "label": "Емине Асан Вражели"
+    },
+    {
+      "id": "person:ФАТМЕ РЕДЖЕП МЕРСИМОВА",
+      "type": "person",
+      "label": "Фатме Реджеп Мерсимова"
+    },
+    {
+      "id": "person:МАРИЯ ГЕОРГИЕВА АВДЕВА",
+      "type": "person",
+      "label": "Мария Георгиева Авдева"
+    },
+    {
+      "id": "person:ЗАЙДЕ МУСТАФА ВЕЛИШАВ",
+      "type": "person",
+      "label": "Зайде Мустафа Велишав"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:deriya-mehmed-uruch-782eca",
+      "target": "company:tr:000014975",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:deriya-mehmed-uruch-782eca",
+      "target": "company:tr:000014975",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МУСТАФА МУСТАФА ВЕЛИШАВ",
+      "target": "company:tr:000014975",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МУСТАФА МУСТАФА ВЕЛИШАВ",
+      "target": "company:tr:000014975",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МУСТАФА МУСТАФА ГЕТА",
+      "target": "company:tr:000014975",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ИЛИЕВА КУЗМОВА",
+      "target": "company:tr:000014975",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИБРАИМ ИБРАИМ КАРААЛИ",
+      "target": "company:tr:000014975",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕХМЕД БЕКИР РУНТ",
+      "target": "company:tr:000014975",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛИ АЛИ БАБЕЧКИ",
+      "target": "company:tr:000014975",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИБРАИМ БЕКИР РУНТ",
+      "target": "company:tr:000014975",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИНЕ АСАН ВРАЖЕЛИ",
+      "target": "company:tr:000014975",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФАТМЕ РЕДЖЕП МЕРСИМОВА",
+      "target": "company:tr:000014975",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА АВДЕВА",
+      "target": "company:tr:000014975",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗАЙДЕ МУСТАФА ВЕЛИШАВ",
+      "target": "company:tr:000014975",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

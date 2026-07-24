@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:sebaidin-ruzhdin-feizula-5d74b0",
+  "nodes": [
+    {
+      "id": "official:sebaidin-ruzhdin-feizula-5d74b0",
+      "type": "official",
+      "slug": "sebaidin-ruzhdin-feizula-5d74b0",
+      "label": "Себайдин Руждин Фейзула",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Върбица"
+    },
+    {
+      "id": "company:tr:206051577",
+      "type": "company",
+      "label": "ДУДУ 2020",
+      "slug": null,
+      "uic": "206051577",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sebaidin-ruzhdin-feizula-5d74b0",
+      "target": "company:tr:206051577",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

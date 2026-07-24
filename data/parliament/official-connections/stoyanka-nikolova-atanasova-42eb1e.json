@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stoyanka-nikolova-atanasova-42eb1e",
+  "nodes": [
+    {
+      "id": "official:stoyanka-nikolova-atanasova-42eb1e",
+      "type": "official",
+      "slug": "stoyanka-nikolova-atanasova-42eb1e",
+      "label": "Стоянка Николова Атанасова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208319495",
+      "type": "company",
+      "label": "Том и Зара",
+      "slug": null,
+      "uic": "208319495",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАНКА СТОЯНОВА КОЛЕВА",
+      "type": "person",
+      "label": "Иванка Стоянова Колева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stoyanka-nikolova-atanasova-42eb1e",
+      "target": "company:tr:208319495",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stoyanka-nikolova-atanasova-42eb1e",
+      "target": "company:tr:208319495",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАНКА СТОЯНОВА КОЛЕВА",
+      "target": "company:tr:208319495",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА СТОЯНОВА КОЛЕВА",
+      "target": "company:tr:208319495",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

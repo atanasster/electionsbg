@@ -1,0 +1,134 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stanislava-ivanova-stefanova-4f5511",
+  "nodes": [
+    {
+      "id": "official:stanislava-ivanova-stefanova-4f5511",
+      "type": "official",
+      "slug": "stanislava-ivanova-stefanova-4f5511",
+      "label": "Станислава Иванова Стефанова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Добрич"
+    },
+    {
+      "id": "company:tr:207959695",
+      "type": "company",
+      "label": "Народно читалище &quot;Жътвари - 2024&quot;",
+      "slug": null,
+      "uic": "207959695",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАЯ ВАЛЕНТИНОВА БЪРДАРОВА",
+      "type": "person",
+      "label": "Мая Валентинова Бърдарова"
+    },
+    {
+      "id": "person:МИЛЕН ТОДОРОВ ДУЧЕВ",
+      "type": "person",
+      "label": "Милен Тодоров Дучев"
+    },
+    {
+      "id": "person:ИВЕЛИНА МИХАЙЛОВА БОЖИЛОВА",
+      "type": "person",
+      "label": "Ивелина Михайлова Божилова"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ СТОЯНОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Венцислав Стоянов Тодоров"
+    },
+    {
+      "id": "person:ПЕТЯ НИКОЛАЕВА НИКОВА",
+      "type": "person",
+      "label": "Петя Николаева Никова"
+    },
+    {
+      "id": "person:ВАНУШКА ЧЕРНЕВА КАЛИНОВА",
+      "type": "person",
+      "label": "Ванушка Чернева Калинова"
+    },
+    {
+      "id": "person:АНЕЛИЯ ХРИСТОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Анелия Христова Илиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stanislava-ivanova-stefanova-4f5511",
+      "target": "company:tr:207959695",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАЯ ВАЛЕНТИНОВА БЪРДАРОВА",
+      "target": "company:tr:207959695",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЯ ВАЛЕНТИНОВА БЪРДАРОВА",
+      "target": "company:tr:207959695",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН ТОДОРОВ ДУЧЕВ",
+      "target": "company:tr:207959695",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИНА МИХАЙЛОВА БОЖИЛОВА",
+      "target": "company:tr:207959695",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ СТОЯНОВ ТОДОРОВ",
+      "target": "company:tr:207959695",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ НИКОЛАЕВА НИКОВА",
+      "target": "company:tr:207959695",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНУШКА ЧЕРНЕВА КАЛИНОВА",
+      "target": "company:tr:207959695",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ ХРИСТОВА ИЛИЕВА",
+      "target": "company:tr:207959695",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

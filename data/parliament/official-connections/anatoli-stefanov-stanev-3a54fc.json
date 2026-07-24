@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:anatoli-stefanov-stanev-3a54fc",
+  "nodes": [
+    {
+      "id": "official:anatoli-stefanov-stanev-3a54fc",
+      "type": "official",
+      "slug": "anatoli-stefanov-stanev-3a54fc",
+      "label": "Анатоли Стефанов Станев",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205889819",
+      "type": "company",
+      "label": "СКАЙ КОРП ЕООД",
+      "slug": null,
+      "uic": "205889819",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:anatoli-stefanov-stanev-3a54fc",
+      "target": "company:tr:205889819",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

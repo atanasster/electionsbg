@@ -1,0 +1,186 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:maya-zaharieva-ivanova-8ff740",
+  "nodes": [
+    {
+      "id": "official:maya-zaharieva-ivanova-8ff740",
+      "type": "official",
+      "slug": "maya-zaharieva-ivanova-8ff740",
+      "label": "Мая Захариева Иванова",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Ново село"
+    },
+    {
+      "id": "company:tr:000153487",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ПРОБУДА - 1925&quot;",
+      "slug": null,
+      "uic": "000153487",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОРИСЛАВ ЛЮДМИЛОВ МИТРАШКОВ",
+      "type": "person",
+      "label": "Борислав Людмилов Митрашков"
+    },
+    {
+      "id": "person:ЕМИЛИЯ ГОШОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Емилия Гошова Георгиева"
+    },
+    {
+      "id": "person:ДОБРОМИРА ДАМЯНОВА ДИМЧЕВА",
+      "type": "person",
+      "label": "Добромира Дамянова Димчева"
+    },
+    {
+      "id": "person:АННА ЕВДОКИМОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Анна Евдокимова Василева"
+    },
+    {
+      "id": "person:ПЛАМКА ЛЮБОМИРОВА РАДОСЛАВОВА",
+      "type": "person",
+      "label": "Пламка Любомирова Радославова"
+    },
+    {
+      "id": "person:ПАВЛА ЦВЕТАНОВА ЦВЕТКОВА",
+      "type": "person",
+      "label": "Павла Цветанова Цветкова"
+    },
+    {
+      "id": "person:СИМОНА ГЕОРГИЕВА ПЕНЕВА",
+      "type": "person",
+      "label": "Симона Георгиева Пенева"
+    },
+    {
+      "id": "person:ВАЛЯ ЛЮДМИЛОВА КРАСИМИРОВА",
+      "type": "person",
+      "label": "Валя Людмилова Красимирова"
+    },
+    {
+      "id": "person:ВИОЛИН ФИДАНОВ ГОРАНОВ",
+      "type": "person",
+      "label": "Виолин Фиданов Горанов"
+    },
+    {
+      "id": "person:КРИСТИНА ПАВЛОВА КИРИЛОВА",
+      "type": "person",
+      "label": "Кристина Павлова Кирилова"
+    },
+    {
+      "id": "person:ВЕСЕЛИНА ДАФИНОВА РАКОВА",
+      "type": "person",
+      "label": "Веселина Дафинова Ракова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:maya-zaharieva-ivanova-8ff740",
+      "target": "company:tr:000153487",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОРИСЛАВ ЛЮДМИЛОВ МИТРАШКОВ",
+      "target": "company:tr:000153487",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ ГОШОВА ГЕОРГИЕВА",
+      "target": "company:tr:000153487",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРОМИРА ДАМЯНОВА ДИМЧЕВА",
+      "target": "company:tr:000153487",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА ЕВДОКИМОВА ВАСИЛЕВА",
+      "target": "company:tr:000153487",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМКА ЛЮБОМИРОВА РАДОСЛАВОВА",
+      "target": "company:tr:000153487",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛА ЦВЕТАНОВА ЦВЕТКОВА",
+      "target": "company:tr:000153487",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМОНА ГЕОРГИЕВА ПЕНЕВА",
+      "target": "company:tr:000153487",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ ГОШОВА ГЕОРГИЕВА",
+      "target": "company:tr:000153487",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЯ ЛЮДМИЛОВА КРАСИМИРОВА",
+      "target": "company:tr:000153487",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛИН ФИДАНОВ ГОРАНОВ",
+      "target": "company:tr:000153487",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИНА ПАВЛОВА КИРИЛОВА",
+      "target": "company:tr:000153487",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА ДАФИНОВА РАКОВА",
+      "target": "company:tr:000153487",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

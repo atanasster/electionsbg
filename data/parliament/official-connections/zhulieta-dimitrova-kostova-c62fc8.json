@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:zhulieta-dimitrova-kostova-c62fc8",
+  "nodes": [
+    {
+      "id": "official:zhulieta-dimitrova-kostova-c62fc8",
+      "type": "official",
+      "slug": "zhulieta-dimitrova-kostova-c62fc8",
+      "label": "Жулиета Димитрова Костова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Родопи"
+    },
+    {
+      "id": "company:tr:205824718",
+      "type": "company",
+      "label": "КОСТОВИ ТРЕЙД",
+      "slug": null,
+      "uic": "205824718",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТОШО КОСТОВ КОСТОВ",
+      "type": "person",
+      "label": "Тошо Костов Костов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zhulieta-dimitrova-kostova-c62fc8",
+      "target": "company:tr:205824718",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zhulieta-dimitrova-kostova-c62fc8",
+      "target": "company:tr:205824718",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТОШО КОСТОВ КОСТОВ",
+      "target": "company:tr:205824718",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

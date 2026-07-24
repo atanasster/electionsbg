@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tsvetan-petrov-mihailov-43283f",
+  "nodes": [
+    {
+      "id": "official:tsvetan-petrov-mihailov-43283f",
+      "type": "official",
+      "slug": "tsvetan-petrov-mihailov-43283f",
+      "label": "Цветан Петров Михайлов",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206604536",
+      "type": "company",
+      "label": "ТЕРСНАБ БГА",
+      "slug": null,
+      "uic": "206604536",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetan-petrov-mihailov-43283f",
+      "target": "company:tr:206604536",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tsvetan-petrov-mihailov-43283f",
+      "target": "company:tr:206604536",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

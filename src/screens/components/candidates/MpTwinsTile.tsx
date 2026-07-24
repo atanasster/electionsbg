@@ -5,10 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { Link } from "@/ux/Link";
 import { useMps } from "@/data/parliament/useMps";
 import { useMpSimilarity } from "@/data/parliament/votes/useMpSimilarity";
-import {
-  classifyPeer,
-  hasVotingTwins,
-} from "@/data/parliament/votes/similarityClass";
+import { hasVotingTwins } from "@/data/parliament/votes/similarityClass";
 import { useMpProfile } from "@/data/parliament/votes/useMpProfile";
 import { useCandidateUrlForVote } from "@/data/parliament/votes/useCandidateUrlForVote";
 import { useParliamentGroups } from "@/data/parliament/useParliamentGroups";
@@ -134,9 +131,6 @@ export const MpTwinsTile: FC<Props> = ({ name }) => {
     const party = partyOf(p.mpId);
     const peerName = nameOf(p.mpId);
     const color = colorForPartyShort(party) ?? "#94a3b8";
-    // Too few shared votes → the score is unreliable; amber-flag the overlap so a high-looking
-    // percentage over a handful of votes isn't taken at face value.
-    const unreliable = classifyPeer(p.score, p.overlap) === "unreliable";
     return (
       <li key={p.mpId}>
         <Link
@@ -153,17 +147,7 @@ export const MpTwinsTile: FC<Props> = ({ name }) => {
                   {labelForPartyShort(party) || party}
                 </span>
               )}
-              <span
-                className={
-                  unreliable ? "text-amber-700 dark:text-amber-500" : undefined
-                }
-                title={
-                  unreliable
-                    ? t("similarity_low_overlap") ||
-                      "Few shared votes — similarity is unreliable"
-                    : undefined
-                }
-              >
+              <span>
                 {t("similarity_overlap") || "Shared items"}: {p.overlap}
               </span>
             </div>

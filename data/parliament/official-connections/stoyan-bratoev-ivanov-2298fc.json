@@ -1,0 +1,124 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stoyan-bratoev-ivanov-2298fc",
+  "nodes": [
+    {
+      "id": "official:stoyan-bratoev-ivanov-2298fc",
+      "type": "official",
+      "slug": "stoyan-bratoev-ivanov-2298fc",
+      "label": "Стоян Братоев Иванов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000632256",
+      "type": "company",
+      "label": "МЕТРОПОЛИТЕН",
+      "slug": null,
+      "uic": "000632256",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ФАНТИНА РАНГЕЛОВА РАНГЕЛОВА",
+      "type": "person",
+      "label": "Фантина Рангелова Рангелова"
+    },
+    {
+      "id": "person:НИКОЛАЙ НАЙДЕНОВ НАЙДЕНОВ",
+      "type": "person",
+      "label": "Николай Найденов Найденов"
+    },
+    {
+      "id": "person:ПЕТКО ДОБРЕВ ПЕТКОВ",
+      "type": "person",
+      "label": "Петко Добрев Петков"
+    },
+    {
+      "id": "person:ДИЛЯНА ЦВЯТКОВА ИВАНОВА",
+      "type": "person",
+      "label": "Диляна Цвяткова Иванова"
+    },
+    {
+      "id": "person:КОНСТАНТИН ДИМИТРОВ АЗОВ",
+      "type": "person",
+      "label": "Константин Димитров Азов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stoyan-bratoev-ivanov-2298fc",
+      "target": "company:tr:000632256",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stoyan-bratoev-ivanov-2298fc",
+      "target": "company:tr:000632256",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ФАНТИНА РАНГЕЛОВА РАНГЕЛОВА",
+      "target": "company:tr:000632256",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ НАЙДЕНОВ НАЙДЕНОВ",
+      "target": "company:tr:000632256",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ НАЙДЕНОВ НАЙДЕНОВ",
+      "target": "company:tr:000632256",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО ДОБРЕВ ПЕТКОВ",
+      "target": "company:tr:000632256",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЛЯНА ЦВЯТКОВА ИВАНОВА",
+      "target": "company:tr:000632256",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН ДИМИТРОВ АЗОВ",
+      "target": "company:tr:000632256",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЛЯНА ЦВЯТКОВА ИВАНОВА",
+      "target": "company:tr:000632256",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

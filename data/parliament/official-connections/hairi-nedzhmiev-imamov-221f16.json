@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hairi-nedzhmiev-imamov-221f16",
+  "nodes": [
+    {
+      "id": "official:hairi-nedzhmiev-imamov-221f16",
+      "type": "official",
+      "slug": "hairi-nedzhmiev-imamov-221f16",
+      "label": "Хайри Неджмиев Имамов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Мадан"
+    },
+    {
+      "id": "company:tr:206380604",
+      "type": "company",
+      "label": "РОДОПИ - МЕС",
+      "slug": null,
+      "uic": "206380604",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ШЕБАН ХИЛМИЕВ БИЛЯНОВ",
+      "type": "person",
+      "label": "Шебан Хилмиев Билянов"
+    },
+    {
+      "id": "person:ХИЛМИ ШЕБАНОВ БИЛЯНОВ",
+      "type": "person",
+      "label": "Хилми Шебанов Билянов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hairi-nedzhmiev-imamov-221f16",
+      "target": "company:tr:206380604",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hairi-nedzhmiev-imamov-221f16",
+      "target": "company:tr:206380604",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ШЕБАН ХИЛМИЕВ БИЛЯНОВ",
+      "target": "company:tr:206380604",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ШЕБАН ХИЛМИЕВ БИЛЯНОВ",
+      "target": "company:tr:206380604",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХИЛМИ ШЕБАНОВ БИЛЯНОВ",
+      "target": "company:tr:206380604",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

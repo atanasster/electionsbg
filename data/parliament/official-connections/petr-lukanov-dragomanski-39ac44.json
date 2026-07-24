@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:petr-lukanov-dragomanski-39ac44",
+  "nodes": [
+    {
+      "id": "official:petr-lukanov-dragomanski-39ac44",
+      "type": "official",
+      "slug": "petr-lukanov-dragomanski-39ac44",
+      "label": "Петър Луканов Драгомански",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Чупрене"
+    },
+    {
+      "id": "company:tr:208452010",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ ЗДРАВЕЦ ЧУПРЕНЕ",
+      "slug": null,
+      "uic": "208452010",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ РУМЕНОВ НИКОЛOВ",
+      "type": "person",
+      "label": "Николай Руменов Николoв"
+    },
+    {
+      "id": "person:ЛЮБОМИР ПЕШКОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Любомир Пешков Петров"
+    },
+    {
+      "id": "person:АНГЕЛ ВАНЬОВ МИЛЕНКОВСКИ",
+      "type": "person",
+      "label": "Ангел Ваньов Миленковски"
+    },
+    {
+      "id": "person:ИВАЙЛО БОЙКОВ МИТЕВ",
+      "type": "person",
+      "label": "Ивайло Бойков Митев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petr-lukanov-dragomanski-39ac44",
+      "target": "company:tr:208452010",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ РУМЕНОВ НИКОЛOВ",
+      "target": "company:tr:208452010",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ РУМЕНОВ НИКОЛOВ",
+      "target": "company:tr:208452010",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ПЕШКОВ ПЕТРОВ",
+      "target": "company:tr:208452010",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ВАНЬОВ МИЛЕНКОВСКИ",
+      "target": "company:tr:208452010",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО БОЙКОВ МИТЕВ",
+      "target": "company:tr:208452010",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

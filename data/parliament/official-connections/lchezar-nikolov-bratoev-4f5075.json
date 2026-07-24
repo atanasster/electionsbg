@@ -1,0 +1,93 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:lchezar-nikolov-bratoev-4f5075",
+  "nodes": [
+    {
+      "id": "official:lchezar-nikolov-bratoev-4f5075",
+      "type": "official",
+      "slug": "lchezar-nikolov-bratoev-4f5075",
+      "label": "Лъчезар Николов Братоев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Аврен"
+    },
+    {
+      "id": "company:tr:201007882",
+      "type": "company",
+      "label": "Принцес пропъртис ООД",
+      "slug": null,
+      "uic": "201007882",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕСЕЛИНА ЯНИКОВА ЯНКОВА",
+      "type": "person",
+      "label": "Веселина Яникова Янкова"
+    },
+    {
+      "id": "person:ВЕСЕЛИНА ЯНИКОВА БРАТОЕВА",
+      "type": "person",
+      "label": "Веселина Яникова Братоева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lchezar-nikolov-bratoev-4f5075",
+      "target": "company:tr:201007882",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:lchezar-nikolov-bratoev-4f5075",
+      "target": "company:tr:201007882",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:lchezar-nikolov-bratoev-4f5075",
+      "target": "company:tr:201007882",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА ЯНИКОВА ЯНКОВА",
+      "target": "company:tr:201007882",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА ЯНИКОВА ЯНКОВА",
+      "target": "company:tr:201007882",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА ЯНИКОВА БРАТОЕВА",
+      "target": "company:tr:201007882",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИНА ЯНИКОВА БРАТОЕВА",
+      "target": "company:tr:201007882",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:grigor-todorov-todorov-858b3e",
+  "nodes": [
+    {
+      "id": "official:grigor-todorov-todorov-858b3e",
+      "type": "official",
+      "slug": "grigor-todorov-todorov-858b3e",
+      "label": "Григор Тодоров Тодоров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Елин Пелин"
+    },
+    {
+      "id": "company:tr:207691847",
+      "type": "company",
+      "label": "ДЖИ ЕНД ДИ ТРЕЙДИНГС",
+      "slug": null,
+      "uic": "207691847",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОРДАН ИВАНОВ ВЕЛИКОВ",
+      "type": "person",
+      "label": "Йордан Иванов Великов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:grigor-todorov-todorov-858b3e",
+      "target": "company:tr:207691847",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:grigor-todorov-todorov-858b3e",
+      "target": "company:tr:207691847",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАН ИВАНОВ ВЕЛИКОВ",
+      "target": "company:tr:207691847",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

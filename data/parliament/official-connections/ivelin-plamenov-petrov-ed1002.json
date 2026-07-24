@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivelin-plamenov-petrov-ed1002",
+  "nodes": [
+    {
+      "id": "official:ivelin-plamenov-petrov-ed1002",
+      "type": "official",
+      "slug": "ivelin-plamenov-petrov-ed1002",
+      "label": "Ивелин Пламенов Петров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Свищов"
+    },
+    {
+      "id": "company:tr:208825483",
+      "type": "company",
+      "label": "СЕО  ЕКСПЕРТ",
+      "slug": null,
+      "uic": "208825483",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivelin-plamenov-petrov-ed1002",
+      "target": "company:tr:208825483",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivelin-plamenov-petrov-ed1002",
+      "target": "company:tr:208825483",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

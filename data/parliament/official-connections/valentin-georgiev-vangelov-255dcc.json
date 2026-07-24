@@ -1,0 +1,53 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:valentin-georgiev-vangelov-255dcc",
+  "nodes": [
+    {
+      "id": "official:valentin-georgiev-vangelov-255dcc",
+      "type": "official",
+      "slug": "valentin-georgiev-vangelov-255dcc",
+      "label": "Валентин Георгиев Вангелов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Раднево"
+    },
+    {
+      "id": "company:tr:203717692",
+      "type": "company",
+      "label": "ТЕРА КРЕДИТ ВВ ЕООД",
+      "slug": null,
+      "uic": "203717692",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:123624369",
+      "type": "company",
+      "label": "ВАЛМАР - ВАЛЕНТИН ВАНГЕЛОВ ЕООД",
+      "slug": null,
+      "uic": "123624369",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valentin-georgiev-vangelov-255dcc",
+      "target": "company:tr:203717692",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:valentin-georgiev-vangelov-255dcc",
+      "target": "company:tr:123624369",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

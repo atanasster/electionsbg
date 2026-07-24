@@ -1,0 +1,73 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:marzhena-lutsiya-rish-panova-2d1e78",
+  "nodes": [
+    {
+      "id": "official:marzhena-lutsiya-rish-panova-2d1e78",
+      "type": "official",
+      "slug": "marzhena-lutsiya-rish-panova-2d1e78",
+      "label": "Маржена Луция Риш-Панова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000689182",
+      "type": "company",
+      "label": "ПЪРВА СПЕЦИАЛИЗИРАНА АКУШЕРО-ГИНЕКОЛОГИЧНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ &quot;СВЕТА СОФИЯ",
+      "slug": null,
+      "uic": "000689182",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:konstantin-ivanov-malenov-9e853e",
+      "type": "official",
+      "slug": "konstantin-ivanov-malenov-9e853e",
+      "label": "Константин Иванов Маленов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:РАЛИЦА ВИЛСОН ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Ралица Вилсон Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:marzhena-lutsiya-rish-panova-2d1e78",
+      "target": "company:tr:000689182",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:konstantin-ivanov-malenov-9e853e",
+      "target": "company:tr:000689182",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:konstantin-ivanov-malenov-9e853e",
+      "target": "company:tr:000689182",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАЛИЦА ВИЛСОН ГЕОРГИЕВА",
+      "target": "company:tr:000689182",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

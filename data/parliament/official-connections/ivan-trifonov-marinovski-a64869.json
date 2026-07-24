@@ -1,0 +1,225 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-trifonov-marinovski-a64869",
+  "nodes": [
+    {
+      "id": "official:ivan-trifonov-marinovski-a64869",
+      "type": "official",
+      "slug": "ivan-trifonov-marinovski-a64869",
+      "label": "Иван Трифонов Мариновски",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:114544283",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ НА ЛОВЦИТЕ И РИБОЛОВЦИТЕ - ОБЩИНА ДОЛНИ ДЪБНИК",
+      "slug": null,
+      "uic": "114544283",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТОДОР ПЕТКОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Тодор Петков Йорданов"
+    },
+    {
+      "id": "person:ДИМИТЪР ПЛАМЕНОВ ЛАЗАРОВ",
+      "type": "person",
+      "label": "Димитър Пламенов Лазаров"
+    },
+    {
+      "id": "person:ТРИФОН ИВАНОВ МАРИНОВСКИ",
+      "type": "person",
+      "label": "Трифон Иванов Мариновски"
+    },
+    {
+      "id": "person:ИВАН ВАСИЛЕВ МАРКОВ",
+      "type": "person",
+      "label": "Иван Василев Марков"
+    },
+    {
+      "id": "person:ВАСКО ЦОНКОВ НАЙДЕНОВ",
+      "type": "person",
+      "label": "Васко Цонков Найденов"
+    },
+    {
+      "id": "person:ПЕТЬО БОГДАНОВ БРАТАНОВ",
+      "type": "person",
+      "label": "Петьо Богданов Братанов"
+    },
+    {
+      "id": "person:МАРИН ВАЛЕНТИНОВ НЕШКОВ",
+      "type": "person",
+      "label": "Марин Валентинов Нешков"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ГЕОРГИЕВ АЛРЕКСАНДРОВ",
+      "type": "person",
+      "label": "Александър Георгиев Алрександров"
+    },
+    {
+      "id": "person:ИВАН СТОЯНОВ ДОКОВСКИ",
+      "type": "person",
+      "label": "Иван Стоянов Доковски"
+    },
+    {
+      "id": "person:НИКОЛАЙ ДИМИТРОВ ПАПАРКОВ",
+      "type": "person",
+      "label": "Николай Димитров Папарков"
+    },
+    {
+      "id": "person:ГЕОРГИ АТАНАСОВ ИВАНОВ",
+      "type": "person",
+      "label": "Георги Атанасов Иванов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ГЕООРГИЕВ АЛЕКСАНДРОВ",
+      "type": "person",
+      "label": "Александър Геооргиев Александров"
+    },
+    {
+      "id": "person:ПЛАМЕН ДИЛЯНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Пламен Дилянов Стоянов"
+    },
+    {
+      "id": "person:ПЕТЪР ЛЪЧЕЗАРОВ КОВАЧЕВ",
+      "type": "person",
+      "label": "Петър Лъчезаров Ковачев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-trifonov-marinovski-a64869",
+      "target": "company:tr:114544283",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТОДОР ПЕТКОВ ЙОРДАНОВ",
+      "target": "company:tr:114544283",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ПЛАМЕНОВ ЛАЗАРОВ",
+      "target": "company:tr:114544283",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТРИФОН ИВАНОВ МАРИНОВСКИ",
+      "target": "company:tr:114544283",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ВАСИЛЕВ МАРКОВ",
+      "target": "company:tr:114544283",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСКО ЦОНКОВ НАЙДЕНОВ",
+      "target": "company:tr:114544283",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЬО БОГДАНОВ БРАТАНОВ",
+      "target": "company:tr:114544283",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН ВАЛЕНТИНОВ НЕШКОВ",
+      "target": "company:tr:114544283",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ГЕОРГИЕВ АЛРЕКСАНДРОВ",
+      "target": "company:tr:114544283",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН СТОЯНОВ ДОКОВСКИ",
+      "target": "company:tr:114544283",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЬО БОГДАНОВ БРАТАНОВ",
+      "target": "company:tr:114544283",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДИМИТРОВ ПАПАРКОВ",
+      "target": "company:tr:114544283",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ АТАНАСОВ ИВАНОВ",
+      "target": "company:tr:114544283",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ГЕООРГИЕВ АЛЕКСАНДРОВ",
+      "target": "company:tr:114544283",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ДИЛЯНОВ СТОЯНОВ",
+      "target": "company:tr:114544283",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ЛЪЧЕЗАРОВ КОВАЧЕВ",
+      "target": "company:tr:114544283",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

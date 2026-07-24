@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-lazarov-penev-00d13c",
+  "nodes": [
+    {
+      "id": "official:georgi-lazarov-penev-00d13c",
+      "type": "official",
+      "slug": "georgi-lazarov-penev-00d13c",
+      "label": "Георги Лазаров Пенев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Септември"
+    },
+    {
+      "id": "company:tr:208429950",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ С НЕСТОПАНСКА ЦЕЛ В ЧАСТНА ПОЛЗА \"ГОРСКИ КЪТ\"",
+      "slug": null,
+      "uic": "208429950",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИЛИЯ ТОДОРОВ МАНЧЕВ",
+      "type": "person",
+      "label": "Илия Тодоров Манчев"
+    },
+    {
+      "id": "person:ВАСКО СТОЯНОВ КЪНЕВ",
+      "type": "person",
+      "label": "Васко Стоянов Кънев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-lazarov-penev-00d13c",
+      "target": "company:tr:208429950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИЛИЯ ТОДОРОВ МАНЧЕВ",
+      "target": "company:tr:208429950",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ТОДОРОВ МАНЧЕВ",
+      "target": "company:tr:208429950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСКО СТОЯНОВ КЪНЕВ",
+      "target": "company:tr:208429950",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

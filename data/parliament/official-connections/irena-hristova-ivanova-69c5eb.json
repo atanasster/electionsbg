@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:irena-hristova-ivanova-69c5eb",
+  "nodes": [
+    {
+      "id": "official:irena-hristova-ivanova-69c5eb",
+      "type": "official",
+      "slug": "irena-hristova-ivanova-69c5eb",
+      "label": "Ирена Христова Иванова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204726502",
+      "type": "company",
+      "label": "ГЛОБАЛ ЛОГИСТИК ДК",
+      "slug": null,
+      "uic": "204726502",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БАЙРАМ БУЛДУК",
+      "type": "person",
+      "label": "Байрам Булдук"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:irena-hristova-ivanova-69c5eb",
+      "target": "company:tr:204726502",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:irena-hristova-ivanova-69c5eb",
+      "target": "company:tr:204726502",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БАЙРАМ БУЛДУК",
+      "target": "company:tr:204726502",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БАЙРАМ БУЛДУК",
+      "target": "company:tr:204726502",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

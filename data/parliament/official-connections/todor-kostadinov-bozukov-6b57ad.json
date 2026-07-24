@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:todor-kostadinov-bozukov-6b57ad",
+  "nodes": [
+    {
+      "id": "official:todor-kostadinov-bozukov-6b57ad",
+      "type": "official",
+      "slug": "todor-kostadinov-bozukov-6b57ad",
+      "label": "Тодор Костадинов Бозуков",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175844780",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;АСОЦИАЦИЯ ЗА РАЗВИТИЕ НА ЧЕПЕЛАРЕ И РОДОПИТЕ&quot;",
+      "slug": null,
+      "uic": "175844780",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОГДАНА ГЕОРГИЕВА СТОЙКОВА",
+      "type": "person",
+      "label": "Богдана Георгиева Стойкова"
+    },
+    {
+      "id": "person:АДРИАНА ВЕСЕЛИНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Адриана Веселинова Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:todor-kostadinov-bozukov-6b57ad",
+      "target": "company:tr:175844780",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОГДАНА ГЕОРГИЕВА СТОЙКОВА",
+      "target": "company:tr:175844780",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОГДАНА ГЕОРГИЕВА СТОЙКОВА",
+      "target": "company:tr:175844780",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АДРИАНА ВЕСЕЛИНОВА ИВАНОВА",
+      "target": "company:tr:175844780",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОГДАНА ГЕОРГИЕВА СТОЙКОВА",
+      "target": "company:tr:175844780",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

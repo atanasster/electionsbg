@@ -1,0 +1,168 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:naiden-lyubomirov-prahov-1cec5e",
+  "nodes": [
+    {
+      "id": "official:naiden-lyubomirov-prahov-1cec5e",
+      "type": "official",
+      "slug": "naiden-lyubomirov-prahov-1cec5e",
+      "label": "Найден Любомиров Прахов",
+      "tier": "executive",
+      "role": "cultural_institute",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207502107",
+      "type": "company",
+      "label": "МОРСКО НАУЧНО ОБЩЕСТВО",
+      "slug": null,
+      "uic": "207502107",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОЯН КИРИЛОВ МЕДНИКАРОВ",
+      "type": "person",
+      "label": "Боян Кирилов Медникаров"
+    },
+    {
+      "id": "person:СВЕТОСЛАВ ЖИВКОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Светослав Живков Георгиев"
+    },
+    {
+      "id": "person:МИЛЕН ИВАНОВ БАЛТОВ",
+      "type": "person",
+      "label": "Милен Иванов Балтов"
+    },
+    {
+      "id": "person:ДОБРИ ЖЕЛЕВ ЯРКОВ",
+      "type": "person",
+      "label": "Добри Желев Ярков"
+    },
+    {
+      "id": "person:НИКОЛАЙ ЕВСТАТИЕВ МАРКОВ",
+      "type": "person",
+      "label": "Николай Евстатиев Марков"
+    },
+    {
+      "id": "person:ЕЛИЦА ПЕТРОВА ПЕТРОВА-ПАВЛОВА",
+      "type": "person",
+      "label": "Елица Петрова Петрова-Павлова"
+    },
+    {
+      "id": "person:КАЛИН СПАСОВ КАЛИНОВ",
+      "type": "person",
+      "label": "Калин Спасов Калинов"
+    },
+    {
+      "id": "person:ЖЕЛЯЗКО ДИМИТРОВ ЖЕЛЯЗКОВ",
+      "type": "person",
+      "label": "Желязко Димитров Желязков"
+    },
+    {
+      "id": "person:ДИМИТЪР ИВАНОВ РАЙКОВ",
+      "type": "person",
+      "label": "Димитър Иванов Райков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:naiden-lyubomirov-prahov-1cec5e",
+      "target": "company:tr:207502107",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОЯН КИРИЛОВ МЕДНИКАРОВ",
+      "target": "company:tr:207502107",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯН КИРИЛОВ МЕДНИКАРОВ",
+      "target": "company:tr:207502107",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ЖИВКОВ ГЕОРГИЕВ",
+      "target": "company:tr:207502107",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН ИВАНОВ БАЛТОВ",
+      "target": "company:tr:207502107",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИ ЖЕЛЕВ ЯРКОВ",
+      "target": "company:tr:207502107",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЕВСТАТИЕВ МАРКОВ",
+      "target": "company:tr:207502107",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЦА ПЕТРОВА ПЕТРОВА-ПАВЛОВА",
+      "target": "company:tr:207502107",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН СПАСОВ КАЛИНОВ",
+      "target": "company:tr:207502107",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕЛЯЗКО ДИМИТРОВ ЖЕЛЯЗКОВ",
+      "target": "company:tr:207502107",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ИВАНОВ РАЙКОВ",
+      "target": "company:tr:207502107",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН СПАСОВ КАЛИНОВ",
+      "target": "company:tr:207502107",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

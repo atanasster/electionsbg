@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-danielov-tsvetanov-1b55d6",
+  "nodes": [
+    {
+      "id": "official:nikolai-danielov-tsvetanov-1b55d6",
+      "type": "official",
+      "slug": "nikolai-danielov-tsvetanov-1b55d6",
+      "label": "Николай Даниелов Цветанов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Белоградчик"
+    },
+    {
+      "id": "company:tr:206707212",
+      "type": "company",
+      "label": "НИК АУТО 91",
+      "slug": null,
+      "uic": "206707212",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-danielov-tsvetanov-1b55d6",
+      "target": "company:tr:206707212",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-danielov-tsvetanov-1b55d6",
+      "target": "company:tr:206707212",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

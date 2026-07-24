@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iliyan-marinov-nedev-32e46f",
+  "nodes": [
+    {
+      "id": "official:iliyan-marinov-nedev-32e46f",
+      "type": "official",
+      "slug": "iliyan-marinov-nedev-32e46f",
+      "label": "Илиян Маринов Недев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:104703627",
+      "type": "company",
+      "label": "Илия Стойков",
+      "slug": null,
+      "uic": "104703627",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДРАГОМИР ИВАНОВ ГРИГОРОВ",
+      "type": "person",
+      "label": "Драгомир Иванов Григоров"
+    },
+    {
+      "id": "person:ДИНКО ВАСИЛЕВ КЕЧЕВ",
+      "type": "person",
+      "label": "Динко Василев Кечев"
+    },
+    {
+      "id": "person:СТЕФАН ХРИСТОВ КИНОВ",
+      "type": "person",
+      "label": "Стефан Христов Кинов"
+    },
+    {
+      "id": "person:ЕМИЛ БОЯНОВ КЪЛЧИШКОВ",
+      "type": "person",
+      "label": "Емил Боянов Кълчишков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iliyan-marinov-nedev-32e46f",
+      "target": "company:tr:104703627",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДРАГОМИР ИВАНОВ ГРИГОРОВ",
+      "target": "company:tr:104703627",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГОМИР ИВАНОВ ГРИГОРОВ",
+      "target": "company:tr:104703627",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИНКО ВАСИЛЕВ КЕЧЕВ",
+      "target": "company:tr:104703627",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ХРИСТОВ КИНОВ",
+      "target": "company:tr:104703627",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ БОЯНОВ КЪЛЧИШКОВ",
+      "target": "company:tr:104703627",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

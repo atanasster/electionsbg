@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:anton-evgeniev-zhivkov-c5ab31",
+  "nodes": [
+    {
+      "id": "official:anton-evgeniev-zhivkov-c5ab31",
+      "type": "official",
+      "slug": "anton-evgeniev-zhivkov-c5ab31",
+      "label": "Антон Евгениев Живков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175213248",
+      "type": "company",
+      "label": "\"Ай Кю Революшън\" ООД",
+      "slug": null,
+      "uic": "175213248",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:anton-evgeniev-zhivkov-c5ab31",
+      "target": "company:tr:175213248",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

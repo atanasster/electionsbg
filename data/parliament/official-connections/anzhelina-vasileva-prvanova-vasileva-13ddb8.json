@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:anzhelina-vasileva-prvanova-vasileva-13ddb8",
+  "nodes": [
+    {
+      "id": "official:anzhelina-vasileva-prvanova-vasileva-13ddb8",
+      "type": "official",
+      "slug": "anzhelina-vasileva-prvanova-vasileva-13ddb8",
+      "label": "Анжелина Василева Първанова-Василева",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200878377",
+      "type": "company",
+      "label": "\"ПАНЕСИ\" ЕООД",
+      "slug": null,
+      "uic": "200878377",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:anzhelina-vasileva-prvanova-vasileva-13ddb8",
+      "target": "company:tr:200878377",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

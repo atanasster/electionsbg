@@ -1,6 +1,198 @@
 [
   {
     "slug": "eli-nikolaeva-stefanova-9e6f8b",
+    "declarantName": "(unknown)",
+    "institution": "Агенция \"Митници\"",
+    "positionTitle": "Директор на дирекция",
+    "category": "revenue_agency",
+    "declarationYear": 2025,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2025-07-03",
+    "entryNumber": "Г15307",
+    "controlHash": "1A06F3FC",
+    "sourceUrl": "https://register.cacbg.bg/2025/2C0A1072-0E7E-44E8-BAC2-0BFD8881F0BD219168.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "security",
+        "description": "ФИНАНСОВ ЛИЗИНГ",
+        "detail": "ЕЛИ НИКОЛАЕВА СТЕФАНОВА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "38045",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": null,
+        "isSpouse": false,
+        "legalBasis": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "eli-nikolaeva-stefanova-9e6f8b",
+    "declarantName": "ЕЛИ НИКОЛАЕВА СТЕФАНОВА",
+    "institution": "Агенция \"Митници\"",
+    "positionTitle": "Директор на дирекция",
+    "category": "revenue_agency",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г6057",
+    "controlHash": "EBD1E847",
+    "sourceUrl": "https://register.cacbg.bg/2025/2C0A1072-0E7E-44E8-BAC2-0BFD8881F0BD209004.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 45831.69293854783,
+        "amountEurSpouse": 24384.53239801005
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "СУЗИКИ ВИТАРА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 61590,
+        "valueEur": 31490.466962875096,
+        "holderName": "ВЕНЦИСЛАВ ДОНЧЕВ СТЕФАНОВ",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13011,
+        "valueEur": 6652.418666243999,
+        "holderName": "ВЕНЦИСЛАВ ДОНЧЕВ СТЕФАНОВ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "НИСАН ДЖУК",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      }
+    ]
+  },
+  {
+    "slug": "eli-nikolaeva-stefanova-9e6f8b",
+    "declarantName": "ЕЛИ НИКОЛАЕВА СТЕФАНОВА",
+    "institution": "Агенция \"Митници\"",
+    "positionTitle": "Директор на дирекция",
+    "category": "revenue_agency",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-08",
+    "entryNumber": "Г9491",
+    "controlHash": "F7A8E175",
+    "sourceUrl": "https://register.cacbg.bg/2024/2C0A1072-0E7E-44E8-BAC2-0BFD8881F0BD191146.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 42163.684982846156,
+        "amountEurSpouse": 17917.712684640283
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14010,
+        "valueEur": 7163.199255559021,
+        "holderName": "ВЕНЦИСЛАВ ДОНЧЕВ СТЕФАНОВ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14500,
+        "valueEur": 7413.732277345168,
+        "holderName": "ЕЛИ НИКОЛАЕВА СТЕФАНОВА",
+        "isSpouse": false,
+        "legalBasis": "КРЕДИТНА КАРТА",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ФИННСВ ЛИЗИНГ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 44828,
+        "valueEur": 22920.192450264083,
+        "holderName": "ЕЛИ НИКОЛАЕВА СТЕФАНОВА",
+        "isSpouse": false,
+        "legalBasis": "ФИНАНСОВ ЛИЗИНГ",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "eli-nikolaeva-stefanova-9e6f8b",
     "declarantName": "Ели Николаева Стефанова",
     "institution": "Агенция \"Митници\"",
     "positionTitle": "Директор на дирекция",

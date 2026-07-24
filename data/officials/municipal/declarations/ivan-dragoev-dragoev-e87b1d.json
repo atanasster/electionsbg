@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "ivan-dragoev-dragoev-e87b1d",
+    "declarantName": "Иван Драгоев Драгоев",
+    "institution": "Ямбол",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г7401",
+    "controlHash": "D7670A0B",
+    "sourceUrl": "https://register.cacbg.bg/2025/5979768E-5BC8-447C-9338-BB148E683D99210389.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дружествен дял",
+        "shareSize": "50%",
+        "companyName": "Алва сървисис ООД",
+        "registeredOffice": "Ямбол",
+        "valueEur": 2.5564594059810926,
+        "holderName": "Иван Драгоев Драгоев",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "itemType": "дружествен дял",
+        "shareSize": "50%",
+        "companyName": "Алва сървисис ООД",
+        "registeredOffice": "Ямбол",
+        "valueEur": 2.5564594059810926,
+        "holderName": "Веселина Колева Драгоева",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7318.120695561475,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 3172.0548309413393,
+        "amountEurSpouse": 5263.74991691507
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Веселина Колева Драгоева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 28000,
+        "valueEur": 28632.345346988237,
+        "holderName": "Веселина Колева Драгоева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      }
+    ],
+    "events": []
+  }
+]

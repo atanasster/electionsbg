@@ -1,0 +1,51 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-dobrev-iliev-34ac0b",
+  "nodes": [
+    {
+      "id": "official:ivan-dobrev-iliev-34ac0b",
+      "type": "official",
+      "slug": "ivan-dobrev-iliev-34ac0b",
+      "label": "Иван Добрев Илиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кърджали"
+    },
+    {
+      "id": "company:tr:203181198",
+      "type": "company",
+      "label": "Студио Интерра",
+      "slug": null,
+      "uic": "203181198",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-dobrev-iliev-34ac0b",
+      "target": "company:tr:203181198",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivan-dobrev-iliev-34ac0b",
+      "target": "company:tr:203181198",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-dobrev-iliev-34ac0b",
+      "target": "company:tr:203181198",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

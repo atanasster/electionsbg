@@ -1,0 +1,117 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ventsislav-lyudvikov-pavlov-61c49b",
+  "nodes": [
+    {
+      "id": "official:ventsislav-lyudvikov-pavlov-61c49b",
+      "type": "official",
+      "slug": "ventsislav-lyudvikov-pavlov-61c49b",
+      "label": "Венцислав Людвиков Павлов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Калояново"
+    },
+    {
+      "id": "company:tr:115641753",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ-ЖИТНИЦА",
+      "slug": null,
+      "uic": "115641753",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:frants-pavlov-selimov-54eec4",
+      "type": "official",
+      "slug": "frants-pavlov-selimov-54eec4",
+      "label": "Франц Павлов Селимов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Калояново"
+    },
+    {
+      "id": "person:ПЕТЪР ИВАНОВ ГАЙДАДЖИЙСКИ",
+      "type": "person",
+      "label": "Петър Иванов Гайдаджийски"
+    },
+    {
+      "id": "person:АТАНАС ИВАНОВ АНТОНОВ",
+      "type": "person",
+      "label": "Атанас Иванов Антонов"
+    },
+    {
+      "id": "person:МИЛКО АТАНАСОВ БОДУРСКИ",
+      "type": "person",
+      "label": "Милко Атанасов Бодурски"
+    },
+    {
+      "id": "person:СТЕФАН ЛЮБЧЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Стефан Любчев Иванов"
+    },
+    {
+      "id": "person:ПЛАМЕН ЙОРДАНОВ НАНОВ",
+      "type": "person",
+      "label": "Пламен Йорданов Нанов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ventsislav-lyudvikov-pavlov-61c49b",
+      "target": "company:tr:115641753",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:frants-pavlov-selimov-54eec4",
+      "target": "company:tr:115641753",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР ИВАНОВ ГАЙДАДЖИЙСКИ",
+      "target": "company:tr:115641753",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ИВАНОВ АНТОНОВ",
+      "target": "company:tr:115641753",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКО АТАНАСОВ БОДУРСКИ",
+      "target": "company:tr:115641753",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ЛЮБЧЕВ ИВАНОВ",
+      "target": "company:tr:115641753",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ЙОРДАНОВ НАНОВ",
+      "target": "company:tr:115641753",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

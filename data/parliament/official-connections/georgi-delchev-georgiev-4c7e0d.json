@@ -1,0 +1,97 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-delchev-georgiev-4c7e0d",
+  "nodes": [
+    {
+      "id": "official:georgi-delchev-georgiev-4c7e0d",
+      "type": "official",
+      "slug": "georgi-delchev-georgiev-4c7e0d",
+      "label": "Георги Делчев Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хасково"
+    },
+    {
+      "id": "company:tr:204025704",
+      "type": "company",
+      "label": "ТАБУЛА РАЗА 2016 ЕООД",
+      "slug": null,
+      "uic": "204025704",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201154334",
+      "type": "company",
+      "label": "ЕКО КОНЦЕСИЯ ЕООД",
+      "slug": null,
+      "uic": "201154334",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202458123",
+      "type": "company",
+      "label": "БРЕД ТРЕЙДИНГ ООД",
+      "slug": null,
+      "uic": "202458123",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:103562077",
+      "type": "company",
+      "label": "ГАРАНТ-2000 ООД",
+      "slug": null,
+      "uic": "103562077",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-delchev-georgiev-4c7e0d",
+      "target": "company:tr:204025704",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-delchev-georgiev-4c7e0d",
+      "target": "company:tr:201154334",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-delchev-georgiev-4c7e0d",
+      "target": "company:tr:202458123",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-delchev-georgiev-4c7e0d",
+      "target": "company:tr:103562077",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-delchev-georgiev-4c7e0d",
+      "target": "company:tr:204025704",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

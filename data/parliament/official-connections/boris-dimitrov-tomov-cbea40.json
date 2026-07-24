@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:boris-dimitrov-tomov-cbea40",
+  "nodes": [
+    {
+      "id": "official:boris-dimitrov-tomov-cbea40",
+      "type": "official",
+      "slug": "boris-dimitrov-tomov-cbea40",
+      "label": "Борис Димитров Томов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Перник"
+    },
+    {
+      "id": "company:tr:113547796",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ФУТБОЛЕН КЛУБ &quot;МЕТАЛ - 2002&quot;&quot;",
+      "slug": null,
+      "uic": "113547796",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КИРИЛ БОРИСОВ ДЖОРОВ",
+      "type": "person",
+      "label": "Кирил Борисов Джоров"
+    },
+    {
+      "id": "person:НИКИФОР ОГНЯНОВ НИКИФОРОВ",
+      "type": "person",
+      "label": "Никифор Огнянов Никифоров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:boris-dimitrov-tomov-cbea40",
+      "target": "company:tr:113547796",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КИРИЛ БОРИСОВ ДЖОРОВ",
+      "target": "company:tr:113547796",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ БОРИСОВ ДЖОРОВ",
+      "target": "company:tr:113547796",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКИФОР ОГНЯНОВ НИКИФОРОВ",
+      "target": "company:tr:113547796",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

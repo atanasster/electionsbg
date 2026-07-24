@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:gyuner-gyunai-zeinal-93c91d",
+  "nodes": [
+    {
+      "id": "official:gyuner-gyunai-zeinal-93c91d",
+      "type": "official",
+      "slug": "gyuner-gyunai-zeinal-93c91d",
+      "label": "Гюнер Гюнай Зейнал",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хасково"
+    },
+    {
+      "id": "company:tr:126544533",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО &quot; ИГЛИКА&quot;",
+      "slug": null,
+      "uic": "126544533",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЯСЕМИН МЕТИНОВА ЧАКЪРОВА",
+      "type": "person",
+      "label": "Ясемин Метинова Чакърова"
+    },
+    {
+      "id": "person:МАРИЯ КРАСИМИРОВА ФОТЕВА-ВАЧКОВА",
+      "type": "person",
+      "label": "Мария Красимирова Фотева-Вачкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gyuner-gyunai-zeinal-93c91d",
+      "target": "company:tr:126544533",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:gyuner-gyunai-zeinal-93c91d",
+      "target": "company:tr:126544533",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЯСЕМИН МЕТИНОВА ЧАКЪРОВА",
+      "target": "company:tr:126544533",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ КРАСИМИРОВА ФОТЕВА-ВАЧКОВА",
+      "target": "company:tr:126544533",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

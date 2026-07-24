@@ -1,0 +1,129 @@
+[
+  {
+    "slug": "dobromir-georgiev-chervenkov-ab941b",
+    "declarantName": "Добромир Георгиев Червенков",
+    "institution": "Шабла",
+    "positionTitle": "Главен архитект",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г12293",
+    "controlHash": "EA21BDEA",
+    "sourceUrl": "https://register.cacbg.bg/2025/6ABCB726-9BB7-4567-B559-D524FBC84602215454.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 13696.486913484301,
+        "amountEurSpouse": 9098.950317767903
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 5427.363318897859,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от упражняване на свободна професия по чл. 29, ал. 1, т. 3 от ЗДДФЛ",
+        "amountEurDeclarant": 10809.732952250451,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Tesla model 3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 91894,
+        "valueEur": 46984.6561306453,
+        "holderName": "Добромир Георгиев Червенков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 41500,
+        "valueEur": 21218.613069643066,
+        "holderName": "Добромир Георгиев Червенков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Борислава Бориславова Драганова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17200,
+        "valueEur": 8794.220356574959,
+        "holderName": "Добромир Георгиев Червенков",
+        "isSpouse": false,
+        "legalBasis": "Кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Добромир Георгиев Червенков",
+        "isSpouse": false,
+        "legalBasis": "Кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

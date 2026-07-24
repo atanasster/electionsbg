@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:veselina-vasileva-karamileva-todorova-3a625d",
+  "nodes": [
+    {
+      "id": "official:veselina-vasileva-karamileva-todorova-3a625d",
+      "type": "official",
+      "slug": "veselina-vasileva-karamileva-todorova-3a625d",
+      "label": "Веселина Василева Карамилева Тодорова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203249959",
+      "type": "company",
+      "label": "\"Картив\" ЕООД",
+      "slug": null,
+      "uic": "203249959",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:toshko-ivanov-todorov-8a7282",
+      "type": "official",
+      "slug": "toshko-ivanov-todorov-8a7282",
+      "label": "Тошко Иванов Тодоров",
+      "tier": "executive",
+      "role": "audit_court",
+      "municipality": null
+    },
+    {
+      "id": "official:toshko-ivanov-todorov-d4b070",
+      "type": "official",
+      "slug": "toshko-ivanov-todorov-d4b070",
+      "label": "Тошко Иванов Тодоров",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veselina-vasileva-karamileva-todorova-3a625d",
+      "target": "company:tr:203249959",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:toshko-ivanov-todorov-8a7282",
+      "target": "company:tr:203249959",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:toshko-ivanov-todorov-d4b070",
+      "target": "company:tr:203249959",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:gyurdzhan-salim-ahmed-ce6fb1",
+  "nodes": [
+    {
+      "id": "official:gyurdzhan-salim-ahmed-ce6fb1",
+      "type": "official",
+      "slug": "gyurdzhan-salim-ahmed-ce6fb1",
+      "label": "Гюрджан Салим Ахмед",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Дулово"
+    },
+    {
+      "id": "company:tr:000560141",
+      "type": "company",
+      "label": "ХРИСТО БОТЕВ-1949",
+      "slug": null,
+      "uic": "000560141",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:САБРИЯ БЕЙДЖЕТ АЛИ",
+      "type": "person",
+      "label": "Сабрия Бейджет Али"
+    },
+    {
+      "id": "person:СЕВГИН СЕЙФИ АХМЕТ",
+      "type": "person",
+      "label": "Севгин Сейфи Ахмет"
+    },
+    {
+      "id": "person:ШЕНАЙ АЛИ АХМЕД",
+      "type": "person",
+      "label": "Шенай Али Ахмед"
+    },
+    {
+      "id": "person:ХАТИДЖЕ БЕХЧЕТ САЛИ",
+      "type": "person",
+      "label": "Хатидже Бехчет Сали"
+    },
+    {
+      "id": "person:НЕДЖМИЕ СУНАЙ ХАЛИЛ",
+      "type": "person",
+      "label": "Неджмие Сунай Халил"
+    },
+    {
+      "id": "person:НУРСЯН ДЖЕВДЖЕТ САЛИ",
+      "type": "person",
+      "label": "Нурсян Джевджет Сали"
+    },
+    {
+      "id": "person:РОСИЦА КАЛОЯНОВА МЪСАРЛИЕВА-КАРА",
+      "type": "person",
+      "label": "Росица Калоянова Мъсарлиева-Кара"
+    },
+    {
+      "id": "person:ДУЙГУ ЕРХАТ АХМЕД",
+      "type": "person",
+      "label": "Дуйгу Ерхат Ахмед"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gyurdzhan-salim-ahmed-ce6fb1",
+      "target": "company:tr:000560141",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:gyurdzhan-salim-ahmed-ce6fb1",
+      "target": "company:tr:000560141",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:САБРИЯ БЕЙДЖЕТ АЛИ",
+      "target": "company:tr:000560141",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВГИН СЕЙФИ АХМЕТ",
+      "target": "company:tr:000560141",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ШЕНАЙ АЛИ АХМЕД",
+      "target": "company:tr:000560141",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАТИДЖЕ БЕХЧЕТ САЛИ",
+      "target": "company:tr:000560141",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЖМИЕ СУНАЙ ХАЛИЛ",
+      "target": "company:tr:000560141",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НУРСЯН ДЖЕВДЖЕТ САЛИ",
+      "target": "company:tr:000560141",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА КАЛОЯНОВА МЪСАРЛИЕВА-КАРА",
+      "target": "company:tr:000560141",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДУЙГУ ЕРХАТ АХМЕД",
+      "target": "company:tr:000560141",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

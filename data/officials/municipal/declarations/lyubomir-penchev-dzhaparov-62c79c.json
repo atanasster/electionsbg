@@ -1,0 +1,88 @@
+[
+  {
+    "slug": "lyubomir-penchev-dzhaparov-62c79c",
+    "declarantName": "Любомир Пенчев Джапаров",
+    "institution": "Сопот",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-02",
+    "entryNumber": "Г5149",
+    "controlHash": "7B8080CD",
+    "sourceUrl": "https://register.cacbg.bg/2025/7789E9DA-E204-417E-BE3A-EEB792698306208053.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6216.286691583625,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 19466.92708466482,
+        "amountEurSpouse": 5149.220535527116
+      },
+      {
+        "parent": null,
+        "category": "Дивиденти",
+        "amountEurDeclarant": 23470.85380631241,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10200,
+        "valueEur": 5215.177188201428,
+        "holderName": "Любомир Пенчев Джапаров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати и дивиденти"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 114281,
+        "valueEur": 58430.94747498505,
+        "holderName": "Любомир Пенчев Джапаров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати и дивиденти"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Дъбене",
+        "municipality": "Карлово",
+        "areaSqm": 6100,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

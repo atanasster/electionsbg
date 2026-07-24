@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:veneta-koleva-stoyanova-76aa11",
+  "nodes": [
+    {
+      "id": "official:veneta-koleva-stoyanova-76aa11",
+      "type": "official",
+      "slug": "veneta-koleva-stoyanova-76aa11",
+      "label": "Венета Колева Стоянова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Димитровград"
+    },
+    {
+      "id": "company:tr:200937676",
+      "type": "company",
+      "label": "Мхеци еоод",
+      "slug": null,
+      "uic": "200937676",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veneta-koleva-stoyanova-76aa11",
+      "target": "company:tr:200937676",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

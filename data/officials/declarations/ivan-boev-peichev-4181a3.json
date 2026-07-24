@@ -1,0 +1,113 @@
+[
+  {
+    "slug": "ivan-boev-peichev-4181a3",
+    "declarantName": "Иван Боев Пейчев",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г10582",
+    "controlHash": "55BF9BCE",
+    "sourceUrl": "https://register.cacbg.bg/2025/E4A40453-87EA-417B-B2DC-305766F015DC213680.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27037.62596953723,
+        "amountEurSpouse": 3067.751287177311
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "ivan-boev-peichev-4181a3",
+    "declarantName": "Иван Боев Пейчев",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-15",
+    "entryNumber": "Г10068",
+    "controlHash": "5F765757",
+    "sourceUrl": "https://register.cacbg.bg/2024/E4A40453-87EA-417B-B2DC-305766F015DC191745.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24732.210877223482,
+        "amountEurSpouse": 1019.0047192240635
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 511.29188119621847
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Любенец",
+        "municipality": "Нова Загора",
+        "areaSqm": 1560,
+        "builtAreaSqm": 200,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Иван Боев Пейчев",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Хюндай Кона EV PE",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": null,
+        "currency": "BGN",
+        "amount": 85980,
+        "valueEur": 43960.87594525087,
+        "holderName": "ОББ Интерлийз ЕАД",
+        "isSpouse": true,
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "товарен автомобил",
+        "detail": "Мерцедес 614Д",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Иван Боев Пейчев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

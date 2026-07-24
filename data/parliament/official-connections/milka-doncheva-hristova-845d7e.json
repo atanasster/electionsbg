@@ -1,0 +1,130 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:milka-doncheva-hristova-845d7e",
+  "nodes": [
+    {
+      "id": "official:milka-doncheva-hristova-845d7e",
+      "type": "official",
+      "slug": "milka-doncheva-hristova-845d7e",
+      "label": "Милка Дончева Христова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Павликени"
+    },
+    {
+      "id": "company:tr:202840208",
+      "type": "company",
+      "label": "\"Аква Виктория 2005\"",
+      "slug": null,
+      "uic": "202840208",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203628350",
+      "type": "company",
+      "label": "\"Перуника 2014\"ЕООД",
+      "slug": null,
+      "uic": "203628350",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:104688050",
+      "type": "company",
+      "label": "БРЕД-КООП ПАВЛИКЕНИ",
+      "slug": null,
+      "uic": "104688050",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:1622",
+      "type": "mp",
+      "mpId": 1622,
+      "label": "Милка Дончева Христова",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:СТЕФАНКА ИЛИЕВА ХРИСТОВА",
+      "type": "person",
+      "label": "Стефанка Илиева Христова"
+    },
+    {
+      "id": "person:ДОНЧО ПЕНЧЕВ ДОНЧЕВ",
+      "type": "person",
+      "label": "Дончо Пенчев Дончев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milka-doncheva-hristova-845d7e",
+      "target": "company:tr:202840208",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:milka-doncheva-hristova-845d7e",
+      "target": "company:tr:203628350",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:milka-doncheva-hristova-845d7e",
+      "target": "company:tr:104688050",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:milka-doncheva-hristova-845d7e",
+      "target": "company:tr:104688050",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1622",
+      "target": "company:tr:104688050",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1622",
+      "target": "company:tr:104688050",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФАНКА ИЛИЕВА ХРИСТОВА",
+      "target": "company:tr:104688050",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНЧО ПЕНЧЕВ ДОНЧЕВ",
+      "target": "company:tr:104688050",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

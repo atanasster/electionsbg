@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivelin-tsvetanov-todorov-438337",
+  "nodes": [
+    {
+      "id": "official:ivelin-tsvetanov-todorov-438337",
+      "type": "official",
+      "slug": "ivelin-tsvetanov-todorov-438337",
+      "label": "Ивелин Цветанов Тодоров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201617412",
+      "type": "company",
+      "label": "СЕВЕРОИЗТОЧНО ДЪРЖАВНО ПРЕДПРИЯТИЕ",
+      "slug": null,
+      "uic": "201617412",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РАДИ АТАНАСОВ ИВАНОВ",
+      "type": "person",
+      "label": "Ради Атанасов Иванов"
+    },
+    {
+      "id": "person:ПЕТЪР ЦОНЕВ ПЕТРОВ",
+      "type": "person",
+      "label": "Петър Цонев Петров"
+    },
+    {
+      "id": "person:СИМЕОН ЦАНКОВ ДАВИДКОВ",
+      "type": "person",
+      "label": "Симеон Цанков Давидков"
+    },
+    {
+      "id": "person:ПЕТЪР ГЕОРГИЕВ ГАНЕВ",
+      "type": "person",
+      "label": "Петър Георгиев Ганев"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИН ГЕОРГИЕВ МИЛАНОВ",
+      "type": "person",
+      "label": "Цветелин Георгиев Миланов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivelin-tsvetanov-todorov-438337",
+      "target": "company:tr:201617412",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАДИ АТАНАСОВ ИВАНОВ",
+      "target": "company:tr:201617412",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ЦОНЕВ ПЕТРОВ",
+      "target": "company:tr:201617412",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН ЦАНКОВ ДАВИДКОВ",
+      "target": "company:tr:201617412",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ГЕОРГИЕВ ГАНЕВ",
+      "target": "company:tr:201617412",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИН ГЕОРГИЕВ МИЛАНОВ",
+      "target": "company:tr:201617412",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:emil-asenov-chalkov-b510f8",
+  "nodes": [
+    {
+      "id": "official:emil-asenov-chalkov-b510f8",
+      "type": "official",
+      "slug": "emil-asenov-chalkov-b510f8",
+      "label": "Емил Асенов Чалъков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Карлово"
+    },
+    {
+      "id": "company:tr:115870638",
+      "type": "company",
+      "label": "СТРОЙГРУПА-СВ-ЕМ",
+      "slug": null,
+      "uic": "115870638",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СВЕТЛИН ЛУКАНОВ ЧАЛЪКОВ",
+      "type": "person",
+      "label": "Светлин Луканов Чалъков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-asenov-chalkov-b510f8",
+      "target": "company:tr:115870638",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:emil-asenov-chalkov-b510f8",
+      "target": "company:tr:115870638",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СВЕТЛИН ЛУКАНОВ ЧАЛЪКОВ",
+      "target": "company:tr:115870638",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛИН ЛУКАНОВ ЧАЛЪКОВ",
+      "target": "company:tr:115870638",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

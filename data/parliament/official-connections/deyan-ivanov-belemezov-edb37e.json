@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:deyan-ivanov-belemezov-edb37e",
+  "nodes": [
+    {
+      "id": "official:deyan-ivanov-belemezov-edb37e",
+      "type": "official",
+      "slug": "deyan-ivanov-belemezov-edb37e",
+      "label": "Деян Иванов Белемезов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201617654",
+      "type": "company",
+      "label": "ЮГОИЗТОЧНО ДЪРЖАВНО ПРЕДПРИЯТИЕ",
+      "slug": null,
+      "uic": "201617654",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕЙЧО ИВАНОВ ВЪРБАНОВ",
+      "type": "person",
+      "label": "Пейчо Иванов Върбанов"
+    },
+    {
+      "id": "person:ДИМЧО ДИНЕВ РАДЕВ",
+      "type": "person",
+      "label": "Димчо Динев Радев"
+    },
+    {
+      "id": "person:МИРОСЛАВ ЦОНЕВ МАРИНОВ",
+      "type": "person",
+      "label": "Мирослав Цонев Маринов"
+    },
+    {
+      "id": "person:ИНЖ ДИМЧО ДИНЕВ РАДЕВ",
+      "type": "person",
+      "label": "Инж Димчо Динев Радев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:deyan-ivanov-belemezov-edb37e",
+      "target": "company:tr:201617654",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕЙЧО ИВАНОВ ВЪРБАНОВ",
+      "target": "company:tr:201617654",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМЧО ДИНЕВ РАДЕВ",
+      "target": "company:tr:201617654",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ЦОНЕВ МАРИНОВ",
+      "target": "company:tr:201617654",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИНЖ ДИМЧО ДИНЕВ РАДЕВ",
+      "target": "company:tr:201617654",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

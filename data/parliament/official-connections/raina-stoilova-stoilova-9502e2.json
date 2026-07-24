@@ -1,0 +1,160 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:raina-stoilova-stoilova-9502e2",
+  "nodes": [
+    {
+      "id": "official:raina-stoilova-stoilova-9502e2",
+      "type": "official",
+      "slug": "raina-stoilova-stoilova-9502e2",
+      "label": "Райна Стоилова Стоилова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130314424",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ 116 ОСНОВНО УЧИЛИЩЕ &quot;ПАИСИЙ ХИЛЕНДАРСКИ&quot;",
+      "slug": null,
+      "uic": "130314424",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИН ЙОРДАНОВ БУЛЯНСКИ",
+      "type": "person",
+      "label": "Марин Йорданов Булянски"
+    },
+    {
+      "id": "person:НЕЛИ СТЕФЧОВА ЦВЕТКОВА",
+      "type": "person",
+      "label": "Нели Стефчова Цветкова"
+    },
+    {
+      "id": "person:НЕЛЛЯ ДРАГАНОВНА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Нелля Драгановна Георгиева"
+    },
+    {
+      "id": "person:ПЕТЯ ЙОРДАНОВА СЛАВОВА",
+      "type": "person",
+      "label": "Петя Йорданова Славова"
+    },
+    {
+      "id": "person:ЕМИЛИЯ МИЛЧОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Емилия Милчова Георгиева"
+    },
+    {
+      "id": "person:ВАНЯ КИРИЛОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Ваня Кирилова Стоянова"
+    },
+    {
+      "id": "person:ЧАВДАР ИВАНОВ ГОРАНОВ",
+      "type": "person",
+      "label": "Чавдар Иванов Горанов"
+    },
+    {
+      "id": "person:СТОЯНКА КИРИЛОВА АНЕВА",
+      "type": "person",
+      "label": "Стоянка Кирилова Анева"
+    },
+    {
+      "id": "person:СВЕТЛА ЦВЕТКОВА КОЛЧЕВА",
+      "type": "person",
+      "label": "Светла Цветкова Колчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:raina-stoilova-stoilova-9502e2",
+      "target": "company:tr:130314424",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИН ЙОРДАНОВ БУЛЯНСКИ",
+      "target": "company:tr:130314424",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН ЙОРДАНОВ БУЛЯНСКИ",
+      "target": "company:tr:130314424",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ СТЕФЧОВА ЦВЕТКОВА",
+      "target": "company:tr:130314424",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛЛЯ ДРАГАНОВНА ГЕОРГИЕВА",
+      "target": "company:tr:130314424",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ЙОРДАНОВА СЛАВОВА",
+      "target": "company:tr:130314424",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ МИЛЧОВА ГЕОРГИЕВА",
+      "target": "company:tr:130314424",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ КИРИЛОВА СТОЯНОВА",
+      "target": "company:tr:130314424",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЧАВДАР ИВАНОВ ГОРАНОВ",
+      "target": "company:tr:130314424",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯНКА КИРИЛОВА АНЕВА",
+      "target": "company:tr:130314424",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА ЦВЕТКОВА КОЛЧЕВА",
+      "target": "company:tr:130314424",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

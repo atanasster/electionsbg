@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:damyan-dimitrov-petkov-d3f3cf",
+  "nodes": [
+    {
+      "id": "official:damyan-dimitrov-petkov-d3f3cf",
+      "type": "official",
+      "slug": "damyan-dimitrov-petkov-d3f3cf",
+      "label": "Дамян Димитров Петков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Приморско"
+    },
+    {
+      "id": "company:tr:208213931",
+      "type": "company",
+      "label": "ДОМИНИТА ГЕО ПРОПЪРТИС",
+      "slug": null,
+      "uic": "208213931",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАГДАЛЕНА КОСТАДИНОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Магдалена Костадинова Петкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:damyan-dimitrov-petkov-d3f3cf",
+      "target": "company:tr:208213931",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:damyan-dimitrov-petkov-d3f3cf",
+      "target": "company:tr:208213931",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАГДАЛЕНА КОСТАДИНОВА ПЕТКОВА",
+      "target": "company:tr:208213931",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАГДАЛЕНА КОСТАДИНОВА ПЕТКОВА",
+      "target": "company:tr:208213931",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

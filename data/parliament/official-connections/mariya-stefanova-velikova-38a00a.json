@@ -1,0 +1,173 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariya-stefanova-velikova-38a00a",
+  "nodes": [
+    {
+      "id": "official:mariya-stefanova-velikova-38a00a",
+      "type": "official",
+      "slug": "mariya-stefanova-velikova-38a00a",
+      "label": "Мария Стефанова Великова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000559331",
+      "type": "company",
+      "label": "&quot;ХРИСТО БОТЕВ - 1941",
+      "slug": null,
+      "uic": "000559331",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТОЯН КРАЛЕВ СТОЯНОВ",
+      "type": "person",
+      "label": "Стоян Кралев Стоянов"
+    },
+    {
+      "id": "person:ДИЛЯНА ПЕТРОВА ВАВИЛОВА",
+      "type": "person",
+      "label": "Диляна Петрова Вавилова"
+    },
+    {
+      "id": "person:ЕЛИЦА АНДОНОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Елица Андонова Николова"
+    },
+    {
+      "id": "person:РОСИЦА САВОВА БАНЧЕВА",
+      "type": "person",
+      "label": "Росица Савова Банчева"
+    },
+    {
+      "id": "person:ТИНКА ГЕОРГИЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Тинка Георгиева Иванова"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ВЕЛЕВ АНТОНОВ",
+      "type": "person",
+      "label": "Александър Велев Антонов"
+    },
+    {
+      "id": "person:ПЕНКА ГЕОРГИЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Пенка Георгиева Иванова"
+    },
+    {
+      "id": "person:МАРИНА ЖЕЙНОВА КРАЛЕВА",
+      "type": "person",
+      "label": "Марина Жейнова Кралева"
+    },
+    {
+      "id": "person:ЙОРДАНКА СТЕФАНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Йорданка Стефанова Иванова"
+    },
+    {
+      "id": "person:ГАНЧО ДИМИТРОВ ВЕЛЕВ",
+      "type": "person",
+      "label": "Ганчо Димитров Велев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-stefanova-velikova-38a00a",
+      "target": "company:tr:000559331",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОЯН КРАЛЕВ СТОЯНОВ",
+      "target": "company:tr:000559331",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЛЯНА ПЕТРОВА ВАВИЛОВА",
+      "target": "company:tr:000559331",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЦА АНДОНОВА НИКОЛОВА",
+      "target": "company:tr:000559331",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН КРАЛЕВ СТОЯНОВ",
+      "target": "company:tr:000559331",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА САВОВА БАНЧЕВА",
+      "target": "company:tr:000559331",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИНКА ГЕОРГИЕВА ИВАНОВА",
+      "target": "company:tr:000559331",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ВЕЛЕВ АНТОНОВ",
+      "target": "company:tr:000559331",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ГЕОРГИЕВА ИВАНОВА",
+      "target": "company:tr:000559331",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНА ЖЕЙНОВА КРАЛЕВА",
+      "target": "company:tr:000559331",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА СТЕФАНОВА ИВАНОВА",
+      "target": "company:tr:000559331",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАНЧО ДИМИТРОВ ВЕЛЕВ",
+      "target": "company:tr:000559331",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

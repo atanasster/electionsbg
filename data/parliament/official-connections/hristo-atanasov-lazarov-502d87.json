@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hristo-atanasov-lazarov-502d87",
+  "nodes": [
+    {
+      "id": "official:hristo-atanasov-lazarov-502d87",
+      "type": "official",
+      "slug": "hristo-atanasov-lazarov-502d87",
+      "label": "Христо Атанасов Лазаров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Белово"
+    },
+    {
+      "id": "company:tr:207071105",
+      "type": "company",
+      "label": "ЕЙЧ ЕЛ ЕС ТРЕЙД ЕООД",
+      "slug": null,
+      "uic": "207071105",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:112663488",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ МАРИЦА",
+      "slug": null,
+      "uic": "112663488",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЪР ПЕТКОВ АНТОНОВ",
+      "type": "person",
+      "label": "Петър Петков Антонов"
+    },
+    {
+      "id": "person:ЛОРА ОЛЕГОВА ЛАЗАРОВА",
+      "type": "person",
+      "label": "Лора Олегова Лазарова"
+    },
+    {
+      "id": "person:ГЕОРГИ НИКОЛАЕВ ВУЧЕВ",
+      "type": "person",
+      "label": "Георги Николаев Вучев"
+    },
+    {
+      "id": "person:МЕТОДИ БОРИСЛАВОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Методи Бориславов Николов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-atanasov-lazarov-502d87",
+      "target": "company:tr:207071105",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:hristo-atanasov-lazarov-502d87",
+      "target": "company:tr:112663488",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-atanasov-lazarov-502d87",
+      "target": "company:tr:112663488",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР ПЕТКОВ АНТОНОВ",
+      "target": "company:tr:207071105",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛОРА ОЛЕГОВА ЛАЗАРОВА",
+      "target": "company:tr:207071105",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛОРА ОЛЕГОВА ЛАЗАРОВА",
+      "target": "company:tr:207071105",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ НИКОЛАЕВ ВУЧЕВ",
+      "target": "company:tr:112663488",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕТОДИ БОРИСЛАВОВ НИКОЛОВ",
+      "target": "company:tr:112663488",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,164 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tsvetanka-georgieva-vasileva-719573",
+  "nodes": [
+    {
+      "id": "official:tsvetanka-georgieva-vasileva-719573",
+      "type": "official",
+      "slug": "tsvetanka-georgieva-vasileva-719573",
+      "label": "Цветанка Георгиева Василева",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000761361",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;РИЛА-1898&quot;",
+      "slug": null,
+      "uic": "000761361",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:daniela-asenova-metodieva-ed7a2d",
+      "type": "official",
+      "slug": "daniela-asenova-metodieva-ed7a2d",
+      "label": "Даниела Асенова Методиева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Долна баня"
+    },
+    {
+      "id": "person:АНГЕЛИНА ОГНЯНОВА ГРОЗЕВА",
+      "type": "person",
+      "label": "Ангелина Огнянова Грозева"
+    },
+    {
+      "id": "person:МИЛЕНА ИВАНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Милена Иванова Георгиева"
+    },
+    {
+      "id": "person:СЛАВЧО ГЕОРГИЕВ ГАДЖАНОВ",
+      "type": "person",
+      "label": "Славчо Георгиев Гаджанов"
+    },
+    {
+      "id": "person:ДОНА ХРИСТОВА ТОРОШАНОВА",
+      "type": "person",
+      "label": "Дона Христова Торошанова"
+    },
+    {
+      "id": "person:АНГЕЛИНА СТЕФАНОВА ДРАГАНОВА",
+      "type": "person",
+      "label": "Ангелина Стефанова Драганова"
+    },
+    {
+      "id": "person:БОРЯНА СИМЕОНОВА ТРОЯНСКА",
+      "type": "person",
+      "label": "Боряна Симеонова Троянска"
+    },
+    {
+      "id": "person:ЗДРАВКО АНГЕЛОВ МИТРЕВ",
+      "type": "person",
+      "label": "Здравко Ангелов Митрев"
+    },
+    {
+      "id": "person:АНГЕЛ ИВАНОВ БОЯДЖИЕВ",
+      "type": "person",
+      "label": "Ангел Иванов Бояджиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetanka-georgieva-vasileva-719573",
+      "target": "company:tr:000761361",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:daniela-asenova-metodieva-ed7a2d",
+      "target": "company:tr:000761361",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНГЕЛИНА ОГНЯНОВА ГРОЗЕВА",
+      "target": "company:tr:000761361",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ИВАНОВА ГЕОРГИЕВА",
+      "target": "company:tr:000761361",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВЧО ГЕОРГИЕВ ГАДЖАНОВ",
+      "target": "company:tr:000761361",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛИНА ОГНЯНОВА ГРОЗЕВА",
+      "target": "company:tr:000761361",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНА ХРИСТОВА ТОРОШАНОВА",
+      "target": "company:tr:000761361",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛИНА СТЕФАНОВА ДРАГАНОВА",
+      "target": "company:tr:000761361",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРЯНА СИМЕОНОВА ТРОЯНСКА",
+      "target": "company:tr:000761361",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗДРАВКО АНГЕЛОВ МИТРЕВ",
+      "target": "company:tr:000761361",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ИВАНОВ БОЯДЖИЕВ",
+      "target": "company:tr:000761361",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

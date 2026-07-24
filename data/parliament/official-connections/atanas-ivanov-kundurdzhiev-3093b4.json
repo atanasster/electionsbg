@@ -1,0 +1,116 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:atanas-ivanov-kundurdzhiev-3093b4",
+  "nodes": [
+    {
+      "id": "official:atanas-ivanov-kundurdzhiev-3093b4",
+      "type": "official",
+      "slug": "atanas-ivanov-kundurdzhiev-3093b4",
+      "label": "Атанас Иванов Кундурджиев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000715054",
+      "type": "company",
+      "label": "УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ &quot;СВ. ИВАН РИЛСКИ&quot;",
+      "slug": null,
+      "uic": "000715054",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЪР МИЛЧЕВ МАРКОВ",
+      "type": "person",
+      "label": "Петър Милчев Марков"
+    },
+    {
+      "id": "person:АНТОН ПЕТКОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Антон Петков Петков"
+    },
+    {
+      "id": "person:ДЕЧО ПЕТРОВ ДЕЧЕВ",
+      "type": "person",
+      "label": "Дечо Петров Дечев"
+    },
+    {
+      "id": "person:НИКОЛАЙ РУМЕНОВ СТОИЛОВ",
+      "type": "person",
+      "label": "Николай Руменов Стоилов"
+    },
+    {
+      "id": "person:ЖИВКО ИВАНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Живко Иванов Христов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:atanas-ivanov-kundurdzhiev-3093b4",
+      "target": "company:tr:000715054",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР МИЛЧЕВ МАРКОВ",
+      "target": "company:tr:000715054",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН ПЕТКОВ ПЕТКОВ",
+      "target": "company:tr:000715054",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЧО ПЕТРОВ ДЕЧЕВ",
+      "target": "company:tr:000715054",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЧО ПЕТРОВ ДЕЧЕВ",
+      "target": "company:tr:000715054",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ РУМЕНОВ СТОИЛОВ",
+      "target": "company:tr:000715054",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ РУМЕНОВ СТОИЛОВ",
+      "target": "company:tr:000715054",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ИВАНОВ ХРИСТОВ",
+      "target": "company:tr:000715054",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

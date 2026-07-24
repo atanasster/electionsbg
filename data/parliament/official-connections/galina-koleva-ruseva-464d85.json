@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:galina-koleva-ruseva-464d85",
+  "nodes": [
+    {
+      "id": "official:galina-koleva-ruseva-464d85",
+      "type": "official",
+      "slug": "galina-koleva-ruseva-464d85",
+      "label": "Галина Колева Русева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206469526",
+      "type": "company",
+      "label": "ОРХИ СПОРТ ФИШ",
+      "slug": null,
+      "uic": "206469526",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:galina-koleva-ruseva-464d85",
+      "target": "company:tr:206469526",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:galina-koleva-ruseva-464d85",
+      "target": "company:tr:206469526",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

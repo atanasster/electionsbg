@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:lilyana-hristova-ginchina-476103",
+  "nodes": [
+    {
+      "id": "official:lilyana-hristova-ginchina-476103",
+      "type": "official",
+      "slug": "lilyana-hristova-ginchina-476103",
+      "label": "Лиляна Христова Гинчина",
+      "tier": "executive",
+      "role": "revenue_agency",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202088912",
+      "type": "company",
+      "label": "ДиД Сълюшънс",
+      "slug": null,
+      "uic": "202088912",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lilyana-hristova-ginchina-476103",
+      "target": "company:tr:202088912",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

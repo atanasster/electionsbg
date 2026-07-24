@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:elena-peteva-kireva-de3be7",
+  "nodes": [
+    {
+      "id": "official:elena-peteva-kireva-de3be7",
+      "type": "official",
+      "slug": "elena-peteva-kireva-de3be7",
+      "label": "Елена Петева Кирева",
+      "tier": "executive",
+      "role": "political_cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201226779",
+      "type": "company",
+      "label": "Сий Сайд Хоумс",
+      "slug": null,
+      "uic": "201226779",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:elena-peteva-kireva-de3be7",
+      "target": "company:tr:201226779",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

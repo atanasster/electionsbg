@@ -1,0 +1,53 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:valentin-nikolov-vasilev-4beee4",
+  "nodes": [
+    {
+      "id": "official:valentin-nikolov-vasilev-4beee4",
+      "type": "official",
+      "slug": "valentin-nikolov-vasilev-4beee4",
+      "label": "Валентин Николов Василев",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202435316",
+      "type": "company",
+      "label": "Мираком България ЕООД",
+      "slug": null,
+      "uic": "202435316",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:200511502",
+      "type": "company",
+      "label": "ВАЛЕНТИ АКАДЕМИ",
+      "slug": null,
+      "uic": "200511502",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valentin-nikolov-vasilev-4beee4",
+      "target": "company:tr:202435316",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:valentin-nikolov-vasilev-4beee4",
+      "target": "company:tr:200511502",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

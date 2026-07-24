@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mario-georgiev-todorov-99f2a5",
+  "nodes": [
+    {
+      "id": "official:mario-georgiev-todorov-99f2a5",
+      "type": "official",
+      "slug": "mario-georgiev-todorov-99f2a5",
+      "label": "Марио Георгиев Тодоров",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205512227",
+      "type": "company",
+      "label": "ЛОРЕЙН-ИВК",
+      "slug": null,
+      "uic": "205512227",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mario-georgiev-todorov-99f2a5",
+      "target": "company:tr:205512227",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mario-georgiev-todorov-99f2a5",
+      "target": "company:tr:205512227",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,220 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iovelina-neicheva-tihova-b57c62",
+  "nodes": [
+    {
+      "id": "official:iovelina-neicheva-tihova-b57c62",
+      "type": "official",
+      "slug": "iovelina-neicheva-tihova-b57c62",
+      "label": "Йовелина Нейчева Тихова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:121683408",
+      "type": "company",
+      "label": "СТОЛИЧЕН АВТОТРАНСПОРТ",
+      "slug": null,
+      "uic": "121683408",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:antoniya-dimova-ivanova-7dd28e",
+      "type": "official",
+      "slug": "antoniya-dimova-ivanova-7dd28e",
+      "label": "Антония Димова Иванова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:lchezar-vladimirov-pekov-b4aaf3",
+      "type": "official",
+      "slug": "lchezar-vladimirov-pekov-b4aaf3",
+      "label": "Лъчезар Владимиров Пеков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:stilyan-iordanov-manolov-4cb0e8",
+      "type": "official",
+      "slug": "stilyan-iordanov-manolov-4cb0e8",
+      "label": "Стилян Йорданов Манолов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:НИКОЛАЙ НАЙДЕНОВ НАЙДЕНОВ",
+      "type": "person",
+      "label": "Николай Найденов Найденов"
+    },
+    {
+      "id": "person:ЛЮБОМИР ИВАНОВ КОВАЧЕВ",
+      "type": "person",
+      "label": "Любомир Иванов Ковачев"
+    },
+    {
+      "id": "person:СЛАВ ЙОРДАНОВ МОНОВ",
+      "type": "person",
+      "label": "Слав Йорданов Монов"
+    },
+    {
+      "id": "person:ИЛИЯ ДОБРОМИРОВ ГЪТОВСКИ",
+      "type": "person",
+      "label": "Илия Добромиров Гътовски"
+    },
+    {
+      "id": "person:БОЯН ЛЪЧЕЗАРОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Боян Лъчезаров Стефанов"
+    },
+    {
+      "id": "person:ГАЛИНА ПЕНЧЕВА БОНЕВА",
+      "type": "person",
+      "label": "Галина Пенчева Бонева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iovelina-neicheva-tihova-b57c62",
+      "target": "company:tr:121683408",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:antoniya-dimova-ivanova-7dd28e",
+      "target": "company:tr:121683408",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:lchezar-vladimirov-pekov-b4aaf3",
+      "target": "company:tr:121683408",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:lchezar-vladimirov-pekov-b4aaf3",
+      "target": "company:tr:121683408",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:lchezar-vladimirov-pekov-b4aaf3",
+      "target": "company:tr:121683408",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stilyan-iordanov-manolov-4cb0e8",
+      "target": "company:tr:121683408",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stilyan-iordanov-manolov-4cb0e8",
+      "target": "company:tr:121683408",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stilyan-iordanov-manolov-4cb0e8",
+      "target": "company:tr:121683408",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ НАЙДЕНОВ НАЙДЕНОВ",
+      "target": "company:tr:121683408",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ИВАНОВ КОВАЧЕВ",
+      "target": "company:tr:121683408",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВ ЙОРДАНОВ МОНОВ",
+      "target": "company:tr:121683408",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ДОБРОМИРОВ ГЪТОВСКИ",
+      "target": "company:tr:121683408",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВ ЙОРДАНОВ МОНОВ",
+      "target": "company:tr:121683408",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ДОБРОМИРОВ ГЪТОВСКИ",
+      "target": "company:tr:121683408",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯН ЛЪЧЕЗАРОВ СТЕФАНОВ",
+      "target": "company:tr:121683408",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ПЕНЧЕВА БОНЕВА",
+      "target": "company:tr:121683408",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯН ЛЪЧЕЗАРОВ СТЕФАНОВ",
+      "target": "company:tr:121683408",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:katya-zhivkova-mihailova-52fee1",
+  "nodes": [
+    {
+      "id": "official:katya-zhivkova-mihailova-52fee1",
+      "type": "official",
+      "slug": "katya-zhivkova-mihailova-52fee1",
+      "label": "Катя Живкова Михайлова",
+      "tier": "executive",
+      "role": "political_cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208819993",
+      "type": "company",
+      "label": "Фондация \"Проф. Стефан Савов Бобчев\"",
+      "slug": null,
+      "uic": "208819993",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:katya-zhivkova-mihailova-52fee1",
+      "target": "company:tr:208819993",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:katya-zhivkova-mihailova-52fee1",
+      "target": "company:tr:208819993",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

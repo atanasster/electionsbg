@@ -1,0 +1,131 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitrinka-ivanova-atanasova-2dc566",
+  "nodes": [
+    {
+      "id": "official:dimitrinka-ivanova-atanasova-2dc566",
+      "type": "official",
+      "slug": "dimitrinka-ivanova-atanasova-2dc566",
+      "label": "Димитринка Иванова Атанасова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:103779846",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕСТВО НА ОСНОВНО УЧИЛИЩЕ СВ. СВ. КИРИЛ И МЕТОДИЙ",
+      "slug": null,
+      "uic": "103779846",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:milena-ivanova-vitelova-02b7d7",
+      "type": "official",
+      "slug": "milena-ivanova-vitelova-02b7d7",
+      "label": "Милена Иванова Вителова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "person:ПЕНКА ФИЛЕВА АРАБАДЖИЕВА",
+      "type": "person",
+      "label": "Пенка Филева Арабаджиева"
+    },
+    {
+      "id": "person:ЯНКА ТОДОРОВА ЖЕЛЯЗКОВА",
+      "type": "person",
+      "label": "Янка Тодорова Желязкова"
+    },
+    {
+      "id": "person:КРАСЕН САШЕВ МИРЧЕВ",
+      "type": "person",
+      "label": "Красен Сашев Мирчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitrinka-ivanova-atanasova-2dc566",
+      "target": "company:tr:103779846",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitrinka-ivanova-atanasova-2dc566",
+      "target": "company:tr:103779846",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitrinka-ivanova-atanasova-2dc566",
+      "target": "company:tr:103779846",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:milena-ivanova-vitelova-02b7d7",
+      "target": "company:tr:103779846",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:milena-ivanova-vitelova-02b7d7",
+      "target": "company:tr:103779846",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:milena-ivanova-vitelova-02b7d7",
+      "target": "company:tr:103779846",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕНКА ФИЛЕВА АРАБАДЖИЕВА",
+      "target": "company:tr:103779846",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ФИЛЕВА АРАБАДЖИЕВА",
+      "target": "company:tr:103779846",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКА ТОДОРОВА ЖЕЛЯЗКОВА",
+      "target": "company:tr:103779846",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСЕН САШЕВ МИРЧЕВ",
+      "target": "company:tr:103779846",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

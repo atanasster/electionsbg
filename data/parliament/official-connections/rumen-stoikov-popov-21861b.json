@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "officialNodeId": "official:rumen-stoikov-popov-21861b",
   "nodes": [
     {
@@ -22,36 +22,36 @@
       "seat": null
     },
     {
-      "id": "official:zhanina-iordanova-ivanova-83a027",
+      "id": "official:zhanina-iordanova-ivanova-bab511",
       "type": "official",
-      "slug": "zhanina-iordanova-ivanova-83a027",
+      "slug": "zhanina-iordanova-ivanova-bab511",
       "label": "Жанина Йорданова Иванова",
       "tier": "executive",
       "role": "agency_head",
       "municipality": null
     },
     {
-      "id": "official:nikolai-lyudmilov-andreev-d034e5",
+      "id": "official:nikolai-lyudmilov-andreev-8b9dfe",
       "type": "official",
-      "slug": "nikolai-lyudmilov-andreev-d034e5",
+      "slug": "nikolai-lyudmilov-andreev-8b9dfe",
       "label": "Николай Людмилов Андреев",
       "tier": "executive",
       "role": "agency_head",
       "municipality": null
     },
     {
-      "id": "official:nikolai-rafailov-nikolov-b365fa",
+      "id": "official:nikolai-rafailov-nikolov-91015a",
       "type": "official",
-      "slug": "nikolai-rafailov-nikolov-b365fa",
+      "slug": "nikolai-rafailov-nikolov-91015a",
       "label": "Николай Рафаилов Николов",
       "tier": "executive",
       "role": "agency_head",
       "municipality": null
     },
     {
-      "id": "official:petya-panaiotova-mateeva-16aeb8",
+      "id": "official:petya-panaiotova-mateeva-37e44d",
       "type": "official",
-      "slug": "petya-panaiotova-mateeva-16aeb8",
+      "slug": "petya-panaiotova-mateeva-37e44d",
       "label": "Петя Панайотова Матеева",
       "tier": "executive",
       "role": "agency_head",
@@ -78,7 +78,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:zhanina-iordanova-ivanova-83a027",
+      "source": "official:zhanina-iordanova-ivanova-bab511",
       "target": "company:tr:205528224",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -86,7 +86,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:nikolai-lyudmilov-andreev-d034e5",
+      "source": "official:nikolai-lyudmilov-andreev-8b9dfe",
       "target": "company:tr:205528224",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -94,7 +94,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:nikolai-rafailov-nikolov-b365fa",
+      "source": "official:nikolai-rafailov-nikolov-91015a",
       "target": "company:tr:205528224",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -102,7 +102,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:petya-panaiotova-mateeva-16aeb8",
+      "source": "official:petya-panaiotova-mateeva-37e44d",
       "target": "company:tr:205528224",
       "kind": "tr_role",
       "role": "ngo_board",

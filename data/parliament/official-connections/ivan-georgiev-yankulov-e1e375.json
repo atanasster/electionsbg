@@ -1,0 +1,165 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-georgiev-yankulov-e1e375",
+  "nodes": [
+    {
+      "id": "official:ivan-georgiev-yankulov-e1e375",
+      "type": "official",
+      "slug": "ivan-georgiev-yankulov-e1e375",
+      "label": "Иван Георгиев Янкулов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Ихтиман"
+    },
+    {
+      "id": "company:tr:831726028",
+      "type": "company",
+      "label": "СЪЮЗ НА БИВШИТЕ БАРЕТИ",
+      "slug": null,
+      "uic": "831726028",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН БОЯНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Иван Боянов Димитров"
+    },
+    {
+      "id": "person:ИЛИЯН БАНКОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Илиян Банков Стоянов"
+    },
+    {
+      "id": "person:ЕВГЕНИЙ КИРИЛОВ РУСЕВ",
+      "type": "person",
+      "label": "Евгений Кирилов Русев"
+    },
+    {
+      "id": "person:ТОДОР ХРИСТОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Тодор Христов Тодоров"
+    },
+    {
+      "id": "person:ПЛАМЕН ЛЮБОМИРОВ МАНЧОВСКИ",
+      "type": "person",
+      "label": "Пламен Любомиров Манчовски"
+    },
+    {
+      "id": "person:МОМЧИЛ ЦЕНОВ КРЪСТЕВ",
+      "type": "person",
+      "label": "Момчил Ценов Кръстев"
+    },
+    {
+      "id": "person:ЛЪЧЕЗАР ЛЮБОМИРОВ ТАКОВ",
+      "type": "person",
+      "label": "Лъчезар Любомиров Таков"
+    },
+    {
+      "id": "person:НИКОЛАЙ ЙОРДАНОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Николай Йорданов Тодоров"
+    },
+    {
+      "id": "person:ЮЛИАН КИРИЛОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Юлиан Кирилов Василев"
+    },
+    {
+      "id": "person:ВЛАДИМИР ПЛАМЕНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Владимир Пламенов Христов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-georgiev-yankulov-e1e375",
+      "target": "company:tr:831726028",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН БОЯНОВ ДИМИТРОВ",
+      "target": "company:tr:831726028",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯН БАНКОВ СТОЯНОВ",
+      "target": "company:tr:831726028",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИЙ КИРИЛОВ РУСЕВ",
+      "target": "company:tr:831726028",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ХРИСТОВ ТОДОРОВ",
+      "target": "company:tr:831726028",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ЛЮБОМИРОВ МАНЧОВСКИ",
+      "target": "company:tr:831726028",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МОМЧИЛ ЦЕНОВ КРЪСТЕВ",
+      "target": "company:tr:831726028",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЪЧЕЗАР ЛЮБОМИРОВ ТАКОВ",
+      "target": "company:tr:831726028",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЙОРДАНОВ ТОДОРОВ",
+      "target": "company:tr:831726028",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИАН КИРИЛОВ ВАСИЛЕВ",
+      "target": "company:tr:831726028",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ПЛАМЕНОВ ХРИСТОВ",
+      "target": "company:tr:831726028",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

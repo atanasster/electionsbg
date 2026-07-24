@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "hristo-petrov-hristov-12b8f7",
+    "declarantName": "Христо Петров Христов",
+    "institution": "Каварна",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-30",
+    "entryNumber": "Г4936",
+    "controlHash": "517D4F1B",
+    "sourceUrl": "https://register.cacbg.bg/2025/D047FA0F-AE96-47B4-B310-C422C35ECEE3207816.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23447.84567165858,
+        "amountEurSpouse": 12932.105551095954
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 2812.1053465792015,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21300,
+        "valueEur": 10890.517069479454,
+        "holderName": "Христо Петров Христов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7500,
+        "valueEur": 3834.6891089716387,
+        "holderName": "Ирина Йорданова Христова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11654,
+        "valueEur": 5958.59558346073,
+        "holderName": "Христо Петров Христов",
+        "isSpouse": false,
+        "legalBasis": "стоков кредит 0%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-kostadinov-dzhumaiov-74c536",
+  "nodes": [
+    {
+      "id": "official:georgi-kostadinov-dzhumaiov-74c536",
+      "type": "official",
+      "slug": "georgi-kostadinov-dzhumaiov-74c536",
+      "label": "Георги Костадинов Джумайов",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205175219",
+      "type": "company",
+      "label": "Уърлд фор ю ЕООД",
+      "slug": null,
+      "uic": "205175219",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КОСТАДИН ГЕОРГИЕВ ДЖУМАЙОВ",
+      "type": "person",
+      "label": "Костадин Георгиев Джумайов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-kostadinov-dzhumaiov-74c536",
+      "target": "company:tr:205175219",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН ГЕОРГИЕВ ДЖУМАЙОВ",
+      "target": "company:tr:205175219",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН ГЕОРГИЕВ ДЖУМАЙОВ",
+      "target": "company:tr:205175219",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:859",
   "nodes": [
     {
@@ -32,18 +32,18 @@
       "seat": null
     },
     {
-      "id": "official:dimitr-anastasov-karbov-325819",
+      "id": "official:dimitr-anastasov-karbov-482c22",
       "type": "official",
-      "slug": "dimitr-anastasov-karbov-325819",
+      "slug": "dimitr-anastasov-karbov-482c22",
       "label": "Димитър Анастасов Карбов",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:sevdalina-aleksandrova-popova-c92899",
+      "id": "official:sevdalina-aleksandrova-popova-da6739",
       "type": "official",
-      "slug": "sevdalina-aleksandrova-popova-c92899",
+      "slug": "sevdalina-aleksandrova-popova-da6739",
       "label": "Севдалина Александрова Попова",
       "tier": "executive",
       "role": "regional_director",
@@ -250,9 +250,9 @@
       "label": "Светослав Калчев Калевски"
     },
     {
-      "id": "official:krsto-stoyanov-krivov-14b557",
+      "id": "official:krsto-stoyanov-krivov-18166a",
       "type": "official",
-      "slug": "krsto-stoyanov-krivov-14b557",
+      "slug": "krsto-stoyanov-krivov-18166a",
       "label": "Кръстьо Стоянов Кривов",
       "tier": "executive",
       "role": "state_enterprise",
@@ -442,7 +442,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:dimitr-anastasov-karbov-325819",
+      "source": "official:dimitr-anastasov-karbov-482c22",
       "target": "company:tr:207621168",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -450,7 +450,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:sevdalina-aleksandrova-popova-c92899",
+      "source": "official:sevdalina-aleksandrova-popova-da6739",
       "target": "company:tr:207621168",
       "kind": "tr_owner",
       "role": "partner",
@@ -786,7 +786,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:krsto-stoyanov-krivov-14b557",
+      "source": "official:krsto-stoyanov-krivov-18166a",
       "target": "company:tr:130250366",
       "kind": "tr_role",
       "role": "director",

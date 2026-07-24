@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iveta-asenova-georgieva-ebbbca",
+  "nodes": [
+    {
+      "id": "official:iveta-asenova-georgieva-ebbbca",
+      "type": "official",
+      "slug": "iveta-asenova-georgieva-ebbbca",
+      "label": "Ивета Асенова Георгиева",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131047275",
+      "type": "company",
+      "label": "Сдружение Училищно настоятелство на Техникум по съобщенията",
+      "slug": null,
+      "uic": "131047275",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iveta-asenova-georgieva-ebbbca",
+      "target": "company:tr:131047275",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

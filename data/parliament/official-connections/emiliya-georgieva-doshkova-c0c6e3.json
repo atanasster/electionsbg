@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:emiliya-georgieva-doshkova-c0c6e3",
+  "nodes": [
+    {
+      "id": "official:emiliya-georgieva-doshkova-c0c6e3",
+      "type": "official",
+      "slug": "emiliya-georgieva-doshkova-c0c6e3",
+      "label": "Емилия Георгиева Дошкова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Панагюрище"
+    },
+    {
+      "id": "company:tr:205453412",
+      "type": "company",
+      "label": "Д ТРАНС 68 ООД",
+      "slug": null,
+      "uic": "205453412",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ ГЕОРГИЕВ ДОШКОВ",
+      "type": "person",
+      "label": "Николай Георгиев Дошков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emiliya-georgieva-doshkova-c0c6e3",
+      "target": "company:tr:205453412",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:emiliya-georgieva-doshkova-c0c6e3",
+      "target": "company:tr:205453412",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:emiliya-georgieva-doshkova-c0c6e3",
+      "target": "company:tr:205453412",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ ГЕОРГИЕВ ДОШКОВ",
+      "target": "company:tr:205453412",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

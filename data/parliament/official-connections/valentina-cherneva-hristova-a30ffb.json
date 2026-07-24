@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:valentina-cherneva-hristova-a30ffb",
+  "nodes": [
+    {
+      "id": "official:valentina-cherneva-hristova-a30ffb",
+      "type": "official",
+      "slug": "valentina-cherneva-hristova-a30ffb",
+      "label": "Валентина Чернева Христова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Белослав"
+    },
+    {
+      "id": "company:tr:176779224",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ОСНОВНО УЧИЛИЩЕ ''СВ.ПАТРИАРХ ЕВТИМИЙ\"",
+      "slug": null,
+      "uic": "176779224",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valentina-cherneva-hristova-a30ffb",
+      "target": "company:tr:176779224",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

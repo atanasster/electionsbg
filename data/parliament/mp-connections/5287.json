@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:5287",
   "nodes": [
     {
@@ -24,12 +24,12 @@
       "seat": "БЪЛГАРИЯ, Шумен, 9700"
     },
     {
-      "id": "official:sonya-marinova-nedyalkova-5bb966",
+      "id": "official:sonya-marinova-nedyalkova-a5b44c",
       "type": "official",
-      "slug": "sonya-marinova-nedyalkova-5bb966",
+      "slug": "sonya-marinova-nedyalkova-a5b44c",
       "label": "Соня Маринова Недялкова",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "kindergarten",
       "municipality": null
     },
     {
@@ -68,7 +68,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:sonya-marinova-nedyalkova-5bb966",
+      "source": "official:sonya-marinova-nedyalkova-a5b44c",
       "target": "company:tr:127629827",
       "kind": "tr_role",
       "role": "ngo_representative",
@@ -76,7 +76,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:sonya-marinova-nedyalkova-5bb966",
+      "source": "official:sonya-marinova-nedyalkova-a5b44c",
       "target": "company:tr:127629827",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -84,7 +84,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:sonya-marinova-nedyalkova-5bb966",
+      "source": "official:sonya-marinova-nedyalkova-a5b44c",
       "target": "company:tr:127629827",
       "kind": "tr_role",
       "role": "liquidator",

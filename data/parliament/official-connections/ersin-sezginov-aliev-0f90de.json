@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ersin-sezginov-aliev-0f90de",
+  "nodes": [
+    {
+      "id": "official:ersin-sezginov-aliev-0f90de",
+      "type": "official",
+      "slug": "ersin-sezginov-aliev-0f90de",
+      "label": "Ерсин Сезгинов Алиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Лозница"
+    },
+    {
+      "id": "company:tr:206939068",
+      "type": "company",
+      "label": "Е-А Пласт",
+      "slug": null,
+      "uic": "206939068",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ersin-sezginov-aliev-0f90de",
+      "target": "company:tr:206939068",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ersin-sezginov-aliev-0f90de",
+      "target": "company:tr:206939068",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

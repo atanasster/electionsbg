@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:valentin-iliev-dimitrov-0fb639",
+  "nodes": [
+    {
+      "id": "official:valentin-iliev-dimitrov-0fb639",
+      "type": "official",
+      "slug": "valentin-iliev-dimitrov-0fb639",
+      "label": "Валентин Илиев Димитров",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206021882",
+      "type": "company",
+      "label": "СТАЗИС ООД",
+      "slug": null,
+      "uic": "206021882",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛА ИВАЙЛОВ ЗДРАВКОВ",
+      "type": "person",
+      "label": "Никола Ивайлов Здравков"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ЛЮБОМИРОВ КАЦАРСКИ",
+      "type": "person",
+      "label": "Веселин Любомиров Кацарски"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valentin-iliev-dimitrov-0fb639",
+      "target": "company:tr:206021882",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:valentin-iliev-dimitrov-0fb639",
+      "target": "company:tr:206021882",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:valentin-iliev-dimitrov-0fb639",
+      "target": "company:tr:206021882",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛА ИВАЙЛОВ ЗДРАВКОВ",
+      "target": "company:tr:206021882",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ЛЮБОМИРОВ КАЦАРСКИ",
+      "target": "company:tr:206021882",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

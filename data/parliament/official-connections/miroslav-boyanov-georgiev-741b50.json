@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:miroslav-boyanov-georgiev-741b50",
+  "nodes": [
+    {
+      "id": "official:miroslav-boyanov-georgiev-741b50",
+      "type": "official",
+      "slug": "miroslav-boyanov-georgiev-741b50",
+      "label": "Мирослав Боянов Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Аврен"
+    },
+    {
+      "id": "company:tr:204379425",
+      "type": "company",
+      "label": "ЕЛ ЕС ЕМ",
+      "slug": null,
+      "uic": "204379425",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕЛИЦА СТАЙКОВА МАРИНОВА",
+      "type": "person",
+      "label": "Елица Стайкова Маринова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miroslav-boyanov-georgiev-741b50",
+      "target": "company:tr:204379425",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕЛИЦА СТАЙКОВА МАРИНОВА",
+      "target": "company:tr:204379425",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЦА СТАЙКОВА МАРИНОВА",
+      "target": "company:tr:204379425",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

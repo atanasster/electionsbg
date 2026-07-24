@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-vasilev-peev-a30563",
+  "nodes": [
+    {
+      "id": "official:ivan-vasilev-peev-a30563",
+      "type": "official",
+      "slug": "ivan-vasilev-peev-a30563",
+      "label": "Иван Василев Пеев",
+      "tier": "executive",
+      "role": "cultural_institute",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208180171",
+      "type": "company",
+      "label": "ГРАФИК ХАУС",
+      "slug": null,
+      "uic": "208180171",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-vasilev-peev-a30563",
+      "target": "company:tr:208180171",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-vasilev-peev-a30563",
+      "target": "company:tr:208180171",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

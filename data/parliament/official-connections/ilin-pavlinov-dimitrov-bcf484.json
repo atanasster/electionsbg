@@ -1,0 +1,226 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ilin-pavlinov-dimitrov-bcf484",
+  "nodes": [
+    {
+      "id": "official:ilin-pavlinov-dimitrov-bcf484",
+      "type": "official",
+      "slug": "ilin-pavlinov-dimitrov-bcf484",
+      "label": "Илин Павлинов Димитров",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:103188964",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ВАРНЕНСКА ТУРИСТИЧЕСКА КАМАРА&quot;",
+      "slug": null,
+      "uic": "103188964",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    },
+    {
+      "id": "mp:5067",
+      "type": "mp",
+      "mpId": 5067,
+      "label": "Илин Павлинов Димитров",
+      "partyGroupShort": "ПрБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47"
+      ]
+    },
+    {
+      "id": "person:ЛЮДМИЛА ПЕТРОВА НЕНКОВА",
+      "type": "person",
+      "label": "Людмила Петрова Ненкова"
+    },
+    {
+      "id": "person:ДОНКА ПАВЛОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Донка Павлова Георгиева"
+    },
+    {
+      "id": "person:ЕЛЕНА КОСЕВА КОСЕВА",
+      "type": "person",
+      "label": "Елена Косева Косева"
+    },
+    {
+      "id": "person:ХРИСТИНА КРАСЕНОВА НЕДЕЛЧЕВА",
+      "type": "person",
+      "label": "Христина Красенова Неделчева"
+    },
+    {
+      "id": "person:МАРГИТА ПЕТРОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Маргита Петрова Тодорова"
+    },
+    {
+      "id": "person:ЙОВКА СЕВОВА ИВАНОВА",
+      "type": "person",
+      "label": "Йовка Севова Иванова"
+    },
+    {
+      "id": "person:ГЕОРГИ ХРИСТОВ ФИЛИПОВ",
+      "type": "person",
+      "label": "Георги Христов Филипов"
+    },
+    {
+      "id": "person:ИЛИЯ ПЕТРОВ РАЕВ",
+      "type": "person",
+      "label": "Илия Петров Раев"
+    },
+    {
+      "id": "person:СТОЯН ПЕТКОВ МАРИНОВ",
+      "type": "person",
+      "label": "Стоян Петков Маринов"
+    },
+    {
+      "id": "person:КАЛИН СТЕФАНОВ СУТЕВ",
+      "type": "person",
+      "label": "Калин Стефанов Сутев"
+    },
+    {
+      "id": "person:ДОНКА ПАВЛОВА ГЕОРГИЕВ А",
+      "type": "person",
+      "label": "Донка Павлова Георгиев А"
+    },
+    {
+      "id": "person:ПРОФ.Д-Р СТОЯН ПЕТКОВ МАРИНОВ",
+      "type": "person",
+      "label": "Проф.д-Р Стоян Петков Маринов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ilin-pavlinov-dimitrov-bcf484",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5067",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮДМИЛА ПЕТРОВА НЕНКОВА",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА ПАВЛОВА ГЕОРГИЕВА",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА КОСЕВА КОСЕВА",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА КРАСЕНОВА НЕДЕЛЧЕВА",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГИТА ПЕТРОВА ТОДОРОВА",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОВКА СЕВОВА ИВАНОВА",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ХРИСТОВ ФИЛИПОВ",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ПЕТРОВ РАЕВ",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ПЕТКОВ МАРИНОВ",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН СТЕФАНОВ СУТЕВ",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛА ПЕТРОВА НЕНКОВА",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ПЕТКОВ МАРИНОВ",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА ПАВЛОВА ГЕОРГИЕВ А",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПРОФ.Д-Р СТОЯН ПЕТКОВ МАРИНОВ",
+      "target": "company:tr:103188964",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

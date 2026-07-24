@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "emil-denkov-denkov-863189",
+    "declarantName": "ЕМИЛ ДЕНКОВ ДЕНКОВ",
+    "institution": "Русе",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-28",
+    "entryNumber": "Г8785",
+    "controlHash": "F0A47E26",
+    "sourceUrl": "https://register.cacbg.bg/2025/63398C31-3CED-4C93-95E4-A3B1435629A5211810.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5723.40131811047,
+        "amountEurSpouse": 14560.57019270591
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 11029.588461164825,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "РУСЕ",
+        "municipality": "Русе",
+        "areaSqm": 122,
+        "builtAreaSqm": 122,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 213000,
+        "valueEur": 108905.17069479453,
+        "holderName": "ЕМИЛ  ДЕНКОВ ДЕНКОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "гараж",
+        "detail": null,
+        "location": "РУСЕ",
+        "municipality": "Русе",
+        "areaSqm": 29,
+        "builtAreaSqm": 29,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "ЕМИЛ  ДЕНКОВ ДЕНКОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 23323,
+        "valueEur": 11924.860545139403,
+        "holderName": "ЕМИЛ ДЕНКОВ ДЕНКОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "СИМОНА ДИМИТРОВА ДЕНКОВА",
+        "isSpouse": true,
+        "legalBasis": "ДОГОВОР",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

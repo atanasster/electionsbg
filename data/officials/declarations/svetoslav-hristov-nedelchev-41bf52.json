@@ -1,0 +1,70 @@
+[
+  {
+    "slug": "svetoslav-hristov-nedelchev-41bf52",
+    "declarantName": "СВЕТОСЛАВ ХРИСТОВ НЕДЕЛЧЕВ",
+    "institution": "Общински предприятия",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г15239",
+    "controlHash": "17BFEB14",
+    "sourceUrl": "https://register.cacbg.bg/2025/498AF3DE-2F03-40B1-998D-EEB8093238E5218977.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20545.241662107648,
+        "amountEurSpouse": 73049.80494214733
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1573.7564103219604
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. НЕДОКЛАН, ул. \"НАДЕЖДА\" №4",
+        "municipality": "Разград",
+        "areaSqm": 2102,
+        "builtAreaSqm": 130,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 67000,
+        "valueEur": 34256.556040146635,
+        "holderName": "СВЕТОСЛАВ ХРИСТОВ НЕДЕЛЧЕВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. НЕДОКЛАН, ул. \"НАДЕЖДА\" №4",
+        "municipality": "Разград",
+        "areaSqm": 2102,
+        "builtAreaSqm": 130,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 67000,
+        "valueEur": 34256.556040146635,
+        "holderName": "ЕЛКА АЛЕКСАНДРОВА НЕДЕЛЧЕВА",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      }
+    ],
+    "events": []
+  }
+]

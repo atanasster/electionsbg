@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-tsakov-tsakov-cff918",
+  "nodes": [
+    {
+      "id": "official:ivan-tsakov-tsakov-cff918",
+      "type": "official",
+      "slug": "ivan-tsakov-tsakov-cff918",
+      "label": "Иван Цаков Цаков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130203228",
+      "type": "company",
+      "label": "БАЛКАНГАЗ 2000",
+      "slug": null,
+      "uic": "130203228",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТО ПЕТКОВ ЯКИМОВ",
+      "type": "person",
+      "label": "Христо Петков Якимов"
+    },
+    {
+      "id": "person:БОРИС ДОБРИНКОВ ДРЕНОВ",
+      "type": "person",
+      "label": "Борис Добринков Дренов"
+    },
+    {
+      "id": "person:МИХАИЛ ПЕТКОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Михаил Петков Димитров"
+    },
+    {
+      "id": "person:ЙОАНА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Йоана Георгиева Георгиева"
+    },
+    {
+      "id": "person:НИКОЛАЙ СТОЯНОВ КЛЮНКОВ",
+      "type": "person",
+      "label": "Николай Стоянов Клюнков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-tsakov-tsakov-cff918",
+      "target": "company:tr:130203228",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО ПЕТКОВ ЯКИМОВ",
+      "target": "company:tr:130203228",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИС ДОБРИНКОВ ДРЕНОВ",
+      "target": "company:tr:130203228",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ ПЕТКОВ ДИМИТРОВ",
+      "target": "company:tr:130203228",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОАНА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "target": "company:tr:130203228",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ СТОЯНОВ КЛЮНКОВ",
+      "target": "company:tr:130203228",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

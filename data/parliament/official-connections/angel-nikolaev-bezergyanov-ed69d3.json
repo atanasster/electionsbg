@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:angel-nikolaev-bezergyanov-ed69d3",
+  "nodes": [
+    {
+      "id": "official:angel-nikolaev-bezergyanov-ed69d3",
+      "type": "official",
+      "slug": "angel-nikolaev-bezergyanov-ed69d3",
+      "label": "Ангел Николаев Безергянов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Смолян"
+    },
+    {
+      "id": "company:tr:176885779",
+      "type": "company",
+      "label": "НИЕ",
+      "slug": null,
+      "uic": "176885779",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АВГУСТИН АСЕНОВ ХАДЖИЙСКИ",
+      "type": "person",
+      "label": "Августин Асенов Хаджийски"
+    },
+    {
+      "id": "person:СТАНИСЛАВ МИТКОВ АСЕНОВ",
+      "type": "person",
+      "label": "Станислав Митков Асенов"
+    },
+    {
+      "id": "person:МИРОСЛАВ СИМЕОНОВ КАРОВ",
+      "type": "person",
+      "label": "Мирослав Симеонов Каров"
+    },
+    {
+      "id": "person:ЖЕЛЯЗКО БАНКОВ КИЧУКОВ",
+      "type": "person",
+      "label": "Желязко Банков Кичуков"
+    },
+    {
+      "id": "person:ВАСИЛ ЗАРКОВ КУТЛЕВ",
+      "type": "person",
+      "label": "Васил Зарков Кутлев"
+    },
+    {
+      "id": "person:МАРИН НАЧЕВ КОМАНДАРЕВ",
+      "type": "person",
+      "label": "Марин Начев Командарев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:angel-nikolaev-bezergyanov-ed69d3",
+      "target": "company:tr:176885779",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АВГУСТИН АСЕНОВ ХАДЖИЙСКИ",
+      "target": "company:tr:176885779",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВ МИТКОВ АСЕНОВ",
+      "target": "company:tr:176885779",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ СИМЕОНОВ КАРОВ",
+      "target": "company:tr:176885779",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АВГУСТИН АСЕНОВ ХАДЖИЙСКИ",
+      "target": "company:tr:176885779",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕЛЯЗКО БАНКОВ КИЧУКОВ",
+      "target": "company:tr:176885779",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ЗАРКОВ КУТЛЕВ",
+      "target": "company:tr:176885779",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН НАЧЕВ КОМАНДАРЕВ",
+      "target": "company:tr:176885779",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:svetoslava-iordanova-hainova-c6f4de",
+  "nodes": [
+    {
+      "id": "official:svetoslava-iordanova-hainova-c6f4de",
+      "type": "official",
+      "slug": "svetoslava-iordanova-hainova-c6f4de",
+      "label": "Светослава Йорданова Хайнова",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Шумен"
+    },
+    {
+      "id": "company:tr:206881540",
+      "type": "company",
+      "label": "Сдружение &quot;Мисия - Бъдеще&quot;",
+      "slug": null,
+      "uic": "206881540",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЯ ЕВГЕНИЕВА ИЛИЕВА",
+      "type": "person",
+      "label": "Петя Евгениева Илиева"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА СТОЯНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Десислава Стоянова Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetoslava-iordanova-hainova-c6f4de",
+      "target": "company:tr:206881540",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:svetoslava-iordanova-hainova-c6f4de",
+      "target": "company:tr:206881540",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЯ ЕВГЕНИЕВА ИЛИЕВА",
+      "target": "company:tr:206881540",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА СТОЯНОВА ДИМИТРОВА",
+      "target": "company:tr:206881540",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ЕВГЕНИЕВА ИЛИЕВА",
+      "target": "company:tr:206881540",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА СТОЯНОВА ДИМИТРОВА",
+      "target": "company:tr:206881540",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ЕВГЕНИЕВА ИЛИЕВА",
+      "target": "company:tr:206881540",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

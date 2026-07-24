@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tihomir-mishev-dermendzhiev-09185a",
+  "nodes": [
+    {
+      "id": "official:tihomir-mishev-dermendzhiev-09185a",
+      "type": "official",
+      "slug": "tihomir-mishev-dermendzhiev-09185a",
+      "label": "Тихомир Мишев Дерменджиев",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000463379",
+      "type": "company",
+      "label": "КОМПЛЕКСЕН ОНКОЛОГИЧЕН ЦЕНТЪР - ПЛОВДИВ",
+      "slug": null,
+      "uic": "000463379",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tihomir-mishev-dermendzhiev-09185a",
+      "target": "company:tr:000463379",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

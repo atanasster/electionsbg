@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dilyan-dobrev-tomovski-fc7a11",
+  "nodes": [
+    {
+      "id": "official:dilyan-dobrev-tomovski-fc7a11",
+      "type": "official",
+      "slug": "dilyan-dobrev-tomovski-fc7a11",
+      "label": "Дилян Добрев Томовски",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000770022",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - БОТЕВГРАД",
+      "slug": null,
+      "uic": "000770022",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:orlin-veselinov-tsvetkov-f49ce9",
+      "type": "official",
+      "slug": "orlin-veselinov-tsvetkov-f49ce9",
+      "label": "Орлин Веселинов Цветков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dilyan-dobrev-tomovski-fc7a11",
+      "target": "company:tr:000770022",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:orlin-veselinov-tsvetkov-f49ce9",
+      "target": "company:tr:000770022",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

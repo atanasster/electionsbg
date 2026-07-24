@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:2926",
   "nodes": [
     {
@@ -42,36 +42,40 @@
       "label": "Никола Костадинов Поповски"
     },
     {
-      "id": "official:aleksandr-vlkov-vlkov-2bcaa2",
+      "id": "official:aleksandr-vlkov-vlkov-2d5feb",
       "type": "official",
-      "slug": "aleksandr-vlkov-vlkov-2bcaa2",
+      "slug": "aleksandr-vlkov-vlkov-2d5feb",
       "label": "Александър Вълков Вълков",
       "tier": "executive",
       "role": "hospital_head",
       "municipality": null
     },
     {
-      "id": "official:ventsislav-tsvetanov-grozev-ddf69c",
+      "id": "official:ventsislav-tsvetanov-grozev-71b80a",
       "type": "official",
-      "slug": "ventsislav-tsvetanov-grozev-ddf69c",
+      "slug": "ventsislav-tsvetanov-grozev-71b80a",
       "label": "Венцислав Цветанов Грозев",
       "tier": "executive",
       "role": "hospital_head",
       "municipality": null
     },
     {
-      "id": "official:diyan-lyubomirov-svrakov-62a7b5",
+      "id": "official:diyan-lyubomirov-svrakov-2ed465",
       "type": "official",
-      "slug": "diyan-lyubomirov-svrakov-62a7b5",
+      "slug": "diyan-lyubomirov-svrakov-2ed465",
       "label": "Диян Любомиров Свраков",
       "tier": "executive",
       "role": "hospital_head",
       "municipality": null
     },
     {
-      "id": "person:ЦВЕТАН ХРИСТОФОРОВ ЛУКАНОВ",
-      "type": "person",
-      "label": "Цветан Христофоров Луканов"
+      "id": "official:tsvetan-hristoforov-lukanov-3bd5d3",
+      "type": "official",
+      "slug": "tsvetan-hristoforov-lukanov-3bd5d3",
+      "label": "Цветан Христофоров Луканов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
     },
     {
       "id": "person:ДИМИТЪР ЖИВКОВ СТОЙКОВ",
@@ -145,7 +149,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:aleksandr-vlkov-vlkov-2bcaa2",
+      "source": "official:aleksandr-vlkov-vlkov-2d5feb",
       "target": "company:tr:114532352",
       "kind": "tr_role",
       "role": "representative",
@@ -153,7 +157,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:aleksandr-vlkov-vlkov-2bcaa2",
+      "source": "official:aleksandr-vlkov-vlkov-2d5feb",
       "target": "company:tr:114532352",
       "kind": "tr_role",
       "role": "director",
@@ -161,7 +165,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:ventsislav-tsvetanov-grozev-ddf69c",
+      "source": "official:ventsislav-tsvetanov-grozev-71b80a",
       "target": "company:tr:114532352",
       "kind": "tr_role",
       "role": "director",
@@ -169,7 +173,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:diyan-lyubomirov-svrakov-62a7b5",
+      "source": "official:diyan-lyubomirov-svrakov-2ed465",
       "target": "company:tr:114532352",
       "kind": "tr_role",
       "role": "director",
@@ -177,12 +181,20 @@
       "confidence": "medium"
     },
     {
-      "source": "person:ЦВЕТАН ХРИСТОФОРОВ ЛУКАНОВ",
+      "source": "official:tsvetan-hristoforov-lukanov-3bd5d3",
       "target": "company:tr:114532352",
       "kind": "tr_role",
       "role": "director",
       "isCurrent": true,
-      "confidence": "high"
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tsvetan-hristoforov-lukanov-3bd5d3",
+      "target": "company:tr:114532352",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
     },
     {
       "source": "person:ДИМИТЪР ЖИВКОВ СТОЙКОВ",
@@ -197,14 +209,6 @@
       "target": "company:tr:114532352",
       "kind": "tr_role",
       "role": "director",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:ЦВЕТАН ХРИСТОФОРОВ ЛУКАНОВ",
-      "target": "company:tr:114532352",
-      "kind": "tr_role",
-      "role": "representative",
       "isCurrent": true,
       "confidence": "high"
     },

@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:yasen-lyubenov-todorov-4eceb0",
+  "nodes": [
+    {
+      "id": "official:yasen-lyubenov-todorov-4eceb0",
+      "type": "official",
+      "slug": "yasen-lyubenov-todorov-4eceb0",
+      "label": "Ясен Любенов Тодоров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:177147779",
+      "type": "company",
+      "label": "СПОРТЕН КЛУБ &quot;ТЕМИДА&quot;",
+      "slug": null,
+      "uic": "177147779",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВИКТОР КРАСИМИРОВ БОРИСОВ",
+      "type": "person",
+      "label": "Виктор Красимиров Борисов"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ИВАНОВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Десислава Иванова Михайлова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yasen-lyubenov-todorov-4eceb0",
+      "target": "company:tr:177147779",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВИКТОР КРАСИМИРОВ БОРИСОВ",
+      "target": "company:tr:177147779",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ИВАНОВА МИХАЙЛОВА",
+      "target": "company:tr:177147779",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

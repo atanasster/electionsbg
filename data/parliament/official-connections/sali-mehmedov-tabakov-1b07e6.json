@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:sali-mehmedov-tabakov-1b07e6",
+  "nodes": [
+    {
+      "id": "official:sali-mehmedov-tabakov-1b07e6",
+      "type": "official",
+      "slug": "sali-mehmedov-tabakov-1b07e6",
+      "label": "Сали Мехмедов Табаков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Варна"
+    },
+    {
+      "id": "company:tr:205175831",
+      "type": "company",
+      "label": "ЕВРОПЕЙСКИ ЦЕНТЪР ЗА ОБРАЗОВАНИЕ И КАРИЕРА",
+      "slug": null,
+      "uic": "205175831",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТО КОСТОВ СКУЛЕВ",
+      "type": "person",
+      "label": "Христо Костов Скулев"
+    },
+    {
+      "id": "person:ДЖЕМИЛЕ ЗАХИРОВА ТАБАКОВА",
+      "type": "person",
+      "label": "Джемиле Захирова Табакова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sali-mehmedov-tabakov-1b07e6",
+      "target": "company:tr:205175831",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО КОСТОВ СКУЛЕВ",
+      "target": "company:tr:205175831",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖЕМИЛЕ ЗАХИРОВА ТАБАКОВА",
+      "target": "company:tr:205175831",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

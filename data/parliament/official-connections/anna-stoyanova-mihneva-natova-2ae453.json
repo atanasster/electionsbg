@@ -1,0 +1,246 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:anna-stoyanova-mihneva-natova-2ae453",
+  "nodes": [
+    {
+      "id": "official:anna-stoyanova-mihneva-natova-2ae453",
+      "type": "official",
+      "slug": "anna-stoyanova-mihneva-natova-2ae453",
+      "label": "Анна Стоянова Михнева-Натова",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130316140",
+      "type": "company",
+      "label": "ПРИСТАНИЩНА ИНФРАСТРУКТУРА",
+      "slug": null,
+      "uic": "130316140",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:angel-borisov-zaburtov-4bbaca",
+      "type": "official",
+      "slug": "angel-borisov-zaburtov-4bbaca",
+      "label": "Ангел Борисов Забуртов",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "official:ioan-ioanov-kostadinov-6ef0af",
+      "type": "official",
+      "slug": "ioan-ioanov-kostadinov-6ef0af",
+      "label": "Йоан Йоанов Костадинов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:pencho-georgiev-petkov-36365b",
+      "type": "official",
+      "slug": "pencho-georgiev-petkov-36365b",
+      "label": "Пенчо Георгиев Петков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:rosen-todorov-borisov-30055e",
+      "type": "official",
+      "slug": "rosen-todorov-borisov-30055e",
+      "label": "Росен Тодоров Борисов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ДОБРОМИР ГЕОРГИЕВ ЯНЕВ",
+      "type": "person",
+      "label": "Добромир Георгиев Янев"
+    },
+    {
+      "id": "person:ДИМИТЪР РУМЕНОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Димитър Руменов Николов"
+    },
+    {
+      "id": "person:СТОЯН БОРИСОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Стоян Борисов Христов"
+    },
+    {
+      "id": "person:ГЕОРГИ СЪБЕВ СЪБЕВ",
+      "type": "person",
+      "label": "Георги Събев Събев"
+    },
+    {
+      "id": "person:ИЛИАН ЛЮБЕНОВ ТЕНЕКЕДЖИЕВ",
+      "type": "person",
+      "label": "Илиан Любенов Тенекеджиев"
+    },
+    {
+      "id": "person:ДИМИТЪР МИХАЙЛОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Димитър Михайлов Петков"
+    },
+    {
+      "id": "person:ПЕТЪР ИВОВ СЕФЕРОВ",
+      "type": "person",
+      "label": "Петър Ивов Сеферов"
+    },
+    {
+      "id": "person:ДИРК ЙОХАН ГУСТАФ ПЕРГОТ",
+      "type": "person",
+      "label": "Дирк Йохан Густаф Пергот"
+    },
+    {
+      "id": "person:ИВАЙЛО СТОЯНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Ивайло Стоянов Иванов"
+    },
+    {
+      "id": "person:СТАНИСЛАВ СТОИЛОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Станислав Стоилов Йорданов"
+    },
+    {
+      "id": "person:КРИСТИЯН ВЕСЕЛИНОВ БОГОЕВ",
+      "type": "person",
+      "label": "Кристиян Веселинов Богоев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:anna-stoyanova-mihneva-natova-2ae453",
+      "target": "company:tr:130316140",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:angel-borisov-zaburtov-4bbaca",
+      "target": "company:tr:130316140",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ioan-ioanov-kostadinov-6ef0af",
+      "target": "company:tr:130316140",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:pencho-georgiev-petkov-36365b",
+      "target": "company:tr:130316140",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rosen-todorov-borisov-30055e",
+      "target": "company:tr:130316140",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДОБРОМИР ГЕОРГИЕВ ЯНЕВ",
+      "target": "company:tr:130316140",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР РУМЕНОВ НИКОЛОВ",
+      "target": "company:tr:130316140",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН БОРИСОВ ХРИСТОВ",
+      "target": "company:tr:130316140",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ СЪБЕВ СЪБЕВ",
+      "target": "company:tr:130316140",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИАН ЛЮБЕНОВ ТЕНЕКЕДЖИЕВ",
+      "target": "company:tr:130316140",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР МИХАЙЛОВ ПЕТКОВ",
+      "target": "company:tr:130316140",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ИВОВ СЕФЕРОВ",
+      "target": "company:tr:130316140",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИРК ЙОХАН ГУСТАФ ПЕРГОТ",
+      "target": "company:tr:130316140",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО СТОЯНОВ ИВАНОВ",
+      "target": "company:tr:130316140",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВ СТОИЛОВ ЙОРДАНОВ",
+      "target": "company:tr:130316140",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИЯН ВЕСЕЛИНОВ БОГОЕВ",
+      "target": "company:tr:130316140",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

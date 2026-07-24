@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mihail-stoyanov-kirov-5ea675",
+  "nodes": [
+    {
+      "id": "official:mihail-stoyanov-kirov-5ea675",
+      "type": "official",
+      "slug": "mihail-stoyanov-kirov-5ea675",
+      "label": "Михаил Стоянов Киров",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201730342",
+      "type": "company",
+      "label": "АГРИВЕСТ-ЕМ",
+      "slug": null,
+      "uic": "201730342",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕМИЛИЯ ДИМИТРОВА ЯЛЪМОВА-КИРОВА",
+      "type": "person",
+      "label": "Емилия Димитрова Ялъмова-Кирова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mihail-stoyanov-kirov-5ea675",
+      "target": "company:tr:201730342",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕМИЛИЯ ДИМИТРОВА ЯЛЪМОВА-КИРОВА",
+      "target": "company:tr:201730342",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

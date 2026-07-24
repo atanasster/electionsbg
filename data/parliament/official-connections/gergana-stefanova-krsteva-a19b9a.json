@@ -1,0 +1,653 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:gergana-stefanova-krsteva-a19b9a",
+  "nodes": [
+    {
+      "id": "official:gergana-stefanova-krsteva-a19b9a",
+      "type": "official",
+      "slug": "gergana-stefanova-krsteva-a19b9a",
+      "label": "Гергана Стефанова Кръстева",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Димитровград"
+    },
+    {
+      "id": "company:tr:131321336",
+      "type": "company",
+      "label": "Национална асоциация на председателите на Общински съвети в Република България",
+      "slug": null,
+      "uic": "131321336",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:3148",
+      "type": "mp",
+      "mpId": 3148,
+      "label": "Красимир Христов Николов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:5288",
+      "type": "mp",
+      "mpId": 5288,
+      "label": "Сейфи Сабри Мехмедали",
+      "partyGroupShort": "ПГ на ДПС",
+      "isCurrent": true,
+      "nsFolders": [
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "official:antoaneta-kirilova-bogdanova-c233f1",
+      "type": "official",
+      "slug": "antoaneta-kirilova-bogdanova-c233f1",
+      "label": "Антоанета Кирилова Богданова",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Благоевград"
+    },
+    {
+      "id": "official:atanas-andreev-uzunov-299979",
+      "type": "official",
+      "slug": "atanas-andreev-uzunov-299979",
+      "label": "Атанас Андреев Узунов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пловдив"
+    },
+    {
+      "id": "official:bedrie-yashar-gaziyumer-279018",
+      "type": "official",
+      "slug": "bedrie-yashar-gaziyumer-279018",
+      "label": "Бедрие Яшар Газиюмер",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Черноочене"
+    },
+    {
+      "id": "official:georgi-slavchev-koev-2350f9",
+      "type": "official",
+      "slug": "georgi-slavchev-koev-2350f9",
+      "label": "Георги Славчев Коев",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Добричка"
+    },
+    {
+      "id": "official:zlatka-danailova-doneva-tsaneva-9a5cf1",
+      "type": "official",
+      "slug": "zlatka-danailova-doneva-tsaneva-9a5cf1",
+      "label": "Златка Данаилова Донева-Цанева",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Трявна"
+    },
+    {
+      "id": "official:kristiyan-vasilev-kirilov-a0e875",
+      "type": "official",
+      "slug": "kristiyan-vasilev-kirilov-a0e875",
+      "label": "Кристиян Василев Кирилов",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Свищов"
+    },
+    {
+      "id": "official:lilyana-angelova-draganova-f9249c",
+      "type": "official",
+      "slug": "lilyana-angelova-draganova-f9249c",
+      "label": "Лиляна Ангелова Драганова",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Долна баня"
+    },
+    {
+      "id": "official:seidi-aliev-sherifov-9520d5",
+      "type": "official",
+      "slug": "seidi-aliev-sherifov-9520d5",
+      "label": "Сейди Алиев Шерифов",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Борино"
+    },
+    {
+      "id": "official:sergei-hristov-dobrev-6cb6ea",
+      "type": "official",
+      "slug": "sergei-hristov-dobrev-6cb6ea",
+      "label": "Сергей Христов Добрев",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Лясковец"
+    },
+    {
+      "id": "official:stefan-tiholov-tiholov-b89fbb",
+      "type": "official",
+      "slug": "stefan-tiholov-tiholov-b89fbb",
+      "label": "Стефан Тихолов Тихолов",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Ловеч"
+    },
+    {
+      "id": "official:stoyan-dimitrov-nenchev-0b576b",
+      "type": "official",
+      "slug": "stoyan-dimitrov-nenchev-0b576b",
+      "label": "Стоян Димитров Ненчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Разград"
+    },
+    {
+      "id": "official:tahir-dzhemalov-tahirov-0005cc",
+      "type": "official",
+      "slug": "tahir-dzhemalov-tahirov-0005cc",
+      "label": "Тахир Джемалов Тахиров",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Търговище"
+    },
+    {
+      "id": "person:МАРИЯ ТАНЕВА ДИНЕВА",
+      "type": "person",
+      "label": "Мария Танева Динева"
+    },
+    {
+      "id": "person:НИКОЛАЙ ИВАНОВ ПЛЕЩОВ",
+      "type": "person",
+      "label": "Николай Иванов Плещов"
+    },
+    {
+      "id": "person:ЕМИЛ МИНКОВ ХУМЧЕВ",
+      "type": "person",
+      "label": "Емил Минков Хумчев"
+    },
+    {
+      "id": "person:ЕМИНЕ ФЕИМОВА ЯКУБОВА",
+      "type": "person",
+      "label": "Емине Феимова Якубова"
+    },
+    {
+      "id": "person:СЕВДАЛИНА ХРИСТОВА ТУРМАНОВА",
+      "type": "person",
+      "label": "Севдалина Христова Турманова"
+    },
+    {
+      "id": "person:МАРИЯ ДИМИТРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Мария Димитрова Димитрова"
+    },
+    {
+      "id": "person:НИКОЛАЙ ФИЛИПОВ КОЛЕВ",
+      "type": "person",
+      "label": "Николай Филипов Колев"
+    },
+    {
+      "id": "person:ЦВЕТАН ПАСКАЛЕВ АНДРЕЕВ",
+      "type": "person",
+      "label": "Цветан Паскалев Андреев"
+    },
+    {
+      "id": "person:ДАНИЕЛА ДИМИТРОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Даниела Димитрова Николова"
+    },
+    {
+      "id": "person:ИВО ЦВЕТАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Иво Цветанов Иванов"
+    },
+    {
+      "id": "person:ИЛИЯН ИВАНОВ МАРИНОВ",
+      "type": "person",
+      "label": "Илиян Иванов Маринов"
+    },
+    {
+      "id": "person:АТАНАС ДИМИТРОВ ТЕЛЧАРОВ",
+      "type": "person",
+      "label": "Атанас Димитров Телчаров"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ АНГЕЛОВ СПИРДОНОВ",
+      "type": "person",
+      "label": "Венцислав Ангелов Спирдонов"
+    },
+    {
+      "id": "person:ПЕТЪР ЦОЛОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Петър Цолов Николов"
+    },
+    {
+      "id": "person:БИСТРА АНГЕЛОВА ПАВЛОВСКА",
+      "type": "person",
+      "label": "Бистра Ангелова Павловска"
+    },
+    {
+      "id": "person:МАРИЯ МИКОВА СТОЙЧЕВА",
+      "type": "person",
+      "label": "Мария Микова Стойчева"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР МИЛКОВ ДЪРЖИКОВ",
+      "type": "person",
+      "label": "Александър Милков Държиков"
+    },
+    {
+      "id": "person:ХРИСТИНА ЯНЕВА КОСТАДИНОВА-ЧОЛАКОВА",
+      "type": "person",
+      "label": "Христина Янева Костадинова-Чолакова"
+    },
+    {
+      "id": "person:ЯНА ВЕНЕЛИНОВА НИНОВА",
+      "type": "person",
+      "label": "Яна Венелинова Нинова"
+    },
+    {
+      "id": "person:АНЕЛИЯ ЕМИЛОВА ДЖЕБИРОВА",
+      "type": "person",
+      "label": "Анелия Емилова Джебирова"
+    },
+    {
+      "id": "person:СЛАВА ТОДОРОВА ПЕПЕЛАНОВА",
+      "type": "person",
+      "label": "Слава Тодорова Пепеланова"
+    },
+    {
+      "id": "person:БОГОМИЛ ЕМИЛОВ БРАНКОВ",
+      "type": "person",
+      "label": "Богомил Емилов Бранков"
+    },
+    {
+      "id": "person:ВЛАДИМИР ДИМИТРОВ НЕНКОВ",
+      "type": "person",
+      "label": "Владимир Димитров Ненков"
+    },
+    {
+      "id": "person:ИВЕЛИН МАРИНОВ САВОВ",
+      "type": "person",
+      "label": "Ивелин Маринов Савов"
+    },
+    {
+      "id": "person:ИВЕТА ВАЛЕНТИНОВА ЛАЗАРОВА",
+      "type": "person",
+      "label": "Ивета Валентинова Лазарова"
+    },
+    {
+      "id": "person:МАРИЯ ДИМИТРОВА ТОМЕВА",
+      "type": "person",
+      "label": "Мария Димитрова Томева"
+    },
+    {
+      "id": "person:ХРИСТО АТАНАСОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Христо Атанасов Димитров"
+    },
+    {
+      "id": "person:КИРИЛ НИКОЛАЕВ ТОДОРИН",
+      "type": "person",
+      "label": "Кирил Николаев Тодорин"
+    },
+    {
+      "id": "person:МЕСРУ ЮСЕИН МЮМЮН",
+      "type": "person",
+      "label": "Месру Юсеин Мюмюн"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gergana-stefanova-krsteva-a19b9a",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3148",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5288",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:antoaneta-kirilova-bogdanova-c233f1",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:atanas-andreev-uzunov-299979",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:bedrie-yashar-gaziyumer-279018",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-slavchev-koev-2350f9",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zlatka-danailova-doneva-tsaneva-9a5cf1",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kristiyan-vasilev-kirilov-a0e875",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:lilyana-angelova-draganova-f9249c",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:seidi-aliev-sherifov-9520d5",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:sergei-hristov-dobrev-6cb6ea",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stefan-tiholov-tiholov-b89fbb",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stoyan-dimitrov-nenchev-0b576b",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tahir-dzhemalov-tahirov-0005cc",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯ ТАНЕВА ДИНЕВА",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ИВАНОВ ПЛЕЩОВ",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ МИНКОВ ХУМЧЕВ",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИНЕ ФЕИМОВА ЯКУБОВА",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВДАЛИНА ХРИСТОВА ТУРМАНОВА",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ДИМИТРОВА ДИМИТРОВА",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ФИЛИПОВ КОЛЕВ",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН ПАСКАЛЕВ АНДРЕЕВ",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ДИМИТРОВА НИКОЛОВА",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ЦВЕТАНОВ ИВАНОВ",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯН ИВАНОВ МАРИНОВ",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ДИМИТРОВ ТЕЛЧАРОВ",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ АНГЕЛОВ СПИРДОНОВ",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ЦОЛОВ НИКОЛОВ",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИСТРА АНГЕЛОВА ПАВЛОВСКА",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ МИКОВА СТОЙЧЕВА",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР МИЛКОВ ДЪРЖИКОВ",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА ЯНЕВА КОСТАДИНОВА-ЧОЛАКОВА",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНА ВЕНЕЛИНОВА НИНОВА",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ ЕМИЛОВА ДЖЕБИРОВА",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВА ТОДОРОВА ПЕПЕЛАНОВА",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОГОМИЛ ЕМИЛОВ БРАНКОВ",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ДИМИТРОВ НЕНКОВ",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИН МАРИНОВ САВОВ",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕТА ВАЛЕНТИНОВА ЛАЗАРОВА",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ДИМИТРОВА ТОМЕВА",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО АТАНАСОВ ДИМИТРОВ",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ НИКОЛАЕВ ТОДОРИН",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕСРУ ЮСЕИН МЮМЮН",
+      "target": "company:tr:131321336",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

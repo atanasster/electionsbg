@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:5269",
   "nodes": [
     {
@@ -54,27 +54,27 @@
       "seat": "БЪЛГАРИЯ, гр. София, 1680"
     },
     {
-      "id": "official:mladen-viktorov-mladenov-f55f9c",
+      "id": "official:mladen-viktorov-mladenov-05b38d",
       "type": "official",
-      "slug": "mladen-viktorov-mladenov-f55f9c",
+      "slug": "mladen-viktorov-mladenov-05b38d",
       "label": "Младен Викторов Младенов",
       "tier": "executive",
       "role": "agency_head",
       "municipality": null
     },
     {
-      "id": "official:ventsislav-valeriev-mitkov-81d2ec",
+      "id": "official:ventsislav-valeriev-mitkov-29d064",
       "type": "official",
-      "slug": "ventsislav-valeriev-mitkov-81d2ec",
+      "slug": "ventsislav-valeriev-mitkov-29d064",
       "label": "Венцислав Валериев Митков",
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Брезник"
     },
     {
-      "id": "official:svetoslav-ventsislavov-andreev-7d3d02",
+      "id": "official:svetoslav-ventsislavov-andreev-e5552f",
       "type": "official",
-      "slug": "svetoslav-ventsislavov-andreev-7d3d02",
+      "slug": "svetoslav-ventsislavov-andreev-e5552f",
       "label": "Светослав Венциславов Андреев",
       "tier": "municipal",
       "role": "councillor",
@@ -309,7 +309,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:mladen-viktorov-mladenov-f55f9c",
+      "source": "official:mladen-viktorov-mladenov-05b38d",
       "target": "company:tr:206828185",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -317,7 +317,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:ventsislav-valeriev-mitkov-81d2ec",
+      "source": "official:ventsislav-valeriev-mitkov-29d064",
       "target": "company:tr:206828185",
       "kind": "tr_role",
       "role": "ngo_representative",
@@ -325,7 +325,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:ventsislav-valeriev-mitkov-81d2ec",
+      "source": "official:ventsislav-valeriev-mitkov-29d064",
       "target": "company:tr:206828185",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -333,7 +333,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:svetoslav-ventsislavov-andreev-7d3d02",
+      "source": "official:svetoslav-ventsislavov-andreev-e5552f",
       "target": "company:tr:206828185",
       "kind": "tr_role",
       "role": "ngo_board",

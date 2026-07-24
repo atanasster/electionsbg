@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:plamen-nikolov-trifonov-396cb3",
+  "nodes": [
+    {
+      "id": "official:plamen-nikolov-trifonov-396cb3",
+      "type": "official",
+      "slug": "plamen-nikolov-trifonov-396cb3",
+      "label": "Пламен Николов Трифонов",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175232070",
+      "type": "company",
+      "label": "ИНФЛЕКС ГРУП",
+      "slug": null,
+      "uic": "175232070",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТОЯН ПАВЛОВ ИВАНОВ",
+      "type": "person",
+      "label": "Стоян Павлов Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:plamen-nikolov-trifonov-396cb3",
+      "target": "company:tr:175232070",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОЯН ПАВЛОВ ИВАНОВ",
+      "target": "company:tr:175232070",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

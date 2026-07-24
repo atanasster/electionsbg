@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimo-ivanov-stoyanov-f44404",
+  "nodes": [
+    {
+      "id": "official:dimo-ivanov-stoyanov-f44404",
+      "type": "official",
+      "slug": "dimo-ivanov-stoyanov-f44404",
+      "label": "Димо Иванов Стоянов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Твърдица"
+    },
+    {
+      "id": "company:tr:207143056",
+      "type": "company",
+      "label": "ВИКСТАР 13",
+      "slug": null,
+      "uic": "207143056",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ФЕДЯ АНГЕЛОВА ДЕРМЕНДЖИЕВА",
+      "type": "person",
+      "label": "Федя Ангелова Дерменджиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimo-ivanov-stoyanov-f44404",
+      "target": "company:tr:207143056",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ФЕДЯ АНГЕЛОВА ДЕРМЕНДЖИЕВА",
+      "target": "company:tr:207143056",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФЕДЯ АНГЕЛОВА ДЕРМЕНДЖИЕВА",
+      "target": "company:tr:207143056",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:murad-seifetinov-kambeshev-bb1b2b",
+  "nodes": [
+    {
+      "id": "official:murad-seifetinov-kambeshev-bb1b2b",
+      "type": "official",
+      "slug": "murad-seifetinov-kambeshev-bb1b2b",
+      "label": "Мурад Сейфетинов Камбешев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ветово"
+    },
+    {
+      "id": "company:tr:207074425",
+      "type": "company",
+      "label": "КАМБЕШ ВИДЕО",
+      "slug": null,
+      "uic": "207074425",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЙШЕ ДАУДОВА КИАМБЕШЕВА",
+      "type": "person",
+      "label": "Айше Даудова Киамбешева"
+    },
+    {
+      "id": "person:АЙШЕ ДАУДОВА КАМБЕШЕВА",
+      "type": "person",
+      "label": "Айше Даудова Камбешева"
+    },
+    {
+      "id": "person:СЕЙФЕТИН МУРАДОВ КАМБЕШЕВ",
+      "type": "person",
+      "label": "Сейфетин Мурадов Камбешев"
+    },
+    {
+      "id": "person:ТЮРКЯН ЕХРИДИН КАМБЕШЕВА",
+      "type": "person",
+      "label": "Тюркян Ехридин Камбешева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:murad-seifetinov-kambeshev-bb1b2b",
+      "target": "company:tr:207074425",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЙШЕ ДАУДОВА КИАМБЕШЕВА",
+      "target": "company:tr:207074425",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙШЕ ДАУДОВА КАМБЕШЕВА",
+      "target": "company:tr:207074425",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕЙФЕТИН МУРАДОВ КАМБЕШЕВ",
+      "target": "company:tr:207074425",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЮРКЯН ЕХРИДИН КАМБЕШЕВА",
+      "target": "company:tr:207074425",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

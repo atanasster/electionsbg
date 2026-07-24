@@ -1,0 +1,59 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dilyan-sashov-benovski-2b4013",
+  "nodes": [
+    {
+      "id": "official:dilyan-sashov-benovski-2b4013",
+      "type": "official",
+      "slug": "dilyan-sashov-benovski-2b4013",
+      "label": "Дилян Сашов Беновски",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кнежа"
+    },
+    {
+      "id": "company:Димакс-секюрити",
+      "type": "company",
+      "label": "Димакс секюрити",
+      "slug": "Димакс-секюрити",
+      "uic": "200465955",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Кнежа"
+    },
+    {
+      "id": "mp:5165",
+      "type": "mp",
+      "mpId": 5165,
+      "label": "Валери Пламенов Лачовски",
+      "partyGroupShort": "ПГ на ГЕРБ – СДС",
+      "isCurrent": true,
+      "nsFolders": [
+        "46",
+        "47",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dilyan-sashov-benovski-2b4013",
+      "target": "company:Димакс-секюрити",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5165",
+      "target": "company:Димакс-секюрити",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

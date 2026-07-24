@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitr-penev-stoichev-7ab146",
+  "nodes": [
+    {
+      "id": "official:dimitr-penev-stoichev-7ab146",
+      "type": "official",
+      "slug": "dimitr-penev-stoichev-7ab146",
+      "label": "Димитър Пенев Стойчев",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:123515149",
+      "type": "company",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪР I - СТАРА ЗАГОРА",
+      "slug": null,
+      "uic": "123515149",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-penev-stoichev-7ab146",
+      "target": "company:tr:123515149",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

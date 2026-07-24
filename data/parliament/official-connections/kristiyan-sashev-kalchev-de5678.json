@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:kristiyan-sashev-kalchev-de5678",
+  "nodes": [
+    {
+      "id": "official:kristiyan-sashev-kalchev-de5678",
+      "type": "official",
+      "slug": "kristiyan-sashev-kalchev-de5678",
+      "label": "Кристиян Сашев Калчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Тутракан"
+    },
+    {
+      "id": "company:tr:208758839",
+      "type": "company",
+      "label": "Клуб по канадска борба Дунавски Вълци",
+      "slug": null,
+      "uic": "208758839",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОАНА ПАВЛОВА ПАВЛОВА",
+      "type": "person",
+      "label": "Йоана Павлова Павлова"
+    },
+    {
+      "id": "person:СВЕТОСЛАВ САШЕВ КАЛЧЕВ",
+      "type": "person",
+      "label": "Светослав Сашев Калчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kristiyan-sashev-kalchev-de5678",
+      "target": "company:tr:208758839",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kristiyan-sashev-kalchev-de5678",
+      "target": "company:tr:208758839",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОАНА ПАВЛОВА ПАВЛОВА",
+      "target": "company:tr:208758839",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ САШЕВ КАЛЧЕВ",
+      "target": "company:tr:208758839",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

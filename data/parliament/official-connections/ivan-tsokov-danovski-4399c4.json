@@ -1,0 +1,126 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-tsokov-danovski-4399c4",
+  "nodes": [
+    {
+      "id": "official:ivan-tsokov-danovski-4399c4",
+      "type": "official",
+      "slug": "ivan-tsokov-danovski-4399c4",
+      "label": "Иван Цоков Дановски",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кнежа"
+    },
+    {
+      "id": "company:tr:205982351",
+      "type": "company",
+      "label": "ПЛЕВЕНСКО МЛЯКО - 2020",
+      "slug": null,
+      "uic": "205982351",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЦВЕТЕЛИН ЛЮБЕНОВ ГЕТОВ",
+      "type": "person",
+      "label": "Цветелин Любенов Гетов"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА НИКОЛОВА БАНОВСКА",
+      "type": "person",
+      "label": "Десислава Николова Бановска"
+    },
+    {
+      "id": "person:ГАЛИНА СТАНКОВА МИРЧЕВА",
+      "type": "person",
+      "label": "Галина Станкова Мирчева"
+    },
+    {
+      "id": "person:МАРИН РУМЕНОВ МАРИНОВ",
+      "type": "person",
+      "label": "Марин Руменов Маринов"
+    },
+    {
+      "id": "person:ТЕОДОРА ИВАНОВА ВЪЛОВА",
+      "type": "person",
+      "label": "Теодора Иванова Вълова"
+    },
+    {
+      "id": "person:ПЕТЪР ГЕОРГИЕВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Петър Георгиев Йорданов"
+    },
+    {
+      "id": "person:СТЕФКА ДИМОВА ГЪРМИДОЛОВА",
+      "type": "person",
+      "label": "Стефка Димова Гърмидолова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-tsokov-danovski-4399c4",
+      "target": "company:tr:205982351",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИН ЛЮБЕНОВ ГЕТОВ",
+      "target": "company:tr:205982351",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА НИКОЛОВА БАНОВСКА",
+      "target": "company:tr:205982351",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА СТАНКОВА МИРЧЕВА",
+      "target": "company:tr:205982351",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН РУМЕНОВ МАРИНОВ",
+      "target": "company:tr:205982351",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ИВАНОВА ВЪЛОВА",
+      "target": "company:tr:205982351",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ГЕОРГИЕВ ЙОРДАНОВ",
+      "target": "company:tr:205982351",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА ДИМОВА ГЪРМИДОЛОВА",
+      "target": "company:tr:205982351",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:neli-ivanova-bundeva-12038e",
+  "nodes": [
+    {
+      "id": "official:neli-ivanova-bundeva-12038e",
+      "type": "official",
+      "slug": "neli-ivanova-bundeva-12038e",
+      "label": "Нели Иванова Бундева",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000457134",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ НАПРЕДЪК - 1904 г. - С. УСТИНА",
+      "slug": null,
+      "uic": "000457134",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГИНКА ГЕОРГИЕВА КАЦАРОВА",
+      "type": "person",
+      "label": "Гинка Георгиева Кацарова"
+    },
+    {
+      "id": "person:РУСКА МИРЧЕВА СОЛАКОВА",
+      "type": "person",
+      "label": "Руска Мирчева Солакова"
+    },
+    {
+      "id": "person:СЕВДА МЕХМЕДОВА КЕХАЙОВА",
+      "type": "person",
+      "label": "Севда Мехмедова Кехайова"
+    },
+    {
+      "id": "person:ЙОРДАНА ГЕОРГИЕВА ДАФОВА",
+      "type": "person",
+      "label": "Йордана Георгиева Дафова"
+    },
+    {
+      "id": "person:ЕВЕЛИНА РАНГЕЛОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Евелина Рангелова Георгиева"
+    },
+    {
+      "id": "person:АПОСТОЛ ИВАНОВ МИРЧЕВ",
+      "type": "person",
+      "label": "Апостол Иванов Мирчев"
+    },
+    {
+      "id": "person:ВЕЛИЧКА АНГЕЛОВА ТАБАШКА",
+      "type": "person",
+      "label": "Величка Ангелова Табашка"
+    },
+    {
+      "id": "person:КРАСИМИРА ЦВЕТАНОВА БОГАТИНОВА",
+      "type": "person",
+      "label": "Красимира Цветанова Богатинова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:neli-ivanova-bundeva-12038e",
+      "target": "company:tr:000457134",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГИНКА ГЕОРГИЕВА КАЦАРОВА",
+      "target": "company:tr:000457134",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУСКА МИРЧЕВА СОЛАКОВА",
+      "target": "company:tr:000457134",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВДА МЕХМЕДОВА КЕХАЙОВА",
+      "target": "company:tr:000457134",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНА ГЕОРГИЕВА ДАФОВА",
+      "target": "company:tr:000457134",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВЕЛИНА РАНГЕЛОВА ГЕОРГИЕВА",
+      "target": "company:tr:000457134",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АПОСТОЛ ИВАНОВ МИРЧЕВ",
+      "target": "company:tr:000457134",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИЧКА АНГЕЛОВА ТАБАШКА",
+      "target": "company:tr:000457134",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ЦВЕТАНОВА БОГАТИНОВА",
+      "target": "company:tr:000457134",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГИНКА ГЕОРГИЕВА КАЦАРОВА",
+      "target": "company:tr:000457134",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

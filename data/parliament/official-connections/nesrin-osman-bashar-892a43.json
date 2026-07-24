@@ -1,0 +1,147 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nesrin-osman-bashar-892a43",
+  "nodes": [
+    {
+      "id": "official:nesrin-osman-bashar-892a43",
+      "type": "official",
+      "slug": "nesrin-osman-bashar-892a43",
+      "label": "Несрин Осман Башар",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ситово"
+    },
+    {
+      "id": "company:tr:000560216",
+      "type": "company",
+      "label": "СТЕФАН КАРАДЖА - 1963 г.",
+      "slug": null,
+      "uic": "000560216",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СЕВИЯ НАЗМИ МЕХМЕД",
+      "type": "person",
+      "label": "Севия Назми Мехмед"
+    },
+    {
+      "id": "person:ГЮЛБЕНУР АХМЕД ШАБАН",
+      "type": "person",
+      "label": "Гюлбенур Ахмед Шабан"
+    },
+    {
+      "id": "person:СЕВДА НУРИДИН СЕПТАР",
+      "type": "person",
+      "label": "Севда Нуридин Септар"
+    },
+    {
+      "id": "person:РЕНГИНАР АЗИС АЛИ",
+      "type": "person",
+      "label": "Ренгинар Азис Али"
+    },
+    {
+      "id": "person:ВЕСИЛЕ НАИМ ШАКИР",
+      "type": "person",
+      "label": "Весиле Наим Шакир"
+    },
+    {
+      "id": "person:САНИЯ МУСТАФА ЮСУФ",
+      "type": "person",
+      "label": "Сания Мустафа Юсуф"
+    },
+    {
+      "id": "person:БАХТИШЕН ХАШИМОВА АЛИЕВА",
+      "type": "person",
+      "label": "Бахтишен Хашимова Алиева"
+    },
+    {
+      "id": "person:ГЮЛВЕР АЛИ ЕТЕМ",
+      "type": "person",
+      "label": "Гюлвер Али Етем"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nesrin-osman-bashar-892a43",
+      "target": "company:tr:000560216",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СЕВИЯ НАЗМИ МЕХМЕД",
+      "target": "company:tr:000560216",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮЛБЕНУР АХМЕД ШАБАН",
+      "target": "company:tr:000560216",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВИЯ НАЗМИ МЕХМЕД",
+      "target": "company:tr:000560216",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВДА НУРИДИН СЕПТАР",
+      "target": "company:tr:000560216",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕНГИНАР АЗИС АЛИ",
+      "target": "company:tr:000560216",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСИЛЕ НАИМ ШАКИР",
+      "target": "company:tr:000560216",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САНИЯ МУСТАФА ЮСУФ",
+      "target": "company:tr:000560216",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БАХТИШЕН ХАШИМОВА АЛИЕВА",
+      "target": "company:tr:000560216",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮЛВЕР АЛИ ЕТЕМ",
+      "target": "company:tr:000560216",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:marutsa-stefanova-ioncheva-f32607",
+  "nodes": [
+    {
+      "id": "official:marutsa-stefanova-ioncheva-f32607",
+      "type": "official",
+      "slug": "marutsa-stefanova-ioncheva-f32607",
+      "label": "Маруца Стефанова Йончева",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Правец"
+    },
+    {
+      "id": "company:tr:207711217",
+      "type": "company",
+      "label": "Фондация \"Работа за нашите родители\"",
+      "slug": null,
+      "uic": "207711217",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РАДОСЛАВА ВАЛЕНТИНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Радослава Валентинова Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:marutsa-stefanova-ioncheva-f32607",
+      "target": "company:tr:207711217",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАДОСЛАВА ВАЛЕНТИНОВА ДИМИТРОВА",
+      "target": "company:tr:207711217",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВА ВАЛЕНТИНОВА ДИМИТРОВА",
+      "target": "company:tr:207711217",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

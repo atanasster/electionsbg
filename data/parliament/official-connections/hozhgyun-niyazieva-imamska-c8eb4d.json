@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hozhgyun-niyazieva-imamska-c8eb4d",
+  "nodes": [
+    {
+      "id": "official:hozhgyun-niyazieva-imamska-c8eb4d",
+      "type": "official",
+      "slug": "hozhgyun-niyazieva-imamska-c8eb4d",
+      "label": "Хожгюн Ниязиева Имамска",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Девин"
+    },
+    {
+      "id": "company:tr:208782676",
+      "type": "company",
+      "label": "АМБУЛАТОРИЯ-ИНДИВИДУАЛНА ПРАКТИКА ЗА ЗДРАВНИ ГРИЖИ - ХОЖИ",
+      "slug": null,
+      "uic": "208782676",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hozhgyun-niyazieva-imamska-c8eb4d",
+      "target": "company:tr:208782676",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hozhgyun-niyazieva-imamska-c8eb4d",
+      "target": "company:tr:208782676",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

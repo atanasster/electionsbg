@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:diana-petrova-arabadzhieva-dimitrova-e1d403",
+  "nodes": [
+    {
+      "id": "official:diana-petrova-arabadzhieva-dimitrova-e1d403",
+      "type": "official",
+      "slug": "diana-petrova-arabadzhieva-dimitrova-e1d403",
+      "label": "Диана Петрова Арабаджиева-Димитрова",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:124140855",
+      "type": "company",
+      "label": "ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН ЦЕНТЪР І - ДОБРИЧ",
+      "slug": null,
+      "uic": "124140855",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯН ИВАНОВ АНАНИЕВ",
+      "type": "person",
+      "label": "Мариян Иванов Ананиев"
+    },
+    {
+      "id": "person:БИСЕРКА АТАНАСОВА ПАЧОЛОВА-ЦЕНОВА",
+      "type": "person",
+      "label": "Бисерка Атанасова Пачолова-Ценова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:diana-petrova-arabadzhieva-dimitrova-e1d403",
+      "target": "company:tr:124140855",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯН ИВАНОВ АНАНИЕВ",
+      "target": "company:tr:124140855",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИСЕРКА АТАНАСОВА ПАЧОЛОВА-ЦЕНОВА",
+      "target": "company:tr:124140855",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

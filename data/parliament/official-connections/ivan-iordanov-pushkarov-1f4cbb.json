@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-iordanov-pushkarov-1f4cbb",
+  "nodes": [
+    {
+      "id": "official:ivan-iordanov-pushkarov-1f4cbb",
+      "type": "official",
+      "slug": "ivan-iordanov-pushkarov-1f4cbb",
+      "label": "Иван Йорданов Пушкаров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:837068284",
+      "type": "company",
+      "label": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ-ШУМЕН",
+      "slug": null,
+      "uic": "837068284",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕМИЛ ДОНЧЕВ ТОМОВ",
+      "type": "person",
+      "label": "Емил Дончев Томов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-iordanov-pushkarov-1f4cbb",
+      "target": "company:tr:837068284",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕМИЛ ДОНЧЕВ ТОМОВ",
+      "target": "company:tr:837068284",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

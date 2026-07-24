@@ -1,0 +1,82 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:adrian-plamenov-nikolov-ac7865",
+  "nodes": [
+    {
+      "id": "official:adrian-plamenov-nikolov-ac7865",
+      "type": "official",
+      "slug": "adrian-plamenov-nikolov-ac7865",
+      "label": "Адриан Пламенов Николов",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206201738",
+      "type": "company",
+      "label": "Детски спортен клуб Спортико България - Спорт за всички",
+      "slug": null,
+      "uic": "206201738",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АСЕН БОРИСОВ ЯНАЧКОВ",
+      "type": "person",
+      "label": "Асен Борисов Яначков"
+    },
+    {
+      "id": "person:НИКОЛЕТА НИКОЛОВА КАЛПАЗАНОВА",
+      "type": "person",
+      "label": "Николета Николова Калпазанова"
+    },
+    {
+      "id": "person:ПЛАМЕНА АСЕНОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Пламена Асенова Тодорова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:adrian-plamenov-nikolov-ac7865",
+      "target": "company:tr:206201738",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АСЕН БОРИСОВ ЯНАЧКОВ",
+      "target": "company:tr:206201738",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛЕТА НИКОЛОВА КАЛПАЗАНОВА",
+      "target": "company:tr:206201738",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН БОРИСОВ ЯНАЧКОВ",
+      "target": "company:tr:206201738",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕНА АСЕНОВА ТОДОРОВА",
+      "target": "company:tr:206201738",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

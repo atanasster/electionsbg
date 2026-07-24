@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:valentin-metodiev-velchev-5246ae",
+  "nodes": [
+    {
+      "id": "official:valentin-metodiev-velchev-5246ae",
+      "type": "official",
+      "slug": "valentin-metodiev-velchev-5246ae",
+      "label": "Валентин Методиев Велчев",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205398784",
+      "type": "company",
+      "label": "Крос офис ЕООД",
+      "slug": null,
+      "uic": "205398784",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:valentin-metodiev-velchev-ed41e2",
+      "type": "official",
+      "slug": "valentin-metodiev-velchev-ed41e2",
+      "label": "Валентин Методиев Велчев",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Търговище"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valentin-metodiev-velchev-5246ae",
+      "target": "company:tr:205398784",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:valentin-metodiev-velchev-ed41e2",
+      "target": "company:tr:205398784",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

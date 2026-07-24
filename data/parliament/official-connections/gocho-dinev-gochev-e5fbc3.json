@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:gocho-dinev-gochev-e5fbc3",
+  "nodes": [
+    {
+      "id": "official:gocho-dinev-gochev-e5fbc3",
+      "type": "official",
+      "slug": "gocho-dinev-gochev-e5fbc3",
+      "label": "Гочо Динев Гочев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Гурково"
+    },
+    {
+      "id": "company:tr:204498415",
+      "type": "company",
+      "label": "ГОЧЕВИ 2017 ООД",
+      "slug": null,
+      "uic": "204498415",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gocho-dinev-gochev-e5fbc3",
+      "target": "company:tr:204498415",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-stoyanov-krstev-cb51ed",
+  "nodes": [
+    {
+      "id": "official:nikolai-stoyanov-krstev-cb51ed",
+      "type": "official",
+      "slug": "nikolai-stoyanov-krstev-cb51ed",
+      "label": "Николай Стоянов Кръстев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:177232069",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ ЗА ДЕЦАТА - 2017",
+      "slug": null,
+      "uic": "177232069",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИЛЕНА РАНГЕЛОВА БОЕВА",
+      "type": "person",
+      "label": "Милена Рангелова Боева"
+    },
+    {
+      "id": "person:СИЛВИЯ РАНГЕЛОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Силвия Рангелова Стоянова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-stoyanov-krstev-cb51ed",
+      "target": "company:tr:177232069",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛЕНА РАНГЕЛОВА БОЕВА",
+      "target": "company:tr:177232069",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ РАНГЕЛОВА СТОЯНОВА",
+      "target": "company:tr:177232069",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mladen-marinov-ivanov-ade0cd",
+  "nodes": [
+    {
+      "id": "official:mladen-marinov-ivanov-ade0cd",
+      "type": "official",
+      "slug": "mladen-marinov-ivanov-ade0cd",
+      "label": "Младен Маринов Иванов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204917952",
+      "type": "company",
+      "label": "Индустриално-технологичен парк Варна",
+      "slug": null,
+      "uic": "204917952",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТАНИСЛАВ ТЕМЕЛКОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Станислав Темелков Димитров"
+    },
+    {
+      "id": "person:ГЕОРГИ ХРИСТОВ ГЕРОВ",
+      "type": "person",
+      "label": "Георги Христов Геров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mladen-marinov-ivanov-ade0cd",
+      "target": "company:tr:204917952",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТАНИСЛАВ ТЕМЕЛКОВ ДИМИТРОВ",
+      "target": "company:tr:204917952",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВ ТЕМЕЛКОВ ДИМИТРОВ",
+      "target": "company:tr:204917952",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ХРИСТОВ ГЕРОВ",
+      "target": "company:tr:204917952",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

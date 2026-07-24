@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:veska-slavova-maradzhieva-6c4de8",
+  "nodes": [
+    {
+      "id": "official:veska-slavova-maradzhieva-6c4de8",
+      "type": "official",
+      "slug": "veska-slavova-maradzhieva-6c4de8",
+      "label": "Веска Славова Мараджиева",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:123654309",
+      "type": "company",
+      "label": "ОПТИМА",
+      "slug": null,
+      "uic": "123654309",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИН СТОЙКОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Марин Стойков Петков"
+    },
+    {
+      "id": "person:МАРИЯ ВАСИЛЕВА КЮРКЧИЕВА",
+      "type": "person",
+      "label": "Мария Василева Кюркчиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veska-slavova-maradzhieva-6c4de8",
+      "target": "company:tr:123654309",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:veska-slavova-maradzhieva-6c4de8",
+      "target": "company:tr:123654309",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИН СТОЙКОВ ПЕТКОВ",
+      "target": "company:tr:123654309",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН СТОЙКОВ ПЕТКОВ",
+      "target": "company:tr:123654309",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ВАСИЛЕВА КЮРКЧИЕВА",
+      "target": "company:tr:123654309",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

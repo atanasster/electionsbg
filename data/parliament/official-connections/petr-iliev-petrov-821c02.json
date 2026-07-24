@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:petr-iliev-petrov-821c02",
+  "nodes": [
+    {
+      "id": "official:petr-iliev-petrov-821c02",
+      "type": "official",
+      "slug": "petr-iliev-petrov-821c02",
+      "label": "Петър Илиев Петров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Габрово"
+    },
+    {
+      "id": "company:tr:201305505",
+      "type": "company",
+      "label": "Боженски чифлик ЕООД",
+      "slug": null,
+      "uic": "201305505",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petr-iliev-petrov-821c02",
+      "target": "company:tr:201305505",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

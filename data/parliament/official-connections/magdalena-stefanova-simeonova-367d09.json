@@ -1,0 +1,86 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:magdalena-stefanova-simeonova-367d09",
+  "nodes": [
+    {
+      "id": "official:magdalena-stefanova-simeonova-367d09",
+      "type": "official",
+      "slug": "magdalena-stefanova-simeonova-367d09",
+      "label": "Магдалена Стефанова Симеонова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:101505152",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - БЛАГОЕВГРАД",
+      "slug": null,
+      "uic": "101505152",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:ognyan-stefanov-mitev-8c75aa",
+      "type": "official",
+      "slug": "ognyan-stefanov-mitev-8c75aa",
+      "label": "Огнян Стефанов Митев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:ХРИСТИНА ЦЕЦОВА ГЕТОВА",
+      "type": "person",
+      "label": "Христина Цецова Гетова"
+    },
+    {
+      "id": "person:ДИМИТЪР ГЕОРГИЕВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Георгиев Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:magdalena-stefanova-simeonova-367d09",
+      "target": "company:tr:101505152",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ognyan-stefanov-mitev-8c75aa",
+      "target": "company:tr:101505152",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТИНА ЦЕЦОВА ГЕТОВА",
+      "target": "company:tr:101505152",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ГЕОРГИЕВ ДИМИТРОВ",
+      "target": "company:tr:101505152",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ГЕОРГИЕВ ДИМИТРОВ",
+      "target": "company:tr:101505152",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

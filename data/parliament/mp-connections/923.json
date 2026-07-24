@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:923",
   "nodes": [
     {
@@ -37,18 +37,18 @@
       "label": "Георги Ангелов Даскалов"
     },
     {
-      "id": "official:mariyana-zdravkova-bailova-72a8b2",
+      "id": "official:mariyana-zdravkova-bailova-6ddff9",
       "type": "official",
-      "slug": "mariyana-zdravkova-bailova-72a8b2",
+      "slug": "mariyana-zdravkova-bailova-6ddff9",
       "label": "Марияна Здравкова Байлова",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "school",
       "municipality": null
     },
     {
-      "id": "official:stoicho-nikolov-marov-3787fe",
+      "id": "official:stoicho-nikolov-marov-8565fa",
       "type": "official",
-      "slug": "stoicho-nikolov-marov-3787fe",
+      "slug": "stoicho-nikolov-marov-8565fa",
       "label": "Стойчо Николов Маров",
       "tier": "executive",
       "role": "regional_director",
@@ -136,7 +136,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:mariyana-zdravkova-bailova-72a8b2",
+      "source": "official:mariyana-zdravkova-bailova-6ddff9",
       "target": "company:tr:112074397",
       "kind": "tr_role",
       "role": "trustee",
@@ -144,7 +144,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:stoicho-nikolov-marov-3787fe",
+      "source": "official:stoicho-nikolov-marov-8565fa",
       "target": "company:tr:112074397",
       "kind": "tr_role",
       "role": "ngo_representative",
@@ -152,7 +152,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:stoicho-nikolov-marov-3787fe",
+      "source": "official:stoicho-nikolov-marov-8565fa",
       "target": "company:tr:112074397",
       "kind": "tr_role",
       "role": "trustee",

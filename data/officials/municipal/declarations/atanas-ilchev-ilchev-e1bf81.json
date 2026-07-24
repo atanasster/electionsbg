@@ -1,0 +1,165 @@
+[
+  {
+    "slug": "atanas-ilchev-ilchev-e1bf81",
+    "declarantName": "Атанас Илчев Илчев",
+    "institution": "Ямбол",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г13057",
+    "controlHash": "BDFC967D",
+    "sourceUrl": "https://register.cacbg.bg/2025/66B2758E-3FC0-4F9A-AAF9-0DE189A845B8216247.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове в ООД",
+        "shareSize": "25%",
+        "companyName": "Спешъл сикюрити груп ООД",
+        "registeredOffice": "Ямбол",
+        "valueEur": 766.9378217943278,
+        "holderName": "Атанас Илчев Илчев",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "table": "11",
+        "itemType": "Дялове в ООД",
+        "shareSize": "25%",
+        "companyName": "Спешъл сикюрити груп ООД",
+        "registeredOffice": "Ямбол",
+        "valueEur": 47550.144951248316,
+        "holderName": null,
+        "transfereeName": "Атанас Илчев Илчев",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7318.120695561475,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 58761.753322118995,
+        "amountEurSpouse": 23922.835829289867
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 9543.774254408614
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 47550.144951248316,
+        "amountEurSpouse": 204.5167524784874
+      },
+      {
+        "parent": null,
+        "category": "дивиденти",
+        "amountEurDeclarant": 42948.518020482355,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 27942,
+        "valueEur": 14286.517744384737,
+        "holderName": "Атанас Илчев Илчев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 320000,
+        "valueEur": 163613.40198278992,
+        "holderName": "Атанас Илчев Илчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Атанас Илчев Илчев",
+        "isSpouse": false,
+        "legalBasis": "Потребителски кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Даниела Стефанова Илчева",
+        "isSpouse": true,
+        "legalBasis": "Потребителски кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 11000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Атанас Илчев Илчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "дарения"
+      }
+    ],
+    "events": []
+  }
+]

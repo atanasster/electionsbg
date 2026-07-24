@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hristina-hristova-velcheva-b658ae",
+  "nodes": [
+    {
+      "id": "official:hristina-hristova-velcheva-b658ae",
+      "type": "official",
+      "slug": "hristina-hristova-velcheva-b658ae",
+      "label": "Христина Христова Велчева",
+      "tier": "executive",
+      "role": "political_cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202182710",
+      "type": "company",
+      "label": "Аркадия пропърти ООД",
+      "slug": null,
+      "uic": "202182710",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristina-hristova-velcheva-b658ae",
+      "target": "company:tr:202182710",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

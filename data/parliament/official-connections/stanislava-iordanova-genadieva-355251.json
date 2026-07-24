@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stanislava-iordanova-genadieva-355251",
+  "nodes": [
+    {
+      "id": "official:stanislava-iordanova-genadieva-355251",
+      "type": "official",
+      "slug": "stanislava-iordanova-genadieva-355251",
+      "label": "Станислава Йорданова Генадиева",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Радомир"
+    },
+    {
+      "id": "company:tr:207248160",
+      "type": "company",
+      "label": "ЕС ДЖИ СМАРТ СОЛЮШЪН",
+      "slug": null,
+      "uic": "207248160",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОРДАН ГЕНАДИЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Йордан Генадиев Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stanislava-iordanova-genadieva-355251",
+      "target": "company:tr:207248160",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАН ГЕНАДИЕВ ИВАНОВ",
+      "target": "company:tr:207248160",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ГЕНАДИЕВ ИВАНОВ",
+      "target": "company:tr:207248160",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

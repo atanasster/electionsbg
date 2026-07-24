@@ -1,0 +1,137 @@
+[
+  {
+    "slug": "ferhan-yusein-hasan-0918d0",
+    "declarantName": "Ферхан Юсеин Хасан",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-22",
+    "entryNumber": "Г15381",
+    "controlHash": "45D16F1B",
+    "sourceUrl": "https://register.cacbg.bg/2025/F7C9B170-EA58-4020-B35A-C5F22520A1C5219382.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18158.019868802505,
+        "amountEurSpouse": 16502.456757489148
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 105.326127526421,
+        "amountEurSpouse": 486.2385790176038
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "село Дебелец",
+        "municipality": "Дългопол",
+        "areaSqm": 1220,
+        "builtAreaSqm": null,
+        "acquiredYear": 2007,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 7625,
+        "valueEur": 3898.600594121166,
+        "holderName": "Шермин Шабанова Хасан",
+        "isSpouse": true,
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "складови помещения",
+        "detail": null,
+        "location": "град Варна",
+        "municipality": "Варна",
+        "areaSqm": 19,
+        "builtAreaSqm": 19,
+        "acquiredYear": 2016,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 24600,
+        "valueEur": 12577.780277426975,
+        "holderName": "Шермин Шабанова Хасан",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Рено Шамад",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2004,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 2500,
+        "valueEur": 1278.2297029905462,
+        "holderName": "Шермин Шабанова Хасан",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Форд Фокус",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 49542,
+        "valueEur": 25330.422378223055,
+        "holderName": "Шермин Шабанова Хасан",
+        "isSpouse": true,
+        "legalBasis": "други",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17424,
+        "valueEur": 8908.749737962911,
+        "holderName": "Ферхан Юсеин Хасан",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Форд Фокус",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 8180.6700991394955,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

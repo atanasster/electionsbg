@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:pepa-atanasova-vladimirova-6fdf24",
+  "nodes": [
+    {
+      "id": "official:pepa-atanasova-vladimirova-6fdf24",
+      "type": "official",
+      "slug": "pepa-atanasova-vladimirova-6fdf24",
+      "label": "Пепа Атанасова Владимирова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:106519070",
+      "type": "company",
+      "label": "СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА ПРОДЪЛЖИТЕЛНО ЛЕЧЕНИЕ НА БЕЛОДРОБНИ БОЛЕСТИ-РОМАН",
+      "slug": null,
+      "uic": "106519070",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:pepa-atanasova-vladimirova-6fdf24",
+      "target": "company:tr:106519070",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

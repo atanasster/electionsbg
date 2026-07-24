@@ -1,0 +1,71 @@
+[
+  {
+    "slug": "desislava-plamenova-kirilova-eb22f1",
+    "declarantName": "Десислава Пламенова Кирилова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-03-14",
+    "entryNumber": "Г735",
+    "controlHash": "ABE0B6FC",
+    "sourceUrl": "https://register.cacbg.bg/2025/96D7A0FE-AFBE-45C7-9E03-2D657085C996202944.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 2649.514528358804,
+        "amountEurSpouse": 39526.441459636066
+      },
+      {
+        "parent": null,
+        "category": "Майчинство, болнични",
+        "amountEurDeclarant": 11062.311141561384,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Съдебна издръжка за деца под 18г.",
+        "amountEurDeclarant": 2208.780926767664,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20500,
+        "valueEur": 10481.48356452248,
+        "holderName": "Жулиен Валентинов Кирилов",
+        "isSpouse": true,
+        "legalBasis": "Потребителски кредит 5%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Опел",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2607.588594100714,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

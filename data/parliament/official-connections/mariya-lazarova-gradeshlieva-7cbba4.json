@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariya-lazarova-gradeshlieva-7cbba4",
+  "nodes": [
+    {
+      "id": "official:mariya-lazarova-gradeshlieva-7cbba4",
+      "type": "official",
+      "slug": "mariya-lazarova-gradeshlieva-7cbba4",
+      "label": "Мария Лазарова Градешлиева",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:119535982",
+      "type": "company",
+      "label": "Гейт 01 ЕООД",
+      "slug": null,
+      "uic": "119535982",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-lazarova-gradeshlieva-7cbba4",
+      "target": "company:tr:119535982",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

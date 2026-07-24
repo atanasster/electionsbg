@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:prvan-angelov-dangov-ce9d13",
+  "nodes": [
+    {
+      "id": "official:prvan-angelov-dangov-ce9d13",
+      "type": "official",
+      "slug": "prvan-angelov-dangov-ce9d13",
+      "label": "Първан Ангелов Дангов",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Дупница"
+    },
+    {
+      "id": "company:tr:203987339",
+      "type": "company",
+      "label": "НИКОЛИТО",
+      "slug": null,
+      "uic": "203987339",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:prvan-angelov-dangov-ce9d13",
+      "target": "company:tr:203987339",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:2438",
   "nodes": [
     {
@@ -37,9 +37,9 @@
       "seat": "БЪЛГАРИЯ, гр. София, 1000"
     },
     {
-      "id": "official:metin-hyusein-kazak-9a951c",
+      "id": "official:metin-hyusein-kazak-b3cf32",
       "type": "official",
-      "slug": "metin-hyusein-kazak-9a951c",
+      "slug": "metin-hyusein-kazak-b3cf32",
       "label": "Метин Хюсеин Казак",
       "tier": "executive",
       "role": "diplomat",
@@ -94,27 +94,27 @@
       ]
     },
     {
-      "id": "official:andrei-andreev-kovachev-08cbd1",
+      "id": "official:andrei-andreev-kovachev-7ea526",
       "type": "official",
-      "slug": "andrei-andreev-kovachev-08cbd1",
+      "slug": "andrei-andreev-kovachev-7ea526",
       "label": "Андрей Андреев Ковачев",
       "tier": "executive",
       "role": "mep",
       "municipality": null
     },
     {
-      "id": "official:radomir-petrov-cholakov-3a5a53",
+      "id": "official:radomir-petrov-cholakov-6d5034",
       "type": "official",
-      "slug": "radomir-petrov-cholakov-3a5a53",
+      "slug": "radomir-petrov-cholakov-6d5034",
       "label": "Радомир Петров Чолаков",
       "tier": "executive",
       "role": "regulator",
       "municipality": null
     },
     {
-      "id": "official:tsvetelina-marinova-penkova-185c5e",
+      "id": "official:tsvetelina-marinova-penkova-0817fe",
       "type": "official",
-      "slug": "tsvetelina-marinova-penkova-185c5e",
+      "slug": "tsvetelina-marinova-penkova-0817fe",
       "label": "Цветелина Маринова Пенкова",
       "tier": "executive",
       "role": "mep",
@@ -162,7 +162,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:metin-hyusein-kazak-9a951c",
+      "source": "official:metin-hyusein-kazak-b3cf32",
       "target": "company:tr:130528677",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -210,7 +210,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:andrei-andreev-kovachev-08cbd1",
+      "source": "official:andrei-andreev-kovachev-7ea526",
       "target": "company:tr:131008868",
       "kind": "tr_role",
       "role": "ngo_representative",
@@ -218,7 +218,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:andrei-andreev-kovachev-08cbd1",
+      "source": "official:andrei-andreev-kovachev-7ea526",
       "target": "company:tr:131008868",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -226,7 +226,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:radomir-petrov-cholakov-3a5a53",
+      "source": "official:radomir-petrov-cholakov-6d5034",
       "target": "company:tr:131008868",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -234,7 +234,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:tsvetelina-marinova-penkova-185c5e",
+      "source": "official:tsvetelina-marinova-penkova-0817fe",
       "target": "company:tr:131008868",
       "kind": "tr_role",
       "role": "ngo_representative",
@@ -242,7 +242,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:tsvetelina-marinova-penkova-185c5e",
+      "source": "official:tsvetelina-marinova-penkova-0817fe",
       "target": "company:tr:131008868",
       "kind": "tr_role",
       "role": "ngo_board",

@@ -5,6 +5,118 @@
     "institution": "СБАЛПФЗ \"Д-р Никола Пенчев\" - Пазарджик",
     "positionTitle": "Управител",
     "category": "hospital_head",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-07",
+    "entryNumber": "Г7216",
+    "controlHash": "67ED40DB",
+    "sourceUrl": "https://register.cacbg.bg/2025/D946EBC6-B5C5-45C4-B82F-E4BD552B3866210204.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30028.17218265391,
+        "amountEurSpouse": 40180.895067567224
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 25351.3853453521,
+        "amountEurSpouse": 8234.355746665098
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 2455.2236135042413,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 36135,
+        "valueEur": 18475.532127025355,
+        "holderName": "Костадинка Крумова Сотирова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "kostadinka-krumova-sotirova-968877",
+    "declarantName": "Костадинка Крумова Сотирова",
+    "institution": "СБАЛПФЗ \"Д-р Никола Пенчев\" - Пазарджик",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-01",
+    "entryNumber": "Г12601",
+    "controlHash": "423FFA4B",
+    "sourceUrl": "https://register.cacbg.bg/2024/D946EBC6-B5C5-45C4-B82F-E4BD552B3866194451.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23081.24939284089,
+        "amountEurSpouse": 26358.119059427456
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 25994.079240015748,
+        "amountEurSpouse": 1320.1556372486361
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 51.12918811962185,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 98648,
+        "valueEur": 50437.92149624456,
+        "holderName": "Костадинка Крумова Сотиова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "kostadinka-krumova-sotirova-968877",
+    "declarantName": "Костадинка Крумова Сотирова",
+    "institution": "СБАЛПФЗ \"Д-р Никола Пенчев\" - Пазарджик",
+    "positionTitle": "Управител",
+    "category": "hospital_head",
     "declarationYear": 2023,
     "fiscalYear": 2022,
     "declarationType": "Annualy",

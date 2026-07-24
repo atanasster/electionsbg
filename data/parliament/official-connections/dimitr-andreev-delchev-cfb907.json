@@ -1,0 +1,75 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitr-andreev-delchev-cfb907",
+  "nodes": [
+    {
+      "id": "official:dimitr-andreev-delchev-cfb907",
+      "type": "official",
+      "slug": "dimitr-andreev-delchev-cfb907",
+      "label": "Димитър Андреев Делчев",
+      "tier": "executive",
+      "role": "party_leader",
+      "municipality": null
+    },
+    {
+      "id": "company:Левис-Дивелопмънт-ООД",
+      "type": "company",
+      "label": "Левис Дивелопмънт ООД",
+      "slug": "Левис-Дивелопмънт-ООД",
+      "uic": "175127411",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "mp:3466",
+      "type": "mp",
+      "mpId": 3466,
+      "label": "Димитър Андреев Делчев",
+      "partyGroupShort": "ПП ИСБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "43"
+      ]
+    },
+    {
+      "id": "person:ДИМИТЪР АНДРЕЕВ ДЕЛЧЕВ",
+      "type": "person",
+      "label": "Димитър Андреев Делчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-andreev-delchev-cfb907",
+      "target": "company:Левис-Дивелопмънт-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3466",
+      "target": "company:Левис-Дивелопмънт-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3466",
+      "target": "company:Левис-Дивелопмънт-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР АНДРЕЕВ ДЕЛЧЕВ",
+      "target": "company:Левис-Дивелопмънт-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

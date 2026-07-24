@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-leonidov-kobakov-8cbf64",
+  "nodes": [
+    {
+      "id": "official:georgi-leonidov-kobakov-8cbf64",
+      "type": "official",
+      "slug": "georgi-leonidov-kobakov-8cbf64",
+      "label": "Георги Леонидов Кобаков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000090154",
+      "type": "company",
+      "label": "СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ НА ОНКОЛОГИЧНИ ЗАБОЛЯВАНИЯ Д-Р МАРКО АНТОНОВ МАРКОВ-ВАРНА",
+      "slug": null,
+      "uic": "000090154",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-leonidov-kobakov-8cbf64",
+      "target": "company:tr:000090154",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-stoichev-burodzhiev-a9a9d9",
+  "nodes": [
+    {
+      "id": "official:ivan-stoichev-burodzhiev-a9a9d9",
+      "type": "official",
+      "slug": "ivan-stoichev-burodzhiev-a9a9d9",
+      "label": "Иван Стойчев Буроджиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200068626",
+      "type": "company",
+      "label": "Електромонтажи Варна ООД",
+      "slug": null,
+      "uic": "200068626",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202164947",
+      "type": "company",
+      "label": "Български пчелни продукти ООД",
+      "slug": null,
+      "uic": "202164947",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТОЙЧО МОНЕВ БУРОДЖИЕВ",
+      "type": "person",
+      "label": "Стойчо Монев Буроджиев"
+    },
+    {
+      "id": "person:ИВАН СТОЙЧЕВ БУРОДЖИЕВ",
+      "type": "person",
+      "label": "Иван Стойчев Буроджиев"
+    },
+    {
+      "id": "person:СИМЕОН СТОЙЧЕВ БУРОДЖИЕВ",
+      "type": "person",
+      "label": "Симеон Стойчев Буроджиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-stoichev-burodzhiev-a9a9d9",
+      "target": "company:tr:200068626",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivan-stoichev-burodzhiev-a9a9d9",
+      "target": "company:tr:202164947",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЙЧО МОНЕВ БУРОДЖИЕВ",
+      "target": "company:tr:200068626",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН СТОЙЧЕВ БУРОДЖИЕВ",
+      "target": "company:tr:200068626",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН СТОЙЧЕВ БУРОДЖИЕВ",
+      "target": "company:tr:200068626",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

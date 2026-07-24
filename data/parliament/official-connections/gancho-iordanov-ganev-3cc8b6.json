@@ -1,0 +1,51 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:gancho-iordanov-ganev-3cc8b6",
+  "nodes": [
+    {
+      "id": "official:gancho-iordanov-ganev-3cc8b6",
+      "type": "official",
+      "slug": "gancho-iordanov-ganev-3cc8b6",
+      "label": "Ганчо Йорданов Ганев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Попово"
+    },
+    {
+      "id": "company:tr:206981682",
+      "type": "company",
+      "label": "\"ГАНЕВ АСИСТАНС ОФИС\" ЕООД",
+      "slug": null,
+      "uic": "206981682",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gancho-iordanov-ganev-3cc8b6",
+      "target": "company:tr:206981682",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:gancho-iordanov-ganev-3cc8b6",
+      "target": "company:tr:206981682",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:gancho-iordanov-ganev-3cc8b6",
+      "target": "company:tr:206981682",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

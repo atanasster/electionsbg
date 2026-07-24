@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mladen-stoyanov-ivanov-986beb",
+  "nodes": [
+    {
+      "id": "official:mladen-stoyanov-ivanov-986beb",
+      "type": "official",
+      "slug": "mladen-stoyanov-ivanov-986beb",
+      "label": "Младен Стоянов Иванов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208145793",
+      "type": "company",
+      "label": "МАРИНА ВЮ",
+      "slug": null,
+      "uic": "208145793",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТАНИМИР ГАНЧЕВ ПЕНЧЕВ",
+      "type": "person",
+      "label": "Станимир Ганчев Пенчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mladen-stoyanov-ivanov-986beb",
+      "target": "company:tr:208145793",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mladen-stoyanov-ivanov-986beb",
+      "target": "company:tr:208145793",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТАНИМИР ГАНЧЕВ ПЕНЧЕВ",
+      "target": "company:tr:208145793",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iliyana-peneva-kazakova-4a2c9c",
+  "nodes": [
+    {
+      "id": "official:iliyana-peneva-kazakova-4a2c9c",
+      "type": "official",
+      "slug": "iliyana-peneva-kazakova-4a2c9c",
+      "label": "Илияна Пенева Казакова",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:110530756",
+      "type": "company",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪР - ЛОВЕЧ",
+      "slug": null,
+      "uic": "110530756",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛДИН ДОЧЕВ НАЧКОВ",
+      "type": "person",
+      "label": "Алдин Дочев Начков"
+    },
+    {
+      "id": "person:ДИМИТЪР ХРИСТОВ КОЧЕВ",
+      "type": "person",
+      "label": "Димитър Христов Кочев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iliyana-peneva-kazakova-4a2c9c",
+      "target": "company:tr:110530756",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛДИН ДОЧЕВ НАЧКОВ",
+      "target": "company:tr:110530756",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ХРИСТОВ КОЧЕВ",
+      "target": "company:tr:110530756",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,202 @@
+[
+  {
+    "slug": "boyan-minkov-ivanov-de5a2e",
+    "declarantName": "Боян Минков Иванов",
+    "institution": "Белоградчик",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-07",
+    "entryNumber": "Г9777",
+    "controlHash": "53EFE526",
+    "sourceUrl": "https://register.cacbg.bg/2025/90570901-B9FD-4822-9567-F3500B16D53F212834.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23121.130159574197,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3878.6602107545136
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4254.459743433734
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 7724.086449231273,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 286.32345346988234
+      },
+      {
+        "parent": null,
+        "category": "Доходи от дивиденти",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 15338.756435886555
+      },
+      {
+        "parent": null,
+        "category": "Доходи от продажба на недвижим имот",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4959.53124760332
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "ливада",
+        "detail": null,
+        "location": "Стакевци",
+        "municipality": "Белоградчик",
+        "areaSqm": 450,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Стела Божинова Иванова",
+        "isSpouse": true,
+        "legalBasis": "чл. 37ж от ЗСПЗЗ",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "трайни насаждения",
+        "detail": null,
+        "location": "Крачимир",
+        "municipality": "Белоградчик",
+        "areaSqm": 16,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Стела Божинова Иванова",
+        "isSpouse": true,
+        "legalBasis": "наем",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Фиат Дукато",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Боян Минков Иванов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит срещу субсидия- 6,18 %",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 36500,
+        "valueEur": 18662.153663661975,
+        "holderName": "Стела Божинова Иванова",
+        "isSpouse": true,
+        "legalBasis": "Договор за кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит- 5,91%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22168,
+        "valueEur": 11334.318422357772,
+        "holderName": "Боян Минков Иванов",
+        "isSpouse": false,
+        "legalBasis": "Договор за кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредин за текущо потребление- 6,15%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16405,
+        "valueEur": 8387.743311023964,
+        "holderName": "Стела Божинова Иванова",
+        "isSpouse": true,
+        "legalBasis": "Договор за кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит- 3,79%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 96214,
+        "valueEur": 49193.437057412964,
+        "holderName": "Боян Минков Иванов",
+        "isSpouse": false,
+        "legalBasis": "Договор за кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Ново село",
+        "municipality": "Ново село",
+        "areaSqm": 973,
+        "builtAreaSqm": 63,
+        "currency": "BGN",
+        "valueEur": 4959.53124760332,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

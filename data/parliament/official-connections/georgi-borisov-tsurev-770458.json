@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-borisov-tsurev-770458",
+  "nodes": [
+    {
+      "id": "official:georgi-borisov-tsurev-770458",
+      "type": "official",
+      "slug": "georgi-borisov-tsurev-770458",
+      "label": "Георги Борисов Цурев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Самоков"
+    },
+    {
+      "id": "company:tr:205133280",
+      "type": "company",
+      "label": "Балканкад ООД",
+      "slug": null,
+      "uic": "205133280",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-borisov-tsurev-770458",
+      "target": "company:tr:205133280",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

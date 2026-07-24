@@ -1,0 +1,69 @@
+[
+  {
+    "slug": "stoyan-atanasov-hristanov-52e506",
+    "declarantName": "Стоян Атанасов Христанов",
+    "institution": "Николаево",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г8563",
+    "controlHash": "2882A664",
+    "sourceUrl": "https://register.cacbg.bg/2025/0D648EE6-3C0D-433E-AE74-3264432D7F8F211585.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 35679.48134551571,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 2300.8134653829834,
+        "amountEurSpouse": 306.7751287177311
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Жилищен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 94622,
+        "valueEur": 48379.46038254858,
+        "holderName": "Стоян Атанасов Христанов",
+        "isSpouse": false,
+        "legalBasis": "Закопуване на жилище",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредитна Карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Стоян Атанасов Христанов",
+        "isSpouse": false,
+        "legalBasis": "Задължително условия към Жилищен кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

@@ -1,0 +1,145 @@
+[
+  {
+    "slug": "tsvetelina-radeva-ralenekova-5c979f",
+    "declarantName": "Цветелина Радева Раленекова",
+    "institution": "Карлово",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г13438",
+    "controlHash": "8F1309E6",
+    "sourceUrl": "https://register.cacbg.bg/2025/C63D3055-702E-437E-A2CD-D5264E4490BD216650.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "75",
+        "companyName": "ФЛАШ ЕЛЕКТРИК ИНВЕСТМЪНТС ООД",
+        "registeredOffice": "София (столица)",
+        "valueEur": 46.01626930765966,
+        "holderName": "Цветелина Радева Раленекова",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "itemType": "акции",
+        "shareSize": "1",
+        "companyName": "Кет АД",
+        "registeredOffice": "София (столица)",
+        "valueEur": 437.1545584227668,
+        "holderName": "Цветелина Радева Раленекова",
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "100",
+        "companyName": "Пралин ЕООД",
+        "registeredOffice": "София (столица)",
+        "valueEur": 51.12918811962185,
+        "holderName": "Цветелина Радева Раленекова",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7286.42059892731,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 12075.180358211092,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивиденти от дружество КЕТ АД",
+        "amountEurDeclarant": 5311.300061866317,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 34,
+        "builtAreaSqm": 31,
+        "acquiredYear": 2022,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Цветелина Радева Раленекова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "ХЮНДАЙ КУПЕ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Цветвлина Радева Раленекова",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Мицубиши паджеро",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Цветвлина Радева Раленекова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11000,
+        "valueEur": 5624.210693158403,
+        "holderName": "Цветелина Радева Раленекова",
+        "isSpouse": false,
+        "legalBasis": "6.11%-ДОГОВОР",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vasil-georgiev-batakliev-0cbea2",
+  "nodes": [
+    {
+      "id": "official:vasil-georgiev-batakliev-0cbea2",
+      "type": "official",
+      "slug": "vasil-georgiev-batakliev-0cbea2",
+      "label": "Васил Георгиев Батаклиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:822104714",
+      "type": "company",
+      "label": "ВОДОСНАБДЯВАНЕ, КАНАЛИЗАЦИЯ И СТРОИТЕЛСТВО",
+      "slug": null,
+      "uic": "822104714",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vasil-georgiev-batakliev-0cbea2",
+      "target": "company:tr:822104714",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

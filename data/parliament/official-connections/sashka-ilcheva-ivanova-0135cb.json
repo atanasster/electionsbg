@@ -1,0 +1,185 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:sashka-ilcheva-ivanova-0135cb",
+  "nodes": [
+    {
+      "id": "official:sashka-ilcheva-ivanova-0135cb",
+      "type": "official",
+      "slug": "sashka-ilcheva-ivanova-0135cb",
+      "label": "Сашка Илчева Иванова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Трън"
+    },
+    {
+      "id": "company:tr:000379415",
+      "type": "company",
+      "label": "ГЮРГА ПИНДЖУРОВА - 1895",
+      "slug": null,
+      "uic": "000379415",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:mariela-asenova-ivanova-69fcf9",
+      "type": "official",
+      "slug": "mariela-asenova-ivanova-69fcf9",
+      "label": "Мариела Асенова Иванова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Трън"
+    },
+    {
+      "id": "person:ЕМИЛИЯ КИРИЛОВА МИЛАНОВА",
+      "type": "person",
+      "label": "Емилия Кирилова Миланова"
+    },
+    {
+      "id": "person:РОЗАЛИНА БОРИСОВА ГАВРИЛОВА",
+      "type": "person",
+      "label": "Розалина Борисова Гаврилова"
+    },
+    {
+      "id": "person:МАГДАЛЕНА МЛАДЕНОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Магдалена Младенова Тодорова"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ИВАНОВ ГРИГОРОВ",
+      "type": "person",
+      "label": "Валентин Иванов Григоров"
+    },
+    {
+      "id": "person:РАЙНА ГЕОРГИЕВА ДРАГАНОВА",
+      "type": "person",
+      "label": "Райна Георгиева Драганова"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ДИМИТРОВА ЦВЕТКОВА",
+      "type": "person",
+      "label": "Десислава Димитрова Цветкова"
+    },
+    {
+      "id": "person:ПАВЕЛ АЛЕКСАНДРОВ НИЧЕВ",
+      "type": "person",
+      "label": "Павел Александров Ничев"
+    },
+    {
+      "id": "person:ЦВЕТАНА БОЯНОВА МАРКОВА",
+      "type": "person",
+      "label": "Цветана Боянова Маркова"
+    },
+    {
+      "id": "person:ДЕТЕЛИНА ЕФТИМОВА ИЛКОВА",
+      "type": "person",
+      "label": "Детелина Ефтимова Илкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sashka-ilcheva-ivanova-0135cb",
+      "target": "company:tr:000379415",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:sashka-ilcheva-ivanova-0135cb",
+      "target": "company:tr:000379415",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariela-asenova-ivanova-69fcf9",
+      "target": "company:tr:000379415",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕМИЛИЯ КИРИЛОВА МИЛАНОВА",
+      "target": "company:tr:000379415",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОЗАЛИНА БОРИСОВА ГАВРИЛОВА",
+      "target": "company:tr:000379415",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАГДАЛЕНА МЛАДЕНОВА ТОДОРОВА",
+      "target": "company:tr:000379415",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ИВАНОВ ГРИГОРОВ",
+      "target": "company:tr:000379415",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЙНА ГЕОРГИЕВА ДРАГАНОВА",
+      "target": "company:tr:000379415",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ДИМИТРОВА ЦВЕТКОВА",
+      "target": "company:tr:000379415",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЕЛ АЛЕКСАНДРОВ НИЧЕВ",
+      "target": "company:tr:000379415",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАНА БОЯНОВА МАРКОВА",
+      "target": "company:tr:000379415",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕТЕЛИНА ЕФТИМОВА ИЛКОВА",
+      "target": "company:tr:000379415",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАНА БОЯНОВА МАРКОВА",
+      "target": "company:tr:000379415",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "ivan-diviziev-diviziev-4e2a67",
+    "declarantName": "Иван Дивизиев Дивизиев",
+    "institution": "Южноцентрално държавно предприятие",
+    "positionTitle": "Член на УС",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г11767",
+    "controlHash": "65C424E8",
+    "sourceUrl": "https://register.cacbg.bg/2025/023F6E41-07E0-4BD5-B8CF-749E0CC99DC1214919.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15568.326490543657,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 65000,
+        "valueEur": 33233.972277754205,
+        "holderName": "Иван Дивизиев Дивизиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Иван Дивизиев Дивизиев",
+        "isSpouse": false,
+        "legalBasis": "договор за потребителски кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Иван Дивизиев Дивизиев",
+        "isSpouse": false,
+        "legalBasis": "договор за кредитна карта",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

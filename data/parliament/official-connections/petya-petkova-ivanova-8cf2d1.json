@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:petya-petkova-ivanova-8cf2d1",
+  "nodes": [
+    {
+      "id": "official:petya-petkova-ivanova-8cf2d1",
+      "type": "official",
+      "slug": "petya-petkova-ivanova-8cf2d1",
+      "label": "Петя Петкова Иванова",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207327405",
+      "type": "company",
+      "label": "Птицевъдство 23",
+      "slug": null,
+      "uic": "207327405",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СЪЮЗ НА ПТИЦЕВЪДИТЕ В БЪЛГАРИЯ",
+      "type": "person",
+      "label": "Съюз На Птицевъдите В България"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petya-petkova-ivanova-8cf2d1",
+      "target": "company:tr:207327405",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СЪЮЗ НА ПТИЦЕВЪДИТЕ В БЪЛГАРИЯ",
+      "target": "company:tr:207327405",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

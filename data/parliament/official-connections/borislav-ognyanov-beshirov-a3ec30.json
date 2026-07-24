@@ -1,0 +1,178 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:borislav-ognyanov-beshirov-a3ec30",
+  "nodes": [
+    {
+      "id": "official:borislav-ognyanov-beshirov-a3ec30",
+      "type": "official",
+      "slug": "borislav-ognyanov-beshirov-a3ec30",
+      "label": "Борислав Огнянов Беширов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Неделино"
+    },
+    {
+      "id": "company:tr:202483126",
+      "type": "company",
+      "label": "ББ 83 Инженеринг ЕООД",
+      "slug": null,
+      "uic": "202483126",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206459884",
+      "type": "company",
+      "label": "Хилс Резиденс ООД",
+      "slug": null,
+      "uic": "206459884",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206891825",
+      "type": "company",
+      "label": "Биар Сигничър ЕООД",
+      "slug": null,
+      "uic": "206891825",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:208101327",
+      "type": "company",
+      "label": "МС Констръкшън ЕООД",
+      "slug": null,
+      "uic": "208101327",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЯВОР СЛАВЯНОВ ПЕНЧЕВ",
+      "type": "person",
+      "label": "Явор Славянов Пенчев"
+    },
+    {
+      "id": "company:name:ЕЙЧ АР ВИ ЛОГИСТИКС”",
+      "type": "company",
+      "label": "„ЕЙЧ АР ВИ ЛОГИСТИКС” ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТАТЯНА ФИДАНОВА БЕШИРОВА",
+      "type": "person",
+      "label": "Татяна Фиданова Беширова"
+    },
+    {
+      "id": "person:TАТЯНА ФИДАНОВА БЕШИРОВА",
+      "type": "person",
+      "label": "Tатяна Фиданова Беширова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:borislav-ognyanov-beshirov-a3ec30",
+      "target": "company:tr:202483126",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:borislav-ognyanov-beshirov-a3ec30",
+      "target": "company:tr:206459884",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:borislav-ognyanov-beshirov-a3ec30",
+      "target": "company:tr:206891825",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:borislav-ognyanov-beshirov-a3ec30",
+      "target": "company:tr:208101327",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:borislav-ognyanov-beshirov-a3ec30",
+      "target": "company:tr:206459884",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:borislav-ognyanov-beshirov-a3ec30",
+      "target": "company:tr:208101327",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:borislav-ognyanov-beshirov-a3ec30",
+      "target": "company:tr:208101327",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЯВОР СЛАВЯНОВ ПЕНЧЕВ",
+      "target": "company:tr:206459884",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ЕЙЧ АР ВИ ЛОГИСТИКС”",
+      "target": "company:tr:206459884",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА ФИДАНОВА БЕШИРОВА",
+      "target": "company:tr:206459884",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:TАТЯНА ФИДАНОВА БЕШИРОВА",
+      "target": "company:tr:206891825",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:TАТЯНА ФИДАНОВА БЕШИРОВА",
+      "target": "company:tr:206891825",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

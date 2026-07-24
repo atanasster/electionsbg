@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:syuleiman-mehmedov-syuleimanov-f713ca",
+  "nodes": [
+    {
+      "id": "official:syuleiman-mehmedov-syuleimanov-f713ca",
+      "type": "official",
+      "slug": "syuleiman-mehmedov-syuleimanov-f713ca",
+      "label": "Сюлейман Мехмедов Сюлейманов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Цар Калоян"
+    },
+    {
+      "id": "company:tr:208189601",
+      "type": "company",
+      "label": "Добрострой 89",
+      "slug": null,
+      "uic": "208189601",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:syuleiman-mehmedov-syuleimanov-f713ca",
+      "target": "company:tr:208189601",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:syuleiman-mehmedov-syuleimanov-f713ca",
+      "target": "company:tr:208189601",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

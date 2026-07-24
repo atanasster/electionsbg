@@ -1,0 +1,155 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariya-petrova-chakrova-0d1783",
+  "nodes": [
+    {
+      "id": "official:mariya-petrova-chakrova-0d1783",
+      "type": "official",
+      "slug": "mariya-petrova-chakrova-0d1783",
+      "label": "Мария Петрова Чакърова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000456044",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ГЕОРГИ КИРКОВ - 1908&quot;",
+      "slug": null,
+      "uic": "000456044",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СЛАВКА ПАВЛОВА ЛАЗАРОВА",
+      "type": "person",
+      "label": "Славка Павлова Лазарова"
+    },
+    {
+      "id": "person:ЦОНКА САВОВА ПУКОВА",
+      "type": "person",
+      "label": "Цонка Савова Пукова"
+    },
+    {
+      "id": "person:ВАСИЛКА ИВАНОВА ЦВЕТКОВА",
+      "type": "person",
+      "label": "Василка Иванова Цветкова"
+    },
+    {
+      "id": "person:ИВАНКА КОЛЕВА МАКАВЕЕВА",
+      "type": "person",
+      "label": "Иванка Колева Макавеева"
+    },
+    {
+      "id": "person:РОСИЦА КОСТАДИНОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Росица Костадинова Стоянова"
+    },
+    {
+      "id": "person:ИВАНКА ДИМИТРОВА УЗУНОВА",
+      "type": "person",
+      "label": "Иванка Димитрова Узунова"
+    },
+    {
+      "id": "person:ДОРА АНАСТАСОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Дора Анастасова Георгиева"
+    },
+    {
+      "id": "person:ТОДОРКА ХРИСТОЗОВА РАЙЧИНОВА",
+      "type": "person",
+      "label": "Тодорка Христозова Райчинова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-petrova-chakrova-0d1783",
+      "target": "company:tr:000456044",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СЛАВКА ПАВЛОВА ЛАЗАРОВА",
+      "target": "company:tr:000456044",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦОНКА САВОВА ПУКОВА",
+      "target": "company:tr:000456044",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВКА ПАВЛОВА ЛАЗАРОВА",
+      "target": "company:tr:000456044",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦОНКА САВОВА ПУКОВА",
+      "target": "company:tr:000456044",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛКА ИВАНОВА ЦВЕТКОВА",
+      "target": "company:tr:000456044",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА КОЛЕВА МАКАВЕЕВА",
+      "target": "company:tr:000456044",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА КОСТАДИНОВА СТОЯНОВА",
+      "target": "company:tr:000456044",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ДИМИТРОВА УЗУНОВА",
+      "target": "company:tr:000456044",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОРА АНАСТАСОВА ГЕОРГИЕВА",
+      "target": "company:tr:000456044",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОРКА ХРИСТОЗОВА РАЙЧИНОВА",
+      "target": "company:tr:000456044",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

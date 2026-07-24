@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:simeon-stefanov-simeonov-0320a7",
+  "nodes": [
+    {
+      "id": "official:simeon-stefanov-simeonov-0320a7",
+      "type": "official",
+      "slug": "simeon-stefanov-simeonov-0320a7",
+      "label": "Симеон Стефанов Симеонов",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Елена"
+    },
+    {
+      "id": "company:tr:206844969",
+      "type": "company",
+      "label": "МГ ДАНИ КАРС",
+      "slug": null,
+      "uic": "206844969",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:simeon-stefanov-simeonov-0320a7",
+      "target": "company:tr:206844969",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:simeon-stefanov-simeonov-0320a7",
+      "target": "company:tr:206844969",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

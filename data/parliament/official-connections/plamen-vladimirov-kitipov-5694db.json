@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:plamen-vladimirov-kitipov-5694db",
+  "nodes": [
+    {
+      "id": "official:plamen-vladimirov-kitipov-5694db",
+      "type": "official",
+      "slug": "plamen-vladimirov-kitipov-5694db",
+      "label": "Пламен Владимиров Китипов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Варна"
+    },
+    {
+      "id": "company:tr:103835309",
+      "type": "company",
+      "label": "ОЗОН",
+      "slug": null,
+      "uic": "103835309",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНИ ОХАНЕС КИТИПОВА",
+      "type": "person",
+      "label": "Ани Оханес Китипова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:plamen-vladimirov-kitipov-5694db",
+      "target": "company:tr:103835309",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНИ ОХАНЕС КИТИПОВА",
+      "target": "company:tr:103835309",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНИ ОХАНЕС КИТИПОВА",
+      "target": "company:tr:103835309",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

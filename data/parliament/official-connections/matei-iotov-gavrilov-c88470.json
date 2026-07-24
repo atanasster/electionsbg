@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:matei-iotov-gavrilov-c88470",
+  "nodes": [
+    {
+      "id": "official:matei-iotov-gavrilov-c88470",
+      "type": "official",
+      "slug": "matei-iotov-gavrilov-c88470",
+      "label": "Матей Йотов Гаврилов",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130891212",
+      "type": "company",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪР ИСУЛ - ЦАРИЦА ЙОАННА",
+      "slug": null,
+      "uic": "130891212",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:matei-iotov-gavrilov-c88470",
+      "target": "company:tr:130891212",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

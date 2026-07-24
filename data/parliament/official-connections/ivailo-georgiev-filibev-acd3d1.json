@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivailo-georgiev-filibev-acd3d1",
+  "nodes": [
+    {
+      "id": "official:ivailo-georgiev-filibev-acd3d1",
+      "type": "official",
+      "slug": "ivailo-georgiev-filibev-acd3d1",
+      "label": "Ивайло Георгиев Филибев",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:101508732",
+      "type": "company",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪР | - ГОЦЕ ДЕЛЧЕВ",
+      "slug": null,
+      "uic": "101508732",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivailo-georgiev-filibev-acd3d1",
+      "target": "company:tr:101508732",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ilko-atanasov-trpov-6fa558",
+  "nodes": [
+    {
+      "id": "official:ilko-atanasov-trpov-6fa558",
+      "type": "official",
+      "slug": "ilko-atanasov-trpov-6fa558",
+      "label": "Илко Атанасов Търпов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206980969",
+      "type": "company",
+      "label": "ЕКОБУС ПЛОВДИВ",
+      "slug": null,
+      "uic": "206980969",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:vladimir-krasimirov-dobrev-bafae5",
+      "type": "official",
+      "slug": "vladimir-krasimirov-dobrev-bafae5",
+      "label": "Владимир Красимиров Добрев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:nikolai-kamenov-stoev-d3a1ae",
+      "type": "official",
+      "slug": "nikolai-kamenov-stoev-d3a1ae",
+      "label": "Николай Каменов Стоев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ОБЩИНА ПЛОВДИВ",
+      "type": "person",
+      "label": "Община Пловдив"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ilko-atanasov-trpov-6fa558",
+      "target": "company:tr:206980969",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vladimir-krasimirov-dobrev-bafae5",
+      "target": "company:tr:206980969",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-kamenov-stoev-d3a1ae",
+      "target": "company:tr:206980969",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОБЩИНА ПЛОВДИВ",
+      "target": "company:tr:206980969",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

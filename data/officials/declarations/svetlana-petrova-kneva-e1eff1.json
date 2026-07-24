@@ -1,0 +1,131 @@
+[
+  {
+    "slug": "svetlana-petrova-kneva-e1eff1",
+    "declarantName": "Светлана Петрова Кънева",
+    "institution": "Социални домове и центрове",
+    "positionTitle": "Директор",
+    "category": "social_care",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-24",
+    "entryNumber": "Г3607",
+    "controlHash": "38CC959C",
+    "sourceUrl": "https://register.cacbg.bg/2025/7774BFC4-F68F-4A5D-A676-5E2D0C7AE7AA206406.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26681.255528343467,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "лозя",
+        "detail": null,
+        "location": "землището на община Ямбол",
+        "municipality": "Ямбол",
+        "areaSqm": 1,
+        "builtAreaSqm": 468,
+        "acquiredYear": 1998,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 25,
+        "valueEur": 12.782297029905463,
+        "holderName": "Светлана Петрова Кънева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплати"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Ямбол",
+        "municipality": "Ямбол",
+        "areaSqm": 97,
+        "builtAreaSqm": 119,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 13000,
+        "valueEur": 6646.79445555084,
+        "holderName": "Светлана Петрова Кънева",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2004,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Кънчо Трифонов Кънев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Светлана Петрова Кънева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 83000,
+        "valueEur": 42437.22613928613,
+        "holderName": "Максим Кънчев Кънев",
+        "isSpouse": true,
+        "legalBasis": "заем",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Ямбол",
+        "municipality": "Ямбол",
+        "areaSqm": 97,
+        "builtAreaSqm": 110,
+        "currency": "BGN",
+        "valueEur": 6646.79445555084,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

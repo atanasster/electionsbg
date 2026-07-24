@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:petr-georgiev-filibev-f6782b",
+  "nodes": [
+    {
+      "id": "official:petr-georgiev-filibev-f6782b",
+      "type": "official",
+      "slug": "petr-georgiev-filibev-f6782b",
+      "label": "Петър Георгиев Филибев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205567847",
+      "type": "company",
+      "label": "ЯС-ИП",
+      "slug": null,
+      "uic": "205567847",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИЛИЯ ЛЮБОМИРОВ ДРОБЕНОВ",
+      "type": "person",
+      "label": "Илия Любомиров Дробенов"
+    },
+    {
+      "id": "person:САБАХАТИН ХАЛИЛ БОЛГУР",
+      "type": "person",
+      "label": "Сабахатин Халил Болгур"
+    },
+    {
+      "id": "person:ЯК ГРУП ГОЦЕ ДЕЛЧЕВ",
+      "type": "person",
+      "label": "Як Груп Гоце Делчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petr-georgiev-filibev-f6782b",
+      "target": "company:tr:205567847",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИЛИЯ ЛЮБОМИРОВ ДРОБЕНОВ",
+      "target": "company:tr:205567847",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САБАХАТИН ХАЛИЛ БОЛГУР",
+      "target": "company:tr:205567847",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯК ГРУП ГОЦЕ ДЕЛЧЕВ",
+      "target": "company:tr:205567847",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

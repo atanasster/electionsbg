@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-georgiev-tashkov-3e098c",
+  "nodes": [
+    {
+      "id": "official:ivan-georgiev-tashkov-3e098c",
+      "type": "official",
+      "slug": "ivan-georgiev-tashkov-3e098c",
+      "label": "Иван Георгиев ТАШКОВ",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208364328",
+      "type": "company",
+      "label": "ГРАДИНСКИ ПРОФЕСИОНАЛИСТИ",
+      "slug": null,
+      "uic": "208364328",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-georgiev-tashkov-3e098c",
+      "target": "company:tr:208364328",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-georgiev-tashkov-3e098c",
+      "target": "company:tr:208364328",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

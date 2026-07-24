@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:sali-efrahim-mustafa-ae46b4",
+  "nodes": [
+    {
+      "id": "official:sali-efrahim-mustafa-ae46b4",
+      "type": "official",
+      "slug": "sali-efrahim-mustafa-ae46b4",
+      "label": "Сали Ефрахим Мустафа",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Венец"
+    },
+    {
+      "id": "company:tr:208368216",
+      "type": "company",
+      "label": "ЕР ЕМ ПЛАСТ",
+      "slug": null,
+      "uic": "208368216",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sali-efrahim-mustafa-ae46b4",
+      "target": "company:tr:208368216",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:sali-efrahim-mustafa-ae46b4",
+      "target": "company:tr:208368216",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

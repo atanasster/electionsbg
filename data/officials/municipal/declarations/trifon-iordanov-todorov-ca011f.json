@@ -1,0 +1,118 @@
+[
+  {
+    "slug": "trifon-iordanov-todorov-ca011f",
+    "declarantName": "Трифон Йорданов Тодоров",
+    "institution": "Мизия",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г4664",
+    "controlHash": "36E238A1",
+    "sourceUrl": "https://register.cacbg.bg/2025/E42E2D95-8032-4689-872D-0B217E941FDA207535.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23659.00921859262,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 3953.3088254091613,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Мизия",
+        "municipality": "Мизия",
+        "areaSqm": 430,
+        "builtAreaSqm": 100,
+        "acquiredYear": 1980,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 1250,
+        "valueEur": 639.1148514952731,
+        "holderName": "Трифон Йорданов Тодоров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми и заплати"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Мизия",
+        "municipality": "Мизия",
+        "areaSqm": 430,
+        "builtAreaSqm": 100,
+        "acquiredYear": 1980,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 1250,
+        "valueEur": 639.1148514952731,
+        "holderName": "Ганка Димитрова Тодорова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми и заплати"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Пежо 407",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 800,
+        "valueEur": 409.0335049569748,
+        "holderName": "Трифон Йорданов Тодоров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Флксваген пасат вариант",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 3489,
+        "valueEur": 1783.8973734936062,
+        "holderName": "Трифон Йорданов Тодоров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Опел -Вектра",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "бракувана"
+      }
+    ]
+  }
+]

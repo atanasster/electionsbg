@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:miroslav-ivanov-simeonov-5671ba",
+  "nodes": [
+    {
+      "id": "official:miroslav-ivanov-simeonov-5671ba",
+      "type": "official",
+      "slug": "miroslav-ivanov-simeonov-5671ba",
+      "label": "Мирослав Иванов Симеонов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Габрово"
+    },
+    {
+      "id": "company:tr:208276006",
+      "type": "company",
+      "label": "СМ СОФТ ООД",
+      "slug": null,
+      "uic": "208276006",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЦВЕТОМИР ЦОНЕВ ЛЕФТЕРОВ",
+      "type": "person",
+      "label": "Цветомир Цонев Лефтеров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miroslav-ivanov-simeonov-5671ba",
+      "target": "company:tr:208276006",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:miroslav-ivanov-simeonov-5671ba",
+      "target": "company:tr:208276006",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:miroslav-ivanov-simeonov-5671ba",
+      "target": "company:tr:208276006",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТОМИР ЦОНЕВ ЛЕФТЕРОВ",
+      "target": "company:tr:208276006",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

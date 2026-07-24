@@ -1,0 +1,101 @@
+[
+  {
+    "slug": "petya-hristova-ilieva-c7385d",
+    "declarantName": "Петя Христова Илиева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2025,
+    "fiscalYear": 2025,
+    "declarationType": "Vacate",
+    "filedAt": "2025-01-31",
+    "entryNumber": "Ф40",
+    "controlHash": "2814CD92",
+    "sourceUrl": "https://register.cacbg.bg/2025/BA0AA75A-4FCE-4FD3-87FB-04422AF00300201731.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Каран Върбовка",
+        "municipality": "Две Могили",
+        "areaSqm": 860,
+        "builtAreaSqm": 188,
+        "acquiredYear": 2003,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 704,
+        "valueEur": 359.9494843621378,
+        "holderName": "Петя Христова Илиева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 32769,
+        "valueEur": 16754.523654918885,
+        "holderName": "Петя Христова Илиева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "petya-hristova-ilieva-c7385d",
+    "declarantName": "Петя Хлистова Илиева",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г89",
+    "controlHash": "F2ACF5DF",
+    "sourceUrl": "https://register.cacbg.bg/2025/BA0AA75A-4FCE-4FD3-87FB-04422AF00300201728.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 8139.255456762602,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 31069,
+        "valueEur": 15885.327456885312,
+        "holderName": "Петя Христова Илиева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      }
+    ],
+    "events": []
+  }
+]

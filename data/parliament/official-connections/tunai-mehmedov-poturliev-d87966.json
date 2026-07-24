@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tunai-mehmedov-poturliev-d87966",
+  "nodes": [
+    {
+      "id": "official:tunai-mehmedov-poturliev-d87966",
+      "type": "official",
+      "slug": "tunai-mehmedov-poturliev-d87966",
+      "label": "Тунай Мехмедов Потурлиев",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200787244",
+      "type": "company",
+      "label": "МЕДЕОН - ПЛЕВЕН 2009",
+      "slug": null,
+      "uic": "200787244",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tunai-mehmedov-poturliev-d87966",
+      "target": "company:tr:200787244",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

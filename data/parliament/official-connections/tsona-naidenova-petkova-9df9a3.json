@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tsona-naidenova-petkova-9df9a3",
+  "nodes": [
+    {
+      "id": "official:tsona-naidenova-petkova-9df9a3",
+      "type": "official",
+      "slug": "tsona-naidenova-petkova-9df9a3",
+      "label": "Цона Найденова Петкова",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208239310",
+      "type": "company",
+      "label": "КАРДАН",
+      "slug": null,
+      "uic": "208239310",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЛАМЕН ДИМИТРОВ МИТЕВ",
+      "type": "person",
+      "label": "Пламен Димитров Митев"
+    },
+    {
+      "id": "person:МАРИЯ МИКОВА СТОЙЧЕВА",
+      "type": "person",
+      "label": "Мария Микова Стойчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsona-naidenova-petkova-9df9a3",
+      "target": "company:tr:208239310",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tsona-naidenova-petkova-9df9a3",
+      "target": "company:tr:208239310",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЛАМЕН ДИМИТРОВ МИТЕВ",
+      "target": "company:tr:208239310",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ДИМИТРОВ МИТЕВ",
+      "target": "company:tr:208239310",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ МИКОВА СТОЙЧЕВА",
+      "target": "company:tr:208239310",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

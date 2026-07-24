@@ -29,6 +29,29 @@ export interface SimilarityOutput {
 
 const TOP_K = 20;
 
+// Overlap gate — how many shared votes a peer must have with the seed MP before
+// its cosine score is trustworthy enough to rank. Applied identically to the
+// "most similar" and "most different" sides so the two lists are never computed
+// on different sample sizes (a peer sharing 5 votes must not out-rank one sharing
+// 8 just because it slipped past a missing floor).
+//
+// NOISE_FLOOR mirrors SIMILARITY.minOverlap in src/data/parliament/votes/
+// similarityClass.ts — below ~25 shared votes a cosine is statistical noise. It
+// is kept as a literal here because scripts/ can't import from src/.
+//
+// In a freshly-elected parliament nobody has cast 25 votes yet, so a flat 25
+// would blank the feature for the whole opening term. There we relax to "the
+// peer shared at least SHARE_RATIO of THIS MP's own votes" (adaptive), never
+// below HARD_MIN. Because min(25, 0.7·votes) equals 25 for any MP past ~36 cast
+// votes, the gate is a plain 25 the moment the chamber matures — the ratio only
+// governs the opening weeks.
+const NOISE_FLOOR = 25;
+const SHARE_RATIO = 0.7;
+const HARD_MIN = 5;
+
+const overlapGate = (seedVotes: number): number =>
+  Math.max(HARD_MIN, Math.min(NOISE_FLOOR, Math.ceil(SHARE_RATIO * seedVotes)));
+
 export const computeSimilarity = (
   sessions: SessionFile[],
 ): SimilarityOutput => {
@@ -93,14 +116,18 @@ export const computeSimilarity = (
       if (overlap === 0) continue;
       scored.push({ mpId: bId, score: dot / (aNorm * bNorm), overlap });
     }
-    scored.sort((x, y) => y.score - x.score);
-    const topK = scored.slice(0, TOP_K);
-    // Bottom-K: ascending by score, take the K worst. Skip overlap-1 noise
-    // by requiring at least 5 overlapping votes — a single shared vote can
-    // produce a score of -1 that isn't actually meaningful.
-    const meaningful = scored.filter((s) => s.overlap >= 5);
-    const sortedAsc = [...meaningful].sort((x, y) => x.score - y.score);
-    const bottomK = sortedAsc.slice(0, TOP_K);
+    // Gate both sides on the same minimum overlap (adaptive for young
+    // parliaments — see overlapGate). This drops small-sample noise from the
+    // "most similar" list, where a peer sharing a handful of votes that happen
+    // to agree would otherwise post a high cosine and out-rank peers with a far
+    // fuller shared record.
+    const minOverlap = overlapGate(aVec.size);
+    const reliable = scored.filter((s) => s.overlap >= minOverlap);
+    const byScoreDesc = [...reliable].sort((x, y) => y.score - x.score);
+    const topK = byScoreDesc.slice(0, TOP_K);
+    // Bottom-K: same reliable pool, ascending by score, take the K worst.
+    const byScoreAsc = [...reliable].sort((x, y) => x.score - y.score);
+    const bottomK = byScoreAsc.slice(0, TOP_K);
     entries.push({ mpId: aId, topK, bottomK });
   }
 

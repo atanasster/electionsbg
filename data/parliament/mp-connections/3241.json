@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:3241",
   "nodes": [
     {
@@ -42,20 +42,6 @@
       "legalForm": "EOOD",
       "status": "active",
       "seat": null
-    },
-    {
-      "id": "official:nikolai-tsvetanov-sirakov-78fedd",
-      "type": "official",
-      "slug": "nikolai-tsvetanov-sirakov-78fedd",
-      "label": "Николай Цветанов Сираков",
-      "tier": "municipal",
-      "role": "councillor",
-      "municipality": "Габрово"
-    },
-    {
-      "id": "person:НИКОЛАЙ ЦВЕТАНОВ СИРАКОВ",
-      "type": "person",
-      "label": "Николай Цветанов Сираков"
     },
     {
       "id": "person:АЛЕКСАНДЪР МИНЧЕВ АНГЕЛОВ",
@@ -110,38 +96,6 @@
       "confidence": "medium"
     },
     {
-      "source": "official:nikolai-tsvetanov-sirakov-78fedd",
-      "target": "company:tr:207921016",
-      "kind": "declared_stake",
-      "role": "declared_share",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:НИКОЛАЙ ЦВЕТАНОВ СИРАКОВ",
-      "target": "company:tr:207921016",
-      "kind": "tr_role",
-      "role": "manager",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:НИКОЛАЙ ЦВЕТАНОВ СИРАКОВ",
-      "target": "company:tr:207921016",
-      "kind": "tr_owner",
-      "role": "sole_owner",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "official:nikolai-tsvetanov-sirakov-78fedd",
-      "target": "company:tr:205943416",
-      "kind": "declared_stake",
-      "role": "declared_share",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
       "source": "person:АЛЕКСАНДЪР МИНЧЕВ АНГЕЛОВ",
       "target": "company:tr:205943416",
       "kind": "tr_role",
@@ -151,14 +105,6 @@
     },
     {
       "source": "person:АЛЕКСАНДЪР МИНЧЕВ АНГЕЛОВ",
-      "target": "company:tr:205943416",
-      "kind": "tr_owner",
-      "role": "partner",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:НИКОЛАЙ ЦВЕТАНОВ СИРАКОВ",
       "target": "company:tr:205943416",
       "kind": "tr_owner",
       "role": "partner",
@@ -167,14 +113,6 @@
     },
     {
       "source": "person:НИКОЛАЙ ИВАНОВ МЪНЧЕВ",
-      "target": "company:tr:107558642",
-      "kind": "tr_role",
-      "role": "manager",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "person:НИКОЛАЙ ЦВЕТАНОВ СИРАКОВ",
       "target": "company:tr:107558642",
       "kind": "tr_role",
       "role": "manager",

@@ -1,0 +1,133 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:valentin-ventsislavov-kyulhanski-9dd262",
+  "nodes": [
+    {
+      "id": "official:valentin-ventsislavov-kyulhanski-9dd262",
+      "type": "official",
+      "slug": "valentin-ventsislavov-kyulhanski-9dd262",
+      "label": "Валентин Венциславов Кюлхански",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Смолян"
+    },
+    {
+      "id": "company:tr:176147518",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ФУТБОЛЕН КЛУБ &quot;РОДОПА - СМОЛЯН&quot;&quot;",
+      "slug": null,
+      "uic": "176147518",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:997",
+      "type": "mp",
+      "mpId": 997,
+      "label": "Николай Тодоров Мелемов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:ВАЛЕНТИН ЦАНКОВ ЯНЕВ",
+      "type": "person",
+      "label": "Валентин Цанков Янев"
+    },
+    {
+      "id": "person:СЛАВИ МЛАДЕНОВ ХАДЖИЕВ",
+      "type": "person",
+      "label": "Слави Младенов Хаджиев"
+    },
+    {
+      "id": "person:КРАСИМИР МИТКОВ ИСАКОВ",
+      "type": "person",
+      "label": "Красимир Митков Исаков"
+    },
+    {
+      "id": "person:БОЙКО ЕМИЛОВ УЗУНСКИ",
+      "type": "person",
+      "label": "Бойко Емилов Узунски"
+    },
+    {
+      "id": "person:ИВАН МАНОЛОВ МЕЧКАРСКИ",
+      "type": "person",
+      "label": "Иван Манолов Мечкарски"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valentin-ventsislavov-kyulhanski-9dd262",
+      "target": "company:tr:176147518",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:valentin-ventsislavov-kyulhanski-9dd262",
+      "target": "company:tr:176147518",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:997",
+      "target": "company:tr:176147518",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:997",
+      "target": "company:tr:176147518",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ЦАНКОВ ЯНЕВ",
+      "target": "company:tr:176147518",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВИ МЛАДЕНОВ ХАДЖИЕВ",
+      "target": "company:tr:176147518",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР МИТКОВ ИСАКОВ",
+      "target": "company:tr:176147518",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЙКО ЕМИЛОВ УЗУНСКИ",
+      "target": "company:tr:176147518",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН МАНОЛОВ МЕЧКАРСКИ",
+      "target": "company:tr:176147518",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

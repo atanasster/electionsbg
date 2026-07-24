@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-hristov-kalchev-66f268",
+  "nodes": [
+    {
+      "id": "official:ivan-hristov-kalchev-66f268",
+      "type": "official",
+      "slug": "ivan-hristov-kalchev-66f268",
+      "label": "Иван Христов Калчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Габрово"
+    },
+    {
+      "id": "company:tr:107503788",
+      "type": "company",
+      "label": "РЕЗИДЕНТ",
+      "slug": null,
+      "uic": "107503788",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАЛЕНТИН ГЕОРГИЕВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Валентин Георгиев Ангелов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-hristov-kalchev-66f268",
+      "target": "company:tr:107503788",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ГЕОРГИЕВ АНГЕЛОВ",
+      "target": "company:tr:107503788",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ГЕОРГИЕВ АНГЕЛОВ",
+      "target": "company:tr:107503788",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:bogomil-borisov-manov-03a129",
+  "nodes": [
+    {
+      "id": "official:bogomil-borisov-manov-03a129",
+      "type": "official",
+      "slug": "bogomil-borisov-manov-03a129",
+      "label": "Богомил Борисов Манов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206325063",
+      "type": "company",
+      "label": "ФИДУ ТРЕЙД",
+      "slug": null,
+      "uic": "206325063",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНИТА НИКОЛОВА СТОЕВА",
+      "type": "person",
+      "label": "Анита Николова Стоева"
+    },
+    {
+      "id": "person:ИВЕЛИН СТРАХИЛОВ ДОРОВСКИ",
+      "type": "person",
+      "label": "Ивелин Страхилов Доровски"
+    },
+    {
+      "id": "person:МАРИН ИЛИЕВ ИЛИЕВ",
+      "type": "person",
+      "label": "Марин Илиев Илиев"
+    },
+    {
+      "id": "person:ВАЛЕНТИН КИРИЛОВ САВОВ",
+      "type": "person",
+      "label": "Валентин Кирилов Савов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:bogomil-borisov-manov-03a129",
+      "target": "company:tr:206325063",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНИТА НИКОЛОВА СТОЕВА",
+      "target": "company:tr:206325063",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИН СТРАХИЛОВ ДОРОВСКИ",
+      "target": "company:tr:206325063",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН ИЛИЕВ ИЛИЕВ",
+      "target": "company:tr:206325063",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН КИРИЛОВ САВОВ",
+      "target": "company:tr:206325063",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН КИРИЛОВ САВОВ",
+      "target": "company:tr:206325063",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

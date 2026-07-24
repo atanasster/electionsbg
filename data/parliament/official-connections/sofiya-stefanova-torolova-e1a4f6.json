@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:sofiya-stefanova-torolova-e1a4f6",
+  "nodes": [
+    {
+      "id": "official:sofiya-stefanova-torolova-e1a4f6",
+      "type": "official",
+      "slug": "sofiya-stefanova-torolova-e1a4f6",
+      "label": "София Стефанова Торолова",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175219258",
+      "type": "company",
+      "label": "ЕХО-70 ЕООД",
+      "slug": null,
+      "uic": "175219258",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sofiya-stefanova-torolova-e1a4f6",
+      "target": "company:tr:175219258",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

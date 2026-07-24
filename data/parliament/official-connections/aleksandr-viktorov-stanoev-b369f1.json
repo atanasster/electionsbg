@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:aleksandr-viktorov-stanoev-b369f1",
+  "nodes": [
+    {
+      "id": "official:aleksandr-viktorov-stanoev-b369f1",
+      "type": "official",
+      "slug": "aleksandr-viktorov-stanoev-b369f1",
+      "label": "Александър Викторов Станоев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Елин Пелин"
+    },
+    {
+      "id": "company:tr:206178887",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ АКАДЕМИЯ МУРГАШ",
+      "slug": null,
+      "uic": "206178887",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АСЕН СТОЯНОВ ВУТЕВ",
+      "type": "person",
+      "label": "Асен Стоянов Вутев"
+    },
+    {
+      "id": "person:МИЛЕН ЙОРДАНОВ ФИЛЕВ",
+      "type": "person",
+      "label": "Милен Йорданов Филев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandr-viktorov-stanoev-b369f1",
+      "target": "company:tr:206178887",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АСЕН СТОЯНОВ ВУТЕВ",
+      "target": "company:tr:206178887",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН ЙОРДАНОВ ФИЛЕВ",
+      "target": "company:tr:206178887",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:sibel-mustafova-salieva-9e412f",
+  "nodes": [
+    {
+      "id": "official:sibel-mustafova-salieva-9e412f",
+      "type": "official",
+      "slug": "sibel-mustafova-salieva-9e412f",
+      "label": "Сибел Мустафова Салиева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Елена"
+    },
+    {
+      "id": "company:tr:206399152",
+      "type": "company",
+      "label": "М И С 89",
+      "slug": null,
+      "uic": "206399152",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЖУНЕИТ МУСТАФОВ САЛИЕВ",
+      "type": "person",
+      "label": "Джунеит Мустафов Салиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sibel-mustafova-salieva-9e412f",
+      "target": "company:tr:206399152",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:sibel-mustafova-salieva-9e412f",
+      "target": "company:tr:206399152",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЖУНЕИТ МУСТАФОВ САЛИЕВ",
+      "target": "company:tr:206399152",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖУНЕИТ МУСТАФОВ САЛИЕВ",
+      "target": "company:tr:206399152",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

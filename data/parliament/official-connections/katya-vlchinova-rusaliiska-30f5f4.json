@@ -1,0 +1,147 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:katya-vlchinova-rusaliiska-30f5f4",
+  "nodes": [
+    {
+      "id": "official:katya-vlchinova-rusaliiska-30f5f4",
+      "type": "official",
+      "slug": "katya-vlchinova-rusaliiska-30f5f4",
+      "label": "Катя Вълчинова Русалийска",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207332060",
+      "type": "company",
+      "label": "Национален енергиен оператор",
+      "slug": null,
+      "uic": "207332060",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ЗДРАВКОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Александър Здравков Михайлов"
+    },
+    {
+      "id": "person:ПЛАМЕН РАДОВ ГЕРДЖИКОВ",
+      "type": "person",
+      "label": "Пламен Радов Герджиков"
+    },
+    {
+      "id": "person:КОСТАДИН ХРИСТОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Костадин Христов Христов"
+    },
+    {
+      "id": "company:tr:831373560",
+      "type": "company",
+      "label": "БЪЛГАРСКИ ЕНЕРГИЕН ХОЛДИНГ",
+      "slug": null,
+      "uic": "831373560",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ГЕОРГИЕВ ДОБРЕВ",
+      "type": "person",
+      "label": "Георги Георгиев Добрев"
+    },
+    {
+      "id": "person:САИД ХАЙСАМ ХАМАМЕ",
+      "type": "person",
+      "label": "Саид Хайсам Хамаме"
+    },
+    {
+      "id": "person:СТОИМЕН ПЕТРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Стоимен Петров Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:katya-vlchinova-rusaliiska-30f5f4",
+      "target": "company:tr:207332060",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ЗДРАВКОВ МИХАЙЛОВ",
+      "target": "company:tr:207332060",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН РАДОВ ГЕРДЖИКОВ",
+      "target": "company:tr:207332060",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН ХРИСТОВ ХРИСТОВ",
+      "target": "company:tr:207332060",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ЗДРАВКОВ МИХАЙЛОВ",
+      "target": "company:tr:207332060",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:tr:831373560",
+      "target": "company:tr:207332060",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ГЕОРГИЕВ ДОБРЕВ",
+      "target": "company:tr:207332060",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САИД ХАЙСАМ ХАМАМЕ",
+      "target": "company:tr:207332060",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОИМЕН ПЕТРОВ ГЕОРГИЕВ",
+      "target": "company:tr:207332060",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОИМЕН ПЕТРОВ ГЕОРГИЕВ",
+      "target": "company:tr:207332060",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

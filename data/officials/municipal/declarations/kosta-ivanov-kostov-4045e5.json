@@ -1,0 +1,135 @@
+[
+  {
+    "slug": "kosta-ivanov-kostov-4045e5",
+    "declarantName": "Коста Иванов Костов",
+    "institution": "Генерал Тошево",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-22",
+    "entryNumber": "Г6183",
+    "controlHash": "09FBDF4A",
+    "sourceUrl": "https://register.cacbg.bg/2025/27547408-8207-488B-81B2-97C828ABE8B7209134.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6751.609291196065,
+        "amountEurSpouse": 5724.423901872862
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 2385.1766257803592,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "дивидент",
+        "amountEurDeclarant": 39880.76673330504,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "рента",
+        "amountEurDeclarant": 511.29188119621847,
+        "amountEurSpouse": 10737.129505120589
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1174,
+        "valueEur": 600.2566685243605,
+        "holderName": "Коста Иванов Костов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20201,
+        "valueEur": 10328.60729204481,
+        "holderName": "Божанка Георгиева Костова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 100000,
+        "valueEur": 51129.188119621846,
+        "holderName": "Коста Иванов Костов",
+        "isSpouse": false,
+        "legalBasis": "овърдрафт - 6%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12725,
+        "valueEur": 6506.189188221881,
+        "holderName": "Коста Иванов Костов",
+        "isSpouse": false,
+        "legalBasis": "потребителски заем5л49%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Коста Иванов Костов",
+        "isSpouse": false,
+        "legalBasis": "овърдрафт - 6%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

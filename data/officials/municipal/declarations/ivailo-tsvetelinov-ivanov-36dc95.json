@@ -1,0 +1,94 @@
+[
+  {
+    "slug": "ivailo-tsvetelinov-ivanov-36dc95",
+    "declarantName": "Ивайло Цветелинов Иванов",
+    "institution": "Каспичан",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-30",
+    "entryNumber": "Г14453",
+    "controlHash": "1FD66838",
+    "sourceUrl": "https://register.cacbg.bg/2025/9EC2801C-C119-4F4B-85CD-AA5E558E1D77217762.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "капиталов дял",
+        "shareSize": "100",
+        "companyName": "\"Ивайло Иванов 92\"ЕООД",
+        "registeredOffice": "гр.Плиска",
+        "valueEur": 255.64594059810923,
+        "holderName": "Ивайло Цветелинов Иванов",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6867.672548227607,
+        "amountEurSpouse": 4785.692007996605
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 3681.3015446127733,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Ивайло Цветелинов Иванов",
+        "isSpouse": false,
+        "legalBasis": "договор, 4%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35000,
+        "valueEur": 17895.215841867648,
+        "holderName": "Михаела Димова Цветанова",
+        "isSpouse": true,
+        "legalBasis": "договор, 4%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "товарен автомобил",
+        "detail": "Форд Транзит",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5112.918811962185,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:maksim-tsvetanov-brezoev-c32893",
+  "nodes": [
+    {
+      "id": "official:maksim-tsvetanov-brezoev-c32893",
+      "type": "official",
+      "slug": "maksim-tsvetanov-brezoev-c32893",
+      "label": "Максим Цветанов Брезоев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Брегово"
+    },
+    {
+      "id": "company:tr:105549420",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО НА СОУ \"СВЕТИ СВЕТИ КИРИЛ И МЕТОДИЙ\" - \"ПРОБУДА\"",
+      "slug": null,
+      "uic": "105549420",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КИРИЛ ИВАНОВ ЙОНОВ",
+      "type": "person",
+      "label": "Кирил Иванов Йонов"
+    },
+    {
+      "id": "person:ЕЛЕНА ВАЛЕРИЕВА МАРИНОВА",
+      "type": "person",
+      "label": "Елена Валериева Маринова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:maksim-tsvetanov-brezoev-c32893",
+      "target": "company:tr:105549420",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:maksim-tsvetanov-brezoev-c32893",
+      "target": "company:tr:105549420",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КИРИЛ ИВАНОВ ЙОНОВ",
+      "target": "company:tr:105549420",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ВАЛЕРИЕВА МАРИНОВА",
+      "target": "company:tr:105549420",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

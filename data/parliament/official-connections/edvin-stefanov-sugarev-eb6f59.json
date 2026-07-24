@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:edvin-stefanov-sugarev-eb6f59",
+  "nodes": [
+    {
+      "id": "official:edvin-stefanov-sugarev-eb6f59",
+      "type": "official",
+      "slug": "edvin-stefanov-sugarev-eb6f59",
+      "label": "Едвин Стефанов Сугарев",
+      "tier": "executive",
+      "role": "diplomat",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202795325",
+      "type": "company",
+      "label": "\"Нест Прес\" ЕООД",
+      "slug": null,
+      "uic": "202795325",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:edvin-stefanov-sugarev-eb6f59",
+      "target": "company:tr:202795325",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

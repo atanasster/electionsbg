@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:petya-georgieva-iordanova-45b669",
+  "nodes": [
+    {
+      "id": "official:petya-georgieva-iordanova-45b669",
+      "type": "official",
+      "slug": "petya-georgieva-iordanova-45b669",
+      "label": "Петя Георгиева Йорданова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131397743",
+      "type": "company",
+      "label": "ИНТЕРКАПИТАЛ ПРОПЪРТИ ДИВЕЛОПМЪНТ",
+      "slug": null,
+      "uic": "131397743",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕЛИЧКО СТОЙЧЕВ КЛИНГОВ",
+      "type": "person",
+      "label": "Величко Стойчев Клингов"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА ЧАВДАРОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Цветелина Чавдарова Христова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petya-georgieva-iordanova-45b669",
+      "target": "company:tr:131397743",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕЛИЧКО СТОЙЧЕВ КЛИНГОВ",
+      "target": "company:tr:131397743",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА ЧАВДАРОВА ХРИСТОВА",
+      "target": "company:tr:131397743",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

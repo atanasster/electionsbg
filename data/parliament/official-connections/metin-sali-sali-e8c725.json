@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:metin-sali-sali-e8c725",
+  "nodes": [
+    {
+      "id": "official:metin-sali-sali-e8c725",
+      "type": "official",
+      "slug": "metin-sali-sali-e8c725",
+      "label": "Метин Сали Сали",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Исперих"
+    },
+    {
+      "id": "company:tr:208248601",
+      "type": "company",
+      "label": "ЛУКС ДЕКОР 79",
+      "slug": null,
+      "uic": "208248601",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:metin-sali-sali-e8c725",
+      "target": "company:tr:208248601",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:metin-sali-sali-e8c725",
+      "target": "company:tr:208248601",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivailo-stoyanov-dimitrov-3963a9",
+  "nodes": [
+    {
+      "id": "official:ivailo-stoyanov-dimitrov-3963a9",
+      "type": "official",
+      "slug": "ivailo-stoyanov-dimitrov-3963a9",
+      "label": "Ивайло Стоянов Димитров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200052180",
+      "type": "company",
+      "label": "ИВОНТИ ЕООД",
+      "slug": null,
+      "uic": "200052180",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivailo-stoyanov-dimitrov-3963a9",
+      "target": "company:tr:200052180",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

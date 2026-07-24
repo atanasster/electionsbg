@@ -1,0 +1,94 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:marina-marinova-gineva-ea7306",
+  "nodes": [
+    {
+      "id": "official:marina-marinova-gineva-ea7306",
+      "type": "official",
+      "slug": "marina-marinova-gineva-ea7306",
+      "label": "Марина Маринова Гинева",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000662790",
+      "type": "company",
+      "label": "Специализирана болница за активно лечение по детски болести – проф.Иван Митев",
+      "slug": null,
+      "uic": "000662790",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:blagomir-nikolaev-zdravkov-694ebb",
+      "type": "official",
+      "slug": "blagomir-nikolaev-zdravkov-694ebb",
+      "label": "Благомир Николаев Здравков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:ИВАН ОЛЕГОВИЧ ЛИТВИНЕНКО",
+      "type": "person",
+      "label": "Иван Олегович Литвиненко"
+    },
+    {
+      "id": "person:ГЕНОВЕВА ИВАНОВА ТАЧЕВА",
+      "type": "person",
+      "label": "Геновева Иванова Тачева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:marina-marinova-gineva-ea7306",
+      "target": "company:tr:000662790",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:blagomir-nikolaev-zdravkov-694ebb",
+      "target": "company:tr:000662790",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:blagomir-nikolaev-zdravkov-694ebb",
+      "target": "company:tr:000662790",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ОЛЕГОВИЧ ЛИТВИНЕНКО",
+      "target": "company:tr:000662790",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕНОВЕВА ИВАНОВА ТАЧЕВА",
+      "target": "company:tr:000662790",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕНОВЕВА ИВАНОВА ТАЧЕВА",
+      "target": "company:tr:000662790",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

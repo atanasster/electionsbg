@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:milena-zhelyazkova-zhelyazkova-29dc0c",
+  "nodes": [
+    {
+      "id": "official:milena-zhelyazkova-zhelyazkova-29dc0c",
+      "type": "official",
+      "slug": "milena-zhelyazkova-zhelyazkova-29dc0c",
+      "label": "Милена Желязкова Желязкова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208464450",
+      "type": "company",
+      "label": "Капитал Ко",
+      "slug": null,
+      "uic": "208464450",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАЙЛО ГЕТОВ ГЕЧЕВ",
+      "type": "person",
+      "label": "Ивайло Гетов Гечев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milena-zhelyazkova-zhelyazkova-29dc0c",
+      "target": "company:tr:208464450",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:milena-zhelyazkova-zhelyazkova-29dc0c",
+      "target": "company:tr:208464450",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАЙЛО ГЕТОВ ГЕЧЕВ",
+      "target": "company:tr:208464450",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ГЕТОВ ГЕЧЕВ",
+      "target": "company:tr:208464450",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:5208",
   "nodes": [
     {
@@ -61,27 +61,18 @@
       "label": "Метин Мехмед Вели"
     },
     {
-      "id": "official:atidzhe-bairyamova-alieva-veli-0986c6",
+      "id": "official:atidzhe-bairyamova-alieva-veli-92b594",
       "type": "official",
-      "slug": "atidzhe-bairyamova-alieva-veli-0986c6",
-      "label": "Атидже Байрямова Алиева - Вели",
-      "tier": "executive",
-      "role": "mep",
-      "municipality": null
-    },
-    {
-      "id": "official:atidzhe-bairyamova-alieva-veli-3506b8",
-      "type": "official",
-      "slug": "atidzhe-bairyamova-alieva-veli-3506b8",
+      "slug": "atidzhe-bairyamova-alieva-veli-92b594",
       "label": "Атидже Байрямова Алиева-Вели",
       "tier": "executive",
       "role": "mep",
       "municipality": null
     },
     {
-      "id": "official:erol-kemalov-aliev-836d6e",
+      "id": "official:erol-kemalov-aliev-9e106a",
       "type": "official",
-      "slug": "erol-kemalov-aliev-836d6e",
+      "slug": "erol-kemalov-aliev-9e106a",
       "label": "Ерол Кемалов Алиев",
       "tier": "municipal",
       "role": "councillor",
@@ -93,18 +84,18 @@
       "label": "Велина Миткова Арнаудова - Идриз"
     },
     {
-      "id": "official:atidzhe-bairyamova-alieva-veli-6ce57d",
+      "id": "official:atidzhe-bairyamova-alieva-veli-217e0f",
       "type": "official",
-      "slug": "atidzhe-bairyamova-alieva-veli-6ce57d",
+      "slug": "atidzhe-bairyamova-alieva-veli-217e0f",
       "label": "Атидже Байрямова Алиева - Вели",
       "tier": "executive",
       "role": "agency_head",
       "municipality": null
     },
     {
-      "id": "official:atidzhe-bairyamova-alieva-veli-b3dff0",
+      "id": "official:atidzhe-bairyamova-alieva-veli-208ec6",
       "type": "official",
-      "slug": "atidzhe-bairyamova-alieva-veli-b3dff0",
+      "slug": "atidzhe-bairyamova-alieva-veli-208ec6",
       "label": "Атидже Байрямова Алиева - Вели",
       "tier": "executive",
       "role": "regional_director",
@@ -161,15 +152,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:atidzhe-bairyamova-alieva-veli-0986c6",
-      "target": "company:Вели-груп-ЕООД",
-      "kind": "declared_stake",
-      "role": "declared_share",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "official:atidzhe-bairyamova-alieva-veli-3506b8",
+      "source": "official:atidzhe-bairyamova-alieva-veli-92b594",
       "target": "company:Вели-груп-ЕООД",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -185,7 +168,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:atidzhe-bairyamova-alieva-veli-0986c6",
+      "source": "official:atidzhe-bairyamova-alieva-veli-92b594",
       "target": "company:Ермет-солар-БГ",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -193,7 +176,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:atidzhe-bairyamova-alieva-veli-3506b8",
+      "source": "official:erol-kemalov-aliev-9e106a",
       "target": "company:Ермет-солар-БГ",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -201,15 +184,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:erol-kemalov-aliev-836d6e",
-      "target": "company:Ермет-солар-БГ",
-      "kind": "declared_stake",
-      "role": "declared_share",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "official:erol-kemalov-aliev-836d6e",
+      "source": "official:erol-kemalov-aliev-9e106a",
       "target": "company:Ермет-солар-БГ",
       "kind": "tr_role",
       "role": "manager",
@@ -217,7 +192,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:erol-kemalov-aliev-836d6e",
+      "source": "official:erol-kemalov-aliev-9e106a",
       "target": "company:Ермет-солар-БГ",
       "kind": "tr_owner",
       "role": "partner",
@@ -225,15 +200,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:atidzhe-bairyamova-alieva-veli-0986c6",
-      "target": "company:Кемпен-БГ",
-      "kind": "declared_stake",
-      "role": "declared_share",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "official:atidzhe-bairyamova-alieva-veli-3506b8",
+      "source": "official:atidzhe-bairyamova-alieva-veli-92b594",
       "target": "company:Кемпен-БГ",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -273,7 +240,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:atidzhe-bairyamova-alieva-veli-6ce57d",
+      "source": "official:atidzhe-bairyamova-alieva-veli-217e0f",
       "target": "company:М-БЕТ-строй-ЕООД",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -281,7 +248,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:atidzhe-bairyamova-alieva-veli-b3dff0",
+      "source": "official:atidzhe-bairyamova-alieva-veli-208ec6",
       "target": "company:М-БЕТ-строй-ЕООД",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -289,15 +256,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:atidzhe-bairyamova-alieva-veli-0986c6",
-      "target": "company:М-БЕТ-строй-ЕООД",
-      "kind": "declared_stake",
-      "role": "declared_share",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "official:atidzhe-bairyamova-alieva-veli-3506b8",
+      "source": "official:atidzhe-bairyamova-alieva-veli-92b594",
       "target": "company:М-БЕТ-строй-ЕООД",
       "kind": "declared_stake",
       "role": "declared_share",

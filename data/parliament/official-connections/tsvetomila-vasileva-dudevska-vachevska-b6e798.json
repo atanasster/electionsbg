@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tsvetomila-vasileva-dudevska-vachevska-b6e798",
+  "nodes": [
+    {
+      "id": "official:tsvetomila-vasileva-dudevska-vachevska-b6e798",
+      "type": "official",
+      "slug": "tsvetomila-vasileva-dudevska-vachevska-b6e798",
+      "label": "Цветомила Василева Дудевска-Вачевска",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000289081",
+      "type": "company",
+      "label": "СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ НА БЕЛОДРОБНИ БОЛЕСТИ - ТРОЯН",
+      "slug": null,
+      "uic": "000289081",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetomila-vasileva-dudevska-vachevska-b6e798",
+      "target": "company:tr:000289081",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

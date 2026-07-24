@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hristina-stoyanova-pramatarova-36f410",
+  "nodes": [
+    {
+      "id": "official:hristina-stoyanova-pramatarova-36f410",
+      "type": "official",
+      "slug": "hristina-stoyanova-pramatarova-36f410",
+      "label": "Христина Стоянова Праматарова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Елин Пелин"
+    },
+    {
+      "id": "company:tr:207691946",
+      "type": "company",
+      "label": "Волейболен клуб Феникс 2024",
+      "slug": null,
+      "uic": "207691946",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛЪЧЕЗАР ДИМИТРОВ ПРАМАТАРОВ",
+      "type": "person",
+      "label": "Лъчезар Димитров Праматаров"
+    },
+    {
+      "id": "person:ГРИГОР НИКОЛАЕВ ГОСПОДИНОВ",
+      "type": "person",
+      "label": "Григор Николаев Господинов"
+    },
+    {
+      "id": "person:ПОЛИНА ГЕОРГИЕВА ДУДОВА - ЦОЦОВА",
+      "type": "person",
+      "label": "Полина Георгиева Дудова - Цоцова"
+    },
+    {
+      "id": "person:ИВОН НАЧКОВА ИВАНОВА",
+      "type": "person",
+      "label": "Ивон Начкова Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristina-stoyanova-pramatarova-36f410",
+      "target": "company:tr:207691946",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristina-stoyanova-pramatarova-36f410",
+      "target": "company:tr:207691946",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЪЧЕЗАР ДИМИТРОВ ПРАМАТАРОВ",
+      "target": "company:tr:207691946",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГРИГОР НИКОЛАЕВ ГОСПОДИНОВ",
+      "target": "company:tr:207691946",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПОЛИНА ГЕОРГИЕВА ДУДОВА - ЦОЦОВА",
+      "target": "company:tr:207691946",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВОН НАЧКОВА ИВАНОВА",
+      "target": "company:tr:207691946",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

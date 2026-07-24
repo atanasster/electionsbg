@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ognyan-georgiev-simeonov-f00f65",
+  "nodes": [
+    {
+      "id": "official:ognyan-georgiev-simeonov-f00f65",
+      "type": "official",
+      "slug": "ognyan-georgiev-simeonov-f00f65",
+      "label": "Огнян Георгиев Симеонов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:121256406",
+      "type": "company",
+      "label": "Академ консулт ООД",
+      "slug": null,
+      "uic": "121256406",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ognyan-georgiev-simeonov-f00f65",
+      "target": "company:tr:121256406",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

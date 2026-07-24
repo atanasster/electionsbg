@@ -1,0 +1,123 @@
+[
+  {
+    "slug": "krasimira-koleva-chahova-15763a",
+    "declarantName": "Красимира Колева Чахова",
+    "institution": "Стара Загора",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г12250",
+    "controlHash": "7FDABD6B",
+    "sourceUrl": "https://register.cacbg.bg/2025/DBB26157-34C7-4F97-9496-9007D47A1E71215411.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 35213.183149864766,
+        "amountEurSpouse": 90230.74602598386
+      },
+      {
+        "parent": null,
+        "category": "Дивидент",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 49969.06684118763
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Богомилово",
+        "municipality": "Стара Загора",
+        "areaSqm": 1960,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Георги Апостолов Чахов",
+        "isSpouse": true,
+        "legalBasis": "делба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с.Богомилово",
+        "municipality": "Стара Загора",
+        "areaSqm": 1315,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Красимира Колева Чахова",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17695,
+        "valueEur": 9047.309837767087,
+        "holderName": "Красимира Колева Чахова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 125443,
+        "valueEur": 64137.987452897236,
+        "holderName": "Георги Апостолов Чахов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит - солидарен длъжник",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2109140,
+        "valueEur": 1078386.1583061924,
+        "holderName": "Георги Апостолов Чахов",
+        "isSpouse": true,
+        "legalBasis": "Договор",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

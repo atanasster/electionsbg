@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:3016",
   "nodes": [
     {
@@ -106,18 +106,18 @@
       ]
     },
     {
-      "id": "official:aleksandr-dimitrov-paunov-da21f5",
+      "id": "official:aleksandr-dimitrov-paunov-3268eb",
       "type": "official",
-      "slug": "aleksandr-dimitrov-paunov-da21f5",
+      "slug": "aleksandr-dimitrov-paunov-3268eb",
       "label": "Александър Димитров Паунов",
       "tier": "executive",
       "role": "party_leader",
       "municipality": null
     },
     {
-      "id": "official:valentin-nikolchov-petkov-93f658",
+      "id": "official:valentin-nikolchov-petkov-5f8ef8",
       "type": "official",
-      "slug": "valentin-nikolchov-petkov-93f658",
+      "slug": "valentin-nikolchov-petkov-5f8ef8",
       "label": "Валентин Николчов Петков",
       "tier": "municipal",
       "role": "councillor",
@@ -249,18 +249,18 @@
       "nsFolders": []
     },
     {
-      "id": "official:nelka-nencheva-vasileva-259142",
+      "id": "official:nelka-nencheva-vasileva-33fb70",
       "type": "official",
-      "slug": "nelka-nencheva-vasileva-259142",
+      "slug": "nelka-nencheva-vasileva-33fb70",
       "label": "Нелка Ненчева Василева",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "kindergarten",
       "municipality": null
     },
     {
-      "id": "official:antoaneta-zdravkova-draganova-495e5b",
+      "id": "official:antoaneta-zdravkova-draganova-1d80f8",
       "type": "official",
-      "slug": "antoaneta-zdravkova-draganova-495e5b",
+      "slug": "antoaneta-zdravkova-draganova-1d80f8",
       "label": "Антоанета Здравкова Драганова",
       "tier": "municipal",
       "role": "councillor",
@@ -507,9 +507,9 @@
       "label": "Веселина Николова Груева - Заместник-Председател"
     },
     {
-      "id": "official:mariyana-ivanova-vodenicharova-c4d8dc",
+      "id": "official:mariyana-ivanova-vodenicharova-91af5c",
       "type": "official",
-      "slug": "mariyana-ivanova-vodenicharova-c4d8dc",
+      "slug": "mariyana-ivanova-vodenicharova-91af5c",
       "label": "Марияна Иванова Воденичарова",
       "tier": "executive",
       "role": "state_enterprise",
@@ -925,7 +925,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:aleksandr-dimitrov-paunov-da21f5",
+      "source": "official:aleksandr-dimitrov-paunov-3268eb",
       "target": "company:tr:121061274",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -933,7 +933,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:valentin-nikolchov-petkov-93f658",
+      "source": "official:valentin-nikolchov-petkov-5f8ef8",
       "target": "company:tr:121061274",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -1101,7 +1101,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:nelka-nencheva-vasileva-259142",
+      "source": "official:nelka-nencheva-vasileva-33fb70",
       "target": "company:tr:130341567",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -1109,7 +1109,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:antoaneta-zdravkova-draganova-495e5b",
+      "source": "official:antoaneta-zdravkova-draganova-1d80f8",
       "target": "company:tr:130341567",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -1573,7 +1573,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:mariyana-ivanova-vodenicharova-c4d8dc",
+      "source": "official:mariyana-ivanova-vodenicharova-91af5c",
       "target": "company:tr:175030371",
       "kind": "tr_role",
       "role": "director",

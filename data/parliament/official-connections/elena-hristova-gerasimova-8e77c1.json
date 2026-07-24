@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:elena-hristova-gerasimova-8e77c1",
+  "nodes": [
+    {
+      "id": "official:elena-hristova-gerasimova-8e77c1",
+      "type": "official",
+      "slug": "elena-hristova-gerasimova-8e77c1",
+      "label": "Елена Христова Герасимова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Златица"
+    },
+    {
+      "id": "company:tr:201980350",
+      "type": "company",
+      "label": "ОПТИМА-59",
+      "slug": null,
+      "uic": "201980350",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАЛЕНТИН ГЕОРГИЕВ ГЕРАСИМОВ",
+      "type": "person",
+      "label": "Валентин Георгиев Герасимов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:elena-hristova-gerasimova-8e77c1",
+      "target": "company:tr:201980350",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:elena-hristova-gerasimova-8e77c1",
+      "target": "company:tr:201980350",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ГЕОРГИЕВ ГЕРАСИМОВ",
+      "target": "company:tr:201980350",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ГЕОРГИЕВ ГЕРАСИМОВ",
+      "target": "company:tr:201980350",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

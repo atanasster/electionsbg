@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "officialNodeId": "official:velik-traichev-zanchev-fb82eb",
   "nodes": [
     {
@@ -33,45 +33,45 @@
       ]
     },
     {
-      "id": "official:anita-petkova-velikova-418e8a",
+      "id": "official:anita-petkova-velikova-2e9a22",
       "type": "official",
-      "slug": "anita-petkova-velikova-418e8a",
+      "slug": "anita-petkova-velikova-2e9a22",
       "label": "Анита Петкова Великова",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:bozhidar-ganchev-aleksov-37d041",
+      "id": "official:bozhidar-ganchev-aleksov-9d64f8",
       "type": "official",
-      "slug": "bozhidar-ganchev-aleksov-37d041",
+      "slug": "bozhidar-ganchev-aleksov-9d64f8",
       "label": "Божидар Ганчев Алексов",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:boris-nikolov-yanchev-e7f222",
+      "id": "official:boris-nikolov-yanchev-1111c1",
       "type": "official",
-      "slug": "boris-nikolov-yanchev-e7f222",
+      "slug": "boris-nikolov-yanchev-1111c1",
       "label": "Борис Николов Янчев",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:milen-dimitrov-nikolov-bd7b05",
+      "id": "official:milen-dimitrov-nikolov-50880a",
       "type": "official",
-      "slug": "milen-dimitrov-nikolov-bd7b05",
+      "slug": "milen-dimitrov-nikolov-50880a",
       "label": "Милен Димитров Николов",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:plamen-simeonov-peshev-7ab51a",
+      "id": "official:plamen-simeonov-peshev-cc638e",
       "type": "official",
-      "slug": "plamen-simeonov-peshev-7ab51a",
+      "slug": "plamen-simeonov-peshev-cc638e",
       "label": "Пламен Симеонов Пешев",
       "tier": "executive",
       "role": "state_enterprise",
@@ -164,7 +164,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:anita-petkova-velikova-418e8a",
+      "source": "official:anita-petkova-velikova-2e9a22",
       "target": "company:tr:000725995",
       "kind": "tr_role",
       "role": "director",
@@ -172,7 +172,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:bozhidar-ganchev-aleksov-37d041",
+      "source": "official:bozhidar-ganchev-aleksov-9d64f8",
       "target": "company:tr:000725995",
       "kind": "tr_role",
       "role": "representative",
@@ -180,7 +180,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:bozhidar-ganchev-aleksov-37d041",
+      "source": "official:bozhidar-ganchev-aleksov-9d64f8",
       "target": "company:tr:000725995",
       "kind": "tr_role",
       "role": "director",
@@ -188,7 +188,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:boris-nikolov-yanchev-e7f222",
+      "source": "official:boris-nikolov-yanchev-1111c1",
       "target": "company:tr:000725995",
       "kind": "tr_role",
       "role": "director",
@@ -196,7 +196,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:milen-dimitrov-nikolov-bd7b05",
+      "source": "official:milen-dimitrov-nikolov-50880a",
       "target": "company:tr:000725995",
       "kind": "tr_role",
       "role": "director",
@@ -204,7 +204,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:plamen-simeonov-peshev-7ab51a",
+      "source": "official:plamen-simeonov-peshev-cc638e",
       "target": "company:tr:000725995",
       "kind": "tr_role",
       "role": "director",
@@ -212,7 +212,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:plamen-simeonov-peshev-7ab51a",
+      "source": "official:plamen-simeonov-peshev-cc638e",
       "target": "company:tr:000725995",
       "kind": "tr_role",
       "role": "representative",

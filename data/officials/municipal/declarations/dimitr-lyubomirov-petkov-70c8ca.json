@@ -1,0 +1,123 @@
+[
+  {
+    "slug": "dimitr-lyubomirov-petkov-70c8ca",
+    "declarantName": "ДИМИТЪР ЛЮБОМИРОВ ПЕТКОВ",
+    "institution": "Пазарджик",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-09",
+    "entryNumber": "Г10543",
+    "controlHash": "24E9F0F6",
+    "sourceUrl": "https://register.cacbg.bg/2025/8B522E34-C81E-49EB-934B-DC4C16FEC256213639.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 13432.149010905856,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 29023.48363610334,
+        "amountEurSpouse": 6916.2452769412475
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ПАЗАРДЖИК",
+        "municipality": "Пазарджик",
+        "areaSqm": 1,
+        "builtAreaSqm": 74,
+        "acquiredYear": 2021,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 4200,
+        "valueEur": 2147.4259010241176,
+        "holderName": "ДИМИТЪР ЛЮБОМИРОВ ПЕТКОВ",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР ЗА НАЕМ",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 10000,
+        "valueEur": 8947.607920933824,
+        "holderName": "ДИМИТЪР ЛЮБОМИРОВ ПЕТКОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 1500,
+        "valueEur": 1533.8756435886555,
+        "holderName": "ДИМИТЪР ЛЮБОМИРОВ ПЕТКОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "ДИМИТЪР ЛЮБОМИРОВ ПЕТКОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 36251,
+        "valueEur": 18534.841985244115,
+        "holderName": "АНДРЕАНА КОНСТАНТИНОВА ПЕТКОВА",
+        "isSpouse": true,
+        "legalBasis": "ДОГОВОР 6.90%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

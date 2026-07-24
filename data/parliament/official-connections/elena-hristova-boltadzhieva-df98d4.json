@@ -1,0 +1,82 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:elena-hristova-boltadzhieva-df98d4",
+  "nodes": [
+    {
+      "id": "official:elena-hristova-boltadzhieva-df98d4",
+      "type": "official",
+      "slug": "elena-hristova-boltadzhieva-df98d4",
+      "label": "Елена Христова Болтаджиева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207749004",
+      "type": "company",
+      "label": "Галерия Риволи",
+      "slug": null,
+      "uic": "207749004",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ ЛЮБЕНОВ БОЛТАДЖИЕВ",
+      "type": "person",
+      "label": "Николай Любенов Болтаджиев"
+    },
+    {
+      "id": "person:ЕЛЕНА ХРИСТОВА БОЛТАДЖИЕВА",
+      "type": "person",
+      "label": "Елена Христова Болтаджиева"
+    },
+    {
+      "id": "person:НИКОЛАЙОЛАЙ ЛЮБЕНОВ БОЛТАДЖИЕВ",
+      "type": "person",
+      "label": "Николайолай Любенов Болтаджиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:elena-hristova-boltadzhieva-df98d4",
+      "target": "company:tr:207749004",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЛЮБЕНОВ БОЛТАДЖИЕВ",
+      "target": "company:tr:207749004",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЛЮБЕНОВ БОЛТАДЖИЕВ",
+      "target": "company:tr:207749004",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ХРИСТОВА БОЛТАДЖИЕВА",
+      "target": "company:tr:207749004",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙОЛАЙ ЛЮБЕНОВ БОЛТАДЖИЕВ",
+      "target": "company:tr:207749004",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

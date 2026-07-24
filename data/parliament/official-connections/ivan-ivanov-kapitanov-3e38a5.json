@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-ivanov-kapitanov-3e38a5",
+  "nodes": [
+    {
+      "id": "official:ivan-ivanov-kapitanov-3e38a5",
+      "type": "official",
+      "slug": "ivan-ivanov-kapitanov-3e38a5",
+      "label": "Иван Иванов Капитанов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203949833",
+      "type": "company",
+      "label": "СЕЕС БРАНД СОЛЮШЪНС ЕООД",
+      "slug": null,
+      "uic": "203949833",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-ivanov-kapitanov-3e38a5",
+      "target": "company:tr:203949833",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

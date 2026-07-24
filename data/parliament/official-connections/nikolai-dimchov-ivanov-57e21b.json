@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-dimchov-ivanov-57e21b",
+  "nodes": [
+    {
+      "id": "official:nikolai-dimchov-ivanov-57e21b",
+      "type": "official",
+      "slug": "nikolai-dimchov-ivanov-57e21b",
+      "label": "Николай Димчов Иванов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204183586",
+      "type": "company",
+      "label": "АГРИПРОДУКТ СТРАНДЖА",
+      "slug": null,
+      "uic": "204183586",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ВАСИЛЕВ МАНГАЛДЖИЕВ",
+      "type": "person",
+      "label": "Александър Василев Мангалджиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-dimchov-ivanov-57e21b",
+      "target": "company:tr:204183586",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-dimchov-ivanov-57e21b",
+      "target": "company:tr:204183586",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ВАСИЛЕВ МАНГАЛДЖИЕВ",
+      "target": "company:tr:204183586",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ВАСИЛЕВ МАНГАЛДЖИЕВ",
+      "target": "company:tr:204183586",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

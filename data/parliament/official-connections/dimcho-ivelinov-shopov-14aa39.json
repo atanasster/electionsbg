@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimcho-ivelinov-shopov-14aa39",
+  "nodes": [
+    {
+      "id": "official:dimcho-ivelinov-shopov-14aa39",
+      "type": "official",
+      "slug": "dimcho-ivelinov-shopov-14aa39",
+      "label": "Димчо Ивелинов Шопов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204704655",
+      "type": "company",
+      "label": "Център за управление на отпадъци",
+      "slug": null,
+      "uic": "204704655",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimcho-ivelinov-shopov-14aa39",
+      "target": "company:tr:204704655",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

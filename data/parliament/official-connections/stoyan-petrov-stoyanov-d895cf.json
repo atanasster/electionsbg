@@ -1,0 +1,82 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stoyan-petrov-stoyanov-d895cf",
+  "nodes": [
+    {
+      "id": "official:stoyan-petrov-stoyanov-d895cf",
+      "type": "official",
+      "slug": "stoyan-petrov-stoyanov-d895cf",
+      "label": "Стоян Петров Стоянов",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:831607682",
+      "type": "company",
+      "label": "Б Консултинг ООД",
+      "slug": null,
+      "uic": "831607682",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЛАДИМИР СТОЯНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Владимир Стоянов Стоянов"
+    },
+    {
+      "id": "person:ИВАЙЛО СТОЯНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Ивайло Стоянов Стоянов"
+    },
+    {
+      "id": "person:СТОЯН ПЕТРОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Стоян Петров Стоянов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stoyan-petrov-stoyanov-d895cf",
+      "target": "company:tr:831607682",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР СТОЯНОВ СТОЯНОВ",
+      "target": "company:tr:831607682",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР СТОЯНОВ СТОЯНОВ",
+      "target": "company:tr:831607682",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО СТОЯНОВ СТОЯНОВ",
+      "target": "company:tr:831607682",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ПЕТРОВ СТОЯНОВ",
+      "target": "company:tr:831607682",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

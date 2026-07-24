@@ -1,0 +1,155 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:gergana-vasileva-dermendzhieva-10cca5",
+  "nodes": [
+    {
+      "id": "official:gergana-vasileva-dermendzhieva-10cca5",
+      "type": "official",
+      "slug": "gergana-vasileva-dermendzhieva-10cca5",
+      "label": "Гергана Василева Дерменджиева",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000662769",
+      "type": "company",
+      "label": "Специализирана болница за активно лечение по акушерство и гинекология - Майчин дом",
+      "slug": null,
+      "uic": "000662769",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:virsaviya-stoyanova-vaseva-chorbadzhiiska-2fb132",
+      "type": "official",
+      "slug": "virsaviya-stoyanova-vaseva-chorbadzhiiska-2fb132",
+      "label": "Вирсавия Стоянова Васева-Чорбаджийска",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "official:sofiya-anatolieva-iordanova-dfdc3d",
+      "type": "official",
+      "slug": "sofiya-anatolieva-iordanova-dfdc3d",
+      "label": "София Анатолиева Йорданова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:ЛЮБОМИР ЛЮБЧОВ ПЕНЕВ",
+      "type": "person",
+      "label": "Любомир Любчов Пенев"
+    },
+    {
+      "id": "person:ИВАН АТАНАСОВ КОСТОВ",
+      "type": "person",
+      "label": "Иван Атанасов Костов"
+    },
+    {
+      "id": "person:ЕКАТЕРИНА ЛАЗАРОВА ТРЕНКОВА",
+      "type": "person",
+      "label": "Екатерина Лазарова Тренкова"
+    },
+    {
+      "id": "person:МАРИЯ ВЕЛИЧКОВА ЮНАКОВА",
+      "type": "person",
+      "label": "Мария Величкова Юнакова"
+    },
+    {
+      "id": "person:ТЕОДОРА ТОДОРОВА ТАБАКОВА",
+      "type": "person",
+      "label": "Теодора Тодорова Табакова"
+    },
+    {
+      "id": "person:ДИМИТЪР ВЪЛЧИНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Вълчинов Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gergana-vasileva-dermendzhieva-10cca5",
+      "target": "company:tr:000662769",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:virsaviya-stoyanova-vaseva-chorbadzhiiska-2fb132",
+      "target": "company:tr:000662769",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:sofiya-anatolieva-iordanova-dfdc3d",
+      "target": "company:tr:000662769",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮБОМИР ЛЮБЧОВ ПЕНЕВ",
+      "target": "company:tr:000662769",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АТАНАСОВ КОСТОВ",
+      "target": "company:tr:000662769",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АТАНАСОВ КОСТОВ",
+      "target": "company:tr:000662769",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕКАТЕРИНА ЛАЗАРОВА ТРЕНКОВА",
+      "target": "company:tr:000662769",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ВЕЛИЧКОВА ЮНАКОВА",
+      "target": "company:tr:000662769",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ТОДОРОВА ТАБАКОВА",
+      "target": "company:tr:000662769",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ВЪЛЧИНОВ ДИМИТРОВ",
+      "target": "company:tr:000662769",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

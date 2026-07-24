@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:boyan-angelov-babanov-5524fb",
+  "nodes": [
+    {
+      "id": "official:boyan-angelov-babanov-5524fb",
+      "type": "official",
+      "slug": "boyan-angelov-babanov-5524fb",
+      "label": "Боян Ангелов Бабанов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стара Загора"
+    },
+    {
+      "id": "company:tr:123126122",
+      "type": "company",
+      "label": "СРЕДНА ГОРА - ИНВЕСТ",
+      "slug": null,
+      "uic": "123126122",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ЛЮБЕНОВ ПАЛЕШУТСКИ",
+      "type": "person",
+      "label": "Александър Любенов Палешутски"
+    },
+    {
+      "id": "person:РАДОСЛАВА АЛЕКСАНДРОВА ПАЛЕШУТСКА",
+      "type": "person",
+      "label": "Радослава Александрова Палешутска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:boyan-angelov-babanov-5524fb",
+      "target": "company:tr:123126122",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ЛЮБЕНОВ ПАЛЕШУТСКИ",
+      "target": "company:tr:123126122",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВА АЛЕКСАНДРОВА ПАЛЕШУТСКА",
+      "target": "company:tr:123126122",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

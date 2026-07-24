@@ -1,0 +1,53 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:milena-ivanova-stoicheva-f053b9",
+  "nodes": [
+    {
+      "id": "official:milena-ivanova-stoicheva-f053b9",
+      "type": "official",
+      "slug": "milena-ivanova-stoicheva-f053b9",
+      "label": "Милена Иванова Стойчева",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205332760",
+      "type": "company",
+      "label": "\"ИНКМЕД\" ООД",
+      "slug": null,
+      "uic": "205332760",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:131363965",
+      "type": "company",
+      "label": "\"ИНКМЕД ЛАБС\"",
+      "slug": null,
+      "uic": "131363965",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milena-ivanova-stoicheva-f053b9",
+      "target": "company:tr:205332760",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:milena-ivanova-stoicheva-f053b9",
+      "target": "company:tr:131363965",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

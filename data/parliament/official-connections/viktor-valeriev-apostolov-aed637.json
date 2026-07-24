@@ -1,25 +1,39 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "officialNodeId": "official:viktor-valeriev-apostolov-aed637",
   "nodes": [
     {
       "id": "official:viktor-valeriev-apostolov-aed637",
       "type": "official",
       "slug": "viktor-valeriev-apostolov-aed637",
-      "label": "ВИКТОР ВАЛЕРИЕВ АПОСТОЛОВ",
+      "label": "Виктор Валериев Апостолов",
       "tier": "executive",
       "role": "hospital_head",
       "municipality": null
     },
     {
-      "id": "company:tr:203304829",
+      "id": "company:tr:202571882",
       "type": "company",
-      "label": "АВВ 88 ООД",
+      "label": "Хотел Инвест 24 ООД",
       "slug": null,
-      "uic": "203304829",
+      "uic": "202571882",
       "legalForm": null,
       "status": null,
       "seat": null
+    },
+    {
+      "id": "official:viktor-valeriev-apostolov-b06e7c",
+      "type": "official",
+      "slug": "viktor-valeriev-apostolov-b06e7c",
+      "label": "Виктор Валериев Апостолов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Монтана"
+    },
+    {
+      "id": "person:ЮЛИАН ИВАНОВ МЛАДЕНОВ",
+      "type": "person",
+      "label": "Юлиан Иванов Младенов"
     },
     {
       "id": "person:ВИКТОР ВАЛЕРИЕВ АПОСТОЛОВ",
@@ -27,36 +41,67 @@
       "label": "Виктор Валериев Апостолов"
     },
     {
-      "id": "person:ГЕОРГИ ЮРИЕВ ЗАХАРИЕВ",
-      "type": "person",
-      "label": "Георги Юриев Захариев"
+      "id": "company:name:КЕЙ ЕН АЙ",
+      "type": "company",
+      "label": "\"КЕЙ ЕН АЙ\" ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
     },
     {
-      "id": "person:АЛЕКСАНДЪР ВЕНЕЛИНОВ АЛЕКСАНДРОВ",
+      "id": "company:name:СЕЙВ ПРОПЪРТИ",
+      "type": "company",
+      "label": "\"СЕЙВ ПРОПЪРТИ\" ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГРЕТА ГАНЧЕВА КРЪСТЕВА",
       "type": "person",
-      "label": "Александър Венелинов Александров"
+      "label": "Грета Ганчева Кръстева"
     }
   ],
   "edges": [
     {
       "source": "official:viktor-valeriev-apostolov-aed637",
-      "target": "company:tr:203304829",
+      "target": "company:tr:202571882",
       "kind": "declared_stake",
       "role": "declared_share",
       "isCurrent": true,
       "confidence": "high"
     },
     {
-      "source": "person:ВИКТОР ВАЛЕРИЕВ АПОСТОЛОВ",
-      "target": "company:tr:203304829",
+      "source": "official:viktor-valeriev-apostolov-b06e7c",
+      "target": "company:tr:202571882",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИАН ИВАНОВ МЛАДЕНОВ",
+      "target": "company:tr:202571882",
       "kind": "tr_role",
       "role": "manager",
       "isCurrent": true,
       "confidence": "high"
     },
     {
-      "source": "person:ГЕОРГИ ЮРИЕВ ЗАХАРИЕВ",
-      "target": "company:tr:203304829",
+      "source": "person:ВИКТОР ВАЛЕРИЕВ АПОСТОЛОВ",
+      "target": "company:tr:202571882",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИАН ИВАНОВ МЛАДЕНОВ",
+      "target": "company:tr:202571882",
       "kind": "tr_owner",
       "role": "partner",
       "isCurrent": true,
@@ -64,17 +109,33 @@
     },
     {
       "source": "person:ВИКТОР ВАЛЕРИЕВ АПОСТОЛОВ",
-      "target": "company:tr:203304829",
+      "target": "company:tr:202571882",
       "kind": "tr_owner",
       "role": "partner",
       "isCurrent": true,
       "confidence": "high"
     },
     {
-      "source": "person:АЛЕКСАНДЪР ВЕНЕЛИНОВ АЛЕКСАНДРОВ",
-      "target": "company:tr:203304829",
+      "source": "company:name:КЕЙ ЕН АЙ",
+      "target": "company:tr:202571882",
       "kind": "tr_owner",
       "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:СЕЙВ ПРОПЪРТИ",
+      "target": "company:tr:202571882",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГРЕТА ГАНЧЕВА КРЪСТЕВА",
+      "target": "company:tr:202571882",
+      "kind": "tr_role",
+      "role": "liquidator",
       "isCurrent": true,
       "confidence": "high"
     }

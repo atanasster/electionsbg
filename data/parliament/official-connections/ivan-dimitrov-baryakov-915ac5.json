@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-dimitrov-baryakov-915ac5",
+  "nodes": [
+    {
+      "id": "official:ivan-dimitrov-baryakov-915ac5",
+      "type": "official",
+      "slug": "ivan-dimitrov-baryakov-915ac5",
+      "label": "Иван Димитров Баряков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Банско"
+    },
+    {
+      "id": "company:tr:207096180",
+      "type": "company",
+      "label": "Пирин 74",
+      "slug": null,
+      "uic": "207096180",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КОСТАДИН ДИМИТРОВ БАРЯКОВ",
+      "type": "person",
+      "label": "Костадин Димитров Баряков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-dimitrov-baryakov-915ac5",
+      "target": "company:tr:207096180",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КОСТАДИН ДИМИТРОВ БАРЯКОВ",
+      "target": "company:tr:207096180",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТАДИН ДИМИТРОВ БАРЯКОВ",
+      "target": "company:tr:207096180",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

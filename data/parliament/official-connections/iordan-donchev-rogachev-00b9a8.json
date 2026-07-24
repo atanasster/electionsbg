@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iordan-donchev-rogachev-00b9a8",
+  "nodes": [
+    {
+      "id": "official:iordan-donchev-rogachev-00b9a8",
+      "type": "official",
+      "slug": "iordan-donchev-rogachev-00b9a8",
+      "label": "Йордан Дончев Рогачев",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201049905",
+      "type": "company",
+      "label": "ИКИН ООД",
+      "slug": null,
+      "uic": "201049905",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:iordan-donchev-rogachev-1c509c",
+      "type": "official",
+      "slug": "iordan-donchev-rogachev-1c509c",
+      "label": "Йордан Дончев Рогачев",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordan-donchev-rogachev-00b9a8",
+      "target": "company:tr:201049905",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:iordan-donchev-rogachev-1c509c",
+      "target": "company:tr:201049905",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

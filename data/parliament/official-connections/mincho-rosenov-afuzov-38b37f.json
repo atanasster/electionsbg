@@ -1,0 +1,113 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mincho-rosenov-afuzov-38b37f",
+  "nodes": [
+    {
+      "id": "official:mincho-rosenov-afuzov-38b37f",
+      "type": "official",
+      "slug": "mincho-rosenov-afuzov-38b37f",
+      "label": "Минчо Росенов Афузов",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:119605174",
+      "type": "company",
+      "label": "АЛГОЛЕКС ЕООД",
+      "slug": null,
+      "uic": "119605174",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:208310775",
+      "type": "company",
+      "label": "БИО ЧАР",
+      "slug": null,
+      "uic": "208310775",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГАЛЯ ЙОВЧЕВА АФУЗОВА",
+      "type": "person",
+      "label": "Галя Йовчева Афузова"
+    },
+    {
+      "id": "person:МИХАИЛ ДОБРИНОВ КАШЕРОВ",
+      "type": "person",
+      "label": "Михаил Добринов Кашеров"
+    },
+    {
+      "id": "company:name:ЕВРОПОДИУМ",
+      "type": "company",
+      "label": "ЕВРОПОДИУМ ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mincho-rosenov-afuzov-38b37f",
+      "target": "company:tr:119605174",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mincho-rosenov-afuzov-38b37f",
+      "target": "company:tr:208310775",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГАЛЯ ЙОВЧЕВА АФУЗОВА",
+      "target": "company:tr:119605174",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛЯ ЙОВЧЕВА АФУЗОВА",
+      "target": "company:tr:119605174",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:tr:119605174",
+      "target": "company:tr:208310775",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ ДОБРИНОВ КАШЕРОВ",
+      "target": "company:tr:208310775",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ЕВРОПОДИУМ",
+      "target": "company:tr:208310775",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

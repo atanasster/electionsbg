@@ -1,0 +1,125 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:maya-petrova-petrova-cc9a97",
+  "nodes": [
+    {
+      "id": "official:maya-petrova-petrova-cc9a97",
+      "type": "official",
+      "slug": "maya-petrova-petrova-cc9a97",
+      "label": "Мая Петрова Петрова",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205449870",
+      "type": "company",
+      "label": "Асоциация на Центровете за подкрепа за личностно развитие в България /АЦПЛРБ/.",
+      "slug": null,
+      "uic": "205449870",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:marina-radoslavova-koleva-70ce3a",
+      "type": "official",
+      "slug": "marina-radoslavova-koleva-70ce3a",
+      "label": "Марина Радославова Колева",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "official:mariyana-dimitrova-tafrova-ce8932",
+      "type": "official",
+      "slug": "mariyana-dimitrova-tafrova-ce8932",
+      "label": "Марияна Димитрова Тафрова",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "official:tatyana-georgieva-doseva-c7fe59",
+      "type": "official",
+      "slug": "tatyana-georgieva-doseva-c7fe59",
+      "label": "Татяна Георгиева Досева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ВЕЛИСЛАВ ВЕЛКОВ ЙОНЧЕВ",
+      "type": "person",
+      "label": "Велислав Велков Йончев"
+    },
+    {
+      "id": "person:ГЕОРГИ ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Георги Иванов Иванов"
+    },
+    {
+      "id": "person:ЗЛАТКА ЛЮБЕНОВА ПЕНЬОВА",
+      "type": "person",
+      "label": "Златка Любенова Пеньова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:maya-petrova-petrova-cc9a97",
+      "target": "company:tr:205449870",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:marina-radoslavova-koleva-70ce3a",
+      "target": "company:tr:205449870",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariyana-dimitrova-tafrova-ce8932",
+      "target": "company:tr:205449870",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tatyana-georgieva-doseva-c7fe59",
+      "target": "company:tr:205449870",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕЛИСЛАВ ВЕЛКОВ ЙОНЧЕВ",
+      "target": "company:tr:205449870",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ ИВАНОВ",
+      "target": "company:tr:205449870",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТКА ЛЮБЕНОВА ПЕНЬОВА",
+      "target": "company:tr:205449870",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

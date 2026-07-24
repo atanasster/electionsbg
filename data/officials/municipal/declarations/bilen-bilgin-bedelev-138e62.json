@@ -1,0 +1,142 @@
+[
+  {
+    "slug": "bilen-bilgin-bedelev-138e62",
+    "declarantName": "БИЛЕН БИЛГИН БЕДЕЛЕВ",
+    "institution": "Омуртаг",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-15",
+    "entryNumber": "Г14288",
+    "controlHash": "5B707044",
+    "sourceUrl": "https://register.cacbg.bg/2025/E1FBEDF0-83BA-4E16-B353-EC2D452C6AB7217573.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5463.665042462791,
+        "amountEurSpouse": 5581.262175137921
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 18246.47336424945,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Обезщетение за безработица",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 10725.369791853076
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ФОЛКСВАГЕН ДЖЕТА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 3600,
+        "valueEur": 1840.6507723063867,
+        "holderName": "БИЛЕН БИЛГИН БЕДЕЛЕВ, Мерлин Мехмедова Беделева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "ЗАПЛАТА"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 31976,
+        "valueEur": 16349.069193130283,
+        "holderName": "БИЛЕН БИЛГИН БЕДЕЛЕВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ДАРЕНИЯ"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "МЕРЛИН МЕХМЕДОВА БЕДЕЛЕВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "ДАРЕНИЯ"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 133689,
+        "valueEur": 68354.10030524126,
+        "holderName": "БИЛЕН БИЛГИН БЕДЕЛЕВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТА"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10483,
+        "valueEur": 5359.872790579959,
+        "holderName": "МЕРЛИН МЕХМЕДОВА БЕДЕЛЕВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТА"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ФОЛКСВАГЕН ДЖЕТА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 511.29188119621847,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:detelina-kirilova-borisova-f8e55f",
+  "nodes": [
+    {
+      "id": "official:detelina-kirilova-borisova-f8e55f",
+      "type": "official",
+      "slug": "detelina-kirilova-borisova-f8e55f",
+      "label": "Детелина Кирилова Борисова",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205154068",
+      "type": "company",
+      "label": "\"ЕКОЛЕС ЗАРКОВИ\" ЕООД",
+      "slug": null,
+      "uic": "205154068",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:detelina-kirilova-borisova-7e8e93",
+      "type": "official",
+      "slug": "detelina-kirilova-borisova-7e8e93",
+      "label": "Детелина Кирилова Борисова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стражица"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:detelina-kirilova-borisova-f8e55f",
+      "target": "company:tr:205154068",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:detelina-kirilova-borisova-7e8e93",
+      "target": "company:tr:205154068",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

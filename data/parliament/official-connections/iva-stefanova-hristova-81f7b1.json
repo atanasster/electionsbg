@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iva-stefanova-hristova-81f7b1",
+  "nodes": [
+    {
+      "id": "official:iva-stefanova-hristova-81f7b1",
+      "type": "official",
+      "slug": "iva-stefanova-hristova-81f7b1",
+      "label": "Ива Стефанова Христова",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175189847",
+      "type": "company",
+      "label": "ЦИТОЛАБ МИКРО-САМОСТОЯТЕЛНА МЕДИКО-ДИАГНОСТИЧНА ЛАБОРАТОРИЯ",
+      "slug": null,
+      "uic": "175189847",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iva-stefanova-hristova-81f7b1",
+      "target": "company:tr:175189847",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

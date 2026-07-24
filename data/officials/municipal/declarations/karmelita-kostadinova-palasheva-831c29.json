@@ -1,0 +1,69 @@
+[
+  {
+    "slug": "karmelita-kostadinova-palasheva-831c29",
+    "declarantName": "Кармелита Костадинова Палашева",
+    "institution": "Хаджидимово",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-03-18",
+    "entryNumber": "Г671",
+    "controlHash": "D642DE35",
+    "sourceUrl": "https://register.cacbg.bg/2025/1D0E708D-E67D-4141-A75B-BF14C8FB1282202836.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "капитал",
+        "shareSize": "100%",
+        "companyName": "Кармелита мрамор ЕООД",
+        "registeredOffice": "гр. Хаджидимово",
+        "valueEur": 51.12918811962185,
+        "holderName": "Ангел Димитров Палашев",
+        "legalBasis": "учредителен договор",
+        "fundsOrigin": "спестявания"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 3882.239253922887,
+        "amountEurSpouse": 2496.6382558811347
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6638.613785451701,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот",
+        "detail": null,
+        "location": "гр. Гоце Делчев",
+        "municipality": "Гоце Делчев",
+        "areaSqm": 261,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1380.48807922979,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "поземлен имот",
+        "detail": null,
+        "location": "гр. Гоце Делчев",
+        "municipality": "Гоце Делчев",
+        "areaSqm": 1214,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4218.1580198688025,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

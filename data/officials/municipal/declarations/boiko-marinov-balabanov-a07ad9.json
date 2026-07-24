@@ -1,0 +1,111 @@
+[
+  {
+    "slug": "boiko-marinov-balabanov-a07ad9",
+    "declarantName": "Бойко Маринов Балабанов",
+    "institution": "Белене",
+    "positionTitle": "Главен архитект",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-22",
+    "entryNumber": "Г3185",
+    "controlHash": "83D01C47",
+    "sourceUrl": "https://register.cacbg.bg/2025/E1302531-132F-44F6-8797-3BDEB8B48F3B205916.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7223.020405658978,
+        "amountEurSpouse": 30027.660890772717
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 4739.675738688946,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "дивиденти",
+        "amountEurDeclarant": 4857.272871364075,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Бойко Маринов Балабанов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати и пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 14300,
+        "valueEur": 14316.172673494118,
+        "holderName": "Бойко Маринов Балабанов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 132200,
+        "valueEur": 67592.78669414009,
+        "holderName": "Бойко Маринов Балабанов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания и трудова дейност"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 275000,
+        "valueEur": 140605.2673289601,
+        "holderName": "Истилиана Христова Балабанова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания и трудова дейност"
+      }
+    ],
+    "events": []
+  }
+]

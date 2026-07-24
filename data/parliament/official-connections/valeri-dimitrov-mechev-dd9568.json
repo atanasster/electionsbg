@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:valeri-dimitrov-mechev-dd9568",
+  "nodes": [
+    {
+      "id": "official:valeri-dimitrov-mechev-dd9568",
+      "type": "official",
+      "slug": "valeri-dimitrov-mechev-dd9568",
+      "label": "Валери Димитров Мечев",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:101673615",
+      "type": "company",
+      "label": "ИНТЕРТАЙМ-ВМ",
+      "slug": null,
+      "uic": "101673615",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КАТЕРИНА СТОЯНОВА МЕЧЕВА",
+      "type": "person",
+      "label": "Катерина Стоянова Мечева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valeri-dimitrov-mechev-dd9568",
+      "target": "company:tr:101673615",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КАТЕРИНА СТОЯНОВА МЕЧЕВА",
+      "target": "company:tr:101673615",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЕРИНА СТОЯНОВА МЕЧЕВА",
+      "target": "company:tr:101673615",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rositsa-svilenova-itova-4deef7",
+  "nodes": [
+    {
+      "id": "official:rositsa-svilenova-itova-4deef7",
+      "type": "official",
+      "slug": "rositsa-svilenova-itova-4deef7",
+      "label": "Росица Свиленова Итова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:832046330",
+      "type": "company",
+      "label": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ",
+      "slug": null,
+      "uic": "832046330",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206086428",
+      "type": "company",
+      "label": "Български ВиК холдинг",
+      "slug": null,
+      "uic": "206086428",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "person:ИВАН ГЕОРГИЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Георгиев Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rositsa-svilenova-itova-4deef7",
+      "target": "company:tr:832046330",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "company:tr:206086428",
+      "target": "company:tr:832046330",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ГЕОРГИЕВ ИВАНОВ",
+      "target": "company:tr:832046330",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

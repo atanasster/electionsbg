@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-bozhidarov-naidenov-91ca76",
+  "nodes": [
+    {
+      "id": "official:georgi-bozhidarov-naidenov-91ca76",
+      "type": "official",
+      "slug": "georgi-bozhidarov-naidenov-91ca76",
+      "label": "Георги Божидаров Найденов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131390542",
+      "type": "company",
+      "label": "ЖОЛИ ДИЗАЙН ООД",
+      "slug": null,
+      "uic": "131390542",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-bozhidarov-naidenov-91ca76",
+      "target": "company:tr:131390542",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:miroslav-georgiev-zhelev-644c90",
+  "nodes": [
+    {
+      "id": "official:miroslav-georgiev-zhelev-644c90",
+      "type": "official",
+      "slug": "miroslav-georgiev-zhelev-644c90",
+      "label": "Мирослав Георгиев Желев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Долни Чифлик"
+    },
+    {
+      "id": "company:tr:206690948",
+      "type": "company",
+      "label": "\"Габи 1720\" ООД",
+      "slug": null,
+      "uic": "206690948",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АННА ГЕОРГИЕВА ЖЕЛЕВА",
+      "type": "person",
+      "label": "Анна Георгиева Желева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miroslav-georgiev-zhelev-644c90",
+      "target": "company:tr:206690948",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:miroslav-georgiev-zhelev-644c90",
+      "target": "company:tr:206690948",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:miroslav-georgiev-zhelev-644c90",
+      "target": "company:tr:206690948",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АННА ГЕОРГИЕВА ЖЕЛЕВА",
+      "target": "company:tr:206690948",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

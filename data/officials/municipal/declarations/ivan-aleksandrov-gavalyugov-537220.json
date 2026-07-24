@@ -1,0 +1,63 @@
+[
+  {
+    "slug": "ivan-aleksandrov-gavalyugov-537220",
+    "declarantName": "Иван Александров Гавалюгов",
+    "institution": "Ботевград",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-15",
+    "entryNumber": "Г9012",
+    "controlHash": "16E57F24",
+    "sourceUrl": "https://register.cacbg.bg/2025/3ECD3628-44AC-4FEC-A546-085983285AB6212042.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 34260.64637519621,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 32150,
+        "valueEur": 16438.033980458426,
+        "holderName": "Иван А;лександров Гавалюгов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "receivable",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 82125,
+        "valueEur": 41989.84574323944,
+        "holderName": "Иван Александров Гавалюгов",
+        "isSpouse": false,
+        "legalBasis": "заем",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

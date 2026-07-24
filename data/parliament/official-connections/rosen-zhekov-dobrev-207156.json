@@ -1,0 +1,140 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rosen-zhekov-dobrev-207156",
+  "nodes": [
+    {
+      "id": "official:rosen-zhekov-dobrev-207156",
+      "type": "official",
+      "slug": "rosen-zhekov-dobrev-207156",
+      "label": "Росен Жеков Добрев",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "company:РОСАГРОООД",
+      "type": "company",
+      "label": "РОСАГРО\"ООД",
+      "slug": "РОСАГРОООД",
+      "uic": "106617269",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Селановци"
+    },
+    {
+      "id": "mp:2920",
+      "type": "mp",
+      "mpId": 2920,
+      "label": "Ралица Трилкова Добрева",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:ИВАЙЛО КОЛЬОВ ИВАНОВ",
+      "type": "person",
+      "label": "Ивайло Кольов Иванов"
+    },
+    {
+      "id": "official:rosen-zhekov-dobrev-94f235",
+      "type": "official",
+      "slug": "rosen-zhekov-dobrev-94f235",
+      "label": "Росен Жеков Добрев",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Оряхово"
+    },
+    {
+      "id": "company:tr:206500345",
+      "type": "company",
+      "label": "ИРИС АГРО",
+      "slug": null,
+      "uic": "206500345",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Селановци, 3301"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rosen-zhekov-dobrev-207156",
+      "target": "company:РОСАГРОООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2920",
+      "target": "company:РОСАГРОООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2920",
+      "target": "company:РОСАГРОООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО КОЛЬОВ ИВАНОВ",
+      "target": "company:РОСАГРОООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2920",
+      "target": "company:РОСАГРОООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО КОЛЬОВ ИВАНОВ",
+      "target": "company:РОСАГРОООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:rosen-zhekov-dobrev-94f235",
+      "target": "company:РОСАГРОООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:РОСАГРОООД",
+      "target": "company:tr:206500345",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2920",
+      "target": "company:tr:206500345",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАЙЛО КОЛЬОВ ИВАНОВ",
+      "target": "company:tr:206500345",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

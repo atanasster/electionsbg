@@ -1,0 +1,178 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-ivanov-tochev-d9f3e7",
+  "nodes": [
+    {
+      "id": "official:nikolai-ivanov-tochev-d9f3e7",
+      "type": "official",
+      "slug": "nikolai-ivanov-tochev-d9f3e7",
+      "label": "Николай Иванов Точев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Мирково"
+    },
+    {
+      "id": "company:tr:000762404",
+      "type": "company",
+      "label": "Народно читалище &quot;Светлина-1905г.&quot;",
+      "slug": null,
+      "uic": "000762404",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИЛЕНА ЛЮБОМИРОВА ПЕТРОВСКА",
+      "type": "person",
+      "label": "Милена Любомирова Петровска"
+    },
+    {
+      "id": "person:ГАНКА ЗАХАРИЕВА НИКОЛОВА",
+      "type": "person",
+      "label": "Ганка Захариева Николова"
+    },
+    {
+      "id": "person:НЕНКА ИВАНОВА АПОСТОЛОВА",
+      "type": "person",
+      "label": "Ненка Иванова Апостолова"
+    },
+    {
+      "id": "person:ИВАН СТАНКОВ СТРУМИН",
+      "type": "person",
+      "label": "Иван Станков Струмин"
+    },
+    {
+      "id": "person:ДИМИТРИНА ЯКИМОВА САВОВА",
+      "type": "person",
+      "label": "Димитрина Якимова Савова"
+    },
+    {
+      "id": "person:ТОДОРКА МАРКОВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Тодорка Маркова Кръстева"
+    },
+    {
+      "id": "person:ДОНКА НИКОЛАЕВА ПУШКАРОВА",
+      "type": "person",
+      "label": "Донка Николаева Пушкарова"
+    },
+    {
+      "id": "person:СТАНИМИР ИВАНОВ СТРУМИН",
+      "type": "person",
+      "label": "Станимир Иванов Струмин"
+    },
+    {
+      "id": "person:РОСИЦА ИВАНОВА КОСТОВА",
+      "type": "person",
+      "label": "Росица Иванова Костова"
+    },
+    {
+      "id": "person:МИЛКА НИКОЛОВА ПОПОВА",
+      "type": "person",
+      "label": "Милка Николова Попова"
+    },
+    {
+      "id": "person:РАЙНА ГЕОРГИЕВА ТОЧЕВА",
+      "type": "person",
+      "label": "Райна Георгиева Точева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-ivanov-tochev-d9f3e7",
+      "target": "company:tr:000762404",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛЕНА ЛЮБОМИРОВА ПЕТРОВСКА",
+      "target": "company:tr:000762404",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАНКА ЗАХАРИЕВА НИКОЛОВА",
+      "target": "company:tr:000762404",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕНКА ИВАНОВА АПОСТОЛОВА",
+      "target": "company:tr:000762404",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН СТАНКОВ СТРУМИН",
+      "target": "company:tr:000762404",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИНА ЯКИМОВА САВОВА",
+      "target": "company:tr:000762404",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОРКА МАРКОВА КРЪСТЕВА",
+      "target": "company:tr:000762404",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА НИКОЛАЕВА ПУШКАРОВА",
+      "target": "company:tr:000762404",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИР ИВАНОВ СТРУМИН",
+      "target": "company:tr:000762404",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ИВАНОВА КОСТОВА",
+      "target": "company:tr:000762404",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКА НИКОЛОВА ПОПОВА",
+      "target": "company:tr:000762404",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЙНА ГЕОРГИЕВА ТОЧЕВА",
+      "target": "company:tr:000762404",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

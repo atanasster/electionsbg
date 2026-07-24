@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitr-dobrev-iordanov-0aea6f",
+  "nodes": [
+    {
+      "id": "official:dimitr-dobrev-iordanov-0aea6f",
+      "type": "official",
+      "slug": "dimitr-dobrev-iordanov-0aea6f",
+      "label": "Димитър Добрев Йорданов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Белослав"
+    },
+    {
+      "id": "company:tr:200423034",
+      "type": "company",
+      "label": "\"Дива Комерс 2008\" ООД",
+      "slug": null,
+      "uic": "200423034",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-dobrev-iordanov-0aea6f",
+      "target": "company:tr:200423034",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:emil-penchev-grashnov-59e928",
+  "nodes": [
+    {
+      "id": "official:emil-penchev-grashnov-59e928",
+      "type": "official",
+      "slug": "emil-penchev-grashnov-59e928",
+      "label": "Емил Пенчев Грашнов",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000770257",
+      "type": "company",
+      "label": "ЦЕНТЪР  ЗА ПСИХИЧНО  ЗДРАВЕ -СОФИЯ",
+      "slug": null,
+      "uic": "000770257",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-penchev-grashnov-59e928",
+      "target": "company:tr:000770257",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

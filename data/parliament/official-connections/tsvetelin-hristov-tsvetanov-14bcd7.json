@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tsvetelin-hristov-tsvetanov-14bcd7",
+  "nodes": [
+    {
+      "id": "official:tsvetelin-hristov-tsvetanov-14bcd7",
+      "type": "official",
+      "slug": "tsvetelin-hristov-tsvetanov-14bcd7",
+      "label": "Цветелин Христов Цветанов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205267804",
+      "type": "company",
+      "label": "БРУ ФАЛКЪНС",
+      "slug": null,
+      "uic": "205267804",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetelin-hristov-tsvetanov-14bcd7",
+      "target": "company:tr:205267804",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

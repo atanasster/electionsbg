@@ -1,0 +1,207 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:milen-ivanov-milchev-9b52d3",
+  "nodes": [
+    {
+      "id": "official:milen-ivanov-milchev-9b52d3",
+      "type": "official",
+      "slug": "milen-ivanov-milchev-9b52d3",
+      "label": "Милен Иванов Милчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Нови пазар"
+    },
+    {
+      "id": "company:tr:123619895",
+      "type": "company",
+      "label": "Колоездачен клуб Лястовица - 1905",
+      "slug": null,
+      "uic": "123619895",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СМАИЛ КЯМИЛОВ АЛИМОВ",
+      "type": "person",
+      "label": "Смаил Кямилов Алимов"
+    },
+    {
+      "id": "person:ХРИСТО СТАНИМИРОВ РАДЕВСКИ",
+      "type": "person",
+      "label": "Христо Станимиров Радевски"
+    },
+    {
+      "id": "person:СТЕФАН СЕРГЕЕВ КОЖИН",
+      "type": "person",
+      "label": "Стефан Сергеев Кожин"
+    },
+    {
+      "id": "person:ВАСИЛ ИВАНОВ ТОМОВ",
+      "type": "person",
+      "label": "Васил Иванов Томов"
+    },
+    {
+      "id": "person:КОНСТАНТИН СТЕФАНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Константин Стефанов Стоянов"
+    },
+    {
+      "id": "person:НИКОЛАЙ ЙОВЧЕВ КОЛЕВ",
+      "type": "person",
+      "label": "Николай Йовчев Колев"
+    },
+    {
+      "id": "person:СТАНИСЛАВ НИКОЛОВ ЗАРАЛИЕВ",
+      "type": "person",
+      "label": "Станислав Николов Заралиев"
+    },
+    {
+      "id": "person:БОРИСЛАВ ИВАНОВ КОЛЕВ",
+      "type": "person",
+      "label": "Борислав Иванов Колев"
+    },
+    {
+      "id": "person:ДАНАИЛ АНДОНОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Данаил Андонов Петков"
+    },
+    {
+      "id": "person:НИКОЛАЙ ПЛАМЕНОВ КОЖУХАРОВ",
+      "type": "person",
+      "label": "Николай Пламенов Кожухаров"
+    },
+    {
+      "id": "person:ДАНАИЛ АНДОНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Данаил Андонов Петров"
+    },
+    {
+      "id": "person:ГАЛЯ ВАСИЛЕВА ДОБРЕВА",
+      "type": "person",
+      "label": "Галя Василева Добрева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milen-ivanov-milchev-9b52d3",
+      "target": "company:tr:123619895",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СМАИЛ КЯМИЛОВ АЛИМОВ",
+      "target": "company:tr:123619895",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО СТАНИМИРОВ РАДЕВСКИ",
+      "target": "company:tr:123619895",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН СЕРГЕЕВ КОЖИН",
+      "target": "company:tr:123619895",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ИВАНОВ ТОМОВ",
+      "target": "company:tr:123619895",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН СТЕФАНОВ СТОЯНОВ",
+      "target": "company:tr:123619895",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЙОВЧЕВ КОЛЕВ",
+      "target": "company:tr:123619895",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВ НИКОЛОВ ЗАРАЛИЕВ",
+      "target": "company:tr:123619895",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ ИВАНОВ КОЛЕВ",
+      "target": "company:tr:123619895",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СМАИЛ КЯМИЛОВ АЛИМОВ",
+      "target": "company:tr:123619895",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНАИЛ АНДОНОВ ПЕТКОВ",
+      "target": "company:tr:123619895",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ПЛАМЕНОВ КОЖУХАРОВ",
+      "target": "company:tr:123619895",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО СТАНИМИРОВ РАДЕВСКИ",
+      "target": "company:tr:123619895",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНАИЛ АНДОНОВ ПЕТРОВ",
+      "target": "company:tr:123619895",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛЯ ВАСИЛЕВА ДОБРЕВА",
+      "target": "company:tr:123619895",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

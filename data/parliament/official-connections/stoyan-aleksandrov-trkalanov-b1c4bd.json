@@ -1,0 +1,238 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stoyan-aleksandrov-trkalanov-b1c4bd",
+  "nodes": [
+    {
+      "id": "official:stoyan-aleksandrov-trkalanov-b1c4bd",
+      "type": "official",
+      "slug": "stoyan-aleksandrov-trkalanov-b1c4bd",
+      "label": "Стоян Александров Търкаланов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206927888",
+      "type": "company",
+      "label": "Левски на Левскарите",
+      "slug": null,
+      "uic": "206927888",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТЪР МИЛАНОВ КОСТАДИНОВ",
+      "type": "person",
+      "label": "Димитър Миланов Костадинов"
+    },
+    {
+      "id": "person:АДРИЯН ПЕТРОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Адриян  Петров Петров"
+    },
+    {
+      "id": "person:АСЕН ДАРИНОВ ВЕЛИКОВ",
+      "type": "person",
+      "label": "Асен Даринов Великов"
+    },
+    {
+      "id": "person:ДАНИЕЛ ЕМИЛОВ СТРЕЗОВ",
+      "type": "person",
+      "label": "Даниел Емилов Стрезов"
+    },
+    {
+      "id": "person:НИКОЛА ВЕСКОВ БУШНЯКОВ",
+      "type": "person",
+      "label": "Никола Весков Бушняков"
+    },
+    {
+      "id": "person:ИВАН ДИМИТРОВ ЕВСТАТИЕВ",
+      "type": "person",
+      "label": "Иван Димитров Евстатиев"
+    },
+    {
+      "id": "person:ИВО ПЕТРОВ ТАСКОВ",
+      "type": "person",
+      "label": "Иво Петров Тасков"
+    },
+    {
+      "id": "person:СТАНИМИР КОЛЕВ СТОИЛОВ",
+      "type": "person",
+      "label": "Станимир Колев Стоилов"
+    },
+    {
+      "id": "person:ЕМИЛ ИВАНОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "Емил Иванов Михайлов"
+    },
+    {
+      "id": "person:ГЕОРГИ ВАСИЛЕВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Георги Василев Василев"
+    },
+    {
+      "id": "person:ВЛАДИ ИВОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Влади Ивов Николов"
+    },
+    {
+      "id": "person:ГЕОРГИ КОНСТАНТИНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Георги Константинов  Димитров"
+    },
+    {
+      "id": "person:ТОДОР ВАСИЛЕВ НЕНОВ",
+      "type": "person",
+      "label": "Тодор Василев Ненов"
+    },
+    {
+      "id": "person:АТАНАС ГЕОРГИЕВ МИЛУШЕВ",
+      "type": "person",
+      "label": "Атанас Георгиев Милушев"
+    },
+    {
+      "id": "person:ПОЛИНА ВАЛЕНТИНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Полина Валентинова Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stoyan-aleksandrov-trkalanov-b1c4bd",
+      "target": "company:tr:206927888",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР МИЛАНОВ КОСТАДИНОВ",
+      "target": "company:tr:206927888",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР МИЛАНОВ КОСТАДИНОВ",
+      "target": "company:tr:206927888",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АДРИЯН ПЕТРОВ ПЕТРОВ",
+      "target": "company:tr:206927888",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН ДАРИНОВ ВЕЛИКОВ",
+      "target": "company:tr:206927888",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛ ЕМИЛОВ СТРЕЗОВ",
+      "target": "company:tr:206927888",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ВЕСКОВ БУШНЯКОВ",
+      "target": "company:tr:206927888",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ ЕВСТАТИЕВ",
+      "target": "company:tr:206927888",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ПЕТРОВ ТАСКОВ",
+      "target": "company:tr:206927888",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИР КОЛЕВ СТОИЛОВ",
+      "target": "company:tr:206927888",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ ИВАНОВ МИХАЙЛОВ",
+      "target": "company:tr:206927888",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ВАСИЛЕВ ВАСИЛЕВ",
+      "target": "company:tr:206927888",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИ ИВОВ НИКОЛОВ",
+      "target": "company:tr:206927888",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ КОНСТАНТИНОВ ДИМИТРОВ",
+      "target": "company:tr:206927888",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ВАСИЛЕВ НЕНОВ",
+      "target": "company:tr:206927888",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ГЕОРГИЕВ МИЛУШЕВ",
+      "target": "company:tr:206927888",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПОЛИНА ВАЛЕНТИНОВА ИВАНОВА",
+      "target": "company:tr:206927888",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

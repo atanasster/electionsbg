@@ -1,0 +1,301 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimcho-vasilev-kiryakov-bd819e",
+  "nodes": [
+    {
+      "id": "official:dimcho-vasilev-kiryakov-bd819e",
+      "type": "official",
+      "slug": "dimcho-vasilev-kiryakov-bd819e",
+      "label": "Димчо Василев Киряков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Иваново"
+    },
+    {
+      "id": "company:tr:117055543",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ВЪЗРАЖДАНЕ 1906&quot;",
+      "slug": null,
+      "uic": "117055543",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СВЕТЛАНА ДИМОВА РИАЖИ",
+      "type": "person",
+      "label": "Светлана Димова Риажи"
+    },
+    {
+      "id": "person:СТЕФАНА КОСТАДИНОВА БУХТЕВА",
+      "type": "person",
+      "label": "Стефана Костадинова Бухтева"
+    },
+    {
+      "id": "person:СТЕФКА СТОЯНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Стефка Стоянова Димитрова"
+    },
+    {
+      "id": "person:ДАРИНКА ЛАЗАРОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Даринка Лазарова Петрова"
+    },
+    {
+      "id": "person:МАРГАРИТА БОРИСОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Маргарита Борисова Георгиева"
+    },
+    {
+      "id": "person:МАРИЙКА НИКОЛОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Марийка Николова Ангелова"
+    },
+    {
+      "id": "person:СЮЗАН ОСМАНОВА МАХМУДОВА",
+      "type": "person",
+      "label": "Сюзан Османова Махмудова"
+    },
+    {
+      "id": "person:КОНСТАНТИН СТЕФАНОВ КИРИЛОВ",
+      "type": "person",
+      "label": "Константин Стефанов Кирилов"
+    },
+    {
+      "id": "person:ДИЛЯНА ИЛИЕВА РАДЕВА",
+      "type": "person",
+      "label": "Диляна Илиева Радева"
+    },
+    {
+      "id": "person:МИХАИЛ ИВАНОВ КУНЧЕВ",
+      "type": "person",
+      "label": "Михаил Иванов Кунчев"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА ПЕТКОВА КОЕВА",
+      "type": "person",
+      "label": "Валентина Петкова Коева"
+    },
+    {
+      "id": "person:ВЕНЕТА ТОДОРОВА ВЪРБАНОВА",
+      "type": "person",
+      "label": "Венета Тодорова Върбанова"
+    },
+    {
+      "id": "person:ПЕТЯ БОРИСОВА ПЕНЕВА",
+      "type": "person",
+      "label": "Петя Борисова Пенева"
+    },
+    {
+      "id": "person:ДИАНА ГЕОРГИЕВА ТАГАРОВА",
+      "type": "person",
+      "label": "Диана Георгиева Тагарова"
+    },
+    {
+      "id": "person:ГАЛИНА СИМЕОНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Галина Симеонова Иванова"
+    },
+    {
+      "id": "person:ПАВЛИНКА ДИМИТРОВА ТОКУСЧИЕВА",
+      "type": "person",
+      "label": "Павлинка Димитрова Токусчиева"
+    },
+    {
+      "id": "person:ПЛАМЕНА ЦЕНКОВА БОЖИЛОВА",
+      "type": "person",
+      "label": "Пламена Ценкова Божилова"
+    },
+    {
+      "id": "person:АЛЕКСАНДРИНА АТАНАСОВА ТАГАРОВА",
+      "type": "person",
+      "label": "Александрина Атанасова Тагарова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimcho-vasilev-kiryakov-bd819e",
+      "target": "company:tr:117055543",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СВЕТЛАНА ДИМОВА РИАЖИ",
+      "target": "company:tr:117055543",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАНА КОСТАДИНОВА БУХТЕВА",
+      "target": "company:tr:117055543",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА СТОЯНОВА ДИМИТРОВА",
+      "target": "company:tr:117055543",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАРИНКА ЛАЗАРОВА ПЕТРОВА",
+      "target": "company:tr:117055543",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА БОРИСОВА ГЕОРГИЕВА",
+      "target": "company:tr:117055543",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЙКА НИКОЛОВА АНГЕЛОВА",
+      "target": "company:tr:117055543",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЮЗАН ОСМАНОВА МАХМУДОВА",
+      "target": "company:tr:117055543",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН СТЕФАНОВ КИРИЛОВ",
+      "target": "company:tr:117055543",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЛЯНА ИЛИЕВА РАДЕВА",
+      "target": "company:tr:117055543",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН СТЕФАНОВ КИРИЛОВ",
+      "target": "company:tr:117055543",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ ИВАНОВ КУНЧЕВ",
+      "target": "company:tr:117055543",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ПЕТКОВА КОЕВА",
+      "target": "company:tr:117055543",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕТА ТОДОРОВА ВЪРБАНОВА",
+      "target": "company:tr:117055543",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ БОРИСОВА ПЕНЕВА",
+      "target": "company:tr:117055543",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА ГЕОРГИЕВА ТАГАРОВА",
+      "target": "company:tr:117055543",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА СИМЕОНОВА ИВАНОВА",
+      "target": "company:tr:117055543",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНКА ДИМИТРОВА ТОКУСЧИЕВА",
+      "target": "company:tr:117055543",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕНА ЦЕНКОВА БОЖИЛОВА",
+      "target": "company:tr:117055543",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН СТЕФАНОВ КИРИЛОВ",
+      "target": "company:tr:117055543",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ ИВАНОВ КУНЧЕВ",
+      "target": "company:tr:117055543",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ ИВАНОВ КУНЧЕВ",
+      "target": "company:tr:117055543",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДРИНА АТАНАСОВА ТАГАРОВА",
+      "target": "company:tr:117055543",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:zhanina-iordanova-ivanova-bab511",
+  "nodes": [
+    {
+      "id": "official:zhanina-iordanova-ivanova-bab511",
+      "type": "official",
+      "slug": "zhanina-iordanova-ivanova-bab511",
+      "label": "Жанина Йорданова Иванова",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205528224",
+      "type": "company",
+      "label": "НАУЧНО ДРУЖЕСТВО ПО ТРАНСФУЗИОННА ХЕМАТОЛОГИЯ",
+      "slug": null,
+      "uic": "205528224",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:nikolai-lyudmilov-andreev-8b9dfe",
+      "type": "official",
+      "slug": "nikolai-lyudmilov-andreev-8b9dfe",
+      "label": "Николай Людмилов Андреев",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "official:nikolai-rafailov-nikolov-91015a",
+      "type": "official",
+      "slug": "nikolai-rafailov-nikolov-91015a",
+      "label": "Николай Рафаилов Николов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "official:petya-panaiotova-mateeva-37e44d",
+      "type": "official",
+      "slug": "petya-panaiotova-mateeva-37e44d",
+      "label": "Петя Панайотова Матеева",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "official:rumen-stoikov-popov-21861b",
+      "type": "official",
+      "slug": "rumen-stoikov-popov-21861b",
+      "label": "РУМЕН СТОЙКОВ ПОПОВ",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "person:НЕЛИ СТЕФАНОВА ДОСЕВА",
+      "type": "person",
+      "label": "Нели Стефанова Досева"
+    },
+    {
+      "id": "person:СОНЯ СТЕФАНОВА ДЖЕВИЗОВА - АМАЛИЕВА",
+      "type": "person",
+      "label": "Соня Стефанова Джевизова - Амалиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zhanina-iordanova-ivanova-bab511",
+      "target": "company:tr:205528224",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-lyudmilov-andreev-8b9dfe",
+      "target": "company:tr:205528224",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-rafailov-nikolov-91015a",
+      "target": "company:tr:205528224",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petya-panaiotova-mateeva-37e44d",
+      "target": "company:tr:205528224",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rumen-stoikov-popov-21861b",
+      "target": "company:tr:205528224",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НЕЛИ СТЕФАНОВА ДОСЕВА",
+      "target": "company:tr:205528224",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОНЯ СТЕФАНОВА ДЖЕВИЗОВА - АМАЛИЕВА",
+      "target": "company:tr:205528224",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

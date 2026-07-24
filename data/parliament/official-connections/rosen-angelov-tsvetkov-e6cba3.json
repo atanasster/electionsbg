@@ -1,0 +1,152 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rosen-angelov-tsvetkov-e6cba3",
+  "nodes": [
+    {
+      "id": "official:rosen-angelov-tsvetkov-e6cba3",
+      "type": "official",
+      "slug": "rosen-angelov-tsvetkov-e6cba3",
+      "label": "Росен Ангелов Цветков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203180299",
+      "type": "company",
+      "label": "Випком инвест ЕООД",
+      "slug": null,
+      "uic": "203180299",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206080659",
+      "type": "company",
+      "label": "Интерсмарт ЕООД",
+      "slug": null,
+      "uic": "206080659",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205701046",
+      "type": "company",
+      "label": "СЪОБЩИТЕЛНО СТРОИТЕЛСТВО И ВЪЗСТАНОВЯВАНЕ",
+      "slug": null,
+      "uic": "205701046",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:elena-petkova-iotova-7ad407",
+      "type": "official",
+      "slug": "elena-petkova-iotova-7ad407",
+      "label": "Елена Петкова Йотова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:nina-naidenova-naidenova-petkova-07b240",
+      "type": "official",
+      "slug": "nina-naidenova-naidenova-petkova-07b240",
+      "label": "Нина Найденова Найденова-Петкова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ПЕТЪР НЕДЕЛЧЕВ СТОЯНОВ",
+      "type": "person",
+      "label": "Петър Неделчев Стоянов"
+    },
+    {
+      "id": "person:НИНА НАЙДЕНОВА НАЙДЕНОВА",
+      "type": "person",
+      "label": "Нина Найденова Найденова"
+    },
+    {
+      "id": "person:НИНА НАЙДЕНОВА НАЙДЕНОВА - ПЕТКОВА",
+      "type": "person",
+      "label": "Нина Найденова Найденова - Петкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rosen-angelov-tsvetkov-e6cba3",
+      "target": "company:tr:203180299",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:rosen-angelov-tsvetkov-e6cba3",
+      "target": "company:tr:206080659",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:rosen-angelov-tsvetkov-e6cba3",
+      "target": "company:tr:205701046",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rosen-angelov-tsvetkov-e6cba3",
+      "target": "company:tr:205701046",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:elena-petkova-iotova-7ad407",
+      "target": "company:tr:205701046",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nina-naidenova-naidenova-petkova-07b240",
+      "target": "company:tr:205701046",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР НЕДЕЛЧЕВ СТОЯНОВ",
+      "target": "company:tr:205701046",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА НАЙДЕНОВА НАЙДЕНОВА",
+      "target": "company:tr:205701046",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА НАЙДЕНОВА НАЙДЕНОВА - ПЕТКОВА",
+      "target": "company:tr:205701046",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

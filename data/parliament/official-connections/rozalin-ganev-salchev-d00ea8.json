@@ -1,0 +1,199 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rozalin-ganev-salchev-d00ea8",
+  "nodes": [
+    {
+      "id": "official:rozalin-ganev-salchev-d00ea8",
+      "type": "official",
+      "slug": "rozalin-ganev-salchev-d00ea8",
+      "label": "Розалин Ганев Салчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205346766",
+      "type": "company",
+      "label": "Сердика билд ООД",
+      "slug": null,
+      "uic": "205346766",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206020944",
+      "type": "company",
+      "label": "Калиманци флауър ООД",
+      "slug": null,
+      "uic": "206020944",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:208097971",
+      "type": "company",
+      "label": "Пи енд ар инвест ЕООД",
+      "slug": null,
+      "uic": "208097971",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЗЛАТИН ПЕЕВ ЧАВДАРОВ",
+      "type": "person",
+      "label": "Златин Пеев Чавдаров"
+    },
+    {
+      "id": "company:name:ДЕЛАР ИНВЕСТ",
+      "type": "company",
+      "label": "ДЕЛАР ИНВЕСТ ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АСПАРУХ БЛАГОЕВ ДЕЛЕВ",
+      "type": "person",
+      "label": "Аспарух Благоев Делев"
+    },
+    {
+      "id": "company:name:А - З СИНЕРДЖИ",
+      "type": "company",
+      "label": "\"А - З СИНЕРДЖИ\" ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДОБРИН ГАНЕВ САЛЧЕВ",
+      "type": "person",
+      "label": "Добрин Ганев Салчев"
+    },
+    {
+      "id": "person:ПЕТЯ ВАЛЕНТИНОВА САЛЧЕВА",
+      "type": "person",
+      "label": "Петя Валентинова Салчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rozalin-ganev-salchev-d00ea8",
+      "target": "company:tr:205346766",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:rozalin-ganev-salchev-d00ea8",
+      "target": "company:tr:206020944",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:rozalin-ganev-salchev-d00ea8",
+      "target": "company:tr:208097971",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:rozalin-ganev-salchev-d00ea8",
+      "target": "company:tr:205346766",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЗЛАТИН ПЕЕВ ЧАВДАРОВ",
+      "target": "company:tr:205346766",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ДЕЛАР ИНВЕСТ",
+      "target": "company:tr:205346766",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТИН ПЕЕВ ЧАВДАРОВ",
+      "target": "company:tr:205346766",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСПАРУХ БЛАГОЕВ ДЕЛЕВ",
+      "target": "company:tr:205346766",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:А - З СИНЕРДЖИ",
+      "target": "company:tr:205346766",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИН ГАНЕВ САЛЧЕВ",
+      "target": "company:tr:206020944",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ВАЛЕНТИНОВА САЛЧЕВА",
+      "target": "company:tr:206020944",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИН ГАНЕВ САЛЧЕВ",
+      "target": "company:tr:206020944",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ВАЛЕНТИНОВА САЛЧЕВА",
+      "target": "company:tr:208097971",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ВАЛЕНТИНОВА САЛЧЕВА",
+      "target": "company:tr:208097971",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

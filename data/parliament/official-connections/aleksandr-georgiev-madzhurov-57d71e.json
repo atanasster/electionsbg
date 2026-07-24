@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:aleksandr-georgiev-madzhurov-57d71e",
+  "nodes": [
+    {
+      "id": "official:aleksandr-georgiev-madzhurov-57d71e",
+      "type": "official",
+      "slug": "aleksandr-georgiev-madzhurov-57d71e",
+      "label": "Александър Георгиев Маджуров",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204386512",
+      "type": "company",
+      "label": "МК ИНВЕСТИЦИИ ЕООД",
+      "slug": null,
+      "uic": "204386512",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ГЕОРГИЕВ МАДЖУРОВ",
+      "type": "person",
+      "label": "Александър Георгиев Маджуров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandr-georgiev-madzhurov-57d71e",
+      "target": "company:tr:204386512",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ГЕОРГИЕВ МАДЖУРОВ",
+      "target": "company:tr:204386512",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ГЕОРГИЕВ МАДЖУРОВ",
+      "target": "company:tr:204386512",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

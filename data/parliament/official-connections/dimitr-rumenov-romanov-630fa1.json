@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitr-rumenov-romanov-630fa1",
+  "nodes": [
+    {
+      "id": "official:dimitr-rumenov-romanov-630fa1",
+      "type": "official",
+      "slug": "dimitr-rumenov-romanov-630fa1",
+      "label": "Димитър Руменов Романов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ботевград"
+    },
+    {
+      "id": "company:tr:204103188",
+      "type": "company",
+      "label": "РОМАНОВ АГРО",
+      "slug": null,
+      "uic": "204103188",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-rumenov-romanov-630fa1",
+      "target": "company:tr:204103188",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-rumenov-romanov-630fa1",
+      "target": "company:tr:204103188",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

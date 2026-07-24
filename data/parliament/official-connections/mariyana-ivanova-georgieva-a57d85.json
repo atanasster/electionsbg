@@ -1,0 +1,71 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariyana-ivanova-georgieva-a57d85",
+  "nodes": [
+    {
+      "id": "official:mariyana-ivanova-georgieva-a57d85",
+      "type": "official",
+      "slug": "mariyana-ivanova-georgieva-a57d85",
+      "label": "Марияна Иванова Георгиева",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200090708",
+      "type": "company",
+      "label": "ПРО КЛИМА-2",
+      "slug": null,
+      "uic": "200090708",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4000"
+    },
+    {
+      "id": "mp:5113",
+      "type": "mp",
+      "mpId": 5113,
+      "label": "Георги Иванов Георгиев",
+      "partyGroupShort": "ПГ на ГЕРБ – СДС",
+      "isCurrent": true,
+      "nsFolders": [
+        "48",
+        "49",
+        "50",
+        "51",
+        "52"
+      ]
+    },
+    {
+      "id": "person:ГЕОРГИ ИВАНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Иванов Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariyana-ivanova-georgieva-a57d85",
+      "target": "company:tr:200090708",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5113",
+      "target": "company:tr:200090708",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ ГЕОРГИЕВ",
+      "target": "company:tr:200090708",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:asen-rumenov-ivanov-5c9ce5",
+  "nodes": [
+    {
+      "id": "official:asen-rumenov-ivanov-5c9ce5",
+      "type": "official",
+      "slug": "asen-rumenov-ivanov-5c9ce5",
+      "label": "Асен Руменов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Тетевен"
+    },
+    {
+      "id": "company:tr:110536691",
+      "type": "company",
+      "label": "ОБЩИНСКА ФОНДАЦИЯ ТОМА ВАСИЛЬОВ",
+      "slug": null,
+      "uic": "110536691",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:violeta-atanasova-ivailova-b40fdf",
+      "type": "official",
+      "slug": "violeta-atanasova-ivailova-b40fdf",
+      "label": "Виолета Атанасова Ивайлова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Тетевен"
+    },
+    {
+      "id": "official:ivan-radoslavov-tsvetanov-20dba8",
+      "type": "official",
+      "slug": "ivan-radoslavov-tsvetanov-20dba8",
+      "label": "Иван Радославов Цветанов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Тетевен"
+    },
+    {
+      "id": "official:hristomir-lazarov-marinov-348705",
+      "type": "official",
+      "slug": "hristomir-lazarov-marinov-348705",
+      "label": "Христомир Лазаров Маринов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Тетевен"
+    },
+    {
+      "id": "person:МАРИЯ МИКОВА СТОЙЧЕВА - ЧЛЕН НА УС",
+      "type": "person",
+      "label": "Мария Микова Стойчева - Член На Ус"
+    },
+    {
+      "id": "person:МАДЛЕНА ЦВЕТКОВА БОЯДЖИЕВА - НИЧЕВА - ЧЛЕН НА УС",
+      "type": "person",
+      "label": "Мадлена Цветкова Бояджиева - Ничева - Член На Ус"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА МАРИНОВА ВРАБЕВСКА - ЧЛЕН НА УС",
+      "type": "person",
+      "label": "Цветелина Маринова Врабевска - Член На Ус"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:asen-rumenov-ivanov-5c9ce5",
+      "target": "company:tr:110536691",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:violeta-atanasova-ivailova-b40fdf",
+      "target": "company:tr:110536691",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-radoslavov-tsvetanov-20dba8",
+      "target": "company:tr:110536691",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristomir-lazarov-marinov-348705",
+      "target": "company:tr:110536691",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯ МИКОВА СТОЙЧЕВА - ЧЛЕН НА УС",
+      "target": "company:tr:110536691",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАДЛЕНА ЦВЕТКОВА БОЯДЖИЕВА - НИЧЕВА - ЧЛЕН НА УС",
+      "target": "company:tr:110536691",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА МАРИНОВА ВРАБЕВСКА - ЧЛЕН НА УС",
+      "target": "company:tr:110536691",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

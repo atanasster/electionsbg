@@ -1,0 +1,237 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:staiko-vasilev-petkov-67b2fb",
+  "nodes": [
+    {
+      "id": "official:staiko-vasilev-petkov-67b2fb",
+      "type": "official",
+      "slug": "staiko-vasilev-petkov-67b2fb",
+      "label": "Стайко Василев Петков",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Николаево"
+    },
+    {
+      "id": "company:tr:000805466",
+      "type": "company",
+      "label": "ВАСИЛ ЛЕВСКИ 1923",
+      "slug": null,
+      "uic": "000805466",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:kremena-petrova-kostova-595c72",
+      "type": "official",
+      "slug": "kremena-petrova-kostova-595c72",
+      "label": "Кремена Петрова Костова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Николаево"
+    },
+    {
+      "id": "person:РАДОСТИНА НИКОЛОВА ВАСИЛЕВА-АМЗОВА",
+      "type": "person",
+      "label": "Радостина Николова Василева-Амзова"
+    },
+    {
+      "id": "person:АНЕЛИЯ НИКОЛАЕВА ДИНЕВА",
+      "type": "person",
+      "label": "Анелия Николаева Динева"
+    },
+    {
+      "id": "person:СТИЛИАНА ИВАНОВА СТАНЕВА",
+      "type": "person",
+      "label": "Стилиана Иванова Станева"
+    },
+    {
+      "id": "person:ГЕНКА ВАСИЛЕВА ГЕНЧЕВА",
+      "type": "person",
+      "label": "Генка Василева Генчева"
+    },
+    {
+      "id": "person:ДОНКА ЖЕЛЕВА СТАНЕВА",
+      "type": "person",
+      "label": "Донка Желева Станева"
+    },
+    {
+      "id": "person:РУМЯНА ДИМИТРОВА ЧЕРГЕЛАНОВА",
+      "type": "person",
+      "label": "Румяна Димитрова Чергеланова"
+    },
+    {
+      "id": "person:ДОНКА СТОЯНОВА НЕДЕЛЧЕВА",
+      "type": "person",
+      "label": "Донка Стоянова Неделчева"
+    },
+    {
+      "id": "person:МАРГА ДИМИТРОВА ПАНЧЕВА",
+      "type": "person",
+      "label": "Марга Димитрова Панчева"
+    },
+    {
+      "id": "person:КОСЬО ХРИСТОВ КОСЕВ",
+      "type": "person",
+      "label": "Косьо Христов Косев"
+    },
+    {
+      "id": "person:НАДЕЖДА ТОТЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Надежда Тотева Иванова"
+    },
+    {
+      "id": "person:ХРИСТИНА ХРИСТОВА КОЛЕВА",
+      "type": "person",
+      "label": "Христина Христова Колева"
+    },
+    {
+      "id": "person:ГАЛИНА ВАСИЛЕВА НИКОЛОВА",
+      "type": "person",
+      "label": "Галина Василева Николова"
+    },
+    {
+      "id": "person:ЛЮБКА ЛЮБОМИРОВА БАЛКАНСКА",
+      "type": "person",
+      "label": "Любка Любомирова Балканска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:staiko-vasilev-petkov-67b2fb",
+      "target": "company:tr:000805466",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kremena-petrova-kostova-595c72",
+      "target": "company:tr:000805466",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАДОСТИНА НИКОЛОВА ВАСИЛЕВА-АМЗОВА",
+      "target": "company:tr:000805466",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ НИКОЛАЕВА ДИНЕВА",
+      "target": "company:tr:000805466",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ НИКОЛАЕВА ДИНЕВА",
+      "target": "company:tr:000805466",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТИЛИАНА ИВАНОВА СТАНЕВА",
+      "target": "company:tr:000805466",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕНКА ВАСИЛЕВА ГЕНЧЕВА",
+      "target": "company:tr:000805466",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА ЖЕЛЕВА СТАНЕВА",
+      "target": "company:tr:000805466",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА ДИМИТРОВА ЧЕРГЕЛАНОВА",
+      "target": "company:tr:000805466",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА СТОЯНОВА НЕДЕЛЧЕВА",
+      "target": "company:tr:000805466",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГА ДИМИТРОВА ПАНЧЕВА",
+      "target": "company:tr:000805466",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСЬО ХРИСТОВ КОСЕВ",
+      "target": "company:tr:000805466",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЕЖДА ТОТЕВА ИВАНОВА",
+      "target": "company:tr:000805466",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИНА ХРИСТОВА КОЛЕВА",
+      "target": "company:tr:000805466",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ВАСИЛЕВА НИКОЛОВА",
+      "target": "company:tr:000805466",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБКА ЛЮБОМИРОВА БАЛКАНСКА",
+      "target": "company:tr:000805466",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИНА НИКОЛОВА ВАСИЛЕВА-АМЗОВА",
+      "target": "company:tr:000805466",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:kiril-boikov-doichinov-f4f8a3",
+  "nodes": [
+    {
+      "id": "official:kiril-boikov-doichinov-f4f8a3",
+      "type": "official",
+      "slug": "kiril-boikov-doichinov-f4f8a3",
+      "label": "Кирил Бойков Дойчинов",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207118722",
+      "type": "company",
+      "label": "Сдружение с нестопанска цел \"Горнобрезнишки манастир Свети пророк Илия\"",
+      "slug": null,
+      "uic": "207118722",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГРИГОР БОРИСОВ МИТРЕВ",
+      "type": "person",
+      "label": "Григор Борисов Митрев"
+    },
+    {
+      "id": "person:СЛАВКА НАУМОВА КАЛБУРОВА",
+      "type": "person",
+      "label": "Славка Наумова Калбурова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kiril-boikov-doichinov-f4f8a3",
+      "target": "company:tr:207118722",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГРИГОР БОРИСОВ МИТРЕВ",
+      "target": "company:tr:207118722",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГРИГОР БОРИСОВ МИТРЕВ",
+      "target": "company:tr:207118722",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВКА НАУМОВА КАЛБУРОВА",
+      "target": "company:tr:207118722",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

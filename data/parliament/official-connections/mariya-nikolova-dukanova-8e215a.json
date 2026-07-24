@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariya-nikolova-dukanova-8e215a",
+  "nodes": [
+    {
+      "id": "official:mariya-nikolova-dukanova-8e215a",
+      "type": "official",
+      "slug": "mariya-nikolova-dukanova-8e215a",
+      "label": "Мария Николова Дуканова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208827467",
+      "type": "company",
+      "label": "РУСЕНСКИ ФЕСТИВАЛЕН ОРКЕСТЪР",
+      "slug": null,
+      "uic": "208827467",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-nikolova-dukanova-8e215a",
+      "target": "company:tr:208827467",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariya-nikolova-dukanova-8e215a",
+      "target": "company:tr:208827467",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

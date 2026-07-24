@@ -1,0 +1,170 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:martin-ivanov-danovski-d792cb",
+  "nodes": [
+    {
+      "id": "official:martin-ivanov-danovski-d792cb",
+      "type": "official",
+      "slug": "martin-ivanov-danovski-d792cb",
+      "label": "Мартин Иванов Дановски",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203719316",
+      "type": "company",
+      "label": "\"Бизнес институт\" ООД",
+      "slug": null,
+      "uic": "203719316",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:200158059",
+      "type": "company",
+      "label": "\"Ленд мениджмънт\" ЕООД",
+      "slug": null,
+      "uic": "200158059",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:martin-ivanov-danovski-343fab",
+      "type": "official",
+      "slug": "martin-ivanov-danovski-343fab",
+      "label": "Мартин Иванов Дановски",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "official:martin-ivanov-danovski-91591d",
+      "type": "official",
+      "slug": "martin-ivanov-danovski-91591d",
+      "label": "Мартин Иванов Дановски",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "official:martin-ivanov-danovski-72c8da",
+      "type": "official",
+      "slug": "martin-ivanov-danovski-72c8da",
+      "label": "Мартин Иванов Дановски",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "person:СВЕТЛАН КОСТАДИНОВ СТАНОЕВ",
+      "type": "person",
+      "label": "Светлан Костадинов Станоев"
+    },
+    {
+      "id": "person:ГЕРГАНА САШЕВА АЙНАДЖИЕВА",
+      "type": "person",
+      "label": "Гергана Сашева Айнаджиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:martin-ivanov-danovski-d792cb",
+      "target": "company:tr:203719316",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:martin-ivanov-danovski-d792cb",
+      "target": "company:tr:200158059",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:martin-ivanov-danovski-343fab",
+      "target": "company:tr:203719316",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:martin-ivanov-danovski-91591d",
+      "target": "company:tr:203719316",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:martin-ivanov-danovski-72c8da",
+      "target": "company:tr:203719316",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАН КОСТАДИНОВ СТАНОЕВ",
+      "target": "company:tr:203719316",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАН КОСТАДИНОВ СТАНОЕВ",
+      "target": "company:tr:203719316",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА САШЕВА АЙНАДЖИЕВА",
+      "target": "company:tr:203719316",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕРГАНА САШЕВА АЙНАДЖИЕВА",
+      "target": "company:tr:203719316",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:martin-ivanov-danovski-343fab",
+      "target": "company:tr:200158059",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:martin-ivanov-danovski-91591d",
+      "target": "company:tr:200158059",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:martin-ivanov-danovski-72c8da",
+      "target": "company:tr:200158059",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,186 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-maksimov-peshev-da7212",
+  "nodes": [
+    {
+      "id": "official:ivan-maksimov-peshev-da7212",
+      "type": "official",
+      "slug": "ivan-maksimov-peshev-da7212",
+      "label": "Иван Максимов Пешев",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175941584",
+      "type": "company",
+      "label": "АСОЦИАЦИЯ ЗА РАЗВИТИЕ НА СОФИЯ",
+      "slug": null,
+      "uic": "175941584",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВО НИКОЛАЕВ БОЖКОВ",
+      "type": "person",
+      "label": "Иво Николаев Божков"
+    },
+    {
+      "id": "person:КАРЛОС АРНАЛДО КОНТРЕРА",
+      "type": "person",
+      "label": "Карлос Арналдо Контрера"
+    },
+    {
+      "id": "person:ДОНЧО ПЕТРОВ БАРБАЛОВ",
+      "type": "person",
+      "label": "Дончо Петров Барбалов"
+    },
+    {
+      "id": "person:МАРИЯНА ДОБРИНОВА ВЪЛКОВА",
+      "type": "person",
+      "label": "Марияна Добринова Вълкова"
+    },
+    {
+      "id": "person:БОТЬО ГЕНЧЕВ БОТЕВ",
+      "type": "person",
+      "label": "Ботьо Генчев Ботев"
+    },
+    {
+      "id": "person:ЕЛЕН СТОЙЧЕВ ГЕРДЖИКОВ",
+      "type": "person",
+      "label": "Елен Стойчев Герджиков"
+    },
+    {
+      "id": "person:СВЕТЛАНА КРЪСТЕВА ЛОМЕВА",
+      "type": "person",
+      "label": "Светлана Кръстева Ломева"
+    },
+    {
+      "id": "person:МИЛКА ХРИСТОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Милка Христова Христова"
+    },
+    {
+      "id": "person:МАЛИНА ЕДРЕВА ЛАЗАРОВА",
+      "type": "person",
+      "label": "Малина Едрева Лазарова"
+    },
+    {
+      "id": "person:ГЕОРГИ ВАЛЕНТИНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Валентинов Георгиев"
+    },
+    {
+      "id": "person:ЕКАТЕРИНА ЕВЛОГИЕВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Екатерина Евлогиева Йорданова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-maksimov-peshev-da7212",
+      "target": "company:tr:175941584",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВО НИКОЛАЕВ БОЖКОВ",
+      "target": "company:tr:175941584",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАРЛОС АРНАЛДО КОНТРЕРА",
+      "target": "company:tr:175941584",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНЧО ПЕТРОВ БАРБАЛОВ",
+      "target": "company:tr:175941584",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА ДОБРИНОВА ВЪЛКОВА",
+      "target": "company:tr:175941584",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОТЬО ГЕНЧЕВ БОТЕВ",
+      "target": "company:tr:175941584",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕН СТОЙЧЕВ ГЕРДЖИКОВ",
+      "target": "company:tr:175941584",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА КРЪСТЕВА ЛОМЕВА",
+      "target": "company:tr:175941584",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКА ХРИСТОВА ХРИСТОВА",
+      "target": "company:tr:175941584",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЛИНА ЕДРЕВА ЛАЗАРОВА",
+      "target": "company:tr:175941584",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА КРЪСТЕВА ЛОМЕВА",
+      "target": "company:tr:175941584",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ВАЛЕНТИНОВ ГЕОРГИЕВ",
+      "target": "company:tr:175941584",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕКАТЕРИНА ЕВЛОГИЕВА ЙОРДАНОВА",
+      "target": "company:tr:175941584",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

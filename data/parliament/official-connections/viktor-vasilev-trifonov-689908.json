@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:viktor-vasilev-trifonov-689908",
+  "nodes": [
+    {
+      "id": "official:viktor-vasilev-trifonov-689908",
+      "type": "official",
+      "slug": "viktor-vasilev-trifonov-689908",
+      "label": "Виктор Василев Трифонов",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205258437",
+      "type": "company",
+      "label": "\"Ви Джей Ти Одит\" ЕООД",
+      "slug": null,
+      "uic": "205258437",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:viktor-vasilev-trifonov-689908",
+      "target": "company:tr:205258437",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

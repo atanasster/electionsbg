@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:anton-ivanov-trifonov-e4bd91",
+  "nodes": [
+    {
+      "id": "official:anton-ivanov-trifonov-e4bd91",
+      "type": "official",
+      "slug": "anton-ivanov-trifonov-e4bd91",
+      "label": "Антон Иванов Трифонов",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:105563078",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ - БАЛКАН",
+      "slug": null,
+      "uic": "105563078",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ РУМЕНОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Николай Руменов Николов"
+    },
+    {
+      "id": "person:БОЯН МИНКОВ ИВАНОВ",
+      "type": "person",
+      "label": "Боян Минков Иванов"
+    },
+    {
+      "id": "person:КРАСИМИР КАМЕНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Красимир Каменов Петров"
+    },
+    {
+      "id": "person:ЛЮДМИЛ МИТОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Людмил Митов Николов"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ ВЕСЕЛИНОВ ВЪТОВ",
+      "type": "person",
+      "label": "Венцислав Веселинов Вътов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:anton-ivanov-trifonov-e4bd91",
+      "target": "company:tr:105563078",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ РУМЕНОВ НИКОЛОВ",
+      "target": "company:tr:105563078",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯН МИНКОВ ИВАНОВ",
+      "target": "company:tr:105563078",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР КАМЕНОВ ПЕТРОВ",
+      "target": "company:tr:105563078",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ МИТОВ НИКОЛОВ",
+      "target": "company:tr:105563078",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ ВЕСЕЛИНОВ ВЪТОВ",
+      "target": "company:tr:105563078",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

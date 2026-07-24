@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:svetlozar-milchev-donev-feb4e4",
+  "nodes": [
+    {
+      "id": "official:svetlozar-milchev-donev-feb4e4",
+      "type": "official",
+      "slug": "svetlozar-milchev-donev-feb4e4",
+      "label": "Светлозар Милчев Донев",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175670332",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ПРИ ПГСС К.А.ТИМИРЯЗЕВ",
+      "slug": null,
+      "uic": "175670332",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН СТОЯНОВ АНДРЕЕВ",
+      "type": "person",
+      "label": "Иван Стоянов Андреев"
+    },
+    {
+      "id": "person:НИКОЛА ИВАНОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Никола Иванов Николов"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИН РАЙКОВ РАЙКОВ",
+      "type": "person",
+      "label": "Цветелин Райков Райков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetlozar-milchev-donev-feb4e4",
+      "target": "company:tr:175670332",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН СТОЯНОВ АНДРЕЕВ",
+      "target": "company:tr:175670332",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ИВАНОВ НИКОЛОВ",
+      "target": "company:tr:175670332",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИН РАЙКОВ РАЙКОВ",
+      "target": "company:tr:175670332",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

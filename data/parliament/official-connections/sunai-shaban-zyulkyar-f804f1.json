@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:sunai-shaban-zyulkyar-f804f1",
+  "nodes": [
+    {
+      "id": "official:sunai-shaban-zyulkyar-f804f1",
+      "type": "official",
+      "slug": "sunai-shaban-zyulkyar-f804f1",
+      "label": "Сунай Шабан Зюлкяр",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Омуртаг"
+    },
+    {
+      "id": "company:tr:203729431",
+      "type": "company",
+      "label": "Спаси строй",
+      "slug": null,
+      "uic": "203729431",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sunai-shaban-zyulkyar-f804f1",
+      "target": "company:tr:203729431",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

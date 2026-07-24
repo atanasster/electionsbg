@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:gencho-braikov-bakalov-c3f638",
+  "nodes": [
+    {
+      "id": "official:gencho-braikov-bakalov-c3f638",
+      "type": "official",
+      "slug": "gencho-braikov-bakalov-c3f638",
+      "label": "Генчо Брайков Бакалов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:160120592",
+      "type": "company",
+      "label": "СПОРТЕН КОМПЛЕКС БАНЯ",
+      "slug": null,
+      "uic": "160120592",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ДРАГАНОВА ФИЛИПОВА",
+      "type": "person",
+      "label": "Десислава Драганова Филипова"
+    },
+    {
+      "id": "person:АНТОНИНА ДРАГАНОВА СТОИМЕНОВА",
+      "type": "person",
+      "label": "Антонина Драганова Стоименова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gencho-braikov-bakalov-c3f638",
+      "target": "company:tr:160120592",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ДРАГАНОВА ФИЛИПОВА",
+      "target": "company:tr:160120592",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОНИНА ДРАГАНОВА СТОИМЕНОВА",
+      "target": "company:tr:160120592",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

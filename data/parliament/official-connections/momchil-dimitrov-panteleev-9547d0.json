@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:momchil-dimitrov-panteleev-9547d0",
+  "nodes": [
+    {
+      "id": "official:momchil-dimitrov-panteleev-9547d0",
+      "type": "official",
+      "slug": "momchil-dimitrov-panteleev-9547d0",
+      "label": "Момчил Димитров Пантелеев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сливен"
+    },
+    {
+      "id": "company:tr:203150338",
+      "type": "company",
+      "label": "ГГИТ",
+      "slug": null,
+      "uic": "203150338",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:momchil-dimitrov-panteleev-9547d0",
+      "target": "company:tr:203150338",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

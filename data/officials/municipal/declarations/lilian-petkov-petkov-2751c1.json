@@ -1,0 +1,123 @@
+[
+  {
+    "slug": "lilian-petkov-petkov-2751c1",
+    "declarantName": "Лилиан Петков Петков",
+    "institution": "Враца",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г10815",
+    "controlHash": "0EEDE4FF",
+    "sourceUrl": "https://register.cacbg.bg/2025/4B9C0D38-3664-44A0-9579-329CECD4FE48213921.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6358.425834556173,
+        "amountEurSpouse": 11963.20743622912
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5072.526753347684,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Враца",
+        "municipality": "Враца",
+        "areaSqm": 76,
+        "builtAreaSqm": null,
+        "acquiredYear": 2009,
+        "share": "1/8",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Лилиан Петков Петков",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Враца",
+        "municipality": "Враца",
+        "areaSqm": 62,
+        "builtAreaSqm": null,
+        "acquiredYear": 1993,
+        "share": "1/1",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Маргарита Иванова Петкива",
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Калофер",
+        "municipality": "Карлово",
+        "areaSqm": 94,
+        "builtAreaSqm": null,
+        "acquiredYear": 2008,
+        "share": "1/1",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Лилиан Петков Петков",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Корола",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2020,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Маргарита Иванова Петкова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Маргарита Иванова Петкова",
+        "isSpouse": true,
+        "legalBasis": "банков кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

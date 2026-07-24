@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:teodora-krasimirova-iordanova-49332d",
+  "nodes": [
+    {
+      "id": "official:teodora-krasimirova-iordanova-49332d",
+      "type": "official",
+      "slug": "teodora-krasimirova-iordanova-49332d",
+      "label": "Теодора Красимирова Йорданова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:117604173",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ИВАН ВАЗОВ-РУСЕ",
+      "slug": null,
+      "uic": "117604173",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИЛЯНА ЕФТИМОВА ДАНЕВА-СТОЯНОВА",
+      "type": "person",
+      "label": "Диляна Ефтимова Данева-Стоянова"
+    },
+    {
+      "id": "person:БОГОСЛАВА АНГЕЛОВА ИВАНОВА",
+      "type": "person",
+      "label": "Богослава Ангелова Иванова"
+    },
+    {
+      "id": "person:ПЕТЪР ПЕТРОВ ВАНЕВ",
+      "type": "person",
+      "label": "Петър Петров Ванев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:teodora-krasimirova-iordanova-49332d",
+      "target": "company:tr:117604173",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИЛЯНА ЕФТИМОВА ДАНЕВА-СТОЯНОВА",
+      "target": "company:tr:117604173",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОГОСЛАВА АНГЕЛОВА ИВАНОВА",
+      "target": "company:tr:117604173",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ПЕТРОВ ВАНЕВ",
+      "target": "company:tr:117604173",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

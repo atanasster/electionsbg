@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-radoslavov-georgiev-257683",
+  "nodes": [
+    {
+      "id": "official:georgi-radoslavov-georgiev-257683",
+      "type": "official",
+      "slug": "georgi-radoslavov-georgiev-257683",
+      "label": "Георги Радославов Георгиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207382818",
+      "type": "company",
+      "label": "АВТОСЕРВИЗ ГЕОРГИЕВ И СИН",
+      "slug": null,
+      "uic": "207382818",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-radoslavov-georgiev-257683",
+      "target": "company:tr:207382818",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-radoslavov-georgiev-257683",
+      "target": "company:tr:207382818",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

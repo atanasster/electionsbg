@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-neshkov-ryadkov-2ad589",
+  "nodes": [
+    {
+      "id": "official:nikolai-neshkov-ryadkov-2ad589",
+      "type": "official",
+      "slug": "nikolai-neshkov-ryadkov-2ad589",
+      "label": "Николай Нешков Рядков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пещера"
+    },
+    {
+      "id": "company:tr:205401522",
+      "type": "company",
+      "label": "РЯДКОВ ГРУП 2018 ООД",
+      "slug": null,
+      "uic": "205401522",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-neshkov-ryadkov-2ad589",
+      "target": "company:tr:205401522",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

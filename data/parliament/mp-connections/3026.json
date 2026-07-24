@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:3026",
   "nodes": [
     {
@@ -137,72 +137,72 @@
       "seat": null
     },
     {
-      "id": "official:anzhela-svetlozarova-slavova-25b96c",
+      "id": "official:anzhela-svetlozarova-slavova-7eef0d",
       "type": "official",
-      "slug": "anzhela-svetlozarova-slavova-25b96c",
+      "slug": "anzhela-svetlozarova-slavova-7eef0d",
       "label": "Анжела Светлозарова Славова",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:veselin-sashev-sinabov-b9032d",
+      "id": "official:veselin-sashev-sinabov-dfd1b6",
       "type": "official",
-      "slug": "veselin-sashev-sinabov-b9032d",
+      "slug": "veselin-sashev-sinabov-dfd1b6",
       "label": "Веселин Сашев Синабов",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:dimitr-vladimirov-spasov-d70074",
+      "id": "official:dimitr-vladimirov-spasov-e45aa5",
       "type": "official",
-      "slug": "dimitr-vladimirov-spasov-d70074",
+      "slug": "dimitr-vladimirov-spasov-e45aa5",
       "label": "Димитър Владимиров Спасов",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:marin-asenov-filipovski-3b9ba4",
+      "id": "official:marin-asenov-filipovski-0dec12",
       "type": "official",
-      "slug": "marin-asenov-filipovski-3b9ba4",
+      "slug": "marin-asenov-filipovski-0dec12",
       "label": "Марин Асенов Филиповски",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:mihail-mariov-milkov-0118c1",
+      "id": "official:mihail-mariov-milkov-69b592",
       "type": "official",
-      "slug": "mihail-mariov-milkov-0118c1",
+      "slug": "mihail-mariov-milkov-69b592",
       "label": "Михаил Мариов Милков",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:nikolai-atanasov-donchev-f41acf",
+      "id": "official:nikolai-atanasov-donchev-62d717",
       "type": "official",
-      "slug": "nikolai-atanasov-donchev-f41acf",
+      "slug": "nikolai-atanasov-donchev-62d717",
       "label": "Николай Атанасов Дончев",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:svetoslav-tanev-delchev-b63a45",
+      "id": "official:svetoslav-tanev-delchev-730c31",
       "type": "official",
-      "slug": "svetoslav-tanev-delchev-b63a45",
+      "slug": "svetoslav-tanev-delchev-730c31",
       "label": "Светослав Танев Делчев",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:tatyana-angelova-petrova-boyadzhieva-45e2d5",
+      "id": "official:tatyana-angelova-petrova-boyadzhieva-d0fcc8",
       "type": "official",
-      "slug": "tatyana-angelova-petrova-boyadzhieva-45e2d5",
+      "slug": "tatyana-angelova-petrova-boyadzhieva-d0fcc8",
       "label": "Татяна Ангелова Петрова-Бояджиева",
       "tier": "executive",
       "role": "state_enterprise",
@@ -530,7 +530,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:anzhela-svetlozarova-slavova-25b96c",
+      "source": "official:anzhela-svetlozarova-slavova-7eef0d",
       "target": "company:tr:175203485",
       "kind": "tr_role",
       "role": "director",
@@ -538,7 +538,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:veselin-sashev-sinabov-b9032d",
+      "source": "official:veselin-sashev-sinabov-dfd1b6",
       "target": "company:tr:175203485",
       "kind": "tr_role",
       "role": "director",
@@ -546,7 +546,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:veselin-sashev-sinabov-b9032d",
+      "source": "official:veselin-sashev-sinabov-dfd1b6",
       "target": "company:tr:175203485",
       "kind": "tr_role",
       "role": "representative",
@@ -554,7 +554,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:dimitr-vladimirov-spasov-d70074",
+      "source": "official:dimitr-vladimirov-spasov-e45aa5",
       "target": "company:tr:175203485",
       "kind": "tr_role",
       "role": "director",
@@ -562,7 +562,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:marin-asenov-filipovski-3b9ba4",
+      "source": "official:marin-asenov-filipovski-0dec12",
       "target": "company:tr:175203485",
       "kind": "tr_role",
       "role": "director",
@@ -570,7 +570,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:mihail-mariov-milkov-0118c1",
+      "source": "official:mihail-mariov-milkov-69b592",
       "target": "company:tr:175203485",
       "kind": "tr_role",
       "role": "director",
@@ -578,7 +578,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:nikolai-atanasov-donchev-f41acf",
+      "source": "official:nikolai-atanasov-donchev-62d717",
       "target": "company:tr:175203485",
       "kind": "tr_role",
       "role": "director",
@@ -586,7 +586,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:svetoslav-tanev-delchev-b63a45",
+      "source": "official:svetoslav-tanev-delchev-730c31",
       "target": "company:tr:175203485",
       "kind": "tr_role",
       "role": "director",
@@ -594,7 +594,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:tatyana-angelova-petrova-boyadzhieva-45e2d5",
+      "source": "official:tatyana-angelova-petrova-boyadzhieva-d0fcc8",
       "target": "company:tr:175203485",
       "kind": "tr_role",
       "role": "director",

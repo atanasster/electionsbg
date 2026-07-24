@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "officialNodeId": "official:ivan-dimitrov-topchiiski-7f6ffb",
   "nodes": [
     {
       "id": "official:ivan-dimitrov-topchiiski-7f6ffb",
       "type": "official",
       "slug": "ivan-dimitrov-topchiiski-7f6ffb",
-      "label": "ИВАН ДИМИТРОВ ТОПЧИЙСКИ",
+      "label": "Иван Димитров Топчийски",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
@@ -22,15 +22,6 @@
       "seat": null
     },
     {
-      "id": "official:ivan-dimitrov-topchiiski-2fede6",
-      "type": "official",
-      "slug": "ivan-dimitrov-topchiiski-2fede6",
-      "label": "Иван Димитров Топчийски",
-      "tier": "executive",
-      "role": "state_enterprise",
-      "municipality": null
-    },
-    {
       "id": "person:МАЛИНА САШЕВА ТОПЧИЙСКА",
       "type": "person",
       "label": "Малина Сашева Топчийска"
@@ -39,14 +30,6 @@
   "edges": [
     {
       "source": "official:ivan-dimitrov-topchiiski-7f6ffb",
-      "target": "company:tr:102627700",
-      "kind": "declared_stake",
-      "role": "declared_share",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "official:ivan-dimitrov-topchiiski-2fede6",
       "target": "company:tr:102627700",
       "kind": "declared_stake",
       "role": "declared_share",

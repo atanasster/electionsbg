@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:katya-stefanova-stoyanova-76ca7f",
+  "nodes": [
+    {
+      "id": "official:katya-stefanova-stoyanova-76ca7f",
+      "type": "official",
+      "slug": "katya-stefanova-stoyanova-76ca7f",
+      "label": "Катя Стефанова Стоянова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208480336",
+      "type": "company",
+      "label": "Стефи Вал",
+      "slug": null,
+      "uic": "208480336",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАЛЕНТИН СТОЯНОВ",
+      "type": "person",
+      "label": "Валентин Стоянов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:katya-stefanova-stoyanova-76ca7f",
+      "target": "company:tr:208480336",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:katya-stefanova-stoyanova-76ca7f",
+      "target": "company:tr:208480336",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИН СТОЯНОВ",
+      "target": "company:tr:208480336",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН СТОЯНОВ",
+      "target": "company:tr:208480336",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

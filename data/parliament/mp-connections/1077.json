@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:1077",
   "nodes": [
     {
@@ -52,27 +52,27 @@
       "seat": null
     },
     {
-      "id": "official:orlin-vasilev-nedev-06c67c",
+      "id": "official:orlin-vasilev-nedev-3f9cd8",
       "type": "official",
-      "slug": "orlin-vasilev-nedev-06c67c",
+      "slug": "orlin-vasilev-nedev-3f9cd8",
       "label": "Орлин Василев Недев",
       "tier": "executive",
       "role": "hospital_head",
       "municipality": null
     },
     {
-      "id": "official:radosvet-petrov-gornev-6af7b6",
+      "id": "official:radosvet-petrov-gornev-7dc7fd",
       "type": "official",
-      "slug": "radosvet-petrov-gornev-6af7b6",
+      "slug": "radosvet-petrov-gornev-7dc7fd",
       "label": "Радосвет Петров Горнев",
       "tier": "executive",
       "role": "hospital_head",
       "municipality": null
     },
     {
-      "id": "official:stanimir-boyanov-mihailov-d6fb08",
+      "id": "official:stanimir-boyanov-mihailov-88dd8a",
       "type": "official",
-      "slug": "stanimir-boyanov-mihailov-d6fb08",
+      "slug": "stanimir-boyanov-mihailov-88dd8a",
       "label": "Станимир Боянов Михайлов",
       "tier": "executive",
       "role": "social_fund",
@@ -214,7 +214,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:orlin-vasilev-nedev-06c67c",
+      "source": "official:orlin-vasilev-nedev-3f9cd8",
       "target": "company:tr:205967328",
       "kind": "tr_role",
       "role": "director",
@@ -222,7 +222,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:radosvet-petrov-gornev-6af7b6",
+      "source": "official:radosvet-petrov-gornev-7dc7fd",
       "target": "company:tr:205967328",
       "kind": "tr_role",
       "role": "representative",
@@ -230,7 +230,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:radosvet-petrov-gornev-6af7b6",
+      "source": "official:radosvet-petrov-gornev-7dc7fd",
       "target": "company:tr:205967328",
       "kind": "tr_role",
       "role": "director",
@@ -238,7 +238,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:stanimir-boyanov-mihailov-d6fb08",
+      "source": "official:stanimir-boyanov-mihailov-88dd8a",
       "target": "company:tr:205967328",
       "kind": "tr_role",
       "role": "director",

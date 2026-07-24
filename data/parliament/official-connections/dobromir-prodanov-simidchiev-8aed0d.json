@@ -1,0 +1,200 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dobromir-prodanov-simidchiev-8aed0d",
+  "nodes": [
+    {
+      "id": "official:dobromir-prodanov-simidchiev-8aed0d",
+      "type": "official",
+      "slug": "dobromir-prodanov-simidchiev-8aed0d",
+      "label": "Добромир Проданов Симидчиев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203789087",
+      "type": "company",
+      "label": "Хидролиа АД",
+      "slug": null,
+      "uic": "203789087",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203327009",
+      "type": "company",
+      "label": "Тюбор ООД",
+      "slug": null,
+      "uic": "203327009",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДОБРОМИР ПРОДАНОВ СИМИДЧИЕВ",
+      "type": "person",
+      "label": "Добромир Проданов Симидчиев"
+    },
+    {
+      "id": "person:БЛАГОЙ ПЕТРОВ КОЗАРЕВ",
+      "type": "person",
+      "label": "Благой Петров Козарев"
+    },
+    {
+      "id": "person:ЖИВКО ИВАНОВ ЦЕНОВ",
+      "type": "person",
+      "label": "Живко Иванов Ценов"
+    },
+    {
+      "id": "person:ДИМИТЪР ВАСИЛЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Димитър Василев Иванов"
+    },
+    {
+      "id": "person:РАДОСЛАВ РУСЕВ РУСЕВ",
+      "type": "person",
+      "label": "Радослав Русев Русев"
+    },
+    {
+      "id": "person:ТЕОДОРА АНТОНОВА МАНЕВА",
+      "type": "person",
+      "label": "Теодора Антонова Манева"
+    },
+    {
+      "id": "person:АНТОН МИХАЙЛОВ МИНТОВ",
+      "type": "person",
+      "label": "Антон Михайлов Минтов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dobromir-prodanov-simidchiev-8aed0d",
+      "target": "company:tr:203789087",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dobromir-prodanov-simidchiev-8aed0d",
+      "target": "company:tr:203327009",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРОМИР ПРОДАНОВ СИМИДЧИЕВ",
+      "target": "company:tr:203789087",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЛАГОЙ ПЕТРОВ КОЗАРЕВ",
+      "target": "company:tr:203789087",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ИВАНОВ ЦЕНОВ",
+      "target": "company:tr:203789087",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ВАСИЛЕВ ИВАНОВ",
+      "target": "company:tr:203789087",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ РУСЕВ РУСЕВ",
+      "target": "company:tr:203789087",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЛАГОЙ ПЕТРОВ КОЗАРЕВ",
+      "target": "company:tr:203789087",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ИВАНОВ ЦЕНОВ",
+      "target": "company:tr:203789087",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРОМИР ПРОДАНОВ СИМИДЧИЕВ",
+      "target": "company:tr:203789087",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ВАСИЛЕВ ИВАНОВ",
+      "target": "company:tr:203789087",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА АНТОНОВА МАНЕВА",
+      "target": "company:tr:203789087",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА АНТОНОВА МАНЕВА",
+      "target": "company:tr:203789087",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ИВАНОВ ЦЕНОВ",
+      "target": "company:tr:203327009",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН МИХАЙЛОВ МИНТОВ",
+      "target": "company:tr:203327009",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРОМИР ПРОДАНОВ СИМИДЧИЕВ",
+      "target": "company:tr:203327009",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

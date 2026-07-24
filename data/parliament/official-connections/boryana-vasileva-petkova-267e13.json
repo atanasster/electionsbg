@@ -1,0 +1,156 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:boryana-vasileva-petkova-267e13",
+  "nodes": [
+    {
+      "id": "official:boryana-vasileva-petkova-267e13",
+      "type": "official",
+      "slug": "boryana-vasileva-petkova-267e13",
+      "label": "Боряна Василева Петкова",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Бяла Слатина"
+    },
+    {
+      "id": "company:tr:106521071",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ РАЗВИТИЕ - 1892",
+      "slug": null,
+      "uic": "106521071",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:emil-nikolov-stamenov-c4b2c1",
+      "type": "official",
+      "slug": "emil-nikolov-stamenov-c4b2c1",
+      "label": "Емил Николов Стаменов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бяла Слатина"
+    },
+    {
+      "id": "person:МАРИЕТА ИВАНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Мариета Иванова Иванова"
+    },
+    {
+      "id": "person:МАРГАРИТА ГРОЗДАНОВА СИМЕОНОВА",
+      "type": "person",
+      "label": "Маргарита Грозданова Симеонова"
+    },
+    {
+      "id": "person:НАТАЛИЯ ДИМИТРОВА КОСТАДИНОВА",
+      "type": "person",
+      "label": "Наталия Димитрова Костадинова"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА МЛАДЕНОВА БОБОЙЧЕВА",
+      "type": "person",
+      "label": "Валентина Младенова Бобойчева"
+    },
+    {
+      "id": "person:РАЛИЦА ИЛКОВА ИСКРЕНОВА-ПЕТРОВА",
+      "type": "person",
+      "label": "Ралица Илкова Искренова-Петрова"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА АНДРЕЕВА АНДРОВСКА-ИЛИЕВА",
+      "type": "person",
+      "label": "Цветелина Андреева Андровска-Илиева"
+    },
+    {
+      "id": "person:КРАСИМИР БОЙКОВ КИРИЛОВ",
+      "type": "person",
+      "label": "Красимир Бойков Кирилов"
+    },
+    {
+      "id": "person:НАТАЛИЯ ДИМИТРОВА ФЕНЕРСКА",
+      "type": "person",
+      "label": "Наталия Димитрова Фенерска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:boryana-vasileva-petkova-267e13",
+      "target": "company:tr:106521071",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:emil-nikolov-stamenov-c4b2c1",
+      "target": "company:tr:106521071",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЕТА ИВАНОВА ИВАНОВА",
+      "target": "company:tr:106521071",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА ГРОЗДАНОВА СИМЕОНОВА",
+      "target": "company:tr:106521071",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАЛИЯ ДИМИТРОВА КОСТАДИНОВА",
+      "target": "company:tr:106521071",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА МЛАДЕНОВА БОБОЙЧЕВА",
+      "target": "company:tr:106521071",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЛИЦА ИЛКОВА ИСКРЕНОВА-ПЕТРОВА",
+      "target": "company:tr:106521071",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА АНДРЕЕВА АНДРОВСКА-ИЛИЕВА",
+      "target": "company:tr:106521071",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР БОЙКОВ КИРИЛОВ",
+      "target": "company:tr:106521071",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАЛИЯ ДИМИТРОВА ФЕНЕРСКА",
+      "target": "company:tr:106521071",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

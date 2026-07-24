@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mitko-veselinov-panaiotov-110970",
+  "nodes": [
+    {
+      "id": "official:mitko-veselinov-panaiotov-110970",
+      "type": "official",
+      "slug": "mitko-veselinov-panaiotov-110970",
+      "label": "Митко Веселинов Панайотов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Търговище"
+    },
+    {
+      "id": "company:tr:125575102",
+      "type": "company",
+      "label": "МВП-Проект ЕООД",
+      "slug": null,
+      "uic": "125575102",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mitko-veselinov-panaiotov-110970",
+      "target": "company:tr:125575102",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

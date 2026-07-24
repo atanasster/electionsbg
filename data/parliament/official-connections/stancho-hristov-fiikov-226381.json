@@ -1,0 +1,115 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stancho-hristov-fiikov-226381",
+  "nodes": [
+    {
+      "id": "official:stancho-hristov-fiikov-226381",
+      "type": "official",
+      "slug": "stancho-hristov-fiikov-226381",
+      "label": "Станчо Христов Фийков",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:112013405",
+      "type": "company",
+      "label": "БАЛНЕОЛОГИЧЕН ЦЕНТЪР-&quot;КАМЕНА&quot;",
+      "slug": null,
+      "uic": "112013405",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:antoniya-venkova-bozeva-e42de1",
+      "type": "official",
+      "slug": "antoniya-venkova-bozeva-e42de1",
+      "label": "Антония Венкова Бозева",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "official:boyana-krasimirova-levicharska-f1f928",
+      "type": "official",
+      "slug": "boyana-krasimirova-levicharska-f1f928",
+      "label": "Бояна Красимирова Левичарска",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "official:ivo-ivanov-kosev-131af2",
+      "type": "official",
+      "slug": "ivo-ivanov-kosev-131af2",
+      "label": "Иво Иванов Кьосев",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "person:ДИЯНА ИВАНОВА ПАНТИЛЕЕВА",
+      "type": "person",
+      "label": "Дияна Иванова Пантилеева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stancho-hristov-fiikov-226381",
+      "target": "company:tr:112013405",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stancho-hristov-fiikov-226381",
+      "target": "company:tr:112013405",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:antoniya-venkova-bozeva-e42de1",
+      "target": "company:tr:112013405",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:antoniya-venkova-bozeva-e42de1",
+      "target": "company:tr:112013405",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:boyana-krasimirova-levicharska-f1f928",
+      "target": "company:tr:112013405",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivo-ivanov-kosev-131af2",
+      "target": "company:tr:112013405",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИЯНА ИВАНОВА ПАНТИЛЕЕВА",
+      "target": "company:tr:112013405",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

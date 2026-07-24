@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tsvetelina-ananieva-stoyanova-f1bd37",
+  "nodes": [
+    {
+      "id": "official:tsvetelina-ananieva-stoyanova-f1bd37",
+      "type": "official",
+      "slug": "tsvetelina-ananieva-stoyanova-f1bd37",
+      "label": "Цветелина Ананиева Стоянова",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204885675",
+      "type": "company",
+      "label": "АВС Трейд България ООД",
+      "slug": null,
+      "uic": "204885675",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetelina-ananieva-stoyanova-f1bd37",
+      "target": "company:tr:204885675",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

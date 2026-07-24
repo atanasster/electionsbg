@@ -1,0 +1,85 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-iordanov-pepelanov-d8ee86",
+  "nodes": [
+    {
+      "id": "official:georgi-iordanov-pepelanov-d8ee86",
+      "type": "official",
+      "slug": "georgi-iordanov-pepelanov-d8ee86",
+      "label": "Георги Йорданов Пепеланов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Смолян"
+    },
+    {
+      "id": "company:tr:202509012",
+      "type": "company",
+      "label": "ЕЛИТ АВТО - ПЕПЕЛАНОВИ",
+      "slug": null,
+      "uic": "202509012",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯ ГЕОРГИЕВА ПЕПЕЛАНОВА",
+      "type": "person",
+      "label": "Мария Георгиева Пепеланова"
+    },
+    {
+      "id": "person:НИКОЛИНА ИВАНОВА ПЕПЕЛАНОВА",
+      "type": "person",
+      "label": "Николина Иванова Пепеланова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-iordanov-pepelanov-d8ee86",
+      "target": "company:tr:202509012",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-iordanov-pepelanov-d8ee86",
+      "target": "company:tr:202509012",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА ПЕПЕЛАНОВА",
+      "target": "company:tr:202509012",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА ПЕПЕЛАНОВА",
+      "target": "company:tr:202509012",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛИНА ИВАНОВА ПЕПЕЛАНОВА",
+      "target": "company:tr:202509012",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛИНА ИВАНОВА ПЕПЕЛАНОВА",
+      "target": "company:tr:202509012",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

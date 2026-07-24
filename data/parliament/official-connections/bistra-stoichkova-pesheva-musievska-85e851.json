@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:bistra-stoichkova-pesheva-musievska-85e851",
+  "nodes": [
+    {
+      "id": "official:bistra-stoichkova-pesheva-musievska-85e851",
+      "type": "official",
+      "slug": "bistra-stoichkova-pesheva-musievska-85e851",
+      "label": "Бистра Стоичкова Пешева-Мусиевска",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200111173",
+      "type": "company",
+      "label": "СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ ПО КАРДИОЛОГИЯ  ЯМБОЛ",
+      "slug": null,
+      "uic": "200111173",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДОБРИНКА КУНЕВА КЛИСАРОВА",
+      "type": "person",
+      "label": "Добринка Кунева Клисарова"
+    },
+    {
+      "id": "person:ИРИНА ГЕОРГИЕВА КАЛУДОВА",
+      "type": "person",
+      "label": "Ирина Георгиева Калудова"
+    },
+    {
+      "id": "person:СИДИКУЛАХ РАХИМИ",
+      "type": "person",
+      "label": "Сидикулах Рахими"
+    },
+    {
+      "id": "person:МИТКО ЩЕРЕВ МАРУЛОВ",
+      "type": "person",
+      "label": "Митко Щерев Марулов"
+    },
+    {
+      "id": "person:ПЕТЯ ЖЕЛЯЗКОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Петя Желязкова Петрова"
+    },
+    {
+      "id": "person:СТОЯНКА БОРИСОВА ВЛАДИМИРОВА",
+      "type": "person",
+      "label": "Стоянка Борисова Владимирова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:bistra-stoichkova-pesheva-musievska-85e851",
+      "target": "company:tr:200111173",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДОБРИНКА КУНЕВА КЛИСАРОВА",
+      "target": "company:tr:200111173",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА ГЕОРГИЕВА КАЛУДОВА",
+      "target": "company:tr:200111173",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИДИКУЛАХ РАХИМИ",
+      "target": "company:tr:200111173",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИДИКУЛАХ РАХИМИ",
+      "target": "company:tr:200111173",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКО ЩЕРЕВ МАРУЛОВ",
+      "target": "company:tr:200111173",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ЖЕЛЯЗКОВА ПЕТРОВА",
+      "target": "company:tr:200111173",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯНКА БОРИСОВА ВЛАДИМИРОВА",
+      "target": "company:tr:200111173",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

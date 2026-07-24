@@ -1,0 +1,75 @@
+[
+  {
+    "slug": "shefket-mutalib-shevket-4d7378",
+    "declarantName": "ШЕФКЕТ МУТАЛИБ ШЕВКЕТ",
+    "institution": "Дългопол",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г10447",
+    "controlHash": "2333E95C",
+    "sourceUrl": "https://register.cacbg.bg/2025/4F424EB2-77E6-468E-AEF1-775816AEE6D5213532.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 3961.489495508301,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивидент",
+        "amountEurDeclarant": 258824.64222350615,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Обезщетенияв",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 7822.254490420946
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "РЕНО АУСТРАЛ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 69400,
+        "valueEur": 35483.656555017566,
+        "holderName": "ШЕФКЕТ МУТАЛИБ ШЕВКЕТ",
+        "isSpouse": false,
+        "legalBasis": "Договор за финансов лизинг",
+        "fundsOrigin": "Дивидент"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 42936,
+        "valueEur": 21952.828211040836,
+        "holderName": "Нурия Айнурова Шевкет",
+        "isSpouse": true,
+        "legalBasis": "Договор за банков кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

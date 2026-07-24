@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:svilena-nikolova-nikolova-8c143d",
+  "nodes": [
+    {
+      "id": "official:svilena-nikolova-nikolova-8c143d",
+      "type": "official",
+      "slug": "svilena-nikolova-nikolova-8c143d",
+      "label": "Свилена Николова Николова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203293350",
+      "type": "company",
+      "label": "АСМ-ГРУП ЕООД",
+      "slug": null,
+      "uic": "203293350",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svilena-nikolova-nikolova-8c143d",
+      "target": "company:tr:203293350",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

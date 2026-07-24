@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mehtibat-niyaziev-mustafov-d48cfa",
+  "nodes": [
+    {
+      "id": "official:mehtibat-niyaziev-mustafov-d48cfa",
+      "type": "official",
+      "slug": "mehtibat-niyaziev-mustafov-d48cfa",
+      "label": "Мехтибат Ниязиев Мустафов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Опака"
+    },
+    {
+      "id": "company:tr:205359614",
+      "type": "company",
+      "label": "ЮМБ ПРО ЕООД",
+      "slug": null,
+      "uic": "205359614",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mehtibat-niyaziev-mustafov-d48cfa",
+      "target": "company:tr:205359614",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

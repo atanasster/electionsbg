@@ -1,0 +1,116 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:aleksandr-metodiev-petkov-e6d3a6",
+  "nodes": [
+    {
+      "id": "official:aleksandr-metodiev-petkov-e6d3a6",
+      "type": "official",
+      "slug": "aleksandr-metodiev-petkov-e6d3a6",
+      "label": "Александър Методиев Петков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207896506",
+      "type": "company",
+      "label": "\"Мездра уинд енерджи\" ЕООД",
+      "slug": null,
+      "uic": "207896506",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР МЕТОДИЕВ ПЕТКОВ",
+      "type": "person",
+      "label": "Александър Методиев Петков"
+    },
+    {
+      "id": "company:tr:207373420",
+      "type": "company",
+      "label": "ТиДиАй Холдингс България",
+      "slug": null,
+      "uic": "207373420",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МЕНАХЕМ АХАРОНИ",
+      "type": "person",
+      "label": "Менахем  Ахарони"
+    },
+    {
+      "id": "person:ЦВИ ХЕНДЛЕР",
+      "type": "person",
+      "label": "Цви Хендлер"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aleksandr-metodiev-petkov-e6d3a6",
+      "target": "company:tr:207896506",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР МЕТОДИЕВ ПЕТКОВ",
+      "target": "company:tr:207896506",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:tr:207373420",
+      "target": "company:tr:207896506",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕНАХЕМ АХАРОНИ",
+      "target": "company:tr:207896506",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВИ ХЕНДЛЕР",
+      "target": "company:tr:207896506",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР МЕТОДИЕВ ПЕТКОВ",
+      "target": "company:tr:207373420",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВИ ХЕНДЛЕР",
+      "target": "company:tr:207373420",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВИ ХЕНДЛЕР",
+      "target": "company:tr:207373420",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

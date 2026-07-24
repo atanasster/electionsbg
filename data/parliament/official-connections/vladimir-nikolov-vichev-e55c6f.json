@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vladimir-nikolov-vichev-e55c6f",
+  "nodes": [
+    {
+      "id": "official:vladimir-nikolov-vichev-e55c6f",
+      "type": "official",
+      "slug": "vladimir-nikolov-vichev-e55c6f",
+      "label": "Владимир Николов Вичев",
+      "tier": "executive",
+      "role": "revenue_agency",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202744948",
+      "type": "company",
+      "label": "ЛАРА БГ ООД",
+      "slug": null,
+      "uic": "202744948",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vladimir-nikolov-vichev-e55c6f",
+      "target": "company:tr:202744948",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

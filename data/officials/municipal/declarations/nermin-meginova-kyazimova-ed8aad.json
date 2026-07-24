@@ -1,0 +1,94 @@
+[
+  {
+    "slug": "nermin-meginova-kyazimova-ed8aad",
+    "declarantName": "Нермин Метинова Кязимова",
+    "institution": "Ветово",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г10621",
+    "controlHash": "45BB9B08",
+    "sourceUrl": "https://register.cacbg.bg/2025/BB3C9EE4-8D88-4D6F-BA48-2FBFD3C89F48213719.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27076.484152508143,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 8200,
+        "valueEur": 4192.593425808992,
+        "holderName": "Нермин Метинова Кязимова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35743,
+        "valueEur": 18275.10570959644,
+        "holderName": "Нермин Метинова Кязимова",
+        "isSpouse": false,
+        "legalBasis": "потребителски кредит 4,39",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 646,
+        "valueEur": 330.29455525275716,
+        "holderName": "Нермин Метинова Кязимова",
+        "isSpouse": false,
+        "legalBasis": "потребителски кредит 4,94",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лека кола",
+        "detail": "хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2300.8134653829834,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

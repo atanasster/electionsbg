@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:adriana-petrova-petrova-8df386",
+  "nodes": [
+    {
+      "id": "official:adriana-petrova-petrova-8df386",
+      "type": "official",
+      "slug": "adriana-petrova-petrova-8df386",
+      "label": "Адриана Петрова Петрова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207492517",
+      "type": "company",
+      "label": "МАГНИФИК А",
+      "slug": null,
+      "uic": "207492517",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:adriana-petrova-petrova-8df386",
+      "target": "company:tr:207492517",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:adriana-petrova-petrova-8df386",
+      "target": "company:tr:207492517",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

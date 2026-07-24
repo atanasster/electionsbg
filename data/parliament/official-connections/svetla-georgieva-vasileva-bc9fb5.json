@@ -1,0 +1,212 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:svetla-georgieva-vasileva-bc9fb5",
+  "nodes": [
+    {
+      "id": "official:svetla-georgieva-vasileva-bc9fb5",
+      "type": "official",
+      "slug": "svetla-georgieva-vasileva-bc9fb5",
+      "label": "Светла Георгиева Василева",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206164834",
+      "type": "company",
+      "label": "АСОЦИАЦИЯ НА ПРЕПОДАВАТЕЛИТЕ ПО БЪЛГАРСКИ ЕЗИК КАТО ЧУЖД",
+      "slug": null,
+      "uic": "206164834",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЯ ИВАНОВА НЕСТОРОВА",
+      "type": "person",
+      "label": "Петя Иванова Несторова"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР АЛЕКСАНДРОВ ГЕРДЖЕВ",
+      "type": "person",
+      "label": "Александър Александров Герджев"
+    },
+    {
+      "id": "person:КРАСИМИРА СТЕФАНОВА ХАДЖИЕВА",
+      "type": "person",
+      "label": "Красимира Стефанова Хаджиева"
+    },
+    {
+      "id": "person:ВЛАДИСЛАВ ДАНИЕЛОВ ДАМЯНОВ",
+      "type": "person",
+      "label": "Владислав Даниелов Дамянов"
+    },
+    {
+      "id": "person:ГАЛИНА НЕДЯЛКОВА КУРТЕВА",
+      "type": "person",
+      "label": "Галина Недялкова Куртева"
+    },
+    {
+      "id": "person:БОНКА ДИМИТРОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Бонка Димитрова Василева"
+    },
+    {
+      "id": "person:КРАСИМИРА СЛАВЧЕВА АЛЕКСОВА",
+      "type": "person",
+      "label": "Красимира Славчева Алексова"
+    },
+    {
+      "id": "person:МИЛЕНА ГЕОРГИЕВА ВЕЛЕВА",
+      "type": "person",
+      "label": "Милена Георгиева Велева"
+    },
+    {
+      "id": "person:ИВАНА ДАВИТКОВ",
+      "type": "person",
+      "label": "Ивана  Давитков"
+    },
+    {
+      "id": "person:ВЕНЕРА ГЕОРГИЕВА МАТЕЕВА - БАЙЧЕВА",
+      "type": "person",
+      "label": "Венера  Георгиева Матеева - Байчева"
+    },
+    {
+      "id": "person:КАТРИН КОНСТАНТИНОВА КОСТОВА",
+      "type": "person",
+      "label": "Катрин Константинова Костова"
+    },
+    {
+      "id": "person:ВЕСЕЛА СТЕФАНОВА ШУШЛИНА",
+      "type": "person",
+      "label": "Весела  Стефанова Шушлина"
+    },
+    {
+      "id": "person:АТАНАС РОСЕНОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Атанас  Росенов Атанасов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetla-georgieva-vasileva-bc9fb5",
+      "target": "company:tr:206164834",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЯ ИВАНОВА НЕСТОРОВА",
+      "target": "company:tr:206164834",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР АЛЕКСАНДРОВ ГЕРДЖЕВ",
+      "target": "company:tr:206164834",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА СТЕФАНОВА ХАДЖИЕВА",
+      "target": "company:tr:206164834",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВ ДАНИЕЛОВ ДАМЯНОВ",
+      "target": "company:tr:206164834",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА НЕДЯЛКОВА КУРТЕВА",
+      "target": "company:tr:206164834",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОНКА ДИМИТРОВА ВАСИЛЕВА",
+      "target": "company:tr:206164834",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА СЛАВЧЕВА АЛЕКСОВА",
+      "target": "company:tr:206164834",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА СЛАВЧЕВА АЛЕКСОВА",
+      "target": "company:tr:206164834",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ГЕОРГИЕВА ВЕЛЕВА",
+      "target": "company:tr:206164834",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНА ДАВИТКОВ",
+      "target": "company:tr:206164834",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕРА ГЕОРГИЕВА МАТЕЕВА - БАЙЧЕВА",
+      "target": "company:tr:206164834",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТРИН КОНСТАНТИНОВА КОСТОВА",
+      "target": "company:tr:206164834",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛА СТЕФАНОВА ШУШЛИНА",
+      "target": "company:tr:206164834",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС РОСЕНОВ АТАНАСОВ",
+      "target": "company:tr:206164834",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

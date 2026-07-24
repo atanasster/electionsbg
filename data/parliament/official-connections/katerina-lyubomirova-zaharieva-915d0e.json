@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:katerina-lyubomirova-zaharieva-915d0e",
+  "nodes": [
+    {
+      "id": "official:katerina-lyubomirova-zaharieva-915d0e",
+      "type": "official",
+      "slug": "katerina-lyubomirova-zaharieva-915d0e",
+      "label": "Катерина Любомирова Захариева",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:101664795",
+      "type": "company",
+      "label": "Братя Захариеви",
+      "slug": null,
+      "uic": "101664795",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:katerina-lyubomirova-zaharieva-915d0e",
+      "target": "company:tr:101664795",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

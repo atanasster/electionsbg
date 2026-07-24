@@ -1,0 +1,82 @@
+[
+  {
+    "slug": "nikolai-dimitrov-drlyanov-27eef2",
+    "declarantName": "Николай Димитров Дърлянов",
+    "institution": "Общински предприятия",
+    "positionTitle": "Управител",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-07",
+    "entryNumber": "Г5249",
+    "controlHash": "493F32C6",
+    "sourceUrl": "https://register.cacbg.bg/2024/61E54835-CEBB-40FF-9E33-963C3EBF7D3D186485.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 3067.751287177311,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "гр. Каварна",
+        "municipality": "Каварна",
+        "areaSqm": 693,
+        "builtAreaSqm": 116,
+        "acquiredYear": 2008,
+        "share": "693",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Николай Димитров Дърлянов",
+        "isSpouse": false,
+        "legalBasis": "договор за гледане",
+        "fundsOrigin": "договор за гледане"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "WV Passat",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2021,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6500,
+        "valueEur": 3323.39722777542,
+        "holderName": "Николай Димитров Дърлянов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11000,
+        "valueEur": 5624.210693158403,
+        "holderName": "Николай Димитров Дърлянов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

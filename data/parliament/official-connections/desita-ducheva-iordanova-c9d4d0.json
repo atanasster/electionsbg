@@ -1,0 +1,126 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:desita-ducheva-iordanova-c9d4d0",
+  "nodes": [
+    {
+      "id": "official:desita-ducheva-iordanova-c9d4d0",
+      "type": "official",
+      "slug": "desita-ducheva-iordanova-c9d4d0",
+      "label": "Десита Дучева Йорданова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200667896",
+      "type": "company",
+      "label": "ИНДУСТРИАЛЕН ПАРК ШУМЕН",
+      "slug": null,
+      "uic": "200667896",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕЛЕОНОРА ЕВГЕНИЕВНА ТОНЧЕВА",
+      "type": "person",
+      "label": "Елеонора Евгениевна Тончева"
+    },
+    {
+      "id": "person:ГАЛИН АНТОНОВ АНТОНОВ",
+      "type": "person",
+      "label": "Галин Антонов Антонов"
+    },
+    {
+      "id": "person:НИКОЛАЙ ТОНЧЕВ ТОНЧЕВ",
+      "type": "person",
+      "label": "Николай Тончев Тончев"
+    },
+    {
+      "id": "person:ТОНЧО НИКОЛАЕВ ТОНЧЕВ",
+      "type": "person",
+      "label": "Тончо Николаев Тончев"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА ПЕНЕВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "Валентина Пенева Йорданова"
+    },
+    {
+      "id": "person:ГАЛИН СТЕФАНОВ ГАНЧЕВ",
+      "type": "person",
+      "label": "Галин Стефанов Ганчев"
+    },
+    {
+      "id": "person:ЦВЕТА АНГЕЛОВА ЖЕКОВА",
+      "type": "person",
+      "label": "Цвета Ангелова Жекова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:desita-ducheva-iordanova-c9d4d0",
+      "target": "company:tr:200667896",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕЛЕОНОРА ЕВГЕНИЕВНА ТОНЧЕВА",
+      "target": "company:tr:200667896",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИН АНТОНОВ АНТОНОВ",
+      "target": "company:tr:200667896",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ТОНЧЕВ ТОНЧЕВ",
+      "target": "company:tr:200667896",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОНЧО НИКОЛАЕВ ТОНЧЕВ",
+      "target": "company:tr:200667896",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ПЕНЕВА ЙОРДАНОВА",
+      "target": "company:tr:200667896",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИН СТЕФАНОВ ГАНЧЕВ",
+      "target": "company:tr:200667896",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТА АНГЕЛОВА ЖЕКОВА",
+      "target": "company:tr:200667896",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

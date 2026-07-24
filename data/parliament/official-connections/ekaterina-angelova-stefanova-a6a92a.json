@@ -1,0 +1,187 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ekaterina-angelova-stefanova-a6a92a",
+  "nodes": [
+    {
+      "id": "official:ekaterina-angelova-stefanova-a6a92a",
+      "type": "official",
+      "slug": "ekaterina-angelova-stefanova-a6a92a",
+      "label": "Екатерина Ангелова Стефанова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202218735",
+      "type": "company",
+      "label": "ЦЕНТЪР ЗА ГРАДСКА МОБИЛНОСТ",
+      "slug": null,
+      "uic": "202218735",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТЪР КОНСТАНТИНОВ ДИЛЧЕВ",
+      "type": "person",
+      "label": "Димитър Константинов Дилчев"
+    },
+    {
+      "id": "person:РУМЯНА МАРИНОВА МИЛОВА",
+      "type": "person",
+      "label": "Румяна Маринова Милова"
+    },
+    {
+      "id": "person:РОЗАЛИНА ДЕЯНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Розалина Деянова Георгиева"
+    },
+    {
+      "id": "person:ИВАН ХРИСТОВ АНТОВ",
+      "type": "person",
+      "label": "Иван Христов Антов"
+    },
+    {
+      "id": "person:НИКОЛА ДИМИТРОВ РОГАЧЕВ",
+      "type": "person",
+      "label": "Никола Димитров Рогачев"
+    },
+    {
+      "id": "person:СТАНИМИР ХРИСТОВ АРАБАДЖИЕВ",
+      "type": "person",
+      "label": "Станимир Христов Арабаджиев"
+    },
+    {
+      "id": "person:ПЕТЪР ИВОВ СЕФЕРОВ",
+      "type": "person",
+      "label": "Петър Ивов Сеферов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР НИКОЛАЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Александър Николаев Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ekaterina-angelova-stefanova-a6a92a",
+      "target": "company:tr:202218735",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР КОНСТАНТИНОВ ДИЛЧЕВ",
+      "target": "company:tr:202218735",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР КОНСТАНТИНОВ ДИЛЧЕВ",
+      "target": "company:tr:202218735",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА МАРИНОВА МИЛОВА",
+      "target": "company:tr:202218735",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОЗАЛИНА ДЕЯНОВА ГЕОРГИЕВА",
+      "target": "company:tr:202218735",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ХРИСТОВ АНТОВ",
+      "target": "company:tr:202218735",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ДИМИТРОВ РОГАЧЕВ",
+      "target": "company:tr:202218735",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ХРИСТОВ АНТОВ",
+      "target": "company:tr:202218735",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА МАРИНОВА МИЛОВА",
+      "target": "company:tr:202218735",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИР ХРИСТОВ АРАБАДЖИЕВ",
+      "target": "company:tr:202218735",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИР ХРИСТОВ АРАБАДЖИЕВ",
+      "target": "company:tr:202218735",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ИВОВ СЕФЕРОВ",
+      "target": "company:tr:202218735",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР НИКОЛАЕВ ГЕОРГИЕВ",
+      "target": "company:tr:202218735",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА МАРИНОВА МИЛОВА",
+      "target": "company:tr:202218735",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИР ХРИСТОВ АРАБАДЖИЕВ",
+      "target": "company:tr:202218735",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

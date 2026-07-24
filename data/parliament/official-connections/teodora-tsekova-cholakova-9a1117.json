@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:teodora-tsekova-cholakova-9a1117",
+  "nodes": [
+    {
+      "id": "official:teodora-tsekova-cholakova-9a1117",
+      "type": "official",
+      "slug": "teodora-tsekova-cholakova-9a1117",
+      "label": "Теодора Цекова Чолакова",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207685562",
+      "type": "company",
+      "label": "ИНДИВИДУАЛНА ПРАКТИКА ЗА СПЕЦИАЛИЗИРАНА ИЗВЪНБОЛНИЧНА МЕДИЦИНСКА ПОМОЩ ПО ДЕРМАТОЛОГИЯ - Д-Р ТЕОДОРА ЧОЛАКОВА",
+      "slug": null,
+      "uic": "207685562",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:teodora-tsekova-cholakova-9a1117",
+      "target": "company:tr:207685562",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:teodora-tsekova-cholakova-9a1117",
+      "target": "company:tr:207685562",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

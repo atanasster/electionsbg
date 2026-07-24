@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:velichka-georgieva-kadiiska-68d5fa",
+  "nodes": [
+    {
+      "id": "official:velichka-georgieva-kadiiska-68d5fa",
+      "type": "official",
+      "slug": "velichka-georgieva-kadiiska-68d5fa",
+      "label": "Величка Георгиева Кадийска",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:113513064",
+      "type": "company",
+      "label": "СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ НА БЕЛОДРОБНИ БОЛЕСТИ - СВ.ПАНТЕЛЕЙМОН",
+      "slug": null,
+      "uic": "113513064",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СИМЕОН ВАСИЛЕВ СИМЕОНОВ",
+      "type": "person",
+      "label": "Симеон Василев Симеонов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:velichka-georgieva-kadiiska-68d5fa",
+      "target": "company:tr:113513064",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СИМЕОН ВАСИЛЕВ СИМЕОНОВ",
+      "target": "company:tr:113513064",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

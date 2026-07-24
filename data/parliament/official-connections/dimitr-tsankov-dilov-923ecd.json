@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitr-tsankov-dilov-923ecd",
+  "nodes": [
+    {
+      "id": "official:dimitr-tsankov-dilov-923ecd",
+      "type": "official",
+      "slug": "dimitr-tsankov-dilov-923ecd",
+      "label": "Димитър Цанков Дилов",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Район \"Младост\" - Варна"
+    },
+    {
+      "id": "company:tr:206040441",
+      "type": "company",
+      "label": "ДУНАВСКА ЗВЕЗДА",
+      "slug": null,
+      "uic": "206040441",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАЛЕРИ АНДРЕЕВ ПЕТКОВ",
+      "type": "person",
+      "label": "Валери Андреев Петков"
+    },
+    {
+      "id": "person:ВАСКО ГЕОРГИЕВ СИМЕОНОВ",
+      "type": "person",
+      "label": "Васко Георгиев Симеонов"
+    },
+    {
+      "id": "person:РУСИ АТАНАСОВ РУСЕВ",
+      "type": "person",
+      "label": "Руси Атанасов Русев"
+    },
+    {
+      "id": "person:КАЛИН ИЛИЕВ ИЛИЕВ",
+      "type": "person",
+      "label": "Калин Илиев Илиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-tsankov-dilov-923ecd",
+      "target": "company:tr:206040441",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕРИ АНДРЕЕВ ПЕТКОВ",
+      "target": "company:tr:206040441",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ АНДРЕЕВ ПЕТКОВ",
+      "target": "company:tr:206040441",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСКО ГЕОРГИЕВ СИМЕОНОВ",
+      "target": "company:tr:206040441",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУСИ АТАНАСОВ РУСЕВ",
+      "target": "company:tr:206040441",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН ИЛИЕВ ИЛИЕВ",
+      "target": "company:tr:206040441",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

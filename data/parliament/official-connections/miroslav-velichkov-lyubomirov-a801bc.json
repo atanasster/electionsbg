@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:miroslav-velichkov-lyubomirov-a801bc",
+  "nodes": [
+    {
+      "id": "official:miroslav-velichkov-lyubomirov-a801bc",
+      "type": "official",
+      "slug": "miroslav-velichkov-lyubomirov-a801bc",
+      "label": "Мирослав Величков Любомиров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Шабла"
+    },
+    {
+      "id": "company:tr:206412525",
+      "type": "company",
+      "label": "Фен клуб на ЦСКА Армейци Шабла",
+      "slug": null,
+      "uic": "206412525",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИЯН АНТОНОВ АНДРЕЕВ",
+      "type": "person",
+      "label": "Диян Антонов Андреев"
+    },
+    {
+      "id": "person:ВЛАДИСЛАВ ВЕСЕЛИНОВ ОВЧАРОВ",
+      "type": "person",
+      "label": "Владислав Веселинов Овчаров"
+    },
+    {
+      "id": "person:НИКОЛАЙ ДИМЧЕВ ТРЕНДАФИЛОВ",
+      "type": "person",
+      "label": "Николай Димчев Трендафилов"
+    },
+    {
+      "id": "person:ПЕТЬО ДИМИТРОВ ПЕЕВ",
+      "type": "person",
+      "label": "Петьо Димитров Пеев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miroslav-velichkov-lyubomirov-a801bc",
+      "target": "company:tr:206412525",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИЯН АНТОНОВ АНДРЕЕВ",
+      "target": "company:tr:206412525",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВ ВЕСЕЛИНОВ ОВЧАРОВ",
+      "target": "company:tr:206412525",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДИМЧЕВ ТРЕНДАФИЛОВ",
+      "target": "company:tr:206412525",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯН АНТОНОВ АНДРЕЕВ",
+      "target": "company:tr:206412525",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЬО ДИМИТРОВ ПЕЕВ",
+      "target": "company:tr:206412525",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:zhivko-hristakev-petrov-06f357",
+  "nodes": [
+    {
+      "id": "official:zhivko-hristakev-petrov-06f357",
+      "type": "official",
+      "slug": "zhivko-hristakev-petrov-06f357",
+      "label": "Живко Христакев Петров",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:123156340",
+      "type": "company",
+      "label": "душаба  оод",
+      "slug": null,
+      "uic": "123156340",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zhivko-hristakev-petrov-06f357",
+      "target": "company:tr:123156340",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ioana-vladimirova-hristova-24789d",
+  "nodes": [
+    {
+      "id": "official:ioana-vladimirova-hristova-24789d",
+      "type": "official",
+      "slug": "ioana-vladimirova-hristova-24789d",
+      "label": "Йоана Владимирова Христова",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204052092",
+      "type": "company",
+      "label": "ИНДЖЕНТА",
+      "slug": null,
+      "uic": "204052092",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ioana-vladimirova-hristova-24789d",
+      "target": "company:tr:204052092",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

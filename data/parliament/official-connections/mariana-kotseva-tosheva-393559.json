@@ -1,0 +1,108 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariana-kotseva-tosheva-393559",
+  "nodes": [
+    {
+      "id": "official:mariana-kotseva-tosheva-393559",
+      "type": "official",
+      "slug": "mariana-kotseva-tosheva-393559",
+      "label": "Мариана Коцева Тошева",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206686138",
+      "type": "company",
+      "label": "Училищно настоятелство към 127. СУ &quot;Иван Николаевич Денкоглу&quot;",
+      "slug": null,
+      "uic": "206686138",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГИРГИНА ВАЛЕНТИНОВА ЧИЛЕВА",
+      "type": "person",
+      "label": "Гиргина Валентинова Чилева"
+    },
+    {
+      "id": "person:МАРИАНА ДИМИТРОВА БОЖКОВА",
+      "type": "person",
+      "label": "Мариана Димитрова Божкова"
+    },
+    {
+      "id": "person:МАРИЯ ГЕОРГИЕВА ПЕТКОВА",
+      "type": "person",
+      "label": "Мария Георгиева Петкова"
+    },
+    {
+      "id": "person:ДИАНА ДЯНКОВА МАРКЕТАКИ",
+      "type": "person",
+      "label": "Диана Дянкова Маркетаки"
+    },
+    {
+      "id": "person:ЕМИЛИЯ МИНЧЕВА СИРАКОВА",
+      "type": "person",
+      "label": "Емилия Минчева Сиракова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariana-kotseva-tosheva-393559",
+      "target": "company:tr:206686138",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГИРГИНА ВАЛЕНТИНОВА ЧИЛЕВА",
+      "target": "company:tr:206686138",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГИРГИНА ВАЛЕНТИНОВА ЧИЛЕВА",
+      "target": "company:tr:206686138",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ДИМИТРОВА БОЖКОВА",
+      "target": "company:tr:206686138",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА ПЕТКОВА",
+      "target": "company:tr:206686138",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА ДЯНКОВА МАРКЕТАКИ",
+      "target": "company:tr:206686138",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ МИНЧЕВА СИРАКОВА",
+      "target": "company:tr:206686138",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

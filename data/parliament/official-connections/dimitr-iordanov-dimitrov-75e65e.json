@@ -1,0 +1,125 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitr-iordanov-dimitrov-75e65e",
+  "nodes": [
+    {
+      "id": "official:dimitr-iordanov-dimitrov-75e65e",
+      "type": "official",
+      "slug": "dimitr-iordanov-dimitrov-75e65e",
+      "label": "Димитър Йорданов Димитров",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205818448",
+      "type": "company",
+      "label": "Дик пропъртис",
+      "slug": null,
+      "uic": "205818448",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:Авто-груп-ООД",
+      "type": "company",
+      "label": "Авто груп ООД",
+      "slug": "Авто-груп-ООД",
+      "uic": "109606502",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Кюстендил"
+    },
+    {
+      "id": "person:ДИМИТЪР ЙОРДАНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Йорданов Димитров"
+    },
+    {
+      "id": "person:ИЛИЯНА БОЯНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Илияна Боянова Димитрова"
+    },
+    {
+      "id": "mp:3908",
+      "type": "mp",
+      "mpId": 3908,
+      "label": "Бойко Любомиров Клечков",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "46",
+        "47",
+        "48"
+      ]
+    },
+    {
+      "id": "official:boiko-lyubomirov-klechkov-b0d321",
+      "type": "official",
+      "slug": "boiko-lyubomirov-klechkov-b0d321",
+      "label": "Бойко Любомиров Клечков",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Кюстендил"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-iordanov-dimitrov-75e65e",
+      "target": "company:tr:205818448",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dimitr-iordanov-dimitrov-75e65e",
+      "target": "company:Авто-груп-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ЙОРДАНОВ ДИМИТРОВ",
+      "target": "company:tr:205818448",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯНА БОЯНОВА ДИМИТРОВА",
+      "target": "company:tr:205818448",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ЙОРДАНОВ ДИМИТРОВ",
+      "target": "company:tr:205818448",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3908",
+      "target": "company:Авто-груп-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:boiko-lyubomirov-klechkov-b0d321",
+      "target": "company:Авто-груп-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

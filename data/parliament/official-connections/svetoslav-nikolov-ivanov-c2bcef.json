@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "officialNodeId": "official:svetoslav-nikolov-ivanov-c2bcef",
   "nodes": [
     {
       "id": "official:svetoslav-nikolov-ivanov-c2bcef",
       "type": "official",
       "slug": "svetoslav-nikolov-ivanov-c2bcef",
-      "label": "СВЕТОСЛАВ НИКОЛОВ ИВАНОВ",
+      "label": "Светослав Николов Иванов",
       "tier": "executive",
       "role": "diplomat",
       "municipality": null
@@ -20,28 +20,11 @@
       "legalForm": null,
       "status": null,
       "seat": null
-    },
-    {
-      "id": "official:svetoslav-nikolov-ivanov-70ed12",
-      "type": "official",
-      "slug": "svetoslav-nikolov-ivanov-70ed12",
-      "label": "Светослав Николов Иванов",
-      "tier": "executive",
-      "role": "diplomat",
-      "municipality": null
     }
   ],
   "edges": [
     {
       "source": "official:svetoslav-nikolov-ivanov-c2bcef",
-      "target": "company:tr:203157980",
-      "kind": "declared_stake",
-      "role": "declared_share",
-      "isCurrent": true,
-      "confidence": "high"
-    },
-    {
-      "source": "official:svetoslav-nikolov-ivanov-70ed12",
       "target": "company:tr:203157980",
       "kind": "declared_stake",
       "role": "declared_share",

@@ -1,0 +1,243 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:plamen-ivanov-statev-b26d21",
+  "nodes": [
+    {
+      "id": "official:plamen-ivanov-statev-b26d21",
+      "type": "official",
+      "slug": "plamen-ivanov-statev-b26d21",
+      "label": "Пламен Иванов Статев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Горна Оряховица"
+    },
+    {
+      "id": "company:tr:000124165",
+      "type": "company",
+      "label": "ЧИТАЛИЩЕ \"НАПРЕДЪК - 1869\"",
+      "slug": null,
+      "uic": "000124165",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АТАНАС ЙОРДАНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Атанас Йорданов Петров"
+    },
+    {
+      "id": "person:АНГЕЛ СТАНЕВ КОЛЕВ",
+      "type": "person",
+      "label": "Ангел Станев Колев"
+    },
+    {
+      "id": "person:СВЕТОЗАР КИРИЛОВ МОЛЛОВ",
+      "type": "person",
+      "label": "Светозар Кирилов Моллов"
+    },
+    {
+      "id": "person:ЙОРДАН ФИЛИПОВ АВРАМОВ",
+      "type": "person",
+      "label": "Йордан Филипов Аврамов"
+    },
+    {
+      "id": "person:ВЕСЕЛИН НИКОЛОВ КАКАМЪКОВ",
+      "type": "person",
+      "label": "Веселин Николов Какамъков"
+    },
+    {
+      "id": "person:ДЕЯН КРАСИМИРОВ ЖЕКОВ",
+      "type": "person",
+      "label": "Деян Красимиров Жеков"
+    },
+    {
+      "id": "person:АНГЕЛ СТОЯНОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Ангел Стоянов Йорданов"
+    },
+    {
+      "id": "person:СТОЯН ЙОРДАНОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Стоян Йорданов Ангелов"
+    },
+    {
+      "id": "person:АТАНАСКА ТРИФОНОВА ИГНАТОВА",
+      "type": "person",
+      "label": "Атанаска Трифонова Игнатова"
+    },
+    {
+      "id": "person:ЕЛЕНА СТИЛИЯНОВА ГРИГОРОВА",
+      "type": "person",
+      "label": "Елена Стилиянова Григорова"
+    },
+    {
+      "id": "person:ЙОРДАН БОРИСОВ БОБОНКОВ",
+      "type": "person",
+      "label": "Йордан Борисов Бобонков"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА МАРИНОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Десислава Маринова Димитрова"
+    },
+    {
+      "id": "person:МИРОСЛАВ КРАСИМИРОВ ПАВЛОВ",
+      "type": "person",
+      "label": "Мирослав Красимиров Павлов"
+    },
+    {
+      "id": "person:ВАНЯ ДИМИТРОВА ПОПОВА",
+      "type": "person",
+      "label": "Ваня Димитрова Попова"
+    },
+    {
+      "id": "person:ИВАН ЛЮБЕНОВ НЕКОВ",
+      "type": "person",
+      "label": "Иван Любенов Неков"
+    },
+    {
+      "id": "person:МАРИАНА АТАНАСОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Мариана Атанасова Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:plamen-ivanov-statev-b26d21",
+      "target": "company:tr:000124165",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АТАНАС ЙОРДАНОВ ПЕТРОВ",
+      "target": "company:tr:000124165",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ СТАНЕВ КОЛЕВ",
+      "target": "company:tr:000124165",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТОЗАР КИРИЛОВ МОЛЛОВ",
+      "target": "company:tr:000124165",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ФИЛИПОВ АВРАМОВ",
+      "target": "company:tr:000124165",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН НИКОЛОВ КАКАМЪКОВ",
+      "target": "company:tr:000124165",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЯН КРАСИМИРОВ ЖЕКОВ",
+      "target": "company:tr:000124165",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ СТОЯНОВ ЙОРДАНОВ",
+      "target": "company:tr:000124165",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ЙОРДАНОВ АНГЕЛОВ",
+      "target": "company:tr:000124165",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАСКА ТРИФОНОВА ИГНАТОВА",
+      "target": "company:tr:000124165",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА СТИЛИЯНОВА ГРИГОРОВА",
+      "target": "company:tr:000124165",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН БОРИСОВ БОБОНКОВ",
+      "target": "company:tr:000124165",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА МАРИНОВА ДИМИТРОВА",
+      "target": "company:tr:000124165",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ КРАСИМИРОВ ПАВЛОВ",
+      "target": "company:tr:000124165",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ДИМИТРОВА ПОПОВА",
+      "target": "company:tr:000124165",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ЛЮБЕНОВ НЕКОВ",
+      "target": "company:tr:000124165",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА АТАНАСОВА ДИМИТРОВА",
+      "target": "company:tr:000124165",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

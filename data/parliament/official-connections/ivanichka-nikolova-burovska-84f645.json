@@ -1,0 +1,207 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivanichka-nikolova-burovska-84f645",
+  "nodes": [
+    {
+      "id": "official:ivanichka-nikolova-burovska-84f645",
+      "type": "official",
+      "slug": "ivanichka-nikolova-burovska-84f645",
+      "label": "Иваничка Николова Буровска",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:110517207",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;УЧИЛИЩНО НАСТОЯТЕЛСТВО ХРИСТО НИКИФОРОВ&quot;",
+      "slug": null,
+      "uic": "110517207",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНТОН АНГЕЛОВ ЦОЧЕВ",
+      "type": "person",
+      "label": "Антон Ангелов Цочев"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА ДАНЧЕВА НЕШЕВА",
+      "type": "person",
+      "label": "Цветелина Данчева Нешева"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ГЕОРГИЕВА ДОЧЕВА",
+      "type": "person",
+      "label": "Десислава Георгиева Дочева"
+    },
+    {
+      "id": "person:ПЕТЯ БОРИСЛАВОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Петя Бориславова Василева"
+    },
+    {
+      "id": "person:ЛИДИЯ ЛЕНИНОВА ШИШИЙСКА",
+      "type": "person",
+      "label": "Лидия Ленинова Шишийска"
+    },
+    {
+      "id": "person:МИЛКА ДИМИТРОВА АЛАДЖОВА",
+      "type": "person",
+      "label": "Милка Димитрова Аладжова"
+    },
+    {
+      "id": "person:ЙОАННА ВЛАДИСЛАВОВА ЙОЛОВА-ЛУКАНОВА",
+      "type": "person",
+      "label": "Йоанна Владиславова Йолова-Луканова"
+    },
+    {
+      "id": "person:ДЕСИСЛАВ ЦВЕТАНОВ ПЕЕВСКИ",
+      "type": "person",
+      "label": "Десислав Цветанов Пеевски"
+    },
+    {
+      "id": "person:ВЕНИСЛАВА КОЛЕВА СТОЯНОВА",
+      "type": "person",
+      "label": "Венислава Колева Стоянова"
+    },
+    {
+      "id": "person:НАДЯ СВЕТОСЛАВОВА ВЕНЕЛИНОВА",
+      "type": "person",
+      "label": "Надя Светославова Венелинова"
+    },
+    {
+      "id": "person:ИВАНИЧКА МАРИНОВА ГЕОРГИЕВА-ЦВЕТАНОВА",
+      "type": "person",
+      "label": "Иваничка Маринова Георгиева-Цветанова"
+    },
+    {
+      "id": "person:ПЕНКА ВЕСКОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Пенка Вескова Петрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivanichka-nikolova-burovska-84f645",
+      "target": "company:tr:110517207",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНТОН АНГЕЛОВ ЦОЧЕВ",
+      "target": "company:tr:110517207",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН АНГЕЛОВ ЦОЧЕВ",
+      "target": "company:tr:110517207",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА ДАНЧЕВА НЕШЕВА",
+      "target": "company:tr:110517207",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ГЕОРГИЕВА ДОЧЕВА",
+      "target": "company:tr:110517207",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ БОРИСЛАВОВА ВАСИЛЕВА",
+      "target": "company:tr:110517207",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИДИЯ ЛЕНИНОВА ШИШИЙСКА",
+      "target": "company:tr:110517207",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКА ДИМИТРОВА АЛАДЖОВА",
+      "target": "company:tr:110517207",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ГЕОРГИЕВА ДОЧЕВА",
+      "target": "company:tr:110517207",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОАННА ВЛАДИСЛАВОВА ЙОЛОВА-ЛУКАНОВА",
+      "target": "company:tr:110517207",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВ ЦВЕТАНОВ ПЕЕВСКИ",
+      "target": "company:tr:110517207",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНИСЛАВА КОЛЕВА СТОЯНОВА",
+      "target": "company:tr:110517207",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЯ СВЕТОСЛАВОВА ВЕНЕЛИНОВА",
+      "target": "company:tr:110517207",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНИЧКА МАРИНОВА ГЕОРГИЕВА-ЦВЕТАНОВА",
+      "target": "company:tr:110517207",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ВЕСКОВА ПЕТРОВА",
+      "target": "company:tr:110517207",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

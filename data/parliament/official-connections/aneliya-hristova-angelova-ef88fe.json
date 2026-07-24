@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:aneliya-hristova-angelova-ef88fe",
+  "nodes": [
+    {
+      "id": "official:aneliya-hristova-angelova-ef88fe",
+      "type": "official",
+      "slug": "aneliya-hristova-angelova-ef88fe",
+      "label": "Анелия Христова Ангелова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208788088",
+      "type": "company",
+      "label": "СТОИЛОВА 2026",
+      "slug": null,
+      "uic": "208788088",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aneliya-hristova-angelova-ef88fe",
+      "target": "company:tr:208788088",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aneliya-hristova-angelova-ef88fe",
+      "target": "company:tr:208788088",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

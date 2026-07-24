@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:evgeni-petrov-stanimirov-31a61d",
+  "nodes": [
+    {
+      "id": "official:evgeni-petrov-stanimirov-31a61d",
+      "type": "official",
+      "slug": "evgeni-petrov-stanimirov-31a61d",
+      "label": "Евгени Петров Станимиров",
+      "tier": "executive",
+      "role": "academic",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207730865",
+      "type": "company",
+      "label": "Стамира Консултинг",
+      "slug": null,
+      "uic": "207730865",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯ РАДОСЛАВОВА СТАНИМИРОВА",
+      "type": "person",
+      "label": "Мария Радославова Станимирова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:evgeni-petrov-stanimirov-31a61d",
+      "target": "company:tr:207730865",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ РАДОСЛАВОВА СТАНИМИРОВА",
+      "target": "company:tr:207730865",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ РАДОСЛАВОВА СТАНИМИРОВА",
+      "target": "company:tr:207730865",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

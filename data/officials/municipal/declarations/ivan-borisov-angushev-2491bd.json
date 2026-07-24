@@ -1,0 +1,88 @@
+[
+  {
+    "slug": "ivan-borisov-angushev-2491bd",
+    "declarantName": "ИВАН БОРИСОВ АНГУШЕВ",
+    "institution": "Гоце Делчев",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-28",
+    "entryNumber": "Г6198",
+    "controlHash": "7EE1B9E1",
+    "sourceUrl": "https://register.cacbg.bg/2025/DDCA6138-0E38-4D31-8181-53D764D65F10209151.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5674.828589396829,
+        "amountEurSpouse": 24951.04380237546
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5724.423901872862,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 4294.851802048235,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "етаж от къща с 16,5 кв.м двор",
+        "detail": null,
+        "location": "гр.Гоце Делчев",
+        "municipality": "Гоце делчев",
+        "areaSqm": 110,
+        "builtAreaSqm": 110,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 83747,
+        "valueEur": 42819.16117453971,
+        "holderName": "Иван Борисов Ангушев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "от продажба на имот и кредит"
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТ.КРЕДИТ ОТ 28.10.2022 .",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35000,
+        "valueEur": 17895.215841867648,
+        "holderName": "НЕДЯЛКА КРЪСТЕВА АНГУШЕВА",
+        "isSpouse": true,
+        "legalBasis": "3,95 %",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "1/4  ОТ ПИ И СГРАДА В ИМОТА",
+        "detail": null,
+        "location": "гр.Гоце Делчев",
+        "municipality": "Гоце Делчев",
+        "areaSqm": 125,
+        "builtAreaSqm": 110,
+        "currency": "BGN",
+        "valueEur": 30677.51287177311,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

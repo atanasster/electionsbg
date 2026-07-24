@@ -1,0 +1,111 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:gncho-koichev-gnchev-3f08d6",
+  "nodes": [
+    {
+      "id": "official:gncho-koichev-gnchev-3f08d6",
+      "type": "official",
+      "slug": "gncho-koichev-gnchev-3f08d6",
+      "label": "Гънчо Койчев Гънчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Карлово"
+    },
+    {
+      "id": "company:tr:201339475",
+      "type": "company",
+      "label": "ЕКЛАТ КОМЕРС",
+      "slug": null,
+      "uic": "201339475",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204319563",
+      "type": "company",
+      "label": "АРЕНА ИМОТИ ООД",
+      "slug": null,
+      "uic": "204319563",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НАТАЛИЯ ХРИСТОВА НЕДЯЛКОВА",
+      "type": "person",
+      "label": "Наталия Христова Недялкова"
+    },
+    {
+      "id": "person:НАТАЛИЯ ХРИСТОВА ГЪНЧЕВА",
+      "type": "person",
+      "label": "Наталия Христова Гънчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gncho-koichev-gnchev-3f08d6",
+      "target": "company:tr:201339475",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:gncho-koichev-gnchev-3f08d6",
+      "target": "company:tr:204319563",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:gncho-koichev-gnchev-3f08d6",
+      "target": "company:tr:201339475",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:gncho-koichev-gnchev-3f08d6",
+      "target": "company:tr:201339475",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:gncho-koichev-gnchev-3f08d6",
+      "target": "company:tr:204319563",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НАТАЛИЯ ХРИСТОВА НЕДЯЛКОВА",
+      "target": "company:tr:204319563",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАЛИЯ ХРИСТОВА ГЪНЧЕВА",
+      "target": "company:tr:204319563",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАЛИЯ ХРИСТОВА ГЪНЧЕВА",
+      "target": "company:tr:204319563",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

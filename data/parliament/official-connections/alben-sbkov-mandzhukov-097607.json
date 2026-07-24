@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:alben-sbkov-mandzhukov-097607",
+  "nodes": [
+    {
+      "id": "official:alben-sbkov-mandzhukov-097607",
+      "type": "official",
+      "slug": "alben-sbkov-mandzhukov-097607",
+      "label": "Албен Събков Манджуков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:836144261",
+      "type": "company",
+      "label": "ТРОЛЕЙБУСЕН ТРАНСПОРТ",
+      "slug": null,
+      "uic": "836144261",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:alben-sbkov-mandzhukov-097607",
+      "target": "company:tr:836144261",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

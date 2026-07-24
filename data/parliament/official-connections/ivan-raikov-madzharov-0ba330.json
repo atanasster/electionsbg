@@ -1,0 +1,152 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-raikov-madzharov-0ba330",
+  "nodes": [
+    {
+      "id": "official:ivan-raikov-madzharov-0ba330",
+      "type": "official",
+      "slug": "ivan-raikov-madzharov-0ba330",
+      "label": "Иван Райков Маджаров",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000671800",
+      "type": "company",
+      "label": "ВЕДА - 1964",
+      "slug": null,
+      "uic": "000671800",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЛАМЕН ГЕОРГИЕВ ПАНАЙОТОВ",
+      "type": "person",
+      "label": "Пламен Георгиев Панайотов"
+    },
+    {
+      "id": "person:КРАСИМИР АНГЕЛОВ БОНЕВ",
+      "type": "person",
+      "label": "Красимир Ангелов Бонев"
+    },
+    {
+      "id": "person:МАРИЯ ДИМЧЕВА ГРАМАТИКОВА",
+      "type": "person",
+      "label": "Мария Димчева Граматикова"
+    },
+    {
+      "id": "person:ЕМИЛИЯ САВОВА СТОЕВА",
+      "type": "person",
+      "label": "Емилия Савова Стоева"
+    },
+    {
+      "id": "person:ПЕТЯ МАРИНОВА МУСЕВА",
+      "type": "person",
+      "label": "Петя Маринова Мусева"
+    },
+    {
+      "id": "person:ПЕНКА ДИМИТРОВА ТОНЕВА",
+      "type": "person",
+      "label": "Пенка Димитрова Тонева"
+    },
+    {
+      "id": "person:ТЕОДОРА ДОНЧЕВА БОЖИЛОВА",
+      "type": "person",
+      "label": "Теодора Дончева Божилова"
+    },
+    {
+      "id": "person:СТЕЛЛА СЛАВЧЕВА МАТРОВА",
+      "type": "person",
+      "label": "Стелла Славчева Матрова"
+    },
+    {
+      "id": "person:ВЕРА ЙОРДАНОВА ЯНЕВА",
+      "type": "person",
+      "label": "Вера Йорданова Янева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-raikov-madzharov-0ba330",
+      "target": "company:tr:000671800",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЛАМЕН ГЕОРГИЕВ ПАНАЙОТОВ",
+      "target": "company:tr:000671800",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР АНГЕЛОВ БОНЕВ",
+      "target": "company:tr:000671800",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ДИМЧЕВА ГРАМАТИКОВА",
+      "target": "company:tr:000671800",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ САВОВА СТОЕВА",
+      "target": "company:tr:000671800",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ МАРИНОВА МУСЕВА",
+      "target": "company:tr:000671800",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ДИМИТРОВА ТОНЕВА",
+      "target": "company:tr:000671800",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ДОНЧЕВА БОЖИЛОВА",
+      "target": "company:tr:000671800",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕЛЛА СЛАВЧЕВА МАТРОВА",
+      "target": "company:tr:000671800",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРА ЙОРДАНОВА ЯНЕВА",
+      "target": "company:tr:000671800",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

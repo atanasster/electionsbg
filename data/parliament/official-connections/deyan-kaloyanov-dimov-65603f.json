@@ -1,0 +1,82 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:deyan-kaloyanov-dimov-65603f",
+  "nodes": [
+    {
+      "id": "official:deyan-kaloyanov-dimov-65603f",
+      "type": "official",
+      "slug": "deyan-kaloyanov-dimov-65603f",
+      "label": "Деян Калоянов Димов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Димитровград"
+    },
+    {
+      "id": "company:tr:207027240",
+      "type": "company",
+      "label": "Футболен клуб БРИГАДА 2010",
+      "slug": null,
+      "uic": "207027240",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТО ЗАХАРИЕВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Христо Захариев Василев"
+    },
+    {
+      "id": "person:ГЕОРГИ ТОДОРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Георги Тодоров Георгиев"
+    },
+    {
+      "id": "person:ХАЙРЕТИН БАЙРАМ РЕДЖЕБ",
+      "type": "person",
+      "label": "Хайретин Байрам Реджеб"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:deyan-kaloyanov-dimov-65603f",
+      "target": "company:tr:207027240",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:deyan-kaloyanov-dimov-65603f",
+      "target": "company:tr:207027240",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО ЗАХАРИЕВ ВАСИЛЕВ",
+      "target": "company:tr:207027240",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ТОДОРОВ ГЕОРГИЕВ",
+      "target": "company:tr:207027240",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХАЙРЕТИН БАЙРАМ РЕДЖЕБ",
+      "target": "company:tr:207027240",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

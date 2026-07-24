@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:evgeni-filipov-angelov-87d1c5",
+  "nodes": [
+    {
+      "id": "official:evgeni-filipov-angelov-87d1c5",
+      "type": "official",
+      "slug": "evgeni-filipov-angelov-87d1c5",
+      "label": "Евгени Филипов Ангелов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Якимово"
+    },
+    {
+      "id": "company:tr:208000610",
+      "type": "company",
+      "label": "Туристическо дружество Леденика Враца",
+      "slug": null,
+      "uic": "208000610",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТЕОДОРА КРАСИМИРОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Теодора Красимирова Василева"
+    },
+    {
+      "id": "person:МАРИЯ АНГЕЛОВА ЙОЛОВА",
+      "type": "person",
+      "label": "Мария Ангелова Йолова"
+    },
+    {
+      "id": "person:ДИМИТЪР НИКОЛАЕВ ГЕРГАЧЕВ",
+      "type": "person",
+      "label": "Димитър Николаев Гергачев"
+    },
+    {
+      "id": "person:ТИХОМИР БОРИСЛАВОВ МАШОВ",
+      "type": "person",
+      "label": "Тихомир Бориславов Машов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:evgeni-filipov-angelov-87d1c5",
+      "target": "company:tr:208000610",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:evgeni-filipov-angelov-87d1c5",
+      "target": "company:tr:208000610",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТЕОДОРА КРАСИМИРОВА ВАСИЛЕВА",
+      "target": "company:tr:208000610",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ АНГЕЛОВА ЙОЛОВА",
+      "target": "company:tr:208000610",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР НИКОЛАЕВ ГЕРГАЧЕВ",
+      "target": "company:tr:208000610",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР БОРИСЛАВОВ МАШОВ",
+      "target": "company:tr:208000610",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

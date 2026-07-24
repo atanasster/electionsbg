@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikola-dimitrov-barbutov-682ad8",
+  "nodes": [
+    {
+      "id": "official:nikola-dimitrov-barbutov-682ad8",
+      "type": "official",
+      "slug": "nikola-dimitrov-barbutov-682ad8",
+      "label": "Никола Димитров Барбутов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Столична община"
+    },
+    {
+      "id": "company:tr:203672717",
+      "type": "company",
+      "label": "Барди Груп",
+      "slug": null,
+      "uic": "203672717",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДАНУШКА МАТЕЕВА БАРБУТОВА",
+      "type": "person",
+      "label": "Данушка Матеева Барбутова"
+    },
+    {
+      "id": "person:МАРИН ЦВЕТАНОВ ТРИФОНОВ",
+      "type": "person",
+      "label": "Марин Цветанов Трифонов"
+    },
+    {
+      "id": "person:ИВАНКА ДИМИТРОВА БАРБУТОВА",
+      "type": "person",
+      "label": "Иванка Димитрова Барбутова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikola-dimitrov-barbutov-682ad8",
+      "target": "company:tr:203672717",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАНУШКА МАТЕЕВА БАРБУТОВА",
+      "target": "company:tr:203672717",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН ЦВЕТАНОВ ТРИФОНОВ",
+      "target": "company:tr:203672717",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ДИМИТРОВА БАРБУТОВА",
+      "target": "company:tr:203672717",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

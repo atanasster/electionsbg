@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariya-petkova-badeva-7ba1fb",
+  "nodes": [
+    {
+      "id": "official:mariya-petkova-badeva-7ba1fb",
+      "type": "official",
+      "slug": "mariya-petkova-badeva-7ba1fb",
+      "label": "Мария Петкова Бадева",
+      "tier": "executive",
+      "role": "revenue_agency",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203719469",
+      "type": "company",
+      "label": "\"ПИБ Трейд\" ЕООД",
+      "slug": null,
+      "uic": "203719469",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-petkova-badeva-7ba1fb",
+      "target": "company:tr:203719469",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

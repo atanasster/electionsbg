@@ -1,0 +1,129 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-slavchev-iliev-0681bc",
+  "nodes": [
+    {
+      "id": "official:georgi-slavchev-iliev-0681bc",
+      "type": "official",
+      "slug": "georgi-slavchev-iliev-0681bc",
+      "label": "Георги Славчев Илиев",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:107026358",
+      "type": "company",
+      "label": "ИМКА",
+      "slug": null,
+      "uic": "107026358",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНТОАНЕТА ТОДОРОВА ЯНКАБАКОВА",
+      "type": "person",
+      "label": "Антоанета  Тодорова   Янкабакова"
+    },
+    {
+      "id": "person:ВАСИЛ МИЛЧЕВ ПАПАЗОВ",
+      "type": "person",
+      "label": "Васил Милчев Папазов"
+    },
+    {
+      "id": "person:ИРИНА СТЕФАНОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Ирина Стефанова Стоянова"
+    },
+    {
+      "id": "person:ИВАН ПЕТРОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Иван Петров Стоянов"
+    },
+    {
+      "id": "person:ДЕНИЦА ДИАНОВА ГРОЗДАНОВА",
+      "type": "person",
+      "label": "Деница Дианова Грозданова"
+    },
+    {
+      "id": "person:ИЛИЯНА ЕМАНУИЛОВА НОВИКОВА",
+      "type": "person",
+      "label": "Илияна Емануилова Новикова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-slavchev-iliev-0681bc",
+      "target": "company:tr:107026358",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-slavchev-iliev-0681bc",
+      "target": "company:tr:107026358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНТОАНЕТА ТОДОРОВА ЯНКАБАКОВА",
+      "target": "company:tr:107026358",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАНЕТА ТОДОРОВА ЯНКАБАКОВА",
+      "target": "company:tr:107026358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ МИЛЧЕВ ПАПАЗОВ",
+      "target": "company:tr:107026358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА СТЕФАНОВА СТОЯНОВА",
+      "target": "company:tr:107026358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ПЕТРОВ СТОЯНОВ",
+      "target": "company:tr:107026358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИЦА ДИАНОВА ГРОЗДАНОВА",
+      "target": "company:tr:107026358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯНА ЕМАНУИЛОВА НОВИКОВА",
+      "target": "company:tr:107026358",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

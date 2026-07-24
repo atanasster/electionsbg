@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivelina-ivanova-petrova-5351f2",
+  "nodes": [
+    {
+      "id": "official:ivelina-ivanova-petrova-5351f2",
+      "type": "official",
+      "slug": "ivelina-ivanova-petrova-5351f2",
+      "label": "Ивелина Иванова Петрова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208577290",
+      "type": "company",
+      "label": "Ивалекс 85",
+      "slug": null,
+      "uic": "208577290",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivelina-ivanova-petrova-5351f2",
+      "target": "company:tr:208577290",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivelina-ivanova-petrova-5351f2",
+      "target": "company:tr:208577290",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+[
+  {
+    "slug": "ivanka-petrova-doncheva-slavova-7b0a9d",
+    "declarantName": "ИВАНКА ПЕТРОВА ДОНЧЕВА",
+    "institution": "Гурково",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-28",
+    "entryNumber": "Г5519",
+    "controlHash": "18352FED",
+    "sourceUrl": "https://register.cacbg.bg/2025/190A58C5-C4D4-46CB-B622-1673D94A5F19208447.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "100",
+        "companyName": "Авицена ЕООД",
+        "registeredOffice": "Стара Загора",
+        "valueEur": 2556.4594059810925,
+        "holderName": "Иванка Петрова Дончева",
+        "legalBasis": "други",
+        "fundsOrigin": "заеми"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 3877.1263351109246,
+        "amountEurSpouse": 15383.750121431822
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 1917.3445544858193,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 36336.491412852854,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 26136.218382988296,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Пчелиново",
+        "municipality": "Гурково",
+        "areaSqm": 3888,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "2/30",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Иванка Петрова Дончева",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Гурково",
+        "municipality": "Гурково",
+        "areaSqm": 71,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Иванка Петрова Дончева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "доход от търговски дружества и кредит"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 32237,
+        "valueEur": 16482.516374122497,
+        "holderName": "Иванка Петрова Дончева",
+        "isSpouse": false,
+        "legalBasis": "договор - 6,89 %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2965,
+        "valueEur": 1515.9804277467879,
+        "holderName": "Иванка Петрова Дончева",
+        "isSpouse": false,
+        "legalBasis": "договор - 15%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

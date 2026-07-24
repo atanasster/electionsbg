@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:kiril-stefanov-kirilov-1bbc44",
+  "nodes": [
+    {
+      "id": "official:kiril-stefanov-kirilov-1bbc44",
+      "type": "official",
+      "slug": "kiril-stefanov-kirilov-1bbc44",
+      "label": "Кирил Стефанов Кирилов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Шабла"
+    },
+    {
+      "id": "company:tr:205429774",
+      "type": "company",
+      "label": "АТС ИНВЕСТ СТРОЙ",
+      "slug": null,
+      "uic": "205429774",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АНТОАНЕТА АНГЕЛОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Антоанета Ангелова Петкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kiril-stefanov-kirilov-1bbc44",
+      "target": "company:tr:205429774",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kiril-stefanov-kirilov-1bbc44",
+      "target": "company:tr:205429774",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНТОАНЕТА АНГЕЛОВА ПЕТКОВА",
+      "target": "company:tr:205429774",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,329 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:salih-salihov-osmandzhikov-d82669",
+  "nodes": [
+    {
+      "id": "official:salih-salihov-osmandzhikov-d82669",
+      "type": "official",
+      "slug": "salih-salihov-osmandzhikov-d82669",
+      "label": "Салих Салихов Османджиков",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Сърница"
+    },
+    {
+      "id": "company:tr:112117770",
+      "type": "company",
+      "label": "&quot;СДРУЖЕНИЕ НА ЛОВЦИТЕ И РИБОЛОВЦИТЕ-ЛРД-ВЕЛИНГРАД&quot;",
+      "slug": null,
+      "uic": "112117770",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕНКО ИЛИЕВ БОЗЕВ",
+      "type": "person",
+      "label": "Венко Илиев Бозев"
+    },
+    {
+      "id": "person:ПЕТЪР ДИМИТРОВ МЕЧЕВ",
+      "type": "person",
+      "label": "Петър Димитров Мечев"
+    },
+    {
+      "id": "person:АНТОН ГЕОРГИЕВ ХРИСТОВ",
+      "type": "person",
+      "label": "Антон Георгиев Христов"
+    },
+    {
+      "id": "person:ИЛИЯ ГЕОРГИЕВ КЬОСОВ",
+      "type": "person",
+      "label": "Илия Георгиев Кьосов"
+    },
+    {
+      "id": "person:НИКОЛА ГЕОРГИЕВ ШУЛЕВ",
+      "type": "person",
+      "label": "Никола Георгиев Шулев"
+    },
+    {
+      "id": "person:ИВАН АНГЕЛОВ КИРЯКОВ",
+      "type": "person",
+      "label": "Иван Ангелов Киряков"
+    },
+    {
+      "id": "person:ДИМИТЪР ВЛАДИМИРОВ ПАШЕВ",
+      "type": "person",
+      "label": "Димитър Владимиров Пашев"
+    },
+    {
+      "id": "person:ТОШКО КОСТАДИНОВ КЮТОВ",
+      "type": "person",
+      "label": "Тошко Костадинов Кютов"
+    },
+    {
+      "id": "person:АТАНАС ДИМИТРОВ ГАДЖЕВ",
+      "type": "person",
+      "label": "Атанас Димитров Гаджев"
+    },
+    {
+      "id": "person:ДИМИТЪР ЦВЕТАНОВ ВЪРБОВСКИ",
+      "type": "person",
+      "label": "Димитър Цветанов Върбовски"
+    },
+    {
+      "id": "person:ДОБРИ ВАСИЛЕВ МАКАКОВ",
+      "type": "person",
+      "label": "Добри Василев Макаков"
+    },
+    {
+      "id": "person:ХРИСТО ПЕТРОВ КОВАЧЕВ",
+      "type": "person",
+      "label": "Христо Петров Ковачев"
+    },
+    {
+      "id": "person:СТЕФАН АСЕНОВ ГУДЖОВ",
+      "type": "person",
+      "label": "Стефан Асенов Гуджов"
+    },
+    {
+      "id": "person:ПЕТЪР СЛАВЧЕВ ГЪЛЪБОВ",
+      "type": "person",
+      "label": "Петър Славчев Гълъбов"
+    },
+    {
+      "id": "person:ФИЛИП ГЕОРГИЕВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Филип Георгиев Ангелов"
+    },
+    {
+      "id": "person:ПЛАМЕН КРЪСТЕВ СТОЕВ",
+      "type": "person",
+      "label": "Пламен Кръстев Стоев"
+    },
+    {
+      "id": "person:ИВАН НИКОЛОВ КОНДЕВ",
+      "type": "person",
+      "label": "Иван Николов Кондев"
+    },
+    {
+      "id": "person:КАЛИН АЛЕКОВ КЕХАЙОВ",
+      "type": "person",
+      "label": "Калин Алеков Кехайов"
+    },
+    {
+      "id": "person:ПЕТЪР СЛАВЧОВ ГЪЛАБОВ",
+      "type": "person",
+      "label": "Петър Славчов Гълабов"
+    },
+    {
+      "id": "person:ДИМИТЪР БОРИСОВ ДОЙКИН",
+      "type": "person",
+      "label": "Димитър Борисов Дойкин"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ ОРЛИНОВ КУШЛОВ",
+      "type": "person",
+      "label": "Венцислав Орлинов Кушлов"
+    },
+    {
+      "id": "person:ВЕСКО АНТИМОВ ФЕТОВ",
+      "type": "person",
+      "label": "Веско Антимов Фетов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:salih-salihov-osmandzhikov-d82669",
+      "target": "company:tr:112117770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕНКО ИЛИЕВ БОЗЕВ",
+      "target": "company:tr:112117770",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ДИМИТРОВ МЕЧЕВ",
+      "target": "company:tr:112117770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН ГЕОРГИЕВ ХРИСТОВ",
+      "target": "company:tr:112117770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ГЕОРГИЕВ КЬОСОВ",
+      "target": "company:tr:112117770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ГЕОРГИЕВ ШУЛЕВ",
+      "target": "company:tr:112117770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АНГЕЛОВ КИРЯКОВ",
+      "target": "company:tr:112117770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ВЛАДИМИРОВ ПАШЕВ",
+      "target": "company:tr:112117770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНКО ИЛИЕВ БОЗЕВ",
+      "target": "company:tr:112117770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОШКО КОСТАДИНОВ КЮТОВ",
+      "target": "company:tr:112117770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ДИМИТРОВ ГАДЖЕВ",
+      "target": "company:tr:112117770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ЦВЕТАНОВ ВЪРБОВСКИ",
+      "target": "company:tr:112117770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИ ВАСИЛЕВ МАКАКОВ",
+      "target": "company:tr:112117770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ПЕТРОВ КОВАЧЕВ",
+      "target": "company:tr:112117770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН АСЕНОВ ГУДЖОВ",
+      "target": "company:tr:112117770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР СЛАВЧЕВ ГЪЛЪБОВ",
+      "target": "company:tr:112117770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИЛИП ГЕОРГИЕВ АНГЕЛОВ",
+      "target": "company:tr:112117770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН КРЪСТЕВ СТОЕВ",
+      "target": "company:tr:112117770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН НИКОЛОВ КОНДЕВ",
+      "target": "company:tr:112117770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН АЛЕКОВ КЕХАЙОВ",
+      "target": "company:tr:112117770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР СЛАВЧОВ ГЪЛАБОВ",
+      "target": "company:tr:112117770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР БОРИСОВ ДОЙКИН",
+      "target": "company:tr:112117770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ ОРЛИНОВ КУШЛОВ",
+      "target": "company:tr:112117770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСКО АНТИМОВ ФЕТОВ",
+      "target": "company:tr:112117770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

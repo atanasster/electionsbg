@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ozden-muradova-tahsin-3defc9",
+  "nodes": [
+    {
+      "id": "official:ozden-muradova-tahsin-3defc9",
+      "type": "official",
+      "slug": "ozden-muradova-tahsin-3defc9",
+      "label": "Озден Мурадова Тахсин",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:115675474",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ ЗА ВЗАИМОПОМОЩ НА РАБОТЕЩИТЕ В ОБЛАСТТА НА ОБРАЗОВАНИЕТО НАУКАТА И КУЛТУРАТА",
+      "slug": null,
+      "uic": "115675474",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАСИЛ СТЕФАНОВ ВЪРГУЛЕВ",
+      "type": "person",
+      "label": "Васил Стефанов Въргулев"
+    },
+    {
+      "id": "person:МАРГАРИТА ХРИСТЕВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Маргарита Христева Ангелова"
+    },
+    {
+      "id": "person:ПЕТЪР ЙОРДАНОВ НЕЙЧЕВ",
+      "type": "person",
+      "label": "Петър Йорданов Нейчев"
+    },
+    {
+      "id": "person:ДОНКА НИКОЛОВА ЩИЛЯНОВА",
+      "type": "person",
+      "label": "Донка Николова Щилянова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ozden-muradova-tahsin-3defc9",
+      "target": "company:tr:115675474",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ozden-muradova-tahsin-3defc9",
+      "target": "company:tr:115675474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАСИЛ СТЕФАНОВ ВЪРГУЛЕВ",
+      "target": "company:tr:115675474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА ХРИСТЕВА АНГЕЛОВА",
+      "target": "company:tr:115675474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ЙОРДАНОВ НЕЙЧЕВ",
+      "target": "company:tr:115675474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА НИКОЛОВА ЩИЛЯНОВА",
+      "target": "company:tr:115675474",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

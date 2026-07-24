@@ -1,0 +1,147 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:denislav-radostinov-todorov-bebbc1",
+  "nodes": [
+    {
+      "id": "official:denislav-radostinov-todorov-bebbc1",
+      "type": "official",
+      "slug": "denislav-radostinov-todorov-bebbc1",
+      "label": "Денислав Радостинов Тодоров",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176727804",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;АСОЦИАЦИЯ НА ПРОФЕСИОНАЛНИТЕ ГЕОГРАФИ И РЕГИОНАЛИСТИ /АПГР/",
+      "slug": null,
+      "uic": "176727804",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИН РАХНЕВ РУСЕВ",
+      "type": "person",
+      "label": "Марин Рахнев Русев"
+    },
+    {
+      "id": "person:ИВО СЛАВЧЕВ ПЕНЕВ",
+      "type": "person",
+      "label": "Иво Славчев Пенев"
+    },
+    {
+      "id": "person:ИВАН ЙОТОВ ДРЕНОВСКИ",
+      "type": "person",
+      "label": "Иван Йотов Дреновски"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ВЕЛИКОВ ЖЕЧЕВ",
+      "type": "person",
+      "label": "Веселин Великов Жечев"
+    },
+    {
+      "id": "person:АТАНАС ХАРАЛАМПИЕВ ДЕРМЕНДЖИЕВ",
+      "type": "person",
+      "label": "Атанас Харалампиев Дерменджиев"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ТОДОРОВ САРАФОВ",
+      "type": "person",
+      "label": "Александър Тодоров Сарафов"
+    },
+    {
+      "id": "person:КОСЬО ХРИСТОВ СТОЙЧЕВ",
+      "type": "person",
+      "label": "Косьо Христов Стойчев"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА НАЙДЕНОВА ЦЕНОВА-КОСТАДИНОВА",
+      "type": "person",
+      "label": "Цветелина Найденова Ценова-Костадинова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:denislav-radostinov-todorov-bebbc1",
+      "target": "company:tr:176727804",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИН РАХНЕВ РУСЕВ",
+      "target": "company:tr:176727804",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО СЛАВЧЕВ ПЕНЕВ",
+      "target": "company:tr:176727804",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ЙОТОВ ДРЕНОВСКИ",
+      "target": "company:tr:176727804",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ВЕЛИКОВ ЖЕЧЕВ",
+      "target": "company:tr:176727804",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ХАРАЛАМПИЕВ ДЕРМЕНДЖИЕВ",
+      "target": "company:tr:176727804",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ТОДОРОВ САРАФОВ",
+      "target": "company:tr:176727804",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН РАХНЕВ РУСЕВ",
+      "target": "company:tr:176727804",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСЬО ХРИСТОВ СТОЙЧЕВ",
+      "target": "company:tr:176727804",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА НАЙДЕНОВА ЦЕНОВА-КОСТАДИНОВА",
+      "target": "company:tr:176727804",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

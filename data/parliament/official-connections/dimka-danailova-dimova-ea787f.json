@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimka-danailova-dimova-ea787f",
+  "nodes": [
+    {
+      "id": "official:dimka-danailova-dimova-ea787f",
+      "type": "official",
+      "slug": "dimka-danailova-dimova-ea787f",
+      "label": "Димка Данаилова Димова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хайредин"
+    },
+    {
+      "id": "company:tr:000184707",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ БУДИТЕЛ-1926 С. КРИВА БАРА",
+      "slug": null,
+      "uic": "000184707",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТЕОДОРА ГЕОРГИЕВА БОЯНОВА",
+      "type": "person",
+      "label": "Теодора Георгиева Боянова"
+    },
+    {
+      "id": "person:ДИМИТЪР ГЕОРГИЕВ КОСТОВ",
+      "type": "person",
+      "label": "Димитър Георгиев Костов"
+    },
+    {
+      "id": "person:РУСАЛКА ХЕРНАНИЕВА СПИРОВА",
+      "type": "person",
+      "label": "Русалка Хернаниева Спирова"
+    },
+    {
+      "id": "person:КРИСТИЯН ИВАНОВ КОСТОВ",
+      "type": "person",
+      "label": "Кристиян Иванов Костов"
+    },
+    {
+      "id": "person:ПЕНКА ДОНКОВА ДЕКОВА",
+      "type": "person",
+      "label": "Пенка Донкова Декова"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ЦВЕТАНОВ АЛЕКСАНДРОВ",
+      "type": "person",
+      "label": "Александър Цветанов Александров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimka-danailova-dimova-ea787f",
+      "target": "company:tr:000184707",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimka-danailova-dimova-ea787f",
+      "target": "company:tr:000184707",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТЕОДОРА ГЕОРГИЕВА БОЯНОВА",
+      "target": "company:tr:000184707",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ГЕОРГИЕВ КОСТОВ",
+      "target": "company:tr:000184707",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУСАЛКА ХЕРНАНИЕВА СПИРОВА",
+      "target": "company:tr:000184707",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИЯН ИВАНОВ КОСТОВ",
+      "target": "company:tr:000184707",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ДОНКОВА ДЕКОВА",
+      "target": "company:tr:000184707",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ЦВЕТАНОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:000184707",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:boris-vladov-angelov-5b84a7",
+  "nodes": [
+    {
+      "id": "official:boris-vladov-angelov-5b84a7",
+      "type": "official",
+      "slug": "boris-vladov-angelov-5b84a7",
+      "label": "Борис Владов Ангелов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Трън"
+    },
+    {
+      "id": "company:tr:204667025",
+      "type": "company",
+      "label": "ТРЪН",
+      "slug": null,
+      "uic": "204667025",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КРУМ БОРИСОВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Крум Борисов Ангелов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:boris-vladov-angelov-5b84a7",
+      "target": "company:tr:204667025",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:boris-vladov-angelov-5b84a7",
+      "target": "company:tr:204667025",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРУМ БОРИСОВ АНГЕЛОВ",
+      "target": "company:tr:204667025",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

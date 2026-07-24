@@ -1,0 +1,53 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-atanasov-petrov-85874b",
+  "nodes": [
+    {
+      "id": "official:georgi-atanasov-petrov-85874b",
+      "type": "official",
+      "slug": "georgi-atanasov-petrov-85874b",
+      "label": "Георги Атанасов Петров",
+      "tier": "executive",
+      "role": "inspectorate",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:115675504",
+      "type": "company",
+      "label": "\"КОПЕКСИМ - 02\" ООД",
+      "slug": null,
+      "uic": "115675504",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205048008",
+      "type": "company",
+      "label": "\"Карамел евроспорт шанс\" ЕООД",
+      "slug": null,
+      "uic": "205048008",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-atanasov-petrov-85874b",
+      "target": "company:tr:115675504",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-atanasov-petrov-85874b",
+      "target": "company:tr:205048008",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

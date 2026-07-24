@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:2920",
   "nodes": [
     {
@@ -37,18 +37,18 @@
       "label": "Ивайло Кольов Иванов"
     },
     {
-      "id": "official:rosen-zhekov-dobrev-184569",
+      "id": "official:rosen-zhekov-dobrev-207156",
       "type": "official",
-      "slug": "rosen-zhekov-dobrev-184569",
+      "slug": "rosen-zhekov-dobrev-207156",
       "label": "Росен Жеков Добрев",
       "tier": "executive",
       "role": "eu_funds_controller",
       "municipality": null
     },
     {
-      "id": "official:rosen-zhekov-dobrev-ab4dd8",
+      "id": "official:rosen-zhekov-dobrev-94f235",
       "type": "official",
-      "slug": "rosen-zhekov-dobrev-ab4dd8",
+      "slug": "rosen-zhekov-dobrev-94f235",
       "label": "Росен Жеков Добрев",
       "tier": "municipal",
       "role": "mayor",
@@ -110,7 +110,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:rosen-zhekov-dobrev-184569",
+      "source": "official:rosen-zhekov-dobrev-207156",
       "target": "company:РОСАГРОООД",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -118,7 +118,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:rosen-zhekov-dobrev-ab4dd8",
+      "source": "official:rosen-zhekov-dobrev-94f235",
       "target": "company:РОСАГРОООД",
       "kind": "declared_stake",
       "role": "declared_share",

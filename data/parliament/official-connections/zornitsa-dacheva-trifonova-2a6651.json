@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "officialNodeId": "official:zornitsa-dacheva-trifonova-2a6651",
   "nodes": [
     {
@@ -31,45 +31,45 @@
       "nsFolders": []
     },
     {
-      "id": "official:veselina-vasileva-encheva-b04142",
+      "id": "official:veselina-vasileva-encheva-4031a7",
       "type": "official",
-      "slug": "veselina-vasileva-encheva-b04142",
+      "slug": "veselina-vasileva-encheva-4031a7",
       "label": "Веселина Василева Енчева",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:dilyana-biserova-kalinova-gizdova-54b1df",
+      "id": "official:dilyana-biserova-kalinova-gizdova-c7d81e",
       "type": "official",
-      "slug": "dilyana-biserova-kalinova-gizdova-54b1df",
+      "slug": "dilyana-biserova-kalinova-gizdova-c7d81e",
       "label": "Диляна Бисерова Калинова-Гиздова",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:zlatina-lambova-georgieva-64b615",
+      "id": "official:zlatina-lambova-georgieva-1981ad",
       "type": "official",
-      "slug": "zlatina-lambova-georgieva-64b615",
+      "slug": "zlatina-lambova-georgieva-1981ad",
       "label": "Златина Ламбова Георгиева",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:kremena-sbcheva-koseva-122f20",
+      "id": "official:kremena-sbcheva-koseva-330826",
       "type": "official",
-      "slug": "kremena-sbcheva-koseva-122f20",
+      "slug": "kremena-sbcheva-koseva-330826",
       "label": "Кремена Събчева Косева",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:petr-valentinov-ivanov-e0c591",
+      "id": "official:petr-valentinov-ivanov-9037b6",
       "type": "official",
-      "slug": "petr-valentinov-ivanov-e0c591",
+      "slug": "petr-valentinov-ivanov-9037b6",
       "label": "Петър Валентинов Иванов",
       "tier": "executive",
       "role": "state_enterprise",
@@ -114,7 +114,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:veselina-vasileva-encheva-b04142",
+      "source": "official:veselina-vasileva-encheva-4031a7",
       "target": "company:tr:201847598",
       "kind": "tr_role",
       "role": "director",
@@ -122,7 +122,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:dilyana-biserova-kalinova-gizdova-54b1df",
+      "source": "official:dilyana-biserova-kalinova-gizdova-c7d81e",
       "target": "company:tr:201847598",
       "kind": "tr_role",
       "role": "director",
@@ -130,7 +130,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:zlatina-lambova-georgieva-64b615",
+      "source": "official:zlatina-lambova-georgieva-1981ad",
       "target": "company:tr:201847598",
       "kind": "tr_role",
       "role": "director",
@@ -138,7 +138,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:kremena-sbcheva-koseva-122f20",
+      "source": "official:kremena-sbcheva-koseva-330826",
       "target": "company:tr:201847598",
       "kind": "tr_role",
       "role": "director",
@@ -146,7 +146,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:petr-valentinov-ivanov-e0c591",
+      "source": "official:petr-valentinov-ivanov-9037b6",
       "target": "company:tr:201847598",
       "kind": "tr_role",
       "role": "representative",
@@ -154,7 +154,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:petr-valentinov-ivanov-e0c591",
+      "source": "official:petr-valentinov-ivanov-9037b6",
       "target": "company:tr:201847598",
       "kind": "tr_role",
       "role": "director",

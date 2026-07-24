@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-vasilev-getov-a6e30a",
+  "nodes": [
+    {
+      "id": "official:nikolai-vasilev-getov-a6e30a",
+      "type": "official",
+      "slug": "nikolai-vasilev-getov-a6e30a",
+      "label": "Николай Василев Гетов",
+      "tier": "executive",
+      "role": "revenue_agency",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204860632",
+      "type": "company",
+      "label": "\"АМА 1\" ЕООД",
+      "slug": null,
+      "uic": "204860632",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-vasilev-getov-a6e30a",
+      "target": "company:tr:204860632",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

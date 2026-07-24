@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tsenka-ivanova-simeonova-aaef0f",
+  "nodes": [
+    {
+      "id": "official:tsenka-ivanova-simeonova-aaef0f",
+      "type": "official",
+      "slug": "tsenka-ivanova-simeonova-aaef0f",
+      "label": "Ценка Иванова Симеонова",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Априлци"
+    },
+    {
+      "id": "company:tr:206750719",
+      "type": "company",
+      "label": "БИММЕР",
+      "slug": null,
+      "uic": "206750719",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАЙЛО КРАСИМИРОВ ПЕНКОВ",
+      "type": "person",
+      "label": "Ивайло Красимиров Пенков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsenka-ivanova-simeonova-aaef0f",
+      "target": "company:tr:206750719",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАЙЛО КРАСИМИРОВ ПЕНКОВ",
+      "target": "company:tr:206750719",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

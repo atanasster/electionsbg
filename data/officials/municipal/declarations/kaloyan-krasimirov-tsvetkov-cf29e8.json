@@ -1,0 +1,116 @@
+[
+  {
+    "slug": "kaloyan-krasimirov-tsvetkov-cf29e8",
+    "declarantName": "Калоян Красимиров Цветков",
+    "institution": "Вълчидол",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-07",
+    "entryNumber": "Г8112",
+    "controlHash": "C8FAC8B0",
+    "sourceUrl": "https://register.cacbg.bg/2025/18DAB6D7-ED77-474A-8CB6-672802DC5306211121.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дружествени дялове",
+        "shareSize": "10",
+        "companyName": "Коко 88 ЕООД",
+        "registeredOffice": "Варна",
+        "valueEur": 51.12918811962185,
+        "holderName": "Павлина Росенова Русева",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата  и спестявания"
+      },
+      {
+        "table": "10",
+        "itemType": "дружествени дялове",
+        "shareSize": "100",
+        "companyName": "Имотни услуги ООД",
+        "registeredOffice": "Варна",
+        "valueEur": 5.112918811962185,
+        "holderName": "Павлина Росенова Русева",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата и спестявания"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20046.220786060137,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 207.0732118844685
+      },
+      {
+        "parent": null,
+        "category": "Доходи от дивиденти",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6135.502574354622
+      }
+    ],
+    "assets": [
+      {
+        "category": "receivable",
+        "description": "Запис на заповед",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Калоян Красимиров Цветков",
+        "isSpouse": false,
+        "legalBasis": "вземане по запис на заповед",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 120863,
+        "valueEur": 61796.270637018555,
+        "holderName": "Павлина Росенова Русева",
+        "isSpouse": true,
+        "legalBasis": "договор за ипотечет кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 120863,
+        "valueEur": 61796.270637018555,
+        "holderName": "Калоян Красимиров Цветков",
+        "isSpouse": false,
+        "legalBasis": "съдлъжник по договор за ипотечен кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

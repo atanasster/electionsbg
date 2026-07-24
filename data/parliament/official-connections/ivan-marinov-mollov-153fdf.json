@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-marinov-mollov-153fdf",
+  "nodes": [
+    {
+      "id": "official:ivan-marinov-mollov-153fdf",
+      "type": "official",
+      "slug": "ivan-marinov-mollov-153fdf",
+      "label": "Иван Маринов Моллов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Карлово"
+    },
+    {
+      "id": "company:tr:825122219",
+      "type": "company",
+      "label": "МОЛЛОВИ - 4 С-ИЕ - АМБУЛАТОРИЯ ЗА ГРУПОВА ПРАКТИКА ЗА ПЪРВИЧНА ПОМОЩ ПО ДЕНТАЛНА МЕДИЦИНА",
+      "slug": null,
+      "uic": "825122219",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-marinov-mollov-153fdf",
+      "target": "company:tr:825122219",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

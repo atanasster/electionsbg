@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitr-valentinov-zagorov-687c67",
+  "nodes": [
+    {
+      "id": "official:dimitr-valentinov-zagorov-687c67",
+      "type": "official",
+      "slug": "dimitr-valentinov-zagorov-687c67",
+      "label": "Димитър Валентинов Загоров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Елхово"
+    },
+    {
+      "id": "company:tr:203040190",
+      "type": "company",
+      "label": "Фронт ойл",
+      "slug": null,
+      "uic": "203040190",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-valentinov-zagorov-687c67",
+      "target": "company:tr:203040190",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-valentinov-zagorov-687c67",
+      "target": "company:tr:203040190",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

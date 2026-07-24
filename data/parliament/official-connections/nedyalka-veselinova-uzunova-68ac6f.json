@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nedyalka-veselinova-uzunova-68ac6f",
+  "nodes": [
+    {
+      "id": "official:nedyalka-veselinova-uzunova-68ac6f",
+      "type": "official",
+      "slug": "nedyalka-veselinova-uzunova-68ac6f",
+      "label": "Недялка Веселинова Узунова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Лъки"
+    },
+    {
+      "id": "company:tr:000608807",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ ВАСИЛ КОЛАРОВ 1998 Г. - С. ДРЯНОВО",
+      "slug": null,
+      "uic": "000608807",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РОСИЦА ИЛИЕВА ЧУКАЛОВА",
+      "type": "person",
+      "label": "Росица Илиева Чукалова"
+    },
+    {
+      "id": "person:СОФКА ТРЕНДАФИЛОВА УШЕВА",
+      "type": "person",
+      "label": "Софка Трендафилова Ушева"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ЖЕКОВА ТОПАЛОВА",
+      "type": "person",
+      "label": "Десислава Жекова Топалова"
+    },
+    {
+      "id": "person:РОСИЦА СТЕФАНОВА МАРУДОВА",
+      "type": "person",
+      "label": "Росица Стефанова Марудова"
+    },
+    {
+      "id": "person:АНТОНИЯ РАДУЛОВА ЛИМОНОВА",
+      "type": "person",
+      "label": "Антония Радулова Лимонова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nedyalka-veselinova-uzunova-68ac6f",
+      "target": "company:tr:000608807",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РОСИЦА ИЛИЕВА ЧУКАЛОВА",
+      "target": "company:tr:000608807",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОФКА ТРЕНДАФИЛОВА УШЕВА",
+      "target": "company:tr:000608807",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ЖЕКОВА ТОПАЛОВА",
+      "target": "company:tr:000608807",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА СТЕФАНОВА МАРУДОВА",
+      "target": "company:tr:000608807",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОНИЯ РАДУЛОВА ЛИМОНОВА",
+      "target": "company:tr:000608807",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

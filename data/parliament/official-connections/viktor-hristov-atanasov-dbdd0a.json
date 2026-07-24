@@ -1,0 +1,103 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:viktor-hristov-atanasov-dbdd0a",
+  "nodes": [
+    {
+      "id": "official:viktor-hristov-atanasov-dbdd0a",
+      "type": "official",
+      "slug": "viktor-hristov-atanasov-dbdd0a",
+      "label": "Виктор Христов Атанасов",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206037331",
+      "type": "company",
+      "label": "СМАЙЛ БАР ЕООД",
+      "slug": null,
+      "uic": "206037331",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202377735",
+      "type": "company",
+      "label": "Бояна Дрийм Резиденс ООД",
+      "slug": null,
+      "uic": "202377735",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СНЕЖАНА БОРИСЛАВОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Снежана Бориславова Атанасова"
+    },
+    {
+      "id": "person:БОРИСЛАВ ХРИСТОВ АТАНАСОВ",
+      "type": "person",
+      "label": "Борислав Христов Атанасов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:viktor-hristov-atanasov-dbdd0a",
+      "target": "company:tr:206037331",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:viktor-hristov-atanasov-dbdd0a",
+      "target": "company:tr:202377735",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:viktor-hristov-atanasov-dbdd0a",
+      "target": "company:tr:206037331",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:viktor-hristov-atanasov-dbdd0a",
+      "target": "company:tr:206037331",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:viktor-hristov-atanasov-dbdd0a",
+      "target": "company:tr:202377735",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СНЕЖАНА БОРИСЛАВОВА АТАНАСОВА",
+      "target": "company:tr:202377735",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ ХРИСТОВ АТАНАСОВ",
+      "target": "company:tr:202377735",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

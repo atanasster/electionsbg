@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:daniel-krasimirov-burmov-e92a98",
+  "nodes": [
+    {
+      "id": "official:daniel-krasimirov-burmov-e92a98",
+      "type": "official",
+      "slug": "daniel-krasimirov-burmov-e92a98",
+      "label": "Даниел Красимиров Бурмов",
+      "tier": "executive",
+      "role": "regional_director",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:104657208",
+      "type": "company",
+      "label": "КАМИК",
+      "slug": null,
+      "uic": "104657208",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniel-krasimirov-burmov-e92a98",
+      "target": "company:tr:104657208",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:daniel-krasimirov-burmov-e92a98",
+      "target": "company:tr:104657208",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

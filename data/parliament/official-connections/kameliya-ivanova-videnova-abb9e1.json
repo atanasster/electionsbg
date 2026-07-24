@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:kameliya-ivanova-videnova-abb9e1",
+  "nodes": [
+    {
+      "id": "official:kameliya-ivanova-videnova-abb9e1",
+      "type": "official",
+      "slug": "kameliya-ivanova-videnova-abb9e1",
+      "label": "Камелия Иванова Виденова",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202077038",
+      "type": "company",
+      "label": "Ремонт Корект ЕООД",
+      "slug": null,
+      "uic": "202077038",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kameliya-ivanova-videnova-abb9e1",
+      "target": "company:tr:202077038",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

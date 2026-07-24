@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:emil-dimitrov-atanasov-3c377b",
+  "nodes": [
+    {
+      "id": "official:emil-dimitrov-atanasov-3c377b",
+      "type": "official",
+      "slug": "emil-dimitrov-atanasov-3c377b",
+      "label": "Емил Димитров Атанасов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Видин"
+    },
+    {
+      "id": "company:tr:200849863",
+      "type": "company",
+      "label": "ЛИМЕДА-АГРО",
+      "slug": null,
+      "uic": "200849863",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДОНКА КОЛЕВА АТАНАСОВА",
+      "type": "person",
+      "label": "Донка Колева Атанасова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-dimitrov-atanasov-3c377b",
+      "target": "company:tr:200849863",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДОНКА КОЛЕВА АТАНАСОВА",
+      "target": "company:tr:200849863",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

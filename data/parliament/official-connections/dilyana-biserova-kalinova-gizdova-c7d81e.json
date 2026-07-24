@@ -1,0 +1,205 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dilyana-biserova-kalinova-gizdova-c7d81e",
+  "nodes": [
+    {
+      "id": "official:dilyana-biserova-kalinova-gizdova-c7d81e",
+      "type": "official",
+      "slug": "dilyana-biserova-kalinova-gizdova-c7d81e",
+      "label": "Диляна Бисерова Калинова-Гиздова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201847598",
+      "type": "company",
+      "label": "Индустриален и логистичен парк - Бургас",
+      "slug": null,
+      "uic": "201847598",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000"
+    },
+    {
+      "id": "mp:2750",
+      "type": "mp",
+      "mpId": 2750,
+      "label": "Николай Асенов Тишев",
+      "partyGroupShort": "БСП-ОЛ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "official:veselina-vasileva-encheva-4031a7",
+      "type": "official",
+      "slug": "veselina-vasileva-encheva-4031a7",
+      "label": "Веселина Василева Енчева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:zlatina-lambova-georgieva-1981ad",
+      "type": "official",
+      "slug": "zlatina-lambova-georgieva-1981ad",
+      "label": "Златина Ламбова Георгиева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:zornitsa-dacheva-trifonova-2a6651",
+      "type": "official",
+      "slug": "zornitsa-dacheva-trifonova-2a6651",
+      "label": "ЗОРНИЦА ДАЧЕВА ТРИФОНОВА",
+      "tier": "executive",
+      "role": "political_cabinet",
+      "municipality": null
+    },
+    {
+      "id": "official:kremena-sbcheva-koseva-330826",
+      "type": "official",
+      "slug": "kremena-sbcheva-koseva-330826",
+      "label": "Кремена Събчева Косева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:petr-valentinov-ivanov-9037b6",
+      "type": "official",
+      "slug": "petr-valentinov-ivanov-9037b6",
+      "label": "Петър Валентинов Иванов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ГЕОРГИ ПЕНЧЕВ КУЗМАНОВ",
+      "type": "person",
+      "label": "Георги Пенчев Кузманов"
+    },
+    {
+      "id": "person:ГЕОРГИ ИВАНОВ ШОПОВ",
+      "type": "person",
+      "label": "Георги Иванов Шопов"
+    },
+    {
+      "id": "person:ВАСИЛ СТОЯНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Васил Стоянов Стоянов"
+    },
+    {
+      "id": "person:ВИКТОРИЯ АЛЬОШЕВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Виктория Альошева Ангелова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dilyana-biserova-kalinova-gizdova-c7d81e",
+      "target": "company:tr:201847598",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2750",
+      "target": "company:tr:201847598",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:veselina-vasileva-encheva-4031a7",
+      "target": "company:tr:201847598",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zlatina-lambova-georgieva-1981ad",
+      "target": "company:tr:201847598",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zornitsa-dacheva-trifonova-2a6651",
+      "target": "company:tr:201847598",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kremena-sbcheva-koseva-330826",
+      "target": "company:tr:201847598",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petr-valentinov-ivanov-9037b6",
+      "target": "company:tr:201847598",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petr-valentinov-ivanov-9037b6",
+      "target": "company:tr:201847598",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ПЕНЧЕВ КУЗМАНОВ",
+      "target": "company:tr:201847598",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ ШОПОВ",
+      "target": "company:tr:201847598",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ ШОПОВ",
+      "target": "company:tr:201847598",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ СТОЯНОВ СТОЯНОВ",
+      "target": "company:tr:201847598",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОРИЯ АЛЬОШЕВА АНГЕЛОВА",
+      "target": "company:tr:201847598",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+[
+  {
+    "slug": "ioshka-iotova-mihailova-7795a1",
+    "declarantName": "Йошка Йотова Михайлова",
+    "institution": "Невестино",
+    "positionTitle": "Главен архитект",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г12124",
+    "controlHash": "1575A341",
+    "sourceUrl": "https://register.cacbg.bg/2025/D384B837-BBDE-475E-AB31-F4B4F38F195D215282.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 12970.963734066867,
+        "amountEurSpouse": 20115.756481902823
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2696.04208954766
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3067.751287177311
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "административна сграда",
+        "detail": null,
+        "location": "гр. Дупница",
+        "municipality": "Дупница",
+        "areaSqm": 141,
+        "builtAreaSqm": 282,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "Павел Йорданов Михайлов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Висока могила",
+        "municipality": "Бобошево",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Павел Йорданов Михайлов",
+        "isSpouse": true,
+        "legalBasis": "по давност",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Висока могила",
+        "municipality": "Бобошево",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Павел Йорданов Михайлов",
+        "isSpouse": true,
+        "legalBasis": "по давност",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Павел Йорданов Михайлов",
+        "isSpouse": true,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

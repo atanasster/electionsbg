@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:marincho-hristov-hristov-890f81",
+  "nodes": [
+    {
+      "id": "official:marincho-hristov-hristov-890f81",
+      "type": "official",
+      "slug": "marincho-hristov-hristov-890f81",
+      "label": "Маринчо Христов Христов",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206634718",
+      "type": "company",
+      "label": "ФАНУИЛ",
+      "slug": null,
+      "uic": "206634718",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТО МАРИНЧЕВ ХРИСТОВ",
+      "type": "person",
+      "label": "Христо Маринчев Христов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:marincho-hristov-hristov-890f81",
+      "target": "company:tr:206634718",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:marincho-hristov-hristov-890f81",
+      "target": "company:tr:206634718",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО МАРИНЧЕВ ХРИСТОВ",
+      "target": "company:tr:206634718",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО МАРИНЧЕВ ХРИСТОВ",
+      "target": "company:tr:206634718",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

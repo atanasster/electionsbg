@@ -1,0 +1,77 @@
+[
+  {
+    "slug": "nina-iordanova-lazarova-200ffd",
+    "declarantName": "Нина Йорданова Лазарова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-24",
+    "entryNumber": "Г3339",
+    "controlHash": "087DC3B4",
+    "sourceUrl": "https://register.cacbg.bg/2025/56552324-62FE-414C-A48E-10A23EA8DCCE206101.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18090.018048603408,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 29568,
+        "valueEur": 15117.878343209788,
+        "holderName": "Нина Йорданова Лазарова",
+        "isSpouse": false,
+        "legalBasis": "ипотека 6%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19108,
+        "valueEur": 9769.765265897342,
+        "holderName": "Нина Йорданова Лазарова",
+        "isSpouse": false,
+        "legalBasis": "потребителски кредит 3%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Форд Фюжън",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1533.8756435886555,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

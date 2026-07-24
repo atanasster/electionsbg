@@ -1,0 +1,76 @@
+[
+  {
+    "slug": "diyan-iordanov-atanasov-346fbf",
+    "declarantName": "Диян Йорданов Атанасов",
+    "institution": "Варна",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-06",
+    "entryNumber": "Г4512",
+    "controlHash": "27FB0B0F",
+    "sourceUrl": "https://register.cacbg.bg/2025/82DE6601-B202-4D0C-9FE8-2680478BF8E3207370.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 16261.126989564533,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 7297.669020313627,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7132,
+        "valueEur": 3646.53369669143,
+        "holderName": "Диян Йорданов Атанасов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати"
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "лаптоп",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1328.8475992289718,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "телефон",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 868.6849061523752,
+        "legalBasis": null
+      }
+    ]
+  }
+]

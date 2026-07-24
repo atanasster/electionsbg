@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:angel-lyubenov-kutsarov-d3550f",
+  "nodes": [
+    {
+      "id": "official:angel-lyubenov-kutsarov-d3550f",
+      "type": "official",
+      "slug": "angel-lyubenov-kutsarov-d3550f",
+      "label": "Ангел Любенов Куцаров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Нови пазар"
+    },
+    {
+      "id": "company:tr:202176579",
+      "type": "company",
+      "label": "Куцаров 62 ЕООД",
+      "slug": null,
+      "uic": "202176579",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:angel-lyubenov-kutsarov-d3550f",
+      "target": "company:tr:202176579",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

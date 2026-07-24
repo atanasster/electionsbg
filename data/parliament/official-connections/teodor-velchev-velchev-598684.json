@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:teodor-velchev-velchev-598684",
+  "nodes": [
+    {
+      "id": "official:teodor-velchev-velchev-598684",
+      "type": "official",
+      "slug": "teodor-velchev-velchev-598684",
+      "label": "Теодор Велчев Велчев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:101533900",
+      "type": "company",
+      "label": "СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ ПО ОНКОЛОГИЯ&quot;СВЕТИ МИНА&quot;",
+      "slug": null,
+      "uic": "101533900",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:teodor-velchev-velchev-598684",
+      "target": "company:tr:101533900",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

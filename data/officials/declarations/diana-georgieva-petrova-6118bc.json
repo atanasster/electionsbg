@@ -1,0 +1,89 @@
+[
+  {
+    "slug": "diana-georgieva-petrova-6118bc",
+    "declarantName": "Диана Георгиева Петрова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2024,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г14394",
+    "controlHash": "C84BC735",
+    "sourceUrl": "https://register.cacbg.bg/2024/9A08371D-E898-4BAF-B7CC-F8EA773D081D197053.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22000,
+        "valueEur": 11248.421386316806,
+        "holderName": "Диана Георгиева Петрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "diana-georgieva-petrova-6118bc",
+    "declarantName": "Диана Георгиева Петрова",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г15185",
+    "controlHash": "5E4F0944",
+    "sourceUrl": "https://register.cacbg.bg/2025/9A08371D-E898-4BAF-B7CC-F8EA773D081D218859.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24774.13681148157,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "НОИ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 10921.194582351227
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Диана Георгиева Петрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

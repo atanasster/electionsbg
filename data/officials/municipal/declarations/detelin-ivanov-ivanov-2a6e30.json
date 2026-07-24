@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "detelin-ivanov-ivanov-2a6e30",
+    "declarantName": "ДЕТЕЛИН ИВАНОВ ИВАНОВ",
+    "institution": "Никопол",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-15",
+    "entryNumber": "Г5434",
+    "controlHash": "B4D9655A",
+    "sourceUrl": "https://register.cacbg.bg/2025/98CB0700-A00D-47EB-AB72-B80BA12A947E208362.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5240.74178226124,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1104.390463383832,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20170,
+        "valueEur": 10312.757243727727,
+        "holderName": "ДЕТЕЛИН ИВАНОВ ИВАНОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и доход от фирмата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1066,
+        "valueEur": 545.037145355169,
+        "holderName": "ДЕТЕЛИН ИВАНОВ ИВАНОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и доход от фирмата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 108748,
+        "valueEur": 55601.96949632637,
+        "holderName": "ДЕТЕЛИН ИВАНОВ ИВАНОВ ИВАЙЛО ВЕД ЕООД",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "доход от фирмата"
+      },
+      {
+        "category": "debt",
+        "description": "финансов лизинг",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 42867,
+        "valueEur": 42867.222611372155,
+        "holderName": "ДетелинИвановИванов Ивайло Вед ЕООД",
+        "isSpouse": true,
+        "legalBasis": "фин.лизинг 3.33",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

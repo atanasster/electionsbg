@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:veselin-ivanov-tomov-de6fcb",
+  "nodes": [
+    {
+      "id": "official:veselin-ivanov-tomov-de6fcb",
+      "type": "official",
+      "slug": "veselin-ivanov-tomov-de6fcb",
+      "label": "Веселин Иванов Томов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176344752",
+      "type": "company",
+      "label": "СПОРТЕН КЛУБ ПО ПОДВОДЕН РИБОЛОВ НЕСЕБЪР",
+      "slug": null,
+      "uic": "176344752",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИРОСЛАВ АНГЕЛОВ ИЛЧЕВ",
+      "type": "person",
+      "label": "Мирослав Ангелов Илчев"
+    },
+    {
+      "id": "person:СОНЯ СВЕТОСЛАВОВА ГИНЕВА",
+      "type": "person",
+      "label": "Соня Светославова Гинева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veselin-ivanov-tomov-de6fcb",
+      "target": "company:tr:176344752",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:veselin-ivanov-tomov-de6fcb",
+      "target": "company:tr:176344752",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИРОСЛАВ АНГЕЛОВ ИЛЧЕВ",
+      "target": "company:tr:176344752",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОНЯ СВЕТОСЛАВОВА ГИНЕВА",
+      "target": "company:tr:176344752",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

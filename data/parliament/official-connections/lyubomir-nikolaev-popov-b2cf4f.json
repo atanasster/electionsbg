@@ -1,0 +1,155 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:lyubomir-nikolaev-popov-b2cf4f",
+  "nodes": [
+    {
+      "id": "official:lyubomir-nikolaev-popov-b2cf4f",
+      "type": "official",
+      "slug": "lyubomir-nikolaev-popov-b2cf4f",
+      "label": "Любомир Николаев Попов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207030368",
+      "type": "company",
+      "label": "Тракиан",
+      "slug": null,
+      "uic": "207030368",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЗЛАТАН КРАСИМИРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Златан Красимиров Иванов"
+    },
+    {
+      "id": "person:НИКОЛА ТАТЯНОВ МИНКОВ",
+      "type": "person",
+      "label": "Никола Татянов Минков"
+    },
+    {
+      "id": "person:ЯНКО АНГЕЛОВ ИВАНОВ",
+      "type": "person",
+      "label": "Янко Ангелов Иванов"
+    },
+    {
+      "id": "person:СТАНИМИР ГЕОРГИЕВ ПЕТРОВ",
+      "type": "person",
+      "label": "Станимир Георгиев Петров"
+    },
+    {
+      "id": "person:ДИЛЯН АНТОВ ГРИГОРОВ",
+      "type": "person",
+      "label": "Дилян Антов Григоров"
+    },
+    {
+      "id": "person:БОРИСЛАВ АЛЕКСАНДРОВ АРАПЧЕВ",
+      "type": "person",
+      "label": "Борислав Александров Арапчев"
+    },
+    {
+      "id": "person:ВЛАДИМИР ПЕТРОВ ДОКОВ",
+      "type": "person",
+      "label": "Владимир Петров Доков"
+    },
+    {
+      "id": "person:ЕВГЕНИ МИЛКОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Евгени Милков Йорданов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lyubomir-nikolaev-popov-b2cf4f",
+      "target": "company:tr:207030368",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЗЛАТАН КРАСИМИРОВ ИВАНОВ",
+      "target": "company:tr:207030368",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ТАТЯНОВ МИНКОВ",
+      "target": "company:tr:207030368",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТАН КРАСИМИРОВ ИВАНОВ",
+      "target": "company:tr:207030368",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ТАТЯНОВ МИНКОВ",
+      "target": "company:tr:207030368",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКО АНГЕЛОВ ИВАНОВ",
+      "target": "company:tr:207030368",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИР ГЕОРГИЕВ ПЕТРОВ",
+      "target": "company:tr:207030368",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЛЯН АНТОВ ГРИГОРОВ",
+      "target": "company:tr:207030368",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ АЛЕКСАНДРОВ АРАПЧЕВ",
+      "target": "company:tr:207030368",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ПЕТРОВ ДОКОВ",
+      "target": "company:tr:207030368",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИ МИЛКОВ ЙОРДАНОВ",
+      "target": "company:tr:207030368",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

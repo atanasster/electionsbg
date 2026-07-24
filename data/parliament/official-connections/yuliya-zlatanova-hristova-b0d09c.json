@@ -1,0 +1,168 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:yuliya-zlatanova-hristova-b0d09c",
+  "nodes": [
+    {
+      "id": "official:yuliya-zlatanova-hristova-b0d09c",
+      "type": "official",
+      "slug": "yuliya-zlatanova-hristova-b0d09c",
+      "label": "Юлия Златанова Христова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000923183",
+      "type": "company",
+      "label": "Народно читалище &quot;Боян Пенев -1949&quot;",
+      "slug": null,
+      "uic": "000923183",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:evgeniya-tsvetanova-mihova-80eb25",
+      "type": "official",
+      "slug": "evgeniya-tsvetanova-mihova-80eb25",
+      "label": "Евгения Цветанова Михова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "official:zhulieta-doncheva-neshkova-0e2329",
+      "type": "official",
+      "slug": "zhulieta-doncheva-neshkova-0e2329",
+      "label": "Жулиета Дончева Нешкова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "person:ВИОЛЕТА ВАСИЛЕВА ПАПАЗОВА",
+      "type": "person",
+      "label": "Виолета Василева Папазова"
+    },
+    {
+      "id": "person:ИВАНКА ГЕОРГИЕВА ДЖЕЛЕПОВА",
+      "type": "person",
+      "label": "Иванка Георгиева Джелепова"
+    },
+    {
+      "id": "person:СВЕТЛА ДЕНЧЕВА СТАНЧЕВА",
+      "type": "person",
+      "label": "Светла Денчева Станчева"
+    },
+    {
+      "id": "person:КАТЕРИНА МИТКОВА ОБРЕТЕНОВА",
+      "type": "person",
+      "label": "Катерина Миткова Обретенова"
+    },
+    {
+      "id": "person:КАТЯ ЖИВКОВА ПРОДАНОВА-ЯНЕВА",
+      "type": "person",
+      "label": "Катя Живкова Проданова-Янева"
+    },
+    {
+      "id": "person:НАЧКА ГОСПОДИНОВА ДИМОВА",
+      "type": "person",
+      "label": "Начка Господинова Димова"
+    },
+    {
+      "id": "person:МАРИЯ ПЕТКОВА ДОБРЕВА",
+      "type": "person",
+      "label": "Мария Петкова Добрева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yuliya-zlatanova-hristova-b0d09c",
+      "target": "company:tr:000923183",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:evgeniya-tsvetanova-mihova-80eb25",
+      "target": "company:tr:000923183",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zhulieta-doncheva-neshkova-0e2329",
+      "target": "company:tr:000923183",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВИОЛЕТА ВАСИЛЕВА ПАПАЗОВА",
+      "target": "company:tr:000923183",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ВАСИЛЕВА ПАПАЗОВА",
+      "target": "company:tr:000923183",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ГЕОРГИЕВА ДЖЕЛЕПОВА",
+      "target": "company:tr:000923183",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛА ДЕНЧЕВА СТАНЧЕВА",
+      "target": "company:tr:000923183",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЕРИНА МИТКОВА ОБРЕТЕНОВА",
+      "target": "company:tr:000923183",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ ЖИВКОВА ПРОДАНОВА-ЯНЕВА",
+      "target": "company:tr:000923183",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАЧКА ГОСПОДИНОВА ДИМОВА",
+      "target": "company:tr:000923183",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ПЕТКОВА ДОБРЕВА",
+      "target": "company:tr:000923183",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

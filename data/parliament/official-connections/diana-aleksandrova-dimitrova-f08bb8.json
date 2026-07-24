@@ -1,0 +1,126 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:diana-aleksandrova-dimitrova-f08bb8",
+  "nodes": [
+    {
+      "id": "official:diana-aleksandrova-dimitrova-f08bb8",
+      "type": "official",
+      "slug": "diana-aleksandrova-dimitrova-f08bb8",
+      "label": "Диана Александрова Димитрова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000609581",
+      "type": "company",
+      "label": "Народно читалище &quot;Светлина - 1937&quot;",
+      "slug": null,
+      "uic": "000609581",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИРИНА РУМЕНОВА УШЕВА",
+      "type": "person",
+      "label": "Ирина Руменова Ушева"
+    },
+    {
+      "id": "person:ИВАЙЛО БОРИСОВ ХАЛВАДЖИЕВ",
+      "type": "person",
+      "label": "Ивайло Борисов Халваджиев"
+    },
+    {
+      "id": "person:МИНКА АЛБЕНОВА БЕДЕЛЕВА",
+      "type": "person",
+      "label": "Минка Албенова Беделева"
+    },
+    {
+      "id": "person:МАРИАНА ТРЕНДАФИЛОВА ШИКОВА",
+      "type": "person",
+      "label": "Мариана Трендафилова Шикова"
+    },
+    {
+      "id": "person:НАДКА СЕВДАЛИНОВА ВЕЛИНОВА",
+      "type": "person",
+      "label": "Надка Севдалинова Велинова"
+    },
+    {
+      "id": "person:РАЛИЦА АСЕНОВА РАТАЙСКА",
+      "type": "person",
+      "label": "Ралица Асенова Ратайска"
+    },
+    {
+      "id": "person:КАМЕЛИЯ НЕВЕНОВА ГАДЖАЛОВА",
+      "type": "person",
+      "label": "Камелия Невенова Гаджалова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:diana-aleksandrova-dimitrova-f08bb8",
+      "target": "company:tr:000609581",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИРИНА РУМЕНОВА УШЕВА",
+      "target": "company:tr:000609581",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО БОРИСОВ ХАЛВАДЖИЕВ",
+      "target": "company:tr:000609581",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИНКА АЛБЕНОВА БЕДЕЛЕВА",
+      "target": "company:tr:000609581",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИАНА ТРЕНДАФИЛОВА ШИКОВА",
+      "target": "company:tr:000609581",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДКА СЕВДАЛИНОВА ВЕЛИНОВА",
+      "target": "company:tr:000609581",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЛИЦА АСЕНОВА РАТАЙСКА",
+      "target": "company:tr:000609581",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАМЕЛИЯ НЕВЕНОВА ГАДЖАЛОВА",
+      "target": "company:tr:000609581",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

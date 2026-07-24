@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivo-hristov-balchev-b6a484",
+  "nodes": [
+    {
+      "id": "official:ivo-hristov-balchev-b6a484",
+      "type": "official",
+      "slug": "ivo-hristov-balchev-b6a484",
+      "label": "Иво Христов Балчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Варна"
+    },
+    {
+      "id": "company:tr:206372575",
+      "type": "company",
+      "label": "\"Тера Пойнт 8\" ООД",
+      "slug": null,
+      "uic": "206372575",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИАНА БОЖАНОВА ШИВАЧЕВА",
+      "type": "person",
+      "label": "Диана Божанова Шивачева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivo-hristov-balchev-b6a484",
+      "target": "company:tr:206372575",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivo-hristov-balchev-b6a484",
+      "target": "company:tr:206372575",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИАНА БОЖАНОВА ШИВАЧЕВА",
+      "target": "company:tr:206372575",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА БОЖАНОВА ШИВАЧЕВА",
+      "target": "company:tr:206372575",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

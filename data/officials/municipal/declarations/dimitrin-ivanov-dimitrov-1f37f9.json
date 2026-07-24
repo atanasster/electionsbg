@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "dimitrin-ivanov-dimitrov-1f37f9",
+    "declarantName": "Димитрин Иванов Димитров",
+    "institution": "Балчик",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-15",
+    "entryNumber": "Г12808",
+    "controlHash": "AA93F263",
+    "sourceUrl": "https://register.cacbg.bg/2025/62934346-B36B-4CCE-8A4C-A48DAA335853215983.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 42979.19553335413,
+        "amountEurSpouse": 2355.5216966709786
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 7117.182986251361,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Рента",
+        "amountEurDeclarant": 1227.1005148709244,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Телк",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 7239.893037738454
+      },
+      {
+        "parent": null,
+        "category": "Болничен",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3322.885935894224
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ Х5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Димитрин Иванов Димитров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60254,
+        "valueEur": 30807.38100959695,
+        "holderName": "Димитрин Иванов Димитров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

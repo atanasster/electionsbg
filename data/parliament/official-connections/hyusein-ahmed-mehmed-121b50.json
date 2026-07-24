@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hyusein-ahmed-mehmed-121b50",
+  "nodes": [
+    {
+      "id": "official:hyusein-ahmed-mehmed-121b50",
+      "type": "official",
+      "slug": "hyusein-ahmed-mehmed-121b50",
+      "label": "Хюсеин Ахмед Мехмед",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Каспичан"
+    },
+    {
+      "id": "company:tr:206961787",
+      "type": "company",
+      "label": "ТУРГУТ - ТГ БГ",
+      "slug": null,
+      "uic": "206961787",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАХТАНГ САФАРЯН",
+      "type": "person",
+      "label": "Вахтанг  Сафарян"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hyusein-ahmed-mehmed-121b50",
+      "target": "company:tr:206961787",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАХТАНГ САФАРЯН",
+      "target": "company:tr:206961787",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАХТАНГ САФАРЯН",
+      "target": "company:tr:206961787",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+[
+  {
+    "slug": "ilin-nakov-chernyashki-0d9327",
+    "declarantName": "Илин  Наков Черняшки",
+    "institution": "Ботевград",
+    "positionTitle": "Председател на ОбС",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г4193",
+    "controlHash": "7D8CCEF6",
+    "sourceUrl": "https://register.cacbg.bg/2025/03C3193F-DAA1-4E62-A288-82B59AC64D0E207032.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 11418.681582755147,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5660.001124842139,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 3500,
+        "valueEur": 3476.784792134286,
+        "holderName": "Илин Наков Черняшки",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7500,
+        "valueEur": 3834.6891089716387,
+        "holderName": "Илин Наков Черняшки",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит 4.59% лихва",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25500,
+        "valueEur": 13037.94297050357,
+        "holderName": "Илин Наков Черняшки",
+        "isSpouse": false,
+        "legalBasis": "договор 4.59 %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9400,
+        "valueEur": 4806.143683244454,
+        "holderName": "Илин Наков Черняшки",
+        "isSpouse": false,
+        "legalBasis": "догодвор лизинг 2.22",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2700,
+        "valueEur": 1380.48807922979,
+        "holderName": "Илин Нааков Черняшки",
+        "isSpouse": true,
+        "legalBasis": "договор  19.9",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

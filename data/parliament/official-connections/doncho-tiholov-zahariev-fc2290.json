@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:doncho-tiholov-zahariev-fc2290",
+  "nodes": [
+    {
+      "id": "official:doncho-tiholov-zahariev-fc2290",
+      "type": "official",
+      "slug": "doncho-tiholov-zahariev-fc2290",
+      "label": "Дончо Тихолов Захариев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Трявна"
+    },
+    {
+      "id": "company:tr:208128783",
+      "type": "company",
+      "label": "СЛАВЯНИ ТРЯВНА",
+      "slug": null,
+      "uic": "208128783",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:doncho-tiholov-zahariev-fc2290",
+      "target": "company:tr:208128783",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:doncho-tiholov-zahariev-fc2290",
+      "target": "company:tr:208128783",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

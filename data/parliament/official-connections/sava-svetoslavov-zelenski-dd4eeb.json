@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:sava-svetoslavov-zelenski-dd4eeb",
+  "nodes": [
+    {
+      "id": "official:sava-svetoslavov-zelenski-dd4eeb",
+      "type": "official",
+      "slug": "sava-svetoslavov-zelenski-dd4eeb",
+      "label": "Сава Светославов Зеленски",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130930067",
+      "type": "company",
+      "label": "ДИАГНОСТИЧНО-КОНСУЛТАТИВЕН  ЦЕНТЪР-СВ.ИВАН РИЛСКИ",
+      "slug": null,
+      "uic": "130930067",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sava-svetoslavov-zelenski-dd4eeb",
+      "target": "company:tr:130930067",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:detelina-rusanova-vasileva-d9c114",
+  "nodes": [
+    {
+      "id": "official:detelina-rusanova-vasileva-d9c114",
+      "type": "official",
+      "slug": "detelina-rusanova-vasileva-d9c114",
+      "label": "Детелина Русанова Василева",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:127570292",
+      "type": "company",
+      "label": "Асоциация ЕС-О-ЕС жени и деца преживели насилие",
+      "slug": null,
+      "uic": "127570292",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГАЛЯ СТАНКОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Галя Станкова Илиева"
+    },
+    {
+      "id": "person:СНЕЖАНКА ЗАХАРИЕВА ХАРИЗАНОВА -МИХАЛЕВА",
+      "type": "person",
+      "label": "Снежанка Захариева Харизанова -Михалева"
+    },
+    {
+      "id": "person:СНЕЖАНКА РАДЕВА НИКОЛОВА",
+      "type": "person",
+      "label": "Снежанка Радева Николова"
+    },
+    {
+      "id": "person:МАРИЙКА ИВАНОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Марийка Иванова Христова"
+    },
+    {
+      "id": "person:КАЛИНКА ГЕНКОВА ВАСИЛЕВА - СТОЯНОВА",
+      "type": "person",
+      "label": "Калинка Генкова Василева - Стоянова"
+    },
+    {
+      "id": "person:КРАСИМИР ВЕЛИЧКОВ СТОЙЧЕВ",
+      "type": "person",
+      "label": "Красимир Величков Стойчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:detelina-rusanova-vasileva-d9c114",
+      "target": "company:tr:127570292",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГАЛЯ СТАНКОВА ИЛИЕВА",
+      "target": "company:tr:127570292",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНКА ЗАХАРИЕВА ХАРИЗАНОВА -МИХАЛЕВА",
+      "target": "company:tr:127570292",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНКА РАДЕВА НИКОЛОВА",
+      "target": "company:tr:127570292",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЙКА ИВАНОВА ХРИСТОВА",
+      "target": "company:tr:127570292",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНКА ГЕНКОВА ВАСИЛЕВА - СТОЯНОВА",
+      "target": "company:tr:127570292",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛЯ СТАНКОВА ИЛИЕВА",
+      "target": "company:tr:127570292",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ВЕЛИЧКОВ СТОЙЧЕВ",
+      "target": "company:tr:127570292",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ВЕЛИЧКОВ СТОЙЧЕВ",
+      "target": "company:tr:127570292",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

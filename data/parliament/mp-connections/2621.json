@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:2621",
   "nodes": [
     {
@@ -55,9 +55,9 @@
       "label": "Евгени Димитров Стоев"
     },
     {
-      "id": "official:evgeni-dimitrov-stoev-7bf31e",
+      "id": "official:evgeni-dimitrov-stoev-e5facb",
       "type": "official",
-      "slug": "evgeni-dimitrov-stoev-7bf31e",
+      "slug": "evgeni-dimitrov-stoev-e5facb",
       "label": "Евгени Димитров Стоев",
       "tier": "executive",
       "role": "state_enterprise",
@@ -92,36 +92,36 @@
       ]
     },
     {
-      "id": "official:asya-petrova-stankova-bae8b1",
+      "id": "official:asya-petrova-stankova-f49721",
       "type": "official",
-      "slug": "asya-petrova-stankova-bae8b1",
+      "slug": "asya-petrova-stankova-f49721",
       "label": "Ася Петрова Станкова",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:gergana-angelova-tonova-897f6e",
+      "id": "official:gergana-angelova-tonova-3f0024",
       "type": "official",
-      "slug": "gergana-angelova-tonova-897f6e",
+      "slug": "gergana-angelova-tonova-3f0024",
       "label": "Гергана Ангелова Тонова",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:dobrinka-veselinova-krsteva-cad1e6",
+      "id": "official:dobrinka-veselinova-krsteva-587fcb",
       "type": "official",
-      "slug": "dobrinka-veselinova-krsteva-cad1e6",
+      "slug": "dobrinka-veselinova-krsteva-587fcb",
       "label": "Добринка Веселинова Кръстева",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:iva-aleksandrova-talanova-ca7455",
+      "id": "official:iva-aleksandrova-talanova-35b43e",
       "type": "official",
-      "slug": "iva-aleksandrova-talanova-ca7455",
+      "slug": "iva-aleksandrova-talanova-35b43e",
       "label": "Ива Александрова Таланова",
       "tier": "executive",
       "role": "state_enterprise",
@@ -277,7 +277,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:evgeni-dimitrov-stoev-7bf31e",
+      "source": "official:evgeni-dimitrov-stoev-e5facb",
       "target": "company:tr:206658726",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -325,7 +325,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:asya-petrova-stankova-bae8b1",
+      "source": "official:asya-petrova-stankova-f49721",
       "target": "company:tr:175331015",
       "kind": "tr_role",
       "role": "director",
@@ -333,7 +333,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:gergana-angelova-tonova-897f6e",
+      "source": "official:gergana-angelova-tonova-3f0024",
       "target": "company:tr:175331015",
       "kind": "tr_role",
       "role": "director",
@@ -341,7 +341,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:dobrinka-veselinova-krsteva-cad1e6",
+      "source": "official:dobrinka-veselinova-krsteva-587fcb",
       "target": "company:tr:175331015",
       "kind": "tr_role",
       "role": "director",
@@ -349,7 +349,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:iva-aleksandrova-talanova-ca7455",
+      "source": "official:iva-aleksandrova-talanova-35b43e",
       "target": "company:tr:175331015",
       "kind": "tr_role",
       "role": "director",

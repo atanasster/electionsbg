@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:kiril-iordanov-stanchev-578425",
+  "nodes": [
+    {
+      "id": "official:kiril-iordanov-stanchev-578425",
+      "type": "official",
+      "slug": "kiril-iordanov-stanchev-578425",
+      "label": "Кирил Йорданов Станчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кюстендил"
+    },
+    {
+      "id": "company:tr:109584326",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ ”СТРУМСКА СЛАВА -ТЪРНОВЛАГ”",
+      "slug": null,
+      "uic": "109584326",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОГНЯН ПЛАМЪКОВ ОГНЯНОВ",
+      "type": "person",
+      "label": "Огнян Пламъков Огнянов"
+    },
+    {
+      "id": "person:ИЛИАН ГЕОРГИЕВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Илиан Георгиев Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kiril-iordanov-stanchev-578425",
+      "target": "company:tr:109584326",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОГНЯН ПЛАМЪКОВ ОГНЯНОВ",
+      "target": "company:tr:109584326",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИАН ГЕОРГИЕВ ДИМИТРОВ",
+      "target": "company:tr:109584326",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+[
+  {
+    "slug": "ventsislav-dyankov-venkov-152783",
+    "declarantName": "(unknown)",
+    "institution": "Шумен",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": null,
+    "entryNumber": "Г14662",
+    "controlHash": "5071DB74",
+    "sourceUrl": "https://register.cacbg.bg/2025/A67DF462-A672-40AE-8AA4-6BF06BEDD1A8218046.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "security",
+        "description": "Лизингов договор №013337-RF-002",
+        "detail": "Венцислав Дянков Венков",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "35738",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Райфайзен ОББ",
+        "isSpouse": true,
+        "legalBasis": "заплати",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ventsislav-dyankov-venkov-152783",
+    "declarantName": "ВЕНЦИСЛАВ ДЯНКОВ ВЕНКОВ",
+    "institution": "Шумен",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г12548",
+    "controlHash": "04927F5D",
+    "sourceUrl": "https://register.cacbg.bg/2025/A67DF462-A672-40AE-8AA4-6BF06BEDD1A8215717.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 34767.84792134286,
+        "amountEurSpouse": 18406.507723063867
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 42000,
+        "valueEur": 21474.259010241178,
+        "holderName": "Венцислав Дянков Венков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Мая Димитрова Конова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Лизингов договор № 013337-RF",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45880,
+        "valueEur": 23458.071509282505,
+        "holderName": "Венцислав Дянков Венков",
+        "isSpouse": false,
+        "legalBasis": "лизинг",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

@@ -1,0 +1,143 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:sevgyul-mehmed-muradova-6abeeb",
+  "nodes": [
+    {
+      "id": "official:sevgyul-mehmed-muradova-6abeeb",
+      "type": "official",
+      "slug": "sevgyul-mehmed-muradova-6abeeb",
+      "label": "Севгюл Мехмед Мурадова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000499770",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ОБРАЗОВАНИЕ - 1894",
+      "slug": null,
+      "uic": "000499770",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:akif-ahmedov-ahmedov-31ea86",
+      "type": "official",
+      "slug": "akif-ahmedov-ahmedov-31ea86",
+      "label": "Акиф Ахмедов Ахмедов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Цар Калоян"
+    },
+    {
+      "id": "person:СЕВИНЧ ИБРЯМ МУСТАФА",
+      "type": "person",
+      "label": "Севинч Ибрям Мустафа"
+    },
+    {
+      "id": "person:ХЮСЕИН МЕХМЕДОВ ТОПАЛОВ",
+      "type": "person",
+      "label": "Хюсеин Мехмедов Топалов"
+    },
+    {
+      "id": "person:КЯМИЛЕ КЯМИЛ ЧИРАКОВА",
+      "type": "person",
+      "label": "Кямиле Кямил Чиракова"
+    },
+    {
+      "id": "person:ГЮЛЛЮ АРИФОВА ИБИШЕВА",
+      "type": "person",
+      "label": "Гюллю Арифова Ибишева"
+    },
+    {
+      "id": "person:ГЮЛБИЕ АДИЛ МУРАФ",
+      "type": "person",
+      "label": "Гюлбие Адил Мураф"
+    },
+    {
+      "id": "person:ЮРКИЕ АЛИШ ЧАКЪР",
+      "type": "person",
+      "label": "Юркие Алиш Чакър"
+    },
+    {
+      "id": "person:ФЕВКИЯ МЕХМЕД АЯР",
+      "type": "person",
+      "label": "Февкия Мехмед Аяр"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sevgyul-mehmed-muradova-6abeeb",
+      "target": "company:tr:000499770",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:akif-ahmedov-ahmedov-31ea86",
+      "target": "company:tr:000499770",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СЕВИНЧ ИБРЯМ МУСТАФА",
+      "target": "company:tr:000499770",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХЮСЕИН МЕХМЕДОВ ТОПАЛОВ",
+      "target": "company:tr:000499770",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЯМИЛЕ КЯМИЛ ЧИРАКОВА",
+      "target": "company:tr:000499770",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮЛЛЮ АРИФОВА ИБИШЕВА",
+      "target": "company:tr:000499770",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮЛБИЕ АДИЛ МУРАФ",
+      "target": "company:tr:000499770",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮРКИЕ АЛИШ ЧАКЪР",
+      "target": "company:tr:000499770",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФЕВКИЯ МЕХМЕД АЯР",
+      "target": "company:tr:000499770",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

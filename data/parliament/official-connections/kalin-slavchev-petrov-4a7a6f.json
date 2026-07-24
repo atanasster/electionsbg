@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:kalin-slavchev-petrov-4a7a6f",
+  "nodes": [
+    {
+      "id": "official:kalin-slavchev-petrov-4a7a6f",
+      "type": "official",
+      "slug": "kalin-slavchev-petrov-4a7a6f",
+      "label": "Калин Славчев Петров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Видин"
+    },
+    {
+      "id": "company:tr:208350168",
+      "type": "company",
+      "label": "Хан Кубрат Ориент Видин",
+      "slug": null,
+      "uic": "208350168",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИРОСЛАВ БОРИСЛАВОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Мирослав Бориславов Георгиев"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР МАРИЯНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Александър Мариянов Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kalin-slavchev-petrov-4a7a6f",
+      "target": "company:tr:208350168",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИРОСЛАВ БОРИСЛАВОВ ГЕОРГИЕВ",
+      "target": "company:tr:208350168",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ БОРИСЛАВОВ ГЕОРГИЕВ",
+      "target": "company:tr:208350168",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР МАРИЯНОВ ИВАНОВ",
+      "target": "company:tr:208350168",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

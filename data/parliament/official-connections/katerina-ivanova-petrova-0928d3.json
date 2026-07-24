@@ -1,0 +1,125 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:katerina-ivanova-petrova-0928d3",
+  "nodes": [
+    {
+      "id": "official:katerina-ivanova-petrova-0928d3",
+      "type": "official",
+      "slug": "katerina-ivanova-petrova-0928d3",
+      "label": "Катерина Иванова Петрова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200713468",
+      "type": "company",
+      "label": "\"МИР - БРВ\" ЕООД",
+      "slug": null,
+      "uic": "200713468",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:200755245",
+      "type": "company",
+      "label": "\"МИР - Ж\" ЕООД",
+      "slug": null,
+      "uic": "200755245",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:200704800",
+      "type": "company",
+      "label": "\"МИР - П\" ЕООД",
+      "slug": null,
+      "uic": "200704800",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:200602813",
+      "type": "company",
+      "label": "\"ФУРГОНИ\" ЕООД",
+      "slug": null,
+      "uic": "200602813",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:121147702",
+      "type": "company",
+      "label": "\"ПЕТЕКС КО\" ЕООД",
+      "slug": null,
+      "uic": "121147702",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:111014970",
+      "type": "company",
+      "label": "\"СЕТЕКС КО\" ЕООД",
+      "slug": null,
+      "uic": "111014970",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:katerina-ivanova-petrova-0928d3",
+      "target": "company:tr:200713468",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:katerina-ivanova-petrova-0928d3",
+      "target": "company:tr:200755245",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:katerina-ivanova-petrova-0928d3",
+      "target": "company:tr:200704800",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:katerina-ivanova-petrova-0928d3",
+      "target": "company:tr:200602813",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:katerina-ivanova-petrova-0928d3",
+      "target": "company:tr:121147702",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:katerina-ivanova-petrova-0928d3",
+      "target": "company:tr:111014970",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

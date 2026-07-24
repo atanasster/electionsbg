@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hristiyan-nenchov-hristov-4f09a1",
+  "nodes": [
+    {
+      "id": "official:hristiyan-nenchov-hristov-4f09a1",
+      "type": "official",
+      "slug": "hristiyan-nenchov-hristov-4f09a1",
+      "label": "Християн Ненчов Христов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Видин"
+    },
+    {
+      "id": "company:tr:205087616",
+      "type": "company",
+      "label": "КАДИФЕ 77",
+      "slug": null,
+      "uic": "205087616",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristiyan-nenchov-hristov-4f09a1",
+      "target": "company:tr:205087616",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristiyan-nenchov-hristov-4f09a1",
+      "target": "company:tr:205087616",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

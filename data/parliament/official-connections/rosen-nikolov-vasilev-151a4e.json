@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rosen-nikolov-vasilev-151a4e",
+  "nodes": [
+    {
+      "id": "official:rosen-nikolov-vasilev-151a4e",
+      "type": "official",
+      "slug": "rosen-nikolov-vasilev-151a4e",
+      "label": "Росен Николов Василев",
+      "tier": "executive",
+      "role": "academic",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206371128",
+      "type": "company",
+      "label": "Българско общество по симулационна медицина (БОСМ)",
+      "slug": null,
+      "uic": "206371128",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БЛАГОЙ ИВАНОВ МАРИНОВ",
+      "type": "person",
+      "label": "Благой Иванов Маринов"
+    },
+    {
+      "id": "person:ДОРИНА АСЕНОВА МИХОВА",
+      "type": "person",
+      "label": "Дорина Асенова Михова"
+    },
+    {
+      "id": "person:ЕМИЛ СЛАВОВ СЛАВОВ",
+      "type": "person",
+      "label": "Емил Славов Славов"
+    },
+    {
+      "id": "person:ДИМИТЪР ИВАНОВ БУЛАНОВ",
+      "type": "person",
+      "label": "Димитър Иванов Буланов"
+    },
+    {
+      "id": "person:РОСЕН СТОЯНОВ ДИМОВ",
+      "type": "person",
+      "label": "Росен Стоянов Димов"
+    },
+    {
+      "id": "person:ДОБРОМИР ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Добромир Димитров Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rosen-nikolov-vasilev-151a4e",
+      "target": "company:tr:206371128",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БЛАГОЙ ИВАНОВ МАРИНОВ",
+      "target": "company:tr:206371128",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОРИНА АСЕНОВА МИХОВА",
+      "target": "company:tr:206371128",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ СЛАВОВ СЛАВОВ",
+      "target": "company:tr:206371128",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ИВАНОВ БУЛАНОВ",
+      "target": "company:tr:206371128",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН СТОЯНОВ ДИМОВ",
+      "target": "company:tr:206371128",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЛАГОЙ ИВАНОВ МАРИНОВ",
+      "target": "company:tr:206371128",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРОМИР ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:206371128",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

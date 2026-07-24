@@ -1,0 +1,85 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:magdalena-georgieva-vlkova-c2a603",
+  "nodes": [
+    {
+      "id": "official:magdalena-georgieva-vlkova-c2a603",
+      "type": "official",
+      "slug": "magdalena-georgieva-vlkova-c2a603",
+      "label": "Магдалена Георгиева Вълкова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207865820",
+      "type": "company",
+      "label": "Чиста магия",
+      "slug": null,
+      "uic": "207865820",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОРЯНА ПЕТРОВА БЕЛЧЕВА",
+      "type": "person",
+      "label": "Боряна Петрова Белчева"
+    },
+    {
+      "id": "person:ПЕТЯ АТАНАСОВА ПЕНЕВА",
+      "type": "person",
+      "label": "Петя Атанасова Пенева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:magdalena-georgieva-vlkova-c2a603",
+      "target": "company:tr:207865820",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:magdalena-georgieva-vlkova-c2a603",
+      "target": "company:tr:207865820",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОРЯНА ПЕТРОВА БЕЛЧЕВА",
+      "target": "company:tr:207865820",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ АТАНАСОВА ПЕНЕВА",
+      "target": "company:tr:207865820",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРЯНА ПЕТРОВА БЕЛЧЕВА",
+      "target": "company:tr:207865820",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ АТАНАСОВА ПЕНЕВА",
+      "target": "company:tr:207865820",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

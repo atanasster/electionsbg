@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:galina-nikolova-dimova-f8c67b",
+  "nodes": [
+    {
+      "id": "official:galina-nikolova-dimova-f8c67b",
+      "type": "official",
+      "slug": "galina-nikolova-dimova-f8c67b",
+      "label": "Галина Николова Димова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206178346",
+      "type": "company",
+      "label": "ХОРЕКА КОНСУЛТИНГ СЪРВИСИС",
+      "slug": null,
+      "uic": "206178346",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:galina-nikolova-dimova-f8c67b",
+      "target": "company:tr:206178346",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:galina-nikolova-dimova-f8c67b",
+      "target": "company:tr:206178346",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

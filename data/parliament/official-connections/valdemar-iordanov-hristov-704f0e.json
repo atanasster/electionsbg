@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:valdemar-iordanov-hristov-704f0e",
+  "nodes": [
+    {
+      "id": "official:valdemar-iordanov-hristov-704f0e",
+      "type": "official",
+      "slug": "valdemar-iordanov-hristov-704f0e",
+      "label": "Валдемар Йорданов Христов",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:118516114",
+      "type": "company",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪР-СИЛИСТРА",
+      "slug": null,
+      "uic": "118516114",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valdemar-iordanov-hristov-704f0e",
+      "target": "company:tr:118516114",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

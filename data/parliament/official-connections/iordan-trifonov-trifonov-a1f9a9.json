@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iordan-trifonov-trifonov-a1f9a9",
+  "nodes": [
+    {
+      "id": "official:iordan-trifonov-trifonov-a1f9a9",
+      "type": "official",
+      "slug": "iordan-trifonov-trifonov-a1f9a9",
+      "label": "Йордан Трифонов Трифонов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Болярово"
+    },
+    {
+      "id": "company:tr:205869706",
+      "type": "company",
+      "label": "ТиТ-Транс.ЕУ",
+      "slug": null,
+      "uic": "205869706",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РАЙНА НИКОЛОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Райна Николова Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordan-trifonov-trifonov-a1f9a9",
+      "target": "company:tr:205869706",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАЙНА НИКОЛОВА ГЕОРГИЕВА",
+      "target": "company:tr:205869706",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

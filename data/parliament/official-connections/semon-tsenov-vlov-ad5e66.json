@@ -1,0 +1,191 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:semon-tsenov-vlov-ad5e66",
+  "nodes": [
+    {
+      "id": "official:semon-tsenov-vlov-ad5e66",
+      "type": "official",
+      "slug": "semon-tsenov-vlov-ad5e66",
+      "label": "Семьон Ценов Вълов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Искър"
+    },
+    {
+      "id": "company:tr:114094078",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ХРИСТО БОТЕВ - 1905&quot;",
+      "slug": null,
+      "uic": "114094078",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОРДАНКА БОРИСОВА МАТОВСКА",
+      "type": "person",
+      "label": "Йорданка Борисова Матовска"
+    },
+    {
+      "id": "person:ЦВЕТАН ИВАНОВ БЛИЗНАШКИ",
+      "type": "person",
+      "label": "Цветан Иванов Близнашки"
+    },
+    {
+      "id": "person:ПАРАСКЕВА ЗАХАРИЕВА ПОПОВСКА",
+      "type": "person",
+      "label": "Параскева Захариева Поповска"
+    },
+    {
+      "id": "person:ПЕТЪР КАМЕНОВ ЛИЧЕВ",
+      "type": "person",
+      "label": "Петър Каменов Личев"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА ДИМИТРОВА ТОТОВА",
+      "type": "person",
+      "label": "Цветелина Димитрова Тотова"
+    },
+    {
+      "id": "person:ВИОЛЕТА ГЕОРГИЕВА ЦЕЛОВА",
+      "type": "person",
+      "label": "Виолета Георгиева Целова"
+    },
+    {
+      "id": "person:МАГДАЛЕНА БОРИСОВА НИНОВА",
+      "type": "person",
+      "label": "Магдалена Борисова Нинова"
+    },
+    {
+      "id": "person:РУМЯНА СТАЯНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Румяна Стаянова Иванова"
+    },
+    {
+      "id": "person:ИВАН ПЕТРОВ ДЕСПОДОВ",
+      "type": "person",
+      "label": "Иван Петров Десподов"
+    },
+    {
+      "id": "person:ВЯРА ЗДРАВКОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Вяра Здравкова Георгиева"
+    },
+    {
+      "id": "person:СВЕТЛАНА АТАНАСОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Светлана Атанасова Петкова"
+    },
+    {
+      "id": "person:МАРИЯНА ВЪЛКОВА ТОТОВА",
+      "type": "person",
+      "label": "Марияна Вълкова Тотова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:semon-tsenov-vlov-ad5e66",
+      "target": "company:tr:114094078",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАНКА БОРИСОВА МАТОВСКА",
+      "target": "company:tr:114094078",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАН ИВАНОВ БЛИЗНАШКИ",
+      "target": "company:tr:114094078",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАРАСКЕВА ЗАХАРИЕВА ПОПОВСКА",
+      "target": "company:tr:114094078",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР КАМЕНОВ ЛИЧЕВ",
+      "target": "company:tr:114094078",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА ДИМИТРОВА ТОТОВА",
+      "target": "company:tr:114094078",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ГЕОРГИЕВА ЦЕЛОВА",
+      "target": "company:tr:114094078",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАГДАЛЕНА БОРИСОВА НИНОВА",
+      "target": "company:tr:114094078",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА СТАЯНОВА ИВАНОВА",
+      "target": "company:tr:114094078",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ПЕТРОВ ДЕСПОДОВ",
+      "target": "company:tr:114094078",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЯРА ЗДРАВКОВА ГЕОРГИЕВА",
+      "target": "company:tr:114094078",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА АТАНАСОВА ПЕТКОВА",
+      "target": "company:tr:114094078",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА ВЪЛКОВА ТОТОВА",
+      "target": "company:tr:114094078",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

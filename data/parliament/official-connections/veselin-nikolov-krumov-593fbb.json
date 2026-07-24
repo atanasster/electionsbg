@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:veselin-nikolov-krumov-593fbb",
+  "nodes": [
+    {
+      "id": "official:veselin-nikolov-krumov-593fbb",
+      "type": "official",
+      "slug": "veselin-nikolov-krumov-593fbb",
+      "label": "Веселин Николов Крумов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Брезник"
+    },
+    {
+      "id": "company:tr:176914704",
+      "type": "company",
+      "label": "ЗАЕДНО ЗА ХРАМА СВЕТИ ГЕОРГИ ПОБЕДОНОСЕЦ - БРЕЗНИК",
+      "slug": null,
+      "uic": "176914704",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СОНЯ МАНОВА ТЕМЕЛКОВА",
+      "type": "person",
+      "label": "Соня Манова Темелкова"
+    },
+    {
+      "id": "person:ИВАН КОСТАДИНОВ МИЛЕНОВ",
+      "type": "person",
+      "label": "Иван Костадинов Миленов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veselin-nikolov-krumov-593fbb",
+      "target": "company:tr:176914704",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СОНЯ МАНОВА ТЕМЕЛКОВА",
+      "target": "company:tr:176914704",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КОСТАДИНОВ МИЛЕНОВ",
+      "target": "company:tr:176914704",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОНЯ МАНОВА ТЕМЕЛКОВА",
+      "target": "company:tr:176914704",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

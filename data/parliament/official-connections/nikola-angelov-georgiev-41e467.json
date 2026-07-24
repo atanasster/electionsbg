@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikola-angelov-georgiev-41e467",
+  "nodes": [
+    {
+      "id": "official:nikola-angelov-georgiev-41e467",
+      "type": "official",
+      "slug": "nikola-angelov-georgiev-41e467",
+      "label": "Никола Ангелов Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Симеоновград"
+    },
+    {
+      "id": "company:tr:206722075",
+      "type": "company",
+      "label": "ВЕЛИ ТРЕЙД 22",
+      "slug": null,
+      "uic": "206722075",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:mariya-vicheva-georgieva-705923",
+      "type": "official",
+      "slug": "mariya-vicheva-georgieva-705923",
+      "label": "Мария Вичева Георгиева",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikola-angelov-georgiev-41e467",
+      "target": "company:tr:206722075",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariya-vicheva-georgieva-705923",
+      "target": "company:tr:206722075",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariya-vicheva-georgieva-705923",
+      "target": "company:tr:206722075",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

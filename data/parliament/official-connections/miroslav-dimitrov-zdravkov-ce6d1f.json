@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:miroslav-dimitrov-zdravkov-ce6d1f",
+  "nodes": [
+    {
+      "id": "official:miroslav-dimitrov-zdravkov-ce6d1f",
+      "type": "official",
+      "slug": "miroslav-dimitrov-zdravkov-ce6d1f",
+      "label": "Мирослав Димитров Здравков",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Горна Малина"
+    },
+    {
+      "id": "company:tr:208040643",
+      "type": "company",
+      "label": "ЕМ ФАЙВ",
+      "slug": null,
+      "uic": "208040643",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕЯНА ВАСИЛЕВА ЗДРАВКОВА",
+      "type": "person",
+      "label": "Деяна Василева Здравкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:miroslav-dimitrov-zdravkov-ce6d1f",
+      "target": "company:tr:208040643",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:miroslav-dimitrov-zdravkov-ce6d1f",
+      "target": "company:tr:208040643",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕЯНА ВАСИЛЕВА ЗДРАВКОВА",
+      "target": "company:tr:208040643",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:antim-plamenov-paralov-8d394b",
+  "nodes": [
+    {
+      "id": "official:antim-plamenov-paralov-8d394b",
+      "type": "official",
+      "slug": "antim-plamenov-paralov-8d394b",
+      "label": "Антим Пламенов Паральов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Казанлък"
+    },
+    {
+      "id": "company:tr:205923352",
+      "type": "company",
+      "label": "ФУТБОЛЕН КЛУБ КАЗАНЛЪК",
+      "slug": null,
+      "uic": "205923352",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:antim-plamenov-paralov-8d394b",
+      "target": "company:tr:205923352",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:antim-plamenov-paralov-8d394b",
+      "target": "company:tr:205923352",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,160 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:galina-tsvetanova-mladenova-593734",
+  "nodes": [
+    {
+      "id": "official:galina-tsvetanova-mladenova-593734",
+      "type": "official",
+      "slug": "galina-tsvetanova-mladenova-593734",
+      "label": "Галина Цветанова Младенова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000152360",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ПАИСИЙ ХИЛЕНДАРСКИ - 1927&quot;",
+      "slug": null,
+      "uic": "000152360",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИГЛЕНА КРАСИМИРОВА ВЕСЕЛИНОВА",
+      "type": "person",
+      "label": "Миглена Красимирова Веселинова"
+    },
+    {
+      "id": "person:КРАСИМИРА ВАНЬОВА АНДРЕЕВА",
+      "type": "person",
+      "label": "Красимира Ваньова Андреева"
+    },
+    {
+      "id": "person:НАТАША ТРАЙКОВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Наташа Трайкова Стефанова"
+    },
+    {
+      "id": "person:ЖИВКА ЛОЗАНОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Живка Лозанова Петрова"
+    },
+    {
+      "id": "person:ТАТЯНА МЛАДЕНОВА СПАСОВА",
+      "type": "person",
+      "label": "Татяна Младенова Спасова"
+    },
+    {
+      "id": "person:МИЛА ДУШАНОВА ВЛАЙКОВА",
+      "type": "person",
+      "label": "Мила Душанова Влайкова"
+    },
+    {
+      "id": "person:САШО КРУМОВ КАМЕНОВ",
+      "type": "person",
+      "label": "Сашо Крумов Каменов"
+    },
+    {
+      "id": "person:МИЛУШКА СЛАВЧЕВА ПЕТРОВА",
+      "type": "person",
+      "label": "Милушка Славчева Петрова"
+    },
+    {
+      "id": "person:СНЕЖАНА ИВАНОВА СИМОВА",
+      "type": "person",
+      "label": "Снежана Иванова Симова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:galina-tsvetanova-mladenova-593734",
+      "target": "company:tr:000152360",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИГЛЕНА КРАСИМИРОВА ВЕСЕЛИНОВА",
+      "target": "company:tr:000152360",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ВАНЬОВА АНДРЕЕВА",
+      "target": "company:tr:000152360",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАША ТРАЙКОВА СТЕФАНОВА",
+      "target": "company:tr:000152360",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКА ЛОЗАНОВА ПЕТРОВА",
+      "target": "company:tr:000152360",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИРА ВАНЬОВА АНДРЕЕВА",
+      "target": "company:tr:000152360",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА МЛАДЕНОВА СПАСОВА",
+      "target": "company:tr:000152360",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛА ДУШАНОВА ВЛАЙКОВА",
+      "target": "company:tr:000152360",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:САШО КРУМОВ КАМЕНОВ",
+      "target": "company:tr:000152360",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛУШКА СЛАВЧЕВА ПЕТРОВА",
+      "target": "company:tr:000152360",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНА ИВАНОВА СИМОВА",
+      "target": "company:tr:000152360",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

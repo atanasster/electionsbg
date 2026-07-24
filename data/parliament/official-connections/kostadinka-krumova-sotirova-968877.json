@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:kostadinka-krumova-sotirova-968877",
+  "nodes": [
+    {
+      "id": "official:kostadinka-krumova-sotirova-968877",
+      "type": "official",
+      "slug": "kostadinka-krumova-sotirova-968877",
+      "label": "Костадинка Крумова Сотирова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000349201",
+      "type": "company",
+      "label": "СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ НА ПНЕВМО-ФТИЗИАТРИЧНИ ЗАБОЛЯВАНИЯ &quot;Д-Р НИКОЛА ПЕНЧЕВ&quot;-ПАЗАРДЖИК",
+      "slug": null,
+      "uic": "000349201",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КОСТАДИНКА КРУМОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Костадинка Крумова Василева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kostadinka-krumova-sotirova-968877",
+      "target": "company:tr:000349201",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КОСТАДИНКА КРУМОВА ВАСИЛЕВА",
+      "target": "company:tr:000349201",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

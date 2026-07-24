@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:borislav-marian-nistorov-3ad097",
+  "nodes": [
+    {
+      "id": "official:borislav-marian-nistorov-3ad097",
+      "type": "official",
+      "slug": "borislav-marian-nistorov-3ad097",
+      "label": "Борислав Мариан Нисторов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Челопеч"
+    },
+    {
+      "id": "company:tr:208052289",
+      "type": "company",
+      "label": "АРХИТЕКТУРА и УРБАН ПЛАНИНГ",
+      "slug": null,
+      "uic": "208052289",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:borislav-marian-nistorov-3ad097",
+      "target": "company:tr:208052289",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:borislav-marian-nistorov-3ad097",
+      "target": "company:tr:208052289",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

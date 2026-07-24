@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:zlatka-stefanova-dimitrova-48d54f",
+  "nodes": [
+    {
+      "id": "official:zlatka-stefanova-dimitrova-48d54f",
+      "type": "official",
+      "slug": "zlatka-stefanova-dimitrova-48d54f",
+      "label": "Златка Стефанова Димитрова",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207796178",
+      "type": "company",
+      "label": "КАРАВАЛ 2024",
+      "slug": null,
+      "uic": "207796178",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИРЕНЕУШ АДАМ ПЕТРЕК",
+      "type": "person",
+      "label": "Иренеуш Адам Петрек"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zlatka-stefanova-dimitrova-48d54f",
+      "target": "company:tr:207796178",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИРЕНЕУШ АДАМ ПЕТРЕК",
+      "target": "company:tr:207796178",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРЕНЕУШ АДАМ ПЕТРЕК",
+      "target": "company:tr:207796178",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

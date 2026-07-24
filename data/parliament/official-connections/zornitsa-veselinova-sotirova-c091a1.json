@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:zornitsa-veselinova-sotirova-c091a1",
+  "nodes": [
+    {
+      "id": "official:zornitsa-veselinova-sotirova-c091a1",
+      "type": "official",
+      "slug": "zornitsa-veselinova-sotirova-c091a1",
+      "label": "Зорница Веселинова Сотирова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203156316",
+      "type": "company",
+      "label": "КЕИДЖ ГРУП",
+      "slug": null,
+      "uic": "203156316",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zornitsa-veselinova-sotirova-c091a1",
+      "target": "company:tr:203156316",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

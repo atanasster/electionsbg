@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hristina-georgieva-iordanova-81d5c6",
+  "nodes": [
+    {
+      "id": "official:hristina-georgieva-iordanova-81d5c6",
+      "type": "official",
+      "slug": "hristina-georgieva-iordanova-81d5c6",
+      "label": "Христина Георгиева Йорданова",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206110103",
+      "type": "company",
+      "label": "Рухонир",
+      "slug": null,
+      "uic": "206110103",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КИРИЛ ГЕОРГИЕВ ГРУЕВ",
+      "type": "person",
+      "label": "Кирил Георгиев Груев"
+    },
+    {
+      "id": "person:ДИМИТЪР ГЕОРГИЕВ ЛАЗАРОВ",
+      "type": "person",
+      "label": "Димитър Георгиев Лазаров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristina-georgieva-iordanova-81d5c6",
+      "target": "company:tr:206110103",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КИРИЛ ГЕОРГИЕВ ГРУЕВ",
+      "target": "company:tr:206110103",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ГЕОРГИЕВ ЛАЗАРОВ",
+      "target": "company:tr:206110103",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

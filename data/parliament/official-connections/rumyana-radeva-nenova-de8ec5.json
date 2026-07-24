@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rumyana-radeva-nenova-de8ec5",
+  "nodes": [
+    {
+      "id": "official:rumyana-radeva-nenova-de8ec5",
+      "type": "official",
+      "slug": "rumyana-radeva-nenova-de8ec5",
+      "label": "Румяна Радева Ненова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:116551270",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ  ЗА УЧИТЕЛСКА ВЗАИМОПОМОЩ СНЦ",
+      "slug": null,
+      "uic": "116551270",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТРАНКА ВАСИЛЕВА МИТЕВА",
+      "type": "person",
+      "label": "Петранка Василева Митева"
+    },
+    {
+      "id": "person:АЛБЕНА НЕДЕЛЧЕВА КИРИЛОВА",
+      "type": "person",
+      "label": "Албена Неделчева Кирилова"
+    },
+    {
+      "id": "person:КРЪСТИНКА ИВАНОВА РУСЕВА",
+      "type": "person",
+      "label": "Кръстинка Иванова Русева"
+    },
+    {
+      "id": "person:ЙОРДАНКА ДИМИТРОВА ГАТЕВА",
+      "type": "person",
+      "label": "Йорданка Димитрова Гатева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rumyana-radeva-nenova-de8ec5",
+      "target": "company:tr:116551270",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТРАНКА ВАСИЛЕВА МИТЕВА",
+      "target": "company:tr:116551270",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕНА НЕДЕЛЧЕВА КИРИЛОВА",
+      "target": "company:tr:116551270",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРЪСТИНКА ИВАНОВА РУСЕВА",
+      "target": "company:tr:116551270",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА ДИМИТРОВА ГАТЕВА",
+      "target": "company:tr:116551270",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

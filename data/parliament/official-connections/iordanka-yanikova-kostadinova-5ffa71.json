@@ -1,0 +1,55 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iordanka-yanikova-kostadinova-5ffa71",
+  "nodes": [
+    {
+      "id": "official:iordanka-yanikova-kostadinova-5ffa71",
+      "type": "official",
+      "slug": "iordanka-yanikova-kostadinova-5ffa71",
+      "label": "Йорданка Яникова Костадинова",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:Стар-спорт",
+      "type": "company",
+      "label": "Стар спорт",
+      "slug": "Стар-спорт",
+      "uic": "103845431",
+      "legalForm": "OOD",
+      "status": "ceased",
+      "seat": "Варна"
+    },
+    {
+      "id": "mp:3899",
+      "type": "mp",
+      "mpId": 3899,
+      "label": "Йорданка Яникова Костадинова",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47",
+        "48"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iordanka-yanikova-kostadinova-5ffa71",
+      "target": "company:Стар-спорт",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3899",
+      "target": "company:Стар-спорт",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

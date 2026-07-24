@@ -1,0 +1,99 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitr-bozhidarov-stoilov-d39f64",
+  "nodes": [
+    {
+      "id": "official:dimitr-bozhidarov-stoilov-d39f64",
+      "type": "official",
+      "slug": "dimitr-bozhidarov-stoilov-d39f64",
+      "label": "Димитър Божидаров Стоилов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:109080582",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - Д-Р НИКОЛА ВАСИЛИЕВ",
+      "slug": null,
+      "uic": "109080582",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:aleksandr-stefanov-velichkov-5cd42f",
+      "type": "official",
+      "slug": "aleksandr-stefanov-velichkov-5cd42f",
+      "label": "Александър Стефанов Величков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:ЛЮДМИЛ СТОЯНОВ СПАСОВ",
+      "type": "person",
+      "label": "Людмил Стоянов Спасов"
+    },
+    {
+      "id": "person:ДИМИТЪР ЙОРДАНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Йорданов Димитров"
+    },
+    {
+      "id": "person:ЙОАНА ДИМИТРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Йоана Димитрова Димитрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-bozhidarov-stoilov-d39f64",
+      "target": "company:tr:109080582",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-bozhidarov-stoilov-d39f64",
+      "target": "company:tr:109080582",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aleksandr-stefanov-velichkov-5cd42f",
+      "target": "company:tr:109080582",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮДМИЛ СТОЯНОВ СПАСОВ",
+      "target": "company:tr:109080582",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ЙОРДАНОВ ДИМИТРОВ",
+      "target": "company:tr:109080582",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОАНА ДИМИТРОВА ДИМИТРОВА",
+      "target": "company:tr:109080582",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

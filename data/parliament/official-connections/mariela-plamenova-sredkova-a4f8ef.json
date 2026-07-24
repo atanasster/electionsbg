@@ -1,0 +1,165 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariela-plamenova-sredkova-a4f8ef",
+  "nodes": [
+    {
+      "id": "official:mariela-plamenova-sredkova-a4f8ef",
+      "type": "official",
+      "slug": "mariela-plamenova-sredkova-a4f8ef",
+      "label": "Мариела Пламенова Средкова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Костинброд"
+    },
+    {
+      "id": "company:tr:176059529",
+      "type": "company",
+      "label": "МЕСТНА ИНИЦИАТИВНА ГРУПА КОСТИНБРОД - СВОГЕ",
+      "slug": null,
+      "uic": "176059529",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГАЛЯ РУМЕНОВА ИЗВОРСКА",
+      "type": "person",
+      "label": "Галя Руменова Изворска"
+    },
+    {
+      "id": "person:МУЛТИПРИНТ",
+      "type": "person",
+      "label": "Мултипринт"
+    },
+    {
+      "id": "person:АВТО ЕНД СТРОЙ КЪМПАНИ",
+      "type": "person",
+      "label": "Авто Енд Строй Къмпани"
+    },
+    {
+      "id": "person:ИЦИ 10",
+      "type": "person",
+      "label": "Ици 10"
+    },
+    {
+      "id": "person:БЪДЕЩЕ ЗА СВОГЕ",
+      "type": "person",
+      "label": "Бъдеще За Своге"
+    },
+    {
+      "id": "person:СДРУЖЕНИЕ \"АГЕНЦИЯ ЗА ИКОНОМИЧЕСКО РАЗВИТИЕ КОСТИНБРОД\"",
+      "type": "person",
+      "label": "Сдружение \"агенция За Икономическо Развитие Костинброд\""
+    },
+    {
+      "id": "person:ОБЩИНА СВОГЕ",
+      "type": "person",
+      "label": "Община Своге"
+    },
+    {
+      "id": "person:ДАНИЕЛА БЛАГОЕВА СТАНКОВА",
+      "type": "person",
+      "label": "Даниела Благоева Станкова"
+    },
+    {
+      "id": "person:ОБЩИНА КОСТИНБРОД",
+      "type": "person",
+      "label": "Община Костинброд"
+    },
+    {
+      "id": "person:ЖАКЛИН ПЛАМЕНОВА КОСТАДИНОВА",
+      "type": "person",
+      "label": "Жаклин Пламенова Костадинова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariela-plamenova-sredkova-a4f8ef",
+      "target": "company:tr:176059529",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГАЛЯ РУМЕНОВА ИЗВОРСКА",
+      "target": "company:tr:176059529",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МУЛТИПРИНТ",
+      "target": "company:tr:176059529",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АВТО ЕНД СТРОЙ КЪМПАНИ",
+      "target": "company:tr:176059529",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЦИ 10",
+      "target": "company:tr:176059529",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЪДЕЩЕ ЗА СВОГЕ",
+      "target": "company:tr:176059529",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СДРУЖЕНИЕ \"АГЕНЦИЯ ЗА ИКОНОМИЧЕСКО РАЗВИТИЕ КОСТИНБРОД\"",
+      "target": "company:tr:176059529",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА СВОГЕ",
+      "target": "company:tr:176059529",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА БЛАГОЕВА СТАНКОВА",
+      "target": "company:tr:176059529",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА КОСТИНБРОД",
+      "target": "company:tr:176059529",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖАКЛИН ПЛАМЕНОВА КОСТАДИНОВА",
+      "target": "company:tr:176059529",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

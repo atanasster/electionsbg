@@ -1,0 +1,113 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:elmaz-ibrahimova-hamzova-005121",
+  "nodes": [
+    {
+      "id": "official:elmaz-ibrahimova-hamzova-005121",
+      "type": "official",
+      "slug": "elmaz-ibrahimova-hamzova-005121",
+      "label": "Елмаз Ибрахимова Хамзова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000124343",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;НАДЕЖДА - БЕБРОВО - 1870&quot;",
+      "slug": null,
+      "uic": "000124343",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТЕФКА СТЕФАНОВА КОСТАДИНОВА",
+      "type": "person",
+      "label": "Стефка Стефанова Костадинова"
+    },
+    {
+      "id": "person:АНКА ТОДОРОВА КОСТОВА",
+      "type": "person",
+      "label": "Анка Тодорова Костова"
+    },
+    {
+      "id": "person:ТАНЯ ИВАНОВА СТАНЕВА",
+      "type": "person",
+      "label": "Таня Иванова Станева"
+    },
+    {
+      "id": "person:ИВАНКА НИКОЛАЕВА СТАНЧЕВА",
+      "type": "person",
+      "label": "Иванка Николаева Станчева"
+    },
+    {
+      "id": "person:ПАВЛИНА ЙОРДАНОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Павлина Йорданова Петкова"
+    },
+    {
+      "id": "person:АФИЗЕ СЕЛИМОВА МЕХМЕДОВА",
+      "type": "person",
+      "label": "Афизе Селимова Мехмедова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:elmaz-ibrahimova-hamzova-005121",
+      "target": "company:tr:000124343",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФКА СТЕФАНОВА КОСТАДИНОВА",
+      "target": "company:tr:000124343",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНКА ТОДОРОВА КОСТОВА",
+      "target": "company:tr:000124343",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ИВАНОВА СТАНЕВА",
+      "target": "company:tr:000124343",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА НИКОЛАЕВА СТАНЧЕВА",
+      "target": "company:tr:000124343",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА ЙОРДАНОВА ПЕТКОВА",
+      "target": "company:tr:000124343",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АФИЗЕ СЕЛИМОВА МЕХМЕДОВА",
+      "target": "company:tr:000124343",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:3228",
   "nodes": [
     {
@@ -227,27 +227,27 @@
       "label": "Кирил Панайотов Панайотов"
     },
     {
-      "id": "official:zdravko-milkov-marinov-98b578",
+      "id": "official:zdravko-milkov-marinov-db6889",
       "type": "official",
-      "slug": "zdravko-milkov-marinov-98b578",
+      "slug": "zdravko-milkov-marinov-db6889",
       "label": "Здравко Милков Маринов",
       "tier": "executive",
       "role": "civil_society",
       "municipality": null
     },
     {
-      "id": "official:nikolai-stefanov-chobanov-b51a6b",
+      "id": "official:nikolai-stefanov-chobanov-f391c7",
       "type": "official",
-      "slug": "nikolai-stefanov-chobanov-b51a6b",
+      "slug": "nikolai-stefanov-chobanov-f391c7",
       "label": "Николай Стефанов Чобанов",
       "tier": "executive",
       "role": "civil_society",
       "municipality": null
     },
     {
-      "id": "official:steli-todorova-dzhambazova-e52f39",
+      "id": "official:steli-todorova-dzhambazova-8945be",
       "type": "official",
-      "slug": "steli-todorova-dzhambazova-e52f39",
+      "slug": "steli-todorova-dzhambazova-8945be",
       "label": "Стели Тодорова Джамбазова",
       "tier": "executive",
       "role": "civil_society",
@@ -319,18 +319,18 @@
       "label": "Юлиян Страшимиров Тодоров"
     },
     {
-      "id": "official:alise-kyamilova-murtezova-ea8410",
+      "id": "official:alise-kyamilova-murtezova-dfcd07",
       "type": "official",
-      "slug": "alise-kyamilova-murtezova-ea8410",
+      "slug": "alise-kyamilova-murtezova-dfcd07",
       "label": "Алисе Кямилова Муртезова",
       "tier": "executive",
       "role": "civil_society",
       "municipality": null
     },
     {
-      "id": "official:alise-kyamilova-murtezova-2acad2",
+      "id": "official:alise-kyamilova-murtezova-3959c6",
       "type": "official",
-      "slug": "alise-kyamilova-murtezova-2acad2",
+      "slug": "alise-kyamilova-murtezova-3959c6",
       "label": "Алисе Кямилова Муртезова",
       "tier": "municipal",
       "role": "councillor",
@@ -351,9 +351,9 @@
       "nsFolders": []
     },
     {
-      "id": "official:krasimira-arangelova-kovachka-d7f6d4",
+      "id": "official:krasimira-arangelova-kovachka-5155af",
       "type": "official",
-      "slug": "krasimira-arangelova-kovachka-d7f6d4",
+      "slug": "krasimira-arangelova-kovachka-5155af",
       "label": "Красимира Арангелова Ковачка",
       "tier": "executive",
       "role": "hospital_head",
@@ -936,7 +936,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:zdravko-milkov-marinov-98b578",
+      "source": "official:zdravko-milkov-marinov-db6889",
       "target": "company:tr:000703415",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -944,7 +944,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:nikolai-stefanov-chobanov-b51a6b",
+      "source": "official:nikolai-stefanov-chobanov-f391c7",
       "target": "company:tr:000703415",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -952,7 +952,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:steli-todorova-dzhambazova-e52f39",
+      "source": "official:steli-todorova-dzhambazova-8945be",
       "target": "company:tr:000703415",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -1072,7 +1072,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:alise-kyamilova-murtezova-ea8410",
+      "source": "official:alise-kyamilova-murtezova-dfcd07",
       "target": "company:tr:207994836",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -1080,7 +1080,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:alise-kyamilova-murtezova-2acad2",
+      "source": "official:alise-kyamilova-murtezova-3959c6",
       "target": "company:tr:207994836",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -1128,7 +1128,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:krasimira-arangelova-kovachka-d7f6d4",
+      "source": "official:krasimira-arangelova-kovachka-5155af",
       "target": "company:tr:176903298",
       "kind": "tr_role",
       "role": "ngo_board",

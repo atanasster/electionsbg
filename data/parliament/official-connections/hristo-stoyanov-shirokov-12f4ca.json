@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hristo-stoyanov-shirokov-12f4ca",
+  "nodes": [
+    {
+      "id": "official:hristo-stoyanov-shirokov-12f4ca",
+      "type": "official",
+      "slug": "hristo-stoyanov-shirokov-12f4ca",
+      "label": "Христо Стоянов Широков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Поморие"
+    },
+    {
+      "id": "company:tr:202924962",
+      "type": "company",
+      "label": "УАЙН ТРЕЙД - 14",
+      "slug": null,
+      "uic": "202924962",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АПОСТОЛ НИКОЛАЕВ ПЕТКОВ",
+      "type": "person",
+      "label": "Апостол Николаев Петков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-stoyanov-shirokov-12f4ca",
+      "target": "company:tr:202924962",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-stoyanov-shirokov-12f4ca",
+      "target": "company:tr:202924962",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АПОСТОЛ НИКОЛАЕВ ПЕТКОВ",
+      "target": "company:tr:202924962",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АПОСТОЛ НИКОЛАЕВ ПЕТКОВ",
+      "target": "company:tr:202924962",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+[
+  {
+    "slug": "radost-aleksandrova-dimitrova-8ca038",
+    "declarantName": "Радост Александрова Димитрова",
+    "institution": "Държавни предприятия",
+    "positionTitle": "Изпълнителен директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г6626",
+    "controlHash": "F601A07C",
+    "sourceUrl": "https://register.cacbg.bg/2025/A0F21374-C5E4-48FC-8023-A7B179A4A887209588.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20808.5569809237,
+        "amountEurSpouse": 9151.613381531115
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 14150.514103986543,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 153.38756435886555,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 39833,
+        "valueEur": 20366.28950368897,
+        "holderName": "Радост Александрова Димитрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4300,
+        "valueEur": 2198.5550891437397,
+        "holderName": "Димитър Благоев Димитров",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 106044,
+        "valueEur": 54219.436249571794,
+        "holderName": "Радост Александрова Димитрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11500,
+        "valueEur": 5879.856633756513,
+        "holderName": "Димитър Благоев Димитров",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Дивотино",
+        "municipality": "Перник",
+        "areaSqm": 325,
+        "builtAreaSqm": 116,
+        "currency": "BGN",
+        "valueEur": 120000.20451675248,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Дивотино",
+        "municipality": "Перник",
+        "areaSqm": 325,
+        "builtAreaSqm": 116,
+        "currency": "BGN",
+        "valueEur": 120000.20451675248,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

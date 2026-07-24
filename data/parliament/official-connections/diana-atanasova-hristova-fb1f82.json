@@ -1,0 +1,199 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:diana-atanasova-hristova-fb1f82",
+  "nodes": [
+    {
+      "id": "official:diana-atanasova-hristova-fb1f82",
+      "type": "official",
+      "slug": "diana-atanasova-hristova-fb1f82",
+      "label": "Диана Атанасова Христова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000125484",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;СВЕТЛИНА - 1911&quot;",
+      "slug": null,
+      "uic": "000125484",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БИЛЯНА НЕДКОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Биляна Недкова Георгиева"
+    },
+    {
+      "id": "person:РОСИЦА СТЕФАНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Росица Стефанова Георгиева"
+    },
+    {
+      "id": "person:ХРИЗАНТЕМА ПЛАМЕНОВА ИГНАТОВА",
+      "type": "person",
+      "label": "Хризантема Пламенова Игнатова"
+    },
+    {
+      "id": "person:ДИЯНА ЙОСИФОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Дияна Йосифова Георгиева"
+    },
+    {
+      "id": "person:ДАНИЕЛА НИКОЛОВА ДАНАИЛОВА",
+      "type": "person",
+      "label": "Даниела Николова Данаилова"
+    },
+    {
+      "id": "person:КАТЯ АНГЕЛОВА БАНКОВА",
+      "type": "person",
+      "label": "Катя Ангелова Банкова"
+    },
+    {
+      "id": "person:МАКАВЕЙ ПЕТРОВ МАКАВЕЕВ",
+      "type": "person",
+      "label": "Макавей Петров Макавеев"
+    },
+    {
+      "id": "person:РЕНЕТА БИСЕРОВА ЦВЕТАНОВА",
+      "type": "person",
+      "label": "Ренета Бисерова Цветанова"
+    },
+    {
+      "id": "person:КРАСИМИР ИВАНОВ КИРИЛОВ",
+      "type": "person",
+      "label": "Красимир Иванов Кирилов"
+    },
+    {
+      "id": "person:ВИОЛЕТА ИВАНОВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Виолета Иванова Стефанова"
+    },
+    {
+      "id": "person:МИЛКА ТОДОРОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Милка Тодорова Петкова"
+    },
+    {
+      "id": "person:ЕМИЛИЯ ПЕНЕВА ПЕНЕВА",
+      "type": "person",
+      "label": "Емилия Пенева Пенева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:diana-atanasova-hristova-fb1f82",
+      "target": "company:tr:000125484",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:diana-atanasova-hristova-fb1f82",
+      "target": "company:tr:000125484",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БИЛЯНА НЕДКОВА ГЕОРГИЕВА",
+      "target": "company:tr:000125484",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА СТЕФАНОВА ГЕОРГИЕВА",
+      "target": "company:tr:000125484",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИЗАНТЕМА ПЛАМЕНОВА ИГНАТОВА",
+      "target": "company:tr:000125484",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЯНА ЙОСИФОВА ГЕОРГИЕВА",
+      "target": "company:tr:000125484",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА НИКОЛОВА ДАНАИЛОВА",
+      "target": "company:tr:000125484",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЯ АНГЕЛОВА БАНКОВА",
+      "target": "company:tr:000125484",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАКАВЕЙ ПЕТРОВ МАКАВЕЕВ",
+      "target": "company:tr:000125484",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕНЕТА БИСЕРОВА ЦВЕТАНОВА",
+      "target": "company:tr:000125484",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ИВАНОВ КИРИЛОВ",
+      "target": "company:tr:000125484",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА ИВАНОВА СТЕФАНОВА",
+      "target": "company:tr:000125484",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛКА ТОДОРОВА ПЕТКОВА",
+      "target": "company:tr:000125484",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ ПЕНЕВА ПЕНЕВА",
+      "target": "company:tr:000125484",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

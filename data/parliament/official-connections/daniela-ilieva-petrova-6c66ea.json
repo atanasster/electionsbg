@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:daniela-ilieva-petrova-6c66ea",
+  "nodes": [
+    {
+      "id": "official:daniela-ilieva-petrova-6c66ea",
+      "type": "official",
+      "slug": "daniela-ilieva-petrova-6c66ea",
+      "label": "Даниела Илиева Петрова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207878294",
+      "type": "company",
+      "label": "АрхиДот",
+      "slug": null,
+      "uic": "207878294",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТКО НЕДЯЛКОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Петко Недялков Георгиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniela-ilieva-petrova-6c66ea",
+      "target": "company:tr:207878294",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:daniela-ilieva-petrova-6c66ea",
+      "target": "company:tr:207878294",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТКО НЕДЯЛКОВ ГЕОРГИЕВ",
+      "target": "company:tr:207878294",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО НЕДЯЛКОВ ГЕОРГИЕВ",
+      "target": "company:tr:207878294",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-mihailov-razpopov-b17b71",
+  "nodes": [
+    {
+      "id": "official:georgi-mihailov-razpopov-b17b71",
+      "type": "official",
+      "slug": "georgi-mihailov-razpopov-b17b71",
+      "label": "Георги Михайлов Разпопов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Марица"
+    },
+    {
+      "id": "company:tr:206154879",
+      "type": "company",
+      "label": "РАЗПОПОВ КОМЕРС ЕООД",
+      "slug": null,
+      "uic": "206154879",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-mihailov-razpopov-b17b71",
+      "target": "company:tr:206154879",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:velislav-georgiev-daskalov-456e1b",
+  "nodes": [
+    {
+      "id": "official:velislav-georgiev-daskalov-456e1b",
+      "type": "official",
+      "slug": "velislav-georgiev-daskalov-456e1b",
+      "label": "Велислав Георгиев Даскалов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Добрич"
+    },
+    {
+      "id": "company:tr:207009729",
+      "type": "company",
+      "label": "Даскалов Иванов",
+      "slug": null,
+      "uic": "207009729",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:velislav-georgiev-daskalov-456e1b",
+      "target": "company:tr:207009729",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:velislav-georgiev-daskalov-456e1b",
+      "target": "company:tr:207009729",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

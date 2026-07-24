@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vasil-gochev-todorov-f36e02",
+  "nodes": [
+    {
+      "id": "official:vasil-gochev-todorov-f36e02",
+      "type": "official",
+      "slug": "vasil-gochev-todorov-f36e02",
+      "label": "Васил Гочев Тодоров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Шумен"
+    },
+    {
+      "id": "company:tr:204201287",
+      "type": "company",
+      "label": "Фортуна Риал Естейт ЕООД",
+      "slug": null,
+      "uic": "204201287",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vasil-gochev-todorov-f36e02",
+      "target": "company:tr:204201287",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

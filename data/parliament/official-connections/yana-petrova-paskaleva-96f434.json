@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:yana-petrova-paskaleva-96f434",
+  "nodes": [
+    {
+      "id": "official:yana-petrova-paskaleva-96f434",
+      "type": "official",
+      "slug": "yana-petrova-paskaleva-96f434",
+      "label": "Яна Петрова Паскалева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208796149",
+      "type": "company",
+      "label": "И ЕМ ЕФ БИЛД ЕНД ШИЛД",
+      "slug": null,
+      "uic": "208796149",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yana-petrova-paskaleva-96f434",
+      "target": "company:tr:208796149",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yana-petrova-paskaleva-96f434",
+      "target": "company:tr:208796149",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

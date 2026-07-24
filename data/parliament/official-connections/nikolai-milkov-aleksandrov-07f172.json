@@ -1,0 +1,171 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-milkov-aleksandrov-07f172",
+  "nodes": [
+    {
+      "id": "official:nikolai-milkov-aleksandrov-07f172",
+      "type": "official",
+      "slug": "nikolai-milkov-aleksandrov-07f172",
+      "label": "Николай Милков Александров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:831385306",
+      "type": "company",
+      "label": "ЗЕМИНВЕСТ",
+      "slug": null,
+      "uic": "831385306",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:angel-ivanov-zahov-8ea972",
+      "type": "official",
+      "slug": "angel-ivanov-zahov-8ea972",
+      "label": "Ангел Иванов Захов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:anna-ivova-mircheva-f28d65",
+      "type": "official",
+      "slug": "anna-ivova-mircheva-f28d65",
+      "label": "Анна Ивова Мирчева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ХРИСТО ЙОРДАНОВ ПАНАЙОТОВ",
+      "type": "person",
+      "label": "Христо Йорданов Панайотов"
+    },
+    {
+      "id": "person:ХРИСТО ВАСИЛЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Христо Василев Иванов"
+    },
+    {
+      "id": "person:МИХАИЛ ДИМИТРОВ ГЛАВЧЕВ",
+      "type": "person",
+      "label": "Михаил Димитров Главчев"
+    },
+    {
+      "id": "person:ВЛАДИМИР ЗИНОВИЕВ БУБНЯК",
+      "type": "person",
+      "label": "Владимир Зиновиев Бубняк"
+    },
+    {
+      "id": "person:КРЪСТИН КИРИЛОВ ЧЕПИЛОВ",
+      "type": "person",
+      "label": "Кръстин Кирилов Чепилов"
+    },
+    {
+      "id": "person:ДИМИТЪР ПЕТКОВ ГЛАВИНОВ",
+      "type": "person",
+      "label": "Димитър  Петков Главинов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-milkov-aleksandrov-07f172",
+      "target": "company:tr:831385306",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:angel-ivanov-zahov-8ea972",
+      "target": "company:tr:831385306",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:anna-ivova-mircheva-f28d65",
+      "target": "company:tr:831385306",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:anna-ivova-mircheva-f28d65",
+      "target": "company:tr:831385306",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО ЙОРДАНОВ ПАНАЙОТОВ",
+      "target": "company:tr:831385306",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ЙОРДАНОВ ПАНАЙОТОВ",
+      "target": "company:tr:831385306",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ВАСИЛЕВ ИВАНОВ",
+      "target": "company:tr:831385306",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ ДИМИТРОВ ГЛАВЧЕВ",
+      "target": "company:tr:831385306",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ЗИНОВИЕВ БУБНЯК",
+      "target": "company:tr:831385306",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРЪСТИН КИРИЛОВ ЧЕПИЛОВ",
+      "target": "company:tr:831385306",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ПЕТКОВ ГЛАВИНОВ",
+      "target": "company:tr:831385306",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ПЕТКОВ ГЛАВИНОВ",
+      "target": "company:tr:831385306",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

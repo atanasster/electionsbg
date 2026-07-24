@@ -1,0 +1,224 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-velkov-kolev-a60eb0",
+  "nodes": [
+    {
+      "id": "official:georgi-velkov-kolev-a60eb0",
+      "type": "official",
+      "slug": "georgi-velkov-kolev-a60eb0",
+      "label": "Георги Велков Колев",
+      "tier": "executive",
+      "role": "academic",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000935698",
+      "type": "company",
+      "label": "СТОПАНСКА КАМАРА-ШУМЕН",
+      "slug": null,
+      "uic": "000935698",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Шумен, 9700"
+    },
+    {
+      "id": "mp:1064",
+      "type": "mp",
+      "mpId": 1064,
+      "label": "Георги Велков Колев",
+      "partyGroupShort": null,
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:НИКОЛАЙ ТОНЧЕВ ТОНЧЕВ",
+      "type": "person",
+      "label": "Николай Тончев Тончев"
+    },
+    {
+      "id": "person:РУМЯНА АНГЕЛОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Румяна Ангелова Георгиева"
+    },
+    {
+      "id": "person:ТОДОР НЕЙКОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Тодор Нейков Тодоров"
+    },
+    {
+      "id": "person:ИЛИЯ АТАНАСОВ ПОПОВ",
+      "type": "person",
+      "label": "Илия Атанасов Попов"
+    },
+    {
+      "id": "person:НИКОЛАЙ ХРИСТОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Николай Христов Николов"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ВАСИЛЕВ ВЪРБАНОВ",
+      "type": "person",
+      "label": "Валентин Василев Върбанов"
+    },
+    {
+      "id": "person:ДАНКО СТОЯНОВ ДОБРЕВ",
+      "type": "person",
+      "label": "Данко Стоянов Добрев"
+    },
+    {
+      "id": "person:БОРИСЛАВ ПЕТРОВ КАРАДЖОВ",
+      "type": "person",
+      "label": "Борислав Петров Караджов"
+    },
+    {
+      "id": "person:СТОЯН ДАНКОВ ДОБРЕВ",
+      "type": "person",
+      "label": "Стоян Данков Добрев"
+    },
+    {
+      "id": "person:НИКОЛАОС ХРИСТОДУЛУ",
+      "type": "person",
+      "label": "Николаос Христодулу"
+    },
+    {
+      "id": "person:МАШКА ВЛЪЧКОВА КРУМОВА",
+      "type": "person",
+      "label": "Машка Влъчкова Крумова"
+    },
+    {
+      "id": "person:ВЛАДИСЛАВ ВАЛЕНТИНОВ ВЪРБАНОВ",
+      "type": "person",
+      "label": "Владислав Валентинов Върбанов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-velkov-kolev-a60eb0",
+      "target": "company:tr:000935698",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1064",
+      "target": "company:tr:000935698",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ ТОНЧЕВ ТОНЧЕВ",
+      "target": "company:tr:000935698",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА АНГЕЛОВА ГЕОРГИЕВА",
+      "target": "company:tr:000935698",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР НЕЙКОВ ТОДОРОВ",
+      "target": "company:tr:000935698",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ АТАНАСОВ ПОПОВ",
+      "target": "company:tr:000935698",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ХРИСТОВ НИКОЛОВ",
+      "target": "company:tr:000935698",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ТОНЧЕВ ТОНЧЕВ",
+      "target": "company:tr:000935698",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ВАСИЛЕВ ВЪРБАНОВ",
+      "target": "company:tr:000935698",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНКО СТОЯНОВ ДОБРЕВ",
+      "target": "company:tr:000935698",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ ПЕТРОВ КАРАДЖОВ",
+      "target": "company:tr:000935698",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ ПЕТРОВ КАРАДЖОВ",
+      "target": "company:tr:000935698",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ДАНКОВ ДОБРЕВ",
+      "target": "company:tr:000935698",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАОС ХРИСТОДУЛУ",
+      "target": "company:tr:000935698",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАШКА ВЛЪЧКОВА КРУМОВА",
+      "target": "company:tr:000935698",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВ ВАЛЕНТИНОВ ВЪРБАНОВ",
+      "target": "company:tr:000935698",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

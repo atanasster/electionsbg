@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tsvetelina-tsvetanova-borisova-2a6531",
+  "nodes": [
+    {
+      "id": "official:tsvetelina-tsvetanova-borisova-2a6531",
+      "type": "official",
+      "slug": "tsvetelina-tsvetanova-borisova-2a6531",
+      "label": "Цветелина Цветанова Борисова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203268532",
+      "type": "company",
+      "label": "БАСИЛЕОС ЕООД",
+      "slug": null,
+      "uic": "203268532",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetelina-tsvetanova-borisova-2a6531",
+      "target": "company:tr:203268532",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

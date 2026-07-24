@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iliyan-kirilov-iliev-cd18c9",
+  "nodes": [
+    {
+      "id": "official:iliyan-kirilov-iliev-cd18c9",
+      "type": "official",
+      "slug": "iliyan-kirilov-iliev-cd18c9",
+      "label": "Илиян Кирилов Илиев",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201419964",
+      "type": "company",
+      "label": "ЕЛЕН - 99",
+      "slug": null,
+      "uic": "201419964",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iliyan-kirilov-iliev-cd18c9",
+      "target": "company:tr:201419964",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iliyan-kirilov-iliev-cd18c9",
+      "target": "company:tr:201419964",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

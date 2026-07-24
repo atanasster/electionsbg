@@ -1,0 +1,112 @@
+[
+  {
+    "slug": "mizi-ivanov-georgiev-a0f96b",
+    "declarantName": "Мизи Иванов Георгиев",
+    "institution": "ОД МВР Видин",
+    "positionTitle": "Заместник-директор",
+    "category": "security_service",
+    "declarationYear": 2018,
+    "fiscalYear": 2017,
+    "declarationType": "Annualy",
+    "filedAt": "2018-05-28",
+    "entryNumber": "Г2338",
+    "controlHash": "9F640AA5",
+    "sourceUrl": "https://register.cacbg.bg/2018/3CBBCAFA-8ACD-462F-830F-1F4FBA470A2392805.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 11377.77823225945,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 5583.307342662706,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Застрахователна премия от ЗК \"Лев Инс\" АД по застрахователна полица \"Каско на МПС\" за тотална щета на МПС",
+        "amountEurDeclarant": 1523.649805964731,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес Ц 270 ЦДИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2017,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 300,
+        "valueEur": 153.38756435886555,
+        "holderName": "Мизи Иванов Георгиев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2017,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Мизи Иванов Георгиев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 23162,
+        "valueEur": 11842.542552266812,
+        "holderName": "Мизи Иванов Георгиев",
+        "isSpouse": false,
+        "legalBasis": "Договор за потребителски кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7545,
+        "valueEur": 3857.185951744272,
+        "holderName": "Мизи Иванов Георгиев",
+        "isSpouse": false,
+        "legalBasis": "Договор за потребителски кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

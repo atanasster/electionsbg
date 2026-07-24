@@ -1,0 +1,203 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:aneta-momchilova-filipova-e9cc13",
+  "nodes": [
+    {
+      "id": "official:aneta-momchilova-filipova-e9cc13",
+      "type": "official",
+      "slug": "aneta-momchilova-filipova-e9cc13",
+      "label": "Анета Момчилова Филипова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Созопол"
+    },
+    {
+      "id": "company:tr:000044712",
+      "type": "company",
+      "label": "ОТЕЦ ПАИСИЙ-1896&quot;",
+      "slug": null,
+      "uic": "000044712",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:todor-damyanov-damyanov-eec055",
+      "type": "official",
+      "slug": "todor-damyanov-damyanov-eec055",
+      "label": "Тодор Дамянов Дамянов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Созопол"
+    },
+    {
+      "id": "person:АНГЕЛИНА ДОБРЕВА НЕДИН",
+      "type": "person",
+      "label": "Ангелина Добрева Недин"
+    },
+    {
+      "id": "person:КАЛИНКА МАРИНОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Калинка Маринова Николова"
+    },
+    {
+      "id": "person:ПЕНКА БОГДАНОВА ЩЕРИОНОВА",
+      "type": "person",
+      "label": "Пенка Богданова Щерионова"
+    },
+    {
+      "id": "person:КАЛИНКА БОРИСОВА КАЗАНДЖИЕВА",
+      "type": "person",
+      "label": "Калинка Борисова Казанджиева"
+    },
+    {
+      "id": "person:РОСИЦА СТОЯНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Росица Стоянова Иванова"
+    },
+    {
+      "id": "person:ЯНКА БАЛЕВА РАЛЕВА",
+      "type": "person",
+      "label": "Янка Балева Ралева"
+    },
+    {
+      "id": "person:ТОДОР ПЕТРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Тодор Петров Георгиев"
+    },
+    {
+      "id": "person:ГИНКА ГОРАНОВА ЧЕРВЕНКОВА",
+      "type": "person",
+      "label": "Гинка Горанова Червенкова"
+    },
+    {
+      "id": "person:СТАНИМИР ТОДОРОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Станимир Тодоров Петров"
+    },
+    {
+      "id": "person:АТАНАСКА НИКОЛОВА КОСТОВА",
+      "type": "person",
+      "label": "Атанаска Николова Костова"
+    },
+    {
+      "id": "person:ТАТЯНА ДОНЧЕВА ДЕЛИИВАНОВА",
+      "type": "person",
+      "label": "Татяна Дончева Делииванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aneta-momchilova-filipova-e9cc13",
+      "target": "company:tr:000044712",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:todor-damyanov-damyanov-eec055",
+      "target": "company:tr:000044712",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АНГЕЛИНА ДОБРЕВА НЕДИН",
+      "target": "company:tr:000044712",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНКА МАРИНОВА НИКОЛОВА",
+      "target": "company:tr:000044712",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА БОГДАНОВА ЩЕРИОНОВА",
+      "target": "company:tr:000044712",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНКА БОРИСОВА КАЗАНДЖИЕВА",
+      "target": "company:tr:000044712",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА СТОЯНОВА ИВАНОВА",
+      "target": "company:tr:000044712",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКА БАЛЕВА РАЛЕВА",
+      "target": "company:tr:000044712",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛИНА ДОБРЕВА НЕДИН",
+      "target": "company:tr:000044712",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ПЕТРОВ ГЕОРГИЕВ",
+      "target": "company:tr:000044712",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГИНКА ГОРАНОВА ЧЕРВЕНКОВА",
+      "target": "company:tr:000044712",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИР ТОДОРОВ ПЕТРОВ",
+      "target": "company:tr:000044712",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАСКА НИКОЛОВА КОСТОВА",
+      "target": "company:tr:000044712",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА ДОНЧЕВА ДЕЛИИВАНОВА",
+      "target": "company:tr:000044712",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

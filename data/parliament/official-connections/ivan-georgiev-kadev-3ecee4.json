@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-georgiev-kadev-3ecee4",
+  "nodes": [
+    {
+      "id": "official:ivan-georgiev-kadev-3ecee4",
+      "type": "official",
+      "slug": "ivan-georgiev-kadev-3ecee4",
+      "label": "Иван Георгиев Кадев",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204780546",
+      "type": "company",
+      "label": "К2-64",
+      "slug": null,
+      "uic": "204780546",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИЛКА ДИМИТРОВА ТОДОРОВА",
+      "type": "person",
+      "label": "Милка Димитрова Тодорова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-georgiev-kadev-3ecee4",
+      "target": "company:tr:204780546",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛКА ДИМИТРОВА ТОДОРОВА",
+      "target": "company:tr:204780546",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:yurii-todorov-voev-b5db78",
+  "nodes": [
+    {
+      "id": "official:yurii-todorov-voev-b5db78",
+      "type": "official",
+      "slug": "yurii-todorov-voev-b5db78",
+      "label": "Юрий Тодоров Воев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206785563",
+      "type": "company",
+      "label": "БЛАГОЕВГРАД ПРОЕКТ 2021",
+      "slug": null,
+      "uic": "206785563",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:ivan-vladimirov-todorov-8e8358",
+      "type": "official",
+      "slug": "ivan-vladimirov-todorov-8e8358",
+      "label": "Иван Владимиров Тодоров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ОБЩИНА БЛАГОЕВГРАД",
+      "type": "person",
+      "label": "Община Благоевград"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yurii-todorov-voev-b5db78",
+      "target": "company:tr:206785563",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-vladimirov-todorov-8e8358",
+      "target": "company:tr:206785563",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОБЩИНА БЛАГОЕВГРАД",
+      "target": "company:tr:206785563",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stefan-iordanov-zlatkov-88ceb2",
+  "nodes": [
+    {
+      "id": "official:stefan-iordanov-zlatkov-88ceb2",
+      "type": "official",
+      "slug": "stefan-iordanov-zlatkov-88ceb2",
+      "label": "Стефан Йорданов Златков",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204500873",
+      "type": "company",
+      "label": "\"Групо Дизайн\" ООД",
+      "slug": null,
+      "uic": "204500873",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:104678864",
+      "type": "company",
+      "label": "\"Акуа Вита\" ООД",
+      "slug": null,
+      "uic": "104678864",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:stefan-iordanov-zlatkov-a8e8db",
+      "type": "official",
+      "slug": "stefan-iordanov-zlatkov-a8e8db",
+      "label": "Стефан Йорданов Златков",
+      "tier": "executive",
+      "role": "revenue_agency",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stefan-iordanov-zlatkov-88ceb2",
+      "target": "company:tr:204500873",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stefan-iordanov-zlatkov-88ceb2",
+      "target": "company:tr:104678864",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stefan-iordanov-zlatkov-a8e8db",
+      "target": "company:tr:204500873",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stefan-iordanov-zlatkov-a8e8db",
+      "target": "company:tr:104678864",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

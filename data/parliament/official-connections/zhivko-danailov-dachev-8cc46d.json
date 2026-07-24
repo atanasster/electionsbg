@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:zhivko-danailov-dachev-8cc46d",
+  "nodes": [
+    {
+      "id": "official:zhivko-danailov-dachev-8cc46d",
+      "type": "official",
+      "slug": "zhivko-danailov-dachev-8cc46d",
+      "label": "Живко Данаилов Дачев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:834052321",
+      "type": "company",
+      "label": "ЖИЛФОНД - ИНВЕСТ",
+      "slug": null,
+      "uic": "834052321",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zhivko-danailov-dachev-8cc46d",
+      "target": "company:tr:834052321",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

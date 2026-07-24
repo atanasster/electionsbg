@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:5092",
   "nodes": [
     {
@@ -153,9 +153,9 @@
       "label": "Румен Василев Демиров"
     },
     {
-      "id": "official:bogomil-ivanov-petkov-8b586d",
+      "id": "official:bogomil-ivanov-petkov-251f5d",
       "type": "official",
-      "slug": "bogomil-ivanov-petkov-8b586d",
+      "slug": "bogomil-ivanov-petkov-251f5d",
       "label": "Богомил Иванов Петков",
       "tier": "executive",
       "role": "state_enterprise",
@@ -262,9 +262,9 @@
       ]
     },
     {
-      "id": "official:traicho-dimitrov-traikov-710a1d",
+      "id": "official:traicho-dimitrov-traikov-44f4d9",
       "type": "official",
-      "slug": "traicho-dimitrov-traikov-710a1d",
+      "slug": "traicho-dimitrov-traikov-44f4d9",
       "label": "Трайчо Димитров Трайков",
       "tier": "municipal",
       "role": "mayor",
@@ -460,7 +460,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:bogomil-ivanov-petkov-8b586d",
+      "source": "official:bogomil-ivanov-petkov-251f5d",
       "target": "company:Биптан-ЕООД",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -532,7 +532,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:bogomil-ivanov-petkov-8b586d",
+      "source": "official:bogomil-ivanov-petkov-251f5d",
       "target": "company:БОКАЛ-ПЕТ-ООД",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -548,7 +548,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:bogomil-ivanov-petkov-8b586d",
+      "source": "official:bogomil-ivanov-petkov-251f5d",
       "target": "company:Мазалат-ЕООД",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -676,7 +676,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:traicho-dimitrov-traikov-710a1d",
+      "source": "official:traicho-dimitrov-traikov-44f4d9",
       "target": "company:tr:207024454",
       "kind": "tr_role",
       "role": "ngo_board",

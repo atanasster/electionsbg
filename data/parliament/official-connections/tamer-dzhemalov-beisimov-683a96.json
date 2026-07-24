@@ -1,0 +1,103 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tamer-dzhemalov-beisimov-683a96",
+  "nodes": [
+    {
+      "id": "official:tamer-dzhemalov-beisimov-683a96",
+      "type": "official",
+      "slug": "tamer-dzhemalov-beisimov-683a96",
+      "label": "Тамер Джемалов Бейсимов",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201663908",
+      "type": "company",
+      "label": "СЪНИ 11",
+      "slug": null,
+      "uic": "201663908",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НАТАЛИЯ ХРИСТОВА НИКОЛОВА-ИВАНОВА",
+      "type": "person",
+      "label": "Наталия Христова Николова-Иванова"
+    },
+    {
+      "id": "person:АНДЖЕЙ ТАДЕУШ ГОЛИГА",
+      "type": "person",
+      "label": "Анджей Тадеуш Голига"
+    },
+    {
+      "id": "person:СОЛАР ТЕКНО",
+      "type": "person",
+      "label": "Солар Текно"
+    },
+    {
+      "id": "person:ЕНЕРГИЙНИ СИСТЕМИ СУХИНДОЛ",
+      "type": "person",
+      "label": "Енергийни Системи Сухиндол"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tamer-dzhemalov-beisimov-683a96",
+      "target": "company:tr:201663908",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tamer-dzhemalov-beisimov-683a96",
+      "target": "company:tr:201663908",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НАТАЛИЯ ХРИСТОВА НИКОЛОВА-ИВАНОВА",
+      "target": "company:tr:201663908",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАЛИЯ ХРИСТОВА НИКОЛОВА-ИВАНОВА",
+      "target": "company:tr:201663908",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДЖЕЙ ТАДЕУШ ГОЛИГА",
+      "target": "company:tr:201663908",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОЛАР ТЕКНО",
+      "target": "company:tr:201663908",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕНЕРГИЙНИ СИСТЕМИ СУХИНДОЛ",
+      "target": "company:tr:201663908",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

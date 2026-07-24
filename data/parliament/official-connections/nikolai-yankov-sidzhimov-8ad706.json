@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-yankov-sidzhimov-8ad706",
+  "nodes": [
+    {
+      "id": "official:nikolai-yankov-sidzhimov-8ad706",
+      "type": "official",
+      "slug": "nikolai-yankov-sidzhimov-8ad706",
+      "label": "Николай Янков Сиджимов",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176645257",
+      "type": "company",
+      "label": "НОРГЕ",
+      "slug": null,
+      "uic": "176645257",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЪР ПЕНЧЕВ ПЕНЧЕВ",
+      "type": "person",
+      "label": "Петър Пенчев Пенчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-yankov-sidzhimov-8ad706",
+      "target": "company:tr:176645257",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-yankov-sidzhimov-8ad706",
+      "target": "company:tr:176645257",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР ПЕНЧЕВ ПЕНЧЕВ",
+      "target": "company:tr:176645257",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

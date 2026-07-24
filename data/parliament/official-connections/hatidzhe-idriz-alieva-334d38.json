@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hatidzhe-idriz-alieva-334d38",
+  "nodes": [
+    {
+      "id": "official:hatidzhe-idriz-alieva-334d38",
+      "type": "official",
+      "slug": "hatidzhe-idriz-alieva-334d38",
+      "label": "Хатидже Идриз Алиева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:125047642",
+      "type": "company",
+      "label": "ОБЩИНСКИ ПАЗАРИ",
+      "slug": null,
+      "uic": "125047642",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОБЩИНА ТЪРГОВИЩЕ",
+      "type": "person",
+      "label": "Община Търговище"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hatidzhe-idriz-alieva-334d38",
+      "target": "company:tr:125047642",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОБЩИНА ТЪРГОВИЩЕ",
+      "target": "company:tr:125047642",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

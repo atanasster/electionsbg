@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iren-vladimirova-barkli-paz-d8dc45",
+  "nodes": [
+    {
+      "id": "official:iren-vladimirova-barkli-paz-d8dc45",
+      "type": "official",
+      "slug": "iren-vladimirova-barkli-paz-d8dc45",
+      "label": "Ирен Владимирова Баркли Паз",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:114671238",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ АВИС - МЕДИКА",
+      "slug": null,
+      "uic": "114671238",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ВЛАДИМИРОВ АНДРЕЕВ",
+      "type": "person",
+      "label": "Александър Владимиров Андреев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iren-vladimirova-barkli-paz-d8dc45",
+      "target": "company:tr:114671238",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ВЛАДИМИРОВ АНДРЕЕВ",
+      "target": "company:tr:114671238",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

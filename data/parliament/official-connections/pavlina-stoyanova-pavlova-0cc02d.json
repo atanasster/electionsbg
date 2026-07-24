@@ -1,0 +1,122 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:pavlina-stoyanova-pavlova-0cc02d",
+  "nodes": [
+    {
+      "id": "official:pavlina-stoyanova-pavlova-0cc02d",
+      "type": "official",
+      "slug": "pavlina-stoyanova-pavlova-0cc02d",
+      "label": "Павлина Стоянова Павлова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:125550070",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ОМУРТАГ",
+      "slug": null,
+      "uic": "125550070",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:4022",
+      "type": "mp",
+      "mpId": 4022,
+      "label": "Имрен Исметова Мехмедова",
+      "partyGroupShort": "ДПС",
+      "isCurrent": false,
+      "nsFolders": [
+        "44",
+        "45",
+        "46",
+        "47",
+        "48"
+      ]
+    },
+    {
+      "id": "official:zyulbie-ismailova-mustafova-39c6a3",
+      "type": "official",
+      "slug": "zyulbie-ismailova-mustafova-39c6a3",
+      "label": "Зюлбие Исмаилова Мустафова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:МУСТАФА ШЕРИФОВ БОДЕВ",
+      "type": "person",
+      "label": "Мустафа Шерифов Бодев"
+    },
+    {
+      "id": "person:МЕХМЕД ХАСАНОВ АХМЕДОВ",
+      "type": "person",
+      "label": "Мехмед Хасанов Ахмедов"
+    },
+    {
+      "id": "person:РЕШАТ СЕИДОВ МЕХМЕДОВ",
+      "type": "person",
+      "label": "Решат Сеидов Мехмедов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:pavlina-stoyanova-pavlova-0cc02d",
+      "target": "company:tr:125550070",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:pavlina-stoyanova-pavlova-0cc02d",
+      "target": "company:tr:125550070",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4022",
+      "target": "company:tr:125550070",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zyulbie-ismailova-mustafova-39c6a3",
+      "target": "company:tr:125550070",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МУСТАФА ШЕРИФОВ БОДЕВ",
+      "target": "company:tr:125550070",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕХМЕД ХАСАНОВ АХМЕДОВ",
+      "target": "company:tr:125550070",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РЕШАТ СЕИДОВ МЕХМЕДОВ",
+      "target": "company:tr:125550070",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

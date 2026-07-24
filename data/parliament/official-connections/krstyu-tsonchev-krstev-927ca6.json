@@ -1,0 +1,133 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:krstyu-tsonchev-krstev-927ca6",
+  "nodes": [
+    {
+      "id": "official:krstyu-tsonchev-krstev-927ca6",
+      "type": "official",
+      "slug": "krstyu-tsonchev-krstev-927ca6",
+      "label": "Кръстю Цончев Кръстев",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:120066927",
+      "type": "company",
+      "label": "АРТ ЦЕНТЪР \"ТАЛАНТИ НА БЪЛГАРИЯ\"\"",
+      "slug": null,
+      "uic": "120066927",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:rumen-petrov-bechev-a58a5f",
+      "type": "official",
+      "slug": "rumen-petrov-bechev-a58a5f",
+      "label": "Румен Петров Бечев",
+      "tier": "executive",
+      "role": "cultural_institute",
+      "municipality": null
+    },
+    {
+      "id": "person:ДИЧО ДИМИТРОВ КАПУШЕВ",
+      "type": "person",
+      "label": "Дичо Димитров Капушев"
+    },
+    {
+      "id": "person:РОСИЦА ВЕЛИКОВА ЗГУРОВА",
+      "type": "person",
+      "label": "Росица Великова Згурова"
+    },
+    {
+      "id": "person:СВЕТЛОЗАР ИЛИЕВ КАЗАНДЖИЕВ",
+      "type": "person",
+      "label": "Светлозар Илиев Казанджиев"
+    },
+    {
+      "id": "person:ТОМА НИКОЛОВ КАРАПАУНОВ",
+      "type": "person",
+      "label": "Тома Николов Карапаунов"
+    },
+    {
+      "id": "person:ПЕНКА НИКОЛАВА ДЛЪГМАНОВА",
+      "type": "person",
+      "label": "Пенка Николава Длъгманова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krstyu-tsonchev-krstev-927ca6",
+      "target": "company:tr:120066927",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rumen-petrov-bechev-a58a5f",
+      "target": "company:tr:120066927",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rumen-petrov-bechev-a58a5f",
+      "target": "company:tr:120066927",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИЧО ДИМИТРОВ КАПУШЕВ",
+      "target": "company:tr:120066927",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЧО ДИМИТРОВ КАПУШЕВ",
+      "target": "company:tr:120066927",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА ВЕЛИКОВА ЗГУРОВА",
+      "target": "company:tr:120066927",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛОЗАР ИЛИЕВ КАЗАНДЖИЕВ",
+      "target": "company:tr:120066927",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОМА НИКОЛОВ КАРАПАУНОВ",
+      "target": "company:tr:120066927",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА НИКОЛАВА ДЛЪГМАНОВА",
+      "target": "company:tr:120066927",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

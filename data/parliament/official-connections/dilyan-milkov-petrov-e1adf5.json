@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dilyan-milkov-petrov-e1adf5",
+  "nodes": [
+    {
+      "id": "official:dilyan-milkov-petrov-e1adf5",
+      "type": "official",
+      "slug": "dilyan-milkov-petrov-e1adf5",
+      "label": "Дилян Милков Петров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131218471",
+      "type": "company",
+      "label": "ДЪРЖАВНО ПРЕДПРИЯТИЕ &quot;РАДИОАКТИВНИ ОТПАДЪЦИ&quot;",
+      "slug": null,
+      "uic": "131218471",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dilyan-milkov-petrov-e1adf5",
+      "target": "company:tr:131218471",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

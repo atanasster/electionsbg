@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-petkov-dimitrov-4ca7cf",
+  "nodes": [
+    {
+      "id": "official:nikolai-petkov-dimitrov-4ca7cf",
+      "type": "official",
+      "slug": "nikolai-petkov-dimitrov-4ca7cf",
+      "label": "Николай Петков Димитров",
+      "tier": "executive",
+      "role": "international",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207853049",
+      "type": "company",
+      "label": "НИК ЕСТЕЙТ",
+      "slug": null,
+      "uic": "207853049",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-petkov-dimitrov-4ca7cf",
+      "target": "company:tr:207853049",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nikolai-petkov-dimitrov-4ca7cf",
+      "target": "company:tr:207853049",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

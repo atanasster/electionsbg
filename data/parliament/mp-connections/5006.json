@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:5006",
   "nodes": [
     {
@@ -505,27 +505,27 @@
       "label": "Елена Делчева Кънчева"
     },
     {
-      "id": "official:todor-dimitrov-popov-4393ae",
+      "id": "official:todor-dimitrov-popov-107d7a",
       "type": "official",
-      "slug": "todor-dimitrov-popov-4393ae",
+      "slug": "todor-dimitrov-popov-107d7a",
       "label": "Тодор Димитров Попов",
       "tier": "executive",
       "role": "eu_funds_controller",
       "municipality": null
     },
     {
-      "id": "official:todor-dimitrov-popov-ae981e",
+      "id": "official:todor-dimitrov-popov-cae2d6",
       "type": "official",
-      "slug": "todor-dimitrov-popov-ae981e",
+      "slug": "todor-dimitrov-popov-cae2d6",
       "label": "Тодор Димитров Попов",
       "tier": "executive",
       "role": "procurement_officer",
       "municipality": null
     },
     {
-      "id": "official:todor-dimitrov-popov-6034e1",
+      "id": "official:todor-dimitrov-popov-6b642e",
       "type": "official",
-      "slug": "todor-dimitrov-popov-6034e1",
+      "slug": "todor-dimitrov-popov-6b642e",
       "label": "Тодор Димитров Попов",
       "tier": "municipal",
       "role": "councillor",
@@ -1840,7 +1840,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:todor-dimitrov-popov-4393ae",
+      "source": "official:todor-dimitrov-popov-107d7a",
       "target": "company:tr:202785815",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -1848,7 +1848,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:todor-dimitrov-popov-ae981e",
+      "source": "official:todor-dimitrov-popov-cae2d6",
       "target": "company:tr:202785815",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -1856,7 +1856,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:todor-dimitrov-popov-6034e1",
+      "source": "official:todor-dimitrov-popov-6b642e",
       "target": "company:tr:202785815",
       "kind": "declared_stake",
       "role": "declared_share",

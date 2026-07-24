@@ -1,0 +1,76 @@
+[
+  {
+    "slug": "rosen-stefanov-rusinov-be3bdc",
+    "declarantName": "Росен Стефанов Русинов",
+    "institution": "Североизточно държавно предприятие",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-04",
+    "entryNumber": "Г3381",
+    "controlHash": "414E345A",
+    "sourceUrl": "https://register.cacbg.bg/2022/639305E4-5937-43DD-8250-4191468DD250135547.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15844.93539827081,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от рента - нива гр. Попово",
+        "amountEurDeclarant": 535.833891493637,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от ренти - ниви с.Кръшно",
+        "amountEurDeclarant": 2261.9552824120706,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 2154,
+        "valueEur": 2154.0726954796687,
+        "holderName": "Росен Стефанов Русинов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 118731,
+        "valueEur": 60706.19634630822,
+        "holderName": "Росен Стефанов Русинов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

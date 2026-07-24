@@ -1,0 +1,129 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-ivanov-slavov-64f1bc",
+  "nodes": [
+    {
+      "id": "official:georgi-ivanov-slavov-64f1bc",
+      "type": "official",
+      "slug": "georgi-ivanov-slavov-64f1bc",
+      "label": "Георги Иванов Славов",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:128587374",
+      "type": "company",
+      "label": "ТЕКРИС ЕООД",
+      "slug": null,
+      "uic": "128587374",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201549089",
+      "type": "company",
+      "label": "Баланс Консулт ООД",
+      "slug": null,
+      "uic": "201549089",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:128528360",
+      "type": "company",
+      "label": "Агроинвест Тунджа",
+      "slug": null,
+      "uic": "128528360",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:georgi-ivanov-slavov-e7b12b",
+      "type": "official",
+      "slug": "georgi-ivanov-slavov-e7b12b",
+      "label": "Георги Иванов Славов",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "official:georgi-ivanov-slavov-c7db21",
+      "type": "official",
+      "slug": "georgi-ivanov-slavov-c7db21",
+      "label": "Георги Иванов Славов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ямбол"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-ivanov-slavov-64f1bc",
+      "target": "company:tr:128587374",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-ivanov-slavov-64f1bc",
+      "target": "company:tr:201549089",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-ivanov-slavov-64f1bc",
+      "target": "company:tr:128528360",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-ivanov-slavov-e7b12b",
+      "target": "company:tr:128587374",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-ivanov-slavov-c7db21",
+      "target": "company:tr:128587374",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-ivanov-slavov-e7b12b",
+      "target": "company:tr:201549089",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-ivanov-slavov-c7db21",
+      "target": "company:tr:201549089",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-ivanov-slavov-e7b12b",
+      "target": "company:tr:128528360",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

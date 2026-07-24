@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:aldin-hitov-karagozov-64140c",
+  "nodes": [
+    {
+      "id": "official:aldin-hitov-karagozov-64140c",
+      "type": "official",
+      "slug": "aldin-hitov-karagozov-64140c",
+      "label": "Алдин Хитов Карагьозов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:126531685",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ&quot;СВЕТА ЕКАТЕРИНА&quot;-ДИМИТРОВГРАД",
+      "slug": null,
+      "uic": "126531685",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aldin-hitov-karagozov-64140c",
+      "target": "company:tr:126531685",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

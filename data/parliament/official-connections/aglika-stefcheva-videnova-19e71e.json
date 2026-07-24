@@ -1,0 +1,172 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:aglika-stefcheva-videnova-19e71e",
+  "nodes": [
+    {
+      "id": "official:aglika-stefcheva-videnova-19e71e",
+      "type": "official",
+      "slug": "aglika-stefcheva-videnova-19e71e",
+      "label": "Аглика Стефчева Виденова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176936800",
+      "type": "company",
+      "label": "ФОНДАЦИЯ  ДУМА",
+      "slug": null,
+      "uic": "176936800",
+      "legalForm": "FOUND",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:3578",
+      "type": "mp",
+      "mpId": 3578,
+      "label": "Александър Тихомиров Симов",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "44",
+        "45",
+        "46"
+      ]
+    },
+    {
+      "id": "mp:3912",
+      "type": "mp",
+      "mpId": 3912,
+      "label": "Вяра Емилова Йорданова",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "45",
+        "47"
+      ]
+    },
+    {
+      "id": "mp:4911",
+      "type": "mp",
+      "mpId": 4911,
+      "label": "Атанас Зафиров Зафиров",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "42",
+        "43",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50"
+      ]
+    },
+    {
+      "id": "mp:801",
+      "type": "mp",
+      "mpId": 801,
+      "label": "Стойко Илиев Танков",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "39"
+      ]
+    },
+    {
+      "id": "official:vyara-emilova-iordanova-a65379",
+      "type": "official",
+      "slug": "vyara-emilova-iordanova-a65379",
+      "label": "Вяра Емилова Йорданова",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "person:БОЯН АНГЕЛОВ ИВАНОВ",
+      "type": "person",
+      "label": "Боян Ангелов Иванов"
+    },
+    {
+      "id": "person:ПЕТКО ЕМИЛОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Петко Емилов Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aglika-stefcheva-videnova-19e71e",
+      "target": "company:tr:176936800",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aglika-stefcheva-videnova-19e71e",
+      "target": "company:tr:176936800",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3578",
+      "target": "company:tr:176936800",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3912",
+      "target": "company:tr:176936800",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4911",
+      "target": "company:tr:176936800",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:801",
+      "target": "company:tr:176936800",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vyara-emilova-iordanova-a65379",
+      "target": "company:tr:176936800",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОЯН АНГЕЛОВ ИВАНОВ",
+      "target": "company:tr:176936800",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО ЕМИЛОВ ДИМИТРОВ",
+      "target": "company:tr:176936800",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

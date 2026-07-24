@@ -1,0 +1,184 @@
+[
+  {
+    "slug": "nikola-lyubenov-dzhingarov-f761cf",
+    "declarantName": "Никола Любенов Джингаров",
+    "institution": "Гоце Делчев",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г12439",
+    "controlHash": "8FADF928",
+    "sourceUrl": "https://register.cacbg.bg/2025/3B661471-8685-450A-A4E2-772EC3F98EF2215607.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялова вноска",
+        "shareSize": "2500",
+        "companyName": "НК-НД ООД",
+        "registeredOffice": "Гоце Делчев",
+        "valueEur": 1278.2297029905462,
+        "holderName": "Никола Любенов Джингаров",
+        "legalBasis": "протокол",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24302.21440513746,
+        "amountEurSpouse": 22381.290807483267
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 4633.838319281328,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсии",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4192.593425808992
+      },
+      {
+        "parent": null,
+        "category": "Продадено МПС",
+        "amountEurDeclarant": 5777.598257517269,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Продадено оборудване-втора употреба",
+        "amountEurDeclarant": 4448.2393664071005,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Продадена ливада",
+        "amountEurDeclarant": 51129.188119621846,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Шкода Супърб",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Никола Любенов Джингаров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Никола Любенов Джингаров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 104000,
+        "valueEur": 53174.35564440672,
+        "holderName": "Никола Любенов Джингаров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 33000,
+        "valueEur": 16872.63207947521,
+        "holderName": "Елисавета Иванова Джингарова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "receivable",
+        "description": "допълнителна парична вноска",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 177500,
+        "valueEur": 90754.30891232878,
+        "holderName": "Никола Любенов Джингаров",
+        "isSpouse": false,
+        "legalBasis": "протокол",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "ливада",
+        "detail": null,
+        "location": "с. Мосомище",
+        "municipality": "Гоце Делчев",
+        "areaSqm": 3,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 51129.188119621846,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 5777.598257517269,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

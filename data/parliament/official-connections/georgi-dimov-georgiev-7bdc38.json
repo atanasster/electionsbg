@@ -1,0 +1,124 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-dimov-georgiev-7bdc38",
+  "nodes": [
+    {
+      "id": "official:georgi-dimov-georgiev-7bdc38",
+      "type": "official",
+      "slug": "georgi-dimov-georgiev-7bdc38",
+      "label": "Георги Димов Георгиев",
+      "tier": "executive",
+      "role": "revenue_agency",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205207859",
+      "type": "company",
+      "label": "\"Сентръл стейшън пропърти\" ООД",
+      "slug": null,
+      "uic": "205207859",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:203578538",
+      "type": "company",
+      "label": "\"Лайт Проджект Мениджмънт\" ООД",
+      "slug": null,
+      "uic": "203578538",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕЛЕНА ВЪЛЧЕВА ВЪЛЧЕВА",
+      "type": "person",
+      "label": "Елена Вълчева Вълчева"
+    },
+    {
+      "id": "person:ГЕОРГИ КОСТОВ ИВАНОВ",
+      "type": "person",
+      "label": "Георги Костов Иванов"
+    },
+    {
+      "id": "person:ВЕСЕЛА ВАЛЕНТИНОВА СРЕБРЕВА",
+      "type": "person",
+      "label": "Весела Валентинова Сребрева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-dimov-georgiev-7bdc38",
+      "target": "company:tr:205207859",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:georgi-dimov-georgiev-7bdc38",
+      "target": "company:tr:203578538",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ВЪЛЧЕВА ВЪЛЧЕВА",
+      "target": "company:tr:205207859",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ВЪЛЧЕВА ВЪЛЧЕВА",
+      "target": "company:tr:205207859",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ КОСТОВ ИВАНОВ",
+      "target": "company:tr:205207859",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ВЪЛЧЕВА ВЪЛЧЕВА",
+      "target": "company:tr:203578538",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛА ВАЛЕНТИНОВА СРЕБРЕВА",
+      "target": "company:tr:203578538",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ВЪЛЧЕВА ВЪЛЧЕВА",
+      "target": "company:tr:203578538",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛА ВАЛЕНТИНОВА СРЕБРЕВА",
+      "target": "company:tr:203578538",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,220 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariya-atanasova-arhangelova-5d7cfa",
+  "nodes": [
+    {
+      "id": "official:mariya-atanasova-arhangelova-5d7cfa",
+      "type": "official",
+      "slug": "mariya-atanasova-arhangelova-5d7cfa",
+      "label": "Мария Атанасова Архангелова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000843278",
+      "type": "company",
+      "label": "Напредък - 1942 г.",
+      "slug": null,
+      "uic": "000843278",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАНКА ВАСИЛЕВА КИРОВА",
+      "type": "person",
+      "label": "Иванка Василева Кирова"
+    },
+    {
+      "id": "person:МАРГАРИТА КОСТАДИНОВА ЛАЗАРОВА",
+      "type": "person",
+      "label": "Маргарита Костадинова Лазарова"
+    },
+    {
+      "id": "person:ПАУН ЕНЕВ СТАНЧЕВ",
+      "type": "person",
+      "label": "Паун Енев Станчев"
+    },
+    {
+      "id": "person:НЕВЯНКА СТЕФАНОВА ПРОДАНОВА",
+      "type": "person",
+      "label": "Невянка Стефанова Проданова"
+    },
+    {
+      "id": "person:ГЕОРГИ ИЛИЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Георги Илиев Иванов"
+    },
+    {
+      "id": "person:ДОНКА ЙОРДАНОВА СТАНЕВА",
+      "type": "person",
+      "label": "Донка Йорданова Станева"
+    },
+    {
+      "id": "person:МАРИЙКА КОСТОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Марийка Костова Петрова"
+    },
+    {
+      "id": "person:ПЕНКА ВЕЛИКОВА КОСТОВА",
+      "type": "person",
+      "label": "Пенка Великова Костова"
+    },
+    {
+      "id": "person:СНЕЖАНА СТОЯНОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Снежана Стоянова Христова"
+    },
+    {
+      "id": "person:ДОНКА НИКОЛОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Донка Николова Николова"
+    },
+    {
+      "id": "person:РОЗАЛИНА СТОЯНОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Розалина Стоянова Стоянова"
+    },
+    {
+      "id": "person:ДИМИТЪР СТОИЛОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Стоилов Димитров"
+    },
+    {
+      "id": "person:БОНКА МИТКОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Бонка Миткова Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-atanasova-arhangelova-5d7cfa",
+      "target": "company:tr:000843278",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАНКА ВАСИЛЕВА КИРОВА",
+      "target": "company:tr:000843278",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА КОСТАДИНОВА ЛАЗАРОВА",
+      "target": "company:tr:000843278",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАУН ЕНЕВ СТАНЧЕВ",
+      "target": "company:tr:000843278",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЯНКА СТЕФАНОВА ПРОДАНОВА",
+      "target": "company:tr:000843278",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИЛИЕВ ИВАНОВ",
+      "target": "company:tr:000843278",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА ЙОРДАНОВА СТАНЕВА",
+      "target": "company:tr:000843278",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ВАСИЛЕВА КИРОВА",
+      "target": "company:tr:000843278",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЙКА КОСТОВА ПЕТРОВА",
+      "target": "company:tr:000843278",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ВЕЛИКОВА КОСТОВА",
+      "target": "company:tr:000843278",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНА СТОЯНОВА ХРИСТОВА",
+      "target": "company:tr:000843278",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА НИКОЛОВА НИКОЛОВА",
+      "target": "company:tr:000843278",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЯНКА СТЕФАНОВА ПРОДАНОВА",
+      "target": "company:tr:000843278",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОЗАЛИНА СТОЯНОВА СТОЯНОВА",
+      "target": "company:tr:000843278",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР СТОИЛОВ ДИМИТРОВ",
+      "target": "company:tr:000843278",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОНКА МИТКОВА ГЕОРГИЕВА",
+      "target": "company:tr:000843278",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

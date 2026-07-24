@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariyan-lchezarov-stoyanov-e20a48",
+  "nodes": [
+    {
+      "id": "official:mariyan-lchezarov-stoyanov-e20a48",
+      "type": "official",
+      "slug": "mariyan-lchezarov-stoyanov-e20a48",
+      "label": "Мариян Лъчезаров Стоянов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:177192703",
+      "type": "company",
+      "label": "НАЦИОНАЛНА ИДЕНТИЧНОСТ И ЕДИНСТВО НИЕ",
+      "slug": null,
+      "uic": "177192703",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВИКТОР СТОЯНОВ ВУТОВ",
+      "type": "person",
+      "label": "Виктор Стоянов Вутов"
+    },
+    {
+      "id": "person:ВЛАДИСЛАВ ИВАЙЛОВ КРЪСТЕВ",
+      "type": "person",
+      "label": "Владислав Ивайлов Кръстев"
+    },
+    {
+      "id": "person:ГЕОРГИ БОНЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Георги Бонев Иванов"
+    },
+    {
+      "id": "person:ЙОАНА ПЕТРОВА ДОБРИНСКА",
+      "type": "person",
+      "label": "Йоана Петрова Добринска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariyan-lchezarov-stoyanov-e20a48",
+      "target": "company:tr:177192703",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВИКТОР СТОЯНОВ ВУТОВ",
+      "target": "company:tr:177192703",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВ ИВАЙЛОВ КРЪСТЕВ",
+      "target": "company:tr:177192703",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОР СТОЯНОВ ВУТОВ",
+      "target": "company:tr:177192703",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ БОНЕВ ИВАНОВ",
+      "target": "company:tr:177192703",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОАНА ПЕТРОВА ДОБРИНСКА",
+      "target": "company:tr:177192703",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

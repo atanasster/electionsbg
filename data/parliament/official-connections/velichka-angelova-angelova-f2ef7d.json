@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:velichka-angelova-angelova-f2ef7d",
+  "nodes": [
+    {
+      "id": "official:velichka-angelova-angelova-f2ef7d",
+      "type": "official",
+      "slug": "velichka-angelova-angelova-f2ef7d",
+      "label": "Величка Ангелова Ангелова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Горна Малина"
+    },
+    {
+      "id": "company:tr:176574899",
+      "type": "company",
+      "label": "СВЕТА БОГОРОДИЦА",
+      "slug": null,
+      "uic": "176574899",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТОЯН СТЕФАНОВ ЯНЕВ",
+      "type": "person",
+      "label": "Стоян Стефанов Янев"
+    },
+    {
+      "id": "person:ЕМИЛИЯ ГРИГОРОВА ТИТОВА- ЙОТОВА",
+      "type": "person",
+      "label": "Емилия Григорова Титова- Йотова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:velichka-angelova-angelova-f2ef7d",
+      "target": "company:tr:176574899",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:velichka-angelova-angelova-f2ef7d",
+      "target": "company:tr:176574899",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОЯН СТЕФАНОВ ЯНЕВ",
+      "target": "company:tr:176574899",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ ГРИГОРОВА ТИТОВА- ЙОТОВА",
+      "target": "company:tr:176574899",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН СТЕФАНОВ ЯНЕВ",
+      "target": "company:tr:176574899",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

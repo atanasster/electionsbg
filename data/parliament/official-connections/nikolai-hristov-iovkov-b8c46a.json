@@ -1,0 +1,103 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-hristov-iovkov-b8c46a",
+  "nodes": [
+    {
+      "id": "official:nikolai-hristov-iovkov-b8c46a",
+      "type": "official",
+      "slug": "nikolai-hristov-iovkov-b8c46a",
+      "label": "Николай Христов Йовков",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207277906",
+      "type": "company",
+      "label": "ПосиПей",
+      "slug": null,
+      "uic": "207277906",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРТИН БОЖИДАРОВ СТОИЛКОВ",
+      "type": "person",
+      "label": "Мартин Божидаров Стоилков"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Александър Иванов Иванов"
+    },
+    {
+      "id": "person:МАРТИНА СВЕТЛОЗАРОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Мартина Светлозарова Стоянова"
+    },
+    {
+      "id": "person:НЕВЕНА СТОЯНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Невена Стоянова Иванова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-hristov-iovkov-b8c46a",
+      "target": "company:tr:207277906",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРТИН БОЖИДАРОВ СТОИЛКОВ",
+      "target": "company:tr:207277906",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ИВАНОВ ИВАНОВ",
+      "target": "company:tr:207277906",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН БОЖИДАРОВ СТОИЛКОВ",
+      "target": "company:tr:207277906",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИНА СВЕТЛОЗАРОВА СТОЯНОВА",
+      "target": "company:tr:207277906",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЕНА СТОЯНОВА ИВАНОВА",
+      "target": "company:tr:207277906",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ИВАНОВ ИВАНОВ",
+      "target": "company:tr:207277906",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:veselin-todorov-bozhkov-74405b",
+  "nodes": [
+    {
+      "id": "official:veselin-todorov-bozhkov-74405b",
+      "type": "official",
+      "slug": "veselin-todorov-bozhkov-74405b",
+      "label": "Веселин Тодоров Божков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Карлово"
+    },
+    {
+      "id": "company:tr:115851463",
+      "type": "company",
+      "label": "ОБЩИНСКИ ФУТБОЛЕН КЛУБ  ЛЕВСКИ КАРЛОВО",
+      "slug": null,
+      "uic": "115851463",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НИКОЛАЙ ЦВЕТКОВ ЦВЕТКОВ",
+      "type": "person",
+      "label": "Николай Цветков Цветков"
+    },
+    {
+      "id": "person:ЕМИЛ СТАНЕВ КАБАИВАНОВ",
+      "type": "person",
+      "label": "Емил Станев Кабаиванов"
+    },
+    {
+      "id": "person:ИВАН ЦВЯТКОВ ХАДЖИЙСКИ",
+      "type": "person",
+      "label": "Иван Цвятков Хаджийски"
+    },
+    {
+      "id": "person:СТЕФАН ЗАПРЯНОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Стефан Запрянов Стефанов"
+    },
+    {
+      "id": "person:ДЕЧКО МАТЕЕВ КЕРЕЗОВ",
+      "type": "person",
+      "label": "Дечко Матеев Керезов"
+    },
+    {
+      "id": "person:МИРОСЛАВ НАЙДЕНОВ БАНЧЕВСКИ",
+      "type": "person",
+      "label": "Мирослав Найденов Банчевски"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veselin-todorov-bozhkov-74405b",
+      "target": "company:tr:115851463",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЦВЕТКОВ ЦВЕТКОВ",
+      "target": "company:tr:115851463",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ СТАНЕВ КАБАИВАНОВ",
+      "target": "company:tr:115851463",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ЦВЯТКОВ ХАДЖИЙСКИ",
+      "target": "company:tr:115851463",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ЗАПРЯНОВ СТЕФАНОВ",
+      "target": "company:tr:115851463",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЧКО МАТЕЕВ КЕРЕЗОВ",
+      "target": "company:tr:115851463",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ НАЙДЕНОВ БАНЧЕВСКИ",
+      "target": "company:tr:115851463",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

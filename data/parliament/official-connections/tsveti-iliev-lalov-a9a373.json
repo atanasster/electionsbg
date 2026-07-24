@@ -1,0 +1,166 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tsveti-iliev-lalov-a9a373",
+  "nodes": [
+    {
+      "id": "official:tsveti-iliev-lalov-a9a373",
+      "type": "official",
+      "slug": "tsveti-iliev-lalov-a9a373",
+      "label": "Цвети Илиев Лалов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хасково"
+    },
+    {
+      "id": "company:tr:204300997",
+      "type": "company",
+      "label": "АТРАКТИВ 2016 ООД",
+      "slug": null,
+      "uic": "204300997",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204429351",
+      "type": "company",
+      "label": "УНО Д 1976 ЕООД",
+      "slug": null,
+      "uic": "204429351",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204385734",
+      "type": "company",
+      "label": "АТРЕЙД 2017 ЕООД",
+      "slug": null,
+      "uic": "204385734",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СИЛВИЯ ПЕТРОВА ЛАЛОВА",
+      "type": "person",
+      "label": "Силвия Петрова Лалова"
+    },
+    {
+      "id": "person:ИВАЙЛО ЦВЕТИЕВ ЛАЛОВ",
+      "type": "person",
+      "label": "Ивайло Цветиев Лалов"
+    },
+    {
+      "id": "person:ЦВЕТИ ИЛИЕВ ЛАЛОВ",
+      "type": "person",
+      "label": "Цвети Илиев Лалов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsveti-iliev-lalov-a9a373",
+      "target": "company:tr:204300997",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:tsveti-iliev-lalov-a9a373",
+      "target": "company:tr:204429351",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:tsveti-iliev-lalov-a9a373",
+      "target": "company:tr:204385734",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ПЕТРОВА ЛАЛОВА",
+      "target": "company:tr:204300997",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ЦВЕТИЕВ ЛАЛОВ",
+      "target": "company:tr:204300997",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ПЕТРОВА ЛАЛОВА",
+      "target": "company:tr:204300997",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ЦВЕТИЕВ ЛАЛОВ",
+      "target": "company:tr:204300997",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТИ ИЛИЕВ ЛАЛОВ",
+      "target": "company:tr:204300997",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТИ ИЛИЕВ ЛАЛОВ",
+      "target": "company:tr:204300997",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТИ ИЛИЕВ ЛАЛОВ",
+      "target": "company:tr:204429351",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТИ ИЛИЕВ ЛАЛОВ",
+      "target": "company:tr:204429351",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТИ ИЛИЕВ ЛАЛОВ",
+      "target": "company:tr:204385734",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТИ ИЛИЕВ ЛАЛОВ",
+      "target": "company:tr:204385734",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

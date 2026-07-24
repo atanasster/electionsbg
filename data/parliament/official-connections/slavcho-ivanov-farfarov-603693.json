@@ -1,0 +1,167 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:slavcho-ivanov-farfarov-603693",
+  "nodes": [
+    {
+      "id": "official:slavcho-ivanov-farfarov-603693",
+      "type": "official",
+      "slug": "slavcho-ivanov-farfarov-603693",
+      "label": "Славчо Иванов Фарфаров",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Разлог"
+    },
+    {
+      "id": "company:tr:202823511",
+      "type": "company",
+      "label": "Фариемс ЕООД",
+      "slug": null,
+      "uic": "202823511",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:Фина-холидей-ООД",
+      "type": "company",
+      "label": "Фина холидей ООД",
+      "slug": "Фина-холидей-ООД",
+      "uic": "206255337",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "РАЗЛОГ"
+    },
+    {
+      "id": "person:ФИДАНКА ДИМИТРОВА ЦИРОВА",
+      "type": "person",
+      "label": "Фиданка Димитрова Цирова"
+    },
+    {
+      "id": "mp:4702",
+      "type": "mp",
+      "mpId": 4702,
+      "label": "Иван Красимиров Герчев",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "51"
+      ]
+    },
+    {
+      "id": "person:СЛАВЧО ИВАНОВ ФАРФАРОВ",
+      "type": "person",
+      "label": "Славчо Иванов Фарфаров"
+    },
+    {
+      "id": "person:КОНСТАНТИНА АНГЕЛОВА ГЕРЧЕВА",
+      "type": "person",
+      "label": "Константина Ангелова Герчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:slavcho-ivanov-farfarov-603693",
+      "target": "company:tr:202823511",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:slavcho-ivanov-farfarov-603693",
+      "target": "company:Фина-холидей-ООД",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИДАНКА ДИМИТРОВА ЦИРОВА",
+      "target": "company:tr:202823511",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИДАНКА ДИМИТРОВА ЦИРОВА",
+      "target": "company:tr:202823511",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4702",
+      "target": "company:Фина-холидей-ООД",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВЧО ИВАНОВ ФАРФАРОВ",
+      "target": "company:Фина-холидей-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4702",
+      "target": "company:Фина-холидей-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИДАНКА ДИМИТРОВА ЦИРОВА",
+      "target": "company:Фина-холидей-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИНА АНГЕЛОВА ГЕРЧЕВА",
+      "target": "company:Фина-холидей-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВЧО ИВАНОВ ФАРФАРОВ",
+      "target": "company:Фина-холидей-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4702",
+      "target": "company:Фина-холидей-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИДАНКА ДИМИТРОВА ЦИРОВА",
+      "target": "company:Фина-холидей-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИНА АНГЕЛОВА ГЕРЧЕВА",
+      "target": "company:Фина-холидей-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

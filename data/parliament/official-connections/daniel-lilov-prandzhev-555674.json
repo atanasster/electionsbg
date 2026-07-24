@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:daniel-lilov-prandzhev-555674",
+  "nodes": [
+    {
+      "id": "official:daniel-lilov-prandzhev-555674",
+      "type": "official",
+      "slug": "daniel-lilov-prandzhev-555674",
+      "label": "Даниел Лилов Пранджев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:115518099",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ &quot;Д-Р КИРО ПОПОВ&quot; - КАРЛОВО",
+      "slug": null,
+      "uic": "115518099",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОБРЕЙКО ГЕОРГИЕВ ОБРЕЙКОВ",
+      "type": "person",
+      "label": "Обрейко Георгиев Обрейков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniel-lilov-prandzhev-555674",
+      "target": "company:tr:115518099",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОБРЕЙКО ГЕОРГИЕВ ОБРЕЙКОВ",
+      "target": "company:tr:115518099",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

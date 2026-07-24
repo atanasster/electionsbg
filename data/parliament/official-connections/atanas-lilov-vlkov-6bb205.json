@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:atanas-lilov-vlkov-6bb205",
+  "nodes": [
+    {
+      "id": "official:atanas-lilov-vlkov-6bb205",
+      "type": "official",
+      "slug": "atanas-lilov-vlkov-6bb205",
+      "label": "Атанас Лилов Вълков",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Съединение"
+    },
+    {
+      "id": "company:tr:115740826",
+      "type": "company",
+      "label": "ОБЩИНСКИ ФУТБОЛЕН КЛУБ ГИГАНТ - ГР. СЪЕДИНЕНИЕ",
+      "slug": null,
+      "uic": "115740826",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДОБРИ ХРИСТОВ КОЗАРЕВ",
+      "type": "person",
+      "label": "Добри Христов Козарев"
+    },
+    {
+      "id": "person:ПЕТКО ПЕТРОВ ПИНДЖЕВ",
+      "type": "person",
+      "label": "Петко Петров Пинджев"
+    },
+    {
+      "id": "person:СТОЯН ТОТЕВ РУМЕНОВ",
+      "type": "person",
+      "label": "Стоян Тотев Руменов"
+    },
+    {
+      "id": "person:НИКОЛА ЕНЕВ МАРИН",
+      "type": "person",
+      "label": "Никола Енев Марин"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:atanas-lilov-vlkov-6bb205",
+      "target": "company:tr:115740826",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДОБРИ ХРИСТОВ КОЗАРЕВ",
+      "target": "company:tr:115740826",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИ ХРИСТОВ КОЗАРЕВ",
+      "target": "company:tr:115740826",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО ПЕТРОВ ПИНДЖЕВ",
+      "target": "company:tr:115740826",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ТОТЕВ РУМЕНОВ",
+      "target": "company:tr:115740826",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ЕНЕВ МАРИН",
+      "target": "company:tr:115740826",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

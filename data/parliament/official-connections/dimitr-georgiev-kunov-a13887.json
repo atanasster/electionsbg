@@ -1,0 +1,90 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitr-georgiev-kunov-a13887",
+  "nodes": [
+    {
+      "id": "official:dimitr-georgiev-kunov-a13887",
+      "type": "official",
+      "slug": "dimitr-georgiev-kunov-a13887",
+      "label": "Димитър Георгиев Кунов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130138766",
+      "type": "company",
+      "label": "ПАЗАРИ ИЗТОК",
+      "slug": null,
+      "uic": "130138766",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:2510",
+      "type": "mp",
+      "mpId": 2510,
+      "label": "Борислав Райчов Миланов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "official:daniela-plamenova-stoineva-80d1bf",
+      "type": "official",
+      "slug": "daniela-plamenova-stoineva-80d1bf",
+      "label": "Даниела Пламенова Стойнева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ДАНИЕЛА ПЛАМЕНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Даниела Пламенова Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-georgiev-kunov-a13887",
+      "target": "company:tr:130138766",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2510",
+      "target": "company:tr:130138766",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:daniela-plamenova-stoineva-80d1bf",
+      "target": "company:tr:130138766",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАНИЕЛА ПЛАМЕНОВА ГЕОРГИЕВА",
+      "target": "company:tr:130138766",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ПЛАМЕНОВА ГЕОРГИЕВА",
+      "target": "company:tr:130138766",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

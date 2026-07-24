@@ -1,0 +1,154 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ilhan-rafet-chalm-5fc3ac",
+  "nodes": [
+    {
+      "id": "official:ilhan-rafet-chalm-5fc3ac",
+      "type": "official",
+      "slug": "ilhan-rafet-chalm-5fc3ac",
+      "label": "Илхан Рафет Чалъм",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кирково"
+    },
+    {
+      "id": "company:tr:108058348",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ПРОБУДА - 1948г&quot;",
+      "slug": null,
+      "uic": "108058348",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:selchuk-sunai-sali-85786b",
+      "type": "official",
+      "slug": "selchuk-sunai-sali-85786b",
+      "label": "Селчук Сунай Сали",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кирково"
+    },
+    {
+      "id": "person:СEВДИЕ ШЮКРЮ ХАСАН",
+      "type": "person",
+      "label": "Сeвдие Шюкрю Хасан"
+    },
+    {
+      "id": "person:СЕВДИЕ ШЮКРЮ ХАСАН",
+      "type": "person",
+      "label": "Севдие Шюкрю Хасан"
+    },
+    {
+      "id": "person:ЗЕКИЙЕ АЛИ ХАСАН",
+      "type": "person",
+      "label": "Зекийе Али Хасан"
+    },
+    {
+      "id": "person:СЕВДИЕ МЕХМЕД ИБРЯМОВА",
+      "type": "person",
+      "label": "Севдие Мехмед Ибрямова"
+    },
+    {
+      "id": "person:АЙЛИН НУРИТИН СЮЛЕЙМАН",
+      "type": "person",
+      "label": "Айлин Нуритин Сюлейман"
+    },
+    {
+      "id": "person:ФЕРИЩЕ САЛИ САЛИ",
+      "type": "person",
+      "label": "Ферище Сали Сали"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ilhan-rafet-chalm-5fc3ac",
+      "target": "company:tr:108058348",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:selchuk-sunai-sali-85786b",
+      "target": "company:tr:108058348",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:selchuk-sunai-sali-85786b",
+      "target": "company:tr:108058348",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СEВДИЕ ШЮКРЮ ХАСАН",
+      "target": "company:tr:108058348",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВДИЕ ШЮКРЮ ХАСАН",
+      "target": "company:tr:108058348",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВДИЕ ШЮКРЮ ХАСАН",
+      "target": "company:tr:108058348",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЕКИЙЕ АЛИ ХАСАН",
+      "target": "company:tr:108058348",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВДИЕ МЕХМЕД ИБРЯМОВА",
+      "target": "company:tr:108058348",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙЛИН НУРИТИН СЮЛЕЙМАН",
+      "target": "company:tr:108058348",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФЕРИЩЕ САЛИ САЛИ",
+      "target": "company:tr:108058348",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФЕРИЩЕ САЛИ САЛИ",
+      "target": "company:tr:108058348",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

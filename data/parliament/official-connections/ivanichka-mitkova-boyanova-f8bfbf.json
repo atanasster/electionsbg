@@ -1,0 +1,413 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivanichka-mitkova-boyanova-f8bfbf",
+  "nodes": [
+    {
+      "id": "official:ivanichka-mitkova-boyanova-f8bfbf",
+      "type": "official",
+      "slug": "ivanichka-mitkova-boyanova-f8bfbf",
+      "label": "Иваничка Миткова Боянова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Павликени"
+    },
+    {
+      "id": "company:tr:207009025",
+      "type": "company",
+      "label": "ТИ РЕШАВАШ",
+      "slug": null,
+      "uic": "207009025",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТЪР ЮЛКОВ ПАЛОВ",
+      "type": "person",
+      "label": "Димитър Юлков Палов"
+    },
+    {
+      "id": "person:ДИМИТЪР ЙОРДАНОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Йорданов Димитров"
+    },
+    {
+      "id": "person:ГРЕТА ЦВЕТАНОВА АЛЕКСАНДРОВА",
+      "type": "person",
+      "label": "Грета Цветанова Александрова"
+    },
+    {
+      "id": "person:ХРИСТО МАРИНОВ ДИШЕВ",
+      "type": "person",
+      "label": "Христо Маринов Дишев"
+    },
+    {
+      "id": "person:АНЕЛИЯ ИВАНОВА ДАНЧЕВА",
+      "type": "person",
+      "label": "Анелия Иванова Данчева"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ СЛАВЕЙКОВ ЗЛАТЕВ",
+      "type": "person",
+      "label": "Венцислав Славейков Златев"
+    },
+    {
+      "id": "person:ИВАН ДОНЧЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Дончев Иванов"
+    },
+    {
+      "id": "person:ИВЕЛИН ВАНЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Ивелин Ванев Иванов"
+    },
+    {
+      "id": "person:ЖАНЕТ ХРИСТОВА ОРФАНУ",
+      "type": "person",
+      "label": "Жанет Христова Орфану"
+    },
+    {
+      "id": "person:ВАНГЕЛ АТАНАСОВ ВАНГЕЛОВ",
+      "type": "person",
+      "label": "Вангел Атанасов Вангелов"
+    },
+    {
+      "id": "person:ДИМИТРИЧКА ПЕТРОВА АНГЕЛОВА",
+      "type": "person",
+      "label": "Димитричка Петрова Ангелова"
+    },
+    {
+      "id": "person:НИКОЛАЙ ДОНЧЕВ ДОНЕВ",
+      "type": "person",
+      "label": "Николай Дончев Донев"
+    },
+    {
+      "id": "person:МАРТИН ГЕОРГИЕВ МАРИНОВ",
+      "type": "person",
+      "label": "Мартин Георгиев Маринов"
+    },
+    {
+      "id": "person:ДАНИЕЛА ЦВЕТАНОВА АЛЕКСИЕВА",
+      "type": "person",
+      "label": "Даниела Цветанова Алексиева"
+    },
+    {
+      "id": "person:МИХАЕЛА ГОШЕВА ИГНАТОВА",
+      "type": "person",
+      "label": "Михаела Гошева Игнатова"
+    },
+    {
+      "id": "person:ЕКАТЕРИНА ИВАНОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Екатерина Иванова Петрова"
+    },
+    {
+      "id": "person:КРИСТИЯН МИТКОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Кристиян Митков Петков"
+    },
+    {
+      "id": "person:НЕЛИ НИКОЛОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Нели Николова Петкова"
+    },
+    {
+      "id": "person:ГЕОРГИ ТОДОРОВ ДАНЧЕВ",
+      "type": "person",
+      "label": "Георги Тодоров Данчев"
+    },
+    {
+      "id": "person:МИГЛЕНА ЗАШЕВА ЗАШЕВА",
+      "type": "person",
+      "label": "Миглена Зашева Зашева"
+    },
+    {
+      "id": "person:ВЛАДИСЛАВ ДИМИТРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Владислав Димитров Иванов"
+    },
+    {
+      "id": "person:ПЕНЧО ГЕОРГИЕВ ПАНДЪКОВ",
+      "type": "person",
+      "label": "Пенчо Георгиев Пандъков"
+    },
+    {
+      "id": "person:ДИМИТЪР НИКОЛАЕВ ФУЧЕДЖИЕВ",
+      "type": "person",
+      "label": "Димитър Николаев Фучеджиев"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ КИРИЛОВ СТОЙНЕВ",
+      "type": "person",
+      "label": "Венцислав Кирилов Стойнев"
+    },
+    {
+      "id": "person:ДАРИНА ПЕТРОВА ДАНАДЖИЕВА",
+      "type": "person",
+      "label": "Дарина  Петрова Данаджиева"
+    },
+    {
+      "id": "person:РАЛИЦА ПАВЛОВА УЗУНОВА",
+      "type": "person",
+      "label": "Ралица Павлова Узунова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivanichka-mitkova-boyanova-f8bfbf",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР ЮЛКОВ ПАЛОВ",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ЙОРДАНОВ ДИМИТРОВ",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГРЕТА ЦВЕТАНОВА АЛЕКСАНДРОВА",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ЮЛКОВ ПАЛОВ",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО МАРИНОВ ДИШЕВ",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ЙОРДАНОВ ДИМИТРОВ",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЕЛИЯ ИВАНОВА ДАНЧЕВА",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ СЛАВЕЙКОВ ЗЛАТЕВ",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГРЕТА ЦВЕТАНОВА АЛЕКСАНДРОВА",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДОНЧЕВ ИВАНОВ",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИН ВАНЕВ ИВАНОВ",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖАНЕТ ХРИСТОВА ОРФАНУ",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНГЕЛ АТАНАСОВ ВАНГЕЛОВ",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИЧКА ПЕТРОВА АНГЕЛОВА",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИЧКА ПЕТРОВА АНГЕЛОВА",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДОНЧЕВ ДОНЕВ",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ГЕОРГИЕВ МАРИНОВ",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ЦВЕТАНОВА АЛЕКСИЕВА",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАЕЛА ГОШЕВА ИГНАТОВА",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕКАТЕРИНА ИВАНОВА ПЕТРОВА",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРИСТИЯН МИТКОВ ПЕТКОВ",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕЛИ НИКОЛОВА ПЕТКОВА",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ТОДОРОВ ДАНЧЕВ",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИГЛЕНА ЗАШЕВА ЗАШЕВА",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВ ДИМИТРОВ ИВАНОВ",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНЧО ГЕОРГИЕВ ПАНДЪКОВ",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР НИКОЛАЕВ ФУЧЕДЖИЕВ",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО МАРИНОВ ДИШЕВ",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ КИРИЛОВ СТОЙНЕВ",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАРИНА ПЕТРОВА ДАНАДЖИЕВА",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЛИЦА ПАВЛОВА УЗУНОВА",
+      "target": "company:tr:207009025",
+      "kind": "tr_role",
+      "role": "branch_manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

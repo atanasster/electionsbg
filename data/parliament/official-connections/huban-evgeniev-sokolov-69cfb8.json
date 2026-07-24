@@ -1,0 +1,255 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:huban-evgeniev-sokolov-69cfb8",
+  "nodes": [
+    {
+      "id": "official:huban-evgeniev-sokolov-69cfb8",
+      "type": "official",
+      "slug": "huban-evgeniev-sokolov-69cfb8",
+      "label": "Хубан Евгениев Соколов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Разград"
+    },
+    {
+      "id": "company:tr:000499432",
+      "type": "company",
+      "label": "&quot;НАРОДНО ЧИТАЛИЩЕ &quot;РАЗВИТИЕ 1869&quot;&quot;",
+      "slug": null,
+      "uic": "000499432",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:ivailo-dimitrov-iovchev-0fb0a7",
+      "type": "official",
+      "slug": "ivailo-dimitrov-iovchev-0fb0a7",
+      "label": "Ивайло Димитров Йовчев",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "person:ПЕЙЧО ДОБРЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Пейчо Добрев Георгиев"
+    },
+    {
+      "id": "person:ВИОЛЕТА АНТОНОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Виолета Антонова Атанасова"
+    },
+    {
+      "id": "person:АЙЛЯ ХАСАН АДЕМ",
+      "type": "person",
+      "label": "Айля Хасан Адем"
+    },
+    {
+      "id": "person:ВАЛЯ ПЕТРОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Валя Петрова Георгиева"
+    },
+    {
+      "id": "person:ВЕНЕТА МИТКОВА МАТЕВА",
+      "type": "person",
+      "label": "Венета Миткова Матева"
+    },
+    {
+      "id": "person:ИЛКО КОСТОВ ИВАНОВ",
+      "type": "person",
+      "label": "Илко Костов Иванов"
+    },
+    {
+      "id": "person:ПЕШО ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Пешо Димитров Димитров"
+    },
+    {
+      "id": "person:СТАМЕН ДРУМЕВ МАТЕЕВ",
+      "type": "person",
+      "label": "Стамен Друмев Матеев"
+    },
+    {
+      "id": "person:СТАНИСЛАВА КОЦЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Станислава Коцева Димитрова"
+    },
+    {
+      "id": "person:ГАЛЯ ХРИСТОВА РОСЕНОВА",
+      "type": "person",
+      "label": "Галя Христова Росенова"
+    },
+    {
+      "id": "person:ДИМИТЪР ДИМИТРОВ ГЕРОЕВ",
+      "type": "person",
+      "label": "Димитър Димитров Героев"
+    },
+    {
+      "id": "person:ВИОЛЕТА РОСЕНОВА КАМБУРОВА",
+      "type": "person",
+      "label": "Виолета Росенова Камбурова"
+    },
+    {
+      "id": "person:ТОНИ ИЛИЕВ КАЛЧЕВ",
+      "type": "person",
+      "label": "Тони Илиев Калчев"
+    },
+    {
+      "id": "person:НИКОЛАЙ ПЛАМЕНОВ ПЕНЧЕВ",
+      "type": "person",
+      "label": "Николай Пламенов Пенчев"
+    },
+    {
+      "id": "person:РУМЯНА ИВАНОВА РАНКОВА",
+      "type": "person",
+      "label": "Румяна Иванова Ранкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:huban-evgeniev-sokolov-69cfb8",
+      "target": "company:tr:000499432",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivailo-dimitrov-iovchev-0fb0a7",
+      "target": "company:tr:000499432",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕЙЧО ДОБРЕВ ГЕОРГИЕВ",
+      "target": "company:tr:000499432",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА АНТОНОВА АТАНАСОВА",
+      "target": "company:tr:000499432",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕЙЧО ДОБРЕВ ГЕОРГИЕВ",
+      "target": "company:tr:000499432",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙЛЯ ХАСАН АДЕМ",
+      "target": "company:tr:000499432",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЯ ПЕТРОВА ГЕОРГИЕВА",
+      "target": "company:tr:000499432",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕТА МИТКОВА МАТЕВА",
+      "target": "company:tr:000499432",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛКО КОСТОВ ИВАНОВ",
+      "target": "company:tr:000499432",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕШО ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:000499432",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАМЕН ДРУМЕВ МАТЕЕВ",
+      "target": "company:tr:000499432",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВА КОЦЕВА ДИМИТРОВА",
+      "target": "company:tr:000499432",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛЯ ХРИСТОВА РОСЕНОВА",
+      "target": "company:tr:000499432",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ДИМИТРОВ ГЕРОЕВ",
+      "target": "company:tr:000499432",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИОЛЕТА РОСЕНОВА КАМБУРОВА",
+      "target": "company:tr:000499432",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОНИ ИЛИЕВ КАЛЧЕВ",
+      "target": "company:tr:000499432",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ПЛАМЕНОВ ПЕНЧЕВ",
+      "target": "company:tr:000499432",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЯНА ИВАНОВА РАНКОВА",
+      "target": "company:tr:000499432",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

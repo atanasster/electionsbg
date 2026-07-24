@@ -1,0 +1,75 @@
+[
+  {
+    "slug": "gospodin-apostolov-apostolov-0a1a23",
+    "declarantName": "Господин Апостолов Апостолов",
+    "institution": "Пловдив",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г11480",
+    "controlHash": "256A021D",
+    "sourceUrl": "https://register.cacbg.bg/2025/961F2133-97AE-47F1-B642-651951384359214620.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17581.793918694366,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 8436.316039737605,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивидент",
+        "amountEurDeclarant": 23826.20166374378,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Господин Апостолов Апостолов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Граждански договор"
+      },
+      {
+        "category": "debt",
+        "description": "лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 95000,
+        "valueEur": 48572.728713640754,
+        "holderName": "Господин Апостолов Апостолов",
+        "isSpouse": false,
+        "legalBasis": "договор за лизинг",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

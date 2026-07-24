@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:damyan-rumenov-dikov-681da6",
+  "nodes": [
+    {
+      "id": "official:damyan-rumenov-dikov-681da6",
+      "type": "official",
+      "slug": "damyan-rumenov-dikov-681da6",
+      "label": "Дамян Руменов Диков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176318800",
+      "type": "company",
+      "label": "Баскетболен клуб &quot;СПОРТНИ ТАЛАНТИ&quot;",
+      "slug": null,
+      "uic": "176318800",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТЪР СТОЙЧЕВ ТЪРПАНОВ",
+      "type": "person",
+      "label": "Димитър Стойчев Търпанов"
+    },
+    {
+      "id": "person:ИВАН ДИМИТРОВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Димитров Иванов"
+    },
+    {
+      "id": "person:ЕМАНУИЛ МАНОВ КЕТЕНЛИЕВ",
+      "type": "person",
+      "label": "Емануил Манов Кетенлиев"
+    },
+    {
+      "id": "person:ВАСИЛ ГЕОРГИЕВ ХРИСТОВ",
+      "type": "person",
+      "label": "Васил Георгиев Христов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:damyan-rumenov-dikov-681da6",
+      "target": "company:tr:176318800",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР СТОЙЧЕВ ТЪРПАНОВ",
+      "target": "company:tr:176318800",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИМИТРОВ ИВАНОВ",
+      "target": "company:tr:176318800",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМАНУИЛ МАНОВ КЕТЕНЛИЕВ",
+      "target": "company:tr:176318800",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ГЕОРГИЕВ ХРИСТОВ",
+      "target": "company:tr:176318800",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

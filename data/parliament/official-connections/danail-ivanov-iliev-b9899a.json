@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:danail-ivanov-iliev-b9899a",
+  "nodes": [
+    {
+      "id": "official:danail-ivanov-iliev-b9899a",
+      "type": "official",
+      "slug": "danail-ivanov-iliev-b9899a",
+      "label": "Данаил Иванов Илиев",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208445278",
+      "type": "company",
+      "label": "ИЛИЕВИ ДД",
+      "slug": null,
+      "uic": "208445278",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДОБРИ ИВАНОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Добри Иванов Илиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:danail-ivanov-iliev-b9899a",
+      "target": "company:tr:208445278",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:danail-ivanov-iliev-b9899a",
+      "target": "company:tr:208445278",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДОБРИ ИВАНОВ ИЛИЕВ",
+      "target": "company:tr:208445278",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИ ИВАНОВ ИЛИЕВ",
+      "target": "company:tr:208445278",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

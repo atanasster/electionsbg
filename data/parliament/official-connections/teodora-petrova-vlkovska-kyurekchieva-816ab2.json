@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:teodora-petrova-vlkovska-kyurekchieva-816ab2",
+  "nodes": [
+    {
+      "id": "official:teodora-petrova-vlkovska-kyurekchieva-816ab2",
+      "type": "official",
+      "slug": "teodora-petrova-vlkovska-kyurekchieva-816ab2",
+      "label": "Теодора Петрова Вълковска-Кюрекчиева",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:110502461",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ТРОЯН",
+      "slug": null,
+      "uic": "110502461",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:teodora-petrova-vlkovska-kyurekchieva-816ab2",
+      "target": "company:tr:110502461",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

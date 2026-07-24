@@ -1,0 +1,103 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mihail-slavchev-slavchev-e632d7",
+  "nodes": [
+    {
+      "id": "official:mihail-slavchev-slavchev-e632d7",
+      "type": "official",
+      "slug": "mihail-slavchev-slavchev-e632d7",
+      "label": "Михаил Славчев Славчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Божурище"
+    },
+    {
+      "id": "company:tr:207746734",
+      "type": "company",
+      "label": "ВИ ВИ ТИ СЪРВИЗ ООД",
+      "slug": null,
+      "uic": "207746734",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГАБРИЕЛА БОЖИДАРОВА МАНОЛОВА-ДАСКАЛОВА",
+      "type": "person",
+      "label": "Габриела Божидарова Манолова-Даскалова"
+    },
+    {
+      "id": "person:НИКОЛАЙ ЙОРДАНОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Николай Йорданов Йорданов"
+    },
+    {
+      "id": "person:ПЕТЪР ГЕОРГИЕВ ДАСКАЛОВ",
+      "type": "person",
+      "label": "Петър Георгиев Даскалов"
+    },
+    {
+      "id": "person:ДЕСИСЛАВ БОРИСОВ ПАНОВ",
+      "type": "person",
+      "label": "Десислав Борисов Панов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mihail-slavchev-slavchev-e632d7",
+      "target": "company:tr:207746734",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mihail-slavchev-slavchev-e632d7",
+      "target": "company:tr:207746734",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mihail-slavchev-slavchev-e632d7",
+      "target": "company:tr:207746734",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГАБРИЕЛА БОЖИДАРОВА МАНОЛОВА-ДАСКАЛОВА",
+      "target": "company:tr:207746734",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЙОРДАНОВ ЙОРДАНОВ",
+      "target": "company:tr:207746734",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ГЕОРГИЕВ ДАСКАЛОВ",
+      "target": "company:tr:207746734",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВ БОРИСОВ ПАНОВ",
+      "target": "company:tr:207746734",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

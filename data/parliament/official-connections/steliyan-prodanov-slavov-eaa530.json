@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:steliyan-prodanov-slavov-eaa530",
+  "nodes": [
+    {
+      "id": "official:steliyan-prodanov-slavov-eaa530",
+      "type": "official",
+      "slug": "steliyan-prodanov-slavov-eaa530",
+      "label": "Стелиян Проданов Славов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:102663909",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ГР. СРЕДЕЦ",
+      "slug": null,
+      "uic": "102663909",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:rositsa-velikova-dicheva-d74b5d",
+      "type": "official",
+      "slug": "rositsa-velikova-dicheva-d74b5d",
+      "label": "Росица Великова Дичева",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:ДАНИЕЛА ПРОДАНОВА БОЗДУКОВА",
+      "type": "person",
+      "label": "Даниела Проданова Боздукова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:steliyan-prodanov-slavov-eaa530",
+      "target": "company:tr:102663909",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:rositsa-velikova-dicheva-d74b5d",
+      "target": "company:tr:102663909",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДАНИЕЛА ПРОДАНОВА БОЗДУКОВА",
+      "target": "company:tr:102663909",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

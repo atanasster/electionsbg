@@ -1,0 +1,160 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:krasimir-kirilov-tanev-1315f5",
+  "nodes": [
+    {
+      "id": "official:krasimir-kirilov-tanev-1315f5",
+      "type": "official",
+      "slug": "krasimir-kirilov-tanev-1315f5",
+      "label": "Красимир Кирилов Танев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ценово"
+    },
+    {
+      "id": "company:tr:117544858",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ЛОВНО-РИБАРСКО ДРУЖЕСТВО-СОКОЛ-ГР.БЯЛА&quot;",
+      "slug": null,
+      "uic": "117544858",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:iovcho-georgiev-smilov-a00494",
+      "type": "official",
+      "slug": "iovcho-georgiev-smilov-a00494",
+      "label": "Йовчо Георгиев Смилов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Русе"
+    },
+    {
+      "id": "official:pavlin-stoyanov-nunev-b50fec",
+      "type": "official",
+      "slug": "pavlin-stoyanov-nunev-b50fec",
+      "label": "Павлин Стоянов Нунев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бяла/Русе/"
+    },
+    {
+      "id": "person:НЕЖАТИ МАХМУДОВ ЧАУШЕВ",
+      "type": "person",
+      "label": "Нежати Махмудов Чаушев"
+    },
+    {
+      "id": "person:ДИМИТЪР ПЕТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Петров Димитров"
+    },
+    {
+      "id": "person:ЛЮБОМИР СТАНЧЕВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Любомир Станчев Димитров"
+    },
+    {
+      "id": "person:СИМЕОН СТЕФАНОВ РАДИОНОВ",
+      "type": "person",
+      "label": "Симеон Стефанов Радионов"
+    },
+    {
+      "id": "person:ЖИВКО ДИМИТРОВ БРАШНАРОВ",
+      "type": "person",
+      "label": "Живко Димитров Брашнаров"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ЙОРДАНОВ БАЛТАДЖИЕВ",
+      "type": "person",
+      "label": "Веселин Йорданов Балтаджиев"
+    },
+    {
+      "id": "person:МИНЧО НИКОЛОВ ТЮРКЕДЖИЕВ",
+      "type": "person",
+      "label": "Минчо Николов Тюркеджиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krasimir-kirilov-tanev-1315f5",
+      "target": "company:tr:117544858",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iovcho-georgiev-smilov-a00494",
+      "target": "company:tr:117544858",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:pavlin-stoyanov-nunev-b50fec",
+      "target": "company:tr:117544858",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НЕЖАТИ МАХМУДОВ ЧАУШЕВ",
+      "target": "company:tr:117544858",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ПЕТРОВ ДИМИТРОВ",
+      "target": "company:tr:117544858",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР СТАНЧЕВ ДИМИТРОВ",
+      "target": "company:tr:117544858",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН СТЕФАНОВ РАДИОНОВ",
+      "target": "company:tr:117544858",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКО ДИМИТРОВ БРАШНАРОВ",
+      "target": "company:tr:117544858",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ЙОРДАНОВ БАЛТАДЖИЕВ",
+      "target": "company:tr:117544858",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИНЧО НИКОЛОВ ТЮРКЕДЖИЕВ",
+      "target": "company:tr:117544858",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

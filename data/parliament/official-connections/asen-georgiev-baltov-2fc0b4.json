@@ -1,0 +1,171 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:asen-georgiev-baltov-2fc0b4",
+  "nodes": [
+    {
+      "id": "official:asen-georgiev-baltov-2fc0b4",
+      "type": "official",
+      "slug": "asen-georgiev-baltov-2fc0b4",
+      "label": "Асен Георгиев Балтов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130345786",
+      "type": "company",
+      "label": "УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ И СПЕШНА МЕДИЦИНА Н.И. ПИРОГОВ",
+      "slug": null,
+      "uic": "130345786",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:3169",
+      "type": "mp",
+      "mpId": 3169,
+      "label": "Пламен Иванов Милев",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "mp:3655",
+      "type": "mp",
+      "mpId": 3655,
+      "label": "Асен Георгиев Балтов",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "official:zhivka-sevdalinova-savova-f87a32",
+      "type": "official",
+      "slug": "zhivka-sevdalinova-savova-f87a32",
+      "label": "Живка Севдалинова Савова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "official:ivan-georgiev-poromanski-2c2251",
+      "type": "official",
+      "slug": "ivan-georgiev-poromanski-2c2251",
+      "label": "Иван Георгиев Поромански",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:ВАЛЕНТИН ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Валентин Димитров Димитров"
+    },
+    {
+      "id": "person:ЗЛАТИНА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Златина Георгиева Георгиева"
+    },
+    {
+      "id": "person:ВЛАДИСЛАВ БИСЕРОВ БОЖИКОВ",
+      "type": "person",
+      "label": "Владислав Бисеров Божиков"
+    },
+    {
+      "id": "person:КРАСИМИР ПРОДАНОВ ЯНЕВ",
+      "type": "person",
+      "label": "Красимир Проданов Янев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:asen-georgiev-baltov-2fc0b4",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3169",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3655",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zhivka-sevdalinova-savova-f87a32",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-georgiev-poromanski-2c2251",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-georgiev-poromanski-2c2251",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТИНА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИСЛАВ БИСЕРОВ БОЖИКОВ",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ПРОДАНОВ ЯНЕВ",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

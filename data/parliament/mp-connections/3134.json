@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:3134",
   "nodes": [
     {
@@ -24,18 +24,18 @@
       "seat": "БЪЛГАРИЯ, гр. София, 1504"
     },
     {
-      "id": "official:viktor-dimitrov-boichev-70a4a8",
+      "id": "official:viktor-dimitrov-boichev-671b6b",
       "type": "official",
-      "slug": "viktor-dimitrov-boichev-70a4a8",
+      "slug": "viktor-dimitrov-boichev-671b6b",
       "label": "Виктор Димитров Бойчев",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "cultural_institute",
       "municipality": null
     },
     {
-      "id": "official:ekaterina-stoicheva-tsekova-1412b9",
+      "id": "official:ekaterina-stoicheva-tsekova-5442b0",
       "type": "official",
-      "slug": "ekaterina-stoicheva-tsekova-1412b9",
+      "slug": "ekaterina-stoicheva-tsekova-5442b0",
       "label": "Екатерина Стойчева Цекова",
       "tier": "executive",
       "role": "regional_director",
@@ -80,7 +80,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:viktor-dimitrov-boichev-70a4a8",
+      "source": "official:viktor-dimitrov-boichev-671b6b",
       "target": "company:tr:175466155",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -88,7 +88,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:ekaterina-stoicheva-tsekova-1412b9",
+      "source": "official:ekaterina-stoicheva-tsekova-5442b0",
       "target": "company:tr:175466155",
       "kind": "tr_role",
       "role": "ngo_board",

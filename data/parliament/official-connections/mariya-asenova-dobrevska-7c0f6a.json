@@ -1,0 +1,155 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariya-asenova-dobrevska-7c0f6a",
+  "nodes": [
+    {
+      "id": "official:mariya-asenova-dobrevska-7c0f6a",
+      "type": "official",
+      "slug": "mariya-asenova-dobrevska-7c0f6a",
+      "label": "Мария Асенова Добревска",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Брезник"
+    },
+    {
+      "id": "company:tr:113565214",
+      "type": "company",
+      "label": "ОБЕДИНЕН СПОРТЕН КЛУБ &quot;ЧОРНИ-2004&quot;",
+      "slug": null,
+      "uic": "113565214",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТЕМЕЛКО ПАВЛОВ ВЛАДИМИРОВ",
+      "type": "person",
+      "label": "Темелко Павлов Владимиров"
+    },
+    {
+      "id": "person:ВАЛЕРИ ВЕЛИЧКОВ ВЕЛИЧКОВ",
+      "type": "person",
+      "label": "Валери Величков Величков"
+    },
+    {
+      "id": "person:СИМЕОН ХРИСТОВ МУТАФЧИЙСКИ",
+      "type": "person",
+      "label": "Симеон Христов Мутафчийски"
+    },
+    {
+      "id": "person:ГЕОРГИ ДЕЛЧЕВ МИРЧЕВ",
+      "type": "person",
+      "label": "Георги Делчев Мирчев"
+    },
+    {
+      "id": "person:НАТАЛИЯ ПЕТКОВА ПЪРВАНОВА",
+      "type": "person",
+      "label": "Наталия Петкова Първанова"
+    },
+    {
+      "id": "person:ГЕОРГИ РАДЕВ ЛАЗАРОВ",
+      "type": "person",
+      "label": "Георги Радев Лазаров"
+    },
+    {
+      "id": "person:АТАНАС ДИМИТРОВ АСЕНОВ",
+      "type": "person",
+      "label": "Атанас Димитров Асенов"
+    },
+    {
+      "id": "person:ИРЕНА ИВАНОВА ДРАГОМИРОВА-БЪЧВАРОВА",
+      "type": "person",
+      "label": "Ирена Иванова Драгомирова-Бъчварова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariya-asenova-dobrevska-7c0f6a",
+      "target": "company:tr:113565214",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mariya-asenova-dobrevska-7c0f6a",
+      "target": "company:tr:113565214",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТЕМЕЛКО ПАВЛОВ ВЛАДИМИРОВ",
+      "target": "company:tr:113565214",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕРИ ВЕЛИЧКОВ ВЕЛИЧКОВ",
+      "target": "company:tr:113565214",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН ХРИСТОВ МУТАФЧИЙСКИ",
+      "target": "company:tr:113565214",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ДЕЛЧЕВ МИРЧЕВ",
+      "target": "company:tr:113565214",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАТАЛИЯ ПЕТКОВА ПЪРВАНОВА",
+      "target": "company:tr:113565214",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕМЕЛКО ПАВЛОВ ВЛАДИМИРОВ",
+      "target": "company:tr:113565214",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ РАДЕВ ЛАЗАРОВ",
+      "target": "company:tr:113565214",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ДИМИТРОВ АСЕНОВ",
+      "target": "company:tr:113565214",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРЕНА ИВАНОВА ДРАГОМИРОВА-БЪЧВАРОВА",
+      "target": "company:tr:113565214",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

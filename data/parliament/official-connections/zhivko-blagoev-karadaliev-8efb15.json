@@ -1,0 +1,165 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:zhivko-blagoev-karadaliev-8efb15",
+  "nodes": [
+    {
+      "id": "official:zhivko-blagoev-karadaliev-8efb15",
+      "type": "official",
+      "slug": "zhivko-blagoev-karadaliev-8efb15",
+      "label": "Живко Благоев Карадалиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Петрич"
+    },
+    {
+      "id": "company:tr:000014473",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;БРАТЯ МИЛАДИНОВИ - 1914&quot;",
+      "slug": null,
+      "uic": "000014473",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЯ ЖИВКОВА ХАНТОВА",
+      "type": "person",
+      "label": "Петя Живкова Хантова"
+    },
+    {
+      "id": "person:ВАИЦА СИМЕОНОВА ПЕНЕЛОВА",
+      "type": "person",
+      "label": "Ваица Симеонова Пенелова"
+    },
+    {
+      "id": "person:ЕКАТЕРИНА СВЕТОСЛАВОВА ДУНДЕВА",
+      "type": "person",
+      "label": "Екатерина Светославова Дундева"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА АЛЕКСАНДРОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Валентина Александрова Петрова"
+    },
+    {
+      "id": "person:ВАНГЕЛИЯ ИЛИЕВА ТРЕНЕВА",
+      "type": "person",
+      "label": "Вангелия Илиева Тренева"
+    },
+    {
+      "id": "person:СТАНИМИР ВАСИЛЕВ ДЛЪГАЦЕВ",
+      "type": "person",
+      "label": "Станимир Василев Длъгацев"
+    },
+    {
+      "id": "person:РОСЕН ЙОСИФОВ СРАДКОВ",
+      "type": "person",
+      "label": "Росен Йосифов Срадков"
+    },
+    {
+      "id": "person:СТОЯН ПАНТАЛЕЕВ ХАДЖИЕВ",
+      "type": "person",
+      "label": "Стоян Панталеев Хаджиев"
+    },
+    {
+      "id": "person:КЛАВДИЯ МИЛАДИНОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Клавдия Миладинова Стоянова"
+    },
+    {
+      "id": "person:ИЛИЯНА ГЕОРГИЕВА ПОПОВА",
+      "type": "person",
+      "label": "Илияна Георгиева Попова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zhivko-blagoev-karadaliev-8efb15",
+      "target": "company:tr:000014473",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЯ ЖИВКОВА ХАНТОВА",
+      "target": "company:tr:000014473",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАИЦА СИМЕОНОВА ПЕНЕЛОВА",
+      "target": "company:tr:000014473",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕКАТЕРИНА СВЕТОСЛАВОВА ДУНДЕВА",
+      "target": "company:tr:000014473",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА АЛЕКСАНДРОВА ПЕТРОВА",
+      "target": "company:tr:000014473",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНГЕЛИЯ ИЛИЕВА ТРЕНЕВА",
+      "target": "company:tr:000014473",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИМИР ВАСИЛЕВ ДЛЪГАЦЕВ",
+      "target": "company:tr:000014473",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСЕН ЙОСИФОВ СРАДКОВ",
+      "target": "company:tr:000014473",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ПАНТАЛЕЕВ ХАДЖИЕВ",
+      "target": "company:tr:000014473",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЛАВДИЯ МИЛАДИНОВА СТОЯНОВА",
+      "target": "company:tr:000014473",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯНА ГЕОРГИЕВА ПОПОВА",
+      "target": "company:tr:000014473",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stanka-ivanova-matanova-b8990c",
+  "nodes": [
+    {
+      "id": "official:stanka-ivanova-matanova-b8990c",
+      "type": "official",
+      "slug": "stanka-ivanova-matanova-b8990c",
+      "label": "Станка Иванова Матанова",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207188126",
+      "type": "company",
+      "label": "АМБУЛАТОРИЯ ЗА ЗДРАВНИ ГРИЖИ-ИНДИВИДУАЛНА ПРАКТИКА ЗА ЗДРАВНИ ГРИЖИ -МАТАНОВА",
+      "slug": null,
+      "uic": "207188126",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stanka-ivanova-matanova-b8990c",
+      "target": "company:tr:207188126",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stanka-ivanova-matanova-b8990c",
+      "target": "company:tr:207188126",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:venelin-stefanov-dimitrov-ea965a",
+  "nodes": [
+    {
+      "id": "official:venelin-stefanov-dimitrov-ea965a",
+      "type": "official",
+      "slug": "venelin-stefanov-dimitrov-ea965a",
+      "label": "Венелин Стефанов Димитров",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208129060",
+      "type": "company",
+      "label": "ПАВЕ 2025",
+      "slug": null,
+      "uic": "208129060",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПАВЛИН ДИМИТРОВ ИЗВОРОВ",
+      "type": "person",
+      "label": "Павлин Димитров Изворов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:venelin-stefanov-dimitrov-ea965a",
+      "target": "company:tr:208129060",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:venelin-stefanov-dimitrov-ea965a",
+      "target": "company:tr:208129060",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПАВЛИН ДИМИТРОВ ИЗВОРОВ",
+      "target": "company:tr:208129060",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИН ДИМИТРОВ ИЗВОРОВ",
+      "target": "company:tr:208129060",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

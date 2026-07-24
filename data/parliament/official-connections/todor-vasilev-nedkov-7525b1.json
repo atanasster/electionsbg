@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:todor-vasilev-nedkov-7525b1",
+  "nodes": [
+    {
+      "id": "official:todor-vasilev-nedkov-7525b1",
+      "type": "official",
+      "slug": "todor-vasilev-nedkov-7525b1",
+      "label": "Тодор Василев Недков",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:825393882",
+      "type": "company",
+      "label": "Ракурси ООД",
+      "slug": null,
+      "uic": "825393882",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:todor-vasilev-nedkov-dd4610",
+      "type": "official",
+      "slug": "todor-vasilev-nedkov-dd4610",
+      "label": "Тодор Василев Недков",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:todor-vasilev-nedkov-7525b1",
+      "target": "company:tr:825393882",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:todor-vasilev-nedkov-dd4610",
+      "target": "company:tr:825393882",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

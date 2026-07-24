@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:4714",
   "nodes": [
     {
@@ -103,72 +103,72 @@
       "nsFolders": []
     },
     {
-      "id": "official:adnan-kyazim-ildz-cc7d1a",
+      "id": "official:adnan-kyazim-ildz-f5a94f",
       "type": "official",
-      "slug": "adnan-kyazim-ildz-cc7d1a",
+      "slug": "adnan-kyazim-ildz-f5a94f",
       "label": "Аднан Кязим Йълдъз",
       "tier": "municipal",
       "role": "mayor",
       "municipality": "Стамболово"
     },
     {
-      "id": "official:gyuner-yumerov-ashimov-e20f50",
+      "id": "official:gyuner-yumerov-ashimov-d49615",
       "type": "official",
-      "slug": "gyuner-yumerov-ashimov-e20f50",
+      "slug": "gyuner-yumerov-ashimov-d49615",
       "label": "Гюнер Юмеров Ашимов",
       "tier": "municipal",
       "role": "mayor",
       "municipality": "Опака"
     },
     {
-      "id": "official:dzhevdet-ahmed-azis-02d407",
+      "id": "official:dzhevdet-ahmed-azis-c7645f",
       "type": "official",
-      "slug": "dzhevdet-ahmed-azis-02d407",
+      "slug": "dzhevdet-ahmed-azis-c7645f",
       "label": "Джевдет Ахмед Азис",
       "tier": "municipal",
       "role": "mayor",
       "municipality": "Самуил"
     },
     {
-      "id": "official:ilhan-yusein-myustedzheb-ecf25f",
+      "id": "official:ilhan-yusein-myustedzheb-7955d2",
       "type": "official",
-      "slug": "ilhan-yusein-myustedzheb-ecf25f",
+      "slug": "ilhan-yusein-myustedzheb-7955d2",
       "label": "Илхан Юсеин Мюстеджеб",
       "tier": "municipal",
       "role": "mayor",
       "municipality": "Крушари"
     },
     {
-      "id": "official:isa-emin-besoolu-6d237c",
+      "id": "official:isa-emin-besoolu-7ad1ee",
       "type": "official",
-      "slug": "isa-emin-besoolu-6d237c",
+      "slug": "isa-emin-besoolu-7ad1ee",
       "label": "Иса Емин Бесоолу",
       "tier": "municipal",
       "role": "mayor",
       "municipality": "Павел баня"
     },
     {
-      "id": "official:nebi-redzhep-bozov-6dcd6e",
+      "id": "official:nebi-redzhep-bozov-fa6794",
       "type": "official",
-      "slug": "nebi-redzhep-bozov-6dcd6e",
+      "slug": "nebi-redzhep-bozov-fa6794",
       "label": "Неби Реджеп Бозов",
       "tier": "municipal",
       "role": "mayor",
       "municipality": "Сърница"
     },
     {
-      "id": "official:sebihan-kerim-mehmed-af8b25",
+      "id": "official:sebihan-kerim-mehmed-f58037",
       "type": "official",
-      "slug": "sebihan-kerim-mehmed-af8b25",
+      "slug": "sebihan-kerim-mehmed-f58037",
       "label": "Себихан Керим Мехмед",
       "tier": "municipal",
       "role": "mayor",
       "municipality": "Крумовград"
     },
     {
-      "id": "official:feim-ahmed-isa-e933d2",
+      "id": "official:feim-ahmed-isa-3356e1",
       "type": "official",
-      "slug": "feim-ahmed-isa-e933d2",
+      "slug": "feim-ahmed-isa-3356e1",
       "label": "Феим Ахмед Иса",
       "tier": "municipal",
       "role": "mayor",
@@ -421,7 +421,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:adnan-kyazim-ildz-cc7d1a",
+      "source": "official:adnan-kyazim-ildz-f5a94f",
       "target": "company:tr:118516452",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -429,7 +429,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:gyuner-yumerov-ashimov-e20f50",
+      "source": "official:gyuner-yumerov-ashimov-d49615",
       "target": "company:tr:118516452",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -437,7 +437,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:dzhevdet-ahmed-azis-02d407",
+      "source": "official:dzhevdet-ahmed-azis-c7645f",
       "target": "company:tr:118516452",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -445,7 +445,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:ilhan-yusein-myustedzheb-ecf25f",
+      "source": "official:ilhan-yusein-myustedzheb-7955d2",
       "target": "company:tr:118516452",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -453,7 +453,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:isa-emin-besoolu-6d237c",
+      "source": "official:isa-emin-besoolu-7ad1ee",
       "target": "company:tr:118516452",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -461,7 +461,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:nebi-redzhep-bozov-6dcd6e",
+      "source": "official:nebi-redzhep-bozov-fa6794",
       "target": "company:tr:118516452",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -469,7 +469,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:sebihan-kerim-mehmed-af8b25",
+      "source": "official:sebihan-kerim-mehmed-f58037",
       "target": "company:tr:118516452",
       "kind": "tr_role",
       "role": "ngo_representative",
@@ -477,7 +477,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:sebihan-kerim-mehmed-af8b25",
+      "source": "official:sebihan-kerim-mehmed-f58037",
       "target": "company:tr:118516452",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -485,7 +485,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:feim-ahmed-isa-e933d2",
+      "source": "official:feim-ahmed-isa-3356e1",
       "target": "company:tr:118516452",
       "kind": "tr_role",
       "role": "ngo_board",

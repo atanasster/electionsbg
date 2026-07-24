@@ -1,0 +1,87 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:milena-todorova-dudeva-bbfe62",
+  "nodes": [
+    {
+      "id": "official:milena-todorova-dudeva-bbfe62",
+      "type": "official",
+      "slug": "milena-todorova-dudeva-bbfe62",
+      "label": "Милена Тодорова Дудева",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207138575",
+      "type": "company",
+      "label": "Арт Ринг",
+      "slug": null,
+      "uic": "207138575",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕНИЦА ЕНЧЕВА ДУДЕВА",
+      "type": "person",
+      "label": "Деница Енчева Дудева"
+    },
+    {
+      "id": "person:ДЕНИЦА ЕНЧЕВА ДУДЕВА -ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ И ЗАКОНЕН ПРЕДСТАВИТЕЛ НА СДРУЖЕНИЕТО",
+      "type": "person",
+      "label": "Деница Енчева Дудева -Председател На Управителния Съвет И Законен Представител На Сдружението"
+    },
+    {
+      "id": "person:МИЛЕНА ТОДОРОВА ДУДЕВА -ЗАМЕСТНИК-ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ И ЗАКОНЕН ПРЕДСТАВИТЕЛ НА СДРУЖЕНИЕТО",
+      "type": "person",
+      "label": "Милена Тодорова Дудева -Заместник-Председател На Управителния Съвет И Законен Представител На Сдружението"
+    },
+    {
+      "id": "person:КАТЕРИНА СТАНИСЛАВОВА КАЛЧЕВА -ЧЛЕН НА УПРАВИТЕЛНИЯ СЪВЕТ",
+      "type": "person",
+      "label": "Катерина Станиславова Калчева -Член На Управителния Съвет"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:milena-todorova-dudeva-bbfe62",
+      "target": "company:tr:207138575",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕНИЦА ЕНЧЕВА ДУДЕВА",
+      "target": "company:tr:207138575",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕНИЦА ЕНЧЕВА ДУДЕВА -ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ И ЗАКОНЕН ПРЕДСТАВИТЕЛ НА СДРУЖЕНИЕТО",
+      "target": "company:tr:207138575",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ТОДОРОВА ДУДЕВА -ЗАМЕСТНИК-ПРЕДСЕДАТЕЛ НА УПРАВИТЕЛНИЯ СЪВЕТ И ЗАКОНЕН ПРЕДСТАВИТЕЛ НА СДРУЖЕНИЕТО",
+      "target": "company:tr:207138575",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЕРИНА СТАНИСЛАВОВА КАЛЧЕВА -ЧЛЕН НА УПРАВИТЕЛНИЯ СЪВЕТ",
+      "target": "company:tr:207138575",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

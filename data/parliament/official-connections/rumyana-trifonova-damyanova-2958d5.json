@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rumyana-trifonova-damyanova-2958d5",
+  "nodes": [
+    {
+      "id": "official:rumyana-trifonova-damyanova-2958d5",
+      "type": "official",
+      "slug": "rumyana-trifonova-damyanova-2958d5",
+      "label": "Румяна Трифонова Дамянова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Вършец"
+    },
+    {
+      "id": "company:tr:111567775",
+      "type": "company",
+      "label": "ЕТ\"Д-р Румяна Дамянова\"",
+      "slug": null,
+      "uic": "111567775",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rumyana-trifonova-damyanova-2958d5",
+      "target": "company:tr:111567775",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

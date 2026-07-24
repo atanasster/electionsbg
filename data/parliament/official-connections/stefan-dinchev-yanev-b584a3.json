@@ -1,0 +1,54 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stefan-dinchev-yanev-b584a3",
+  "nodes": [
+    {
+      "id": "official:stefan-dinchev-yanev-b584a3",
+      "type": "official",
+      "slug": "stefan-dinchev-yanev-b584a3",
+      "label": "Стефан Динчев Янев",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:ПК-Пропърти",
+      "type": "company",
+      "label": "ПК Пропърти",
+      "slug": "ПК-Пропърти",
+      "uic": "200276666",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "mp:3994",
+      "type": "mp",
+      "mpId": 3994,
+      "label": "Стефан Динчев Янев",
+      "partyGroupShort": "БВ",
+      "isCurrent": false,
+      "nsFolders": [
+        "48"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stefan-dinchev-yanev-b584a3",
+      "target": "company:ПК-Пропърти",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3994",
+      "target": "company:ПК-Пропърти",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

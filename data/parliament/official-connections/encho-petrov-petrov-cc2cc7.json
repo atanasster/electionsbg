@@ -1,0 +1,164 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:encho-petrov-petrov-cc2cc7",
+  "nodes": [
+    {
+      "id": "official:encho-petrov-petrov-cc2cc7",
+      "type": "official",
+      "slug": "encho-petrov-petrov-cc2cc7",
+      "label": "Енчо Петров Петров",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:177140432",
+      "type": "company",
+      "label": "Стоян Заимов 2016",
+      "slug": null,
+      "uic": "177140432",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:georgi-todorov-nikolaev-87c07d",
+      "type": "official",
+      "slug": "georgi-todorov-nikolaev-87c07d",
+      "label": "Георги Тодоров Николаев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Чирпан"
+    },
+    {
+      "id": "person:ХРИСТО ТАНЕВ ТАНЕВ",
+      "type": "person",
+      "label": "Христо Танев Танев"
+    },
+    {
+      "id": "person:ЖЕЛЬО ИВАНОВ ЖЕЛЕВ",
+      "type": "person",
+      "label": "Жельо Иванов Желев"
+    },
+    {
+      "id": "person:АНДРЕЙ РАДЕВ РАДЕВ",
+      "type": "person",
+      "label": "Андрей Радев Радев"
+    },
+    {
+      "id": "person:МАРИЯ АНГЕЛОВА ТАШЕВА",
+      "type": "person",
+      "label": "Мария Ангелова Ташева"
+    },
+    {
+      "id": "person:МИЛЧО ГРОЗЕВ МИЛЧЕВ",
+      "type": "person",
+      "label": "Милчо Грозев Милчев"
+    },
+    {
+      "id": "person:ГАНКА ПЕТРОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Ганка Петрова Георгиева"
+    },
+    {
+      "id": "person:РАДОСТИНА ПЕТРОВА ТОТЕВА",
+      "type": "person",
+      "label": "Радостина Петрова Тотева"
+    },
+    {
+      "id": "person:НЕДКА ГЕОРГИЕВА КАЛЧЕВА",
+      "type": "person",
+      "label": "Недка Георгиева Калчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:encho-petrov-petrov-cc2cc7",
+      "target": "company:tr:177140432",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-todorov-nikolaev-87c07d",
+      "target": "company:tr:177140432",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-todorov-nikolaev-87c07d",
+      "target": "company:tr:177140432",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО ТАНЕВ ТАНЕВ",
+      "target": "company:tr:177140432",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕЛЬО ИВАНОВ ЖЕЛЕВ",
+      "target": "company:tr:177140432",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРЕЙ РАДЕВ РАДЕВ",
+      "target": "company:tr:177140432",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ АНГЕЛОВА ТАШЕВА",
+      "target": "company:tr:177140432",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЧО ГРОЗЕВ МИЛЧЕВ",
+      "target": "company:tr:177140432",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАНКА ПЕТРОВА ГЕОРГИЕВА",
+      "target": "company:tr:177140432",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИНА ПЕТРОВА ТОТЕВА",
+      "target": "company:tr:177140432",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДКА ГЕОРГИЕВА КАЛЧЕВА",
+      "target": "company:tr:177140432",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

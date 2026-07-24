@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:veselin-kirilov-todorov-d019df",
+  "nodes": [
+    {
+      "id": "official:veselin-kirilov-todorov-d019df",
+      "type": "official",
+      "slug": "veselin-kirilov-todorov-d019df",
+      "label": "Веселин Кирилов Тодоров",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207833776",
+      "type": "company",
+      "label": "Народно читалище Победа - 2024",
+      "slug": null,
+      "uic": "207833776",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕРА ВАСИЛЕВА ЖЕЧЕВА",
+      "type": "person",
+      "label": "Вера Василева Жечева"
+    },
+    {
+      "id": "person:ВАСИЛ ГЕОРГИЕВ ДАМЯНОВ",
+      "type": "person",
+      "label": "Васил Георгиев Дамянов"
+    },
+    {
+      "id": "person:ТОНКА СТАТЕВА АТАНАСОВА",
+      "type": "person",
+      "label": "Тонка Статева Атанасова"
+    },
+    {
+      "id": "person:МИШЕЛ ГЕОРГИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Мишел Георгиев Георгиев"
+    },
+    {
+      "id": "person:СВЕТЛАНА ЖИВКОВА ПЕТКОВА",
+      "type": "person",
+      "label": "Светлана Живкова Петкова"
+    },
+    {
+      "id": "person:СТОЯНКА ИЛИЕВА ГРАМАТИКОВА",
+      "type": "person",
+      "label": "Стоянка Илиева Граматикова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veselin-kirilov-todorov-d019df",
+      "target": "company:tr:207833776",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:veselin-kirilov-todorov-d019df",
+      "target": "company:tr:207833776",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕРА ВАСИЛЕВА ЖЕЧЕВА",
+      "target": "company:tr:207833776",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ГЕОРГИЕВ ДАМЯНОВ",
+      "target": "company:tr:207833776",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОНКА СТАТЕВА АТАНАСОВА",
+      "target": "company:tr:207833776",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИШЕЛ ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:207833776",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА ЖИВКОВА ПЕТКОВА",
+      "target": "company:tr:207833776",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯНКА ИЛИЕВА ГРАМАТИКОВА",
+      "target": "company:tr:207833776",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

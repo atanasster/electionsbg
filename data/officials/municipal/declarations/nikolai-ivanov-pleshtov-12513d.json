@@ -1,0 +1,131 @@
+[
+  {
+    "slug": "nikolai-ivanov-pleshtov-12513d",
+    "declarantName": "Николай Иванов Плещов",
+    "institution": "Елин Пелин",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г7246",
+    "controlHash": "0486B246",
+    "sourceUrl": "https://register.cacbg.bg/2025/1AEC116F-7D7F-43FB-8028-4F2DB963F7B6210234.xml",
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "дялове",
+        "shareSize": "100",
+        "companyName": "Ди Ем Кей ЕООД",
+        "registeredOffice": "с. Петково",
+        "valueEur": 511.29188119621847,
+        "holderName": null,
+        "transfereeName": "Мариела Венциславова Плещова",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23972.4311417659,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "обезщетение за майчинство",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 7956.212963294356
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 51000,
+        "valueEur": 26075.88594100714,
+        "holderName": "Николай Иванов Плещов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 8000,
+        "valueEur": 7700.05573081505,
+        "holderName": "Мариела Венциславова лещова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 65280,
+        "valueEur": 33377.13400448914,
+        "holderName": "Мариела Венциславова Плещова",
+        "isSpouse": true,
+        "legalBasis": "ипотека",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Николай Иванов Плещов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "мотоциклет",
+        "detail": "Кавазаки",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 1329.358891110168,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

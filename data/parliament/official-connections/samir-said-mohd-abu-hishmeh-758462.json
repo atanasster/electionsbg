@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:samir-said-mohd-abu-hishmeh-758462",
+  "nodes": [
+    {
+      "id": "official:samir-said-mohd-abu-hishmeh-758462",
+      "type": "official",
+      "slug": "samir-said-mohd-abu-hishmeh-758462",
+      "label": "Самир Саид Мохд Абу Хишмех",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203367637",
+      "type": "company",
+      "label": "Медицински център-МГ",
+      "slug": null,
+      "uic": "203367637",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:samir-said-mohd-abu-hishmeh-758462",
+      "target": "company:tr:203367637",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

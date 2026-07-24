@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikola-ivanov-lazarov-953a20",
+  "nodes": [
+    {
+      "id": "official:nikola-ivanov-lazarov-953a20",
+      "type": "official",
+      "slug": "nikola-ivanov-lazarov-953a20",
+      "label": "Никола Иванов Лазаров",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Русе"
+    },
+    {
+      "id": "company:tr:205866514",
+      "type": "company",
+      "label": "НИМ ИНЖЕНЕРИНГ ЕООД",
+      "slug": null,
+      "uic": "205866514",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИНА КАЛИНОВА СТОЕВА",
+      "type": "person",
+      "label": "Марина Калинова Стоева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikola-ivanov-lazarov-953a20",
+      "target": "company:tr:205866514",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:nikola-ivanov-lazarov-953a20",
+      "target": "company:tr:205866514",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИНА КАЛИНОВА СТОЕВА",
+      "target": "company:tr:205866514",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИНА КАЛИНОВА СТОЕВА",
+      "target": "company:tr:205866514",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+[
+  {
+    "slug": "krasimir-simeonov-chervilov-156014",
+    "declarantName": "(unknown)",
+    "institution": "Стара Загора",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2025-01-27",
+    "entryNumber": "Г6664",
+    "controlHash": "B47C473F",
+    "sourceUrl": "https://register.cacbg.bg/2025/D19F00E1-A7B6-41AA-89F0-CB6502284894209628.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "Д.К.С. Инвестмънт ООД",
+        "detail": null,
+        "location": "50%",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": null,
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "Фондация \"Фондация ВМРО\"",
+        "detail": null,
+        "location": "Член на управителния съвет",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": null,
+        "legalBasis": null
+      }
+    ]
+  },
+  {
+    "slug": "krasimir-simeonov-chervilov-156014",
+    "declarantName": "Красимир Симеонов Червилов",
+    "institution": "Стара Загора",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-28",
+    "entryNumber": "Г4100",
+    "controlHash": "F5D3147E",
+    "sourceUrl": "https://register.cacbg.bg/2025/D19F00E1-A7B6-41AA-89F0-CB6502284894206932.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове",
+        "shareSize": "50",
+        "companyName": "Д.К.С. Инвестмънт ООД",
+        "registeredOffice": "Стара Загора",
+        "valueEur": 7.669378217943278,
+        "holderName": "Красимир Симеонов Червилов",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 1073.7129505120588,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 7976.153346661008,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Стара Загора",
+        "municipality": "Стара Загора",
+        "areaSqm": 38,
+        "builtAreaSqm": 38,
+        "acquiredYear": 1989,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Красимир Симеонов Червилов",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      }
+    ],
+    "events": []
+  }
+]

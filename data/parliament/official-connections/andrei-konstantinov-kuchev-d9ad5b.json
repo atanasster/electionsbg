@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:andrei-konstantinov-kuchev-d9ad5b",
+  "nodes": [
+    {
+      "id": "official:andrei-konstantinov-kuchev-d9ad5b",
+      "type": "official",
+      "slug": "andrei-konstantinov-kuchev-d9ad5b",
+      "label": "Андрей Константинов Кучев",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Кнежа"
+    },
+    {
+      "id": "company:tr:114687712",
+      "type": "company",
+      "label": "\"УРБИНО\" ЕООД",
+      "slug": null,
+      "uic": "114687712",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:andrei-konstantinov-kuchev-d9ad5b",
+      "target": "company:tr:114687712",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

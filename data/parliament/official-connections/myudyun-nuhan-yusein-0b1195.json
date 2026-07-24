@@ -1,0 +1,99 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:myudyun-nuhan-yusein-0b1195",
+  "nodes": [
+    {
+      "id": "official:myudyun-nuhan-yusein-0b1195",
+      "type": "official",
+      "slug": "myudyun-nuhan-yusein-0b1195",
+      "label": "Мюдюн Нухан Юсеин",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Гърмен"
+    },
+    {
+      "id": "company:tr:208193642",
+      "type": "company",
+      "label": "Местна Инициативна Рибарска Група (МИРГ) НЕСТОС",
+      "slug": null,
+      "uic": "208193642",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:lyudmil-asparuhov-terziev-8c2388",
+      "type": "official",
+      "slug": "lyudmil-asparuhov-terziev-8c2388",
+      "label": "Людмил Аспарухов Терзиев",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Хаджидимово"
+    },
+    {
+      "id": "person:ЦВЕТАНКА КОСТАДИНОВА ОБЕЦАНОВА",
+      "type": "person",
+      "label": "Цветанка Костадинова Обецанова"
+    },
+    {
+      "id": "person:СЛАВЧО ИВАНОВ ФАРФАРОВ",
+      "type": "person",
+      "label": "Славчо Иванов Фарфаров"
+    },
+    {
+      "id": "person:АНГЕЛ ГЕОРГИЕВ ЗАЙКОВ",
+      "type": "person",
+      "label": "Ангел Георгиев Зайков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:myudyun-nuhan-yusein-0b1195",
+      "target": "company:tr:208193642",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:lyudmil-asparuhov-terziev-8c2388",
+      "target": "company:tr:208193642",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:lyudmil-asparuhov-terziev-8c2388",
+      "target": "company:tr:208193642",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТАНКА КОСТАДИНОВА ОБЕЦАНОВА",
+      "target": "company:tr:208193642",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВЧО ИВАНОВ ФАРФАРОВ",
+      "target": "company:tr:208193642",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ГЕОРГИЕВ ЗАЙКОВ",
+      "target": "company:tr:208193642",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

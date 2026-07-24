@@ -1,0 +1,173 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:boris-ivanov-manev-c14d2b",
+  "nodes": [
+    {
+      "id": "official:boris-ivanov-manev-c14d2b",
+      "type": "official",
+      "slug": "boris-ivanov-manev-c14d2b",
+      "label": "Борис Иванов Манев",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207054515",
+      "type": "company",
+      "label": "БЪЛГАРСКИ СЪВЕТ ЗА РЕСУСЦИТАЦИЯ",
+      "slug": null,
+      "uic": "207054515",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВО СПАСОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Иво Спасов Петров"
+    },
+    {
+      "id": "person:КРАСИМИР БОРИСОВ ГИГОВ",
+      "type": "person",
+      "label": "Красимир Борисов Гигов"
+    },
+    {
+      "id": "person:МАРИЯ ХРИСТОВА МИЛАНОВА",
+      "type": "person",
+      "label": "Мария Христова Миланова"
+    },
+    {
+      "id": "person:НИКОЛАЙ ДРАГАНОВ МЛАДЕНОВ",
+      "type": "person",
+      "label": "Николай Драганов Младенов"
+    },
+    {
+      "id": "person:СТОЯН ГЕОРГИЕВ МИЛАНОВ",
+      "type": "person",
+      "label": "Стоян Георгиев Миланов"
+    },
+    {
+      "id": "person:АННА ИВАНОВА КЪНЕВА",
+      "type": "person",
+      "label": "Анна Иванова Кънева"
+    },
+    {
+      "id": "person:НИКОЛАЙ ПЕТРОВ БРЪНЗАЛОВ",
+      "type": "person",
+      "label": "Николай Петров Брънзалов"
+    },
+    {
+      "id": "person:МАЛИНА ЕДРЕВА ОДОЕН",
+      "type": "person",
+      "label": "Малина Едрева Одоен"
+    },
+    {
+      "id": "person:АЛДИН ЮСМЕН АЛИ",
+      "type": "person",
+      "label": "Алдин Юсмен Али"
+    },
+    {
+      "id": "person:ДИМИТЪР ОГНЯНОВ СИМОВ",
+      "type": "person",
+      "label": "Димитър Огнянов Симов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:boris-ivanov-manev-c14d2b",
+      "target": "company:tr:207054515",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВО СПАСОВ ПЕТРОВ",
+      "target": "company:tr:207054515",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО СПАСОВ ПЕТРОВ",
+      "target": "company:tr:207054515",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР БОРИСОВ ГИГОВ",
+      "target": "company:tr:207054515",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ХРИСТОВА МИЛАНОВА",
+      "target": "company:tr:207054515",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ДРАГАНОВ МЛАДЕНОВ",
+      "target": "company:tr:207054515",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ГЕОРГИЕВ МИЛАНОВ",
+      "target": "company:tr:207054515",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА ИВАНОВА КЪНЕВА",
+      "target": "company:tr:207054515",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ПЕТРОВ БРЪНЗАЛОВ",
+      "target": "company:tr:207054515",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЛИНА ЕДРЕВА ОДОЕН",
+      "target": "company:tr:207054515",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛДИН ЮСМЕН АЛИ",
+      "target": "company:tr:207054515",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ОГНЯНОВ СИМОВ",
+      "target": "company:tr:207054515",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

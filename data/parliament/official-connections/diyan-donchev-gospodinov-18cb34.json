@@ -1,0 +1,185 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:diyan-donchev-gospodinov-18cb34",
+  "nodes": [
+    {
+      "id": "official:diyan-donchev-gospodinov-18cb34",
+      "type": "official",
+      "slug": "diyan-donchev-gospodinov-18cb34",
+      "label": "Диян Дончев Господинов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бургас"
+    },
+    {
+      "id": "company:tr:207224526",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ МЛАДИТЕ ЛЕКАРИ",
+      "slug": null,
+      "uic": "207224526",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:verzhiniya-radoslavova-georgieva-14d5ce",
+      "type": "official",
+      "slug": "verzhiniya-radoslavova-georgieva-14d5ce",
+      "label": "Вержиния Радославова Георгиева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Несебър"
+    },
+    {
+      "id": "person:СТАМЕН ДИМИТРОВ ПИШЕВ",
+      "type": "person",
+      "label": "Стамен Димитров Пишев"
+    },
+    {
+      "id": "person:ЛИНА ВАСИЛЕВА ХАДЖИИЛИЕВА",
+      "type": "person",
+      "label": "Лина Василева Хаджиилиева"
+    },
+    {
+      "id": "person:ДИЛЯНА СТОЯНОВА ПИШЕВА",
+      "type": "person",
+      "label": "Диляна Стоянова Пишева"
+    },
+    {
+      "id": "person:ЕМАНУИЛ КАЛЕВ ЛАМБОВ",
+      "type": "person",
+      "label": "Емануил Калев Ламбов"
+    },
+    {
+      "id": "person:ВЕСЕЛА АЛЕКСАНДРОВА АЛЕКСАНДРОВА",
+      "type": "person",
+      "label": "Весела Александрова Александрова"
+    },
+    {
+      "id": "person:ПАВЕЛ ЛЪЧЕЗАРОВ МИНЕВ",
+      "type": "person",
+      "label": "Павел Лъчезаров Минев"
+    },
+    {
+      "id": "person:МАРИН НИКОЛАЕВ НИКОЛАЕВ",
+      "type": "person",
+      "label": "Марин Николаев Николаев"
+    },
+    {
+      "id": "person:ДОРОТЕЯ ГОСПОДИНОВА ДРАЛЧЕВА",
+      "type": "person",
+      "label": "Доротея Господинова Дралчева"
+    },
+    {
+      "id": "person:ДИМИТЪР ВЕНЦИСЛАВОВ ГРАДЕВ",
+      "type": "person",
+      "label": "Димитър Венциславов Градев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:diyan-donchev-gospodinov-18cb34",
+      "target": "company:tr:207224526",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:diyan-donchev-gospodinov-18cb34",
+      "target": "company:tr:207224526",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:verzhiniya-radoslavova-georgieva-14d5ce",
+      "target": "company:tr:207224526",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТАМЕН ДИМИТРОВ ПИШЕВ",
+      "target": "company:tr:207224526",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАМЕН ДИМИТРОВ ПИШЕВ",
+      "target": "company:tr:207224526",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИНА ВАСИЛЕВА ХАДЖИИЛИЕВА",
+      "target": "company:tr:207224526",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИЛЯНА СТОЯНОВА ПИШЕВА",
+      "target": "company:tr:207224526",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМАНУИЛ КАЛЕВ ЛАМБОВ",
+      "target": "company:tr:207224526",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛА АЛЕКСАНДРОВА АЛЕКСАНДРОВА",
+      "target": "company:tr:207224526",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЕЛ ЛЪЧЕЗАРОВ МИНЕВ",
+      "target": "company:tr:207224526",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН НИКОЛАЕВ НИКОЛАЕВ",
+      "target": "company:tr:207224526",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОРОТЕЯ ГОСПОДИНОВА ДРАЛЧЕВА",
+      "target": "company:tr:207224526",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ВЕНЦИСЛАВОВ ГРАДЕВ",
+      "target": "company:tr:207224526",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

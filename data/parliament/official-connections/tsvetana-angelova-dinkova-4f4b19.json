@@ -1,0 +1,150 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tsvetana-angelova-dinkova-4f4b19",
+  "nodes": [
+    {
+      "id": "official:tsvetana-angelova-dinkova-4f4b19",
+      "type": "official",
+      "slug": "tsvetana-angelova-dinkova-4f4b19",
+      "label": "Цветана Ангелова Динкова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:103552026",
+      "type": "company",
+      "label": "СПЕЦИАЛИЗИРАНА БОЛНИЦА ЗА РЕХАБИЛИТАЦИЯ - ВАРНА",
+      "slug": null,
+      "uic": "103552026",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛЮБЧО МАРИОВ МИНЕВ",
+      "type": "person",
+      "label": "Любчо Мариов Минев"
+    },
+    {
+      "id": "person:РАДОСТИН ГЕОРГИЕВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Радостин Георгиев Димитров"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА ГЕОРГИЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Валентина Георгиева Димитрова"
+    },
+    {
+      "id": "person:МАРИО ЛЮБЧОВ МИНЕВ",
+      "type": "person",
+      "label": "Марио Любчов Минев"
+    },
+    {
+      "id": "person:ВЕЛИЧКА АТАНАСОВА МИНЕВА",
+      "type": "person",
+      "label": "Величка Атанасова Минева"
+    },
+    {
+      "id": "person:СЕВДАЛИНА НЕДКОВА САРХАЧЕВА- МАТЕЕВА",
+      "type": "person",
+      "label": "Севдалина Недкова Сархачева- Матеева"
+    },
+    {
+      "id": "person:СТАНИСЛАВА ТОДОРОВА ЯНЕВА",
+      "type": "person",
+      "label": "Станислава Тодорова Янева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetana-angelova-dinkova-4f4b19",
+      "target": "company:tr:103552026",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮБЧО МАРИОВ МИНЕВ",
+      "target": "company:tr:103552026",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИН ГЕОРГИЕВ ДИМИТРОВ",
+      "target": "company:tr:103552026",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ГЕОРГИЕВА ДИМИТРОВА",
+      "target": "company:tr:103552026",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИО ЛЮБЧОВ МИНЕВ",
+      "target": "company:tr:103552026",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИЧКА АТАНАСОВА МИНЕВА",
+      "target": "company:tr:103552026",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВДАЛИНА НЕДКОВА САРХАЧЕВА- МАТЕЕВА",
+      "target": "company:tr:103552026",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВДАЛИНА НЕДКОВА САРХАЧЕВА- МАТЕЕВА",
+      "target": "company:tr:103552026",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИЧКА АТАНАСОВА МИНЕВА",
+      "target": "company:tr:103552026",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБЧО МАРИОВ МИНЕВ",
+      "target": "company:tr:103552026",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВА ТОДОРОВА ЯНЕВА",
+      "target": "company:tr:103552026",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

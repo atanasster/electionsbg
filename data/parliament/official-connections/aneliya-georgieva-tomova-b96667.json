@@ -1,0 +1,194 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:aneliya-georgieva-tomova-b96667",
+  "nodes": [
+    {
+      "id": "official:aneliya-georgieva-tomova-b96667",
+      "type": "official",
+      "slug": "aneliya-georgieva-tomova-b96667",
+      "label": "Анелия Георгиева Томова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Костенец"
+    },
+    {
+      "id": "company:tr:206732888",
+      "type": "company",
+      "label": "СОЛАР Х",
+      "slug": null,
+      "uic": "206732888",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206550791",
+      "type": "company",
+      "label": "КЕЙ СОЛАР",
+      "slug": null,
+      "uic": "206550791",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН ГЕОРГИЕВ ДЕНКОВ",
+      "type": "person",
+      "label": "Иван Георгиев Денков"
+    },
+    {
+      "id": "person:КИРИЛ КИРИЛОВ ДРЕНСКИ",
+      "type": "person",
+      "label": "Кирил Кирилов Дренски"
+    },
+    {
+      "id": "person:ГЕОРГИ ИВАНОВ ДЕНКОВ",
+      "type": "person",
+      "label": "Георги Иванов Денков"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ НИКОЛАЕВ КОСТОВ",
+      "type": "person",
+      "label": "Венцислав Николаев Костов"
+    },
+    {
+      "id": "person:АНГЕЛ ГЕОРГИЕВ КОЗАРЕВ",
+      "type": "person",
+      "label": "Ангел Георгиев Козарев"
+    },
+    {
+      "id": "company:name:КМГ ПАУЪР",
+      "type": "company",
+      "label": "КМГ ПАУЪР ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГОРЧО ВЛАДИМИРОВ ПАСЕВ",
+      "type": "person",
+      "label": "Горчо Владимиров Пасев"
+    },
+    {
+      "id": "person:ДРАГОМИР ГЕОРГИЕВ КОЗАРЕВ",
+      "type": "person",
+      "label": "Драгомир Георгиев Козарев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aneliya-georgieva-tomova-b96667",
+      "target": "company:tr:206732888",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:aneliya-georgieva-tomova-b96667",
+      "target": "company:tr:206550791",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ГЕОРГИЕВ ДЕНКОВ",
+      "target": "company:tr:206732888",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ КИРИЛОВ ДРЕНСКИ",
+      "target": "company:tr:206732888",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ ДЕНКОВ",
+      "target": "company:tr:206732888",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ГЕОРГИЕВ ДЕНКОВ",
+      "target": "company:tr:206732888",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ НИКОЛАЕВ КОСТОВ",
+      "target": "company:tr:206732888",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ГЕОРГИЕВ КОЗАРЕВ",
+      "target": "company:tr:206732888",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:КМГ ПАУЪР",
+      "target": "company:tr:206732888",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ГЕОРГИЕВ КОЗАРЕВ",
+      "target": "company:tr:206550791",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГОРЧО ВЛАДИМИРОВ ПАСЕВ",
+      "target": "company:tr:206550791",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГОМИР ГЕОРГИЕВ КОЗАРЕВ",
+      "target": "company:tr:206550791",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГОРЧО ВЛАДИМИРОВ ПАСЕВ",
+      "target": "company:tr:206550791",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГОМИР ГЕОРГИЕВ КОЗАРЕВ",
+      "target": "company:tr:206550791",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

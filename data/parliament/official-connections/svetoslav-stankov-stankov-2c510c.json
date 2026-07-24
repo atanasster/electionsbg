@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:svetoslav-stankov-stankov-2c510c",
+  "nodes": [
+    {
+      "id": "official:svetoslav-stankov-stankov-2c510c",
+      "type": "official",
+      "slug": "svetoslav-stankov-stankov-2c510c",
+      "label": "Светослав Станков Станков",
+      "tier": "executive",
+      "role": "diplomat",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:126649511",
+      "type": "company",
+      "label": "\"НАМ\" ЕООД",
+      "slug": null,
+      "uic": "126649511",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetoslav-stankov-stankov-2c510c",
+      "target": "company:tr:126649511",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

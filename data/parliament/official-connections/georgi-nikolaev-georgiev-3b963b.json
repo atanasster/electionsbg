@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-nikolaev-georgiev-3b963b",
+  "nodes": [
+    {
+      "id": "official:georgi-nikolaev-georgiev-3b963b",
+      "type": "official",
+      "slug": "georgi-nikolaev-georgiev-3b963b",
+      "label": "Георги Николаев Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ямбол"
+    },
+    {
+      "id": "company:tr:200390417",
+      "type": "company",
+      "label": "ГЕОНИ ТРЕЙД ЕООД",
+      "slug": null,
+      "uic": "200390417",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-nikolaev-georgiev-3b963b",
+      "target": "company:tr:200390417",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mircho-lyubenov-kirov-32be7e",
+  "nodes": [
+    {
+      "id": "official:mircho-lyubenov-kirov-32be7e",
+      "type": "official",
+      "slug": "mircho-lyubenov-kirov-32be7e",
+      "label": "Мирчо Любенов Киров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Вълчедръм"
+    },
+    {
+      "id": "company:tr:111516065",
+      "type": "company",
+      "label": "ДОКТОР КИРОВИ",
+      "slug": null,
+      "uic": "111516065",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЗОЯ НИКОЛОВА КИРОВА",
+      "type": "person",
+      "label": "Зоя Николова Кирова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mircho-lyubenov-kirov-32be7e",
+      "target": "company:tr:111516065",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЗОЯ НИКОЛОВА КИРОВА",
+      "target": "company:tr:111516065",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

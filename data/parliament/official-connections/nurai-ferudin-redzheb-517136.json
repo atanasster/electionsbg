@@ -1,0 +1,217 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nurai-ferudin-redzheb-517136",
+  "nodes": [
+    {
+      "id": "official:nurai-ferudin-redzheb-517136",
+      "type": "official",
+      "slug": "nurai-ferudin-redzheb-517136",
+      "label": "Нурай Ферудин Реджеб",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Никола Козлево"
+    },
+    {
+      "id": "company:tr:127533504",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ НА ЛОВЦИТЕ ГЛИГАН 2001",
+      "slug": null,
+      "uic": "127533504",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТО ВЕСЕЛИНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Христо Веселинов Христов"
+    },
+    {
+      "id": "person:ЙОРДАН ИВАНОВ ДОБРЕВ",
+      "type": "person",
+      "label": "Йордан Иванов Добрев"
+    },
+    {
+      "id": "person:МИРОСЛАВ НИКОЛОВ МАРКОВ",
+      "type": "person",
+      "label": "Мирослав Николов Марков"
+    },
+    {
+      "id": "person:ФАХРЕДИН НЕДЖМЕДИН СЮЛЕЙМАН-ЧЛЕН НА УС",
+      "type": "person",
+      "label": "Фахредин Неджмедин Сюлейман-Член На Ус"
+    },
+    {
+      "id": "person:ФЕИМ МЕХМЕД НАСЪФ-ЧЛЕН НА УС",
+      "type": "person",
+      "label": "Феим Мехмед Насъф-Член На Ус"
+    },
+    {
+      "id": "person:НЕРМИН МЕХМЕДОВ РАФИЕВ-ЧЛЕН НА УС",
+      "type": "person",
+      "label": "Нермин Мехмедов Рафиев-Член На Ус"
+    },
+    {
+      "id": "person:ЙЕШУ ОРХАН АХМЕД-ЧЛЕН НА УС",
+      "type": "person",
+      "label": "Йешу Орхан Ахмед-Член На Ус"
+    },
+    {
+      "id": "person:ЕШРЕФ ВЕЛИ РЕДЖЕБ-ПРЕДСЕДАТЕЛ НА УС",
+      "type": "person",
+      "label": "Ешреф Вели Реджеб-Председател На Ус"
+    },
+    {
+      "id": "person:ИВАЙЛО СТОЯНОВ КАМАДЖИЕВ-ЧЛЕН НА УС",
+      "type": "person",
+      "label": "Ивайло Стоянов Камаджиев-Член На Ус"
+    },
+    {
+      "id": "person:ИВАН КРЪСТЕВ БОЗАДЖИЕВ-ЧЛЕН НА УС",
+      "type": "person",
+      "label": "Иван Кръстев Бозаджиев-Член На Ус"
+    },
+    {
+      "id": "person:ВЛАДИМИР ДИМИТРОВ ЛАЗАРОВ - ЧЛЕН НА УС",
+      "type": "person",
+      "label": "Владимир Димитров Лазаров - Член На Ус"
+    },
+    {
+      "id": "person:МЕХМЕД АПТУЛА МЕХМЕДАЛИ-ЧЛЕН НА УС",
+      "type": "person",
+      "label": "Мехмед Аптула Мехмедали-Член На Ус"
+    },
+    {
+      "id": "person:ХРИСТО КОСТОВ ИВАНОВ",
+      "type": "person",
+      "label": "Христо Костов Иванов"
+    },
+    {
+      "id": "person:АХМЕД АЛИ ХАШИМ",
+      "type": "person",
+      "label": "Ахмед Али Хашим"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nurai-ferudin-redzheb-517136",
+      "target": "company:tr:127533504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО ВЕСЕЛИНОВ ХРИСТОВ",
+      "target": "company:tr:127533504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ИВАНОВ ДОБРЕВ",
+      "target": "company:tr:127533504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ НИКОЛОВ МАРКОВ",
+      "target": "company:tr:127533504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФАХРЕДИН НЕДЖМЕДИН СЮЛЕЙМАН-ЧЛЕН НА УС",
+      "target": "company:tr:127533504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФЕИМ МЕХМЕД НАСЪФ-ЧЛЕН НА УС",
+      "target": "company:tr:127533504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕРМИН МЕХМЕДОВ РАФИЕВ-ЧЛЕН НА УС",
+      "target": "company:tr:127533504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙЕШУ ОРХАН АХМЕД-ЧЛЕН НА УС",
+      "target": "company:tr:127533504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕШРЕФ ВЕЛИ РЕДЖЕБ-ПРЕДСЕДАТЕЛ НА УС",
+      "target": "company:tr:127533504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО СТОЯНОВ КАМАДЖИЕВ-ЧЛЕН НА УС",
+      "target": "company:tr:127533504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КРЪСТЕВ БОЗАДЖИЕВ-ЧЛЕН НА УС",
+      "target": "company:tr:127533504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ДИМИТРОВ ЛАЗАРОВ - ЧЛЕН НА УС",
+      "target": "company:tr:127533504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕХМЕД АПТУЛА МЕХМЕДАЛИ-ЧЛЕН НА УС",
+      "target": "company:tr:127533504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО КОСТОВ ИВАНОВ",
+      "target": "company:tr:127533504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АХМЕД АЛИ ХАШИМ",
+      "target": "company:tr:127533504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

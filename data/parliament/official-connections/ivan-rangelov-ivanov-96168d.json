@@ -1,0 +1,236 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-rangelov-ivanov-96168d",
+  "nodes": [
+    {
+      "id": "official:ivan-rangelov-ivanov-96168d",
+      "type": "official",
+      "slug": "ivan-rangelov-ivanov-96168d",
+      "label": "Иван Рангелов Иванов",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000457305",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ЕЧО НЕДЕЛЕВ - 1931 г.&quot; - с. ЧЕРНИЧЕВО",
+      "slug": null,
+      "uic": "000457305",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ДИМОВ АЛЕКСАНДРОВ",
+      "type": "person",
+      "label": "Александър Димов Александров"
+    },
+    {
+      "id": "person:СЪБКА ИВАНОВА НЕНОВА",
+      "type": "person",
+      "label": "Събка Иванова Ненова"
+    },
+    {
+      "id": "person:КОСТА ИВАНОВ БОЧЕВ",
+      "type": "person",
+      "label": "Коста Иванов Бочев"
+    },
+    {
+      "id": "person:ДЕЛКА ИВАНОВА БОГДАНОВА",
+      "type": "person",
+      "label": "Делка Иванова Богданова"
+    },
+    {
+      "id": "person:ВИДА ХРИСТОЗОВА ПАШОВА",
+      "type": "person",
+      "label": "Вида Христозова Пашова"
+    },
+    {
+      "id": "person:ГАЛИНА ИВАНОВА ПЕНЧЕВА",
+      "type": "person",
+      "label": "Галина Иванова Пенчева"
+    },
+    {
+      "id": "person:СТОЯН ВАСИЛЕВ БОЧЕВ",
+      "type": "person",
+      "label": "Стоян Василев Бочев"
+    },
+    {
+      "id": "person:ТИХОМИР ПЕТРОВ ГАДЖЕВ",
+      "type": "person",
+      "label": "Тихомир Петров Гаджев"
+    },
+    {
+      "id": "person:ДИАНА АЛЕКСАНДРОВА МИЛАДИНОВА",
+      "type": "person",
+      "label": "Диана Александрова Миладинова"
+    },
+    {
+      "id": "person:ТОДОРКА ВАСИЛЕВА МАРИНОВА",
+      "type": "person",
+      "label": "Тодорка Василева Маринова"
+    },
+    {
+      "id": "person:ВАСИЛ ДИМИТРОВ АВРАМОВ",
+      "type": "person",
+      "label": "Васил Димитров Аврамов"
+    },
+    {
+      "id": "person:ЕЛЕНКА АТАНАСОВА МАРИНОВА",
+      "type": "person",
+      "label": "Еленка Атанасова Маринова"
+    },
+    {
+      "id": "person:МАГДАЛЕНА ДОЧЕВА НИКОЛОВА",
+      "type": "person",
+      "label": "Магдалена Дочева Николова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-rangelov-ivanov-96168d",
+      "target": "company:tr:000457305",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ДИМОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:000457305",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЪБКА ИВАНОВА НЕНОВА",
+      "target": "company:tr:000457305",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ДИМОВ АЛЕКСАНДРОВ",
+      "target": "company:tr:000457305",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЪБКА ИВАНОВА НЕНОВА",
+      "target": "company:tr:000457305",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОСТА ИВАНОВ БОЧЕВ",
+      "target": "company:tr:000457305",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЛКА ИВАНОВА БОГДАНОВА",
+      "target": "company:tr:000457305",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИДА ХРИСТОЗОВА ПАШОВА",
+      "target": "company:tr:000457305",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ИВАНОВА ПЕНЧЕВА",
+      "target": "company:tr:000457305",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ВАСИЛЕВ БОЧЕВ",
+      "target": "company:tr:000457305",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР ПЕТРОВ ГАДЖЕВ",
+      "target": "company:tr:000457305",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА АЛЕКСАНДРОВА МИЛАДИНОВА",
+      "target": "company:tr:000457305",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОРКА ВАСИЛЕВА МАРИНОВА",
+      "target": "company:tr:000457305",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ДИМИТРОВ АВРАМОВ",
+      "target": "company:tr:000457305",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНКА АТАНАСОВА МАРИНОВА",
+      "target": "company:tr:000457305",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА АЛЕКСАНДРОВА МИЛАДИНОВА",
+      "target": "company:tr:000457305",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР ПЕТРОВ ГАДЖЕВ",
+      "target": "company:tr:000457305",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАГДАЛЕНА ДОЧЕВА НИКОЛОВА",
+      "target": "company:tr:000457305",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

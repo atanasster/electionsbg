@@ -1,0 +1,72 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:yavor-aleksandrov-ivanov-26f8a5",
+  "nodes": [
+    {
+      "id": "official:yavor-aleksandrov-ivanov-26f8a5",
+      "type": "official",
+      "slug": "yavor-aleksandrov-ivanov-26f8a5",
+      "label": "Явор Александров Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ковачевци"
+    },
+    {
+      "id": "company:tr:206787112",
+      "type": "company",
+      "label": "Серендипити Билд ООД",
+      "slug": null,
+      "uic": "206787112",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕСЕЛИН НИКОЛАЕВ СТОЯНОВ",
+      "type": "person",
+      "label": "Веселин Николаев Стоянов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yavor-aleksandrov-ivanov-26f8a5",
+      "target": "company:tr:206787112",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:yavor-aleksandrov-ivanov-26f8a5",
+      "target": "company:tr:206787112",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yavor-aleksandrov-ivanov-26f8a5",
+      "target": "company:tr:206787112",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕСЕЛИН НИКОЛАЕВ СТОЯНОВ",
+      "target": "company:tr:206787112",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН НИКОЛАЕВ СТОЯНОВ",
+      "target": "company:tr:206787112",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

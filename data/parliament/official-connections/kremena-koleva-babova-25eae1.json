@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:kremena-koleva-babova-25eae1",
+  "nodes": [
+    {
+      "id": "official:kremena-koleva-babova-25eae1",
+      "type": "official",
+      "slug": "kremena-koleva-babova-25eae1",
+      "label": "Кремена Колева Бабова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206363619",
+      "type": "company",
+      "label": "МС ЕНД МК",
+      "slug": null,
+      "uic": "206363619",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯ ТРИФОНОВА КАСАБОВА",
+      "type": "person",
+      "label": "Мария Трифонова Касабова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kremena-koleva-babova-25eae1",
+      "target": "company:tr:206363619",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯ ТРИФОНОВА КАСАБОВА",
+      "target": "company:tr:206363619",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ТРИФОНОВА КАСАБОВА",
+      "target": "company:tr:206363619",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

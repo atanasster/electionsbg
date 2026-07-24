@@ -1,0 +1,88 @@
+[
+  {
+    "slug": "kemal-dzhemal-veis-f522c4",
+    "declarantName": "КЕМАЛ ДЖЕМАЛ ВЕЙС",
+    "institution": "Североизточно държавно предприятие",
+    "positionTitle": "Директор",
+    "category": "state_enterprise",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г11703",
+    "controlHash": "4FF5D649",
+    "sourceUrl": "https://register.cacbg.bg/2025/3762DF9D-1CD0-45C7-9BF1-172931D98A9A214853.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 12063.420644943579,
+        "amountEurSpouse": 848.7445227857227
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3325.953687181401
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "КЕМАЛ ДЖЕМАЛ ВЕЙС",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 44000,
+        "valueEur": 22496.842772633612,
+        "holderName": "КЕМАЛ ДЖЕМАЛ ВЕЙС",
+        "isSpouse": false,
+        "legalBasis": "БАНКОВ КРЕДИТ",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "КЕМАЛ ДЖЕМАЛ ВЕЙС",
+        "isSpouse": false,
+        "legalBasis": "БАНКОВ КРЕДИТ",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

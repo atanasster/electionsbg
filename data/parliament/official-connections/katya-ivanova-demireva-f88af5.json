@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:katya-ivanova-demireva-f88af5",
+  "nodes": [
+    {
+      "id": "official:katya-ivanova-demireva-f88af5",
+      "type": "official",
+      "slug": "katya-ivanova-demireva-f88af5",
+      "label": "Катя Иванова Демирева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:126671865",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;ТАЛАНТИ&quot;",
+      "slug": null,
+      "uic": "126671865",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАЯ ИВАНОВА ГАБРОВСКА",
+      "type": "person",
+      "label": "Мая Иванова Габровска"
+    },
+    {
+      "id": "person:АТАНАСКА ХРИСТОНОВА КОСТАДИНОВА",
+      "type": "person",
+      "label": "Атанаска Христонова Костадинова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:katya-ivanova-demireva-f88af5",
+      "target": "company:tr:126671865",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАЯ ИВАНОВА ГАБРОВСКА",
+      "target": "company:tr:126671865",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАСКА ХРИСТОНОВА КОСТАДИНОВА",
+      "target": "company:tr:126671865",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАЯ ИВАНОВА ГАБРОВСКА",
+      "target": "company:tr:126671865",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

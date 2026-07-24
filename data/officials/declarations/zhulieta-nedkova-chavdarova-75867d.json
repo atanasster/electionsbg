@@ -1,0 +1,70 @@
+[
+  {
+    "slug": "zhulieta-nedkova-chavdarova-75867d",
+    "declarantName": "ЖУЛИЕТА НЕДКОВА ЧАВДАРОВА",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г8905",
+    "controlHash": "AD80FDE5",
+    "sourceUrl": "https://register.cacbg.bg/2025/BE144B21-6412-4B95-A750-65DF5F488156211932.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23638.046251463573,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 22621.597991645493
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ТОЙОТА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "50%",
+        "currency": "BGN",
+        "amount": 3300,
+        "valueEur": 1687.263207947521,
+        "holderName": "КРАСИМИР ЧАВДАРОВ ЧАВДАРОВ",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ТОЙОТА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "50%",
+        "currency": "BGN",
+        "amount": 3300,
+        "valueEur": 1687.263207947521,
+        "holderName": "ЖУЛИЕТА НЕДКОВА ЧАВДАРОВА",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

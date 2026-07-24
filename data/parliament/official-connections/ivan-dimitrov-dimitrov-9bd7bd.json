@@ -1,0 +1,90 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-dimitrov-dimitrov-9bd7bd",
+  "nodes": [
+    {
+      "id": "official:ivan-dimitrov-dimitrov-9bd7bd",
+      "type": "official",
+      "slug": "ivan-dimitrov-dimitrov-9bd7bd",
+      "label": "Иван Димитров Димитров",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205550085",
+      "type": "company",
+      "label": "ПИЙК СОЛЮШЪН ЕООД",
+      "slug": null,
+      "uic": "205550085",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202939003",
+      "type": "company",
+      "label": "СЕЛЪРИСТ ЕООД",
+      "slug": null,
+      "uic": "202939003",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЮЛИАНА СТОЙЧЕВА ШЕВЪРТОВА",
+      "type": "person",
+      "label": "Юлиана Стойчева Шевъртова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-dimitrov-dimitrov-9bd7bd",
+      "target": "company:tr:205550085",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:ivan-dimitrov-dimitrov-9bd7bd",
+      "target": "company:tr:202939003",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИАНА СТОЙЧЕВА ШЕВЪРТОВА",
+      "target": "company:tr:205550085",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИАНА СТОЙЧЕВА ШЕВЪРТОВА",
+      "target": "company:tr:205550085",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИАНА СТОЙЧЕВА ШЕВЪРТОВА",
+      "target": "company:tr:202939003",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИАНА СТОЙЧЕВА ШЕВЪРТОВА",
+      "target": "company:tr:202939003",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

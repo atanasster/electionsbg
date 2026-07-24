@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivo-dimitrov-kalinkov-4290e7",
+  "nodes": [
+    {
+      "id": "official:ivo-dimitrov-kalinkov-4290e7",
+      "type": "official",
+      "slug": "ivo-dimitrov-kalinkov-4290e7",
+      "label": "Иво Димитров Калинков",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Опан"
+    },
+    {
+      "id": "company:tr:205915541",
+      "type": "company",
+      "label": "СТРОЙ КОНСУЛТ 2020",
+      "slug": null,
+      "uic": "205915541",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТЕФКА ЕВЛОГИЕВА РАЙНОВА - ГЪЛЪБОВА",
+      "type": "person",
+      "label": "Стефка Евлогиева Райнова - Гълъбова"
+    },
+    {
+      "id": "person:АЛЕКС ВАСИЛЕВ ЩЕРЕВ",
+      "type": "person",
+      "label": "Алекс Василев Щерев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivo-dimitrov-kalinkov-4290e7",
+      "target": "company:tr:205915541",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФКА ЕВЛОГИЕВА РАЙНОВА - ГЪЛЪБОВА",
+      "target": "company:tr:205915541",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКС ВАСИЛЕВ ЩЕРЕВ",
+      "target": "company:tr:205915541",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФКА ЕВЛОГИЕВА РАЙНОВА - ГЪЛЪБОВА",
+      "target": "company:tr:205915541",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

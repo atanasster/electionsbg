@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:plamen-borisov-yankov-b49207",
+  "nodes": [
+    {
+      "id": "official:plamen-borisov-yankov-b49207",
+      "type": "official",
+      "slug": "plamen-borisov-yankov-b49207",
+      "label": "Пламен Борисов Янков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Летница"
+    },
+    {
+      "id": "company:tr:206405370",
+      "type": "company",
+      "label": "А ЕМ БИ КОНСТРУКШЪН",
+      "slug": null,
+      "uic": "206405370",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:plamen-borisov-yankov-b49207",
+      "target": "company:tr:206405370",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:plamen-borisov-yankov-b49207",
+      "target": "company:tr:206405370",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

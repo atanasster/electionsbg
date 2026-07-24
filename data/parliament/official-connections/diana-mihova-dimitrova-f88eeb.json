@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:diana-mihova-dimitrova-f88eeb",
+  "nodes": [
+    {
+      "id": "official:diana-mihova-dimitrova-f88eeb",
+      "type": "official",
+      "slug": "diana-mihova-dimitrova-f88eeb",
+      "label": "Диана Михова Димитрова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Аврен"
+    },
+    {
+      "id": "company:tr:205276588",
+      "type": "company",
+      "label": "Камчия Форест",
+      "slug": null,
+      "uic": "205276588",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:diana-mihova-dimitrova-f88eeb",
+      "target": "company:tr:205276588",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

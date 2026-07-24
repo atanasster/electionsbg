@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "rumen-stefanov-murdzhanov-30ec54",
+    "declarantName": "Румен Стефанов Мурджанов",
+    "institution": "Лъки",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-25",
+    "entryNumber": "Г5444",
+    "controlHash": "D773E6BA",
+    "sourceUrl": "https://register.cacbg.bg/2025/4FB735BB-65C7-43F2-B667-DD0F1AD85405208372.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4218.1580198688025,
+        "amountEurSpouse": 11606.836995035355
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 4415.005394129346,
+        "amountEurSpouse": 4074.4850012526654
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с.Джурково",
+        "municipality": "Лъки",
+        "areaSqm": 700,
+        "builtAreaSqm": null,
+        "acquiredYear": 2014,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 2600,
+        "valueEur": 1329.358891110168,
+        "holderName": "Румен Стефанов Мурджанов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "гори",
+        "detail": null,
+        "location": "с.Джурково",
+        "municipality": "Лъки",
+        "areaSqm": 11,
+        "builtAreaSqm": null,
+        "acquiredYear": 2007,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Снежка Райчева Мурджанова",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Ланчия Муза",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2019,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 1500,
+        "valueEur": 766.9378217943278,
+        "holderName": "Румен Стефанов Мурджанов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Ланчия",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2019,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 500,
+        "valueEur": 255.64594059810923,
+        "holderName": "Снежка Райчева Мурджанова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

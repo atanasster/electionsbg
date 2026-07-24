@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:galya-emilova-borisova-b5c998",
+  "nodes": [
+    {
+      "id": "official:galya-emilova-borisova-b5c998",
+      "type": "official",
+      "slug": "galya-emilova-borisova-b5c998",
+      "label": "Галя Емилова Борисова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208606322",
+      "type": "company",
+      "label": "ДЕТСКИ ХОРИЗОНТИ",
+      "slug": null,
+      "uic": "208606322",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ВАСКОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "Десислава Васкова Василева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:galya-emilova-borisova-b5c998",
+      "target": "company:tr:208606322",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:galya-emilova-borisova-b5c998",
+      "target": "company:tr:208606322",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ВАСКОВА ВАСИЛЕВА",
+      "target": "company:tr:208606322",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ВАСКОВА ВАСИЛЕВА",
+      "target": "company:tr:208606322",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

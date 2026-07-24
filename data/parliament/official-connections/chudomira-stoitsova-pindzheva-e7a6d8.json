@@ -1,0 +1,144 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:chudomira-stoitsova-pindzheva-e7a6d8",
+  "nodes": [
+    {
+      "id": "official:chudomira-stoitsova-pindzheva-e7a6d8",
+      "type": "official",
+      "slug": "chudomira-stoitsova-pindzheva-e7a6d8",
+      "label": "Чудомира Стоицова Пинджева",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:110519126",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ НА ОБРЕДНИТЕ ДОМОВЕ В РЕПУБЛИКА БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "110519126",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТАНЯ ИВАНОВА ТИНЧЕВА",
+      "type": "person",
+      "label": "Таня Иванова Тинчева"
+    },
+    {
+      "id": "person:РУМЕНА ГЕОРГИЕВА МАРИНОВА - ДИРЕКТОР НА ОП\"ОБРЕДЕН ДОМ\", ГР.ДОБРИЧ",
+      "type": "person",
+      "label": "Румена Георгиева Маринова - Директор На Оп\"обреден Дом\", Гр.добрич"
+    },
+    {
+      "id": "person:ЛЮБОМИР ИВАНОВ КОВАЧЕВ - ДИРЕКТОР НА СТОЛИЧЕН ДОМ ЗА РАДОСТНИ ОБРЕДИ",
+      "type": "person",
+      "label": "Любомир Иванов Ковачев - Директор На Столичен Дом За Радостни Обреди"
+    },
+    {
+      "id": "person:ТЕОДОР СТОИЛОВ БЕЛЕВ - ДИРЕКТОР НА ОП \"ОБРЕДИ\", ГР. СИЛИСТРА",
+      "type": "person",
+      "label": "Теодор Стоилов Белев - Директор На Оп \"обреди\", Гр. Силистра"
+    },
+    {
+      "id": "person:ЧУДОМИРА СТОИЦОВА ПИНДЖЕВА - ДИРЕКТОР НА ОБ \"РАДОСТНИ ОБРЕДИ\", ГР.ПЛОВДИВ",
+      "type": "person",
+      "label": "Чудомира Стоицова Пинджева - Директор На Об \"радостни Обреди\", Гр.пловдив"
+    },
+    {
+      "id": "person:ТАНЯ ИВАНОВА ТИНЧЕВА, БД \"ОБРЕДИ\", ГР. ЛОВЕЧ",
+      "type": "person",
+      "label": "Таня Иванова Тинчева, Бд \"обреди\", Гр. Ловеч"
+    },
+    {
+      "id": "person:РУМЕНА ГЕОРГИЕВА МАРИНОВА",
+      "type": "person",
+      "label": "Румена Георгиева Маринова"
+    },
+    {
+      "id": "company:name:ОБРЕДНА ДЕЙНОСТ",
+      "type": "company",
+      "label": "\"ОБРЕДНА ДЕЙНОСТ\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:chudomira-stoitsova-pindzheva-e7a6d8",
+      "target": "company:tr:110519126",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТАНЯ ИВАНОВА ТИНЧЕВА",
+      "target": "company:tr:110519126",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕНА ГЕОРГИЕВА МАРИНОВА - ДИРЕКТОР НА ОП\"ОБРЕДЕН ДОМ\", ГР.ДОБРИЧ",
+      "target": "company:tr:110519126",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР ИВАНОВ КОВАЧЕВ - ДИРЕКТОР НА СТОЛИЧЕН ДОМ ЗА РАДОСТНИ ОБРЕДИ",
+      "target": "company:tr:110519126",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОР СТОИЛОВ БЕЛЕВ - ДИРЕКТОР НА ОП \"ОБРЕДИ\", ГР. СИЛИСТРА",
+      "target": "company:tr:110519126",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЧУДОМИРА СТОИЦОВА ПИНДЖЕВА - ДИРЕКТОР НА ОБ \"РАДОСТНИ ОБРЕДИ\", ГР.ПЛОВДИВ",
+      "target": "company:tr:110519126",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ ИВАНОВА ТИНЧЕВА, БД \"ОБРЕДИ\", ГР. ЛОВЕЧ",
+      "target": "company:tr:110519126",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕНА ГЕОРГИЕВА МАРИНОВА",
+      "target": "company:tr:110519126",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:ОБРЕДНА ДЕЙНОСТ",
+      "target": "company:tr:110519126",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

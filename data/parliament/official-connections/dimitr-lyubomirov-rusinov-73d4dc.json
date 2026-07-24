@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitr-lyubomirov-rusinov-73d4dc",
+  "nodes": [
+    {
+      "id": "official:dimitr-lyubomirov-rusinov-73d4dc",
+      "type": "official",
+      "slug": "dimitr-lyubomirov-rusinov-73d4dc",
+      "label": "Димитър Любомиров Русинов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207420635",
+      "type": "company",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪР ЗА ДЕТЕТО",
+      "slug": null,
+      "uic": "207420635",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИЛИЯ АНДРЕЕВ МОСКОВ",
+      "type": "person",
+      "label": "Илия Андреев Москов"
+    },
+    {
+      "id": "person:ДИМИТЪР ХРИСТОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Димитър Христов Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-lyubomirov-rusinov-73d4dc",
+      "target": "company:tr:207420635",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-lyubomirov-rusinov-73d4dc",
+      "target": "company:tr:207420635",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИЛИЯ АНДРЕЕВ МОСКОВ",
+      "target": "company:tr:207420635",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ХРИСТОВ ДИМИТРОВ",
+      "target": "company:tr:207420635",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

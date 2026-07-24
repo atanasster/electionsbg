@@ -1,0 +1,57 @@
+[
+  {
+    "slug": "ivan-yankov-ivanov-2dc8f1",
+    "declarantName": "Иван Янков Иванов",
+    "institution": "Суворово",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-03-19",
+    "entryNumber": "Г783",
+    "controlHash": "99DB1CAF",
+    "sourceUrl": "https://register.cacbg.bg/2025/71F611DF-005D-4887-8D64-F659E083E740203015.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18490.87088346124,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 357.90431683735295,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 225.47971960753236,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 159552,
+        "valueEur": 81577.64222861905,
+        "holderName": "Иван Янков Иванов",
+        "isSpouse": false,
+        "legalBasis": "ипотечен кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

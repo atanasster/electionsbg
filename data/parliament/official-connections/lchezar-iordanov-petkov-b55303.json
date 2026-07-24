@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:lchezar-iordanov-petkov-b55303",
+  "nodes": [
+    {
+      "id": "official:lchezar-iordanov-petkov-b55303",
+      "type": "official",
+      "slug": "lchezar-iordanov-petkov-b55303",
+      "label": "Лъчезар Йорданов Петков",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203977754",
+      "type": "company",
+      "label": "\"БО ФИЛМ\" ЕООД",
+      "slug": null,
+      "uic": "203977754",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lchezar-iordanov-petkov-b55303",
+      "target": "company:tr:203977754",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

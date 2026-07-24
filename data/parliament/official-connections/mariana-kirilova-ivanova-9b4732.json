@@ -1,0 +1,139 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariana-kirilova-ivanova-9b4732",
+  "nodes": [
+    {
+      "id": "official:mariana-kirilova-ivanova-9b4732",
+      "type": "official",
+      "slug": "mariana-kirilova-ivanova-9b4732",
+      "label": "Мариана Кирилова Иванова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Драгоман"
+    },
+    {
+      "id": "company:tr:000313027",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ИВАН БОБАНОВ - 1926 г.&quot;",
+      "slug": null,
+      "uic": "000313027",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВАСКА ТОДОРОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Васка Тодорова Димитрова"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА ТОДОРОВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Валентина Тодорова Стефанова"
+    },
+    {
+      "id": "person:ЕМИЛИЯ ЛЮБЕНОВА ЛАЗАРОВА",
+      "type": "person",
+      "label": "Емилия Любенова Лазарова"
+    },
+    {
+      "id": "person:ЛЮДМИЛА БОНЧЕВА ДАМЯНОВА",
+      "type": "person",
+      "label": "Людмила Бончева Дамянова"
+    },
+    {
+      "id": "person:РАДКА КРУМОВА ЖИВОВА",
+      "type": "person",
+      "label": "Радка Крумова Живова"
+    },
+    {
+      "id": "person:ИЛИЯНА СТОЯНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Илияна Стоянова Иванова"
+    },
+    {
+      "id": "person:ЕЛЕНА НАЙДЕНОВА ВЛЪЧКОВА",
+      "type": "person",
+      "label": "Елена Найденова Влъчкова"
+    },
+    {
+      "id": "person:ВАСИЛКА ВЛАДИМИРОВА ЖИВОВА",
+      "type": "person",
+      "label": "Василка Владимирова Живова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariana-kirilova-ivanova-9b4732",
+      "target": "company:tr:000313027",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАСКА ТОДОРОВА ДИМИТРОВА",
+      "target": "company:tr:000313027",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ТОДОРОВА СТЕФАНОВА",
+      "target": "company:tr:000313027",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ ЛЮБЕНОВА ЛАЗАРОВА",
+      "target": "company:tr:000313027",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛА БОНЧЕВА ДАМЯНОВА",
+      "target": "company:tr:000313027",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА КРУМОВА ЖИВОВА",
+      "target": "company:tr:000313027",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯНА СТОЯНОВА ИВАНОВА",
+      "target": "company:tr:000313027",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА НАЙДЕНОВА ВЛЪЧКОВА",
+      "target": "company:tr:000313027",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛКА ВЛАДИМИРОВА ЖИВОВА",
+      "target": "company:tr:000313027",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

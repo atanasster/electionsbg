@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "muharrem-naim-muharrem-40a90a",
+    "declarantName": "МУХАРРЕМ НАИМ МУХАРРЕМ",
+    "institution": "Кърджали",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-05",
+    "entryNumber": "Г9867",
+    "controlHash": "E639FF58",
+    "sourceUrl": "https://register.cacbg.bg/2025/48CDEB6B-2219-49D3-B0B2-6CC53337046F212928.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31588.63500406477,
+        "amountEurSpouse": 7155.529877341078
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 4908.4020594836975,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 53025,
+        "valueEur": 27111.252000429486,
+        "holderName": "Мухаррем Наим Мухаррем",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заеми и заплата"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 30978,
+        "valueEur": 30937.760439301983,
+        "holderName": "Мухаррем Наим Мухаррем",
+        "isSpouse": false,
+        "legalBasis": "ипотека",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "лизингов заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20340,
+        "valueEur": 10399.676863531084,
+        "holderName": "Айгюл Юсеин Мухаррем",
+        "isSpouse": true,
+        "legalBasis": "финансов лизинг",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

@@ -1,0 +1,171 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:andoniya-todorova-spasova-727ad4",
+  "nodes": [
+    {
+      "id": "official:andoniya-todorova-spasova-727ad4",
+      "type": "official",
+      "slug": "andoniya-todorova-spasova-727ad4",
+      "label": "Андония Тодорова Спасова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Нова Загора"
+    },
+    {
+      "id": "company:tr:207117983",
+      "type": "company",
+      "label": "Инър Уийл клуб Нова Загора",
+      "slug": null,
+      "uic": "207117983",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЦВЕТАНКА АНДРЕЕВА СТЕФАНОВА",
+      "type": "person",
+      "label": "Цветанка Андреева Стефанова"
+    },
+    {
+      "id": "person:РАДОСТИНА ПЕТРОВА ПЕЙЧЕВА",
+      "type": "person",
+      "label": "Радостина Петрова Пейчева"
+    },
+    {
+      "id": "person:ТАНЯ КОЛЕВА ДИНЕВА",
+      "type": "person",
+      "label": "Таня Колева Динева"
+    },
+    {
+      "id": "person:ЖАСМИНА ЗДРАВКОВА МИЛЕВА",
+      "type": "person",
+      "label": "Жасмина Здравкова Милева"
+    },
+    {
+      "id": "person:ДОБРИНА ИВАНОВА ОВЧАРОВА",
+      "type": "person",
+      "label": "Добрина Иванова Овчарова"
+    },
+    {
+      "id": "person:МАРИЯНА АНГЕЛОВА ВЕЛИЧКОВА",
+      "type": "person",
+      "label": "Марияна Ангелова Величкова"
+    },
+    {
+      "id": "person:ЯНИЦА ПЛАМЕНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Яница Пламенова Иванова"
+    },
+    {
+      "id": "person:МИЛЕНА ГЕОРГИЕВА БАХОВА",
+      "type": "person",
+      "label": "Милена Георгиева Бахова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:andoniya-todorova-spasova-727ad4",
+      "target": "company:tr:207117983",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:andoniya-todorova-spasova-727ad4",
+      "target": "company:tr:207117983",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТАНКА АНДРЕЕВА СТЕФАНОВА",
+      "target": "company:tr:207117983",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАНКА АНДРЕЕВА СТЕФАНОВА",
+      "target": "company:tr:207117983",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИНА ПЕТРОВА ПЕЙЧЕВА",
+      "target": "company:tr:207117983",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАНЯ КОЛЕВА ДИНЕВА",
+      "target": "company:tr:207117983",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖАСМИНА ЗДРАВКОВА МИЛЕВА",
+      "target": "company:tr:207117983",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИНА ПЕТРОВА ПЕЙЧЕВА",
+      "target": "company:tr:207117983",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИНА ИВАНОВА ОВЧАРОВА",
+      "target": "company:tr:207117983",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИНА ИВАНОВА ОВЧАРОВА",
+      "target": "company:tr:207117983",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА АНГЕЛОВА ВЕЛИЧКОВА",
+      "target": "company:tr:207117983",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНИЦА ПЛАМЕНОВА ИВАНОВА",
+      "target": "company:tr:207117983",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ГЕОРГИЕВА БАХОВА",
+      "target": "company:tr:207117983",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

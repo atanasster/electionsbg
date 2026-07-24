@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tonka-ilieva-georgieva-50b26d",
+  "nodes": [
+    {
+      "id": "official:tonka-ilieva-georgieva-50b26d",
+      "type": "official",
+      "slug": "tonka-ilieva-georgieva-50b26d",
+      "label": "Тонка Илиева Георгиева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Харманли"
+    },
+    {
+      "id": "company:tr:207424199",
+      "type": "company",
+      "label": "Тари - ЕМ 23",
+      "slug": null,
+      "uic": "207424199",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БИРАЙ МУХСИН САЛИМ",
+      "type": "person",
+      "label": "Бирай Мухсин Салим"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tonka-ilieva-georgieva-50b26d",
+      "target": "company:tr:207424199",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tonka-ilieva-georgieva-50b26d",
+      "target": "company:tr:207424199",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БИРАЙ МУХСИН САЛИМ",
+      "target": "company:tr:207424199",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

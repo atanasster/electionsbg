@@ -1,0 +1,105 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:valentin-kolev-kolev-b81ac6",
+  "nodes": [
+    {
+      "id": "official:valentin-kolev-kolev-b81ac6",
+      "type": "official",
+      "slug": "valentin-kolev-kolev-b81ac6",
+      "label": "Валентин Колев Колев",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201915775",
+      "type": "company",
+      "label": "ЕКОТЕРМ БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "201915775",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Георги Иванов Иванов"
+    },
+    {
+      "id": "person:НИКОЛАЙ ЕНЧЕВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Николай Енчев Василев"
+    },
+    {
+      "id": "person:АТАНАС КАЛОФЕРОВ КАЛОФЕРОВ",
+      "type": "person",
+      "label": "Атанас Калоферов Калоферов"
+    },
+    {
+      "id": "person:ДЕЛЯН ВАСИЛЕВ ГЪБОВ",
+      "type": "person",
+      "label": "Делян Василев Гъбов"
+    },
+    {
+      "id": "company:name:МАРИАНА КОЛЕВА 7",
+      "type": "company",
+      "label": "МАРИАНА КОЛЕВА 7 ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valentin-kolev-kolev-b81ac6",
+      "target": "company:tr:201915775",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ ИВАНОВ",
+      "target": "company:tr:201915775",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ЕНЧЕВ ВАСИЛЕВ",
+      "target": "company:tr:201915775",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС КАЛОФЕРОВ КАЛОФЕРОВ",
+      "target": "company:tr:201915775",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЛЯН ВАСИЛЕВ ГЪБОВ",
+      "target": "company:tr:201915775",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:МАРИАНА КОЛЕВА 7",
+      "target": "company:tr:201915775",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:albena-markova-kasabova-b3102e",
+  "nodes": [
+    {
+      "id": "official:albena-markova-kasabova-b3102e",
+      "type": "official",
+      "slug": "albena-markova-kasabova-b3102e",
+      "label": "Албена Маркова Касабова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206372187",
+      "type": "company",
+      "label": "Синева - 2020 - с. Синеморец",
+      "slug": null,
+      "uic": "206372187",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ГЕОРГИЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Александър Георгиев Иванов"
+    },
+    {
+      "id": "person:ИЛИНА ЛЮБЕНОВА НАЙДЕНОВА",
+      "type": "person",
+      "label": "Илина Любенова Найденова"
+    },
+    {
+      "id": "person:КОНСТАНТИНА КОНСТАНТИНОВА ШЕСТАКОВА",
+      "type": "person",
+      "label": "Константина Константинова Шестакова"
+    },
+    {
+      "id": "person:МИГЛЕНА КРАСИМИРОВА ГЕРАСИМОВА",
+      "type": "person",
+      "label": "Миглена Красимирова Герасимова"
+    },
+    {
+      "id": "person:НИКОЛАЙ ТОДОРОВ ПЕНЕВ",
+      "type": "person",
+      "label": "Николай Тодоров Пенев"
+    },
+    {
+      "id": "person:ЛЮДМИЛ ВАЛЕНТИНОВ ХАЙДУТОВ",
+      "type": "person",
+      "label": "Людмил Валентинов Хайдутов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:albena-markova-kasabova-b3102e",
+      "target": "company:tr:206372187",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ГЕОРГИЕВ ИВАНОВ",
+      "target": "company:tr:206372187",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИНА ЛЮБЕНОВА НАЙДЕНОВА",
+      "target": "company:tr:206372187",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИНА ЛЮБЕНОВА НАЙДЕНОВА",
+      "target": "company:tr:206372187",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИНА КОНСТАНТИНОВА ШЕСТАКОВА",
+      "target": "company:tr:206372187",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИГЛЕНА КРАСИМИРОВА ГЕРАСИМОВА",
+      "target": "company:tr:206372187",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ТОДОРОВ ПЕНЕВ",
+      "target": "company:tr:206372187",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮДМИЛ ВАЛЕНТИНОВ ХАЙДУТОВ",
+      "target": "company:tr:206372187",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

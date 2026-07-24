@@ -1,0 +1,200 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:valeri-andreev-marenski-c917db",
+  "nodes": [
+    {
+      "id": "official:valeri-andreev-marenski-c917db",
+      "type": "official",
+      "slug": "valeri-andreev-marenski-c917db",
+      "label": "Валери Андреев Маренски",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:117001983",
+      "type": "company",
+      "label": "СВОБОДНА ЗОНА-РУСЕ",
+      "slug": null,
+      "uic": "117001983",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:2724",
+      "type": "mp",
+      "mpId": 2724,
+      "label": "Таско Михайлов Ерменков",
+      "partyGroupShort": "БСП",
+      "isCurrent": false,
+      "nsFolders": [
+        "42",
+        "43"
+      ]
+    },
+    {
+      "id": "official:ilko-hristov-chamov-4bec5f",
+      "type": "official",
+      "slug": "ilko-hristov-chamov-4bec5f",
+      "label": "Илко Христов Чамов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "official:tasko-mihailov-ermenkov-d3f1d3",
+      "type": "official",
+      "slug": "tasko-mihailov-ermenkov-d3f1d3",
+      "label": "Таско Михайлов Ерменков",
+      "tier": "executive",
+      "role": "regulator",
+      "municipality": null
+    },
+    {
+      "id": "official:stanislav-chavdarov-mladenov-1cf0e1",
+      "type": "official",
+      "slug": "stanislav-chavdarov-mladenov-1cf0e1",
+      "label": "Станислав Чавдаров Младенов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община"
+    },
+    {
+      "id": "person:МАГДАЛЕНА ДИМИТРОВА ИВАНОВА",
+      "type": "person",
+      "label": "Магдалена Димитрова Иванова"
+    },
+    {
+      "id": "person:ГЕОРГИ ГЕОРГИЕВ СТОИЛОВ",
+      "type": "person",
+      "label": "Георги Георгиев Стоилов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ВАЛЕНТИНОВ ПЕЕВ",
+      "type": "person",
+      "label": "Александър Валентинов Пеев"
+    },
+    {
+      "id": "person:ЕЛЗА ЛЕДЕНОВА ХРИСТОВА-ТРАЙКОВА",
+      "type": "person",
+      "label": "Елза Леденова Христова-Трайкова"
+    },
+    {
+      "id": "person:ГАЛИНА СТЕФАНОВА РАЙЧЕВА",
+      "type": "person",
+      "label": "Галина Стефанова Райчева"
+    },
+    {
+      "id": "person:ТЕОДОРА ЧАВДАРОВА ГЕРГОВА",
+      "type": "person",
+      "label": "Теодора Чавдарова Гергова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valeri-andreev-marenski-c917db",
+      "target": "company:tr:117001983",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2724",
+      "target": "company:tr:117001983",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ilko-hristov-chamov-4bec5f",
+      "target": "company:tr:117001983",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tasko-mihailov-ermenkov-d3f1d3",
+      "target": "company:tr:117001983",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stanislav-chavdarov-mladenov-1cf0e1",
+      "target": "company:tr:117001983",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАГДАЛЕНА ДИМИТРОВА ИВАНОВА",
+      "target": "company:tr:117001983",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАГДАЛЕНА ДИМИТРОВА ИВАНОВА",
+      "target": "company:tr:117001983",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ГЕОРГИЕВ СТОИЛОВ",
+      "target": "company:tr:117001983",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ГЕОРГИЕВ СТОИЛОВ",
+      "target": "company:tr:117001983",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ВАЛЕНТИНОВ ПЕЕВ",
+      "target": "company:tr:117001983",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЗА ЛЕДЕНОВА ХРИСТОВА-ТРАЙКОВА",
+      "target": "company:tr:117001983",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА СТЕФАНОВА РАЙЧЕВА",
+      "target": "company:tr:117001983",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА ЧАВДАРОВА ГЕРГОВА",
+      "target": "company:tr:117001983",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

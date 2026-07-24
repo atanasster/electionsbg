@@ -1,0 +1,105 @@
+[
+  {
+    "slug": "dilyan-sergeev-bchvarski-d9d6cb",
+    "declarantName": "Дилян Сергеев Бъчварски",
+    "institution": "Грамада",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г11318",
+    "controlHash": "0E7C2162",
+    "sourceUrl": "https://register.cacbg.bg/2025/5B32DB9B-7CF7-434D-B436-0BD6255396C3214453.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 3835.2004008528347,
+        "amountEurSpouse": 3596.938384215397
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 20042.13045101057,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 44667,
+        "valueEur": 22837.874457391492,
+        "holderName": "Дилян Сергеев Бъчварски",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9400,
+        "valueEur": 4806.143683244454,
+        "holderName": "Дилян Сергеев Бъчварски",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "Дилян Сергеев Бъчварски",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 155663,
+        "valueEur": 79589.22810264696,
+        "holderName": "Галя Неделчева Бъчварска",
+        "isSpouse": true,
+        "legalBasis": "договор, лихвен процент 2,9",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

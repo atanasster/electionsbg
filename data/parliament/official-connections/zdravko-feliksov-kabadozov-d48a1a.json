@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:zdravko-feliksov-kabadozov-d48a1a",
+  "nodes": [
+    {
+      "id": "official:zdravko-feliksov-kabadozov-d48a1a",
+      "type": "official",
+      "slug": "zdravko-feliksov-kabadozov-d48a1a",
+      "label": "Здравко Феликсов Кабадозов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204471959",
+      "type": "company",
+      "label": "Да Винчи Медикъл ЕООД",
+      "slug": null,
+      "uic": "204471959",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЛАДИМИР ФЕЛИКСОВ КАБАДОЗОВ",
+      "type": "person",
+      "label": "Владимир Феликсов Кабадозов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zdravko-feliksov-kabadozov-d48a1a",
+      "target": "company:tr:204471959",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ФЕЛИКСОВ КАБАДОЗОВ",
+      "target": "company:tr:204471959",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ФЕЛИКСОВ КАБАДОЗОВ",
+      "target": "company:tr:204471959",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ФЕЛИКСОВ КАБАДОЗОВ",
+      "target": "company:tr:204471959",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

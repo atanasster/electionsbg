@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:sonya-ivanova-mukova-atanasova-dd344f",
+  "nodes": [
+    {
+      "id": "official:sonya-ivanova-mukova-atanasova-dd344f",
+      "type": "official",
+      "slug": "sonya-ivanova-mukova-atanasova-dd344f",
+      "label": "Соня Иванова Мукова-Атанасова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:114686820",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ СВЕТИ ПАНТАЛЕЙМОН - ПЛЕВЕН",
+      "slug": null,
+      "uic": "114686820",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sonya-ivanova-mukova-atanasova-dd344f",
+      "target": "company:tr:114686820",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

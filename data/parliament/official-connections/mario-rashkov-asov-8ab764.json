@@ -1,0 +1,77 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mario-rashkov-asov-8ab764",
+  "nodes": [
+    {
+      "id": "official:mario-rashkov-asov-8ab764",
+      "type": "official",
+      "slug": "mario-rashkov-asov-8ab764",
+      "label": "Марио Рашков Асьов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Якоруда"
+    },
+    {
+      "id": "company:tr:206977357",
+      "type": "company",
+      "label": "Мар-К Електрик 22",
+      "slug": null,
+      "uic": "206977357",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:КИРИЛ НИКОЛАЕВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Кирил Николаев Стефанов"
+    },
+    {
+      "id": "person:ВЕРГИНИЯ АНГЕЛОВА АСЬОВА",
+      "type": "person",
+      "label": "Вергиния Ангелова Асьова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mario-rashkov-asov-8ab764",
+      "target": "company:tr:206977357",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mario-rashkov-asov-8ab764",
+      "target": "company:tr:206977357",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КИРИЛ НИКОЛАЕВ СТЕФАНОВ",
+      "target": "company:tr:206977357",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ НИКОЛАЕВ СТЕФАНОВ",
+      "target": "company:tr:206977357",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРГИНИЯ АНГЕЛОВА АСЬОВА",
+      "target": "company:tr:206977357",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

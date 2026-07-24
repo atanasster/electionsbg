@@ -1,0 +1,107 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tanya-todorova-miteva-karakash-6e824b",
+  "nodes": [
+    {
+      "id": "official:tanya-todorova-miteva-karakash-6e824b",
+      "type": "official",
+      "slug": "tanya-todorova-miteva-karakash-6e824b",
+      "label": "Таня Тодорова Митева-Каракаш",
+      "tier": "executive",
+      "role": "security_service",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:030211525",
+      "type": "company",
+      "label": "Фродексим ООД",
+      "slug": null,
+      "uic": "030211525",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202084198",
+      "type": "company",
+      "label": "Фродексим трейд ООД",
+      "slug": null,
+      "uic": "202084198",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:130969675",
+      "type": "company",
+      "label": "Еллаб ООД",
+      "slug": null,
+      "uic": "130969675",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202980772",
+      "type": "company",
+      "label": "Еллаб България ООД",
+      "slug": null,
+      "uic": "202980772",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:201330775",
+      "type": "company",
+      "label": "Бекра ООД",
+      "slug": null,
+      "uic": "201330775",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tanya-todorova-miteva-karakash-6e824b",
+      "target": "company:tr:030211525",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:tanya-todorova-miteva-karakash-6e824b",
+      "target": "company:tr:202084198",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:tanya-todorova-miteva-karakash-6e824b",
+      "target": "company:tr:130969675",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:tanya-todorova-miteva-karakash-6e824b",
+      "target": "company:tr:202980772",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:tanya-todorova-miteva-karakash-6e824b",
+      "target": "company:tr:201330775",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

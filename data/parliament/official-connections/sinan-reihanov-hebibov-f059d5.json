@@ -1,0 +1,78 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:sinan-reihanov-hebibov-f059d5",
+  "nodes": [
+    {
+      "id": "official:sinan-reihanov-hebibov-f059d5",
+      "type": "official",
+      "slug": "sinan-reihanov-hebibov-f059d5",
+      "label": "Синан Рейханов Хебибов",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:831904662",
+      "type": "company",
+      "label": "Проинвекс",
+      "slug": null,
+      "uic": "831904662",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:ivailo-stoyanov-malamov-8d7717",
+      "type": "official",
+      "slug": "ivailo-stoyanov-malamov-8d7717",
+      "label": "Ивайло Стоянов Маламов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:ДИНЧО ТОДОРОВ ПЕТКОВ",
+      "type": "person",
+      "label": "Динчо Тодоров Петков"
+    },
+    {
+      "id": "person:КРЕМЕНА ПЛАМЕНОВА ТРИФОНОВА",
+      "type": "person",
+      "label": "Кремена Пламенова Трифонова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sinan-reihanov-hebibov-f059d5",
+      "target": "company:tr:831904662",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivailo-stoyanov-malamov-8d7717",
+      "target": "company:tr:831904662",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИНЧО ТОДОРОВ ПЕТКОВ",
+      "target": "company:tr:831904662",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРЕМЕНА ПЛАМЕНОВА ТРИФОНОВА",
+      "target": "company:tr:831904662",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

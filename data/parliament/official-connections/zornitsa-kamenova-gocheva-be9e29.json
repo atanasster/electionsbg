@@ -1,0 +1,81 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:zornitsa-kamenova-gocheva-be9e29",
+  "nodes": [
+    {
+      "id": "official:zornitsa-kamenova-gocheva-be9e29",
+      "type": "official",
+      "slug": "zornitsa-kamenova-gocheva-be9e29",
+      "label": "Зорница Каменова Гочева",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206771745",
+      "type": "company",
+      "label": "ДЖЕНЕРИКС",
+      "slug": null,
+      "uic": "206771745",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1538"
+    },
+    {
+      "id": "mp:2478",
+      "type": "mp",
+      "mpId": 2478,
+      "label": "Чавдар Славчев Пейчев",
+      "partyGroupShort": "КП ББЦ",
+      "isCurrent": false,
+      "nsFolders": []
+    },
+    {
+      "id": "person:ГОСПОДИН МАРИНОВ ГОЧЕВ",
+      "type": "person",
+      "label": "Господин Маринов Гочев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zornitsa-kamenova-gocheva-be9e29",
+      "target": "company:tr:206771745",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2478",
+      "target": "company:tr:206771745",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2478",
+      "target": "company:tr:206771745",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГОСПОДИН МАРИНОВ ГОЧЕВ",
+      "target": "company:tr:206771745",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГОСПОДИН МАРИНОВ ГОЧЕВ",
+      "target": "company:tr:206771745",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rositsa-petrova-gerova-f48be1",
+  "nodes": [
+    {
+      "id": "official:rositsa-petrova-gerova-f48be1",
+      "type": "official",
+      "slug": "rositsa-petrova-gerova-f48be1",
+      "label": "Росица Петрова Герова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:177134041",
+      "type": "company",
+      "label": "МЕСТНА ИНИЦИАТИВНА ГРУПА ОБЩИНА СТАМБОЛИЙСКИ",
+      "slug": null,
+      "uic": "177134041",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВЕЛИНА ГЕОРГИЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Ивелина Георгиева Димитрова"
+    },
+    {
+      "id": "person:СТОЯН ДИМИТРОВ БОГДАНОВ",
+      "type": "person",
+      "label": "Стоян Димитров Богданов"
+    },
+    {
+      "id": "person:ЛЮБОМИРА ПЕТРОВА ЧАРДАКОВА",
+      "type": "person",
+      "label": "Любомира Петрова Чардакова"
+    },
+    {
+      "id": "person:РУМЕН АТАНАСОВ НАЙДЕНОВ",
+      "type": "person",
+      "label": "Румен Атанасов Найденов"
+    },
+    {
+      "id": "person:ДИМИТЪР ВАСИЛЕВ ТОПУЗОВ",
+      "type": "person",
+      "label": "Димитър Василев Топузов"
+    },
+    {
+      "id": "person:НИКОЛА САШКОВ ДРАГАНОВ",
+      "type": "person",
+      "label": "Никола Сашков Драганов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rositsa-petrova-gerova-f48be1",
+      "target": "company:tr:177134041",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВЕЛИНА ГЕОРГИЕВА ДИМИТРОВА",
+      "target": "company:tr:177134041",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН ДИМИТРОВ БОГДАНОВ",
+      "target": "company:tr:177134041",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИРА ПЕТРОВА ЧАРДАКОВА",
+      "target": "company:tr:177134041",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН АТАНАСОВ НАЙДЕНОВ",
+      "target": "company:tr:177134041",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ВАСИЛЕВ ТОПУЗОВ",
+      "target": "company:tr:177134041",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА САШКОВ ДРАГАНОВ",
+      "target": "company:tr:177134041",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

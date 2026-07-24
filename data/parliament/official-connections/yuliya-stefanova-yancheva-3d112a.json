@@ -1,0 +1,134 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:yuliya-stefanova-yancheva-3d112a",
+  "nodes": [
+    {
+      "id": "official:yuliya-stefanova-yancheva-3d112a",
+      "type": "official",
+      "slug": "yuliya-stefanova-yancheva-3d112a",
+      "label": "Юлия Стефанова Янчева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Симитли"
+    },
+    {
+      "id": "company:tr:101079037",
+      "type": "company",
+      "label": "Народно читалище &quot;Гоце Делчев - 1958&quot;",
+      "slug": null,
+      "uic": "101079037",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛЮБОВКА СИМЕОНОВА БУЮКЛИЙСКА",
+      "type": "person",
+      "label": "Любовка Симеонова Буюклийска"
+    },
+    {
+      "id": "person:ГЕОРГИ КИРИЛОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "Георги Кирилов Стефанов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР НИКОЛОВ ЧИВИЕВ",
+      "type": "person",
+      "label": "Александър Николов Чивиев"
+    },
+    {
+      "id": "person:НАДЕЖДА АНГЕЛОВА СТОЕВА",
+      "type": "person",
+      "label": "Надежда Ангелова Стоева"
+    },
+    {
+      "id": "person:МАНУЕЛА ВЕНЦИСЛАВОВА ТАШЕВА",
+      "type": "person",
+      "label": "Мануела Венциславова Ташева"
+    },
+    {
+      "id": "person:СМИЛЯНА САШОВА ЧИВИЕВА",
+      "type": "person",
+      "label": "Смиляна Сашова Чивиева"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА МАЛИНОВА БОЯНСКА",
+      "type": "person",
+      "label": "Десислава Малинова Боянска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yuliya-stefanova-yancheva-3d112a",
+      "target": "company:tr:101079037",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:yuliya-stefanova-yancheva-3d112a",
+      "target": "company:tr:101079037",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛЮБОВКА СИМЕОНОВА БУЮКЛИЙСКА",
+      "target": "company:tr:101079037",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ КИРИЛОВ СТЕФАНОВ",
+      "target": "company:tr:101079037",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР НИКОЛОВ ЧИВИЕВ",
+      "target": "company:tr:101079037",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЕЖДА АНГЕЛОВА СТОЕВА",
+      "target": "company:tr:101079037",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАНУЕЛА ВЕНЦИСЛАВОВА ТАШЕВА",
+      "target": "company:tr:101079037",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СМИЛЯНА САШОВА ЧИВИЕВА",
+      "target": "company:tr:101079037",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА МАЛИНОВА БОЯНСКА",
+      "target": "company:tr:101079037",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

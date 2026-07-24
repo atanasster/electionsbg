@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:sergei-dmitrievich-stanishev-540190",
+  "nodes": [
+    {
+      "id": "official:sergei-dmitrievich-stanishev-540190",
+      "type": "official",
+      "slug": "sergei-dmitrievich-stanishev-540190",
+      "label": "Сергей Дмитриевич Станишев",
+      "tier": "executive",
+      "role": "mep",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203801820",
+      "type": "company",
+      "label": "Интерактив комюникейшънс ЕООД",
+      "slug": null,
+      "uic": "203801820",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sergei-dmitrievich-stanishev-540190",
+      "target": "company:tr:203801820",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

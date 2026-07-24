@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:krasimir-georgiev-kirev-022d60",
+  "nodes": [
+    {
+      "id": "official:krasimir-georgiev-kirev-022d60",
+      "type": "official",
+      "slug": "krasimir-georgiev-kirev-022d60",
+      "label": "Красимир Георгиев Кирев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Родопи"
+    },
+    {
+      "id": "company:tr:208646320",
+      "type": "company",
+      "label": "ФАЙВ СТАР БИЛД",
+      "slug": null,
+      "uic": "208646320",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТОНЧО РАЙЧЕВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Тончо Райчев Димитров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krasimir-georgiev-kirev-022d60",
+      "target": "company:tr:208646320",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:krasimir-georgiev-kirev-022d60",
+      "target": "company:tr:208646320",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТОНЧО РАЙЧЕВ ДИМИТРОВ",
+      "target": "company:tr:208646320",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОНЧО РАЙЧЕВ ДИМИТРОВ",
+      "target": "company:tr:208646320",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

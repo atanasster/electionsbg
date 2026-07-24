@@ -1,0 +1,72 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:lena-zdravkova-borislavova-9f2583",
+  "nodes": [
+    {
+      "id": "official:lena-zdravkova-borislavova-9f2583",
+      "type": "official",
+      "slug": "lena-zdravkova-borislavova-9f2583",
+      "label": "Лена Здравкова Бориславова",
+      "tier": "executive",
+      "role": "political_cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208893694",
+      "type": "company",
+      "label": "Институт за правосъден мониторинг",
+      "slug": null,
+      "uic": "208893694",
+      "legalForm": "Фондация",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1421"
+    },
+    {
+      "id": "mp:4851",
+      "type": "mp",
+      "mpId": 4851,
+      "label": "Лена Здравкова Бориславова",
+      "partyGroupShort": "ПП-ДБ",
+      "isCurrent": false,
+      "nsFolders": [
+        "47",
+        "49",
+        "50"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:lena-zdravkova-borislavova-9f2583",
+      "target": "company:tr:208893694",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:lena-zdravkova-borislavova-9f2583",
+      "target": "company:tr:208893694",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4851",
+      "target": "company:tr:208893694",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4851",
+      "target": "company:tr:208893694",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

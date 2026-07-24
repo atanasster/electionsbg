@@ -1,0 +1,130 @@
+[
+  {
+    "slug": "georgi-vangelov-iliev-8e9a27",
+    "declarantName": "Георги Вангелов Илиев",
+    "institution": "Свиленград",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г8470",
+    "controlHash": "9631F9A6",
+    "sourceUrl": "https://register.cacbg.bg/2025/2B0E55B3-9AB4-4538-95C8-D1F0DDE94164211491.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6075.170132373468,
+        "amountEurSpouse": 5995.9198907880545
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 635.5358083268995,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "лозя",
+        "detail": null,
+        "location": "с. Мезек",
+        "municipality": "Свиленград",
+        "areaSqm": 4,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Марийка Веселинова Илиева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "лозя",
+        "detail": null,
+        "location": "с. Мезек",
+        "municipality": "Свиленград",
+        "areaSqm": 4,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Георги Вангелов Илиев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Мезек",
+        "municipality": "Свиленград",
+        "areaSqm": 1,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 867,
+        "valueEur": 443.29006099712143,
+        "holderName": "Марийка Веселинова Илиева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Мезек",
+        "municipality": "Свиленград",
+        "areaSqm": 1,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 867,
+        "valueEur": 443.29006099712143,
+        "holderName": "Георги Вангелов Илиев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Мезек",
+        "municipality": "Свиленград",
+        "areaSqm": 650,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "парцел",
+        "detail": null,
+        "location": "с. Мезек",
+        "municipality": "Свиленград",
+        "areaSqm": 650,
+        "builtAreaSqm": 0,
+        "currency": "BGN",
+        "valueEur": 0,
+        "legalBasis": "безвъзмездно"
+      }
+    ]
+  }
+]

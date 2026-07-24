@@ -1,0 +1,153 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitr-georgiev-taskov-39b7b6",
+  "nodes": [
+    {
+      "id": "official:dimitr-georgiev-taskov-39b7b6",
+      "type": "official",
+      "slug": "dimitr-georgiev-taskov-39b7b6",
+      "label": "Димитър Георгиев Тасков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202225161",
+      "type": "company",
+      "label": "Оптик Луксор ООД",
+      "slug": null,
+      "uic": "202225161",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:202715101",
+      "type": "company",
+      "label": "Луксор Тасков ООД",
+      "slug": null,
+      "uic": "202715101",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:125576916",
+      "type": "company",
+      "label": "Луксор Б и Д ООД",
+      "slug": null,
+      "uic": "125576916",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:dimitr-georgiev-taskov-14e4c2",
+      "type": "official",
+      "slug": "dimitr-georgiev-taskov-14e4c2",
+      "label": "Димитър Георгиев Тасков",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:name:СПЕЦИАЛИЗИРАНА ОЧНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ ЛУКСОР”",
+      "type": "company",
+      "label": "„Специализирана очна болница за активно лечение Луксор” ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТЪР ГЕОРГИЕВ ТАСКОВ",
+      "type": "person",
+      "label": "Димитър Георгиев Тасков"
+    },
+    {
+      "id": "company:name:МЕДИЦИНСКИ ЦЕНТЪР ЛУКСОР",
+      "type": "company",
+      "label": "\"МЕДИЦИНСКИ ЦЕНТЪР ЛУКСОР\" ЕООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-georgiev-taskov-39b7b6",
+      "target": "company:tr:202225161",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dimitr-georgiev-taskov-39b7b6",
+      "target": "company:tr:202715101",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dimitr-georgiev-taskov-39b7b6",
+      "target": "company:tr:125576916",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dimitr-georgiev-taskov-14e4c2",
+      "target": "company:tr:202225161",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dimitr-georgiev-taskov-14e4c2",
+      "target": "company:tr:202715101",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:СПЕЦИАЛИЗИРАНА ОЧНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ ЛУКСОР”",
+      "target": "company:tr:202715101",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ГЕОРГИЕВ ТАСКОВ",
+      "target": "company:tr:202715101",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:МЕДИЦИНСКИ ЦЕНТЪР ЛУКСОР",
+      "target": "company:tr:202715101",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dimitr-georgiev-taskov-14e4c2",
+      "target": "company:tr:125576916",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

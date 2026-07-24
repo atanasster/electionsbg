@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:svetlana-stoyanova-petkova-f6860e",
+  "nodes": [
+    {
+      "id": "official:svetlana-stoyanova-petkova-f6860e",
+      "type": "official",
+      "slug": "svetlana-stoyanova-petkova-f6860e",
+      "label": "Светлана Стоянова Петкова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206675298",
+      "type": "company",
+      "label": "ЛегасиЕду",
+      "slug": null,
+      "uic": "206675298",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЕСИСЛАВА МИШЕЛ ПЕТКОВА",
+      "type": "person",
+      "label": "Десислава Мишел Петкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetlana-stoyanova-petkova-f6860e",
+      "target": "company:tr:206675298",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:svetlana-stoyanova-petkova-f6860e",
+      "target": "company:tr:206675298",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА МИШЕЛ ПЕТКОВА",
+      "target": "company:tr:206675298",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

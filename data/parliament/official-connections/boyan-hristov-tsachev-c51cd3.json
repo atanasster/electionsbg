@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:boyan-hristov-tsachev-c51cd3",
+  "nodes": [
+    {
+      "id": "official:boyan-hristov-tsachev-c51cd3",
+      "type": "official",
+      "slug": "boyan-hristov-tsachev-c51cd3",
+      "label": "Боян Христов Цачев",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:202348331",
+      "type": "company",
+      "label": "\"БЪЛГАРКА- 2012\" ООД",
+      "slug": null,
+      "uic": "202348331",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:200239504",
+      "type": "company",
+      "label": "\"БЪЛГАРКА 2008\" ЕООД",
+      "slug": null,
+      "uic": "200239504",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МИХАЕЛА БОЯНОВА ЦАЧЕВА",
+      "type": "person",
+      "label": "Михаела Боянова Цачева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:boyan-hristov-tsachev-c51cd3",
+      "target": "company:tr:202348331",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:boyan-hristov-tsachev-c51cd3",
+      "target": "company:tr:200239504",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:boyan-hristov-tsachev-c51cd3",
+      "target": "company:tr:200239504",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИХАЕЛА БОЯНОВА ЦАЧЕВА",
+      "target": "company:tr:200239504",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

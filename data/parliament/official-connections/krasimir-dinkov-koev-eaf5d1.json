@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:krasimir-dinkov-koev-eaf5d1",
+  "nodes": [
+    {
+      "id": "official:krasimir-dinkov-koev-eaf5d1",
+      "type": "official",
+      "slug": "krasimir-dinkov-koev-eaf5d1",
+      "label": "Красимир Динков Коев",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206153581",
+      "type": "company",
+      "label": "Родино ЕООД",
+      "slug": null,
+      "uic": "206153581",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krasimir-dinkov-koev-eaf5d1",
+      "target": "company:tr:206153581",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

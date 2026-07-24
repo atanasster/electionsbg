@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tonya-todorova-koeva-eade67",
+  "nodes": [
+    {
+      "id": "official:tonya-todorova-koeva-eade67",
+      "type": "official",
+      "slug": "tonya-todorova-koeva-eade67",
+      "label": "Тоня Тодорова Коева",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208180401",
+      "type": "company",
+      "label": "ДЕКОТИМ",
+      "slug": null,
+      "uic": "208180401",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tonya-todorova-koeva-eade67",
+      "target": "company:tr:208180401",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tonya-todorova-koeva-eade67",
+      "target": "company:tr:208180401",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

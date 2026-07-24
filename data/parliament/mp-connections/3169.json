@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:3169",
   "nodes": [
     {
@@ -46,27 +46,27 @@
       "nsFolders": []
     },
     {
-      "id": "official:asen-georgiev-baltov-0bd8a7",
+      "id": "official:asen-georgiev-baltov-2fc0b4",
       "type": "official",
-      "slug": "asen-georgiev-baltov-0bd8a7",
+      "slug": "asen-georgiev-baltov-2fc0b4",
       "label": "Асен Георгиев Балтов",
       "tier": "executive",
       "role": "hospital_head",
       "municipality": null
     },
     {
-      "id": "official:zhivka-sevdalinova-savova-d214c5",
+      "id": "official:zhivka-sevdalinova-savova-f87a32",
       "type": "official",
-      "slug": "zhivka-sevdalinova-savova-d214c5",
+      "slug": "zhivka-sevdalinova-savova-f87a32",
       "label": "Живка Севдалинова Савова",
       "tier": "executive",
       "role": "hospital_head",
       "municipality": null
     },
     {
-      "id": "official:ivan-georgiev-poromanski-9e5dbf",
+      "id": "official:ivan-georgiev-poromanski-2c2251",
       "type": "official",
-      "slug": "ivan-georgiev-poromanski-9e5dbf",
+      "slug": "ivan-georgiev-poromanski-2c2251",
       "label": "Иван Георгиев Поромански",
       "tier": "executive",
       "role": "hospital_head",
@@ -264,7 +264,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:asen-georgiev-baltov-0bd8a7",
+      "source": "official:asen-georgiev-baltov-2fc0b4",
       "target": "company:tr:130345786",
       "kind": "tr_role",
       "role": "director",
@@ -272,7 +272,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:zhivka-sevdalinova-savova-d214c5",
+      "source": "official:zhivka-sevdalinova-savova-f87a32",
       "target": "company:tr:130345786",
       "kind": "tr_role",
       "role": "director",
@@ -280,7 +280,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:ivan-georgiev-poromanski-9e5dbf",
+      "source": "official:ivan-georgiev-poromanski-2c2251",
       "target": "company:tr:130345786",
       "kind": "tr_role",
       "role": "representative",
@@ -288,7 +288,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:ivan-georgiev-poromanski-9e5dbf",
+      "source": "official:ivan-georgiev-poromanski-2c2251",
       "target": "company:tr:130345786",
       "kind": "tr_role",
       "role": "director",

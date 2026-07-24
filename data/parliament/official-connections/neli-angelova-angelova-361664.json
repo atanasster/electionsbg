@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:neli-angelova-angelova-361664",
+  "nodes": [
+    {
+      "id": "official:neli-angelova-angelova-361664",
+      "type": "official",
+      "slug": "neli-angelova-angelova-361664",
+      "label": "Нели Ангелова Ангелова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:207646495",
+      "type": "company",
+      "label": "Стием Груп",
+      "slug": null,
+      "uic": "207646495",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТАНИСЛАВ МИШЕВ АНГЕЛОВ",
+      "type": "person",
+      "label": "Станислав Мишев Ангелов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:neli-angelova-angelova-361664",
+      "target": "company:tr:207646495",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:neli-angelova-angelova-361664",
+      "target": "company:tr:207646495",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТАНИСЛАВ МИШЕВ АНГЕЛОВ",
+      "target": "company:tr:207646495",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТАНИСЛАВ МИШЕВ АНГЕЛОВ",
+      "target": "company:tr:207646495",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

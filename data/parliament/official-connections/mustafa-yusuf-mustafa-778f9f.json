@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mustafa-yusuf-mustafa-778f9f",
+  "nodes": [
+    {
+      "id": "official:mustafa-yusuf-mustafa-778f9f",
+      "type": "official",
+      "slug": "mustafa-yusuf-mustafa-778f9f",
+      "label": "Мустафа Юсуф Мустафа",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сърница"
+    },
+    {
+      "id": "company:tr:202015348",
+      "type": "company",
+      "label": "ЕВРО ЛУКС 84",
+      "slug": null,
+      "uic": "202015348",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mustafa-yusuf-mustafa-778f9f",
+      "target": "company:tr:202015348",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:mustafa-yusuf-mustafa-778f9f",
+      "target": "company:tr:202015348",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

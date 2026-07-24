@@ -1,0 +1,64 @@
+[
+  {
+    "slug": "ana-nikolova-mincheva-fcf9c6",
+    "declarantName": "Ана Николова Минчева",
+    "institution": "Болярово",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-07",
+    "entryNumber": "Г8370",
+    "controlHash": "E0AA9813",
+    "sourceUrl": "https://register.cacbg.bg/2025/A96587C4-2328-43D1-85B9-7715A4FB0865211389.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 9579.56468609235,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 3739.588819069142,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Ана Николова Минчева",
+        "isSpouse": false,
+        "legalBasis": "задължение",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Болярово",
+        "municipality": "Болярово",
+        "areaSqm": 44,
+        "builtAreaSqm": 575,
+        "currency": "BGN",
+        "valueEur": 15338.756435886555,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

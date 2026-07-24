@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tanya-petrova-kekova-8dc988",
+  "nodes": [
+    {
+      "id": "official:tanya-petrova-kekova-8dc988",
+      "type": "official",
+      "slug": "tanya-petrova-kekova-8dc988",
+      "label": "Таня Петрова Кекова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Панагюрище"
+    },
+    {
+      "id": "company:tr:112638467",
+      "type": "company",
+      "label": "&quot;ИВА-ДД&quot;",
+      "slug": null,
+      "uic": "112638467",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ПЕТЪР ЦВЯТКОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Петър Цвятков Петров"
+    },
+    {
+      "id": "person:ЦВЕТЕМИРА ПЕТРОВА ЗАГОРСКА",
+      "type": "person",
+      "label": "Цветемира Петрова Загорска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tanya-petrova-kekova-8dc988",
+      "target": "company:tr:112638467",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР ЦВЯТКОВ ПЕТРОВ",
+      "target": "company:tr:112638467",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕМИРА ПЕТРОВА ЗАГОРСКА",
+      "target": "company:tr:112638467",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

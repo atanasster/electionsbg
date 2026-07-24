@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:2544",
   "nodes": [
     {
@@ -22,36 +22,36 @@
       "seat": null
     },
     {
-      "id": "official:dimitr-stefanov-stankov-4950d7",
+      "id": "official:dimitr-stefanov-stankov-3fb575",
       "type": "official",
-      "slug": "dimitr-stefanov-stankov-4950d7",
+      "slug": "dimitr-stefanov-stankov-3fb575",
       "label": "Димитър Стефанов Станков",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "medical_center",
       "municipality": null
     },
     {
-      "id": "official:dincho-genev-genev-ff7579",
+      "id": "official:dincho-genev-genev-30a41c",
       "type": "official",
-      "slug": "dincho-genev-genev-ff7579",
+      "slug": "dincho-genev-genev-30a41c",
       "label": "Динчо Генев Генев",
       "tier": "executive",
       "role": "hospital_head",
       "municipality": null
     },
     {
-      "id": "official:katya-nikolaeva-popova-b5bec5",
+      "id": "official:katya-nikolaeva-popova-5972c0",
       "type": "official",
-      "slug": "katya-nikolaeva-popova-b5bec5",
+      "slug": "katya-nikolaeva-popova-5972c0",
       "label": "Катя Николаева Попова",
       "tier": "executive",
       "role": "hospital_head",
       "municipality": null
     },
     {
-      "id": "official:kostadin-stoyanov-atanasov-8e7baf",
+      "id": "official:kostadin-stoyanov-atanasov-22460c",
       "type": "official",
-      "slug": "kostadin-stoyanov-atanasov-8e7baf",
+      "slug": "kostadin-stoyanov-atanasov-22460c",
       "label": "Костадин Стоянов Атанасов",
       "tier": "executive",
       "role": "hospital_head",
@@ -73,7 +73,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:dimitr-stefanov-stankov-4950d7",
+      "source": "official:dimitr-stefanov-stankov-3fb575",
       "target": "company:tr:115532049",
       "kind": "tr_role",
       "role": "director",
@@ -81,7 +81,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:dincho-genev-genev-ff7579",
+      "source": "official:dincho-genev-genev-30a41c",
       "target": "company:tr:115532049",
       "kind": "tr_role",
       "role": "director",
@@ -89,7 +89,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:katya-nikolaeva-popova-b5bec5",
+      "source": "official:katya-nikolaeva-popova-5972c0",
       "target": "company:tr:115532049",
       "kind": "tr_role",
       "role": "director",
@@ -97,7 +97,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:kostadin-stoyanov-atanasov-8e7baf",
+      "source": "official:kostadin-stoyanov-atanasov-22460c",
       "target": "company:tr:115532049",
       "kind": "tr_role",
       "role": "director",

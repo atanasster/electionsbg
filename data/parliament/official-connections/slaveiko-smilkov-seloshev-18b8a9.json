@@ -1,0 +1,107 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:slaveiko-smilkov-seloshev-18b8a9",
+  "nodes": [
+    {
+      "id": "official:slaveiko-smilkov-seloshev-18b8a9",
+      "type": "official",
+      "slug": "slaveiko-smilkov-seloshev-18b8a9",
+      "label": "Славейко Смилков Сельошев",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200098466",
+      "type": "company",
+      "label": "Славена трейд ЕООД",
+      "slug": null,
+      "uic": "200098466",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:slaveiko-smilkov-seloshev-5542eb",
+      "type": "official",
+      "slug": "slaveiko-smilkov-seloshev-5542eb",
+      "label": "Славейко Смилков Сельошев",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Доспат"
+    },
+    {
+      "id": "person:ВЕЛИЧКО МИТКОВ КАРААСЕНОВ",
+      "type": "person",
+      "label": "Величко Митков Караасенов"
+    },
+    {
+      "id": "person:ИВАН ДИЯНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Иван Диянов Христов"
+    },
+    {
+      "id": "person:СИЛВИЯ НИКОЛОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Силвия Николова Петрова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:slaveiko-smilkov-seloshev-18b8a9",
+      "target": "company:tr:200098466",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:slaveiko-smilkov-seloshev-5542eb",
+      "target": "company:tr:200098466",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИЧКО МИТКОВ КАРААСЕНОВ",
+      "target": "company:tr:200098466",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИЯНОВ ХРИСТОВ",
+      "target": "company:tr:200098466",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ НИКОЛОВА ПЕТРОВА",
+      "target": "company:tr:200098466",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДИЯНОВ ХРИСТОВ",
+      "target": "company:tr:200098466",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ НИКОЛОВА ПЕТРОВА",
+      "target": "company:tr:200098466",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+[
+  {
+    "slug": "mariya-kirilova-pavlova-1b9904",
+    "declarantName": "Мария Кирилова Павлова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г5382",
+    "controlHash": "D57F6BF1",
+    "sourceUrl": "https://register.cacbg.bg/2025/5623CA17-618F-4991-A70A-020B93E75242208305.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5777.598257517269,
+        "amountEurSpouse": 7669.378217943277
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Автомобил",
+        "detail": "Ситроен",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Мария Кирилова Павлова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Мария Кирилова Павлова",
+        "isSpouse": false,
+        "legalBasis": "5,89%",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "third_party_expense",
+        "description": "Есенна академия СРСНПБ",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 244.90881109298866,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Работен семинар РУО София-град",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 368.1301544612773,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Национална среща ПО",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 290.9250804006483,
+        "legalBasis": null
+      },
+      {
+        "kind": "third_party_expense",
+        "description": "Квалификационен уебинар",
+        "detail": null,
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 33.74526415895042,
+        "legalBasis": null
+      }
+    ]
+  }
+]

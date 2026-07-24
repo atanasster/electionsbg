@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:svetoslav-ivoslavov-rusinov-765cb9",
+  "nodes": [
+    {
+      "id": "official:svetoslav-ivoslavov-rusinov-765cb9",
+      "type": "official",
+      "slug": "svetoslav-ivoslavov-rusinov-765cb9",
+      "label": "Светослав Ивославов Русинов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:204439630",
+      "type": "company",
+      "label": "Сирус 17  ООД",
+      "slug": null,
+      "uic": "204439630",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetoslav-ivoslavov-rusinov-765cb9",
+      "target": "company:tr:204439630",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:silviya-iordanova-velkova-700aa9",
+  "nodes": [
+    {
+      "id": "official:silviya-iordanova-velkova-700aa9",
+      "type": "official",
+      "slug": "silviya-iordanova-velkova-700aa9",
+      "label": "Силвия Йорданова Велкова",
+      "tier": "executive",
+      "role": "regional_governor",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:109593930",
+      "type": "company",
+      "label": "\"Спорт Експерт\" ЕООД",
+      "slug": null,
+      "uic": "109593930",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:silviya-iordanova-velkova-700aa9",
+      "target": "company:tr:109593930",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

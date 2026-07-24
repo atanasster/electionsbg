@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:2510",
   "nodes": [
     {
@@ -32,18 +32,18 @@
       "seat": "БЪЛГАРИЯ, гр. София"
     },
     {
-      "id": "official:daniela-plamenova-stoineva-98e851",
+      "id": "official:daniela-plamenova-stoineva-80d1bf",
       "type": "official",
-      "slug": "daniela-plamenova-stoineva-98e851",
+      "slug": "daniela-plamenova-stoineva-80d1bf",
       "label": "Даниела Пламенова Стойнева",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:dimitr-georgiev-kunov-f5b0d4",
+      "id": "official:dimitr-georgiev-kunov-a13887",
       "type": "official",
-      "slug": "dimitr-georgiev-kunov-f5b0d4",
+      "slug": "dimitr-georgiev-kunov-a13887",
       "label": "Димитър Георгиев Кунов",
       "tier": "executive",
       "role": "state_enterprise",
@@ -101,7 +101,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:daniela-plamenova-stoineva-98e851",
+      "source": "official:daniela-plamenova-stoineva-80d1bf",
       "target": "company:tr:130138766",
       "kind": "tr_role",
       "role": "director",
@@ -109,7 +109,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:dimitr-georgiev-kunov-f5b0d4",
+      "source": "official:dimitr-georgiev-kunov-a13887",
       "target": "company:tr:130138766",
       "kind": "tr_role",
       "role": "director",

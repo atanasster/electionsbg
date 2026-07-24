@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:daniela-nikolaeva-pavlova-27e059",
+  "nodes": [
+    {
+      "id": "official:daniela-nikolaeva-pavlova-27e059",
+      "type": "official",
+      "slug": "daniela-nikolaeva-pavlova-27e059",
+      "label": "Даниела Николаева Павлова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200224751",
+      "type": "company",
+      "label": "ТЕХСОЛ",
+      "slug": null,
+      "uic": "200224751",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:daniela-nikolaeva-pavlova-27e059",
+      "target": "company:tr:200224751",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

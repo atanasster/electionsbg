@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:elena-dimitrova-chankova-fee872",
+  "nodes": [
+    {
+      "id": "official:elena-dimitrova-chankova-fee872",
+      "type": "official",
+      "slug": "elena-dimitrova-chankova-fee872",
+      "label": "Елена Димитрова Чанкова",
+      "tier": "executive",
+      "role": "revenue_agency",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206378891",
+      "type": "company",
+      "label": "ЕЛЕНА ТРЕЙДИНГ",
+      "slug": null,
+      "uic": "206378891",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:elena-dimitrova-chankova-fee872",
+      "target": "company:tr:206378891",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:elena-dimitrova-chankova-fee872",
+      "target": "company:tr:206378891",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

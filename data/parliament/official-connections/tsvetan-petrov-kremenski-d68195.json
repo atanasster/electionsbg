@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tsvetan-petrov-kremenski-d68195",
+  "nodes": [
+    {
+      "id": "official:tsvetan-petrov-kremenski-d68195",
+      "type": "official",
+      "slug": "tsvetan-petrov-kremenski-d68195",
+      "label": "Цветан Петров Кременски",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131072447",
+      "type": "company",
+      "label": "ВТОРИ МЕДИЦИНСКИ ЦЕНТЪР-СОФИЯ",
+      "slug": null,
+      "uic": "131072447",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetan-petrov-kremenski-d68195",
+      "target": "company:tr:131072447",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

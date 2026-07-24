@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:violeta-silvi-chernodrinska-cb81e0",
+  "nodes": [
+    {
+      "id": "official:violeta-silvi-chernodrinska-cb81e0",
+      "type": "official",
+      "slug": "violeta-silvi-chernodrinska-cb81e0",
+      "label": "Виолета Силви Чернодринска",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175279629",
+      "type": "company",
+      "label": "СПЕЦИАЛИЗИРАНА ОЧНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ ВИЗУС",
+      "slug": null,
+      "uic": "175279629",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:violeta-silvi-chernodrinska-cb81e0",
+      "target": "company:tr:175279629",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:violeta-silvi-chernodrinska-cb81e0",
+      "target": "company:tr:175279629",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

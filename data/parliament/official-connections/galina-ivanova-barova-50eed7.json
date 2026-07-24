@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:galina-ivanova-barova-50eed7",
+  "nodes": [
+    {
+      "id": "official:galina-ivanova-barova-50eed7",
+      "type": "official",
+      "slug": "galina-ivanova-barova-50eed7",
+      "label": "Галина Иванова Барова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176768879",
+      "type": "company",
+      "label": "За по-добро бъдеще",
+      "slug": null,
+      "uic": "176768879",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАРГАРИТА ЗЛАТАНОВА ЦЕКОВА",
+      "type": "person",
+      "label": "Маргарита Златанова Цекова"
+    },
+    {
+      "id": "person:ЛОРЕНСИТА НАЙДЕНОВА ТРИЧКОВА",
+      "type": "person",
+      "label": "Лоренсита Найденова Тричкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:galina-ivanova-barova-50eed7",
+      "target": "company:tr:176768879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРГАРИТА ЗЛАТАНОВА ЦЕКОВА",
+      "target": "company:tr:176768879",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА ЗЛАТАНОВА ЦЕКОВА",
+      "target": "company:tr:176768879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛОРЕНСИТА НАЙДЕНОВА ТРИЧКОВА",
+      "target": "company:tr:176768879",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

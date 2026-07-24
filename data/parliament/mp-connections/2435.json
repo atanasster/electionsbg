@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:2435",
   "nodes": [
     {
@@ -107,18 +107,18 @@
       "label": "Добромир Проданов Проданов"
     },
     {
-      "id": "official:dimitr-vasilev-mihailov-03a60b",
+      "id": "official:dimitr-vasilev-mihailov-6dbd2f",
       "type": "official",
-      "slug": "dimitr-vasilev-mihailov-03a60b",
+      "slug": "dimitr-vasilev-mihailov-6dbd2f",
       "label": "Димитър Василев Михайлов",
       "tier": "municipal",
       "role": "councillor",
       "municipality": "Габрово"
     },
     {
-      "id": "official:dobromir-prodanov-prodanov-070ebb",
+      "id": "official:dobromir-prodanov-prodanov-a3a3c1",
       "type": "official",
-      "slug": "dobromir-prodanov-prodanov-070ebb",
+      "slug": "dobromir-prodanov-prodanov-a3a3c1",
       "label": "Добромир Проданов Проданов",
       "tier": "municipal",
       "role": "councillor",
@@ -275,7 +275,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:dimitr-vasilev-mihailov-03a60b",
+      "source": "official:dimitr-vasilev-mihailov-6dbd2f",
       "target": "company:tr:200373318",
       "kind": "declared_stake",
       "role": "declared_share",
@@ -283,7 +283,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:dobromir-prodanov-prodanov-070ebb",
+      "source": "official:dobromir-prodanov-prodanov-a3a3c1",
       "target": "company:tr:200373318",
       "kind": "declared_stake",
       "role": "declared_share",

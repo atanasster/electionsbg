@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:asen-lyubenov-elenkov-fcad3b",
+  "nodes": [
+    {
+      "id": "official:asen-lyubenov-elenkov-fcad3b",
+      "type": "official",
+      "slug": "asen-lyubenov-elenkov-fcad3b",
+      "label": "Асен Любенов Еленков",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208616455",
+      "type": "company",
+      "label": "ЛИНКО - АТ",
+      "slug": null,
+      "uic": "208616455",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:asen-lyubenov-elenkov-fcad3b",
+      "target": "company:tr:208616455",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:asen-lyubenov-elenkov-fcad3b",
+      "target": "company:tr:208616455",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

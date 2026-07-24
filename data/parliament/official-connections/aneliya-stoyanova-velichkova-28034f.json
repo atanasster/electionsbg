@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:aneliya-stoyanova-velichkova-28034f",
+  "nodes": [
+    {
+      "id": "official:aneliya-stoyanova-velichkova-28034f",
+      "type": "official",
+      "slug": "aneliya-stoyanova-velichkova-28034f",
+      "label": "Анелия Стоянова Величкова",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130920991",
+      "type": "company",
+      "label": "СЧЕТОВОДНА КАНТОРА СИГУРНОСТ",
+      "slug": null,
+      "uic": "130920991",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aneliya-stoyanova-velichkova-28034f",
+      "target": "company:tr:130920991",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:aneliya-stoyanova-velichkova-28034f",
+      "target": "company:tr:130920991",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

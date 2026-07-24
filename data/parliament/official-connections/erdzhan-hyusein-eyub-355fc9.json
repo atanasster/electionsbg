@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:erdzhan-hyusein-eyub-355fc9",
+  "nodes": [
+    {
+      "id": "official:erdzhan-hyusein-eyub-355fc9",
+      "type": "official",
+      "slug": "erdzhan-hyusein-eyub-355fc9",
+      "label": "Ерджан Хюсеин Еюб",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Момчилград"
+    },
+    {
+      "id": "company:tr:202463006",
+      "type": "company",
+      "label": "СУПОРТ 2001",
+      "slug": null,
+      "uic": "202463006",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:erdzhan-hyusein-eyub-355fc9",
+      "target": "company:tr:202463006",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:erdzhan-hyusein-eyub-355fc9",
+      "target": "company:tr:202463006",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

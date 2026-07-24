@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitr-kolev-dimitrov-ad6644",
+  "nodes": [
+    {
+      "id": "official:dimitr-kolev-dimitrov-ad6644",
+      "type": "official",
+      "slug": "dimitr-kolev-dimitrov-ad6644",
+      "label": "Димитър Колев Димитров",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201798902",
+      "type": "company",
+      "label": "ДИЛОНА-КРИС-90",
+      "slug": null,
+      "uic": "201798902",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:dimitr-kolev-dimitrov-d68765",
+      "type": "official",
+      "slug": "dimitr-kolev-dimitrov-d68765",
+      "label": "Димитър Колев Димитров",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "official:dimitr-kolev-dimitrov-db6876",
+      "type": "official",
+      "slug": "dimitr-kolev-dimitrov-db6876",
+      "label": "Димитър Колев Димитров",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Ветрино"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-kolev-dimitrov-ad6644",
+      "target": "company:tr:201798902",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dimitr-kolev-dimitrov-d68765",
+      "target": "company:tr:201798902",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dimitr-kolev-dimitrov-db6876",
+      "target": "company:tr:201798902",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

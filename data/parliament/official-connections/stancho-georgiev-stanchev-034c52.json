@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stancho-georgiev-stanchev-034c52",
+  "nodes": [
+    {
+      "id": "official:stancho-georgiev-stanchev-034c52",
+      "type": "official",
+      "slug": "stancho-georgiev-stanchev-034c52",
+      "label": "Станчо Георгиев Станчев",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208328830",
+      "type": "company",
+      "label": "СКОРПИС",
+      "slug": null,
+      "uic": "208328830",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stancho-georgiev-stanchev-034c52",
+      "target": "company:tr:208328830",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:stancho-georgiev-stanchev-034c52",
+      "target": "company:tr:208328830",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:georgi-pavlov-vasilev-d726f5",
+  "nodes": [
+    {
+      "id": "official:georgi-pavlov-vasilev-d726f5",
+      "type": "official",
+      "slug": "georgi-pavlov-vasilev-d726f5",
+      "label": "Георги Павлов Василев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:208884752",
+      "type": "company",
+      "label": "УебАктивити",
+      "slug": null,
+      "uic": "208884752",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:georgi-pavlov-vasilev-d726f5",
+      "target": "company:tr:208884752",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-pavlov-vasilev-d726f5",
+      "target": "company:tr:208884752",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

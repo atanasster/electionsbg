@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:svetoslav-dimitrov-minchev-22fb61",
+  "nodes": [
+    {
+      "id": "official:svetoslav-dimitrov-minchev-22fb61",
+      "type": "official",
+      "slug": "svetoslav-dimitrov-minchev-22fb61",
+      "label": "Светослав Димитров Минчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Дряново"
+    },
+    {
+      "id": "company:tr:200873184",
+      "type": "company",
+      "label": "Естрея Енерджи",
+      "slug": null,
+      "uic": "200873184",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СТЕФКА КОЛЕВА МИНЧЕВА",
+      "type": "person",
+      "label": "Стефка Колева Минчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:svetoslav-dimitrov-minchev-22fb61",
+      "target": "company:tr:200873184",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:svetoslav-dimitrov-minchev-22fb61",
+      "target": "company:tr:200873184",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:svetoslav-dimitrov-minchev-22fb61",
+      "target": "company:tr:200873184",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФКА КОЛЕВА МИНЧЕВА",
+      "target": "company:tr:200873184",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

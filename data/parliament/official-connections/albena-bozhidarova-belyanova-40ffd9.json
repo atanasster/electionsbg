@@ -1,0 +1,163 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:albena-bozhidarova-belyanova-40ffd9",
+  "nodes": [
+    {
+      "id": "official:albena-bozhidarova-belyanova-40ffd9",
+      "type": "official",
+      "slug": "albena-bozhidarova-belyanova-40ffd9",
+      "label": "Албена Божидарова Белянова",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:106633210",
+      "type": "company",
+      "label": "ЖЕНИТЕ В ЯДРЕНАТА ИНДУСТРИЯ-БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "106633210",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИЛИНКА ИВАНОВА ЖИВКОВА",
+      "type": "person",
+      "label": "Илинка Иванова Живкова"
+    },
+    {
+      "id": "person:ЕЛЕНА СЛАВОВА ПАВЛОВА-ИВАНОВА",
+      "type": "person",
+      "label": "Елена Славова Павлова-Иванова"
+    },
+    {
+      "id": "person:АЛБЕНА ВЕНЦИСЛАВОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Албена Венциславова Георгиева"
+    },
+    {
+      "id": "person:НАДЕЖДА СТАНЧЕВА РАНДЕЛОВА",
+      "type": "person",
+      "label": "Надежда Станчева Ранделова"
+    },
+    {
+      "id": "person:БИЛЯНА СИМОВА СИМЕОНОВА",
+      "type": "person",
+      "label": "Биляна Симова Симеонова"
+    },
+    {
+      "id": "person:ИРИНА МИХОВА СТОЙЧЕВА",
+      "type": "person",
+      "label": "Ирина Михова Стойчева"
+    },
+    {
+      "id": "person:ВЕНЕТА ЛЮДМИЛОВА ВЪЛЧЕВА",
+      "type": "person",
+      "label": "Венета Людмилова Вълчева"
+    },
+    {
+      "id": "person:ВЯРА НИКОЛАЕВА ИЛИЕВА",
+      "type": "person",
+      "label": "Вяра Николаева Илиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:albena-bozhidarova-belyanova-40ffd9",
+      "target": "company:tr:106633210",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:albena-bozhidarova-belyanova-40ffd9",
+      "target": "company:tr:106633210",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИЛИНКА ИВАНОВА ЖИВКОВА",
+      "target": "company:tr:106633210",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИНКА ИВАНОВА ЖИВКОВА",
+      "target": "company:tr:106633210",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА СЛАВОВА ПАВЛОВА-ИВАНОВА",
+      "target": "company:tr:106633210",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛБЕНА ВЕНЦИСЛАВОВА ГЕОРГИЕВА",
+      "target": "company:tr:106633210",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЕЖДА СТАНЧЕВА РАНДЕЛОВА",
+      "target": "company:tr:106633210",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАДЕЖДА СТАНЧЕВА РАНДЕЛОВА",
+      "target": "company:tr:106633210",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИЛЯНА СИМОВА СИМЕОНОВА",
+      "target": "company:tr:106633210",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИРИНА МИХОВА СТОЙЧЕВА",
+      "target": "company:tr:106633210",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕТА ЛЮДМИЛОВА ВЪЛЧЕВА",
+      "target": "company:tr:106633210",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЯРА НИКОЛАЕВА ИЛИЕВА",
+      "target": "company:tr:106633210",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

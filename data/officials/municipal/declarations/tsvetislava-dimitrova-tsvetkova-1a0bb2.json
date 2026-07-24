@@ -1,0 +1,87 @@
+[
+  {
+    "slug": "tsvetislava-dimitrova-tsvetkova-1a0bb2",
+    "declarantName": "Цветислава Димитрова Цветкова",
+    "institution": "Трън",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-08",
+    "entryNumber": "Г1887",
+    "controlHash": "9AD84F4A",
+    "sourceUrl": "https://register.cacbg.bg/2025/6BAC45C1-9C01-4F67-A60F-6D4C105F4B05204452.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20293.17476467791,
+        "amountEurSpouse": 5050.5412024562465
+      },
+      {
+        "parent": null,
+        "category": "Пенсия за прослужено време",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 12271.005148709244
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 110000,
+        "valueEur": 56242.106931584036,
+        "holderName": "Цветислава Димитрова Цветкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45600,
+        "valueEur": 23314.909782547562,
+        "holderName": "Александър Христов Цветков",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20453,
+        "valueEur": 10457.452846106256,
+        "holderName": "Цветислава Димитрова Цветкова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  }
+]

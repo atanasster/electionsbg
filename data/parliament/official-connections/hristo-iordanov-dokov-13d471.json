@@ -1,0 +1,100 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hristo-iordanov-dokov-13d471",
+  "nodes": [
+    {
+      "id": "official:hristo-iordanov-dokov-13d471",
+      "type": "official",
+      "slug": "hristo-iordanov-dokov-13d471",
+      "label": "Христо Йорданов Доков",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Криводол"
+    },
+    {
+      "id": "company:tr:207517504",
+      "type": "company",
+      "label": "МЕСТНА ИНИЦИАТИВНА ГРУПА КРИВОДОЛ - БОЙЧИНОВЦИ",
+      "slug": null,
+      "uic": "207517504",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ОБЩИНА КРИВОДОЛ",
+      "type": "person",
+      "label": "Община Криводол"
+    },
+    {
+      "id": "person:ОБЩИНА БОЙЧИНОВЦИ",
+      "type": "person",
+      "label": "Община Бойчиновци"
+    },
+    {
+      "id": "person:СИЛВИЯ ЛАЛОВА СПАСОВА",
+      "type": "person",
+      "label": "Силвия Лалова Спасова"
+    },
+    {
+      "id": "person:АДЛ - ЛЮТА",
+      "type": "person",
+      "label": "Адл - Люта"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИНА ПЕТРОВА КОСТАДИНОВА",
+      "type": "person",
+      "label": "Цветелина Петрова Костадинова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-iordanov-dokov-13d471",
+      "target": "company:tr:207517504",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОБЩИНА КРИВОДОЛ",
+      "target": "company:tr:207517504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА БОЙЧИНОВЦИ",
+      "target": "company:tr:207517504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ЛАЛОВА СПАСОВА",
+      "target": "company:tr:207517504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АДЛ - ЛЮТА",
+      "target": "company:tr:207517504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИНА ПЕТРОВА КОСТАДИНОВА",
+      "target": "company:tr:207517504",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

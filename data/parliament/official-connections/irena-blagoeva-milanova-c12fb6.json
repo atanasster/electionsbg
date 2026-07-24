@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:irena-blagoeva-milanova-c12fb6",
+  "nodes": [
+    {
+      "id": "official:irena-blagoeva-milanova-c12fb6",
+      "type": "official",
+      "slug": "irena-blagoeva-milanova-c12fb6",
+      "label": "Ирена Благоева Миланова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:123535874",
+      "type": "company",
+      "label": "УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - ПРОФ., Д-Р СТОЯН КИРКОВИЧ",
+      "slug": null,
+      "uic": "123535874",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:filka-nikolova-simeonova-7fcefb",
+      "type": "official",
+      "slug": "filka-nikolova-simeonova-7fcefb",
+      "label": "Филка Николова Симеонова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:ЙОВЧО ПЕТКОВ ЙОВЧЕВ",
+      "type": "person",
+      "label": "Йовчо Петков Йовчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:irena-blagoeva-milanova-c12fb6",
+      "target": "company:tr:123535874",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:filka-nikolova-simeonova-7fcefb",
+      "target": "company:tr:123535874",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОВЧО ПЕТКОВ ЙОВЧЕВ",
+      "target": "company:tr:123535874",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitr-boikov-vuchev-4c23fe",
+  "nodes": [
+    {
+      "id": "official:dimitr-boikov-vuchev-4c23fe",
+      "type": "official",
+      "slug": "dimitr-boikov-vuchev-4c23fe",
+      "label": "Димитър Бойков Вучев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община"
+    },
+    {
+      "id": "company:tr:207254149",
+      "type": "company",
+      "label": "Бюлетин Медия Груп",
+      "slug": null,
+      "uic": "207254149",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВИКТОР ПЕТЬОВ БЛЪСКОВ",
+      "type": "person",
+      "label": "Виктор Петьов Блъсков"
+    },
+    {
+      "id": "person:ДИМИТЪР РУМЕНОВ ЛАЗАРОВ",
+      "type": "person",
+      "label": "Димитър Руменов Лазаров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-boikov-vuchev-4c23fe",
+      "target": "company:tr:207254149",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВИКТОР ПЕТЬОВ БЛЪСКОВ",
+      "target": "company:tr:207254149",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОР ПЕТЬОВ БЛЪСКОВ",
+      "target": "company:tr:207254149",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР РУМЕНОВ ЛАЗАРОВ",
+      "target": "company:tr:207254149",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

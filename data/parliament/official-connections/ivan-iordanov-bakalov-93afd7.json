@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivan-iordanov-bakalov-93afd7",
+  "nodes": [
+    {
+      "id": "official:ivan-iordanov-bakalov-93afd7",
+      "type": "official",
+      "slug": "ivan-iordanov-bakalov-93afd7",
+      "label": "Иван Йорданов Бакалов",
+      "tier": "executive",
+      "role": "agri_academy",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205213723",
+      "type": "company",
+      "label": "С-Инто ЕООД",
+      "slug": null,
+      "uic": "205213723",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivan-iordanov-bakalov-93afd7",
+      "target": "company:tr:205213723",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

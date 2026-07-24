@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:krasimir-velikov-nenov-888b46",
+  "nodes": [
+    {
+      "id": "official:krasimir-velikov-nenov-888b46",
+      "type": "official",
+      "slug": "krasimir-velikov-nenov-888b46",
+      "label": "Красимир Великов Ненов",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:121548403",
+      "type": "company",
+      "label": "Салвис фарма ООД",
+      "slug": null,
+      "uic": "121548403",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:krasimir-velikov-nenov-888b46",
+      "target": "company:tr:121548403",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

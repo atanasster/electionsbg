@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ivelina-stoikova-vasileva-c9c00e",
+  "nodes": [
+    {
+      "id": "official:ivelina-stoikova-vasileva-c9c00e",
+      "type": "official",
+      "slug": "ivelina-stoikova-vasileva-c9c00e",
+      "label": "Ивелина Стойкова Василева",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:813154554",
+      "type": "company",
+      "label": "ДИАГНОСТИЧНО КОНСУЛТАТИВЕН ЦЕНТЪР 3 - ВАРНА",
+      "slug": null,
+      "uic": "813154554",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ivelina-stoikova-vasileva-c9c00e",
+      "target": "company:tr:813154554",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

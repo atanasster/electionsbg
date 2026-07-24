@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-nikolaev-stoinov-fbc472",
+  "nodes": [
+    {
+      "id": "official:nikolai-nikolaev-stoinov-fbc472",
+      "type": "official",
+      "slug": "nikolai-nikolaev-stoinov-fbc472",
+      "label": "Николай Николаев Стойнов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:833066624",
+      "type": "company",
+      "label": "БАЛКАНИНВЕСТ",
+      "slug": null,
+      "uic": "833066624",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-nikolaev-stoinov-fbc472",
+      "target": "company:tr:833066624",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

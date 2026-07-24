@@ -1,30 +1,24 @@
 [
   {
     "slug": "ventsislav-markov-markov-646fe3",
-    "declarantName": "Венцислав Марков Марков",
+    "declarantName": "ВЕНЦИСЛАВ МАРКОВ МАРКОВ",
     "institution": "Членовете на управителните и контролните органи на НЕК",
     "positionTitle": "Директор на дирекция",
     "category": "state_enterprise",
-    "declarationYear": 2023,
-    "fiscalYear": 2022,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г3413",
-    "controlHash": "5A0B1E5A",
-    "sourceUrl": "https://register.cacbg.bg/2023/08D15E24-E776-4D6D-B432-9AFCDC19F215149682.xml",
+    "filedAt": "2025-05-07",
+    "entryNumber": "Г5822",
+    "controlHash": "0B4B0820",
+    "sourceUrl": "https://register.cacbg.bg/2025/08D15E24-E776-4D6D-B432-9AFCDC19F215208766.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": null,
-        "amountEurSpouse": 12541.98984574324
-      },
-      {
-        "parent": null,
-        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
-        "amountEurDeclarant": 3681.3015446127733,
-        "amountEurSpouse": null
+        "amountEurDeclarant": 78738.94970421765,
+        "amountEurSpouse": 10225.83762392437
       }
     ],
     "assets": [
@@ -39,9 +33,53 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 242010,
-        "valueEur": 123737.74816829684,
-        "holderName": "Венцислав Марков Марков",
+        "amount": 136000,
+        "valueEur": 69535.69584268572,
+        "holderName": "ВЕНЦИСЛАВ МАРКОВ МАРКОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ventsislav-markov-markov-646fe3",
+    "declarantName": "ВЕНЦИСЛАВ МАРКОВ МАРКОВ",
+    "institution": "Членовете на управителните и контролните органи на НЕК",
+    "positionTitle": "Директор на дирекция",
+    "category": "state_enterprise",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-09",
+    "entryNumber": "Г9464",
+    "controlHash": "C301D711",
+    "sourceUrl": "https://register.cacbg.bg/2024/08D15E24-E776-4D6D-B432-9AFCDC19F215191119.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 73522.74993225382,
+        "amountEurSpouse": 13463.849107540022
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 306930,
+        "valueEur": 156930.81709555534,
+        "holderName": "ВЕНЦИСЛАВ МАРКОВ МАРКОВ",
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": "заплата"
@@ -208,6 +246,56 @@
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "ventsislav-markov-markov-646fe3",
+    "declarantName": "Венцислав Марков Марков",
+    "institution": "Членовете на управителните и контролните органи на НЕК",
+    "positionTitle": "Директор на дирекция",
+    "category": "state_enterprise",
+    "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г3413",
+    "controlHash": "5A0B1E5A",
+    "sourceUrl": "https://register.cacbg.bg/2023/08D15E24-E776-4D6D-B432-9AFCDC19F215149682.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 12541.98984574324
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 3681.3015446127733,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 242010,
+        "valueEur": 123737.74816829684,
+        "holderName": "Венцислав Марков Марков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

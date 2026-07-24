@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:sofiya-vladimirova-dimitrova-a04274",
+  "nodes": [
+    {
+      "id": "official:sofiya-vladimirova-dimitrova-a04274",
+      "type": "official",
+      "slug": "sofiya-vladimirova-dimitrova-a04274",
+      "label": "София Владимирова Димитрова",
+      "tier": "executive",
+      "role": "regulator",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175193190",
+      "type": "company",
+      "label": "\"Ай Дийл\" ООД",
+      "slug": null,
+      "uic": "175193190",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:sofiya-vladimirova-dimitrova-a04274",
+      "target": "company:tr:175193190",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mariyanka-angelova-zhivkova-43acee",
+  "nodes": [
+    {
+      "id": "official:mariyanka-angelova-zhivkova-43acee",
+      "type": "official",
+      "slug": "mariyanka-angelova-zhivkova-43acee",
+      "label": "Мариянка Ангелова Живкова",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131314128",
+      "type": "company",
+      "label": "УЧИЛИЩНО НАСТОЯТЕЛСТВО ЕКИП - 2004 ПРИ СОФИЙСКА ПРОФЕСИОНАЛНА ГИМНАЗИЯ ПО ТУРИЗЪМ",
+      "slug": null,
+      "uic": "131314128",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН ГЕОРГИЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Георгиев Иванов"
+    },
+    {
+      "id": "person:ЛИЛИЯ ИВАНОВА КИСИМОВА",
+      "type": "person",
+      "label": "Лилия Иванова Кисимова"
+    },
+    {
+      "id": "person:ЕВЕЛИНА ГЕОРГИЕВА АЛЕКСАНДРОВА",
+      "type": "person",
+      "label": "Евелина Георгиева Александрова"
+    },
+    {
+      "id": "person:ПЕНКА ИВАНОВА ЦОНКОВА",
+      "type": "person",
+      "label": "Пенка Иванова Цонкова"
+    },
+    {
+      "id": "person:ЕВЕЛИНА АЛЕКСАНДРОВА МИХАЙЛОВА-СТЕФАНОВА",
+      "type": "person",
+      "label": "Евелина Александрова Михайлова-Стефанова"
+    },
+    {
+      "id": "person:РОЗА ИВАНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Роза Иванова Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mariyanka-angelova-zhivkova-43acee",
+      "target": "company:tr:131314128",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ГЕОРГИЕВ ИВАНОВ",
+      "target": "company:tr:131314128",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛИЯ ИВАНОВА КИСИМОВА",
+      "target": "company:tr:131314128",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВЕЛИНА ГЕОРГИЕВА АЛЕКСАНДРОВА",
+      "target": "company:tr:131314128",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ИВАНОВА ЦОНКОВА",
+      "target": "company:tr:131314128",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВЕЛИНА АЛЕКСАНДРОВА МИХАЙЛОВА-СТЕФАНОВА",
+      "target": "company:tr:131314128",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ГЕОРГИЕВ ИВАНОВ",
+      "target": "company:tr:131314128",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОЗА ИВАНОВА ГЕОРГИЕВА",
+      "target": "company:tr:131314128",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ГЕОРГИЕВ ИВАНОВ",
+      "target": "company:tr:131314128",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:yurii-boyanov-todorov-cbbcb4",
+  "nodes": [
+    {
+      "id": "official:yurii-boyanov-todorov-cbbcb4",
+      "type": "official",
+      "slug": "yurii-boyanov-todorov-cbbcb4",
+      "label": "Юрий Боянов Тодоров",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:114547016",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ &quot;УЧИЛИЩНО НАСТОЯТЕЛСТВО НА ГИМНАЗИЯ С ПРЕПОДАВАНЕ НА ЧУЖДИ ЕЗИЦИ - ПЛЕВЕН&quot;",
+      "slug": null,
+      "uic": "114547016",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НАЗАР САХАК АГОПЯН",
+      "type": "person",
+      "label": "Назар Сахак Агопян"
+    },
+    {
+      "id": "person:МАРИЯ ДИМИТРОВА АНДРЕЕВА",
+      "type": "person",
+      "label": "Мария Димитрова Андреева"
+    },
+    {
+      "id": "person:ЕКАТЕРИНА ИВАНОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Екатерина Иванова Илиева"
+    },
+    {
+      "id": "person:ЕЛЕНА ВЕНЕЦИЕВА ВЕЛИКОВА-ДИМИТРОВА",
+      "type": "person",
+      "label": "Елена Венециева Великова-Димитрова"
+    },
+    {
+      "id": "person:РАДОСЛАВ ВЕСЕЛИНОВ МИРЧЕВ",
+      "type": "person",
+      "label": "Радослав Веселинов Мирчев"
+    },
+    {
+      "id": "person:МАРТИН МЛАДЕНОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Мартин Младенов Николов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:yurii-boyanov-todorov-cbbcb4",
+      "target": "company:tr:114547016",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НАЗАР САХАК АГОПЯН",
+      "target": "company:tr:114547016",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ДИМИТРОВА АНДРЕЕВА",
+      "target": "company:tr:114547016",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАЗАР САХАК АГОПЯН",
+      "target": "company:tr:114547016",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ДИМИТРОВА АНДРЕЕВА",
+      "target": "company:tr:114547016",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕКАТЕРИНА ИВАНОВА ИЛИЕВА",
+      "target": "company:tr:114547016",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ВЕНЕЦИЕВА ВЕЛИКОВА-ДИМИТРОВА",
+      "target": "company:tr:114547016",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСЛАВ ВЕСЕЛИНОВ МИРЧЕВ",
+      "target": "company:tr:114547016",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН МЛАДЕНОВ НИКОЛОВ",
+      "target": "company:tr:114547016",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ДИМИТРОВА АНДРЕЕВА",
+      "target": "company:tr:114547016",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

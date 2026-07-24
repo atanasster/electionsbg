@@ -1,0 +1,139 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:gonyul-azis-yuzeir-238bf3",
+  "nodes": [
+    {
+      "id": "official:gonyul-azis-yuzeir-238bf3",
+      "type": "official",
+      "slug": "gonyul-azis-yuzeir-238bf3",
+      "label": "Гьонюл Азис Юзеир",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:103009518",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ИСТИКБАЛ-1900г.&quot;",
+      "slug": null,
+      "uic": "103009518",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НАЗИК НАЗИФ КЯМИЛ",
+      "type": "person",
+      "label": "Назик Назиф Кямил"
+    },
+    {
+      "id": "person:ВИЖДАН РУФАТ АШИМ",
+      "type": "person",
+      "label": "Виждан Руфат Ашим"
+    },
+    {
+      "id": "person:АШКАН КЕМАЛОВА АЛИ",
+      "type": "person",
+      "label": "Ашкан Кемалова Али"
+    },
+    {
+      "id": "person:ГЮЛЯР МЕДЖИТОВА САЛИЕВА",
+      "type": "person",
+      "label": "Гюляр Меджитова Салиева"
+    },
+    {
+      "id": "person:СЕВЖАН РАСИМОВА АПТУЛОВА",
+      "type": "person",
+      "label": "Севжан Расимова Аптулова"
+    },
+    {
+      "id": "person:СЕВИМ АХМЕД ИСМАИЛ",
+      "type": "person",
+      "label": "Севим Ахмед Исмаил"
+    },
+    {
+      "id": "person:НЕВИН ФИКРИЕВА ЕРЕДЖЕБОВА",
+      "type": "person",
+      "label": "Невин Фикриева Ереджебова"
+    },
+    {
+      "id": "person:БИЛДЖАН ЧЕТИН КАДИР",
+      "type": "person",
+      "label": "Билджан Четин Кадир"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:gonyul-azis-yuzeir-238bf3",
+      "target": "company:tr:103009518",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НАЗИК НАЗИФ КЯМИЛ",
+      "target": "company:tr:103009518",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИЖДАН РУФАТ АШИМ",
+      "target": "company:tr:103009518",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АШКАН КЕМАЛОВА АЛИ",
+      "target": "company:tr:103009518",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮЛЯР МЕДЖИТОВА САЛИЕВА",
+      "target": "company:tr:103009518",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВЖАН РАСИМОВА АПТУЛОВА",
+      "target": "company:tr:103009518",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕВИМ АХМЕД ИСМАИЛ",
+      "target": "company:tr:103009518",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВИН ФИКРИЕВА ЕРЕДЖЕБОВА",
+      "target": "company:tr:103009518",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИЛДЖАН ЧЕТИН КАДИР",
+      "target": "company:tr:103009518",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

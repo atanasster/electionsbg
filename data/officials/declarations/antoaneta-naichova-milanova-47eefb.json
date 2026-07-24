@@ -1,0 +1,88 @@
+[
+  {
+    "slug": "antoaneta-naichova-milanova-47eefb",
+    "declarantName": "Антоанета Найчова Миланова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г11198",
+    "controlHash": "DEDAB560",
+    "sourceUrl": "https://register.cacbg.bg/2025/1731E92E-9277-47A1-9775-9459D3AF6526214331.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27381.214113701088,
+        "amountEurSpouse": 9816.804118967395
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2219.5180562727846,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "antoaneta-naichova-milanova-47eefb",
+    "declarantName": "Антоанета Найчова Миланова",
+    "institution": "Детски градини, ясли, детка кухня",
+    "positionTitle": "Директор",
+    "category": "kindergarten",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-13",
+    "entryNumber": "Г1596",
+    "controlHash": "DF0D26AE",
+    "sourceUrl": "https://register.cacbg.bg/2024/1731E92E-9277-47A1-9775-9459D3AF6526182527.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Антоанета Найчова Миланова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "лизинг за автомобил",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 56000,
+        "valueEur": 28632.345346988237,
+        "holderName": "Красимир Петков Миланов",
+        "isSpouse": true,
+        "legalBasis": "лизинг автомобил",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

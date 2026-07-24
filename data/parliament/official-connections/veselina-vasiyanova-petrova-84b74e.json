@@ -1,0 +1,129 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:veselina-vasiyanova-petrova-84b74e",
+  "nodes": [
+    {
+      "id": "official:veselina-vasiyanova-petrova-84b74e",
+      "type": "official",
+      "slug": "veselina-vasiyanova-petrova-84b74e",
+      "label": "Веселина Васиянова Петрова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:831605795",
+      "type": "company",
+      "label": "УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ &quot;АЛЕКСАНДРОВСКА&quot;",
+      "slug": null,
+      "uic": "831605795",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:БОРИС ИЛИЕВ БОГОВ",
+      "type": "person",
+      "label": "Борис Илиев Богов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ХУГО ОСКАР",
+      "type": "person",
+      "label": "Александър Хуго Оскар"
+    },
+    {
+      "id": "person:ДИМИТЪР ИВАНОВ БУЛАНОВ",
+      "type": "person",
+      "label": "Димитър Иванов Буланов"
+    },
+    {
+      "id": "person:АТАНАС ГЕОРГИЕВ АТАНАСОВ",
+      "type": "person",
+      "label": "Атанас  Георгиев Атанасов"
+    },
+    {
+      "id": "person:РУМЕН МАЛИНОВ СТОИЛОВ",
+      "type": "person",
+      "label": "Румен Малинов Стоилов"
+    },
+    {
+      "id": "person:АТАНАС СТЕФАНОВ ЙОНКОВ",
+      "type": "person",
+      "label": "Атанас Стефанов Йонков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:veselina-vasiyanova-petrova-84b74e",
+      "target": "company:tr:831605795",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОРИС ИЛИЕВ БОГОВ",
+      "target": "company:tr:831605795",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ХУГО ОСКАР",
+      "target": "company:tr:831605795",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ИВАНОВ БУЛАНОВ",
+      "target": "company:tr:831605795",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ГЕОРГИЕВ АТАНАСОВ",
+      "target": "company:tr:831605795",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ГЕОРГИЕВ АТАНАСОВ",
+      "target": "company:tr:831605795",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН МАЛИНОВ СТОИЛОВ",
+      "target": "company:tr:831605795",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС СТЕФАНОВ ЙОНКОВ",
+      "target": "company:tr:831605795",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС СТЕФАНОВ ЙОНКОВ",
+      "target": "company:tr:831605795",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

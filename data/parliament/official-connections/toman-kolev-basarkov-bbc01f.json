@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:toman-kolev-basarkov-bbc01f",
+  "nodes": [
+    {
+      "id": "official:toman-kolev-basarkov-bbc01f",
+      "type": "official",
+      "slug": "toman-kolev-basarkov-bbc01f",
+      "label": "Томан Колев Басарков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Летница"
+    },
+    {
+      "id": "company:tr:206370453",
+      "type": "company",
+      "label": "ТОПХЪНТ",
+      "slug": null,
+      "uic": "206370453",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:toman-kolev-basarkov-bbc01f",
+      "target": "company:tr:206370453",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:toman-kolev-basarkov-bbc01f",
+      "target": "company:tr:206370453",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

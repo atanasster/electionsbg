@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:petr-ivanov-kolarov-17712d",
+  "nodes": [
+    {
+      "id": "official:petr-ivanov-kolarov-17712d",
+      "type": "official",
+      "slug": "petr-ivanov-kolarov-17712d",
+      "label": "Петър Иванов Коларов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Батак"
+    },
+    {
+      "id": "company:tr:208573438",
+      "type": "company",
+      "label": "ФЕЙТ-ПЕТЪР КОЛАРОВ",
+      "slug": null,
+      "uic": "208573438",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:petr-ivanov-kolarov-17712d",
+      "target": "company:tr:208573438",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:petr-ivanov-kolarov-17712d",
+      "target": "company:tr:208573438",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

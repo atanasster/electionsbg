@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:stelian-ivanov-krumov-448fec",
+  "nodes": [
+    {
+      "id": "official:stelian-ivanov-krumov-448fec",
+      "type": "official",
+      "slug": "stelian-ivanov-krumov-448fec",
+      "label": "Стелиан Иванов Крумов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Димово"
+    },
+    {
+      "id": "company:tr:203362889",
+      "type": "company",
+      "label": "ЮБМ ГРУП ООД",
+      "slug": null,
+      "uic": "203362889",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ БОРИСОВ БОРДИЯШЕВ",
+      "type": "person",
+      "label": "Венцислав Борисов Бордияшев"
+    },
+    {
+      "id": "person:ИВО ПЕТКОВ КАМЕНОВ",
+      "type": "person",
+      "label": "Иво Петков Каменов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:stelian-ivanov-krumov-448fec",
+      "target": "company:tr:203362889",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:stelian-ivanov-krumov-448fec",
+      "target": "company:tr:203362889",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ БОРИСОВ БОРДИЯШЕВ",
+      "target": "company:tr:203362889",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ПЕТКОВ КАМЕНОВ",
+      "target": "company:tr:203362889",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

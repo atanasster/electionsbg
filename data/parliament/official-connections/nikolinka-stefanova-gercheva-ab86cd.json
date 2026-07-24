@@ -1,0 +1,227 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolinka-stefanova-gercheva-ab86cd",
+  "nodes": [
+    {
+      "id": "official:nikolinka-stefanova-gercheva-ab86cd",
+      "type": "official",
+      "slug": "nikolinka-stefanova-gercheva-ab86cd",
+      "label": "Николинка Стефанова Герчева",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:176768288",
+      "type": "company",
+      "label": "НАЦИОНАЛНА АСОЦИАЦИЯ  НА РАБОТЕЩИТЕ В ЦЕНТРОВЕТЕ ЗА СПЕЦИАЛНА ОБРАЗОВАТЕЛНА ПОДКРЕПА /НАРЦСОП/",
+      "slug": null,
+      "uic": "176768288",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:anzhela-velichkova-iotova-stefanova-c11fa0",
+      "type": "official",
+      "slug": "anzhela-velichkova-iotova-stefanova-c11fa0",
+      "label": "Анжела Величкова Йотова-Стефанова",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "official:georgi-paunov-bakalov-da05fb",
+      "type": "official",
+      "slug": "georgi-paunov-bakalov-da05fb",
+      "label": "Георги Паунов Бакалов",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "official:denitsa-aleksandrova-tsenkova-d9a7dc",
+      "type": "official",
+      "slug": "denitsa-aleksandrova-tsenkova-d9a7dc",
+      "label": "Деница Александрова Ценкова",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "official:ivan-aleksandrov-malinov-afe431",
+      "type": "official",
+      "slug": "ivan-aleksandrov-malinov-afe431",
+      "label": "Иван Александров Малинов",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "official:iliya-nikolov-minchev-b874c2",
+      "type": "official",
+      "slug": "iliya-nikolov-minchev-b874c2",
+      "label": "Илия Николов Минчев",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "official:iliyana-todorova-yaninska-107725",
+      "type": "official",
+      "slug": "iliyana-todorova-yaninska-107725",
+      "label": "Илияна Тодорова Янинска",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "official:kristina-toncheva-kulicheva-55ff3e",
+      "type": "official",
+      "slug": "kristina-toncheva-kulicheva-55ff3e",
+      "label": "Кристина Тончева Куличева",
+      "tier": "executive",
+      "role": "social_care",
+      "municipality": null
+    },
+    {
+      "id": "person:МИЛЕН ИВАНОВ НАКОВ",
+      "type": "person",
+      "label": "Милен Иванов Наков"
+    },
+    {
+      "id": "person:ДИАНА ЗЛАТЕВА КОСТОВА",
+      "type": "person",
+      "label": "Диана Златева Костова"
+    },
+    {
+      "id": "person:ДИМИТЪР ХРИСТОВ КОЗАРЕВ",
+      "type": "person",
+      "label": "Димитър Христов Козарев"
+    },
+    {
+      "id": "person:ПАВЛИНА ГОЦЕВА ДЕСКОВА",
+      "type": "person",
+      "label": "Павлина Гоцева Дескова"
+    },
+    {
+      "id": "person:ЯНКА ИВАНОВА ГУНЧЕВА",
+      "type": "person",
+      "label": "Янка Иванова Гунчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolinka-stefanova-gercheva-ab86cd",
+      "target": "company:tr:176768288",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:anzhela-velichkova-iotova-stefanova-c11fa0",
+      "target": "company:tr:176768288",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:georgi-paunov-bakalov-da05fb",
+      "target": "company:tr:176768288",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:denitsa-aleksandrova-tsenkova-d9a7dc",
+      "target": "company:tr:176768288",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ivan-aleksandrov-malinov-afe431",
+      "target": "company:tr:176768288",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iliya-nikolov-minchev-b874c2",
+      "target": "company:tr:176768288",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:iliyana-todorova-yaninska-107725",
+      "target": "company:tr:176768288",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kristina-toncheva-kulicheva-55ff3e",
+      "target": "company:tr:176768288",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛЕН ИВАНОВ НАКОВ",
+      "target": "company:tr:176768288",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИАНА ЗЛАТЕВА КОСТОВА",
+      "target": "company:tr:176768288",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ХРИСТОВ КОЗАРЕВ",
+      "target": "company:tr:176768288",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЛИНА ГОЦЕВА ДЕСКОВА",
+      "target": "company:tr:176768288",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН ИВАНОВ НАКОВ",
+      "target": "company:tr:176768288",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКА ИВАНОВА ГУНЧЕВА",
+      "target": "company:tr:176768288",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

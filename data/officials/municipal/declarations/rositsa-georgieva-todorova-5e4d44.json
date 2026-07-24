@@ -1,0 +1,111 @@
+[
+  {
+    "slug": "rositsa-georgieva-todorova-5e4d44",
+    "declarantName": "Росица Георгиева Тодорова",
+    "institution": "Аврен",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-30",
+    "entryNumber": "Г7011",
+    "controlHash": "9C47E35D",
+    "sourceUrl": "https://register.cacbg.bg/2025/B54593BA-5034-437F-8ED0-0AEEEBA9AF32209998.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5919.226108608622,
+        "amountEurSpouse": 9046.79854588589
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 13335.51484535977,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1466.3851152707546,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "ул. \"Поп Харитон\" №19",
+        "municipality": "Варна",
+        "areaSqm": 210,
+        "builtAreaSqm": 52,
+        "acquiredYear": 2024,
+        "share": "1/4 от двора",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Росица Георгиева Тодорова",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "0"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Дачия Сандеро",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 37580,
+        "valueEur": 19214.34889535389,
+        "holderName": "Росица Георгиева Тодорова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Дачия Сандеро",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 37580,
+        "valueEur": 19214.34889535389,
+        "holderName": "Тодор Йорданов Тодоров",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Заем - потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45000,
+        "valueEur": 23008.13465382983,
+        "holderName": "Росица Георгиева Тодорова",
+        "isSpouse": false,
+        "legalBasis": "5.64",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

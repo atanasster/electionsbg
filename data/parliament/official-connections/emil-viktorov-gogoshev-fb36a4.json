@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:emil-viktorov-gogoshev-fb36a4",
+  "nodes": [
+    {
+      "id": "official:emil-viktorov-gogoshev-fb36a4",
+      "type": "official",
+      "slug": "emil-viktorov-gogoshev-fb36a4",
+      "label": "Емил Викторов Гогошев",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:106510388",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ &quot;СВ.ИВАН РИЛСКИ&quot;- КОЗЛОДУЙ&quot;",
+      "slug": null,
+      "uic": "106510388",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МОМЧИЛ ДЕНЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Момчил Денев Иванов"
+    },
+    {
+      "id": "person:НИКОЛАЙ СТЕФАНОВ ДИМОВ",
+      "type": "person",
+      "label": "Николай Стефанов Димов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:emil-viktorov-gogoshev-fb36a4",
+      "target": "company:tr:106510388",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МОМЧИЛ ДЕНЕВ ИВАНОВ",
+      "target": "company:tr:106510388",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ СТЕФАНОВ ДИМОВ",
+      "target": "company:tr:106510388",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

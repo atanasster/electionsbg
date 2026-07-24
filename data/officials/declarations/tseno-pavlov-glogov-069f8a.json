@@ -1,0 +1,108 @@
+[
+  {
+    "slug": "tseno-pavlov-glogov-069f8a",
+    "declarantName": "ЦЕНО ПАВЛОВ ГЛОГОВ",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "medical_center",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-06-13",
+    "entryNumber": "Г15029",
+    "controlHash": "5B4849EA",
+    "sourceUrl": "https://register.cacbg.bg/2025/38C5639B-6D35-400A-8553-97B630CC8D6A218609.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22360.83913223542,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ПЕНСИЯ",
+        "amountEurDeclarant": 11712.674414442974,
+        "amountEurSpouse": 6749.052831790084
+      }
+    ],
+    "assets": [],
+    "events": []
+  },
+  {
+    "slug": "tseno-pavlov-glogov-069f8a",
+    "declarantName": "ЦЕНО ПАВЛОВ ГЛОГОВ",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Управител",
+    "category": "medical_center",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-15",
+    "entryNumber": "Г13114",
+    "controlHash": "9CD94014",
+    "sourceUrl": "https://register.cacbg.bg/2024/38C5639B-6D35-400A-8553-97B630CC8D6A195013.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15730.406016882858,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 9816.804118967395,
+        "amountEurSpouse": 11043.90463383832
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Цено Павлов Глогов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "покупко-продажба"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "с,Рибарица",
+        "municipality": "Етрополе",
+        "areaSqm": 680,
+        "builtAreaSqm": 680,
+        "currency": "BGN",
+        "valueEur": 71580.86336747059,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "вила с вилно място",
+        "detail": null,
+        "location": "с.Рибарица",
+        "municipality": "Етрополе",
+        "areaSqm": 680,
+        "builtAreaSqm": 680,
+        "currency": "BGN",
+        "valueEur": 71580.86336747059,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

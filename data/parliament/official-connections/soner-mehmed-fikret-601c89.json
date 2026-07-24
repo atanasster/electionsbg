@@ -1,0 +1,43 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:soner-mehmed-fikret-601c89",
+  "nodes": [
+    {
+      "id": "official:soner-mehmed-fikret-601c89",
+      "type": "official",
+      "slug": "soner-mehmed-fikret-601c89",
+      "label": "Сонер Мехмед Фикрет",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Дулово"
+    },
+    {
+      "id": "company:tr:207329512",
+      "type": "company",
+      "label": "СЕНА -21",
+      "slug": null,
+      "uic": "207329512",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:soner-mehmed-fikret-601c89",
+      "target": "company:tr:207329512",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:soner-mehmed-fikret-601c89",
+      "target": "company:tr:207329512",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

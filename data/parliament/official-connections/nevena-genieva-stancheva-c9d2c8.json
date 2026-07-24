@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nevena-genieva-stancheva-c9d2c8",
+  "nodes": [
+    {
+      "id": "official:nevena-genieva-stancheva-c9d2c8",
+      "type": "official",
+      "slug": "nevena-genieva-stancheva-c9d2c8",
+      "label": "Невена Гениева Станчева",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:130508347",
+      "type": "company",
+      "label": "БРИЛЛ ТРЕВЪЛ",
+      "slug": null,
+      "uic": "130508347",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИСКРА ИВАНОВА ИЛКОВА",
+      "type": "person",
+      "label": "Искра Иванова Илкова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nevena-genieva-stancheva-c9d2c8",
+      "target": "company:tr:130508347",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИСКРА ИВАНОВА ИЛКОВА",
+      "target": "company:tr:130508347",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

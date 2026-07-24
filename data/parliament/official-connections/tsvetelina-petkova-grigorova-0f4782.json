@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tsvetelina-petkova-grigorova-0f4782",
+  "nodes": [
+    {
+      "id": "official:tsvetelina-petkova-grigorova-0f4782",
+      "type": "official",
+      "slug": "tsvetelina-petkova-grigorova-0f4782",
+      "label": "Цветелина Петкова Григорова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сливница"
+    },
+    {
+      "id": "company:tr:203801044",
+      "type": "company",
+      "label": "ТРЕА 2015",
+      "slug": null,
+      "uic": "203801044",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СИЛВИЯ ГЕРАСИМОВА РАНГЕЛОВА",
+      "type": "person",
+      "label": "Силвия Герасимова Рангелова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetelina-petkova-grigorova-0f4782",
+      "target": "company:tr:203801044",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СИЛВИЯ ГЕРАСИМОВА РАНГЕЛОВА",
+      "target": "company:tr:203801044",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

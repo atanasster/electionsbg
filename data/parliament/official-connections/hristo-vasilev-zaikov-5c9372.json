@@ -1,0 +1,107 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:hristo-vasilev-zaikov-5c9372",
+  "nodes": [
+    {
+      "id": "official:hristo-vasilev-zaikov-5c9372",
+      "type": "official",
+      "slug": "hristo-vasilev-zaikov-5c9372",
+      "label": "Христо Василев Зайков",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Разлог"
+    },
+    {
+      "id": "company:tr:207196151",
+      "type": "company",
+      "label": "Бъдеще за община Разлог",
+      "slug": null,
+      "uic": "207196151",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:dimitr-borislavov-markov-658f2b",
+      "type": "official",
+      "slug": "dimitr-borislavov-markov-658f2b",
+      "label": "Димитър Бориславов Марков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Разлог"
+    },
+    {
+      "id": "person:МАРИЯ ЛЮБЕНОВА ЧОБАНОВА",
+      "type": "person",
+      "label": "Мария Любенова Чобанова"
+    },
+    {
+      "id": "person:МАРИЯ ТОМОВА ПАНДЕВА",
+      "type": "person",
+      "label": "Мария Томова Пандева"
+    },
+    {
+      "id": "person:ЗЛАТКО КУЗМАНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "Златко Кузманов Стоянов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:hristo-vasilev-zaikov-5c9372",
+      "target": "company:tr:207196151",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:hristo-vasilev-zaikov-5c9372",
+      "target": "company:tr:207196151",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-borislavov-markov-658f2b",
+      "target": "company:tr:207196151",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitr-borislavov-markov-658f2b",
+      "target": "company:tr:207196151",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯ ЛЮБЕНОВА ЧОБАНОВА",
+      "target": "company:tr:207196151",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ТОМОВА ПАНДЕВА",
+      "target": "company:tr:207196151",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТКО КУЗМАНОВ СТОЯНОВ",
+      "target": "company:tr:207196151",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

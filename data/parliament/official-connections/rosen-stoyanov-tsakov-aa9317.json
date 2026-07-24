@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rosen-stoyanov-tsakov-aa9317",
+  "nodes": [
+    {
+      "id": "official:rosen-stoyanov-tsakov-aa9317",
+      "type": "official",
+      "slug": "rosen-stoyanov-tsakov-aa9317",
+      "label": "Росен Стоянов Цаков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Априлци"
+    },
+    {
+      "id": "company:tr:205530983",
+      "type": "company",
+      "label": "Строймаркет Цаков ЕООД",
+      "slug": null,
+      "uic": "205530983",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rosen-stoyanov-tsakov-aa9317",
+      "target": "company:tr:205530983",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

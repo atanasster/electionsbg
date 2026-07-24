@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tsvetelina-todorova-tnmazova-a825e9",
+  "nodes": [
+    {
+      "id": "official:tsvetelina-todorova-tnmazova-a825e9",
+      "type": "official",
+      "slug": "tsvetelina-todorova-tnmazova-a825e9",
+      "label": "Цветелина Тодорова Тънмазова",
+      "tier": "executive",
+      "role": "party_leader",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:206723063",
+      "type": "company",
+      "label": "КШЕМА",
+      "slug": null,
+      "uic": "206723063",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВОЛЕН НИКОЛАЕВ МАРЧЕВ",
+      "type": "person",
+      "label": "Волен Николаев Марчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsvetelina-todorova-tnmazova-a825e9",
+      "target": "company:tr:206723063",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tsvetelina-todorova-tnmazova-a825e9",
+      "target": "company:tr:206723063",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВОЛЕН НИКОЛАЕВ МАРЧЕВ",
+      "target": "company:tr:206723063",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВОЛЕН НИКОЛАЕВ МАРЧЕВ",
+      "target": "company:tr:206723063",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

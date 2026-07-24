@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:alkan-ahmed-habil-99b81f",
+  "nodes": [
+    {
+      "id": "official:alkan-ahmed-habil-99b81f",
+      "type": "official",
+      "slug": "alkan-ahmed-habil-99b81f",
+      "label": "Алкан Ахмед Хабил",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Омуртаг"
+    },
+    {
+      "id": "company:tr:206229552",
+      "type": "company",
+      "label": "УМ ГРУП ООД",
+      "slug": null,
+      "uic": "206229552",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МЕХМЕТ УСТАОГЛУ",
+      "type": "person",
+      "label": "Мехмет Устаоглу"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:alkan-ahmed-habil-99b81f",
+      "target": "company:tr:206229552",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:alkan-ahmed-habil-99b81f",
+      "target": "company:tr:206229552",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:alkan-ahmed-habil-99b81f",
+      "target": "company:tr:206229552",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МЕХМЕТ УСТАОГЛУ",
+      "target": "company:tr:206229552",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:zhivka-georgieva-nenova-8ea66a",
+  "nodes": [
+    {
+      "id": "official:zhivka-georgieva-nenova-8ea66a",
+      "type": "official",
+      "slug": "zhivka-georgieva-nenova-8ea66a",
+      "label": "Живка Георгиева Ненова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Тервел"
+    },
+    {
+      "id": "company:tr:207176164",
+      "type": "company",
+      "label": "Спортен клуб КАПРИЗ",
+      "slug": null,
+      "uic": "207176164",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:silviya-spaskova-aleksandrova-f8113e",
+      "type": "official",
+      "slug": "silviya-spaskova-aleksandrova-f8113e",
+      "label": "Силвия Спаскова Александрова",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "person:ПАВЛИНКА ГЕОРГИЕВА СТОЯНОВА",
+      "type": "person",
+      "label": "Павлинка Георгиева Стоянова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zhivka-georgieva-nenova-8ea66a",
+      "target": "company:tr:207176164",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zhivka-georgieva-nenova-8ea66a",
+      "target": "company:tr:207176164",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:silviya-spaskova-aleksandrova-f8113e",
+      "target": "company:tr:207176164",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПАВЛИНКА ГЕОРГИЕВА СТОЯНОВА",
+      "target": "company:tr:207176164",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:radostina-vasileva-spasova-84a167",
+  "nodes": [
+    {
+      "id": "official:radostina-vasileva-spasova-84a167",
+      "type": "official",
+      "slug": "radostina-vasileva-spasova-84a167",
+      "label": "Радостина Василева Спасова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:113565470",
+      "type": "company",
+      "label": "ФОЛКЛОРНО СДРУЖЕНИЕ &quot;ГРАОВО&quot;",
+      "slug": null,
+      "uic": "113565470",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:dimitrina-petrova-netsova-459761",
+      "type": "official",
+      "slug": "dimitrina-petrova-netsova-459761",
+      "label": "Димитрина Петрова Нецова",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "person:МАРИЯ ГЕОРГИЕВА БАКЪРОВА",
+      "type": "person",
+      "label": "Мария Георгиева Бакърова"
+    },
+    {
+      "id": "person:ИЛИАНА ИЛЧОВА НЕЦОВА",
+      "type": "person",
+      "label": "Илиана Илчова Нецова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:radostina-vasileva-spasova-84a167",
+      "target": "company:tr:113565470",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitrina-petrova-netsova-459761",
+      "target": "company:tr:113565470",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:dimitrina-petrova-netsova-459761",
+      "target": "company:tr:113565470",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА БАКЪРОВА",
+      "target": "company:tr:113565470",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА БАКЪРОВА",
+      "target": "company:tr:113565470",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИАНА ИЛЧОВА НЕЦОВА",
+      "target": "company:tr:113565470",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

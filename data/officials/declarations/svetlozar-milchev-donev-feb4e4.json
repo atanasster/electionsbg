@@ -1,0 +1,138 @@
+[
+  {
+    "slug": "svetlozar-milchev-donev-feb4e4",
+    "declarantName": "Светлозар Милчев донев",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г10505",
+    "controlHash": "4996EBED",
+    "sourceUrl": "https://register.cacbg.bg/2025/5B66C6EF-1E94-4B2A-85F8-F372D3DD6BAA213597.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21978.904096981845,
+        "amountEurSpouse": 16045.361815699729
+      },
+      {
+        "parent": null,
+        "category": "Пенсия за инвалидност поради общо заболяване",
+        "amountEurDeclarant": 7368.738591799901,
+        "amountEurSpouse": 5402.310016719244
+      },
+      {
+        "parent": null,
+        "category": "Рента земеделски земи",
+        "amountEurDeclarant": 902.4301703113256,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Светлозар Милчев Донев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "svetlozar-milchev-donev-feb4e4",
+    "declarantName": "Светлозар Милчев Донев",
+    "institution": "Училища",
+    "positionTitle": "Директор",
+    "category": "school",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г12058",
+    "controlHash": "DEA19A02",
+    "sourceUrl": "https://register.cacbg.bg/2024/5B66C6EF-1E94-4B2A-85F8-F372D3DD6BAA193860.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20259.940792400157,
+        "amountEurSpouse": 14295.209706365073
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 817.5557180327534,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия за инвалиднос поради общо заболяване",
+        "amountEurDeclarant": 816.533134270361,
+        "amountEurSpouse": 4761.149997699186
+      },
+      {
+        "parent": null,
+        "category": "Рента наем земи",
+        "amountEurDeclarant": 816.533134270361,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Пепелина",
+        "municipality": "Две могили",
+        "areaSqm": 10,
+        "builtAreaSqm": null,
+        "acquiredYear": 2020,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Светлозар Милчев Донев",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Светлозар Милчев Донев",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

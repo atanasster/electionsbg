@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tihomir-ivanov-kolev-e3a193",
+  "nodes": [
+    {
+      "id": "official:tihomir-ivanov-kolev-e3a193",
+      "type": "official",
+      "slug": "tihomir-ivanov-kolev-e3a193",
+      "label": "Тихомир Иванов Колев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Добричка"
+    },
+    {
+      "id": "company:tr:834019015",
+      "type": "company",
+      "label": "ЗЕМЕДЕЛСКА КООПЕРАЦИЯ &quot;ОРЛОВА МОГИЛА&quot;",
+      "slug": null,
+      "uic": "834019015",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tihomir-ivanov-kolev-e3a193",
+      "target": "company:tr:834019015",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,251 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nevyana-mihailova-miteva-mateeva-2fa387",
+  "nodes": [
+    {
+      "id": "official:nevyana-mihailova-miteva-mateeva-2fa387",
+      "type": "official",
+      "slug": "nevyana-mihailova-miteva-mateeva-2fa387",
+      "label": "Невяна Михайлова Митева-Матеева",
+      "tier": "executive",
+      "role": "deputy_minister",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:175255770",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ НА ЖЕНИТЕ ВОЕННОСЛУЖЕЩИ",
+      "slug": null,
+      "uic": "175255770",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТАНЯ МИЛЕНОВА СТАНЧЕВА",
+      "type": "person",
+      "label": "Таня Миленова Станчева"
+    },
+    {
+      "id": "person:ВАНЯ МЕТОДИЕВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Ваня Методиева Михайлова"
+    },
+    {
+      "id": "person:ВЕСЕЛА ТАНЕВА ИГНАТОВА",
+      "type": "person",
+      "label": "Весела Танева Игнатова"
+    },
+    {
+      "id": "person:ДИМАНА АСЕНОВА СЛАВОВА",
+      "type": "person",
+      "label": "Димана Асенова Славова"
+    },
+    {
+      "id": "person:АННА АРГИРОВА ПРОДАНОВА",
+      "type": "person",
+      "label": "Анна Аргирова Проданова"
+    },
+    {
+      "id": "person:НЕВЯНА МИХАЙЛОВА МИТЕВА - МАТЕЕВА",
+      "type": "person",
+      "label": "Невяна Михайлова Митева - Матеева"
+    },
+    {
+      "id": "person:ДОБРИНКА ЦАНКОВА ИЛИЕВА",
+      "type": "person",
+      "label": "Добринка Цанкова Илиева"
+    },
+    {
+      "id": "person:ВАНЯ ДИМИТРОВА ЛАЗАРКОВА",
+      "type": "person",
+      "label": "Ваня Димитрова Лазаркова"
+    },
+    {
+      "id": "person:ВЕРА СТАНИСЛАВОВА СПАХИЙСКА",
+      "type": "person",
+      "label": "Вера Станиславова Спахийска"
+    },
+    {
+      "id": "person:ЕЛЕНА ДРАГИЕВА ЧАКЪРОВА",
+      "type": "person",
+      "label": "Елена Драгиева Чакърова"
+    },
+    {
+      "id": "person:МАРИЯ ДИМИТРОВА КРАШЕВСКА",
+      "type": "person",
+      "label": "Мария Димитрова Крашевска"
+    },
+    {
+      "id": "person:МАРИЯ ГЕОРГИЕВА ВАКОВА-ЖЕЛЯЗКОВА",
+      "type": "person",
+      "label": "Мария Георгиева Вакова-Желязкова"
+    },
+    {
+      "id": "person:ГАЛЯ ПЕТРОВА ТОНОВА",
+      "type": "person",
+      "label": "Галя Петрова Тонова"
+    },
+    {
+      "id": "person:НЕВЕНА ЦВЕТКОВА АТАНАСОВА-КРЪСТЕВА",
+      "type": "person",
+      "label": "Невена Цветкова Атанасова-Кръстева"
+    },
+    {
+      "id": "person:ЛАЛКА СТОЯНОВА БОЖИЧКОВА",
+      "type": "person",
+      "label": "Лалка Стоянова Божичкова"
+    },
+    {
+      "id": "person:ЗЛАТОМИРА МИЛЕНОВА СТОЙЧЕВА",
+      "type": "person",
+      "label": "Златомира Миленова Стойчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nevyana-mihailova-miteva-mateeva-2fa387",
+      "target": "company:tr:175255770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТАНЯ МИЛЕНОВА СТАНЧЕВА",
+      "target": "company:tr:175255770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ МЕТОДИЕВА МИХАЙЛОВА",
+      "target": "company:tr:175255770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛА ТАНЕВА ИГНАТОВА",
+      "target": "company:tr:175255770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМАНА АСЕНОВА СЛАВОВА",
+      "target": "company:tr:175255770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА АРГИРОВА ПРОДАНОВА",
+      "target": "company:tr:175255770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЯНА МИХАЙЛОВА МИТЕВА - МАТЕЕВА",
+      "target": "company:tr:175255770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОБРИНКА ЦАНКОВА ИЛИЕВА",
+      "target": "company:tr:175255770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ДИМИТРОВА ЛАЗАРКОВА",
+      "target": "company:tr:175255770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРА СТАНИСЛАВОВА СПАХИЙСКА",
+      "target": "company:tr:175255770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ДРАГИЕВА ЧАКЪРОВА",
+      "target": "company:tr:175255770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ДИМИТРОВА КРАШЕВСКА",
+      "target": "company:tr:175255770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА ВАКОВА-ЖЕЛЯЗКОВА",
+      "target": "company:tr:175255770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛЯ ПЕТРОВА ТОНОВА",
+      "target": "company:tr:175255770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕВЕНА ЦВЕТКОВА АТАНАСОВА-КРЪСТЕВА",
+      "target": "company:tr:175255770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛАЛКА СТОЯНОВА БОЖИЧКОВА",
+      "target": "company:tr:175255770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТОМИРА МИЛЕНОВА СТОЙЧЕВА",
+      "target": "company:tr:175255770",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ДИМИТРОВА КРАШЕВСКА",
+      "target": "company:tr:175255770",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

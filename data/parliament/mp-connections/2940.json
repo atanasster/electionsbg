@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:2940",
   "nodes": [
     {
@@ -32,12 +32,12 @@
       "seat": null
     },
     {
-      "id": "official:katya-hristova-panderova-585cf1",
+      "id": "official:katya-hristova-panderova-2094f7",
       "type": "official",
-      "slug": "katya-hristova-panderova-585cf1",
+      "slug": "katya-hristova-panderova-2094f7",
       "label": "Катя Христова Пандерова",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "school",
       "municipality": null
     },
     {
@@ -92,7 +92,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:katya-hristova-panderova-585cf1",
+      "source": "official:katya-hristova-panderova-2094f7",
       "target": "company:tr:124599189",
       "kind": "tr_role",
       "role": "ngo_board",

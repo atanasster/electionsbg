@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ilin-nakov-chernyashki-0d9327",
+  "nodes": [
+    {
+      "id": "official:ilin-nakov-chernyashki-0d9327",
+      "type": "official",
+      "slug": "ilin-nakov-chernyashki-0d9327",
+      "label": "Илин Наков Черняшки",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Ботевград"
+    },
+    {
+      "id": "company:tr:204091309",
+      "type": "company",
+      "label": "МаксИгна",
+      "slug": null,
+      "uic": "204091309",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:НАЙДЕН ИГНАТОВ НАЙДЕНОВ",
+      "type": "person",
+      "label": "Найден Игнатов Найденов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ilin-nakov-chernyashki-0d9327",
+      "target": "company:tr:204091309",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НАЙДЕН ИГНАТОВ НАЙДЕНОВ",
+      "target": "company:tr:204091309",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

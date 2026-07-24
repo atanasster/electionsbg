@@ -1,0 +1,99 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:dimitr-vladimirov-iliev-91de63",
+  "nodes": [
+    {
+      "id": "official:dimitr-vladimirov-iliev-91de63",
+      "type": "official",
+      "slug": "dimitr-vladimirov-iliev-91de63",
+      "label": "Димитър Владимиров Илиев",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:200068875",
+      "type": "company",
+      "label": "\"Сейфти драйвинг академи\" ЕООД",
+      "slug": null,
+      "uic": "200068875",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:205925514",
+      "type": "company",
+      "label": "\"Айс драйвинг академи\" ЕООД",
+      "slug": null,
+      "uic": "205925514",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:dimitr-vladimirov-iliev-a77e0d",
+      "type": "official",
+      "slug": "dimitr-vladimirov-iliev-a77e0d",
+      "label": "Димитър Владимиров Илиев",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "person:ВЛАДИМИР ДИМИТРОВ ИЛИЕВ",
+      "type": "person",
+      "label": "Владимир Димитров Илиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:dimitr-vladimirov-iliev-91de63",
+      "target": "company:tr:200068875",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dimitr-vladimirov-iliev-91de63",
+      "target": "company:tr:205925514",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dimitr-vladimirov-iliev-a77e0d",
+      "target": "company:tr:200068875",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ДИМИТРОВ ИЛИЕВ",
+      "target": "company:tr:200068875",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:dimitr-vladimirov-iliev-a77e0d",
+      "target": "company:tr:205925514",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ДИМИТРОВ ИЛИЕВ",
+      "target": "company:tr:205925514",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

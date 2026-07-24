@@ -1,0 +1,183 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:valerii-marinov-marinov-ea50ea",
+  "nodes": [
+    {
+      "id": "official:valerii-marinov-marinov-ea50ea",
+      "type": "official",
+      "slug": "valerii-marinov-marinov-ea50ea",
+      "label": "Валерий Маринов Маринов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:828050351",
+      "type": "company",
+      "label": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ",
+      "slug": null,
+      "uic": "828050351",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТОШКО ПАРАШКЕВОВ ТОДОРОВ",
+      "type": "person",
+      "label": "Тошко Парашкевов Тодоров"
+    },
+    {
+      "id": "person:ОБЩИНА АЛФАТАР",
+      "type": "person",
+      "label": "Община Алфатар"
+    },
+    {
+      "id": "person:ОБЩИНА ГЛАВИНИЦА",
+      "type": "person",
+      "label": "Община Главиница"
+    },
+    {
+      "id": "person:ОБЩИНА ДУЛОВО",
+      "type": "person",
+      "label": "Община Дулово"
+    },
+    {
+      "id": "person:ОБЩИНА СИЛИСТРА",
+      "type": "person",
+      "label": "Община Силистра"
+    },
+    {
+      "id": "person:ОБЩИНА КАЙНАРДЖА",
+      "type": "person",
+      "label": "Община Кайнарджа"
+    },
+    {
+      "id": "person:ОБЩИНА СИТОВО",
+      "type": "person",
+      "label": "Община Ситово"
+    },
+    {
+      "id": "person:ОБЩИНА ТУТРАКАН",
+      "type": "person",
+      "label": "Община Тутракан"
+    },
+    {
+      "id": "company:tr:206086428",
+      "type": "company",
+      "label": "Български ВиК холдинг",
+      "slug": null,
+      "uic": "206086428",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "person:БЪЛГАРСКИ ВИК ХОЛДИНГ",
+      "type": "person",
+      "label": "Български Вик Холдинг"
+    },
+    {
+      "id": "person:СТЕФАН ПЕТРОВ САВОВ",
+      "type": "person",
+      "label": "Стефан Петров Савов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valerii-marinov-marinov-ea50ea",
+      "target": "company:tr:828050351",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТОШКО ПАРАШКЕВОВ ТОДОРОВ",
+      "target": "company:tr:828050351",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА АЛФАТАР",
+      "target": "company:tr:828050351",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ГЛАВИНИЦА",
+      "target": "company:tr:828050351",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ДУЛОВО",
+      "target": "company:tr:828050351",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА СИЛИСТРА",
+      "target": "company:tr:828050351",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА КАЙНАРДЖА",
+      "target": "company:tr:828050351",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА СИТОВО",
+      "target": "company:tr:828050351",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОБЩИНА ТУТРАКАН",
+      "target": "company:tr:828050351",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:tr:206086428",
+      "target": "company:tr:828050351",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЪЛГАРСКИ ВИК ХОЛДИНГ",
+      "target": "company:tr:828050351",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ПЕТРОВ САВОВ",
+      "target": "company:tr:828050351",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

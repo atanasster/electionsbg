@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:valya-mitova-bozhinova-e8dcb9",
+  "nodes": [
+    {
+      "id": "official:valya-mitova-bozhinova-e8dcb9",
+      "type": "official",
+      "slug": "valya-mitova-bozhinova-e8dcb9",
+      "label": "Валя Митова Божинова",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000192383",
+      "type": "company",
+      "label": "Специализирана болница за продължително лечение и рехабилитация по вътрешни болести - Мездра",
+      "slug": null,
+      "uic": "000192383",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТЕОДОРА ИЛИЯНОВА ГЛАДНИШКА",
+      "type": "person",
+      "label": "Теодора Илиянова Гладнишка"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:valya-mitova-bozhinova-e8dcb9",
+      "target": "company:tr:000192383",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТЕОДОРА ИЛИЯНОВА ГЛАДНИШКА",
+      "target": "company:tr:000192383",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

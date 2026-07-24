@@ -6,81 +6,6 @@
     "positionTitle": "Началник на затвор",
     "category": "regional_director",
     "declarationYear": 2023,
-    "fiscalYear": 2022,
-    "declarationType": "Annualy",
-    "filedAt": "2023-07-27",
-    "entryNumber": "Г8833",
-    "controlHash": "A13C4551",
-    "sourceUrl": "https://register.cacbg.bg/2023/077F6095-776D-4F32-97CD-A7EC3A0EF075156301.xml",
-    "ownershipStakes": [],
-    "income": [
-      {
-        "parent": "I. Облагаем доход от",
-        "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 22827.137327886372,
-        "amountEurSpouse": null
-      }
-    ],
-    "assets": [
-      {
-        "category": "cash",
-        "description": null,
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 10225.83762392437,
-        "holderName": "Розалина Иванова Ганекова",
-        "isSpouse": false,
-        "legalBasis": null,
-        "fundsOrigin": "лични спестявания"
-      },
-      {
-        "category": "debt",
-        "description": "потребителски кредит",
-        "detail": "BGN",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "acquiredYear": null,
-        "share": null,
-        "currency": "BGN",
-        "amount": 53000,
-        "valueEur": 27098.46970339958,
-        "holderName": "Розалина Иванова Ганекова",
-        "isSpouse": false,
-        "legalBasis": "потреб. Кредит",
-        "fundsOrigin": null
-      }
-    ],
-    "events": [
-      {
-        "kind": "disposal_vehicle",
-        "description": "лек автомобил",
-        "detail": "Тойота Корола Версо",
-        "location": null,
-        "municipality": null,
-        "areaSqm": null,
-        "builtAreaSqm": null,
-        "currency": "BGN",
-        "valueEur": 2556.4594059810925,
-        "legalBasis": "продажба"
-      }
-    ]
-  },
-  {
-    "slug": "rozalina-ivanova-ganekova-809116",
-    "declarantName": "Розалина Иванова Ганекова",
-    "institution": "ГДИН",
-    "positionTitle": "Началник на затвор",
-    "category": "regional_director",
-    "declarationYear": 2023,
     "fiscalYear": 2023,
     "declarationType": "Vacate",
     "filedAt": "2023-06-28",
@@ -236,6 +161,81 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "rozalina-ivanova-ganekova-809116",
+    "declarantName": "Розалина Иванова Ганекова",
+    "institution": "ГДИН",
+    "positionTitle": "Началник на затвор",
+    "category": "regional_director",
+    "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": "2023-07-27",
+    "entryNumber": "Г8833",
+    "controlHash": "A13C4551",
+    "sourceUrl": "https://register.cacbg.bg/2023/077F6095-776D-4F32-97CD-A7EC3A0EF075156301.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22827.137327886372,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Розалина Иванова Ганекова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "лични спестявания"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 53000,
+        "valueEur": 27098.46970339958,
+        "holderName": "Розалина Иванова Ганекова",
+        "isSpouse": false,
+        "legalBasis": "потреб. Кредит",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Корола Версо",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 2556.4594059810925,
+        "legalBasis": "продажба"
+      }
+    ]
   },
   {
     "slug": "rozalina-ivanova-ganekova-809116",

@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:kalin-nikolaev-nikolov-c759bb",
+  "nodes": [
+    {
+      "id": "official:kalin-nikolaev-nikolov-c759bb",
+      "type": "official",
+      "slug": "kalin-nikolaev-nikolov-c759bb",
+      "label": "Калин Николаев Николов",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:111506950",
+      "type": "company",
+      "label": "ХХL",
+      "slug": null,
+      "uic": "111506950",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАЙЛО НИКОЛАЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "Ивайло Николаев Николов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kalin-nikolaev-nikolov-c759bb",
+      "target": "company:tr:111506950",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАЙЛО НИКОЛАЕВ НИКОЛОВ",
+      "target": "company:tr:111506950",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

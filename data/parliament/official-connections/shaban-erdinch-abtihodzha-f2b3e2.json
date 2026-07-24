@@ -1,0 +1,121 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:shaban-erdinch-abtihodzha-f2b3e2",
+  "nodes": [
+    {
+      "id": "official:shaban-erdinch-abtihodzha-f2b3e2",
+      "type": "official",
+      "slug": "shaban-erdinch-abtihodzha-f2b3e2",
+      "label": "Шабан Ердинч Абтиходжа",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ветово"
+    },
+    {
+      "id": "company:tr:208886408",
+      "type": "company",
+      "label": "Футболен клуб \"Устрем 2026\"",
+      "slug": null,
+      "uic": "208886408",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЖЕМ РЕЙХАН ХАДЖИОГЛУ",
+      "type": "person",
+      "label": "Джем Рейхан Хаджиоглу"
+    },
+    {
+      "id": "person:ТУРГАЙ АХМЕД ЮМЕРГЮВЕ",
+      "type": "person",
+      "label": "Тургай Ахмед Юмергюве"
+    },
+    {
+      "id": "person:СЯРГЕН СЕВДЖАНОВ ДЖУРУШЕВ",
+      "type": "person",
+      "label": "Сярген Севджанов Джурушев"
+    },
+    {
+      "id": "person:ДОАН ДАУДОВ МАХМУДОВ",
+      "type": "person",
+      "label": "Доан Даудов Махмудов"
+    },
+    {
+      "id": "person:БЕЛКАЙ БЕЛГИНОВ ДЖИНИЕВ",
+      "type": "person",
+      "label": "Белкай Белгинов Джиниев"
+    },
+    {
+      "id": "person:АДЕМ СЕЗЕР СЕЙДОЛСКИ",
+      "type": "person",
+      "label": "Адем Сезер Сейдолски"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:shaban-erdinch-abtihodzha-f2b3e2",
+      "target": "company:tr:208886408",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:shaban-erdinch-abtihodzha-f2b3e2",
+      "target": "company:tr:208886408",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЖЕМ РЕЙХАН ХАДЖИОГЛУ",
+      "target": "company:tr:208886408",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТУРГАЙ АХМЕД ЮМЕРГЮВЕ",
+      "target": "company:tr:208886408",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЯРГЕН СЕВДЖАНОВ ДЖУРУШЕВ",
+      "target": "company:tr:208886408",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОАН ДАУДОВ МАХМУДОВ",
+      "target": "company:tr:208886408",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЕЛКАЙ БЕЛГИНОВ ДЖИНИЕВ",
+      "target": "company:tr:208886408",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АДЕМ СЕЗЕР СЕЙДОЛСКИ",
+      "target": "company:tr:208886408",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

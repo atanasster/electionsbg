@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:onur-sali-gochgeldi-e1f44f",
+  "nodes": [
+    {
+      "id": "official:onur-sali-gochgeldi-e1f44f",
+      "type": "official",
+      "slug": "onur-sali-gochgeldi-e1f44f",
+      "label": "Онур Сали Гьочгелди",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Разград"
+    },
+    {
+      "id": "company:tr:205904527",
+      "type": "company",
+      "label": "ОНУР МЕДИКА ЕООД",
+      "slug": null,
+      "uic": "205904527",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:207481848",
+      "type": "company",
+      "label": "ОНУР ЕНЕРДЖИ ЕООД",
+      "slug": null,
+      "uic": "207481848",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:onur-sali-gochgeldi-e1f44f",
+      "target": "company:tr:205904527",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:onur-sali-gochgeldi-e1f44f",
+      "target": "company:tr:207481848",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:onur-sali-gochgeldi-e1f44f",
+      "target": "company:tr:207481848",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:onur-sali-gochgeldi-e1f44f",
+      "target": "company:tr:207481848",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

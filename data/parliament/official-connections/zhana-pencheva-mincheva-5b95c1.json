@@ -1,0 +1,238 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:zhana-pencheva-mincheva-5b95c1",
+  "nodes": [
+    {
+      "id": "official:zhana-pencheva-mincheva-5b95c1",
+      "type": "official",
+      "slug": "zhana-pencheva-mincheva-5b95c1",
+      "label": "Жана Пенчева Минчева",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000804186",
+      "type": "company",
+      "label": "Св. Климент Охридски 1858 г.",
+      "slug": null,
+      "uic": "000804186",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЛИЛЯНА ИВАНОВА ФОТЕВА",
+      "type": "person",
+      "label": "Лиляна Иванова Фотева"
+    },
+    {
+      "id": "person:ИВАН НАНЕВ АЯРОВ",
+      "type": "person",
+      "label": "Иван Нанев Аяров"
+    },
+    {
+      "id": "person:ВЕСЕЛИН ЖЕЛЯЗКОВ БОЖКОВ",
+      "type": "person",
+      "label": "Веселин Желязков Божков"
+    },
+    {
+      "id": "person:ВАСИЛ ВЕЛКОВ ГЕРЛИМОВ",
+      "type": "person",
+      "label": "Васил Велков Герлимов"
+    },
+    {
+      "id": "person:ГИНКА ТЕНЕВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Гинка Тенева Михайлова"
+    },
+    {
+      "id": "person:АНТОАНЕТА ДИМИТРОВА БАНОВА-БОТЕВА",
+      "type": "person",
+      "label": "Антоанета Димитрова Банова-Ботева"
+    },
+    {
+      "id": "person:ИВАН ТАНЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Танев Иванов"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ДИМИТРОВ МИХОВ",
+      "type": "person",
+      "label": "Валентин Димитров Михов"
+    },
+    {
+      "id": "person:ДИМИТЪР ЙОРДАНОВ ПЕЕВ",
+      "type": "person",
+      "label": "Димитър Йорданов Пеев"
+    },
+    {
+      "id": "person:СТОЯНКА ВЪЛЕВА СЛАВИЛОВА",
+      "type": "person",
+      "label": "Стоянка Вълева Славилова"
+    },
+    {
+      "id": "person:ДЕТЕЛИНА ГЕОРГИЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "Детелина Георгиева Димитрова"
+    },
+    {
+      "id": "person:ДОРА КОЛЕВА ДАСКАЛОВА",
+      "type": "person",
+      "label": "Дора Колева Даскалова"
+    },
+    {
+      "id": "person:ЖЕЛКА ГЕОРГИЕВА БЛАГОЕВА",
+      "type": "person",
+      "label": "Желка Георгиева Благоева"
+    },
+    {
+      "id": "person:ПЛАМЕН ИВАНОВ ТЕРЗИЕВ",
+      "type": "person",
+      "label": "Пламен Иванов Терзиев"
+    },
+    {
+      "id": "person:АНАНИ ИЛИЕВ КАРАГЬОЗОВ",
+      "type": "person",
+      "label": "Анани Илиев Карагьозов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zhana-pencheva-mincheva-5b95c1",
+      "target": "company:tr:000804186",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЛИЛЯНА ИВАНОВА ФОТЕВА",
+      "target": "company:tr:000804186",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН НАНЕВ АЯРОВ",
+      "target": "company:tr:000804186",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН ЖЕЛЯЗКОВ БОЖКОВ",
+      "target": "company:tr:000804186",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ВЕЛКОВ ГЕРЛИМОВ",
+      "target": "company:tr:000804186",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГИНКА ТЕНЕВА МИХАЙЛОВА",
+      "target": "company:tr:000804186",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ВЕЛКОВ ГЕРЛИМОВ",
+      "target": "company:tr:000804186",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОАНЕТА ДИМИТРОВА БАНОВА-БОТЕВА",
+      "target": "company:tr:000804186",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ТАНЕВ ИВАНОВ",
+      "target": "company:tr:000804186",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ДИМИТРОВ МИХОВ",
+      "target": "company:tr:000804186",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ЙОРДАНОВ ПЕЕВ",
+      "target": "company:tr:000804186",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯНКА ВЪЛЕВА СЛАВИЛОВА",
+      "target": "company:tr:000804186",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕТЕЛИНА ГЕОРГИЕВА ДИМИТРОВА",
+      "target": "company:tr:000804186",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОРА КОЛЕВА ДАСКАЛОВА",
+      "target": "company:tr:000804186",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕЛКА ГЕОРГИЕВА БЛАГОЕВА",
+      "target": "company:tr:000804186",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ИВАНОВ ТЕРЗИЕВ",
+      "target": "company:tr:000804186",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНАНИ ИЛИЕВ КАРАГЬОЗОВ",
+      "target": "company:tr:000804186",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:ismail-nedret-ibryam-891f52",
+  "nodes": [
+    {
+      "id": "official:ismail-nedret-ibryam-891f52",
+      "type": "official",
+      "slug": "ismail-nedret-ibryam-891f52",
+      "label": "Исмаил Недрет Ибрям",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Никола Козлево"
+    },
+    {
+      "id": "company:tr:201739252",
+      "type": "company",
+      "label": "ВЪЛНАРИ 2000",
+      "slug": null,
+      "uic": "201739252",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СЕМРА МЕХМЕДАМИН ХАЛИЛОВА",
+      "type": "person",
+      "label": "Семра Мехмедамин Халилова"
+    },
+    {
+      "id": "person:НЕДРЕТ ИБРЯМ ДЖЕЛИЛ",
+      "type": "person",
+      "label": "Недрет Ибрям Джелил"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:ismail-nedret-ibryam-891f52",
+      "target": "company:tr:201739252",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:ismail-nedret-ibryam-891f52",
+      "target": "company:tr:201739252",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СЕМРА МЕХМЕДАМИН ХАЛИЛОВА",
+      "target": "company:tr:201739252",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЕМРА МЕХМЕДАМИН ХАЛИЛОВА",
+      "target": "company:tr:201739252",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДРЕТ ИБРЯМ ДЖЕЛИЛ",
+      "target": "company:tr:201739252",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДРЕТ ИБРЯМ ДЖЕЛИЛ",
+      "target": "company:tr:201739252",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

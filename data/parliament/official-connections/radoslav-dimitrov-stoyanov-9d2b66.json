@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:radoslav-dimitrov-stoyanov-9d2b66",
+  "nodes": [
+    {
+      "id": "official:radoslav-dimitrov-stoyanov-9d2b66",
+      "type": "official",
+      "slug": "radoslav-dimitrov-stoyanov-9d2b66",
+      "label": "Радослав Димитров Стоянов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Маджарово"
+    },
+    {
+      "id": "company:tr:207336646",
+      "type": "company",
+      "label": "ПЪТНА ПОМОЩ  ХРИСИ",
+      "slug": null,
+      "uic": "207336646",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОРДАН ПЕТРОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Йордан Петров Йорданов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:radoslav-dimitrov-stoyanov-9d2b66",
+      "target": "company:tr:207336646",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:radoslav-dimitrov-stoyanov-9d2b66",
+      "target": "company:tr:207336646",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАН ПЕТРОВ ЙОРДАНОВ",
+      "target": "company:tr:207336646",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

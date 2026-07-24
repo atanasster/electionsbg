@@ -1,0 +1,94 @@
+[
+  {
+    "slug": "mehmed-kasm-vaklov-082147",
+    "declarantName": "МЕХМЕД КАСЪМ ВАКЛЬОВ",
+    "institution": "Якоруда",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г11005",
+    "controlHash": "88202BDD",
+    "sourceUrl": "https://register.cacbg.bg/2025/F3374A17-57AF-42F3-BD00-69745EB3299C214124.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26181.72336041476,
+        "amountEurSpouse": 13605.98825051257
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 33000,
+        "valueEur": 16872.63207947521,
+        "holderName": "МЕХМЕД КАСЪМ ВАКЛЬОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "ЗАПЛАТА И ДИВИДЕНТИ ОТ 2023 Г."
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 315000,
+        "valueEur": 161056.94257680883,
+        "holderName": "МЕХМЕД КАСЪМ ВАКЛЬОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ДИВИДЕНТИ И ПРОДАЖБА НА ТЪРГОВСКО ДРУЖЕСТВО"
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20205,
+        "valueEur": 10330.652459569594,
+        "holderName": "МЕХМЕД КАСЪМ ВАКЛЬОВ",
+        "isSpouse": false,
+        "legalBasis": "ПОТРЕБИТЕЛСКИ",
+        "fundsOrigin": null
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "currency": "BGN",
+        "valueEur": 4959.53124760332,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

@@ -1,0 +1,53 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:boil-vasilev-banov-a0bc8f",
+  "nodes": [
+    {
+      "id": "official:boil-vasilev-banov-a0bc8f",
+      "type": "official",
+      "slug": "boil-vasilev-banov-a0bc8f",
+      "label": "Боил Василев Банов",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:205087032",
+      "type": "company",
+      "label": "МЕДИА ЦЕНТЪР 1 ЕООД",
+      "slug": null,
+      "uic": "205087032",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:206241113",
+      "type": "company",
+      "label": "ПЕТРОНИ ВИЖЪН ЕООД",
+      "slug": null,
+      "uic": "206241113",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:boil-vasilev-banov-a0bc8f",
+      "target": "company:tr:205087032",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:boil-vasilev-banov-a0bc8f",
+      "target": "company:tr:206241113",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

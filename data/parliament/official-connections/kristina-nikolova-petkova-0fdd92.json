@@ -1,0 +1,126 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:kristina-nikolova-petkova-0fdd92",
+  "nodes": [
+    {
+      "id": "official:kristina-nikolova-petkova-0fdd92",
+      "type": "official",
+      "slug": "kristina-nikolova-petkova-0fdd92",
+      "label": "Кристина Николова Петкова",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Пирдоп"
+    },
+    {
+      "id": "company:tr:000762577",
+      "type": "company",
+      "label": "Народно читалище &quot;Светлина 1910&quot;",
+      "slug": null,
+      "uic": "000762577",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ВЕРА ГЕОРГИЕВА СТАНЧЕВА БОЙЧЕВА",
+      "type": "person",
+      "label": "Вера Георгиева Станчева Бойчева"
+    },
+    {
+      "id": "person:ЗЛАТКА СТОЯНОВА ГРУЕВА",
+      "type": "person",
+      "label": "Златка Стоянова Груева"
+    },
+    {
+      "id": "person:ИВАЙЛО ГРИГОРОВ БОГДАНОВ",
+      "type": "person",
+      "label": "Ивайло Григоров Богданов"
+    },
+    {
+      "id": "person:ЛУШКА ИЛИЕВА ЛАЛОВА",
+      "type": "person",
+      "label": "Лушка Илиева Лалова"
+    },
+    {
+      "id": "person:МАРИЯ ГЕОРГИЕВА ИВАНОВА",
+      "type": "person",
+      "label": "Мария Георгиева Иванова"
+    },
+    {
+      "id": "person:ТЕОДОРА МАРИНОВА МАРИНОВА",
+      "type": "person",
+      "label": "Теодора Маринова Маринова"
+    },
+    {
+      "id": "person:ДИМКА ИВАНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Димка Иванова Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kristina-nikolova-petkova-0fdd92",
+      "target": "company:tr:000762577",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВЕРА ГЕОРГИЕВА СТАНЧЕВА БОЙЧЕВА",
+      "target": "company:tr:000762577",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТКА СТОЯНОВА ГРУЕВА",
+      "target": "company:tr:000762577",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ГРИГОРОВ БОГДАНОВ",
+      "target": "company:tr:000762577",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛУШКА ИЛИЕВА ЛАЛОВА",
+      "target": "company:tr:000762577",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ГЕОРГИЕВА ИВАНОВА",
+      "target": "company:tr:000762577",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА МАРИНОВА МАРИНОВА",
+      "target": "company:tr:000762577",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМКА ИВАНОВА ГЕОРГИЕВА",
+      "target": "company:tr:000762577",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

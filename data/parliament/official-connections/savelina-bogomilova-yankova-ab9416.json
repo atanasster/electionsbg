@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:savelina-bogomilova-yankova-ab9416",
+  "nodes": [
+    {
+      "id": "official:savelina-bogomilova-yankova-ab9416",
+      "type": "official",
+      "slug": "savelina-bogomilova-yankova-ab9416",
+      "label": "Савелина Богомилова Янкова",
+      "tier": "executive",
+      "role": "medical_center",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:131463378",
+      "type": "company",
+      "label": "ХОСПИС МЛАДОСТ",
+      "slug": null,
+      "uic": "131463378",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:savelina-bogomilova-yankova-ab9416",
+      "target": "company:tr:131463378",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

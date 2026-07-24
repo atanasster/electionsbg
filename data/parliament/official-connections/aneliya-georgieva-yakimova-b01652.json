@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:aneliya-georgieva-yakimova-b01652",
+  "nodes": [
+    {
+      "id": "official:aneliya-georgieva-yakimova-b01652",
+      "type": "official",
+      "slug": "aneliya-georgieva-yakimova-b01652",
+      "label": "Анелия Георгиева Якимова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:821108108",
+      "type": "company",
+      "label": "ПРИМЕКС ИНЖЕНЕРИНГ ЕООД",
+      "slug": null,
+      "uic": "821108108",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:aneliya-georgieva-yakimova-b01652",
+      "target": "company:tr:821108108",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,257 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mladen-stoimenov-timchev-c0811c",
+  "nodes": [
+    {
+      "id": "official:mladen-stoimenov-timchev-c0811c",
+      "type": "official",
+      "slug": "mladen-stoimenov-timchev-c0811c",
+      "label": "Младен Стоименов Тимчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сандански"
+    },
+    {
+      "id": "company:tr:101672621",
+      "type": "company",
+      "label": "\"СЕА КАРС\"ЕООД",
+      "slug": null,
+      "uic": "101672621",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:204489583",
+      "type": "company",
+      "label": "\"САН ПРОДЖЕКТ КОНСУЛТ\"ООД",
+      "slug": null,
+      "uic": "204489583",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:tr:101558009",
+      "type": "company",
+      "label": "ЛОВНО-РИБАРСКО ДРУЖЕСТВО &quot;СОКОЛ 1920",
+      "slug": null,
+      "uic": "101558009",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:kiril-stoyanov-spanevikov-b4b3ab",
+      "type": "official",
+      "slug": "kiril-stoyanov-spanevikov-b4b3ab",
+      "label": "Кирил Стоянов Спаневиков",
+      "tier": "executive",
+      "role": "procurement_officer",
+      "municipality": null
+    },
+    {
+      "id": "person:ВАСИЛ ИВАНОВ ПОПОВ",
+      "type": "person",
+      "label": "Васил Иванов Попов"
+    },
+    {
+      "id": "person:АТАНАС ГЕОРГИЕВ ПАНЧЕВ",
+      "type": "person",
+      "label": "Атанас Георгиев Панчев"
+    },
+    {
+      "id": "person:ГЕОРГИ РУМЕНОВ ТРАЙКОВ",
+      "type": "person",
+      "label": "Георги Руменов Трайков"
+    },
+    {
+      "id": "person:КИРИЛ СЕРАФИМОВ ТРУНГОВ",
+      "type": "person",
+      "label": "Кирил Серафимов Трунгов"
+    },
+    {
+      "id": "person:ДИМИТЪР АЛЕКСАНДРОВ ТРАЯНОВ",
+      "type": "person",
+      "label": "Димитър Александров Траянов"
+    },
+    {
+      "id": "person:ДИМИТЪР АТАНАСОВ КЛЕЧЕВ",
+      "type": "person",
+      "label": "Димитър Атанасов Клечев"
+    },
+    {
+      "id": "person:ИЛИЯ ИВАНОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Илия Иванов Николов"
+    },
+    {
+      "id": "person:БОРИС МАНОЛОВ ЩУРКОВ",
+      "type": "person",
+      "label": "Борис Манолов Щурков"
+    },
+    {
+      "id": "person:ИВАН СТОЙНОВ ВЕРГОВ",
+      "type": "person",
+      "label": "Иван Стойнов Вергов"
+    },
+    {
+      "id": "person:РУМЕН ТОДОРОВ ДИНЕВ",
+      "type": "person",
+      "label": "Румен Тодоров Динев"
+    },
+    {
+      "id": "person:РУМЕН ИВАНОВ ПАЧОВ",
+      "type": "person",
+      "label": "Румен Иванов Пачов"
+    },
+    {
+      "id": "person:ИВАН КОСТАДИНОВ МАРИНОВ",
+      "type": "person",
+      "label": "Иван Костадинов Маринов"
+    },
+    {
+      "id": "person:СТОЙЧО ВАЛЕНТИНОВ СПАСОВ",
+      "type": "person",
+      "label": "Стойчо Валентинов Спасов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mladen-stoimenov-timchev-c0811c",
+      "target": "company:tr:101672621",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mladen-stoimenov-timchev-c0811c",
+      "target": "company:tr:204489583",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mladen-stoimenov-timchev-c0811c",
+      "target": "company:tr:101558009",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:kiril-stoyanov-spanevikov-b4b3ab",
+      "target": "company:tr:101558009",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАСИЛ ИВАНОВ ПОПОВ",
+      "target": "company:tr:101558009",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АТАНАС ГЕОРГИЕВ ПАНЧЕВ",
+      "target": "company:tr:101558009",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ РУМЕНОВ ТРАЙКОВ",
+      "target": "company:tr:101558009",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ СЕРАФИМОВ ТРУНГОВ",
+      "target": "company:tr:101558009",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР АЛЕКСАНДРОВ ТРАЯНОВ",
+      "target": "company:tr:101558009",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР АТАНАСОВ КЛЕЧЕВ",
+      "target": "company:tr:101558009",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ ИВАНОВ НИКОЛОВ",
+      "target": "company:tr:101558009",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИС МАНОЛОВ ЩУРКОВ",
+      "target": "company:tr:101558009",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН СТОЙНОВ ВЕРГОВ",
+      "target": "company:tr:101558009",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ТОДОРОВ ДИНЕВ",
+      "target": "company:tr:101558009",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ИВАНОВ ПАЧОВ",
+      "target": "company:tr:101558009",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КОСТАДИНОВ МАРИНОВ",
+      "target": "company:tr:101558009",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЙЧО ВАЛЕНТИНОВ СПАСОВ",
+      "target": "company:tr:101558009",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

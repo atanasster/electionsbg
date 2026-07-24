@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-petrov-miloshov-de4c05",
+  "nodes": [
+    {
+      "id": "official:nikolai-petrov-miloshov-de4c05",
+      "type": "official",
+      "slug": "nikolai-petrov-miloshov-de4c05",
+      "label": "Николай Петров Милошов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ковачевци"
+    },
+    {
+      "id": "company:tr:200121954",
+      "type": "company",
+      "label": "МКИ БИЛДИНГ ГРУП ЕООД",
+      "slug": null,
+      "uic": "200121954",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-petrov-miloshov-de4c05",
+      "target": "company:tr:200121954",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

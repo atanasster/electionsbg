@@ -1,0 +1,104 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:darina-gospodinova-dimova-29d353",
+  "nodes": [
+    {
+      "id": "official:darina-gospodinova-dimova-29d353",
+      "type": "official",
+      "slug": "darina-gospodinova-dimova-29d353",
+      "label": "Дарина Господинова Димова",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000584128",
+      "type": "company",
+      "label": "ЧИТАЛИЩЕ &quot;НОВ ПЪТ 1948&quot;",
+      "slug": null,
+      "uic": "000584128",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:nehat-ahmedov-kechedzhiev-7577e4",
+      "type": "official",
+      "slug": "nehat-ahmedov-kechedzhiev-7577e4",
+      "label": "Нехат Ахмедов Кечеджиев",
+      "tier": "executive",
+      "role": "school",
+      "municipality": null
+    },
+    {
+      "id": "person:ШЕРМИН АХМЕДОВА МЕХМЕДОВА",
+      "type": "person",
+      "label": "Шермин Ахмедова Мехмедова"
+    },
+    {
+      "id": "person:ЕМИНЕ ХАЛИТОВА БАРУТЧИЕВА",
+      "type": "person",
+      "label": "Емине Халитова Барутчиева"
+    },
+    {
+      "id": "person:АЙШЕ ХЮСЕИН БАЙРАКТАРОВА",
+      "type": "person",
+      "label": "Айше Хюсеин Байрактарова"
+    },
+    {
+      "id": "person:НУРАЙ АЛИШЕВА КУЛА",
+      "type": "person",
+      "label": "Нурай Алишева Кула"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:darina-gospodinova-dimova-29d353",
+      "target": "company:tr:000584128",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:nehat-ahmedov-kechedzhiev-7577e4",
+      "target": "company:tr:000584128",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ШЕРМИН АХМЕДОВА МЕХМЕДОВА",
+      "target": "company:tr:000584128",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИНЕ ХАЛИТОВА БАРУТЧИЕВА",
+      "target": "company:tr:000584128",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЙШЕ ХЮСЕИН БАЙРАКТАРОВА",
+      "target": "company:tr:000584128",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НУРАЙ АЛИШЕВА КУЛА",
+      "target": "company:tr:000584128",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

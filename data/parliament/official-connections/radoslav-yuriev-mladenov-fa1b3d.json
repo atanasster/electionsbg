@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:radoslav-yuriev-mladenov-fa1b3d",
+  "nodes": [
+    {
+      "id": "official:radoslav-yuriev-mladenov-fa1b3d",
+      "type": "official",
+      "slug": "radoslav-yuriev-mladenov-fa1b3d",
+      "label": "Радослав Юриев Младенов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:111037645",
+      "type": "company",
+      "label": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ БЕРКОВИЦА",
+      "slug": null,
+      "uic": "111037645",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЙОРДАН МИХАЙЛОВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "Йордан Михайлов Йорданов"
+    },
+    {
+      "id": "person:ИВАЙЛО ПЕТРОВ АНТОНОВ",
+      "type": "person",
+      "label": "Ивайло Петров Антонов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:radoslav-yuriev-mladenov-fa1b3d",
+      "target": "company:tr:111037645",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАН МИХАЙЛОВ ЙОРДАНОВ",
+      "target": "company:tr:111037645",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ПЕТРОВ АНТОНОВ",
+      "target": "company:tr:111037645",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

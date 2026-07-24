@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mehmed-dzhamalov-usev-f14332",
+  "nodes": [
+    {
+      "id": "official:mehmed-dzhamalov-usev-f14332",
+      "type": "official",
+      "slug": "mehmed-dzhamalov-usev-f14332",
+      "label": "Мехмед Джамалов Усев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Борино"
+    },
+    {
+      "id": "company:tr:207827442",
+      "type": "company",
+      "label": "Сдружение с нестопанска цел \"Екологична природа Борино\"",
+      "slug": null,
+      "uic": "207827442",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДЖАМАЛ САЛИЕВ КОДЖЕБАШЕВ",
+      "type": "person",
+      "label": "Джамал Салиев Коджебашев"
+    },
+    {
+      "id": "person:АХМЕД ФЕЙЗИЕВ ВЕЛИЕВ",
+      "type": "person",
+      "label": "Ахмед Фейзиев Велиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mehmed-dzhamalov-usev-f14332",
+      "target": "company:tr:207827442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДЖАМАЛ САЛИЕВ КОДЖЕБАШЕВ",
+      "target": "company:tr:207827442",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЖАМАЛ САЛИЕВ КОДЖЕБАШЕВ",
+      "target": "company:tr:207827442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АХМЕД ФЕЙЗИЕВ ВЕЛИЕВ",
+      "target": "company:tr:207827442",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

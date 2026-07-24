@@ -1,0 +1,35 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:kalin-vasilev-anastasov-f6c153",
+  "nodes": [
+    {
+      "id": "official:kalin-vasilev-anastasov-f6c153",
+      "type": "official",
+      "slug": "kalin-vasilev-anastasov-f6c153",
+      "label": "Калин Василев Анастасов",
+      "tier": "executive",
+      "role": "secretary_general",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:203791454",
+      "type": "company",
+      "label": "АТС Консултинг ЕООД",
+      "slug": null,
+      "uic": "203791454",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kalin-vasilev-anastasov-f6c153",
+      "target": "company:tr:203791454",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:nikolai-neshev-salutski-4c9076",
+  "nodes": [
+    {
+      "id": "official:nikolai-neshev-salutski-4c9076",
+      "type": "official",
+      "slug": "nikolai-neshev-salutski-4c9076",
+      "label": "Николай Нешев Салутски",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:201397400",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ СВЕТИ ИВАН РИЛСКИ-ПЛОВДИВ",
+      "slug": null,
+      "uic": "201397400",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАН ИЛИЕВ ИЛИЕВ",
+      "type": "person",
+      "label": "Иван Илиев Илиев"
+    },
+    {
+      "id": "person:МАРИЯ НЕНКОВА МИТЕВА",
+      "type": "person",
+      "label": "Мария Ненкова Митева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:nikolai-neshev-salutski-4c9076",
+      "target": "company:tr:201397400",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАН ИЛИЕВ ИЛИЕВ",
+      "target": "company:tr:201397400",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ НЕНКОВА МИТЕВА",
+      "target": "company:tr:201397400",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

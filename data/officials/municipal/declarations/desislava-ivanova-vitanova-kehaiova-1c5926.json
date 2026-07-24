@@ -1,0 +1,76 @@
+[
+  {
+    "slug": "desislava-ivanova-vitanova-kehaiova-1c5926",
+    "declarantName": "Десислава Иванова Витанова Кехайова",
+    "institution": "Банско",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-17",
+    "entryNumber": "Г14242",
+    "controlHash": "ADC0754A",
+    "sourceUrl": "https://register.cacbg.bg/2025/44209B29-F44F-4E60-84F7-F4C89F826A25217521.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7091.618392191551,
+        "amountEurSpouse": 12337.473093264753
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 37978.76093525511,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "Банско",
+        "municipality": "Банско",
+        "areaSqm": 1,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Благой Любенов Кехайов",
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "безвъзмездно"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Кремен",
+        "municipality": "Банско",
+        "areaSqm": 1,
+        "builtAreaSqm": 150,
+        "currency": "BGN",
+        "valueEur": 2045.1675247848739,
+        "legalBasis": "възмездно"
+      },
+      {
+        "kind": "disposal_property",
+        "description": "офис",
+        "detail": null,
+        "location": "Благоевград",
+        "municipality": "Благоевград",
+        "areaSqm": 0,
+        "builtAreaSqm": 18,
+        "currency": "BGN",
+        "valueEur": 8691.961980335715,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

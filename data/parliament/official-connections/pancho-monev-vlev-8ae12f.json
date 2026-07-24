@@ -1,0 +1,64 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:pancho-monev-vlev-8ae12f",
+  "nodes": [
+    {
+      "id": "official:pancho-monev-vlev-8ae12f",
+      "type": "official",
+      "slug": "pancho-monev-vlev-8ae12f",
+      "label": "Панчо Монев Вълев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Девня"
+    },
+    {
+      "id": "company:tr:207500113",
+      "type": "company",
+      "label": "ИНФИНИТИ 2023",
+      "slug": null,
+      "uic": "207500113",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МАГДАЛЕНА ЖЕЛЕВА ВЪЛЕВА",
+      "type": "person",
+      "label": "Магдалена Желева Вълева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:pancho-monev-vlev-8ae12f",
+      "target": "company:tr:207500113",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:pancho-monev-vlev-8ae12f",
+      "target": "company:tr:207500113",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАГДАЛЕНА ЖЕЛЕВА ВЪЛЕВА",
+      "target": "company:tr:207500113",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАГДАЛЕНА ЖЕЛЕВА ВЪЛЕВА",
+      "target": "company:tr:207500113",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

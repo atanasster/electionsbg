@@ -1,0 +1,86 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:mihail-asenov-chilikov-0c82a6",
+  "nodes": [
+    {
+      "id": "official:mihail-asenov-chilikov-0c82a6",
+      "type": "official",
+      "slug": "mihail-asenov-chilikov-0c82a6",
+      "label": "Михаил Асенов Чиликов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Сливо поле"
+    },
+    {
+      "id": "company:tr:207094374",
+      "type": "company",
+      "label": "ЕМБО ЕЛЕКТРИСИТИ ЕООД",
+      "slug": null,
+      "uic": "207094374",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:mihail-asenov-chilikov-4f302e",
+      "type": "official",
+      "slug": "mihail-asenov-chilikov-4f302e",
+      "label": "Михаил Асенов Чиликов",
+      "tier": "executive",
+      "role": "eu_funds_controller",
+      "municipality": null
+    },
+    {
+      "id": "person:БОРИСЛАВ МИХАЙЛОВ ЧИЛИКОВ",
+      "type": "person",
+      "label": "Борислав Михайлов Чиликов"
+    },
+    {
+      "id": "person:ФИДАНКА ЕМИЛОВА ЧИЛИКОВА",
+      "type": "person",
+      "label": "Фиданка Емилова Чиликова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:mihail-asenov-chilikov-0c82a6",
+      "target": "company:tr:207094374",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:mihail-asenov-chilikov-4f302e",
+      "target": "company:tr:207094374",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ МИХАЙЛОВ ЧИЛИКОВ",
+      "target": "company:tr:207094374",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИДАНКА ЕМИЛОВА ЧИЛИКОВА",
+      "target": "company:tr:207094374",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФИДАНКА ЕМИЛОВА ЧИЛИКОВА",
+      "target": "company:tr:207094374",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

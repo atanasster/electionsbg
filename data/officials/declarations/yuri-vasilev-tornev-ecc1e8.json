@@ -1,0 +1,119 @@
+[
+  {
+    "slug": "yuri-vasilev-tornev-ecc1e8",
+    "declarantName": "Юри Василев Торнев",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Контрольор",
+    "category": "medical_center",
+    "declarationYear": 2024,
+    "fiscalYear": 2024,
+    "declarationType": "Vacate",
+    "filedAt": null,
+    "entryNumber": "Ф867",
+    "controlHash": "B6D1DB3B",
+    "sourceUrl": "https://register.cacbg.bg/2024/EF547A7C-E447-4753-AF52-19E15D4B8CB5197394.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "г.Пирдоп",
+        "municipality": "Пирдоп",
+        "areaSqm": 60,
+        "builtAreaSqm": 65,
+        "acquiredYear": 1997,
+        "share": "2/3",
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Юри Василев Торнев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Санта Фе",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2018,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Юри Василев Торнев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "yuri-vasilev-tornev-ecc1e8",
+    "declarantName": "Юри Василев Торнев",
+    "institution": "ДКЦ, МЦ, ЦТХ",
+    "positionTitle": "Контрольор",
+    "category": "medical_center",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-02-05",
+    "entryNumber": "Г14044",
+    "controlHash": "FBBC1F98",
+    "sourceUrl": "https://register.cacbg.bg/2024/EF547A7C-E447-4753-AF52-19E15D4B8CB5196360.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 13614.680212492905,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Пирдоп",
+        "municipality": "Пирдоп",
+        "areaSqm": 60,
+        "builtAreaSqm": 65,
+        "acquiredYear": 1997,
+        "share": "2/3",
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Юри Василев Торнев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "санта Фе",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2018,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Юри Цасилев Торнев",
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "безвъзмездно"
+      }
+    ],
+    "events": []
+  }
+]

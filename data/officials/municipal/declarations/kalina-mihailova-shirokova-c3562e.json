@@ -1,0 +1,99 @@
+[
+  {
+    "slug": "kalina-mihailova-shirokova-c3562e",
+    "declarantName": "КАЛИНА МИХАЙЛОВА ШИРОКОВА",
+    "institution": "Велико Търново",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г10445",
+    "controlHash": "D6767EBA",
+    "sourceUrl": "https://register.cacbg.bg/2025/68A63F11-27C1-4D96-969F-18F0D50C090B213530.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "ДЯЛОВЕ",
+        "shareSize": "10",
+        "companyName": "СТРОЙМОНТАЖ 24 ЕООД",
+        "registeredOffice": "Велико Търново",
+        "valueEur": 51.12918811962185,
+        "holderName": "КАЛИНА МИХАЙЛОВА ШИРОКОВА",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 46980.054503714535,
+        "amountEurSpouse": 47154.40503520245
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 3000403.409294264,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 127376,
+        "valueEur": 65126.314659249525,
+        "holderName": "КАЛИНА МИХАЙЛОВА ШИРОКОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТНА КАРТА",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 24913,
+        "valueEur": 12737.814636241392,
+        "holderName": "КАЛИНА МИХАЙЛОВА ШИРОКОВА",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР БАНКОВ КРЕДИТ",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "БАНКОВ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 56111,
+        "valueEur": 28689.098745801017,
+        "holderName": "НИКОЛАЙ ХРИСТО ШИРОКОВ",
+        "isSpouse": true,
+        "legalBasis": "ДОГОВОР БАНКОВ КРЕДИТ",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
+  }
+]

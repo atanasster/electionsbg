@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:kapka-angelova-miteva-b4cc9a",
+  "nodes": [
+    {
+      "id": "official:kapka-angelova-miteva-b4cc9a",
+      "type": "official",
+      "slug": "kapka-angelova-miteva-b4cc9a",
+      "label": "Капка Ангелова Митева",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Кнежа"
+    },
+    {
+      "id": "company:tr:201457185",
+      "type": "company",
+      "label": "АГРОКОНТРОЛ ЕООД",
+      "slug": null,
+      "uic": "201457185",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:РУМЕН ДИМИТРОВ МИТЕВ",
+      "type": "person",
+      "label": "Румен Димитров Митев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:kapka-angelova-miteva-b4cc9a",
+      "target": "company:tr:201457185",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ДИМИТРОВ МИТЕВ",
+      "target": "company:tr:201457185",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУМЕН ДИМИТРОВ МИТЕВ",
+      "target": "company:tr:201457185",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

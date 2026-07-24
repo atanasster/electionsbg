@@ -1,0 +1,173 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:rumen-nikolov-haralamov-c53de0",
+  "nodes": [
+    {
+      "id": "official:rumen-nikolov-haralamov-c53de0",
+      "type": "official",
+      "slug": "rumen-nikolov-haralamov-c53de0",
+      "label": "Румен Николов Хараламов",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000124425",
+      "type": "company",
+      "label": "СВ. СВ. КИРИЛ И МЕТОДИЙ - 1928",
+      "slug": null,
+      "uic": "000124425",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ДИМКА ПЕТКОВА СТОЯНОВА",
+      "type": "person",
+      "label": "Димка Петкова Стоянова"
+    },
+    {
+      "id": "person:АНА ДИМИТРОВА ХАЛАДЖОВА",
+      "type": "person",
+      "label": "Ана Димитрова Халаджова"
+    },
+    {
+      "id": "person:СТЕФАН ЛЮБЧЕВ КОТУКОВ",
+      "type": "person",
+      "label": "Стефан Любчев Котуков"
+    },
+    {
+      "id": "person:ПЕТЯ ИЛИЕВА МИНЧЕВА",
+      "type": "person",
+      "label": "Петя Илиева Минчева"
+    },
+    {
+      "id": "person:МАРИЯ СТЕФАНОВА ПАШЕВА",
+      "type": "person",
+      "label": "Мария Стефанова Пашева"
+    },
+    {
+      "id": "person:МАРИЯ ДИМИТРОВА РУСЕВА",
+      "type": "person",
+      "label": "Мария Димитрова Русева"
+    },
+    {
+      "id": "person:ЙОРДАНКА АНГЕЛОВА НИКОЛОВА",
+      "type": "person",
+      "label": "Йорданка Ангелова Николова"
+    },
+    {
+      "id": "person:ПЕТЯ ИЛИЕВА МИНЧЕВА-СТАНЕВА",
+      "type": "person",
+      "label": "Петя Илиева Минчева-Станева"
+    },
+    {
+      "id": "person:ВЕЛИЧКА ВАСИЛЕВА МИТКОВА",
+      "type": "person",
+      "label": "Величка Василева Миткова"
+    },
+    {
+      "id": "person:МИЛЕНА ВАЛЕНТИНОВА ГОЧЕВА",
+      "type": "person",
+      "label": "Милена Валентинова Гочева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:rumen-nikolov-haralamov-c53de0",
+      "target": "company:tr:000124425",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМКА ПЕТКОВА СТОЯНОВА",
+      "target": "company:tr:000124425",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНА ДИМИТРОВА ХАЛАДЖОВА",
+      "target": "company:tr:000124425",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ЛЮБЧЕВ КОТУКОВ",
+      "target": "company:tr:000124425",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ИЛИЕВА МИНЧЕВА",
+      "target": "company:tr:000124425",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ СТЕФАНОВА ПАШЕВА",
+      "target": "company:tr:000124425",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ДИМИТРОВА РУСЕВА",
+      "target": "company:tr:000124425",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА АНГЕЛОВА НИКОЛОВА",
+      "target": "company:tr:000124425",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ИЛИЕВА МИНЧЕВА-СТАНЕВА",
+      "target": "company:tr:000124425",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ИЛИЕВА МИНЧЕВА-СТАНЕВА",
+      "target": "company:tr:000124425",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕЛИЧКА ВАСИЛЕВА МИТКОВА",
+      "target": "company:tr:000124425",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ВАЛЕНТИНОВА ГОЧЕВА",
+      "target": "company:tr:000124425",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

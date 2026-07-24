@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:iono-denev-chepilski-52b6cb",
+  "nodes": [
+    {
+      "id": "official:iono-denev-chepilski-52b6cb",
+      "type": "official",
+      "slug": "iono-denev-chepilski-52b6cb",
+      "label": "Йоно Денев Чепилски",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пловдив"
+    },
+    {
+      "id": "company:tr:177108203",
+      "type": "company",
+      "label": "СДРУЖЕНИЕ ЗА МЛАДЕЖКИ ИНИЦИАТИВИ, ЕВРОПЕЙСКА ИНТЕГРАЦИЯ И ГРАЖДАНСКО УЧАСТИЕ В ПУБЛИЧЕН ЖИВОТ / АГОРА /",
+      "slug": null,
+      "uic": "177108203",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ИВАНОВ ВЪЛЧЕВ",
+      "type": "person",
+      "label": "Георги Иванов Вълчев"
+    },
+    {
+      "id": "person:ВЕРОНИКА ЙОРДАНОВА ЙОВЧЕВА",
+      "type": "person",
+      "label": "Вероника Йорданова Йовчева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:iono-denev-chepilski-52b6cb",
+      "target": "company:tr:177108203",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ ВЪЛЧЕВ",
+      "target": "company:tr:177108203",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРОНИКА ЙОРДАНОВА ЙОВЧЕВА",
+      "target": "company:tr:177108203",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

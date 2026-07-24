@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:5107",
   "nodes": [
     {
@@ -91,12 +91,12 @@
       "label": "Илиян Ангелов Миланов"
     },
     {
-      "id": "official:boris-lyubenov-krstev-c81143",
+      "id": "official:boris-lyubenov-krstev-525a50",
       "type": "official",
-      "slug": "boris-lyubenov-krstev-c81143",
+      "slug": "boris-lyubenov-krstev-525a50",
       "label": "Борис Любенов Кръстев",
       "tier": "executive",
-      "role": "state_enterprise",
+      "role": "school",
       "municipality": null
     },
     {
@@ -327,7 +327,7 @@
       "confidence": "high"
     },
     {
-      "source": "official:boris-lyubenov-krstev-c81143",
+      "source": "official:boris-lyubenov-krstev-525a50",
       "target": "company:tr:109540461",
       "kind": "tr_role",
       "role": "ngo_board",

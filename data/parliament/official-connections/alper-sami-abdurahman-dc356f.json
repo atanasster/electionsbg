@@ -1,0 +1,95 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:alper-sami-abdurahman-dc356f",
+  "nodes": [
+    {
+      "id": "official:alper-sami-abdurahman-dc356f",
+      "type": "official",
+      "slug": "alper-sami-abdurahman-dc356f",
+      "label": "Алпер Сами Абдурахман",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ардино"
+    },
+    {
+      "id": "company:tr:108575025",
+      "type": "company",
+      "label": "КЛУБ СПОРТ С УЧЕНИЦИ-АЛАДА",
+      "slug": null,
+      "uic": "108575025",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:МЕСУТ МУСТАФОВ ХАЙРУЛОВ",
+      "type": "person",
+      "label": "Месут Мустафов Хайрулов"
+    },
+    {
+      "id": "person:ТОНИ КАРАМФИЛОВА ДОБРЕВА",
+      "type": "person",
+      "label": "Тони Карамфилова Добрева"
+    },
+    {
+      "id": "person:ГЮЛАЙ СЕВИМОВА СЮЛЕЙМАН",
+      "type": "person",
+      "label": "Гюлай Севимова Сюлейман"
+    },
+    {
+      "id": "person:СТЕФАН ИВАНОВ ДИМОВ",
+      "type": "person",
+      "label": "Стефан Иванов Димов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:alper-sami-abdurahman-dc356f",
+      "target": "company:tr:108575025",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МЕСУТ МУСТАФОВ ХАЙРУЛОВ",
+      "target": "company:tr:108575025",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕСУТ МУСТАФОВ ХАЙРУЛОВ",
+      "target": "company:tr:108575025",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОНИ КАРАМФИЛОВА ДОБРЕВА",
+      "target": "company:tr:108575025",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЮЛАЙ СЕВИМОВА СЮЛЕЙМАН",
+      "target": "company:tr:108575025",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ИВАНОВ ДИМОВ",
+      "target": "company:tr:108575025",
+      "kind": "tr_role",
+      "role": "ngo_board",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

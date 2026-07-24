@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:shermin-adil-mehmedova-b6f4e2",
+  "nodes": [
+    {
+      "id": "official:shermin-adil-mehmedova-b6f4e2",
+      "type": "official",
+      "slug": "shermin-adil-mehmedova-b6f4e2",
+      "label": "Шермин Адил Мехмедова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Севлиево"
+    },
+    {
+      "id": "company:tr:206555758",
+      "type": "company",
+      "label": "МЕХМЕДОВИ 89",
+      "slug": null,
+      "uic": "206555758",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ЕМИН АЙГЮНОВ МЕХМЕДОВ",
+      "type": "person",
+      "label": "Емин Айгюнов Мехмедов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:shermin-adil-mehmedova-b6f4e2",
+      "target": "company:tr:206555758",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕМИН АЙГЮНОВ МЕХМЕДОВ",
+      "target": "company:tr:206555758",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИН АЙГЮНОВ МЕХМЕДОВ",
+      "target": "company:tr:206555758",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

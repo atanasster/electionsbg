@@ -1,0 +1,118 @@
+[
+  {
+    "slug": "simeon-ivanov-simeonov-d26256",
+    "declarantName": "СИМЕОН ИВАНОВ СИМЕОНОВ",
+    "institution": "Козлодуй",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г14421",
+    "controlHash": "11183160",
+    "sourceUrl": "https://register.cacbg.bg/2025/6DA8164F-F9CE-4358-9375-9662663B844C217726.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 3639.3756103546834,
+        "amountEurSpouse": 31701.11921792794
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 376747.4678269584,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "Козлодуй",
+        "municipality": "Козлодуй",
+        "areaSqm": 11,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 1300,
+        "valueEur": 664.679445555084,
+        "holderName": "СИМЕОН ИВАНОВ СИМЕОНОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "Хърлец",
+        "municipality": "Козлодуй",
+        "areaSqm": 72,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 8400,
+        "valueEur": 4294.851802048235,
+        "holderName": "СИМЕОН ИВАНОВ СИМЕОНОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1351372,
+        "valueEur": 690945.5320758962,
+        "holderName": "СИМЕОН ИВАНОВ СИМЕОНОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 31409,
+        "valueEur": 31409.1715537649,
+        "holderName": "СИМЕОН ИВАНОВ СИМЕОНОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "events": [
+      {
+        "kind": "disposal_property",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Велико Търново",
+        "municipality": "Велико Търново",
+        "areaSqm": 61,
+        "builtAreaSqm": 61,
+        "currency": "BGN",
+        "valueEur": 89000.06646794456,
+        "legalBasis": "възмездно"
+      }
+    ]
+  }
+]

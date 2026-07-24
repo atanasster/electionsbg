@@ -1,0 +1,56 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:zhechka-emilova-hadzhiiska-partadzhieva-b882bf",
+  "nodes": [
+    {
+      "id": "official:zhechka-emilova-hadzhiiska-partadzhieva-b882bf",
+      "type": "official",
+      "slug": "zhechka-emilova-hadzhiiska-partadzhieva-b882bf",
+      "label": "Жечка Емилова Хаджийска-Партаджиева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Златоград"
+    },
+    {
+      "id": "company:tr:204325712",
+      "type": "company",
+      "label": "ДЕ АРТО",
+      "slug": null,
+      "uic": "204325712",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ТРЕНДАФИЛ КАМЕНОВ ПАРТАДЖИЕВ",
+      "type": "person",
+      "label": "Трендафил Каменов Партаджиев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:zhechka-emilova-hadzhiiska-partadzhieva-b882bf",
+      "target": "company:tr:204325712",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:zhechka-emilova-hadzhiiska-partadzhieva-b882bf",
+      "target": "company:tr:204325712",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ТРЕНДАФИЛ КАМЕНОВ ПАРТАДЖИЕВ",
+      "target": "company:tr:204325712",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

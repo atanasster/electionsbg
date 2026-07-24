@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:5198",
   "nodes": [
     {
@@ -96,18 +96,18 @@
       ]
     },
     {
-      "id": "official:aleksandr-dimitrov-paunov-da21f5",
+      "id": "official:aleksandr-dimitrov-paunov-3268eb",
       "type": "official",
-      "slug": "aleksandr-dimitrov-paunov-da21f5",
+      "slug": "aleksandr-dimitrov-paunov-3268eb",
       "label": "Александър Димитров Паунов",
       "tier": "executive",
       "role": "party_leader",
       "municipality": null
     },
     {
-      "id": "official:valentin-nikolchov-petkov-93f658",
+      "id": "official:valentin-nikolchov-petkov-5f8ef8",
       "type": "official",
-      "slug": "valentin-nikolchov-petkov-93f658",
+      "slug": "valentin-nikolchov-petkov-5f8ef8",
       "label": "Валентин Николчов Петков",
       "tier": "municipal",
       "role": "councillor",
@@ -212,72 +212,72 @@
       "nsFolders": []
     },
     {
-      "id": "official:antoaneta-nikolova-drndova-bb3501",
+      "id": "official:antoaneta-nikolova-drndova-6c1176",
       "type": "official",
-      "slug": "antoaneta-nikolova-drndova-bb3501",
+      "slug": "antoaneta-nikolova-drndova-6c1176",
       "label": "Антоанета Николова Дръндова",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:nikolai-dinev-karafiziev-b1ce89",
+      "id": "official:nikolai-dinev-karafiziev-fb1861",
       "type": "official",
-      "slug": "nikolai-dinev-karafiziev-b1ce89",
+      "slug": "nikolai-dinev-karafiziev-fb1861",
       "label": "Николай Динев Карафизиев",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:petr-konstantinov-mitev-0ee5b4",
+      "id": "official:petr-konstantinov-mitev-875abb",
       "type": "official",
-      "slug": "petr-konstantinov-mitev-0ee5b4",
+      "slug": "petr-konstantinov-mitev-875abb",
       "label": "Петър Константинов Митев",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:salih-mehmed-metrash-bf9c9b",
+      "id": "official:salih-mehmed-metrash-8d4655",
       "type": "official",
-      "slug": "salih-mehmed-metrash-bf9c9b",
+      "slug": "salih-mehmed-metrash-8d4655",
       "label": "Салих Мехмед Метраш",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:sevinch-daudova-karaoglan-962ebf",
+      "id": "official:sevinch-daudova-karaoglan-bd62ed",
       "type": "official",
-      "slug": "sevinch-daudova-karaoglan-962ebf",
+      "slug": "sevinch-daudova-karaoglan-bd62ed",
       "label": "Севинч Даудова Караоглан",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:snezhina-dimitrova-dineva-85104e",
+      "id": "official:snezhina-dimitrova-dineva-164c1b",
       "type": "official",
-      "slug": "snezhina-dimitrova-dineva-85104e",
+      "slug": "snezhina-dimitrova-dineva-164c1b",
       "label": "Снежина Димитрова Динева",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:stanislava-todorova-iotova-d7a996",
+      "id": "official:stanislava-todorova-iotova-2bf45a",
       "type": "official",
-      "slug": "stanislava-todorova-iotova-d7a996",
+      "slug": "stanislava-todorova-iotova-2bf45a",
       "label": "Станислава Тодорова Йотова",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:yancho-knchev-vasilev-e5e7dd",
+      "id": "official:yancho-knchev-vasilev-7c94d5",
       "type": "official",
-      "slug": "yancho-knchev-vasilev-e5e7dd",
+      "slug": "yancho-knchev-vasilev-7c94d5",
       "label": "Янчо Кънчев Василев",
       "tier": "executive",
       "role": "regional_director",
@@ -1090,7 +1090,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:aleksandr-dimitrov-paunov-da21f5",
+      "source": "official:aleksandr-dimitrov-paunov-3268eb",
       "target": "company:tr:121061274",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -1098,7 +1098,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:valentin-nikolchov-petkov-93f658",
+      "source": "official:valentin-nikolchov-petkov-5f8ef8",
       "target": "company:tr:121061274",
       "kind": "tr_role",
       "role": "ngo_board",
@@ -1250,7 +1250,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:antoaneta-nikolova-drndova-bb3501",
+      "source": "official:antoaneta-nikolova-drndova-6c1176",
       "target": "company:tr:831160078",
       "kind": "tr_role",
       "role": "director",
@@ -1258,7 +1258,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:nikolai-dinev-karafiziev-b1ce89",
+      "source": "official:nikolai-dinev-karafiziev-fb1861",
       "target": "company:tr:831160078",
       "kind": "tr_role",
       "role": "director",
@@ -1266,7 +1266,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:petr-konstantinov-mitev-0ee5b4",
+      "source": "official:petr-konstantinov-mitev-875abb",
       "target": "company:tr:831160078",
       "kind": "tr_role",
       "role": "director",
@@ -1274,7 +1274,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:salih-mehmed-metrash-bf9c9b",
+      "source": "official:salih-mehmed-metrash-8d4655",
       "target": "company:tr:831160078",
       "kind": "tr_role",
       "role": "director",
@@ -1282,7 +1282,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:sevinch-daudova-karaoglan-962ebf",
+      "source": "official:sevinch-daudova-karaoglan-bd62ed",
       "target": "company:tr:831160078",
       "kind": "tr_role",
       "role": "director",
@@ -1290,7 +1290,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:snezhina-dimitrova-dineva-85104e",
+      "source": "official:snezhina-dimitrova-dineva-164c1b",
       "target": "company:tr:831160078",
       "kind": "tr_role",
       "role": "director",
@@ -1298,7 +1298,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:snezhina-dimitrova-dineva-85104e",
+      "source": "official:snezhina-dimitrova-dineva-164c1b",
       "target": "company:tr:831160078",
       "kind": "tr_role",
       "role": "representative",
@@ -1306,7 +1306,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:stanislava-todorova-iotova-d7a996",
+      "source": "official:stanislava-todorova-iotova-2bf45a",
       "target": "company:tr:831160078",
       "kind": "tr_role",
       "role": "director",
@@ -1314,7 +1314,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:yancho-knchev-vasilev-e5e7dd",
+      "source": "official:yancho-knchev-vasilev-7c94d5",
       "target": "company:tr:831160078",
       "kind": "tr_role",
       "role": "branch_manager",

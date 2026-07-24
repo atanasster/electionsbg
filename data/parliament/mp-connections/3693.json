@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T18:01:46.243Z",
+  "generatedAt": "2026-07-24T20:05:06.370Z",
   "mpNodeId": "mp:3693",
   "nodes": [
     {
@@ -34,27 +34,27 @@
       "nsFolders": []
     },
     {
-      "id": "official:elvira-petrova-shopova-82158a",
+      "id": "official:elvira-petrova-shopova-c52d82",
       "type": "official",
-      "slug": "elvira-petrova-shopova-82158a",
+      "slug": "elvira-petrova-shopova-c52d82",
       "label": "Елвира Петрова Шопова",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:tano-braikov-tanev-4b9751",
+      "id": "official:tano-braikov-tanev-9c1d62",
       "type": "official",
-      "slug": "tano-braikov-tanev-4b9751",
+      "slug": "tano-braikov-tanev-9c1d62",
       "label": "Таньо Брайков Танев",
       "tier": "executive",
       "role": "state_enterprise",
       "municipality": null
     },
     {
-      "id": "official:tihomir-gochev-tenev-b68bca",
+      "id": "official:tihomir-gochev-tenev-4b0cce",
       "type": "official",
-      "slug": "tihomir-gochev-tenev-b68bca",
+      "slug": "tihomir-gochev-tenev-4b0cce",
       "label": "Тихомир Гочев Тенев",
       "tier": "executive",
       "role": "state_enterprise",
@@ -188,7 +188,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:elvira-petrova-shopova-82158a",
+      "source": "official:elvira-petrova-shopova-c52d82",
       "target": "company:tr:833017552",
       "kind": "tr_role",
       "role": "director",
@@ -196,7 +196,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:tano-braikov-tanev-4b9751",
+      "source": "official:tano-braikov-tanev-9c1d62",
       "target": "company:tr:833017552",
       "kind": "tr_role",
       "role": "director",
@@ -204,7 +204,7 @@
       "confidence": "medium"
     },
     {
-      "source": "official:tihomir-gochev-tenev-b68bca",
+      "source": "official:tihomir-gochev-tenev-4b0cce",
       "target": "company:tr:833017552",
       "kind": "tr_role",
       "role": "director",

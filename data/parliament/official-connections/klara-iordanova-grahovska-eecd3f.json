@@ -1,0 +1,225 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:klara-iordanova-grahovska-eecd3f",
+  "nodes": [
+    {
+      "id": "official:klara-iordanova-grahovska-eecd3f",
+      "type": "official",
+      "slug": "klara-iordanova-grahovska-eecd3f",
+      "label": "Клара Йорданова Граховска",
+      "tier": "executive",
+      "role": "kindergarten",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:000254648",
+      "type": "company",
+      "label": "НАРОДНО ЧИТАЛИЩЕ &quot;ВАСИЛ ЛЕВСКИ-1938&quot;",
+      "slug": null,
+      "uic": "000254648",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:СВЕТЛАНА СТОЕВА МАЛИНОВА",
+      "type": "person",
+      "label": "Светлана Стоева Малинова"
+    },
+    {
+      "id": "person:ИВАН ВАСИЛЕВ ИВАНОВ",
+      "type": "person",
+      "label": "Иван Василев Иванов"
+    },
+    {
+      "id": "person:РАЙНА СТОИМЕНОВА ГРУЕВА",
+      "type": "person",
+      "label": "Райна Стоименова Груева"
+    },
+    {
+      "id": "person:ЙОРДАН АПОСТОЛОВ ШОПОВ",
+      "type": "person",
+      "label": "Йордан Апостолов Шопов"
+    },
+    {
+      "id": "person:ИВАНКА ДИМИТРОВА ШЕЙТАНСКА",
+      "type": "person",
+      "label": "Иванка Димитрова Шейтанска"
+    },
+    {
+      "id": "person:ЮЛИЯ ТЕОФИЛОВА РАШЕВА",
+      "type": "person",
+      "label": "Юлия Теофилова Рашева"
+    },
+    {
+      "id": "person:СТЕФАН ЙОРДАНОВ МАНОВ",
+      "type": "person",
+      "label": "Стефан Йорданов Манов"
+    },
+    {
+      "id": "person:ЕЛЕОНОРА ИВАНОВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Елеонора Иванова Георгиева"
+    },
+    {
+      "id": "person:КРАСИМИР ДИМИТРОВ ДАНАИЛОВ",
+      "type": "person",
+      "label": "Красимир Димитров Данаилов"
+    },
+    {
+      "id": "person:ЕЛЕНА ЕВГЕНИЕВА МИЛАНОВА",
+      "type": "person",
+      "label": "Елена Евгениева Миланова"
+    },
+    {
+      "id": "person:ГЕОРГИ ЙОРДАНОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Георги Йорданов Николов"
+    },
+    {
+      "id": "person:ТЕМЕНУЖКА ИВАНОВА МИЛЕНЧИНА",
+      "type": "person",
+      "label": "Теменужка Иванова Миленчина"
+    },
+    {
+      "id": "person:ДРАГА БЛАГОЕВА ВУКОВСКА",
+      "type": "person",
+      "label": "Драга Благоева Вуковска"
+    },
+    {
+      "id": "person:РАДКА ИДАКИЕВА ХРИСТОВА",
+      "type": "person",
+      "label": "Радка Идакиева Христова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:klara-iordanova-grahovska-eecd3f",
+      "target": "company:tr:000254648",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СВЕТЛАНА СТОЕВА МАЛИНОВА",
+      "target": "company:tr:000254648",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ВАСИЛЕВ ИВАНОВ",
+      "target": "company:tr:000254648",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАЙНА СТОИМЕНОВА ГРУЕВА",
+      "target": "company:tr:000254648",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН АПОСТОЛОВ ШОПОВ",
+      "target": "company:tr:000254648",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ДИМИТРОВА ШЕЙТАНСКА",
+      "target": "company:tr:000254648",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЯ ТЕОФИЛОВА РАШЕВА",
+      "target": "company:tr:000254648",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ЙОРДАНОВ МАНОВ",
+      "target": "company:tr:000254648",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕОНОРА ИВАНОВА ГЕОРГИЕВА",
+      "target": "company:tr:000254648",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ДИМИТРОВ ДАНАИЛОВ",
+      "target": "company:tr:000254648",
+      "kind": "tr_role",
+      "role": "ngo_representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРАСИМИР ДИМИТРОВ ДАНАИЛОВ",
+      "target": "company:tr:000254648",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ЕВГЕНИЕВА МИЛАНОВА",
+      "target": "company:tr:000254648",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ЙОРДАНОВ НИКОЛОВ",
+      "target": "company:tr:000254648",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕМЕНУЖКА ИВАНОВА МИЛЕНЧИНА",
+      "target": "company:tr:000254648",
+      "kind": "tr_role",
+      "role": "trustee",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДРАГА БЛАГОЕВА ВУКОВСКА",
+      "target": "company:tr:000254648",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДКА ИДАКИЕВА ХРИСТОВА",
+      "target": "company:tr:000254648",
+      "kind": "tr_role",
+      "role": "verifier",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:viktor-valeriev-apostolov-b06e7c",
+  "nodes": [
+    {
+      "id": "official:viktor-valeriev-apostolov-b06e7c",
+      "type": "official",
+      "slug": "viktor-valeriev-apostolov-b06e7c",
+      "label": "Виктор Валериев Апостолов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Монтана"
+    },
+    {
+      "id": "company:tr:202571882",
+      "type": "company",
+      "label": "Хотел Инвест 24 ООД",
+      "slug": null,
+      "uic": "202571882",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "official:viktor-valeriev-apostolov-aed637",
+      "type": "official",
+      "slug": "viktor-valeriev-apostolov-aed637",
+      "label": "Виктор Валериев Апостолов",
+      "tier": "executive",
+      "role": "hospital_head",
+      "municipality": null
+    },
+    {
+      "id": "person:ЮЛИАН ИВАНОВ МЛАДЕНОВ",
+      "type": "person",
+      "label": "Юлиан Иванов Младенов"
+    },
+    {
+      "id": "person:ВИКТОР ВАЛЕРИЕВ АПОСТОЛОВ",
+      "type": "person",
+      "label": "Виктор Валериев Апостолов"
+    },
+    {
+      "id": "company:name:КЕЙ ЕН АЙ",
+      "type": "company",
+      "label": "\"КЕЙ ЕН АЙ\" ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "company:name:СЕЙВ ПРОПЪРТИ",
+      "type": "company",
+      "label": "\"СЕЙВ ПРОПЪРТИ\" ООД",
+      "slug": null,
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГРЕТА ГАНЧЕВА КРЪСТЕВА",
+      "type": "person",
+      "label": "Грета Ганчева Кръстева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:viktor-valeriev-apostolov-b06e7c",
+      "target": "company:tr:202571882",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:viktor-valeriev-apostolov-aed637",
+      "target": "company:tr:202571882",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИАН ИВАНОВ МЛАДЕНОВ",
+      "target": "company:tr:202571882",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОР ВАЛЕРИЕВ АПОСТОЛОВ",
+      "target": "company:tr:202571882",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИАН ИВАНОВ МЛАДЕНОВ",
+      "target": "company:tr:202571882",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОР ВАЛЕРИЕВ АПОСТОЛОВ",
+      "target": "company:tr:202571882",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:КЕЙ ЕН АЙ",
+      "target": "company:tr:202571882",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "company:name:СЕЙВ ПРОПЪРТИ",
+      "target": "company:tr:202571882",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГРЕТА ГАНЧЕВА КРЪСТЕВА",
+      "target": "company:tr:202571882",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

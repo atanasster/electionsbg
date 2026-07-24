@@ -1,0 +1,48 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:toni-georgiev-stoev-cf1f99",
+  "nodes": [
+    {
+      "id": "official:toni-georgiev-stoev-cf1f99",
+      "type": "official",
+      "slug": "toni-georgiev-stoev-cf1f99",
+      "label": "Тони Георгиев Стоев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Симитли"
+    },
+    {
+      "id": "company:tr:148114274",
+      "type": "company",
+      "label": "РЕНТ ИНВЕСТ",
+      "slug": null,
+      "uic": "148114274",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ СТОЕВ СТОЕВ",
+      "type": "person",
+      "label": "Георги Стоев Стоев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:toni-georgiev-stoev-cf1f99",
+      "target": "company:tr:148114274",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ СТОЕВ СТОЕВ",
+      "target": "company:tr:148114274",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

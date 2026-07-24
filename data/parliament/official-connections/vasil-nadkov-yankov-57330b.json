@@ -1,0 +1,90 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:vasil-nadkov-yankov-57330b",
+  "nodes": [
+    {
+      "id": "official:vasil-nadkov-yankov-57330b",
+      "type": "official",
+      "slug": "vasil-nadkov-yankov-57330b",
+      "label": "Васил Надков Янков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пазарджик"
+    },
+    {
+      "id": "company:tr:825105668",
+      "type": "company",
+      "label": "ГАМА",
+      "slug": null,
+      "uic": "825105668",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    },
+    {
+      "id": "person:ИВАНКА ВИДЕВА КОСТАДИНОВА",
+      "type": "person",
+      "label": "Иванка Видева Костадинова"
+    },
+    {
+      "id": "person:ПЕТЪР АНГЕЛОВ КОСТАДИНОВ",
+      "type": "person",
+      "label": "Петър Ангелов Костадинов"
+    },
+    {
+      "id": "person:АСЕН ВАСИЛЕВ ЯНКОВ",
+      "type": "person",
+      "label": "Асен Василев Янков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:vasil-nadkov-yankov-57330b",
+      "target": "company:tr:825105668",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:vasil-nadkov-yankov-57330b",
+      "target": "company:tr:825105668",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАНКА ВИДЕВА КОСТАДИНОВА",
+      "target": "company:tr:825105668",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР АНГЕЛОВ КОСТАДИНОВ",
+      "target": "company:tr:825105668",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА ВИДЕВА КОСТАДИНОВА",
+      "target": "company:tr:825105668",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН ВАСИЛЕВ ЯНКОВ",
+      "target": "company:tr:825105668",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

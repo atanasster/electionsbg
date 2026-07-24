@@ -1,0 +1,51 @@
+{
+  "generatedAt": "2026-07-24T20:05:06.370Z",
+  "officialNodeId": "official:tsako-mihailov-bnchev-340ca8",
+  "nodes": [
+    {
+      "id": "official:tsako-mihailov-bnchev-340ca8",
+      "type": "official",
+      "slug": "tsako-mihailov-bnchev-340ca8",
+      "label": "Цако Михайлов Бънчев",
+      "tier": "executive",
+      "role": "state_enterprise",
+      "municipality": null
+    },
+    {
+      "id": "company:tr:122021037",
+      "type": "company",
+      "label": "\"Лимиц\" ЕООД",
+      "slug": null,
+      "uic": "122021037",
+      "legalForm": null,
+      "status": null,
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "official:tsako-mihailov-bnchev-340ca8",
+      "target": "company:tr:122021037",
+      "kind": "declared_stake",
+      "role": "declared_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "official:tsako-mihailov-bnchev-340ca8",
+      "target": "company:tr:122021037",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "official:tsako-mihailov-bnchev-340ca8",
+      "target": "company:tr:122021037",
+      "kind": "tr_owner",
+      "role": "sole_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}
