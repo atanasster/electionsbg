@@ -18,7 +18,7 @@ updatedAt: ⟦TBD: last edit date⟧
 
 # Budget 2026: adopted in month seven — what the numbers show
 
-On 24 July 2026, after seven months of operating under a stopgap law, the National Assembly passed the 2026 State Budget Law at second reading — **125 votes in favour, 84 against**.⟦TBD: confirm against our own roll-call data after ingest⟧[^bta] The framework survived unchanged from the June submission: a **consolidated fiscal programme deficit of 5.7% of GDP**, new debt of up to **€10.1bn**, and a minimum wage frozen at **€620.20**.
+On 24 July 2026, after seven months of operating under a stopgap law, the National Assembly passed the 2026 State Budget Law at second reading — **125 votes in favour, 84 against**.[^bta] By the [roll-call record](/votes/2026-07-24/item-14-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2026) all 125 in favour are Progressive Bulgaria's; not a single MP from outside the majority backed the law. The framework survived unchanged from the June submission: a **consolidated fiscal programme deficit of 5.7% of GDP**, new debt of up to **€10.1bn**, and a minimum wage frozen at **€620.20**.
 
 The argument that followed split immediately in two directions. The opposition spoke of a record deficit and of provisions stripped out of the law. The government spoke of inherited spending. This article does not line the quotes up against each other — it tests them against data we maintain ourselves: **month-by-month cash execution of the budget since 2021, the text of every budget law since 2018, and the recorded vote of every MP since the 44th National Assembly.** Where a figure is not yet final, it is marked as such.
 
@@ -150,14 +150,14 @@ For us it has a direct consequence too: that annex is exactly what fills the [br
 
 One of the most repeated arguments in the days around the vote is that the heavy budgets of recent years passed with wide majorities while this one passed narrowly. The recorded votes confirm it — and correct part of the story.
 
-| Law         | Second reading | In favour | Composition of the majority                                   |
-| ----------- | -------------- | --------- | ------------------------------------------------------------- |
-| 2023 budget | 27.07.2023     | **181**   | GERB-SDS 56 · PP-DB 56 · **Vazrazhdane 35** · DPS 29 · BSP 5  |
-| 2024 budget | 21.12.2023     | **166**   | GERB-SDS 50 · PP-DB 48 · **Vazrazhdane 31** · DPS 25 · BSP 11 |
-| 2025 budget | 20.03.2025     | **145**   | GERB-SDS 64 · DPS-NN 27 · BSP-OL 18 · DPS-DPS 17 · ITN 16     |
-| 2026 budget | 24.07.2026     | **125**   | ⟦TBD: breakdown by group from our data after ingest⟧          |
+| Law         | Second reading | In favour | Composition of the majority                                                 |
+| ----------- | -------------- | --------- | --------------------------------------------------------------------------- |
+| 2023 budget | 27.07.2023     | **181**   | GERB-SDS 56 · PP-DB 56 · **Vazrazhdane 35** · DPS 29 · BSP 5                |
+| 2024 budget | 21.12.2023     | **166**   | GERB-SDS 50 · PP-DB 48 · **Vazrazhdane 31** · DPS 25 · BSP 11               |
+| 2025 budget | 20.03.2025     | **145**   | GERB-SDS 64 · DPS-NN 27 · BSP-OL 18 · DPS-DPS 17 · ITN 16                   |
+| 2026 budget | 24.07.2026     | **125**   | **PB 125** · against: GERB-SDS 28 · DB 18 · PP 13 · DPS 13 · Vazrazhdane 12 |
 
-Two things stand out. First: **Vazrazhdane voted in favour of the 2023 and 2024 budgets at final second reading** — 35 to 0 and 31 to 0. The claim that this group alone never supported those budgets does not match the data. Second: **PP-DB did not support the 2025 budget** — 1 for, 15 against, 17 abstaining. The "GERB, PP, DB and BSP" quartet is not a constant.
+Two things stand out. First: **Vazrazhdane voted in favour of the 2023 and 2024 budgets at final second reading** — 35 to 0 and 31 to 0. The claim that this group alone never supported those budgets does not match the data. Second: **PP-DB did not support the 2025 budget** — 1 for, 15 against, 17 abstaining. The "GERB, PP, DB and BSP" quartet is not a constant. And the budget just passed is the **first of them to pass on a single bloc's votes alone** — all 125 in favour are Progressive Bulgaria's, against a united front of every other group.
 
 Underneath sits a more interesting regularity. The first reading is the political statement; the second reading is the law:
 
@@ -167,7 +167,7 @@ Underneath sits a more interesting regularity. The first reading is the politica
 | 2025 budget | 152 : 74                  | 145 : 60              |
 | 2026 budget | **145 : 79** (15.07.2026) | 125 : 84 (24.07.2026) |
 
-On this budget the direction reverses. At first reading on 15 July, 145 MPs voted in favour — **128 from Progressive Bulgaria and 17 from DPS**. Nine days later DPS is in the against column. ⟦TBD: confirm from our data for 24.07 after the roll-call ingest⟧
+On this budget the direction reverses. At [first reading on 15 July](/votes/2026-07-15/item-12-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2026), 145 MPs voted in favour — **128 from Progressive Bulgaria and 17 from DPS**. At the [second reading on 24 July](/votes/2026-07-24/item-14-zakon-za-darzhavniya-byudzhet-na-republika-balgariya-za-2026) the same 13 DPS members present voted **against** — a swing from +17 to −13 that by itself narrows the majority from 145 to 125. It is DPS's withdrawal between the two readings that turns a broad first vote into a narrow final one.
 
 ## Inflation: 34% or 50%
 
