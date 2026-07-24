@@ -160,6 +160,18 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
     return r.sourceLabel;
   };
 
+  // A local-election office (mayor / councillor) is drilling-linkable: its ref is
+  // `<cycle>:<obshtinaCode>:…`, which maps 1:1 onto the município dashboard
+  // /local/:cycle/:obshtinaCode (SOF resolves the synthetic Sofia city bundle).
+  // Only `local`-source rows carry that ref — an officials-roster row with a
+  // place has no local-election page, so it stays plain text.
+  const localOfficeHref = (r: { source: string; ref: string }): string | null => {
+    if (r.source !== "local") return null;
+    const [cycle, obshtinaCode] = r.ref.split(":");
+    if (!cycle || !obshtinaCode) return null;
+    return `/local/${cycle}/${obshtinaCode}`;
+  };
+
   // Regulator seat code → localized label; unknown codes pass through.
   const seatLabel = (seat: string): string => {
     const k = `pp_reg_seat_${seat}`;
@@ -416,11 +428,22 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
                   <span className="text-sm font-medium">
                     {officeHeading(r)}
                   </span>
-                  {r.place && (
-                    <span className="shrink-0 text-xs text-muted-foreground">
-                      {r.place}
-                    </span>
-                  )}
+                  {r.place &&
+                    (() => {
+                      const href = localOfficeHref(r);
+                      return href ? (
+                        <Link
+                          to={href}
+                          className="shrink-0 text-xs text-primary hover:underline"
+                        >
+                          {r.place}
+                        </Link>
+                      ) : (
+                        <span className="shrink-0 text-xs text-muted-foreground">
+                          {r.place}
+                        </span>
+                      );
+                    })()}
                 </div>
               ))}
             </CardContent>
