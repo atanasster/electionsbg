@@ -343,6 +343,126 @@ describe("clusterBlock", () => {
     ]);
   });
 
+  // The party-office rule — the one corroborant that merges WITHOUT a place, because a
+  // party chair has an institution and no oblast. Modelled on Слави Трифонов: the ИТН
+  // party officer and the ИТН candidacy of "Станислав Тодоров Трифонов", namesakeRisk 5,
+  // no shared company, no birth date on the register side.
+  it("Tier 1 — a party office + an identical full name + the same party merge (no place)", () => {
+    const r = clusterBlock([
+      base({
+        id: "off:itn",
+        source: "official_exec",
+        nameParts: 3,
+        patronymicFold: "todorov",
+        namesakeRisk: 5,
+        corroborants: { party: "p_0", partyOffice: true },
+      }),
+      base({
+        id: "cand:itn",
+        source: "candidate",
+        nameParts: 3,
+        patronymicFold: "todorov",
+        namesakeRisk: 5,
+        corroborants: { party: "p_0", place: "Плевен" },
+      }),
+    ]);
+    expect(r.merges).toEqual([
+      { memberIds: ["off:itn", "cand:itn"], confidence: "high" },
+    ]);
+  });
+
+  it("party office — a MASS name is never merged on the party alone", () => {
+    // "Георги Иванов Георгиев" scores 198. A party the size of ГЕРБ has many, so the
+    // officer and the councillor of that name are not one person in any expected sense.
+    const r = clusterBlock([
+      base({
+        id: "off:mass",
+        source: "official_exec",
+        nameParts: 3,
+        patronymicFold: "ivanov",
+        namesakeRisk: 198,
+        corroborants: { party: "p_1", partyOffice: true },
+      }),
+      base({
+        id: "local:mass",
+        source: "local",
+        nameParts: 3,
+        patronymicFold: "ivanov",
+        namesakeRisk: 198,
+        corroborants: { party: "p_1", place: "Русе" },
+      }),
+    ]);
+    expect(r.merges).toHaveLength(0);
+    expect(r.reviewCandidates).toHaveLength(1);
+  });
+
+  it("party office — a DIFFERENT party, or no office on either side, does not merge", () => {
+    const officer = {
+      id: "off:x",
+      source: "official_exec",
+      nameParts: 3 as const,
+      patronymicFold: "p",
+      namesakeRisk: 5,
+    };
+    // Same full name, both in the party — but neither mention is a party OFFICE, and
+    // without a place weak-both cannot fire either.
+    expect(
+      clusterBlock([
+        base({ ...officer, corroborants: { party: "p_0" } }),
+        base({
+          ...officer,
+          id: "cand:x",
+          source: "candidate",
+          corroborants: { party: "p_0" },
+        }),
+      ]).merges,
+    ).toHaveLength(0);
+    // An office, but the two name different parties.
+    expect(
+      clusterBlock([
+        base({ ...officer, corroborants: { party: "p_0", partyOffice: true } }),
+        base({
+          ...officer,
+          id: "cand:x",
+          source: "candidate",
+          corroborants: { party: "p_9", place: "Плевен" },
+        }),
+      ]).merges,
+    ).toHaveLength(0);
+    // An office and the same party, but the patronymic differs — a different full name,
+    // which is the whole basis of the claim.
+    expect(
+      clusterBlock([
+        base({ ...officer, corroborants: { party: "p_0", partyOffice: true } }),
+        base({
+          ...officer,
+          id: "cand:x",
+          source: "candidate",
+          patronymicFold: "q",
+          corroborants: { party: "p_0", place: "Плевен" },
+        }),
+      ]).merges,
+    ).toHaveLength(0);
+    // An office and the same party, but the officer's name is a 2-part source name — the
+    // block key alone does not pin a full name.
+    expect(
+      clusterBlock([
+        base({
+          ...officer,
+          nameParts: 2,
+          patronymicFold: null,
+          corroborants: { party: "p_0", partyOffice: true },
+        }),
+        base({
+          ...officer,
+          id: "cand:x",
+          source: "candidate",
+          corroborants: { party: "p_0", place: "Плевен" },
+        }),
+      ]).merges,
+    ).toHaveLength(0);
+  });
+
   it("a lone clean mention is its own person (no merge, no review)", () => {
     const r = clusterBlock([
       base({ id: "solo", nameParts: 3, patronymicFold: "a", namesakeRisk: 1 }),

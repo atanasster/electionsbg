@@ -46,6 +46,18 @@ afterAll(async () => {
 // candidate with several candidacies for the same party+oblast, patronymic-consistent — is
 // allowed: it only asserts "ran more than once", and the patronymic-conflict veto keeps
 // genuinely different people apart.)
+//
+// ONE name-based exception, added deliberately: the party-office licence. A NATIONAL PARTY
+// OFFICE (the register's `party_leader` category — chair, deputy, statutory representative)
+// is held by a handful of people per party, so an IDENTICAL full name sharing a canonical
+// party with such a seat identifies a person the way party+place cannot. It is the only
+// evidence available for the class it exists for: a party chair or a minister has an
+// institution and no oblast, so weak-both can never fire, and Слави Трифонов's declared
+// wealth sat on a person row disjoint from /person/mp-3056 for exactly that reason. The
+// carve-out is re-derived from the DATA, not asserted — the officer role and another
+// source's role must agree on the same canonical party — and stays capped at the
+// PARTY_OFFICE_NAMESAKE_CAP in cluster.ts, so a mass name ("Георги Иванов Георгиев", 198)
+// is still refused however well the party matches.
 test.skipIf(skip)(
   "no cross-source merge on a common name without a name-independent link",
   async () => {
@@ -58,7 +70,17 @@ test.skipIf(skip)(
           AND NOT EXISTS (
             SELECT 1 FROM person_role r
              WHERE r.person_id = p.person_id
-               AND (r.confidence = 'exact_id' OR r.source IN ('tr', 'ngo')))`,
+               AND (r.confidence = 'exact_id' OR r.source IN ('tr', 'ngo')))
+          AND NOT EXISTS (
+            SELECT 1 FROM person_role office
+              JOIN person_role other
+                ON other.person_id = office.person_id
+               AND other.source <> office.source
+               AND other.party = office.party
+             WHERE office.person_id = p.person_id
+               AND office.role = 'party_leader'
+               AND office.party IS NOT NULL
+               AND p.namesake_risk <= 12)`,
     );
     assert.equal(
       Number(r.bad),

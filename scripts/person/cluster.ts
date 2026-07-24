@@ -20,6 +20,13 @@ export type Corroborants = {
   place?: string | null; // municipality / oblast
   uics?: string[] | null; // shared declared/linked company EIKs (a person can hold many)
   birthDate?: string | null;
+  /**
+   * True when `party` comes from holding a NATIONAL PARTY OFFICE — the Сметна палата
+   * `party_leader` category: chair, deputy chair, or the person who represents the party
+   * under its statute. A seat a handful of people per party hold, not an affiliation
+   * millions share, so it qualifies the party evidence — see `samePartyOffice`.
+   */
+  partyOffice?: boolean;
 };
 
 export type Mention = {
@@ -76,8 +83,44 @@ const shareCorroborant = (a: Mention, b: Mention): boolean => {
   const strong = shareUic || (!!ca.birthDate && ca.birthDate === cb.birthDate);
   const weakBoth =
     !!ca.party && ca.party === cb.party && !!ca.place && ca.place === cb.place;
-  return strong || weakBoth;
+  return strong || weakBoth || samePartyOffice(a, b);
 };
+
+// The party-office rule. A national party office is held by a handful of people per party,
+// so "same party" seen from that seat is far stronger than the ordinary affiliation weak
+// evidence above — but only against an IDENTICAL FULL NAME. The caller has already blocked
+// on (given, family), so demanding a patronymic that is PRESENT on both sides and equal
+// pins the whole name; the remaining claim is "the X who chairs party P is the X who
+// stands for party P", and for that to be wrong two different people with the same three
+// names must both attach to the same party, one of them in its leadership.
+//
+// This is the one merge in the resolver that does NOT need a place, which is the whole
+// point: a minister or a party chair has an institution, not an oblast, so weak-both can
+// never fire for them — that is why Слави Трифонов's declared wealth sat on a person row
+// disjoint from /person/mp-3056 while namesake_risk 5 kept Tier 2 shut. Ambiguous (4+
+// token) names are excluded, as everywhere else the split is a guess.
+//
+// Still capped on namesake risk, because on a MASS name the argument collapses: "Георги
+// Иванов Георгиев" carries 198 and a party the size of ГЕРБ has many, so the leader and
+// the councillor of that name are not one person in any expected sense. The cap is the
+// same company_count <= 12 the connections layer (008_connections.sql) already uses to
+// mean "this fold is not a mass collision" — well above the 4-9 a real party officer
+// scores, well below a name shared by hundreds.
+const PARTY_OFFICE_NAMESAKE_CAP = 12;
+
+const samePartyOffice = (a: Mention, b: Mention): boolean =>
+  (a.corroborants.partyOffice === true ||
+    b.corroborants.partyOffice === true) &&
+  a.nameParts === 3 &&
+  b.nameParts === 3 &&
+  !a.ambiguous &&
+  !b.ambiguous &&
+  a.namesakeRisk <= PARTY_OFFICE_NAMESAKE_CAP &&
+  b.namesakeRisk <= PARTY_OFFICE_NAMESAKE_CAP &&
+  !!a.patronymicFold &&
+  a.patronymicFold === b.patronymicFold &&
+  !!a.corroborants.party &&
+  a.corroborants.party === b.corroborants.party;
 
 // A DIFFERING patronymic that is present on BOTH records is disconfirming: "Иван Петров
 // Х" and "Иван Стоянов Х" are different people, so no name-based corroborant (party+place
@@ -98,10 +141,11 @@ const patronymicConflict = (a: Mention, b: Mention): boolean =>
  * Decide merges + review-candidates for one block of same-fold mentions.
  *
  * Guarantees (the §7a invariants): a `MergeGroup` is only ever formed by a shared
- * hardId (Tier 0), a shared corroborant (Tier 1), or a globally-unique clean fold
- * (Tier 2, `namesakeRisk <= 1` AND all 3-part AND none ambiguous). A 2-part name, an
- * ambiguous name, or a colliding fold (`namesakeRisk > 1`) is NEVER merged without a
- * corroborant — it stays its own person and surfaces as a review candidate.
+ * hardId (Tier 0), a shared corroborant (Tier 1 — a company/birth date, party AND place,
+ * or an identical full name sharing a party with a party office), or a globally-unique
+ * clean fold (Tier 2, `namesakeRisk <= 1` AND all 3-part AND none ambiguous). A 2-part
+ * name, an ambiguous name, or a colliding fold (`namesakeRisk > 1`) is NEVER merged
+ * without a corroborant — it stays its own person and surfaces as a review candidate.
  *
  * @param mentions - mentions sharing one (givenFold, familyFold) block key
  * @returns safe merges and ambiguous review candidates (never both for the same pair)

@@ -71,6 +71,10 @@ type Raw = {
   cParty: string | null;
   cPlace: string | null;
   cBirth: string | null;
+  // `cParty` comes from a NATIONAL PARTY OFFICE (chair / deputy / statutory
+  // representative), which qualifies it as strong-against-an-identical-full-name — see
+  // samePartyOffice in cluster.ts.
+  cPartyOffice: boolean;
   uics: string[]; // declared/linked company EIKs — the strong shared-company corroborant
   sourceRow: unknown | null; // provenance jsonb for the role (e.g. a sanctions designation)
 };
@@ -112,6 +116,50 @@ function buildPartyMap(): Map<string, string> {
   return m;
 }
 
+// Fold a party NAME to a comparison key: uppercase, drop punctuation and quoting (the
+// register writes `ПП„Продължаваме промяната"` where the ballot writes `ПП ПРОДЪЛЖАВАМЕ
+// ПРОМЯНАТА`), then drop one leading legal-form token so `ПП "X"`, `Политическа партия
+// "X"` and a bare `X` all land on `X`.
+const partyKey = (s: string): string =>
+  s
+    .toUpperCase()
+    .replace(/[^А-ЯЁA-Z0-9]+/g, " ")
+    .trim()
+    .replace(
+      /^(ПОЛИТИЧЕСКА ПАРТИЯ|ПОЛИТИЧЕСКО ДВИЖЕНИЕ|ПОЛИТИЧЕСКА КОАЛИЦИЯ|КОАЛИЦИЯ|ПАРТИЯ|ПП|ПК|ПД) /,
+      "",
+    )
+    .trim();
+
+// Party NAME -> canonicalId, so the institution a party officer files under
+// (`ПП "ИМА ТАКЪВ НАРОД"`) lands in the SAME namespace as a candidacy's party
+// corroborant (`p_0`) — otherwise the two could never be compared. Built from every name
+// the canonical file carries: the display name, and each cycle's ballot name + nickname.
+// First key wins, so a name shared by two canonical parties resolves to one of them
+// rather than flapping; a party the file does not know simply gets no key, and the
+// officer mention then carries no party corroborant at all.
+function buildPartyNameMap(): Map<string, string> {
+  const m = new Map<string, string>();
+  const p = path.join(REPO_ROOT, "data/canonical_parties.json");
+  if (!fs.existsSync(p)) return m;
+  const cp = JSON.parse(fs.readFileSync(p, "utf8")) as {
+    parties: {
+      id: string;
+      displayName: string | null;
+      history: { name: string | null; nickName: string | null }[];
+    }[];
+  };
+  for (const party of cp.parties)
+    for (const raw of [
+      party.displayName,
+      ...party.history.flatMap((h) => [h.name, h.nickName]),
+    ]) {
+      const k = raw ? partyKey(raw) : "";
+      if (k && !m.has(k)) m.set(k, party.id);
+    }
+  return m;
+}
+
 // Build the parse-derived + defaulted fields shared by every source, so each source
 // only spells out what differs (id/source/ref/role + any hardId/corroborants).
 const fields = (
@@ -130,6 +178,7 @@ const fields = (
   cParty: null,
   cPlace: null,
   cBirth: null,
+  cPartyOffice: false,
   uics: [],
   sourceRow: null,
   ...over,
@@ -169,10 +218,51 @@ async function registerIdByRef(): Promise<Map<string, string>> {
   return new Map(rows.map((r) => [r.subject_ref, `cacbg:${r.guid}`]));
 }
 
+// subject_ref -> the canonical party this official is a NATIONAL OFFICER of, for the
+// `party_leader` category only (chair / deputy chair / statutory representative — the
+// register bundles the three). The institution on such a filing IS a party, so it maps
+// into the canonical party namespace and becomes the party-office corroborant
+// (samePartyOffice in cluster.ts). Officers of a party the canonical file does not carry,
+// and officers whose filings name two different canonical parties (they moved), are left
+// without one rather than guessed at.
+async function partyOfficeByRef(
+  byName: Map<string, string>,
+): Promise<Map<string, string>> {
+  const present = await allRows<{ reg: string | null }>(
+    `SELECT to_regclass('public.declaration')::text AS reg`,
+  );
+  if (!present[0]?.reg) return new Map();
+  const rows = await allRows<{ subject_ref: string; institution: string }>(
+    `SELECT DISTINCT subject_ref, institution FROM declaration
+      WHERE category = 'party_leader' AND institution IS NOT NULL`,
+  );
+  const seen = new Map<string, Set<string>>();
+  let unmatched = 0;
+  for (const r of rows) {
+    const id = byName.get(partyKey(r.institution));
+    if (!id) {
+      unmatched++;
+      continue;
+    }
+    const s =
+      seen.get(r.subject_ref) ??
+      seen.set(r.subject_ref, new Set()).get(r.subject_ref)!;
+    s.add(id);
+  }
+  const out = new Map<string, string>();
+  for (const [ref, ids] of seen) if (ids.size === 1) out.set(ref, [...ids][0]);
+  if (unmatched)
+    console.log(
+      `  ${unmatched} party-officer filing(s) name a party absent from canonical_parties.json — no party corroborant`,
+    );
+  return out;
+}
+
 async function collect(): Promise<Raw[]> {
   const out: Raw[] = [];
   let skipped = 0;
   const regId = await registerIdByRef();
+  const partyOffice = await partyOfficeByRef(buildPartyNameMap());
   const add = (
     name: string,
     r: Omit<Raw, keyof ReturnType<typeof fields>>,
@@ -260,6 +350,8 @@ async function collect(): Promise<Raw[]> {
       {
         uics: refEik.get(`off:${o.slug}`) ?? [],
         regId: regId.get(o.slug) ?? null,
+        cParty: partyOffice.get(o.slug) ?? null,
+        cPartyOffice: partyOffice.has(o.slug),
       },
     );
 
@@ -772,6 +864,7 @@ async function main(): Promise<void> {
       place: r.cPlace,
       birthDate: r.cBirth,
       uics: r.uics,
+      partyOffice: r.cPartyOffice,
     },
     raw: r,
   }));
@@ -949,7 +1042,14 @@ async function main(): Promise<void> {
         m.source,
         m.raw.ref,
         m.raw.role,
-        null, // party
+        // The CANONICAL party id behind this role, when the source speaks that namespace
+        // (candidacies, local mandates, donations, and a party officer's institution all
+        // resolve through canonical_parties.json). `mp` is excluded: its party corroborant
+        // is a parliamentary-GROUP short name, not a party id, and mixing the two in one
+        // column would make them look comparable. Persisting it is what lets the
+        // person_resolve gate re-check the party-office merge licence against the data
+        // rather than take the resolver's word for it.
+        m.source === "mp" ? null : m.raw.cParty,
         m.raw.place,
         null, // start_date
         null, // end_date
