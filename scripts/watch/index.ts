@@ -121,7 +121,31 @@ const main = async (): Promise<void> => {
   // (caught below) still exit 2 so true failures fail loudly.
 };
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(2);
-});
+// The watcher must actually terminate: it runs unattended (one daily routine
+// invocation), so a run that never exits leaves a stray node process behind
+// every day. Observed on the 2026-07-24 run — it wrote the report and both
+// data-reports/ files, then sat idle for 26+ minutes until killed: some source
+// leaves a handle open that keeps the event loop alive past the last
+// fingerprint. Which one is unidentified (a lone keep-alive undici `Agent`,
+// the obvious suspect, does *not* reproduce it), so force the exit rather than
+// chase the leak — a completed report is the whole output of this script.
+// Exit only once stdout has drained: `process.exit()` truncates pending writes
+// when stdout is a pipe, and the routine captures the report from stdout.
+const exitWhenDrained = (code: number): void => {
+  process.exitCode = code;
+  // Backstop for a blocked or already-closed pipe reader, where the drain
+  // callback would never fire. Unref'd so it can't itself keep an otherwise
+  // idle loop alive.
+  setTimeout(() => process.exit(code), 5_000).unref();
+  // Queued behind the report write above, so its callback runs after the
+  // report has flushed.
+  process.stdout.write("", () => process.exit(code));
+};
+
+main().then(
+  () => exitWhenDrained(0),
+  (e) => {
+    console.error(e);
+    exitWhenDrained(2);
+  },
+);
