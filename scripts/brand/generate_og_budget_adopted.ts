@@ -1,6 +1,6 @@
 /**
  * OG share card for the article "Бюджет 2026: приет на седмия месец — какво
- * показват числата" (2026-08-05-budget-2026-adopted).
+ * показват числата" (2026-07-25-budget-2026-adopted).
  *
  * Pure @napi-rs/canvas drawing (no Gemini, no Playwright). The composition makes
  * the article's distinctive finding legible at a glance: the law fixes a 5,7%
@@ -21,7 +21,7 @@
  *   npx tsx scripts/brand/generate_og_budget_adopted.ts
  *
  * Output: public/og/budget-2026-adopted.png (1200x630)
- * Referenced by the `2026-08-05-budget-2026-adopted` entry in
+ * Referenced by the `2026-07-25-budget-2026-adopted` entry in
  * public/articles/index.json.
  */
 import { mkdirSync, statSync, writeFileSync } from "node:fs";
