@@ -2166,6 +2166,20 @@ const DB_ROUTES = {
     );
     return { body: rows[0]?.r ?? null };
   },
+  // The accumulation gap (audit T3.2): Δ declared net worth vs declared income over the
+  // span. GATED — person_accumulation_gap returns NULL for anyone outside the senior
+  // accountability cohort (091) and for a person with fewer than two asset-bearing years,
+  // so a councillor or a one-filing official gets nothing to render. Object-shaped, so a
+  // missing-migration array degrades to null rather than a shape the client can't read.
+  "person-accumulation-gap": async (dbRows, q) => {
+    const slug = s(q, "slug");
+    if (!slug) return { body: null };
+    const rows = await dbRows("SELECT person_accumulation_gap($1) AS r", [
+      slug,
+    ]).catch(missingMigrationEmpty);
+    const r = rows[0]?.r;
+    return { body: Array.isArray(r) ? null : (r ?? null) };
+  },
   // The person's public-contract take bucketed by cabinet tenure (the "money vs power"
   // timeline) → lazily loaded by the money section, kept off person_by_slug's hot path
   // (person-candidate-merge-v1). EIK-exact.

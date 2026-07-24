@@ -1285,7 +1285,13 @@ export const prerenderRoutes: PrerenderRoute[] = [
 </ul>
 <h2>Методология</h2>
 <p>Всеки вот е обработен с един и същ pipeline — парсинг на сурови CSV/ZIP файлове, агрегиране на ниво секция → населено място → община → област → държава, плюс набор от независими доклади за отклонения (повторно преброяване, машинно срещу хартиено гласуване, прекомерна концентрация на гласове, изпратени допълнителни избиратели и т.н.).</p>
-<p>Кодът е отворен и възпроизводим — приветстваме предложения и поправки.</p>`.trim(),
+<p>Кодът е отворен и възпроизводим — приветстваме предложения и поправки.</p>
+<h2 id="accumulation-gap">Промяна в имуществото спрямо декларирания доход</h2>
+<p>За част от публичните лица показваме разликата между промяната в декларираното им нетно имущество и декларирания от тях доход за същия период. Това е несъответствието, което по закон проверява КПКОНПИ.</p>
+<p><strong>За кого се изчислява.</strong> Само за народни представители (настоящи и бивши), министри и заместник-министри, кметове и магистрати. Не се изчислява за общински съветници и за администрация на по-ниско ниво — публикуването на такова число е защитимо за най-високите публични длъжности, не за първи мандат в общински съвет.</p>
+<p><strong>Кога изобщо не се показва.</strong> Ако лицето не е подавало декларация за всяка година от периода, числото не се показва — сравняването на десетгодишна промяна в имуществото с доход за четири години произвежда несъществуваща разлика. Не се показва и когато декларациите не съдържат данни за доход.</p>
+<p><strong>Какво числото не означава.</strong> Декларирано пред Сметна палата, не одитирано. Наследство, дарение, реституция, продажба на притежаван актив, доходи на съпруг/а и погасени заеми променят имуществото, без да се появяват като доход. Имоти без обявена стойност се броят за €0 и техният брой се показва до числото — тогава разликата не е точна величина. Страницата не твърди нарушение.</p>
+<p><strong>Право на отговор.</strong> Всяко засегнато лице може да оспори или допълни числото. Пишете ни през <a href="https://www.facebook.com/naiasno" rel="nofollow noopener">страницата на „Наясно“</a>; обоснована поправка (документиран източник, който декларацията не съдържа) се публикува до самото число.</p>`.trim(),
     english: {
       title: "About — electionsbg.com",
       description:
@@ -1303,7 +1309,13 @@ export const prerenderRoutes: PrerenderRoute[] = [
 </ul>
 <h2>Methodology</h2>
 <p>Every vote is processed through the same pipeline — parsing raw CSV/ZIP files, aggregating from section → settlement → municipality → region → country, plus a battery of independent anomaly reports (recount, machine vs. paper voting, vote concentration, additional voters, and more).</p>
-<p>The code is open and reproducible — contributions and corrections welcome.</p>`.trim(),
+<p>The code is open and reproducible — contributions and corrections welcome.</p>
+<h2 id="accumulation-gap">Change in wealth against declared income</h2>
+<p>For some public figures we show the difference between the change in their declared net worth and the income they declared over the same period — the discrepancy the Anti-Corruption Commission (КПКОНПИ) is statutorily meant to examine.</p>
+<p><strong>Who it is computed for.</strong> Only members of parliament (sitting and former), ministers and deputy ministers, mayors and magistrates. It is not computed for municipal councillors or lower administration — publishing such a figure is defensible for the highest public offices, not for a first-term councillor.</p>
+<p><strong>When it is not shown at all.</strong> If the person did not file in every year of the span, the figure is withheld — comparing a ten-year change in wealth against four years of income manufactures a difference that does not exist. It is also withheld when the declarations carry no income data.</p>
+<p><strong>What the number does not mean.</strong> Declared to the Court of Audit, not audited. Inheritance, gifts, restitution, the sale of a previously-owned asset, a spouse's income and repaid loans all move wealth without appearing as income. Real estate with no stated value counts as €0, and that count is shown next to the figure — where it is non-zero, the difference is not a precise number. The page asserts no wrongdoing.</p>
+<p><strong>Right of reply.</strong> Anyone named may dispute or contextualise the figure. Write to us via the <a href="https://www.facebook.com/naiasno" rel="nofollow noopener">Наясно page</a>; a substantiated correction (a documented source the declaration omits) is published alongside the figure itself.</p>`.trim(),
     },
   }),
   staticPage({

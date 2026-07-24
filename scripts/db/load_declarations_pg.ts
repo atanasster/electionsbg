@@ -57,6 +57,12 @@ const GATE_SCHEMA = path.join(
   ROOT,
   "scripts/db/schema/pg/091_accountability_gate.sql",
 );
+// The accumulation-gap serving fn (T3.2). Reads person_wealth_year + the 091 gate, so it
+// is applied after both.
+const GAP_SCHEMA = path.join(
+  ROOT,
+  "scripts/db/schema/pg/092_accumulation_gap.sql",
+);
 // recent_updates changelog (feedback_pg_changelog_required) — every PG-migrated
 // dataset wires in. Applied here so a fresh bootstrap has the tables.
 const INGEST_TRACKING = path.join(
@@ -454,6 +460,7 @@ const resolve = async () => {
   // after the data it aggregates, and REFRESH populates it from the resolved rows.
   await exec(fs.readFileSync(WEALTH_SCHEMA, "utf-8"));
   await exec(fs.readFileSync(GATE_SCHEMA, "utf-8"));
+  await exec(fs.readFileSync(GAP_SCHEMA, "utf-8"));
   await exec("REFRESH MATERIALIZED VIEW person_wealth_year");
   const [{ n: wealthRows }] = await allRows<{ n: string }>(
     "SELECT count(*) n FROM person_wealth_year",

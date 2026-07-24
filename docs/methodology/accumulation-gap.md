@@ -52,14 +52,29 @@ Two boundary calls, decided explicitly rather than left to the code:
 
 ## How it is computed
 
-- **Δ net worth** — the difference in declared net worth between the earlier and later
+- **Δ net worth** — the difference in declared net worth between the first and last
   filing. Net worth is every non-debt asset category minus the debt category, at the
   locked euro peg, exactly as the rest of the site computes it
   (`src/lib/declarations.ts` → `declarationTotals`).
-- **Declared income** — the sum of the declarant's own declared income over the years
-  spanned (table 12 / 13). Spouse income is stated separately, never silently folded in.
+- **Declared income** — the declarant's own declared income (table 12 / 13) summed over
+  **(fromYear, toYear]** — strictly *after* the opening snapshot, because only income
+  earned after it could have produced the change. Including the opening year's income
+  overstates income and understates the gap by 20-33%. Spouse income is stated
+  separately, never silently folded in.
 - **The gap** — Δ net worth minus declared income. A positive gap is *not* an accusation:
   it is the part of the wealth change the declared income does not by itself account for.
+
+### When it is withheld entirely
+
+The figure is **not computed** — the page renders nothing — unless all of these hold:
+
+- The person is in the cohort above.
+- They filed in **every year of the span**. 336 of 815 otherwise-eligible people have
+  gaps in their filing history; comparing a ten-year wealth change against four years of
+  income manufactures a difference that does not exist. Under-inclusive by design.
+- The declarations carry **non-zero income** for the span. A zero total is a data absence,
+  not a finding about a person — 62 people would otherwise have had their entire wealth
+  change published as "unaccounted for".
 
 ## The caveats that must travel with every figure
 
@@ -69,9 +84,12 @@ These are not optional footnotes; they are part of the claim.
    Audit. The site has not verified it and does not assert it is complete or correct.
 2. **The unvalued-real-estate denominator.** Real estate with no declared price counts as
    €0 in net worth. A gap computed over a portfolio that contains unvalued property is
-   understated or overstated in ways the declaration does not let us resolve. The count of
-   unvalued real-estate rows (`realEstateUnvalued`, already tracked) must be shown
-   alongside any gap, and a gap must not be presented as precise when that count is > 0.
+   understated or overstated in ways the declaration does not let us resolve. The count is
+   shown alongside any gap, and the gap is explicitly labelled imprecise when it is > 0.
+   Two details matter: "unvalued" means a price of **NULL or zero** (the €0-priced rows,
+   26,347, outnumber the NULLs, 16,172 — counting only NULLs suppressed this caveat for
+   268 people), and the count is taken on the **closing filing only**, because summing
+   every row a person ever filed restates the same property once per year.
 3. **Legitimate sources the declaration does not carry.** Inheritance, gifts, restitution,
    the sale of a previously-owned asset, a spouse's business income, loans repaid — all can
    move net worth without appearing as "income". The gap does not distinguish these from
@@ -86,9 +104,10 @@ increase" — not "€X of unexplained/hidden wealth".
 
 ## Right of reply
 
-A named person may dispute or contextualise the figure. The page carries a correction /
-right-of-reply contact, and a substantiated correction (a documented source the
-declaration omitted) is published alongside the figure.
+A named person may dispute or contextualise the figure. This methodology and the
+right-of-reply contact are published at **`/about#accumulation-gap`**, linked from every
+rendered figure; a substantiated correction (a documented source the declaration omitted)
+is published alongside the figure itself.
 
 ## Family data
 

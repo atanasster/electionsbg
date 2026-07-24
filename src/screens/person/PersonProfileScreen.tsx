@@ -17,6 +17,7 @@ import { PersonMpSections } from "./PersonMpSections";
 import { PersonDeclarations } from "./PersonDeclarations";
 import { PersonMoneyTimeline } from "./PersonMoneyTimeline";
 import { PersonWealthTrajectory } from "./PersonWealthTrajectory";
+import { PersonAccumulationGap } from "./PersonAccumulationGap";
 import { PersonCompanies } from "./PersonCompanies";
 import {
   PersonConnections,
@@ -331,6 +332,12 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
           history to plot — regardless of whether the assets themselves come from the MP or
           the officials block below. */}
       <PersonWealthTrajectory slug={p.slug} />
+
+      {/* The accumulation gap (T3.2). Gated SERVER-side to the senior accountability
+          cohort (091) — this renders nothing for a councillor or a lower official, and
+          nothing below two asset-bearing filings. See
+          docs/methodology/accumulation-gap.md. */}
+      <PersonAccumulationGap slug={p.slug} />
 
       {/* MP-only: voting scorecard + roll-call + declared assets (no PG equivalent). */}
       {mpId != null && (
