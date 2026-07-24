@@ -32,6 +32,8 @@ import { formatEur, formatEurCompact } from "@/lib/currency";
 import { tooltipSurfaceClass } from "@/components/ui/tooltipSurface";
 import { cn } from "@/lib/utils";
 import { usePersonWealth, type WealthPoint } from "./usePersonWealth";
+import { PersonPortfolioComposition } from "./PersonPortfolioComposition";
+import { LegendSwatch } from "./LegendSwatch";
 
 const COLORS = {
   assets: "hsl(160 60% 42%)", // green — what they hold
@@ -62,7 +64,7 @@ export const PersonWealthTrajectory: FC<{ slug: string }> = ({ slug }) => {
       ...p,
       markerType: markerByYear.get(p.year),
     }));
-    return { rows };
+    return { rows, series: wealth.series };
   }, [wealth]);
 
   if (!model) return null;
@@ -194,19 +196,12 @@ export const PersonWealthTrajectory: FC<{ slug: string }> = ({ slug }) => {
           </div>
         </CardContent>
       </Card>
+
+      {/* Composition over time (T3.6) — "of what", beneath "how much". Stacked as its own
+          card rather than a tab, and handed the SAME series this section already fetched
+          so it costs no extra request. Self-hides when the person declares no assets we
+          can break down. */}
+      <PersonPortfolioComposition series={model.series} />
     </DashboardSection>
   );
 };
-
-const LegendSwatch: FC<{ color: string; label: string }> = ({
-  color,
-  label,
-}) => (
-  <span className="inline-flex items-center gap-1.5">
-    <span
-      className="inline-block h-2 w-3 rounded-sm"
-      style={{ backgroundColor: color }}
-    />
-    {label}
-  </span>
-);

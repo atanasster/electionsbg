@@ -87,7 +87,10 @@ SELECT
   COALESCE((
     SELECT jsonb_object_agg(cat, total)
       FROM (
-        SELECT a2.category AS cat, SUM(a2.value_eur) AS total
+        -- Rounded HERE like every other figure in this payload. Leaving it raw made
+        -- by_category the one field a consumer had to round itself, which is exactly the
+        -- client-side arithmetic the rest of this migration removes.
+        SELECT a2.category AS cat, round(SUM(a2.value_eur)) AS total
           FROM declaration_asset a2
          WHERE a2.declaration_id = rep.declaration_id
          GROUP BY a2.category

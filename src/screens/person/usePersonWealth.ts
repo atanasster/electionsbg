@@ -2,8 +2,9 @@
 // Lazily fetched by PersonWealthTrajectory so the wealth join stays off the profile's hot
 // path. Kept out of the screen file so it exports only the hook (react-refresh).
 //
-// Every figure is already rounded server-side (090); the client never recomputes a number,
-// only charts what the payload carries.
+// Every figure is rounded server-side (090) — including by_category, which briefly was not
+// and forced the composition chart to round it. The client recomputes nothing; it charts
+// what the payload carries.
 
 import { useEffect, useState } from "react";
 
