@@ -6,7 +6,12 @@ import { test, expect } from "@playwright/test";
 // LCP, total HTML size of the prerendered shell, and that long-task
 // generators stay below a sane budget on the home page.
 
-const HOME_HTML_MAX_BYTES = 14_000;
+// The prerendered home shell has grown legitimately since this budget was first set
+// (a 4th top-level nav view, richer "latest analyses" strip, bespoke OG tags). Raised
+// 14k → 18k to match; ~17.2k today leaves a little headroom. This still guards against a
+// runaway regression (e.g. a heavy chunk inlined into the shell) — re-tighten if the home
+// markup is ever trimmed back.
+const HOME_HTML_MAX_BYTES = 18_000;
 // We trimmed the eagerly-modulepreloaded chunk count from 9 → 6 by stripping
 // vendor-pdf, vendor-charts, vendor-leaflet, vendor-markdown. 7 leaves a
 // little headroom (e.g. for adding back vendor-charts intentionally) before

@@ -50,8 +50,8 @@ export const usePersonElections = (slug?: string) =>
 // read this so "what counts as a real candidacy" can't drift between them.
 export const usePersonDataCycles = (
   slug?: string,
-): { rows: PersonElectionRow[]; dataCycles: string[] } => {
-  const { data } = usePersonElections(slug);
+): { rows: PersonElectionRow[]; dataCycles: string[]; isLoading: boolean } => {
+  const { data, isLoading } = usePersonElections(slug);
   const dataCycles = useMemo(() => personDataCycles(data ?? []), [data]);
-  return { rows: data ?? [], dataCycles };
+  return { rows: data ?? [], dataCycles, isLoading };
 };

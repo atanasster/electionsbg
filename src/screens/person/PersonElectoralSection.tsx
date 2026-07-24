@@ -33,6 +33,48 @@ const fmtElection = (d: string): string => {
   return m ? `${m[3]}.${m[2]}.${m[1]}` : d;
 };
 
+const Pulse: FC<{ className: string }> = ({ className }) => (
+  <div
+    className={`animate-pulse rounded-xl border bg-card shadow-sm ${className}`}
+  />
+);
+
+// Reserve the electoral + geography block's real footprint while the async /api/db
+// electoral fetch is in flight. The block leads the dashboard, so returning `null` until
+// the data arrives injected ~1450px ABOVE every section below it once it resolved — the
+// dominant CLS source on candidate pages (tests/perf.spec.ts). The skeleton mirrors the
+// real layout (heading + card grid + regions/trajectory tiles + two geography tiles) in the
+// same responsive grids, so the reserved height tracks the rendered height across viewports.
+const ElectoralSkeleton: FC = () => {
+  const { t } = useTranslation();
+  return (
+    <>
+      <DashboardSection
+        id="person-electoral"
+        title={t("pp_candidacies")}
+        icon={Gauge}
+      >
+        <div className="h-7 w-64 max-w-full animate-pulse rounded bg-muted" />
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+          <Pulse className="h-[150px]" />
+          <Pulse className="h-[150px]" />
+          <Pulse className="h-[150px]" />
+        </div>
+        <Pulse className="h-[240px]" />
+        <Pulse className="h-[200px]" />
+      </DashboardSection>
+      <DashboardSection
+        id="person-geography"
+        title={t("dashboard_section_geography")}
+        icon={Map}
+      >
+        <Pulse className="h-[340px]" />
+        <Pulse className="h-[340px]" />
+      </DashboardSection>
+    </>
+  );
+};
+
 type Props = { slug: string; name: string; candidacies: Candidacy[] };
 
 export const PersonElectoralSection: FC<Props> = ({
@@ -45,7 +87,7 @@ export const PersonElectoralSection: FC<Props> = ({
   const { findRegion } = useRegions();
   // Only cycles the person ACTUALLY ran with results — a candidacy ROLE with no preference
   // data (e.g. a roster-only entry) shouldn't be a selectable year. Newest first.
-  const { rows, dataCycles } = usePersonDataCycles(slug);
+  const { rows, dataCycles, isLoading } = usePersonDataCycles(slug);
 
   // Selected cycle: ?pelect when it's a real (data-bearing) cycle, else the global election
   // when they ran it, else their LAST election with results.
@@ -94,8 +136,15 @@ export const PersonElectoralSection: FC<Props> = ({
   }, [rows]);
 
   // No election with actual results → no electoral section (a candidacy role alone isn't
-  // enough to show a dashboard of empty cards).
-  if (dataCycles.length === 0 || !summary) return null;
+  // enough to show a dashboard of empty cards). But while the async fetch is still in flight
+  // AND the person has a real candidacy (so we expect results), reserve the block's footprint
+  // instead of nothing — otherwise the data lands ~1450px ABOVE the sections below it and
+  // shoves the whole page down (the candidate-page CLS regression). Only fall through to null
+  // once we KNOW there are no results.
+  if (dataCycles.length === 0 || !summary) {
+    if (isLoading && candidacies.length > 0) return <ElectoralSkeleton />;
+    return null;
+  }
 
   const selector =
     dataCycles.length > 1 ? (
