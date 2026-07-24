@@ -12,7 +12,8 @@ export type CohortBenchmark = {
   year: number;
   netEur: number;
   peers: number;
-  medianEur: number;
+  /** Withheld (null) below the 20-peer floor, together with `percentile`. */
+  medianEur: number | null;
   /** Share of peers declaring strictly less. Null below 20 peers. */
   percentile: number | null;
 } | null;

@@ -185,9 +185,10 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
   -- on the consortium entity and leaves each member firm a €0 PLACEHOLDER row. Counting those
   -- as the firm's own contracts is how a company with no solo take at all came to render
   -- "4 договора · €0" under a conflict-of-interest heading. 011_company_api.sql excludes them
-  -- from its headline for the same reason; the HAVING is what stops a pure-placeholder company
-  -- from the same 011_company_api.sql headline for the same reason; a company whose entire
-  -- record is placeholders therefore never surfaces here.
+  -- from its headline for the same reason. Here the `WHERE consortium_role IS DISTINCT FROM
+  -- 'member'` predicate drops the placeholder rows, so a company whose entire record is
+  -- placeholders (or annexes) produces NO `won` group at all and is dropped by the inner
+  -- `JOIN won` in the payload build below — no HAVING is needed.
   --
   -- The YEAR is taken from date_signed where the release carries one, falling back to the
   -- OCDS release date: the editorial claim is specifically "while they held the stake", and

@@ -42,13 +42,21 @@ export const PersonCohortBenchmark: FC<{ slug: string }> = ({ slug }) => {
                 {formatEurCompact(b.netEur, locale)}
               </div>
             </StatCard>
+            {/* Median and percentile are BOTH withheld below the 20-peer floor — at two
+                peers the median is one peer's exact declared figure. 097 returns null for
+                each, so the two tiles must guard symmetrically; rendering the median
+                unconditionally printed a blank tile on the 14/45 slices under the floor. */}
             <StatCard label={t("pp_cohort_median", { cohort: cohortLabel })}>
-              <div className="text-2xl font-bold text-foreground">
-                {formatEurCompact(b.medianEur, locale)}
-              </div>
+              {b.medianEur != null ? (
+                <div className="text-2xl font-bold text-foreground">
+                  {formatEurCompact(b.medianEur, locale)}
+                </div>
+              ) : (
+                <div className="text-sm text-muted-foreground">
+                  {t("pp_cohort_too_few")}
+                </div>
+              )}
             </StatCard>
-            {/* Withheld below 20 peers — 097 returns null and the tile simply reports the
-                peer count instead of a number derived from a handful of filings. */}
             <StatCard label={t("pp_cohort_percentile")}>
               {b.percentile != null ? (
                 <div className="text-2xl font-bold text-foreground">

@@ -51,14 +51,20 @@ describe("PersonCohortBenchmark", () => {
 
   // Below the 20-peer floor the server returns null. Rendering "0%" — or an empty tile —
   // would publish a rank the data does not support.
-  it("withholds the percentile when the peer group is too small", async () => {
-    stub(data({ percentile: null, peers: 6 }));
+  it("withholds BOTH the percentile and the median below the 20-peer floor", async () => {
+    // The real server payload nulls medianEur AND percentile together below the floor — a
+    // handful of peers makes the median one person's exact figure. The fixture must model
+    // that (an earlier fixture left medianEur set, a state the server never emits, which is
+    // how the blank-median-tile bug shipped).
+    stub(data({ percentile: null, medianEur: null, peers: 6 }));
     render(<PersonCohortBenchmark slug="mag-1" />);
     await waitFor(() =>
-      expect(screen.getByText("pp_cohort_too_few")).toBeInTheDocument(),
+      expect(screen.getAllByText("pp_cohort_too_few").length).toBe(2),
     );
+    // No rank and no formatted cohort median leak through.
     expect(screen.queryByText(/%$/)).not.toBeInTheDocument();
-    // The absolute figures still render — only the RANK is withheld.
+    expect(screen.queryByText(/^€55/)).not.toBeInTheDocument();
+    // The person's OWN declared figure still renders — only the peer stats are withheld.
     expect(screen.getByText(/^€845/)).toBeInTheDocument();
   });
 
