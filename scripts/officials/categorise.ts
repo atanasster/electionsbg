@@ -203,15 +203,51 @@ export const isDeputyMinisterTitle = (title: string | null): boolean => {
   return office != null && DEPUTY_MINISTER_RE.test(office);
 };
 
+// The register's ЗПФ чл.13 ал.4 bucket ("...управителните органи на икономически
+// обособените лица... както и на други ЮЛ, които са бюджетни организации")
+// lumps genuine state enterprises together with budget-funded PUBLIC
+// INSTITUTIONS — schools, kindergartens, social-care homes, outpatient medical
+// centres, cultural institutes, the Agricultural Academy. They share one
+// `Category Name`, so categoriseRaw can only ever return `state_enterprise` for
+// the whole bucket. The INSTITUTION name is the discriminator, and it matters:
+// a school director is not "управа на държавно предприятие" and not изпълнителна
+// власт (the school-director mislabel, ~5.5k of the ~7.9k in this bucket).
+//
+// Keyed on the register's canonical Institution labels; anything not listed
+// (ДП / ОП, forestry enterprises, НЕК, БЕХ, ББР, тотализатор, търговски
+// дружества…) is a real state enterprise and stays `state_enterprise`.
+const BUDGET_ORG_INSTITUTIONS: Record<string, OfficialCategoryKind> = {
+  Училища: "school",
+  "Детски градини, ясли, детка кухня": "kindergarten",
+  "Социални домове и центрове": "social_care",
+  "ДКЦ, МЦ, ЦТХ": "medical_center",
+  "Културни институти и институции": "cultural_institute",
+  "Селскостопанска академия": "agri_academy",
+};
+
+/** Split the state-enterprise bucket by institution: budget-funded public
+ *  institutions get their own category, real enterprises are left untouched.
+ *  A no-op for every other category. */
+export const refineCategoryByInstitution = (
+  kind: OfficialCategoryKind | null,
+  institution: string | null,
+): OfficialCategoryKind | null => {
+  if (kind !== "state_enterprise" || !institution) return kind;
+  return BUDGET_ORG_INSTITUTIONS[institution.trim()] ?? kind;
+};
+
 // Final category for one declarant: the category bucket, refined by the
-// position title where the register lumps two distinct offices together.
+// position title where the register lumps two distinct offices together, and by
+// the institution where it lumps budget-org public institutions in with state
+// enterprises.
 export const categorise = (
   categoryRaw: string,
   positionTitle: string | null,
+  institution?: string | null,
 ): OfficialCategoryKind | null => {
   const kind = categoriseRaw(categoryRaw);
   if (kind === "cabinet" && isDeputyMinisterTitle(positionTitle)) {
     return "deputy_minister";
   }
-  return kind;
+  return refineCategoryByInstitution(kind, institution ?? null);
 };

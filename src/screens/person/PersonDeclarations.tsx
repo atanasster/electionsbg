@@ -24,6 +24,12 @@ import {
   type DeclarationListItem,
 } from "./usePersonDeclarations";
 
+// Some register filings declare the role lowercase (the 2016 presidency filing lodged
+// "вицепрезидент"), later ones capitalise it. Upper-case the first letter for display
+// consistency across a person's years; the underlying declared text is untouched.
+const capitalizeFirst = (s: string): string =>
+  s.length === 0 ? s : s[0].toLocaleUpperCase("bg-BG") + s.slice(1);
+
 const declTypeKey = (type: string): string =>
   ({
     Annualy: "pp_decl_type_annual",
@@ -153,34 +159,64 @@ const FilingRow: FC<{ row: DeclarationListItem; locale: string }> = ({
 
   return (
     <li>
-      <button
-        type="button"
-        onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-center gap-2 px-3 py-2 text-left text-sm hover:bg-muted/40"
-      >
-        {open ? (
-          <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground" />
-        ) : (
-          <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" />
-        )}
-        {/* The period the filing covers, not the year it was lodged — the same axis
-            the wealth chart plots, so a row and its point carry one year label. */}
-        <span className="w-12 shrink-0 font-semibold tabular-nums">
-          {row.periodYear}
-        </span>
-        <span className="shrink-0 rounded bg-muted px-1.5 py-0.5 text-[10px] uppercase text-muted-foreground">
-          {t(declTypeKey(row.type))}
-        </span>
-        <span className="flex-1 truncate text-muted-foreground">
-          {row.institution ?? row.positionTitle ?? ""}
-        </span>
-        {/* An incompatibility (Other) filing carries no asset tables at all, so it has
-            no net worth — printing €0 would read as a collapse in declared wealth, which
-            is the D2 bug in miniature. Show a dash. */}
-        <span className="shrink-0 tabular-nums">
-          {row.assetCount > 0 ? formatEurCompact(row.netEur, locale) : "—"}
-        </span>
-      </button>
+      <div className="flex items-center hover:bg-muted/40">
+        <button
+          type="button"
+          onClick={() => setOpen((o) => !o)}
+          className="flex flex-1 items-center gap-2 px-3 py-2 text-left text-sm"
+        >
+          {open ? (
+            <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground" />
+          ) : (
+            <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" />
+          )}
+          {/* The period the filing covers, not the year it was lodged — the same axis
+              the wealth chart plots, so a row and its point carry one year label. */}
+          <span className="w-12 shrink-0 font-semibold tabular-nums">
+            {row.periodYear}
+          </span>
+          <span className="shrink-0 rounded bg-muted px-1.5 py-0.5 text-[10px] uppercase text-muted-foreground">
+            {t(declTypeKey(row.type))}
+          </span>
+          {/* Lead with the ROLE the person held (position_title), not the body
+              (institution). For the presidency the register labels the body "Президент"
+              in the older cycles (later "Президентство"), so an institution-first row
+              read as "was president" for a vice-president — the position title
+              ("Вицепрезидент") is unambiguous. Fall back to the institution for tiers
+              that carry no position (MP filings name only "Народно събрание"), and keep
+              the body as muted context when both are present. */}
+          <span className="flex-1 truncate">
+            <span className="text-foreground">
+              {capitalizeFirst(row.positionTitle ?? row.institution ?? "")}
+            </span>
+            {row.positionTitle && row.institution && (
+              <span className="text-muted-foreground">
+                {" · "}
+                {row.institution}
+              </span>
+            )}
+          </span>
+          {/* An incompatibility (Other) filing carries no asset tables at all, so it has
+              no net worth — printing €0 would read as a collapse in declared wealth, which
+              is the D2 bug in miniature. Show a dash. */}
+          <span className="shrink-0 tabular-nums">
+            {row.assetCount > 0 ? formatEurCompact(row.netEur, locale) : "—"}
+          </span>
+        </button>
+        {/* Every filing links to its own XML on the register, not just the section
+            header — a reader auditing one year lands on that exact declaration. */}
+        <a
+          href={row.sourceUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          title={`register.cacbg.bg · ${row.periodYear}`}
+          aria-label={`register.cacbg.bg · ${row.periodYear}`}
+          className="shrink-0 px-3 py-2 text-muted-foreground hover:text-primary"
+        >
+          <ExternalLink className="h-3.5 w-3.5" />
+        </a>
+      </div>
       {open && <FilingDetail id={row.id} locale={locale} />}
     </li>
   );

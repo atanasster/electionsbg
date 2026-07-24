@@ -130,4 +130,65 @@ describe("categorise", () => {
       ),
     ).toBeNull();
   });
+
+  // The register files budget-funded public institutions under the same ЗПФ
+  // чл.13 ал.4 bucket as genuine state enterprises; the institution name is what
+  // separates a school director from a state-enterprise manager.
+  describe("budget-org institution split", () => {
+    const ENTERPRISE_CATEGORY =
+      "Членовете на управителните органи на икономически обособените лица и структурни единици по чл. 13, ал. 4 от ЗПФ, както и управителите и членовете на ОУ или контрол на ОП или ДП";
+
+    it("routes public institutions to their own category by institution", () => {
+      expect(categorise(ENTERPRISE_CATEGORY, "Директор", "Училища")).toBe(
+        "school",
+      );
+      expect(
+        categorise(
+          ENTERPRISE_CATEGORY,
+          "Директор",
+          "Детски градини, ясли, детка кухня",
+        ),
+      ).toBe("kindergarten");
+      expect(
+        categorise(
+          ENTERPRISE_CATEGORY,
+          "Директор",
+          "Социални домове и центрове",
+        ),
+      ).toBe("social_care");
+      expect(categorise(ENTERPRISE_CATEGORY, "Управител", "ДКЦ, МЦ, ЦТХ")).toBe(
+        "medical_center",
+      );
+      expect(
+        categorise(
+          ENTERPRISE_CATEGORY,
+          "Директор",
+          "Културни институти и институции",
+        ),
+      ).toBe("cultural_institute");
+      expect(
+        categorise(
+          ENTERPRISE_CATEGORY,
+          "Член на УС",
+          "Селскостопанска академия",
+        ),
+      ).toBe("agri_academy");
+    });
+
+    it("leaves a genuine state enterprise as state_enterprise", () => {
+      expect(
+        categorise(ENTERPRISE_CATEGORY, "Директор", "Държавни предприятия"),
+      ).toBe("state_enterprise");
+      expect(
+        categorise(ENTERPRISE_CATEGORY, "Управител", "Общински предприятия"),
+      ).toBe("state_enterprise");
+      // No institution to split on → stays in the enterprise bucket.
+      expect(categorise(ENTERPRISE_CATEGORY, "Директор", null)).toBe(
+        "state_enterprise",
+      );
+      expect(categorise(ENTERPRISE_CATEGORY, "Директор")).toBe(
+        "state_enterprise",
+      );
+    });
+  });
 });

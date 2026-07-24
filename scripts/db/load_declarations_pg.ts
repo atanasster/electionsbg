@@ -130,7 +130,14 @@ const TIERS: {
   {
     tier: "exec",
     dir: "data/officials/declarations",
-    sources: ["official_exec", "president", "mep", "diplomat", "regulator"],
+    sources: [
+      "official_exec",
+      "public_sector",
+      "president",
+      "mep",
+      "diplomat",
+      "regulator",
+    ],
     subjectRef: (d) => String(d.slug ?? ""),
   },
   {

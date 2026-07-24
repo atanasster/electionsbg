@@ -162,7 +162,7 @@ const fetchYearListing = async (year: number): Promise<DirectoryEntry[]> => {
             // discarded. The municipal ingest has always read the right element.
             const position =
               $(person).find("Position > Name").first().text().trim() || null;
-            const kind = categorise(categoryRaw, position);
+            const kind = categorise(categoryRaw, position, institution);
             if (!kind) return;
             // A Person can have multiple Declaration nodes — annual + exit +
             // correction. Keep them all; the per-slug dedupe at write time

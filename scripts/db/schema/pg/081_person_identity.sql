@@ -37,6 +37,7 @@ INSERT INTO person_source (key, label_bg, facet, tier, public_default) VALUES
   ('candidate',     'Кандидати',                     'politician',   'core', true),
   ('local',         'Местни кандидати и съветници',  'politician',   'core', true),
   ('official_exec', 'Изпълнителна власт',            'executive',    'core', true),
+  ('public_sector', 'Публичен сектор',               'public_sector','core', true),
   ('official_muni', 'Общинска администрация',        'politician',   'core', true),
   ('tr',            'Търговски регистър',            'company',      'core', false),
   ('magistrate',    'Магистрати',                    'magistrate',   'core', true),

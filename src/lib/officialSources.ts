@@ -30,6 +30,18 @@ export const CATEGORY_PERSON_SOURCE: Partial<
   president: "president",
   mep: "mep",
   diplomat: "diplomat",
+  // Budget-funded public institutions (schools, kindergartens, social-care
+  // homes, medical centres, cultural institutes, the Agricultural Academy). A
+  // school director is a public-sector manager, not "изпълнителна власт"; the
+  // `public_sector` source carries that badge instead of the generic executive
+  // one. The precise office still shows via the per-category person_role.role
+  // (pp_role_school / _kindergarten / …).
+  school: "public_sector",
+  kindergarten: "public_sector",
+  social_care: "public_sector",
+  medical_center: "public_sector",
+  cultural_institute: "public_sector",
+  agri_academy: "public_sector",
 };
 
 /** Every `person_role.source` whose `ref` is a Court-of-Audit declaration slug.

@@ -15,11 +15,14 @@ import {
   Coins,
   FileWarning,
   Landmark,
+  Library,
   Scale,
   ShieldAlert,
 } from "lucide-react";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { PartyBadge } from "@/screens/components/PartyBadge";
+import { Link } from "@/ux/Link";
+import { partyHref } from "@/lib/utils";
 import { MpProfileHeader } from "@/screens/components/candidates/MpProfileHeader";
 import { CandidateMpProvider } from "@/data/candidates/CandidateMpContext";
 import { useMpEntry } from "@/data/parliament/useMpEntry";
@@ -30,6 +33,7 @@ import type { PersonProfile } from "@/screens/person/usePersonProfile";
 const FACET_ICON: Record<string, typeof Landmark> = {
   politician: Landmark,
   executive: Briefcase,
+  public_sector: Library,
   magistrate: Landmark,
   company: Building2,
   donor: Coins,
@@ -94,7 +98,27 @@ export const PersonProfileHeader: FC<{
         <h1 className="text-2xl font-bold leading-tight">{name}</h1>
         {(partyLabel || facets.length > 0) && (
           <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
-            {partyLabel && <PartyBadge label={partyLabel} color={partyColor} />}
+            {partyLabel &&
+              (party ? (
+                <Link
+                  to={{
+                    pathname: partyHref(party.nickName),
+                    ...(newestCycle
+                      ? { search: { elections: newestCycle } }
+                      : {}),
+                  }}
+                  underline={false}
+                  aria-label={party.name ?? partyLabel}
+                >
+                  <PartyBadge
+                    label={partyLabel}
+                    color={partyColor}
+                    className="transition-opacity hover:opacity-90"
+                  />
+                </Link>
+              ) : (
+                <PartyBadge label={partyLabel} color={partyColor} />
+              ))}
             {facets.map((f) => {
               const Icon = FACET_ICON[f];
               return (

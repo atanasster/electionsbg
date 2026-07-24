@@ -533,6 +533,16 @@ export type OfficialCategoryKind =
   | "hospital_head"
   // State-owned enterprises and public capital
   | "state_enterprise"
+  // Budget-funded public institutions. The register files these under one broad
+  // ЗПФ чл.13 ал.4 category alongside genuine state enterprises; the Institution
+  // name is what tells a school director apart from a state-enterprise manager
+  // (refineCategoryByInstitution, scripts/officials/categorise.ts).
+  | "school"
+  | "kindergarten"
+  | "social_care"
+  | "medical_center"
+  | "cultural_institute"
+  | "agri_academy"
   // Diplomacy, academia, media, civil society, international
   | "diplomat"
   | "academic"

@@ -92,6 +92,40 @@ describe("PersonDeclarations", () => {
     expect(screen.getAllByText("—").length).toBeGreaterThan(0);
   });
 
+  it("links every filing row to its own register XML and leads with the role", async () => {
+    // The 2016 vice-president bug: the register labels the presidency body "Президент"
+    // (institution) while the role is "вицепрезидент" (position). A row must lead with the
+    // ROLE, not the body, so it never reads as "was president". And every row carries its
+    // OWN register link, not just the section header.
+    stub([
+      filing({
+        id: 42,
+        year: 2017,
+        fiscalYear: 2016,
+        institution: "Президент",
+        positionTitle: "вицепрезидент",
+        assetsEur: 415500,
+        netEur: 415500,
+        assetCount: 5,
+        sourceUrl: "https://register.cacbg.bg/2017/pick-me.xml",
+      }),
+    ]);
+    render(<PersonDeclarations slug="mp-1588" />);
+    await waitFor(() =>
+      expect(screen.getByText("mp_section_assets")).toBeInTheDocument(),
+    );
+    // The role leads the row (the body follows as muted context, never on its own), with
+    // its first letter capitalised for display even though the register declared it
+    // lowercase for this year.
+    expect(screen.getByText("Вицепрезидент")).toBeInTheDocument();
+    expect(screen.queryByText("вицепрезидент")).not.toBeInTheDocument();
+    // Every filing row has a link straight to its own XML.
+    const links = screen
+      .getAllByRole("link")
+      .filter((a) => a.getAttribute("href") === "https://register.cacbg.bg/2017/pick-me.xml");
+    expect(links.length).toBeGreaterThan(0);
+  });
+
   it("self-hides when no filing bears assets (the D2 empty-block case)", async () => {
     stub([filing({ id: 1, type: "Other", assetCount: 0 })]);
     const { container } = render(<PersonDeclarations slug="x" />);
