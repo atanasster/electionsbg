@@ -39,6 +39,28 @@ describe("person-tool routing", () => {
     expect(r?.tool).toBe("personProfile");
     expect(r?.args.name).toBeTruthy();
   });
+
+  // personWealth — a name + a declared-wealth cue. Must win over the generic profile.
+  it.each([
+    "Какво имущество е декларирал Бойко Борисов?",
+    "Каква е нетната стойност на Делян Пеевски?",
+    "Покажи активите и задълженията на Кирил Петков",
+    "Колко е декларирал Иван Демерджиев?",
+    "What wealth has Boyko Borisov declared?",
+    "What is the declared net worth of Delyan Peevski?",
+  ])("routes to personWealth: %s", (q) => {
+    const r = route(q, ctx);
+    expect(r?.tool).toBe("personWealth");
+    expect(r?.args.name).toBeTruthy();
+  });
+
+  // A wealth-adjacent word must NOT hijack a procurement question — "спечелил от
+  // поръчки" is public money won, not declared personal wealth.
+  it("leaves a procurement question on its own branch", () => {
+    expect(tool("Колко е спечелил от поръчки Бойко Борисов?")).not.toBe(
+      "personWealth",
+    );
+  });
 });
 
 describe("no-hijack: incumbent intents route unchanged", () => {

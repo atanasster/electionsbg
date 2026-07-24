@@ -67,7 +67,10 @@ const ROLE_LABEL: Record<string, { bg: string; en: string }> = {
 const notFound = (
   query: string,
   bg: boolean,
-  tool: "personProfile" | "personConnections" = "personProfile",
+  tool:
+    | "personProfile"
+    | "personConnections"
+    | "personWealth" = "personProfile",
 ): Envelope => ({
   tool,
   kind: "scalar",
@@ -302,5 +305,124 @@ export const personConnections = async (
           : "Links are by name + shared company — a lead, not proof."),
     },
     provenance: ["person_connections (084_person_connections.sql)"],
+  };
+};
+
+type WealthSeriesPoint = {
+  year: number;
+  assetsEur: number;
+  debtsEur: number;
+  netEur: number;
+  incomeEur: number;
+  filings: number;
+  tier: string;
+};
+type WealthPayload = {
+  slug: string;
+  series: WealthSeriesPoint[];
+  markers: {
+    year: number;
+    type: string;
+    filedAt: string | null;
+    institution: string | null;
+    positionTitle: string | null;
+  }[];
+} | null;
+
+/**
+ * A public figure's DECLARED wealth over time — assets, debts and net worth per year,
+ * from the Court-of-Audit (Сметна палата) property declarations (089/090). Every number
+ * is verbatim from person_wealth_series: the tool NEVER computes a figure, so the
+ * grounded-number gate holds. Declared, not audited — the caveat rides in the payload.
+ * Public-safe: the serving fn only returns a public, active person's series.
+ */
+export const personWealth = async (
+  args: ToolArgs,
+  ctx: ToolContext,
+): Promise<Envelope> => {
+  const bg = ctx.lang === "bg";
+  const query = String(args.name ?? args.person ?? "").trim();
+  if (!query) return notFound(query, bg, "personWealth");
+
+  // Resolve name → stable slug (same path personConnections uses), then the series.
+  const prof = await fetchDb<PersonProfilePayload>("person-profile", {
+    name: query,
+  });
+  if (!prof || !prof.slug) return notFound(query, bg, "personWealth");
+
+  const wealth = await fetchDb<WealthPayload>("person-wealth", {
+    slug: prof.slug,
+  });
+  const series = wealth?.series ?? [];
+
+  const note = bg
+    ? "Декларирано пред Сметна палата, не одитирано. Недвижими имоти без обявена стойност се броят за 0."
+    : "Declared to the Court of Audit, not audited. Real estate with no declared value counts as €0.";
+
+  if (!series.length) {
+    return {
+      tool: "personWealth",
+      domain: "people",
+      kind: "scalar",
+      viz: "none",
+      title: bg
+        ? `Няма декларации за имущество за ${prof.name}`
+        : `No asset declarations for ${prof.name}`,
+      facts: {
+        [bg ? "име" : "name"]: prof.name,
+        [bg ? "декларирани години" : "declared years"]: 0,
+        [bg ? "бележка" : "note"]: note,
+      },
+      provenance: ["person_wealth_series (090_person_wealth.sql)"],
+    };
+  }
+
+  const latest = series[series.length - 1];
+  const first = series[0];
+  return {
+    tool: "personWealth",
+    domain: "people",
+    kind: "table",
+    viz: "line",
+    title: bg
+      ? `${prof.name} — декларирано имущество по години`
+      : `${prof.name} — declared wealth by year`,
+    columns: [
+      { key: "year", label: bg ? "Година" : "Year" },
+      {
+        key: "net",
+        label: bg ? "Нетно (€)" : "Net (€)",
+        numeric: true,
+        format: "int",
+      },
+      {
+        key: "assets",
+        label: bg ? "Активи (€)" : "Assets (€)",
+        numeric: true,
+        format: "int",
+      },
+      {
+        key: "debts",
+        label: bg ? "Задължения (€)" : "Debts (€)",
+        numeric: true,
+        format: "int",
+      },
+    ],
+    rows: series.map((p) => ({
+      year: p.year,
+      net: p.netEur,
+      assets: p.assetsEur,
+      debts: p.debtsEur,
+    })),
+    facts: {
+      [bg ? "име" : "name"]: prof.name,
+      [bg ? "декларирани години" : "declared years"]: series.length,
+      [bg ? "най-нова година" : "latest year"]: latest.year,
+      [bg ? "нетно (последно)" : "net worth (latest)"]: latest.netEur,
+      [bg ? "нетно (първо)" : "net worth (first)"]: first.netEur,
+      [bg ? "период" : "span"]: `${first.year}–${latest.year}`,
+      [bg ? "бележка" : "note"]: note,
+    },
+    provenance: ["person_wealth_series (090_person_wealth.sql)"],
   };
 };

@@ -33,8 +33,9 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { exec, allRows, withClient, end } from "./lib/pg";
+import { exec, allRows, withClient, withTx, end } from "./lib/pg";
 import { copyRows } from "./lib/copy";
+import { recordIngestBatch } from "./lib/ingest_changelog";
 import { registerFolderYear } from "../lib/cacbg_register";
 import type { MpDeclaration } from "../../src/data/dataTypes";
 
@@ -49,6 +50,12 @@ const SCHEMA = path.join(ROOT, "scripts/db/schema/pg/089_declarations.sql");
 const WEALTH_SCHEMA = path.join(
   ROOT,
   "scripts/db/schema/pg/090_person_wealth.sql",
+);
+// recent_updates changelog (feedback_pg_changelog_required) — every PG-migrated
+// dataset wires in. Applied here so a fresh bootstrap has the tables.
+const INGEST_TRACKING = path.join(
+  ROOT,
+  "scripts/db/schema/pg/005_ingest_tracking.sql",
 );
 
 type Tier = "mp" | "exec" | "muni" | "magistrate";
@@ -223,6 +230,7 @@ const EVENT_COLS = [
 
 const load = async () => {
   await exec(fs.readFileSync(SCHEMA, "utf-8"));
+  await exec(fs.readFileSync(INGEST_TRACKING, "utf-8"));
 
   const declRows: Row[] = [];
   const assetRows: Row[] = [];
@@ -345,7 +353,10 @@ const load = async () => {
     }
   }
 
-  await withClient(async (c) => {
+  // One transaction: the TRUNCATE, the five COPYs and the changelog batch commit
+  // together or not at all — a mid-load failure must not leave the corpus half
+  // replaced or the changelog claiming a batch that never landed.
+  await withTx(async (c) => {
     // Child tables cascade off declaration, so truncating it clears them; name
     // them all so the RESTART IDENTITY resets every serial.
     await c.query(
@@ -363,6 +374,18 @@ const load = async () => {
       `SELECT setval(pg_get_serial_sequence('declaration','declaration_id'),
                      (SELECT COALESCE(max(declaration_id),1) FROM declaration))`,
     );
+
+    // recent_updates changelog. source_url is the stable per-filing key (survives
+    // the TRUNCATE+reload), so a re-run only records genuinely-new filings.
+    await recordIngestBatch(c, {
+      source: "cacbg_declarations",
+      table: "declaration",
+      keyExpr: "t.source_url",
+      nameExpr: "t.declarant_name",
+      detailExpr: "t.tier || ' ' || t.declaration_year",
+      amountExpr: "NULL::double precision",
+      rowsTotal: declRows.length,
+    });
   });
 
   console.log(

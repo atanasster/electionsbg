@@ -207,7 +207,7 @@ import {
 import { compareElections, machineVoteShare, turnout } from "./metrics";
 import { simulateTaxChange } from "./taxPolicy";
 import { candidateResult } from "./candidate";
-import { personProfile, personConnections } from "./person";
+import { personProfile, personConnections, personWealth } from "./person";
 import {
   nationalResults,
   parliamentSeats,
@@ -3886,6 +3886,43 @@ export const TOOLS: ToolDef[] = [
       },
     ],
     run: personConnections,
+  },
+  {
+    name: "personWealth",
+    domain: "people",
+    description: {
+      bg: "Декларираното имущество на публична личност през годините: активи, задължения и нетна стойност по година, от имуществените декларации пред Сметна палата. Декларирано, не одитирано.",
+      en: "A public figure's declared wealth over time: assets, debts and net worth by year, from their Court-of-Audit (Сметна палата) property declarations. Declared, not audited.",
+    },
+    params: [
+      {
+        name: "name",
+        type: "person",
+        description: {
+          bg: "Пълно име на лицето (публична личност).",
+          en: "Full name of the person (a public figure).",
+        },
+      },
+    ],
+    examples: [
+      {
+        bg: "Какво имущество е декларирал Бойко Борисов?",
+        en: "What wealth has Boyko Borisov declared?",
+      },
+      {
+        bg: "Как се е променила нетната стойност на този министър?",
+        en: "How has this minister's net worth changed over time?",
+      },
+      {
+        bg: "Колко е декларирал даден кмет при встъпване и при напускане?",
+        en: "What did a given mayor declare entering vs leaving office?",
+      },
+      {
+        bg: "Покажи активите и задълженията на едно лице по години.",
+        en: "Show a person's assets and debts by year.",
+      },
+    ],
+    run: personWealth,
   },
   {
     name: "governments",

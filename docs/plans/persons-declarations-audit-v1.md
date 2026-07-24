@@ -521,6 +521,19 @@ layer covers all 6,235 distinct municipal persons (6,278 declaration filings; 43
 dedupe on merge), and every one that clears the floor — which a filed declaration does by
 itself — gets a `<loc>`.
 
+**Shipped in T2.4:** the content-floor manifest — `scripts/person/emit_prerender_slugs.ts`
+writes `data/person/prerender_slugs.json` (`{slug, indexable}` per public person; 58,617
+slugs, 37,930 indexable) from the resolved person layer, wired into `db:refresh` after the
+person load and gated by a data-test (`emit_prerender_slugs.data.test.ts`). This is the
+shared artifact both the sitemap enumerator and the prerender builder read, so they cannot
+disagree about which pages are thin.
+
+**Remaining (deploy-gated build):** the `buildPersonRoutes` prerender bodies consuming the
+manifest, the sitemap `<loc>` enumerator for the indexable set, and the SPA runtime
+`noindex` on below-floor pages. These add ~48k–68k files (dist → ~250k–270k, inside the
+warned band) so they are gated on a staging deploy at the new file count — which is why
+they are split out from the manifest that this step lands.
+
 ### G7 — Municipal officials have no profile pages in the sitemap
 
 `enumerateOfficials` (`scripts/sitemap/index.ts:683`) enumerates from

@@ -1322,6 +1322,35 @@ export const route = (question: string, ctx: ToolContext): Route => {
     )
   )
     return { tool: "mpVotingProfile", args: { name: personName } };
+  // A named public person + a declared-wealth cue -> their имуществени декларации
+  // (personWealth: assets/debts/net worth by year from the Сметна палата register).
+  // Placed before personProfile/personConnections so a wealth question wins over the
+  // generic profile, and before the roll-call/pollster senses are already handled above.
+  // Guarded off procurement ("поръчк"/"договор") so "колко е спечелил от поръчки" stays
+  // on the procurement branch — this is DECLARED personal wealth, not public money won.
+  if (
+    personName &&
+    !has(q, "поръчк", "възложи", "procurement", "contract", "договор") &&
+    has(
+      q,
+      "имущество",
+      "имуществена деклараци",
+      "имуществото на",
+      "нетн", // нетна/нетното/нетната стойност/богатство — net worth, any article
+      "богатств",
+      "активи",
+      "задължения",
+      "колко пари има",
+      "колко е декларирал",
+      "деклариран доход",
+      "declared wealth",
+      "net worth",
+      "assets and debts",
+      "asset declaration",
+      "what wealth",
+    )
+  )
+    return { tool: "personWealth", args: { name: personName } };
   // A named public person + a "connected people" cue -> their свързани лица (person↔person
   // shared-company edges, personConnections). Guarded so it can't steal the EIK
   // company-connections branch (needs a 9+ digit EIK) or the procurement political-links
