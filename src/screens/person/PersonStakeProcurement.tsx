@@ -98,8 +98,7 @@ export const PersonStakeProcurement: FC<{ slug: string }> = ({ slug }) => {
                   <div className="text-[11px] text-muted-foreground">
                     {/* The count alongside the money: "€0 across 4 contracts" is visibly
                         odd in a way a bare €0 is not. */}
-                    {t("pp_stake_proc_while_declared")} (
-                    {r.whileDeclaredCount})
+                    {t("pp_stake_proc_while_declared")} ({r.whileDeclaredCount})
                   </div>
                 </div>
                 <div>

@@ -27,7 +27,8 @@ import { PersonStakeProcurement } from "./PersonStakeProcurement";
 
 const row = (o: Partial<StakeProcurementRow> = {}): StakeProcurementRow => ({
   eik: "112028994",
-  companyName: "РАДИО СОТ ООД",
+  companyName: "РАДИО СОТ",
+  declaredName: "РАДИО СОТ ООД",
   shareSize: "1",
   firstYear: 2020,
   lastYear: 2021,
@@ -35,8 +36,6 @@ const row = (o: Partial<StakeProcurementRow> = {}): StakeProcurementRow => ({
   totalEur: 949329,
   whileDeclaredCount: 9,
   whileDeclaredEur: 66001,
-  firstContract: "2011-04-06",
-  lastContract: "2026-05-08",
   ...o,
 });
 
@@ -62,13 +61,44 @@ describe("PersonStakeProcurement", () => {
     await waitFor(() =>
       expect(screen.getByText("pp_stake_proc_title")).toBeInTheDocument(),
     );
-    const link = screen.getByRole("link", { name: "РАДИО СОТ ООД" });
+    const link = screen.getByRole("link", { name: "РАДИО СОТ" });
     expect(link).toHaveAttribute("href", "/company/112028994");
-    // Both figures present and distinct: aligned vs lifetime.
-    expect(
-      screen.getByText("pp_stake_proc_while_declared"),
-    ).toBeInTheDocument();
-    expect(screen.getByText("pp_stake_proc_total")).toBeInTheDocument();
+    // The VALUES, not the labels. Asserting only that two labels exist would pass even if
+    // both figures were rendered from the same field, which is the regression that matters.
+    // formatEurCompact renders compact notation ("€66 хил." / "€66K"), so match the
+    // currency-plus-magnitude prefix rather than the full digits.
+    expect(screen.getByText(/^€66\b/)).toBeInTheDocument(); // aligned  66,001
+    expect(screen.getByText(/^€949\b/)).toBeInTheDocument(); // lifetime 949,329
+  });
+
+  // The registry's name is the headline; the declarant's own spelling is shown beneath so a
+  // reader can check the inferred match themselves.
+  it("shows the registry name as the link and the declared spelling alongside", async () => {
+    stub([row()]);
+    draw();
+    await waitFor(() =>
+      expect(
+        screen.getByRole("link", { name: "РАДИО СОТ" }),
+      ).toBeInTheDocument(),
+    );
+    expect(screen.getByText(/РАДИО СОТ ООД/)).toBeInTheDocument();
+  });
+
+  // share_size is free text holding percentages, share counts, fractions and capital amounts
+  // indistinguishably. A bare "5000" beside a percentage is nonsense, so only a parseable
+  // percentage may render.
+  it("renders a percentage share but suppresses an unlabelled number", async () => {
+    stub([row({ shareSize: "50 %" })]);
+    const { unmount } = draw();
+    await waitFor(() => expect(screen.getByText(/50%/)).toBeInTheDocument());
+    unmount();
+
+    stub([row({ shareSize: "5000" })]);
+    draw();
+    await waitFor(() =>
+      expect(screen.getByText("pp_stake_proc_title")).toBeInTheDocument(),
+    );
+    expect(screen.queryByText(/5000/)).not.toBeInTheDocument();
   });
 
   // The framing caveat is not decoration — it is what makes the block descriptive.
@@ -98,10 +128,9 @@ describe("PersonStakeProcurement", () => {
     await waitFor(() =>
       expect(screen.getByText("pp_stake_proc_title")).toBeInTheDocument(),
     );
-    // The lifetime figure is still rendered — the row is not suppressed.
-    expect(screen.getByText("pp_stake_proc_total")).toBeInTheDocument();
-    expect(
-      screen.getByText("pp_stake_proc_while_declared"),
-    ).toBeInTheDocument();
+    // €0 aligned AND the lifetime figure must both appear — the row is not suppressed, and
+    // the two numbers must not collapse into one.
+    expect(screen.getByText("€0")).toBeInTheDocument();
+    expect(screen.getByText(/^€319\b/)).toBeInTheDocument();
   });
 });

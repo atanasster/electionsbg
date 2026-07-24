@@ -549,9 +549,13 @@ const resolve = async () => {
   const [{ n: wealthRows }] = await allRows<{ n: string }>(
     "SELECT count(*) n FROM person_wealth_year",
   );
-  // 096's matview is populated by its own CREATE ... AS, so it needs no REFRESH here —
-  // but report the count, because a collapse to zero means the TR tables went missing
-  // rather than that no official owns a company.
+  // 096's matview is populated by its own CREATE ... AS on the line above, so it needs no
+  // REFRESH on THIS path — but report the count, because a collapse to zero means the TR
+  // tables went missing rather than that no official owns a company.
+  //
+  // Its other inputs (tr_companies / tr_person_roles / tr_officers) are owned by
+  // load_tr_pg.ts, which REFRESHes it CONCURRENTLY after a TR ingest. Those are the two
+  // events that invalidate it; nothing else writes its sources.
   const [{ n: stakeLinks }] = await allRows<{ n: string }>(
     "SELECT count(*) n FROM declaration_stake_company",
   );

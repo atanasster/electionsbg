@@ -450,6 +450,24 @@ export const loadTrPg = async (): Promise<{
     }
   }
 
+  // Declared stakes → public contracts (096) resolves a declared company NAME against
+  // tr_companies and confirms the person against tr_person_roles / tr_officers, so a TR
+  // ingest invalidates it: without this refresh the conflict-of-interest surface keeps
+  // serving pre-ingest links, and nothing in the declarations loader would notice (that
+  // path only rebuilds the matview when declarations themselves are reloaded).
+  //
+  // CONCURRENTLY is safe here — 096 creates a UNIQUE index on (declaration_id, seq, uic) —
+  // and keeps /person pages served while the ~6s rebuild runs. Guarded on the object
+  // existing, since 096 is owned by the declarations loader and may not be applied yet.
+  const hasStakeCompany = await getPool()
+    .query("SELECT to_regclass('public.declaration_stake_company') AS t")
+    .then((r) => r.rows[0]?.t != null)
+    .catch(() => false);
+  if (hasStakeCompany)
+    await exec(
+      "REFRESH MATERIALIZED VIEW CONCURRENTLY declaration_stake_company",
+    );
+
   await exec(
     "CREATE TABLE IF NOT EXISTS meta (key text PRIMARY KEY, value text)",
   );
