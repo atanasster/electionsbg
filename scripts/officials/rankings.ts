@@ -30,11 +30,13 @@ export const OUT_DIR = path.join(ROOT, "data", "officials");
 export const DECL_DIR = path.join(OUT_DIR, "declarations");
 
 /** Every slug with a declaration file on disk, including officials whose most
- *  recent filing predates the year a run targets. */
-export const allDeclarationSlugs = (): string[] =>
-  fs.existsSync(DECL_DIR)
+ *  recent filing predates the year a run targets. `declDir` defaults to the real
+ *  tree; the slug-normalisation migration passes an isolated copy so a dry/test
+ *  apply never reads the production corpus. */
+export const allDeclarationSlugs = (declDir: string = DECL_DIR): string[] =>
+  fs.existsSync(declDir)
     ? fs
-        .readdirSync(DECL_DIR)
+        .readdirSync(declDir)
         .filter((f) => f.endsWith(".json"))
         .map((f) => f.slice(0, -".json".length))
         .sort()
@@ -73,8 +75,11 @@ export const aggregateAssets = (
   };
 };
 
-const readShard = (slug: string): OfficialDeclaration[] => {
-  const file = path.join(DECL_DIR, `${slug}.json`);
+const readShard = (
+  slug: string,
+  declDir: string = DECL_DIR,
+): OfficialDeclaration[] => {
+  const file = path.join(declDir, `${slug}.json`);
   if (!fs.existsSync(file)) return [];
   try {
     return JSON.parse(fs.readFileSync(file, "utf-8")) as OfficialDeclaration[];
@@ -87,13 +92,16 @@ const readShard = (slug: string): OfficialDeclaration[] => {
 /** Net worth per official, from every shard on disk — not just the year a run
  *  targeted, so a backfill does not drop officials whose latest filing is
  *  older. With multiple years merged, the prior filing is a genuine earlier one,
- *  which is what the delta field has always claimed to compare against. */
+ *  which is what the delta field has always claimed to compare against.
+ *
+ *  `declDir` defaults to the real tree; the migration passes an isolated copy. */
 export const buildRankingEntries = (
   indexEntries: readonly OfficialIndexEntry[],
+  declDir: string = DECL_DIR,
 ): OfficialAssetsRankingEntry[] => {
   const indexEntryBySlug = new Map(indexEntries.map((e) => [e.slug, e]));
   const out: OfficialAssetsRankingEntry[] = [];
-  for (const slug of allDeclarationSlugs()) {
+  for (const slug of allDeclarationSlugs(declDir)) {
     const indexEntry = indexEntryBySlug.get(slug);
     if (!indexEntry) continue;
     // Sorted ON READ, not trusted. latestAssetDeclaration takes the head of a
@@ -102,7 +110,7 @@ export const buildRankingEntries = (
     // a filing covers, not the year it was lodged) would otherwise only reach this
     // leaderboard after every per-slug file happened to be rewritten, and until
     // then /officials would rank on one order while /person served another.
-    const decls = readShard(slug).sort(byRecency);
+    const decls = readShard(slug, declDir).sort(byRecency);
     if (decls.length === 0) continue;
     // Rank on the newest filing that DECLARES something, not simply the newest
     // one. An incompatibility filing carries no asset tables, so reading
@@ -161,6 +169,7 @@ const SLIM_TOP_N = 50;
 export const writeRankings = (
   rankingEntries: OfficialAssetsRankingEntry[],
   years: number[],
+  outDir: string = OUT_DIR,
 ): void => {
   // No per-category index in the file: it was a full second copy of every row
   // (~1.1 MB, half the file), and the only consumer — the /officials/assets
@@ -171,8 +180,8 @@ export const writeRankings = (
     total: rankingEntries.length,
     topOfficials: rankingEntries,
   };
-  writeJson(path.join(OUT_DIR, "assets-rankings.json"), rankings);
-  writeJson(path.join(OUT_DIR, "assets-rankings-top.json"), {
+  writeJson(path.join(outDir, "assets-rankings.json"), rankings);
+  writeJson(path.join(outDir, "assets-rankings-top.json"), {
     generatedAt: rankings.generatedAt,
     years: rankings.years,
     total: rankings.total,

@@ -70,9 +70,12 @@ export type ShardEmitResult = {
 export const emitShards = (
   entries: MunicipalIndexEntry[],
   meta: { generatedAt: string; years: number[] },
-  options: { dryRun?: boolean } = {},
+  options: { dryRun?: boolean; shardDir?: string } = {},
 ): ShardEmitResult => {
-  const { dryRun = false } = options;
+  // shardDir defaults to the real by_obshtina tree; the slug-normalisation
+  // migration passes the isolated copy it is rewriting so a test/override apply
+  // never touches production shards.
+  const { dryRun = false, shardDir = SHARD_DIR } = options;
   const resolve = buildResolver();
   const buckets = new Map<
     string,
@@ -129,7 +132,7 @@ export const emitShards = (
       );
     }
     if (!dryRun) {
-      writeJson(path.join(SHARD_DIR, `${code}.json`), shard);
+      writeJson(path.join(shardDir, `${code}.json`), shard);
       shardsWritten++;
     }
   }
