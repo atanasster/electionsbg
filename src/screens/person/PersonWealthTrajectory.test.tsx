@@ -88,7 +88,12 @@ describe("PersonWealthTrajectory", () => {
       markers: [],
     });
     const { container } = render(<PersonWealthTrajectory slug="x" />);
-    await waitFor(() => {}); // let the fetch resolve
+    // The stubbed fetch resolves on a microtask; waitFor with an assertion (not an
+    // empty callback, which passes instantly and can green before the fetch settles)
+    // holds until the component has actually rendered its post-fetch state.
+    await waitFor(() =>
+      expect(fetch).toHaveBeenCalledWith(expect.stringContaining("/api/db/")),
+    );
     expect(screen.queryByText("pp_wealth_title")).not.toBeInTheDocument();
     expect(container).toBeEmptyDOMElement();
   });
@@ -96,7 +101,9 @@ describe("PersonWealthTrajectory", () => {
   it("self-hides when the person has no declarations", async () => {
     stubFetch({ slug: "x", series: [], markers: [] });
     const { container } = render(<PersonWealthTrajectory slug="x" />);
-    await waitFor(() => {});
+    await waitFor(() =>
+      expect(fetch).toHaveBeenCalledWith(expect.stringContaining("/api/db/")),
+    );
     expect(container).toBeEmptyDOMElement();
   });
 });

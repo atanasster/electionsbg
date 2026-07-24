@@ -4,7 +4,9 @@
 // three divergent per-tier renderers (audit T3.3, retiring D9). declaration_detail(id)
 // backs the per-filing drill-down.
 //
-// All money is rounded server-side (090); the client never recomputes a figure.
+// All money is rounded server-side (090); the client never recomputes a figure. The list
+// also arrives in byRecency order (the comparator person_wealth_year ranks by), so the
+// consumer selects the representative filing rather than re-deriving the sort.
 
 import { useEffect, useState } from "react";
 
@@ -20,6 +22,9 @@ export type DeclarationListItem = {
   sourceUrl: string;
   assetsEur: number;
   debtsEur: number;
+  /** assets − debts, computed server-side on the same basis as person_wealth_year so
+   *  the block and the chart cannot publish different figures. */
+  netEur: number;
   assetCount: number;
   stakeCount: number;
   eventCount: number;

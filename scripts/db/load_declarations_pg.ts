@@ -143,7 +143,11 @@ const readShards = (
   const abs = path.join(ROOT, dir);
   if (!fs.existsSync(abs)) return [];
   const out: { file: string; decls: MpDeclaration[] }[] = [];
-  for (const f of fs.readdirSync(abs)) {
+  // .sort() because readdirSync order is filesystem-dependent, and the caller's
+  // dedup keeps the FIRST copy of a source_url — which decides that filing's
+  // subject_ref/tier and therefore its person_id join. Unsorted, the winner
+  // differs between a Mac and the load container for no reason.
+  for (const f of fs.readdirSync(abs).sort()) {
     if (!f.endsWith(".json")) continue;
     let decls: MpDeclaration[];
     try {
@@ -254,7 +258,8 @@ const load = async () => {
         // source_url is UNIQUE. One filing is written under two slugs for an
         // official who holds two posts, so the same URL reaches this loader
         // twice — keep the first, drop the rest, exactly as the coverage report
-        // counts distinct URLs.
+        // counts distinct URLs. "First" is deterministic: TIERS order
+        // (mp → exec → muni → magistrate), then sorted filename within a tier.
         if (seenUrls.has(d.sourceUrl)) {
           dupUrls++;
           continue;

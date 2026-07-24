@@ -32,17 +32,6 @@ const declTypeKey = (type: string): string =>
     Other: "pp_decl_type_other",
   })[type] ?? "pp_decl_type_other";
 
-// Filing precedence within a year, mirroring src/lib/declarations.ts FILING_ORDER and
-// the 090 wealth matview: a при-напускане (Vacate) is a later, fuller snapshot than the
-// same year's annual, so it represents the year. Picking the headline by list order
-// instead would disagree with the wealth chart on a person who filed twice in a year.
-const FILING_ORDER: Record<string, number> = {
-  Vacate: 3,
-  Annualy: 2,
-  Other: 1,
-  Entry: 0,
-};
-
 export const PersonDeclarations: FC<{ slug: string }> = ({ slug }) => {
   const { t, i18n } = useTranslation();
   const locale = i18n.language === "bg" ? "bg-BG" : "en-US";
@@ -50,27 +39,30 @@ export const PersonDeclarations: FC<{ slug: string }> = ({ slug }) => {
 
   const summary = useMemo(() => {
     if (!rows || rows.length === 0) return null;
-    // Newest asset-bearing filing = the wealth snapshot (not declarations[0], which is
-    // often an assetless incompatibility filing — the D2 bug). Within a year, the fuller
-    // filing wins (Vacate > Annual …) so the headline matches the wealth chart.
-    const withAssets = [...rows.filter((r) => r.assetCount > 0)].sort(
-      (a, b) =>
-        b.year - a.year ||
-        (FILING_ORDER[b.type] ?? 1) - (FILING_ORDER[a.type] ?? 1) ||
-        b.id - a.id,
-    );
+    // Newest asset-bearing filing = the wealth snapshot (not rows[0], which is often an
+    // assetless incompatibility filing — the D2 bug).
+    //
+    // The ORDER comes from the server: person_declarations (090) already sorts by
+    // byRecency — year, filed_at, filing type, then the stable tie-breaks — the SAME
+    // comparator person_wealth_year ranks by. So the first asset-bearing row IS the
+    // representative filing, and this block cannot drift from the wealth chart. Re-deriving
+    // the comparator here is what made the two disagree once already; don't.
+    const withAssets = rows.filter((r) => r.assetCount > 0);
     if (withAssets.length === 0) return null;
     const latest = withAssets[0];
-    // The prior snapshot is the newest asset-bearing filing in an EARLIER year — a second
-    // filing in the same year is not a year-over-year delta.
-    const prior = withAssets.find((r) => r.year < latest.year) ?? null;
-    const net = latest.assetsEur - latest.debtsEur;
-    const priorNet = prior ? prior.assetsEur - prior.debtsEur : null;
+    // The prior snapshot is the newest asset-bearing filing covering a DIFFERENT
+    // period. Keyed on fiscalYear ?? year, matching the shared priorAssetDeclaration
+    // selector (src/lib/declarations.ts) — an annual and an exit filing in one calendar
+    // year share a declarationYear but cover different fiscal years, so keying on the
+    // calendar year alone would skip a real year-over-year comparison and label the
+    // delta against the wrong year (the /officials page keys on the fiscal year).
+    const period = (r: DeclarationListItem) => r.fiscalYear ?? r.year;
+    const prior = withAssets.find((r) => period(r) !== period(latest)) ?? null;
     return {
       latest,
-      net,
-      deltaNet: priorNet != null ? net - priorNet : null,
-      priorYear: prior?.year ?? null,
+      net: latest.netEur,
+      deltaNet: prior ? latest.netEur - prior.netEur : null,
+      priorYear: prior ? period(prior) : null,
     };
   }, [rows]);
 
@@ -101,7 +93,7 @@ export const PersonDeclarations: FC<{ slug: string }> = ({ slug }) => {
           </div>
           {summary.deltaNet != null &&
             summary.priorYear != null &&
-            summary.priorYear !== latest.year && (
+            summary.priorYear !== (latest.fiscalYear ?? latest.year) && (
               <div
                 className={cn(
                   "mt-0.5 text-xs",
@@ -147,7 +139,6 @@ const FilingRow: FC<{ row: DeclarationListItem; locale: string }> = ({
 }) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-  const net = row.assetsEur - row.debtsEur;
 
   return (
     <li>
@@ -170,8 +161,11 @@ const FilingRow: FC<{ row: DeclarationListItem; locale: string }> = ({
         <span className="flex-1 truncate text-muted-foreground">
           {row.institution ?? row.positionTitle ?? ""}
         </span>
+        {/* An incompatibility (Other) filing carries no asset tables at all, so it has
+            no net worth — printing €0 would read as a collapse in declared wealth, which
+            is the D2 bug in miniature. Show a dash. */}
         <span className="shrink-0 tabular-nums">
-          {formatEurCompact(net, locale)}
+          {row.assetCount > 0 ? formatEurCompact(row.netEur, locale) : "—"}
         </span>
       </button>
       {open && <FilingDetail id={row.id} locale={locale} />}

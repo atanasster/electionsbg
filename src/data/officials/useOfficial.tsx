@@ -12,7 +12,7 @@
 // profile page fetches nothing extra; the rankings file is only for the
 // /officials/assets leaderboard, which genuinely needs every row.
 
-import { useQueries, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import type { OfficialDeclaration } from "@/data/dataTypes";
 import { dataUrl } from "@/data/dataUrl";
 import { byRecency } from "@/lib/declarations";
@@ -85,24 +85,4 @@ export const mergeDeclarationTimelines = (
     }
   }
   return [...bySourceUrl.values()].sort(byRecency);
-};
-
-export const useOfficialDeclarationsForSlugs = (
-  slugs: readonly string[],
-): { declarations: OfficialDeclaration[]; isLoading: boolean } => {
-  // `combine` is React Query's own hook for this: it runs on the query results
-  // and memoises on them, so there is no hand-rolled dependency projection to
-  // get wrong (and no eslint-disable riding on an internal invariant about when
-  // `dataUpdatedAt` changes).
-  return useQueries({
-    queries: slugs.map((slug) => ({
-      queryKey: ["official_declarations", slug] as const,
-      queryFn: () => fetchDeclarations(slug),
-      staleTime: Infinity,
-    })),
-    combine: (results) => ({
-      declarations: mergeDeclarationTimelines(results.map((r) => r.data)),
-      isLoading: results.some((r) => r.isLoading),
-    }),
-  });
 };

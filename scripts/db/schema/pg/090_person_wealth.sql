@@ -175,13 +175,37 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
       'debtsEur', round(COALESCE(
         (SELECT SUM(a.value_eur) FILTER (WHERE a.category = 'debt')
            FROM declaration_asset a WHERE a.declaration_id = d.declaration_id), 0)),
+      -- net is computed HERE, on the same basis as person_wealth_year, so the
+      -- declaration block and the wealth chart cannot publish different net worths
+      -- for one person-year.
+      'netEur', round(COALESCE(
+        (SELECT SUM(a.value_eur) FILTER (WHERE a.category <> 'debt')
+           FROM declaration_asset a WHERE a.declaration_id = d.declaration_id), 0)
+        - COALESCE(
+        (SELECT SUM(a.value_eur) FILTER (WHERE a.category = 'debt')
+           FROM declaration_asset a WHERE a.declaration_id = d.declaration_id), 0)),
       'assetCount', (SELECT count(*) FROM declaration_asset a
                        WHERE a.declaration_id = d.declaration_id),
       'stakeCount', (SELECT count(*) FROM declaration_stake s
                        WHERE s.declaration_id = d.declaration_id),
       'eventCount', (SELECT count(*) FROM declaration_event e
                        WHERE e.declaration_id = d.declaration_id)
-    ) ORDER BY d.declaration_year DESC, d.declaration_id DESC)
+    ) ORDER BY
+      -- byRecency (src/lib/declarations.ts), verbatim and IN THE SAME ORDER the 090
+      -- matview ranks by: year, then filed_at, then filing type, then the stable
+      -- tie-breaks. The client takes the first asset-bearing row as the headline, so
+      -- it never re-derives this comparator and cannot drift from the wealth chart.
+      d.declaration_year DESC,
+      d.filed_at DESC NULLS LAST,
+      CASE d.declaration_type
+        WHEN 'Vacate'  THEN 3
+        WHEN 'Annualy' THEN 2
+        WHEN 'Other'   THEN 1
+        WHEN 'Entry'   THEN 0
+        ELSE 1
+      END DESC,
+      d.entry_number ASC NULLS LAST,
+      d.source_url ASC)
     FROM declaration d JOIN pick ON pick.person_id = d.person_id
   ), '[]'::jsonb);
 $$;

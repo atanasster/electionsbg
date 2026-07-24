@@ -15,12 +15,20 @@
 -- not render a gap for a person this returns false for.
 --
 -- A person_role join, so it re-derives with the resolver; no data of its own.
+-- §6 PRIVACY GATE, same as every other person-serving surface (082, 090): the
+-- person must be ACTIVE and PUBLIC. status='review' is an identity merge nobody has
+-- adjudicated (081) — publishing an enrichment figure built from two provisionally
+-- merged people is precisely the harm this gate exists to prevent, so the flags are
+-- checked HERE, in the function the methodology designates as the enforcement point,
+-- not left to each caller.
 DROP FUNCTION IF EXISTS person_is_accountability_senior(bigint);
 CREATE OR REPLACE FUNCTION person_is_accountability_senior(p_person_id bigint)
 RETURNS boolean LANGUAGE sql STABLE AS $$
   SELECT EXISTS (
     SELECT 1 FROM person_role r
+      JOIN person p ON p.person_id = r.person_id
      WHERE r.person_id = p_person_id
+       AND p.status = 'active' AND p.is_public_figure
        AND (
             r.source = 'mp'
          OR (r.source = 'official_exec' AND r.role IN ('cabinet', 'deputy_minister'))
@@ -48,7 +56,7 @@ SELECT DISTINCT ON (p.person_id)
   END AS qualifying_office
 FROM person p
 JOIN person_role r ON r.person_id = p.person_id
-WHERE p.is_public_figure
+WHERE p.status = 'active' AND p.is_public_figure
   AND (
        r.source = 'mp'
     OR (r.source = 'official_exec' AND r.role IN ('cabinet', 'deputy_minister'))
@@ -56,13 +64,18 @@ WHERE p.is_public_figure
     OR r.source = 'magistrate'
   )
 ORDER BY p.person_id,
-  -- highest authority wins the caption
+  -- highest authority wins the caption. Ranked by source THEN role THEN ref: two
+  -- official_exec roles (deputy minister, later minister) tie on source, and without
+  -- the role rung DISTINCT ON picks arbitrarily — the caption would flip between
+  -- deploys with no data change.
   CASE r.source
     WHEN 'mp' THEN 1
     WHEN 'official_exec' THEN 2
     WHEN 'magistrate' THEN 3
     WHEN 'official_muni' THEN 4
     ELSE 5
-  END;
+  END,
+  CASE r.role WHEN 'cabinet' THEN 1 WHEN 'deputy_minister' THEN 2 ELSE 3 END,
+  r.ref;
 
 GRANT SELECT ON accountability_senior TO app_readonly;
