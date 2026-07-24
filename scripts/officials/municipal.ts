@@ -41,7 +41,7 @@ import {
   REGISTER_BASE,
   sleep,
   normalize,
-  slugify,
+  officialSlug,
   fetchText,
   fetchDeclaration,
   writeJson,
@@ -205,7 +205,7 @@ const cmd = command({
       // Slug disambiguator = municipality + role, so two people with the same
       // legal name in one municipality (or one person across two roles) do
       // not collide. Same person's multiple declarations share a slug.
-      const slug = slugify(
+      const slug = officialSlug(
         entry.declarantName,
         `${entry.municipality}|${entry.role}`,
       );

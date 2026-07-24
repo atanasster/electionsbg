@@ -22,6 +22,13 @@
 // personGuid(): most of these heads are per-DOCUMENT guids, which is exactly why
 // they were mistaken for second people.
 //
+// ORDER MATTERS. This reproduces slugs minted by the RAW slugify(), which is why
+// ./shared.ts keeps that export raw. Run it BEFORE the canonical-slug rename
+// migration: afterwards the shards carry officialSlug(...) names, the equality
+// above can only hold for declarants whose listing name was already canonical,
+// and the script would report "nothing to do" on a corpus that still has
+// orphans. The guard in the handler fails loud instead.
+//
 // Manual by design, like every one-off backfill here — it is not wired into
 // `npm run data`. Dry by default:
 //   tsx scripts/officials/remerge_collision_slugs.ts            # report only
@@ -46,7 +53,7 @@ import {
   OUT_DIR,
   writeRankings,
 } from "./rankings";
-import { ROOT, slugify, writeJson } from "./shared";
+import { officialSlug, ROOT, slugify, writeJson } from "./shared";
 
 const INDEX_FILE = path.join(OUT_DIR, "index.json");
 
@@ -132,6 +139,20 @@ const cmd = command({
       fs.readFileSync(INDEX_FILE, "utf-8"),
     ) as OfficialIndexFile;
     const listed = listedGuids();
+
+    // Refuse to run on an already-migrated corpus rather than shrugging out a
+    // false "nothing to do" — findOrphans() can only match slugs minted by the
+    // raw slugify(), so after the canonical rename it under-reports silently.
+    const canonical = index.entries.filter(
+      (e) => officialSlug(e.name, e.institution) === e.slug,
+    ).length;
+    if (canonical > index.entries.length / 2) {
+      throw new Error(
+        `${canonical}/${index.entries.length} slugs already match officialSlug() — this corpus has been through the canonical-slug migration, ` +
+          `and this script can no longer recognise its orphans. It was a one-off for the pre-migration layout; do not re-run it.`,
+      );
+    }
+
     const orphans = findOrphans(index, listed);
 
     if (orphans.length === 0) {

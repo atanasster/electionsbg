@@ -188,10 +188,13 @@ const fields = (
 // its OWN per-person GUID — `<GUID><per-filing sequence>.xml` — so every filing by one
 // declarant, across years AND across tiers (exec / muni / mp), carries the same GUID. That
 // makes it a second gold key alongside the parliament MP id, and a strictly better one than
-// the name: the officials slug is `hash(rawName|institution)` (scripts/officials/shared.ts),
-// so the register merely re-casing a name between harvests ("Станислав Тодоров Трифонов" →
-// "СТАНИСЛАВ ТОДОРОВ ТРИФОНОВ") mints a SECOND slug for the same person and scatters their
-// declarations across two identities. The GUID is immune to that, and to marriage renames
+// the name: the officials slug is `hash(canonicalDeclarantName(rawName)|institution)`
+// (scripts/officials/shared.ts). Canonicalisation levels the cheap drift — the register
+// merely re-casing a name between harvests ("Станислав Тодоров Трифонов" → "СТАНИСЛАВ
+// ТОДОРОВ ТРИФОНОВ"), or re-spacing a hyphen, or dropping a "д-р" — which used to mint a
+// SECOND slug for the same person. It does NOT level a typo ("Руфат" → "Руфад"), and it
+// cannot: the two are indistinguishable from two same-named people. The GUID is immune to
+// both, which is why it stays the gold key. Also immune to marriage renames
 // that change the fold itself (MP 3861 "Галя Стоянова Желязкова" and MP 5334 "Галя Стоянова
 // Василева" are one person — different blocks, so no name-based tier could ever see them).
 //

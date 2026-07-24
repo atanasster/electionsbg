@@ -56,7 +56,7 @@ import {
   REGISTER_BASE,
   sleep,
   normalize,
-  slugify,
+  officialSlug,
   fetchText,
   fetchDeclaration,
   writeJson,
@@ -91,8 +91,9 @@ const SLUG_COLLISION_GUIDS: Set<string> = new Set(
 // 68B238E8… in 2016 with a byte-identical property list.
 //
 // The two are told apart by the declared HOLDINGS, not by the name or the
-// institution: the slug is slugify(name, institution), so a shared slug already
-// implies both are identical and neither can ever discriminate.
+// institution: the slug is officialSlug(name, institution), so a shared slug
+// already implies both are identical after canonicalisation and neither can
+// ever discriminate.
 const warnCollisions = (collisions: SlugCollisions): void => {
   console.warn(
     `  [warn] ${collisions.size} slug collision(s) — one slug, two register person-GUIDs. Their filings MERGE into one profile.`,
@@ -277,8 +278,8 @@ const cmd = command({
       const guid = personGuid(entry.xmlFile);
       const slug =
         guid && SLUG_COLLISION_GUIDS.has(guid)
-          ? slugify(entry.declarantName, `${entry.institution}|${guid}`)
-          : slugify(entry.declarantName, entry.institution);
+          ? officialSlug(entry.declarantName, `${entry.institution}|${guid}`)
+          : officialSlug(entry.declarantName, entry.institution);
       // Two DIFFERENT register people landing on one slug would merge into a
       // single profile publishing neither person's holdings correctly. Listed
       // GUIDs are already separated above; anything else is new and must be seen

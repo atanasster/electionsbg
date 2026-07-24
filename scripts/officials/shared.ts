@@ -38,6 +38,11 @@ export const sleep = (ms: number): Promise<void> =>
 
 // Match parliament.bg's canonical form so the SPA can later cross-reference
 // "is this official also a sitting MP?" without a second normalization.
+//
+// Also the base of canonicalDeclarantName() below, and therefore of every
+// officials profile URL: a tweak made for the parliament cross-reference
+// re-slugs all 21,161 profiles. official_slug.test.ts pins a full slug string
+// so that lands as a red test rather than as a silent mass rename.
 export const normalize = (s: string): string =>
   s
     .toUpperCase()
@@ -48,6 +53,11 @@ export const normalize = (s: string): string =>
 // "Бойко Методиев Борисов" → "boyko-metodiev-borisov-2641". Stable across runs.
 // A short hash of the name + a disambiguator (institution, or institution +
 // role) keeps two officials with the same legal name from colliding.
+//
+// RAW in, deliberately: this is the historical primitive, and
+// ./remerge_collision_slugs.ts reproduces already-published slugs with it.
+// Callers that mint a profile slug want ./officialSlug below, which feeds this
+// the CANONICAL name.
 export const slugify = (name: string, disambiguator: string): string => {
   const base = name
     .normalize("NFKD")
@@ -99,6 +109,70 @@ export const slugify = (name: string, disambiguator: string): string => {
   const suffix = h.toString(16).padStart(8, "0").slice(0, 6);
   return `${base}-${suffix}`;
 };
+
+// The register spells the same declarant differently between folder years, and
+// `slugify` above turns every spelling into a different profile. It lowercases
+// and collapses punctuation for the slug BODY but hashes the string it was
+// handed, so two spellings that produce a byte-identical body still land on
+// different 6-hex suffixes: "АЛДИН ХИТОВ КАРАГЬОЗОВ" (2022-23) and "Алдин Хитов
+// Карагьозов" (2024-25) are one person under two profiles, each publishing part
+// of his wealth. 270 register person-GUIDs are split that way across 587 shards,
+// 185 of them by letter-case alone — the register moved from ALL-CAPS to Title
+// Case between the 2023 and 2024 folders.
+//
+// The prefix the register sometimes prepends does the same: Ася Русева Генева of
+// РЗИ filed as "д-р …" through 2023, "Д-Р …" in 2024 and "…" in 2025 — three
+// profiles for one person. A title is not part of a legal name, so it goes.
+//
+// Deliberately ONLY "д-р": it is the single title the corpus carries, on 13 of
+// the profiles this function actually governs. (Counting the DECLARATION XML's
+// name instead gives 114 filings — a different population, and not the one the
+// slug is minted from: both ingests hash the register list.xml name, while the
+// shards store the name parsed out of each XML.) Every extra alternative is
+// another chance to swallow a real given name, so add one here only after
+// confirming it appears in the LIST names.
+//
+// Two XML-name spellings would not match this rule even if it were applied
+// there — "д-рНягол Минчев Няголов" (glued, 4 filings) and "д- Васил Николаев
+// Попов" (truncated, 1). Left deliberately unmatched: loosening the regex far
+// enough to catch them is how it starts eating given names. They belong to the
+// person-GUID alias table instead.
+const TITLE_PREFIX = /^Д-Р\s+/;
+
+// What is NOT stripped, and must not be: a trailing digit. It looks like noise
+// and is not — it is the register's OWN disambiguator for two same-named people
+// in one group label, and it means different things in different rows. Under
+// "Училища", "Стоян Георгиев Стоянов1" (AF888636…) and "Стоян Георгиев Стоянов"
+// (A571FD82…) are two different people, so stripping the 1 MERGES them and
+// publishes one man's property under the other's name. Under "Държавни
+// предприятия" the same suffix is noise on ONE person (F8462CC8… holds both a
+// "…Христов1" and a "…Христов" shard) while the bare name is shared with a
+// second person entirely. No textual rule can tell those apart — the seven
+// digit-suffixed names in the corpus are resolved by person-GUID in
+// ./_declarant_guid_aliases.json instead.
+
+/** The declarant name reduced to what identifies the PERSON, so that the
+ *  register's spelling drift between folder years cannot fork one official into
+ *  several profiles. Case, inner whitespace and hyphen spacing are levelled by
+ *  `normalize`; an academic title is dropped on top of that. */
+export const canonicalDeclarantName = (name: string): string =>
+  // No trailing .trim(): `normalize` already trimmed, and TITLE_PREFIX eats its
+  // own trailing whitespace.
+  normalize(name).replace(TITLE_PREFIX, "");
+
+/** The slug an official's profile is published under. Same hash as `slugify`,
+ *  but over the canonical name — so a re-spelling lands on the slug the person
+ *  already has.
+ *
+ *  For a case, whitespace or hyphen re-spelling only the 6-hex suffix moves:
+ *  `slugify` already lowercased and collapsed those out of the body. Dropping a
+ *  TITLE is the exception — it shortens the body too
+ *  (`d-r-asya-ruseva-geneva-888eb6` → `asya-ruseva-geneva-20d334`), on 13 of the
+ *  21,161 profiles on disk. So a rename migration must key on the whole old
+ *  slug; matching old to new by a shared body would silently miss exactly the
+ *  profiles the title rule exists to merge. */
+export const officialSlug = (name: string, disambiguator: string): string =>
+  slugify(canonicalDeclarantName(name), disambiguator);
 
 // Fetch with a small retry — the municipal ingest makes ~6,700 sequential
 // requests, so a single transient blip should not kill a 30-minute run.
