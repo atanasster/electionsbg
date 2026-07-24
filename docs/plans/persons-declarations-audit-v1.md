@@ -347,9 +347,56 @@ magistrate, off the PG payload. Retires D9 and the three divergent net-worth def
 / securities / funds). Reuse `build_car_makes.ts` for the vehicle leaderboard, extended to
 officials.
 
-**3.7 Declared vs market value** — join declared acquisition price + area + settlement to the
-property AVM (`project_property_avm`). "Declared €21k for a 43 m² flat in Поморие" against a
-market estimate is the single most legible integrity signal we could ship.
+**3.7 Declared vs market value** — ❌ **NOT SHIPPED. Blocked, and the in-corpus substitute was
+built, measured and rejected.** Do not rebuild it without reading this note.
+
+The step's stated dependency — the property AVM (`project_property_avm`) — is a **separate
+project with no dataset in this repository**, so there is no market estimate to compare a
+declared price against. The substitute attempted here was a *declared-vs-declared* proxy: a
+peer-median €/m² benchmark built from the declarations themselves (`095_property_per_sqm.sql`,
+`declared_share_fraction()`, `property_rate_benchmark`). It was implemented in full, tested,
+reviewed, and then **reverted**, for one disqualifying reason plus three supporting ones.
+
+**The disqualifying finding — the ideal-part normalisation is empirically backwards.** The
+proxy divided the declared price by the declared ideal part (`share`), assuming a declarant
+holding `1/2` records *half* the property's price. Controlled on apartments acquired 2005–2020
+with 30–200 m² area, the corpus says otherwise:
+
+| `share` | rows | naive median €/m² | median area |
+|---|---|---|---|
+| `1/2` | 4,139 | €383 | 80 m² |
+| `1` | 1,253 | €422 | 76 m² |
+| `1/1` | 993 | €435 | 80 m² |
+
+At **identical median areas**, `1/2`-share rows sit at **0.88–0.91** of the whole-share rate —
+not 0.5. Declarants recording an ideal part overwhelmingly write down the **whole property's**
+price. So the ×2 normalisation does not remove a bias; it *manufactures* one, roughly doubling
+fractional declarants to ~€766/m². Measured on the live corpus after normalisation, **59.7% of
+whole-share declarants rendered below their peer median vs 41.3% of fractional ones** — i.e. the
+feature would have systematically insinuated under-declaration against the wrong half of the
+cohort, by name, which is precisely what the accumulation-gap safeguards (§3.0) exist to prevent.
+
+Supporting defects, all confirmed against live data:
+
+- **Sub-1% shares publish absurd figures.** A `0.461%` share on a 139 m² Sofia apartment
+  normalised to **€335,523/m²**, attributed to a named person; 105 rows exceeded €20,000/m².
+- **`declared_share_fraction('0%')` returned 0** → division by zero inside `declaration_detail()`,
+  and the literal `'0 %'` already exists in `declaration_asset`. A person page 500 waiting to happen.
+- **The benchmark was not comparable.** It mixed farmland (median €51/m²) with buildings
+  (€426/m²); farmland was 25% of the input. 1,391 rows rendered "€0/кв.м" and 18% under €10/m².
+
+Also noted: the five unit tests all passed while every one of these defects was live, because
+they asserted literal arithmetic rather than the pipeline's output on real rows. Tests for any
+future revival must assert against corpus distributions, not hand-computed constants.
+
+**To actually ship 3.7** you need an *external* price reference (the AVM, НСИ deals data, or
+imot.bg asking prices) — the declarations cannot benchmark themselves. Whatever the source, the
+`share` column must be treated as **descriptive of the declarant's legal interest, not as a
+divisor on the declared price**, unless a fresh measurement overturns the table above.
+
+This is the second Tier-3 step whose premise the corpus falsified on inspection (see 3.5, where
+`Sent != True` turned out not to mean "did not file"). Treat register semantics as unverified
+until measured.
 
 **3.8 Stake ↔ procurement, time-aligned** — a declared company stake that won public
 contracts **while the person held office**. The pieces exist (`declaration_stake.uic` →
