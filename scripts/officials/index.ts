@@ -440,7 +440,7 @@ const cmd = command({
     for (const [slug, decls] of declsBySlug.entries()) {
       const file = path.join(DECL_DIR, `${slug}.json`);
       const existing = readJsonOr<OfficialDeclaration[]>(file, []);
-      const merged = mergeDeclarations(existing, decls, targetYear);
+      const merged = mergeDeclarations(existing, decls, String(targetYear));
       writeJson(file, merged);
       // The index's latestDeclarationYear must agree with the shard it
       // describes. Taking it from THIS run's filings alone let a stale value

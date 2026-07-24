@@ -114,6 +114,9 @@ export const __resetRegisterYearCache = (): void => {
 // path segment cannot be read as a year with junk appended — the real suffixes
 // are `_nc`, `_nonc`, `y`, `y4`, `f1`.
 const BARE_YEAR_RE = new RegExp(`^${REGISTER_BASE_ESCAPED}/(\\d{4})/`);
+const FOLDER_SEGMENT_RE = new RegExp(
+  `^${REGISTER_BASE_ESCAPED}/(\\d{4}[a-z0-9_]*)/`,
+);
 const SUFFIXED_YEAR_RE = new RegExp(
   `^${REGISTER_BASE_ESCAPED}/(\\d{4})[a-z0-9_]*/`,
 );
@@ -126,6 +129,19 @@ export const registerFolderYear = (
   if (!m) return null;
   const year = Number(m[1]);
   return year >= MIN_PLAUSIBLE_YEAR ? year : null;
+};
+
+// The register folder segment a declaration came from, verbatim — "2025",
+// "2021_nc", "2024f1". Unlike registerFolderYear this does NOT parse to a
+// number, which is what makes it the right ownership key for the merge: a run
+// targeting the folder named "2021_nc" owns exactly that folder's rows, and
+// `"2021_nc" !== "2021"` falls out for free. Parsing to an int instead turned
+// "2021_nc" into NaN and silently made such a run authoritative for nothing —
+// so upstream corrections and removals never landed. That folder IS the MP 2021
+// cohort (there is no plain /2021/), so it was the common case, not an edge one.
+export const registerFolderSegment = (sourceUrl: string): string | null => {
+  const m = FOLDER_SEGMENT_RE.exec(sourceUrl);
+  return m ? m[1] : null;
 };
 
 // Collect the <xmlFile> of every declaration under a category the caller

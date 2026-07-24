@@ -1,58 +1,17 @@
-// Merge helpers for the officials ingest.
+// Officials-specific merge helpers. The generic per-declarant declaration merge
+// lives in scripts/lib/declaration_merge.ts and is shared with the MP ingest —
+// see there for the semantics. What stays here is the index-entry merge, which
+// only the officials roster has.
 //
-// A run targets ONE register folder year, but data/officials/ accumulates
-// every year ingested so far. Without merging, a backfill would overwrite each
-// per-slug file with the older year and shrink index.json to that year's
-// cohort — index.json is a shared universe file (funds political-links,
-// company-connections, NGO board links, person resolution all read it), so
-// that would silently narrow several downstream builds.
-//
-// Semantics: a run is AUTHORITATIVE FOR ITS TARGET YEAR and additive
-// elsewhere. Re-running a year replaces exactly that year's rows (so upstream
-// corrections and removals land) and leaves every other year untouched, which
-// makes re-runs idempotent.
-//
-// Kept out of ./index.ts on purpose: that module calls run() at import time,
-// so it cannot be imported from a test.
+// Kept out of ./index.ts on purpose: that module calls run() at import time, so
+// it cannot be imported from a test.
 
-import type {
-  OfficialDeclaration,
-  OfficialIndexEntry,
-} from "../../src/data/dataTypes";
-import { registerFolderYear } from "../lib/cacbg_register";
-// Newest-first ordering is shared with the client: "the latest filing" is the
-// head of this sort, so a second copy that drifts silently disagrees about who
-// is worth what. See src/lib/declarations.ts.
-import { byRecency } from "../../src/lib/declarations";
+import type { OfficialIndexEntry } from "../../src/data/dataTypes";
 
-// Which run owns a row: the register folder it came from, NOT
-// decl.declarationYear. The parsed year comes from inside the XML and does not
-// reliably equal the folder, so keying replacement on it would strand or
-// clobber the wrong rows.
-//
-// Bare years only — see registerFolderYear's `allowSuffixed` note for why the
-// ownership test and the dating test must differ.
-export const folderYearFromSourceUrl = (url: string): number | null =>
-  registerFolderYear(url);
-
-export const mergeDeclarations = (
-  existing: OfficialDeclaration[],
-  incoming: OfficialDeclaration[],
-  targetYear: number,
-): OfficialDeclaration[] => {
-  // Drop the rows this run owns, keep every other year, then add the fresh set.
-  const kept = existing.filter(
-    (d) => folderYearFromSourceUrl(d.sourceUrl) !== targetYear,
-  );
-  // Guard against a duplicate sourceUrl surviving on both sides (a row whose
-  // URL doesn't carry a parseable folder year would otherwise double up).
-  const incomingUrls = new Set(incoming.map((d) => d.sourceUrl));
-  const merged = [
-    ...kept.filter((d) => !incomingUrls.has(d.sourceUrl)),
-    ...incoming,
-  ];
-  return merged.sort(byRecency);
-};
+export {
+  folderFromSourceUrl,
+  mergeDeclarations,
+} from "../lib/declaration_merge";
 
 // One entry per slug. The richer descriptors (category, institution, position)
 // only exist on the list.xml side, so a slug last seen in an older run keeps

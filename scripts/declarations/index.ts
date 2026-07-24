@@ -38,6 +38,7 @@ import { buildCompaniesByObshtina } from "../parliament/build_companies_by_obsht
 // Shared with the officials ingest and registerFolderYear() — see
 // scripts/lib/cacbg_register.ts for why this must not be redeclared.
 import { REGISTER_BASE } from "../lib/cacbg_register";
+import { mergeDeclarations } from "../lib/declaration_merge";
 
 const UA = "electionsbg.com data pipeline";
 
@@ -199,6 +200,9 @@ export const parseFinancialDeclarations = async ({
 
   // Group declarations by MP id so we can write one file per MP with all years
   const byMp = new Map<number, MpDeclaration[]>();
+  // Did this run see every declaration the targeted folders list? Only then may
+  // it replace those folders' rows — see the merge call below.
+  let runWasComplete = limit === Infinity && filter == null;
 
   for (const year of years) {
     console.log(`[declarations] fetching ${year} index…`);
@@ -255,17 +259,50 @@ export const parseFinancialDeclarations = async ({
     }
 
     if (parseFailures > 0) {
+      runWasComplete = false;
       console.warn(
         `[declarations]   skipped ${parseFailures}/${processed} unparseable declaration(s) for ${year}`,
       );
     }
   }
 
+  // Merge into what is already on disk rather than overwriting it. This run is
+  // authoritative only for the register folders it targeted; every other year
+  // the MP has on file survives. Writing `decls` straight out is what deleted
+  // the 2021-2024 history of 244 of the 245 MPs who filed in 2025.
+  //
+  // Authority is forfeited when the run did not see the whole cohort. A
+  // DECL_LIMIT cap, a name filter or a parse failure means `decls` is a SUBSET
+  // of what that folder holds, and replacing the folder's rows with a subset
+  // would delete good rows already on disk — trading the bug we just fixed for
+  // a smaller version of itself. In that case merge additively instead.
+  // The raw folder names, NOT parsed ints — "2021_nc" is a real folder (and IS
+  // the MP 2021 cohort), and Number("2021_nc") is NaN.
+  const targetFolders = runWasComplete ? years : [];
+  if (!runWasComplete) {
+    console.warn(
+      `[declarations] partial run (limit/filter/parse failures) — merging additively; targeted folders NOT replaced`,
+    );
+  }
   let written = 0;
   for (const [mpId, decls] of byMp.entries()) {
-    decls.sort((a, b) => b.declarationYear - a.declarationYear);
     const out = path.join(outDir, `${mpId}.json`);
-    fs.writeFileSync(out, stringify(decls), "utf-8");
+    // Tolerate a truncated file from an interrupted run rather than wedging the
+    // whole pipeline mid-write and skipping every downstream builder. Same
+    // posture as readJsonOr in the officials ingest.
+    let existing: MpDeclaration[] = [];
+    if (fs.existsSync(out)) {
+      try {
+        existing = JSON.parse(fs.readFileSync(out, "utf-8"));
+      } catch {
+        console.warn(`[declarations]   unreadable ${out} — treating as empty`);
+      }
+    }
+    fs.writeFileSync(
+      out,
+      stringify(mergeDeclarations(existing, decls, targetFolders)),
+      "utf-8",
+    );
     written++;
   }
   console.log(`[declarations] wrote ${written} per-MP file(s) to ${outDir}`);
