@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-24T03:34:56.900Z",
+  "generatedAt": "2026-07-24T13:39:55.050Z",
   "years": [
     2015,
     2016,
@@ -45,24 +45,6 @@
       "realEstateCount": 1,
       "realEstateUnvalued": 0,
       "delta": null
-    },
-    {
-      "slug": "yanaki-stefanov-lazarov-249248",
-      "name": "Янаки Стефанов Лазаров",
-      "category": "state_enterprise",
-      "institution": "Училища",
-      "positionTitle": "Директор",
-      "latestDeclarationYear": 2025,
-      "totalAssetsEur": 9577640.490226656,
-      "totalDebtsEur": 0,
-      "netWorthEur": 9577640.490226656,
-      "realEstateCount": 6,
-      "realEstateUnvalued": 3,
-      "delta": {
-        "previousYear": 2023,
-        "absoluteEur": -7444.103015089408,
-        "pct": -0.0007766340445589909
-      }
     },
     {
       "slug": "nikolai-iordanov-sbev-d4cff4",
@@ -833,6 +815,24 @@
       "realEstateCount": 12,
       "realEstateUnvalued": 0,
       "delta": null
+    },
+    {
+      "slug": "sasho-georgiev-penov-4ae4e0",
+      "name": "Сашо Георгиев Пенов",
+      "category": "cabinet",
+      "institution": "Служ. правителство-МОН",
+      "positionTitle": "Служебен министър",
+      "latestDeclarationYear": 2023,
+      "totalAssetsEur": 1471247.5010609312,
+      "totalDebtsEur": 0,
+      "netWorthEur": 1471247.5010609312,
+      "realEstateCount": 13,
+      "realEstateUnvalued": 0,
+      "delta": {
+        "previousYear": 2022,
+        "absoluteEur": 543883.6708711908,
+        "pct": 0.586483592701595
+      }
     }
   ]
 }

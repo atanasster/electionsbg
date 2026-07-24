@@ -441,6 +441,31 @@ const REAL_ESTATE_VALUE_OVERRIDES: Array<{
     correctedValue: 5887,
     note: "Corrected: declarant misplaced separator (source value 5,887,000 BGN for 73m² Ruse apartment — 2025 municipal-tier filing).",
   },
+  {
+    // Янаки Стефанов Лазаров 2024 + 2025 — a 28m² нива in Иванча (общ.
+    // Полски Тръмбеш), acquired 1999 by дарение off реституция and held by
+    // his spouse, declared at 18,347,000 BGN. That is ~655,000 BGN/m² for
+    // restituted village farmland, against his own 62m² Veliko Tarnovo
+    // apartment at 247,196 BGN and bank holdings of 118,000 BGN — three
+    // orders of magnitude out of line with every other row he files.
+    // Corrected to /1000.
+    //
+    // The generic per-m² detector cannot catch this one: нива is a land
+    // parcel, and BUILDING_TYPE_TOKENS deliberately excludes land because
+    // declared parcel areas are unreliable (декари vs m², ideal parts).
+    // Hence the manual entry.
+    //
+    // Match key uses the persistent UUID prefix so a single entry covers
+    // both filing years (2024 suffix 191281, 2025 suffix 215001). areaSqm
+    // 28 also separates it from his other "Иванча" row (къща с двор,
+    // 2000m², no declared amount).
+    sourceUrlContains: "B0324716-29B9-48B0-B942-D019012591AB",
+    location: "Иванча",
+    areaSqm: 28,
+    rawValue: 18347000,
+    correctedValue: 18347,
+    note: "Corrected: declarant misplaced separator (source value 18,347,000 BGN for a 28m² restituted нива in Иванча, applied to every filing year that includes the row).",
+  },
 ];
 
 // Property-type tokens whose declared floor area reliably bounds the
