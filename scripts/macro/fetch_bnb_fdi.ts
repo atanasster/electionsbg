@@ -23,6 +23,12 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import * as XLSX from "xlsx";
+import { Agent, fetch as undiciFetch } from "undici";
+
+// bnb.bg serves an incomplete certificate chain — Node's bundled CA list
+// rejects it while curl/browsers accept it. Same permissive dispatcher the
+// watcher's `insecureTls` uses; read-only public download.
+const insecureAgent = new Agent({ connect: { rejectUnauthorized: false } });
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -142,12 +148,13 @@ const instrFromCode = (code: string): string | null => {
 };
 
 const fetchSheet = async (): Promise<unknown[][]> => {
-  const res = await fetch(DOWNLOAD_URL, {
+  const res = await undiciFetch(DOWNLOAD_URL, {
     headers: {
       "User-Agent":
         "Mozilla/5.0 (compatible; electionsbg-watch/1.0; +https://electionsbg.com)",
       "Accept-Language": "bg,en;q=0.7",
     },
+    dispatcher: insecureAgent,
   });
   if (!res.ok) throw new Error(`БНБ FDI download HTTP ${res.status}`);
   const buf = Buffer.from(await res.arrayBuffer());
