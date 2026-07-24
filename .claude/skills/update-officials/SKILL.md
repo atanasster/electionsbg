@@ -69,6 +69,32 @@ fragmented plots.
 
 Cold start takes ~90 seconds (network-bound on per-declaration fetches — 150 ms politeness sleep between requests). Re-runs are faster because raw XMLs are cached under `raw_data/officials/`.
 
+## Coverage check — did the ingest take everything the register lists?
+
+```bash
+npx tsx scripts/declarations/coverage.ts            # every folder on file
+npx tsx scripts/declarations/coverage.ts --year 2025
+```
+
+Prints listed-vs-held per tier per register folder. Run it after any ingest
+change, and whenever a tier looks thin.
+
+It exists because an ingest can hold half the corpus with nothing looking wrong:
+the MP leg read only the FIRST `Declaration` node per person and took 246 of the
+285 declarations the 2025 folder lists, for years, while every run reported
+success. Only the two numbers side by side showed it.
+
+Reading a gap: a small one is usually an upstream fact, a large SHARE of a folder
+is usually the ingest dropping rows. Known-good gaps today:
+
+| tier | folder | gap | why |
+|---|---|---|---|
+| executive | 2018 | 403 (8.5%) | XML 404s upstream; the ingest already warns, and `--max-missing` exists to accept it |
+| MPs | various | 4-16 | declarants in the NS category who are not in `data/parliament/index.json` (logged as `no MP match`) |
+
+Anything else, especially a round fraction of a folder, is worth treating as a
+parser or filter bug until proven otherwise.
+
 ## Step 1b — Municipal tier
 
 ```bash
