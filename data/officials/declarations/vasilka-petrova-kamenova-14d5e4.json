@@ -60,31 +60,31 @@
     "institution": "Български червен кръст",
     "positionTitle": "Заместник генерален директор",
     "category": "civil_society",
-    "declarationYear": 2019,
-    "fiscalYear": 2018,
+    "declarationYear": 2020,
+    "fiscalYear": 2019,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г3803",
-    "controlHash": "6C405760",
-    "sourceUrl": "https://register.cacbg.bg/2019/681A6338-065E-4331-84BA-C798D7641A6A98390.xml",
+    "filedAt": "2020-04-15",
+    "entryNumber": "Г70",
+    "controlHash": "B1A63B15",
+    "sourceUrl": "https://register.cacbg.bg/2020/f587d09b-5f7a-46d3-9db9-e3ee49dc895f.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 22549.505836396824,
+        "amountEurDeclarant": 22544.39291758486,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
-        "amountEurDeclarant": 3799.921261050296,
+        "amountEurDeclarant": 4801.030764432491,
         "amountEurSpouse": null
       },
       {
         "parent": null,
         "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
-        "amountEurDeclarant": 4263.662997295266,
+        "amountEurDeclarant": 4308.145390959337,
         "amountEurSpouse": null
       }
     ],
@@ -100,8 +100,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 75172,
-        "valueEur": 38434.833293282136,
+        "amount": 102847,
+        "valueEur": 52584.83610538748,
         "holderName": "Василка Петрова Каменова",
         "isSpouse": false,
         "legalBasis": null,
@@ -251,6 +251,62 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "vasilka-petrova-kamenova-14d5e4",
+    "declarantName": "Василка Петрова Каменова",
+    "institution": "Български червен кръст",
+    "positionTitle": "Заместник генерален директор",
+    "category": "civil_society",
+    "declarationYear": 2019,
+    "fiscalYear": 2018,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г3803",
+    "controlHash": "6C405760",
+    "sourceUrl": "https://register.cacbg.bg/2019/681A6338-065E-4331-84BA-C798D7641A6A98390.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22549.505836396824,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 3799.921261050296,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 4263.662997295266,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 75172,
+        "valueEur": 38434.833293282136,
+        "holderName": "Василка Петрова Каменова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

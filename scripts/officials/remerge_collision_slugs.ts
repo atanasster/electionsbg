@@ -27,10 +27,9 @@
 //   tsx scripts/officials/remerge_collision_slugs.ts            # report only
 //   tsx scripts/officials/remerge_collision_slugs.ts --apply    # move them
 //
-// AFTER --apply, assets-rankings.json and the derived artifacts still name the
-// old slugs. Re-run the officials ingest (rebuilds index + rankings from every
-// shard on disk) and then the officials cross-reference and connections graph.
-// The script prints the list.
+// index.json and assets-rankings*.json are rebuilt in place — no network, no
+// ingest run. The officials→company cross-reference and the connections graph
+// still name the old slugs afterwards; the script prints the two commands.
 
 import fs from "fs";
 import path from "path";
@@ -41,10 +40,14 @@ import type {
   OfficialIndexFile,
 } from "../../src/data/dataTypes";
 import { mergeDeclarations } from "./merge";
+import {
+  buildRankingEntries,
+  DECL_DIR,
+  OUT_DIR,
+  writeRankings,
+} from "./rankings";
 import { ROOT, slugify, writeJson } from "./shared";
 
-const OUT_DIR = path.join(ROOT, "data", "officials");
-const DECL_DIR = path.join(OUT_DIR, "declarations");
 const INDEX_FILE = path.join(OUT_DIR, "index.json");
 
 const listedGuids = (): Set<string> =>
@@ -210,12 +213,21 @@ const cmd = command({
     console.log(
       `\n  moved ${moves.length} shard(s); index.json now holds ${entries.length} official(s)`,
     );
+
+    // assets-rankings.json is the roster `useOfficial` resolves a profile from
+    // and the sitemap enumerates, so leaving it naming the slugs just deleted
+    // would turn every moved official into a soft-404. Rebuilt here rather than
+    // deferred to the next ingest, and from the same builder the ingest uses.
+    const rankingEntries = buildRankingEntries(entries);
+    writeRankings(rankingEntries, index.years);
+    console.log(
+      `  rebuilt assets-rankings.json (${rankingEntries.length} official(s))`,
+    );
+
     console.log(
       "  STILL STALE — these name the old slugs and must be regenerated:\n" +
-        "    npm run data -- --officials            # index.json + assets-rankings*.json\n" +
-        "    tsx scripts/run-officials-links-only.ts        # data/officials/derived/company_links.json\n" +
-        "    tsx scripts/run-officials-connections-only.ts  # data/officials/derived/connections.json\n" +
-        "    …then the connections graph (data/parliament/connections*.json, official-connections/)",
+        "    tsx scripts/run-officials-links-only.ts   # data/officials/derived/company_links.json\n" +
+        "    tsx scripts/run-connections-rebuild.ts    # officials bridge + data/parliament/connections*.json",
     );
   },
 });

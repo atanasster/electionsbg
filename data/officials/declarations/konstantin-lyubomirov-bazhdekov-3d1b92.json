@@ -23,25 +23,25 @@
     "institution": "ДП \"Български спортен тотализатор\"",
     "positionTitle": "Член на Управителен съвет",
     "category": "state_enterprise",
-    "declarationYear": 2019,
-    "fiscalYear": 2018,
+    "declarationYear": 2020,
+    "fiscalYear": 2019,
     "declarationType": "Annualy",
-    "filedAt": null,
-    "entryNumber": "Г495",
-    "controlHash": "D74F1B26",
-    "sourceUrl": "https://register.cacbg.bg/2019/7F821293-7A13-4533-9E83-77253697D91B94798.xml",
+    "filedAt": "2020-05-18",
+    "entryNumber": "Г2389",
+    "controlHash": "F095456A",
+    "sourceUrl": "https://register.cacbg.bg/2020/2a695f33-224c-4a98-ab06-8ea32061e197.xml",
     "ownershipStakes": [],
     "income": [
       {
         "parent": "I. Облагаем доход от",
         "category": "Годишна данъчна основа от трудови доходи",
-        "amountEurDeclarant": 10756.047304724849,
-        "amountEurSpouse": 6893.748434168614
+        "amountEurDeclarant": 18659.597204255995,
+        "amountEurSpouse": 7857.5336302234855
       },
       {
         "parent": null,
-        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
-        "amountEurDeclarant": 2760.97615845958,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 2716.493764795509,
         "amountEurSpouse": null
       }
     ],
@@ -57,8 +57,8 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 20000,
-        "valueEur": 10225.83762392437,
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
         "holderName": "Константин Любомиров Баждеков",
         "isSpouse": false,
         "legalBasis": null,
@@ -75,9 +75,9 @@
         "acquiredYear": null,
         "share": null,
         "currency": "BGN",
-        "amount": 34110,
-        "valueEur": 17440.16606760301,
-        "holderName": "Елизабет Накова Манова - Баждекова",
+        "amount": 34102,
+        "valueEur": 17436.075732553443,
+        "holderName": "Елизабет Накова Манова-Баждекова",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
@@ -93,9 +93,9 @@
         "acquiredYear": null,
         "share": null,
         "currency": "EUR",
-        "amount": 9979,
-        "valueEur": 10203.852073032933,
-        "holderName": "Елизабет Накова Манова - Баждекова",
+        "amount": 9978,
+        "valueEur": 9997.801444910856,
+        "holderName": "Елизабет Накова Манова-Баждекова",
         "isSpouse": true,
         "legalBasis": null,
         "fundsOrigin": "заплата"
@@ -298,6 +298,92 @@
         "isSpouse": false,
         "legalBasis": null,
         "fundsOrigin": null
+      }
+    ],
+    "events": []
+  },
+  {
+    "slug": "konstantin-lyubomirov-bazhdekov-3d1b92",
+    "declarantName": "Константин Любомиров Баждеков",
+    "institution": "ДП \"Български спортен тотализатор\"",
+    "positionTitle": "Член на Управителен съвет",
+    "category": "state_enterprise",
+    "declarationYear": 2019,
+    "fiscalYear": 2018,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г495",
+    "controlHash": "D74F1B26",
+    "sourceUrl": "https://register.cacbg.bg/2019/7F821293-7A13-4533-9E83-77253697D91B94798.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 10756.047304724849,
+        "amountEurSpouse": 6893.748434168614
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 2760.97615845958,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Константин Любомиров Баждеков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 34110,
+        "valueEur": 17440.16606760301,
+        "holderName": "Елизабет Накова Манова - Баждекова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 9979,
+        "valueEur": 10203.852073032933,
+        "holderName": "Елизабет Накова Манова - Баждекова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
       }
     ],
     "events": []

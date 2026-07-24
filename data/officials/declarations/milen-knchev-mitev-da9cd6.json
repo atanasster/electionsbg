@@ -179,5 +179,127 @@
       }
     ],
     "events": []
+  },
+  {
+    "slug": "milen-knchev-mitev-da9cd6",
+    "declarantName": "Милен Кънчев Митев",
+    "institution": "Процедури по ЗОП",
+    "positionTitle": "Упълномощено лице по ЗОП",
+    "category": "procurement_officer",
+    "declarationYear": 2020,
+    "fiscalYear": 2019,
+    "declarationType": "Annualy",
+    "filedAt": "2020-05-04",
+    "entryNumber": "Г1805",
+    "controlHash": "9A1D3682",
+    "sourceUrl": "https://register.cacbg.bg/2020/ce62cc8d-4513-492c-9b41-caf63a99dd74.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25398.93549030335,
+        "amountEurSpouse": 13394.824703578532
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2002.2190067643917,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4049,
+        "valueEur": 2070.220826963489,
+        "holderName": "Милен Кънчев Митев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11104,
+        "valueEur": 5677.38504880281,
+        "holderName": "Милен Кънчев Митев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16100,
+        "valueEur": 8231.799287259119,
+        "holderName": "Гергана Валериева Кусева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 73750,
+        "valueEur": 37707.776238221115,
+        "holderName": "Милен Кънчев Митев",
+        "isSpouse": false,
+        "legalBasis": "Договор за ипотечен кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16935,
+        "valueEur": 8658.72800805796,
+        "holderName": "Гергана Валериева Кусева",
+        "isSpouse": true,
+        "legalBasis": "Договор за лизинг",
+        "fundsOrigin": null
+      }
+    ],
+    "events": []
   }
 ]

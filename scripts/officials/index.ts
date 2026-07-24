@@ -26,8 +26,6 @@ import {
   boolean,
 } from "cmd-ts";
 import type {
-  OfficialAssetsRankingEntry,
-  OfficialAssetsRankings,
   OfficialCategoryKind,
   OfficialDeclaration,
   OfficialIndexEntry,
@@ -35,12 +33,14 @@ import type {
 } from "../../src/data/dataTypes";
 import { parseDeclarationXml } from "../declarations/parse_declaration";
 import { latestRegisterYear } from "../lib/cacbg_register";
-import {
-  byRecency,
-  latestAssetDeclaration,
-  priorAssetDeclaration,
-} from "../../src/lib/declarations";
 import { mergeDeclarations, mergeIndexEntries, mergeYears } from "./merge";
+import {
+  aggregateAssets,
+  buildRankingEntries,
+  DECL_DIR,
+  OUT_DIR,
+  writeRankings,
+} from "./rankings";
 import {
   foreignPersonGuids,
   formatCollisions,
@@ -110,9 +110,6 @@ const warnCollisions = (collisions: SlugCollisions): void => {
     console.warn(`         ${line}`);
 };
 
-const OUT_DIR = path.join(ROOT, "data", "officials");
-const DECL_DIR = path.join(OUT_DIR, "declarations");
-
 // Share of a year's listed declarations that may be missing upstream before
 // the run is treated as broken rather than merely incomplete.
 const MAX_MISSING_RATE = 0.05;
@@ -128,17 +125,6 @@ const readJsonOr = <T>(file: string, fallback: T): T => {
     return fallback;
   }
 };
-
-// Every slug with a declaration file on disk, including officials whose most
-// recent filing predates the year this run targets.
-const allDeclarationSlugs = (): string[] =>
-  fs.existsSync(DECL_DIR)
-    ? fs
-        .readdirSync(DECL_DIR)
-        .filter((f) => f.endsWith(".json"))
-        .map((f) => f.slice(0, -".json".length))
-        .sort()
-    : [];
 
 type DirectoryEntry = {
   declarantName: string;
@@ -206,39 +192,6 @@ const fetchYearListing = async (year: number): Promise<DirectoryEntry[]> => {
       });
   });
   return out;
-};
-
-// Map an MpAsset rollup-friendly category total. Mirrors the MP-side
-// build_assets_rankings math: net worth = sum of asset categories minus debt.
-const aggregateAssets = (
-  assets: NonNullable<OfficialDeclaration["assets"]>,
-): {
-  totalAssetsEur: number;
-  totalDebtsEur: number;
-  netWorthEur: number;
-  realEstateCount: number;
-  realEstateUnvalued: number;
-} => {
-  let totalAssetsEur = 0;
-  let totalDebtsEur = 0;
-  let realEstateCount = 0;
-  let realEstateUnvalued = 0;
-  for (const a of assets) {
-    const v = a.valueEur ?? 0;
-    if (a.category === "debt") totalDebtsEur += v;
-    else totalAssetsEur += v;
-    if (a.category === "real_estate") {
-      realEstateCount++;
-      if (a.valueEur == null) realEstateUnvalued++;
-    }
-  }
-  return {
-    totalAssetsEur,
-    totalDebtsEur,
-    netWorthEur: totalAssetsEur - totalDebtsEur,
-    realEstateCount,
-    realEstateUnvalued,
-  };
 };
 
 const cmd = command({
@@ -534,101 +487,10 @@ const cmd = command({
       `  wrote index.json (${indexEntries.length} official(s) across ${years.length} year(s): ${years.join(", ")})`,
     );
 
-    // 3. Rankings — net worth per official, sortable by category. Built from
-    // every per-slug file on disk (not just this run) so a backfill doesn't
-    // drop officials whose latest filing predates targetYear. With multiple
-    // years merged, decls[1] is now a genuine prior-year filing, which is what
-    // the delta field has always claimed to compare against.
-    const indexEntryBySlug = new Map(indexEntries.map((e) => [e.slug, e]));
-    const rankingEntries: OfficialAssetsRankingEntry[] = [];
-    for (const slug of allDeclarationSlugs()) {
-      const indexEntry = indexEntryBySlug.get(slug);
-      if (!indexEntry) continue;
-      const decls = readJsonOr<OfficialDeclaration[]>(
-        path.join(DECL_DIR, `${slug}.json`),
-        [],
-      ).sort(byRecency);
-      if (decls.length === 0) continue;
-      // Sorted ON READ, not trusted. latestAssetDeclaration takes the head of a
-      // byRecency order, and the on-disk order was established by mergeDeclarations
-      // on a PREVIOUS run — so a change to the comparator (it now leads on the period
-      // a filing covers, not the year it was lodged) would otherwise only reach this
-      // leaderboard after every per-slug file happened to be rewritten, and until
-      // then /officials would rank on one order while /person served another.
-      // Rank on the newest filing that DECLARES something, not simply the
-      // newest one. An incompatibility filing carries no asset tables, so
-      // reading decls[0] ranked 525 of 1495 officials at €0 while their real
-      // declarations sat one row below.
-      //
-      // Fall back to the newest filing when NOTHING in the history declares
-      // assets (46 executive officials): their totals are genuinely zero, and
-      // dropping the row instead would take them out of this file — which is
-      // also the roster `useOfficial` resolves a profile from and the sitemap
-      // enumerates, so they would become soft-404s.
-      const withAssets = latestAssetDeclaration(decls);
-      const latest = withAssets ?? decls[0];
-      const prior = withAssets
-        ? priorAssetDeclaration(decls, withAssets)
-        : null;
-      const totals = aggregateAssets(latest.assets ?? []);
-      let delta: OfficialAssetsRankingEntry["delta"] = null;
-      if (prior) {
-        const priorTotals = aggregateAssets(prior.assets ?? []);
-        const abs = totals.netWorthEur - priorTotals.netWorthEur;
-        const pct =
-          priorTotals.netWorthEur === 0
-            ? null
-            : abs / Math.abs(priorTotals.netWorthEur);
-        delta = {
-          previousYear: prior.fiscalYear ?? prior.declarationYear,
-          absoluteEur: abs,
-          pct,
-        };
-      }
-      rankingEntries.push({
-        slug,
-        name: indexEntry.name,
-        category: indexEntry.category,
-        institution: indexEntry.institution,
-        positionTitle: indexEntry.positionTitle,
-        latestDeclarationYear: latest.declarationYear,
-        totalAssetsEur: totals.totalAssetsEur,
-        totalDebtsEur: totals.totalDebtsEur,
-        netWorthEur: totals.netWorthEur,
-        realEstateCount: totals.realEstateCount,
-        realEstateUnvalued: totals.realEstateUnvalued,
-        delta,
-      });
-    }
-    // Slug tie-break keeps the order stable when two officials tie on value.
-    rankingEntries.sort(
-      (a, b) => b.netWorthEur - a.netWorthEur || a.slug.localeCompare(b.slug),
-    );
-    // No per-category index in the file: it was a full second copy of every
-    // row (~1.1 MB, half the file), and the only consumer — the /officials/assets
-    // filter — derives its subset from topOfficials by category in one pass.
-    // Duplicating it would have grown the file to ~12 MB once the register-wide
-    // ingest lands, and it is fetched whole on every /officials/:slug load.
-    const rankings: OfficialAssetsRankings = {
-      generatedAt: new Date().toISOString(),
-      years,
-      total: rankingEntries.length,
-      topOfficials: rankingEntries,
-    };
-    writeJson(path.join(OUT_DIR, "assets-rankings.json"), rankings);
-
-    // Dashboard slim — top 50 from topOfficials, no byCategory. The
-    // /governance OfficialsAssetsTile only renders top 5; the explorer at
-    // /officials/assets and the /officials/:slug detail page keep using
-    // the full file. Cuts ~60 KB gzipped off every cold load.
-    const SLIM_TOP_N = 50;
-    const rankingsTop = {
-      generatedAt: rankings.generatedAt,
-      years: rankings.years,
-      total: rankings.total,
-      topOfficials: rankings.topOfficials.slice(0, SLIM_TOP_N),
-    };
-    writeJson(path.join(OUT_DIR, "assets-rankings-top.json"), rankingsTop);
+    // 3. Rankings — net worth per official, from every shard on disk. Shared
+    // with ./remerge_collision_slugs.ts, which rebuilds them without a fetch.
+    const rankingEntries = buildRankingEntries(indexEntries);
+    writeRankings(rankingEntries, years);
 
     console.log(
       `  wrote assets-rankings.json (top: ${rankingEntries
