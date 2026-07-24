@@ -66,7 +66,14 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
            AND p.status = 'active' AND p.is_public_figure
          -- Deterministic ordering INSIDE the limit too, or which rows survive the cut
          -- changes between calls on a first-seen tie (a backfill ties tens of thousands).
-         ORDER BY f.first_seen_at DESC, d.source_url
+         -- Tiebreak on f.key (= d.source_url) rather than d.source_url so the WHOLE sort key
+         -- lives on ingest_first_seen and the (first_seen_at DESC, key) partial index below
+         -- can serve it index-ordered. That is load-bearing on the small prod instance: the
+         -- entire corpus shares one first_seen_at (one backfill), so tiebreaking on a JOINED
+         -- column forced the planner to join+sort all ~48k rows before the LIMIT (≈12s on
+         -- db-g1-small → the function connection reset). Ordered by f.key it early-stops at
+         -- ~50 joined rows (≈0.8s).
+         ORDER BY f.first_seen_at DESC, f.key
          LIMIT LEAST(GREATEST(COALESCE(p_limit, 50), 1), 200)
       ) s
   ), '[]'::jsonb);
@@ -77,6 +84,13 @@ $$;
 
 -- No index is added for the join: declaration.source_url already carries a UNIQUE index
 -- (declaration_source_url_key) and a second one on the same column is pure duplication.
+--
+-- The feed index is COMPOSITE — (first_seen_at DESC, key) — not first_seen_at alone. Since
+-- the whole corpus shares one first_seen_at, an index on the timestamp alone leaves the
+-- `key` tiebreak uncovered, so the LIMIT can't early-stop and the planner joins+sorts the
+-- entire ~48k-row corpus (≈12s on the db-g1-small prod instance). With `key` in the index
+-- the ORDER BY (first_seen_at DESC, key) is fully index-ordered and the scan stops at ~50.
+DROP INDEX IF EXISTS idx_ingest_first_seen_cacbg;
 CREATE INDEX IF NOT EXISTS idx_ingest_first_seen_cacbg
-  ON ingest_first_seen (first_seen_at DESC)
+  ON ingest_first_seen (first_seen_at DESC, key)
   WHERE source = 'cacbg_declarations';
