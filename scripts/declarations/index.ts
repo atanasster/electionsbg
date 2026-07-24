@@ -7,8 +7,10 @@
  *   4. Parse to MpDeclaration[] and write per-MP JSON to
  *      public/parliament/declarations/{mpId}.json.
  *
- * Mode-of-operation knobs (env vars, kept simple for Slice 1):
- *   DECL_YEARS    — comma-separated years to fetch (default "2025")
+ * Mode-of-operation knobs (env vars):
+ *   DECL_YEARS    — comma-separated register FOLDER names to fetch (e.g.
+ *                   "2021_nc,2022"). Defaults to the newest year the register
+ *                   publishes; set it only to backfill.
  *   DECL_LIMIT    — max declarations to process (default unlimited)
  *   DECL_MP_NAME  — only process declarants whose normalized name contains
  *                   this substring (debugging / Slice 1 single-MP runs)
@@ -37,7 +39,7 @@ import { buildCompaniesBySettlement } from "../parliament/build_companies_by_set
 import { buildCompaniesByObshtina } from "../parliament/build_companies_by_obshtina";
 // Shared with the officials ingest and registerFolderYear() — see
 // scripts/lib/cacbg_register.ts for why this must not be redeclared.
-import { REGISTER_BASE } from "../lib/cacbg_register";
+import { REGISTER_BASE, latestRegisterYear } from "../lib/cacbg_register";
 import { mergeDeclarations } from "../lib/declaration_merge";
 
 const UA = "electionsbg.com data pipeline";
@@ -185,9 +187,16 @@ export const parseFinancialDeclarations = async ({
   const idx: ParliamentIndex = JSON.parse(fs.readFileSync(indexPath, "utf-8"));
   const byName = buildMpLookup(idx);
 
-  const years = (process.env.DECL_YEARS ?? "2025")
-    .split(",")
-    .map((s) => s.trim());
+  // Default to whatever the register currently publishes as newest, not a pinned
+  // literal. The officials ingest has resolved it this way for exactly this
+  // reason: a constant keeps ingesting last year's folder after a new cycle goes
+  // live, and nothing fails — the run just quietly stops finding new filings
+  // until somebody edits the number. DECL_YEARS stays as the explicit backfill
+  // override (a comma-separated list of folder names, e.g. "2021_nc,2022").
+  const years = process.env.DECL_YEARS
+    ? process.env.DECL_YEARS.split(",").map((s) => s.trim())
+    : [String(await latestRegisterYear(fetchText))];
+  console.log(`[declarations] target folder(s): ${years.join(", ")}`);
   const limit = process.env.DECL_LIMIT
     ? Number(process.env.DECL_LIMIT)
     : Infinity;
