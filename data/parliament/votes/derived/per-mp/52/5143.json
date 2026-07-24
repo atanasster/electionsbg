@@ -3,29 +3,289 @@
   "ns": "52",
   "partyShort": "ПБ",
   "loyalty": {
-    "votesCast": 627,
-    "withParty": 617,
-    "loyaltyPct": 0.9840510366826156,
+    "votesCast": 711,
+    "withParty": 675,
+    "loyaltyPct": 0.9493670886075949,
     "windowFrom": "2026-04-30",
-    "windowTo": "2026-07-17",
-    "totalVoteItems": 712
+    "windowTo": "2026-07-23",
+    "totalVoteItems": 804
   },
   "attendance": {
-    "totalItems": 712,
-    "presentCount": 627,
-    "absentCount": 85,
-    "presentPct": 0.8806179775280899
+    "totalItems": 804,
+    "presentCount": 711,
+    "absentCount": 93,
+    "presentPct": 0.8843283582089553
   },
   "cohort": {
     "size": 268,
-    "votesCastMedian": 508,
-    "loyaltyPctMedian": 0.9798318758050302,
-    "presentPctMedian": 0.7181460674157303
+    "votesCastMedian": 585,
+    "loyaltyPctMedian": 0.9741320506404196,
+    "presentPctMedian": 0.7219402985074627
   },
   "dissents": {
-    "totalCast": 627,
-    "dissentCount": 10,
+    "totalCast": 711,
+    "dissentCount": 36,
     "recent": [
+      {
+        "date": "2026-07-22",
+        "item": 90,
+        "slug": "90-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2026 г. – второ гласуване - параграф 23-25 нови - предложение от Николай Денков и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 126
+      },
+      {
+        "date": "2026-07-22",
+        "item": 89,
+        "slug": "89-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2026 г. – второ гласуване - параграф 22 нов - предложение от Николай Денков и група н.п. - прегласуване",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 124
+      },
+      {
+        "date": "2026-07-22",
+        "item": 83,
+        "slug": "83-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2026 г. – второ гласуване - параграф 18 - предложение от Божидар Божанов и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 123
+      },
+      {
+        "date": "2026-07-22",
+        "item": 79,
+        "slug": "79-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2026 г. – второ гласуване - член 1 - предложение от Петър Петров",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 123
+      },
+      {
+        "date": "2026-07-22",
+        "item": 78,
+        "slug": "78-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2026 г. – второ гласуване - член 1 - предложение от Божидар Божанов и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 126
+      },
+      {
+        "date": "2026-07-22",
+        "item": 77,
+        "slug": "77-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2026 г. – второ гласуване - член 1 - предложение от Костадин Ангелов и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 125
+      },
+      {
+        "date": "2026-07-22",
+        "item": 76,
+        "slug": "76-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2026 г. – второ гласуване - член 1 - предложение от Искра Михайлова-Копарова и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 126
+      },
+      {
+        "date": "2026-07-22",
+        "item": 75,
+        "slug": "75-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2026 г. – второ гласуване - член 1 - предложение от Николай Денков и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 127
+      },
+      {
+        "date": "2026-07-22",
+        "item": 61,
+        "slug": "61-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване з 2026 г. – второ гласуване - Приложение № 1А - предложение от Мартин Димитров и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 125
+      },
+      {
+        "date": "2026-07-22",
+        "item": 59,
+        "slug": "59-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване з 2026 г. – второ гласуване - Приложение № 1 - предложение от Мартин Димитров и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 126
+      },
+      {
+        "date": "2026-07-22",
+        "item": 57,
+        "slug": "57-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване з 2026 г. – второ гласуване - параграф 9 - предложение от Венко Сабрутев и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 126
+      },
+      {
+        "date": "2026-07-22",
+        "item": 54,
+        "slug": "54-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване з 2026 г. – второ гласуване - параграф 7 - предложение от Венко Сабрутев и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 123
+      },
+      {
+        "date": "2026-07-22",
+        "item": 52,
+        "slug": "52-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване з 2026 г. – второ гласуване - параграф 6 - предложение от Мартин Димитров и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 122
+      },
+      {
+        "date": "2026-07-22",
+        "item": 50,
+        "slug": "50-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване з 2026 г. – второ гласуване - параграф 6 - предложение от Искра Михайлова-Копарова и група н.п. ( №...-47)",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 124
+      },
+      {
+        "date": "2026-07-22",
+        "item": 49,
+        "slug": "49-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване з 2026 г. – второ гласуване - параграф 6 - предложение от Венко Сабрутев и група н.п. - прегласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 125
+      },
+      {
+        "date": "2026-07-22",
+        "item": 46,
+        "slug": "46-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване з 2026 г. – второ гласуване - параграф 6 - предложение от Деница Сачева и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 115
+      },
+      {
+        "date": "2026-07-22",
+        "item": 39,
+        "slug": "39-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване з 2026 г. – второ гласуване - параграф 4 - предложение от Деница Сачева и група н.п. - прегласуване",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 118
+      },
+      {
+        "date": "2026-07-22",
+        "item": 38,
+        "slug": "38-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване з 2026 г. – второ гласуване - параграф 4 - предложение от Деница Сачева и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 121
+      },
+      {
+        "date": "2026-07-22",
+        "item": 34,
+        "slug": "34-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване з 2026 г. – второ гласуване - член 12 - предложение от Венко Сабрутев и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 125
+      },
+      {
+        "date": "2026-07-22",
+        "item": 33,
+        "slug": "33-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване з 2026 г. – второ гласуване - член 12 - предложение от Георги Георгиев и Димо Дренчев",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 124
+      },
+      {
+        "date": "2026-07-22",
+        "item": 31,
+        "slug": "31-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване з 2026 г. – второ гласуване - член 11 - предложение от Искра Михайлова-Копарова и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 126
+      },
+      {
+        "date": "2026-07-22",
+        "item": 30,
+        "slug": "30-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване з 2026 г. – второ гласуване - член 11 - предложение от Деница Сачева и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 126
+      },
+      {
+        "date": "2026-07-22",
+        "item": 27,
+        "slug": "27-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване з 2026 г. – второ гласуване - член 9 - предложение от Мартин Димитров и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 127
+      },
+      {
+        "date": "2026-07-22",
+        "item": 25,
+        "slug": "25-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване з 2026 г. – второ гласуване - член 8 - предложение от Венко Сабрутев и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 127
+      },
+      {
+        "date": "2026-07-22",
+        "item": 23,
+        "slug": "23-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване з 2026 г. – второ гласуване - член 6 - предложение от Венко Сабрутев и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 127
+      },
+      {
+        "date": "2026-07-22",
+        "item": 21,
+        "slug": "21-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване з 2026 г. – второ гласуване - член 2 - предложение от Венко Сабрутев и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 125
+      },
       {
         "date": "2026-06-03",
         "item": 48,
@@ -129,206 +389,206 @@
   "similarity": {
     "topK": [
       {
-        "mpId": 5084,
-        "score": 0.9357969677748227,
-        "overlap": 626
+        "mpId": 5250,
+        "score": 0.9341750799734697,
+        "overlap": 681
       },
       {
-        "mpId": 5250,
-        "score": 0.9347813466894723,
-        "overlap": 597
+        "mpId": 5084,
+        "score": 0.9195867404150743,
+        "overlap": 708
       },
       {
         "mpId": 5178,
-        "score": 0.9333529756757388,
-        "overlap": 612
-      },
-      {
-        "mpId": 5279,
-        "score": 0.9333529756757388,
-        "overlap": 611
+        "score": 0.918961881054139,
+        "overlap": 696
       },
       {
         "mpId": 5179,
-        "score": 0.9310353998481674,
-        "overlap": 613
+        "score": 0.9172353867557559,
+        "overlap": 697
       },
       {
         "mpId": 5242,
-        "score": 0.9300244843717528,
-        "overlap": 610
-      },
-      {
-        "mpId": 5271,
-        "score": 0.9292987530990211,
-        "overlap": 616
-      },
-      {
-        "mpId": 5094,
-        "score": 0.9291554315773701,
-        "overlap": 611
-      },
-      {
-        "mpId": 5218,
-        "score": 0.9290139398987423,
-        "overlap": 616
+        "score": 0.9159429909089182,
+        "overlap": 694
       },
       {
         "mpId": 5116,
-        "score": 0.9286006284065976,
-        "overlap": 603
+        "score": 0.9156986416846156,
+        "overlap": 679
       },
       {
-        "mpId": 5109,
-        "score": 0.926110764237618,
-        "overlap": 615
+        "mpId": 5218,
+        "score": 0.9150329210283271,
+        "overlap": 698
+      },
+      {
+        "mpId": 5094,
+        "score": 0.9135804878203456,
+        "overlap": 694
       },
       {
         "mpId": 5071,
-        "score": 0.925387477443253,
-        "overlap": 605
-      },
-      {
-        "mpId": 5114,
-        "score": 0.9249797579804531,
-        "overlap": 615
-      },
-      {
-        "mpId": 5200,
-        "score": 0.9247982486893462,
-        "overlap": 601
-      },
-      {
-        "mpId": 5290,
-        "score": 0.9241075959989548,
-        "overlap": 620
+        "score": 0.9117551373621071,
+        "overlap": 686
       },
       {
         "mpId": 5146,
-        "score": 0.9237809019615807,
-        "overlap": 600
+        "score": 0.9115951602558695,
+        "overlap": 684
+      },
+      {
+        "mpId": 5271,
+        "score": 0.9108253095824486,
+        "overlap": 696
+      },
+      {
+        "mpId": 5279,
+        "score": 0.9108051705882683,
+        "overlap": 689
+      },
+      {
+        "mpId": 5114,
+        "score": 0.9106864597506642,
+        "overlap": 698
+      },
+      {
+        "mpId": 5200,
+        "score": 0.9106756214043826,
+        "overlap": 683
+      },
+      {
+        "mpId": 5109,
+        "score": 0.9100145137880985,
+        "overlap": 697
+      },
+      {
+        "mpId": 5290,
+        "score": 0.9095287604417843,
+        "overlap": 704
       },
       {
         "mpId": 5239,
-        "score": 0.9227694835940204,
-        "overlap": 610
+        "score": 0.9094880257623473,
+        "overlap": 685
       },
       {
-        "mpId": 5263,
-        "score": 0.9227639396088768,
-        "overlap": 603
+        "mpId": 5099,
+        "score": 0.9078045405742381,
+        "overlap": 692
       },
       {
-        "mpId": 5253,
-        "score": 0.9218878108730658,
-        "overlap": 612
+        "mpId": 5241,
+        "score": 0.9077707549884197,
+        "overlap": 681
       },
       {
-        "mpId": 5243,
-        "score": 0.9208667593627867,
-        "overlap": 607
+        "mpId": 5135,
+        "score": 0.9076385239686445,
+        "overlap": 702
       }
     ],
     "bottomK": [
       {
-        "mpId": 5335,
-        "score": -0.014050404912159548,
-        "overlap": 27
+        "mpId": 5074,
+        "score": -0.07674544877571923,
+        "overlap": 517
       },
       {
         "mpId": 5247,
-        "score": 0.001966865970551636,
-        "overlap": 440
-      },
-      {
-        "mpId": 5074,
-        "score": 0.007830352996599248,
-        "overlap": 434
+        "score": -0.07564884810603585,
+        "overlap": 516
       },
       {
         "mpId": 5060,
-        "score": 0.009941163366148444,
-        "overlap": 424
-      },
-      {
-        "mpId": 5171,
-        "score": 0.015085963840407977,
-        "overlap": 474
-      },
-      {
-        "mpId": 5101,
-        "score": 0.022267245130475167,
-        "overlap": 493
+        "score": -0.07446225150831079,
+        "overlap": 504
       },
       {
         "mpId": 5194,
-        "score": 0.024110635109732697,
-        "overlap": 336
+        "score": -0.0730221852631586,
+        "overlap": 418
+      },
+      {
+        "mpId": 5171,
+        "score": -0.07247132047517253,
+        "overlap": 557
+      },
+      {
+        "mpId": 5101,
+        "score": -0.06352743681413771,
+        "overlap": 573
       },
       {
         "mpId": 5185,
-        "score": 0.03067848676554787,
-        "overlap": 482
+        "score": -0.06014384899796345,
+        "overlap": 565
       },
       {
         "mpId": 5234,
-        "score": 0.034817577109050146,
-        "overlap": 482
-      },
-      {
-        "mpId": 5100,
-        "score": 0.052839344028274025,
-        "overlap": 20
+        "score": -0.04204527965646615,
+        "overlap": 561
       },
       {
         "mpId": 5159,
-        "score": 0.05822682771982395,
-        "overlap": 429
-      },
-      {
-        "mpId": 5258,
-        "score": 0.06269110734344167,
-        "overlap": 290
+        "score": -0.02793874509667188,
+        "overlap": 508
       },
       {
         "mpId": 5273,
-        "score": 0.06731560170594898,
-        "overlap": 542
+        "score": -0.012547418117268564,
+        "overlap": 620
       },
       {
-        "mpId": 4057,
-        "score": 0.08560952183030245,
-        "overlap": 7
+        "mpId": 5335,
+        "score": -0.012200793626432987,
+        "overlap": 35
+      },
+      {
+        "mpId": 5258,
+        "score": -0.008725703683946233,
+        "overlap": 341
       },
       {
         "mpId": 5184,
-        "score": 0.10249067987761412,
-        "overlap": 177
+        "score": -0.002660807515306049,
+        "overlap": 231
+      },
+      {
+        "mpId": 5166,
+        "score": 0.030948542430411737,
+        "overlap": 328
       },
       {
         "mpId": 5148,
-        "score": 0.10364926190203409,
-        "overlap": 395
+        "score": 0.04114234309230293,
+        "overlap": 433
       },
       {
-        "mpId": 4169,
-        "score": 0.1053780368411966,
-        "overlap": 38
+        "mpId": 5100,
+        "score": 0.04988063712279618,
+        "overlap": 20
       },
       {
-        "mpId": 5186,
-        "score": 0.11098096793729849,
-        "overlap": 19
+        "mpId": 5334,
+        "score": 0.06768583681909242,
+        "overlap": 214
       },
       {
-        "mpId": 5125,
-        "score": 0.11641184553171369,
-        "overlap": 70
+        "mpId": 5153,
+        "score": 0.06885616006507063,
+        "overlap": 276
       },
       {
-        "mpId": 3972,
-        "score": 0.12312232938417067,
-        "overlap": 16
+        "mpId": 5254,
+        "score": 0.07093269021319086,
+        "overlap": 215
+      },
+      {
+        "mpId": 4057,
+        "score": 0.08081586876605479,
+        "overlap": 7
       }
     ]
   }

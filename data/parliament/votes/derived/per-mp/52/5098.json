@@ -3,29 +3,119 @@
   "ns": "52",
   "partyShort": "ПБ",
   "loyalty": {
-    "votesCast": 613,
-    "withParty": 565,
-    "loyaltyPct": 0.9216965742251223,
+    "votesCast": 702,
+    "withParty": 645,
+    "loyaltyPct": 0.9188034188034188,
     "windowFrom": "2026-04-30",
-    "windowTo": "2026-07-17",
-    "totalVoteItems": 712
+    "windowTo": "2026-07-23",
+    "totalVoteItems": 804
   },
   "attendance": {
-    "totalItems": 712,
-    "presentCount": 613,
-    "absentCount": 99,
-    "presentPct": 0.8609550561797753
+    "totalItems": 804,
+    "presentCount": 702,
+    "absentCount": 102,
+    "presentPct": 0.8731343283582089
   },
   "cohort": {
     "size": 268,
-    "votesCastMedian": 508,
-    "loyaltyPctMedian": 0.9798318758050302,
-    "presentPctMedian": 0.7181460674157303
+    "votesCastMedian": 585,
+    "loyaltyPctMedian": 0.9741320506404196,
+    "presentPctMedian": 0.7219402985074627
   },
   "dissents": {
-    "totalCast": 613,
-    "dissentCount": 48,
+    "totalCast": 702,
+    "dissentCount": 57,
     "recent": [
+      {
+        "date": "2026-07-22",
+        "item": 90,
+        "slug": "90-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2026 г. – второ гласуване - параграф 23-25 нови - предложение от Николай Денков и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 126
+      },
+      {
+        "date": "2026-07-22",
+        "item": 88,
+        "slug": "88-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2026 г. – второ гласуване - параграф 22 нов - предложение от Николай Денков и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 124
+      },
+      {
+        "date": "2026-07-22",
+        "item": 83,
+        "slug": "83-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2026 г. – второ гласуване - параграф 18 - предложение от Божидар Божанов и група н.п",
+        "topic": "budget",
+        "mpVote": "yes",
+        "majorityVote": "abstain",
+        "groupSize": 123
+      },
+      {
+        "date": "2026-07-22",
+        "item": 76,
+        "slug": "76-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2026 г. – второ гласуване - член 1 - предложение от Искра Михайлова-Копарова и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 126
+      },
+      {
+        "date": "2026-07-22",
+        "item": 75,
+        "slug": "75-zakon-za-byudzheta-na-natsionalnata-zdravnoosiguritelna-kasa",
+        "title": "Закон за бюджета на Националната здравноосигурителна каса за 2026 г. – второ гласуване - член 1 - предложение от Николай Денков и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 127
+      },
+      {
+        "date": "2026-07-22",
+        "item": 29,
+        "slug": "29-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване з 2026 г. – второ гласуване - член 11 - предложение от Димо Дренчев и Георги Георгиев",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 126
+      },
+      {
+        "date": "2026-07-22",
+        "item": 27,
+        "slug": "27-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване з 2026 г. – второ гласуване - член 9 - предложение от Мартин Димитров и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 127
+      },
+      {
+        "date": "2026-07-22",
+        "item": 25,
+        "slug": "25-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване з 2026 г. – второ гласуване - член 8 - предложение от Венко Сабрутев и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 127
+      },
+      {
+        "date": "2026-07-22",
+        "item": 23,
+        "slug": "23-zakon-za-byudzheta-na-darzhavnoto-obshtestveno-osiguryavane-",
+        "title": "Закон за бюджета на държавното обществено осигуряване з 2026 г. – второ гласуване - член 6 - предложение от Венко Сабрутев и група н.п",
+        "topic": "budget",
+        "mpVote": "no",
+        "majorityVote": "abstain",
+        "groupSize": 127
+      },
       {
         "date": "2026-07-15",
         "item": 4,
@@ -433,282 +523,212 @@
         "mpVote": "abstain",
         "majorityVote": "no",
         "groupSize": 117
-      },
-      {
-        "date": "2026-05-28",
-        "item": 43,
-        "slug": "43-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 46 - предложение от Стою Стоев за редакция",
-        "topic": "other",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 119
-      },
-      {
-        "date": "2026-05-28",
-        "item": 42,
-        "slug": "42-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 46 - предложение от Петър Петров",
-        "topic": "other",
-        "mpVote": "yes",
-        "majorityVote": "no",
-        "groupSize": 121
-      },
-      {
-        "date": "2026-05-28",
-        "item": 38,
-        "slug": "38-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 43 - предложение от Петър Петров",
-        "topic": "other",
-        "mpVote": "yes",
-        "majorityVote": "no",
-        "groupSize": 119
-      },
-      {
-        "date": "2026-05-28",
-        "item": 26,
-        "slug": "26-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 36 - предложение от Стою Стоев и Б. Божанов за редакция на ал.2",
-        "topic": "other",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 115
-      },
-      {
-        "date": "2026-05-28",
-        "item": 22,
-        "slug": "22-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 29 - предложение от Стою Стоев",
-        "topic": "other",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 103
-      },
-      {
-        "date": "2026-05-28",
-        "item": 21,
-        "slug": "21-pravilnik-za-organizatsiyata-i-deynostta-na-narodnoto-sabran",
-        "title": "Правилник за организацията и дейността на Народното събрание - член 28а - предложение от Стою Стоев",
-        "topic": "other",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 106
-      },
-      {
-        "date": "2026-05-13",
-        "item": 8,
-        "slug": "8-reshenie-za-sazdavane-na-vremenna-komisiya-za-izyasnyavane-n",
-        "title": "Решение за създаване на Временна комисия за изясняване на факти и обстоятелства, свързани с публично известните данни за дейността на групата около бившия следовател Петьо Петров - Еврото, придобила обществена известност по случая \"Осемте джуджета\", дейността на групата около Мартин Божанов - Нотариуса, данните за нерегламентирано влияние върху органи на съдебната власт и правоохранителната система, както и действията и бездействията на компетентните държавни органи по събиране, проверка, анализ и институционална реакция във връзка с тези случаи - процедура от Николай Денков за удължаване на заседанието до приключване на точка 4 от програмата",
-        "topic": "personnel",
-        "mpVote": "abstain",
-        "majorityVote": "no",
-        "groupSize": 126
       }
     ]
   },
   "similarity": {
     "topK": [
       {
-        "mpId": 5271,
-        "score": 0.8870734935460884,
-        "overlap": 603
-      },
-      {
         "mpId": 5209,
-        "score": 0.8867874465656396,
-        "overlap": 605
+        "score": 0.889494966895049,
+        "overlap": 694
       },
       {
         "mpId": 5135,
-        "score": 0.8862408444018892,
-        "overlap": 604
-      },
-      {
-        "mpId": 5253,
-        "score": 0.8850985160729765,
-        "overlap": 599
+        "score": 0.8869935383524451,
+        "overlap": 693
       },
       {
         "mpId": 5210,
-        "score": 0.8848268696221456,
-        "overlap": 607
-      },
-      {
-        "mpId": 5279,
-        "score": 0.8847130871245554,
-        "overlap": 597
+        "score": 0.8863477475581676,
+        "overlap": 695
       },
       {
         "mpId": 5071,
-        "score": 0.883972429431708,
-        "overlap": 592
+        "score": 0.8849736358068662,
+        "overlap": 677
       },
       {
         "mpId": 5099,
-        "score": 0.8838450896028892,
-        "overlap": 604
-      },
-      {
-        "mpId": 5084,
-        "score": 0.8831744141667238,
-        "overlap": 610
-      },
-      {
-        "mpId": 5116,
-        "score": 0.8822886724232666,
-        "overlap": 594
-      },
-      {
-        "mpId": 5094,
-        "score": 0.8817678949813058,
-        "overlap": 600
+        "score": 0.8847876911782967,
+        "overlap": 691
       },
       {
         "mpId": 5097,
-        "score": 0.8800170355563921,
-        "overlap": 598
+        "score": 0.8847729317380122,
+        "overlap": 687
       },
       {
-        "mpId": 5178,
-        "score": 0.8797052771974353,
-        "overlap": 598
+        "mpId": 5084,
+        "score": 0.8837828459517092,
+        "overlap": 697
+      },
+      {
+        "mpId": 5253,
+        "score": 0.8833623747609479,
+        "overlap": 686
+      },
+      {
+        "mpId": 5094,
+        "score": 0.8826386477233037,
+        "overlap": 688
       },
       {
         "mpId": 5179,
-        "score": 0.8790209478233899,
-        "overlap": 601
+        "score": 0.8826363066165326,
+        "overlap": 689
       },
       {
-        "mpId": 5243,
-        "score": 0.8778269750057212,
-        "overlap": 594
+        "mpId": 5178,
+        "score": 0.8825024029711815,
+        "overlap": 687
       },
       {
         "mpId": 5242,
-        "score": 0.8777349921576333,
-        "overlap": 596
+        "score": 0.880720560745573,
+        "overlap": 685
+      },
+      {
+        "mpId": 5116,
+        "score": 0.8802138531113983,
+        "overlap": 674
       },
       {
         "mpId": 5219,
-        "score": 0.8771126201671962,
-        "overlap": 607
+        "score": 0.8800405532030589,
+        "overlap": 695
       },
       {
         "mpId": 5218,
-        "score": 0.8764478272961784,
-        "overlap": 604
+        "score": 0.8795739301964867,
+        "overlap": 691
       },
       {
-        "mpId": 5239,
-        "score": 0.8750751595355274,
-        "overlap": 595
+        "mpId": 5279,
+        "score": 0.8767681239588256,
+        "overlap": 680
       },
       {
-        "mpId": 5290,
-        "score": 0.8736493144644671,
-        "overlap": 607
+        "mpId": 5265,
+        "score": 0.876395119905637,
+        "overlap": 680
+      },
+      {
+        "mpId": 5162,
+        "score": 0.8758980037939733,
+        "overlap": 686
+      },
+      {
+        "mpId": 5243,
+        "score": 0.8745866568625856,
+        "overlap": 671
+      },
+      {
+        "mpId": 5199,
+        "score": 0.8735782452748193,
+        "overlap": 659
       }
     ],
     "bottomK": [
       {
-        "mpId": 5335,
-        "score": -0.03681350178091522,
-        "overlap": 26
-      },
-      {
-        "mpId": 5247,
-        "score": 0.03504305574567583,
-        "overlap": 428
-      },
-      {
         "mpId": 5194,
-        "score": 0.039051989901433465,
-        "overlap": 329
+        "score": -0.05136033560618346,
+        "overlap": 415
       },
       {
         "mpId": 5074,
-        "score": 0.04103265575443054,
-        "overlap": 426
+        "score": -0.03958467498865211,
+        "overlap": 513
+      },
+      {
+        "mpId": 5247,
+        "score": -0.03809195162830274,
+        "overlap": 508
       },
       {
         "mpId": 5171,
-        "score": 0.043479449609851416,
-        "overlap": 462
+        "score": -0.036491950678615,
+        "overlap": 549
       },
       {
-        "mpId": 5258,
-        "score": 0.04993416764172866,
-        "overlap": 288
+        "mpId": 5335,
+        "score": -0.03218046952394148,
+        "overlap": 34
       },
       {
         "mpId": 5101,
-        "score": 0.05639771695396658,
-        "overlap": 480
+        "score": -0.029215271977685153,
+        "overlap": 564
+      },
+      {
+        "mpId": 5185,
+        "score": -0.022913759790181367,
+        "overlap": 553
+      },
+      {
+        "mpId": 5060,
+        "score": -0.01826972434223047,
+        "overlap": 504
+      },
+      {
+        "mpId": 5258,
+        "score": -0.009205868079526537,
+        "overlap": 341
+      },
+      {
+        "mpId": 5234,
+        "score": 0.0017061145390501549,
+        "overlap": 555
+      },
+      {
+        "mpId": 5159,
+        "score": 0.003684522346041329,
+        "overlap": 504
+      },
+      {
+        "mpId": 5273,
+        "score": 0.029785244863654445,
+        "overlap": 620
+      },
+      {
+        "mpId": 5184,
+        "score": 0.05053011074485186,
+        "overlap": 231
       },
       {
         "mpId": 4099,
-        "score": 0.05674535908931508,
+        "score": 0.053925096138421155,
         "overlap": 5
       },
       {
         "mpId": 4105,
-        "score": 0.05674535908931508,
+        "score": 0.053925096138421155,
         "overlap": 5
       },
       {
         "mpId": 4110,
-        "score": 0.05674535908931508,
+        "score": 0.053925096138421155,
         "overlap": 5
       },
       {
-        "mpId": 5060,
-        "score": 0.06251248203684552,
-        "overlap": 421
-      },
-      {
-        "mpId": 5185,
-        "score": 0.06430462519706526,
-        "overlap": 466
-      },
-      {
-        "mpId": 5234,
-        "score": 0.0768215769872883,
-        "overlap": 473
+        "mpId": 5148,
+        "score": 0.07102857927008048,
+        "overlap": 424
       },
       {
         "mpId": 5100,
-        "score": 0.08306670011212995,
+        "score": 0.07893825788286282,
         "overlap": 21
       },
       {
-        "mpId": 5159,
-        "score": 0.08417117790969043,
-        "overlap": 421
+        "mpId": 5166,
+        "score": 0.08162900357027401,
+        "overlap": 330
       },
       {
         "mpId": 4100,
-        "score": 0.0945755984821918,
+        "score": 0.08987516023070193,
         "overlap": 5
-      },
-      {
-        "mpId": 4109,
-        "score": 0.0945755984821918,
-        "overlap": 5
-      },
-      {
-        "mpId": 4111,
-        "score": 0.0945755984821918,
-        "overlap": 5
-      },
-      {
-        "mpId": 4169,
-        "score": 0.10307780498656262,
-        "overlap": 35
-      },
-      {
-        "mpId": 5273,
-        "score": 0.10582426793155435,
-        "overlap": 538
       }
     ]
   }
