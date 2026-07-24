@@ -92,6 +92,12 @@ const COHORT_SCHEMA = path.join(
   ROOT,
   "scripts/db/schema/pg/097_cohort_benchmark.sql",
 );
+// The new-filing feed behind the watchlist (T3.10). Joins ingest_first_seen to declaration
+// on source_url, so it needs the filings loaded and resolved to people.
+const NEW_FILINGS_SCHEMA = path.join(
+  ROOT,
+  "scripts/db/schema/pg/098_new_filings.sql",
+);
 // recent_updates changelog (feedback_pg_changelog_required) — every PG-migrated
 // dataset wires in. Applied here so a fresh bootstrap has the tables.
 const INGEST_TRACKING = path.join(
@@ -557,6 +563,7 @@ const resolve = async () => {
   // populates person_cohort_wealth, so no separate REFRESH is needed on THIS path; a run
   // that rebuilds person_role without reloading declarations does need one (see 097).
   await exec(fs.readFileSync(COHORT_SCHEMA, "utf-8"));
+  await exec(fs.readFileSync(NEW_FILINGS_SCHEMA, "utf-8"));
   const [{ n: cohortRows }] = await allRows<{ n: string }>(
     "SELECT count(*) n FROM person_cohort_wealth",
   );

@@ -2180,6 +2180,19 @@ const DB_ROUTES = {
     const r = rows[0]?.r;
     return { body: Array.isArray(r) ? null : (r ?? null) };
   },
+  // New-filing feed (audit T3.10). Site-wide and IDENTICAL FOR EVERY READER: the watchlist
+  // is applied in the browser, never sent here. An earlier revision passed the follow list
+  // as ?slugs=..., which put the reader's political interests into the access log and — via
+  // the blanket `Cache-Control: public, s-maxage=3600` in index.js — into a shared CDN cache
+  // key. The body is public data; the REQUEST was the profile. firstSeen is when a filing
+  // entered our data, not when it was filed.
+  "new-filings": async (dbRows, q) => {
+    const lim = clampInt(q.limit, 50, 1, 200);
+    const rows = await dbRows("SELECT declaration_new_filings($1) AS r", [
+      lim,
+    ]).catch(missingMigrationEmpty);
+    return { body: rows[0]?.r ?? [] };
+  },
   // Declared wealth against peers in the same office, same year (audit T3.9). Object-shaped,
   // so a missing-migration array degrades to null rather than a shape the client can't read.
   // `percentile` is null below a 20-peer floor — 097 enforces it, not the client.

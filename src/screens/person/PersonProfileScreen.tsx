@@ -21,6 +21,8 @@ import { PersonAccumulationGap } from "./PersonAccumulationGap";
 import { PersonDeclarationEvents } from "./PersonDeclarationEvents";
 import { PersonStakeProcurement } from "./PersonStakeProcurement";
 import { PersonCohortBenchmark } from "./PersonCohortBenchmark";
+import { PersonFollowButton } from "./PersonFollowButton";
+import { WatchlistFilings } from "./WatchlistFilings";
 import { PersonCompanies } from "./PersonCompanies";
 import {
   PersonConnections,
@@ -198,6 +200,12 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
       {/* Header — identity, party badge, compact MP bio */}
       <PersonHeader p={p} mpId={mpId} />
 
+      {/* Follow for new-declaration alerts (T3.10). Browser-local — the site keeps no
+          record of who follows whom. */}
+      <div className="flex justify-end">
+        <PersonFollowButton slug={p.slug} />
+      </div>
+
       {/* Money-footprint + presence KPI row */}
       {kpis.length > 0 && (
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
@@ -341,6 +349,10 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
           nothing below two asset-bearing filings. See
           docs/methodology/accumulation-gap.md. */}
       <PersonAccumulationGap slug={p.slug} />
+
+      {/* New declarations from everyone this reader follows (T3.10). Browser-local list;
+          self-hides when nobody is followed or nothing new arrived. */}
+      <WatchlistFilings />
 
       {/* Declared wealth against peers in the SAME office and year (T3.9). Not the
           accumulation gap: both sides are self-declared and no origin is implied. The

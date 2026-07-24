@@ -14,7 +14,7 @@
 
 import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
-import { allRows, end } from "../lib/pg";
+import { allRows, end, withClient } from "../lib/pg";
 
 const reachable = async (): Promise<boolean> => {
   try {
@@ -280,6 +280,38 @@ test.skipIf(skip)(
       leaked.map((l) => l.slug),
       [],
       "a non-public / non-active person was served a benchmark",
+    );
+
+    // The assertion above is [] === [] whenever no gated-out person has cohort wealth —
+    // which is the case on this corpus, so deleting the gate from the SQL would leave it
+    // green. Construct the condition instead: flip a real person non-public inside a
+    // transaction and require them to disappear.
+    //
+    // One CLIENT, statement by statement: a multi-statement string returns only the FIRST
+    // result set, so a single allRows() call would read BEGIN's empty result and pass
+    // without testing anything.
+    const served = await withClient(async (c) => {
+      await c.query("BEGIN");
+      try {
+        await c.query(
+          `UPDATE person SET is_public_figure = false
+            WHERE person_id = (SELECT person_id FROM person_cohort_wealth LIMIT 1)`,
+        );
+        const r = await c.query<{ n: string }>(
+          `SELECT count(*)::text AS n FROM person p
+             JOIN person_cohort_wealth cw ON cw.person_id = p.person_id
+            WHERE NOT p.is_public_figure
+              AND person_cohort_benchmark(p.slug) <> 'null'::jsonb`,
+        );
+        return Number(r.rows[0].n);
+      } finally {
+        await c.query("ROLLBACK");
+      }
+    });
+    assert.equal(
+      served,
+      0,
+      "a person flipped to non-public was still served — the gate is not enforced",
     );
   },
 );
