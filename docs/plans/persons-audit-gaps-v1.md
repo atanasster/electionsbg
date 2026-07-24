@@ -78,27 +78,46 @@ A1 and A2 must be planned together. Options, cheapest first:
 
 ## B. Lifecycle gaps in what shipped
 
-### B1. `person_cohort_wealth` (097) is never refreshed — anywhere
+### B1 / B2 — ❌ FALSE PREMISE. Investigated, and refreshing either matview at person-resolution time is **strictly harmful**. Do not do it.
 
-```
-grep -rn "REFRESH.*person_cohort_wealth" scripts/  → no matches
-```
+The audit proposed adding `REFRESH MATERIALIZED VIEW CONCURRENTLY` for `person_cohort_wealth`
+(097) and `declaration_stake_company` (096) to `scripts/person/resolve_persons.ts`, on the
+theory that it "owns" `person_role` and re-resolution leaves the matviews stale. It was
+implemented, reviewed, and **reverted** — the premise is backwards.
 
-097's header documents that a person-resolution run "must REFRESH it". Nothing does. The
-matview is only ever populated by its own `CREATE … AS` inside
-`load_declarations_pg --resolve`. After a `resolve_persons.ts` run (which TRUNCATEs and
-rebuilds `person_role`) or a bare `REFRESH person_wealth_year`, the cohort benchmark serves
-stale ranks against a stale peer set — silently, because it still returns well-formed data.
+`resolve_persons.ts` runs `DELETE FROM person` (line ~1159). `declaration.person_id` is
+`ON DELETE SET NULL`, so that delete **nulls `declaration.person_id` for the entire table**,
+and it is re-attached only by the *separate* `load_declarations_pg --resolve` step. Verified
+on the live DB after a resolution run: `declaration` = 47,983 rows, `person_id` populated on
+**0** of them.
 
-**Fix**: add a guarded `REFRESH MATERIALIZED VIEW CONCURRENTLY person_cohort_wealth` to
-`scripts/person/resolve_persons.ts` (the owner of `person_role`), mirroring the pattern
-already used for `declaration_stake_company` in `load_tr_pg.ts`. The unique index on
-`(person_id, period_year)` makes `CONCURRENTLY` legal.
+Both matviews depend on that column:
+- **096** joins `declaration.person_id` directly. Refreshing it post-resolve rebuilds it from
+  all-NULL joins → **0 rows** (true value ≈740). It would replace present data with empty.
+- **097** is built from `person_wealth_year`, which also joins `declaration.person_id`.
+  Refreshing 097 post-resolve collapses it the same way (and even unrefreshed,
+  `person_wealth_year` carries pre-resolve person_ids that no longer line up with the
+  freshly-rebuilt `person_role`).
 
-### B2. `declaration_stake_company` (096) is refreshed by the TR loader only
+So person resolution is **precisely the moment neither matview can be correctly refreshed** —
+its own `DELETE` has invalidated the declaration join both of them need. The `update-persons`
+skill confirms the ordering: it runs `db:resolve:persons` then `db:load:person-elections:pg`,
+**not** the declarations loader — so after a person run the declaration join stays NULL until
+a declarations load re-attaches it.
 
-It joins `person` as well as `tr_*`, so a person re-resolution invalidates it too. Same fix
-site as B1 — one guarded refresh covering both matviews.
+And that declarations loader **already rebuilds both matviews correctly**, after it re-attaches
+`person_id` and refreshes `person_wealth_year` (`load_declarations_pg.ts`: 096 CREATE…AS at
+line 566, `REFRESH person_wealth_year` at 567, 097 at 572). It is the only step that populates
+`declaration.person_id`, and it owns both matviews' rebuild. There is no staleness window a
+refresh in `resolve_persons` could close — only one it would actively corrupt.
+
+097's own header comment ("a person-resolution run … must REFRESH it") is the source of the
+false premise and should be corrected to point at the declarations loader instead. That is the
+one real residual action from B1/B2 — a comment fix, folded into the B4 commit.
+
+This is the third Tier-3-adjacent item whose premise the data falsified on inspection (cf. T3.5
+`Sent!=True`, T3.7 ideal-part normalisation). Treat "matview X is never refreshed" as a
+hypothesis to test against the actual invalidation path, not a bug to patch by reflex.
 
 ### B3. Unverified: do 096/097/098 exist in production?
 
