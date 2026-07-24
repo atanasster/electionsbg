@@ -91,12 +91,18 @@ RETURNS text LANGUAGE sql STABLE AS $$
    LIMIT 1;
 $$;
 
--- LIFECYCLE. This matview reads person_wealth_year AND person_role, so it is stale after
--- either is rebuilt. It is CREATEd (and therefore populated) by the declarations loader
--- immediately after `REFRESH MATERIALIZED VIEW person_wealth_year`, which covers the
--- declarations path. A person-resolution run that rewrites person_role without touching
--- declarations must REFRESH it — the unique index on (person_id, period_year) makes
--- CONCURRENTLY legal, so /person pages stay served during the rebuild.
+-- LIFECYCLE. This matview is CREATEd (and therefore populated) by the declarations loader
+-- `load_declarations_pg --resolve`, immediately after that loader re-attaches
+-- declaration.person_id and REFRESHes person_wealth_year. That is the ONLY place it is
+-- (re)built, and it is the correct one: the loader is the sole step that populates
+-- declaration.person_id, which person_wealth_year (this matview's base) joins on.
+--
+-- It is NOT refreshed by scripts/person/resolve_persons.ts, and must not be. That step runs
+-- DELETE FROM person, which nulls declaration.person_id table-wide (ON DELETE SET NULL) until
+-- the declarations loader re-attaches it — so at resolve time this matview's base has no
+-- usable join and refreshing here would collapse it to empty. An earlier revision of this
+-- comment claimed a "person-resolution run must REFRESH it"; that was backwards. See the
+-- B1/B2 note in docs/plans/persons-audit-gaps-v1.md.
 --
 -- Every person-year that has BOTH a cohort and declared wealth. Materialised because the
 -- percentile needs the whole distribution, and recomputing person_cohort_key per peer per

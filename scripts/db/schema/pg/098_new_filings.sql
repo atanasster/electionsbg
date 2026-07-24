@@ -51,7 +51,11 @@ RETURNS jsonb LANGUAGE sql STABLE AS $$
                  'declarationType', d.declaration_type,
                  'institution', d.institution,
                  'positionTitle', d.position_title,
-                 'firstSeen', to_char(f.first_seen_at, 'YYYY-MM-DD'),
+                 -- first_seen_at is timestamptz, so to_char renders it in the SESSION
+                 -- TimeZone — the same ingest batch would read 2026-07-23 or -24 depending
+                 -- on the connection. Pin to Europe/Sofia (the site's frame) so the rendered
+                 -- day is stable. (filed_at is a plain date and needs no conversion.)
+                 'firstSeen', to_char(f.first_seen_at AT TIME ZONE 'Europe/Sofia', 'YYYY-MM-DD'),
                  'filedAt', to_char(d.filed_at, 'YYYY-MM-DD'),
                  'sourceUrl', d.source_url
                ) AS r
