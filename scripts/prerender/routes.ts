@@ -1423,7 +1423,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     title: "Сравнение на парламентарни избори в България | electionsbg.com",
     description:
       "Сравнете рамо до рамо два парламентарни вота — избирателна активност, дял на партиите, мандати и брой секции с отклонения.",
-    breadcrumbName: "Сравнение",
+    breadcrumbName: "Сравнение на избори",
     ogImage: "/og/compare.png",
     bodyHtml: `
 <h1>Сравнение на парламентарни избори в България</h1>
@@ -1439,7 +1439,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
       title: "Compare Bulgarian Parliamentary Elections | electionsbg.com",
       description:
         "Side-by-side comparison of any two parliamentary votes — turnout, party shares, seats, and section-level anomaly counts.",
-      breadcrumbName: "Compare",
+      breadcrumbName: "Compare elections",
       bodyHtml: `
 <h1>Compare Bulgarian parliamentary elections</h1>
 <p>Pick any two parliamentary votes since 2005 and put them side by side — turnout, vote share and seats per party, machine-voting coverage, and section-level anomaly counts. Useful for a quick read on the gap between an early and late election night, or between two votes that produced different governing majorities.</p>
@@ -1968,10 +1968,11 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "indicators/economy",
-    title: "Икономика — БВП, инфлация, безработица, нагласи | electionsbg.com",
+    title:
+      "Икономически показатели — БВП, инфлация, безработица, нагласи | electionsbg.com",
     description:
       "Реален БВП, ХИПЦ инфлация, безработица, трудови доходи, индустриално производство, потребителско доверие и Economic Sentiment Indicator за България от 2005 г., разположени по мандати на правителствата.",
-    breadcrumbName: "Икономика",
+    breadcrumbName: "Икономически показатели",
     ogImage: "/og/indicators-economy.png",
     bodyHtml: `
 <h1>Индикатори за икономиката на България</h1>
@@ -1987,10 +1988,10 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Виж и <a href="${SITE_URL}/indicators/fiscal">фискалните показатели</a>, <a href="${SITE_URL}/indicators/governance">индикаторите за управление</a> и <a href="${SITE_URL}/indicators/society">социалните индикатори</a>. Източник: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Евростат</a>.</p>`.trim(),
     english: {
       title:
-        "Economy — GDP, Inflation, Unemployment, Sentiment | electionsbg.com",
+        "Economic indicators — GDP, Inflation, Unemployment, Sentiment | electionsbg.com",
       description:
         "Real GDP growth, HICP inflation, unemployment, labour income, industrial production, consumer confidence and the Economic Sentiment Indicator for Bulgaria since 2005, set against each cabinet's term.",
-      breadcrumbName: "Economy",
+      breadcrumbName: "Economic indicators",
       bodyHtml: `
 <h1>Bulgaria — economy indicators</h1>
 <p>Quarterly Eurostat macroeconomic series aligned to each cabinet's term. Covers real GDP growth (YoY), HICP inflation with the ECOICOP breakdown (food, energy, services, core), unemployment, labour income, industrial production and retail volume.</p>
@@ -2008,10 +2009,10 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "indicators/fiscal",
     title:
-      "Фискални индикатори на България — дълг, бюджет, резерв, ЕС средства | electionsbg.com",
+      "Фискални показатели на България — дълг, бюджет, резерв, ЕС средства | electionsbg.com",
     description:
       "Държавен дълг, бюджетен баланс, текуща сметка, фискален резерв, държавни приходи и разходи, FDI, емисии държавен дълг и потоци със средства от ЕС за България от 2005 г., разположени по мандати на правителствата.",
-    breadcrumbName: "Фискални",
+    breadcrumbName: "Фискални показатели",
     ogImage: "/og/indicators-fiscal.png",
     bodyHtml: `
 <h1>Фискални индикатори на България</h1>
@@ -2031,7 +2032,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
         "Bulgaria Fiscal Indicators — Debt, Balance, Reserve, EU Funds | electionsbg.com",
       description:
         "Government debt, budget balance, current account, fiscal reserve, revenue and expenditure, FDI, sovereign debt emissions and EU-funds flows for Bulgaria since 2005, set against each cabinet's term.",
-      breadcrumbName: "Fiscal",
+      breadcrumbName: "Fiscal indicators",
       bodyHtml: `
 <h1>Bulgaria — fiscal indicators</h1>
 <p>Quarterly and annual fiscal series from Eurostat, the Bulgarian National Bank and the Ministry of Finance, aligned to each cabinet's term. Covers both relative metrics (% of GDP) and nominal levels in euro.</p>
@@ -2124,10 +2125,10 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "indicators/society",
     title:
-      "Социални индикатори за България — младежка безработица, неравенство, бедност | electionsbg.com",
+      "Социални показатели за България — младежка безработица, неравенство, бедност | electionsbg.com",
     description:
       "Младежка безработица (15-24), годишна промяна на индекса на жилищните цени, коефициент на Джини и риск от бедност за България от 2005 г., разположени по мандати на правителствата.",
-    breadcrumbName: "Общество",
+    breadcrumbName: "Социални показатели",
     ogImage: "/og/indicators-society.png",
     bodyHtml: `
 <h1>Социални индикатори за България</h1>
@@ -2145,7 +2146,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
         "Bulgaria Society — Youth Unemployment, Inequality, Poverty | electionsbg.com",
       description:
         "Youth unemployment (15-24), house-price index YoY, Gini coefficient and at-risk-of-poverty rate for Bulgaria since 2005, set against each cabinet's term.",
-      breadcrumbName: "Society",
+      breadcrumbName: "Social indicators",
       bodyHtml: `
 <h1>Bulgaria — society indicators</h1>
 <p>Four indicators of how the macro environment lands on households, aligned to each cabinet's term.</p>
