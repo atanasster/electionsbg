@@ -2,8 +2,10 @@
 // + blocks + clusters them (nameParts.ts + cluster.ts), and rebuilds the person /
 // person_role / person_alias tables. Idempotent: a full TRUNCATE+rebuild with
 // DETERMINISTIC slugs, so re-running yields the same person_ids (like
-// rebuild_ngo_board_links). Nothing consumes person_id yet, so a rebuild is safe;
-// slug persistence (never renumber an active person) is a follow-up once it's served.
+// rebuild_ngo_board_links). SLUG PERSISTENCE is implemented (migration 099 +
+// slugLock.ts): the name-hash tier reuses each person's locked slug across re-resolves,
+// so /person URLs and the watchlist survive cluster drift instead of churning ~a third
+// of non-MP slugs each rebuild.
 //
 // Scope so far: magistrate + officials (executive + municipal) + MPs + candidates (CIK,
 // per-election by-slug shards) + donors (ЕРИК campaign finance) + local mayors/councillors
@@ -48,6 +50,7 @@ import { writeIngestState } from "../lib/ingest-state";
 import { appendDataChange } from "../lib/data-changes";
 import { clusterBlock, type Mention } from "./cluster";
 import { applyOverrides, parseOverrides, type OverrideRow } from "./overrides";
+import { chooseStableSlug } from "./slugLock";
 
 const REPO_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
@@ -812,6 +815,9 @@ const SCHEMA_FILES = [
   "082_person_api.sql",
   "083_person_review.sql",
   "084_person_connections.sql",
+  // Persistent slug locks (099) — NOT truncated by the rebuild; keeps /person URLs stable
+  // across re-resolves. Applied here so the table exists before the locks are read below.
+  "099_person_slug_lock.sql",
 ];
 
 // The skill /process-watch-report queues for the person layer. The marker file
@@ -990,6 +996,22 @@ async function main(): Promise<void> {
   }));
   const overriddenGroups = applyOverrides(mergedGroups, ovMentions, overrides);
 
+  // Persisted slug locks (099): mention id -> the slug last assigned to the person that
+  // mention belonged to. Lets a name-hash person keep their /person URL across re-resolves
+  // even as their cluster drifts. Empty on the first run — then every slug is the derived
+  // one and the lock is simply seeded, so nothing changes.
+  const slugLocks = new Map<string, { slug: string; firstSeen: number }>();
+  for (const r of await allRows<{
+    mention_id: string;
+    slug: string;
+    first_seen: string;
+  }>("SELECT mention_id, slug, first_seen FROM person_slug_lock")) {
+    slugLocks.set(r.mention_id, {
+      slug: r.slug,
+      firstSeen: new Date(r.first_seen).getTime(),
+    });
+  }
+
   // Build person rows with deterministic slugs, then sort by slug and assign ids so a
   // rebuild is stable.
   type Built = {
@@ -1031,13 +1053,25 @@ async function main(): Promise<void> {
           (a, b) =>
             b.nameParts - a.nameParts || b.display.length - a.display.length,
         )[0];
-      const slug = mpMember
+      // MP / official slugs are stable by construction. The name-hash tier is not: its hash
+      // is over the exact member set, so any cluster drift reassigns it. Anchor it to a
+      // persisted lock instead — reuse the slug of the person's OLDEST previously-seen member
+      // (the "founding" anchor), so the URL survives cluster drift; the derived hash is only
+      // the fallback for a wholly new person. chooseStableSlug (unit-tested in slugLock.ts)
+      // holds the rule, incl. the first_seen-tie tiebreak that keeps the choice deterministic.
+      const naturalSlug = mpMember
         ? `mp-${mpMember.raw.ref}`
         : officialMember
           ? officialMember.raw.ref
           : `${kebab(`${key.givenFold}-${key.familyFold}`)}-${hash6(
               g.ids.slice().sort().join("|"),
             )}`;
+      const slug = chooseStableSlug(
+        naturalSlug,
+        Boolean(mpMember || officialMember),
+        g.ids,
+        slugLocks,
+      );
       return {
         slug,
         display: best.display,
@@ -1063,6 +1097,26 @@ async function main(): Promise<void> {
     seen.add(s);
   }
   built.sort((a, b) => a.slug.localeCompare(b.slug));
+
+  // Persist the slug locks so the NEXT re-resolve keeps every person's slug. Upsert each
+  // member mention -> its person's final slug; first_seen is kept on conflict (never moved
+  // forward), so the anchor a person is pinned to stays the oldest. person_slug_lock is not
+  // truncated, so this accumulates. On a first run this simply records the current slugs.
+  const lockIds: string[] = [];
+  const lockSlugs: string[] = [];
+  for (const b of built)
+    for (const m of b.members) {
+      lockIds.push(m.id);
+      lockSlugs.push(b.slug);
+    }
+  await withTx(async (c) => {
+    await c.query(
+      `INSERT INTO person_slug_lock (mention_id, slug)
+         SELECT * FROM unnest($1::text[], $2::text[])
+       ON CONFLICT (mention_id) DO UPDATE SET slug = EXCLUDED.slug`,
+      [lockIds, lockSlugs],
+    );
+  });
 
   const personRows: unknown[][] = [];
   const roleRows: unknown[][] = [];
