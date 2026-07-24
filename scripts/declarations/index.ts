@@ -115,24 +115,27 @@ const fetchYearListing = async (year: string): Promise<DirectoryEntry[]> => {
           .find("Person")
           .each((___, person) => {
             const name = $(person).find("> Name").first().text().trim();
-            const xmlFile = $(person)
-              .find("Position > Declaration > xmlFile")
-              .first()
-              .text()
-              .trim();
-            const sent = $(person)
-              .find("Position > Declaration > Sent")
-              .first()
-              .text()
-              .trim();
-            if (sent !== "True" || !name || !xmlFile) return;
-            out.push({
-              declarantName: name,
-              institution,
-              xmlFile,
-              year,
-              sourceUrl: `${REGISTER_BASE}/${year}/${xmlFile}`,
-            });
+            // Every Declaration node, not just the first. A Person routinely
+            // carries several — an annual plus an exit or a correction filed in
+            // the same year — and `.first()` silently kept one and discarded the
+            // rest: 285 MP declarations were listed for 2025 but only 246
+            // ingested. The officials leg has always iterated them, and the
+            // watcher fingerprints all of them, so `.first()` also broke the
+            // lockstep the watcher depends on.
+            $(person)
+              .find("Position > Declaration")
+              .each((____, decl) => {
+                const xmlFile = $(decl).find("xmlFile").first().text().trim();
+                const sent = $(decl).find("Sent").first().text().trim();
+                if (sent !== "True" || !name || !xmlFile) return;
+                out.push({
+                  declarantName: name,
+                  institution,
+                  xmlFile,
+                  year,
+                  sourceUrl: `${REGISTER_BASE}/${year}/${xmlFile}`,
+                });
+              });
           });
       });
   });

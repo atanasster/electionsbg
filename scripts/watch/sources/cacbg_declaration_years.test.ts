@@ -1,4 +1,4 @@
-// Unit tests for the two cacbg declaration-slice watch sources, which resolve
+// Unit tests for the three cacbg declaration-slice watch sources, which resolve
 // their declaration year from the register root instead of a pinned constant.
 // No network: fetchText is mocked; sha256Short stays real so the fingerprint
 // equality semantics are exercised for real. Runs in the `node` Vitest project.
@@ -14,6 +14,7 @@ import { fetchText } from "../fingerprint";
 import { __resetRegisterYearCache } from "../../lib/cacbg_register";
 import { cacbgOfficials } from "./cacbg_officials";
 import { cacbgLocal } from "./cacbg_local";
+import { cacbgDeclarations } from "./cacbg_declarations";
 import type { WatchState } from "../types";
 
 const mockedFetchText = vi.mocked(fetchText);
@@ -43,6 +44,7 @@ const listXml = (categories: { name: string; files: string[] }[]): string =>
 const EXEC_CATEGORY = "Министър-председател, министри и заместник-министри";
 const LOCAL_CATEGORY =
   "Кметове, и зам.-кметове на общини, общинските съветници";
+const MP_CATEGORY = "Народни представители";
 
 // Wire the mock so the root resolves to `years` and every /<year>/list.xml
 // resolves to `xml`.
@@ -158,5 +160,84 @@ describe("describe() on a year rollover", () => {
     );
     expect(line).toContain("new declaration year 2025 → 2026");
     expect(line).toContain("municipal.ts");
+  });
+});
+
+// The MP slice used to hash the registry's ROOT PAGE — a Vue SPA shell that
+// says nothing about who filed. It flipped once in its entire life, so the
+// ingest it gates was never triggered by new filings. These pin the property
+// that broke: the fingerprint must track the DECLARATIONS, not the page.
+describe("cacbgDeclarations.fingerprint", () => {
+  it("probes the newest year advertised by the root, not a pinned one", async () => {
+    wire(
+      [2024, 2025, 2026],
+      listXml([{ name: MP_CATEGORY, files: ["a.xml"] }]),
+    );
+    const fp = await cacbgDeclarations.fingerprint();
+    expect(mockedFetchText).toHaveBeenCalledWith(
+      "https://register.cacbg.bg/2026/list.xml",
+      { insecureTls: true },
+    );
+    expect(fp.meta?.year).toBe(2026);
+  });
+
+  it("tracks only the MP category", async () => {
+    wire(
+      [2025],
+      listXml([
+        { name: MP_CATEGORY, files: ["mp1.xml", "mp2.xml"] },
+        { name: EXEC_CATEGORY, files: ["exec.xml"] },
+        { name: LOCAL_CATEGORY, files: ["muni.xml"] },
+      ]),
+    );
+    const fp = await cacbgDeclarations.fingerprint();
+    expect(fp.meta?.count).toBe(2);
+  });
+
+  // THE regression. A new filing must move the hash; hashing a static shell is
+  // what made this source blind.
+  it("flips when a declaration is added", async () => {
+    wire([2025], listXml([{ name: MP_CATEGORY, files: ["a.xml"] }]));
+    const before = await cacbgDeclarations.fingerprint();
+    __resetRegisterYearCache();
+    wire([2025], listXml([{ name: MP_CATEGORY, files: ["a.xml", "b.xml"] }]));
+    const after = await cacbgDeclarations.fingerprint();
+    expect(after.value).not.toBe(before.value);
+  });
+
+  it("is stable when upstream only reorders the same declarations", async () => {
+    wire([2025], listXml([{ name: MP_CATEGORY, files: ["a.xml", "b.xml"] }]));
+    const one = await cacbgDeclarations.fingerprint();
+    __resetRegisterYearCache();
+    wire([2025], listXml([{ name: MP_CATEGORY, files: ["b.xml", "a.xml"] }]));
+    const two = await cacbgDeclarations.fingerprint();
+    expect(two.value).toBe(one.value);
+  });
+
+  it("throws rather than report a healthy empty set", async () => {
+    wire([2025], listXml([{ name: EXEC_CATEGORY, files: ["exec.xml"] }]));
+    await expect(cacbgDeclarations.fingerprint()).rejects.toThrow(
+      /zero declaration xmlFile entries/,
+    );
+  });
+
+  it("headlines a year rollover rather than a meaningless count delta", async () => {
+    wire([2026], listXml([{ name: MP_CATEGORY, files: ["a.xml"] }]));
+    const curr = await cacbgDeclarations.fingerprint();
+    const line = cacbgDeclarations.describe!(
+      state("old", { count: 240, year: 2025 }),
+      curr,
+    );
+    expect(line).toMatch(/new declaration year 2025 → 2026/);
+  });
+
+  it("reports the net change in declarations within a year", async () => {
+    wire([2025], listXml([{ name: MP_CATEGORY, files: ["a.xml", "b.xml"] }]));
+    const curr = await cacbgDeclarations.fingerprint();
+    const line = cacbgDeclarations.describe!(
+      state("old", { count: 1, year: 2025 }),
+      curr,
+    );
+    expect(line).toMatch(/\+1 MP declarations in scope \(1 → 2\)/);
   });
 });
