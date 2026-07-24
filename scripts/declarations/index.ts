@@ -142,16 +142,20 @@ const fetchYearListing = async (year: string): Promise<DirectoryEntry[]> => {
 const cachePath = (rawFolder: string, year: string, xmlFile: string) =>
   path.join(rawFolder, "declarations", year, xmlFile);
 
+// `fromCache` lets the caller skip the politeness sleep on a cache hit: it
+// exists to be kind to register.cacbg.bg between real requests, and a re-derive
+// from a warm cache makes none.
 const fetchDeclaration = async (
   rawFolder: string,
   entry: DirectoryEntry,
-): Promise<string> => {
+): Promise<{ xml: string; fromCache: boolean }> => {
   const out = cachePath(rawFolder, entry.year, entry.xmlFile);
-  if (fs.existsSync(out)) return fs.readFileSync(out, "utf-8");
+  if (fs.existsSync(out))
+    return { xml: fs.readFileSync(out, "utf-8"), fromCache: true };
   fs.mkdirSync(path.dirname(out), { recursive: true });
   const xml = await fetchText(entry.sourceUrl);
   fs.writeFileSync(out, xml, "utf-8");
-  return xml;
+  return { xml, fromCache: false };
 };
 
 const parseInstitutionToNsFolder = (institution: string): string | null => {
@@ -170,12 +174,18 @@ export type ParseFinancialDeclarationsArgs = {
   publicFolder: string;
   dataFolder: string;
   stringify: (o: object) => string;
+  /** Parse and write the per-MP declaration files, then stop — skipping the
+   *  company-index / TR / connections chain that normally follows. Used by the
+   *  cache backfill (./backfill_from_cache.ts), which restores filing history
+   *  and has no reason to rebuild the graph on every folder it walks. */
+  declarationsOnly?: boolean;
 };
 
 export const parseFinancialDeclarations = async ({
   publicFolder,
   dataFolder,
   stringify,
+  declarationsOnly = false,
 }: ParseFinancialDeclarationsArgs): Promise<void> => {
   const indexPath = path.join(publicFolder, "parliament", "index.json");
   if (!fs.existsSync(indexPath)) {
@@ -241,7 +251,7 @@ export const parseFinancialDeclarations = async ({
         );
       }
 
-      const xml = await fetchDeclaration(dataFolder, entry);
+      const { xml, fromCache } = await fetchDeclaration(dataFolder, entry);
       try {
         const decl = parseDeclarationXml({
           xml,
@@ -263,8 +273,8 @@ export const parseFinancialDeclarations = async ({
       }
 
       processed++;
-      // Politeness — only when we actually hit the network
-      await sleep(150);
+      // Politeness — only when we actually hit the network.
+      if (!fromCache) await sleep(150);
     }
 
     if (parseFailures > 0) {
@@ -315,6 +325,8 @@ export const parseFinancialDeclarations = async ({
     written++;
   }
   console.log(`[declarations] wrote ${written} per-MP file(s) to ${outDir}`);
+
+  if (declarationsOnly) return;
 
   buildCompanyIndex({ publicFolder, stringify });
 
