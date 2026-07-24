@@ -56,17 +56,15 @@ The 2025 column is parsed from our archive of budget laws; the 2026 column comes
 
 The 2026 budget went through three versions. The first was submitted in November 2025 by the Zhelyazkov cabinet, with [Temenuzhka Petkova](/candidate/mp-5207) as finance minister, and passed first reading **131 to 87** on 21 November 2025 — but never reached second reading. The second was repealed, and the country moved onto a stopgap law. The third — now law — was submitted in June 2026 by the Radev cabinet, with [Galab Donev](/candidate/mp-5158) as deputy prime minister and finance minister.
 
-The key to the argument is the **second version**. After the November protests the budget was withdrawn and reworked: the Fiscal Council describes the rework as cutting revenue and expenditure **by €1bn each, equally**, leaving the absolute deficit unchanged at **€3.65bn**.[^fiscal-preraboten]
+The figures below are on the official consolidated (КФП) basis — the same one the Fiscal Council uses for the adopted budget, putting 2026 expenditure at **€56.8bn**.[^fc-opinion] The December rework cut revenue and expenditure by €1bn each, equally, leaving the absolute deficit unchanged.[^fiscal-preraboten]
 
-| Consolidated framework | November (v1) | December (v2) | Adopted | Δ v2 → adopted |
-| ---------------------- | ------------- | ------------- | ------- | -------------- |
-| Revenue                | €51.4bn       | €50.4bn       | €49.6bn | **−€0.8bn**    |
-| Expenditure            | €55.0bn       | €54.0bn       | €56.8bn | **+€2.8bn**    |
-| Deficit                | €3.65bn       | €3.65bn       | €7.19bn | **+€3.54bn**   |
+| Consolidated framework | November (v1) | December (v2) | Adopted  | Δ v1 → adopted |
+| ---------------------- | ------------- | ------------- | -------- | -------------- |
+| Revenue                | €50,402M      | €49,402M      | €49,615M | **−€787M**     |
+| Expenditure            | €54,052M      | €53,052M      | €56,807M | **+€2,755M**   |
+| Deficit                | €3,650M       | €3,650M       | €7,192M  | **+€3,542M**   |
 
-And on this basis Petkova's figures reconcile exactly. She described the difference as **"€778M less revenue" and "€2.8bn more spending"**[^faktor-gerb] — which is precisely the comparison against the December version, not the November one. The sum closes: −0.8 + 2.8 = a €3.6bn difference in the deficit. **Her arithmetic is right.**
-
-⟦TBD: the two sources use slightly different bases — the Fiscal Council works with €50.402bn / €54.052bn for v1 and €49.402bn / €53.052bn for v2, while economic.bg gives €51.4bn / €55.0bn for v1. The roughly €1bn gap is a question of scope and should be reconciled after ingest; the directions and the differences agree on both bases.⟧
+On this basis Petkova's figures reconcile almost to the million — but against the **November** version, not the December one. She described the difference as **"€778M less revenue" and "€2.8bn more spending"**;[^faktor-gerb] the v1 → adopted comparison gives **−€787M** and **+€2,755M**, and the sum closes exactly on a €3,542M difference in the deficit. **Her arithmetic is right.**
 
 So far it looks simple: **the deficit doubles, and that is a choice rather than an inheritance.** But there is a substantial qualification that makes the picture far less black and white.
 
@@ -117,6 +115,8 @@ The 2025 plan assumed 26.7% growth over 2024 actuals against nominal GDP growth 
 The same shows in the €3.0bn gap in tax revenue between the November and adopted versions: that is a forecast being cut, not money being hidden.
 
 Up to here the numbers defend the government. From here they stop. **Revenue for January–May 2026 is growing at 2.0% year on year while the plan needs 8.2%** — meaning June–December must bring in some €18.6bn against €16.6bn a year earlier, a **rise of 11.8% across the second half**. The revenue side is not inflated relative to last year, but it is inflated relative to what current collection shows.
+
+The Fiscal Council itself — this budget’s sharpest critic — reaches the same conclusion on revenue. In its 6 July opinion it writes that under the current proposal **"the deviation in the estimate for total revenue is minimal, which was not the case for 2025 and the subsequent initial proposal for the 2026 budget"**, attributing the 2025 gap to **"unrealistic revenue projections that are disconnected from the economic fundamentals"**.[^fc-opinion] The institution demanding a radical reworking of the spending side vouches for the revenue side.
 
 ## The fight over the provisions: what actually went
 
@@ -229,6 +229,8 @@ The picture in the numbers is a double one and cannot honestly be reduced to a s
 [^faktor-pp]: Statement by Asen Vasilev (PP) after the budget was passed, Faktor, 23.07.2026 — ⟦TBD: exact URL⟧
 
 [^protesti]: "The government withdraws Budget 2026 under pressure from the protests", Forbes Bulgaria, 27.11.2025 — https://forbesbulgaria.com/2025/11/27/upravlyavasthite-ottegliha-byudzhet-2026-pod-natiska-na-protestite/ ; on the content of the withdrawn measures (maximum insurable income of €2,352 from 1 January and +2pp on the pension fund) see also "What will change in the new version of budget 2026", Capital, 04.12.2025.
+
+[^fc-opinion]: "Opinion on the Draft Law on the State Budget of the Republic of Bulgaria for 2026, the UMTBF 2026–2028, and the Spring Macroeconomic Forecast", Fiscal Council of Bulgaria, 6 July 2026, 42 pp. — https://www.fiscal-council.bg/bg/publikacii/opinion-on-the-draft-law-on-the-state-budget-of-the-republic-of-bulgaria-of-2026
 
 [^fiscal-preraboten]: "A reworked Budget 2026: how the deficit rises when revenue and expenditure are cut equally", Fiscal Council of Bulgaria, December 2025 — https://www.fiscal-council.bg/bg/publikacii/preraboten-biudget-2026-kak-deficityt-se-vdiga-kogato-prihodi-i-razhodi-se-namalyavat-po-ravno
 
