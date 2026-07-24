@@ -5,6 +5,7 @@ import { describe, expect, it } from "vitest";
 import type { MpAsset } from "@/data/dataTypes";
 import {
   byRecency,
+  declarationPeriod,
   declarationTotals,
   hasDeclaredAssets,
   hasDeclaredIncome,
@@ -188,6 +189,58 @@ describe("byRecency — filings sharing a date", () => {
     const a = filing("Annualy", "Г100");
     const b = filing("Annualy", "Г200");
     expect([b, a].sort(byRecency)[0]).toBe(a);
+  });
+});
+
+describe("byRecency — the period covered outranks the date filed", () => {
+  // Лучия Александрова Добрева. Both filings were lodged in 2025 and so share a
+  // declarationYear; the exit filing describes February 2025, the annual describes
+  // 31 December 2024. On filedAt the annual wins and her published 2025 net worth
+  // was −274,784 EUR — the 2024 figure, on a card headlined 2025.
+  const vacate2025 = {
+    declarationYear: 2025,
+    fiscalYear: 2025,
+    filedAt: "2025-02-18",
+    entryNumber: "Ф8",
+    declarationType: "Vacate",
+    sourceUrl: "https://register.cacbg.bg/2025/21571.xml",
+  };
+  const annual2024 = {
+    declarationYear: 2025,
+    fiscalYear: 2024,
+    filedAt: "2025-06-13",
+    entryNumber: "Г14992",
+    declarationType: "Annualy",
+    sourceUrl: "https://register.cacbg.bg/2025/21570.xml",
+  };
+
+  it("prefers the filing covering the later period, not the one filed later", () => {
+    expect([annual2024, vacate2025].sort(byRecency)[0]).toBe(vacate2025);
+    expect([vacate2025, annual2024].sort(byRecency)[0]).toBe(vacate2025);
+  });
+
+  it("still breaks ties on filedAt within one period", () => {
+    // Both cover 2024: an entry filing lodged that July and the annual closing the
+    // year, filed the following May. The annual is the later snapshot.
+    const entryJul = {
+      ...annual2024,
+      declarationType: "Entry",
+      filedAt: "2024-07-17",
+    };
+    expect([entryJul, annual2024].sort(byRecency)[0]).toBe(annual2024);
+  });
+
+  it("falls back to the filing year when fiscalYear is absent", () => {
+    // 450 incompatibility and 275 entry/exit filings carry no <Year>; for entry/exit
+    // the filing year IS the period, so the fallback is exact.
+    const undated = { ...vacate2025, fiscalYear: null };
+    expect(declarationPeriod(undated)).toBe(2025);
+    expect([annual2024, undated].sort(byRecency)[0]).toBe(undated);
+  });
+
+  it("reads the period off fiscalYear when present", () => {
+    expect(declarationPeriod(annual2024)).toBe(2024);
+    expect(declarationPeriod(vacate2025)).toBe(2025);
   });
 });
 

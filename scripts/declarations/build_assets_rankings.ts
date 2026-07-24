@@ -3,10 +3,12 @@
  * candidate pages.
  *
  * For every per-MP file at /data/parliament/declarations/{mpId}.json:
- *   1. Pick the MOST RECENT declaration (highest declarationYear). Annual
- *      filings get +1 in declarationYear over their fiscal year, so this
- *      naturally prefers a 2025 annual filing over a 2024 vacate filing
- *      that was actually entered earlier.
+ *   1. Pick the most recent declaration that bears assets, by the shared
+ *      byRecency comparator — which orders on the period a filing COVERS
+ *      (fiscalYear ?? declarationYear), not the year it was lodged. An annual
+ *      for fiscal N is filed the following May and so shares a declarationYear
+ *      with any exit filing lodged that year; ordering on the filing year handed
+ *      "most recent" to whichever described the EARLIER state of affairs.
  *   2. Sum valueEur across all asset rows (declarant + spouse), bucketed by
  *      MpAssetCategory. `debt` rows are tracked separately so net-worth =
  *      assets − debts.
@@ -29,6 +31,7 @@ import type {
   MpDeclaration,
 } from "../../src/data/dataTypes";
 import {
+  byRecency,
   latestAssetDeclaration,
   priorAssetDeclaration,
 } from "../../src/lib/declarations";
@@ -182,17 +185,14 @@ export const buildAssetsRankings = ({
     );
     if (decls.length === 0) continue;
 
-    // Sort newest first by declarationYear, then filedAt as a tiebreaker
-    // (multiple declaration types in the same calendar year — vacate vs
-    // annual). Latest = first element after sort.
-    const sorted = [...decls].sort((a, b) => {
-      if (b.declarationYear !== a.declarationYear) {
-        return b.declarationYear - a.declarationYear;
-      }
-      const af = a.filedAt ?? "";
-      const bf = b.filedAt ?? "";
-      return bf.localeCompare(af);
-    });
+    // Newest first, via the ONE shared comparator. This was a local re-derivation
+    // (declarationYear, then filedAt) — a fourth copy of byRecency, missing its
+    // filing-type, entryNumber and sourceUrl rungs and keyed on the year FILED
+    // rather than the period covered. Both omissions decide real winners: an
+    // annual and an exit filing routinely share a year with a null filedAt, and an
+    // annual for fiscal N is lodged the following May, so it outranked an exit
+    // filing covering N+1. Never re-derive it here.
+    const sorted = [...decls].sort(byRecency);
     // The newest filing that actually declares assets — not simply the newest.
     // An incompatibility filing has no asset tables, so reading sorted[0] made
     // the zero-total guard below fire and the MP vanish from the leaderboard

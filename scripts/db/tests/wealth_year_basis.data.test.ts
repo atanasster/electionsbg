@@ -299,7 +299,9 @@ test.skipIf(skip)(
     );
     // The shape this pins must still be in the corpus, or the gate proves nothing.
     assert.ok(
-      filings.some((f) => f.declaration_type === "Vacate" && f.period_year === 2025) &&
+      filings.some(
+        (f) => f.declaration_type === "Vacate" && f.period_year === 2025,
+      ) &&
         filings.some(
           (f) => f.declaration_type === "Annualy" && f.period_year === 2024,
         ),
@@ -315,9 +317,9 @@ test.skipIf(skip)(
     );
     assert.ok(
       byYear.has(2024) && byYear.has(2025),
-      `both periods must be published, not collapsed into one point: ${JSON.stringify([
-        ...byYear,
-      ])}`,
+      `both periods must be published, not collapsed into one point: ${JSON.stringify(
+        [...byYear],
+      )}`,
     );
     // The exit filing covering 2025 values 12 rows against the annual's 3, so 2025
     // is the larger, positive figure and 2024 the negative one. If 2025 ever went

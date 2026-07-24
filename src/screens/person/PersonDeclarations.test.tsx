@@ -19,23 +19,28 @@ import { PersonDeclarations } from "./PersonDeclarations";
 
 const filing = (
   o: Partial<DeclarationListItem> & { id: number },
-): DeclarationListItem => ({
-  tier: "exec",
-  year: 2023,
-  fiscalYear: null,
-  type: "Annualy",
-  institution: "МС",
-  positionTitle: null,
-  filedAt: null,
-  sourceUrl: "https://register.cacbg.bg/2023/x.xml",
-  assetsEur: 0,
-  debtsEur: 0,
-  netEur: 0,
-  assetCount: 0,
-  stakeCount: 0,
-  eventCount: 0,
-  ...o,
-});
+): DeclarationListItem => {
+  const row = {
+    tier: "exec",
+    year: 2023,
+    fiscalYear: null as number | null,
+    type: "Annualy",
+    institution: "МС",
+    positionTitle: null,
+    filedAt: null,
+    sourceUrl: "https://register.cacbg.bg/2023/x.xml",
+    assetsEur: 0,
+    debtsEur: 0,
+    netEur: 0,
+    assetCount: 0,
+    stakeCount: 0,
+    eventCount: 0,
+    ...o,
+  };
+  // 090 serves periodYear = COALESCE(fiscal_year, declaration_year); derive it here
+  // so a fixture can set `year`/`fiscalYear` without the two falling out of step.
+  return { ...row, periodYear: o.periodYear ?? row.fiscalYear ?? row.year };
+};
 
 const stub = (rows: DeclarationListItem[]) =>
   vi.stubGlobal(

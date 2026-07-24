@@ -36,6 +36,7 @@ import type {
 import { parseDeclarationXml } from "../declarations/parse_declaration";
 import { latestRegisterYear } from "../lib/cacbg_register";
 import {
+  byRecency,
   latestAssetDeclaration,
   priorAssetDeclaration,
 } from "../../src/lib/declarations";
@@ -504,8 +505,14 @@ const cmd = command({
       const decls = readJsonOr<OfficialDeclaration[]>(
         path.join(DECL_DIR, `${slug}.json`),
         [],
-      );
+      ).sort(byRecency);
       if (decls.length === 0) continue;
+      // Sorted ON READ, not trusted. latestAssetDeclaration takes the head of a
+      // byRecency order, and the on-disk order was established by mergeDeclarations
+      // on a PREVIOUS run — so a change to the comparator (it now leads on the period
+      // a filing covers, not the year it was lodged) would otherwise only reach this
+      // leaderboard after every per-slug file happened to be rewritten, and until
+      // then /officials would rank on one order while /person served another.
       // Rank on the newest filing that DECLARES something, not simply the
       // newest one. An incompatibility filing carries no asset tables, so
       // reading decls[0] ranked 525 of 1495 officials at €0 while their real
