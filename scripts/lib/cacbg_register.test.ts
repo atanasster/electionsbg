@@ -141,12 +141,21 @@ describe("extractDeclarationXmlFiles", () => {
     expect(extractDeclarationXmlFiles(xml, wanted)).toEqual(["a.xml", "b.xml"]);
   });
 
-  it("skips unsent declarations, matching the ingest", () => {
+  // The inverse of this used to be asserted, on the assumption that a non-True
+  // <Sent> meant there was no declaration to fetch. It does not: those rows
+  // return complete, non-duplicate filings, and skipping them discarded 3,614
+  // of them across 2015-2025. The flag is a register processing state — see the
+  // evidence above extractDeclarationXmlFiles. This test now pins the fix, and
+  // pins the watcher to the same slice the ingest takes.
+  it("keeps declarations the register does not flag as sent", () => {
     const xml = cat(
       "ЦЕЛЕВА",
       person("Иван", decl("a.xml") + decl("b.xml", "False")),
     );
-    expect(extractDeclarationXmlFiles(xml, wanted)).toEqual(["a.xml"]);
+    expect(extractDeclarationXmlFiles(xml, wanted)).toEqual([
+      "a.xml",
+      "b.xml",
+    ]);
   });
 
   it("skips a declaration whose person has no name", () => {

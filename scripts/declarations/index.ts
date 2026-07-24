@@ -53,6 +53,12 @@ const insecureDispatcher = new Agent({
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
+// Share of a year's listed declarations that may be missing upstream before the
+// run stops treating itself as authoritative for that folder. Admitting rows the
+// register does not flag <Sent>True</Sent> admits some that 404 (~7% of that
+// subset, so ~1-2% of a folder overall), which is normal and must not trip this.
+const MAX_MISSING_RATE = 0.25;
+
 // Match parliament.bg's normalized form. Notably collapses any spacing around
 // hyphens — register.cacbg.bg sometimes writes hyphenated surnames as
 // "Бъчварова - Пиралкова" (with spaces), while parliament.bg always stores
@@ -99,6 +105,24 @@ const fetchText = async (url: string): Promise<string> => {
   return res.text();
 };
 
+// As fetchText, but a 404 yields null instead of throwing — the register lists
+// declaration files that are not actually served, and one of those must not
+// abort a whole year. Any OTHER non-OK status still throws: a 500 or a timeout
+// is a transient fault, and silently treating it as "no such filing" would let
+// a bad afternoon upstream look like a shrinking corpus.
+const fetchTextOptional = async (url: string): Promise<string | null> => {
+  const res = await fetch(url, {
+    headers: { "User-Agent": UA, Accept: "application/xml, text/xml, */*" },
+    // @ts-expect-error: dispatcher is undici-only, not in fetch's standard typings
+    dispatcher: url.startsWith(REGISTER_BASE) ? insecureDispatcher : undefined,
+  });
+  if (res.status === 404) return null;
+  if (!res.ok) {
+    throw new Error(`GET ${url} → ${res.status} ${res.statusText}`);
+  }
+  return res.text();
+};
+
 const fetchYearListing = async (year: string): Promise<DirectoryEntry[]> => {
   const url = `${REGISTER_BASE}/${year}/list.xml`;
   const xml = await fetchText(url);
@@ -126,8 +150,12 @@ const fetchYearListing = async (year: string): Promise<DirectoryEntry[]> => {
               .find("Position > Declaration")
               .each((____, decl) => {
                 const xmlFile = $(decl).find("xmlFile").first().text().trim();
-                const sent = $(decl).find("Sent").first().text().trim();
-                if (sent !== "True" || !name || !xmlFile) return;
+                // NOT gated on <Sent>. The flag is a register processing state,
+                // not "no declaration to fetch": non-True rows return complete,
+                // non-duplicate filings, and requiring True discarded 3,614 of
+                // them. Full evidence in scripts/lib/cacbg_register.ts above
+                // extractDeclarationXmlFiles, which walks the same listing.
+                if (!name || !xmlFile) return;
                 out.push({
                   declarantName: name,
                   institution,
@@ -148,15 +176,23 @@ const cachePath = (rawFolder: string, year: string, xmlFile: string) =>
 // `fromCache` lets the caller skip the politeness sleep on a cache hit: it
 // exists to be kind to register.cacbg.bg between real requests, and a re-derive
 // from a warm cache makes none.
+//
+// `xml` is null when the register lists a declaration whose file is missing
+// (404). That is an upstream fact, not a transient failure, so it must not
+// abort the run: admitting non-Sent rows admits ~7% that 404, and throwing
+// would mean no year could ever complete. Nothing is cached in that case, so a
+// later re-run retries the file if upstream restores it. Mirrors
+// fetchDeclaration in scripts/officials/shared.ts.
 const fetchDeclaration = async (
   rawFolder: string,
   entry: DirectoryEntry,
-): Promise<{ xml: string; fromCache: boolean }> => {
+): Promise<{ xml: string | null; fromCache: boolean }> => {
   const out = cachePath(rawFolder, entry.year, entry.xmlFile);
   if (fs.existsSync(out))
     return { xml: fs.readFileSync(out, "utf-8"), fromCache: true };
   fs.mkdirSync(path.dirname(out), { recursive: true });
-  const xml = await fetchText(entry.sourceUrl);
+  const xml = await fetchTextOptional(entry.sourceUrl);
+  if (xml === null) return { xml: null, fromCache: false };
   fs.writeFileSync(out, xml, "utf-8");
   return { xml, fromCache: false };
 };
@@ -233,6 +269,7 @@ export const parseFinancialDeclarations = async ({
 
     let processed = 0;
     let parseFailures = 0;
+    let missing = 0;
     for (const entry of entries) {
       if (processed >= limit) break;
       const norm = normalize(entry.declarantName);
@@ -255,6 +292,19 @@ export const parseFinancialDeclarations = async ({
       }
 
       const { xml, fromCache } = await fetchDeclaration(dataFolder, entry);
+      if (xml === null) {
+        // Listed but not served. Counted, not fatal, and NOT a forfeit of the
+        // run's authority: a 404 here is a stable property of the listing, so
+        // treating it like a partial run would mean this folder could never
+        // again replace its own rows and upstream corrections would stop
+        // landing. `processed` is deliberately not incremented — nothing was.
+        missing++;
+        console.warn(
+          `[declarations]   [missing] ${entry.declarantName} — ${entry.sourceUrl}`,
+        );
+        if (!fromCache) await sleep(150);
+        continue;
+      }
       try {
         const decl = parseDeclarationXml({
           xml,
@@ -285,6 +335,26 @@ export const parseFinancialDeclarations = async ({
       console.warn(
         `[declarations]   skipped ${parseFailures}/${processed} unparseable declaration(s) for ${year}`,
       );
+    }
+
+    // A few missing files are an upstream fact and cost the run nothing. A LOT
+    // of them means the register is having a bad day, and replacing the folder's
+    // rows from a run that could not read most of it would delete good history —
+    // so above the threshold the run keeps its rows but forfeits authority
+    // (additive merge) rather than throwing, which would strand the whole
+    // pipeline on an outage. The executive leg makes the stricter choice and
+    // refuses to write at all; see --max-missing in scripts/officials/index.ts.
+    if (missing > 0) {
+      const rate = missing / entries.length;
+      console.warn(
+        `[declarations]   ${missing}/${entries.length} declaration(s) listed but missing upstream (${(rate * 100).toFixed(1)}%) for ${year}`,
+      );
+      if (rate > MAX_MISSING_RATE) {
+        runWasComplete = false;
+        console.warn(
+          `[declarations]   above the ${(MAX_MISSING_RATE * 100).toFixed(0)}% tolerance — merging additively instead of replacing ${year}`,
+        );
+      }
     }
   }
 

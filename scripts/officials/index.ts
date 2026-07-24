@@ -142,8 +142,15 @@ const fetchYearListing = async (year: number): Promise<DirectoryEntry[]> => {
               .find("Position > Declaration")
               .each((____, decl) => {
                 const xmlFile = $(decl).find("xmlFile").first().text().trim();
-                const sent = $(decl).find("Sent").first().text().trim();
-                if (sent !== "True" || !name || !xmlFile) return;
+                // NOT gated on <Sent>. The flag is a register processing state,
+                // not "no declaration to fetch": non-True rows return complete,
+                // non-duplicate filings, and requiring True discarded 3,614 of
+                // them. Full evidence in scripts/lib/cacbg_register.ts above
+                // extractDeclarationXmlFiles, which the watcher walks in
+                // lockstep with this listing. The ~7% of newly-admitted rows
+                // that 404 land in the `missing` counter below, under
+                // --max-missing.
+                if (!name || !xmlFile) return;
                 out.push({
                   declarantName: name,
                   institution,

@@ -145,8 +145,47 @@ export const registerFolderSegment = (sourceUrl: string): string | null => {
 };
 
 // Collect the <xmlFile> of every declaration under a category the caller
-// accepts, applying the same skip rules as the ingest (Sent must be True, and
-// the person and file must both be named).
+// accepts, applying the same skip rules as the ingest (the person and the file
+// must both be named).
+//
+// `Sent` IS NOT ONE OF THOSE RULES, and this is the canonical explanation the
+// other three call sites point at. Every cacbg ingest used to require
+// `Sent === "True"`, on the assumption that anything else meant there was no
+// declaration to fetch. That assumption is false, and discarded 3,614 real
+// filings across 2015-2025 (676 in 2025 alone). What the register's own data
+// shows, measured rather than assumed:
+//
+//   * The documents are there. 140 of a random 150 non-True rows return HTTP 200
+//     and a complete <PublicPerson> — e.g. 2015/640E558D-…66791.xml, listed
+//     <Sent>False</Sent>, is a full 33,702-byte declaration. The other 10 are
+//     404s, which the missing-file tolerance already covers.
+//   * They are not a different KIND of filing. Against a Sent=True control
+//     sample, the non-True rows match on DeclarationType mix, ReversalDeclaration,
+//     ControlHash presence, populated-table count and byte-size distribution.
+//     Nothing inside the document distinguishes them, and the listing itself
+//     carries only <Sent>, <xmlFile> and a <Title> that is always "Декларация".
+//   * They are not duplicates of what we already hold. Of 55 non-True filings
+//     that share a person and folder with a Sent=True one, ZERO share its
+//     ControlHash; 94% of a random sample occupy a (person, type, fiscal year)
+//     slot the corpus does not hold at all.
+//
+// What the flag does track is the register's own processing state: non-True rows
+// skew to filings made after the annual deadline (in the 2024 folder, Sent=True
+// peaks in April-May and is empty in July-August, where the non-True rows
+// cluster) and to later serial numbers within a folder. And where a non-True
+// filing DOES share a (person, type, fiscal year) slot with a Sent=True one, it
+// is consistently the EARLIER of the two — a superseded revision the register
+// keeps published.
+//
+// That last case is the only double-count risk, and it is bounded: ~6% of
+// non-True filings, against 881 such slots the all-True corpus already contains.
+// person_wealth_year (090) picks ONE representative filing per person-year
+// ordered by `filed_at DESC`, so a superseded revision can never displace the
+// current one in a published wealth figure.
+//
+// The flag is NOT a compliance signal and must never be rendered as "did not
+// declare" — see 094_declaration_obligations.sql. It stays recoverable per
+// filing by joining declaration_obligation on the source_url's xmlFile.
 //
 // This MUST be a structure-aware walk, not a regex over
 // `<Category Name="…">…</Category>`. list.xml carries ~41 self-closing
@@ -180,8 +219,7 @@ export const extractDeclarationXmlFiles = (
               .find("Position > Declaration")
               .each((____, decl) => {
                 const xmlFile = $(decl).find("xmlFile").first().text().trim();
-                const sent = $(decl).find("Sent").first().text().trim();
-                if (sent !== "True" || !name || !xmlFile) return;
+                if (!name || !xmlFile) return;
                 out.push(xmlFile);
               });
           });
