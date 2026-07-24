@@ -1,6 +1,26 @@
 {
-  "updatedAt": "2026-07-24T21:31:28.223Z",
+  "updatedAt": "2026-07-24T22:24:27.809Z",
   "entries": [
+    {
+      "timestamp": "2026-07-24T22:24:27.809Z",
+      "date": "2026-07-24",
+      "skill": "update-prices",
+      "summary": "КЗП retail prices refreshed through 2026-07-24 (+1 daily archive; 1,264,173 store rows, 244 settlements, 206 chains)",
+      "source": "КЗП Колко струва (retail prices)"
+    },
+    {
+      "timestamp": "2026-07-24T22:20:36.216Z",
+      "date": "2026-07-24",
+      "skill": "update-rollcall",
+      "summary": "ingested 2026-07-24 (id 11156): 237 items, 56880 rows through 2026-07-24",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-07-24T21:31:28.223Z",
       "date": "2026-07-24",
@@ -14,13 +34,6 @@
       "skill": "update-council-minutes",
       "summary": "76 нови общински решения: Русе 62, Пловдив 14",
       "source": "Общински съвети — протоколи и решения"
-    },
-    {
-      "timestamp": "2026-07-24T13:21:02.607Z",
-      "date": "2026-07-24",
-      "skill": "update-prices",
-      "summary": "КЗП retail prices refreshed through 2026-07-23 (+1 daily archive; 1,403,424 store rows, 240 settlements, 208 chains)",
-      "source": "КЗП Колко струва (retail prices)"
     },
     {
       "timestamp": "2026-07-24T13:14:17.750Z",
