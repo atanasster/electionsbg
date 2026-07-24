@@ -28,6 +28,10 @@ import fs, { globSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { allRows, withTx, end, exec } from "../db/lib/pg";
+import {
+  isOfficialSource,
+  personSourceForOfficial,
+} from "../../src/lib/officialSources";
 import { copyRows } from "../db/lib/copy";
 import { parseName } from "./nameParts";
 import { clusterBlock, type Mention } from "./cluster";
@@ -193,12 +197,15 @@ async function collect(): Promise<Raw[]> {
     role: string | null;
     tier: string | null;
   }>(`SELECT name, slug, role, tier FROM official_roster`);
+  // A few executive categories have their own person_source — see
+  // src/lib/officialSources.ts for which, and for why the others deliberately
+  // stay on the generic one.
   for (const o of offs)
     add(
       o.name,
       {
         id: `official:${o.slug}`,
-        source: o.tier === "municipal" ? "official_muni" : "official_exec",
+        source: personSourceForOfficial(o.tier, o.role),
         ref: o.slug,
         role: o.role ?? "official",
       },
@@ -784,7 +791,7 @@ async function main(): Promise<void> {
         .filter((m) => m.source === "mp")
         .sort((a, b) => Number(a.raw.ref) - Number(b.raw.ref))[0];
       const officialMember = members
-        .filter((m) => m.source.startsWith("official"))
+        .filter((m) => isOfficialSource(m.source))
         .sort((a, b) => a.raw.ref.localeCompare(b.raw.ref))[0];
       const key = members[0];
       const best = members

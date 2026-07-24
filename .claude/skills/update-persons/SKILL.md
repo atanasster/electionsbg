@@ -74,6 +74,32 @@ attached) so no wrong same-named person is ever publicly accused. To add a desig
 3. `npm run db:resolve:persons` and confirm the profile shows the red "Санкции" tile
    (e.g. `/person/mp-5100` for Delyan Peevski → US Global Magnitsky, OFAC, 2021-06-02).
 
+## The regulator register — the Court-of-Audit feed now covers most of it
+
+`data/person/regulators.json` was written on the premise that no machine-readable
+roster of the independent bodies exists. That is no longer true. Since the
+executive ingest widened to the whole Сметна палата register
+(`scripts/officials/categorise.ts`), the register itself supplies **188**
+regulator declarants — 25 Конституционен съд, 17 КРС, 16 КЕВР, 15 БНБ, 15 ЦИК,
+14 КЗД, 14 КОНПИ, 13 КЗК, 13 СЕМ, 10 НБКСРС, 10 КФН, 9 Сметна палата — with a
+statutory filing obligation behind them and a declaration per person. **26 of the
+34 curated seats appear in it** (the other 8 differ only by married/hyphenated
+surname form).
+
+Keep both, for different jobs:
+
+- **The register is the membership source.** It is broader, refreshes with every
+  ingest, and cannot go stale by neglect. These people arrive as `official_exec`
+  roles with `role='regulator'` (or `central_bank` / `audit_court`).
+- **The curated file is the SEAT source.** It is the only place that records
+  *which* seat — chair vs deputy vs member (`constitutional_court_chair`) —
+  which the register does not publish. That detail drives the `pp_reg_seat_*`
+  labels.
+
+So when refreshing: do not hand-add a member the register already carries; do
+add or correct a `seat` where the distinction matters. The accuracy rule below
+still governs the curated file.
+
 ## The ДС/COMDOS register (data/person/ds.json) — manually curated
 
 `comdos_ds` (comdos.bg — Комисия по досиетата) has NO bulk export or API — only a

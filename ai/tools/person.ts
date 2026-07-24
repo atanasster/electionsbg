@@ -11,6 +11,7 @@
 // association-noise companies, and the disclaimer rides IN the payload — so the tool can't
 // surface a private co-owner or a review-status link and never invents an edge.
 
+import { isOfficialSource } from "../../src/lib/officialSources";
 import { fetchDb } from "./dataClient";
 import type { Envelope, ToolArgs, ToolContext } from "./types";
 
@@ -104,7 +105,7 @@ export const personProfile = async (
   const offices = p.roles.filter(
     (r) =>
       r.source === "mp" ||
-      r.source.startsWith("official") ||
+      isOfficialSource(r.source) ||
       r.source === "magistrate" ||
       r.source === "local",
   );

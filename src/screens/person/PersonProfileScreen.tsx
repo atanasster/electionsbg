@@ -41,6 +41,10 @@ import { formatEurCompact } from "@/lib/currency";
 import { decodeEntities } from "@/lib/decodeEntities";
 import { PersonScreen } from "@/screens/dev/PersonScreen";
 import { useMpAssets } from "@/data/parliament/useMpAssets";
+import {
+  OFFICIAL_DECLARATION_SOURCES,
+  isOfficialSource,
+} from "@/lib/officialSources";
 
 // "2021_11_14" -> "14.11.2021"; anything else passes through.
 const fmtElection = (d: string): string => {
@@ -86,7 +90,7 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
     const held = p.roles.filter(
       (r) =>
         r.source === "mp" ||
-        r.source.startsWith("official") ||
+        isOfficialSource(r.source) ||
         r.source === "magistrate" ||
         r.source === "local",
     );
@@ -98,11 +102,7 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
     const placedRoles = new Set(held.filter((r) => r.place).map((r) => r.role));
     const seen = new Set<string>();
     return held.filter((r) => {
-      if (
-        !r.place &&
-        r.source.startsWith("official") &&
-        placedRoles.has(r.role)
-      )
+      if (!r.place && isOfficialSource(r.source) && placedRoles.has(r.role))
         return false;
       const k = `${r.source}\t${r.role}\t${r.place ?? ""}`;
       if (seen.has(k)) return false;
@@ -133,10 +133,7 @@ export const PersonDashboard: FC<{ p: PersonProfile }> = ({ p }) => {
       [
         ...new Set(
           p.roles
-            .filter(
-              (r) =>
-                r.source === "official_exec" || r.source === "official_muni",
-            )
+            .filter((r) => OFFICIAL_DECLARATION_SOURCES.has(r.source))
             .map((r) => r.ref),
         ),
       ].sort(),

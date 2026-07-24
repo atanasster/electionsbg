@@ -116,6 +116,13 @@ test.skipIf(skip)(
 // A First+Last query that SKIPS the middle name ("Божидар Божанов" → "Божидар ПЛАМЕНОВ
 // Божанов") must still recall the person — word_similarity alone demoted them below an
 // unrelated adjacent-token match; the similarity() term rescues it.
+//
+// The probe deliberately skips names whose first+last pair is ALSO a common
+// given+patronymic prefix. For "Татяна Георгиева" the corpus holds eight people
+// literally named "Татяна Георгиева <X>", who match both query tokens exactly and
+// SHOULD outrank a first+last match — that is correct ranking, not the defect
+// this guards. Without the exclusion the probe silently becomes a density test
+// and starts failing whenever the corpus grows.
 test.skipIf(skip)(
   "person_search recalls a First+Last query that skips the middle name",
   async () => {
@@ -129,6 +136,16 @@ test.skipIf(skip)(
            AND (SELECT count(*) FROM person p2
                  WHERE p2.status='active' AND p2.is_public_figure
                    AND p2.name_fold = p.name_fold) = 1
+           -- Skip a fixture whose first+last pair is ALSO a crowded
+           -- given+patronymic prefix: those peers match BOTH query tokens
+           -- exactly and rightly outrank a first+last match, so the top-8
+           -- window cannot hold the fixture no matter how good the ranking is.
+           -- Counted over public figures only — anyone else can never appear in
+           -- results and so cannot crowd the window.
+           AND (SELECT count(*) FROM person p3
+                 WHERE p3.status='active' AND p3.is_public_figure
+                   AND p3.given_fold = p.given_fold
+                   AND p3.patronymic_fold = p.family_fold) < 8
          ORDER BY (SELECT count(*) FROM person_role r WHERE r.person_id=p.person_id) DESC, p.slug
          LIMIT 1)
        SELECT slug, fl, name FROM pick`,
