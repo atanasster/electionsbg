@@ -122,7 +122,11 @@ describe("PersonDeclarations", () => {
     // Every filing row has a link straight to its own XML.
     const links = screen
       .getAllByRole("link")
-      .filter((a) => a.getAttribute("href") === "https://register.cacbg.bg/2017/pick-me.xml");
+      .filter(
+        (a) =>
+          a.getAttribute("href") ===
+          "https://register.cacbg.bg/2017/pick-me.xml",
+      );
     expect(links.length).toBeGreaterThan(0);
   });
 

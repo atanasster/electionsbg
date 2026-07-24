@@ -162,7 +162,11 @@ const drawDeficitBars = (ctx: Ctx, x: number, top: number, w: number) => {
   ctx.font = `600 20px ${FONT}`;
   ctx.textAlign = "left";
   ctx.textBaseline = "alphabetic";
-  ctx.fillText("законовият таван по КФП", x + scale(5.7) + 20, top + barH / 2 + 7);
+  ctx.fillText(
+    "законовият таван по КФП",
+    x + scale(5.7) + 20,
+    top + barH / 2 + 7,
+  );
 
   // Bar 2 — projected outturn ~3,9% (steel)
   const top2 = top + barH + gap;

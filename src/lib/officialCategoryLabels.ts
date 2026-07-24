@@ -217,7 +217,8 @@ export const OFFICIAL_CATEGORY_LABELS: Record<
     key: "officials_cat_medical_center",
     descBg:
       "Управител на ДКЦ, медицински център или център за трансфузионна хематология",
-    descEn: "Director of an outpatient diagnostic, medical or transfusion centre",
+    descEn:
+      "Director of an outpatient diagnostic, medical or transfusion centre",
   },
   cultural_institute: {
     bg: "Културни институти",

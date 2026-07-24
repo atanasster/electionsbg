@@ -79,7 +79,8 @@ const normIndependently = (raw: string): string => {
   // A name that is NOTHING BUT a legal form ("АД", "СД" — 5 such rows exist) reduces to the
   // empty string, matching the SQL's NULL. That is the wanted behaviour: a bare legal form
   // is not a usable match key and must never resolve anything.
-  if (words.length >= 1 && LEGAL_FORMS.has(words[words.length - 1])) words.pop();
+  if (words.length >= 1 && LEGAL_FORMS.has(words[words.length - 1]))
+    words.pop();
   return words.join(" ");
 };
 
