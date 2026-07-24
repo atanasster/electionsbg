@@ -12,10 +12,28 @@
 //   · int 0/1 → boolean — the ngo_details.public_benefit path in load_tr_pg
 //   · typed arrays — must THROW rather than serialize to {"0":1,…}
 
-import { test } from "vitest";
+import { test, afterAll } from "vitest";
 import assert from "node:assert/strict";
-import { withClient } from "../lib/pg";
+import { allRows, end, withClient } from "../lib/pg";
 import { copyRows } from "../lib/copy";
+
+// Needs a live Postgres (`npm run db:pg:up`); auto-skips when it is unreachable,
+// exactly like the other *.data.test.ts files. Only temp tables are touched, so
+// no loaded corpus is required — just a reachable server.
+const reachable = async (): Promise<boolean> => {
+  try {
+    await allRows("SELECT 1");
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+const skip = (await reachable()) ? false : "Postgres unreachable";
+
+afterAll(async () => {
+  await end();
+});
 
 const COLS = ["t", "n_int", "n_dbl", "n_num", "b", "ts", "j"];
 
@@ -55,112 +73,119 @@ const ROWS: unknown[][] = [
   ],
 ];
 
-test("copyRows round-trips every column type the loaders use", async () => {
-  await withClient(async (c) => {
-    await c.query("BEGIN");
-    await c.query(`CREATE TEMP TABLE copy_probe (
+test.skipIf(skip)(
+  "copyRows round-trips every column type the loaders use",
+  async () => {
+    await withClient(async (c) => {
+      await c.query("BEGIN");
+      await c.query(`CREATE TEMP TABLE copy_probe (
       t text, n_int integer, n_dbl double precision, n_num numeric,
       b boolean, ts timestamptz, j jsonb
     ) ON COMMIT DROP`);
 
-    const n = await copyRows(c, "copy_probe", COLS, ROWS);
-    assert.equal(n, ROWS.length, "copyRows returned wrong count");
+      const n = await copyRows(c, "copy_probe", COLS, ROWS);
+      assert.equal(n, ROWS.length, "copyRows returned wrong count");
 
-    const { rows: got } = await c.query(
-      `SELECT ${COLS.join(",")} FROM copy_probe ORDER BY n_int NULLS FIRST`,
-    );
-    assert.equal(got.length, ROWS.length, "row count mismatch after COPY");
+      const { rows: got } = await c.query(
+        `SELECT ${COLS.join(",")} FROM copy_probe ORDER BY n_int NULLS FIRST`,
+      );
+      assert.equal(got.length, ROWS.length, "row count mismatch after COPY");
 
-    const byInt = new Map(got.map((r) => [r.n_int, r]));
+      const byInt = new Map(got.map((r) => [r.n_int, r]));
 
-    // NULL row survived as all-NULL.
-    const nulls = byInt.get(null);
-    assert.ok(nulls, "all-null row missing");
-    for (const col of COLS)
-      assert.equal(nulls[col], null, `${col} should be NULL`);
+      // NULL row survived as all-NULL.
+      const nulls = byInt.get(null);
+      assert.ok(nulls, "all-null row missing");
+      for (const col of COLS)
+        assert.equal(nulls[col], null, `${col} should be NULL`);
 
-    // Empty string is NOT null — the whole reason we use text format.
-    const empty = byInt.get(0);
-    assert.equal(empty.t, "", "empty string became NULL (CSV bug)");
-    assert.notEqual(empty.t, null, "empty string must stay distinct from NULL");
-    assert.equal(empty.b, false, "false must not become NULL");
+      // Empty string is NOT null — the whole reason we use text format.
+      const empty = byInt.get(0);
+      assert.equal(empty.t, "", "empty string became NULL (CSV bug)");
+      assert.notEqual(
+        empty.t,
+        null,
+        "empty string must stay distinct from NULL",
+      );
+      assert.equal(empty.b, false, "false must not become NULL");
 
-    // -0 keeps its sign bit. String(-0) is "0", so render() special-cases it.
-    // assert.equal is Object.is-based, so a plain equal(0, -0) would fail.
-    assert.ok(Object.is(empty.n_dbl, -0), "-0 lost its sign");
+      // -0 keeps its sign bit. String(-0) is "0", so render() special-cases it.
+      // assert.equal is Object.is-based, so a plain equal(0, -0) would fail.
+      assert.ok(Object.is(empty.n_dbl, -0), "-0 lost its sign");
 
-    // A literal backslash-N is text, not a NULL sentinel.
-    const litN = byInt.get(7);
-    assert.equal(litN.t, "literal \\N here", "literal \\N corrupted");
-    assert.ok(Number.isNaN(litN.n_dbl), "NaN did not round-trip");
+      // A literal backslash-N is text, not a NULL sentinel.
+      const litN = byInt.get(7);
+      assert.equal(litN.t, "literal \\N here", "literal \\N corrupted");
+      assert.ok(Number.isNaN(litN.n_dbl), "NaN did not round-trip");
 
-    // Backslash doubling.
-    assert.equal(byInt.get(-5).t, "back\\slash", "backslash corrupted");
-    assert.equal(byInt.get(-5).n_dbl, 1e21, "1e21 corrupted");
+      // Backslash doubling.
+      assert.equal(byInt.get(-5).t, "back\\slash", "backslash corrupted");
+      assert.equal(byInt.get(-5).n_dbl, 1e21, "1e21 corrupted");
 
-    // Whitespace metacharacters did not split fields/rows.
-    assert.equal(byInt.get(8).t, "tab\there", "tab corrupted");
-    assert.equal(byInt.get(9).t, "new\nline", "newline corrupted");
-    assert.equal(byInt.get(10).t, "carriage\rreturn", "CR corrupted");
+      // Whitespace metacharacters did not split fields/rows.
+      assert.equal(byInt.get(8).t, "tab\there", "tab corrupted");
+      assert.equal(byInt.get(9).t, "new\nline", "newline corrupted");
+      assert.equal(byInt.get(10).t, "carriage\rreturn", "CR corrupted");
 
-    // Doubles keep their exact bits.
-    assert.equal(byInt.get(1).n_dbl, 0.1 + 0.2, "0.1+0.2 lost precision");
-    assert.equal(byInt.get(10).n_dbl, 3.14159265358979, "pi lost precision");
-    assert.equal(
-      byInt.get(11).n_dbl,
-      1.7976931348623157e308,
-      "MAX_VALUE lost precision",
-    );
-    assert.equal(byInt.get(8).n_dbl, Infinity, "Infinity lost");
-    assert.equal(byInt.get(9).n_dbl, -Infinity, "-Infinity lost");
+      // Doubles keep their exact bits.
+      assert.equal(byInt.get(1).n_dbl, 0.1 + 0.2, "0.1+0.2 lost precision");
+      assert.equal(byInt.get(10).n_dbl, 3.14159265358979, "pi lost precision");
+      assert.equal(
+        byInt.get(11).n_dbl,
+        1.7976931348623157e308,
+        "MAX_VALUE lost precision",
+      );
+      assert.equal(byInt.get(8).n_dbl, Infinity, "Infinity lost");
+      assert.equal(byInt.get(9).n_dbl, -Infinity, "-Infinity lost");
 
-    // Timestamps land on the same instant.
-    assert.equal(
-      byInt.get(1).ts.toISOString(),
-      "2026-07-10T06:08:57.396Z",
-      "timestamptz drifted",
-    );
-    assert.equal(
-      byInt.get(-5).ts.toISOString(),
-      "1970-01-01T00:00:00.000Z",
-      "epoch drifted",
-    );
+      // Timestamps land on the same instant.
+      assert.equal(
+        byInt.get(1).ts.toISOString(),
+        "2026-07-10T06:08:57.396Z",
+        "timestamptz drifted",
+      );
+      assert.equal(
+        byInt.get(-5).ts.toISOString(),
+        "1970-01-01T00:00:00.000Z",
+        "epoch drifted",
+      );
 
-    // jsonb: quotes, nesting, arrays, unicode, explicit null member.
-    assert.deepEqual(
-      byInt.get(0).j,
-      { s: 'he said "hi"' },
-      "jsonb quote corrupted",
-    );
-    assert.deepEqual(
-      byInt.get(-5).j,
-      { nested: { x: [1, 2] } },
-      "nested jsonb corrupted",
-    );
-    assert.deepEqual(byInt.get(7).j, [], "empty jsonb array corrupted");
-    assert.deepEqual(byInt.get(8).j, { u: "ю" }, "unicode jsonb corrupted");
-    assert.deepEqual(
-      byInt.get(10).j,
-      { n: null },
-      "jsonb null member corrupted",
-    );
+      // jsonb: quotes, nesting, arrays, unicode, explicit null member.
+      assert.deepEqual(
+        byInt.get(0).j,
+        { s: 'he said "hi"' },
+        "jsonb quote corrupted",
+      );
+      assert.deepEqual(
+        byInt.get(-5).j,
+        { nested: { x: [1, 2] } },
+        "nested jsonb corrupted",
+      );
+      assert.deepEqual(byInt.get(7).j, [], "empty jsonb array corrupted");
+      assert.deepEqual(byInt.get(8).j, { u: "ю" }, "unicode jsonb corrupted");
+      assert.deepEqual(
+        byInt.get(10).j,
+        { n: null },
+        "jsonb null member corrupted",
+      );
 
-    // numeric keeps its exact decimal text (no float detour).
-    assert.equal(byInt.get(1).n_num, "12345.6789", "numeric drifted");
-    assert.equal(byInt.get(-5).n_num, "-0.0001", "small numeric drifted");
+      // numeric keeps its exact decimal text (no float detour).
+      assert.equal(byInt.get(1).n_num, "12345.6789", "numeric drifted");
+      assert.equal(byInt.get(-5).n_num, "-0.0001", "small numeric drifted");
 
-    // Unicode text.
-    assert.equal(
-      byInt.get(11).t,
-      "unicode ✓ Кирилица",
-      "unicode text corrupted",
-    );
+      // Unicode text.
+      assert.equal(
+        byInt.get(11).t,
+        "unicode ✓ Кирилица",
+        "unicode text corrupted",
+      );
 
-    await c.query("ROLLBACK");
-  });
-});
+      await c.query("ROLLBACK");
+    });
+  },
+);
 
-test("copyRows handles an empty row set", async () => {
+test.skipIf(skip)("copyRows handles an empty row set", async () => {
   await withClient(async (c) => {
     await c.query("BEGIN");
     await c.query("CREATE TEMP TABLE empty_probe (t text) ON COMMIT DROP");
@@ -177,7 +202,7 @@ test("copyRows handles an empty row set", async () => {
 // those columns are boolean, but SQLite hands the loader integer 0/1, which take
 // render()'s NUMBER branch and emit "0"/"1". Postgres' boolin accepts them — that
 // works by an accident of PG's input grammar, so pin it.
-test("integer 0/1 lands in a boolean column", async () => {
+test.skipIf(skip)("integer 0/1 lands in a boolean column", async () => {
   await withClient(async (c) => {
     await c.query("BEGIN");
     await c.query(
@@ -197,37 +222,47 @@ test("integer 0/1 lands in a boolean column", async () => {
 // A JS array renders as a JSON array, which is NOT valid Postgres array input,
 // and a TypedArray/Buffer is not valid bytea input. Both would corrupt silently,
 // so the encoder rejects typed arrays outright.
-test("copyRows rejects typed-array (bytea) values instead of mangling them", async () => {
-  await withClient(async (c) => {
-    await c.query("BEGIN");
-    await c.query("CREATE TEMP TABLE bytea_probe (v bytea) ON COMMIT DROP");
-    await assert.rejects(
-      () => copyRows(c, "bytea_probe", ["v"], [[new Uint8Array([1, 2])]]),
-      /typed-array/,
-      'typed array should throw, not serialize to {"0":1,…}',
-    );
-    await c.query("ROLLBACK");
-  });
-});
+test.skipIf(skip)(
+  "copyRows rejects typed-array (bytea) values instead of mangling them",
+  async () => {
+    await withClient(async (c) => {
+      await c.query("BEGIN");
+      await c.query("CREATE TEMP TABLE bytea_probe (v bytea) ON COMMIT DROP");
+      await assert.rejects(
+        () => copyRows(c, "bytea_probe", ["v"], [[new Uint8Array([1, 2])]]),
+        /typed-array/,
+        'typed array should throw, not serialize to {"0":1,…}',
+      );
+      await c.query("ROLLBACK");
+    });
+  },
+);
 
 // The server-confirmed rowCount is what copyRows returns; a mismatch throws.
-test("copyRows returns the row count the server confirms", async () => {
-  await withClient(async (c) => {
-    await c.query("BEGIN");
-    await c.query("CREATE TEMP TABLE count_probe (t text) ON COMMIT DROP");
-    const n = await copyRows(
-      c,
-      "count_probe",
-      ["t"],
-      (function* () {
-        for (let i = 0; i < 5000; i++) yield [`row-${i}`];
-      })(),
-    );
-    assert.equal(n, 5000, "returned count should be the server's rowCount");
-    const { rows } = await c.query(
-      "SELECT count(*)::int AS n FROM count_probe",
-    );
-    assert.equal(rows[0].n, 5000, "server should hold exactly what we framed");
-    await c.query("ROLLBACK");
-  });
-});
+test.skipIf(skip)(
+  "copyRows returns the row count the server confirms",
+  async () => {
+    await withClient(async (c) => {
+      await c.query("BEGIN");
+      await c.query("CREATE TEMP TABLE count_probe (t text) ON COMMIT DROP");
+      const n = await copyRows(
+        c,
+        "count_probe",
+        ["t"],
+        (function* () {
+          for (let i = 0; i < 5000; i++) yield [`row-${i}`];
+        })(),
+      );
+      assert.equal(n, 5000, "returned count should be the server's rowCount");
+      const { rows } = await c.query(
+        "SELECT count(*)::int AS n FROM count_probe",
+      );
+      assert.equal(
+        rows[0].n,
+        5000,
+        "server should hold exactly what we framed",
+      );
+      await c.query("ROLLBACK");
+    });
+  },
+);

@@ -15,11 +15,17 @@ import assert from "node:assert/strict";
 import { existsSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { PROC_DIR, isEikRollupFile } from "../lib/paths";
-import { aggregateContracts, centsEqual } from "../lib/contracts_aggregate";
+import {
+  CONTRACT_SHARD_DIR,
+  aggregateContracts,
+  centsEqual,
+} from "../lib/contracts_aggregate";
 import { canonicalObject } from "../lib/canonical";
 
 const indexPath = path.join(PROC_DIR, "index.json");
-const haveData = existsSync(indexPath);
+// index.json is committed but the month shards are gitignored, so a plain CI
+// checkout has the index and no corpus — both must be present to aggregate.
+const haveData = existsSync(indexPath) && existsSync(CONTRACT_SHARD_DIR);
 const skip = haveData ? false : "no procurement data on disk";
 
 interface IndexTotals {

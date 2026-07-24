@@ -70,7 +70,9 @@ export interface ContractsAggregate {
 const BGN_CODES = new Set(["BGN", "ЛВ", "ЛВ.", "ЛЕВА"]);
 const PEG_CAP = 25;
 
-const monthShardDir = path.join(PROC_DIR, "contracts");
+/** data/procurement/contracts/<YYYY>/<YYYY-MM>.json — gitignored (regenerated),
+ *  so callers must check it exists before aggregating. */
+export const CONTRACT_SHARD_DIR = path.join(PROC_DIR, "contracts");
 
 const twinKey = (c: ContractRow): string =>
   [c.date, c.awarderEik, c.contractorEik, c.amount, c.title].join(" ");
@@ -99,8 +101,8 @@ export const aggregateContracts = (): ContractsAggregate => {
     m.set(k, (m.get(k) ?? 0) + v);
   };
 
-  for (const year of readdirSync(monthShardDir).sort()) {
-    const dir = path.join(monthShardDir, year);
+  for (const year of readdirSync(CONTRACT_SHARD_DIR).sort()) {
+    const dir = path.join(CONTRACT_SHARD_DIR, year);
     if (year === "by-id" || !statSync(dir).isDirectory()) continue;
     for (const f of readdirSync(dir).sort()) {
       if (!f.endsWith(".json")) continue;
